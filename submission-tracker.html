@@ -1,0 +1,1701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Submission Tracker - SPUNK.CODES Distribution</title>
+  <meta name="description" content="Track all directory submissions and launch platform listings for SPUNK.CODES maximum visibility.">
+  <meta name="robots" content="noindex, nofollow">
+
+  <!-- GA4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+  <!-- Microsoft Clarity -->
+  <script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg-deep: #0d1117;
+      --bg-card: rgba(22, 27, 34, 0.6);
+      --bg-card-solid: #161b22;
+      --border: rgba(48, 54, 61, 0.6);
+      --border-hover: rgba(88, 166, 255, 0.4);
+      --text-primary: #e6edf3;
+      --text-secondary: #8b949e;
+      --text-muted: #484f58;
+      --accent-blue: #58a6ff;
+      --accent-cyan: #39d353;
+      --accent-purple: #bc8cff;
+      --accent-orange: #f0883e;
+      --accent-red: #f85149;
+      --accent-yellow: #e3b341;
+      --gradient-blue: linear-gradient(135deg, #58a6ff, #39d353);
+      --gradient-hero: linear-gradient(135deg, #58a6ff 0%, #79c0ff 50%, #39d353 100%);
+      --glass-bg: rgba(22, 27, 34, 0.5);
+      --glass-border: rgba(48, 54, 61, 0.5);
+      --radius: 16px;
+      --radius-sm: 10px;
+      --radius-xs: 6px;
+      --font: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg-deep);
+      color: var(--text-primary);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    a { color: var(--accent-blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* Background */
+    .bg-mesh {
+      position: fixed; inset: 0; z-index: -2;
+      background:
+        radial-gradient(ellipse 80% 50% at 20% 20%, rgba(88, 166, 255, 0.08) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 80% 80%, rgba(57, 211, 83, 0.06) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 60% at 50% 50%, rgba(188, 140, 255, 0.04) 0%, transparent 60%),
+        var(--bg-deep);
+    }
+
+    .bg-grid {
+      position: fixed; inset: 0; z-index: -1;
+      background-image:
+        linear-gradient(rgba(48, 54, 61, 0.15) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(48, 54, 61, 0.15) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black 20%, transparent 80%);
+    }
+
+    /* Layout */
+    .container { max-width: 1400px; margin: 0 auto; padding: 0 24px; }
+
+    /* Header */
+    .header {
+      padding: 24px 0;
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(20px);
+      background: rgba(13, 17, 23, 0.8);
+      position: sticky; top: 0; z-index: 100;
+    }
+    .header-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+    .logo { font-size: 1.5rem; font-weight: 800; background: var(--gradient-hero); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: -0.5px; }
+    .header-stats { display: flex; gap: 20px; flex-wrap: wrap; }
+    .stat-pill {
+      display: flex; align-items: center; gap: 6px;
+      padding: 6px 14px; border-radius: 20px;
+      background: var(--glass-bg); border: 1px solid var(--glass-border);
+      font-size: 0.85rem; color: var(--text-secondary);
+    }
+    .stat-pill .num { font-weight: 700; color: var(--text-primary); }
+    .stat-pill.green .num { color: var(--accent-cyan); }
+    .stat-pill.blue .num { color: var(--accent-blue); }
+    .stat-pill.orange .num { color: var(--accent-orange); }
+    .stat-pill.purple .num { color: var(--accent-purple); }
+
+    /* Hero */
+    .hero {
+      text-align: center; padding: 60px 0 40px;
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 4vw, 3rem); font-weight: 800;
+      background: var(--gradient-hero); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      margin-bottom: 12px;
+    }
+    .hero p { color: var(--text-secondary); font-size: 1.1rem; max-width: 700px; margin: 0 auto; }
+
+    /* Filters */
+    .filters {
+      display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;
+      padding: 20px 0 30px;
+    }
+    .filter-btn {
+      padding: 8px 18px; border-radius: 20px; border: 1px solid var(--border);
+      background: var(--glass-bg); color: var(--text-secondary); cursor: pointer;
+      font-size: 0.85rem; font-family: var(--font); transition: var(--transition);
+    }
+    .filter-btn:hover { border-color: var(--border-hover); color: var(--text-primary); }
+    .filter-btn.active {
+      background: rgba(88, 166, 255, 0.15); border-color: var(--accent-blue);
+      color: var(--accent-blue); font-weight: 600;
+    }
+
+    /* Section */
+    .section { margin-bottom: 40px; }
+    .section-header {
+      display: flex; align-items: center; gap: 12px; margin-bottom: 16px;
+      padding-bottom: 12px; border-bottom: 1px solid var(--border);
+    }
+    .section-icon { font-size: 1.4rem; }
+    .section-title { font-size: 1.3rem; font-weight: 700; }
+    .section-count {
+      margin-left: auto; padding: 3px 10px; border-radius: 12px;
+      background: rgba(88, 166, 255, 0.1); color: var(--accent-blue);
+      font-size: 0.8rem; font-weight: 600;
+    }
+
+    /* Cards */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      transition: var(--transition);
+      backdrop-filter: blur(10px);
+    }
+    .card:hover { border-color: var(--border-hover); transform: translateY(-2px); }
+
+    .card-top { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px; }
+    .card-checkbox {
+      width: 22px; height: 22px; border-radius: 6px; border: 2px solid var(--border);
+      background: transparent; cursor: pointer; flex-shrink: 0; margin-top: 2px;
+      display: flex; align-items: center; justify-content: center;
+      transition: var(--transition); color: transparent; font-size: 14px;
+    }
+    .card-checkbox.checked {
+      background: var(--accent-cyan); border-color: var(--accent-cyan); color: #0d1117;
+    }
+    .card-checkbox:hover { border-color: var(--accent-blue); }
+
+    .card-info { flex: 1; min-width: 0; }
+    .card-name { font-size: 1.05rem; font-weight: 700; margin-bottom: 2px; }
+    .card-name a { color: var(--text-primary); }
+    .card-name a:hover { color: var(--accent-blue); }
+    .card-url { font-size: 0.8rem; color: var(--text-muted); word-break: break-all; }
+
+    .card-badges { display: flex; gap: 6px; flex-wrap: wrap; margin-left: auto; flex-shrink: 0; }
+    .badge {
+      padding: 3px 10px; border-radius: 12px; font-size: 0.72rem;
+      font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;
+    }
+    .badge-high { background: rgba(57, 211, 83, 0.15); color: var(--accent-cyan); }
+    .badge-medium { background: rgba(88, 166, 255, 0.15); color: var(--accent-blue); }
+    .badge-low { background: rgba(139, 148, 158, 0.15); color: var(--text-secondary); }
+    .badge-free { background: rgba(57, 211, 83, 0.1); color: var(--accent-cyan); border: 1px solid rgba(57, 211, 83, 0.3); }
+    .badge-paid { background: rgba(240, 136, 62, 0.1); color: var(--accent-orange); border: 1px solid rgba(240, 136, 62, 0.3); }
+
+    .card-desc { font-size: 0.88rem; color: var(--text-secondary); margin-bottom: 12px; line-height: 1.5; }
+    .card-how { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 10px; }
+    .card-how strong { color: var(--text-secondary); }
+
+    .card-meta { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; font-size: 0.78rem; color: var(--text-muted); }
+    .card-meta span { display: flex; align-items: center; gap: 4px; }
+
+    /* Status Select */
+    .status-select {
+      padding: 4px 10px; border-radius: var(--radius-xs); border: 1px solid var(--border);
+      background: var(--bg-deep); color: var(--text-secondary); font-size: 0.8rem;
+      font-family: var(--font); cursor: pointer; outline: none;
+    }
+    .status-select:focus { border-color: var(--accent-blue); }
+    .status-select option { background: var(--bg-deep); }
+
+    /* Notes */
+    .card-notes {
+      margin-top: 10px; width: 100%; padding: 8px 12px; border-radius: var(--radius-xs);
+      border: 1px solid var(--border); background: rgba(13, 17, 23, 0.6);
+      color: var(--text-secondary); font-size: 0.82rem; font-family: var(--font);
+      resize: vertical; min-height: 36px; outline: none;
+    }
+    .card-notes:focus { border-color: var(--accent-blue); }
+    .card-notes::placeholder { color: var(--text-muted); }
+
+    /* Progress Bar */
+    .progress-wrap { margin: 30px 0; }
+    .progress-label { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.9rem; }
+    .progress-bar { height: 8px; border-radius: 4px; background: rgba(48, 54, 61, 0.5); overflow: hidden; }
+    .progress-fill {
+      height: 100%; border-radius: 4px;
+      background: var(--gradient-blue);
+      transition: width 0.5s ease;
+    }
+
+    /* Actions bar */
+    .actions-bar {
+      display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; padding: 20px 0;
+    }
+    .action-btn {
+      padding: 10px 24px; border-radius: var(--radius-sm); border: 1px solid var(--border);
+      background: var(--glass-bg); color: var(--text-primary); cursor: pointer;
+      font-size: 0.9rem; font-family: var(--font); transition: var(--transition);
+    }
+    .action-btn:hover { border-color: var(--accent-blue); background: rgba(88, 166, 255, 0.1); }
+    .action-btn.primary {
+      background: rgba(88, 166, 255, 0.15); border-color: var(--accent-blue); color: var(--accent-blue);
+    }
+    .action-btn.danger { border-color: var(--accent-red); color: var(--accent-red); }
+    .action-btn.danger:hover { background: rgba(248, 81, 73, 0.1); }
+
+    /* Footer */
+    .footer {
+      text-align: center; padding: 40px 0; margin-top: 40px;
+      border-top: 1px solid var(--border); color: var(--text-muted); font-size: 0.85rem;
+    }
+    .footer a { color: var(--accent-blue); }
+
+    /* Best Practices Tooltip */
+    .tip-toggle {
+      cursor: pointer; color: var(--accent-blue); font-size: 0.8rem;
+      border: none; background: none; font-family: var(--font);
+    }
+    .tip-content {
+      display: none; margin-top: 8px; padding: 10px 14px;
+      background: rgba(13, 17, 23, 0.8); border: 1px solid var(--border);
+      border-radius: var(--radius-xs); font-size: 0.8rem; color: var(--text-secondary);
+      line-height: 1.6;
+    }
+    .tip-content.open { display: block; }
+    .tip-content ul { margin-left: 16px; }
+    .tip-content li { margin-bottom: 4px; }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .cards-grid { grid-template-columns: 1fr; }
+      .header-stats { gap: 8px; }
+      .stat-pill { padding: 4px 10px; font-size: 0.78rem; }
+      .hero h1 { font-size: 1.6rem; }
+    }
+
+    /* Print styles */
+    @media print {
+      .bg-mesh, .bg-grid { display: none; }
+      body { background: white; color: black; }
+      .card { border: 1px solid #ddd; break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-mesh"></div>
+  <div class="bg-grid"></div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="container header-inner">
+      <a href="/" class="logo">SPUNK.CODES</a>
+      <div class="header-stats">
+        <div class="stat-pill green"><span class="num" id="stat-total">0</span> Total</div>
+        <div class="stat-pill blue"><span class="num" id="stat-submitted">0</span> Submitted</div>
+        <div class="stat-pill orange"><span class="num" id="stat-pending">0</span> Pending</div>
+        <div class="stat-pill purple"><span class="num" id="stat-live">0</span> Live</div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Hero -->
+    <section class="hero">
+      <h1>Submission Tracker</h1>
+      <p>Comprehensive launch distribution plan for spunk.codes. Track every directory, platform, and community submission for maximum visibility and traffic.</p>
+    </section>
+
+    <!-- Progress -->
+    <div class="progress-wrap">
+      <div class="progress-label">
+        <span>Overall Progress</span>
+        <span id="progress-pct">0%</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+      </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="filters">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="not-started">Not Started</button>
+      <button class="filter-btn" data-filter="submitted">Submitted</button>
+      <button class="filter-btn" data-filter="pending">Pending Review</button>
+      <button class="filter-btn" data-filter="live">Live</button>
+      <button class="filter-btn" data-filter="rejected">Rejected</button>
+      <button class="filter-btn" data-filter="high">High Impact</button>
+      <button class="filter-btn" data-filter="medium">Medium Impact</button>
+      <button class="filter-btn" data-filter="low">Low Impact</button>
+    </div>
+
+    <!-- Actions -->
+    <div class="actions-bar">
+      <button class="action-btn primary" onclick="exportData()">Export JSON</button>
+      <button class="action-btn" onclick="document.getElementById('import-file').click()">Import JSON</button>
+      <input type="file" id="import-file" accept=".json" style="display:none" onchange="importData(event)">
+      <button class="action-btn danger" onclick="resetAll()">Reset All</button>
+    </div>
+
+    <!-- Sections will be rendered by JS -->
+    <div id="sections-container"></div>
+
+  </main>
+
+  <footer class="footer">
+    <p>SPUNK.CODES Submission Tracker &mdash; Data saved to localStorage</p>
+    <p style="margin-top: 6px;"><a href="/">Back to spunk.codes</a></p>
+  </footer>
+
+<script>
+// ============================================================
+// SUBMISSION DATA - Complete directory of all targets
+// ============================================================
+const SUBMISSIONS = [
+  // ─────────────────────────────────────────────
+  // CATEGORY 1: Product Launch Platforms
+  // ─────────────────────────────────────────────
+  {
+    id: "product-hunt",
+    category: "Product Launch Platforms",
+    icon: "🚀",
+    name: "Product Hunt",
+    url: "https://www.producthunt.com/",
+    impact: "high",
+    cost: "free",
+    timeline: "Listed same day, ranking depends on votes",
+    howTo: "Create maker account, prepare tagline + description + gallery (GIFs preferred). Self-hunt or get a known hunter. Launch at 12:01 AM PST for full 24h window.",
+    tips: [
+      "Build audience before launch - get followers on your PH maker profile",
+      "Prepare 5-6 high-quality screenshots and at least 1 GIF demo",
+      "Tagline: clear benefit in under 60 chars. No marketing speak.",
+      "Engage with every comment on launch day",
+      "Never ask for upvotes directly - ask people to check it out and share feedback",
+      "Launch Tuesday-Thursday for best results",
+      "First comment should explain who you are, why you built it, and what feedback you want"
+    ]
+  },
+  {
+    id: "devhunt",
+    category: "Product Launch Platforms",
+    icon: "🚀",
+    name: "DevHunt",
+    url: "https://devhunt.org/",
+    impact: "high",
+    cost: "free",
+    howTo: "Submit via GitHub authentication. Create a PR to their GitHub repo with your tool listing. Community votes determine ranking.",
+    timeline: "Listed within days after PR merge",
+    tips: [
+      "Developer-only audience - perfect for spunk.codes",
+      "Each listing gets its own SEO-indexed page",
+      "GitHub-based auth prevents spam - genuine dev community",
+      "Submit during weekdays for maximum votes"
+    ]
+  },
+  {
+    id: "betalist",
+    category: "Product Launch Platforms",
+    icon: "🚀",
+    name: "BetaList",
+    url: "https://betalist.com/",
+    impact: "medium",
+    cost: "free",
+    howTo: "Submit via their form. Free listing takes ~2 months. Paid ($99) listing within days.",
+    timeline: "Free: ~2 months. Paid: 2-5 days.",
+    tips: [
+      "Categories include Developer Tools, Web Tools, AI Tools",
+      "After listing, other directories often contact you automatically",
+      "Good for early adopter signups",
+      "Include clear screenshots and a compelling one-liner"
+    ]
+  },
+  {
+    id: "launching-next",
+    category: "Product Launch Platforms",
+    icon: "🚀",
+    name: "Launching Next",
+    url: "https://www.launchingnext.com/",
+    impact: "medium",
+    cost: "free",
+    howTo: "Submit via their website form with product details, screenshots, and description.",
+    timeline: "1-4 weeks review period",
+    tips: [
+      "Showcases promising new startups daily",
+      "Good supplementary listing after main launches",
+      "Often finds you after BetaList listing"
+    ]
+  },
+  {
+    id: "microlaunch",
+    category: "Product Launch Platforms",
+    icon: "🚀",
+    name: "MicroLaunch",
+    url: "https://microlaunch.net/",
+    impact: "medium",
+    cost: "free",
+    howTo: "Submit through their website. Products climb based on ongoing engagement, not just one day.",
+    timeline: "Listed within 1-2 weeks",
+    tips: [
+      "Unlike Product Hunt, ranking happens over a month - less pressure",
+      "Great for indie makers and solo founders",
+      "Fair alternative to PH for smaller projects",
+      "Built specifically for indie hackers"
+    ]
+  },
+  {
+    id: "uneed",
+    category: "Product Launch Platforms",
+    icon: "🚀",
+    name: "Uneed",
+    url: "https://uneed.best/",
+    impact: "medium",
+    cost: "free",
+    howTo: "Submit via their form. Accepts dev tools, design tools, marketing tools.",
+    timeline: "1-2 weeks",
+    tips: [
+      "DR 45 - decent backlink value",
+      "Best for development and design tools",
+      "Good for early-stage tool visibility"
+    ]
+  },
+
+  // ─────────────────────────────────────────────
+  // CATEGORY 2: Developer Tool Directories
+  // ─────────────────────────────────────────────
+  {
+    id: "alternativeto",
+    category: "Developer Tool Directories",
+    icon: "🔧",
+    name: "AlternativeTo",
+    url: "https://alternativeto.net/",
+    impact: "high",
+    cost: "free",
+    howTo: "Create account, add your product. Position as alternative to established tools (e.g., alternative to CodePen, JSFiddle).",
+    timeline: "Listed within 1-2 days after submission",
+    tips: [
+      "Massive SEO traffic from 'alternative to X' searches",
+      "List as alternative to: CodePen, JSFiddle, Toolbox, TinyTools",
+      "Add detailed features and screenshots",
+      "Encourage users to like/recommend your listing"
+    ]
+  },
+  {
+    id: "stackshare",
+    category: "Developer Tool Directories",
+    icon: "🔧",
+    name: "StackShare",
+    url: "https://stackshare.io/",
+    impact: "medium",
+    cost: "free",
+    howTo: "Search for your tool, claim it if exists, or create new listing. Verify via email or GitHub. Add description, categories, logos.",
+    timeline: "Listed within 1-3 days",
+    tips: [
+      "Developers compare tech stacks here",
+      "Add pros/cons and community feedback",
+      "Great for credibility with developer audience"
+    ]
+  },
+  {
+    id: "saashub",
+    category: "Developer Tool Directories",
+    icon: "🔧",
+    name: "SaaSHub",
+    url: "https://www.saashub.com/",
+    impact: "high",
+    cost: "free",
+    howTo: "Visit SaaSHub, find 'Submit' button, create account, fill out product details with screenshots and description.",
+    timeline: "1-7 days review",
+    tips: [
+      "DR 76 - excellent dofollow backlink",
+      "One of the most respected SaaS directories",
+      "Position as free alternative to paid tools",
+      "Include detailed feature comparisons"
+    ]
+  },
+  {
+    id: "startup-stash",
+    category: "Developer Tool Directories",
+    icon: "🔧",
+    name: "Startup Stash",
+    url: "https://startupstash.com/",
+    impact: "medium",
+    cost: "free",
+    howTo: "Submit via their 'Submit a tool' form with product details.",
+    timeline: "1-2 weeks review",
+    tips: [
+      "DR 67 - strong backlink value",
+      "Curated directory of startup tools and resources",
+      "Good categorization helps discoverability"
+    ]
+  },
+  {
+    id: "freestuff-dev",
+    category: "Developer Tool Directories",
+    icon: "🔧",
+    name: "FreeStuff.dev",
+    url: "https://freestuff.dev/",
+    impact: "medium",
+    cost: "free",
+    howTo: "Submit via their form or GitHub PR.",
+    timeline: "1-2 weeks",
+    tips: [
+      "Specifically for free developer tools and services",
+      "Perfect fit for spunk.codes free tools mission",
+      "Developer-focused audience"
+    ]
+  },
+  {
+    id: "free-for-dev",
+    category: "Developer Tool Directories",
+    icon: "🔧",
+    name: "Free for Developers (GitHub)",
+    url: "https://github.com/ripienaar/free-for-dev",
+    impact: "high",
+    cost: "free",
+    howTo: "Submit a Pull Request to the GitHub repository adding your tool to the appropriate category.",
+    timeline: "1-4 weeks for PR review",
+    tips: [
+      "50k+ GitHub stars - massive visibility",
+      "Must be genuinely free (not just free trial)",
+      "Very strict PR review - follow contribution guidelines exactly",
+      "Add to the most relevant category with accurate description"
+    ]
+  },
+
+  // ─────────────────────────────────────────────
+  // CATEGORY 3: Hacker News
+  // ─────────────────────────────────────────────
+  {
+    id: "hacker-news",
+    category: "Hacker News",
+    icon: "📰",
+    name: "Show HN Post",
+    url: "https://news.ycombinator.com/showhn.html",
+    impact: "high",
+    cost: "free",
+    howTo: "Submit with 'Show HN:' prefix in title. Add first comment explaining who you are, why you built it, and asking for feedback.",
+    timeline: "Immediate posting, front page depends on upvotes (lifecycle ~3 days)",
+    tips: [
+      "Use factual, direct language - no marketing speak",
+      "Title: 'Show HN: Spunk.codes - 200+ Free Dev Tools, No Signup Required'",
+      "Tell a story in your first comment - why you built this",
+      "Post earlier in the week (Tue-Wed) for better results",
+      "Tell friends to find your post by browsing HN, not via direct link (avoids algo penalty)",
+      "Engage with ALL comments - HN audience gives harsh but valuable feedback",
+      "Appears on dedicated 'show' tab which is less competitive"
+    ]
+  },
+  {
+    id: "hn-blog-post",
+    category: "Hacker News",
+    icon: "📰",
+    name: "HN Blog Post Submission",
+    url: "https://news.ycombinator.com/",
+    impact: "medium",
+    cost: "free",
+    howTo: "Write a compelling blog post about building 200+ tools as a solo founder, submit the link to HN.",
+    timeline: "Immediate, virality depends on content quality",
+    tips: [
+      "Example: 'How I built 200+ free dev tools as a solo founder'",
+      "Technical deep-dives perform well on HN",
+      "Include specific numbers, lessons learned, tech stack details",
+      "Avoid self-promotion - focus on the story and value"
+    ]
+  },
+
+  // ─────────────────────────────────────────────
+  // CATEGORY 4: Reddit Communities
+  // ─────────────────────────────────────────────
+  {
+    id: "reddit-sideproject",
+    category: "Reddit Communities",
+    icon: "💬",
+    name: "r/SideProject",
+    url: "https://www.reddit.com/r/SideProject/",
+    impact: "high",
+    cost: "free",
+    howTo: "Create post showcasing your project. Include what it does, tech stack, and what feedback you want.",
+    timeline: "Immediate post",
+    tips: [
+      "Perfect community for solo founders building side projects",
+      "Share the story of building it, not just the link",
+      "Include screenshots and demo",
+      "Be genuine about asking for feedback"
+    ]
+  },
+  {
+    id: "reddit-webdev",
+    category: "Reddit Communities",
+    icon: "💬",
+    name: "r/webdev",
+    url: "https://www.reddit.com/r/webdev/",
+    impact: "high",
+    cost: "free",
+    howTo: "Share as a useful resource for web developers. Focus on which tools solve real problems.",
+    timeline: "Immediate, check subreddit rules for self-promotion days",
+    tips: [
+      "Large active community of web developers",
+      "Frame as 'I made this free tool collection' not 'check out my product'",
+      "Showoff Saturday threads are good for self-promotion",
+      "Respond to every comment"
+    ]
+  },
+  {
+    id: "reddit-startups",
+    category: "Reddit Communities",
+    icon: "💬",
+    name: "r/startups",
+    url: "https://www.reddit.com/r/startups/",
+    impact: "medium",
+    cost: "free",
+    howTo: "Post in Share Your Startup thread or relevant discussion threads.",
+    timeline: "Immediate",
+    tips: [
+      "Follow their self-promotion rules strictly",
+      "Share Your Startup monthly threads are safe for promotion",
+      "Focus on the business model and growth story"
+    ]
+  },
+  {
+    id: "reddit-internetisbeautiful",
+    category: "Reddit Communities",
+    icon: "💬",
+    name: "r/InternetIsBeautiful",
+    url: "https://www.reddit.com/r/InternetIsBeautiful/",
+    impact: "high",
+    cost: "free",
+    howTo: "Submit individual standout tools (color palette generator, typing test, etc.) as interesting web finds.",
+    timeline: "Immediate, can go viral if community likes it",
+    tips: [
+      "10M+ subscribers - massive viral potential",
+      "Submit individual interesting tools, not the whole site",
+      "Must look polished and work perfectly",
+      "Title should be descriptive and intriguing"
+    ]
+  },
+  {
+    id: "reddit-entrepreneur",
+    category: "Reddit Communities",
+    icon: "💬",
+    name: "r/Entrepreneur",
+    url: "https://www.reddit.com/r/Entrepreneur/",
+    impact: "medium",
+    cost: "free",
+    howTo: "Share as a resource for entrepreneurs. Frame as free tools that replace expensive SaaS.",
+    timeline: "Immediate",
+    tips: [
+      "Focus on the 'free tools for bootstrapped founders' angle",
+      "Share revenue/traffic numbers if possible",
+      "Avoid pure self-promotion - add value to discussions"
+    ]
+  },
+  {
+    id: "reddit-entrepreneur-ridealong",
+    category: "Reddit Communities",
+    icon: "💬",
+    name: "r/EntrepreneurRideAlong",
+    url: "https://www.reddit.com/r/EntrepreneurRideAlong/",
+    impact: "medium",
+    cost: "free",
+    howTo: "Document your journey building spunk.codes. Share behind-the-scenes, numbers, challenges.",
+    timeline: "Immediate, build following over time",
+    tips: [
+      "One of the fastest-growing business subreddits in 2026",
+      "Transparency about revenue, challenges, and strategies performs well",
+      "Great for building a following through documentation"
+    ]
+  },
+  {
+    id: "reddit-programming",
+    category: "Reddit Communities",
+    icon: "💬",
+    name: "r/programming",
+    url: "https://www.reddit.com/r/programming/",
+    impact: "medium",
+    cost: "free",
+    howTo: "Submit a blog post about the technical aspects of building the tools.",
+    timeline: "Immediate",
+    tips: [
+      "Very large subreddit but strict about self-promotion",
+      "Technical content performs better than product launches",
+      "Write about interesting technical challenges you solved"
+    ]
+  },
+  {
+    id: "reddit-opensource",
+    category: "Reddit Communities",
+    icon: "💬",
+    name: "r/opensource",
+    url: "https://www.reddit.com/r/opensource/",
+    impact: "low",
+    cost: "free",
+    howTo: "If tools are open source, share the GitHub repo with context about what problems they solve.",
+    timeline: "Immediate",
+    tips: [
+      "Only applicable if code is open source",
+      "Focus on the open/free aspect"
+    ]
+  },
+  {
+    id: "reddit-javascript",
+    category: "Reddit Communities",
+    icon: "💬",
+    name: "r/javascript",
+    url: "https://www.reddit.com/r/javascript/",
+    impact: "medium",
+    cost: "free",
+    howTo: "Share individual JavaScript-based tools with technical context about how they work.",
+    timeline: "Immediate",
+    tips: [
+      "Share the code playground, JSON formatter, regex tester specifically",
+      "Include technical details about implementation",
+      "Showoff Saturday threads"
+    ]
+  },
+
+  // ─────────────────────────────────────────────
+  // CATEGORY 5: Indie Hacker Communities
+  // ─────────────────────────────────────────────
+  {
+    id: "indie-hackers",
+    category: "Indie Hacker Communities",
+    icon: "👾",
+    name: "Indie Hackers",
+    url: "https://www.indiehackers.com/",
+    impact: "high",
+    cost: "free",
+    howTo: "Create product page, post milestones, share in relevant groups. Write about your journey building 200+ free tools.",
+    timeline: "Immediate posting, community engagement builds over time",
+    tips: [
+      "Create a product page with revenue/traffic milestones",
+      "Post regularly about growth, challenges, and wins",
+      "Engage in other discussions - don't just self-promote",
+      "Write a launch post: 'I built 200+ free dev tools - here is what I learned'",
+      "Filter by revenue/tech stack to find similar makers"
+    ]
+  },
+  {
+    id: "wip-chat",
+    category: "Indie Hacker Communities",
+    icon: "👾",
+    name: "WIP (Work In Progress)",
+    url: "https://wip.co/",
+    impact: "medium",
+    cost: "free",
+    howTo: "Join the community, share daily progress updates and todo completions.",
+    timeline: "Immediate",
+    tips: [
+      "Founded by Marc Kohlbrugge",
+      "Share daily progress, not just launches",
+      "Accountability-focused community",
+      "Good for building in public"
+    ]
+  },
+  {
+    id: "makerlog",
+    category: "Indie Hacker Communities",
+    icon: "👾",
+    name: "Makerlog",
+    url: "https://getmakerlog.com/",
+    impact: "low",
+    cost: "free",
+    howTo: "Create account, log your daily building activities and share launches.",
+    timeline: "Immediate",
+    tips: [
+      "Share progress and launches with fellow makers",
+      "Good for accountability and building in public"
+    ]
+  },
+  {
+    id: "dev-to-post",
+    category: "Indie Hacker Communities",
+    icon: "👾",
+    name: "DEV.to",
+    url: "https://dev.to/",
+    impact: "high",
+    cost: "free",
+    howTo: "Write articles about your tools. Cross-post from blog with canonical URL pointing to spunk.codes/blog.",
+    timeline: "Immediate publishing, traffic builds over days",
+    tips: [
+      "Largest active developer community",
+      "Write: '25 Free Dev Tools You Did Not Know You Needed'",
+      "Always set canonical URL to your own blog post",
+      "Use relevant tags: #webdev #javascript #productivity #tools",
+      "Engage with comments to boost article visibility"
+    ]
+  },
+  {
+    id: "hashnode-post",
+    category: "Indie Hacker Communities",
+    icon: "👾",
+    name: "Hashnode",
+    url: "https://hashnode.com/",
+    impact: "medium",
+    cost: "free",
+    howTo: "Create blog, cross-post articles with canonical URLs back to spunk.codes.",
+    timeline: "Immediate publishing",
+    tips: [
+      "Custom domain option builds your brand SEO",
+      "Cross-post with canonical link to your original",
+      "Good for developer-focused content",
+      "Built-in newsletter feature"
+    ]
+  },
+  {
+    id: "medium-post",
+    category: "Indie Hacker Communities",
+    icon: "👾",
+    name: "Medium",
+    url: "https://medium.com/",
+    impact: "medium",
+    cost: "free",
+    howTo: "Publish articles in relevant publications (Better Programming, Towards Dev, JavaScript in Plain English).",
+    timeline: "Immediate, publication review may take 1-7 days",
+    tips: [
+      "Submit to publications for wider reach",
+      "Set canonical URL to your blog",
+      "Target publications: Better Programming, JavaScript in Plain English, Level Up Coding",
+      "Monetize through Medium Partner Program if desired"
+    ]
+  },
+
+  // ─────────────────────────────────────────────
+  // CATEGORY 6: SEO Directories
+  // ─────────────────────────────────────────────
+  {
+    id: "google-business",
+    category: "SEO Directories",
+    icon: "🔍",
+    name: "Google Business Profile",
+    url: "https://business.google.com/",
+    impact: "medium",
+    cost: "free",
+    howTo: "Create a Google Business Profile for spunk.codes as an online service/software company.",
+    timeline: "1-2 weeks verification",
+    tips: [
+      "Helps with local SEO and Google knowledge panel",
+      "Add all tool categories as services",
+      "Keep updated with posts and photos"
+    ]
+  },
+  {
+    id: "bing-places",
+    category: "SEO Directories",
+    icon: "🔍",
+    name: "Bing Places",
+    url: "https://www.bingplaces.com/",
+    impact: "low",
+    cost: "free",
+    howTo: "Create listing or import from Google Business Profile.",
+    timeline: "1-2 weeks",
+    tips: [
+      "Quick setup if you already have Google Business",
+      "Bing still drives meaningful traffic",
+      "Entity verification helps with E-E-A-T"
+    ]
+  },
+  {
+    id: "crunchbase",
+    category: "SEO Directories",
+    icon: "🔍",
+    name: "Crunchbase",
+    url: "https://www.crunchbase.com/",
+    impact: "medium",
+    cost: "free",
+    howTo: "Create a free company profile with details about spunk.codes.",
+    timeline: "1-3 days review",
+    tips: [
+      "DA 91 - excellent backlink",
+      "Establishes business credibility",
+      "Add founder info, description, social links"
+    ]
+  },
+  {
+    id: "dmoz-curlie",
+    category: "SEO Directories",
+    icon: "🔍",
+    name: "Curlie (DMOZ successor)",
+    url: "https://curlie.org/",
+    impact: "low",
+    cost: "free",
+    howTo: "Find the most relevant category and submit via the 'Suggest URL' link.",
+    timeline: "Months (volunteer-reviewed)",
+    tips: [
+      "Still feeds data to some search engines",
+      "Very slow review process but legitimate backlink",
+      "Submit to most specific category possible"
+    ]
+  },
+  {
+    id: "whatlaunched",
+    category: "SEO Directories",
+    icon: "🔍",
+    name: "WhatLaunched.today",
+    url: "https://whatlaunched.today/",
+    impact: "low",
+    cost: "free",
+    howTo: "Submit via their form for a free listing and dofollow backlink.",
+    timeline: "1-2 weeks",
+    tips: [
+      "Free dofollow backlink",
+      "Good for Entity SEO verification",
+      "Quick and easy submission"
+    ]
+  },
+  {
+    id: "best-of-web",
+    category: "SEO Directories",
+    icon: "🔍",
+    name: "Best of Web",
+    url: "https://bestofweb.com/",
+    impact: "low",
+    cost: "free",
+    howTo: "Submit your site for review and listing.",
+    timeline: "1-4 weeks",
+    tips: [
+      "Free dofollow backlink",
+      "Startup and founder directory",
+      "Easy and fast submission process"
+    ]
+  },
+
+  // ─────────────────────────────────────────────
+  // CATEGORY 7: Social Media Platforms
+  // ─────────────────────────────────────────────
+  {
+    id: "x-twitter-launch",
+    category: "Social Media Platforms",
+    icon: "📱",
+    name: "X (Twitter) Launch Thread",
+    url: "https://x.com/SpunkArt13",
+    impact: "high",
+    cost: "free",
+    howTo: "Create a viral launch thread. Pin it. Tag relevant accounts. Use hashtags #buildinpublic #devtools #indiehackers.",
+    timeline: "Immediate, virality depends on engagement",
+    tips: [
+      "Thread format: Hook -> Problem -> Solution -> Demo GIF -> CTA",
+      "Post at 9-11 AM EST for maximum reach",
+      "Tag influencers in dev tools space",
+      "Use #buildinpublic #devtools #indiehackers #webdev #solofounder",
+      "Quote tweet from @SpunkArt13 with personal story",
+      "Coordinate with Product Hunt launch day",
+      "Follow up with daily tool spotlights"
+    ]
+  },
+  {
+    id: "x-daily-tools",
+    category: "Social Media Platforms",
+    icon: "📱",
+    name: "X Daily Tool Spotlights",
+    url: "https://x.com/SpunkArt13",
+    impact: "medium",
+    cost: "free",
+    howTo: "Post one tool per day with screenshot, quick demo, and link. Build consistent content cadence.",
+    timeline: "Ongoing daily content",
+    tips: [
+      "Highlight one tool per day with a use case",
+      "Include before/after or quick demo screenshots",
+      "Use carousel format for engagement",
+      "End each post with a CTA to explore more tools"
+    ]
+  },
+  {
+    id: "linkedin-post",
+    category: "Social Media Platforms",
+    icon: "📱",
+    name: "LinkedIn Launch Post",
+    url: "https://www.linkedin.com/",
+    impact: "medium",
+    cost: "free",
+    howTo: "Write a personal story post about building 200+ free dev tools. Share on personal and company page.",
+    timeline: "Immediate, LinkedIn algo favors early engagement",
+    tips: [
+      "Personal stories outperform product announcements on LinkedIn",
+      "Frame as: 'I built 200+ free tools because devs should not have to pay for basics'",
+      "Use line breaks for readability",
+      "First line is the hook - make it compelling",
+      "Best for B2B and professional audience"
+    ]
+  },
+  {
+    id: "tiktok-devtools",
+    category: "Social Media Platforms",
+    icon: "📱",
+    name: "TikTok Dev Tool Demos",
+    url: "https://www.tiktok.com/",
+    impact: "medium",
+    cost: "free",
+    howTo: "Create short screen recordings demoing individual tools. Hook in first 2 seconds.",
+    timeline: "Immediate, virality potential within 24-48 hours",
+    tips: [
+      "Hook in first 2 seconds: 'This free tool replaces $50/mo SaaS'",
+      "Use trending sounds",
+      "Show the tool solving a real problem in under 30 seconds",
+      "Use hashtags: #devtools #coding #webdev #freetools #techtok",
+      "Post 1-3 times daily for algo favor"
+    ]
+  },
+  {
+    id: "youtube-shorts",
+    category: "Social Media Platforms",
+    icon: "📱",
+    name: "YouTube Shorts",
+    url: "https://www.youtube.com/",
+    impact: "medium",
+    cost: "free",
+    howTo: "Repurpose TikTok content as YouTube Shorts. Screen recordings of tools in action.",
+    timeline: "Ongoing content strategy",
+    tips: [
+      "Same content as TikTok works here",
+      "Add end screen linking to full tool collection",
+      "YouTube SEO lasts longer than TikTok",
+      "Good for tutorial-style content"
+    ]
+  },
+
+  // ─────────────────────────────────────────────
+  // CATEGORY 8: Newsletter Features
+  // ─────────────────────────────────────────────
+  {
+    id: "tldr-newsletter",
+    category: "Newsletter Features",
+    icon: "📧",
+    name: "TLDR Newsletter",
+    url: "https://tldr.tech/",
+    impact: "high",
+    cost: "free/paid",
+    howTo: "Submit interesting content or launch announcement. They curate daily links. Can also buy ad placement.",
+    timeline: "Unpredictable for organic feature, paid ads are immediate",
+    tips: [
+      "One of the biggest tech newsletters",
+      "Submit your Show HN or Product Hunt link when live",
+      "Free if they pick you up organically",
+      "Paid sponsorship available for guaranteed placement",
+      "Multiple sub-newsletters: TLDR Web Dev, TLDR AI, etc."
+    ]
+  },
+  {
+    id: "hacker-newsletter",
+    category: "Newsletter Features",
+    icon: "📧",
+    name: "Hacker Newsletter",
+    url: "https://hackernewsletter.com/",
+    impact: "medium",
+    cost: "free",
+    howTo: "Get on HN front page first - they curate the best HN stories weekly.",
+    timeline: "Weekly newsletter, depends on HN performance",
+    tips: [
+      "Curates best of Hacker News weekly",
+      "Getting on HN front page is the path to this newsletter",
+      "60k+ subscribers"
+    ]
+  },
+  {
+    id: "console-dev",
+    category: "Newsletter Features",
+    icon: "📧",
+    name: "Console.dev Newsletter",
+    url: "https://console.dev/",
+    impact: "medium",
+    cost: "free",
+    howTo: "Submit via their tool submission form. They review and feature interesting dev tools weekly.",
+    timeline: "1-4 weeks review",
+    tips: [
+      "Specifically curates interesting developer tools",
+      "Perfect fit for spunk.codes",
+      "Weekly email to developer audience"
+    ]
+  },
+  {
+    id: "daily-dev",
+    category: "Newsletter Features",
+    icon: "📧",
+    name: "daily.dev",
+    url: "https://daily.dev/",
+    impact: "medium",
+    cost: "free",
+    howTo: "Write dev content on your blog or DEV.to. daily.dev aggregates developer articles automatically.",
+    timeline: "Automatic if content gets traction",
+    tips: [
+      "Developer news aggregation platform",
+      "Free and open source",
+      "Write quality dev content and it may get picked up",
+      "Browser extension shows your content to developers"
+    ]
+  },
+  {
+    id: "bytes-newsletter",
+    category: "Newsletter Features",
+    icon: "📧",
+    name: "Bytes Newsletter",
+    url: "https://bytes.dev/",
+    impact: "medium",
+    cost: "free",
+    howTo: "Submit interesting JavaScript/web dev tools. They feature cool finds in their newsletter.",
+    timeline: "Unpredictable, depends on editorial selection",
+    tips: [
+      "JavaScript/web dev focused newsletter",
+      "Humorous tone - they like interesting, unique tools",
+      "Large developer subscriber base"
+    ]
+  },
+
+  // ─────────────────────────────────────────────
+  // CATEGORY 9: AI Tool Directories
+  // ─────────────────────────────────────────────
+  {
+    id: "futurepedia",
+    category: "AI Tool Directories",
+    icon: "🤖",
+    name: "Futurepedia",
+    url: "https://www.futurepedia.io/submit-tool",
+    impact: "medium",
+    cost: "paid",
+    howTo: "Submit via their form. One-time $497 fee for review and listing.",
+    timeline: "1-2 weeks after payment",
+    tips: [
+      "400k+ monthly visitors",
+      "Submit AI-specific tools: AI Writing Assistant, AI Prompt Vault, AI Image Prompt Generator",
+      "Expensive but high authority (only if budget allows)"
+    ]
+  },
+  {
+    id: "there-is-an-ai",
+    category: "AI Tool Directories",
+    icon: "🤖",
+    name: "There's An AI For That",
+    url: "https://theresanaiforthat.com/",
+    impact: "high",
+    cost: "free",
+    howTo: "Submit via their submission form. One of the largest AI tool directories.",
+    timeline: "1-4 weeks review",
+    tips: [
+      "Massive traffic for AI tool searches",
+      "Submit AI writing assistant, prompt tools, and AI-powered tools",
+      "Free submission option available",
+      "Good SEO value"
+    ]
+  },
+  {
+    id: "toolify",
+    category: "AI Tool Directories",
+    icon: "🤖",
+    name: "Toolify.ai",
+    url: "https://www.toolify.ai/submit",
+    impact: "medium",
+    cost: "paid",
+    howTo: "Submit via their form. $99 fee for listing.",
+    timeline: "1-2 weeks after submission",
+    tips: [
+      "20,000+ AI tools listed, 233 categories",
+      "Updated daily",
+      "Submit AI-specific tools from spunk.codes"
+    ]
+  },
+  {
+    id: "aixploria",
+    category: "AI Tool Directories",
+    icon: "🤖",
+    name: "AIxploria",
+    url: "https://www.aixploria.com/en/",
+    impact: "low",
+    cost: "free",
+    howTo: "Submit new AI tools via their submission form.",
+    timeline: "1-4 weeks",
+    tips: [
+      "1,500+ free tools listed",
+      "Free submission",
+      "Focus on free AI tools specifically"
+    ]
+  },
+  {
+    id: "opentools",
+    category: "AI Tool Directories",
+    icon: "🤖",
+    name: "OpenTools.ai",
+    url: "https://opentools.ai/",
+    impact: "low",
+    cost: "free",
+    howTo: "Submit via their tool submission form.",
+    timeline: "1-2 weeks",
+    tips: [
+      "Growing AI tools directory",
+      "Free submission",
+      "Good for additional backlink"
+    ]
+  },
+  {
+    id: "ai-tools-directory",
+    category: "AI Tool Directories",
+    icon: "🤖",
+    name: "AI Tools Directory",
+    url: "https://aitoolsdirectory.com/",
+    impact: "low",
+    cost: "free",
+    howTo: "Submit via their form with tool details.",
+    timeline: "1-3 weeks",
+    tips: [
+      "Growing directory",
+      "Free listing available",
+      "Submit AI-focused tools"
+    ]
+  },
+
+  // ─────────────────────────────────────────────
+  // CATEGORY 10: Free Tool Aggregators
+  // ─────────────────────────────────────────────
+  {
+    id: "mr-free-tools",
+    category: "Free Tool Aggregators",
+    icon: "🎁",
+    name: "Mr. Free Tools",
+    url: "https://mrfreetools.com/",
+    impact: "medium",
+    cost: "free",
+    howTo: "Submit via their suggestion/contact form. Curated directory of free tools.",
+    timeline: "1-4 weeks review",
+    tips: [
+      "24 main categories with dozens of subcategories",
+      "Perfect fit - they only list free tools",
+      "Curated quality over quantity"
+    ]
+  },
+  {
+    id: "freetools-org",
+    category: "Free Tool Aggregators",
+    icon: "🎁",
+    name: "FreeTools.org",
+    url: "https://www.freetools.org/",
+    impact: "medium",
+    cost: "free",
+    howTo: "Submit via their contact/submission form.",
+    timeline: "1-2 weeks",
+    tips: [
+      "100+ free online tools listed",
+      "No registration required for users",
+      "Good alignment with spunk.codes free philosophy"
+    ]
+  },
+  {
+    id: "tiny-alternatives",
+    category: "Free Tool Aggregators",
+    icon: "🎁",
+    name: "Tiny Alternatives",
+    url: "https://tinyalternatives.com/",
+    impact: "low",
+    cost: "free",
+    howTo: "Submit as a free alternative to paid tool suites.",
+    timeline: "1-2 weeks",
+    tips: [
+      "Position as free alternative to paid dev tool bundles",
+      "Simple submission process"
+    ]
+  },
+  {
+    id: "justfree-io",
+    category: "Free Tool Aggregators",
+    icon: "🎁",
+    name: "JustFree.io",
+    url: "https://justfree.io/",
+    impact: "low",
+    cost: "free",
+    howTo: "Submit via their form. Community-driven directory of free tools for indie founders.",
+    timeline: "1-2 weeks",
+    tips: [
+      "Curated by indie founders for indie founders",
+      "Perfect audience alignment",
+      "Community-driven"
+    ]
+  },
+
+  // ─────────────────────────────────────────────
+  // CATEGORY 11: GitHub Awesome Lists
+  // ─────────────────────────────────────────────
+  {
+    id: "awesome-devtools",
+    category: "GitHub Awesome Lists",
+    icon: "⭐",
+    name: "awesome-devtools",
+    url: "https://github.com/moimikey/awesome-devtools",
+    impact: "medium",
+    cost: "free",
+    howTo: "Fork repo, add spunk.codes tools to relevant category, submit Pull Request.",
+    timeline: "1-4 weeks for PR review",
+    tips: [
+      "Curated list of in-browser bookmarklets, tools, and resources",
+      "Add individual tools like JSON formatter, regex tester, code playground",
+      "Follow contribution guidelines exactly",
+      "Include brief accurate description"
+    ]
+  },
+  {
+    id: "awesome-dev-tools",
+    category: "GitHub Awesome Lists",
+    icon: "⭐",
+    name: "awesome-dev-tools (t18n)",
+    url: "https://github.com/t18n/awesome-dev-tools",
+    impact: "medium",
+    cost: "free",
+    howTo: "Submit PR adding spunk.codes tools to relevant categories.",
+    timeline: "1-4 weeks",
+    tips: [
+      "Curated list of development tools and resources",
+      "Submit to most relevant category",
+      "Include accurate description and link"
+    ]
+  },
+  {
+    id: "awesome-developer-first",
+    category: "GitHub Awesome Lists",
+    icon: "⭐",
+    name: "awesome-developer-first",
+    url: "https://github.com/agamm/awesome-developer-first",
+    impact: "medium",
+    cost: "free",
+    howTo: "Submit PR. This list focuses on developer-first products.",
+    timeline: "1-4 weeks",
+    tips: [
+      "Developer-first product focus",
+      "Good for tools that developers use directly",
+      "Must meet quality standards"
+    ]
+  },
+  {
+    id: "awesome-free-saas",
+    category: "GitHub Awesome Lists",
+    icon: "⭐",
+    name: "free-for-dev",
+    url: "https://github.com/ripienaar/free-for-dev",
+    impact: "high",
+    cost: "free",
+    howTo: "Submit PR adding relevant spunk.codes tools. 50k+ stars.",
+    timeline: "1-4 weeks, strict review",
+    tips: [
+      "50k+ GitHub stars - massive visibility",
+      "Must be genuinely free, not freemium",
+      "Very strict contribution guidelines",
+      "Add to most specific category"
+    ]
+  },
+
+  // ─────────────────────────────────────────────
+  // CATEGORY 12: Other High-Value Platforms
+  // ─────────────────────────────────────────────
+  {
+    id: "lobsters",
+    category: "Other High-Value Platforms",
+    icon: "🌐",
+    name: "Lobsters",
+    url: "https://lobste.rs/",
+    impact: "medium",
+    cost: "free",
+    howTo: "Invite-only. Get an invitation from an existing member, then submit your Show post.",
+    timeline: "Immediate once you have access",
+    tips: [
+      "High-quality developer community",
+      "Invite-only prevents spam",
+      "More technical audience than HN",
+      "Smaller but highly engaged"
+    ]
+  },
+  {
+    id: "hackernoon",
+    category: "Other High-Value Platforms",
+    icon: "🌐",
+    name: "HackerNoon",
+    url: "https://hackernoon.com/",
+    impact: "medium",
+    cost: "free",
+    howTo: "Write and publish articles about your dev tools. They have editorial review.",
+    timeline: "1-7 days editorial review",
+    tips: [
+      "High DA - great for backlinks",
+      "Write about building tools, dev productivity, free alternatives",
+      "Articles get good Google indexing",
+      "Cross-post with canonical URL"
+    ]
+  },
+  {
+    id: "submit-bro",
+    category: "Other High-Value Platforms",
+    icon: "🌐",
+    name: "SubmitBro (Bulk Service)",
+    url: "https://submitbro.com/",
+    impact: "medium",
+    cost: "paid",
+    howTo: "Pay for bulk submission to 70+ directories. They handle all submissions for you.",
+    timeline: "2-4 weeks for all submissions",
+    tips: [
+      "Submits to 70+ high-traffic directories",
+      "DA 40+ backlinks",
+      "1M+ monthly visitors across directories",
+      "Saves time vs. manual submission"
+    ]
+  },
+  {
+    id: "launch-directories",
+    category: "Other High-Value Platforms",
+    icon: "🌐",
+    name: "LaunchDirectories.com",
+    url: "https://launchdirectories.com/",
+    impact: "low",
+    cost: "free",
+    howTo: "Use as a reference for finding additional directories to submit to.",
+    timeline: "N/A - reference resource",
+    tips: [
+      "Meta-directory of launch platforms",
+      "Good for finding niche directories",
+      "Includes submission guides for each platform"
+    ]
+  },
+  {
+    id: "launchpedia",
+    category: "Other High-Value Platforms",
+    icon: "🌐",
+    name: "Launchpedia",
+    url: "https://launchpedia.co/",
+    impact: "low",
+    cost: "free",
+    howTo: "150+ directories and platforms listed. Use as a checklist for additional submissions.",
+    timeline: "N/A - reference resource",
+    tips: [
+      "Lists 150+ directories to submit SaaS/tools",
+      "Good supplementary resource",
+      "Categorized by type and impact"
+    ]
+  }
+];
+
+// ============================================================
+// APP STATE & PERSISTENCE
+// ============================================================
+const STORAGE_KEY = "spunkcodes-submission-tracker";
+
+function loadState() {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    return saved ? JSON.parse(saved) : {};
+  } catch { return {}; }
+}
+
+function saveState(state) {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch {}
+}
+
+let state = loadState();
+
+function getItemState(id) {
+  return state[id] || { status: "not-started", notes: "", checked: false };
+}
+
+function setItemState(id, updates) {
+  state[id] = { ...getItemState(id), ...updates };
+  saveState(state);
+  updateStats();
+}
+
+// ============================================================
+// RENDERING
+// ============================================================
+function renderAll(filter = "all") {
+  const container = document.getElementById("sections-container");
+  container.innerHTML = "";
+
+  // Group by category
+  const groups = {};
+  SUBMISSIONS.forEach(item => {
+    if (!groups[item.category]) groups[item.category] = [];
+    groups[item.category].push(item);
+  });
+
+  Object.entries(groups).forEach(([category, items]) => {
+    // Filter items
+    let filtered = items;
+    if (filter === "high" || filter === "medium" || filter === "low") {
+      filtered = items.filter(i => i.impact === filter);
+    } else if (filter !== "all") {
+      filtered = items.filter(i => getItemState(i.id).status === filter);
+    }
+
+    if (filtered.length === 0) return;
+
+    const icon = items[0].icon || "";
+    const section = document.createElement("div");
+    section.className = "section";
+    section.innerHTML = `
+      <div class="section-header">
+        <span class="section-icon">${icon}</span>
+        <span class="section-title">${category}</span>
+        <span class="section-count">${filtered.length} items</span>
+      </div>
+      <div class="cards-grid">${filtered.map(renderCard).join("")}</div>
+    `;
+    container.appendChild(section);
+  });
+
+  // Bind events
+  bindEvents();
+  updateStats();
+}
+
+function renderCard(item) {
+  const s = getItemState(item.id);
+  const impactClass = `badge-${item.impact}`;
+  const costClass = item.cost === "free" ? "badge-free" : "badge-paid";
+
+  return `
+    <div class="card" data-id="${item.id}" data-impact="${item.impact}" data-status="${s.status}">
+      <div class="card-top">
+        <div class="card-checkbox ${s.checked ? 'checked' : ''}" data-id="${item.id}">${s.checked ? '&#10003;' : ''}</div>
+        <div class="card-info">
+          <div class="card-name"><a href="${item.url}" target="_blank" rel="noopener">${item.name}</a></div>
+          <div class="card-url">${item.url}</div>
+        </div>
+        <div class="card-badges">
+          <span class="badge ${impactClass}">${item.impact}</span>
+          <span class="badge ${costClass}">${item.cost}</span>
+        </div>
+      </div>
+      <div class="card-desc">${item.howTo}</div>
+      <div class="card-how"><strong>Timeline:</strong> ${item.timeline}</div>
+      <div class="card-meta">
+        <span>
+          <label>Status:</label>
+          <select class="status-select" data-id="${item.id}">
+            <option value="not-started" ${s.status === "not-started" ? "selected" : ""}>Not Started</option>
+            <option value="submitted" ${s.status === "submitted" ? "selected" : ""}>Submitted</option>
+            <option value="pending" ${s.status === "pending" ? "selected" : ""}>Pending Review</option>
+            <option value="live" ${s.status === "live" ? "selected" : ""}>Live</option>
+            <option value="rejected" ${s.status === "rejected" ? "selected" : ""}>Rejected</option>
+          </select>
+        </span>
+      </div>
+      <button class="tip-toggle" data-id="${item.id}">Show Best Practices</button>
+      <div class="tip-content" id="tip-${item.id}">
+        <ul>${(item.tips || []).map(t => `<li>${t}</li>`).join("")}</ul>
+      </div>
+      <textarea class="card-notes" data-id="${item.id}" placeholder="Add notes...">${s.notes || ""}</textarea>
+    </div>
+  `;
+}
+
+function bindEvents() {
+  // Checkboxes
+  document.querySelectorAll(".card-checkbox").forEach(cb => {
+    cb.addEventListener("click", () => {
+      const id = cb.dataset.id;
+      const current = getItemState(id);
+      const newChecked = !current.checked;
+      setItemState(id, { checked: newChecked });
+      cb.classList.toggle("checked", newChecked);
+      cb.innerHTML = newChecked ? "&#10003;" : "";
+    });
+  });
+
+  // Status selects
+  document.querySelectorAll(".status-select").forEach(sel => {
+    sel.addEventListener("change", () => {
+      setItemState(sel.dataset.id, { status: sel.value });
+    });
+  });
+
+  // Notes
+  document.querySelectorAll(".card-notes").forEach(ta => {
+    ta.addEventListener("input", debounce(() => {
+      setItemState(ta.dataset.id, { notes: ta.value });
+    }, 500));
+  });
+
+  // Tips toggles
+  document.querySelectorAll(".tip-toggle").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const tipEl = document.getElementById("tip-" + btn.dataset.id);
+      tipEl.classList.toggle("open");
+      btn.textContent = tipEl.classList.contains("open") ? "Hide Best Practices" : "Show Best Practices";
+    });
+  });
+}
+
+function debounce(fn, delay) {
+  let timer;
+  return (...args) => { clearTimeout(timer); timer = setTimeout(() => fn(...args), delay); };
+}
+
+// ============================================================
+// STATS & PROGRESS
+// ============================================================
+function updateStats() {
+  const total = SUBMISSIONS.length;
+  let submitted = 0, pending = 0, live = 0;
+
+  SUBMISSIONS.forEach(item => {
+    const s = getItemState(item.id);
+    if (s.status === "submitted") submitted++;
+    if (s.status === "pending") pending++;
+    if (s.status === "live") live++;
+  });
+
+  const completed = submitted + pending + live;
+  const pct = total > 0 ? Math.round((completed / total) * 100) : 0;
+
+  document.getElementById("stat-total").textContent = total;
+  document.getElementById("stat-submitted").textContent = submitted;
+  document.getElementById("stat-pending").textContent = pending;
+  document.getElementById("stat-live").textContent = live;
+  document.getElementById("progress-pct").textContent = pct + "%";
+  document.getElementById("progress-fill").style.width = pct + "%";
+}
+
+// ============================================================
+// FILTERS
+// ============================================================
+document.querySelectorAll(".filter-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    renderAll(btn.dataset.filter);
+  });
+});
+
+// ============================================================
+// EXPORT / IMPORT / RESET
+// ============================================================
+function exportData() {
+  const data = JSON.stringify(state, null, 2);
+  const blob = new Blob([data], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "spunkcodes-submissions-" + new Date().toISOString().slice(0, 10) + ".json";
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function importData(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    try {
+      const imported = JSON.parse(e.target.result);
+      state = { ...state, ...imported };
+      saveState(state);
+      renderAll();
+      alert("Data imported successfully!");
+    } catch { alert("Invalid JSON file."); }
+  };
+  reader.readAsText(file);
+}
+
+function resetAll() {
+  if (confirm("Are you sure you want to reset ALL submission data? This cannot be undone.")) {
+    state = {};
+    saveState(state);
+    renderAll();
+  }
+}
+
+// ============================================================
+// INIT
+// ============================================================
+renderAll();
+</script>
+</body>
+</html>

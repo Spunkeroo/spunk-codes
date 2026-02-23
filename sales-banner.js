@@ -3,8 +3,8 @@
  * =====================================================
  * Drop-in script for any page. Adds:
  *   1. Top announcement banner (lifetime deal)
- *   2. Bottom sticky CTA bar (upgrade to pro)
- *   3. Exit-intent popup (50% off first purchase)
+ *   2. Bottom sticky CTA bar (upgrade to pro + email capture)
+ *   3. Exit-intent popup (50% off + free ebooks email option)
  *
  * All dismissals persist in localStorage.
  * GA4 events fired on every interaction.
@@ -23,7 +23,12 @@
   var LS_PREFIX = 'sc_sales_';
   var PRICING_URL = '/pricing.html';
   var STORE_URL = '/store.html';
+  var LEAD_MAGNET_URL = '/lead-magnet.html';
+  var NEWSLETTER_URL = '/newsletter.html';
+  var BEEHIIV_ACTION = 'https://embeds.beehiiv.com/subscribe';
   var GA4_ID = 'G-GVNL11PEGP';
+  var isSubscribed = false;
+  try { isSubscribed = localStorage.getItem('sc_ecw_subscribed') === '1'; } catch(e) {}
 
   // localStorage helpers
   function lsGet(k) { try { return localStorage.getItem(LS_PREFIX + k); } catch (e) { return null; } }
@@ -83,14 +88,37 @@
     '.sc-exit-popup-skip:hover{color:#8b949e}',
     '.sc-exit-badge{display:inline-block;padding:4px 14px;background:rgba(57,211,83,0.1);border:1px solid rgba(57,211,83,0.25);border-radius:20px;font-size:12px;font-weight:700;color:#39d353;margin-bottom:16px;letter-spacing:0.5px}',
 
+    /* Bottom bar email CTA */
+    '.sc-bottom-bar-email{display:inline-flex;align-items:center;gap:6px;padding:8px 20px;background:rgba(88,166,255,0.12);border:1px solid rgba(88,166,255,0.25);color:#58a6ff;border-radius:20px;font-size:13px;font-weight:600;cursor:pointer;transition:all 0.25s;text-decoration:none;white-space:nowrap}',
+    '.sc-bottom-bar-email:hover{background:rgba(88,166,255,0.2);border-color:#58a6ff;transform:scale(1.03)}',
+    '.sc-bottom-bar-divider{color:#30363d;font-size:12px;user-select:none}',
+
+    /* Exit popup email section */
+    '.sc-exit-divider{display:flex;align-items:center;gap:12px;margin:20px 0 16px;color:#484f58;font-size:12px}',
+    '.sc-exit-divider::before,.sc-exit-divider::after{content:"";flex:1;height:1px;background:#30363d}',
+    '.sc-exit-email-section{text-align:center}',
+    '.sc-exit-email-label{color:#8b949e;font-size:13px;margin-bottom:10px;display:block}',
+    '.sc-exit-email-form{display:flex;gap:8px;max-width:360px;margin:0 auto}',
+    '.sc-exit-email-input{flex:1;padding:10px 14px;background:rgba(13,17,23,0.8);border:1px solid #30363d;border-radius:10px;color:#e6edf3;font-size:14px;outline:none;font-family:system-ui,-apple-system,sans-serif;transition:border-color 0.2s}',
+    '.sc-exit-email-input:focus{border-color:#58a6ff}',
+    '.sc-exit-email-input::placeholder{color:#484f58}',
+    '.sc-exit-email-btn{padding:10px 18px;background:linear-gradient(135deg,#39d353,#2ea043);color:#fff;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;transition:all 0.25s;white-space:nowrap;font-family:system-ui,-apple-system,sans-serif}',
+    '.sc-exit-email-btn:hover{transform:scale(1.03);box-shadow:0 4px 16px rgba(57,211,83,0.3)}',
+    '.sc-exit-email-btn:disabled{opacity:0.6;cursor:not-allowed;transform:none}',
+    '.sc-exit-email-success{color:#39d353;font-size:14px;font-weight:700;padding:8px 0}',
+    '.sc-exit-email-trust{font-size:11px;color:#484f58;margin-top:8px}',
+
     /* Mobile */
     '@media(max-width:640px){',
     '  .sc-top-banner{flex-wrap:wrap;gap:8px;padding:8px 14px;text-align:center}',
     '  .sc-top-banner-text{font-size:12px}',
     '  .sc-bottom-bar{flex-wrap:wrap;gap:8px;padding:10px 14px}',
     '  .sc-bottom-bar-text{font-size:11px;text-align:center;width:100%}',
+    '  .sc-bottom-bar-email{font-size:11px;padding:6px 14px}',
     '  .sc-exit-popup{padding:28px 20px}',
     '  .sc-exit-popup h2{font-size:20px}',
+    '  .sc-exit-email-form{flex-direction:column}',
+    '  .sc-exit-email-btn{width:100%}',
     '}'
   ].join('\n');
   document.head.appendChild(style);
@@ -130,6 +158,10 @@
     bar.innerHTML =
       '<span class="sc-bottom-bar-text"><strong>Free tools.</strong> Want premium ebooks, priority support & lifetime access?</span>' +
       '<a href="' + PRICING_URL + '" class="sc-bottom-bar-cta" onclick="return !1">Upgrade to Pro</a>' +
+      (isSubscribed ? '' :
+        '<span class="sc-bottom-bar-divider">or</span>' +
+        '<a href="' + LEAD_MAGNET_URL + '" class="sc-bottom-bar-email" onclick="return !1">Get 5 Free Ebooks</a>'
+      ) +
       '<button class="sc-bottom-bar-close" aria-label="Dismiss">&times;</button>';
     document.body.appendChild(bar);
 
@@ -139,6 +171,15 @@
       track('sales_banner_click', 'bottom_upgrade_pro');
       window.location.href = PRICING_URL;
     });
+
+    var bottomEmailCta = bar.querySelector('.sc-bottom-bar-email');
+    if (bottomEmailCta) {
+      bottomEmailCta.addEventListener('click', function (e) {
+        e.preventDefault();
+        track('sales_banner_click', 'bottom_free_ebooks');
+        window.location.href = LEAD_MAGNET_URL;
+      });
+    }
 
     bar.querySelector('.sc-bottom-bar-close').addEventListener('click', function () {
       bar.classList.add('sc-hidden');

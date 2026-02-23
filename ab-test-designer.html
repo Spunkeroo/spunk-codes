@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Copyright 2026 spunk.codes. All rights reserved. -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>A/B Test Designer - Hypothesis & Sample Size Calculator | SPUNK.CODES</title>
+<meta name="description" content="Design A/B tests with hypothesis builder, variant designer, and sample size calculator. Free A/B testing tool for solo founders and marketers.">
+<meta name="keywords" content="ab test designer, ab testing tool, sample size calculator, hypothesis builder, split test planner">
+<meta property="og:title" content="A/B Test Designer | SPUNK.CODES">
+<meta property="og:description" content="Design A/B tests with hypothesis, variants, and sample size calculator. Free tool.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://spunk.codes/ab-test-designer">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/ab-test-designer">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"A/B Test Designer","description":"Design A/B tests with hypothesis builder, variant designer, and sample size calculator.","url":"https://spunk.codes/ab-test-designer","applicationCategory":"BusinessApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Organization","name":"spunk.codes","url":"https://spunk.codes"}}</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#0d1117;color:#e6edf3;min-height:100vh;display:flex;flex-direction:column;line-height:1.6}
+a{color:#58a6ff;text-decoration:none}a:hover{text-decoration:underline;color:#79c0ff}
+nav{background:rgba(22,27,34,0.8);backdrop-filter:blur(12px);border-bottom:1px solid #30363d;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;position:sticky;top:0;z-index:100}
+nav .logo{font-weight:800;font-size:1.1rem;background:linear-gradient(135deg,#58a6ff,#39d353);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:1px}
+nav .links{display:flex;gap:20px;font-size:0.9rem}nav .links a{color:#8b949e}nav .links a:hover{color:#58a6ff}
+main{flex:1;max-width:900px;width:100%;margin:0 auto;padding:40px 20px 80px}
+h1{font-size:2rem;font-weight:800;margin-bottom:8px}h1 span{background:linear-gradient(135deg,#58a6ff,#39d353);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.subtitle{color:#8b949e;margin-bottom:10px}
+.badge{display:inline-block;background:rgba(57,211,83,0.1);border:1px solid rgba(57,211,83,0.3);color:#39d353;padding:6px 16px;border-radius:20px;font-size:0.85rem;font-weight:600;margin-bottom:28px}
+.glass{background:rgba(22,27,34,0.6);backdrop-filter:blur(12px);border:1px solid #30363d;border-radius:12px;padding:24px;margin-bottom:20px;position:relative;overflow:hidden}
+.glass::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(88,166,255,0.3),transparent)}
+.glass h2{font-size:1.1rem;margin-bottom:16px}
+.ig{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+.ig label{font-size:0.85rem;color:#8b949e;font-weight:500}
+.ig input,.ig select,.ig textarea{background:rgba(13,17,23,0.8);border:1px solid #30363d;border-radius:8px;padding:12px 14px;color:#e6edf3;font-size:0.95rem;transition:border-color .2s;outline:none;font-family:inherit}
+.ig input:focus,.ig select:focus,.ig textarea:focus{border-color:#58a6ff;box-shadow:0 0 0 3px rgba(88,166,255,0.1)}
+.ig textarea{min-height:70px;resize:vertical}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.btn{padding:12px 28px;border:none;border-radius:8px;font-size:0.95rem;font-weight:700;cursor:pointer;transition:all .2s}
+.btn-primary{background:linear-gradient(135deg,#58a6ff,#39d353);color:#0d1117}.btn-primary:hover{opacity:0.9;transform:translateY(-1px)}
+.btn-secondary{background:rgba(48,54,61,0.6);color:#e6edf3;border:1px solid #30363d}.btn-secondary:hover{border-color:#58a6ff;color:#58a6ff}
+.btn-danger{background:rgba(248,81,73,0.1);color:#f85149;border:1px solid rgba(248,81,73,0.3)}.btn-danger:hover{background:rgba(248,81,73,0.2)}
+.btn-sm{padding:6px 14px;font-size:0.8rem}
+.btn-full{width:100%}
+.result-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin:20px 0}
+.rcard{background:rgba(22,27,34,0.6);backdrop-filter:blur(12px);border:1px solid #30363d;border-radius:12px;padding:18px;text-align:center;position:relative;overflow:hidden}
+.rcard::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#58a6ff,#39d353)}
+.rcard .rl{font-size:0.7rem;color:#8b949e;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.rcard .rv{font-size:1.4rem;font-weight:800;color:#39d353}
+.rcard .rv.blue{color:#58a6ff}
+.variant-box{background:rgba(13,17,23,0.5);border:1px solid #30363d;border-radius:10px;padding:16px;margin-bottom:12px}
+.variant-box h3{font-size:0.95rem;margin-bottom:8px;color:#58a6ff}
+.saved-tests{margin-top:16px}
+.saved-test{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;background:rgba(13,17,23,0.5);border:1px solid #21262d;border-radius:8px;margin-bottom:8px;cursor:pointer}
+.saved-test:hover{border-color:#58a6ff}
+.saved-test .name{font-weight:600;font-size:0.9rem}
+.saved-test .meta{font-size:0.78rem;color:#8b949e}
+.results{display:none;animation:fadeIn .4s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+footer{text-align:center;padding:24px;color:#484f58;font-size:0.8rem;border-top:1px solid #21262d}footer a{color:#8b949e}
+.watermark{position:fixed;bottom:12px;right:16px;font-size:14px;font-weight:800;background:linear-gradient(135deg,rgba(88,166,255,0.08),rgba(57,211,83,0.08));-webkit-background-clip:text;-webkit-text-fill-color:transparent;pointer-events:none;z-index:50;letter-spacing:1px}
+.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#39d353;color:#0d1117;padding:10px 24px;border-radius:8px;font-size:14px;font-weight:700;z-index:200;display:none;animation:fadeUp .3s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateX(-50%) translateY(10px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+@media(max-width:600px){h1{font-size:1.5rem}.grid2{grid-template-columns:1fr}.result-cards{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<nav><a href="/" class="logo">SPUNK.CODES</a><div class="links"><a href="/">Tools</a><a href="/social-calendar">Social Growth</a><a href="/ebook-site-empire">Ebooks</a><a href="/blog">Blog</a></div></nav>
+<main>
+<h1><span>A/B Test</span> Designer</h1>
+<p class="subtitle">Design experiments with hypothesis, variants, and statistical sample size calculations</p>
+<div class="badge">Free &bull; Statistical Rigor Built In</div>
+
+<div class="glass">
+<h2>1. Hypothesis Builder</h2>
+<div class="ig"><label>Test Name</label><input type="text" id="testName" placeholder="e.g. Homepage CTA Color Test"></div>
+<div class="ig"><label>Hypothesis</label><textarea id="hypothesis" placeholder="If we change [X] to [Y], then [metric] will improve by [Z]% because [reason]."></textarea></div>
+<div class="grid2">
+<div class="ig"><label>Primary Metric</label><select id="metric"><option value="conversion">Conversion Rate</option><option value="ctr">Click-Through Rate</option><option value="revenue">Revenue per Visitor</option><option value="signup">Signup Rate</option><option value="bounce">Bounce Rate</option><option value="time">Time on Page</option></select></div>
+<div class="ig"><label>Test Page URL</label><input type="text" id="pageUrl" placeholder="https://..."></div>
+</div>
+</div>
+
+<div class="glass">
+<h2>2. Variants</h2>
+<div class="variant-box">
+<h3>Control (A) - Current Version</h3>
+<div class="ig"><label>Description</label><input type="text" id="controlDesc" placeholder="Current page with blue CTA button"></div>
+</div>
+<div class="variant-box">
+<h3>Variant (B) - Test Version</h3>
+<div class="ig"><label>Description</label><input type="text" id="variantDesc" placeholder="New page with green CTA button"></div>
+</div>
+<div id="extraVariants"></div>
+<button class="btn btn-secondary btn-sm" onclick="addVariant()">+ Add Variant C/D</button>
+</div>
+
+<div class="glass">
+<h2>3. Sample Size Calculator</h2>
+<div class="grid2">
+<div class="ig"><label>Current Conversion Rate (%)</label><input type="number" id="baseRate" value="3" min="0.1" max="100" step="0.1"></div>
+<div class="ig"><label>Minimum Detectable Effect (%)</label><input type="number" id="mde" value="20" min="1" max="500" step="1"></div>
+<div class="ig"><label>Statistical Significance</label><select id="significance"><option value="0.90">90%</option><option value="0.95" selected>95%</option><option value="0.99">99%</option></select></div>
+<div class="ig"><label>Statistical Power</label><select id="power"><option value="0.80" selected>80%</option><option value="0.90">90%</option></select></div>
+</div>
+<div class="grid2" style="margin-top:8px">
+<div class="ig"><label>Daily Visitors to Test Page</label><input type="number" id="dailyVisitors" value="500" min="1"></div>
+<div class="ig"><label>Traffic Split per Variant (%)</label><input type="number" id="split" value="50" min="10" max="90"></div>
+</div>
+<button class="btn btn-primary btn-full" onclick="calculate()" style="margin-top:12px">Calculate Sample Size & Duration</button>
+</div>
+
+<div class="results" id="results">
+<div class="result-cards">
+<div class="rcard"><div class="rl">Sample Size Per Variant</div><div class="rv" id="sampleSize">0</div></div>
+<div class="rcard"><div class="rl">Total Sample Needed</div><div class="rv blue" id="totalSample">0</div></div>
+<div class="rcard"><div class="rl">Test Duration</div><div class="rv" id="duration">0 days</div></div>
+<div class="rcard"><div class="rl">Expected Winner Rate</div><div class="rv blue" id="winnerRate">0%</div></div>
+</div>
+
+<div class="glass">
+<h2 style="margin-bottom:8px">Test Plan Summary</h2>
+<div id="summary" style="color:#8b949e;font-size:0.9rem;line-height:1.8"></div>
+<div style="display:flex;gap:10px;margin-top:16px;flex-wrap:wrap">
+<button class="btn btn-secondary btn-sm" onclick="copyPlan()">Copy Plan</button>
+<button class="btn btn-primary btn-sm" onclick="saveTest()">Save Test</button>
+</div>
+</div>
+</div>
+
+<div class="glass" style="margin-top:16px">
+<h2>Saved Tests</h2>
+<div id="savedList" class="saved-tests"><p style="color:#484f58;font-size:0.85rem">No saved tests yet.</p></div>
+<button class="btn btn-danger btn-sm" onclick="clearSaved()" style="margin-top:12px">Clear All</button>
+</div>
+</main>
+
+<footer><p>&copy; 2026 <a href="/">spunk.codes</a> &bull; <a href="/store">Store</a> &bull; <a href="/ebook-site-empire">Ebooks</a> &bull; <a href="/blog">Blog</a> &bull; <a href="https://x.com/SpunkArt13" target="_blank">@SpunkArt13</a></p></footer>
+<div class="watermark">SPUNK.CODES</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const STOR='abt_saved';let variantCount=0;
+
+function addVariant(){
+  if(variantCount>=2)return showToast('Max 4 variants (A-D)');
+  variantCount++;
+  const letter=String.fromCharCode(67+variantCount-1);
+  const el=document.getElementById('extraVariants');
+  const d=document.createElement('div');d.className='variant-box';d.id='variant'+letter;
+  d.innerHTML=`<h3>Variant (${letter})</h3><div class="ig"><label>Description</label><input type="text" class="extraVarInput" placeholder="Describe variant ${letter}..."></div><button class="btn btn-danger btn-sm" onclick="this.parentElement.remove();variantCount--">Remove</button>`;
+  el.appendChild(d);
+}
+
+function calculate(){
+  const baseRate=parseFloat(document.getElementById('baseRate').value)/100;
+  const mde=parseFloat(document.getElementById('mde').value)/100;
+  const sig=parseFloat(document.getElementById('significance').value);
+  const pow=parseFloat(document.getElementById('power').value);
+  const daily=parseInt(document.getElementById('dailyVisitors').value)||1;
+  const split=parseFloat(document.getElementById('split').value)/100;
+
+  // Z-scores
+  const zAlpha={0.90:1.645,0.95:1.96,0.99:2.576}[sig]||1.96;
+  const zBeta={0.80:0.842,0.90:1.282}[pow]||0.842;
+
+  const p1=baseRate;
+  const p2=baseRate*(1+mde);
+  const pBar=(p1+p2)/2;
+  const n=Math.ceil(Math.pow(zAlpha*Math.sqrt(2*pBar*(1-pBar))+zBeta*Math.sqrt(p1*(1-p1)+p2*(1-p2)),2)/Math.pow(p2-p1,2));
+
+  const numVariants=2+variantCount;
+  const total=n*numVariants;
+  const effectiveDaily=daily*split;
+  const days=Math.ceil(n/effectiveDaily);
+
+  document.getElementById('sampleSize').textContent=n.toLocaleString();
+  document.getElementById('totalSample').textContent=total.toLocaleString();
+  document.getElementById('duration').textContent=days+' days';
+  document.getElementById('winnerRate').textContent=(p2*100).toFixed(2)+'%';
+
+  const testName=document.getElementById('testName').value||'Untitled Test';
+  const hyp=document.getElementById('hypothesis').value||'No hypothesis defined';
+  const metric=document.getElementById('metric').value;
+  const summary=`
+    <strong>Test:</strong> ${testName}<br>
+    <strong>Hypothesis:</strong> ${hyp}<br>
+    <strong>Primary Metric:</strong> ${metric}<br>
+    <strong>Baseline Rate:</strong> ${(baseRate*100).toFixed(1)}%<br>
+    <strong>Expected Improvement:</strong> ${(mde*100).toFixed(0)}% (to ${(p2*100).toFixed(2)}%)<br>
+    <strong>Variants:</strong> ${numVariants} (including control)<br>
+    <strong>Sample Size Per Variant:</strong> ${n.toLocaleString()}<br>
+    <strong>Total Sample:</strong> ${total.toLocaleString()}<br>
+    <strong>Confidence Level:</strong> ${(sig*100).toFixed(0)}%<br>
+    <strong>Statistical Power:</strong> ${(pow*100).toFixed(0)}%<br>
+    <strong>Estimated Duration:</strong> ${days} days (at ${daily} visitors/day)<br>
+    <strong>Earliest Decision Date:</strong> ${new Date(Date.now()+days*86400000).toLocaleDateString()}
+  `;
+  document.getElementById('summary').innerHTML=summary;
+  document.getElementById('results').style.display='block';
+  document.getElementById('results').scrollIntoView({behavior:'smooth'});
+}
+
+function copyPlan(){
+  const el=document.getElementById('summary');
+  const text=el.innerText;
+  navigator.clipboard.writeText('A/B Test Plan\n'+text+'\n\nGenerated at spunk.codes/ab-test-designer');
+  showToast('Plan copied!');
+}
+
+function saveTest(){
+  const tests=JSON.parse(localStorage.getItem(STOR)||'[]');
+  tests.unshift({
+    name:document.getElementById('testName').value||'Untitled',
+    hypothesis:document.getElementById('hypothesis').value,
+    metric:document.getElementById('metric').value,
+    baseRate:document.getElementById('baseRate').value,
+    mde:document.getElementById('mde').value,
+    sampleSize:document.getElementById('sampleSize').textContent,
+    duration:document.getElementById('duration').textContent,
+    date:new Date().toLocaleDateString()
+  });
+  if(tests.length>30)tests.length=30;
+  localStorage.setItem(STOR,JSON.stringify(tests));
+  renderSaved();showToast('Test saved!');
+}
+
+function renderSaved(){
+  const tests=JSON.parse(localStorage.getItem(STOR)||'[]');
+  const el=document.getElementById('savedList');
+  if(!tests.length){el.innerHTML='<p style="color:#484f58;font-size:0.85rem">No saved tests yet.</p>';return}
+  el.innerHTML=tests.map((t,i)=>`<div class="saved-test"><div><div class="name">${t.name}</div><div class="meta">${t.metric} | Sample: ${t.sampleSize} | Duration: ${t.duration} | ${t.date}</div></div><button class="btn btn-danger btn-sm" onclick="event.stopPropagation();removeSaved(${i})">Del</button></div>`).join('');
+}
+
+function removeSaved(i){const t=JSON.parse(localStorage.getItem(STOR)||'[]');t.splice(i,1);localStorage.setItem(STOR,JSON.stringify(t));renderSaved()}
+function clearSaved(){if(!confirm('Clear all saved tests?'))return;localStorage.removeItem(STOR);renderSaved();showToast('Cleared')}
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.style.display='block';setTimeout(()=>t.style.display='none',2000)}
+renderSaved();
+document.addEventListener('contextmenu',e=>e.preventDefault());
+document.addEventListener('keydown',e=>{if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'))||(e.ctrlKey&&e.key==='u'))e.preventDefault()});
+</script>
+</body>
+</html>
