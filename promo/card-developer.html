@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SPUNK.CODES — Built for Developers</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    overflow: hidden;
+  }
+  .card {
+    width: 1200px;
+    height: 675px;
+    background: linear-gradient(135deg, #0d1117 0%, #161b22 40%, #0d1117 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Subtle grid */
+  .card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(88,166,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(88,166,255,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    z-index: 0;
+  }
+
+  .glow-1 {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(88,166,255,0.1) 0%, transparent 70%);
+    top: -180px;
+    left: -80px;
+    z-index: 0;
+  }
+  .glow-2 {
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(57,211,83,0.07) 0%, transparent 70%);
+    bottom: -120px;
+    right: 100px;
+    z-index: 0;
+  }
+
+  .brand {
+    position: absolute;
+    top: 28px;
+    left: 40px;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: rgba(88,166,255,0.6);
+    text-transform: uppercase;
+    z-index: 5;
+  }
+
+  .content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    z-index: 1;
+  }
+  .left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 60px 30px 60px 60px;
+  }
+  .headline {
+    font-size: 66px;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.1;
+    margin-bottom: 18px;
+    letter-spacing: -2px;
+  }
+  .headline span {
+    background: linear-gradient(135deg, #58a6ff, #39d353);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .subline {
+    font-size: 22px;
+    color: rgba(255,255,255,0.5);
+    font-weight: 400;
+    line-height: 1.5;
+    margin-bottom: 36px;
+  }
+  .cta {
+    display: inline-block;
+    background: rgba(88,166,255,0.1);
+    border: 1px solid rgba(88,166,255,0.25);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 14px 32px;
+    border-radius: 12px;
+    font-size: 20px;
+    font-weight: 700;
+    color: #58a6ff;
+    letter-spacing: 1px;
+    width: fit-content;
+  }
+
+  /* Right side -- terminal */
+  .right {
+    width: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 50px 40px 10px;
+  }
+  .terminal {
+    width: 420px;
+    background: rgba(13,17,23,0.9);
+    border: 1px solid rgba(88,166,255,0.15);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 16px 56px rgba(0,0,0,0.5);
+  }
+  .terminal-bar {
+    display: flex;
+    align-items: center;
+    padding: 14px 18px;
+    background: rgba(255,255,255,0.03);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    gap: 8px;
+  }
+  .dot { width: 12px; height: 12px; border-radius: 50%; }
+  .dot-r { background: #ff5f57; }
+  .dot-y { background: #febc2e; }
+  .dot-g { background: #28c840; }
+  .terminal-title {
+    flex: 1;
+    text-align: center;
+    font-size: 12px;
+    color: rgba(255,255,255,0.3);
+    font-weight: 500;
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+    padding-right: 36px;
+  }
+  .terminal-body {
+    padding: 22px 24px;
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+    font-size: 14px;
+    line-height: 2.1;
+  }
+  .line {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .prompt { color: #39d353; font-weight: 600; }
+  .cmd { color: rgba(255,255,255,0.7); }
+  .output {
+    color: rgba(255,255,255,0.35);
+    font-size: 13px;
+    padding-left: 2px;
+  }
+  .tools-wrap {
+    padding: 8px 0 4px 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .tool-tag {
+    display: inline-block;
+    border-radius: 6px;
+    padding: 3px 12px;
+    font-size: 13px;
+    font-weight: 600;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+  }
+  .tag-b {
+    background: rgba(88,166,255,0.12);
+    color: #58a6ff;
+    border: 1px solid rgba(88,166,255,0.2);
+  }
+  .tag-g {
+    background: rgba(57,211,83,0.12);
+    color: #39d353;
+    border: 1px solid rgba(57,211,83,0.2);
+  }
+  .tag-p {
+    background: rgba(188,140,255,0.12);
+    color: #bc8cff;
+    border: 1px solid rgba(188,140,255,0.2);
+  }
+  .tag-o {
+    background: rgba(255,166,87,0.12);
+    color: #ffa657;
+    border: 1px solid rgba(255,166,87,0.2);
+  }
+
+  .bottom-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #58a6ff, #39d353, #58a6ff);
+    z-index: 2;
+  }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="glow-1"></div>
+  <div class="glow-2"></div>
+  <div class="brand">SPUNK.CODES</div>
+
+  <div class="content">
+    <div class="left">
+      <div class="headline">Built for<br><span>Developers</span></div>
+      <div class="subline">JSON, Regex, Git, API, SQL<br>&mdash; all free</div>
+      <div class="cta">spunk.codes</div>
+    </div>
+    <div class="right">
+      <div class="terminal">
+        <div class="terminal-bar">
+          <div class="dot dot-r"></div>
+          <div class="dot dot-y"></div>
+          <div class="dot dot-g"></div>
+          <span class="terminal-title">spunk.codes -- dev-tools</span>
+        </div>
+        <div class="terminal-body">
+          <div class="line">
+            <span class="prompt">$</span>
+            <span class="cmd">spunk list --category dev</span>
+          </div>
+          <div class="output">Found 85+ developer tools:</div>
+          <div class="tools-wrap">
+            <span class="tool-tag tag-b">JSON Formatter</span>
+            <span class="tool-tag tag-g">Regex Tester</span>
+            <span class="tool-tag tag-p">JWT Decoder</span>
+            <span class="tool-tag tag-o">API Tester</span>
+          </div>
+          <div class="tools-wrap">
+            <span class="tool-tag tag-g">SQL Formatter</span>
+            <span class="tool-tag tag-b">Git Cheatsheet</span>
+            <span class="tool-tag tag-o">Base64 Tool</span>
+            <span class="tool-tag tag-p">Diff Checker</span>
+          </div>
+          <div class="tools-wrap">
+            <span class="tool-tag tag-p">Cron Builder</span>
+            <span class="tool-tag tag-g">UUID Generator</span>
+            <span class="tool-tag tag-b">Docker Compose</span>
+          </div>
+          <div class="line" style="margin-top:8px;">
+            <span class="prompt">$</span>
+            <span class="cmd" style="color:#39d353;">300+ tools loaded &#10003;</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom-bar"></div>
+</div>
+</body>
+</html>

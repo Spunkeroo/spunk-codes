@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SPUNK.CODES — Bookmark This Site</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    overflow: hidden;
+  }
+  .card {
+    width: 1200px;
+    height: 675px;
+    background: linear-gradient(160deg, #0d1117 0%, #111822 50%, #0d1117 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Grid */
+  .card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(88,166,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(88,166,255,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    z-index: 0;
+  }
+
+  /* Glow */
+  .glow-1 {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(88,166,255,0.10) 0%, transparent 70%);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+  }
+  .glow-2 {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(57,211,83,0.08) 0%, transparent 70%);
+    bottom: 0;
+    right: 100px;
+    z-index: 0;
+  }
+
+  /* Branding */
+  .brand {
+    position: absolute;
+    top: 28px;
+    left: 36px;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: rgba(88,166,255,0.6);
+    z-index: 2;
+    text-transform: uppercase;
+  }
+  .brand span { color: rgba(57,211,83,0.7); }
+
+  /* Content */
+  .content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    text-align: center;
+    padding: 0 80px;
+  }
+
+  .headline {
+    font-size: 62px;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.1;
+    margin-bottom: 18px;
+  }
+
+  .subline {
+    font-size: 24px;
+    color: rgba(255,255,255,0.5);
+    font-weight: 400;
+    line-height: 1.4;
+    margin-bottom: 44px;
+  }
+  .subline strong {
+    color: #58a6ff;
+    font-weight: 700;
+  }
+
+  /* Browser bar */
+  .browser-bar {
+    width: 640px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 14px;
+    backdrop-filter: blur(20px);
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+
+  .dots {
+    display: flex;
+    gap: 6px;
+    flex-shrink: 0;
+  }
+  .dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.15);
+  }
+  .dot:nth-child(1) { background: #f85149; }
+  .dot:nth-child(2) { background: #d29922; }
+  .dot:nth-child(3) { background: #39d353; }
+
+  .bar-divider {
+    width: 1px;
+    height: 24px;
+    background: rgba(255,255,255,0.08);
+  }
+
+  .url-area {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    background: rgba(255,255,255,0.04);
+    border-radius: 8px;
+    padding: 8px 16px;
+    gap: 10px;
+  }
+
+  /* Lock icon */
+  .lock-icon {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+  }
+  .lock-icon svg { display: block; }
+
+  .url-text {
+    font-size: 18px;
+    color: rgba(255,255,255,0.7);
+    font-weight: 500;
+    letter-spacing: 0.5px;
+  }
+  .url-text strong {
+    color: #fff;
+    font-weight: 700;
+  }
+
+  /* Bookmark star */
+  .bookmark-star {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .bookmark-star svg {
+    filter: drop-shadow(0 0 8px rgba(255,215,0,0.4));
+  }
+
+  /* CTA */
+  .cta {
+    display: inline-block;
+    padding: 14px 36px;
+    background: rgba(88,166,255,0.10);
+    border: 1px solid rgba(88,166,255,0.25);
+    border-radius: 10px;
+    color: #58a6ff;
+    font-size: 19px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    backdrop-filter: blur(10px);
+  }
+
+  /* Bottom accent line */
+  .accent-line {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #58a6ff, #39d353, transparent);
+    z-index: 2;
+  }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="glow-1"></div>
+  <div class="glow-2"></div>
+  <div class="brand">SPUNK<span>.</span>CODES</div>
+
+  <div class="content">
+    <div class="headline">Bookmark This Site</div>
+    <div class="subline">You'll thank me later. <strong>300+ tools</strong>, all free.</div>
+
+    <div class="browser-bar">
+      <div class="dots">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+      <div class="bar-divider"></div>
+      <div class="url-area">
+        <div class="lock-icon">
+          <svg viewBox="0 0 16 16" fill="rgba(57,211,83,0.7)">
+            <path d="M8 1a3.5 3.5 0 0 0-3.5 3.5V6H3.75A1.75 1.75 0 0 0 2 7.75v5.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0 0 14 13.25v-5.5A1.75 1.75 0 0 0 12.25 6H11.5V4.5A3.5 3.5 0 0 0 8 1Zm2 5V4.5a2 2 0 1 0-4 0V6h4Z"/>
+          </svg>
+        </div>
+        <div class="url-text"><strong>spunk.codes</strong></div>
+      </div>
+      <div class="bookmark-star">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="#ffd700">
+          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="cta">RT to help a friend</div>
+  </div>
+
+  <div class="accent-line"></div>
+</div>
+</body>
+</html>

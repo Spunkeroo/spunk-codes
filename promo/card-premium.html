@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SPUNK.CODES — Go Premium. Ship Faster.</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    overflow: hidden;
+  }
+  .card {
+    width: 1200px;
+    height: 675px;
+    background: linear-gradient(145deg, #0d1117 0%, #14191f 40%, #0d1117 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Grid */
+  .card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,215,0,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,215,0,0.02) 1px, transparent 1px);
+    background-size: 40px 40px;
+    z-index: 0;
+  }
+
+  /* Gold glows */
+  .glow-1 {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(255,215,0,0.08) 0%, transparent 70%);
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 0;
+  }
+  .glow-2 {
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(255,215,0,0.05) 0%, transparent 70%);
+    bottom: -100px;
+    right: -50px;
+    z-index: 0;
+  }
+
+  /* Gold top border */
+  .gold-border {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #ffd700, #ffaa00, #ffd700, transparent);
+    z-index: 3;
+  }
+
+  /* Branding */
+  .brand {
+    position: absolute;
+    top: 28px;
+    left: 36px;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: rgba(255,215,0,0.5);
+    z-index: 2;
+    text-transform: uppercase;
+  }
+  .brand span { color: rgba(255,215,0,0.7); }
+
+  /* Premium badge */
+  .badge {
+    position: absolute;
+    top: 22px;
+    right: 36px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 18px;
+    background: rgba(255,215,0,0.08);
+    border: 1px solid rgba(255,215,0,0.2);
+    border-radius: 20px;
+    z-index: 2;
+    backdrop-filter: blur(10px);
+  }
+  .badge svg { flex-shrink: 0; }
+  .badge-text {
+    font-size: 13px;
+    font-weight: 700;
+    color: #ffd700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+
+  /* Content */
+  .content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    height: 100%;
+    align-items: center;
+    padding: 0 70px;
+  }
+
+  .left {
+    flex: 1;
+  }
+
+  .headline {
+    font-size: 56px;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.1;
+    margin-bottom: 18px;
+  }
+  .headline .gold { color: #ffd700; }
+
+  .subline {
+    font-size: 22px;
+    color: rgba(255,255,255,0.45);
+    font-weight: 400;
+    line-height: 1.5;
+    max-width: 480px;
+    margin-bottom: 36px;
+  }
+
+  .cta {
+    display: inline-block;
+    padding: 14px 32px;
+    background: linear-gradient(135deg, rgba(255,215,0,0.15), rgba(255,170,0,0.10));
+    border: 1px solid rgba(255,215,0,0.3);
+    border-radius: 10px;
+    color: #ffd700;
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    backdrop-filter: blur(10px);
+  }
+  .cta .free {
+    color: rgba(255,255,255,0.4);
+    font-weight: 400;
+    font-size: 15px;
+    margin-left: 6px;
+  }
+
+  /* Right -- tool preview cards */
+  .right {
+    flex: 0 0 420px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding-top: 40px;
+  }
+
+  .tool-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 22px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,215,0,0.08);
+    border-radius: 14px;
+    backdrop-filter: blur(16px);
+  }
+  .tool-card:nth-child(1) { border-color: rgba(255,215,0,0.20); background: rgba(255,215,0,0.04); }
+
+  .tool-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 20px;
+  }
+  .tool-card:nth-child(1) .tool-icon { background: rgba(255,215,0,0.12); }
+  .tool-card:nth-child(2) .tool-icon { background: rgba(88,166,255,0.12); }
+  .tool-card:nth-child(3) .tool-icon { background: rgba(57,211,83,0.12); }
+  .tool-card:nth-child(4) .tool-icon { background: rgba(163,113,247,0.12); }
+
+  .tool-info { flex: 1; }
+  .tool-name {
+    font-size: 16px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.85);
+    margin-bottom: 3px;
+  }
+  .tool-desc {
+    font-size: 13px;
+    color: rgba(255,255,255,0.35);
+  }
+
+  .tool-badge {
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    flex-shrink: 0;
+  }
+  .badge-pro {
+    background: rgba(255,215,0,0.12);
+    color: #ffd700;
+    border: 1px solid rgba(255,215,0,0.2);
+  }
+  .badge-free {
+    background: rgba(57,211,83,0.10);
+    color: #39d353;
+    border: 1px solid rgba(57,211,83,0.15);
+  }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="glow-1"></div>
+  <div class="glow-2"></div>
+  <div class="gold-border"></div>
+  <div class="brand">SPUNK<span>.</span>CODES</div>
+
+  <div class="badge">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="#ffd700">
+      <path d="M8 0l2.1 5.1L16 6l-4 3.9L13 16l-5-3.1L3 16l1-6.1L0 6l5.9-.9L8 0z"/>
+    </svg>
+    <span class="badge-text">Premium</span>
+  </div>
+
+  <div class="content">
+    <div class="left">
+      <div class="headline">Go <span class="gold">Premium</span>.<br>Ship Faster.</div>
+      <div class="subline">SaaS metrics, pitch decks, cap tables &amp; more powerful tools for founders who move fast.</div>
+      <div class="cta">spunk.codes/pricing<span class="free"> &mdash; Start free</span></div>
+    </div>
+
+    <div class="right">
+      <div class="tool-card">
+        <div class="tool-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#ffd700"><path d="M3 3v18h18V3H3zm16 16H5V5h14v14zM7 7h4v4H7V7zm6 0h4v2h-4V7zm0 4h4v2h-4v-2zm-6 4h10v2H7v-2z"/></svg>
+        </div>
+        <div class="tool-info">
+          <div class="tool-name">SaaS Metrics Dashboard</div>
+          <div class="tool-desc">MRR, churn, LTV, CAC tracking</div>
+        </div>
+        <span class="tool-badge badge-pro">Pro</span>
+      </div>
+
+      <div class="tool-card">
+        <div class="tool-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#58a6ff"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm4 18H6V4h7v5h5v11z"/></svg>
+        </div>
+        <div class="tool-info">
+          <div class="tool-name">Pitch Deck Builder</div>
+          <div class="tool-desc">Investor-ready presentations</div>
+        </div>
+        <span class="tool-badge badge-pro">Pro</span>
+      </div>
+
+      <div class="tool-card">
+        <div class="tool-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#39d353"><path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/></svg>
+        </div>
+        <div class="tool-info">
+          <div class="tool-name">Cap Table Calculator</div>
+          <div class="tool-desc">Equity splits &amp; dilution</div>
+        </div>
+        <span class="tool-badge badge-pro">Pro</span>
+      </div>
+
+      <div class="tool-card">
+        <div class="tool-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#a371f7"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg>
+        </div>
+        <div class="tool-info">
+          <div class="tool-name">Growth Analytics</div>
+          <div class="tool-desc">Revenue &amp; user tracking</div>
+        </div>
+        <span class="tool-badge badge-free">Free</span>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

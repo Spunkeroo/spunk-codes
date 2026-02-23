@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SPUNK.CODES — 22 Free Ebooks</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    overflow: hidden;
+  }
+  .card {
+    width: 1200px;
+    height: 675px;
+    background: linear-gradient(135deg, #0d1117 0%, #161b22 40%, #0d1117 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Subtle grid */
+  .card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(88,166,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(88,166,255,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    z-index: 0;
+  }
+
+  .glow-1 {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(88,166,255,0.1) 0%, transparent 70%);
+    bottom: -200px;
+    left: -100px;
+    z-index: 0;
+  }
+  .glow-2 {
+    position: absolute;
+    width: 450px;
+    height: 450px;
+    background: radial-gradient(circle, rgba(57,211,83,0.1) 0%, transparent 70%);
+    top: -150px;
+    right: -50px;
+    z-index: 0;
+  }
+
+  .brand {
+    position: absolute;
+    top: 28px;
+    right: 40px;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: rgba(88,166,255,0.6);
+    text-transform: uppercase;
+    z-index: 2;
+  }
+
+  .content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    z-index: 1;
+  }
+  .left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 60px 30px 60px 60px;
+  }
+  .headline {
+    font-size: 72px;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.1;
+    margin-bottom: 20px;
+    letter-spacing: -2px;
+  }
+  .headline span {
+    background: linear-gradient(135deg, #39d353, #58a6ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .subline {
+    font-size: 22px;
+    color: rgba(255,255,255,0.5);
+    font-weight: 400;
+    line-height: 1.5;
+    margin-bottom: 38px;
+  }
+  .cta {
+    display: inline-block;
+    background: rgba(57,211,83,0.1);
+    border: 1px solid rgba(57,211,83,0.25);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 14px 32px;
+    border-radius: 12px;
+    font-size: 19px;
+    font-weight: 700;
+    color: #39d353;
+    letter-spacing: 0.5px;
+    width: fit-content;
+  }
+
+  /* Right side -- book stack */
+  .right {
+    width: 470px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px 50px 30px 10px;
+  }
+  .book-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 370px;
+    perspective: 800px;
+  }
+  .book {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 20px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.07);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-radius: 14px;
+  }
+  .book:nth-child(odd) {
+    border-left: 3px solid rgba(88,166,255,0.4);
+    transform: rotateY(-3deg) rotateX(1deg);
+  }
+  .book:nth-child(even) {
+    border-left: 3px solid rgba(57,211,83,0.4);
+    transform: rotateY(-1deg) rotateX(0.5deg);
+  }
+  .book-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+  .book:nth-child(1) .book-icon { background: rgba(88,166,255,0.15); }
+  .book:nth-child(2) .book-icon { background: rgba(57,211,83,0.15); }
+  .book:nth-child(3) .book-icon { background: rgba(188,140,255,0.15); }
+  .book:nth-child(4) .book-icon { background: rgba(255,166,87,0.15); }
+  .book:nth-child(5) .book-icon { background: rgba(88,166,255,0.15); }
+  .book:nth-child(6) .book-icon { background: rgba(57,211,83,0.15); }
+  .book-info {
+    flex: 1;
+    min-width: 0;
+  }
+  .book-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.8);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .book-tag {
+    font-size: 11px;
+    color: rgba(255,255,255,0.3);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 3px;
+  }
+  .book-free {
+    font-size: 12px;
+    font-weight: 700;
+    color: #39d353;
+    flex-shrink: 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .more-badge {
+    text-align: center;
+    font-size: 14px;
+    color: rgba(255,255,255,0.3);
+    padding: 8px 0 0 0;
+    font-weight: 500;
+  }
+  .more-badge span {
+    color: #58a6ff;
+    font-weight: 700;
+  }
+
+  .bottom-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #39d353, #58a6ff, #39d353);
+    z-index: 2;
+  }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="glow-1"></div>
+  <div class="glow-2"></div>
+  <div class="brand">SPUNK.CODES</div>
+
+  <div class="content">
+    <div class="left">
+      <div class="headline"><span>22</span> Free<br>Ebooks</div>
+      <div class="subline">AI, SaaS, SEO, Side Hustles<br>&mdash; all yours</div>
+      <div class="cta">spunk.codes/ebook-store</div>
+    </div>
+    <div class="right">
+      <div class="book-stack">
+        <div class="book">
+          <div class="book-icon">&#129302;</div>
+          <div class="book-info">
+            <div class="book-title">AI Automation Mastery</div>
+            <div class="book-tag">Artificial Intelligence</div>
+          </div>
+          <div class="book-free">FREE</div>
+        </div>
+        <div class="book">
+          <div class="book-icon">&#128640;</div>
+          <div class="book-info">
+            <div class="book-title">Micro-SaaS Playbook</div>
+            <div class="book-tag">SaaS Building</div>
+          </div>
+          <div class="book-free">FREE</div>
+        </div>
+        <div class="book">
+          <div class="book-icon">&#128270;</div>
+          <div class="book-info">
+            <div class="book-title">SEO Masterclass</div>
+            <div class="book-tag">Search &amp; Traffic</div>
+          </div>
+          <div class="book-free">FREE</div>
+        </div>
+        <div class="book">
+          <div class="book-icon">&#128176;</div>
+          <div class="book-info">
+            <div class="book-title">100 Side Hustles</div>
+            <div class="book-tag">Income Streams</div>
+          </div>
+          <div class="book-free">FREE</div>
+        </div>
+        <div class="book">
+          <div class="book-icon">&#9889;</div>
+          <div class="book-info">
+            <div class="book-title">Prompt Engineering</div>
+            <div class="book-tag">AI Prompts</div>
+          </div>
+          <div class="book-free">FREE</div>
+        </div>
+        <div class="book">
+          <div class="book-icon">&#128200;</div>
+          <div class="book-info">
+            <div class="book-title">Email Marketing</div>
+            <div class="book-tag">Growth &amp; Sales</div>
+          </div>
+          <div class="book-free">FREE</div>
+        </div>
+        <div class="more-badge">+ <span>16 more</span> free ebooks</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom-bar"></div>
+</div>
+</body>
+</html>

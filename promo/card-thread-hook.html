@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SPUNK.CODES — I built 300+ tools and gave them away for free</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    overflow: hidden;
+  }
+  .card {
+    width: 1200px;
+    height: 675px;
+    background: linear-gradient(150deg, #0d1117 0%, #131a23 50%, #0d1117 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Grid */
+  .card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(88,166,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(88,166,255,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    z-index: 0;
+  }
+
+  /* Glows */
+  .glow-1 {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(88,166,255,0.08) 0%, transparent 70%);
+    top: -50px;
+    right: 100px;
+    z-index: 0;
+  }
+  .glow-2 {
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(57,211,83,0.06) 0%, transparent 70%);
+    bottom: -100px;
+    left: 50px;
+    z-index: 0;
+  }
+
+  /* Branding */
+  .brand {
+    position: absolute;
+    top: 28px;
+    left: 36px;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: rgba(88,166,255,0.6);
+    z-index: 2;
+    text-transform: uppercase;
+  }
+  .brand span { color: rgba(57,211,83,0.7); }
+
+  /* Content */
+  .content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    height: 100%;
+    align-items: center;
+    padding: 0 70px;
+  }
+
+  .left {
+    flex: 1;
+    padding-right: 30px;
+  }
+
+  .headline {
+    font-size: 46px;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.15;
+    margin-bottom: 14px;
+  }
+  .headline .blue { color: #58a6ff; }
+  .headline .green { color: #39d353; }
+
+  .subline {
+    font-size: 28px;
+    color: rgba(255,255,255,0.45);
+    font-weight: 400;
+    line-height: 1.4;
+    margin-bottom: 36px;
+  }
+
+  .cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 32px;
+    background: rgba(88,166,255,0.10);
+    border: 1px solid rgba(88,166,255,0.25);
+    border-radius: 10px;
+    color: #58a6ff;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    backdrop-filter: blur(10px);
+  }
+
+  /* Right -- Thread timeline */
+  .right {
+    flex: 0 0 420px;
+    position: relative;
+  }
+
+  .timeline {
+    position: relative;
+    padding-left: 36px;
+  }
+
+  /* Vertical line */
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 14px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, rgba(88,166,255,0.4), rgba(57,211,83,0.3), rgba(88,166,255,0.1));
+    border-radius: 1px;
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 22px;
+    padding: 16px 20px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+  }
+  .timeline-item:nth-child(1) {
+    border-color: rgba(88,166,255,0.15);
+    background: rgba(88,166,255,0.04);
+  }
+
+  /* Dot on timeline */
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -30px;
+    top: 22px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #58a6ff;
+    box-shadow: 0 0 10px rgba(88,166,255,0.4);
+  }
+  .timeline-item:nth-child(2)::before { background: #39d353; box-shadow: 0 0 10px rgba(57,211,83,0.4); }
+  .timeline-item:nth-child(3)::before { background: #ffd700; box-shadow: 0 0 10px rgba(255,215,0,0.4); }
+  .timeline-item:nth-child(4)::before { background: #a371f7; box-shadow: 0 0 10px rgba(163,113,247,0.4); }
+  .timeline-item:nth-child(5)::before { background: #58a6ff; box-shadow: 0 0 10px rgba(88,166,255,0.4); }
+
+  .timeline-num {
+    font-size: 12px;
+    font-weight: 700;
+    color: rgba(88,166,255,0.5);
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+  .timeline-item:nth-child(2) .timeline-num { color: rgba(57,211,83,0.5); }
+  .timeline-item:nth-child(3) .timeline-num { color: rgba(255,215,0,0.5); }
+  .timeline-item:nth-child(4) .timeline-num { color: rgba(163,113,247,0.5); }
+
+  .timeline-text {
+    font-size: 15px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.75);
+    line-height: 1.3;
+  }
+
+  /* Thread emoji indicator */
+  .thread-indicator {
+    position: absolute;
+    top: 24px;
+    right: 36px;
+    font-size: 32px;
+    z-index: 2;
+  }
+
+  /* Bottom accent */
+  .accent-line {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #58a6ff, #39d353, transparent);
+    z-index: 2;
+  }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="glow-1"></div>
+  <div class="glow-2"></div>
+  <div class="brand">SPUNK<span>.</span>CODES</div>
+  <div class="thread-indicator">&#129527;</div>
+
+  <div class="content">
+    <div class="left">
+      <div class="headline">I built <span class="blue">300+ tools</span><br>and gave them<br>away <span class="green">for free</span></div>
+      <div class="subline">Here's why (thread) &#129527;</div>
+      <div class="cta">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="#58a6ff"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+        Follow @SpunkArt13
+      </div>
+    </div>
+
+    <div class="right">
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-num">01</div>
+          <div class="timeline-text">Paid $200/mo for tools I barely used</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-num">02</div>
+          <div class="timeline-text">Built my own. Realized others need them too.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-num">03</div>
+          <div class="timeline-text">300+ tools later: SEO, dev, marketing, AI</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-num">04</div>
+          <div class="timeline-text">Made them all free. No sign-up. No catch.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-num">05</div>
+          <div class="timeline-text">The site? <strong style="color:#58a6ff;">spunk.codes</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="accent-line"></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SPUNK.CODES — $0 for What Others Charge $99/mo</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    overflow: hidden;
+  }
+  .card {
+    width: 1200px;
+    height: 675px;
+    background: linear-gradient(135deg, #0d1117 0%, #161b22 40%, #0d1117 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Subtle grid pattern */
+  .card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(88,166,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(88,166,255,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    z-index: 0;
+  }
+
+  /* Glow orbs */
+  .glow-1 {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(57,211,83,0.12) 0%, transparent 70%);
+    top: -100px;
+    right: -100px;
+    z-index: 0;
+  }
+  .glow-2 {
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(88,166,255,0.10) 0%, transparent 70%);
+    bottom: -150px;
+    left: -50px;
+    z-index: 0;
+  }
+
+  /* Branding */
+  .brand {
+    position: absolute;
+    top: 28px;
+    left: 36px;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: rgba(88,166,255,0.6);
+    z-index: 2;
+    text-transform: uppercase;
+  }
+  .brand span {
+    color: rgba(57,211,83,0.7);
+  }
+
+  /* Main content */
+  .content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    height: 100%;
+    align-items: center;
+    padding: 0 70px;
+  }
+
+  .left {
+    flex: 1;
+  }
+
+  .headline {
+    font-size: 52px;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.1;
+    margin-bottom: 20px;
+  }
+  .headline .green { color: #39d353; }
+  .headline .blue { color: #58a6ff; }
+
+  .subline {
+    font-size: 22px;
+    color: rgba(255,255,255,0.55);
+    font-weight: 400;
+    line-height: 1.5;
+    max-width: 480px;
+  }
+
+  .cta {
+    margin-top: 36px;
+    display: inline-block;
+    padding: 14px 36px;
+    background: rgba(57,211,83,0.12);
+    border: 1px solid rgba(57,211,83,0.3);
+    border-radius: 10px;
+    color: #39d353;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    backdrop-filter: blur(10px);
+  }
+
+  /* Right side -- price comparison */
+  .right {
+    flex: 0 0 380px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+  }
+
+  .price-box {
+    width: 320px;
+    padding: 28px 32px;
+    border-radius: 16px;
+    backdrop-filter: blur(16px);
+    text-align: center;
+  }
+
+  .price-others {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    position: relative;
+  }
+  .price-others .label {
+    font-size: 14px;
+    color: rgba(255,255,255,0.35);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+  }
+  .price-others .amount {
+    font-size: 64px;
+    font-weight: 800;
+    color: rgba(255,255,255,0.25);
+    position: relative;
+    display: inline-block;
+  }
+  .price-others .amount::after {
+    content: '';
+    position: absolute;
+    left: -8px;
+    right: -8px;
+    top: 50%;
+    height: 4px;
+    background: #f85149;
+    transform: rotate(-8deg);
+    border-radius: 2px;
+  }
+  .price-others .per {
+    font-size: 18px;
+    color: rgba(255,255,255,0.2);
+    margin-top: 4px;
+  }
+
+  .vs {
+    font-size: 16px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.2);
+    text-transform: uppercase;
+    letter-spacing: 4px;
+  }
+
+  .price-ours {
+    background: rgba(57,211,83,0.06);
+    border: 1px solid rgba(57,211,83,0.2);
+    box-shadow: 0 0 60px rgba(57,211,83,0.08);
+  }
+  .price-ours .label {
+    font-size: 14px;
+    color: rgba(57,211,83,0.6);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+  }
+  .price-ours .amount {
+    font-size: 80px;
+    font-weight: 900;
+    color: #39d353;
+    text-shadow: 0 0 40px rgba(57,211,83,0.3);
+  }
+  .price-ours .per {
+    font-size: 18px;
+    color: rgba(57,211,83,0.5);
+    margin-top: 4px;
+  }
+
+  /* Tool tags */
+  .tools-row {
+    position: absolute;
+    bottom: 30px;
+    left: 70px;
+    display: flex;
+    gap: 10px;
+    z-index: 2;
+  }
+  .tool-tag {
+    padding: 6px 16px;
+    background: rgba(88,166,255,0.06);
+    border: 1px solid rgba(88,166,255,0.12);
+    border-radius: 20px;
+    color: rgba(88,166,255,0.5);
+    font-size: 13px;
+    font-weight: 500;
+    backdrop-filter: blur(8px);
+  }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="glow-1"></div>
+  <div class="glow-2"></div>
+  <div class="brand">SPUNK<span>.</span>CODES</div>
+
+  <div class="content">
+    <div class="left">
+      <div class="headline">
+        <span class="green">$0</span> for What Others<br>Charge <span class="blue">$99/mo</span>
+      </div>
+      <div class="subline">SEO tools. Marketing tools. Dev tools. All free.</div>
+      <div class="cta">spunk.codes</div>
+    </div>
+    <div class="right">
+      <div class="price-box price-others">
+        <div class="label">Other platforms</div>
+        <div class="amount">$99</div>
+        <div class="per">/month</div>
+      </div>
+      <div class="vs">vs</div>
+      <div class="price-box price-ours">
+        <div class="label">Spunk.codes</div>
+        <div class="amount">$0</div>
+        <div class="per">forever</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tools-row">
+    <span class="tool-tag">SEO Audit</span>
+    <span class="tool-tag">Keyword Research</span>
+    <span class="tool-tag">Color Palette</span>
+    <span class="tool-tag">JSON Formatter</span>
+    <span class="tool-tag">QR Generator</span>
+    <span class="tool-tag">300+ more</span>
+  </div>
+</div>
+</body>
+</html>
