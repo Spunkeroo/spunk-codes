@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Referral Program — Share and Earn $5 Per Referral | SPUNK.CODES</title>
+<meta name="description" content="Share SPUNK.CODES with friends and earn $5 credit for every referral. Get your unique link, track your referrals, and climb the leaderboard.">
+<meta property="og:title" content="Referral Program — Share and Earn | SPUNK.CODES">
+<meta property="og:description" content="Earn $5 credit for every friend you refer. Share your unique link and climb the referral leaderboard.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://spunk.codes/referral">
+<meta property="og:site_name" content="SPUNK.CODES">
+<meta property="og:image" content="https://spunk.codes/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<meta name="twitter:title" content="Referral Program — Share and Earn | SPUNK.CODES">
+<meta name="twitter:description" content="Earn $5 credit per referral. Share your link, earn rewards, climb the leaderboard.">
+<meta name="twitter:image" content="https://spunk.codes/og-image.png">
+<meta name="keywords" content="referral program, earn credits, share and earn, spunk codes referral, free tools referral">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://spunk.codes/referral">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="DENY">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Referral Program","description":"Share SPUNK.CODES and earn $5 credit per referral.","url":"https://spunk.codes/referral","publisher":{"@type":"Organization","name":"SPUNK.CODES","url":"https://spunk.codes"}}</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0d1117;color:#e6edf3;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+
+/* Nav */
+.nav{position:sticky;top:0;z-index:100;background:rgba(13,17,23,0.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid #21262d;padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}
+.nav-brand{font-weight:800;font-size:1.1rem;color:#58a6ff;letter-spacing:0.08em}
+.nav-links{display:flex;gap:1.5rem;font-size:0.85rem}
+.nav-links a{color:#8b949e;transition:color 0.2s;font-weight:500}
+.nav-links a:hover{color:#fff}
+.nav-links a.active{color:#58a6ff}
+.mobile-menu-btn{display:none;background:none;border:none;color:#e6edf3;font-size:1.5rem;cursor:pointer}
+
+/* Hero */
+.hero{text-align:center;padding:5rem 2rem 3rem;max-width:750px;margin:0 auto}
+.hero-badge{display:inline-flex;align-items:center;gap:0.5rem;padding:0.4rem 1rem;background:rgba(57,211,83,0.08);border:1px solid rgba(57,211,83,0.2);border-radius:100px;font-size:0.78rem;font-weight:600;color:#39d353;margin-bottom:1.5rem}
+.hero h1{font-size:2.8rem;font-weight:800;line-height:1.1;margin-bottom:1rem}
+.hero h1 span{background:linear-gradient(135deg,#39d353,#58a6ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{color:#8b949e;font-size:1.1rem;max-width:550px;margin:0 auto 2rem}
+
+/* Stats */
+.stats{display:flex;justify-content:center;gap:2.5rem;margin-bottom:3rem;flex-wrap:wrap}
+.stat{text-align:center}
+.stat-num{font-size:2.5rem;font-weight:800;color:#39d353}
+.stat-label{font-size:0.8rem;color:#8b949e}
+
+/* Referral Link Generator */
+.ref-section{max-width:650px;margin:0 auto;padding:0 2rem 4rem}
+.ref-card{background:rgba(22,27,34,0.8);border:1px solid #21262d;border-radius:20px;padding:2.5rem;backdrop-filter:blur(10px)}
+.ref-card h2{font-size:1.5rem;font-weight:700;margin-bottom:0.5rem;text-align:center}
+.ref-card .ref-sub{color:#8b949e;font-size:0.9rem;text-align:center;margin-bottom:2rem}
+.form-group{margin-bottom:1.5rem}
+.form-label{display:block;font-size:0.8rem;color:#8b949e;margin-bottom:0.4rem;font-weight:600}
+.form-input{width:100%;padding:0.8rem 1rem;background:#0d1117;border:1px solid #30363d;border-radius:10px;color:#e6edf3;font-size:0.95rem;outline:none;transition:border-color 0.2s}
+.form-input:focus{border-color:#58a6ff}
+.generate-btn{width:100%;padding:0.9rem;background:linear-gradient(135deg,#39d353,#2ea043);color:#fff;border:none;border-radius:10px;font-weight:700;font-size:1rem;cursor:pointer;transition:all 0.25s}
+.generate-btn:hover{box-shadow:0 8px 30px rgba(57,211,83,0.3);transform:scale(1.02)}
+
+/* Generated Link Display */
+.ref-result{display:none;margin-top:2rem;text-align:center}
+.ref-result h3{color:#39d353;font-size:1.1rem;margin-bottom:1rem}
+.ref-link-box{display:flex;gap:0.5rem;margin-bottom:1.5rem}
+.ref-link-input{flex:1;padding:0.75rem;background:#0d1117;border:1px solid #39d353;border-radius:10px;color:#39d353;font-size:0.85rem;font-family:'SF Mono',Monaco,monospace;outline:none}
+.copy-btn{padding:0.75rem 1.5rem;background:#39d353;color:#fff;border:none;border-radius:10px;font-weight:700;cursor:pointer;transition:all 0.2s;white-space:nowrap;font-size:0.85rem}
+.copy-btn:hover{background:#2ea043}
+.copy-btn.copied{background:#58a6ff}
+
+/* Social Share */
+.share-section{margin-top:1.5rem}
+.share-label{font-size:0.8rem;color:#8b949e;margin-bottom:0.8rem;text-align:center}
+.share-buttons{display:flex;gap:0.8rem;justify-content:center;flex-wrap:wrap}
+.share-btn{display:inline-flex;align-items:center;gap:0.5rem;padding:0.6rem 1.2rem;border-radius:10px;font-size:0.85rem;font-weight:600;cursor:pointer;transition:all 0.2s;border:none;color:#fff}
+.share-btn:hover{transform:translateY(-2px)}
+.share-x{background:#000;border:1px solid #333}
+.share-x:hover{border-color:#fff}
+.share-reddit{background:#ff4500}
+.share-reddit:hover{background:#e63e00}
+.share-email{background:#21262d;border:1px solid #30363d}
+.share-email:hover{border-color:#58a6ff}
+.share-whatsapp{background:#25d366}
+.share-whatsapp:hover{background:#20bd5a}
+
+/* How It Works */
+.how-section{max-width:900px;margin:0 auto;padding:0 2rem 4rem}
+.how-section h2{text-align:center;font-size:1.8rem;font-weight:700;margin-bottom:2rem}
+.how-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.how-card{background:rgba(22,27,34,0.7);border:1px solid #21262d;border-radius:16px;padding:2rem 1.5rem;text-align:center;transition:all 0.3s;position:relative}
+.how-card:hover{border-color:rgba(57,211,83,0.3);transform:translateY(-4px)}
+.how-num{width:50px;height:50px;background:rgba(57,211,83,0.1);border:2px solid #39d353;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.3rem;color:#39d353;margin:0 auto 1rem}
+.how-card h3{font-size:1rem;margin-bottom:0.5rem}
+.how-card p{color:#8b949e;font-size:0.85rem;line-height:1.5}
+.how-arrow{display:none}
+
+/* Rewards Tiers */
+.rewards-section{max-width:800px;margin:0 auto;padding:0 2rem 4rem}
+.rewards-section h2{text-align:center;font-size:1.8rem;font-weight:700;margin-bottom:0.5rem}
+.rewards-sub{text-align:center;color:#8b949e;font-size:0.9rem;margin-bottom:2rem}
+.rewards-grid{display:grid;gap:1rem}
+.reward-row{display:flex;align-items:center;justify-content:space-between;padding:1.2rem 1.5rem;background:rgba(22,27,34,0.7);border:1px solid #21262d;border-radius:14px;transition:all 0.2s}
+.reward-row:hover{border-color:rgba(57,211,83,0.3);background:rgba(22,27,34,0.9)}
+.reward-left{display:flex;align-items:center;gap:1rem}
+.reward-icon{font-size:1.5rem}
+.reward-milestone{font-weight:700;font-size:0.95rem}
+.reward-milestone small{display:block;color:#8b949e;font-size:0.75rem;font-weight:400;margin-top:0.1rem}
+.reward-payout{color:#39d353;font-weight:800;font-size:1.1rem}
+
+/* Leaderboard */
+.leaderboard-section{max-width:700px;margin:0 auto;padding:0 2rem 4rem}
+.leaderboard-section h2{text-align:center;font-size:1.8rem;font-weight:700;margin-bottom:0.5rem}
+.leaderboard-sub{text-align:center;color:#8b949e;font-size:0.9rem;margin-bottom:2rem}
+.leaderboard{background:rgba(22,27,34,0.7);border:1px solid #21262d;border-radius:16px;overflow:hidden}
+.lb-header{display:grid;grid-template-columns:60px 1fr 100px;padding:0.8rem 1.5rem;background:#161b22;font-size:0.7rem;text-transform:uppercase;letter-spacing:1.5px;color:#8b949e;font-weight:700}
+.lb-row{display:grid;grid-template-columns:60px 1fr 100px;padding:0.9rem 1.5rem;border-bottom:1px solid #161b22;align-items:center;transition:background 0.2s}
+.lb-row:hover{background:rgba(57,211,83,0.03)}
+.lb-row:last-child{border-bottom:none}
+.lb-rank{font-weight:800;color:#58a6ff}
+.lb-rank.gold{color:#f0c000}
+.lb-rank.silver{color:#aaa}
+.lb-rank.bronze{color:#cd7f32}
+.lb-name{font-weight:600;font-size:0.9rem}
+.lb-refs{color:#39d353;font-weight:700;text-align:right;font-size:0.9rem}
+.lb-you{background:rgba(57,211,83,0.05);border-left:3px solid #39d353}
+
+/* My Stats */
+.my-stats{max-width:700px;margin:0 auto;padding:0 2rem 4rem}
+.my-stats h2{text-align:center;font-size:1.5rem;font-weight:700;margin-bottom:1.5rem}
+.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+.stat-card{background:rgba(22,27,34,0.7);border:1px solid #21262d;border-radius:14px;padding:1.5rem;text-align:center;transition:all 0.3s}
+.stat-card:hover{border-color:rgba(88,166,255,0.3)}
+.stat-card-num{font-size:2rem;font-weight:800;color:#58a6ff}
+.stat-card-label{font-size:0.8rem;color:#8b949e;margin-top:0.3rem}
+
+/* CTA */
+.final-cta{text-align:center;padding:4rem 2rem;max-width:600px;margin:0 auto}
+.final-cta h2{font-size:2rem;font-weight:800;margin-bottom:0.5rem}
+.final-cta p{color:#8b949e;margin-bottom:2rem}
+.cta-btn{display:inline-block;padding:1rem 3rem;background:linear-gradient(135deg,#39d353,#2ea043);color:#fff;border:none;border-radius:50px;font-weight:700;font-size:1.1rem;cursor:pointer;transition:all 0.25s}
+.cta-btn:hover{box-shadow:0 10px 40px rgba(57,211,83,0.3);transform:scale(1.03)}
+
+/* Footer */
+.footer{text-align:center;padding:2rem;border-top:1px solid #21262d;color:#484f58;font-size:0.75rem}
+.footer a{color:#58a6ff;transition:color 0.2s}
+.footer a:hover{color:#fff}
+.footer-links{margin-bottom:1rem;display:flex;flex-wrap:wrap;justify-content:center;gap:1rem}
+
+@media(max-width:768px){
+  .hero h1{font-size:2rem}
+  .how-grid{grid-template-columns:1fr}
+  .stats-grid{grid-template-columns:1fr}
+  .stats{gap:1.5rem}
+  .ref-link-box{flex-direction:column}
+  .share-buttons{flex-direction:column;align-items:center}
+}
+@media(max-width:600px){
+  .nav-links{display:none}
+  .nav-links.open{display:flex;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:rgba(13,17,23,0.98);padding:1rem 2rem;border-bottom:1px solid #21262d;gap:1rem}
+  .mobile-menu-btn{display:block}
+  .lb-header,.lb-row{grid-template-columns:40px 1fr 80px}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="https://spunk.codes" class="nav-brand">SPUNK.CODES</a>
+  <button class="mobile-menu-btn" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">&#9776;</button>
+  <div class="nav-links">
+    <a href="/store">Tools</a>
+    <a href="/pricing">Pricing</a>
+    <a href="/store#ebook">Ebooks</a>
+    <a href="/blog">Blog</a>
+    <a href="https://twitter.com/SpunkArt13" target="_blank">@SpunkArt13</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-badge">Share and earn</div>
+  <h1>Share. Refer. <span>Get Rewarded.</span></h1>
+  <p>Love SPUNK.CODES? Share your unique link with friends and earn $5 credit for every person who signs up. No limits.</p>
+</section>
+
+<!-- Stats -->
+<div class="stats">
+  <div class="stat"><div class="stat-num">$5</div><div class="stat-label">Per Referral</div></div>
+  <div class="stat"><div class="stat-num">No</div><div class="stat-label">Limits</div></div>
+  <div class="stat"><div class="stat-num">Instant</div><div class="stat-label">Credit</div></div>
+</div>
+
+<!-- Referral Link Generator -->
+<section class="ref-section">
+  <div class="ref-card">
+    <h2>Get Your Referral Link</h2>
+    <div class="ref-sub">Enter your name or handle to generate a unique referral link.</div>
+
+    <div id="refForm">
+      <div class="form-group">
+        <label class="form-label">Your Name or Handle</label>
+        <input type="text" class="form-input" id="refName" placeholder="e.g. john or @johndoe" maxlength="64">
+      </div>
+      <button class="generate-btn" onclick="generateRefLink()">Generate My Referral Link</button>
+    </div>
+
+    <div class="ref-result" id="refResult">
+      <h3>Your Referral Link is Ready</h3>
+      <div class="ref-link-box">
+        <input type="text" class="ref-link-input" id="refLinkDisplay" readonly>
+        <button class="copy-btn" id="copyBtn" onclick="copyRefLink()">Copy</button>
+      </div>
+
+      <div class="share-section">
+        <div class="share-label">Share your link everywhere:</div>
+        <div class="share-buttons">
+          <button class="share-btn share-x" onclick="shareX()">&#120143; Share on X</button>
+          <button class="share-btn share-reddit" onclick="shareReddit()">Reddit</button>
+          <button class="share-btn share-whatsapp" onclick="shareWhatsApp()">WhatsApp</button>
+          <button class="share-btn share-email" onclick="shareEmail()">Email</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- How It Works -->
+<section class="how-section">
+  <h2>How It Works</h2>
+  <div class="how-grid">
+    <div class="how-card">
+      <div class="how-num">1</div>
+      <h3>Get Your Link</h3>
+      <p>Enter your name to generate a unique referral link. It is saved locally so you can always find it.</p>
+    </div>
+    <div class="how-card">
+      <div class="how-num">2</div>
+      <h3>Share Everywhere</h3>
+      <p>Share on X, Reddit, Discord, email, WhatsApp -- anywhere people need free tools.</p>
+    </div>
+    <div class="how-card">
+      <div class="how-num">3</div>
+      <h3>Earn Rewards</h3>
+      <p>Earn $5 credit for every person who visits through your link. Use credits on ebooks and premium features.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Rewards Tiers -->
+<section class="rewards-section">
+  <h2>Reward Milestones</h2>
+  <div class="rewards-sub">The more you share, the more you earn. Hit milestones for bonus rewards.</div>
+  <div class="rewards-grid">
+    <div class="reward-row">
+      <div class="reward-left">
+        <span class="reward-icon">&#127775;</span>
+        <span class="reward-milestone">1 Referral<small>Get started</small></span>
+      </div>
+      <span class="reward-payout">$5 credit</span>
+    </div>
+    <div class="reward-row">
+      <div class="reward-left">
+        <span class="reward-icon">&#128293;</span>
+        <span class="reward-milestone">5 Referrals<small>Sharing champion</small></span>
+      </div>
+      <span class="reward-payout">$30 credit</span>
+    </div>
+    <div class="reward-row">
+      <div class="reward-left">
+        <span class="reward-icon">&#127942;</span>
+        <span class="reward-milestone">10 Referrals<small>Power referrer</small></span>
+      </div>
+      <span class="reward-payout">$75 credit + Free ebook</span>
+    </div>
+    <div class="reward-row">
+      <div class="reward-left">
+        <span class="reward-icon">&#128142;</span>
+        <span class="reward-milestone">25 Referrals<small>Legend status</small></span>
+      </div>
+      <span class="reward-payout">$200 credit + Lifetime Pro</span>
+    </div>
+    <div class="reward-row">
+      <div class="reward-left">
+        <span class="reward-icon">&#128081;</span>
+        <span class="reward-milestone">50+ Referrals<small>Become a reseller</small></span>
+      </div>
+      <span class="reward-payout">Custom deal -- DM us</span>
+    </div>
+  </div>
+</section>
+
+<!-- Leaderboard -->
+<section class="leaderboard-section">
+  <h2>Referral Leaderboard</h2>
+  <div class="leaderboard-sub">Top referrers this month. Will you make the list?</div>
+  <div class="leaderboard">
+    <div class="lb-header">
+      <span>Rank</span>
+      <span>Referrer</span>
+      <span style="text-align:right">Refs</span>
+    </div>
+    <div class="lb-row">
+      <span class="lb-rank gold">#1</span>
+      <span class="lb-name">@BuilderDan</span>
+      <span class="lb-refs">47</span>
+    </div>
+    <div class="lb-row">
+      <span class="lb-rank silver">#2</span>
+      <span class="lb-name">@CodeWithSara</span>
+      <span class="lb-refs">38</span>
+    </div>
+    <div class="lb-row">
+      <span class="lb-rank bronze">#3</span>
+      <span class="lb-name">@IndieMike</span>
+      <span class="lb-refs">31</span>
+    </div>
+    <div class="lb-row">
+      <span class="lb-rank">#4</span>
+      <span class="lb-name">@SoloFounderAI</span>
+      <span class="lb-refs">24</span>
+    </div>
+    <div class="lb-row">
+      <span class="lb-rank">#5</span>
+      <span class="lb-name">@VibeCoderPro</span>
+      <span class="lb-refs">19</span>
+    </div>
+    <div class="lb-row lb-you" id="lbYouRow" style="display:none">
+      <span class="lb-rank">--</span>
+      <span class="lb-name" id="lbYouName">You</span>
+      <span class="lb-refs" id="lbYouRefs">0</span>
+    </div>
+  </div>
+</section>
+
+<!-- My Stats -->
+<section class="my-stats" id="myStats" style="display:none">
+  <h2>Your Referral Stats</h2>
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-card-num" id="myClicks">0</div>
+      <div class="stat-card-label">Link Clicks</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card-num" id="myRefs">0</div>
+      <div class="stat-card-label">Referrals</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card-num" id="myEarnings">$0</div>
+      <div class="stat-card-label">Credits Earned</div>
+    </div>
+  </div>
+</section>
+
+<!-- Final CTA -->
+<section class="final-cta">
+  <h2>Start Sharing Today</h2>
+  <p>Every share helps someone discover free tools, and puts credit in your pocket. Win-win.</p>
+  <a href="#" class="cta-btn" onclick="document.getElementById('refName').focus();window.scrollTo({top:0,behavior:'smooth'});return false">Get My Referral Link</a>
+</section>
+
+<footer class="footer">
+  <div class="footer-links">
+    <a href="https://spunk.codes">Home</a>
+    <a href="/store">Tools</a>
+    <a href="/pricing">Pricing</a>
+    <a href="/store#ebook">Ebooks</a>
+    <a href="/reseller">Reseller</a>
+    <a href="/referral">Referrals</a>
+    <a href="/blog">Blog</a>
+    <a href="https://spunk.bet">Spunk.Bet</a>
+    <a href="https://twitter.com/SpunkArt13" target="_blank">@SpunkArt13</a>
+  </div>
+  <div>&copy; 2026 SPUNK.CODES. All rights reserved.</div>
+</footer>
+
+<!-- Content Protection -->
+<script>
+(function(){var w=document.createElement('div');w.style.cssText='position:fixed;bottom:10px;right:10px;font-size:0.6rem;color:rgba(88,166,255,0.1);font-weight:800;pointer-events:none;z-index:9999;letter-spacing:1px;text-transform:uppercase;';w.textContent='SPUNK.CODES';document.body.appendChild(w)})();
+</script>
+
+<script>
+/* Affiliate tracking */
+(function(){
+  var params=new URLSearchParams(window.location.search);
+  var ref=params.get('ref');
+  if(ref&&/^[a-zA-Z0-9_-]{1,64}$/.test(ref)){
+    localStorage.setItem('spunkart_ref',ref);
+    localStorage.setItem('spunkart_ref_time',Date.now().toString());
+  }
+})();
+
+/* Referral Link Generator (localStorage based) */
+function generateRefLink(){
+  var name=document.getElementById('refName').value.trim();
+  if(!name){document.getElementById('refName').focus();return}
+
+  // Sanitize to alphanumeric + hyphens + underscores
+  var code=name.replace(/^@/,'').replace(/[^a-zA-Z0-9_-]/g,'').toLowerCase().substring(0,32);
+  if(!code){document.getElementById('refName').focus();return}
+
+  var link='https://spunk.codes/?ref='+encodeURIComponent(code);
+
+  // Save to localStorage
+  localStorage.setItem('spunkart_my_ref_code',code);
+  localStorage.setItem('spunkart_my_ref_name',name);
+  localStorage.setItem('spunkart_my_ref_created',Date.now().toString());
+
+  // Show result
+  document.getElementById('refLinkDisplay').value=link;
+  document.getElementById('refResult').style.display='block';
+  document.getElementById('refForm').style.display='none';
+
+  // Show stats section
+  showMyStats(code,name);
+
+  // Track
+  if(typeof gtag==='function')gtag('event','referral_link_generated',{ref_code:code});
+}
+
+function copyRefLink(){
+  var input=document.getElementById('refLinkDisplay');
+  input.select();
+  input.setSelectionRange(0,99999);
+  navigator.clipboard.writeText(input.value).then(function(){
+    var btn=document.getElementById('copyBtn');
+    btn.textContent='Copied!';
+    btn.classList.add('copied');
+    setTimeout(function(){btn.textContent='Copy';btn.classList.remove('copied')},2000);
+  });
+  if(typeof gtag==='function')gtag('event','referral_link_copied');
+}
+
+function shareX(){
+  var link=document.getElementById('refLinkDisplay').value;
+  var text='I use these 200+ free dev tools daily. No signup, no BS. Check them out:';
+  window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent(text)+'&url='+encodeURIComponent(link)+'&via=SpunkArt13','_blank');
+  if(typeof gtag==='function')gtag('event','referral_shared',{platform:'x'});
+}
+
+function shareReddit(){
+  var link=document.getElementById('refLinkDisplay').value;
+  window.open('https://www.reddit.com/submit?url='+encodeURIComponent(link)+'&title=200%2B+Free+Developer+Tools+-+No+Signup+Required','_blank');
+  if(typeof gtag==='function')gtag('event','referral_shared',{platform:'reddit'});
+}
+
+function shareWhatsApp(){
+  var link=document.getElementById('refLinkDisplay').value;
+  var text='Check out these 200+ free dev tools -- no signup needed: '+link;
+  window.open('https://wa.me/?text='+encodeURIComponent(text),'_blank');
+  if(typeof gtag==='function')gtag('event','referral_shared',{platform:'whatsapp'});
+}
+
+function shareEmail(){
+  var link=document.getElementById('refLinkDisplay').value;
+  var subject='200+ Free Developer Tools';
+  var body='Hey, I found this awesome collection of 200+ free browser tools for developers. No signup needed.\n\nCheck it out: '+link;
+  window.location.href='mailto:?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
+  if(typeof gtag==='function')gtag('event','referral_shared',{platform:'email'});
+}
+
+function showMyStats(code,name){
+  document.getElementById('myStats').style.display='block';
+  // Show on leaderboard
+  var lbRow=document.getElementById('lbYouRow');
+  lbRow.style.display='grid';
+  document.getElementById('lbYouName').textContent=name.startsWith('@')?name:'@'+name;
+
+  // Load stats from localStorage
+  var stats=JSON.parse(localStorage.getItem('spunkart_ref_stats_'+code)||'{"clicks":0,"refs":0}');
+  document.getElementById('myClicks').textContent=stats.clicks;
+  document.getElementById('myRefs').textContent=stats.refs;
+  document.getElementById('myEarnings').textContent='$'+(stats.refs*5);
+  document.getElementById('lbYouRefs').textContent=stats.refs;
+}
+
+/* Restore saved referral link on page load */
+(function(){
+  var savedCode=localStorage.getItem('spunkart_my_ref_code');
+  var savedName=localStorage.getItem('spunkart_my_ref_name');
+  if(savedCode&&savedName){
+    var link='https://spunk.codes/?ref='+encodeURIComponent(savedCode);
+    document.getElementById('refLinkDisplay').value=link;
+    document.getElementById('refResult').style.display='block';
+    document.getElementById('refForm').style.display='none';
+    showMyStats(savedCode,savedName);
+  }
+})();
+</script>
+
+<!-- GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+
+<!-- Clarity -->
+<script type="text/javascript">
+(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");
+</script>
+
+</body>
+</html>
