@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Git Workflow Planner - Branch Strategy Designer | SPUNK.CODES Exclusive</title>
+<meta name="description" content="Visual git branch strategy designer. Pre-built workflows, custom naming conventions, generate .gitignore, PR templates. Exclusive premium tool.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Git Workflow Planner - SPUNK.CODES Exclusive">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/git-workflow-planner">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0d1117;--card:rgba(22,27,34,0.8);--border:rgba(48,54,61,0.6);--gold:#ffd700;--gold-border:rgba(255,215,0,0.3);--text:#e6edf3;--text-dim:#8b949e;--blue:#58a6ff;--cyan:#39d353;--red:#f85149;--orange:#ff8c00;--font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+a{color:var(--blue);text-decoration:none}
+.bg-mesh{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 80% 50% at 20% 20%,rgba(255,215,0,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(255,140,0,0.04) 0%,transparent 60%),var(--bg)}
+.bg-grid{position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,215,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,215,0,0.03) 1px,transparent 1px);background-size:60px 60px}
+.nav{position:sticky;top:0;z-index:100;background:rgba(13,17,23,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,215,0,0.15);padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}
+.nav-brand{font-weight:800;font-size:1.1rem;color:var(--gold);letter-spacing:0.08em}
+.nav-links{display:flex;gap:1.5rem;font-size:0.85rem}.nav-links a{color:var(--text-dim);font-weight:500}.nav-links a.active{color:var(--gold)}
+.lock-gate{position:fixed;inset:0;z-index:1000;background:rgba(13,17,23,0.97);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:2rem}
+.lock-gate.hidden{display:none}
+.lock-icon-big{font-size:4rem}.lock-gate h2{font-size:1.8rem;font-weight:800;text-align:center}.lock-gate h2 span{color:var(--gold)}.lock-gate p{color:var(--text-dim);text-align:center;max-width:400px}
+.code-input-wrap{display:flex;gap:0.5rem}
+.code-input{padding:0.8rem 1.5rem;background:rgba(22,27,34,0.8);border:2px solid var(--gold-border);border-radius:12px;color:var(--gold);font-size:1.2rem;font-weight:800;letter-spacing:3px;text-align:center;width:200px;outline:none;text-transform:uppercase;font-family:var(--font)}
+.code-input:focus{border-color:var(--gold);box-shadow:0 0 20px rgba(255,215,0,0.2)}
+.code-submit{padding:0.8rem 1.5rem;background:linear-gradient(135deg,#ffd700,#ff8c00);border:none;border-radius:12px;color:#000;font-size:1rem;font-weight:800;cursor:pointer}
+.code-error{color:var(--red);font-size:0.85rem;min-height:1.2em}.lock-hint{color:var(--text-dim);font-size:0.8rem}.lock-hint a{color:var(--gold)}
+.exclusive-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;background:linear-gradient(135deg,rgba(255,215,0,0.15),rgba(255,140,0,0.15));border:1px solid var(--gold-border);border-radius:100px;font-size:11px;font-weight:800;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase}
+.main{max-width:1100px;margin:0 auto;padding:2rem}
+.hero-section{text-align:center;padding:2rem 0 2rem}
+.hero-section h1{font-size:2.2rem;font-weight:800;margin:1rem 0 0.5rem}
+.hero-section h1 .gold{background:linear-gradient(135deg,#ffd700,#ff8c00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-section p{color:var(--text-dim);max-width:600px;margin:0 auto}
+.card{background:var(--card);border:1px solid var(--gold-border);border-radius:16px;padding:1.5rem;margin-bottom:1.5rem;backdrop-filter:blur(10px);position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),#ff8c00,var(--gold))}
+.card h2{font-size:1.1rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}
+.form-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0.75rem;margin-bottom:0.75rem}
+.form-group{display:flex;flex-direction:column;gap:0.3rem}
+.form-group label{font-size:0.75rem;color:var(--text-dim);font-weight:600;text-transform:uppercase;letter-spacing:0.5px}
+.form-group input,.form-group select,.form-group textarea{padding:0.6rem 0.8rem;background:rgba(22,27,34,0.9);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.85rem;font-family:var(--font);outline:none}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--gold)}
+.form-group textarea{resize:vertical;font-family:'Courier New',monospace}
+.btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;transition:all 0.2s}
+.btn-gold{background:linear-gradient(135deg,#ffd700,#ff8c00);color:#000}
+.btn-gold:hover{transform:translateY(-1px);box-shadow:0 4px 15px rgba(255,215,0,0.3)}
+.btn-outline{background:transparent;border:1px solid var(--gold-border);color:var(--gold)}
+.btn-outline:hover{background:rgba(255,215,0,0.1)}
+.btn-sm{padding:0.4rem 0.8rem;font-size:0.75rem}
+.btn-row{display:flex;gap:0.5rem;flex-wrap:wrap}
+.workflow-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;margin-bottom:1rem}
+.workflow-card{padding:1.2rem;background:rgba(13,17,23,0.6);border:2px solid var(--border);border-radius:12px;cursor:pointer;transition:all 0.2s}
+.workflow-card:hover{border-color:var(--gold-border)}
+.workflow-card.selected{border-color:var(--gold);background:rgba(255,215,0,0.05)}
+.workflow-card h3{color:var(--gold);font-size:1rem;margin-bottom:0.3rem}
+.workflow-card p{color:var(--text-dim);font-size:0.8rem}
+.workflow-card .tags{margin-top:0.5rem;display:flex;gap:0.3rem;flex-wrap:wrap}
+.workflow-card .tag{font-size:0.65rem;padding:2px 8px;background:rgba(88,166,255,0.1);border:1px solid rgba(88,166,255,0.2);border-radius:4px;color:var(--blue)}
+.branch-list{list-style:none;padding:0}
+.branch-list li{padding:0.5rem 0.75rem;display:flex;align-items:center;gap:0.5rem;border-bottom:1px solid rgba(48,54,61,0.3);font-size:0.85rem}
+.branch-color{width:12px;height:12px;border-radius:50%;flex-shrink:0}
+.branch-name{font-family:monospace;font-weight:600}
+.branch-desc{color:var(--text-dim);font-size:0.78rem;margin-left:auto}
+.diagram-container{background:#161b22;border:1px solid var(--border);border-radius:8px;padding:1rem;overflow:auto;min-height:200px}
+.code-block{background:#161b22;border:1px solid var(--border);border-radius:8px;padding:1rem;font-family:'Courier New',monospace;font-size:0.8rem;line-height:1.5;overflow:auto;white-space:pre-wrap;max-height:400px;position:relative}
+.code-block .copy-btn{position:absolute;top:0.5rem;right:0.5rem;padding:0.3rem 0.6rem;background:rgba(255,215,0,0.15);border:1px solid var(--gold-border);border-radius:6px;color:var(--gold);font-size:0.65rem;cursor:pointer;font-weight:700}
+.tabs{display:flex;gap:0.25rem;margin-bottom:1rem;flex-wrap:wrap}
+.tab{padding:0.5rem 1rem;border-radius:8px;font-size:0.8rem;font-weight:600;cursor:pointer;color:var(--text-dim);background:transparent;border:1px solid transparent}
+.tab.active{color:var(--gold);background:rgba(255,215,0,0.1);border-color:var(--gold-border)}
+.naming-row{display:flex;align-items:center;gap:0.5rem;padding:0.5rem;background:rgba(13,17,23,0.5);border-radius:8px;margin-bottom:0.5rem;font-size:0.85rem}
+.naming-type{color:var(--gold);font-weight:700;width:80px}
+.naming-pattern{font-family:monospace;color:var(--cyan)}
+.naming-example{color:var(--text-dim);margin-left:auto;font-size:0.75rem}
+.share-cta{background:linear-gradient(135deg,rgba(255,215,0,0.08),rgba(255,140,0,0.05));border:1px solid var(--gold-border);border-radius:16px;padding:2rem;text-align:center;margin-top:2rem}
+.share-cta h3{color:var(--gold);margin-bottom:0.5rem}.share-cta p{color:var(--text-dim);font-size:0.9rem;margin-bottom:1rem}
+.share-btns{display:flex;gap:0.6rem;justify-content:center;flex-wrap:wrap}
+.share-btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;color:#fff}
+.share-x{background:#000;border:1px solid #333}.share-reddit{background:#ff4500}.share-email{background:#21262d;border:1px solid #30363d}
+.footer{text-align:center;padding:2rem;border-top:1px solid rgba(255,215,0,0.1);color:var(--text-dim);font-size:0.75rem;margin-top:3rem}
+.footer a{color:var(--gold)}.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-bottom:1rem}
+.watermark{position:fixed;bottom:10px;right:10px;font-size:0.6rem;color:rgba(255,215,0,0.08);font-weight:800;pointer-events:none;z-index:9999;letter-spacing:1px;text-transform:uppercase}
+@media(max-width:768px){.main{padding:1rem}.hero-section h1{font-size:1.6rem}.nav-links{display:none}.workflow-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="bg-mesh"></div><div class="bg-grid"></div>
+<div class="lock-gate" id="lockGate"><div class="lock-icon-big">&#128274;</div><h2>Enter Code <span>SPUNK</span> to Unlock</h2><p>This exclusive premium tool requires the SPUNK referral code.</p><div class="code-input-wrap"><input type="text" class="code-input" id="codeInput" placeholder="CODE" maxlength="10" autocomplete="off"><button class="code-submit" onclick="submitCode()">Unlock</button></div><div class="code-error" id="codeError"></div><div class="lock-hint">Get the code at <a href="https://spunk.codes/exclusive-tools">spunk.codes/exclusive-tools</a></div></div>
+<nav class="nav"><a href="https://spunk.codes" class="nav-brand">SPUNK.CODES</a><div class="nav-links"><a href="/store">Tools</a><a href="/exclusive-tools" class="active">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a></div></nav>
+
+<div class="main">
+  <section class="hero-section">
+    <div class="exclusive-badge">&#128081; EXCLUSIVE TOOL</div>
+    <h1><span class="gold">Git Workflow</span> Planner</h1>
+    <p>Design your git branching strategy with visual diagrams. Generate .gitignore, PR templates, and CODEOWNERS files.</p>
+  </section>
+
+  <div class="card">
+    <h2>&#128736; Choose Workflow</h2>
+    <div class="workflow-grid" id="workflowGrid"></div>
+  </div>
+
+  <div class="card">
+    <h2>&#127912; Branch Diagram</h2>
+    <div class="diagram-container" id="branchDiagram"><p style="color:var(--text-dim);text-align:center;padding:2rem">Select a workflow above to see the branch diagram</p></div>
+  </div>
+
+  <div class="card">
+    <h2>&#128196; Branch Structure</h2>
+    <ul class="branch-list" id="branchList"></ul>
+  </div>
+
+  <div class="card">
+    <h2>&#128221; Naming Conventions</h2>
+    <div id="namingConventions"></div>
+    <div class="form-row" style="margin-top:1rem">
+      <div class="form-group"><label>Branch Type</label><select id="ncType"><option>feature</option><option>bugfix</option><option>hotfix</option><option>release</option><option>chore</option><option>docs</option></select></div>
+      <div class="form-group"><label>Prefix Pattern</label><input type="text" id="ncPrefix" placeholder="feature/"></div>
+      <div class="form-group"><label>Example</label><input type="text" id="ncExample" placeholder="feature/add-login"></div>
+    </div>
+    <div class="btn-row"><button class="btn btn-gold btn-sm" onclick="addNaming()">Add Convention</button></div>
+  </div>
+
+  <div class="card">
+    <h2>&#128190; Generate Config Files</h2>
+    <div class="tabs" id="configTabs">
+      <button class="tab active" onclick="showConfig('gitignore',this)">.gitignore</button>
+      <button class="tab" onclick="showConfig('prtemplate',this)">PR Template</button>
+      <button class="tab" onclick="showConfig('codeowners',this)">CODEOWNERS</button>
+      <button class="tab" onclick="showConfig('commitlint',this)">Commit Lint</button>
+    </div>
+    <div class="form-row" style="margin-bottom:0.75rem">
+      <div class="form-group"><label>.gitignore Preset</label>
+        <select id="gitignorePreset" onchange="generateGitignore()">
+          <option value="node">Node.js</option><option value="python">Python</option><option value="java">Java</option><option value="go">Go</option><option value="rust">Rust</option><option value="general">General</option>
+        </select>
+      </div>
+      <div class="form-group"><label>CODEOWNERS Team</label><input type="text" id="coTeam" placeholder="@org/team-name" value="@myorg/dev-team"></div>
+    </div>
+    <div class="code-block" id="configOutput"><button class="copy-btn" onclick="copyConfig()">Copy</button>Loading...</div>
+    <div class="btn-row" style="margin-top:0.75rem">
+      <button class="btn btn-outline btn-sm" onclick="downloadConfig()">Download File</button>
+      <button class="btn btn-outline btn-sm" onclick="copyConfig()">Copy to Clipboard</button>
+    </div>
+  </div>
+
+  <div class="share-cta">
+    <h3>&#128275; Share the Code, Unlock More Tools</h3>
+    <p>Share code SPUNK to help others access 15+ exclusive premium tools.</p>
+    <div class="share-btns">
+      <button class="share-btn share-x" onclick="shareX()">&#120143; Share on X</button>
+      <button class="share-btn share-reddit" onclick="shareReddit()">&#128172; Reddit</button>
+      <button class="share-btn share-email" onclick="shareEmail()">&#9993; Email</button>
+    </div>
+  </div>
+</div>
+
+<footer class="footer"><div class="footer-links"><a href="https://spunk.codes">Home</a><a href="/store">Tools</a><a href="/exclusive-tools">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a><a href="https://twitter.com/SpunkArt13" target="_blank">@SpunkArt13</a></div><div>&copy; 2026 SPUNK.CODES EXCLUSIVE.</div></footer>
+<div class="watermark">SPUNK.CODES EXCLUSIVE</div>
+
+<script>
+document.addEventListener('contextmenu',function(e){e.preventDefault()});
+document.addEventListener('keydown',function(e){if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'||e.key==='C'))||(e.ctrlKey&&e.key==='u'))e.preventDefault()});
+function checkCode(){try{var c=localStorage.getItem('spunk_referral_code')||localStorage.getItem('spunk_ref_code')||'';if(c.toUpperCase()==='SPUNK'){document.getElementById('lockGate').classList.add('hidden');return true}}catch(e){}return false}
+function submitCode(){var v=document.getElementById('codeInput').value.trim().toUpperCase();if(v==='SPUNK'){try{localStorage.setItem('spunk_referral_code','SPUNK');localStorage.setItem('spunk_ref_code','SPUNK')}catch(e){}document.getElementById('lockGate').classList.add('hidden')}else{document.getElementById('codeError').textContent='Invalid code. Try: SPUNK';setTimeout(function(){document.getElementById('codeError').textContent=''},2000)}}
+document.getElementById('codeInput').addEventListener('keydown',function(e){if(e.key==='Enter')submitCode()});
+checkCode();
+
+var workflows = [
+  {id:'gitflow',name:'Git Flow',desc:'Feature branches, develop, release, hotfix. Best for scheduled releases.',
+    tags:['Enterprise','Scheduled Releases','Complex'],
+    branches:[
+      {name:'main',color:'#ffd700',desc:'Production-ready code'},
+      {name:'develop',color:'#58a6ff',desc:'Integration branch for features'},
+      {name:'feature/*',color:'#39d353',desc:'New features developed here'},
+      {name:'release/*',color:'#ff8c00',desc:'Prepare for production release'},
+      {name:'hotfix/*',color:'#f85149',desc:'Emergency production fixes'}
+    ],
+    naming:[
+      {type:'feature',prefix:'feature/',example:'feature/user-auth'},
+      {type:'bugfix',prefix:'bugfix/',example:'bugfix/login-error'},
+      {type:'release',prefix:'release/',example:'release/v1.2.0'},
+      {type:'hotfix',prefix:'hotfix/',example:'hotfix/security-patch'}
+    ]
+  },
+  {id:'github',name:'GitHub Flow',desc:'Simple feature branch workflow. Merge to main via pull requests. Best for continuous delivery.',
+    tags:['Simple','CI/CD','Startups'],
+    branches:[
+      {name:'main',color:'#ffd700',desc:'Always deployable'},
+      {name:'feature/*',color:'#39d353',desc:'Short-lived feature branches'}
+    ],
+    naming:[
+      {type:'feature',prefix:'feature/',example:'feature/add-search'},
+      {type:'bugfix',prefix:'fix/',example:'fix/broken-link'},
+      {type:'chore',prefix:'chore/',example:'chore/update-deps'}
+    ]
+  },
+  {id:'trunk',name:'Trunk-Based',desc:'Small, frequent commits directly to main. Feature flags for WIP. Best for experienced teams.',
+    tags:['Advanced','Feature Flags','Fast'],
+    branches:[
+      {name:'main',color:'#ffd700',desc:'Single source of truth'},
+      {name:'short-lived/*',color:'#39d353',desc:'Live < 2 days, then merge'}
+    ],
+    naming:[
+      {type:'feature',prefix:'feat/',example:'feat/JIRA-123-new-api'},
+      {type:'bugfix',prefix:'fix/',example:'fix/JIRA-456-null-check'}
+    ]
+  }
+];
+
+var selectedWorkflow = null;
+var customNaming = [];
+var currentConfig = 'gitignore';
+
+function loadState(){
+  try{
+    var d=JSON.parse(localStorage.getItem('gitworkflow_data')||'{}');
+    if(d.selectedWorkflow) selectedWorkflow=d.selectedWorkflow;
+    if(d.customNaming) customNaming=d.customNaming;
+  }catch(e){}
+}
+
+function saveState(){
+  try{localStorage.setItem('gitworkflow_data',JSON.stringify({selectedWorkflow:selectedWorkflow,customNaming:customNaming}))}catch(e){}
+}
+
+function renderWorkflows(){
+  var html='';
+  workflows.forEach(function(w){
+    var sel=selectedWorkflow===w.id?' selected':'';
+    html+='<div class="workflow-card'+sel+'" onclick="selectWorkflow(\''+w.id+'\')">';
+    html+='<h3>'+w.name+'</h3><p>'+w.desc+'</p>';
+    html+='<div class="tags">'+w.tags.map(function(t){return '<span class="tag">'+t+'</span>'}).join('')+'</div>';
+    html+='</div>';
+  });
+  document.getElementById('workflowGrid').innerHTML=html;
+}
+
+function selectWorkflow(id){
+  selectedWorkflow=id;
+  saveState();
+  renderWorkflows();
+  renderBranches();
+  renderDiagram();
+  renderNaming();
+  generateConfig();
+}
+
+function getWorkflow(){return workflows.find(function(w){return w.id===selectedWorkflow})}
+
+function renderBranches(){
+  var w=getWorkflow();
+  if(!w){document.getElementById('branchList').innerHTML='<li style="color:var(--text-dim)">Select a workflow to see branches</li>';return}
+  var html='';
+  w.branches.forEach(function(b){
+    html+='<li><span class="branch-color" style="background:'+b.color+'"></span><span class="branch-name">'+b.name+'</span><span class="branch-desc">'+b.desc+'</span></li>';
+  });
+  document.getElementById('branchList').innerHTML=html;
+}
+
+function renderDiagram(){
+  var w=getWorkflow();
+  if(!w){return}
+  var svgW=800,svgH=300;
+  var svg='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 '+svgW+' '+svgH+'">';
+
+  if(w.id==='gitflow'){
+    var lanes=[
+      {name:'main',y:40,color:'#ffd700'},
+      {name:'hotfix',y:90,color:'#f85149'},
+      {name:'release',y:140,color:'#ff8c00'},
+      {name:'develop',y:190,color:'#58a6ff'},
+      {name:'feature',y:240,color:'#39d353'}
+    ];
+    lanes.forEach(function(l){
+      svg+='<line x1="80" y1="'+l.y+'" x2="750" y2="'+l.y+'" stroke="'+l.color+'" stroke-width="3" opacity="0.4"/>';
+      svg+='<text x="10" y="'+(l.y+5)+'" fill="'+l.color+'" font-size="11" font-weight="700">'+l.name+'</text>';
+    });
+    // Commits on main
+    [120,400,700].forEach(function(x){svg+='<circle cx="'+x+'" cy="40" r="6" fill="#ffd700"/>'});
+    // Develop commits
+    [120,200,300,400,500,600,700].forEach(function(x){svg+='<circle cx="'+x+'" cy="190" r="5" fill="#58a6ff"/>'});
+    // Feature branch
+    svg+='<path d="M200,190 C220,190 220,240 240,240" stroke="#39d353" stroke-width="2" fill="none"/>';
+    svg+='<line x1="240" y1="240" x2="380" y2="240" stroke="#39d353" stroke-width="2"/>';
+    svg+='<path d="M380,240 C400,240 400,190 400,190" stroke="#39d353" stroke-width="2" fill="none"/>';
+    [280,340].forEach(function(x){svg+='<circle cx="'+x+'" cy="240" r="4" fill="#39d353"/>'});
+    // Release branch
+    svg+='<path d="M500,190 C520,190 520,140 540,140" stroke="#ff8c00" stroke-width="2" fill="none"/>';
+    svg+='<line x1="540" y1="140" x2="660" y2="140" stroke="#ff8c00" stroke-width="2"/>';
+    svg+='<path d="M660,140 C680,140 680,40 700,40" stroke="#ff8c00" stroke-width="2" fill="none"/>';
+    svg+='<path d="M660,140 C680,140 680,190 700,190" stroke="#ff8c00" stroke-width="2" fill="none"/>';
+    [580,620].forEach(function(x){svg+='<circle cx="'+x+'" cy="140" r="4" fill="#ff8c00"/>'});
+    // Hotfix
+    svg+='<path d="M400,40 C420,40 420,90 440,90" stroke="#f85149" stroke-width="2" fill="none"/>';
+    svg+='<line x1="440" y1="90" x2="520" y2="90" stroke="#f85149" stroke-width="2"/>';
+    svg+='<path d="M520,90 C530,90 530,40 540,40" stroke="#f85149" stroke-width="2" fill="none" stroke-dasharray="4,4"/>';
+    svg+='<circle cx="480" cy="90" r="4" fill="#f85149"/>';
+    // Tags
+    svg+='<text x="115" y="25" fill="#ffd700" font-size="9" text-anchor="middle">v1.0</text>';
+    svg+='<text x="695" y="25" fill="#ffd700" font-size="9" text-anchor="middle">v1.1</text>';
+  } else if(w.id==='github'){
+    svg+='<line x1="80" y1="80" x2="750" y2="80" stroke="#ffd700" stroke-width="3" opacity="0.4"/>';
+    svg+='<text x="10" y="85" fill="#ffd700" font-size="12" font-weight="700">main</text>';
+    [120,250,400,550,700].forEach(function(x){svg+='<circle cx="'+x+'" cy="80" r="6" fill="#ffd700"/>'});
+    // Feature 1
+    svg+='<path d="M120,80 C140,80 140,160 160,160" stroke="#39d353" stroke-width="2" fill="none"/>';
+    svg+='<line x1="160" y1="160" x2="340" y2="160" stroke="#39d353" stroke-width="2"/>';
+    svg+='<path d="M340,160 C360,160 380,80 400,80" stroke="#39d353" stroke-width="2" fill="none"/>';
+    [200,260,300].forEach(function(x){svg+='<circle cx="'+x+'" cy="160" r="4" fill="#39d353"/>'});
+    svg+='<text x="250" y="185" fill="#39d353" font-size="10" text-anchor="middle">feature/auth</text>';
+    svg+='<rect x="355" y="128" width="30" height="16" rx="3" fill="rgba(57,211,83,0.2)" stroke="#39d353" stroke-width="1"/>';
+    svg+='<text x="370" y="140" fill="#39d353" font-size="8" text-anchor="middle">PR</text>';
+    // Feature 2
+    svg+='<path d="M400,80 C420,80 420,200 440,200" stroke="#58a6ff" stroke-width="2" fill="none"/>';
+    svg+='<line x1="440" y1="200" x2="620" y2="200" stroke="#58a6ff" stroke-width="2"/>';
+    svg+='<path d="M620,200 C640,200 660,80 700,80" stroke="#58a6ff" stroke-width="2" fill="none"/>';
+    [480,540,580].forEach(function(x){svg+='<circle cx="'+x+'" cy="200" r="4" fill="#58a6ff"/>'});
+    svg+='<text x="530" y="225" fill="#58a6ff" font-size="10" text-anchor="middle">feature/api</text>';
+    svg+='<rect x="635" y="168" width="30" height="16" rx="3" fill="rgba(88,166,255,0.2)" stroke="#58a6ff" stroke-width="1"/>';
+    svg+='<text x="650" y="180" fill="#58a6ff" font-size="8" text-anchor="middle">PR</text>';
+  } else {
+    svg+='<line x1="80" y1="100" x2="750" y2="100" stroke="#ffd700" stroke-width="4" opacity="0.4"/>';
+    svg+='<text x="10" y="105" fill="#ffd700" font-size="12" font-weight="700">main</text>';
+    [120,200,280,360,440,520,600,680].forEach(function(x){svg+='<circle cx="'+x+'" cy="100" r="6" fill="#ffd700"/>'});
+    // Short-lived branch 1
+    svg+='<path d="M200,100 C210,100 210,160 220,160" stroke="#39d353" stroke-width="2" fill="none"/>';
+    svg+='<line x1="220" y1="160" x2="260" y2="160" stroke="#39d353" stroke-width="2"/>';
+    svg+='<path d="M260,160 C270,160 270,100 280,100" stroke="#39d353" stroke-width="2" fill="none"/>';
+    svg+='<circle cx="240" cy="160" r="4" fill="#39d353"/>';
+    svg+='<text x="240" y="182" fill="#39d353" font-size="9" text-anchor="middle">&lt;2 days</text>';
+    // Short-lived branch 2
+    svg+='<path d="M440,100 C450,100 450,55 460,55" stroke="#58a6ff" stroke-width="2" fill="none"/>';
+    svg+='<line x1="460" y1="55" x2="500" y2="55" stroke="#58a6ff" stroke-width="2"/>';
+    svg+='<path d="M500,55 C510,55 510,100 520,100" stroke="#58a6ff" stroke-width="2" fill="none"/>';
+    svg+='<circle cx="480" cy="55" r="4" fill="#58a6ff"/>';
+    svg+='<text x="480" y="42" fill="#58a6ff" font-size="9" text-anchor="middle">&lt;2 days</text>';
+    // Feature flags indicator
+    svg+='<rect x="300" y="180" width="200" height="30" rx="6" fill="rgba(255,215,0,0.1)" stroke="rgba(255,215,0,0.3)" stroke-width="1"/>';
+    svg+='<text x="400" y="200" fill="#ffd700" font-size="10" text-anchor="middle">Feature Flags for WIP</text>';
+  }
+  svg+='</svg>';
+  document.getElementById('branchDiagram').innerHTML=svg;
+}
+
+function renderNaming(){
+  var w=getWorkflow();
+  var allNaming = w ? w.naming.concat(customNaming) : customNaming;
+  var html='';
+  allNaming.forEach(function(n,idx){
+    html+='<div class="naming-row"><span class="naming-type">'+n.type+'</span><span class="naming-pattern">'+n.prefix+'*</span><span class="naming-example">e.g. '+n.example+'</span></div>';
+  });
+  document.getElementById('namingConventions').innerHTML=html||'<p style="color:var(--text-dim);font-size:0.85rem">Select a workflow or add custom conventions.</p>';
+}
+
+function addNaming(){
+  var type=document.getElementById('ncType').value;
+  var prefix=document.getElementById('ncPrefix').value.trim();
+  var example=document.getElementById('ncExample').value.trim();
+  if(!prefix){alert('Enter a prefix pattern');return}
+  customNaming.push({type:type,prefix:prefix,example:example||prefix+'example'});
+  saveState();renderNaming();
+}
+
+var gitignoreTemplates={
+  node:'# Dependencies\nnode_modules/\n.pnp\n.pnp.js\n\n# Build\ndist/\nbuild/\n.next/\nout/\n\n# Testing\ncoverage/\n\n# Environment\n.env\n.env.local\n.env.*.local\n\n# IDE\n.vscode/\n.idea/\n*.swp\n*.swo\n\n# OS\n.DS_Store\nThumbs.db\n\n# Logs\nlogs/\n*.log\nnpm-debug.log*\n\n# Misc\n*.tgz\n.cache/',
+  python:'# Byte-compiled\n__pycache__/\n*.py[cod]\n*$py.class\n\n# Virtual environment\nvenv/\nenv/\n.venv/\n\n# Distribution\ndist/\nbuild/\n*.egg-info/\n*.egg\n\n# IDE\n.vscode/\n.idea/\n*.swp\n\n# Environment\n.env\n.env.local\n\n# Testing\n.pytest_cache/\nhtmlcov/\n.coverage\n\n# OS\n.DS_Store\nThumbs.db\n\n# Jupyter\n.ipynb_checkpoints/',
+  java:'# Compiled\n*.class\ntarget/\nbuild/\nout/\n\n# IDE\n.idea/\n*.iml\n.project\n.settings/\n.classpath\n.vscode/\n\n# Package files\n*.jar\n*.war\n*.ear\n\n# Gradle\n.gradle/\ngradle-app.setting\n\n# Maven\npom.xml.tag\npom.xml.next\n\n# OS\n.DS_Store\nThumbs.db\n\n# Env\n.env',
+  go:'# Binary\n*.exe\n*.exe~\n*.dll\n*.so\n*.dylib\n\n# Build\nbin/\nvendor/\n\n# Test\n*.test\n*.out\ncoverage.txt\n\n# IDE\n.vscode/\n.idea/\n\n# OS\n.DS_Store\nThumbs.db\n\n# Env\n.env',
+  rust:'# Build\ntarget/\n\n# Cargo.lock for libraries\n# Cargo.lock\n\n# IDE\n.vscode/\n.idea/\n*.swp\n\n# OS\n.DS_Store\nThumbs.db\n\n# Env\n.env',
+  general:'# IDE\n.vscode/\n.idea/\n*.swp\n*.swo\n\n# OS\n.DS_Store\nThumbs.db\n\n# Environment\n.env\n.env.local\n.env.*.local\n\n# Logs\n*.log\nlogs/\n\n# Build\ndist/\nbuild/\nout/\n\n# Dependencies\nnode_modules/\nvendor/'
+};
+
+function showConfig(type,el){
+  currentConfig=type;
+  document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active')});
+  el.classList.add('active');
+  generateConfig();
+}
+
+function generateConfig(){
+  var output='';
+  if(currentConfig==='gitignore'){
+    output=gitignoreTemplates[document.getElementById('gitignorePreset').value]||gitignoreTemplates.general;
+  } else if(currentConfig==='prtemplate'){
+    output='## Description\n\nPlease include a summary of the changes and the related issue.\n\nFixes # (issue)\n\n## Type of Change\n\n- [ ] Bug fix (non-breaking change which fixes an issue)\n- [ ] New feature (non-breaking change which adds functionality)\n- [ ] Breaking change (fix or feature that would cause existing functionality to not work as expected)\n- [ ] Documentation update\n\n## Checklist\n\n- [ ] My code follows the style guidelines of this project\n- [ ] I have performed a self-review of my code\n- [ ] I have commented my code, particularly in hard-to-understand areas\n- [ ] I have made corresponding changes to the documentation\n- [ ] My changes generate no new warnings\n- [ ] I have added tests that prove my fix is effective or that my feature works\n- [ ] New and existing unit tests pass locally with my changes\n\n## Screenshots (if applicable)\n\n## Additional Notes\n';
+  } else if(currentConfig==='codeowners'){
+    var team=document.getElementById('coTeam').value||'@myorg/dev-team';
+    output='# CODEOWNERS\n# These owners will be automatically requested for review on PRs\n\n# Default owners for everything\n* '+team+'\n\n# Frontend\n*.js '+team+'\n*.ts '+team+'\n*.tsx '+team+'\n*.css '+team+'\n*.html '+team+'\n\n# Backend\n*.py '+team+'\n*.go '+team+'\n*.java '+team+'\n\n# Infrastructure\nDockerfile '+team+'\n.github/ '+team+'\n*.yml '+team+'\n*.yaml '+team+'\n\n# Documentation\n*.md '+team+'\ndocs/ '+team+'\n';
+  } else if(currentConfig==='commitlint'){
+    output='# Commit Message Convention\n# Format: <type>(<scope>): <description>\n# Example: feat(auth): add login page\n\n# Types:\n#   feat     - New feature\n#   fix      - Bug fix\n#   docs     - Documentation changes\n#   style    - Code style changes (formatting, etc.)\n#   refactor - Code refactoring\n#   perf     - Performance improvements\n#   test     - Adding/updating tests\n#   build    - Build system changes\n#   ci       - CI/CD changes\n#   chore    - Other changes (deps, configs)\n#   revert   - Revert a previous commit\n\n# commitlint.config.js\nmodule.exports = {\n  extends: [\'@commitlint/config-conventional\'],\n  rules: {\n    \'type-enum\': [2, \'always\', [\n      \'feat\', \'fix\', \'docs\', \'style\',\n      \'refactor\', \'perf\', \'test\',\n      \'build\', \'ci\', \'chore\', \'revert\'\n    ]],\n    \'subject-case\': [2, \'never\', [\'sentence-case\', \'start-case\', \'pascal-case\', \'upper-case\']],\n    \'header-max-length\': [2, \'always\', 72]\n  }\n};';
+  }
+  document.getElementById('configOutput').innerHTML='<button class="copy-btn" onclick="copyConfig()">Copy</button>'+escapeHtml(output);
+}
+
+function generateGitignore(){generateConfig()}
+
+function escapeHtml(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+
+function copyConfig(){
+  var text=document.getElementById('configOutput').textContent;
+  navigator.clipboard.writeText(text).then(function(){alert('Copied!')});
+}
+
+function downloadConfig(){
+  var text=document.getElementById('configOutput').textContent;
+  var names={gitignore:'.gitignore',prtemplate:'pull_request_template.md',codeowners:'CODEOWNERS',commitlint:'commitlint.config.js'};
+  var blob=new Blob([text],{type:'text/plain'});
+  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=names[currentConfig]||'config.txt';a.click();
+}
+
+loadState();
+renderWorkflows();
+if(selectedWorkflow){
+  renderBranches();renderDiagram();renderNaming();
+}
+generateConfig();
+
+function shareX(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Planning git workflows with visual branch diagrams. Code SPUNK unlocks it @SpunkArt13')+'&url='+encodeURIComponent('https://spunk.codes/exclusive-tools'),'_blank')}
+function shareReddit(){window.open('https://www.reddit.com/submit?url='+encodeURIComponent('https://spunk.codes/exclusive-tools')+'&title='+encodeURIComponent('Git Workflow Planner - free with code SPUNK [spunk.codes]'),'_blank')}
+function shareEmail(){window.location.href='mailto:?subject='+encodeURIComponent('Git Workflow Planner Tool')+'&body='+encodeURIComponent('Visual git branch strategy designer. Code SPUNK: https://spunk.codes/exclusive-tools')}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+</body>
+</html>

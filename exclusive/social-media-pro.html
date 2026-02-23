@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Social Media Pro - Analytics Dashboard | SPUNK.CODES Exclusive</title>
+<meta name="description" content="Advanced social media analytics dashboard. Track performance across all platforms with engagement metrics and growth strategies.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Social Media Pro - SPUNK.CODES Exclusive">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/social-media-pro">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}:root{--bg:#0d1117;--card:rgba(22,27,34,0.8);--border:rgba(48,54,61,0.6);--gold:#ffd700;--gold-border:rgba(255,215,0,0.3);--text:#e6edf3;--text-dim:#8b949e;--blue:#58a6ff;--cyan:#39d353;--red:#f85149;--font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}a{color:var(--blue);text-decoration:none}
+.bg-mesh{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 80% 50% at 20% 20%,rgba(255,215,0,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(255,140,0,0.04) 0%,transparent 60%),var(--bg)}.bg-grid{position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,215,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,215,0,0.03) 1px,transparent 1px);background-size:60px 60px}
+.nav{position:sticky;top:0;z-index:100;background:rgba(13,17,23,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,215,0,0.15);padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}.nav-brand{font-weight:800;font-size:1.1rem;color:var(--gold)}.nav-links{display:flex;gap:1.5rem;font-size:0.85rem}.nav-links a{color:var(--text-dim);font-weight:500}.nav-links a.active{color:var(--gold)}
+.lock-gate{position:fixed;inset:0;z-index:1000;background:rgba(13,17,23,0.97);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:2rem}.lock-gate.hidden{display:none}.lock-icon-big{font-size:4rem}.lock-gate h2{font-size:1.8rem;font-weight:800;text-align:center}.lock-gate h2 span{color:var(--gold)}.lock-gate p{color:var(--text-dim);text-align:center;max-width:400px}.code-input-wrap{display:flex;gap:0.5rem}.code-input{padding:0.8rem 1.5rem;background:rgba(22,27,34,0.8);border:2px solid var(--gold-border);border-radius:12px;color:var(--gold);font-size:1.2rem;font-weight:800;letter-spacing:3px;text-align:center;width:200px;outline:none;text-transform:uppercase;font-family:var(--font)}.code-submit{padding:0.8rem 1.5rem;background:linear-gradient(135deg,#ffd700,#ff8c00);border:none;border-radius:12px;color:#000;font-size:1rem;font-weight:800;cursor:pointer}.code-error{color:var(--red);font-size:0.85rem;min-height:1.2em}.lock-hint{color:var(--text-dim);font-size:0.8rem}.lock-hint a{color:var(--gold)}
+.exclusive-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;background:linear-gradient(135deg,rgba(255,215,0,0.15),rgba(255,140,0,0.15));border:1px solid var(--gold-border);border-radius:100px;font-size:11px;font-weight:800;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase}
+.main{max-width:960px;margin:0 auto;padding:2rem}
+.hero-section{text-align:center;padding:2rem 0 2rem}.hero-section h1{font-size:2.2rem;font-weight:800;margin:1rem 0 0.5rem}.hero-section h1 .gold{background:linear-gradient(135deg,#ffd700,#ff8c00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}.hero-section p{color:var(--text-dim);max-width:600px;margin:0 auto}
+.tool-section{background:var(--card);border:1px solid var(--gold-border);border-radius:16px;padding:2rem;margin-bottom:1.5rem;backdrop-filter:blur(10px);position:relative;overflow:hidden}.tool-section::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),#ff8c00,var(--gold))}.tool-section h2{font-size:1.2rem;font-weight:700;margin-bottom:1rem}
+label{font-size:0.85rem;color:var(--text-dim);font-weight:600;display:block;margin-bottom:0.4rem}input,select{width:100%;padding:0.75rem 1rem;background:rgba(13,17,23,0.6);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:0.9rem;font-family:var(--font);outline:none}input:focus,select:focus{border-color:var(--gold)}
+.input-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}.input-group{margin-bottom:1rem}
+.btn{padding:0.75rem 2rem;border:none;border-radius:10px;font-size:0.9rem;font-weight:700;cursor:pointer;font-family:var(--font)}.btn-gold{background:linear-gradient(135deg,#ffd700,#ff8c00);color:#000}.btn-gold:hover{transform:translateY(-2px)}.btn-row{display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:1rem}
+.platform-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:0.8rem;margin-bottom:1rem}
+.plat-card{background:rgba(13,17,23,0.5);border:1px solid var(--border);border-radius:10px;padding:1rem;text-align:center;cursor:pointer;transition:all 0.2s}
+.plat-card:hover,.plat-card.active{border-color:var(--gold);background:rgba(255,215,0,0.05)}
+.plat-card .icon{font-size:1.5rem;margin-bottom:0.3rem}.plat-card .name{font-size:0.8rem;font-weight:700}
+.metric-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:1rem;margin:1.5rem 0}
+.metric-card{background:rgba(13,17,23,0.5);border:1px solid var(--border);border-radius:12px;padding:1.2rem;text-align:center}
+.metric-card .label{font-size:0.7rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.5px}.metric-card .value{font-size:1.5rem;font-weight:800;color:var(--gold);margin:0.3rem 0}.metric-card .change{font-size:0.75rem;font-weight:600}
+.change-up{color:var(--cyan)}.change-down{color:var(--red)}
+.result-box{display:none}.result-box.show{display:block}
+.chart-row{display:flex;align-items:flex-end;gap:6px;height:160px;margin:1rem 0;padding-bottom:1rem;border-bottom:1px solid var(--border)}
+.chart-bar-wrap{flex:1;display:flex;flex-direction:column;align-items:center;height:100%;justify-content:flex-end}
+.chart-bar{width:100%;max-width:40px;border-radius:4px 4px 0 0;min-height:3px;transition:height 0.5s}
+.chart-label{font-size:0.6rem;color:var(--text-dim);margin-top:4px}
+.strategy-list{list-style:none}.strategy-list li{padding:0.8rem 1rem;background:rgba(13,17,23,0.5);border:1px solid var(--border);border-radius:10px;margin-bottom:0.5rem;font-size:0.85rem}.strategy-list li strong{color:var(--gold)}
+.content-cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin:1rem 0}
+.cal-day{background:rgba(13,17,23,0.5);border:1px solid var(--border);border-radius:6px;padding:0.5rem;text-align:center;font-size:0.7rem;min-height:50px}
+.cal-day .day-name{color:var(--text-dim);font-weight:600;font-size:0.6rem}.cal-day .post-type{color:var(--gold);font-weight:700;margin-top:0.2rem;font-size:0.65rem}
+.share-cta{background:linear-gradient(135deg,rgba(255,215,0,0.08),rgba(255,140,0,0.05));border:1px solid var(--gold-border);border-radius:16px;padding:2rem;text-align:center;margin-top:2rem}.share-cta h3{color:var(--gold);margin-bottom:0.5rem}.share-cta p{color:var(--text-dim);font-size:0.9rem;margin-bottom:1rem}.share-btns{display:flex;gap:0.6rem;justify-content:center;flex-wrap:wrap}.share-btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;color:#fff}.share-x{background:#000;border:1px solid #333}.share-reddit{background:#ff4500}.share-email-btn{background:#21262d;border:1px solid #30363d}
+.footer{text-align:center;padding:2rem;border-top:1px solid rgba(255,215,0,0.1);color:var(--text-dim);font-size:0.75rem;margin-top:3rem}.footer a{color:var(--gold)}.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-bottom:1rem}
+.watermark{position:fixed;bottom:10px;right:10px;font-size:0.6rem;color:rgba(255,215,0,0.08);font-weight:800;pointer-events:none;z-index:9999;letter-spacing:1px;text-transform:uppercase}
+@media(max-width:768px){.main{padding:1rem}.hero-section h1{font-size:1.6rem}.input-grid{grid-template-columns:1fr}.metric-grid{grid-template-columns:repeat(2,1fr)}.content-cal{grid-template-columns:repeat(3,1fr)}.nav-links{display:none}}
+</style>
+</head>
+<body>
+<div class="bg-mesh"></div><div class="bg-grid"></div>
+<div class="lock-gate" id="lockGate"><div class="lock-icon-big">&#128274;</div><h2>Enter Code <span>SPUNK</span> to Unlock</h2><p>This exclusive premium tool requires the SPUNK referral code.</p><div class="code-input-wrap"><input type="text" class="code-input" id="codeInput" placeholder="CODE" maxlength="10" autocomplete="off"><button class="code-submit" onclick="submitCode()">Unlock</button></div><div class="code-error" id="codeError"></div><div class="lock-hint">Get the code at <a href="https://spunk.codes/exclusive-tools">spunk.codes/exclusive-tools</a></div></div>
+<nav class="nav"><a href="https://spunk.codes" class="nav-brand">SPUNK.CODES</a><div class="nav-links"><a href="/store">Tools</a><a href="/exclusive-tools" class="active">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a></div></nav>
+
+<div class="main">
+  <section class="hero-section">
+    <div class="exclusive-badge">&#128081; EXCLUSIVE TOOL</div>
+    <h1><span class="gold">Social Media</span> Pro</h1>
+    <p>Advanced social media analytics dashboard with performance tracking, content calendar, and growth strategies across all platforms.</p>
+  </section>
+
+  <div class="tool-section">
+    <h2>&#128241; Enter Your Metrics</h2>
+    <p style="color:var(--text-dim);font-size:0.85rem;margin-bottom:1rem">Enter your current social media stats to get personalized insights and growth strategies.</p>
+    <div class="platform-grid">
+      <div class="plat-card active" data-plat="x" onclick="selectPlat(this)"><div class="icon">&#120143;</div><div class="name">X / Twitter</div></div>
+      <div class="plat-card" data-plat="ig" onclick="selectPlat(this)"><div class="icon">&#128247;</div><div class="name">Instagram</div></div>
+      <div class="plat-card" data-plat="li" onclick="selectPlat(this)"><div class="icon">&#128188;</div><div class="name">LinkedIn</div></div>
+      <div class="plat-card" data-plat="tt" onclick="selectPlat(this)"><div class="icon">&#127909;</div><div class="name">TikTok</div></div>
+      <div class="plat-card" data-plat="yt" onclick="selectPlat(this)"><div class="icon">&#9654;</div><div class="name">YouTube</div></div>
+    </div>
+    <div class="input-grid">
+      <div class="input-group"><label>Followers / Subscribers</label><input type="number" id="followers" placeholder="e.g. 5000"></div>
+      <div class="input-group"><label>Avg. Engagement Rate (%)</label><input type="number" id="engagement" placeholder="e.g. 3.5" step="0.1"></div>
+      <div class="input-group"><label>Posts Per Week</label><input type="number" id="postsWeek" placeholder="e.g. 5"></div>
+      <div class="input-group"><label>Industry / Niche</label><input type="text" id="niche" placeholder="e.g. Tech, Fitness, Marketing"></div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-gold" onclick="analyze()">&#9889; Analyze &amp; Get Strategy</button>
+    </div>
+  </div>
+
+  <div class="result-box" id="results">
+    <div class="tool-section">
+      <h2>&#128200; Performance Dashboard</h2>
+      <div class="metric-grid" id="metricGrid"></div>
+      <h3 style="font-size:1rem;font-weight:700;margin:1.5rem 0 0.5rem">Weekly Engagement Trend</h3>
+      <div class="chart-row" id="chartRow"></div>
+    </div>
+
+    <div class="tool-section">
+      <h2>&#128197; Optimal Content Calendar</h2>
+      <div class="content-cal" id="contentCal"></div>
+    </div>
+
+    <div class="tool-section">
+      <h2>&#128161; Growth Strategies</h2>
+      <ul class="strategy-list" id="stratList"></ul>
+    </div>
+  </div>
+
+  <div class="share-cta">
+    <h3>&#128275; Share Your Code to Unlock More Tools</h3>
+    <p>15 exclusive premium tools. Share to unlock.</p>
+    <div class="share-btns">
+      <button class="share-btn share-x" onclick="shareX()">&#120143; Share on X</button>
+      <button class="share-btn share-reddit" onclick="shareReddit()">&#128172; Reddit</button>
+      <button class="share-btn share-email-btn" onclick="shareEmail()">&#9993; Email</button>
+    </div>
+  </div>
+</div>
+
+<footer class="footer"><div class="footer-links"><a href="https://spunk.codes">Home</a><a href="/store">Tools</a><a href="/exclusive-tools">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a><a href="https://twitter.com/SpunkArt13" target="_blank">@SpunkArt13</a></div><div>&copy; 2026 SPUNK.CODES EXCLUSIVE.</div></footer>
+<div class="watermark">SPUNK.CODES EXCLUSIVE</div>
+
+<script>
+document.addEventListener('contextmenu',function(e){e.preventDefault()});document.addEventListener('keydown',function(e){if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'||e.key==='C'))||(e.ctrlKey&&e.key==='u'))e.preventDefault()});
+function checkCode(){try{var c=localStorage.getItem('spunk_referral_code')||localStorage.getItem('spunk_ref_code')||'';if(c.toUpperCase()==='SPUNK'){document.getElementById('lockGate').classList.add('hidden');return true}}catch(e){}return false}
+function submitCode(){var v=document.getElementById('codeInput').value.trim().toUpperCase();if(v==='SPUNK'){try{localStorage.setItem('spunk_referral_code','SPUNK');localStorage.setItem('spunk_ref_code','SPUNK')}catch(e){}document.getElementById('lockGate').classList.add('hidden')}else{document.getElementById('codeError').textContent='Invalid code. Try: SPUNK';setTimeout(function(){document.getElementById('codeError').textContent=''},2000)}}
+document.getElementById('codeInput').addEventListener('keydown',function(e){if(e.key==='Enter')submitCode()});checkCode();
+
+var selectedPlat='x';
+function selectPlat(el){selectedPlat=el.getAttribute('data-plat');document.querySelectorAll('.plat-card').forEach(function(c){c.classList.remove('active')});el.classList.add('active')}
+
+function analyze(){
+  var followers=parseInt(document.getElementById('followers').value)||0;
+  var eng=parseFloat(document.getElementById('engagement').value)||0;
+  var posts=parseInt(document.getElementById('postsWeek').value)||0;
+  var niche=document.getElementById('niche').value||'general';
+  if(!followers){alert('Enter your follower count.');return}
+
+  var engPerPost=Math.round(followers*(eng/100));
+  var reachEst=Math.round(followers*(eng>3?0.35:eng>1?0.2:0.1));
+  var monthlyImpressions=reachEst*posts*4;
+  var growthRate=eng>5?15:eng>3?10:eng>1?5:2;
+  var projFollowers=Math.round(followers*(1+growthRate/100)*12);
+
+  var benchmarks={x:{avgEng:1.5,optPosts:14},ig:{avgEng:3.0,optPosts:7},li:{avgEng:2.0,optPosts:5},tt:{avgEng:5.0,optPosts:21},yt:{avgEng:3.5,optPosts:3}};
+  var bench=benchmarks[selectedPlat]||benchmarks.x;
+  var engVsBench=eng>bench.avgEng?'above':'below';
+
+  document.getElementById('metricGrid').innerHTML=
+    '<div class="metric-card"><div class="label">Followers</div><div class="value">'+followers.toLocaleString()+'</div><div class="change change-up">+'+growthRate+'% mo/mo est.</div></div>'+
+    '<div class="metric-card"><div class="label">Engagement Rate</div><div class="value">'+eng+'%</div><div class="change '+(eng>bench.avgEng?'change-up':'change-down')+'">'+engVsBench+' '+bench.avgEng+'% avg</div></div>'+
+    '<div class="metric-card"><div class="label">Eng. Per Post</div><div class="value">'+engPerPost.toLocaleString()+'</div></div>'+
+    '<div class="metric-card"><div class="label">Est. Reach/Post</div><div class="value">'+reachEst.toLocaleString()+'</div></div>'+
+    '<div class="metric-card"><div class="label">Monthly Impressions</div><div class="value">'+(monthlyImpressions>1000000?(monthlyImpressions/1000000).toFixed(1)+'M':monthlyImpressions>1000?(monthlyImpressions/1000).toFixed(1)+'K':monthlyImpressions)+'</div></div>'+
+    '<div class="metric-card"><div class="label">12-Month Projection</div><div class="value" style="color:var(--cyan)">'+projFollowers.toLocaleString()+'</div></div>';
+
+  // Chart
+  var colors=['#ffd700','#ff8c00','#58a6ff','#39d353','#bc8cff','#f85149','#ffd700'];
+  var days=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+  var chartHtml='';
+  days.forEach(function(d,i){
+    var val=engPerPost*(0.7+Math.random()*0.6);
+    var pct=val/(engPerPost*1.3)*100;
+    chartHtml+='<div class="chart-bar-wrap"><div class="chart-bar" style="height:'+Math.max(5,pct)+'%;background:'+colors[i]+'"></div><div class="chart-label">'+d+'</div></div>';
+  });
+  document.getElementById('chartRow').innerHTML=chartHtml;
+
+  // Content Calendar
+  var postTypes={x:['Thread','Hot take','Poll','Value post','Story','Engagement','Curated'],ig:['Reel','Carousel','Story','Single post','Reel','Live','Curated'],li:['Article','Poll','Document','Story','Video','Engagement','Industry news'],tt:['Trend','Tutorial','Duet','Story time','Challenge','Behind scenes','Trending sound'],yt:['Tutorial','Short','Q&A','Review','Collab','Behind scenes','Recap']};
+  var types=postTypes[selectedPlat]||postTypes.x;
+  var calHtml='';
+  days.forEach(function(d,i){
+    calHtml+='<div class="cal-day"><div class="day-name">'+d+'</div><div class="post-type">'+types[i]+'</div></div>';
+  });
+  document.getElementById('contentCal').innerHTML=calHtml;
+
+  // Strategies
+  var strats=[];
+  if(eng<bench.avgEng)strats.push('<strong>Boost Engagement:</strong> Your engagement ('+eng+'%) is below the '+bench.avgEng+'% average. Focus on asking questions, using polls, and responding to every comment within 1 hour.');
+  if(posts<bench.optPosts)strats.push('<strong>Increase Frequency:</strong> You\'re posting '+posts+'x/week. Optimal for this platform is '+bench.optPosts+'x/week. Batch-create content on weekends.');
+  strats.push('<strong>Hook-First Content:</strong> Your first line (or first 3 seconds for video) determines 80% of performance. Test different hooks and track which get the most saves/shares.');
+  strats.push('<strong>Engagement Windows:</strong> Post when your audience is most active. For '+niche+', test 8-9 AM and 12-1 PM on weekdays. Engage heavily in the first 30 minutes after posting.');
+  strats.push('<strong>Content Pillars:</strong> Define 3-4 content pillars for '+niche+'. Rotate between educational, entertaining, inspiring, and promotional content.');
+  strats.push('<strong>Collaboration Strategy:</strong> Partner with 2-3 creators at your level (similar follower count). Cross-promotion is the fastest organic growth hack.');
+  if(followers>1000)strats.push('<strong>Monetization Ready:</strong> With '+followers.toLocaleString()+' followers, explore brand deals, affiliate marketing, and digital products. Build an email list from your following.');
+
+  document.getElementById('stratList').innerHTML=strats.map(function(s){return '<li>'+s+'</li>'}).join('');
+  document.getElementById('results').classList.add('show');
+  document.getElementById('results').scrollIntoView({behavior:'smooth'});
+}
+
+function shareX(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Analyzing my social media with this pro dashboard. Code SPUNK to unlock @SpunkArt13')+'&url='+encodeURIComponent('https://spunk.codes/exclusive-tools'),'_blank')}
+function shareReddit(){window.open('https://www.reddit.com/submit?url='+encodeURIComponent('https://spunk.codes/exclusive-tools')+'&title='+encodeURIComponent('Social Media Analytics Pro - free with code SPUNK'),'_blank')}
+function shareEmail(){window.location.href='mailto:?subject='+encodeURIComponent('Social Media Pro Tool')+'&body='+encodeURIComponent('Social media analytics dashboard. Code SPUNK: https://spunk.codes/exclusive-tools')}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+</body>
+</html>

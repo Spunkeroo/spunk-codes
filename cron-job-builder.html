@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Copyright 2026 spunk.codes. All rights reserved. Unauthorized reproduction prohibited. hello@spunk.codes -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cron Job Builder - Natural Language Scheduling & Expression Builder | SPUNK.CODES</title>
+<meta name="description" content="Build cron expressions with natural language scheduling. Type what you want and get the cron syntax. Advanced builder with visual schedule preview and next run times.">
+<meta name="keywords" content="cron job builder, cron expression generator, cron schedule builder, natural language cron, crontab builder, cron syntax">
+<meta property="og:title" content="Cron Job Builder — Natural Language Scheduling | SPUNK.CODES">
+<meta property="og:description" content="Build cron expressions with natural language. Visual schedule preview and next run times. Free tool.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://spunk.codes/cron-job-builder">
+<meta property="og:image" content="https://spunk.codes/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Cron Job Builder | SPUNK.CODES">
+<meta name="twitter:description" content="Build cron expressions with natural language scheduling. Free tool.">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/cron-job-builder">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<meta name="author" content="spunk.codes">
+<meta name="copyright" content="Copyright 2026 spunk.codes. All rights reserved.">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0d1117;color:#e6edf3;min-height:100vh;display:flex;flex-direction:column;line-height:1.6}
+a{color:#58a6ff;text-decoration:none}a:hover{text-decoration:underline;color:#79b8ff}
+nav{background:rgba(22,27,34,0.95);backdrop-filter:blur(12px);border-bottom:1px solid #21262d;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;position:sticky;top:0;z-index:100}
+nav .logo{font-weight:800;font-size:1.1rem;color:#58a6ff;letter-spacing:1px}
+nav .links{display:flex;gap:20px;font-size:0.9rem}
+nav .links a{color:#8b949e}nav .links a:hover{color:#58a6ff}
+main{flex:1;max-width:900px;width:100%;margin:0 auto;padding:30px 20px}
+h1{font-size:2rem;font-weight:700;margin-bottom:8px;background:linear-gradient(135deg,#58a6ff,#39d353);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.subtitle{color:#8b949e;margin-bottom:10px;font-size:1rem}
+.pricing-badge{display:inline-block;background:rgba(57,211,83,0.13);border:1px solid rgba(57,211,83,0.27);color:#39d353;padding:6px 16px;border-radius:20px;font-size:0.85rem;font-weight:600;margin-bottom:24px}
+.section{background:rgba(22,27,34,0.8);backdrop-filter:blur(10px);border:1px solid #21262d;border-radius:12px;padding:24px;margin-bottom:20px;position:relative;overflow:hidden}
+.section::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,#58a6ff33,transparent)}
+label{font-size:0.85rem;color:#8b949e;display:block;margin-bottom:8px}
+input[type="text"],select{width:100%;padding:12px 16px;background:#0d1117;border:1px solid #21262d;border-radius:8px;color:#e6edf3;font-size:0.95rem;font-family:inherit;outline:none;transition:border-color .2s}
+input[type="text"]:focus,select:focus{border-color:#58a6ff;box-shadow:0 0 0 3px rgba(88,166,255,0.1)}
+.btn-row{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
+.btn{padding:10px 24px;border:none;border-radius:8px;font-size:0.9rem;font-weight:600;cursor:pointer;transition:all .2s;font-family:inherit}
+.btn-primary{background:linear-gradient(135deg,#58a6ff,#388bfd);color:#fff}.btn-primary:hover{background:linear-gradient(135deg,#79b8ff,#58a6ff);transform:translateY(-1px);box-shadow:0 4px 12px rgba(88,166,255,0.3)}
+.btn-success{background:linear-gradient(135deg,#39d353,#2ea043);color:#fff}.btn-success:hover{background:linear-gradient(135deg,#56d364,#39d353)}
+.btn-secondary{background:#21262d;color:#e6edf3;border:1px solid #30363d}.btn-secondary:hover{background:#30363d}
+.cron-display{background:#0d1117;border:2px solid #21262d;border-radius:12px;padding:24px;text-align:center;margin:20px 0}
+.cron-expression{font-family:'SF Mono',SFMono-Regular,Consolas,monospace;font-size:2rem;font-weight:700;color:#39d353;letter-spacing:4px;margin-bottom:8px;word-break:break-all}
+.cron-human{color:#8b949e;font-size:0.95rem}
+.cron-fields{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:16px}
+.cron-field{text-align:center;padding:10px 6px;background:rgba(88,166,255,0.05);border:1px solid #21262d;border-radius:8px;cursor:pointer;transition:all .2s}
+.cron-field:hover{border-color:#58a6ff}
+.cron-field.active{border-color:#58a6ff;background:rgba(88,166,255,0.12)}
+.cron-field .field-val{font-family:'SF Mono',Consolas,monospace;font-size:1.3rem;font-weight:700;color:#58a6ff}
+.cron-field .field-name{font-size:0.72rem;color:#8b949e;margin-top:4px}
+.quick-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.quick-tag{padding:6px 14px;background:#0d1117;border:2px solid #21262d;border-radius:8px;color:#8b949e;font-size:0.82rem;font-weight:600;cursor:pointer;transition:all .2s}
+.quick-tag:hover{border-color:#58a6ff;color:#58a6ff}
+.field-editor{margin-top:16px;padding:16px;background:#0d1117;border:1px solid #21262d;border-radius:10px;display:none}
+.field-editor.active{display:block}
+.field-editor h4{color:#58a6ff;font-size:0.9rem;margin-bottom:10px}
+.field-options{display:flex;flex-wrap:wrap;gap:6px}
+.field-opt{padding:4px 10px;background:#161b22;border:1px solid #21262d;border-radius:6px;font-size:0.78rem;color:#8b949e;cursor:pointer;transition:all .2s;font-family:'SF Mono',Consolas,monospace}
+.field-opt:hover{border-color:#58a6ff;color:#58a6ff}
+.field-opt.active{background:rgba(88,166,255,0.15);border-color:#58a6ff;color:#58a6ff}
+.next-runs{margin-top:16px}
+.next-run{padding:8px 14px;background:#0d1117;border:1px solid #21262d;border-radius:6px;margin-bottom:6px;font-size:0.85rem;color:#c9d1d9;display:flex;justify-content:space-between}
+.next-run .relative{color:#8b949e;font-size:0.8rem}
+.saved-list{margin-top:16px}
+.saved-item{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:#0d1117;border:1px solid #21262d;border-radius:8px;margin-bottom:8px}
+.saved-item .cron{font-family:'SF Mono',Consolas,monospace;color:#39d353;font-weight:600;font-size:0.9rem}
+.saved-item .desc{color:#8b949e;font-size:0.78rem;margin-top:2px}
+.saved-item .actions{display:flex;gap:6px}
+.saved-item .actions button{padding:4px 10px;font-size:0.78rem}
+.copied-toast{position:fixed;top:20px;left:50%;transform:translateX(-50%);background:#39d353;color:#fff;padding:10px 24px;border-radius:8px;font-weight:700;opacity:0;transition:opacity 0.3s;pointer-events:none;z-index:100}
+.copied-toast.show{opacity:1}
+.cross-sell{background:linear-gradient(135deg,rgba(88,166,255,0.05),rgba(13,17,23,0.9));border:1px solid #21262d;border-radius:12px;padding:24px;text-align:center;margin-top:40px}
+.cross-sell h3{color:#58a6ff;margin-bottom:8px;font-size:1.1rem}
+.tool-links{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:16px}
+.tool-links a{font-size:0.8rem;color:#8b949e;padding:4px 12px;border:1px solid #21262d;border-radius:6px;transition:all .2s}
+.tool-links a:hover{color:#58a6ff;border-color:#58a6ff;text-decoration:none}
+.cross-sell a.cta{display:inline-block;padding:10px 28px;background:linear-gradient(135deg,#58a6ff,#388bfd);color:#fff;border-radius:8px;font-weight:600;transition:all .2s;text-decoration:none;margin-top:16px}
+footer{text-align:center;padding:20px;color:#484f58;font-size:0.8rem;border-top:1px solid #21262d}
+@media(max-width:600px){h1{font-size:1.5rem}main{padding:20px 16px 60px}.cron-fields{grid-template-columns:repeat(5,1fr);gap:4px}.cron-expression{font-size:1.4rem}}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Cron Job Builder","description":"Build cron expressions with natural language scheduling. Visual schedule preview and next run times.","url":"https://spunk.codes/cron-job-builder","applicationCategory":"DeveloperApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Organization","name":"SpunkArt","url":"https://spunk.codes"}}</script>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="logo">SPUNK.CODES</a>
+  <div class="links">
+    <a href="/">Tools</a>
+    <a href="/social-bio">Social Growth</a>
+    <a href="/store">Ebooks</a>
+    <a href="/blog">Blog</a>
+  </div>
+</nav>
+
+<main>
+  <h1>Cron Job Builder</h1>
+  <p class="subtitle">Build cron expressions with natural language or the visual editor. See your next 5 run times instantly.</p>
+  <div class="pricing-badge">100% Free Tool</div>
+
+  <div class="section">
+    <label>Describe your schedule in plain English</label>
+    <input type="text" id="nlInput" placeholder="e.g. every weekday at 9am, every 5 minutes, first day of month at noon">
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="parseNatural()">Build Cron Expression</button>
+      <button class="btn btn-secondary" onclick="copyCron()">Copy Expression</button>
+      <button class="btn btn-success" onclick="saveCron()">Save</button>
+    </div>
+  </div>
+
+  <div class="section">
+    <label>Quick Presets</label>
+    <div class="quick-tags">
+      <div class="quick-tag" onclick="setCron('* * * * *')">Every minute</div>
+      <div class="quick-tag" onclick="setCron('*/5 * * * *')">Every 5 min</div>
+      <div class="quick-tag" onclick="setCron('*/15 * * * *')">Every 15 min</div>
+      <div class="quick-tag" onclick="setCron('0 * * * *')">Every hour</div>
+      <div class="quick-tag" onclick="setCron('0 */6 * * *')">Every 6 hours</div>
+      <div class="quick-tag" onclick="setCron('0 0 * * *')">Daily midnight</div>
+      <div class="quick-tag" onclick="setCron('0 9 * * 1-5')">Weekdays 9am</div>
+      <div class="quick-tag" onclick="setCron('0 0 * * 0')">Weekly Sunday</div>
+      <div class="quick-tag" onclick="setCron('0 0 1 * *')">Monthly 1st</div>
+      <div class="quick-tag" onclick="setCron('0 0 1 1 *')">Yearly Jan 1</div>
+    </div>
+  </div>
+
+  <div class="cron-display">
+    <div class="cron-expression" id="cronExpr">* * * * *</div>
+    <div class="cron-human" id="cronHuman">Every minute</div>
+    <div class="cron-fields" id="cronFields">
+      <div class="cron-field" onclick="editField(0)"><div class="field-val" id="f0">*</div><div class="field-name">Minute</div></div>
+      <div class="cron-field" onclick="editField(1)"><div class="field-val" id="f1">*</div><div class="field-name">Hour</div></div>
+      <div class="cron-field" onclick="editField(2)"><div class="field-val" id="f2">*</div><div class="field-name">Day</div></div>
+      <div class="cron-field" onclick="editField(3)"><div class="field-val" id="f3">*</div><div class="field-name">Month</div></div>
+      <div class="cron-field" onclick="editField(4)"><div class="field-val" id="f4">*</div><div class="field-name">Weekday</div></div>
+    </div>
+  </div>
+
+  <div class="field-editor" id="fieldEditor">
+    <h4 id="editorTitle">Edit Field</h4>
+    <div class="field-options" id="fieldOptions"></div>
+    <div style="margin-top:10px">
+      <input type="text" id="customField" placeholder="Custom value (e.g. 1,15 or */5 or 1-5)" style="font-family:monospace">
+      <button class="btn btn-primary" style="margin-top:8px" onclick="applyCustomField()">Apply</button>
+    </div>
+  </div>
+
+  <div class="section">
+    <label>Next 5 Run Times</label>
+    <div class="next-runs" id="nextRuns"></div>
+  </div>
+
+  <div class="section">
+    <h3 style="font-size:1rem;margin-bottom:12px;color:#58a6ff">Saved Cron Jobs</h3>
+    <div id="savedList" class="saved-list"><p style="color:#484f58;font-size:0.85rem">No saved cron jobs yet.</p></div>
+  </div>
+
+  <div class="cross-sell">
+    <h3>More Developer Tools</h3>
+    <div class="tool-links">
+      <a href="/github-actions-builder">GitHub Actions Builder</a>
+      <a href="/api-endpoint-designer">API Endpoint Designer</a>
+      <a href="/cli-command-builder">CLI Command Builder</a>
+      <a href="/webhook-workflow-builder">Webhook Builder</a>
+      <a href="/database-schema-designer">DB Schema Designer</a>
+    </div>
+    <a href="/store" class="cta">Visit the Store</a>
+  </div>
+</main>
+
+<div class="copied-toast" id="toast">Copied!</div>
+<footer>&copy; 2026 SPUNK.CODES &mdash; <a href="/store" style="color:#58a6ff">Store</a> &middot; <a href="/store" style="color:#8b949e">Ebooks</a> &middot; <a href="/blog" style="color:#8b949e">Blog</a> &middot; <a href="https://twitter.com/SpunkArt13" style="color:#8b949e">@SpunkArt13</a></footer>
+
+<script>
+let cron = ['*','*','*','*','*'];
+let activeField = -1;
+
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1500)}
+
+function setCron(expr) {
+  cron = expr.split(' ');
+  while(cron.length < 5) cron.push('*');
+  updateDisplay();
+}
+
+function updateDisplay() {
+  const expr = cron.join(' ');
+  document.getElementById('cronExpr').textContent = expr;
+  for(let i=0;i<5;i++) document.getElementById('f'+i).textContent = cron[i];
+  document.getElementById('cronHuman').textContent = cronToHuman(cron);
+  computeNextRuns();
+}
+
+function cronToHuman(c) {
+  const [min,hr,dom,mon,dow] = c;
+  let parts = [];
+  // Minute
+  if(min === '*') parts.push('Every minute');
+  else if(min.startsWith('*/')) parts.push(`Every ${min.slice(2)} minutes`);
+  else parts.push(`At minute ${min}`);
+  // Hour
+  if(hr !== '*') {
+    if(hr.startsWith('*/')) parts = [`Every ${hr.slice(2)} hours`];
+    else {
+      const h = parseInt(hr);
+      const ampm = h >= 12 ? 'PM' : 'AM';
+      const h12 = h === 0 ? 12 : h > 12 ? h-12 : h;
+      parts = [`At ${h12}:${min==='*'?'00':min.padStart(2,'0')} ${ampm}`];
+    }
+  }
+  // Day of month
+  if(dom !== '*') {
+    if(dom.startsWith('*/')) parts.push(`every ${dom.slice(2)} days`);
+    else parts.push(`on day ${dom}`);
+  }
+  // Month
+  const months = ['','January','February','March','April','May','June','July','August','September','October','November','December'];
+  if(mon !== '*') {
+    if(mon.includes(',')) parts.push(`in ${mon.split(',').map(m=>months[parseInt(m)]||m).join(', ')}`);
+    else parts.push(`in ${months[parseInt(mon)]||mon}`);
+  }
+  // Day of week
+  const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  if(dow !== '*') {
+    if(dow === '1-5') parts.push('on weekdays');
+    else if(dow === '0,6') parts.push('on weekends');
+    else if(dow.includes(',')) parts.push(`on ${dow.split(',').map(d=>days[parseInt(d)]||d).join(', ')}`);
+    else if(dow.includes('-')) {const[s,e]=dow.split('-');parts.push(`${days[parseInt(s)]||s} through ${days[parseInt(e)]||e}`);}
+    else parts.push(`on ${days[parseInt(dow)]||dow}`);
+  }
+  return parts.join(' ');
+}
+
+function computeNextRuns() {
+  const runs = [];
+  const now = new Date();
+  let d = new Date(now);
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const dayNames = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+
+  for(let attempt=0; attempt<525600 && runs.length<5; attempt++) {
+    d = new Date(now.getTime() + attempt * 60000);
+    if(matchesCron(d, cron)) runs.push(new Date(d));
+  }
+
+  const container = document.getElementById('nextRuns');
+  if(runs.length === 0) {container.innerHTML='<p style="color:#484f58;font-size:0.85rem">Could not compute next runs.</p>';return;}
+  container.innerHTML = runs.map(r => {
+    const diff = r - now;
+    const mins = Math.floor(diff/60000);
+    const hrs = Math.floor(mins/60);
+    const ds = Math.floor(hrs/24);
+    let rel = '';
+    if(ds > 0) rel = `in ${ds}d ${hrs%24}h`;
+    else if(hrs > 0) rel = `in ${hrs}h ${mins%60}m`;
+    else rel = `in ${mins}m`;
+    return `<div class="next-run"><span>${dayNames[r.getDay()]} ${months[r.getMonth()]} ${r.getDate()}, ${r.getFullYear()} ${String(r.getHours()).padStart(2,'0')}:${String(r.getMinutes()).padStart(2,'0')}</span><span class="relative">${rel}</span></div>`;
+  }).join('');
+}
+
+function matchesCron(date, c) {
+  const min=date.getMinutes(), hr=date.getHours(), dom=date.getDate(), mon=date.getMonth()+1, dow=date.getDay();
+  return matchField(c[0],min,0,59) && matchField(c[1],hr,0,23) && matchField(c[2],dom,1,31) && matchField(c[3],mon,1,12) && matchField(c[4],dow,0,6);
+}
+
+function matchField(field, value, min, max) {
+  if(field === '*') return true;
+  if(field.startsWith('*/')) return value % parseInt(field.slice(2)) === 0;
+  if(field.includes(',')) return field.split(',').some(f=>matchField(f.trim(),value,min,max));
+  if(field.includes('-')){const[s,e]=field.split('-').map(Number);return value>=s&&value<=e;}
+  return parseInt(field) === value;
+}
+
+const fieldConfigs = [
+  {name:'Minute',options:[{v:'*',l:'Every'},{v:'0',l:'0'},{v:'15',l:'15'},{v:'30',l:'30'},{v:'45',l:'45'},{v:'*/5',l:'*/5'},{v:'*/10',l:'*/10'},{v:'*/15',l:'*/15'},{v:'*/30',l:'*/30'}]},
+  {name:'Hour',options:[{v:'*',l:'Every'},{v:'0',l:'0 (12am)'},{v:'6',l:'6 (6am)'},{v:'9',l:'9 (9am)'},{v:'12',l:'12 (noon)'},{v:'15',l:'15 (3pm)'},{v:'18',l:'18 (6pm)'},{v:'21',l:'21 (9pm)'},{v:'*/2',l:'*/2'},{v:'*/6',l:'*/6'}]},
+  {name:'Day of Month',options:[{v:'*',l:'Every'},{v:'1',l:'1st'},{v:'15',l:'15th'},{v:'1,15',l:'1st & 15th'},{v:'*/2',l:'Every 2 days'}]},
+  {name:'Month',options:[{v:'*',l:'Every'},{v:'1',l:'Jan'},{v:'2',l:'Feb'},{v:'3',l:'Mar'},{v:'4',l:'Apr'},{v:'5',l:'May'},{v:'6',l:'Jun'},{v:'7',l:'Jul'},{v:'8',l:'Aug'},{v:'9',l:'Sep'},{v:'10',l:'Oct'},{v:'11',l:'Nov'},{v:'12',l:'Dec'},{v:'1,4,7,10',l:'Quarterly'}]},
+  {name:'Day of Week',options:[{v:'*',l:'Every'},{v:'1-5',l:'Weekdays'},{v:'0,6',l:'Weekends'},{v:'0',l:'Sun'},{v:'1',l:'Mon'},{v:'2',l:'Tue'},{v:'3',l:'Wed'},{v:'4',l:'Thu'},{v:'5',l:'Fri'},{v:'6',l:'Sat'}]}
+];
+
+function editField(index) {
+  activeField = index;
+  document.querySelectorAll('.cron-field').forEach((f,i)=>f.classList.toggle('active',i===index));
+  const editor = document.getElementById('fieldEditor');
+  editor.classList.add('active');
+  const cfg = fieldConfigs[index];
+  document.getElementById('editorTitle').textContent = `Edit: ${cfg.name}`;
+  document.getElementById('fieldOptions').innerHTML = cfg.options.map(o=>`<div class="field-opt${cron[index]===o.v?' active':''}" onclick="setField(${index},'${o.v}')">${o.l}</div>`).join('');
+  document.getElementById('customField').value = cron[index];
+}
+
+function setField(index, value) {
+  cron[index] = value;
+  updateDisplay();
+  editField(index);
+}
+
+function applyCustomField() {
+  if(activeField < 0) return;
+  cron[activeField] = document.getElementById('customField').value.trim() || '*';
+  updateDisplay();
+  editField(activeField);
+}
+
+function parseNatural() {
+  const text = document.getElementById('nlInput').value.trim().toLowerCase();
+  if(!text){showToast('Enter a schedule description');return;}
+  let c = ['*','*','*','*','*'];
+
+  if(/every\s*min/.test(text)) {c=['*','*','*','*','*'];}
+  else if(/every\s*(\d+)\s*min/.test(text)) {const m=text.match(/every\s*(\d+)\s*min/);c=[`*/${m[1]}`,'*','*','*','*'];}
+  else if(/every\s*(\d+)\s*hour/.test(text)) {const m=text.match(/every\s*(\d+)\s*hour/);c=['0',`*/${m[1]}`,'*','*','*'];}
+  else if(/every\s*hour/.test(text)) {c=['0','*','*','*','*'];}
+  else if(/daily|every\s*day/.test(text)) {
+    let hr='0',mn='0';
+    const timeMatch=text.match(/(\d{1,2})(?::(\d{2}))?\s*(am|pm)?/);
+    if(timeMatch){hr=parseInt(timeMatch[1]);mn=timeMatch[2]||'0';if(timeMatch[3]==='pm'&&hr<12)hr+=12;if(timeMatch[3]==='am'&&hr===12)hr=0;}
+    c=[mn,String(hr),'*','*','*'];
+  }
+  else if(/weekday|mon.*fri|monday.*friday/.test(text)) {
+    let hr='9',mn='0';
+    const timeMatch=text.match(/(\d{1,2})(?::(\d{2}))?\s*(am|pm)?/);
+    if(timeMatch){hr=parseInt(timeMatch[1]);mn=timeMatch[2]||'0';if(timeMatch[3]==='pm'&&hr<12)hr+=12;if(timeMatch[3]==='am'&&hr===12)hr=0;}
+    c=[mn,String(hr),'*','*','1-5'];
+  }
+  else if(/weekend/.test(text)) {
+    let hr='10',mn='0';
+    const timeMatch=text.match(/(\d{1,2})(?::(\d{2}))?\s*(am|pm)?/);
+    if(timeMatch){hr=parseInt(timeMatch[1]);mn=timeMatch[2]||'0';if(timeMatch[3]==='pm'&&hr<12)hr+=12;}
+    c=[mn,String(hr),'*','*','0,6'];
+  }
+  else if(/weekly|every\s*week/.test(text)) {c=['0','0','*','*','0'];}
+  else if(/monthly|every\s*month|first\s*day/.test(text)) {
+    let hr='0',mn='0';
+    const timeMatch=text.match(/(\d{1,2})(?::(\d{2}))?\s*(am|pm)?/);
+    if(timeMatch){hr=parseInt(timeMatch[1]);mn=timeMatch[2]||'0';if(timeMatch[3]==='pm'&&hr<12)hr+=12;}
+    if(/noon/.test(text)){hr='12';mn='0';}
+    if(/midnight/.test(text)){hr='0';mn='0';}
+    c=[mn,String(hr),'1','*','*'];
+  }
+  else if(/yearly|annually/.test(text)) {c=['0','0','1','1','*'];}
+  else if(/midnight/.test(text)) {c=['0','0','*','*','*'];}
+  else if(/noon/.test(text)) {c=['0','12','*','*','*'];}
+  else {
+    const timeMatch=text.match(/(\d{1,2})(?::(\d{2}))?\s*(am|pm)/);
+    if(timeMatch){let hr=parseInt(timeMatch[1]);const mn=timeMatch[2]||'0';if(timeMatch[3]==='pm'&&hr<12)hr+=12;if(timeMatch[3]==='am'&&hr===12)hr=0;c=[mn,String(hr),'*','*','*'];}
+  }
+
+  // Check for specific days
+  const dayMap={sunday:'0',monday:'1',tuesday:'2',wednesday:'3',thursday:'4',friday:'5',saturday:'6',sun:'0',mon:'1',tue:'2',wed:'3',thu:'4',fri:'5',sat:'6'};
+  for(const[name,num] of Object.entries(dayMap)){if(text.includes(name)&&c[4]==='*')c[4]=num;}
+
+  cron = c;
+  updateDisplay();
+  gtag('event','parse_natural',{event_category:'tool_use'});
+}
+
+function copyCron(){navigator.clipboard.writeText(cron.join(' ')).then(()=>showToast('Cron expression copied!')).catch(()=>showToast('Copy failed'));}
+
+function saveCron(){
+  let saved=JSON.parse(localStorage.getItem('spunkcodes_cron_jobs')||'[]');
+  saved.unshift({expr:cron.join(' '),human:cronToHuman(cron),date:new Date().toISOString()});
+  if(saved.length>50)saved=saved.slice(0,50);
+  localStorage.setItem('spunkcodes_cron_jobs',JSON.stringify(saved));
+  renderSaved();showToast('Cron job saved!');
+}
+
+function renderSaved(){
+  const saved=JSON.parse(localStorage.getItem('spunkcodes_cron_jobs')||'[]');
+  const list=document.getElementById('savedList');
+  if(!saved.length){list.innerHTML='<p style="color:#484f58;font-size:0.85rem">No saved cron jobs yet.</p>';return;}
+  list.innerHTML=saved.map((s,i)=>`<div class="saved-item"><div><div class="cron">${s.expr}</div><div class="desc">${s.human}</div></div><div class="actions"><button class="btn btn-secondary" style="padding:4px 10px;font-size:0.78rem" onclick="setCron('${s.expr}')">Load</button><button class="btn btn-secondary" style="padding:4px 10px;font-size:0.78rem;color:#f85149" onclick="deleteSaved(${i})">Delete</button></div></div>`).join('');
+}
+
+function deleteSaved(i){let saved=JSON.parse(localStorage.getItem('spunkcodes_cron_jobs')||'[]');saved.splice(i,1);localStorage.setItem('spunkcodes_cron_jobs',JSON.stringify(saved));renderSaved();showToast('Deleted');}
+
+updateDisplay();
+renderSaved();
+</script>
+<script>
+(function(){
+  document.addEventListener('contextmenu',function(e){e.preventDefault();});
+  document.addEventListener('keydown',function(e){if(e.key==='F12')e.preventDefault();if(e.ctrlKey&&e.key==='u')e.preventDefault();if(e.ctrlKey&&e.key==='s')e.preventDefault();if(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='i'||e.key==='J'||e.key==='j'||e.key==='C'||e.key==='c'))e.preventDefault();});
+  console.log('%c⚠ SPUNK.CODES — All rights reserved.','color:#58a6ff;font-size:16px;font-weight:bold;');
+  if(!document.querySelector('.watermark')){var w=document.createElement('div');w.className='watermark';w.style.cssText='position:fixed;bottom:10px;right:15px;font-size:0.7rem;color:rgba(88,166,255,0.15);font-weight:700;letter-spacing:2px;pointer-events:none;z-index:9999;';w.textContent='SPUNK.CODES';document.body.appendChild(w);}
+})();
+</script>
+</body>
+</html>

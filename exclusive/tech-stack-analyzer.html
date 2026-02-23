@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tech Stack Analyzer - Architecture Planning Tool | SPUNK.CODES Exclusive</title>
+<meta name="description" content="Analyze and plan your tech stack. Compare technologies, estimate costs, check compatibility. Exclusive premium tool.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Tech Stack Analyzer - SPUNK.CODES Exclusive">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/tech-stack-analyzer">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0d1117;--card:rgba(22,27,34,0.8);--border:rgba(48,54,61,0.6);--gold:#ffd700;--gold-border:rgba(255,215,0,0.3);--text:#e6edf3;--text-dim:#8b949e;--blue:#58a6ff;--cyan:#39d353;--red:#f85149;--orange:#ff8c00;--font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+a{color:var(--blue);text-decoration:none}
+.bg-mesh{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 80% 50% at 20% 20%,rgba(255,215,0,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(255,140,0,0.04) 0%,transparent 60%),var(--bg)}
+.bg-grid{position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,215,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,215,0,0.03) 1px,transparent 1px);background-size:60px 60px}
+.nav{position:sticky;top:0;z-index:100;background:rgba(13,17,23,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,215,0,0.15);padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}
+.nav-brand{font-weight:800;font-size:1.1rem;color:var(--gold);letter-spacing:0.08em}
+.nav-links{display:flex;gap:1.5rem;font-size:0.85rem}.nav-links a{color:var(--text-dim);font-weight:500}.nav-links a.active{color:var(--gold)}
+.lock-gate{position:fixed;inset:0;z-index:1000;background:rgba(13,17,23,0.97);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:2rem}
+.lock-gate.hidden{display:none}
+.lock-icon-big{font-size:4rem}.lock-gate h2{font-size:1.8rem;font-weight:800;text-align:center}.lock-gate h2 span{color:var(--gold)}.lock-gate p{color:var(--text-dim);text-align:center;max-width:400px}
+.code-input-wrap{display:flex;gap:0.5rem}
+.code-input{padding:0.8rem 1.5rem;background:rgba(22,27,34,0.8);border:2px solid var(--gold-border);border-radius:12px;color:var(--gold);font-size:1.2rem;font-weight:800;letter-spacing:3px;text-align:center;width:200px;outline:none;text-transform:uppercase;font-family:var(--font)}
+.code-input:focus{border-color:var(--gold);box-shadow:0 0 20px rgba(255,215,0,0.2)}
+.code-submit{padding:0.8rem 1.5rem;background:linear-gradient(135deg,#ffd700,#ff8c00);border:none;border-radius:12px;color:#000;font-size:1rem;font-weight:800;cursor:pointer}
+.code-error{color:var(--red);font-size:0.85rem;min-height:1.2em}.lock-hint{color:var(--text-dim);font-size:0.8rem}.lock-hint a{color:var(--gold)}
+.exclusive-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;background:linear-gradient(135deg,rgba(255,215,0,0.15),rgba(255,140,0,0.15));border:1px solid var(--gold-border);border-radius:100px;font-size:11px;font-weight:800;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase}
+.main{max-width:1100px;margin:0 auto;padding:2rem}
+.hero-section{text-align:center;padding:2rem 0 2rem}
+.hero-section h1{font-size:2.2rem;font-weight:800;margin:1rem 0 0.5rem}
+.hero-section h1 .gold{background:linear-gradient(135deg,#ffd700,#ff8c00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-section p{color:var(--text-dim);max-width:600px;margin:0 auto}
+.card{background:var(--card);border:1px solid var(--gold-border);border-radius:16px;padding:1.5rem;margin-bottom:1.5rem;backdrop-filter:blur(10px);position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),#ff8c00,var(--gold))}
+.card h2{font-size:1.1rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}
+.cat-section{margin-bottom:1.5rem}
+.cat-title{font-size:0.9rem;font-weight:700;color:var(--gold);margin-bottom:0.5rem;display:flex;align-items:center;gap:0.5rem}
+.tech-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:0.5rem}
+.tech-item{padding:0.5rem;background:rgba(13,17,23,0.5);border:2px solid var(--border);border-radius:8px;cursor:pointer;text-align:center;transition:all 0.2s;font-size:0.8rem}
+.tech-item:hover{border-color:rgba(255,215,0,0.3)}
+.tech-item.selected{border-color:var(--gold);background:rgba(255,215,0,0.08)}
+.tech-item .tname{font-weight:700;font-size:0.85rem}
+.tech-item .tprice{font-size:0.7rem;color:var(--text-dim)}.tech-item .tprice.free{color:var(--cyan)}
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;margin-bottom:1rem}
+.summary-card{background:rgba(13,17,23,0.6);border:1px solid var(--border);border-radius:12px;padding:1rem;text-align:center}
+.summary-card .val{font-size:1.6rem;font-weight:800}.summary-card .label{font-size:0.7rem;color:var(--text-dim);text-transform:uppercase}
+.compat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:0.5rem}
+.compat-item{display:flex;align-items:center;gap:0.5rem;padding:0.5rem;background:rgba(13,17,23,0.5);border-radius:8px;font-size:0.8rem}
+.compat-score{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:0.75rem;flex-shrink:0}
+.compat-good{background:rgba(57,211,83,0.15);color:var(--cyan);border:2px solid rgba(57,211,83,0.3)}
+.compat-ok{background:rgba(255,215,0,0.15);color:var(--gold);border:2px solid rgba(255,215,0,0.3)}
+.compat-bad{background:rgba(248,81,73,0.15);color:var(--red);border:2px solid rgba(248,81,73,0.3)}
+.stack-compare{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1rem}
+.compare-card{background:rgba(13,17,23,0.6);border:1px solid var(--border);border-radius:12px;padding:1rem}
+.compare-card h3{font-size:0.95rem;color:var(--gold);margin-bottom:0.5rem}
+.compare-card ul{list-style:none;padding:0}.compare-card li{font-size:0.8rem;padding:0.2rem 0;color:var(--text-dim)}
+.compare-card li span{color:var(--text);font-weight:600}
+.arch-output{background:#161b22;border:1px solid var(--border);border-radius:8px;padding:1rem;font-family:'Courier New',monospace;font-size:0.8rem;line-height:1.5;overflow:auto;white-space:pre-wrap;max-height:400px}
+.btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;transition:all 0.2s}
+.btn-gold{background:linear-gradient(135deg,#ffd700,#ff8c00);color:#000}
+.btn-gold:hover{transform:translateY(-1px);box-shadow:0 4px 15px rgba(255,215,0,0.3)}
+.btn-outline{background:transparent;border:1px solid var(--gold-border);color:var(--gold)}
+.btn-sm{padding:0.4rem 0.8rem;font-size:0.75rem}
+.btn-row{display:flex;gap:0.5rem;flex-wrap:wrap}
+.complexity-bar{display:flex;gap:3px;margin:0.5rem 0}
+.complexity-dot{width:20px;height:8px;border-radius:2px;background:var(--border)}
+.complexity-dot.filled{background:var(--gold)}
+.share-cta{background:linear-gradient(135deg,rgba(255,215,0,0.08),rgba(255,140,0,0.05));border:1px solid var(--gold-border);border-radius:16px;padding:2rem;text-align:center;margin-top:2rem}
+.share-cta h3{color:var(--gold);margin-bottom:0.5rem}.share-cta p{color:var(--text-dim);font-size:0.9rem;margin-bottom:1rem}
+.share-btns{display:flex;gap:0.6rem;justify-content:center;flex-wrap:wrap}
+.share-btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;color:#fff}
+.share-x{background:#000;border:1px solid #333}.share-reddit{background:#ff4500}.share-email{background:#21262d;border:1px solid #30363d}
+.footer{text-align:center;padding:2rem;border-top:1px solid rgba(255,215,0,0.1);color:var(--text-dim);font-size:0.75rem;margin-top:3rem}
+.footer a{color:var(--gold)}.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-bottom:1rem}
+.watermark{position:fixed;bottom:10px;right:10px;font-size:0.6rem;color:rgba(255,215,0,0.08);font-weight:800;pointer-events:none;z-index:9999;letter-spacing:1px;text-transform:uppercase}
+@media(max-width:768px){.main{padding:1rem}.hero-section h1{font-size:1.6rem}.nav-links{display:none}.tech-grid{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<div class="bg-mesh"></div><div class="bg-grid"></div>
+<div class="lock-gate" id="lockGate"><div class="lock-icon-big">&#128274;</div><h2>Enter Code <span>SPUNK</span> to Unlock</h2><p>This exclusive premium tool requires the SPUNK referral code.</p><div class="code-input-wrap"><input type="text" class="code-input" id="codeInput" placeholder="CODE" maxlength="10" autocomplete="off"><button class="code-submit" onclick="submitCode()">Unlock</button></div><div class="code-error" id="codeError"></div><div class="lock-hint">Get the code at <a href="https://spunk.codes/exclusive-tools">spunk.codes/exclusive-tools</a></div></div>
+<nav class="nav"><a href="https://spunk.codes" class="nav-brand">SPUNK.CODES</a><div class="nav-links"><a href="/store">Tools</a><a href="/exclusive-tools" class="active">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a></div></nav>
+
+<div class="main">
+  <section class="hero-section">
+    <div class="exclusive-badge">&#128081; EXCLUSIVE TOOL</div>
+    <h1><span class="gold">Tech Stack</span> Analyzer</h1>
+    <p>Select technologies across categories, check compatibility, estimate costs, and generate architecture overviews.</p>
+  </section>
+
+  <div class="card">
+    <h2>&#9881; Select Your Stack</h2>
+    <div id="techCategories"></div>
+  </div>
+
+  <div class="card">
+    <h2>&#128202; Stack Summary</h2>
+    <div class="summary-grid">
+      <div class="summary-card"><div class="val" id="techCount" style="color:var(--gold)">0</div><div class="label">Technologies</div></div>
+      <div class="summary-card"><div class="val" id="monthlyCost" style="color:var(--cyan)">$0</div><div class="label">Est. Monthly Cost</div></div>
+      <div class="summary-card"><div class="val" id="complexityScore" style="color:var(--orange)">0/10</div><div class="label">Complexity</div></div>
+      <div class="summary-card"><div class="val" id="compatScore" style="color:var(--blue)">-</div><div class="label">Compatibility</div></div>
+    </div>
+    <div class="complexity-bar" id="complexityBar"></div>
+  </div>
+
+  <div class="card">
+    <h2>&#128279; Compatibility Matrix</h2>
+    <div class="compat-grid" id="compatGrid"><p style="color:var(--text-dim);font-size:0.85rem">Select 2+ technologies to see compatibility.</p></div>
+  </div>
+
+  <div class="card">
+    <h2>&#128218; Popular Stack Comparisons</h2>
+    <div class="stack-compare" id="stackCompare"></div>
+  </div>
+
+  <div class="card">
+    <h2>&#128196; Architecture Overview</h2>
+    <div class="btn-row" style="margin-bottom:0.75rem;margin-top:0">
+      <button class="btn btn-gold btn-sm" onclick="generateArchDoc()">Generate</button>
+      <button class="btn btn-outline btn-sm" onclick="copyArch()">Copy</button>
+    </div>
+    <div class="arch-output" id="archOutput">Select technologies and click "Generate" to see your architecture overview.</div>
+  </div>
+
+  <div class="share-cta">
+    <h3>&#128275; Share the Code, Unlock More Tools</h3>
+    <p>Share code SPUNK to help others access 15+ exclusive premium tools.</p>
+    <div class="share-btns">
+      <button class="share-btn share-x" onclick="shareX()">&#120143; Share on X</button>
+      <button class="share-btn share-reddit" onclick="shareReddit()">&#128172; Reddit</button>
+      <button class="share-btn share-email" onclick="shareEmail()">&#9993; Email</button>
+    </div>
+  </div>
+</div>
+
+<footer class="footer"><div class="footer-links"><a href="https://spunk.codes">Home</a><a href="/store">Tools</a><a href="/exclusive-tools">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a><a href="https://twitter.com/SpunkArt13" target="_blank">@SpunkArt13</a></div><div>&copy; 2026 SPUNK.CODES EXCLUSIVE.</div></footer>
+<div class="watermark">SPUNK.CODES EXCLUSIVE</div>
+
+<script>
+document.addEventListener('contextmenu',function(e){e.preventDefault()});
+document.addEventListener('keydown',function(e){if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'||e.key==='C'))||(e.ctrlKey&&e.key==='u'))e.preventDefault()});
+function checkCode(){try{var c=localStorage.getItem('spunk_referral_code')||localStorage.getItem('spunk_ref_code')||'';if(c.toUpperCase()==='SPUNK'){document.getElementById('lockGate').classList.add('hidden');return true}}catch(e){}return false}
+function submitCode(){var v=document.getElementById('codeInput').value.trim().toUpperCase();if(v==='SPUNK'){try{localStorage.setItem('spunk_referral_code','SPUNK');localStorage.setItem('spunk_ref_code','SPUNK')}catch(e){}document.getElementById('lockGate').classList.add('hidden')}else{document.getElementById('codeError').textContent='Invalid code. Try: SPUNK';setTimeout(function(){document.getElementById('codeError').textContent=''},2000)}}
+document.getElementById('codeInput').addEventListener('keydown',function(e){if(e.key==='Enter')submitCode()});
+checkCode();
+
+var categories=[
+  {name:'Frontend',icon:'&#127912;',techs:[
+    {id:'react',name:'React',cost:0,complexity:3,tags:['spa','component']},
+    {id:'nextjs',name:'Next.js',cost:0,complexity:4,tags:['ssr','react','fullstack']},
+    {id:'vue',name:'Vue.js',cost:0,complexity:2,tags:['spa','component']},
+    {id:'nuxt',name:'Nuxt.js',cost:0,complexity:4,tags:['ssr','vue','fullstack']},
+    {id:'svelte',name:'Svelte',cost:0,complexity:2,tags:['spa','compiler']},
+    {id:'angular',name:'Angular',cost:0,complexity:5,tags:['spa','enterprise']},
+    {id:'htmx',name:'HTMX',cost:0,complexity:1,tags:['hypermedia','simple']},
+    {id:'astro',name:'Astro',cost:0,complexity:2,tags:['static','islands']}
+  ]},
+  {name:'Backend',icon:'&#9881;',techs:[
+    {id:'nodejs',name:'Node.js',cost:0,complexity:3,tags:['javascript','event-driven']},
+    {id:'python',name:'Python/Django',cost:0,complexity:3,tags:['python','batteries']},
+    {id:'fastapi',name:'FastAPI',cost:0,complexity:2,tags:['python','async','api']},
+    {id:'golang',name:'Go',cost:0,complexity:4,tags:['compiled','concurrent']},
+    {id:'rust',name:'Rust',cost:0,complexity:6,tags:['compiled','safe','fast']},
+    {id:'ruby',name:'Ruby on Rails',cost:0,complexity:3,tags:['ruby','convention']},
+    {id:'laravel',name:'Laravel',cost:0,complexity:3,tags:['php','eloquent']},
+    {id:'dotnet',name:'.NET',cost:0,complexity:4,tags:['csharp','enterprise']}
+  ]},
+  {name:'Database',icon:'&#128451;',techs:[
+    {id:'postgres',name:'PostgreSQL',cost:0,complexity:3,tags:['relational','sql']},
+    {id:'mysql',name:'MySQL',cost:0,complexity:2,tags:['relational','sql']},
+    {id:'mongodb',name:'MongoDB',cost:0,complexity:2,tags:['nosql','document']},
+    {id:'redis',name:'Redis',cost:0,complexity:2,tags:['cache','key-value']},
+    {id:'sqlite',name:'SQLite',cost:0,complexity:1,tags:['embedded','simple']},
+    {id:'supabase',name:'Supabase',cost:0,complexity:2,tags:['baas','postgres']},
+    {id:'firebase_db',name:'Firebase',cost:0,complexity:2,tags:['baas','realtime']},
+    {id:'planetscale',name:'PlanetScale',cost:0,complexity:2,tags:['mysql','serverless']}
+  ]},
+  {name:'DevOps',icon:'&#128640;',techs:[
+    {id:'docker',name:'Docker',cost:0,complexity:3,tags:['containers']},
+    {id:'kubernetes',name:'Kubernetes',cost:0,complexity:7,tags:['orchestration']},
+    {id:'vercel',name:'Vercel',cost:0,complexity:1,tags:['deploy','serverless']},
+    {id:'aws',name:'AWS',cost:50,complexity:6,tags:['cloud','enterprise']},
+    {id:'gcp',name:'Google Cloud',cost:40,complexity:5,tags:['cloud']},
+    {id:'netlify',name:'Netlify',cost:0,complexity:1,tags:['deploy','static']},
+    {id:'railway',name:'Railway',cost:5,complexity:1,tags:['deploy','simple']},
+    {id:'ghactions',name:'GitHub Actions',cost:0,complexity:2,tags:['ci','cd']}
+  ]},
+  {name:'Auth',icon:'&#128274;',techs:[
+    {id:'authjs',name:'Auth.js',cost:0,complexity:2,tags:['oauth','nextjs']},
+    {id:'clerk',name:'Clerk',cost:0,complexity:1,tags:['managed','ui']},
+    {id:'auth0',name:'Auth0',cost:0,complexity:3,tags:['managed','enterprise']},
+    {id:'supabase_auth',name:'Supabase Auth',cost:0,complexity:1,tags:['baas']},
+    {id:'firebase_auth',name:'Firebase Auth',cost:0,complexity:1,tags:['baas']},
+    {id:'keycloak',name:'Keycloak',cost:0,complexity:5,tags:['self-hosted','enterprise']}
+  ]},
+  {name:'Payments',icon:'&#128176;',techs:[
+    {id:'stripe',name:'Stripe',cost:0,complexity:3,tags:['cards','subscriptions']},
+    {id:'paypal',name:'PayPal',cost:0,complexity:2,tags:['popular','global']},
+    {id:'lemonsqueezy',name:'LemonSqueezy',cost:0,complexity:1,tags:['digital','simple']},
+    {id:'paddle',name:'Paddle',cost:0,complexity:2,tags:['saas','tax']}
+  ]},
+  {name:'Analytics',icon:'&#128202;',techs:[
+    {id:'ga4',name:'Google Analytics',cost:0,complexity:1,tags:['free','popular']},
+    {id:'plausible',name:'Plausible',cost:9,complexity:1,tags:['privacy','simple']},
+    {id:'posthog',name:'PostHog',cost:0,complexity:2,tags:['product','events']},
+    {id:'mixpanel',name:'Mixpanel',cost:0,complexity:3,tags:['product','funnels']}
+  ]}
+];
+
+var compatMatrix={
+  'react+nodejs':95,'react+python':70,'react+golang':75,'react+nextjs':100,
+  'nextjs+vercel':100,'nextjs+nodejs':100,'nextjs+postgres':90,'nextjs+supabase':95,
+  'vue+nodejs':90,'vue+python':75,'vue+nuxt':100,'nuxt+vercel':85,
+  'svelte+nodejs':85,'svelte+vercel':80,
+  'angular+dotnet':95,'angular+nodejs':85,
+  'nodejs+postgres':90,'nodejs+mongodb':95,'nodejs+redis':95,'nodejs+mysql':85,
+  'python+postgres':95,'python+redis':90,'fastapi+postgres':90,
+  'golang+postgres':90,'golang+redis':95,'golang+docker':95,'golang+kubernetes':90,
+  'rust+postgres':85,'rust+docker':90,
+  'docker+kubernetes':100,'docker+aws':90,'docker+gcp':90,
+  'vercel+ghactions':80,'netlify+ghactions':80,
+  'supabase+nextjs':95,'firebase_db+react':90,'firebase_db+vue':85,
+  'stripe+nodejs':95,'stripe+nextjs':95,'stripe+python':90,
+  'authjs+nextjs':100,'clerk+nextjs':95,'clerk+react':90,
+  'supabase_auth+supabase':100,'firebase_auth+firebase_db':100
+};
+
+var popularStacks=[
+  {name:'MERN Stack',desc:'Full-stack JavaScript',techs:['mongodb','react','nodejs'],cost:'$0-20/mo',complexity:'Medium'},
+  {name:'T3 Stack',desc:'TypeScript-first fullstack',techs:['nextjs','postgres','vercel'],cost:'$0-25/mo',complexity:'Medium'},
+  {name:'Django + React',desc:'Python backend, React frontend',techs:['python','react','postgres'],cost:'$0-30/mo',complexity:'Medium'},
+  {name:'Go + HTMX',desc:'Minimal, fast, server-rendered',techs:['golang','htmx','postgres'],cost:'$5-15/mo',complexity:'Low'},
+  {name:'Rails Monolith',desc:'Convention over configuration',techs:['ruby','postgres','redis'],cost:'$0-25/mo',complexity:'Low'},
+  {name:'Enterprise Java',desc:'Large-scale applications',techs:['angular','dotnet','postgres','aws','kubernetes'],cost:'$100+/mo',complexity:'High'}
+];
+
+var selected=[];
+
+function loadState(){try{selected=JSON.parse(localStorage.getItem('techstack_selected')||'[]')}catch(e){selected=[]}}
+function saveState(){try{localStorage.setItem('techstack_selected',JSON.stringify(selected))}catch(e){}}
+
+function renderCategories(){
+  var html='';
+  categories.forEach(function(cat){
+    html+='<div class="cat-section"><div class="cat-title">'+cat.icon+' '+cat.name+'</div><div class="tech-grid">';
+    cat.techs.forEach(function(t){
+      var sel=selected.indexOf(t.id)!==-1?' selected':'';
+      var price=t.cost>0?'$'+t.cost+'/mo':'Free';
+      var priceClass=t.cost>0?'':'free';
+      html+='<div class="tech-item'+sel+'" onclick="toggleTech(\''+t.id+'\')"><div class="tname">'+t.name+'</div><div class="tprice '+priceClass+'">'+price+'</div></div>';
+    });
+    html+='</div></div>';
+  });
+  document.getElementById('techCategories').innerHTML=html;
+}
+
+function toggleTech(id){
+  var idx=selected.indexOf(id);
+  if(idx===-1) selected.push(id);
+  else selected.splice(idx,1);
+  saveState();renderCategories();calculate();
+}
+
+function findTech(id){
+  for(var i=0;i<categories.length;i++){
+    for(var j=0;j<categories[i].techs.length;j++){
+      if(categories[i].techs[j].id===id) return categories[i].techs[j];
+    }
+  }return null;
+}
+
+function getCompat(a,b){
+  var key1=a+'+'+b,key2=b+'+'+a;
+  return compatMatrix[key1]||compatMatrix[key2]||null;
+}
+
+function calculate(){
+  var totalCost=0,totalComplexity=0;
+  selected.forEach(function(id){
+    var t=findTech(id);
+    if(t){totalCost+=t.cost;totalComplexity+=t.complexity}
+  });
+  var normComplexity=selected.length>0?Math.min(10,Math.round(totalComplexity/selected.length*1.5)):0;
+
+  document.getElementById('techCount').textContent=selected.length;
+  document.getElementById('monthlyCost').textContent=totalCost>0?'$'+totalCost:'$0 (Free)';
+  document.getElementById('complexityScore').textContent=normComplexity+'/10';
+
+  var barHtml='';
+  for(var i=0;i<10;i++) barHtml+='<div class="complexity-dot'+(i<normComplexity?' filled':'')+'"></div>';
+  document.getElementById('complexityBar').innerHTML=barHtml;
+
+  // Compatibility
+  if(selected.length<2){
+    document.getElementById('compatGrid').innerHTML='<p style="color:var(--text-dim);font-size:0.85rem">Select 2+ technologies to see compatibility.</p>';
+    document.getElementById('compatScore').textContent='-';
+    return;
+  }
+
+  var pairs=[];var totalCompat=0;var pairCount=0;
+  for(var i=0;i<selected.length;i++){
+    for(var j=i+1;j<selected.length;j++){
+      var score=getCompat(selected[i],selected[j]);
+      if(score!==null){
+        pairs.push({a:findTech(selected[i]),b:findTech(selected[j]),score:score});
+        totalCompat+=score;pairCount++;
+      }
+    }
+  }
+
+  var avgCompat=pairCount>0?Math.round(totalCompat/pairCount):0;
+  document.getElementById('compatScore').textContent=avgCompat+'%';
+
+  var compatHtml='';
+  pairs.sort(function(a,b){return b.score-a.score});
+  pairs.forEach(function(p){
+    var cls=p.score>=80?'compat-good':p.score>=60?'compat-ok':'compat-bad';
+    compatHtml+='<div class="compat-item"><div class="compat-score '+cls+'">'+p.score+'</div><div><div style="font-weight:600">'+p.a.name+' + '+p.b.name+'</div><div style="font-size:0.7rem;color:var(--text-dim)">'+(p.score>=80?'Excellent compatibility':p.score>=60?'Good compatibility':'May have friction')+'</div></div></div>';
+  });
+  if(compatHtml==='') compatHtml='<p style="color:var(--text-dim);font-size:0.85rem">No known compatibility data for this combination.</p>';
+  document.getElementById('compatGrid').innerHTML=compatHtml;
+}
+
+function renderPopularStacks(){
+  var html='';
+  popularStacks.forEach(function(s){
+    html+='<div class="compare-card"><h3>'+s.name+'</h3><p style="font-size:0.8rem;color:var(--text-dim);margin-bottom:0.5rem">'+s.desc+'</p><ul>';
+    s.techs.forEach(function(tid){var t=findTech(tid);if(t)html+='<li><span>'+t.name+'</span></li>'});
+    html+='</ul><div style="margin-top:0.5rem;font-size:0.75rem"><span style="color:var(--cyan)">'+s.cost+'</span> | <span style="color:var(--gold)">'+s.complexity+'</span></div>';
+    html+='<button class="btn btn-outline btn-sm" style="margin-top:0.5rem" onclick="loadStack('+JSON.stringify(s.techs).replace(/"/g,'&quot;')+')">Use this stack</button>';
+    html+='</div>';
+  });
+  document.getElementById('stackCompare').innerHTML=html;
+}
+
+function loadStack(techs){
+  selected=techs.slice();
+  saveState();renderCategories();calculate();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function generateArchDoc(){
+  if(selected.length===0){document.getElementById('archOutput').textContent='Select technologies first.';return}
+  var doc='# Architecture Overview\n\nGenerated: '+new Date().toISOString().split('T')[0]+'\n\n## Tech Stack\n\n';
+  categories.forEach(function(cat){
+    var catTechs=cat.techs.filter(function(t){return selected.indexOf(t.id)!==-1});
+    if(catTechs.length>0){
+      doc+='### '+cat.name+'\n';
+      catTechs.forEach(function(t){doc+='- '+t.name+(t.cost>0?' ($'+t.cost+'/mo)':' (Free)')+'\n'});
+      doc+='\n';
+    }
+  });
+  var totalCost=0;
+  selected.forEach(function(id){var t=findTech(id);if(t)totalCost+=t.cost});
+  doc+='## Cost Summary\n\n- Estimated Monthly: $'+totalCost+'\n- Estimated Annual: $'+(totalCost*12)+'\n\n';
+  doc+='## Compatibility Notes\n\n';
+  for(var i=0;i<selected.length;i++){
+    for(var j=i+1;j<selected.length;j++){
+      var score=getCompat(selected[i],selected[j]);
+      if(score!==null){
+        var a=findTech(selected[i]),b=findTech(selected[j]);
+        doc+='- '+a.name+' + '+b.name+': '+score+'% compatible\n';
+      }
+    }
+  }
+  doc+='\n## Recommendations\n\n';
+  doc+='- Ensure proper CI/CD pipeline for deployment\n';
+  doc+='- Set up monitoring and logging early\n';
+  doc+='- Document API contracts between services\n';
+  doc+='- Implement automated testing from day one\n';
+
+  document.getElementById('archOutput').textContent=doc;
+}
+
+function copyArch(){
+  navigator.clipboard.writeText(document.getElementById('archOutput').textContent).then(function(){alert('Copied!')});
+}
+
+loadState();renderCategories();calculate();renderPopularStacks();
+
+function shareX(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Analyzing tech stacks with compatibility scores. Code SPUNK unlocks it @SpunkArt13')+'&url='+encodeURIComponent('https://spunk.codes/exclusive-tools'),'_blank')}
+function shareReddit(){window.open('https://www.reddit.com/submit?url='+encodeURIComponent('https://spunk.codes/exclusive-tools')+'&title='+encodeURIComponent('Tech Stack Analyzer - free with code SPUNK [spunk.codes]'),'_blank')}
+function shareEmail(){window.location.href='mailto:?subject='+encodeURIComponent('Tech Stack Analyzer Tool')+'&body='+encodeURIComponent('Compare technologies and plan architecture. Code SPUNK: https://spunk.codes/exclusive-tools')}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+</body>
+</html>

@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Project Estimator - PERT Estimation & Timeline | SPUNK.CODES Exclusive</title>
+<meta name="description" content="Break projects into phases and tasks. PERT estimation, cost calculation, Gantt-like SVG timeline, buffer calculator. Exclusive premium tool.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Project Estimator - SPUNK.CODES Exclusive">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/project-estimator">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0d1117;--card:rgba(22,27,34,0.8);--border:rgba(48,54,61,0.6);--gold:#ffd700;--gold-border:rgba(255,215,0,0.3);--text:#e6edf3;--text-dim:#8b949e;--blue:#58a6ff;--cyan:#39d353;--red:#f85149;--orange:#ff8c00;--font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+a{color:var(--blue);text-decoration:none}
+.bg-mesh{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 80% 50% at 20% 20%,rgba(255,215,0,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(255,140,0,0.04) 0%,transparent 60%),var(--bg)}
+.bg-grid{position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,215,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,215,0,0.03) 1px,transparent 1px);background-size:60px 60px}
+.nav{position:sticky;top:0;z-index:100;background:rgba(13,17,23,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,215,0,0.15);padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}
+.nav-brand{font-weight:800;font-size:1.1rem;color:var(--gold);letter-spacing:0.08em}
+.nav-links{display:flex;gap:1.5rem;font-size:0.85rem}.nav-links a{color:var(--text-dim);font-weight:500}.nav-links a.active{color:var(--gold)}
+.lock-gate{position:fixed;inset:0;z-index:1000;background:rgba(13,17,23,0.97);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:2rem}
+.lock-gate.hidden{display:none}
+.lock-icon-big{font-size:4rem}.lock-gate h2{font-size:1.8rem;font-weight:800;text-align:center}.lock-gate h2 span{color:var(--gold)}.lock-gate p{color:var(--text-dim);text-align:center;max-width:400px}
+.code-input-wrap{display:flex;gap:0.5rem}
+.code-input{padding:0.8rem 1.5rem;background:rgba(22,27,34,0.8);border:2px solid var(--gold-border);border-radius:12px;color:var(--gold);font-size:1.2rem;font-weight:800;letter-spacing:3px;text-align:center;width:200px;outline:none;text-transform:uppercase;font-family:var(--font)}
+.code-input:focus{border-color:var(--gold);box-shadow:0 0 20px rgba(255,215,0,0.2)}
+.code-submit{padding:0.8rem 1.5rem;background:linear-gradient(135deg,#ffd700,#ff8c00);border:none;border-radius:12px;color:#000;font-size:1rem;font-weight:800;cursor:pointer}
+.code-error{color:var(--red);font-size:0.85rem;min-height:1.2em}.lock-hint{color:var(--text-dim);font-size:0.8rem}.lock-hint a{color:var(--gold)}
+.exclusive-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;background:linear-gradient(135deg,rgba(255,215,0,0.15),rgba(255,140,0,0.15));border:1px solid var(--gold-border);border-radius:100px;font-size:11px;font-weight:800;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase}
+.main{max-width:1100px;margin:0 auto;padding:2rem}
+.hero-section{text-align:center;padding:2rem 0 2rem}
+.hero-section h1{font-size:2.2rem;font-weight:800;margin:1rem 0 0.5rem}
+.hero-section h1 .gold{background:linear-gradient(135deg,#ffd700,#ff8c00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-section p{color:var(--text-dim);max-width:600px;margin:0 auto}
+.card{background:var(--card);border:1px solid var(--gold-border);border-radius:16px;padding:1.5rem;margin-bottom:1.5rem;backdrop-filter:blur(10px);position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),#ff8c00,var(--gold))}
+.card h2{font-size:1.1rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}
+.form-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:0.75rem;margin-bottom:0.75rem}
+.form-group{display:flex;flex-direction:column;gap:0.3rem}
+.form-group label{font-size:0.75rem;color:var(--text-dim);font-weight:600;text-transform:uppercase;letter-spacing:0.5px}
+.form-group input,.form-group select{padding:0.6rem 0.8rem;background:rgba(22,27,34,0.9);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.85rem;font-family:var(--font);outline:none}
+.form-group input:focus,.form-group select:focus{border-color:var(--gold)}
+.btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;transition:all 0.2s}
+.btn-gold{background:linear-gradient(135deg,#ffd700,#ff8c00);color:#000}
+.btn-gold:hover{transform:translateY(-1px);box-shadow:0 4px 15px rgba(255,215,0,0.3)}
+.btn-outline{background:transparent;border:1px solid var(--gold-border);color:var(--gold)}
+.btn-red{background:rgba(248,81,73,0.15);border:1px solid rgba(248,81,73,0.3);color:var(--red)}
+.btn-sm{padding:0.4rem 0.8rem;font-size:0.75rem}
+.btn-row{display:flex;gap:0.5rem;flex-wrap:wrap}
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1rem;margin-bottom:1rem}
+.summary-card{background:rgba(13,17,23,0.6);border:1px solid var(--border);border-radius:12px;padding:1rem;text-align:center}
+.summary-card .val{font-size:1.6rem;font-weight:800;color:var(--gold)}
+.summary-card .label{font-size:0.7rem;color:var(--text-dim);text-transform:uppercase}
+.phase-section{background:rgba(13,17,23,0.6);border:1px solid var(--border);border-radius:12px;padding:1rem;margin-bottom:0.75rem}
+.phase-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem}
+.phase-name{font-weight:700;font-size:1rem;color:var(--gold)}
+.phase-stats{font-size:0.75rem;color:var(--text-dim)}
+.task-item{display:grid;grid-template-columns:2fr repeat(3,1fr) 1fr 0.5fr;gap:0.5rem;align-items:center;padding:0.4rem 0;border-bottom:1px solid rgba(48,54,61,0.3);font-size:0.8rem}
+.task-item:last-child{border-bottom:none}
+.task-name{font-weight:600}.task-pert{color:var(--cyan);font-weight:700}
+.task-cost{color:var(--gold);font-weight:700}
+.pert-formula{font-size:0.75rem;color:var(--text-dim);font-style:italic}
+.gantt-container{background:#161b22;border:1px solid var(--border);border-radius:8px;padding:1rem;overflow-x:auto;min-height:200px}
+.gantt-container svg{width:100%;min-height:200px}
+.buffer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0.75rem}
+.buffer-item{background:rgba(13,17,23,0.6);border:1px solid var(--border);border-radius:10px;padding:1rem;text-align:center;cursor:pointer;transition:all 0.2s}
+.buffer-item:hover{border-color:var(--gold-border)}
+.buffer-item.selected{border-color:var(--gold);background:rgba(255,215,0,0.05)}
+.buffer-item .pct{font-size:1.5rem;font-weight:800;color:var(--gold)}
+.buffer-item .blabel{font-size:0.8rem;color:var(--text-dim)}
+.buffer-item .bhours{font-size:0.85rem;color:var(--text);font-weight:600;margin-top:0.3rem}
+.proposal-output{background:#161b22;border:1px solid var(--border);border-radius:8px;padding:1rem;font-family:'Courier New',monospace;font-size:0.8rem;line-height:1.5;overflow:auto;white-space:pre-wrap;max-height:500px;position:relative}
+.proposal-output .copy-btn{position:absolute;top:0.5rem;right:0.5rem;padding:0.3rem 0.6rem;background:rgba(255,215,0,0.15);border:1px solid var(--gold-border);border-radius:6px;color:var(--gold);font-size:0.65rem;cursor:pointer;font-weight:700}
+.share-cta{background:linear-gradient(135deg,rgba(255,215,0,0.08),rgba(255,140,0,0.05));border:1px solid var(--gold-border);border-radius:16px;padding:2rem;text-align:center;margin-top:2rem}
+.share-cta h3{color:var(--gold);margin-bottom:0.5rem}.share-cta p{color:var(--text-dim);font-size:0.9rem;margin-bottom:1rem}
+.share-btns{display:flex;gap:0.6rem;justify-content:center;flex-wrap:wrap}
+.share-btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;color:#fff}
+.share-x{background:#000;border:1px solid #333}.share-reddit{background:#ff4500}.share-email{background:#21262d;border:1px solid #30363d}
+.footer{text-align:center;padding:2rem;border-top:1px solid rgba(255,215,0,0.1);color:var(--text-dim);font-size:0.75rem;margin-top:3rem}
+.footer a{color:var(--gold)}.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-bottom:1rem}
+.watermark{position:fixed;bottom:10px;right:10px;font-size:0.6rem;color:rgba(255,215,0,0.08);font-weight:800;pointer-events:none;z-index:9999;letter-spacing:1px;text-transform:uppercase}
+@media(max-width:768px){.main{padding:1rem}.hero-section h1{font-size:1.6rem}.nav-links{display:none}.task-item{grid-template-columns:1fr 1fr}.form-row{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="bg-mesh"></div><div class="bg-grid"></div>
+<div class="lock-gate" id="lockGate"><div class="lock-icon-big">&#128274;</div><h2>Enter Code <span>SPUNK</span> to Unlock</h2><p>This exclusive premium tool requires the SPUNK referral code.</p><div class="code-input-wrap"><input type="text" class="code-input" id="codeInput" placeholder="CODE" maxlength="10" autocomplete="off"><button class="code-submit" onclick="submitCode()">Unlock</button></div><div class="code-error" id="codeError"></div><div class="lock-hint">Get the code at <a href="https://spunk.codes/exclusive-tools">spunk.codes/exclusive-tools</a></div></div>
+<nav class="nav"><a href="https://spunk.codes" class="nav-brand">SPUNK.CODES</a><div class="nav-links"><a href="/store">Tools</a><a href="/exclusive-tools" class="active">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a></div></nav>
+
+<div class="main">
+  <section class="hero-section">
+    <div class="exclusive-badge">&#128081; EXCLUSIVE TOOL</div>
+    <h1><span class="gold">Project</span> Estimator</h1>
+    <p>Break projects into phases and tasks. PERT estimation, cost calculation, Gantt timeline, and buffer calculator.</p>
+  </section>
+
+  <div class="card">
+    <h2>&#9881; Project Settings</h2>
+    <div class="form-row">
+      <div class="form-group"><label>Project Name</label><input type="text" id="projName" placeholder="My Project" value=""></div>
+      <div class="form-group"><label>Hourly Rate ($)</label><input type="number" id="hourlyRate" value="100" min="1"></div>
+      <div class="form-group"><label>Hours per Day</label><input type="number" id="hoursPerDay" value="8" min="1" max="24"></div>
+      <div class="form-group"><label>Start Date</label><input type="date" id="startDate"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>&#10010; Add Task</h2>
+    <div class="form-row">
+      <div class="form-group"><label>Phase</label><input type="text" id="taskPhase" placeholder="Planning" list="phaseList"><datalist id="phaseList"></datalist></div>
+      <div class="form-group"><label>Task Name</label><input type="text" id="taskName" placeholder="Requirements gathering"></div>
+      <div class="form-group"><label>Optimistic (hrs)</label><input type="number" id="taskOpt" placeholder="4" min="0" step="0.5"></div>
+      <div class="form-group"><label>Likely (hrs)</label><input type="number" id="taskLikely" placeholder="8" min="0" step="0.5"></div>
+      <div class="form-group"><label>Pessimistic (hrs)</label><input type="number" id="taskPess" placeholder="16" min="0" step="0.5"></div>
+    </div>
+    <p class="pert-formula">PERT Expected = (Optimistic + 4 x Likely + Pessimistic) / 6</p>
+    <div class="btn-row" style="margin-top:0.75rem">
+      <button class="btn btn-gold" onclick="addTask()">Add Task</button>
+      <button class="btn btn-outline" onclick="clearTaskForm()">Clear</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>&#128202; Project Summary</h2>
+    <div class="summary-grid">
+      <div class="summary-card"><div class="val" id="totalTasks">0</div><div class="label">Tasks</div></div>
+      <div class="summary-card"><div class="val" id="totalHours">0h</div><div class="label">PERT Hours</div></div>
+      <div class="summary-card"><div class="val" id="totalDays">0d</div><div class="label">Work Days</div></div>
+      <div class="summary-card"><div class="val" id="totalCost">$0</div><div class="label">Total Cost</div></div>
+      <div class="summary-card"><div class="val" id="endDate">-</div><div class="label">Est. End Date</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>&#128203; Tasks by Phase</h2>
+    <div id="phaseList2"></div>
+  </div>
+
+  <div class="card">
+    <h2>&#128197; Gantt Timeline</h2>
+    <button class="btn btn-gold btn-sm" onclick="renderGantt()" style="margin-bottom:0.75rem">Generate Timeline</button>
+    <div class="gantt-container" id="ganttContainer">
+      <p style="color:var(--text-dim);text-align:center;padding:2rem">Add tasks and click "Generate Timeline"</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>&#128176; Buffer Calculator</h2>
+    <p style="color:var(--text-dim);font-size:0.85rem;margin-bottom:0.75rem">Add a buffer to account for unknowns, scope creep, and unexpected issues.</p>
+    <div class="buffer-grid" id="bufferGrid"></div>
+  </div>
+
+  <div class="card">
+    <h2>&#128196; Export Proposal</h2>
+    <div class="btn-row" style="margin-bottom:0.75rem;margin-top:0">
+      <button class="btn btn-gold btn-sm" onclick="generateProposal()">Generate Proposal</button>
+      <button class="btn btn-outline btn-sm" onclick="copyProposal()">Copy</button>
+      <button class="btn btn-outline btn-sm" onclick="downloadProposal()">Download</button>
+    </div>
+    <div class="proposal-output" id="proposalOutput"><button class="copy-btn" onclick="copyProposal()">Copy</button>Click "Generate Proposal" to create your project estimate document.</div>
+  </div>
+
+  <div class="share-cta">
+    <h3>&#128275; Share the Code, Unlock More Tools</h3>
+    <p>Share code SPUNK to help others access 15+ exclusive premium tools.</p>
+    <div class="share-btns">
+      <button class="share-btn share-x" onclick="shareX()">&#120143; Share on X</button>
+      <button class="share-btn share-reddit" onclick="shareReddit()">&#128172; Reddit</button>
+      <button class="share-btn share-email" onclick="shareEmail()">&#9993; Email</button>
+    </div>
+  </div>
+</div>
+
+<footer class="footer"><div class="footer-links"><a href="https://spunk.codes">Home</a><a href="/store">Tools</a><a href="/exclusive-tools">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a><a href="https://twitter.com/SpunkArt13" target="_blank">@SpunkArt13</a></div><div>&copy; 2026 SPUNK.CODES EXCLUSIVE.</div></footer>
+<div class="watermark">SPUNK.CODES EXCLUSIVE</div>
+
+<script>
+document.addEventListener('contextmenu',function(e){e.preventDefault()});
+document.addEventListener('keydown',function(e){if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'||e.key==='C'))||(e.ctrlKey&&e.key==='u'))e.preventDefault()});
+function checkCode(){try{var c=localStorage.getItem('spunk_referral_code')||localStorage.getItem('spunk_ref_code')||'';if(c.toUpperCase()==='SPUNK'){document.getElementById('lockGate').classList.add('hidden');return true}}catch(e){}return false}
+function submitCode(){var v=document.getElementById('codeInput').value.trim().toUpperCase();if(v==='SPUNK'){try{localStorage.setItem('spunk_referral_code','SPUNK');localStorage.setItem('spunk_ref_code','SPUNK')}catch(e){}document.getElementById('lockGate').classList.add('hidden')}else{document.getElementById('codeError').textContent='Invalid code. Try: SPUNK';setTimeout(function(){document.getElementById('codeError').textContent=''},2000)}}
+document.getElementById('codeInput').addEventListener('keydown',function(e){if(e.key==='Enter')submitCode()});
+checkCode();
+
+var tasks=[];
+var bufferPct=20;
+
+function loadState(){
+  try{
+    var d=JSON.parse(localStorage.getItem('projest_data')||'{}');
+    if(d.tasks) tasks=d.tasks;
+    if(d.projName) document.getElementById('projName').value=d.projName;
+    if(d.hourlyRate) document.getElementById('hourlyRate').value=d.hourlyRate;
+    if(d.hoursPerDay) document.getElementById('hoursPerDay').value=d.hoursPerDay;
+    if(d.startDate) document.getElementById('startDate').value=d.startDate;
+    if(d.bufferPct) bufferPct=d.bufferPct;
+  }catch(e){}
+}
+
+function saveState(){
+  try{localStorage.setItem('projest_data',JSON.stringify({
+    tasks:tasks,
+    projName:document.getElementById('projName').value,
+    hourlyRate:document.getElementById('hourlyRate').value,
+    hoursPerDay:document.getElementById('hoursPerDay').value,
+    startDate:document.getElementById('startDate').value,
+    bufferPct:bufferPct
+  }))}catch(e){}
+}
+
+document.getElementById('startDate').value=new Date().toISOString().split('T')[0];
+
+function pertCalc(o,m,p){return(o+4*m+p)/6}
+
+function clearTaskForm(){
+  ['taskPhase','taskName','taskOpt','taskLikely','taskPess'].forEach(function(id){document.getElementById(id).value=''});
+}
+
+function addTask(){
+  var phase=document.getElementById('taskPhase').value.trim()||'General';
+  var name=document.getElementById('taskName').value.trim();
+  var opt=parseFloat(document.getElementById('taskOpt').value)||0;
+  var likely=parseFloat(document.getElementById('taskLikely').value)||0;
+  var pess=parseFloat(document.getElementById('taskPess').value)||0;
+  if(!name){alert('Task name required');return}
+  if(likely===0){alert('Likely hours required');return}
+  if(opt===0) opt=likely*0.6;
+  if(pess===0) pess=likely*1.8;
+  var pert=pertCalc(opt,likely,pess);
+  tasks.push({phase:phase,name:name,opt:opt,likely:likely,pess:pess,pert:Math.round(pert*10)/10,id:Date.now()});
+  saveState();calculate();clearTaskForm();updatePhaseDatalist();
+}
+
+function deleteTask(id){
+  tasks=tasks.filter(function(t){return t.id!==id});
+  saveState();calculate();
+}
+
+function updatePhaseDatalist(){
+  var phases=[];
+  tasks.forEach(function(t){if(phases.indexOf(t.phase)===-1)phases.push(t.phase)});
+  document.getElementById('phaseList').innerHTML=phases.map(function(p){return '<option value="'+p+'">'}).join('');
+}
+
+function calculate(){
+  var rate=parseFloat(document.getElementById('hourlyRate').value)||100;
+  var hpd=parseFloat(document.getElementById('hoursPerDay').value)||8;
+  var totalPert=0;
+  tasks.forEach(function(t){totalPert+=t.pert});
+
+  var bufferedHours=totalPert*(1+bufferPct/100);
+  var totalDays=Math.ceil(bufferedHours/hpd);
+  var totalCost=Math.round(bufferedHours*rate);
+
+  document.getElementById('totalTasks').textContent=tasks.length;
+  document.getElementById('totalHours').textContent=Math.round(bufferedHours)+'h';
+  document.getElementById('totalDays').textContent=totalDays+'d';
+  document.getElementById('totalCost').textContent='$'+totalCost.toLocaleString();
+
+  var startDate=document.getElementById('startDate').value;
+  if(startDate){
+    var end=new Date(startDate);
+    var daysAdded=0;
+    while(daysAdded<totalDays){
+      end.setDate(end.getDate()+1);
+      if(end.getDay()!==0&&end.getDay()!==6) daysAdded++;
+    }
+    document.getElementById('endDate').textContent=end.toISOString().split('T')[0];
+  }
+
+  renderPhases();
+  renderBuffers();
+}
+
+function renderPhases(){
+  var phases={};
+  tasks.forEach(function(t){
+    if(!phases[t.phase]) phases[t.phase]=[];
+    phases[t.phase].push(t);
+  });
+
+  if(tasks.length===0){
+    document.getElementById('phaseList2').innerHTML='<p style="color:var(--text-dim);font-size:0.85rem">No tasks yet. Add your first task above.</p>';
+    return;
+  }
+
+  var rate=parseFloat(document.getElementById('hourlyRate').value)||100;
+  var html='';
+  Object.keys(phases).forEach(function(phase){
+    var pTasks=phases[phase];
+    var pHours=0;pTasks.forEach(function(t){pHours+=t.pert});
+    html+='<div class="phase-section"><div class="phase-header"><span class="phase-name">'+phase+'</span><span class="phase-stats">'+pTasks.length+' tasks | '+Math.round(pHours)+'h | $'+(Math.round(pHours*rate)).toLocaleString()+'</span></div>';
+    html+='<div class="task-item" style="font-weight:700;font-size:0.7rem;color:var(--text-dim);text-transform:uppercase;border-bottom:2px solid var(--border)"><span>Task</span><span>Opt</span><span>Likely</span><span>Pess</span><span>PERT</span><span></span></div>';
+    pTasks.forEach(function(t){
+      html+='<div class="task-item"><span class="task-name">'+t.name+'</span><span>'+t.opt+'h</span><span>'+t.likely+'h</span><span>'+t.pess+'h</span><span class="task-pert">'+t.pert+'h</span><span><button class="btn btn-red btn-sm" onclick="deleteTask('+t.id+')">X</button></span></div>';
+    });
+    html+='</div>';
+  });
+  document.getElementById('phaseList2').innerHTML=html;
+}
+
+function renderBuffers(){
+  var totalPert=0;
+  tasks.forEach(function(t){totalPert+=t.pert});
+  var rate=parseFloat(document.getElementById('hourlyRate').value)||100;
+  var buffers=[
+    {pct:0,label:'No Buffer',desc:'Risky - no room for error'},
+    {pct:20,label:'20% Buffer',desc:'Minimum recommended'},
+    {pct:30,label:'30% Buffer',desc:'Standard for known tech'},
+    {pct:50,label:'50% Buffer',desc:'New tech or unclear scope'}
+  ];
+  var html='';
+  buffers.forEach(function(b){
+    var sel=bufferPct===b.pct?' selected':'';
+    var bHours=Math.round(totalPert*(1+b.pct/100));
+    var bCost=Math.round(bHours*rate);
+    html+='<div class="buffer-item'+sel+'" onclick="setBuffer('+b.pct+')"><div class="pct">'+b.pct+'%</div><div class="blabel">'+b.label+'</div><div class="bhours">'+bHours+'h | $'+bCost.toLocaleString()+'</div><div style="font-size:0.7rem;color:var(--text-dim)">'+b.desc+'</div></div>';
+  });
+  document.getElementById('bufferGrid').innerHTML=html;
+}
+
+function setBuffer(pct){
+  bufferPct=pct;saveState();calculate();
+}
+
+function renderGantt(){
+  if(tasks.length===0){document.getElementById('ganttContainer').innerHTML='<p style="color:var(--text-dim);text-align:center;padding:2rem">Add tasks first</p>';return}
+  var phases={};var phaseOrder=[];
+  tasks.forEach(function(t){
+    if(!phases[t.phase]){phases[t.phase]=[];phaseOrder.push(t.phase)}
+    phases[t.phase].push(t);
+  });
+
+  var hpd=parseFloat(document.getElementById('hoursPerDay').value)||8;
+  var allTasks=[];var cumDays=0;
+  phaseOrder.forEach(function(phase){
+    phases[phase].forEach(function(t){
+      var days=Math.ceil(t.pert/hpd);
+      allTasks.push({name:t.name,phase:phase,start:cumDays,days:days});
+      cumDays+=days;
+    });
+  });
+
+  var totalDays=cumDays;
+  var rowH=28;var labelW=200;var chartW=600;var pad=30;
+  var svgH=pad+allTasks.length*rowH+40;
+  var svgW=labelW+chartW+pad;
+
+  var svg='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 '+svgW+' '+svgH+'">';
+  // Header
+  var dayW=chartW/Math.max(totalDays,1);
+  for(var d=0;d<=totalDays;d+=Math.max(1,Math.floor(totalDays/10))){
+    var x=labelW+d*dayW;
+    svg+='<line x1="'+x+'" y1="'+(pad-5)+'" x2="'+x+'" y2="'+svgH+'" stroke="rgba(48,54,61,0.3)" stroke-width="0.5"/>';
+    svg+='<text x="'+x+'" y="'+(pad-10)+'" fill="var(--text-dim)" font-size="9" text-anchor="middle">Day '+d+'</text>';
+  }
+
+  var colors=['#ffd700','#58a6ff','#39d353','#ff8c00','#f85149','#a78bfa'];
+  var phaseColors={};var ci=0;
+  phaseOrder.forEach(function(p){phaseColors[p]=colors[ci%colors.length];ci++});
+
+  allTasks.forEach(function(t,idx){
+    var y=pad+idx*rowH;
+    var x=labelW+t.start*dayW;
+    var w=Math.max(t.days*dayW,4);
+    var color=phaseColors[t.phase]||'#ffd700';
+    svg+='<text x="'+(labelW-5)+'" y="'+(y+18)+'" fill="var(--text)" font-size="10" text-anchor="end" font-weight="500">'+t.name.substring(0,25)+'</text>';
+    svg+='<rect x="'+x+'" y="'+(y+5)+'" width="'+w+'" height="18" rx="4" fill="'+color+'" opacity="0.7"/>';
+    svg+='<text x="'+(x+w/2)+'" y="'+(y+17)+'" fill="#000" font-size="8" text-anchor="middle" font-weight="700">'+t.days+'d</text>';
+  });
+
+  // Legend
+  var ly=svgH-20;
+  svg+='<text x="'+labelW+'" y="'+ly+'" fill="var(--text-dim)" font-size="9" font-weight="700">Phases: </text>';
+  var lx=labelW+50;
+  phaseOrder.forEach(function(p){
+    svg+='<rect x="'+lx+'" y="'+(ly-8)+'" width="10" height="10" rx="2" fill="'+phaseColors[p]+'"/>';
+    svg+='<text x="'+(lx+14)+'" y="'+ly+'" fill="var(--text-dim)" font-size="9">'+p+'</text>';
+    lx+=p.length*6+30;
+  });
+
+  svg+='</svg>';
+  document.getElementById('ganttContainer').innerHTML=svg;
+}
+
+function generateProposal(){
+  var projName=document.getElementById('projName').value||'Untitled Project';
+  var rate=parseFloat(document.getElementById('hourlyRate').value)||100;
+  var hpd=parseFloat(document.getElementById('hoursPerDay').value)||8;
+  var startDate=document.getElementById('startDate').value||'TBD';
+  var totalPert=0;
+  tasks.forEach(function(t){totalPert+=t.pert});
+  var bufferedHours=Math.round(totalPert*(1+bufferPct/100));
+  var totalDays=Math.ceil(bufferedHours/hpd);
+  var totalCost=Math.round(bufferedHours*rate);
+
+  var phases={};var phaseOrder=[];
+  tasks.forEach(function(t){
+    if(!phases[t.phase]){phases[t.phase]=[];phaseOrder.push(t.phase)}
+    phases[t.phase].push(t);
+  });
+
+  var doc='# Project Estimate: '+projName+'\n\nGenerated: '+new Date().toISOString().split('T')[0]+'\n\n';
+  doc+='## Summary\n\n';
+  doc+='| Metric | Value |\n|--------|-------|\n';
+  doc+='| Total Tasks | '+tasks.length+' |\n';
+  doc+='| PERT Hours (unbuffered) | '+Math.round(totalPert)+'h |\n';
+  doc+='| Buffer | '+bufferPct+'% |\n';
+  doc+='| Total Hours (buffered) | '+bufferedHours+'h |\n';
+  doc+='| Hourly Rate | $'+rate+' |\n';
+  doc+='| Total Cost | $'+totalCost.toLocaleString()+' |\n';
+  doc+='| Work Days | '+totalDays+' |\n';
+  doc+='| Start Date | '+startDate+' |\n';
+  doc+='| Hours per Day | '+hpd+'h |\n\n';
+
+  doc+='## Breakdown by Phase\n\n';
+  phaseOrder.forEach(function(phase){
+    var pTasks=phases[phase];
+    var pHours=0;pTasks.forEach(function(t){pHours+=t.pert});
+    doc+='### '+phase+' ('+Math.round(pHours)+'h | $'+Math.round(pHours*rate).toLocaleString()+')\n\n';
+    doc+='| Task | Optimistic | Likely | Pessimistic | PERT Estimate |\n';
+    doc+='|------|-----------|--------|-------------|---------------|\n';
+    pTasks.forEach(function(t){
+      doc+='| '+t.name+' | '+t.opt+'h | '+t.likely+'h | '+t.pess+'h | '+t.pert+'h |\n';
+    });
+    doc+='\n';
+  });
+
+  doc+='## PERT Methodology\n\n';
+  doc+='PERT (Program Evaluation and Review Technique) estimates use three-point estimation:\n\n';
+  doc+='**Expected Time = (Optimistic + 4 x Most Likely + Pessimistic) / 6**\n\n';
+  doc+='This provides a weighted average that accounts for uncertainty in task durations.\n\n';
+
+  doc+='## Buffer Justification\n\n';
+  doc+='A '+bufferPct+'% buffer has been added to account for:\n';
+  doc+='- Unexpected technical challenges\n';
+  doc+='- Scope clarification meetings\n';
+  doc+='- Code review and iteration\n';
+  doc+='- Integration and testing time\n\n';
+
+  doc+='## Payment Terms\n\n';
+  doc+='- 30% upfront deposit: $'+Math.round(totalCost*0.3).toLocaleString()+'\n';
+  doc+='- 40% at midpoint milestone: $'+Math.round(totalCost*0.4).toLocaleString()+'\n';
+  doc+='- 30% upon completion: $'+Math.round(totalCost*0.3).toLocaleString()+'\n\n';
+  doc+='---\n\n*Generated with SPUNK.CODES Project Estimator*\n';
+
+  document.getElementById('proposalOutput').innerHTML='<button class="copy-btn" onclick="copyProposal()">Copy</button>'+escapeHtml(doc);
+}
+
+function copyProposal(){
+  var text=document.getElementById('proposalOutput').textContent;
+  navigator.clipboard.writeText(text).then(function(){alert('Copied!')});
+}
+
+function downloadProposal(){
+  generateProposal();
+  var text=document.getElementById('proposalOutput').textContent;
+  var blob=new Blob([text],{type:'text/markdown'});
+  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='project-estimate.md';a.click();
+}
+
+function escapeHtml(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+
+// Auto-save settings
+['projName','hourlyRate','hoursPerDay','startDate'].forEach(function(id){
+  document.getElementById(id).addEventListener('input',function(){saveState();calculate()});
+});
+
+loadState();
+updatePhaseDatalist();
+calculate();
+
+function shareX(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Estimating projects with PERT calculations and Gantt charts. Code SPUNK unlocks it @SpunkArt13')+'&url='+encodeURIComponent('https://spunk.codes/exclusive-tools'),'_blank')}
+function shareReddit(){window.open('https://www.reddit.com/submit?url='+encodeURIComponent('https://spunk.codes/exclusive-tools')+'&title='+encodeURIComponent('Project Estimator with PERT - free with code SPUNK [spunk.codes]'),'_blank')}
+function shareEmail(){window.location.href='mailto:?subject='+encodeURIComponent('Project Estimator Tool')+'&body='+encodeURIComponent('PERT estimation, Gantt timeline, cost calculator. Code SPUNK: https://spunk.codes/exclusive-tools')}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+</body>
+</html>

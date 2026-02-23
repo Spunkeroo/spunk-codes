@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pricing Strategy Tool - Optimal Pricing Calculator | spunk.codes</title>
+<meta name="description" content="Free pricing strategy tool. Calculate optimal pricing based on costs, competition, and perceived value. Find the price that maximizes profit.">
+<meta name="keywords" content="pricing strategy, pricing calculator, optimal pricing, competitive pricing, value based pricing">
+<meta property="og:title" content="Pricing Strategy Tool | spunk.codes">
+<meta property="og:description" content="Calculate optimal pricing based on costs, competition, and value. Free premium business tool.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://spunk.codes/pricing-strategy-tool.html">
+<meta property="og:image" content="https://spunk.codes/art/og-pricing-strategy.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/pricing-strategy-tool.html">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Pricing Strategy Tool","description":"Calculate optimal pricing based on costs, competition, and value.","url":"https://spunk.codes/pricing-strategy-tool.html","applicationCategory":"BusinessApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Organization","name":"spunk.codes","url":"https://spunk.codes"}}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#0d1117;color:#e6edf3;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;line-height:1.6;min-height:100vh;}
+a{color:#58a6ff;text-decoration:none;}a:hover{text-decoration:underline;color:#79c0ff;}
+nav{background:rgba(13,17,23,.95);backdrop-filter:blur(20px);border-bottom:1px solid #21262d;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
+.nav-brand{font-weight:800;font-size:1.1rem;color:#58a6ff;}
+.nav-links{display:flex;gap:20px;font-size:14px;font-weight:500;}.nav-links a{color:#8b949e;}.nav-links a:hover{color:#58a6ff;text-decoration:none;}
+.container{max-width:1000px;margin:0 auto;padding:32px 20px 80px;}
+h1{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;margin-bottom:8px;background:linear-gradient(135deg,#58a6ff,#39d353);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-align:center;}
+.subtitle{color:#8b949e;font-size:15px;margin-bottom:28px;text-align:center;}
+.glass-card{background:rgba(22,27,34,.8);backdrop-filter:blur(20px);border:1px solid #21262d;border-radius:16px;padding:28px;margin-bottom:24px;}
+.glass-card h2{font-size:1.1rem;font-weight:700;margin-bottom:18px;color:#e6edf3;}
+.input-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:20px;}
+.input-group{display:flex;flex-direction:column;gap:6px;}
+.input-group label{font-size:13px;color:#8b949e;font-weight:500;}
+.input-group input,.input-group select{background:#0d1117;border:1px solid #30363d;border-radius:10px;padding:12px 14px;color:#e6edf3;font-size:15px;transition:all .3s;}
+.input-group input:focus,.input-group select:focus{outline:none;border-color:#58a6ff;box-shadow:0 0 0 3px rgba(88,166,255,.15);}
+.input-group .helper{font-size:11px;color:#484f58;margin-top:2px;}
+.slider-group{margin:16px 0;}
+.slider-group label{font-size:13px;color:#8b949e;font-weight:500;display:block;margin-bottom:8px;}
+.slider-row{display:flex;align-items:center;gap:12px;}
+.slider-row input[type=range]{flex:1;-webkit-appearance:none;height:6px;background:#21262d;border-radius:3px;outline:none;}
+.slider-row input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;background:#58a6ff;border-radius:50%;cursor:pointer;}
+.slider-val{font-size:14px;font-weight:700;color:#58a6ff;min-width:60px;text-align:right;}
+.btn-primary{background:linear-gradient(135deg,#58a6ff,#388bfd);color:#fff;border:none;border-radius:10px;padding:14px 32px;font-size:15px;font-weight:700;cursor:pointer;transition:all .3s;width:100%;max-width:320px;margin:0 auto;display:block;}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(88,166,255,.3);}
+.results{display:none;animation:fadeIn .5s ease;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+.metric-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:28px;}
+.metric-card{background:rgba(22,27,34,.9);border:1px solid #21262d;border-radius:14px;padding:22px;text-align:center;position:relative;overflow:hidden;}
+.metric-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#58a6ff,#39d353);}
+.metric-card.recommended{border-color:rgba(57,211,83,.4);box-shadow:0 0 20px rgba(57,211,83,.1);}
+.metric-card.recommended::before{background:#39d353;height:4px;}
+.metric-label{font-size:11px;color:#8b949e;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;}
+.metric-value{font-size:clamp(1.5rem,3vw,2rem);font-weight:800;color:#39d353;}
+.metric-value.blue{color:#58a6ff;}
+.metric-sub{font-size:12px;color:#484f58;margin-top:4px;}
+.strategy-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin:20px 0;}
+.strategy-card{background:rgba(22,27,34,.9);border:1px solid #21262d;border-radius:14px;padding:22px;position:relative;transition:all .3s;}
+.strategy-card:hover{border-color:rgba(88,166,255,.3);}
+.strategy-card.best{border-color:rgba(57,211,83,.4);box-shadow:0 0 20px rgba(57,211,83,.1);}
+.strategy-card .badge{position:absolute;top:-10px;right:16px;background:#39d353;color:#0d1117;padding:3px 12px;border-radius:12px;font-size:11px;font-weight:700;}
+.strategy-card h3{font-size:1rem;font-weight:700;margin-bottom:8px;color:#e6edf3;}
+.strategy-card .price{font-size:1.8rem;font-weight:800;color:#58a6ff;margin-bottom:8px;}
+.strategy-card .details{font-size:13px;color:#8b949e;}
+.strategy-card .details span{display:block;margin-bottom:4px;}
+.price-range{margin:20px 0;}
+.range-track{height:14px;background:#21262d;border-radius:7px;position:relative;overflow:visible;}
+.range-fill{position:absolute;height:100%;border-radius:7px;top:0;}
+.range-marker{position:absolute;top:-8px;width:4px;height:30px;border-radius:2px;transform:translateX(-50%);}
+.range-labels{display:flex;justify-content:space-between;margin-top:8px;font-size:12px;color:#8b949e;}
+.chart-container{display:flex;align-items:flex-end;gap:8px;height:200px;padding-bottom:30px;border-bottom:1px solid #21262d;margin:20px 0;}
+.chart-bar-w{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;}
+.chart-bar{width:100%;max-width:50px;border-radius:6px 6px 0 0;transition:height .8s ease;min-height:2px;}
+.chart-bar.green{background:linear-gradient(180deg,#39d353,#2ea043);}
+.chart-bar.blue{background:linear-gradient(180deg,#58a6ff,#388bfd);}
+.chart-bar-v{font-size:10px;font-weight:700;color:#e6edf3;margin-bottom:2px;}
+.chart-bar-l{font-size:10px;color:#8b949e;margin-top:6px;text-align:center;}
+.export-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px;}
+.btn-export{background:rgba(88,166,255,.1);border:1px solid rgba(88,166,255,.2);border-radius:10px;padding:10px 20px;color:#58a6ff;font-size:13px;font-weight:600;cursor:pointer;transition:all .3s;}
+.btn-export:hover{background:rgba(88,166,255,.2);}
+.pro-cta{background:linear-gradient(135deg,rgba(88,166,255,.1),rgba(57,211,83,.1));border:1px solid rgba(88,166,255,.2);border-radius:16px;padding:32px;text-align:center;margin-top:40px;}
+.pro-cta h3{font-size:1.3rem;font-weight:800;margin-bottom:8px;}.pro-cta p{color:#8b949e;margin-bottom:16px;font-size:14px;}
+.pro-cta .btn-pro{display:inline-block;background:linear-gradient(135deg,#58a6ff,#39d353);color:#0d1117;padding:12px 28px;border-radius:10px;font-weight:700;font-size:14px;text-decoration:none;transition:all .3s;}
+.pro-cta .btn-pro:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(88,166,255,.3);text-decoration:none;}
+footer{border-top:1px solid #21262d;padding:24px 20px;text-align:center;color:#484f58;font-size:13px;}
+footer a{color:#8b949e;}footer .footer-links{display:flex;justify-content:center;gap:20px;margin-bottom:8px;flex-wrap:wrap;}
+.watermark{position:fixed;bottom:12px;right:16px;font-size:14px;font-weight:800;color:rgba(88,166,255,.08);pointer-events:none;z-index:50;letter-spacing:2px;}
+.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#39d353;color:#0d1117;padding:10px 24px;border-radius:10px;font-size:14px;font-weight:700;z-index:200;display:none;animation:toastIn .3s ease;}
+@keyframes toastIn{from{opacity:0;transform:translateX(-50%) translateY(10px);}to{opacity:1;transform:translateX(-50%) translateY(0);}}
+@media(max-width:600px){.nav-links{gap:12px;font-size:13px;}.input-grid{grid-template-columns:1fr;}.metric-grid{grid-template-columns:repeat(2,1fr);}.strategy-cards{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<nav><div class="nav-brand">SPUNK.CODES</div><div class="nav-links"><a href="/tools">Tools</a><a href="/social-growth">Social Growth</a><a href="/ebooks">Ebooks</a><a href="/blog">Blog</a></div></nav>
+<div class="container">
+<h1>Pricing Strategy Tool</h1>
+<p class="subtitle">Find the optimal price point based on costs, competition, and perceived value</p>
+
+<div class="glass-card">
+<h2>Your Costs</h2>
+<div class="input-grid">
+<div class="input-group"><label>Cost Per Unit ($)</label><input type="number" id="costPerUnit" value="25" min="0" step="0.01"><div class="helper">Direct cost to produce/deliver</div></div>
+<div class="input-group"><label>Fixed Costs / Month ($)</label><input type="number" id="fixedCosts" value="2000" min="0" step="100"><div class="helper">Rent, tools, salaries, etc.</div></div>
+<div class="input-group"><label>Target Units / Month</label><input type="number" id="targetUnits" value="100" min="1"><div class="helper">Expected monthly sales volume</div></div>
+<div class="input-group"><label>Target Margin (%)</label><input type="number" id="targetMargin" value="60" min="1" max="99" step="1"><div class="helper">Desired profit margin</div></div>
+</div>
+</div>
+
+<div class="glass-card">
+<h2>Competitive Landscape</h2>
+<div class="input-grid">
+<div class="input-group"><label>Competitor Low Price ($)</label><input type="number" id="compLow" value="29" min="0" step="1"></div>
+<div class="input-group"><label>Competitor Avg Price ($)</label><input type="number" id="compAvg" value="59" min="0" step="1"></div>
+<div class="input-group"><label>Competitor High Price ($)</label><input type="number" id="compHigh" value="99" min="0" step="1"></div>
+</div>
+</div>
+
+<div class="glass-card">
+<h2>Value Perception</h2>
+<div class="slider-group">
+<label>Perceived Quality (vs competitors)</label>
+<div class="slider-row"><span style="font-size:12px;color:#8b949e">Budget</span><input type="range" id="qualitySlider" min="1" max="10" value="7"><span style="font-size:12px;color:#8b949e">Premium</span><span class="slider-val" id="qualityVal">7/10</span></div>
+</div>
+<div class="slider-group">
+<label>Brand Strength</label>
+<div class="slider-row"><span style="font-size:12px;color:#8b949e">New</span><input type="range" id="brandSlider" min="1" max="10" value="5"><span style="font-size:12px;color:#8b949e">Established</span><span class="slider-val" id="brandVal">5/10</span></div>
+</div>
+<div class="slider-group">
+<label>Market Demand</label>
+<div class="slider-row"><span style="font-size:12px;color:#8b949e">Low</span><input type="range" id="demandSlider" min="1" max="10" value="6"><span style="font-size:12px;color:#8b949e">High</span><span class="slider-val" id="demandVal">6/10</span></div>
+</div>
+</div>
+
+<button class="btn-primary" onclick="calculate()">Calculate Optimal Price</button>
+
+<div class="results" id="results">
+<div class="metric-grid">
+<div class="metric-card"><div class="metric-label">Cost-Plus Price</div><div class="metric-value blue" id="costPlus">$0</div><div class="metric-sub">Based on margin target</div></div>
+<div class="metric-card recommended"><div class="metric-label">Recommended Price</div><div class="metric-value" id="recommended">$0</div><div class="metric-sub">Optimal balance of all factors</div></div>
+<div class="metric-card"><div class="metric-label">Value-Based Price</div><div class="metric-value blue" id="valueBased">$0</div><div class="metric-sub">Based on perceived value</div></div>
+<div class="metric-card"><div class="metric-label">Monthly Profit</div><div class="metric-value" id="monthlyProfit">$0</div><div class="metric-sub" id="profitSub"></div></div>
+</div>
+
+<div class="glass-card">
+<h2>Price Positioning</h2>
+<div class="price-range">
+<div class="range-track" id="rangeTrack"></div>
+<div class="range-labels" id="rangeLabels"></div>
+</div>
+</div>
+
+<div class="glass-card">
+<h2>Strategy Comparison</h2>
+<div class="strategy-cards" id="strategyCards"></div>
+</div>
+
+<div class="glass-card">
+<h2>Profit at Different Price Points</h2>
+<div class="chart-container" id="profitChart"></div>
+</div>
+
+<div class="export-row">
+<button class="btn-export" onclick="copySummary()">Copy Analysis</button>
+<button class="btn-export" onclick="exportCSV()">Download CSV</button>
+</div>
+</div>
+
+<div class="pro-cta">
+<h3>Imagine What Pro Can Do</h3>
+<p>A/B price testing, demand curve modeling, dynamic pricing, competitor monitoring, and revenue optimization AI.</p>
+<a href="/pricing.html" class="btn-pro">Upgrade to Pro</a>
+</div>
+</div>
+<footer><div class="footer-links"><a href="/store">Store</a><a href="/ebooks">Ebooks</a><a href="/blog">Blog</a><a href="https://x.com/SpunkArt13" target="_blank">@SpunkArt13</a></div><p>&copy; 2026 spunk.codes</p></footer>
+<div class="watermark">SPUNK.CODES</div>
+<div class="toast" id="toast"></div>
+
+<script>
+document.getElementById('qualitySlider').oninput=function(){document.getElementById('qualityVal').textContent=this.value+'/10';};
+document.getElementById('brandSlider').oninput=function(){document.getElementById('brandVal').textContent=this.value+'/10';};
+document.getElementById('demandSlider').oninput=function(){document.getElementById('demandVal').textContent=this.value+'/10';};
+
+let calcData={};
+const fmt=n=>'$'+n.toFixed(2);
+
+function calculate(){
+const cpu=parseFloat(document.getElementById('costPerUnit').value)||0;
+const fixed=parseFloat(document.getElementById('fixedCosts').value)||0;
+const units=parseInt(document.getElementById('targetUnits').value)||1;
+const margin=(parseFloat(document.getElementById('targetMargin').value)||50)/100;
+const cLow=parseFloat(document.getElementById('compLow').value)||0;
+const cAvg=parseFloat(document.getElementById('compAvg').value)||0;
+const cHigh=parseFloat(document.getElementById('compHigh').value)||0;
+const quality=parseInt(document.getElementById('qualitySlider').value);
+const brand=parseInt(document.getElementById('brandSlider').value);
+const demand=parseInt(document.getElementById('demandSlider').value);
+
+const totalCostPerUnit=cpu+(fixed/units);
+const costPlusPrice=totalCostPerUnit/(1-margin);
+const qualityFactor=quality/10;
+const valueBasedPrice=cAvg*(0.5+qualityFactor*0.8);
+const brandMultiplier=0.8+brand*0.04;
+const demandMultiplier=0.85+demand*0.03;
+const optimalPrice=((costPlusPrice*0.3)+(valueBasedPrice*0.4)+(cAvg*0.3))*brandMultiplier*demandMultiplier;
+const monthlyProfit=(optimalPrice-totalCostPerUnit)*units;
+
+document.getElementById('costPlus').textContent=fmt(costPlusPrice);
+document.getElementById('recommended').textContent=fmt(optimalPrice);
+document.getElementById('valueBased').textContent=fmt(valueBasedPrice);
+document.getElementById('monthlyProfit').textContent='$'+Math.round(monthlyProfit).toLocaleString();
+document.getElementById('profitSub').textContent='at '+units+' units/mo, '+((optimalPrice-totalCostPerUnit)/optimalPrice*100).toFixed(0)+'% margin';
+
+// Price range visualization
+const allPrices=[cLow,cAvg,cHigh,costPlusPrice,optimalPrice,valueBasedPrice];
+const minP=Math.min(...allPrices)*0.8;
+const maxP=Math.max(...allPrices)*1.2;
+const range=maxP-minP;
+const track=document.getElementById('rangeTrack');
+const pct=n=>((n-minP)/range*100);
+track.innerHTML=`<div class="range-fill" style="left:${pct(cLow)}%;width:${pct(cHigh)-pct(cLow)}%;background:rgba(139,148,158,.2);border-radius:7px"></div>`+
+`<div class="range-marker" style="left:${pct(cLow)}%;background:#8b949e" title="Comp Low"></div>`+
+`<div class="range-marker" style="left:${pct(cAvg)}%;background:#d29922" title="Comp Avg"></div>`+
+`<div class="range-marker" style="left:${pct(cHigh)}%;background:#8b949e" title="Comp High"></div>`+
+`<div class="range-marker" style="left:${pct(optimalPrice)}%;background:#39d353;width:6px" title="Recommended"></div>`;
+document.getElementById('rangeLabels').innerHTML=`<span>${fmt(minP)}</span><span style="color:#39d353;font-weight:700">Recommended: ${fmt(optimalPrice)}</span><span>${fmt(maxP)}</span>`;
+
+// Strategy cards
+const strategies=[
+{name:'Penetration',price:cLow*0.9,desc:'Price below competitors to gain market share quickly',units:Math.round(units*1.5)},
+{name:'Competitive',price:cAvg,desc:'Match the market average, compete on value-adds',units:units},
+{name:'Optimal',price:optimalPrice,desc:'Balanced price maximizing profit and market fit',units:Math.round(units*0.95),best:true},
+{name:'Premium',price:cHigh*1.1,desc:'Price above market, position as premium offering',units:Math.round(units*0.6)},
+];
+const cards=document.getElementById('strategyCards');cards.innerHTML='';
+strategies.forEach(s=>{
+const profit=(s.price-totalCostPerUnit)*s.units;
+cards.innerHTML+=`<div class="strategy-card${s.best?' best':''}">
+${s.best?'<div class="badge">RECOMMENDED</div>':''}
+<h3>${s.name} Pricing</h3>
+<div class="price">${fmt(s.price)}</div>
+<div class="details"><span>Est. units: ${s.units}/mo</span><span>Margin: ${((s.price-totalCostPerUnit)/s.price*100).toFixed(0)}%</span><span>Monthly profit: $${Math.round(profit).toLocaleString()}</span><span style="color:#484f58;margin-top:8px">${s.desc}</span></div>
+</div>`;
+});
+
+// Profit chart at different prices
+const chart=document.getElementById('profitChart');chart.innerHTML='';
+const pricePoints=[cLow*0.8,cLow,costPlusPrice,optimalPrice,cAvg,cHigh,cHigh*1.2];
+const profits=pricePoints.map(p=>{
+const elasticity=Math.max(0.1,1-((p-cAvg)/cAvg)*0.5);
+const estUnits=Math.round(units*elasticity);
+return{price:p,profit:(p-totalCostPerUnit)*estUnits,units:estUnits};
+});
+const maxProfit=Math.max(...profits.map(p=>Math.abs(p.profit)),1);
+profits.forEach(p=>{
+const h=Math.max(2,(Math.abs(p.profit)/maxProfit)*85);
+const isOpt=Math.abs(p.price-optimalPrice)<1;
+chart.innerHTML+=`<div class="chart-bar-w"><div class="chart-bar-v">$${Math.round(p.profit).toLocaleString()}</div><div class="chart-bar ${isOpt?'green':'blue'}" style="height:${h}%"></div><div class="chart-bar-l">${fmt(p.price)}</div></div>`;
+});
+
+calcData={cpu,fixed,units,costPlusPrice,optimalPrice,valueBasedPrice,monthlyProfit,cLow,cAvg,cHigh};
+document.getElementById('results').style.display='block';
+document.getElementById('results').scrollIntoView({behavior:'smooth'});
+}
+
+function copySummary(){
+const d=calcData;
+const txt=`PRICING STRATEGY ANALYSIS\n${'='.repeat(40)}\n\nCost/Unit: ${fmt(d.cpu)}\nFixed Costs: $${d.fixed}/mo\nTarget Volume: ${d.units} units/mo\n\nCompetitor Low: ${fmt(d.cLow)}\nCompetitor Avg: ${fmt(d.cAvg)}\nCompetitor High: ${fmt(d.cHigh)}\n\nCost-Plus Price: ${fmt(d.costPlusPrice)}\nValue-Based Price: ${fmt(d.valueBasedPrice)}\nRECOMMENDED: ${fmt(d.optimalPrice)}\n\nEst. Monthly Profit: $${Math.round(d.monthlyProfit).toLocaleString()}\n\nGenerated at spunk.codes`;
+navigator.clipboard.writeText(txt);showToast('Analysis copied!');
+}
+function exportCSV(){
+const d=calcData;
+let csv='Metric,Value\nCost Per Unit,$'+d.cpu+'\nFixed Costs,$'+d.fixed+'\nTarget Units,'+d.units+'\nCost-Plus Price,$'+d.costPlusPrice.toFixed(2)+'\nRecommended Price,$'+d.optimalPrice.toFixed(2)+'\nValue-Based Price,$'+d.valueBasedPrice.toFixed(2)+'\nMonthly Profit,$'+d.monthlyProfit.toFixed(2)+'\n';
+const blob=new Blob([csv],{type:'text/csv'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='pricing-strategy.csv';a.click();URL.revokeObjectURL(url);showToast('CSV downloaded!');
+}
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.style.display='block';setTimeout(()=>t.style.display='none',2500);}
+document.addEventListener('contextmenu',e=>e.preventDefault());
+document.addEventListener('keydown',e=>{if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'))||(e.ctrlKey&&e.key==='u'))e.preventDefault();});
+</script>
+</body>
+</html>

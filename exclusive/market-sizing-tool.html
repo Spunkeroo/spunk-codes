@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TAM/SAM/SOM Calculator - Exclusive Premium Tool | SPUNK.CODES</title>
+<meta name="description" content="Top-down and bottom-up market sizing with TAM, SAM, SOM calculator and SVG visualization. Exclusive premium tool.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="TAM/SAM/SOM Calculator - SPUNK.CODES Exclusive">
+<meta property="og:description" content="Calculate Total Addressable, Serviceable, and Obtainable Market. Unlock with code SPUNK.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://spunk.codes/exclusive/market-sizing-tool">
+<meta property="og:site_name" content="SPUNK.CODES">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/market-sizing-tool">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0d1117;--card:rgba(22,27,34,0.8);--border:rgba(48,54,61,0.6);--gold:#ffd700;--gold-dim:rgba(255,215,0,0.15);--gold-border:rgba(255,215,0,0.3);--text:#e6edf3;--text-dim:#8b949e;--blue:#58a6ff;--cyan:#39d353;--red:#f85149;--orange:#ff8c00;--font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+a{color:var(--blue);text-decoration:none}a:hover{color:#fff}
+.bg-mesh{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 80% 50% at 20% 20%,rgba(255,215,0,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(255,140,0,0.04) 0%,transparent 60%),var(--bg)}
+.bg-grid{position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,215,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,215,0,0.03) 1px,transparent 1px);background-size:60px 60px}
+.nav{position:sticky;top:0;z-index:100;background:rgba(13,17,23,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,215,0,0.15);padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}
+.nav-brand{font-weight:800;font-size:1.1rem;color:var(--gold);letter-spacing:0.08em}
+.nav-links{display:flex;gap:1.5rem;font-size:0.85rem;list-style:none}.nav-links a{color:var(--text-dim);transition:color 0.2s;font-weight:500}.nav-links a:hover{color:#fff}.nav-links a.active{color:var(--gold)}
+.lock-gate{position:fixed;inset:0;z-index:1000;background:rgba(13,17,23,0.97);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:2rem}.lock-gate.hidden{display:none}.lock-icon-big{font-size:4rem;margin-bottom:0.5rem}.lock-gate h2{font-size:1.8rem;font-weight:800;text-align:center}.lock-gate h2 span{color:var(--gold)}.lock-gate p{color:var(--text-dim);text-align:center;max-width:400px}.code-input-wrap{display:flex;gap:0.5rem;margin-top:0.5rem}.code-input{padding:0.8rem 1.5rem;background:rgba(22,27,34,0.8);border:2px solid var(--gold-border);border-radius:12px;color:var(--gold);font-size:1.2rem;font-weight:800;letter-spacing:3px;text-align:center;width:200px;outline:none;text-transform:uppercase;font-family:var(--font)}.code-input:focus{border-color:var(--gold);box-shadow:0 0 20px rgba(255,215,0,0.2)}.code-submit{padding:0.8rem 1.5rem;background:linear-gradient(135deg,#ffd700,#ff8c00);border:none;border-radius:12px;color:#000;font-size:1rem;font-weight:800;cursor:pointer;transition:all 0.3s}.code-submit:hover{transform:scale(1.05)}.code-error{color:#f85149;font-size:0.85rem;min-height:1.2em}.lock-hint{color:var(--text-dim);font-size:0.8rem;margin-top:1rem}.lock-hint a{color:var(--gold)}
+.exclusive-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;background:linear-gradient(135deg,rgba(255,215,0,0.15),rgba(255,140,0,0.15));border:1px solid var(--gold-border);border-radius:100px;font-size:11px;font-weight:800;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase}
+.main{max-width:900px;margin:0 auto;padding:2rem}
+.hero-section{text-align:center;padding:2rem 0 3rem}.hero-section h1{font-size:2.2rem;font-weight:800;margin:1rem 0 0.5rem}.hero-section h1 .gold{background:linear-gradient(135deg,#ffd700,#ff8c00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}.hero-section p{color:var(--text-dim);max-width:600px;margin:0 auto}
+.tool-section{background:var(--card);border:1px solid var(--gold-border);border-radius:16px;padding:2rem;margin-bottom:1.5rem;backdrop-filter:blur(10px);position:relative;overflow:hidden}.tool-section::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),#ff8c00,var(--gold))}.tool-section h2{font-size:1.2rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}.tool-section h2 .icon{font-size:1.4rem}
+label{font-size:0.85rem;color:var(--text-dim);font-weight:600;display:block;margin-bottom:0.4rem}
+input,select{width:100%;padding:0.75rem 1rem;background:rgba(13,17,23,0.6);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:0.9rem;font-family:var(--font);outline:none;transition:border-color 0.2s}input:focus,select:focus{border-color:var(--gold)}
+.input-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}.input-group{margin-bottom:1rem}
+.btn{padding:0.75rem 2rem;border:none;border-radius:10px;font-size:0.9rem;font-weight:700;cursor:pointer;transition:all 0.2s;font-family:var(--font)}.btn-gold{background:linear-gradient(135deg,#ffd700,#ff8c00);color:#000}.btn-gold:hover{transform:translateY(-2px);box-shadow:0 4px 20px rgba(255,215,0,0.3)}.btn-outline{background:transparent;border:1px solid var(--border);color:var(--text-dim)}.btn-outline:hover{border-color:var(--gold);color:var(--gold)}.btn-sm{padding:0.5rem 1rem;font-size:0.8rem}.btn-row{display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:1rem}
+.result-box{background:rgba(255,215,0,0.05);border:1px solid var(--gold-border);border-radius:12px;padding:1.5rem;margin-top:1.5rem;display:none}.result-box.show{display:block}
+.tab-row{display:flex;gap:0.5rem;margin-bottom:1.5rem}.tab-btn{padding:0.6rem 1.5rem;border-radius:10px;font-size:0.85rem;font-weight:700;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--text-dim);transition:all 0.2s;font-family:var(--font)}.tab-btn.active{border-color:var(--gold);color:var(--gold);background:var(--gold-dim)}.tab-content{display:none}.tab-content.active{display:block}
+.market-card{background:rgba(13,17,23,0.5);border:1px solid var(--border);border-radius:12px;padding:1.5rem;text-align:center;margin-bottom:1rem}
+.market-card h3{font-size:0.85rem;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:0.3rem}
+.market-card .value{font-size:2rem;font-weight:800;margin:0.3rem 0}
+.market-card .sub{font-size:0.8rem;color:var(--text-dim)}
+.tam-card h3{color:#ff8c00}.tam-card .value{color:#ff8c00}
+.sam-card h3{color:var(--gold)}.sam-card .value{color:var(--gold)}
+.som-card h3{color:var(--cyan)}.som-card .value{color:var(--cyan)}
+.market-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem}
+.concentric-wrap{text-align:center;margin:2rem 0}
+.summary-text{background:rgba(13,17,23,0.5);border:1px solid var(--border);border-radius:10px;padding:1rem;font-size:0.85rem;color:var(--text-dim);line-height:1.8;white-space:pre-line;margin-top:1rem}
+.share-cta{background:linear-gradient(135deg,rgba(255,215,0,0.08),rgba(255,140,0,0.05));border:1px solid var(--gold-border);border-radius:16px;padding:2rem;text-align:center;margin-top:2rem}.share-cta h3{color:var(--gold);margin-bottom:0.5rem;font-size:1.1rem}.share-cta p{color:var(--text-dim);font-size:0.9rem;margin-bottom:1rem}.share-btns{display:flex;gap:0.6rem;justify-content:center;flex-wrap:wrap}.share-btn{display:inline-flex;align-items:center;gap:0.4rem;padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;color:#fff;transition:all 0.25s}.share-btn:hover{transform:translateY(-2px)}.share-x{background:#000;border:1px solid #333}.share-reddit{background:#ff4500}.share-email{background:#21262d;border:1px solid #30363d}
+.footer{text-align:center;padding:2rem;border-top:1px solid rgba(255,215,0,0.1);color:var(--text-dim);font-size:0.75rem;margin-top:3rem}.footer a{color:var(--gold)}.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-bottom:1rem}
+.watermark{position:fixed;bottom:10px;right:10px;font-size:0.6rem;color:rgba(255,215,0,0.08);font-weight:800;pointer-events:none;z-index:9999;letter-spacing:1px;text-transform:uppercase}
+@media(max-width:768px){.main{padding:1rem}.hero-section h1{font-size:1.6rem}.input-grid{grid-template-columns:1fr}.nav-links{display:none}.market-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="bg-mesh"></div><div class="bg-grid"></div>
+<div class="lock-gate" id="lockGate"><div class="lock-icon-big">&#128274;</div><h2>Enter Code <span>SPUNK</span> to Unlock</h2><p>This is an exclusive premium tool. Enter the referral code to get instant access.</p><div class="code-input-wrap"><input type="text" class="code-input" id="codeInput" placeholder="CODE" maxlength="10" autocomplete="off"><button class="code-submit" onclick="submitCode()">Unlock</button></div><div class="code-error" id="codeError"></div><div class="lock-hint">Get the code at <a href="https://spunk.codes/exclusive-tools">spunk.codes/exclusive-tools</a></div></div>
+<nav class="nav"><a href="https://spunk.codes" class="nav-brand">SPUNK.CODES</a><div class="nav-links"><a href="/store">Tools</a><a href="/exclusive-tools" class="active">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a></div></nav>
+
+<div class="main" id="mainContent">
+  <section class="hero-section">
+    <div class="exclusive-badge">&#128081; EXCLUSIVE TOOL</div>
+    <h1><span class="gold">TAM/SAM/SOM</span> Calculator</h1>
+    <p>Top-down and bottom-up market sizing with interactive concentric circle visualization. Perfect for pitch decks and investor presentations.</p>
+  </section>
+
+  <div class="tool-section">
+    <h2><span class="icon">&#127758;</span> Market Sizing Approach</h2>
+    <div class="tab-row">
+      <button class="tab-btn active" onclick="switchTab('topdown')">Top-Down</button>
+      <button class="tab-btn" onclick="switchTab('bottomup')">Bottom-Up</button>
+    </div>
+
+    <div class="tab-content active" id="tab_topdown">
+      <p style="color:var(--text-dim);font-size:0.85rem;margin-bottom:1.5rem">Start with the total market and narrow down through filters.</p>
+      <div class="input-group"><label>Total Market Size (Global/Regional) ($)</label><input type="number" id="td_totalMarket" placeholder="50000000000" step="1000000"></div>
+      <div class="input-grid">
+        <div class="input-group"><label>Geographic Filter (% of total market you can serve)</label><input type="number" id="td_geoFilter" placeholder="30" min="0" max="100" value="30"></div>
+        <div class="input-group"><label>Segment Filter (% that fits your product)</label><input type="number" id="td_segFilter" placeholder="25" min="0" max="100" value="25"></div>
+        <div class="input-group"><label>Reachable with Your Go-to-Market (%)</label><input type="number" id="td_reachFilter" placeholder="15" min="0" max="100" value="15"></div>
+        <div class="input-group"><label>Realistic Market Share in 3-5 Years (%)</label><input type="number" id="td_shareFilter" placeholder="5" min="0" max="100" value="5"></div>
+      </div>
+      <div class="input-group"><label>Market Growth Rate (CAGR %)</label><input type="number" id="td_cagr" placeholder="12" value="12"></div>
+    </div>
+
+    <div class="tab-content" id="tab_bottomup">
+      <p style="color:var(--text-dim);font-size:0.85rem;margin-bottom:1.5rem">Build up from individual units: customers x price = revenue.</p>
+      <div class="input-grid">
+        <div class="input-group"><label>Total Potential Customers (worldwide)</label><input type="number" id="bu_totalCustomers" placeholder="5000000"></div>
+        <div class="input-group"><label>Average Revenue Per User ($/year)</label><input type="number" id="bu_arpu" placeholder="600" step="0.01"></div>
+        <div class="input-group"><label>Customers in Your Serviceable Segment</label><input type="number" id="bu_samCustomers" placeholder="500000"></div>
+        <div class="input-group"><label>Customers You Can Realistically Acquire (3-5yr)</label><input type="number" id="bu_somCustomers" placeholder="25000"></div>
+      </div>
+      <div class="input-group"><label>Market Growth Rate (CAGR %)</label><input type="number" id="bu_cagr" placeholder="12" value="12"></div>
+    </div>
+  </div>
+
+  <div class="btn-row" style="justify-content:center;margin-bottom:1.5rem">
+    <button class="btn btn-gold" onclick="calculate()">&#128640; Calculate Market Size</button>
+    <button class="btn btn-outline" onclick="loadExample()">Load Example</button>
+  </div>
+
+  <div class="result-box" id="results">
+    <h3 style="color:var(--gold);font-size:1.1rem;margin-bottom:1rem">&#127919; Market Sizing Results</h3>
+    <div class="market-grid" id="marketCards"></div>
+
+    <div class="concentric-wrap">
+      <svg id="concentricSvg" width="400" height="400" viewBox="0 0 400 400"></svg>
+    </div>
+
+    <div style="background:rgba(13,17,23,0.5);border:1px solid var(--border);border-radius:12px;padding:1.5rem;margin-top:1rem">
+      <div style="color:var(--gold);font-size:0.85rem;font-weight:700;margin-bottom:1rem">&#128200; 5-Year Growth Projection</div>
+      <svg id="growthSvg" width="100%" height="200" viewBox="0 0 700 200"></svg>
+    </div>
+
+    <div class="summary-text" id="summaryText" style="margin-top:1.5rem"></div>
+
+    <div class="btn-row">
+      <button class="btn btn-gold btn-sm" onclick="exportSlide()">&#128190; Download Market Slide</button>
+      <button class="btn btn-outline btn-sm" onclick="copySummary()">&#128203; Copy Summary</button>
+    </div>
+  </div>
+
+  <div class="share-cta"><h3>&#128640; Help a founder size their market!</h3><p>Share the code <strong style="color:var(--gold)">SPUNK</strong> to give free access.</p><div class="share-btns"><button class="share-btn share-x" onclick="shareX()">&#120143; Share on X</button><button class="share-btn share-reddit" onclick="shareReddit()">&#129513; Reddit</button><button class="share-btn share-email" onclick="shareEmail()">&#9993; Email</button></div></div>
+</div>
+
+<footer class="footer"><div class="footer-links"><a href="https://spunk.codes">Home</a><a href="/store">Tools</a><a href="/exclusive-tools">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a><a href="https://x.com/SpunkArt13" target="_blank">@SpunkArt13</a></div><p>&copy; 2026 SPUNK.CODES. All rights reserved.</p></footer>
+<div class="watermark">SPUNK.CODES EXCLUSIVE</div>
+
+<script>document.addEventListener('contextmenu',function(e){e.preventDefault()});document.addEventListener('keydown',function(e){if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&e.key==='I')||(e.ctrlKey&&e.key==='u'))e.preventDefault()});</script>
+<script>
+function checkAccess(){var c=localStorage.getItem('spunk_referral_code')||localStorage.getItem('spunk_ref_code');if(c&&c.toUpperCase()==='SPUNK')document.getElementById('lockGate').classList.add('hidden')}
+function submitCode(){var v=document.getElementById('codeInput').value.trim().toUpperCase();if(v==='SPUNK'){localStorage.setItem('spunk_referral_code',v);localStorage.setItem('spunk_ref_code',v);document.getElementById('lockGate').classList.add('hidden');if(typeof gtag==='function')gtag('event','exclusive_unlock',{tool:'market-sizing-tool'})}else{document.getElementById('codeError').textContent='Invalid code. Try again.'}}
+document.getElementById('codeInput').addEventListener('keydown',function(e){if(e.key==='Enter')submitCode()});checkAccess();
+</script>
+
+<script>
+var STORAGE_KEY='spunk_market_sizing';
+var activeTab='topdown';
+
+function switchTab(t){
+  activeTab=t;
+  document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active')});
+  document.querySelectorAll('.tab-content').forEach(function(c){c.classList.remove('active')});
+  document.getElementById('tab_'+t).classList.add('active');
+  document.querySelectorAll('.tab-btn').forEach(function(b){if(b.textContent.toLowerCase().replace('-','')===t)b.classList.add('active')});
+  event.target.classList.add('active');
+}
+
+function loadSaved(){try{var s=JSON.parse(localStorage.getItem(STORAGE_KEY));if(s){Object.keys(s).forEach(function(k){var el=document.getElementById(k);if(el)el.value=s[k]})}}catch(e){}}
+
+function saveData(){
+  var ids=['td_totalMarket','td_geoFilter','td_segFilter','td_reachFilter','td_shareFilter','td_cagr','bu_totalCustomers','bu_arpu','bu_samCustomers','bu_somCustomers','bu_cagr'];
+  var d={};ids.forEach(function(id){d[id]=document.getElementById(id).value});
+  localStorage.setItem(STORAGE_KEY,JSON.stringify(d));
+}
+
+function loadExample(){
+  document.getElementById('td_totalMarket').value='85000000000';
+  document.getElementById('td_geoFilter').value='35';
+  document.getElementById('td_segFilter').value='20';
+  document.getElementById('td_reachFilter').value='12';
+  document.getElementById('td_shareFilter').value='4';
+  document.getElementById('td_cagr').value='15';
+  document.getElementById('bu_totalCustomers').value='2000000';
+  document.getElementById('bu_arpu').value='1200';
+  document.getElementById('bu_samCustomers').value='300000';
+  document.getElementById('bu_somCustomers').value='15000';
+  document.getElementById('bu_cagr').value='15';
+  saveData();
+}
+
+function formatMoney(n){if(n>=1e12)return'$'+(n/1e12).toFixed(1)+'T';if(n>=1e9)return'$'+(n/1e9).toFixed(1)+'B';if(n>=1e6)return'$'+(n/1e6).toFixed(1)+'M';if(n>=1e3)return'$'+(n/1e3).toFixed(0)+'K';return'$'+n.toFixed(0)}
+
+function calculate(){
+  var tam,sam,som,cagr;
+  if(activeTab==='topdown'){
+    var total=parseFloat(document.getElementById('td_totalMarket').value)||0;
+    var geo=(parseFloat(document.getElementById('td_geoFilter').value)||30)/100;
+    var seg=(parseFloat(document.getElementById('td_segFilter').value)||25)/100;
+    var reach=(parseFloat(document.getElementById('td_reachFilter').value)||15)/100;
+    var share=(parseFloat(document.getElementById('td_shareFilter').value)||5)/100;
+    cagr=(parseFloat(document.getElementById('td_cagr').value)||10)/100;
+    if(total<=0){alert('Please enter the total market size.');return}
+    tam=total;
+    sam=total*geo*seg;
+    som=sam*reach*share;
+  } else {
+    var totalCust=parseFloat(document.getElementById('bu_totalCustomers').value)||0;
+    var arpu=parseFloat(document.getElementById('bu_arpu').value)||0;
+    var samCust=parseFloat(document.getElementById('bu_samCustomers').value)||0;
+    var somCust=parseFloat(document.getElementById('bu_somCustomers').value)||0;
+    cagr=(parseFloat(document.getElementById('bu_cagr').value)||10)/100;
+    if(totalCust<=0||arpu<=0){alert('Please enter total customers and ARPU.');return}
+    tam=totalCust*arpu;
+    sam=samCust*arpu;
+    som=somCust*arpu;
+  }
+
+  // Cards
+  var html='';
+  html+='<div class="market-card tam-card"><h3>TAM</h3><div class="value">'+formatMoney(tam)+'</div><div class="sub">Total Addressable Market</div></div>';
+  html+='<div class="market-card sam-card"><h3>SAM</h3><div class="value">'+formatMoney(sam)+'</div><div class="sub">Serviceable Addressable Market</div></div>';
+  html+='<div class="market-card som-card"><h3>SOM</h3><div class="value">'+formatMoney(som)+'</div><div class="sub">Serviceable Obtainable Market</div></div>';
+  document.getElementById('marketCards').innerHTML=html;
+
+  // Concentric circles
+  drawConcentric(tam,sam,som);
+
+  // Growth projection
+  drawGrowth(tam,sam,som,cagr);
+
+  // Summary
+  var pctSam=tam>0?((sam/tam)*100).toFixed(1):0;
+  var pctSom=sam>0?((som/sam)*100).toFixed(1):0;
+  var summary='MARKET SIZING SUMMARY\n=====================\n';
+  summary+='Approach: '+(activeTab==='topdown'?'Top-Down':'Bottom-Up')+'\n\n';
+  summary+='TAM (Total Addressable Market): '+formatMoney(tam)+'\n';
+  summary+='SAM (Serviceable Addressable Market): '+formatMoney(sam)+' ('+pctSam+'% of TAM)\n';
+  summary+='SOM (Serviceable Obtainable Market): '+formatMoney(som)+' ('+pctSom+'% of SAM)\n\n';
+  summary+='Growth Rate: '+(cagr*100).toFixed(0)+'% CAGR\n';
+  summary+='TAM in 5 Years: '+formatMoney(tam*Math.pow(1+cagr,5))+'\n';
+  summary+='SOM in 5 Years: '+formatMoney(som*Math.pow(1+cagr,5))+'\n\n';
+  summary+='Note: These projections assume consistent market growth at the stated CAGR.';
+  document.getElementById('summaryText').textContent=summary;
+
+  document.getElementById('results').classList.add('show');
+  document.getElementById('results').scrollIntoView({behavior:'smooth'});
+  saveData();
+  if(typeof gtag==='function')gtag('event','market_sized',{tool:'market-sizing-tool'});
+}
+
+function drawConcentric(tam,sam,som){
+  var svg=document.getElementById('concentricSvg');
+  var cx=200,cy=200;
+  var r1=170,r2=tam>0?Math.max(50,(sam/tam)*170):100,r3=sam>0?Math.max(25,(som/sam)*r2):40;
+
+  var html='';
+  // TAM circle
+  html+='<circle cx="'+cx+'" cy="'+cy+'" r="'+r1+'" fill="rgba(255,140,0,0.12)" stroke="#ff8c00" stroke-width="2"/>';
+  html+='<text x="'+cx+'" y="'+(cy-r1+20)+'" text-anchor="middle" fill="#ff8c00" font-size="13" font-weight="700">TAM: '+formatMoney(tam)+'</text>';
+  // SAM circle
+  html+='<circle cx="'+cx+'" cy="'+cy+'" r="'+r2+'" fill="rgba(255,215,0,0.15)" stroke="#ffd700" stroke-width="2"/>';
+  html+='<text x="'+cx+'" y="'+(cy-r2+20)+'" text-anchor="middle" fill="#ffd700" font-size="12" font-weight="700">SAM: '+formatMoney(sam)+'</text>';
+  // SOM circle
+  html+='<circle cx="'+cx+'" cy="'+cy+'" r="'+r3+'" fill="rgba(57,211,83,0.2)" stroke="#39d353" stroke-width="2.5"/>';
+  html+='<text x="'+cx+'" y="'+cy+'" text-anchor="middle" fill="#39d353" font-size="11" font-weight="800">SOM</text>';
+  html+='<text x="'+cx+'" y="'+(cy+16)+'" text-anchor="middle" fill="#39d353" font-size="11" font-weight="700">'+formatMoney(som)+'</text>';
+
+  svg.innerHTML=html;
+}
+
+function drawGrowth(tam,sam,som,cagr){
+  var svg=document.getElementById('growthSvg');
+  var w=700,h=200,pad=50;
+  var years=[0,1,2,3,4,5];
+  var plotW=w-pad*2,plotH=h-pad*2;
+  var maxVal=tam*Math.pow(1+cagr,5)*1.1;
+  var stepX=plotW/5;
+
+  var html='';
+  // Grid
+  for(var g=0;g<=4;g++){var gy=h-pad-(g/4)*plotH;html+='<line x1="'+pad+'" y1="'+gy+'" x2="'+(w-pad)+'" y2="'+gy+'" stroke="rgba(48,54,61,0.3)"/>';html+='<text x="'+(pad-5)+'" y="'+(gy+4)+'" fill="#8b949e" font-size="9" text-anchor="end">'+formatMoney(maxVal*(g/4))+'</text>'}
+
+  // Draw lines for TAM, SAM, SOM
+  var lines=[{data:[],color:'#ff8c00',label:'TAM'},{data:[],color:'#ffd700',label:'SAM'},{data:[],color:'#39d353',label:'SOM'}];
+  years.forEach(function(yr){
+    var m=Math.pow(1+cagr,yr);
+    lines[0].data.push(tam*m);lines[1].data.push(sam*m);lines[2].data.push(som*m);
+  });
+
+  lines.forEach(function(line){
+    var path='';
+    line.data.forEach(function(v,i){
+      var x=pad+i*stepX;var y=h-pad-(v/maxVal)*plotH;
+      path+=(i===0?'M ':'L ')+x+' '+y;
+    });
+    html+='<path d="'+path+'" fill="none" stroke="'+line.color+'" stroke-width="2.5"/>';
+    var lastX=pad+5*stepX;var lastY=h-pad-(line.data[5]/maxVal)*plotH;
+    html+='<circle cx="'+lastX+'" cy="'+lastY+'" r="4" fill="'+line.color+'"/>';
+    html+='<text x="'+(lastX+8)+'" y="'+(lastY+4)+'" fill="'+line.color+'" font-size="10" font-weight="700">'+line.label+'</text>';
+  });
+
+  years.forEach(function(yr,i){html+='<text x="'+(pad+i*stepX)+'" y="'+(h-pad+16)+'" fill="#8b949e" font-size="10" text-anchor="middle">Year '+yr+'</text>'});
+  svg.innerHTML=html;
+}
+
+function copySummary(){navigator.clipboard.writeText(document.getElementById('summaryText').textContent).then(function(){alert('Summary copied!')})}
+
+function exportSlide(){
+  var text=document.getElementById('summaryText').textContent;
+  var html='<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Market Sizing</title><style>body{font-family:system-ui;background:#0d1117;color:#e6edf3;display:flex;align-items:center;justify-content:center;min-height:100vh;padding:4rem}pre{font-size:1.2rem;line-height:2;white-space:pre-line}</style></head><body><pre>'+text+'</pre></body></html>';
+  var blob=new Blob([html],{type:'text/html'});var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='market-sizing-slide.html';a.click();
+}
+
+function shareX(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Sized my market with this free TAM/SAM/SOM calculator from @SpunkArt13. Code SPUNK unlocks it.')+'&url='+encodeURIComponent('https://spunk.codes/exclusive-tools'),'_blank')}
+function shareReddit(){window.open('https://www.reddit.com/submit?url='+encodeURIComponent('https://spunk.codes/exclusive-tools')+'&title='+encodeURIComponent('Free TAM/SAM/SOM Calculator [spunk.codes]'),'_blank')}
+function shareEmail(){window.location.href='mailto:?subject='+encodeURIComponent('Free Market Sizing Tool')+'&body='+encodeURIComponent('Size your market: https://spunk.codes/exclusive-tools (code: SPUNK)')}
+
+loadSaved();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+</body>
+</html>

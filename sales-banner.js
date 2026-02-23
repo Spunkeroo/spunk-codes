@@ -201,6 +201,17 @@
         '<h2>Wait! Get <span>50% off</span> your first purchase</h2>' +
         '<p>All 200+ tools stay free forever. Unlock 20 premium ebooks, priority support, and lifetime updates — half price, just this once.</p>' +
         '<a href="' + PRICING_URL + '?discount=HALFOFF" class="sc-exit-popup-cta" onclick="return !1">Claim 50% Off &rarr;</a>' +
+        (isSubscribed ? '' :
+          '<div class="sc-exit-divider">or get free stuff</div>' +
+          '<div class="sc-exit-email-section">' +
+            '<span class="sc-exit-email-label">Get 5 free ebooks + weekly tool drops</span>' +
+            '<form class="sc-exit-email-form" id="scExitEmailForm" autocomplete="on">' +
+              '<input type="email" class="sc-exit-email-input" placeholder="your@email.com" required autocomplete="email" aria-label="Email address">' +
+              '<button type="submit" class="sc-exit-email-btn">Get Free Ebooks</button>' +
+            '</form>' +
+            '<div class="sc-exit-email-trust">Free. No spam. Unsubscribe anytime.</div>' +
+          '</div>'
+        ) +
         '<button class="sc-exit-popup-skip">No thanks, I\'ll stick with free</button>' +
       '</div>';
     document.body.appendChild(overlay);
@@ -241,6 +252,66 @@
       hideExitPopup();
       window.location.href = PRICING_URL + '?discount=HALFOFF';
     });
+
+    // Email form in exit popup
+    var exitEmailForm = document.getElementById('scExitEmailForm');
+    if (exitEmailForm) {
+      exitEmailForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var input = this.querySelector('.sc-exit-email-input');
+        var btn = this.querySelector('.sc-exit-email-btn');
+        var email = input.value.trim();
+        if (!email || email.indexOf('@') === -1) return;
+
+        btn.disabled = true;
+        btn.textContent = 'Subscribing...';
+
+        track('sales_banner_email_submit', 'exit_intent_email');
+
+        // Submit to Beehiiv via hidden iframe
+        var iframe = document.createElement('iframe');
+        iframe.name = 'sc_exit_beehiiv';
+        iframe.style.cssText = 'display:none;width:0;height:0;border:none;position:absolute';
+        document.body.appendChild(iframe);
+
+        var bForm = document.createElement('form');
+        bForm.method = 'POST';
+        bForm.action = BEEHIIV_ACTION;
+        bForm.target = 'sc_exit_beehiiv';
+        bForm.style.display = 'none';
+
+        var emailField = document.createElement('input');
+        emailField.type = 'hidden';
+        emailField.name = 'email';
+        emailField.value = email;
+        bForm.appendChild(emailField);
+
+        document.body.appendChild(bForm);
+        bForm.submit();
+
+        setTimeout(function () {
+          bForm.remove();
+          var section = overlay.querySelector('.sc-exit-email-section');
+          if (section) {
+            section.innerHTML = '<div class="sc-exit-email-success">&#10003; You\'re in! Check your inbox for 5 free ebooks.</div>';
+          }
+          try {
+            localStorage.setItem('sc_ecw_subscribed', '1');
+            localStorage.setItem('sc_ecw_subscriber_email', email);
+          } catch(ex) {}
+          track('sales_banner_email_success', 'exit_intent_email');
+
+          // Hide the bottom bar email CTA if visible
+          var bottomEmail = document.querySelector('.sc-bottom-bar-email');
+          var bottomDivider = document.querySelector('.sc-bottom-bar-divider');
+          if (bottomEmail) bottomEmail.style.display = 'none';
+          if (bottomDivider) bottomDivider.style.display = 'none';
+
+          // Auto-close after 3s
+          setTimeout(hideExitPopup, 3000);
+        }, 1500);
+      });
+    }
 
     // Skip / close
     overlay.querySelector('.sc-exit-popup-skip').addEventListener('click', hideExitPopup);

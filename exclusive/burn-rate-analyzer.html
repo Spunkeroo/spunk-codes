@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Burn Rate Analyzer - Exclusive Premium Tool | SPUNK.CODES</title>
+<meta name="description" content="Calculate gross burn, net burn, runway with scenario modeling and SVG charts. Exclusive premium tool.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Burn Rate Analyzer - SPUNK.CODES Exclusive">
+<meta property="og:description" content="Analyze burn rate, runway, and model scenarios. Unlock with code SPUNK.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://spunk.codes/exclusive/burn-rate-analyzer">
+<meta property="og:site_name" content="SPUNK.CODES">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/burn-rate-analyzer">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0d1117;--card:rgba(22,27,34,0.8);--border:rgba(48,54,61,0.6);--gold:#ffd700;--gold-dim:rgba(255,215,0,0.15);--gold-border:rgba(255,215,0,0.3);--text:#e6edf3;--text-dim:#8b949e;--blue:#58a6ff;--cyan:#39d353;--red:#f85149;--orange:#ff8c00;--font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+a{color:var(--blue);text-decoration:none}a:hover{color:#fff}
+.bg-mesh{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 80% 50% at 20% 20%,rgba(255,215,0,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(255,140,0,0.04) 0%,transparent 60%),var(--bg)}
+.bg-grid{position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,215,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,215,0,0.03) 1px,transparent 1px);background-size:60px 60px}
+.nav{position:sticky;top:0;z-index:100;background:rgba(13,17,23,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,215,0,0.15);padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}.nav-brand{font-weight:800;font-size:1.1rem;color:var(--gold);letter-spacing:0.08em}.nav-links{display:flex;gap:1.5rem;font-size:0.85rem;list-style:none}.nav-links a{color:var(--text-dim);transition:color 0.2s;font-weight:500}.nav-links a:hover{color:#fff}.nav-links a.active{color:var(--gold)}
+.lock-gate{position:fixed;inset:0;z-index:1000;background:rgba(13,17,23,0.97);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:2rem}.lock-gate.hidden{display:none}.lock-icon-big{font-size:4rem;margin-bottom:0.5rem}.lock-gate h2{font-size:1.8rem;font-weight:800;text-align:center}.lock-gate h2 span{color:var(--gold)}.lock-gate p{color:var(--text-dim);text-align:center;max-width:400px}.code-input-wrap{display:flex;gap:0.5rem;margin-top:0.5rem}.code-input{padding:0.8rem 1.5rem;background:rgba(22,27,34,0.8);border:2px solid var(--gold-border);border-radius:12px;color:var(--gold);font-size:1.2rem;font-weight:800;letter-spacing:3px;text-align:center;width:200px;outline:none;text-transform:uppercase;font-family:var(--font)}.code-input:focus{border-color:var(--gold);box-shadow:0 0 20px rgba(255,215,0,0.2)}.code-submit{padding:0.8rem 1.5rem;background:linear-gradient(135deg,#ffd700,#ff8c00);border:none;border-radius:12px;color:#000;font-size:1rem;font-weight:800;cursor:pointer;transition:all 0.3s}.code-submit:hover{transform:scale(1.05)}.code-error{color:#f85149;font-size:0.85rem;min-height:1.2em}.lock-hint{color:var(--text-dim);font-size:0.8rem;margin-top:1rem}.lock-hint a{color:var(--gold)}
+.exclusive-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;background:linear-gradient(135deg,rgba(255,215,0,0.15),rgba(255,140,0,0.15));border:1px solid var(--gold-border);border-radius:100px;font-size:11px;font-weight:800;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase}
+.main{max-width:950px;margin:0 auto;padding:2rem}
+.hero-section{text-align:center;padding:2rem 0 3rem}.hero-section h1{font-size:2.2rem;font-weight:800;margin:1rem 0 0.5rem}.hero-section h1 .gold{background:linear-gradient(135deg,#ffd700,#ff8c00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}.hero-section p{color:var(--text-dim);max-width:600px;margin:0 auto}
+.tool-section{background:var(--card);border:1px solid var(--gold-border);border-radius:16px;padding:2rem;margin-bottom:1.5rem;backdrop-filter:blur(10px);position:relative;overflow:hidden}.tool-section::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),#ff8c00,var(--gold))}.tool-section h2{font-size:1.2rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}.tool-section h2 .icon{font-size:1.4rem}
+label{font-size:0.85rem;color:var(--text-dim);font-weight:600;display:block;margin-bottom:0.4rem}
+input,select{width:100%;padding:0.75rem 1rem;background:rgba(13,17,23,0.6);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:0.9rem;font-family:var(--font);outline:none;transition:border-color 0.2s}input:focus,select:focus{border-color:var(--gold)}
+.input-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}.input-group{margin-bottom:1rem}
+.btn{padding:0.75rem 2rem;border:none;border-radius:10px;font-size:0.9rem;font-weight:700;cursor:pointer;transition:all 0.2s;font-family:var(--font)}.btn-gold{background:linear-gradient(135deg,#ffd700,#ff8c00);color:#000}.btn-gold:hover{transform:translateY(-2px);box-shadow:0 4px 20px rgba(255,215,0,0.3)}.btn-outline{background:transparent;border:1px solid var(--border);color:var(--text-dim)}.btn-outline:hover{border-color:var(--gold);color:var(--gold)}.btn-sm{padding:0.5rem 1rem;font-size:0.8rem}.btn-row{display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:1rem}
+.result-box{background:rgba(255,215,0,0.05);border:1px solid var(--gold-border);border-radius:12px;padding:1.5rem;margin-top:1.5rem;display:none}.result-box.show{display:block}
+.metrics-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;margin:1rem 0}
+.metric-card{background:rgba(13,17,23,0.5);border:1px solid var(--border);border-radius:12px;padding:1.2rem;text-align:center}.metric-card .val{font-size:1.6rem;font-weight:800}.metric-card .lbl{font-size:0.72rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px;margin-bottom:0.3rem}.metric-card .sub{font-size:0.7rem;color:var(--text-dim);margin-top:0.3rem}
+.alert-box{padding:1rem 1.5rem;border-radius:12px;margin:1rem 0;font-size:0.9rem;font-weight:600;display:flex;align-items:center;gap:0.8rem}
+.alert-danger{background:rgba(248,81,73,0.1);border:1px solid rgba(248,81,73,0.3);color:var(--red)}
+.alert-warning{background:rgba(255,215,0,0.08);border:1px solid rgba(255,215,0,0.3);color:var(--gold)}
+.alert-ok{background:rgba(57,211,83,0.08);border:1px solid rgba(57,211,83,0.3);color:var(--cyan)}
+.chart-box{background:rgba(13,17,23,0.5);border:1px solid var(--border);border-radius:12px;padding:1.5rem;margin-top:1.5rem}
+.chart-title{font-size:0.85rem;font-weight:700;margin-bottom:1rem;color:var(--gold)}
+.scenario-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;margin:1rem 0}
+.scenario-card{background:rgba(13,17,23,0.5);border:1px solid var(--border);border-radius:12px;padding:1.2rem;text-align:center}
+.scenario-card h4{font-size:0.85rem;color:var(--gold);margin-bottom:0.5rem}
+.scenario-card .val{font-size:1.3rem;font-weight:800;margin-bottom:0.3rem}
+.scenario-card .desc{font-size:0.75rem;color:var(--text-dim)}
+.expense-row{display:grid;grid-template-columns:1fr 1fr auto;gap:0.5rem;align-items:center;margin-bottom:0.5rem}
+.expense-row input{padding:0.5rem;font-size:0.85rem}
+.remove-btn{background:none;border:none;color:var(--red);cursor:pointer;font-size:1.1rem;padding:0 6px;opacity:0.5}.remove-btn:hover{opacity:1}
+.summary-text{background:rgba(13,17,23,0.5);border:1px solid var(--border);border-radius:10px;padding:1rem;font-size:0.85rem;color:var(--text-dim);line-height:1.8;white-space:pre-line;margin-top:1rem}
+.share-cta{background:linear-gradient(135deg,rgba(255,215,0,0.08),rgba(255,140,0,0.05));border:1px solid var(--gold-border);border-radius:16px;padding:2rem;text-align:center;margin-top:2rem}.share-cta h3{color:var(--gold);margin-bottom:0.5rem;font-size:1.1rem}.share-cta p{color:var(--text-dim);font-size:0.9rem;margin-bottom:1rem}.share-btns{display:flex;gap:0.6rem;justify-content:center;flex-wrap:wrap}.share-btn{display:inline-flex;align-items:center;gap:0.4rem;padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;color:#fff;transition:all 0.25s}.share-btn:hover{transform:translateY(-2px)}.share-x{background:#000;border:1px solid #333}.share-reddit{background:#ff4500}.share-email{background:#21262d;border:1px solid #30363d}
+.footer{text-align:center;padding:2rem;border-top:1px solid rgba(255,215,0,0.1);color:var(--text-dim);font-size:0.75rem;margin-top:3rem}.footer a{color:var(--gold)}.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-bottom:1rem}
+.watermark{position:fixed;bottom:10px;right:10px;font-size:0.6rem;color:rgba(255,215,0,0.08);font-weight:800;pointer-events:none;z-index:9999;letter-spacing:1px;text-transform:uppercase}
+@media(max-width:768px){.main{padding:1rem}.hero-section h1{font-size:1.6rem}.input-grid{grid-template-columns:1fr}.nav-links{display:none}.scenario-grid{grid-template-columns:1fr}.expense-row{grid-template-columns:1fr 1fr auto}}
+</style>
+</head>
+<body>
+<div class="bg-mesh"></div><div class="bg-grid"></div>
+<div class="lock-gate" id="lockGate"><div class="lock-icon-big">&#128274;</div><h2>Enter Code <span>SPUNK</span> to Unlock</h2><p>This is an exclusive premium tool. Enter the referral code to get instant access.</p><div class="code-input-wrap"><input type="text" class="code-input" id="codeInput" placeholder="CODE" maxlength="10" autocomplete="off"><button class="code-submit" onclick="submitCode()">Unlock</button></div><div class="code-error" id="codeError"></div><div class="lock-hint">Get the code at <a href="https://spunk.codes/exclusive-tools">spunk.codes/exclusive-tools</a></div></div>
+<nav class="nav"><a href="https://spunk.codes" class="nav-brand">SPUNK.CODES</a><div class="nav-links"><a href="/store">Tools</a><a href="/exclusive-tools" class="active">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a></div></nav>
+
+<div class="main">
+  <section class="hero-section">
+    <div class="exclusive-badge">&#128081; EXCLUSIVE TOOL</div>
+    <h1><span class="gold">Burn Rate</span> Analyzer</h1>
+    <p>Track expenses by category, calculate gross/net burn and runway, model cost-cutting and fundraising scenarios with visual charts.</p>
+  </section>
+
+  <div class="tool-section">
+    <h2><span class="icon">&#128176;</span> Cash & Revenue</h2>
+    <div class="input-grid">
+      <div class="input-group"><label>Cash in Bank ($)</label><input type="number" id="cashBalance" placeholder="500000" value=""></div>
+      <div class="input-group"><label>Monthly Revenue ($)</label><input type="number" id="monthlyRev" placeholder="25000" value=""></div>
+      <div class="input-group"><label>Monthly Revenue Growth (%)</label><input type="number" id="revGrowth" placeholder="10" value="10"></div>
+      <div class="input-group"><label>Planned Fundraise ($)</label><input type="number" id="fundraise" placeholder="0" value="0"></div>
+    </div>
+  </div>
+
+  <div class="tool-section">
+    <h2><span class="icon">&#128184;</span> Monthly Expenses by Category</h2>
+    <div class="expense-row" style="font-size:0.75rem;color:var(--gold);font-weight:700;margin-bottom:0.3rem"><div>Category</div><div>Monthly Amount ($)</div><div></div></div>
+    <div id="expenseRows"></div>
+    <button class="btn btn-outline btn-sm" onclick="addExpense()">+ Add Category</button>
+  </div>
+
+  <div class="btn-row" style="justify-content:center;margin-bottom:1.5rem">
+    <button class="btn btn-gold" onclick="analyze()">&#128640; Analyze Burn Rate</button>
+    <button class="btn btn-outline" onclick="loadExample()">Load Example</button>
+  </div>
+
+  <div class="result-box" id="results">
+    <div id="alertBox"></div>
+    <div class="metrics-grid" id="metricsGrid"></div>
+
+    <div class="chart-box">
+      <div class="chart-title">&#128200; Monthly Burn Breakdown</div>
+      <svg id="burnSvg" width="100%" height="250" viewBox="0 0 800 250"></svg>
+    </div>
+
+    <div class="chart-box">
+      <div class="chart-title">&#128201; Runway Projection</div>
+      <svg id="runwaySvg" width="100%" height="250" viewBox="0 0 800 250"></svg>
+    </div>
+
+    <div class="chart-box">
+      <div class="chart-title">&#127919; Scenario Modeling</div>
+      <div class="scenario-grid" id="scenarios"></div>
+    </div>
+
+    <div class="summary-text" id="summaryText"></div>
+    <div class="btn-row"><button class="btn btn-outline btn-sm" onclick="copySummary()">&#128203; Copy Summary</button></div>
+  </div>
+
+  <div class="share-cta"><h3>&#128640; Every founder needs this.</h3><p>Share code <strong style="color:var(--gold)">SPUNK</strong> to help others track their runway.</p><div class="share-btns"><button class="share-btn share-x" onclick="shareX()">&#120143; Share on X</button><button class="share-btn share-reddit" onclick="shareReddit()">&#129513; Reddit</button><button class="share-btn share-email" onclick="shareEmail()">&#9993; Email</button></div></div>
+</div>
+
+<footer class="footer"><div class="footer-links"><a href="https://spunk.codes">Home</a><a href="/store">Tools</a><a href="/exclusive-tools">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a><a href="https://x.com/SpunkArt13" target="_blank">@SpunkArt13</a></div><p>&copy; 2026 SPUNK.CODES. All rights reserved.</p></footer>
+<div class="watermark">SPUNK.CODES EXCLUSIVE</div>
+
+<script>document.addEventListener('contextmenu',function(e){e.preventDefault()});document.addEventListener('keydown',function(e){if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&e.key==='I')||(e.ctrlKey&&e.key==='u'))e.preventDefault()});</script>
+<script>
+function checkAccess(){var c=localStorage.getItem('spunk_referral_code')||localStorage.getItem('spunk_ref_code');if(c&&c.toUpperCase()==='SPUNK')document.getElementById('lockGate').classList.add('hidden')}
+function submitCode(){var v=document.getElementById('codeInput').value.trim().toUpperCase();if(v==='SPUNK'){localStorage.setItem('spunk_referral_code',v);localStorage.setItem('spunk_ref_code',v);document.getElementById('lockGate').classList.add('hidden');if(typeof gtag==='function')gtag('event','exclusive_unlock',{tool:'burn-rate-analyzer'})}else{document.getElementById('codeError').textContent='Invalid code. Try again.'}}
+document.getElementById('codeInput').addEventListener('keydown',function(e){if(e.key==='Enter')submitCode()});checkAccess();
+</script>
+
+<script>
+var STORAGE_KEY='spunk_burn_rate';
+var expenses=[];
+var defaultCategories=['Salaries & Wages','Office & Rent','Software & Tools','Marketing & Ads','Cloud & Hosting','Legal & Accounting','Insurance','Travel','Miscellaneous'];
+
+function addExpense(cat,amt){
+  var id=Date.now()+'_'+Math.random().toString(36).substr(2,4);
+  var row=document.createElement('div');row.className='expense-row';row.id='exp_'+id;
+  row.innerHTML='<input type="text" value="'+(cat||'')+'" placeholder="Category" onchange="saveExpenses()">';
+  row.innerHTML+='<input type="number" value="'+(amt||'')+'" placeholder="0" onchange="saveExpenses()">';
+  row.innerHTML+='<button class="remove-btn" onclick="this.parentElement.remove();saveExpenses()">&#10005;</button>';
+  document.getElementById('expenseRows').appendChild(row);
+}
+
+function getExpenses(){
+  var exps=[];
+  document.querySelectorAll('#expenseRows .expense-row').forEach(function(row){
+    var inputs=row.querySelectorAll('input');
+    var cat=inputs[0].value.trim();var amt=parseFloat(inputs[1].value)||0;
+    if(cat||amt>0)exps.push({category:cat||'Uncategorized',amount:amt});
+  });
+  return exps;
+}
+
+function saveExpenses(){
+  var data={
+    cashBalance:document.getElementById('cashBalance').value,
+    monthlyRev:document.getElementById('monthlyRev').value,
+    revGrowth:document.getElementById('revGrowth').value,
+    fundraise:document.getElementById('fundraise').value,
+    expenses:getExpenses()
+  };
+  localStorage.setItem(STORAGE_KEY,JSON.stringify(data));
+}
+
+function loadSaved(){
+  try{
+    var s=JSON.parse(localStorage.getItem(STORAGE_KEY));
+    if(s){
+      document.getElementById('cashBalance').value=s.cashBalance||'';
+      document.getElementById('monthlyRev').value=s.monthlyRev||'';
+      document.getElementById('revGrowth').value=s.revGrowth||'10';
+      document.getElementById('fundraise').value=s.fundraise||'0';
+      if(s.expenses&&s.expenses.length){s.expenses.forEach(function(e){addExpense(e.category,e.amount)});return}
+    }
+  }catch(e){}
+  defaultCategories.forEach(function(c){addExpense(c,'')});
+}
+
+function loadExample(){
+  document.getElementById('expenseRows').innerHTML='';
+  document.getElementById('cashBalance').value='750000';
+  document.getElementById('monthlyRev').value='35000';
+  document.getElementById('revGrowth').value='12';
+  document.getElementById('fundraise').value='0';
+  var examples=[['Salaries & Wages',85000],['Office & Rent',5000],['Software & Tools',3500],['Marketing & Ads',12000],['Cloud & Hosting',4500],['Legal & Accounting',2000],['Insurance',1500],['Travel',1000],['Miscellaneous',500]];
+  examples.forEach(function(e){addExpense(e[0],e[1])});
+  saveExpenses();
+}
+
+function formatNum(n){if(Math.abs(n)>=1e6)return'$'+(n/1e6).toFixed(1)+'M';if(Math.abs(n)>=1e3)return'$'+(n/1e3).toFixed(1)+'K';return'$'+Math.round(n).toLocaleString()}
+
+function analyze(){
+  var cash=parseFloat(document.getElementById('cashBalance').value)||0;
+  var rev=parseFloat(document.getElementById('monthlyRev').value)||0;
+  var revGr=(parseFloat(document.getElementById('revGrowth').value)||0)/100;
+  var fundraise=parseFloat(document.getElementById('fundraise').value)||0;
+  var exps=getExpenses();
+  var grossBurn=exps.reduce(function(s,e){return s+e.amount},0);
+  if(grossBurn<=0){alert('Please enter your monthly expenses.');return}
+
+  var netBurn=grossBurn-rev;
+  var totalCash=cash+fundraise;
+  var runwayMonths=netBurn>0?totalCash/netBurn:(netBurn===0?999:999);
+
+  // Project monthly cash with revenue growth
+  var projection=[];var bal=totalCash;
+  for(var m=0;m<24;m++){
+    var mRev=rev*Math.pow(1+revGr,m);
+    var mBurn=grossBurn-mRev;
+    bal-=mBurn;
+    projection.push({month:m+1,cash:bal,rev:mRev,burn:grossBurn,net:mBurn});
+    if(bal<=0&&projection.length>=2)break;
+  }
+
+  // Real runway (with growth)
+  var realRunway=projection.length;
+  for(var r=0;r<projection.length;r++){if(projection[r].cash<=0){realRunway=r;break}}
+
+  // Alert
+  var alertHtml='';
+  if(realRunway<6)alertHtml='<div class="alert-box alert-danger">&#9888; CRITICAL: Less than 6 months runway ('+realRunway+' months). Start fundraising or cut costs immediately.</div>';
+  else if(realRunway<12)alertHtml='<div class="alert-box alert-warning">&#9888; WARNING: '+realRunway+' months runway. Begin fundraising preparations now.</div>';
+  else alertHtml='<div class="alert-box alert-ok">&#9989; '+realRunway+'+ months runway. Healthy position to focus on growth.</div>';
+  document.getElementById('alertBox').innerHTML=alertHtml;
+
+  // Metrics
+  var html='';
+  html+='<div class="metric-card"><div class="lbl">Gross Burn</div><div class="val" style="color:var(--red)">'+formatNum(grossBurn)+'</div><div class="sub">per month</div></div>';
+  html+='<div class="metric-card"><div class="lbl">Net Burn</div><div class="val" style="color:'+(netBurn>0?'var(--orange)':'var(--cyan)')+'">'+formatNum(netBurn)+'</div><div class="sub">'+(netBurn<=0?'Cash flow positive!':'per month')+'</div></div>';
+  html+='<div class="metric-card"><div class="lbl">Runway</div><div class="val" style="color:'+(realRunway<6?'var(--red)':realRunway<12?'var(--gold)':'var(--cyan)')+'">'+realRunway+'</div><div class="sub">months (with growth)</div></div>';
+  html+='<div class="metric-card"><div class="lbl">Cash Balance</div><div class="val" style="color:var(--gold)">'+formatNum(totalCash)+'</div><div class="sub">current total</div></div>';
+  html+='<div class="metric-card"><div class="lbl">Monthly Revenue</div><div class="val" style="color:var(--cyan)">'+formatNum(rev)+'</div><div class="sub">'+revGr*100+'% MoM growth</div></div>';
+  document.getElementById('metricsGrid').innerHTML=html;
+
+  // Burn bar chart
+  drawBurnChart(exps);
+  // Runway projection
+  drawRunwayChart(projection);
+  // Scenarios
+  drawScenarios(grossBurn,rev,totalCash,revGr);
+
+  // Summary
+  var summary='BURN RATE ANALYSIS\n==================\n';
+  summary+='Cash: '+formatNum(totalCash)+' | Gross Burn: '+formatNum(grossBurn)+'/mo | Net Burn: '+formatNum(netBurn)+'/mo\n';
+  summary+='Runway: '+realRunway+' months (with '+revGr*100+'% MoM revenue growth)\n\n';
+  summary+='EXPENSE BREAKDOWN\n';
+  exps.sort(function(a,b){return b.amount-a.amount}).forEach(function(e){
+    summary+=e.category+': '+formatNum(e.amount)+' ('+((e.amount/grossBurn)*100).toFixed(1)+'%)\n';
+  });
+  summary+='\nTotal Monthly Expenses: '+formatNum(grossBurn)+'\n';
+  summary+='Monthly Revenue: '+formatNum(rev)+'\n';
+  document.getElementById('summaryText').textContent=summary;
+
+  document.getElementById('results').classList.add('show');
+  document.getElementById('results').scrollIntoView({behavior:'smooth'});
+  saveExpenses();
+  if(typeof gtag==='function')gtag('event','burn_analyzed',{tool:'burn-rate-analyzer',runway:realRunway});
+}
+
+function drawBurnChart(exps){
+  var sorted=exps.slice().sort(function(a,b){return b.amount-a.amount});
+  var svg=document.getElementById('burnSvg');
+  var w=800,h=250,pad=50;
+  var maxVal=sorted[0]?sorted[0].amount*1.1:1;
+  var barH=Math.min(25,((h-pad*2)/sorted.length)-4);
+  var html='';
+  sorted.forEach(function(e,i){
+    var y=pad+i*(barH+4);var barW=Math.max(5,(e.amount/maxVal)*(w-pad*2-150));
+    var pct=(e.amount/exps.reduce(function(s,x){return s+x.amount},0)*100).toFixed(1);
+    html+='<rect x="'+pad+'" y="'+y+'" width="'+barW+'" height="'+barH+'" rx="4" fill="'+(i<2?'#f85149':i<5?'#ff8c00':'#ffd700')+'" opacity="0.8"/>';
+    html+='<text x="'+(pad+barW+8)+'" y="'+(y+barH/2+4)+'" fill="var(--text-dim)" font-size="11">'+formatNum(e.amount)+' ('+pct+'%)</text>';
+    html+='<text x="'+(pad-5)+'" y="'+(y+barH/2+4)+'" fill="var(--text)" font-size="10" text-anchor="end">'+e.category.substring(0,18)+'</text>';
+  });
+  svg.innerHTML=html;
+  svg.setAttribute('height',Math.max(250,pad*2+sorted.length*(barH+4)));
+  svg.setAttribute('viewBox','0 0 800 '+Math.max(250,pad*2+sorted.length*(barH+4)));
+}
+
+function drawRunwayChart(proj){
+  var svg=document.getElementById('runwaySvg');
+  var w=800,h=250,pad=50;var plotW=w-pad*2,plotH=h-pad*2;
+  var maxCash=Math.max.apply(null,proj.map(function(p){return p.cash}))*1.2;
+  var minCash=Math.min(0,Math.min.apply(null,proj.map(function(p){return p.cash}))*1.1);
+  var range=maxCash-minCash;
+  var html='';
+  // Zero line
+  var zeroY=h-pad-((0-minCash)/range)*plotH;
+  html+='<line x1="'+pad+'" y1="'+zeroY+'" x2="'+(w-pad)+'" y2="'+zeroY+'" stroke="#f85149" stroke-width="1" stroke-dasharray="6,3"/>';
+  html+='<text x="'+(w-pad+5)+'" y="'+(zeroY+4)+'" fill="#f85149" font-size="10">$0</text>';
+  // Grid
+  for(var g=0;g<=4;g++){var gy=h-pad-(g/4)*plotH;var gv=minCash+(g/4)*range;html+='<line x1="'+pad+'" y1="'+gy+'" x2="'+(w-pad)+'" y2="'+gy+'" stroke="rgba(48,54,61,0.2)"/>';html+='<text x="'+(pad-5)+'" y="'+(gy+4)+'" fill="#8b949e" font-size="9" text-anchor="end">'+formatNum(gv)+'</text>'}
+  // Cash line
+  var path='';var area='M '+pad+' '+zeroY;
+  proj.forEach(function(p,i){
+    var x=pad+i*(plotW/(proj.length-1||1));
+    var y=h-pad-((p.cash-minCash)/range)*plotH;
+    path+=(i===0?'M ':'L ')+x+' '+y;
+    area+=' L '+x+' '+y;
+    html+='<text x="'+x+'" y="'+(h-pad+15)+'" fill="#8b949e" font-size="9" text-anchor="middle">M'+p.month+'</text>';
+  });
+  area+=' L '+(pad+(proj.length-1)*(plotW/(proj.length-1||1)))+' '+zeroY+' Z';
+  html+='<defs><linearGradient id="cashGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ffd700" stop-opacity="0.2"/><stop offset="100%" stop-color="#ffd700" stop-opacity="0.01"/></linearGradient></defs>';
+  html+='<path d="'+area+'" fill="url(#cashGrad)"/>';
+  html+='<path d="'+path+'" fill="none" stroke="#ffd700" stroke-width="2.5"/>';
+  svg.innerHTML=html;
+}
+
+function drawScenarios(grossBurn,rev,cash,revGr){
+  var scenarios=[
+    {name:'Cut 20% Costs',burn:grossBurn*0.8,rev:rev,growth:revGr},
+    {name:'Current Path',burn:grossBurn,rev:rev,growth:revGr},
+    {name:'Raise $1M',burn:grossBurn,rev:rev,growth:revGr,extra:1000000}
+  ];
+  var html='';
+  scenarios.forEach(function(s){
+    var bal=cash+(s.extra||0);var runway=0;
+    for(var m=0;m<60;m++){
+      var mRev=s.rev*Math.pow(1+s.growth,m);bal-=(s.burn-mRev);
+      if(bal<=0){runway=m;break}
+      runway=m+1;
+    }
+    var color=runway<6?'var(--red)':runway<12?'var(--gold)':'var(--cyan)';
+    html+='<div class="scenario-card"><h4>'+s.name+'</h4><div class="val" style="color:'+color+'">'+runway+' months</div><div class="desc">Burn: '+formatNum(s.burn)+'/mo</div></div>';
+  });
+  document.getElementById('scenarios').innerHTML=html;
+}
+
+function copySummary(){navigator.clipboard.writeText(document.getElementById('summaryText').textContent).then(function(){alert('Summary copied!')})}
+function shareX(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Analyzed my burn rate with this free tool from @SpunkArt13. Code SPUNK unlocks it.')+'&url='+encodeURIComponent('https://spunk.codes/exclusive-tools'),'_blank')}
+function shareReddit(){window.open('https://www.reddit.com/submit?url='+encodeURIComponent('https://spunk.codes/exclusive-tools')+'&title='+encodeURIComponent('Free Burn Rate Analyzer [spunk.codes]'),'_blank')}
+function shareEmail(){window.location.href='mailto:?subject='+encodeURIComponent('Free Burn Rate Tool')+'&body='+encodeURIComponent('Analyze your burn rate: https://spunk.codes/exclusive-tools (code: SPUNK)')}
+
+loadSaved();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+</body>
+</html>

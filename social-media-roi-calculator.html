@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Copyright 2026 spunk.codes. All rights reserved. Unauthorized reproduction prohibited. hello@spunk.codes -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Social Media ROI Calculator - Track Time vs Results | SPUNK.CODES</title>
+<meta name="description" content="Calculate the ROI of your social media efforts. Track time invested vs followers gained, revenue generated, and engagement. Free tool.">
+<meta name="keywords" content="social media ROI, social media calculator, social media time tracking, social media results, content ROI">
+<meta property="og:title" content="Social Media ROI Calculator | SPUNK.CODES">
+<meta property="og:description" content="Calculate ROI of social media efforts - time invested vs results.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://spunk.codes/social-media-roi-calculator">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/social-media-roi-calculator">
+<meta name="author" content="spunk.codes">
+<meta name="copyright" content="Copyright 2026 spunk.codes. All rights reserved.">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Social Media ROI Calculator","description":"Calculate ROI of social media efforts.","url":"https://spunk.codes/social-media-roi-calculator.html","applicationCategory":"BusinessApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Organization","name":"spunk.codes","url":"https://spunk.codes"}}</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#0d1117;color:#e6edf3;font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;line-height:1.6;min-height:100vh;display:flex;flex-direction:column;}
+a{color:#58a6ff;text-decoration:none;}a:hover{text-decoration:underline;}
+nav{background:rgba(13,17,23,0.8);backdrop-filter:blur(12px);border-bottom:1px solid #21262d;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;position:sticky;top:0;z-index:100;}
+nav .logo{font-weight:800;font-size:1.1rem;color:#58a6ff;letter-spacing:1px;}
+nav .links{display:flex;gap:20px;font-size:0.9rem;}nav .links a{color:#8b949e;transition:color .2s;}nav .links a:hover{color:#58a6ff;}
+.watermark{position:fixed;bottom:10px;right:15px;font-size:0.7rem;color:rgba(88,166,255,0.12);font-weight:700;letter-spacing:2px;pointer-events:none;z-index:0;}
+main{flex:1;max-width:900px;width:100%;margin:0 auto;padding:30px 20px;}
+h1{font-size:2rem;font-weight:700;margin-bottom:8px;}h1 span{color:#58a6ff;}
+.subtitle{color:#8b949e;margin-bottom:10px;font-size:1rem;}
+.pricing-badge{display:inline-block;background:rgba(57,211,83,0.13);border:1px solid rgba(57,211,83,0.3);color:#39d353;padding:6px 16px;border-radius:20px;font-size:0.85rem;font-weight:600;margin-bottom:24px;}
+.section{background:rgba(22,27,34,0.6);backdrop-filter:blur(12px);border:1px solid #21262d;border-radius:12px;padding:24px;margin-bottom:20px;}
+.section h2{font-size:1.1rem;margin-bottom:16px;color:#8b949e;}
+.input-group{margin-bottom:14px;}
+.input-group label{display:block;font-size:0.85rem;color:#8b949e;margin-bottom:6px;}
+.input-group input{width:100%;padding:10px 14px;background:rgba(13,17,23,0.8);border:1px solid #30363d;border-radius:8px;color:#e6edf3;font-size:0.95rem;outline:none;transition:border-color .2s;font-family:inherit;}
+.input-group input:focus{border-color:#58a6ff;}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;}
+.btn{padding:12px 24px;border:none;border-radius:8px;font-size:0.95rem;font-weight:600;cursor:pointer;transition:all .2s;}
+.btn-primary{background:#58a6ff;color:#0d1117;width:100%;}.btn-primary:hover{background:#79b8ff;}
+.results{display:none;}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:24px;}
+.stat-card{background:rgba(13,17,23,0.6);border:1px solid #30363d;border-radius:10px;padding:20px;text-align:center;}
+.stat-card .num{font-size:1.6rem;font-weight:800;}
+.stat-card .label{font-size:0.75rem;color:#8b949e;margin-top:4px;}
+.stat-card.blue .num{color:#58a6ff;}.stat-card.green .num{color:#39d353;}
+.stat-card.orange .num{color:#f0883e;}.stat-card.purple .num{color:#bc8cff;}
+.stat-card.red .num{color:#f85149;}.stat-card.pink .num{color:#f778ba;}
+.platform-row{display:flex;align-items:center;gap:12px;padding:14px;border-bottom:1px solid #21262d;font-size:0.9rem;}
+.platform-row .name{min-width:80px;font-weight:600;}
+.platform-row .bar-wrap{flex:1;height:10px;background:#21262d;border-radius:5px;overflow:hidden;}
+.platform-row .bar-fill{height:100%;border-radius:5px;transition:width .5s;}
+.platform-row .val{min-width:60px;text-align:right;font-weight:600;font-size:0.85rem;}
+.insight-card{background:rgba(88,166,255,0.05);border:1px solid rgba(88,166,255,0.2);border-radius:10px;padding:16px;margin-bottom:12px;}
+.insight-card .insight-title{font-weight:700;font-size:0.95rem;margin-bottom:4px;}
+.insight-card .insight-text{font-size:0.85rem;color:#8b949e;}
+.verdict-box{text-align:center;padding:30px;background:rgba(13,17,23,0.6);border:1px solid #30363d;border-radius:12px;margin-bottom:20px;}
+.verdict-box .verdict{font-size:1.5rem;font-weight:800;margin-bottom:8px;}
+.verdict-box .verdict-desc{font-size:0.9rem;color:#8b949e;}
+.toast{position:fixed;top:20px;left:50%;transform:translateX(-50%);background:#39d353;color:#0d1117;padding:10px 24px;border-radius:8px;font-weight:700;opacity:0;transition:opacity 0.3s;pointer-events:none;z-index:200;}
+.toast.show{opacity:1;}
+.cross-sell{background:linear-gradient(135deg,rgba(88,166,255,0.1),rgba(13,17,23,0.8));border:1px solid rgba(88,166,255,0.2);border-radius:12px;padding:24px;text-align:center;margin-top:40px;}
+.cross-sell h3{color:#58a6ff;margin-bottom:8px;}.cross-sell p{color:#8b949e;margin-bottom:16px;font-size:0.9rem;}
+.cross-sell a.cta{display:inline-block;padding:10px 28px;background:#58a6ff;color:#0d1117;border-radius:8px;font-weight:600;text-decoration:none;}
+footer{text-align:center;padding:20px;color:#484f58;font-size:0.8rem;border-top:1px solid #21262d;}
+@media(max-width:600px){h1{font-size:1.5rem;}main{padding:20px 16px 60px;}.row,.row3{grid-template-columns:1fr;}.stats-grid{grid-template-columns:1fr 1fr;}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="logo">SPUNK.CODES</a>
+  <div class="links">
+    <a href="/">Tools</a>
+    <a href="/social-media-scheduler">Social Growth</a>
+    <a href="/ebook">Ebooks</a>
+    <a href="/blog">Blog</a>
+  </div>
+</nav>
+<main>
+  <h1>Social Media <span>ROI Calculator</span></h1>
+  <p class="subtitle">Calculate the return on investment from your social media efforts. Time invested vs real results.</p>
+  <div class="pricing-badge">100% Free Tool</div>
+
+  <div class="section">
+    <h2>Time Investment (Per Month)</h2>
+    <div class="row">
+      <div class="input-group"><label>Hours Creating Content</label><input type="number" id="hoursContent" value="20" min="0"></div>
+      <div class="input-group"><label>Hours Engaging / Replying</label><input type="number" id="hoursEngage" value="10" min="0"></div>
+    </div>
+    <div class="row">
+      <div class="input-group"><label>Hours on Strategy / Planning</label><input type="number" id="hoursStrategy" value="5" min="0"></div>
+      <div class="input-group"><label>Your Hourly Rate ($)</label><input type="number" id="hourlyRate" value="50" min="0"></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Direct Costs (Per Month)</h2>
+    <div class="row3">
+      <div class="input-group"><label>Tool Subscriptions ($)</label><input type="number" id="costTools" value="30" min="0"></div>
+      <div class="input-group"><label>Ad Spend ($)</label><input type="number" id="costAds" value="0" min="0"></div>
+      <div class="input-group"><label>Freelancer / VA ($)</label><input type="number" id="costFreelance" value="0" min="0"></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Results (Per Month)</h2>
+    <div class="row">
+      <div class="input-group"><label>New Followers Gained</label><input type="number" id="newFollowers" value="500" min="0"></div>
+      <div class="input-group"><label>Website Clicks from Social</label><input type="number" id="websiteClicks" value="200" min="0"></div>
+    </div>
+    <div class="row">
+      <div class="input-group"><label>Leads / Signups Generated</label><input type="number" id="leadsGenerated" value="20" min="0"></div>
+      <div class="input-group"><label>Revenue Attributed to Social ($)</label><input type="number" id="socialRevenue" value="500" min="0"></div>
+    </div>
+    <div class="row">
+      <div class="input-group"><label>Brand Deals / Sponsorship ($)</label><input type="number" id="brandDeals" value="0" min="0"></div>
+      <div class="input-group"><label>Total Engagements</label><input type="number" id="engagements" value="5000" min="0"></div>
+    </div>
+  </div>
+
+  <button class="btn btn-primary" onclick="calculateROI()">Calculate ROI</button>
+
+  <div class="results" id="results">
+    <div class="verdict-box" id="verdictBox">
+      <div class="verdict" id="verdictText"></div>
+      <div class="verdict-desc" id="verdictDesc"></div>
+    </div>
+
+    <div class="stats-grid" id="statsGrid"></div>
+
+    <div class="section">
+      <h2>Cost Breakdown</h2>
+      <div id="costBreakdown"></div>
+    </div>
+
+    <div class="section">
+      <h2>Key Insights</h2>
+      <div id="insights"></div>
+    </div>
+  </div>
+
+  <div class="cross-sell">
+    <h3>More Business Tools</h3>
+    <p>Optimize your social media strategy with data.</p>
+    <a href="/store" class="cta">Browse All Tools</a>
+  </div>
+</main>
+<div class="watermark">SPUNK.CODES</div>
+<div class="toast" id="toast"></div>
+<footer>&copy; 2026 SPUNK.CODES &mdash; <a href="/store" style="color:#58a6ff">Store</a> &middot; <a href="/ebook" style="color:#58a6ff">Ebooks</a> &middot; <a href="/blog" style="color:#8b949e">Blog</a> &middot; <a href="https://twitter.com/SpunkArt13" style="color:#8b949e">@SpunkArt13</a></footer>
+<script>
+function showToast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1500);}
+function num(id){return parseFloat(document.getElementById(id).value)||0;}
+function fmtMoney(n){return '$'+n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});}
+
+function calculateROI(){
+  const hContent=num('hoursContent'),hEngage=num('hoursEngage'),hStrategy=num('hoursStrategy'),rate=num('hourlyRate');
+  const costTools=num('costTools'),costAds=num('costAds'),costFreelance=num('costFreelance');
+  const followers=num('newFollowers'),clicks=num('websiteClicks'),leads=num('leadsGenerated');
+  const revenue=num('socialRevenue'),brandDeals=num('brandDeals'),engagements=num('engagements');
+
+  const totalHours=hContent+hEngage+hStrategy;
+  const timeCost=totalHours*rate;
+  const directCost=costTools+costAds+costFreelance;
+  const totalCost=timeCost+directCost;
+  const totalRevenue=revenue+brandDeals;
+  const roi=totalCost>0?((totalRevenue-totalCost)/totalCost*100):0;
+  const costPerFollower=followers>0?totalCost/followers:0;
+  const costPerLead=leads>0?totalCost/leads:0;
+  const costPerClick=clicks>0?totalCost/clicks:0;
+  const costPerEngagement=engagements>0?totalCost/engagements:0;
+  const effectiveHourlyRate=totalHours>0?totalRevenue/totalHours:0;
+
+  // Verdict
+  let verdictText,verdictColor,verdictDesc;
+  if(roi>200){verdictText='Excellent ROI';verdictColor='#39d353';verdictDesc='Your social media strategy is crushing it. Keep scaling what works.';}
+  else if(roi>50){verdictText='Strong ROI';verdictColor='#58a6ff';verdictDesc='Solid returns on your efforts. Focus on optimizing your best-performing channels.';}
+  else if(roi>0){verdictText='Positive ROI';verdictColor='#f0883e';verdictDesc='You are profitable but there is room to improve efficiency.';}
+  else if(roi===0){verdictText='Break Even';verdictColor='#f0883e';verdictDesc='You are not losing money, but not making any either. Time to optimize.';}
+  else{verdictText='Negative ROI';verdictColor='#f85149';verdictDesc='Your costs exceed your returns. Review your strategy and focus on what converts.';}
+  document.getElementById('verdictText').textContent=`${verdictText}: ${roi.toFixed(1)}%`;
+  document.getElementById('verdictText').style.color=verdictColor;
+  document.getElementById('verdictDesc').textContent=verdictDesc;
+  document.getElementById('verdictBox').style.borderColor=verdictColor;
+
+  // Stats
+  document.getElementById('statsGrid').innerHTML=`
+    <div class="stat-card blue"><div class="num">${roi.toFixed(1)}%</div><div class="label">ROI</div></div>
+    <div class="stat-card green"><div class="num">${fmtMoney(totalRevenue)}</div><div class="label">Total Revenue</div></div>
+    <div class="stat-card orange"><div class="num">${fmtMoney(totalCost)}</div><div class="label">Total Cost</div></div>
+    <div class="stat-card purple"><div class="num">${totalHours}h</div><div class="label">Hours / Month</div></div>
+    <div class="stat-card pink"><div class="num">${fmtMoney(costPerFollower)}</div><div class="label">Cost / Follower</div></div>
+    <div class="stat-card blue"><div class="num">${fmtMoney(costPerLead)}</div><div class="label">Cost / Lead</div></div>
+  `;
+
+  // Cost breakdown
+  const costs=[{name:'Content Creation',val:hContent*rate,color:'#58a6ff'},{name:'Engagement',val:hEngage*rate,color:'#39d353'},{name:'Strategy',val:hStrategy*rate,color:'#bc8cff'},{name:'Tools',val:costTools,color:'#f0883e'},{name:'Ads',val:costAds,color:'#f85149'},{name:'Freelancers',val:costFreelance,color:'#f778ba'}];
+  const maxCost=Math.max(...costs.map(c=>c.val),1);
+  document.getElementById('costBreakdown').innerHTML=costs.filter(c=>c.val>0).map(c=>`<div class="platform-row"><div class="name">${c.name}</div><div class="bar-wrap"><div class="bar-fill" style="width:${(c.val/maxCost*100)}%;background:${c.color};"></div></div><div class="val" style="color:${c.color};">${fmtMoney(c.val)}</div></div>`).join('');
+
+  // Insights
+  let insights=[];
+  if(effectiveHourlyRate>rate)insights.push({title:'Time Well Spent',text:`Your effective hourly rate from social media (${fmtMoney(effectiveHourlyRate)}/hr) exceeds your base rate (${fmtMoney(rate)}/hr).`});
+  else if(totalRevenue>0)insights.push({title:'Below Base Rate',text:`Your effective social media hourly rate is ${fmtMoney(effectiveHourlyRate)}/hr vs your ${fmtMoney(rate)}/hr base. Consider automating or delegating.`});
+  if(costPerFollower<1)insights.push({title:'Cheap Growth',text:`At ${fmtMoney(costPerFollower)} per follower, your organic growth is very cost-effective.`});
+  else if(costPerFollower>5)insights.push({title:'Expensive Followers',text:`At ${fmtMoney(costPerFollower)} per follower, consider diversifying your growth tactics.`});
+  if(hEngage<hContent*0.3)insights.push({title:'Engagement Gap',text:'You spend less than 30% of your content creation time on engagement. Increasing replies and community interaction often boosts reach more than creating more content.'});
+  if(costAds>0&&clicks>0){const cpc=costAds/clicks;insights.push({title:'Paid Performance',text:`Your cost per click from ads is ${fmtMoney(cpc)}. ${cpc<1?'That is competitive.':'Consider optimizing your ad targeting.'}`});}
+  if(leads>0){const convRate=(leads/clicks*100);insights.push({title:'Conversion Rate',text:`Your click-to-lead conversion rate is ${convRate.toFixed(1)}%. ${convRate>5?'Strong performance.':'Room to improve your landing pages.'}`});}
+  document.getElementById('insights').innerHTML=insights.map(i=>`<div class="insight-card"><div class="insight-title">${i.title}</div><div class="insight-text">${i.text}</div></div>`).join('');
+
+  document.getElementById('results').style.display='block';
+  document.getElementById('results').scrollIntoView({behavior:'smooth'});
+  gtag('event','calculate_roi',{event_category:'tool_use',value:Math.round(roi)});
+}
+</script>
+<script>(function(){document.addEventListener('contextmenu',function(e){e.preventDefault();});document.addEventListener('keydown',function(e){if(e.key==='F12')e.preventDefault();if(e.ctrlKey&&e.key==='u')e.preventDefault();if(e.ctrlKey&&e.key==='s')e.preventDefault();if(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='i'||e.key==='J'||e.key==='j'||e.key==='C'||e.key==='c'))e.preventDefault();});console.log('%c\u26a0 SPUNK.CODES \u2014 All rights reserved.','color:#58a6ff;font-size:16px;font-weight:bold;');})();</script>
+</body>
+</html>

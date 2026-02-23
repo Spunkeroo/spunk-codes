@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profit Margin Calculator - Margins, Markups & Break-Even | spunk.codes</title>
+<meta name="description" content="Free profit margin calculator. Calculate gross margin, net margin, markup percentage, and break-even point with interactive charts. Essential business tool.">
+<meta name="keywords" content="profit margin calculator, markup calculator, break-even calculator, gross margin, net margin, business calculator">
+<meta property="og:title" content="Profit Margin Calculator | spunk.codes">
+<meta property="og:description" content="Calculate profit margins, markups, and break-even points with interactive charts. Free premium business tool.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://spunk.codes/profit-margin-calculator.html">
+<meta property="og:image" content="https://spunk.codes/art/og-profit-margin-calculator.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<meta name="twitter:title" content="Profit Margin Calculator | spunk.codes">
+<meta name="twitter:description" content="Calculate profit margins, markups, and break-even points with interactive charts.">
+<link rel="canonical" href="https://spunk.codes/profit-margin-calculator.html">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Profit Margin Calculator","description":"Calculate profit margins, markups, and break-even points with interactive charts.","url":"https://spunk.codes/profit-margin-calculator.html","applicationCategory":"BusinessApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Organization","name":"spunk.codes","url":"https://spunk.codes"}}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#0d1117;color:#e6edf3;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;line-height:1.6;min-height:100vh;}
+a{color:#58a6ff;text-decoration:none;}a:hover{text-decoration:underline;color:#79c0ff;}
+nav{background:rgba(13,17,23,.95);backdrop-filter:blur(20px);border-bottom:1px solid #21262d;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
+.nav-brand{font-weight:800;font-size:1.1rem;color:#58a6ff;}
+.nav-links{display:flex;gap:20px;font-size:14px;font-weight:500;}
+.nav-links a{color:#8b949e;}
+.nav-links a:hover{color:#58a6ff;text-decoration:none;}
+.container{max-width:1000px;margin:0 auto;padding:32px 20px 80px;}
+.hero{text-align:center;margin-bottom:40px;}
+h1{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;margin-bottom:8px;background:linear-gradient(135deg,#58a6ff,#39d353);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.subtitle{color:#8b949e;font-size:15px;margin-bottom:20px;}
+.badge{display:inline-block;background:rgba(88,166,255,.1);border:1px solid rgba(88,166,255,.2);border-radius:20px;padding:4px 14px;font-size:12px;color:#58a6ff;}
+.glass-card{background:rgba(22,27,34,.8);backdrop-filter:blur(20px);border:1px solid #21262d;border-radius:16px;padding:28px;margin-bottom:24px;}
+.glass-card h2{font-size:1.1rem;font-weight:700;margin-bottom:18px;color:#e6edf3;display:flex;align-items:center;gap:8px;}
+.glass-card h2 .icon{font-size:1.2rem;}
+.input-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:20px;}
+.input-group{display:flex;flex-direction:column;gap:6px;}
+.input-group label{font-size:13px;color:#8b949e;font-weight:500;}
+.input-group input,.input-group select{background:#0d1117;border:1px solid #30363d;border-radius:10px;padding:12px 14px;color:#e6edf3;font-size:15px;transition:all .3s;}
+.input-group input:focus,.input-group select:focus{outline:none;border-color:#58a6ff;box-shadow:0 0 0 3px rgba(88,166,255,.15);}
+.btn-primary{background:linear-gradient(135deg,#58a6ff,#388bfd);color:#fff;border:none;border-radius:10px;padding:14px 32px;font-size:15px;font-weight:700;cursor:pointer;transition:all .3s;width:100%;max-width:320px;margin:0 auto;display:block;}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(88,166,255,.3);}
+.results{display:none;animation:fadeIn .5s ease;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+.metric-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:28px;}
+.metric-card{background:rgba(22,27,34,.9);border:1px solid #21262d;border-radius:14px;padding:22px;text-align:center;position:relative;overflow:hidden;}
+.metric-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#58a6ff,#39d353);}
+.metric-label{font-size:11px;color:#8b949e;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;}
+.metric-value{font-size:clamp(1.5rem,3vw,2rem);font-weight:800;color:#39d353;}
+.metric-value.blue{color:#58a6ff;}
+.metric-sub{font-size:12px;color:#484f58;margin-top:4px;}
+.chart-container{position:relative;height:260px;margin:20px 0;display:flex;align-items:flex-end;gap:8px;padding-bottom:30px;border-bottom:1px solid #21262d;}
+.chart-bar-wrap{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;}
+.chart-bar{width:100%;max-width:60px;border-radius:8px 8px 0 0;transition:height .8s cubic-bezier(.4,0,.2,1);position:relative;min-height:4px;}
+.chart-bar.revenue{background:linear-gradient(180deg,#58a6ff,#388bfd);}
+.chart-bar.cost{background:linear-gradient(180deg,#f85149,#da3633);}
+.chart-bar.profit{background:linear-gradient(180deg,#39d353,#2ea043);}
+.chart-bar-val{font-size:11px;font-weight:700;color:#e6edf3;margin-bottom:4px;white-space:nowrap;}
+.chart-bar-label{font-size:11px;color:#8b949e;margin-top:8px;}
+.donut-container{display:flex;justify-content:center;align-items:center;gap:40px;flex-wrap:wrap;margin:20px 0;}
+.donut-svg{width:180px;height:180px;}
+.donut-legend{display:flex;flex-direction:column;gap:10px;}
+.legend-item{display:flex;align-items:center;gap:8px;font-size:14px;}
+.legend-dot{width:12px;height:12px;border-radius:50%;}
+.progress-bar-container{margin:12px 0;}
+.progress-label{display:flex;justify-content:space-between;font-size:13px;color:#8b949e;margin-bottom:6px;}
+.progress-track{height:10px;background:#21262d;border-radius:5px;overflow:hidden;}
+.progress-fill{height:100%;border-radius:5px;transition:width 1s cubic-bezier(.4,0,.2,1);background:linear-gradient(90deg,#58a6ff,#39d353);}
+.export-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px;}
+.btn-export{background:rgba(88,166,255,.1);border:1px solid rgba(88,166,255,.2);border-radius:10px;padding:10px 20px;color:#58a6ff;font-size:13px;font-weight:600;cursor:pointer;transition:all .3s;}
+.btn-export:hover{background:rgba(88,166,255,.2);border-color:#58a6ff;}
+.pro-cta{background:linear-gradient(135deg,rgba(88,166,255,.1),rgba(57,211,83,.1));border:1px solid rgba(88,166,255,.2);border-radius:16px;padding:32px;text-align:center;margin-top:40px;}
+.pro-cta h3{font-size:1.3rem;font-weight:800;margin-bottom:8px;color:#e6edf3;}
+.pro-cta p{color:#8b949e;margin-bottom:16px;font-size:14px;}
+.pro-cta .btn-pro{display:inline-block;background:linear-gradient(135deg,#58a6ff,#39d353);color:#0d1117;padding:12px 28px;border-radius:10px;font-weight:700;font-size:14px;text-decoration:none;transition:all .3s;}
+.pro-cta .btn-pro:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(88,166,255,.3);text-decoration:none;}
+footer{border-top:1px solid #21262d;padding:24px 20px;text-align:center;color:#484f58;font-size:13px;}
+footer a{color:#8b949e;}
+footer .footer-links{display:flex;justify-content:center;gap:20px;margin-bottom:8px;flex-wrap:wrap;}
+.watermark{position:fixed;bottom:12px;right:16px;font-size:14px;font-weight:800;color:rgba(88,166,255,.08);pointer-events:none;z-index:50;letter-spacing:2px;}
+.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#39d353;color:#0d1117;padding:10px 24px;border-radius:10px;font-size:14px;font-weight:700;z-index:200;display:none;animation:toastIn .3s ease;}
+@keyframes toastIn{from{opacity:0;transform:translateX(-50%) translateY(10px);}to{opacity:1;transform:translateX(-50%) translateY(0);}}
+@media(max-width:600px){.nav-links{gap:12px;font-size:13px;}.input-grid{grid-template-columns:1fr;}.metric-grid{grid-template-columns:repeat(2,1fr);}.donut-container{flex-direction:column;align-items:center;}}
+</style>
+</head>
+<body>
+<nav>
+<div class="nav-brand">SPUNK.CODES</div>
+<div class="nav-links">
+<a href="/tools">Tools</a>
+<a href="/social-growth">Social Growth</a>
+<a href="/ebooks">Ebooks</a>
+<a href="/blog">Blog</a>
+</div>
+</nav>
+<div class="container">
+<div class="hero">
+<h1>Profit Margin Calculator</h1>
+<p class="subtitle">Calculate margins, markups, and break-even points with interactive charts</p>
+<span class="badge">Used by <strong id="usageCount">0</strong> businesses</span>
+</div>
+
+<div class="glass-card">
+<h2>Revenue & Cost Inputs</h2>
+<div class="input-grid">
+<div class="input-group">
+<label>Selling Price ($)</label>
+<input type="number" id="sellPrice" value="99.99" min="0.01" step="0.01">
+</div>
+<div class="input-group">
+<label>Cost of Goods ($)</label>
+<input type="number" id="costGoods" value="35" min="0" step="0.01">
+</div>
+<div class="input-group">
+<label>Operating Expenses ($)</label>
+<input type="number" id="opExpenses" value="15" min="0" step="0.01">
+</div>
+<div class="input-group">
+<label>Units Sold / Month</label>
+<input type="number" id="unitsSold" value="100" min="1">
+</div>
+</div>
+<div class="input-grid">
+<div class="input-group">
+<label>Fixed Costs / Month ($)</label>
+<input type="number" id="fixedCosts" value="2000" min="0" step="1">
+</div>
+<div class="input-group">
+<label>Tax Rate (%)</label>
+<input type="number" id="taxRate" value="25" min="0" max="100" step="0.5">
+</div>
+</div>
+<button class="btn-primary" onclick="calculate()">Calculate Margins</button>
+</div>
+
+<div class="results" id="results">
+<div class="metric-grid">
+<div class="metric-card">
+<div class="metric-label">Gross Margin</div>
+<div class="metric-value" id="grossMargin">0%</div>
+<div class="metric-sub" id="grossMarginSub"></div>
+</div>
+<div class="metric-card">
+<div class="metric-label">Net Margin</div>
+<div class="metric-value" id="netMargin">0%</div>
+<div class="metric-sub" id="netMarginSub"></div>
+</div>
+<div class="metric-card">
+<div class="metric-label">Markup</div>
+<div class="metric-value blue" id="markup">0%</div>
+<div class="metric-sub" id="markupSub"></div>
+</div>
+<div class="metric-card">
+<div class="metric-label">Break-Even Units</div>
+<div class="metric-value blue" id="breakEven">0</div>
+<div class="metric-sub" id="breakEvenSub"></div>
+</div>
+</div>
+
+<div class="glass-card">
+<h2>Monthly Revenue Breakdown</h2>
+<div class="metric-grid">
+<div class="metric-card">
+<div class="metric-label">Total Revenue</div>
+<div class="metric-value" id="totalRev">$0</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">Gross Profit</div>
+<div class="metric-value" id="grossProfit">$0</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">Net Profit</div>
+<div class="metric-value" id="netProfit">$0</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">After-Tax Profit</div>
+<div class="metric-value blue" id="afterTax">$0</div>
+</div>
+</div>
+</div>
+
+<div class="glass-card">
+<h2>Cost vs Profit Breakdown</h2>
+<div class="donut-container">
+<svg class="donut-svg" viewBox="0 0 42 42" id="donutChart">
+<circle cx="21" cy="21" r="15.915" fill="none" stroke="#21262d" stroke-width="5"/>
+</svg>
+<div class="donut-legend" id="donutLegend"></div>
+</div>
+</div>
+
+<div class="glass-card">
+<h2>Break-Even Analysis</h2>
+<div class="progress-bar-container">
+<div class="progress-label"><span>0 units</span><span id="beTarget">0 units to break even</span></div>
+<div class="progress-track"><div class="progress-fill" id="beFill" style="width:0%"></div></div>
+</div>
+<p style="font-size:13px;color:#8b949e;margin-top:12px;" id="beText"></p>
+</div>
+
+<div class="glass-card">
+<h2>Margin Comparison by Price Point</h2>
+<div class="chart-container" id="priceChart"></div>
+</div>
+
+<div class="export-row">
+<button class="btn-export" onclick="exportText()">Copy Results</button>
+<button class="btn-export" onclick="exportCSV()">Download CSV</button>
+</div>
+</div>
+
+<div class="pro-cta">
+<h3>Imagine What Pro Can Do</h3>
+<p>Multi-product analysis, competitor benchmarking, dynamic pricing optimization, and automated margin alerts.</p>
+<a href="/pricing.html" class="btn-pro">Upgrade to Pro</a>
+</div>
+</div>
+
+<footer>
+<div class="footer-links">
+<a href="/store">Store</a>
+<a href="/ebooks">Ebooks</a>
+<a href="/blog">Blog</a>
+<a href="https://x.com/SpunkArt13" target="_blank">@SpunkArt13</a>
+</div>
+<p>&copy; 2026 spunk.codes. All rights reserved.</p>
+</footer>
+<div class="watermark">SPUNK.CODES</div>
+<div class="toast" id="toast"></div>
+
+<script>
+let usage=parseInt(localStorage.getItem('pmc_usage')||'247');document.getElementById('usageCount').textContent=usage.toLocaleString();
+let calcData={};
+
+function calculate(){
+usage++;localStorage.setItem('pmc_usage',usage);document.getElementById('usageCount').textContent=usage.toLocaleString();
+const sp=parseFloat(document.getElementById('sellPrice').value)||0;
+const cg=parseFloat(document.getElementById('costGoods').value)||0;
+const oe=parseFloat(document.getElementById('opExpenses').value)||0;
+const units=parseInt(document.getElementById('unitsSold').value)||1;
+const fc=parseFloat(document.getElementById('fixedCosts').value)||0;
+const tax=parseFloat(document.getElementById('taxRate').value)||0;
+
+const grossProfitUnit=sp-cg;
+const netProfitUnit=grossProfitUnit-oe;
+const grossMargin=(grossProfitUnit/sp*100);
+const netMargin=(netProfitUnit/sp*100);
+const markup=(grossProfitUnit/cg*100);
+const beUnits=netProfitUnit>0?Math.ceil(fc/netProfitUnit):Infinity;
+
+const totalRev=sp*units;
+const totalCOGS=cg*units;
+const totalOE=oe*units;
+const totalGrossProfit=grossProfitUnit*units;
+const totalNetProfit=netProfitUnit*units-fc;
+const totalAfterTax=totalNetProfit*(1-tax/100);
+
+document.getElementById('grossMargin').textContent=grossMargin.toFixed(1)+'%';
+document.getElementById('grossMarginSub').textContent='$'+grossProfitUnit.toFixed(2)+' per unit';
+document.getElementById('netMargin').textContent=netMargin.toFixed(1)+'%';
+document.getElementById('netMarginSub').textContent='$'+netProfitUnit.toFixed(2)+' per unit';
+document.getElementById('markup').textContent=markup.toFixed(1)+'%';
+document.getElementById('markupSub').textContent='over cost of goods';
+document.getElementById('breakEven').textContent=beUnits===Infinity?'N/A':beUnits.toLocaleString();
+document.getElementById('breakEvenSub').textContent=beUnits===Infinity?'Not profitable per unit':'units/month to cover fixed costs';
+
+document.getElementById('totalRev').textContent='$'+totalRev.toLocaleString('en-US',{minimumFractionDigits:2});
+document.getElementById('grossProfit').textContent='$'+totalGrossProfit.toLocaleString('en-US',{minimumFractionDigits:2});
+document.getElementById('netProfit').textContent='$'+totalNetProfit.toLocaleString('en-US',{minimumFractionDigits:2});
+document.getElementById('afterTax').textContent='$'+totalAfterTax.toLocaleString('en-US',{minimumFractionDigits:2});
+
+// Donut chart
+const svg=document.getElementById('donutChart');
+const cogsP=totalCOGS/totalRev*100;
+const oeP=totalOE/totalRev*100;
+const fcP=fc/totalRev*100;
+const profitP=Math.max(0,(totalAfterTax/totalRev*100));
+const taxP=Math.max(0,((totalNetProfit-totalAfterTax)/totalRev*100));
+svg.innerHTML=`<circle cx="21" cy="21" r="15.915" fill="none" stroke="#21262d" stroke-width="5"/>`;
+let offset=25;
+const segments=[{pct:cogsP,color:'#f85149',label:'COGS'},{pct:oeP,color:'#d29922',label:'Operating'},{pct:fcP,color:'#8b949e',label:'Fixed Costs'},{pct:taxP,color:'#bc8cff',label:'Tax'},{pct:profitP,color:'#39d353',label:'Net Profit'}];
+segments.forEach(s=>{if(s.pct>0){svg.innerHTML+=`<circle cx="21" cy="21" r="15.915" fill="none" stroke="${s.color}" stroke-width="5" stroke-dasharray="${s.pct} ${100-s.pct}" stroke-dashoffset="${offset}" style="transition:all 1s ease"/>`;offset-=s.pct;}});
+const legend=document.getElementById('donutLegend');
+legend.innerHTML='';
+segments.forEach(s=>{if(s.pct>0)legend.innerHTML+=`<div class="legend-item"><div class="legend-dot" style="background:${s.color}"></div>${s.label}: ${s.pct.toFixed(1)}%</div>`;});
+
+// Break-even progress
+const bePct=beUnits===Infinity?0:Math.min(100,(units/beUnits)*100);
+document.getElementById('beFill').style.width=bePct+'%';
+document.getElementById('beTarget').textContent=beUnits===Infinity?'Not viable':beUnits+' units to break even';
+document.getElementById('beText').textContent=beUnits===Infinity?'Reduce costs or increase price to reach profitability.':units>=beUnits?`You are ${units-beUnits} units above break-even! Monthly profit: $${totalNetProfit.toFixed(2)}`:`You need ${beUnits-units} more units to break even.`;
+
+// Price point chart
+const chart=document.getElementById('priceChart');
+chart.innerHTML='';
+const pricePoints=[sp*0.7,sp*0.85,sp,sp*1.15,sp*1.3];
+const maxRev=Math.max(...pricePoints.map(p=>p*units));
+pricePoints.forEach((p,i)=>{
+const rev=p*units;
+const prof=(p-cg-oe)*units-fc;
+const h=Math.max(3,(rev/maxRev)*90);
+const ph=Math.max(3,Math.abs(prof)/maxRev*90);
+chart.innerHTML+=`<div class="chart-bar-wrap"><div class="chart-bar-val">$${p.toFixed(0)}</div><div class="chart-bar revenue" style="height:${h}%"></div><div class="chart-bar-label">${i===2?'Current':''}${i<2?'-'+(100-Math.round(p/sp*100))+'%':''}${i>2?'+'+(Math.round(p/sp*100)-100)+'%':''}</div></div>`;
+});
+
+calcData={sp,cg,oe,units,fc,tax,grossMargin,netMargin,markup,beUnits,totalRev,totalGrossProfit,totalNetProfit,totalAfterTax};
+document.getElementById('results').style.display='block';
+document.getElementById('results').scrollIntoView({behavior:'smooth'});
+}
+
+function exportText(){
+const d=calcData;
+const txt=`PROFIT MARGIN ANALYSIS\nGenerated: ${new Date().toLocaleDateString()}\n${'='.repeat(40)}\n\nSelling Price: $${d.sp}\nCost of Goods: $${d.cg}\nOperating Expenses: $${d.oe}/unit\nUnits/Month: ${d.units}\nFixed Costs: $${d.fc}/mo\n\nGross Margin: ${d.grossMargin.toFixed(1)}%\nNet Margin: ${d.netMargin.toFixed(1)}%\nMarkup: ${d.markup.toFixed(1)}%\nBreak-Even: ${d.beUnits===Infinity?'N/A':d.beUnits+' units'}\n\nMonthly Revenue: $${d.totalRev.toFixed(2)}\nNet Profit: $${d.totalNetProfit.toFixed(2)}\nAfter-Tax: $${d.totalAfterTax.toFixed(2)}\n\nGenerated at spunk.codes`;
+navigator.clipboard.writeText(txt);showToast('Copied to clipboard!');
+}
+
+function exportCSV(){
+const d=calcData;
+let csv='Metric,Value\nSelling Price,$'+d.sp+'\nCost of Goods,$'+d.cg+'\nOperating Expenses,$'+d.oe+'\nUnits/Month,'+d.units+'\nFixed Costs,$'+d.fc+'\nGross Margin,'+d.grossMargin.toFixed(1)+'%\nNet Margin,'+d.netMargin.toFixed(1)+'%\nMarkup,'+d.markup.toFixed(1)+'%\nBreak-Even Units,'+(d.beUnits===Infinity?'N/A':d.beUnits)+'\nTotal Revenue,$'+d.totalRev.toFixed(2)+'\nNet Profit,$'+d.totalNetProfit.toFixed(2)+'\nAfter-Tax Profit,$'+d.totalAfterTax.toFixed(2)+'\n';
+const blob=new Blob([csv],{type:'text/csv'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='profit-margin-analysis.csv';a.click();URL.revokeObjectURL(url);showToast('CSV downloaded!');
+}
+
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.style.display='block';setTimeout(()=>t.style.display='none',2500);}
+document.addEventListener('contextmenu',e=>e.preventDefault());
+document.addEventListener('keydown',e=>{if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'))||(e.ctrlKey&&e.key==='u'))e.preventDefault();});
+</script>
+</body>
+</html>

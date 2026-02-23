@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Customer Cohort Analyzer - Exclusive Premium Tool | SPUNK.CODES</title>
+<meta name="description" content="Generate cohort retention tables with color-coded heatmaps, average retention curves, and best/worst cohort identification. Exclusive premium tool.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Customer Cohort Analyzer - SPUNK.CODES Exclusive">
+<meta property="og:description" content="Analyze customer cohort retention with heatmaps. Unlock with code SPUNK.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://spunk.codes/exclusive/customer-cohort-analyzer">
+<meta property="og:site_name" content="SPUNK.CODES">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/customer-cohort-analyzer">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0d1117;--card:rgba(22,27,34,0.8);--border:rgba(48,54,61,0.6);--gold:#ffd700;--gold-dim:rgba(255,215,0,0.15);--gold-border:rgba(255,215,0,0.3);--text:#e6edf3;--text-dim:#8b949e;--blue:#58a6ff;--cyan:#39d353;--red:#f85149;--orange:#ff8c00;--font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+a{color:var(--blue);text-decoration:none}a:hover{color:#fff}
+.bg-mesh{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 80% 50% at 20% 20%,rgba(255,215,0,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(255,140,0,0.04) 0%,transparent 60%),var(--bg)}
+.bg-grid{position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,215,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,215,0,0.03) 1px,transparent 1px);background-size:60px 60px}
+.nav{position:sticky;top:0;z-index:100;background:rgba(13,17,23,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,215,0,0.15);padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}.nav-brand{font-weight:800;font-size:1.1rem;color:var(--gold);letter-spacing:0.08em}.nav-links{display:flex;gap:1.5rem;font-size:0.85rem;list-style:none}.nav-links a{color:var(--text-dim);transition:color 0.2s;font-weight:500}.nav-links a:hover{color:#fff}.nav-links a.active{color:var(--gold)}
+.lock-gate{position:fixed;inset:0;z-index:1000;background:rgba(13,17,23,0.97);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:2rem}.lock-gate.hidden{display:none}.lock-icon-big{font-size:4rem;margin-bottom:0.5rem}.lock-gate h2{font-size:1.8rem;font-weight:800;text-align:center}.lock-gate h2 span{color:var(--gold)}.lock-gate p{color:var(--text-dim);text-align:center;max-width:400px}.code-input-wrap{display:flex;gap:0.5rem;margin-top:0.5rem}.code-input{padding:0.8rem 1.5rem;background:rgba(22,27,34,0.8);border:2px solid var(--gold-border);border-radius:12px;color:var(--gold);font-size:1.2rem;font-weight:800;letter-spacing:3px;text-align:center;width:200px;outline:none;text-transform:uppercase;font-family:var(--font)}.code-input:focus{border-color:var(--gold);box-shadow:0 0 20px rgba(255,215,0,0.2)}.code-submit{padding:0.8rem 1.5rem;background:linear-gradient(135deg,#ffd700,#ff8c00);border:none;border-radius:12px;color:#000;font-size:1rem;font-weight:800;cursor:pointer;transition:all 0.3s}.code-submit:hover{transform:scale(1.05)}.code-error{color:#f85149;font-size:0.85rem;min-height:1.2em}.lock-hint{color:var(--text-dim);font-size:0.8rem;margin-top:1rem}.lock-hint a{color:var(--gold)}
+.exclusive-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;background:linear-gradient(135deg,rgba(255,215,0,0.15),rgba(255,140,0,0.15));border:1px solid var(--gold-border);border-radius:100px;font-size:11px;font-weight:800;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase}
+.main{max-width:1050px;margin:0 auto;padding:2rem}
+.hero-section{text-align:center;padding:2rem 0 3rem}.hero-section h1{font-size:2.2rem;font-weight:800;margin:1rem 0 0.5rem}.hero-section h1 .gold{background:linear-gradient(135deg,#ffd700,#ff8c00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}.hero-section p{color:var(--text-dim);max-width:600px;margin:0 auto}
+.tool-section{background:var(--card);border:1px solid var(--gold-border);border-radius:16px;padding:2rem;margin-bottom:1.5rem;backdrop-filter:blur(10px);position:relative;overflow:hidden}.tool-section::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),#ff8c00,var(--gold))}.tool-section h2{font-size:1.2rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}.tool-section h2 .icon{font-size:1.4rem}
+label{font-size:0.85rem;color:var(--text-dim);font-weight:600;display:block;margin-bottom:0.4rem}
+input,select{width:100%;padding:0.75rem 1rem;background:rgba(13,17,23,0.6);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:0.9rem;font-family:var(--font);outline:none;transition:border-color 0.2s}input:focus{border-color:var(--gold)}
+.input-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}.input-group{margin-bottom:1rem}
+.btn{padding:0.75rem 2rem;border:none;border-radius:10px;font-size:0.9rem;font-weight:700;cursor:pointer;transition:all 0.2s;font-family:var(--font)}.btn-gold{background:linear-gradient(135deg,#ffd700,#ff8c00);color:#000}.btn-gold:hover{transform:translateY(-2px);box-shadow:0 4px 20px rgba(255,215,0,0.3)}.btn-outline{background:transparent;border:1px solid var(--border);color:var(--text-dim)}.btn-outline:hover{border-color:var(--gold);color:var(--gold)}.btn-sm{padding:0.5rem 1rem;font-size:0.8rem}.btn-row{display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:1rem}
+.result-box{background:rgba(255,215,0,0.05);border:1px solid var(--gold-border);border-radius:12px;padding:1.5rem;margin-top:1.5rem;display:none}.result-box.show{display:block}
+.data-table{width:100%;border-collapse:collapse;font-size:0.8rem}
+.data-table th,.data-table td{padding:0.4rem;border:1px solid rgba(48,54,61,0.3);text-align:center;min-width:55px}
+.data-table th{background:rgba(255,215,0,0.1);color:var(--gold);font-weight:700;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.5px;position:sticky;top:0}
+.data-table td input{width:100%;padding:0.3rem;font-size:0.8rem;text-align:center;background:rgba(13,17,23,0.4);border:none;color:var(--text)}
+.data-table td input:focus{outline:1px solid var(--gold)}
+.cohort-label{text-align:left !important;font-weight:600;color:var(--text);white-space:nowrap}
+.heatmap-cell{font-weight:600;font-size:0.78rem;transition:all 0.2s}
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;margin:1.5rem 0}
+.stat-card{background:rgba(13,17,23,0.5);border:1px solid var(--border);border-radius:12px;padding:1rem;text-align:center}.stat-card .num{font-size:1.5rem;font-weight:800;color:var(--gold)}.stat-card .label{font-size:0.7rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px}
+.chart-box{background:rgba(13,17,23,0.5);border:1px solid var(--border);border-radius:12px;padding:1.5rem;margin-top:1.5rem}.chart-title{font-size:0.85rem;font-weight:700;margin-bottom:1rem;color:var(--gold)}
+.insight-card{background:rgba(13,17,23,0.4);border:1px solid var(--border);border-radius:10px;padding:1rem;margin-bottom:0.8rem}
+.insight-card h4{font-size:0.9rem;font-weight:700;margin-bottom:0.3rem}
+.insight-card p{font-size:0.82rem;color:var(--text-dim);line-height:1.6}
+.insight-card .tag{display:inline-block;padding:2px 8px;border-radius:6px;font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:0.3rem}
+.tag-best{background:rgba(57,211,83,0.15);color:var(--cyan)}.tag-worst{background:rgba(248,81,73,0.15);color:var(--red)}.tag-trend{background:rgba(255,215,0,0.15);color:var(--gold)}
+.summary-text{background:rgba(13,17,23,0.5);border:1px solid var(--border);border-radius:10px;padding:1rem;font-size:0.85rem;color:var(--text-dim);line-height:1.8;white-space:pre-line;margin-top:1rem}
+.share-cta{background:linear-gradient(135deg,rgba(255,215,0,0.08),rgba(255,140,0,0.05));border:1px solid var(--gold-border);border-radius:16px;padding:2rem;text-align:center;margin-top:2rem}.share-cta h3{color:var(--gold);margin-bottom:0.5rem;font-size:1.1rem}.share-cta p{color:var(--text-dim);font-size:0.9rem;margin-bottom:1rem}.share-btns{display:flex;gap:0.6rem;justify-content:center;flex-wrap:wrap}.share-btn{display:inline-flex;align-items:center;gap:0.4rem;padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;color:#fff;transition:all 0.25s}.share-btn:hover{transform:translateY(-2px)}.share-x{background:#000;border:1px solid #333}.share-reddit{background:#ff4500}.share-email{background:#21262d;border:1px solid #30363d}
+.footer{text-align:center;padding:2rem;border-top:1px solid rgba(255,215,0,0.1);color:var(--text-dim);font-size:0.75rem;margin-top:3rem}.footer a{color:var(--gold)}.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-bottom:1rem}
+.watermark{position:fixed;bottom:10px;right:10px;font-size:0.6rem;color:rgba(255,215,0,0.08);font-weight:800;pointer-events:none;z-index:9999;letter-spacing:1px;text-transform:uppercase}
+.table-wrap{overflow-x:auto;margin:1rem 0;border-radius:10px}
+@media(max-width:768px){.main{padding:1rem}.hero-section h1{font-size:1.6rem}.input-grid{grid-template-columns:1fr}.nav-links{display:none}}
+</style>
+</head>
+<body>
+<div class="bg-mesh"></div><div class="bg-grid"></div>
+<div class="lock-gate" id="lockGate"><div class="lock-icon-big">&#128274;</div><h2>Enter Code <span>SPUNK</span> to Unlock</h2><p>This is an exclusive premium tool. Enter the referral code to get instant access.</p><div class="code-input-wrap"><input type="text" class="code-input" id="codeInput" placeholder="CODE" maxlength="10" autocomplete="off"><button class="code-submit" onclick="submitCode()">Unlock</button></div><div class="code-error" id="codeError"></div><div class="lock-hint">Get the code at <a href="https://spunk.codes/exclusive-tools">spunk.codes/exclusive-tools</a></div></div>
+<nav class="nav"><a href="https://spunk.codes" class="nav-brand">SPUNK.CODES</a><div class="nav-links"><a href="/store">Tools</a><a href="/exclusive-tools" class="active">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a></div></nav>
+
+<div class="main">
+  <section class="hero-section">
+    <div class="exclusive-badge">&#128081; EXCLUSIVE TOOL</div>
+    <h1><span class="gold">Customer Cohort</span> Analyzer</h1>
+    <p>Input monthly cohort data, generate retention heatmaps, calculate average retention curves, and identify your best and worst cohorts.</p>
+  </section>
+
+  <div class="tool-section">
+    <h2><span class="icon">&#128202;</span> Cohort Data Input</h2>
+    <p style="color:var(--text-dim);font-size:0.85rem;margin-bottom:1rem">Enter the number of customers retained each month for each cohort. Month 0 = new customers acquired that month.</p>
+    <div class="input-grid" style="margin-bottom:1rem">
+      <div class="input-group"><label>Number of Cohorts (months)</label><input type="number" id="numCohorts" value="8" min="2" max="24"></div>
+      <div class="input-group"><label>Retention Months to Track</label><input type="number" id="numMonths" value="6" min="2" max="12"></div>
+    </div>
+    <div class="btn-row" style="margin-bottom:1rem;margin-top:0">
+      <button class="btn btn-outline btn-sm" onclick="buildTable()">Build Table</button>
+      <button class="btn btn-outline btn-sm" onclick="loadSampleData()">Load Sample Data</button>
+    </div>
+    <div class="table-wrap"><table class="data-table" id="inputTable"></table></div>
+  </div>
+
+  <div class="btn-row" style="justify-content:center;margin-bottom:1.5rem">
+    <button class="btn btn-gold" onclick="analyze()">&#128640; Analyze Cohorts</button>
+  </div>
+
+  <div class="result-box" id="results">
+    <h3 style="color:var(--gold);font-size:1.1rem;margin-bottom:1rem">&#127919; Cohort Retention Analysis</h3>
+
+    <div class="stats-row" id="statsRow"></div>
+
+    <div class="chart-box">
+      <div class="chart-title">&#128200; Retention Heatmap (% Retained)</div>
+      <div class="table-wrap"><table class="data-table" id="heatmapTable"></table></div>
+    </div>
+
+    <div class="chart-box">
+      <div class="chart-title">&#128201; Average Retention Curve</div>
+      <svg id="retentionSvg" width="100%" height="260" viewBox="0 0 800 260"></svg>
+    </div>
+
+    <div class="chart-box">
+      <div class="chart-title">&#127919; Cohort Insights</div>
+      <div id="insights"></div>
+    </div>
+
+    <div class="summary-text" id="summaryText"></div>
+    <div class="btn-row">
+      <button class="btn btn-gold btn-sm" onclick="exportCSV()">&#128190; Export CSV</button>
+      <button class="btn btn-outline btn-sm" onclick="copySummary()">&#128203; Copy Summary</button>
+    </div>
+  </div>
+
+  <div class="share-cta"><h3>&#128640; Retention is the #1 metric. Share this tool!</h3><p>Code <strong style="color:var(--gold)">SPUNK</strong> unlocks it free.</p><div class="share-btns"><button class="share-btn share-x" onclick="shareX()">&#120143; Share on X</button><button class="share-btn share-reddit" onclick="shareReddit()">&#129513; Reddit</button><button class="share-btn share-email" onclick="shareEmail()">&#9993; Email</button></div></div>
+</div>
+
+<footer class="footer"><div class="footer-links"><a href="https://spunk.codes">Home</a><a href="/store">Tools</a><a href="/exclusive-tools">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a><a href="https://x.com/SpunkArt13" target="_blank">@SpunkArt13</a></div><p>&copy; 2026 SPUNK.CODES. All rights reserved.</p></footer>
+<div class="watermark">SPUNK.CODES EXCLUSIVE</div>
+
+<script>document.addEventListener('contextmenu',function(e){e.preventDefault()});document.addEventListener('keydown',function(e){if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&e.key==='I')||(e.ctrlKey&&e.key==='u'))e.preventDefault()});</script>
+<script>
+function checkAccess(){var c=localStorage.getItem('spunk_referral_code')||localStorage.getItem('spunk_ref_code');if(c&&c.toUpperCase()==='SPUNK')document.getElementById('lockGate').classList.add('hidden')}
+function submitCode(){var v=document.getElementById('codeInput').value.trim().toUpperCase();if(v==='SPUNK'){localStorage.setItem('spunk_referral_code',v);localStorage.setItem('spunk_ref_code',v);document.getElementById('lockGate').classList.add('hidden');if(typeof gtag==='function')gtag('event','exclusive_unlock',{tool:'customer-cohort-analyzer'})}else{document.getElementById('codeError').textContent='Invalid code. Try again.'}}
+document.getElementById('codeInput').addEventListener('keydown',function(e){if(e.key==='Enter')submitCode()});checkAccess();
+</script>
+
+<script>
+var STORAGE_KEY='spunk_cohort_analyzer';
+var monthLabels=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+function getMonthLabel(i){return monthLabels[i%12]+' '+(Math.floor(i/12)+1)}
+
+function buildTable(){
+  var numC=parseInt(document.getElementById('numCohorts').value)||8;
+  var numM=parseInt(document.getElementById('numMonths').value)||6;
+  var table=document.getElementById('inputTable');
+  var html='<thead><tr><th>Cohort</th>';
+  for(var m=0;m<=numM;m++){html+='<th>Month '+m+'</th>'}
+  html+='</tr></thead><tbody>';
+
+  // Try to load saved data
+  var saved={};
+  try{saved=JSON.parse(localStorage.getItem(STORAGE_KEY))||{}}catch(e){}
+
+  for(var c=0;c<numC;c++){
+    html+='<tr><td class="cohort-label">'+getMonthLabel(c)+'</td>';
+    for(var m=0;m<=numM;m++){
+      var key='c'+c+'_m'+m;
+      var val=saved[key]||'';
+      html+='<td><input type="number" id="'+key+'" value="'+val+'" placeholder="0" min="0" onchange="saveInput()"></td>';
+    }
+    html+='</tr>';
+  }
+  html+='</tbody>';
+  table.innerHTML=html;
+}
+
+function saveInput(){
+  var data={};
+  document.querySelectorAll('#inputTable input').forEach(function(inp){data[inp.id]=inp.value});
+  data._numC=document.getElementById('numCohorts').value;
+  data._numM=document.getElementById('numMonths').value;
+  localStorage.setItem(STORAGE_KEY,JSON.stringify(data));
+}
+
+function loadSampleData(){
+  document.getElementById('numCohorts').value='8';
+  document.getElementById('numMonths').value='6';
+  buildTable();
+  var sample=[
+    [120,96,82,72,65,60,56],
+    [150,127,108,95,87,80,0],
+    [180,140,118,100,88,0,0],
+    [200,170,148,132,0,0,0],
+    [160,136,112,0,0,0,0],
+    [220,190,0,0,0,0,0],
+    [250,210,0,0,0,0,0],
+    [190,0,0,0,0,0,0]
+  ];
+  sample.forEach(function(row,c){
+    row.forEach(function(val,m){
+      var el=document.getElementById('c'+c+'_m'+m);
+      if(el&&val>0)el.value=val;
+    });
+  });
+  saveInput();
+}
+
+function getCohortData(){
+  var numC=parseInt(document.getElementById('numCohorts').value)||8;
+  var numM=parseInt(document.getElementById('numMonths').value)||6;
+  var cohorts=[];
+  for(var c=0;c<numC;c++){
+    var row=[];
+    for(var m=0;m<=numM;m++){
+      var el=document.getElementById('c'+c+'_m'+m);
+      row.push(el?parseFloat(el.value)||0:0);
+    }
+    cohorts.push({label:getMonthLabel(c),data:row});
+  }
+  return cohorts;
+}
+
+function heatColor(pct){
+  if(pct>=80)return'rgba(57,211,83,0.35)';
+  if(pct>=60)return'rgba(57,211,83,0.2)';
+  if(pct>=40)return'rgba(255,215,0,0.2)';
+  if(pct>=20)return'rgba(255,140,0,0.2)';
+  return'rgba(248,81,73,0.2)';
+}
+
+function analyze(){
+  var cohorts=getCohortData();
+  var valid=cohorts.filter(function(c){return c.data[0]>0});
+  if(valid.length<2){alert('Please enter at least 2 cohorts with Month 0 data.');return}
+
+  var numM=parseInt(document.getElementById('numMonths').value)||6;
+
+  // Calculate retention percentages
+  var retentionData=valid.map(function(c){
+    var base=c.data[0];
+    return{
+      label:c.label,
+      base:base,
+      retention:c.data.map(function(v,i){return i===0?100:(base>0?(v/base*100):0)}),
+      raw:c.data
+    };
+  });
+
+  // Stats
+  var avgM1Retention=0;var count1=0;
+  retentionData.forEach(function(c){if(c.retention[1]>0){avgM1Retention+=c.retention[1];count1++}});
+  avgM1Retention=count1>0?avgM1Retention/count1:0;
+
+  var lastMonthRetentions=[];
+  retentionData.forEach(function(c){
+    for(var m=numM;m>=1;m--){
+      if(c.retention[m]>0){lastMonthRetentions.push({label:c.label,month:m,pct:c.retention[m]});break}
+    }
+  });
+
+  var bestCohort=lastMonthRetentions.sort(function(a,b){return b.pct-a.pct})[0];
+  var worstCohort=lastMonthRetentions.sort(function(a,b){return a.pct-b.pct})[0];
+
+  var totalAcquired=valid.reduce(function(s,c){return s+c.data[0]},0);
+
+  var statsHtml='';
+  statsHtml+='<div class="stat-card"><div class="num">'+valid.length+'</div><div class="label">Cohorts</div></div>';
+  statsHtml+='<div class="stat-card"><div class="num">'+totalAcquired.toLocaleString()+'</div><div class="label">Total Acquired</div></div>';
+  statsHtml+='<div class="stat-card"><div class="num">'+avgM1Retention.toFixed(1)+'%</div><div class="label">Avg M1 Retention</div></div>';
+  statsHtml+='<div class="stat-card"><div class="num" style="color:var(--cyan)">'+(bestCohort?bestCohort.pct.toFixed(1)+'%':'--')+'</div><div class="label">Best Retention</div></div>';
+  statsHtml+='<div class="stat-card"><div class="num" style="color:var(--red)">'+(worstCohort?worstCohort.pct.toFixed(1)+'%':'--')+'</div><div class="label">Worst Retention</div></div>';
+  document.getElementById('statsRow').innerHTML=statsHtml;
+
+  // Heatmap table
+  var heatHtml='<thead><tr><th>Cohort</th><th>Users</th>';
+  for(var m=0;m<=numM;m++){heatHtml+='<th>M'+m+'</th>'}
+  heatHtml+='</tr></thead><tbody>';
+  retentionData.forEach(function(c){
+    heatHtml+='<tr><td class="cohort-label">'+c.label+'</td><td>'+c.base+'</td>';
+    c.retention.forEach(function(pct,mi){
+      if(pct>0||mi===0){
+        heatHtml+='<td class="heatmap-cell" style="background:'+heatColor(pct)+';color:'+(pct>=50?'var(--text)':'var(--text-dim)')+'">'+pct.toFixed(1)+'%</td>';
+      } else {
+        heatHtml+='<td style="color:rgba(48,54,61,0.5)">--</td>';
+      }
+    });
+    heatHtml+='</tr>';
+  });
+
+  // Average row
+  heatHtml+='<tr style="border-top:2px solid var(--gold-border);font-weight:700"><td class="cohort-label" style="color:var(--gold)">Average</td><td></td>';
+  for(var m=0;m<=numM;m++){
+    var sum=0;var cnt=0;
+    retentionData.forEach(function(c){if(c.retention[m]>0){sum+=c.retention[m];cnt++}});
+    var avg=cnt>0?sum/cnt:0;
+    heatHtml+='<td class="heatmap-cell" style="background:'+heatColor(avg)+';color:var(--gold)">'+avg.toFixed(1)+'%</td>';
+  }
+  heatHtml+='</tr></tbody>';
+  document.getElementById('heatmapTable').innerHTML=heatHtml;
+
+  // Retention curve chart
+  drawRetentionCurve(retentionData,numM);
+
+  // Insights
+  var insightsHtml='';
+  if(bestCohort)insightsHtml+='<div class="insight-card"><div class="tag tag-best">BEST COHORT</div><h4>'+bestCohort.label+' - '+bestCohort.pct.toFixed(1)+'% retention at M'+bestCohort.month+'</h4><p>This cohort retained the highest percentage of users. Investigate what was different about acquisition channels, onboarding, or product features during this period.</p></div>';
+  if(worstCohort&&worstCohort.label!==bestCohort.label)insightsHtml+='<div class="insight-card"><div class="tag tag-worst">WORST COHORT</div><h4>'+worstCohort.label+' - '+worstCohort.pct.toFixed(1)+'% retention at M'+worstCohort.month+'</h4><p>This cohort had the lowest retention. Look for changes in traffic sources, product issues, or onboarding problems during this period.</p></div>';
+
+  // Month 1 drop analysis
+  var m1Drops=retentionData.map(function(c){return{label:c.label,drop:100-c.retention[1]}}).filter(function(d){return d.drop>0});
+  var avgDrop=m1Drops.reduce(function(s,d){return s+d.drop},0)/m1Drops.length;
+  insightsHtml+='<div class="insight-card"><div class="tag tag-trend">CRITICAL DROP-OFF</div><h4>Average Month 1 Drop: '+avgDrop.toFixed(1)+'%</h4><p>'+(avgDrop>30?'Your M1 drop-off is significant. Focus on onboarding optimization: welcome emails, in-app guidance, and activation milestones in the first 7 days.':'Your M1 retention is solid. Focus on month 2-3 engagement to build long-term habits.')+'</p></div>';
+
+  document.getElementById('insights').innerHTML=insightsHtml;
+
+  // Summary
+  var summary='COHORT RETENTION ANALYSIS\n========================\n\n';
+  summary+='Cohorts Analyzed: '+valid.length+' | Total Acquired: '+totalAcquired+'\n';
+  summary+='Average M1 Retention: '+avgM1Retention.toFixed(1)+'%\n';
+  if(bestCohort)summary+='Best Cohort: '+bestCohort.label+' ('+bestCohort.pct.toFixed(1)+'% at M'+bestCohort.month+')\n';
+  if(worstCohort)summary+='Worst Cohort: '+worstCohort.label+' ('+worstCohort.pct.toFixed(1)+'% at M'+worstCohort.month+')\n\n';
+  summary+='AVERAGE RETENTION CURVE\n';
+  for(var m=0;m<=numM;m++){
+    var s=0;var c=0;retentionData.forEach(function(cd){if(cd.retention[m]>0){s+=cd.retention[m];c++}});
+    if(c>0)summary+='Month '+m+': '+(s/c).toFixed(1)+'%\n';
+  }
+  document.getElementById('summaryText').textContent=summary;
+
+  document.getElementById('results').classList.add('show');
+  document.getElementById('results').scrollIntoView({behavior:'smooth'});
+  saveInput();
+  if(typeof gtag==='function')gtag('event','cohort_analyzed',{tool:'customer-cohort-analyzer'});
+}
+
+function drawRetentionCurve(data,numM){
+  var svg=document.getElementById('retentionSvg');
+  var w=800,h=260,pad=50;var plotW=w-pad*2,plotH=h-pad*2;
+  var colors=['#ffd700','#ff8c00','#58a6ff','#bc8cff','#39d353','#f85149','#e3b341','#388bfd','#da3633','#2ea043','#8b5cf6','#ef4444'];
+  var html='';
+
+  // Grid
+  for(var g=0;g<=4;g++){
+    var gy=h-pad-(g/4)*plotH;var gv=g*25;
+    html+='<line x1="'+pad+'" y1="'+gy+'" x2="'+(w-pad)+'" y2="'+gy+'" stroke="rgba(48,54,61,0.2)"/>';
+    html+='<text x="'+(pad-5)+'" y="'+(gy+4)+'" fill="#8b949e" font-size="9" text-anchor="end">'+gv+'%</text>';
+  }
+  for(var m=0;m<=numM;m++){html+='<text x="'+(pad+m*(plotW/numM))+'" y="'+(h-pad+16)+'" fill="#8b949e" font-size="10" text-anchor="middle">M'+m+'</text>'}
+
+  // Individual cohort lines (faint)
+  data.forEach(function(c,ci){
+    var path='';var hasData=false;
+    c.retention.forEach(function(pct,mi){
+      if(pct>0){var x=pad+mi*(plotW/numM);var y=h-pad-(pct/100)*plotH;path+=(hasData?'L ':'M ')+x+' '+y;hasData=true}
+    });
+    if(hasData)html+='<path d="'+path+'" fill="none" stroke="'+colors[ci%colors.length]+'" stroke-width="1.5" opacity="0.35"/>';
+  });
+
+  // Average line (bold)
+  var avgPath='';
+  for(var m=0;m<=numM;m++){
+    var s=0;var c=0;data.forEach(function(cd){if(cd.retention[m]>0){s+=cd.retention[m];c++}});
+    if(c>0){
+      var avg=s/c;var x=pad+m*(plotW/numM);var y=h-pad-(avg/100)*plotH;
+      avgPath+=(m===0?'M ':'L ')+x+' '+y;
+      html+='<circle cx="'+x+'" cy="'+y+'" r="5" fill="#ffd700" stroke="#0d1117" stroke-width="2"/>';
+      html+='<text x="'+x+'" y="'+(y-10)+'" fill="#ffd700" font-size="10" font-weight="700" text-anchor="middle">'+avg.toFixed(0)+'%</text>';
+    }
+  }
+  html+='<path d="'+avgPath+'" fill="none" stroke="#ffd700" stroke-width="3"/>';
+
+  // Legend
+  html+='<text x="'+(w-pad)+'" y="20" fill="#ffd700" font-size="11" font-weight="700" text-anchor="end">-- Average</text>';
+  svg.innerHTML=html;
+}
+
+function exportCSV(){
+  var cohorts=getCohortData();
+  var numM=parseInt(document.getElementById('numMonths').value)||6;
+  var rows=['Cohort,'+Array.from({length:numM+1},function(_,i){return'Month '+i}).join(',')];
+  cohorts.forEach(function(c){if(c.data[0]>0)rows.push(c.label+','+c.data.join(','))});
+  var blob=new Blob([rows.join('\n')],{type:'text/csv'});var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='cohort-analysis.csv';a.click();
+}
+
+function copySummary(){navigator.clipboard.writeText(document.getElementById('summaryText').textContent).then(function(){alert('Analysis copied!')})}
+function shareX(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Analyzed my cohort retention with this free tool from @SpunkArt13. Code SPUNK.')+'&url='+encodeURIComponent('https://spunk.codes/exclusive-tools'),'_blank')}
+function shareReddit(){window.open('https://www.reddit.com/submit?url='+encodeURIComponent('https://spunk.codes/exclusive-tools')+'&title='+encodeURIComponent('Free Customer Cohort Analyzer [spunk.codes]'),'_blank')}
+function shareEmail(){window.location.href='mailto:?subject='+encodeURIComponent('Free Cohort Analysis Tool')+'&body='+encodeURIComponent('Analyze cohort retention: https://spunk.codes/exclusive-tools (code: SPUNK)')}
+
+// Load saved or build default
+try{
+  var s=JSON.parse(localStorage.getItem(STORAGE_KEY));
+  if(s&&s._numC){document.getElementById('numCohorts').value=s._numC;document.getElementById('numMonths').value=s._numM}
+}catch(e){}
+buildTable();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+</body>
+</html>

@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Unit Economics Calculator - Exclusive Premium Tool | SPUNK.CODES</title>
+<meta name="description" content="Deep dive into per-unit profitability with gross margin, contribution margin, LTV, ROI, and break-even analysis. Exclusive premium tool.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Unit Economics Calculator - SPUNK.CODES Exclusive">
+<meta property="og:description" content="Calculate per-unit profitability, LTV, ROI, and break-even. Unlock with code SPUNK.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://spunk.codes/exclusive/unit-economics-calculator">
+<meta property="og:site_name" content="SPUNK.CODES">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/unit-economics-calculator">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0d1117;--card:rgba(22,27,34,0.8);--border:rgba(48,54,61,0.6);--gold:#ffd700;--gold-dim:rgba(255,215,0,0.15);--gold-border:rgba(255,215,0,0.3);--text:#e6edf3;--text-dim:#8b949e;--blue:#58a6ff;--cyan:#39d353;--red:#f85149;--orange:#ff8c00;--font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+a{color:var(--blue);text-decoration:none}a:hover{color:#fff}
+.bg-mesh{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 80% 50% at 20% 20%,rgba(255,215,0,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(255,140,0,0.04) 0%,transparent 60%),var(--bg)}
+.bg-grid{position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,215,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,215,0,0.03) 1px,transparent 1px);background-size:60px 60px}
+.nav{position:sticky;top:0;z-index:100;background:rgba(13,17,23,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,215,0,0.15);padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}
+.nav-brand{font-weight:800;font-size:1.1rem;color:var(--gold);letter-spacing:0.08em}
+.nav-links{display:flex;gap:1.5rem;font-size:0.85rem;list-style:none}
+.nav-links a{color:var(--text-dim);transition:color 0.2s;font-weight:500}.nav-links a:hover{color:#fff}.nav-links a.active{color:var(--gold)}
+.lock-gate{position:fixed;inset:0;z-index:1000;background:rgba(13,17,23,0.97);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:2rem}
+.lock-gate.hidden{display:none}
+.lock-icon-big{font-size:4rem;margin-bottom:0.5rem}
+.lock-gate h2{font-size:1.8rem;font-weight:800;text-align:center}.lock-gate h2 span{color:var(--gold)}
+.lock-gate p{color:var(--text-dim);text-align:center;max-width:400px}
+.code-input-wrap{display:flex;gap:0.5rem;margin-top:0.5rem}
+.code-input{padding:0.8rem 1.5rem;background:rgba(22,27,34,0.8);border:2px solid var(--gold-border);border-radius:12px;color:var(--gold);font-size:1.2rem;font-weight:800;letter-spacing:3px;text-align:center;width:200px;outline:none;text-transform:uppercase;font-family:var(--font)}
+.code-input:focus{border-color:var(--gold);box-shadow:0 0 20px rgba(255,215,0,0.2)}
+.code-submit{padding:0.8rem 1.5rem;background:linear-gradient(135deg,#ffd700,#ff8c00);border:none;border-radius:12px;color:#000;font-size:1rem;font-weight:800;cursor:pointer;transition:all 0.3s}
+.code-submit:hover{transform:scale(1.05);box-shadow:0 4px 20px rgba(255,215,0,0.3)}
+.code-error{color:#f85149;font-size:0.85rem;min-height:1.2em}
+.lock-hint{color:var(--text-dim);font-size:0.8rem;margin-top:1rem}.lock-hint a{color:var(--gold)}
+.exclusive-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;background:linear-gradient(135deg,rgba(255,215,0,0.15),rgba(255,140,0,0.15));border:1px solid var(--gold-border);border-radius:100px;font-size:11px;font-weight:800;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase}
+.main{max-width:900px;margin:0 auto;padding:2rem}
+.hero-section{text-align:center;padding:2rem 0 3rem}
+.hero-section h1{font-size:2.2rem;font-weight:800;margin:1rem 0 0.5rem}
+.hero-section h1 .gold{background:linear-gradient(135deg,#ffd700,#ff8c00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-section p{color:var(--text-dim);max-width:600px;margin:0 auto}
+.tool-section{background:var(--card);border:1px solid var(--gold-border);border-radius:16px;padding:2rem;margin-bottom:1.5rem;backdrop-filter:blur(10px);position:relative;overflow:hidden}
+.tool-section::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),#ff8c00,var(--gold))}
+.tool-section h2{font-size:1.2rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}
+.tool-section h2 .icon{font-size:1.4rem}
+label{font-size:0.85rem;color:var(--text-dim);font-weight:600;display:block;margin-bottom:0.4rem}
+input,select{width:100%;padding:0.75rem 1rem;background:rgba(13,17,23,0.6);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:0.9rem;font-family:var(--font);outline:none;transition:border-color 0.2s}
+input:focus,select:focus{border-color:var(--gold)}
+.input-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.input-group{margin-bottom:1rem}
+.btn{padding:0.75rem 2rem;border:none;border-radius:10px;font-size:0.9rem;font-weight:700;cursor:pointer;transition:all 0.2s;font-family:var(--font)}
+.btn-gold{background:linear-gradient(135deg,#ffd700,#ff8c00);color:#000}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 4px 20px rgba(255,215,0,0.3)}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--text-dim)}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold)}
+.btn-sm{padding:0.5rem 1rem;font-size:0.8rem}
+.btn-row{display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:1rem}
+.result-box{background:rgba(255,215,0,0.05);border:1px solid var(--gold-border);border-radius:12px;padding:1.5rem;margin-top:1.5rem;display:none}
+.result-box.show{display:block}
+.metrics-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;margin-top:1rem}
+.metric-card{background:rgba(13,17,23,0.5);border:1px solid var(--border);border-radius:12px;padding:1.2rem;text-align:center;transition:border-color 0.3s}
+.metric-card.good{border-color:var(--cyan)}.metric-card.ok{border-color:var(--gold)}.metric-card.bad{border-color:var(--red)}
+.metric-label{font-size:0.72rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px;margin-bottom:0.3rem}
+.metric-value{font-size:1.6rem;font-weight:800}
+.metric-card.good .metric-value{color:var(--cyan)}.metric-card.ok .metric-value{color:var(--gold)}.metric-card.bad .metric-value{color:var(--red)}
+.metric-sub{font-size:0.7rem;color:var(--text-dim);margin-top:0.3rem}
+.chart-box{margin-top:1.5rem;background:rgba(13,17,23,0.5);border:1px solid var(--border);border-radius:12px;padding:1.5rem}
+.chart-title{font-size:0.85rem;font-weight:700;margin-bottom:1rem;color:var(--gold)}
+.waterfall-bar{display:flex;align-items:center;gap:0.8rem;margin-bottom:0.6rem}
+.waterfall-label{width:140px;font-size:0.8rem;color:var(--text-dim);text-align:right;flex-shrink:0}
+.waterfall-track{flex:1;height:28px;background:rgba(48,54,61,0.3);border-radius:6px;position:relative;overflow:hidden}
+.waterfall-fill{height:100%;border-radius:6px;display:flex;align-items:center;padding:0 8px;font-size:0.75rem;font-weight:700;color:#000;min-width:fit-content}
+.waterfall-fill.revenue{background:linear-gradient(135deg,#ffd700,#ff8c00)}
+.waterfall-fill.cost{background:linear-gradient(135deg,#f85149,#da3633)}
+.waterfall-fill.profit{background:linear-gradient(135deg,#39d353,#2ea043)}
+.waterfall-fill.neutral{background:linear-gradient(135deg,#58a6ff,#388bfd)}
+.summary-text{background:rgba(13,17,23,0.5);border:1px solid var(--border);border-radius:10px;padding:1rem;font-size:0.85rem;color:var(--text-dim);line-height:1.8;white-space:pre-line;margin-top:1rem}
+.scenario-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;margin-top:1rem}
+.scenario-card{background:rgba(13,17,23,0.5);border:1px solid var(--border);border-radius:12px;padding:1.2rem;text-align:center}
+.scenario-card h4{font-size:0.85rem;color:var(--gold);margin-bottom:0.5rem}
+.scenario-card .val{font-size:1.3rem;font-weight:800;margin-bottom:0.3rem}
+.scenario-card .desc{font-size:0.75rem;color:var(--text-dim)}
+.share-cta{background:linear-gradient(135deg,rgba(255,215,0,0.08),rgba(255,140,0,0.05));border:1px solid var(--gold-border);border-radius:16px;padding:2rem;text-align:center;margin-top:2rem}
+.share-cta h3{color:var(--gold);margin-bottom:0.5rem;font-size:1.1rem}
+.share-cta p{color:var(--text-dim);font-size:0.9rem;margin-bottom:1rem}
+.share-btns{display:flex;gap:0.6rem;justify-content:center;flex-wrap:wrap}
+.share-btn{display:inline-flex;align-items:center;gap:0.4rem;padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;color:#fff;transition:all 0.25s}
+.share-btn:hover{transform:translateY(-2px)}
+.share-x{background:#000;border:1px solid #333}.share-reddit{background:#ff4500}.share-email{background:#21262d;border:1px solid #30363d}
+.footer{text-align:center;padding:2rem;border-top:1px solid rgba(255,215,0,0.1);color:var(--text-dim);font-size:0.75rem;margin-top:3rem}
+.footer a{color:var(--gold)}.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-bottom:1rem}
+.watermark{position:fixed;bottom:10px;right:10px;font-size:0.6rem;color:rgba(255,215,0,0.08);font-weight:800;pointer-events:none;z-index:9999;letter-spacing:1px;text-transform:uppercase}
+@media(max-width:768px){.main{padding:1rem}.hero-section h1{font-size:1.6rem}.input-grid{grid-template-columns:1fr}.nav-links{display:none}.scenario-row{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="bg-mesh"></div><div class="bg-grid"></div>
+
+<div class="lock-gate" id="lockGate">
+  <div class="lock-icon-big">&#128274;</div>
+  <h2>Enter Code <span>SPUNK</span> to Unlock</h2>
+  <p>This is an exclusive premium tool. Enter the referral code to get instant access.</p>
+  <div class="code-input-wrap"><input type="text" class="code-input" id="codeInput" placeholder="CODE" maxlength="10" autocomplete="off"><button class="code-submit" onclick="submitCode()">Unlock</button></div>
+  <div class="code-error" id="codeError"></div>
+  <div class="lock-hint">Get the code at <a href="https://spunk.codes/exclusive-tools">spunk.codes/exclusive-tools</a></div>
+</div>
+
+<nav class="nav"><a href="https://spunk.codes" class="nav-brand">SPUNK.CODES</a><div class="nav-links"><a href="/store">Tools</a><a href="/exclusive-tools" class="active">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a></div></nav>
+
+<div class="main" id="mainContent">
+  <section class="hero-section">
+    <div class="exclusive-badge">&#128081; EXCLUSIVE TOOL</div>
+    <h1><span class="gold">Unit Economics</span> Calculator</h1>
+    <p>Deep dive into per-unit profitability. Calculate gross margin, contribution margin, LTV, ROI on acquisition, and break-even with visual analysis.</p>
+  </section>
+
+  <div class="tool-section">
+    <h2><span class="icon">&#128176;</span> Revenue Per Unit</h2>
+    <div class="input-grid">
+      <div class="input-group"><label>Selling Price per Unit ($)</label><input type="number" id="price" placeholder="99" step="0.01"></div>
+      <div class="input-group"><label>Units Sold per Month</label><input type="number" id="unitsSold" placeholder="100"></div>
+      <div class="input-group"><label>Average Order Value ($) (if different)</label><input type="number" id="aov" placeholder="Same as price" step="0.01"></div>
+      <div class="input-group"><label>Purchase Frequency (per year)</label><input type="number" id="frequency" placeholder="12" value="12"></div>
+    </div>
+  </div>
+
+  <div class="tool-section">
+    <h2><span class="icon">&#128184;</span> Cost Structure</h2>
+    <div class="input-grid">
+      <div class="input-group"><label>Cost of Goods Sold (COGS) per Unit ($)</label><input type="number" id="cogs" placeholder="25" step="0.01"></div>
+      <div class="input-group"><label>Variable Costs per Unit ($)</label><input type="number" id="varCosts" placeholder="10" step="0.01"><small style="color:var(--text-dim);font-size:0.7rem">Shipping, payment processing, support, etc.</small></div>
+      <div class="input-group"><label>Customer Acquisition Cost (CAC) ($)</label><input type="number" id="cac" placeholder="150" step="0.01"></div>
+      <div class="input-group"><label>Monthly Fixed Overhead ($)</label><input type="number" id="fixedCosts" placeholder="5000" step="0.01"><small style="color:var(--text-dim);font-size:0.7rem">Rent, salaries, software, etc.</small></div>
+    </div>
+  </div>
+
+  <div class="tool-section">
+    <h2><span class="icon">&#128337;</span> Retention & Lifetime</h2>
+    <div class="input-grid">
+      <div class="input-group"><label>Monthly Retention Rate (%)</label><input type="number" id="retention" placeholder="95" min="0" max="100" value="95"></div>
+      <div class="input-group"><label>Average Customer Lifetime (months)</label><input type="number" id="lifetime" placeholder="Auto-calculated" id="lifetimeDisplay"><small style="color:var(--text-dim);font-size:0.7rem">Leave blank to auto-calculate from retention rate</small></div>
+    </div>
+  </div>
+
+  <div class="btn-row" style="justify-content:center;margin-bottom:1.5rem">
+    <button class="btn btn-gold" onclick="calculate()">&#128640; Calculate Unit Economics</button>
+    <button class="btn btn-outline" onclick="loadExample()">Load Example</button>
+    <button class="btn btn-outline" onclick="clearAll()">Clear</button>
+  </div>
+
+  <div class="result-box" id="results">
+    <h3 style="color:var(--gold);font-size:1.1rem;margin-bottom:0.5rem">&#127942; Unit Economics Breakdown</h3>
+    <div class="metrics-grid" id="metricsGrid"></div>
+
+    <div class="chart-box" id="waterfallChart" style="display:none">
+      <div class="chart-title">&#128202; Revenue-to-Profit Waterfall</div>
+      <div id="waterfallBars"></div>
+    </div>
+
+    <div class="chart-box" id="breakEvenChart" style="display:none">
+      <div class="chart-title">&#128200; Break-Even Analysis</div>
+      <svg id="breakEvenSvg" width="100%" height="280" viewBox="0 0 800 280"></svg>
+    </div>
+
+    <div class="chart-box" id="scenarioBox" style="display:none">
+      <div class="chart-title">&#127919; Scenario Analysis</div>
+      <div class="scenario-row" id="scenarios"></div>
+    </div>
+
+    <div id="summarySection" style="display:none">
+      <div class="summary-text" id="summaryText"></div>
+    </div>
+
+    <div class="btn-row"><button class="btn btn-outline btn-sm" onclick="copySummary()">&#128203; Copy Summary</button></div>
+  </div>
+
+  <div class="share-cta">
+    <h3>&#128640; Know a founder who needs this?</h3>
+    <p>Share the code <strong style="color:var(--gold)">SPUNK</strong> to give them free access.</p>
+    <div class="share-btns">
+      <button class="share-btn share-x" onclick="shareX()">&#120143; Share on X</button>
+      <button class="share-btn share-reddit" onclick="shareReddit()">&#129513; Reddit</button>
+      <button class="share-btn share-email" onclick="shareEmail()">&#9993; Email</button>
+    </div>
+  </div>
+</div>
+
+<footer class="footer"><div class="footer-links"><a href="https://spunk.codes">Home</a><a href="/store">Tools</a><a href="/exclusive-tools">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a><a href="https://x.com/SpunkArt13" target="_blank">@SpunkArt13</a></div><p>&copy; 2026 SPUNK.CODES. All rights reserved.</p></footer>
+<div class="watermark">SPUNK.CODES EXCLUSIVE</div>
+
+<script>document.addEventListener('contextmenu',function(e){e.preventDefault()});document.addEventListener('keydown',function(e){if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&e.key==='I')||(e.ctrlKey&&e.key==='u')){e.preventDefault()}});</script>
+<script>
+function checkAccess(){var c=localStorage.getItem('spunk_referral_code')||localStorage.getItem('spunk_ref_code');if(c&&c.toUpperCase()==='SPUNK')document.getElementById('lockGate').classList.add('hidden')}
+function submitCode(){var v=document.getElementById('codeInput').value.trim().toUpperCase();if(v==='SPUNK'){localStorage.setItem('spunk_referral_code',v);localStorage.setItem('spunk_ref_code',v);document.getElementById('lockGate').classList.add('hidden');if(typeof gtag==='function')gtag('event','exclusive_unlock',{tool:'unit-economics-calculator'})}else{document.getElementById('codeError').textContent='Invalid code. Try again.'}}
+document.getElementById('codeInput').addEventListener('keydown',function(e){if(e.key==='Enter')submitCode()});checkAccess();
+</script>
+
+<script>
+var STORAGE_KEY='spunk_unit_economics';
+
+function loadSaved(){
+  try{var s=JSON.parse(localStorage.getItem(STORAGE_KEY));if(s){Object.keys(s).forEach(function(k){var el=document.getElementById(k);if(el)el.value=s[k]})}}catch(e){}
+}
+
+function saveData(){
+  var fields=['price','unitsSold','aov','frequency','cogs','varCosts','cac','fixedCosts','retention','lifetime'];
+  var d={};fields.forEach(function(f){d[f]=document.getElementById(f).value});
+  localStorage.setItem(STORAGE_KEY,JSON.stringify(d));
+}
+
+function loadExample(){
+  document.getElementById('price').value='99';
+  document.getElementById('unitsSold').value='200';
+  document.getElementById('aov').value='';
+  document.getElementById('frequency').value='12';
+  document.getElementById('cogs').value='20';
+  document.getElementById('varCosts').value='12';
+  document.getElementById('cac').value='180';
+  document.getElementById('fixedCosts').value='15000';
+  document.getElementById('retention').value='93';
+  document.getElementById('lifetime').value='';
+  saveData();
+}
+
+function calculate(){
+  var price=parseFloat(document.getElementById('price').value)||0;
+  var units=parseFloat(document.getElementById('unitsSold').value)||1;
+  var aov=parseFloat(document.getElementById('aov').value)||price;
+  var freq=parseFloat(document.getElementById('frequency').value)||12;
+  var cogs=parseFloat(document.getElementById('cogs').value)||0;
+  var varCosts=parseFloat(document.getElementById('varCosts').value)||0;
+  var cac=parseFloat(document.getElementById('cac').value)||0;
+  var fixedCosts=parseFloat(document.getElementById('fixedCosts').value)||0;
+  var retention=(parseFloat(document.getElementById('retention').value)||95)/100;
+  var lifetimeInput=parseFloat(document.getElementById('lifetime').value);
+  var churnRate=1-retention;
+  var lifetimeMonths=lifetimeInput>0?lifetimeInput:(churnRate>0?(1/churnRate):60);
+
+  // Calculations
+  var grossProfit=price-cogs;
+  var grossMarginPct=(grossProfit/price)*100;
+  var contributionMargin=price-cogs-varCosts;
+  var contributionPct=(contributionMargin/price)*100;
+  var ltv=aov*(freq/12)*lifetimeMonths*((price-cogs)/price);
+  var ltvSimple=aov*(freq/12)*lifetimeMonths;
+  var ltvCac=cac>0?(ltv/cac):0;
+  var roiOnAcquisition=cac>0?((ltv-cac)/cac*100):0;
+  var paybackMonths=contributionMargin>0?(cac/contributionMargin):999;
+  var monthlyRevPerUnit=aov*(freq/12);
+  var totalMonthlyRev=monthlyRevPerUnit*units;
+  var totalMonthlyCOGS=cogs*units*(freq/12);
+  var totalMonthlyVar=varCosts*units*(freq/12);
+  var totalMonthlyGross=totalMonthlyRev-totalMonthlyCOGS-totalMonthlyVar;
+  var netProfit=totalMonthlyGross-fixedCosts;
+  var breakEvenUnits=contributionMargin>0?Math.ceil(fixedCosts/(contributionMargin*(freq/12))):999999;
+
+  // Status
+  function st(val,good,bad){return val>=good?'good':val>=bad?'ok':'bad'}
+
+  var html='';
+  html+='<div class="metric-card '+st(grossMarginPct,60,40)+'"><div class="metric-label">Gross Margin</div><div class="metric-value">'+grossMarginPct.toFixed(1)+'%</div><div class="metric-sub">$'+grossProfit.toFixed(2)+' per unit</div></div>';
+  html+='<div class="metric-card '+st(contributionPct,40,20)+'"><div class="metric-label">Contribution Margin</div><div class="metric-value">'+contributionPct.toFixed(1)+'%</div><div class="metric-sub">$'+contributionMargin.toFixed(2)+' per unit</div></div>';
+  html+='<div class="metric-card '+st(ltv,cac*3,cac)+'"><div class="metric-label">Lifetime Value (LTV)</div><div class="metric-value">$'+formatNum(ltv)+'</div><div class="metric-sub">'+lifetimeMonths.toFixed(0)+' month avg life</div></div>';
+  html+='<div class="metric-card '+(cac>0?st(ltvCac,3,1.5):'good')+'"><div class="metric-label">LTV:CAC Ratio</div><div class="metric-value">'+(cac>0?ltvCac.toFixed(1):'N/A')+'x</div><div class="metric-sub">'+(ltvCac>=3?'Healthy':'Needs improvement')+'</div></div>';
+  html+='<div class="metric-card '+st(roiOnAcquisition,200,50)+'"><div class="metric-label">ROI on Acquisition</div><div class="metric-value">'+roiOnAcquisition.toFixed(0)+'%</div><div class="metric-sub">Return per customer</div></div>';
+  html+='<div class="metric-card '+st(18-paybackMonths,6,0)+'"><div class="metric-label">Payback Period</div><div class="metric-value">'+paybackMonths.toFixed(1)+'</div><div class="metric-sub">months to recover CAC</div></div>';
+  html+='<div class="metric-card good"><div class="metric-label">Break-Even Units</div><div class="metric-value">'+breakEvenUnits.toLocaleString()+'</div><div class="metric-sub">units/month to cover fixed costs</div></div>';
+  html+='<div class="metric-card '+(netProfit>0?'good':'bad')+'"><div class="metric-label">Monthly Net Profit</div><div class="metric-value">$'+formatNum(netProfit)+'</div><div class="metric-sub">'+(netProfit>0?'Profitable':'Losing money')+'</div></div>';
+  document.getElementById('metricsGrid').innerHTML=html;
+
+  // Waterfall
+  var maxBar=Math.max(price,cogs+varCosts+cac/lifetimeMonths);
+  var bars='';
+  function wb(label,val,cls){var pct=Math.max((Math.abs(val)/maxBar)*100,8);bars+='<div class="waterfall-bar"><div class="waterfall-label">'+label+'</div><div class="waterfall-track"><div class="waterfall-fill '+cls+'" style="width:'+pct+'%">$'+Math.abs(val).toFixed(2)+'</div></div></div>'}
+  wb('Revenue/Unit',price,'revenue');
+  wb('COGS',cogs,'cost');
+  wb('Variable Costs',varCosts,'cost');
+  wb('Gross Profit',grossProfit,'profit');
+  wb('CAC (amortized/mo)',cac/lifetimeMonths,'cost');
+  wb('Contribution',contributionMargin,'profit');
+  document.getElementById('waterfallBars').innerHTML=bars;
+  document.getElementById('waterfallChart').style.display='block';
+
+  // Break-even SVG
+  drawBreakEven(fixedCosts,contributionMargin*(freq/12),price*(freq/12),breakEvenUnits);
+
+  // Scenarios
+  var scenHtml='';
+  var scenarios=[
+    {name:'10% Price Increase',price:price*1.1,cogs:cogs,varC:varCosts,cac:cac},
+    {name:'Current',price:price,cogs:cogs,varC:varCosts,cac:cac},
+    {name:'20% Lower CAC',price:price,cogs:cogs,varC:varCosts,cac:cac*0.8}
+  ];
+  scenarios.forEach(function(s){
+    var cm=s.price-s.cogs-s.varC;
+    var sltv=s.price*(freq/12)*lifetimeMonths*((s.price-s.cogs)/s.price);
+    var slr=s.cac>0?sltv/s.cac:0;
+    var color=slr>=3?'var(--cyan)':slr>=1.5?'var(--gold)':'var(--red)';
+    scenHtml+='<div class="scenario-card"><h4>'+s.name+'</h4><div class="val" style="color:'+color+'">'+slr.toFixed(1)+'x LTV:CAC</div><div class="desc">CM: $'+cm.toFixed(2)+' | LTV: $'+formatNum(sltv)+'</div></div>';
+  });
+  document.getElementById('scenarios').innerHTML=scenHtml;
+  document.getElementById('scenarioBox').style.display='block';
+
+  // Summary
+  var summary='UNIT ECONOMICS SUMMARY\n======================\n';
+  summary+='Price: $'+price.toFixed(2)+' | COGS: $'+cogs.toFixed(2)+' | Variable: $'+varCosts.toFixed(2)+'\n';
+  summary+='Gross Margin: '+grossMarginPct.toFixed(1)+'% ($'+grossProfit.toFixed(2)+'/unit)\n';
+  summary+='Contribution Margin: '+contributionPct.toFixed(1)+'% ($'+contributionMargin.toFixed(2)+'/unit)\n';
+  summary+='CAC: $'+cac.toFixed(2)+' | LTV: $'+ltv.toFixed(2)+' | LTV:CAC: '+ltvCac.toFixed(1)+'x\n';
+  summary+='ROI on Acquisition: '+roiOnAcquisition.toFixed(0)+'% | Payback: '+paybackMonths.toFixed(1)+' months\n';
+  summary+='Break-Even: '+breakEvenUnits+' units/month\n';
+  summary+='Monthly Net Profit: $'+netProfit.toFixed(2)+' ('+units+' units)\n\n';
+  summary+='VERDICT: '+(ltvCac>=3&&grossMarginPct>=60?'Strong unit economics. Scale aggressively.':ltvCac>=1.5?'Decent foundation. Optimize CAC and retention.':'Unit economics need work before scaling.');
+  document.getElementById('summaryText').textContent=summary;
+  document.getElementById('summarySection').style.display='block';
+
+  document.getElementById('results').classList.add('show');
+  document.getElementById('results').scrollIntoView({behavior:'smooth'});
+  saveData();
+  if(typeof gtag==='function')gtag('event','unit_economics_calculated',{tool:'unit-economics-calculator'});
+}
+
+function drawBreakEven(fixed,cmPerUnit,revPerUnit,beUnits){
+  var svg=document.getElementById('breakEvenSvg');
+  var maxUnits=Math.min(beUnits*2.5,beUnits+200);
+  if(maxUnits<10)maxUnits=50;
+  var w=800,h=280,pad=60;
+  var plotW=w-pad*2,plotH=h-pad*2;
+  var maxRev=revPerUnit*maxUnits;
+  var maxCost=fixed+cmPerUnit*maxUnits+fixed;
+
+  var maxY=Math.max(maxRev,maxCost)*1.1;
+
+  // Revenue line
+  var rx1=pad,ry1=h-pad;
+  var rx2=pad+plotW,ry2=h-pad-((revPerUnit*maxUnits)/maxY)*plotH;
+
+  // Cost line
+  var cx1=pad,cy1=h-pad-((fixed)/maxY)*plotH;
+  var cx2=pad+plotW,cy2=h-pad-(((fixed+cmPerUnit*maxUnits+fixed-cmPerUnit*maxUnits+revPerUnit*maxUnits-cmPerUnit*maxUnits))/maxY)*plotH;
+  // Actually total cost = fixed + (cogs+var)*units = fixed + (price - cm)*units
+  var costPerUnit=revPerUnit-cmPerUnit;
+  cy2=h-pad-((fixed+costPerUnit*maxUnits)/maxY)*plotH;
+
+  // Break-even point
+  var beX=pad+(beUnits/maxUnits)*plotW;
+  var beY=h-pad-((revPerUnit*beUnits)/maxY)*plotH;
+
+  var html='';
+  // Grid lines
+  for(var g=0;g<=4;g++){
+    var gy=h-pad-(g/4)*plotH;
+    var gv=maxY*(g/4);
+    html+='<line x1="'+pad+'" y1="'+gy+'" x2="'+(w-pad)+'" y2="'+gy+'" stroke="rgba(48,54,61,0.3)" stroke-width="1"/>';
+    html+='<text x="'+(pad-5)+'" y="'+(gy+4)+'" fill="#8b949e" font-size="10" text-anchor="end">$'+formatNum(gv)+'</text>';
+  }
+  // Revenue line
+  html+='<line x1="'+rx1+'" y1="'+ry1+'" x2="'+rx2+'" y2="'+ry2+'" stroke="#ffd700" stroke-width="2.5"/>';
+  html+='<text x="'+(rx2+5)+'" y="'+(ry2+4)+'" fill="#ffd700" font-size="11" font-weight="700">Revenue</text>';
+  // Total cost line
+  html+='<line x1="'+cx1+'" y1="'+cy1+'" x2="'+cx2+'" y2="'+cy2+'" stroke="#f85149" stroke-width="2.5"/>';
+  html+='<text x="'+(cx2+5)+'" y="'+(cy2+4)+'" fill="#f85149" font-size="11" font-weight="700">Total Cost</text>';
+  // Fixed cost line
+  html+='<line x1="'+pad+'" y1="'+cy1+'" x2="'+(w-pad)+'" y2="'+cy1+'" stroke="#f85149" stroke-width="1" stroke-dasharray="5,3"/>';
+  html+='<text x="'+(w-pad+5)+'" y="'+(cy1+4)+'" fill="#8b949e" font-size="9">Fixed: $'+formatNum(fixed)+'</text>';
+  // Break-even point
+  if(beX<=w-pad){
+    html+='<circle cx="'+beX+'" cy="'+beY+'" r="8" fill="#39d353" stroke="#0d1117" stroke-width="3"/>';
+    html+='<line x1="'+beX+'" y1="'+beY+'" x2="'+beX+'" y2="'+(h-pad)+'" stroke="#39d353" stroke-width="1" stroke-dasharray="4,3"/>';
+    html+='<text x="'+beX+'" y="'+(h-pad+18)+'" fill="#39d353" font-size="11" font-weight="700" text-anchor="middle">Break-Even: '+beUnits+' units</text>';
+  }
+  // Axis
+  html+='<line x1="'+pad+'" y1="'+(h-pad)+'" x2="'+(w-pad)+'" y2="'+(h-pad)+'" stroke="#30363d" stroke-width="1"/>';
+  svg.innerHTML=html;
+  document.getElementById('breakEvenChart').style.display='block';
+}
+
+function formatNum(n){if(Math.abs(n)>=1000000)return(n/1000000).toFixed(1)+'M';if(Math.abs(n)>=1000)return(n/1000).toFixed(1)+'K';return Math.round(n).toLocaleString()}
+
+function copySummary(){navigator.clipboard.writeText(document.getElementById('summaryText').textContent).then(function(){alert('Summary copied!')})}
+
+function clearAll(){
+  ['price','unitsSold','aov','frequency','cogs','varCosts','cac','fixedCosts','retention','lifetime'].forEach(function(f){
+    var el=document.getElementById(f);if(el)el.value=f==='retention'?'95':f==='frequency'?'12':'';
+  });
+  document.getElementById('results').classList.remove('show');
+  localStorage.removeItem(STORAGE_KEY);
+}
+
+function shareX(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Just analyzed my unit economics with this free calculator from @SpunkArt13. Use code SPUNK to unlock.')+'&url='+encodeURIComponent('https://spunk.codes/exclusive-tools'),'_blank')}
+function shareReddit(){window.open('https://www.reddit.com/submit?url='+encodeURIComponent('https://spunk.codes/exclusive-tools')+'&title='+encodeURIComponent('Free Unit Economics Calculator - use code SPUNK [spunk.codes]'),'_blank')}
+function shareEmail(){window.location.href='mailto:?subject='+encodeURIComponent('Free Unit Economics Calculator')+'&body='+encodeURIComponent('Calculate unit economics for free. Use code SPUNK: https://spunk.codes/exclusive-tools')}
+
+loadSaved();
+</script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+</body>
+</html>

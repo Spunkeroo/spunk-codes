@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Conversion Funnel Builder - Visualize &amp; Optimize Funnels | SPUNK.CODES Exclusive</title>
+<meta name="description" content="Build conversion funnels, visualize drop-off rates, compare before/after optimization, and identify your biggest leaks. Exclusive premium tool.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Conversion Funnel Builder - SPUNK.CODES Exclusive">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/conversion-funnel-builder">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0d1117;--card:rgba(22,27,34,0.8);--border:rgba(48,54,61,0.6);--gold:#ffd700;--gold-border:rgba(255,215,0,0.3);--text:#e6edf3;--text-dim:#8b949e;--blue:#58a6ff;--cyan:#39d353;--red:#f85149;--orange:#ff8c00;--font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+a{color:var(--blue);text-decoration:none}
+.bg-mesh{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 80% 50% at 20% 20%,rgba(255,215,0,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(255,140,0,0.04) 0%,transparent 60%),var(--bg)}
+.bg-grid{position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,215,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,215,0,0.03) 1px,transparent 1px);background-size:60px 60px}
+.nav{position:sticky;top:0;z-index:100;background:rgba(13,17,23,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,215,0,0.15);padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}
+.nav-brand{font-weight:800;font-size:1.1rem;color:var(--gold);letter-spacing:0.08em}
+.nav-links{display:flex;gap:1.5rem;font-size:0.85rem}.nav-links a{color:var(--text-dim);font-weight:500}.nav-links a.active{color:var(--gold)}
+.lock-gate{position:fixed;inset:0;z-index:1000;background:rgba(13,17,23,0.97);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:2rem}
+.lock-gate.hidden{display:none}
+.lock-icon-big{font-size:4rem}.lock-gate h2{font-size:1.8rem;font-weight:800;text-align:center}.lock-gate h2 span{color:var(--gold)}.lock-gate p{color:var(--text-dim);text-align:center;max-width:400px}
+.code-input-wrap{display:flex;gap:0.5rem}
+.code-input{padding:0.8rem 1.5rem;background:rgba(22,27,34,0.8);border:2px solid var(--gold-border);border-radius:12px;color:var(--gold);font-size:1.2rem;font-weight:800;letter-spacing:3px;text-align:center;width:200px;outline:none;text-transform:uppercase;font-family:var(--font)}
+.code-input:focus{border-color:var(--gold);box-shadow:0 0 20px rgba(255,215,0,0.2)}
+.code-submit{padding:0.8rem 1.5rem;background:linear-gradient(135deg,#ffd700,#ff8c00);border:none;border-radius:12px;color:#000;font-size:1rem;font-weight:800;cursor:pointer}
+.code-error{color:var(--red);font-size:0.85rem;min-height:1.2em}.lock-hint{color:var(--text-dim);font-size:0.8rem}.lock-hint a{color:var(--gold)}
+.exclusive-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;background:linear-gradient(135deg,rgba(255,215,0,0.15),rgba(255,140,0,0.15));border:1px solid var(--gold-border);border-radius:100px;font-size:11px;font-weight:800;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase}
+.main{max-width:1000px;margin:0 auto;padding:2rem}
+.hero-section{text-align:center;padding:2rem 0 2rem}
+.hero-section h1{font-size:2.2rem;font-weight:800;margin:1rem 0 0.5rem}
+.hero-section h1 .gold{background:linear-gradient(135deg,#ffd700,#ff8c00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-section p{color:var(--text-dim);max-width:600px;margin:0 auto}
+.card{background:var(--card);border:1px solid var(--gold-border);border-radius:16px;padding:1.5rem;margin-bottom:1.5rem;backdrop-filter:blur(10px);position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),#ff8c00,var(--gold))}
+.card h2{font-size:1.1rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}
+.form-group{display:flex;flex-direction:column;gap:0.3rem}
+.form-group label{font-size:0.8rem;color:var(--text-dim);font-weight:600}
+.form-group input{padding:0.6rem 0.8rem;background:rgba(13,17,23,0.8);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.9rem;font-family:var(--font);outline:none}
+.form-group input:focus{border-color:var(--gold)}
+.btn{padding:0.7rem 1.5rem;border-radius:10px;font-size:0.85rem;font-weight:700;cursor:pointer;border:none;transition:all 0.2s}
+.btn-gold{background:linear-gradient(135deg,#ffd700,#ff8c00);color:#000}
+.btn-gold:hover{transform:translateY(-1px);box-shadow:0 4px 15px rgba(255,215,0,0.3)}
+.btn-outline{background:transparent;border:1px solid var(--gold-border);color:var(--gold)}
+.btn-red{background:rgba(248,81,73,0.15);border:1px solid rgba(248,81,73,0.3);color:var(--red)}
+.btn-sm{padding:0.4rem 0.8rem;font-size:0.75rem}
+.btn-row{display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:1rem}
+.stage-row{display:grid;grid-template-columns:2fr 1fr auto;gap:0.5rem;align-items:center;padding:0.5rem;background:rgba(22,27,34,0.4);border-radius:8px;margin-bottom:0.3rem}
+.stage-row input{padding:0.4rem;font-size:0.85rem;background:rgba(13,17,23,0.6);border:1px solid var(--border);border-radius:6px;color:var(--text);font-family:var(--font)}
+.stage-row input.num-input{text-align:center;color:var(--gold);font-weight:700;width:100px}
+.metrics-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:0.8rem;margin:1rem 0}
+.metric-card{text-align:center;padding:0.8rem;background:rgba(22,27,34,0.5);border:1px solid var(--border);border-radius:10px}
+.metric-val{font-size:1.3rem;font-weight:800;color:var(--gold)}
+.metric-lbl{font-size:0.65rem;color:var(--text-dim);margin-top:0.2rem}
+.chart-container{margin:1.5rem 0;overflow-x:auto}
+.dropoff-row{display:flex;align-items:center;gap:0.5rem;padding:0.5rem;font-size:0.85rem}
+.dropoff-bar{flex:1;height:8px;background:rgba(48,54,61,0.5);border-radius:4px;overflow:hidden}
+.dropoff-fill{height:100%;border-radius:4px}
+.dropoff-pct{font-weight:700;min-width:50px;text-align:right}
+.leak-alert{padding:0.5rem 0.8rem;background:rgba(248,81,73,0.08);border:1px solid rgba(248,81,73,0.2);border-radius:8px;font-size:0.8rem;color:var(--red);margin-top:0.5rem}
+.tab-bar{display:flex;gap:0.5rem;margin-bottom:1rem}
+.tab{padding:0.5rem 1rem;border-radius:8px;font-size:0.8rem;font-weight:600;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--text-dim)}
+.tab.active{border-color:var(--gold);color:var(--gold);background:rgba(255,215,0,0.1)}
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+.share-cta{background:linear-gradient(135deg,rgba(255,215,0,0.08),rgba(255,140,0,0.05));border:1px solid var(--gold-border);border-radius:16px;padding:2rem;text-align:center;margin-top:2rem}
+.share-cta h3{color:var(--gold);margin-bottom:0.5rem}.share-cta p{color:var(--text-dim);font-size:0.9rem;margin-bottom:1rem}
+.share-btns{display:flex;gap:0.6rem;justify-content:center;flex-wrap:wrap}
+.share-btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;color:#fff}
+.share-x{background:#000;border:1px solid #333}.share-reddit{background:#ff4500}.share-email{background:#21262d;border:1px solid #30363d}
+.footer{text-align:center;padding:2rem;border-top:1px solid rgba(255,215,0,0.1);color:var(--text-dim);font-size:0.75rem;margin-top:3rem}
+.footer a{color:var(--gold)}.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-bottom:1rem}
+.watermark{position:fixed;bottom:10px;right:10px;font-size:0.6rem;color:rgba(255,215,0,0.08);font-weight:800;pointer-events:none;z-index:9999;letter-spacing:1px;text-transform:uppercase}
+@media(max-width:768px){.main{padding:1rem}.hero-section h1{font-size:1.6rem}.nav-links{display:none}.compare-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="bg-mesh"></div><div class="bg-grid"></div>
+<div class="lock-gate" id="lockGate"><div class="lock-icon-big">&#128274;</div><h2>Enter Code <span>SPUNK</span> to Unlock</h2><p>This exclusive premium tool requires the SPUNK referral code.</p><div class="code-input-wrap"><input type="text" class="code-input" id="codeInput" placeholder="CODE" maxlength="10" autocomplete="off"><button class="code-submit" onclick="submitCode()">Unlock</button></div><div class="code-error" id="codeError"></div><div class="lock-hint">Get the code at <a href="https://spunk.codes/exclusive-tools">spunk.codes/exclusive-tools</a></div></div>
+<nav class="nav"><a href="https://spunk.codes" class="nav-brand">SPUNK.CODES</a><div class="nav-links"><a href="/store">Tools</a><a href="/exclusive-tools" class="active">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a></div></nav>
+
+<div class="main">
+  <section class="hero-section">
+    <div class="exclusive-badge">&#128081; EXCLUSIVE TOOL</div>
+    <h1><span class="gold">Conversion Funnel</span> Builder</h1>
+    <p>Define funnel stages, visualize drop-off rates with SVG funnels, compare before/after optimization, and find your biggest leaks.</p>
+  </section>
+
+  <div class="card">
+    <h2>&#128295; Build Your Funnel</h2>
+    <div class="form-group" style="margin-bottom:1rem"><label>Funnel Name</label><input type="text" id="funnelName" placeholder="e.g., SaaS Trial-to-Paid Funnel"></div>
+    <div id="stageBuilder"></div>
+    <div class="btn-row">
+      <button class="btn btn-outline btn-sm" onclick="addStage()">+ Add Stage</button>
+      <button class="btn btn-gold" onclick="buildFunnel()">&#128200; Build Funnel</button>
+    </div>
+  </div>
+
+  <div class="card" id="funnelCard" style="display:none">
+    <h2>&#128202; Funnel Visualization</h2>
+    <div class="chart-container" id="funnelSVG"></div>
+    <div class="metrics-grid" id="funnelMetrics"></div>
+  </div>
+
+  <div class="card" id="dropoffCard" style="display:none">
+    <h2>&#128683; Drop-off Analysis</h2>
+    <div id="dropoffAnalysis"></div>
+    <div id="leakAlert"></div>
+  </div>
+
+  <div class="card">
+    <h2>&#128260; Compare Funnels (Before / After)</h2>
+    <p style="font-size:0.8rem;color:var(--text-dim);margin-bottom:1rem">Save your current funnel, optimize, then compare.</p>
+    <div class="tab-bar">
+      <button class="tab active" onclick="setCompareView('saved',this)">Saved Funnels</button>
+      <button class="tab" onclick="setCompareView('compare',this)">Side-by-Side</button>
+    </div>
+    <div id="savedFunnels"></div>
+    <div id="compareFunnels" style="display:none"></div>
+    <div class="btn-row">
+      <button class="btn btn-gold" onclick="saveFunnel()">&#128190; Save Current Funnel</button>
+      <button class="btn btn-red" onclick="clearSaved()">&#128465; Clear All</button>
+    </div>
+  </div>
+
+  <div class="share-cta">
+    <h3>&#128275; Share the Code, Unlock Premium Tools</h3>
+    <p>Know someone struggling with conversion? Share code SPUNK with them.</p>
+    <div class="share-btns">
+      <button class="share-btn share-x" onclick="shareX()">&#120143; Share on X</button>
+      <button class="share-btn share-reddit" onclick="shareReddit()">&#128172; Reddit</button>
+      <button class="share-btn share-email" onclick="shareEm()">&#9993; Email</button>
+    </div>
+  </div>
+</div>
+
+<footer class="footer"><div class="footer-links"><a href="https://spunk.codes">Home</a><a href="/store">Tools</a><a href="/exclusive-tools">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a><a href="https://twitter.com/SpunkArt13" target="_blank">@SpunkArt13</a></div><div>&copy; 2026 SPUNK.CODES EXCLUSIVE.</div></footer>
+<div class="watermark">SPUNK.CODES EXCLUSIVE</div>
+
+<script>
+document.addEventListener('contextmenu',function(e){e.preventDefault()});
+document.addEventListener('keydown',function(e){if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'||e.key==='C'))||(e.ctrlKey&&e.key==='u'))e.preventDefault()});
+function checkCode(){try{var c=localStorage.getItem('spunk_referral_code')||localStorage.getItem('spunk_ref_code')||'';if(c.toUpperCase()==='SPUNK'){document.getElementById('lockGate').classList.add('hidden');return true}}catch(e){}return false}
+function submitCode(){var v=document.getElementById('codeInput').value.trim().toUpperCase();if(v==='SPUNK'){try{localStorage.setItem('spunk_referral_code','SPUNK');localStorage.setItem('spunk_ref_code','SPUNK')}catch(e){}document.getElementById('lockGate').classList.add('hidden')}else{document.getElementById('codeError').textContent='Invalid code. Try: SPUNK';setTimeout(function(){document.getElementById('codeError').textContent=''},2000)}}
+document.getElementById('codeInput').addEventListener('keydown',function(e){if(e.key==='Enter')submitCode()});
+checkCode();
+
+var STORAGE_KEY = 'funnel_builder_data';
+var SAVED_KEY = 'funnel_builder_saved';
+var stages = [
+  { name: 'Visitors', count: 10000 },
+  { name: 'Leads', count: 2000 },
+  { name: 'Qualified Leads', count: 500 },
+  { name: 'Opportunities', count: 150 },
+  { name: 'Customers', count: 45 }
+];
+var compareA = null, compareB = null;
+
+function loadData() {
+  try {
+    var d = JSON.parse(localStorage.getItem(STORAGE_KEY));
+    if (d && d.stages) { stages = d.stages; if (d.name) document.getElementById('funnelName').value = d.name; }
+  } catch(e) {}
+}
+
+function saveData() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify({ name: document.getElementById('funnelName').value, stages: stages })); } catch(e) {}
+}
+
+function renderStageBuilder() {
+  var html = '';
+  stages.forEach(function(s, i) {
+    html += '<div class="stage-row"><input type="text" value="' + esc(s.name) + '" placeholder="Stage name" onchange="stages[' + i + '].name=this.value;saveData()"><input type="number" class="num-input" value="' + s.count + '" min="0" onchange="stages[' + i + '].count=parseInt(this.value)||0;saveData()"><button class="btn btn-red btn-sm" onclick="removeStage(' + i + ')">&#10005;</button></div>';
+  });
+  document.getElementById('stageBuilder').innerHTML = html;
+}
+
+function esc(s) { return (s || '').replace(/"/g, '&quot;').replace(/</g, '&lt;'); }
+
+function addStage() {
+  stages.push({ name: 'Stage ' + (stages.length + 1), count: 0 });
+  saveData();
+  renderStageBuilder();
+}
+
+function removeStage(idx) {
+  if (stages.length <= 2) { alert('Need at least 2 stages'); return; }
+  stages.splice(idx, 1);
+  saveData();
+  renderStageBuilder();
+}
+
+function buildFunnel() {
+  saveData();
+  document.getElementById('funnelCard').style.display = '';
+  document.getElementById('dropoffCard').style.display = '';
+  renderFunnelSVG(stages, 'funnelSVG');
+  renderMetrics();
+  renderDropoff();
+}
+
+function renderFunnelSVG(stgs, containerId) {
+  var n = stgs.length;
+  if (n < 2) return;
+  var svgW = 500, rowH = 55, gap = 5, svgH = n * (rowH + gap) + 20;
+  var maxCount = stgs[0].count || 1;
+  var minW = 60, maxW = 400;
+
+  var svg = '<svg viewBox="0 0 ' + svgW + ' ' + svgH + '" width="100%" style="max-width:500px" xmlns="http://www.w3.org/2000/svg">';
+  svg += '<defs><linearGradient id="fGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ffd700"/><stop offset="100%" stop-color="#ff8c00"/></linearGradient></defs>';
+
+  stgs.forEach(function(s, i) {
+    var y = i * (rowH + gap) + 10;
+    var w = maxCount > 0 ? (minW + (s.count / maxCount) * (maxW - minW)) : minW;
+    var x = (svgW - w) / 2;
+    var opacity = 0.9 - (i * 0.12);
+    var pct = maxCount > 0 ? ((s.count / maxCount) * 100).toFixed(1) : '0';
+    var convRate = i > 0 && stgs[i - 1].count > 0 ? ((s.count / stgs[i - 1].count) * 100).toFixed(1) : '100';
+
+    // Trapezoid shape for funnel effect
+    var nextW = i < n - 1 ? (minW + ((stgs[i + 1].count || 0) / maxCount) * (maxW - minW)) : w * 0.8;
+    var nextX = (svgW - nextW) / 2;
+
+    svg += '<path d="M' + x + ',' + y + ' L' + (x + w) + ',' + y + ' L' + (nextX + nextW) + ',' + (y + rowH) + ' L' + nextX + ',' + (y + rowH) + 'Z" fill="url(#fGrad)" opacity="' + opacity + '" stroke="rgba(255,215,0,0.3)" stroke-width="1"/>';
+    svg += '<text x="' + (svgW / 2) + '" y="' + (y + 22) + '" fill="#0d1117" font-size="12" font-weight="800" text-anchor="middle">' + s.name + '</text>';
+    svg += '<text x="' + (svgW / 2) + '" y="' + (y + 38) + '" fill="#0d1117" font-size="10" text-anchor="middle">' + s.count.toLocaleString() + ' (' + pct + '%)</text>';
+
+    if (i > 0) {
+      svg += '<text x="' + (svgW - 10) + '" y="' + (y + 15) + '" fill="' + (parseFloat(convRate) < 30 ? '#f85149' : '#8b949e') + '" font-size="9" text-anchor="end">' + convRate + '% conv</text>';
+    }
+  });
+  svg += '</svg>';
+  document.getElementById(containerId).innerHTML = '<div style="text-align:center">' + svg + '</div>';
+}
+
+function renderMetrics() {
+  var overall = stages[0].count > 0 ? ((stages[stages.length - 1].count / stages[0].count) * 100) : 0;
+  var biggestDrop = 0, biggestDropStage = '';
+  for (var i = 1; i < stages.length; i++) {
+    var drop = stages[i - 1].count > 0 ? (1 - stages[i].count / stages[i - 1].count) * 100 : 0;
+    if (drop > biggestDrop) { biggestDrop = drop; biggestDropStage = stages[i - 1].name + ' -> ' + stages[i].name; }
+  }
+  var totalLost = stages[0].count - stages[stages.length - 1].count;
+
+  document.getElementById('funnelMetrics').innerHTML =
+    '<div class="metric-card"><div class="metric-val">' + overall.toFixed(2) + '%</div><div class="metric-lbl">Overall Conversion</div></div>' +
+    '<div class="metric-card"><div class="metric-val">' + stages[0].count.toLocaleString() + '</div><div class="metric-lbl">Top of Funnel</div></div>' +
+    '<div class="metric-card"><div class="metric-val">' + stages[stages.length - 1].count.toLocaleString() + '</div><div class="metric-lbl">Bottom of Funnel</div></div>' +
+    '<div class="metric-card"><div class="metric-val" style="color:var(--red)">' + totalLost.toLocaleString() + '</div><div class="metric-lbl">Total Drop-off</div></div>' +
+    '<div class="metric-card"><div class="metric-val">' + stages.length + '</div><div class="metric-lbl">Stages</div></div>';
+}
+
+function renderDropoff() {
+  var html = '';
+  var maxDrop = 0, maxDropIdx = -1;
+
+  for (var i = 1; i < stages.length; i++) {
+    var prev = stages[i - 1].count || 1;
+    var curr = stages[i].count || 0;
+    var dropPct = ((1 - curr / prev) * 100);
+    var convPct = (curr / prev * 100);
+    var lost = prev - curr;
+    var color = dropPct > 70 ? 'var(--red)' : dropPct > 40 ? 'var(--orange)' : 'var(--cyan)';
+
+    if (dropPct > maxDrop) { maxDrop = dropPct; maxDropIdx = i; }
+
+    html += '<div class="dropoff-row"><span style="min-width:120px;font-size:0.8rem">' + stages[i - 1].name + ' &#10132; ' + stages[i].name + '</span><div class="dropoff-bar"><div class="dropoff-fill" style="width:' + dropPct + '%;background:' + color + '"></div></div><span class="dropoff-pct" style="color:' + color + '">' + dropPct.toFixed(1) + '% drop</span><span style="font-size:0.7rem;color:var(--text-dim);min-width:70px;text-align:right">-' + lost.toLocaleString() + '</span></div>';
+  }
+
+  document.getElementById('dropoffAnalysis').innerHTML = html;
+
+  if (maxDropIdx >= 0) {
+    document.getElementById('leakAlert').innerHTML = '<div class="leak-alert">&#128680; <strong>Biggest Leak:</strong> ' + stages[maxDropIdx - 1].name + ' &#10132; ' + stages[maxDropIdx].name + ' (' + maxDrop.toFixed(1) + '% drop-off, losing ' + (stages[maxDropIdx - 1].count - stages[maxDropIdx].count).toLocaleString() + ' people). Focus optimization here for maximum impact.</div>';
+  }
+}
+
+function saveFunnel() {
+  var name = document.getElementById('funnelName').value.trim() || 'Untitled Funnel';
+  try {
+    var saved = JSON.parse(localStorage.getItem(SAVED_KEY) || '[]');
+    saved.push({ name: name, stages: JSON.parse(JSON.stringify(stages)), date: new Date().toISOString() });
+    localStorage.setItem(SAVED_KEY, JSON.stringify(saved));
+    renderSaved();
+    alert('Funnel saved!');
+  } catch(e) {}
+}
+
+function loadFunnel(idx) {
+  try {
+    var saved = JSON.parse(localStorage.getItem(SAVED_KEY) || '[]');
+    if (saved[idx]) {
+      stages = saved[idx].stages;
+      document.getElementById('funnelName').value = saved[idx].name;
+      saveData();
+      renderStageBuilder();
+      buildFunnel();
+    }
+  } catch(e) {}
+}
+
+function deleteFunnel(idx) {
+  try {
+    var saved = JSON.parse(localStorage.getItem(SAVED_KEY) || '[]');
+    saved.splice(idx, 1);
+    localStorage.setItem(SAVED_KEY, JSON.stringify(saved));
+    renderSaved();
+  } catch(e) {}
+}
+
+function selectForCompare(idx, slot) {
+  try {
+    var saved = JSON.parse(localStorage.getItem(SAVED_KEY) || '[]');
+    if (slot === 'A') compareA = saved[idx];
+    else compareB = saved[idx];
+    renderSaved();
+  } catch(e) {}
+}
+
+function setCompareView(view, el) {
+  el.parentElement.querySelectorAll('.tab').forEach(function(t) { t.classList.remove('active'); });
+  el.classList.add('active');
+  document.getElementById('savedFunnels').style.display = view === 'saved' ? '' : 'none';
+  document.getElementById('compareFunnels').style.display = view === 'compare' ? '' : 'none';
+  if (view === 'compare') renderCompare();
+}
+
+function renderSaved() {
+  try {
+    var saved = JSON.parse(localStorage.getItem(SAVED_KEY) || '[]');
+    var container = document.getElementById('savedFunnels');
+    if (saved.length === 0) { container.innerHTML = '<div style="text-align:center;padding:1rem;color:var(--text-dim)">No saved funnels. Build and save one above.</div>'; return; }
+    var html = '';
+    saved.forEach(function(s, i) {
+      var overall = s.stages[0].count > 0 ? ((s.stages[s.stages.length - 1].count / s.stages[0].count) * 100).toFixed(2) : '0';
+      html += '<div style="display:flex;justify-content:space-between;align-items:center;padding:0.6rem;border-bottom:1px solid var(--border)"><div><strong>' + s.name + '</strong><span style="font-size:0.75rem;color:var(--text-dim);margin-left:0.5rem">' + s.stages.length + ' stages, ' + overall + '% conv - ' + new Date(s.date).toLocaleDateString() + '</span></div><div style="display:flex;gap:0.3rem"><button class="btn btn-outline btn-sm" onclick="loadFunnel(' + i + ')">Load</button><button class="btn btn-outline btn-sm" onclick="selectForCompare(' + i + ',\'A\')">Set A</button><button class="btn btn-outline btn-sm" onclick="selectForCompare(' + i + ',\'B\')">Set B</button><button class="btn btn-red btn-sm" onclick="deleteFunnel(' + i + ')">&#10005;</button></div></div>';
+    });
+    container.innerHTML = html;
+  } catch(e) {}
+}
+
+function renderCompare() {
+  var container = document.getElementById('compareFunnels');
+  if (!compareA || !compareB) { container.innerHTML = '<div style="text-align:center;padding:1rem;color:var(--text-dim)">Select two funnels from the Saved list (Set A and Set B) to compare.</div>'; return; }
+
+  var overA = compareA.stages[0].count > 0 ? ((compareA.stages[compareA.stages.length - 1].count / compareA.stages[0].count) * 100) : 0;
+  var overB = compareB.stages[0].count > 0 ? ((compareB.stages[compareB.stages.length - 1].count / compareB.stages[0].count) * 100) : 0;
+  var diff = overB - overA;
+
+  var html = '<div style="text-align:center;margin-bottom:1rem"><span style="font-size:0.9rem;color:var(--text-dim)">Improvement: </span><span style="font-size:1.5rem;font-weight:800;color:' + (diff >= 0 ? 'var(--cyan)' : 'var(--red)') + '">' + (diff >= 0 ? '+' : '') + diff.toFixed(2) + '%</span></div>';
+  html += '<div class="compare-grid"><div><h3 style="font-size:0.9rem;color:var(--gold);margin-bottom:0.5rem">A: ' + compareA.name + ' (' + overA.toFixed(2) + '%)</h3><div id="compareChartA"></div></div><div><h3 style="font-size:0.9rem;color:var(--cyan);margin-bottom:0.5rem">B: ' + compareB.name + ' (' + overB.toFixed(2) + '%)</h3><div id="compareChartB"></div></div></div>';
+  container.innerHTML = html;
+
+  renderFunnelSVG(compareA.stages, 'compareChartA');
+  renderFunnelSVG(compareB.stages, 'compareChartB');
+}
+
+function clearSaved() { if (confirm('Clear all saved funnels?')) { localStorage.removeItem(SAVED_KEY); compareA = null; compareB = null; renderSaved(); } }
+
+loadData();
+renderStageBuilder();
+renderSaved();
+
+function shareX(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Optimizing my conversion funnel with this visual builder. Code SPUNK unlocks it free @SpunkArt13')+'&url='+encodeURIComponent('https://spunk.codes/exclusive-tools'),'_blank')}
+function shareReddit(){window.open('https://www.reddit.com/submit?url='+encodeURIComponent('https://spunk.codes/exclusive-tools')+'&title='+encodeURIComponent('Conversion Funnel Builder - Visual Optimization Tool [spunk.codes]'),'_blank')}
+function shareEm(){window.location.href='mailto:?subject='+encodeURIComponent('Conversion Funnel Builder')+'&body='+encodeURIComponent('Build and optimize conversion funnels visually. Code SPUNK: https://spunk.codes/exclusive-tools')}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+</body>
+</html>

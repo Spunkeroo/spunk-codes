@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Landing Page Analyzer - Score &amp; Optimize Pages | SPUNK.CODES Exclusive</title>
+<meta name="description" content="Analyze landing pages across 12 conversion factors. Radar chart visualization, improvement recommendations, and page comparison. Exclusive premium tool.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Landing Page Analyzer - SPUNK.CODES Exclusive">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/landing-page-analyzer">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0d1117;--card:rgba(22,27,34,0.8);--border:rgba(48,54,61,0.6);--gold:#ffd700;--gold-border:rgba(255,215,0,0.3);--text:#e6edf3;--text-dim:#8b949e;--blue:#58a6ff;--cyan:#39d353;--red:#f85149;--orange:#ff8c00;--font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+a{color:var(--blue);text-decoration:none}
+.bg-mesh{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 80% 50% at 20% 20%,rgba(255,215,0,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(255,140,0,0.04) 0%,transparent 60%),var(--bg)}
+.bg-grid{position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,215,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,215,0,0.03) 1px,transparent 1px);background-size:60px 60px}
+.nav{position:sticky;top:0;z-index:100;background:rgba(13,17,23,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,215,0,0.15);padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}
+.nav-brand{font-weight:800;font-size:1.1rem;color:var(--gold);letter-spacing:0.08em}
+.nav-links{display:flex;gap:1.5rem;font-size:0.85rem}.nav-links a{color:var(--text-dim);font-weight:500}.nav-links a.active{color:var(--gold)}
+.lock-gate{position:fixed;inset:0;z-index:1000;background:rgba(13,17,23,0.97);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:2rem}
+.lock-gate.hidden{display:none}
+.lock-icon-big{font-size:4rem}.lock-gate h2{font-size:1.8rem;font-weight:800;text-align:center}.lock-gate h2 span{color:var(--gold)}.lock-gate p{color:var(--text-dim);text-align:center;max-width:400px}
+.code-input-wrap{display:flex;gap:0.5rem}
+.code-input{padding:0.8rem 1.5rem;background:rgba(22,27,34,0.8);border:2px solid var(--gold-border);border-radius:12px;color:var(--gold);font-size:1.2rem;font-weight:800;letter-spacing:3px;text-align:center;width:200px;outline:none;text-transform:uppercase;font-family:var(--font)}
+.code-input:focus{border-color:var(--gold);box-shadow:0 0 20px rgba(255,215,0,0.2)}
+.code-submit{padding:0.8rem 1.5rem;background:linear-gradient(135deg,#ffd700,#ff8c00);border:none;border-radius:12px;color:#000;font-size:1rem;font-weight:800;cursor:pointer}
+.code-error{color:var(--red);font-size:0.85rem;min-height:1.2em}.lock-hint{color:var(--text-dim);font-size:0.8rem}.lock-hint a{color:var(--gold)}
+.exclusive-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;background:linear-gradient(135deg,rgba(255,215,0,0.15),rgba(255,140,0,0.15));border:1px solid var(--gold-border);border-radius:100px;font-size:11px;font-weight:800;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase}
+.main{max-width:1000px;margin:0 auto;padding:2rem}
+.hero-section{text-align:center;padding:2rem 0 2rem}
+.hero-section h1{font-size:2.2rem;font-weight:800;margin:1rem 0 0.5rem}
+.hero-section h1 .gold{background:linear-gradient(135deg,#ffd700,#ff8c00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-section p{color:var(--text-dim);max-width:600px;margin:0 auto}
+.card{background:var(--card);border:1px solid var(--gold-border);border-radius:16px;padding:1.5rem;margin-bottom:1.5rem;backdrop-filter:blur(10px);position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),#ff8c00,var(--gold))}
+.card h2{font-size:1.1rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.form-group{display:flex;flex-direction:column;gap:0.3rem}
+.form-group label{font-size:0.8rem;color:var(--text-dim);font-weight:600}
+.form-group input,.form-group select,.form-group textarea{padding:0.6rem 0.8rem;background:rgba(13,17,23,0.8);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.9rem;font-family:var(--font);outline:none}
+.form-group input:focus,.form-group select:focus{border-color:var(--gold);box-shadow:0 0 10px rgba(255,215,0,0.1)}
+.btn{padding:0.7rem 1.5rem;border-radius:10px;font-size:0.85rem;font-weight:700;cursor:pointer;border:none;transition:all 0.2s}
+.btn-gold{background:linear-gradient(135deg,#ffd700,#ff8c00);color:#000}
+.btn-gold:hover{transform:translateY(-1px);box-shadow:0 4px 15px rgba(255,215,0,0.3)}
+.btn-outline{background:transparent;border:1px solid var(--gold-border);color:var(--gold)}
+.btn-red{background:rgba(248,81,73,0.15);border:1px solid rgba(248,81,73,0.3);color:var(--red)}
+.btn-sm{padding:0.4rem 0.8rem;font-size:0.75rem}
+.btn-row{display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:1rem}
+.score-ring{width:140px;height:140px;border-radius:50%;border:6px solid var(--border);display:flex;align-items:center;justify-content:center;flex-direction:column;margin:0 auto;transition:border-color 0.5s}
+.score-ring .num{font-size:2.8rem;font-weight:800;color:var(--gold)}
+.score-ring .label{font-size:0.7rem;color:var(--text-dim)}
+.score-ring.good{border-color:var(--cyan)}.score-ring.good .num{color:var(--cyan)}
+.score-ring.ok{border-color:var(--gold)}.score-ring.ok .num{color:var(--gold)}
+.score-ring.bad{border-color:var(--red)}.score-ring.bad .num{color:var(--red)}
+.factor-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1rem 0}
+.factor-item{padding:0.8rem;background:rgba(22,27,34,0.5);border:1px solid var(--border);border-radius:10px}
+.factor-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem}
+.factor-name{font-size:0.85rem;font-weight:600}
+.factor-score{font-weight:800;font-size:0.85rem}
+.factor-bar{height:6px;background:rgba(48,54,61,0.5);border-radius:3px;overflow:hidden}
+.factor-fill{height:100%;border-radius:3px;transition:width 0.5s}
+.factor-tip{font-size:0.7rem;color:var(--text-dim);margin-top:0.5rem;padding:0.4rem;background:rgba(255,215,0,0.03);border-radius:6px;display:none}
+.factor-item.low .factor-tip{display:block}
+.radar-container{text-align:center;margin:1.5rem 0}
+.compare-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin:1rem 0}
+.compare-card{padding:1rem;background:rgba(22,27,34,0.5);border:1px solid var(--border);border-radius:10px;text-align:center;cursor:pointer;transition:border-color 0.2s}
+.compare-card:hover,.compare-card.active{border-color:var(--gold)}
+.compare-card .page-name{font-weight:700;font-size:0.9rem;margin-bottom:0.3rem}
+.compare-card .page-score{font-size:1.8rem;font-weight:800}
+.share-cta{background:linear-gradient(135deg,rgba(255,215,0,0.08),rgba(255,140,0,0.05));border:1px solid var(--gold-border);border-radius:16px;padding:2rem;text-align:center;margin-top:2rem}
+.share-cta h3{color:var(--gold);margin-bottom:0.5rem}.share-cta p{color:var(--text-dim);font-size:0.9rem;margin-bottom:1rem}
+.share-btns{display:flex;gap:0.6rem;justify-content:center;flex-wrap:wrap}
+.share-btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;color:#fff}
+.share-x{background:#000;border:1px solid #333}.share-reddit{background:#ff4500}.share-email{background:#21262d;border:1px solid #30363d}
+.footer{text-align:center;padding:2rem;border-top:1px solid rgba(255,215,0,0.1);color:var(--text-dim);font-size:0.75rem;margin-top:3rem}
+.footer a{color:var(--gold)}.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-bottom:1rem}
+.watermark{position:fixed;bottom:10px;right:10px;font-size:0.6rem;color:rgba(255,215,0,0.08);font-weight:800;pointer-events:none;z-index:9999;letter-spacing:1px;text-transform:uppercase}
+.range-wrap{display:flex;align-items:center;gap:0.5rem}
+.range-wrap input[type=range]{flex:1;accent-color:var(--gold)}
+.range-val{font-weight:700;color:var(--gold);min-width:30px;text-align:center;font-size:0.9rem}
+@media(max-width:768px){.main{padding:1rem}.hero-section h1{font-size:1.6rem}.nav-links{display:none}.form-grid{grid-template-columns:1fr}.factor-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="bg-mesh"></div><div class="bg-grid"></div>
+<div class="lock-gate" id="lockGate"><div class="lock-icon-big">&#128274;</div><h2>Enter Code <span>SPUNK</span> to Unlock</h2><p>This exclusive premium tool requires the SPUNK referral code.</p><div class="code-input-wrap"><input type="text" class="code-input" id="codeInput" placeholder="CODE" maxlength="10" autocomplete="off"><button class="code-submit" onclick="submitCode()">Unlock</button></div><div class="code-error" id="codeError"></div><div class="lock-hint">Get the code at <a href="https://spunk.codes/exclusive-tools">spunk.codes/exclusive-tools</a></div></div>
+<nav class="nav"><a href="https://spunk.codes" class="nav-brand">SPUNK.CODES</a><div class="nav-links"><a href="/store">Tools</a><a href="/exclusive-tools" class="active">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a></div></nav>
+
+<div class="main">
+  <section class="hero-section">
+    <div class="exclusive-badge">&#128081; EXCLUSIVE TOOL</div>
+    <h1><span class="gold">Landing Page</span> Analyzer</h1>
+    <p>Score your landing pages across 12 critical conversion factors. Get radar chart visualization and specific improvement recommendations.</p>
+  </section>
+
+  <div class="card">
+    <h2>&#128196; Analyze a Page</h2>
+    <div class="form-grid">
+      <div class="form-group"><label>Page Name / URL</label><input type="text" id="pageName" placeholder="e.g., Homepage or https://..."></div>
+      <div class="form-group"><label>Page Purpose</label><select id="pagePurpose"><option value="lead">Lead Generation</option><option value="sales">Sales / Purchase</option><option value="signup">Sign Up / Registration</option><option value="download">Download / Free Trial</option><option value="info">Information / Awareness</option></select></div>
+    </div>
+    <div id="factorSliders" style="margin-top:1rem"></div>
+    <div class="btn-row">
+      <button class="btn btn-gold" onclick="analyzePage()">&#128200; Analyze Page</button>
+      <button class="btn btn-outline" onclick="resetSliders()">Reset to 5</button>
+    </div>
+  </div>
+
+  <div class="card" id="resultsCard" style="display:none">
+    <h2>&#127919; Analysis Results</h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:start">
+      <div>
+        <div style="text-align:center">
+          <div class="score-ring" id="scoreRing"><div class="num" id="totalScore">0</div><div class="label">Overall Score</div></div>
+          <div id="scoreLabel" style="margin-top:0.5rem;font-size:0.85rem;color:var(--text-dim)"></div>
+        </div>
+      </div>
+      <div class="radar-container" id="radarChart"></div>
+    </div>
+    <div class="factor-grid" id="factorResults"></div>
+  </div>
+
+  <div class="card">
+    <h2>&#128203; Saved Pages &amp; Comparison</h2>
+    <div class="compare-grid" id="savedPages"></div>
+    <div id="compareSection" style="display:none">
+      <h3 style="font-size:0.95rem;margin:1rem 0 0.5rem;color:var(--gold)">&#128202; Side-by-Side Comparison</h3>
+      <div id="compareChart"></div>
+    </div>
+    <div id="savedEmpty" style="text-align:center;padding:1rem;color:var(--text-dim)">Analyze pages to see them here for comparison</div>
+    <div class="btn-row">
+      <button class="btn btn-red" onclick="clearSaved()">&#128465; Clear All Saved</button>
+    </div>
+  </div>
+
+  <div class="share-cta">
+    <h3>&#128275; Share the Code, Unlock Premium Tools</h3>
+    <p>Help a fellow marketer optimize their landing pages. Share code SPUNK.</p>
+    <div class="share-btns">
+      <button class="share-btn share-x" onclick="shareX()">&#120143; Share on X</button>
+      <button class="share-btn share-reddit" onclick="shareReddit()">&#128172; Reddit</button>
+      <button class="share-btn share-email" onclick="shareEm()">&#9993; Email</button>
+    </div>
+  </div>
+</div>
+
+<footer class="footer"><div class="footer-links"><a href="https://spunk.codes">Home</a><a href="/store">Tools</a><a href="/exclusive-tools">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a><a href="https://twitter.com/SpunkArt13" target="_blank">@SpunkArt13</a></div><div>&copy; 2026 SPUNK.CODES EXCLUSIVE.</div></footer>
+<div class="watermark">SPUNK.CODES EXCLUSIVE</div>
+
+<script>
+document.addEventListener('contextmenu',function(e){e.preventDefault()});
+document.addEventListener('keydown',function(e){if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'||e.key==='C'))||(e.ctrlKey&&e.key==='u'))e.preventDefault()});
+function checkCode(){try{var c=localStorage.getItem('spunk_referral_code')||localStorage.getItem('spunk_ref_code')||'';if(c.toUpperCase()==='SPUNK'){document.getElementById('lockGate').classList.add('hidden');return true}}catch(e){}return false}
+function submitCode(){var v=document.getElementById('codeInput').value.trim().toUpperCase();if(v==='SPUNK'){try{localStorage.setItem('spunk_referral_code','SPUNK');localStorage.setItem('spunk_ref_code','SPUNK')}catch(e){}document.getElementById('lockGate').classList.add('hidden')}else{document.getElementById('codeError').textContent='Invalid code. Try: SPUNK';setTimeout(function(){document.getElementById('codeError').textContent=''},2000)}}
+document.getElementById('codeInput').addEventListener('keydown',function(e){if(e.key==='Enter')submitCode()});
+checkCode();
+
+var STORAGE_KEY = 'lp_analyzer_pages';
+var factors = [
+  { id: 'headline', name: 'Headline Clarity', tip: 'Your headline should clearly communicate your value proposition in under 10 words. Test: Can a stranger understand what you offer in 3 seconds?' },
+  { id: 'cta', name: 'CTA Visibility', tip: 'Your call-to-action button should be above the fold, use contrasting colors, and have action-oriented text like "Start Free Trial" not "Submit".' },
+  { id: 'social', name: 'Social Proof', tip: 'Add testimonials with photos, logos of clients/press, star ratings, or user counts. People trust what others have validated.' },
+  { id: 'urgency', name: 'Urgency / Scarcity', tip: 'Add time-limited offers, countdown timers, limited spots, or "only X left" messaging. Urgency drives action.' },
+  { id: 'mobile', name: 'Mobile Experience', tip: 'Test on real mobile devices. Buttons should be thumb-friendly (44px+), text readable without zooming, forms easy to fill.' },
+  { id: 'speed', name: 'Page Speed', tip: 'Page should load in under 3 seconds. Compress images, minimize JS/CSS, use CDN. Every 1s delay = 7% fewer conversions.' },
+  { id: 'trust', name: 'Trust Signals', tip: 'Add security badges, money-back guarantees, privacy policies, SSL indicator, and recognizable payment logos.' },
+  { id: 'value', name: 'Value Proposition', tip: 'Clearly articulate what you offer, who it\'s for, and why it\'s better. The visitor should immediately understand the benefit.' },
+  { id: 'form', name: 'Form Length', tip: 'Minimize form fields to only what\'s essential. Each additional field reduces conversions by ~11%. Name + email is ideal.' },
+  { id: 'above', name: 'Above Fold Content', tip: 'The most important content (headline, value prop, CTA) must be visible without scrolling. This is your first impression.' },
+  { id: 'benefits', name: 'Benefit-Focused Copy', tip: 'Focus on benefits, not features. Instead of "256-bit encryption" say "Your data is protected by bank-level security."' },
+  { id: 'visual', name: 'Visual Hierarchy', tip: 'Guide the eye with size, color, and spacing. Most important elements should be largest. Use whitespace to reduce clutter.' }
+];
+
+var scores = {};
+factors.forEach(function(f) { scores[f.id] = 5; });
+
+function renderSliders() {
+  var container = document.getElementById('factorSliders');
+  var html = '<div style="display:grid;grid-template-columns:1fr 1fr;gap:0.8rem">';
+  factors.forEach(function(f) {
+    html += '<div class="form-group"><label>' + f.name + '</label><div class="range-wrap"><input type="range" min="1" max="10" value="' + scores[f.id] + '" id="slider_' + f.id + '" oninput="updateSlider(\'' + f.id + '\',this.value)"><span class="range-val" id="val_' + f.id + '">' + scores[f.id] + '</span></div></div>';
+  });
+  html += '</div>';
+  container.innerHTML = html;
+}
+
+function updateSlider(id, val) {
+  scores[id] = parseInt(val);
+  document.getElementById('val_' + id).textContent = val;
+}
+
+function resetSliders() {
+  factors.forEach(function(f) {
+    scores[f.id] = 5;
+    var slider = document.getElementById('slider_' + f.id);
+    if (slider) { slider.value = 5; document.getElementById('val_' + f.id).textContent = '5'; }
+  });
+}
+
+function analyzePage() {
+  var name = document.getElementById('pageName').value.trim();
+  if (!name) { alert('Enter a page name or URL'); return; }
+
+  var total = 0;
+  factors.forEach(function(f) { total += scores[f.id]; });
+  var avg = Math.round(total / factors.length * 10);
+
+  // Save
+  var saved = getSaved();
+  saved.push({ name: name, purpose: document.getElementById('pagePurpose').value, scores: Object.assign({}, scores), total: avg, date: new Date().toISOString() });
+  if (saved.length > 20) saved = saved.slice(-20);
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(saved));
+
+  // Show results
+  document.getElementById('resultsCard').style.display = '';
+  document.getElementById('totalScore').textContent = avg;
+  var ring = document.getElementById('scoreRing');
+  ring.className = 'score-ring';
+  if (avg >= 80) { ring.classList.add('good'); document.getElementById('scoreLabel').textContent = 'Excellent! This page is well-optimized for conversions.'; }
+  else if (avg >= 50) { ring.classList.add('ok'); document.getElementById('scoreLabel').textContent = 'Good foundation, but several areas need improvement.'; }
+  else { ring.classList.add('bad'); document.getElementById('scoreLabel').textContent = 'Significant optimization needed. Focus on the red areas below.'; }
+
+  renderRadar();
+  renderFactorResults();
+  renderSaved();
+}
+
+function renderRadar() {
+  var cx = 180, cy = 180, r = 140;
+  var n = factors.length;
+  var svg = '<svg viewBox="0 0 360 360" width="100%" style="max-width:360px" xmlns="http://www.w3.org/2000/svg">';
+
+  // Grid rings
+  for (var ring = 2; ring <= 10; ring += 2) {
+    var ringR = r * (ring / 10);
+    var ringPath = '';
+    for (var j = 0; j < n; j++) {
+      var angle = (Math.PI * 2 * j / n) - Math.PI / 2;
+      var px = cx + Math.cos(angle) * ringR;
+      var py = cy + Math.sin(angle) * ringR;
+      ringPath += (j === 0 ? 'M' : 'L') + px.toFixed(1) + ',' + py.toFixed(1);
+    }
+    ringPath += 'Z';
+    svg += '<path d="' + ringPath + '" fill="none" stroke="rgba(255,215,0,0.08)" stroke-width="1"/>';
+  }
+
+  // Axis lines
+  for (var i = 0; i < n; i++) {
+    var angle = (Math.PI * 2 * i / n) - Math.PI / 2;
+    var ex = cx + Math.cos(angle) * r;
+    var ey = cy + Math.sin(angle) * r;
+    svg += '<line x1="' + cx + '" y1="' + cy + '" x2="' + ex.toFixed(1) + '" y2="' + ey.toFixed(1) + '" stroke="rgba(255,215,0,0.1)" stroke-width="1"/>';
+    // Label
+    var lx = cx + Math.cos(angle) * (r + 18);
+    var ly = cy + Math.sin(angle) * (r + 18);
+    var anchor = lx > cx + 5 ? 'start' : lx < cx - 5 ? 'end' : 'middle';
+    svg += '<text x="' + lx.toFixed(1) + '" y="' + ly.toFixed(1) + '" fill="#8b949e" font-size="7" text-anchor="' + anchor + '" dominant-baseline="middle">' + factors[i].name.split(' ')[0] + '</text>';
+  }
+
+  // Data polygon
+  var dataPath = '';
+  for (var i = 0; i < n; i++) {
+    var angle = (Math.PI * 2 * i / n) - Math.PI / 2;
+    var val = scores[factors[i].id] / 10;
+    var dx = cx + Math.cos(angle) * r * val;
+    var dy = cy + Math.sin(angle) * r * val;
+    dataPath += (i === 0 ? 'M' : 'L') + dx.toFixed(1) + ',' + dy.toFixed(1);
+  }
+  dataPath += 'Z';
+  svg += '<path d="' + dataPath + '" fill="rgba(255,215,0,0.15)" stroke="#ffd700" stroke-width="2"/>';
+
+  // Data points
+  for (var i = 0; i < n; i++) {
+    var angle = (Math.PI * 2 * i / n) - Math.PI / 2;
+    var val = scores[factors[i].id] / 10;
+    var dx = cx + Math.cos(angle) * r * val;
+    var dy = cy + Math.sin(angle) * r * val;
+    var color = scores[factors[i].id] >= 7 ? '#39d353' : scores[factors[i].id] >= 4 ? '#ffd700' : '#f85149';
+    svg += '<circle cx="' + dx.toFixed(1) + '" cy="' + dy.toFixed(1) + '" r="4" fill="' + color + '" stroke="#0d1117" stroke-width="2"/>';
+  }
+
+  svg += '</svg>';
+  document.getElementById('radarChart').innerHTML = svg;
+}
+
+function renderFactorResults() {
+  var container = document.getElementById('factorResults');
+  var html = '';
+  var sorted = factors.slice().sort(function(a, b) { return scores[a.id] - scores[b.id]; });
+
+  sorted.forEach(function(f) {
+    var val = scores[f.id];
+    var color = val >= 7 ? 'var(--cyan)' : val >= 4 ? 'var(--gold)' : 'var(--red)';
+    var isLow = val < 6;
+    html += '<div class="factor-item' + (isLow ? ' low' : '') + '"><div class="factor-header"><span class="factor-name">' + f.name + '</span><span class="factor-score" style="color:' + color + '">' + val + '/10</span></div><div class="factor-bar"><div class="factor-fill" style="width:' + (val * 10) + '%;background:' + color + '"></div></div>' + (isLow ? '<div class="factor-tip">&#128161; ' + f.tip + '</div>' : '') + '</div>';
+  });
+  container.innerHTML = html;
+}
+
+function getSaved() { try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); } catch(e) { return []; } }
+
+function renderSaved() {
+  var saved = getSaved();
+  var container = document.getElementById('savedPages');
+  var emptyEl = document.getElementById('savedEmpty');
+
+  if (saved.length === 0) { container.innerHTML = ''; emptyEl.style.display = ''; document.getElementById('compareSection').style.display = 'none'; return; }
+  emptyEl.style.display = 'none';
+
+  var html = '';
+  saved.forEach(function(p, i) {
+    var color = p.total >= 80 ? 'var(--cyan)' : p.total >= 50 ? 'var(--gold)' : 'var(--red)';
+    html += '<div class="compare-card" onclick="viewSaved(' + i + ')"><div class="page-name">' + p.name.substring(0, 30) + '</div><div class="page-score" style="color:' + color + '">' + p.total + '</div><div style="font-size:0.7rem;color:var(--text-dim)">' + new Date(p.date).toLocaleDateString() + '</div></div>';
+  });
+  container.innerHTML = html;
+
+  if (saved.length >= 2) {
+    document.getElementById('compareSection').style.display = '';
+    renderCompare(saved);
+  }
+}
+
+function renderCompare(saved) {
+  var recent = saved.slice(-5);
+  var svgW = 700, barH = 30, gap = 8;
+  var svgH = (recent.length * (barH + gap) + 40) * 1;
+
+  var svg = '<svg viewBox="0 0 ' + svgW + ' ' + svgH + '" width="100%" xmlns="http://www.w3.org/2000/svg">';
+  recent.forEach(function(p, i) {
+    var y = i * (barH + gap) + 10;
+    var barW = p.total / 100 * 450;
+    var color = p.total >= 80 ? '#39d353' : p.total >= 50 ? '#ffd700' : '#f85149';
+    svg += '<text x="0" y="' + (y + 20) + '" fill="#e6edf3" font-size="11" font-weight="600">' + p.name.substring(0, 20) + '</text>';
+    svg += '<rect x="160" y="' + (y + 5) + '" width="' + barW + '" height="22" rx="5" fill="' + color + '" opacity="0.7"/>';
+    svg += '<text x="' + (170 + barW) + '" y="' + (y + 20) + '" fill="#e6edf3" font-size="11" font-weight="700">' + p.total + '/100</text>';
+  });
+  svg += '</svg>';
+  document.getElementById('compareChart').innerHTML = svg;
+}
+
+function viewSaved(idx) {
+  var saved = getSaved();
+  if (!saved[idx]) return;
+  var p = saved[idx];
+  document.getElementById('pageName').value = p.name;
+  document.getElementById('pagePurpose').value = p.purpose || 'lead';
+  factors.forEach(function(f) {
+    if (p.scores[f.id] !== undefined) {
+      scores[f.id] = p.scores[f.id];
+      var slider = document.getElementById('slider_' + f.id);
+      if (slider) { slider.value = p.scores[f.id]; document.getElementById('val_' + f.id).textContent = p.scores[f.id]; }
+    }
+  });
+  analyzePage();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function clearSaved() {
+  if (confirm('Clear all saved pages?')) {
+    localStorage.removeItem(STORAGE_KEY);
+    document.getElementById('resultsCard').style.display = 'none';
+    renderSaved();
+  }
+}
+
+renderSliders();
+renderSaved();
+
+function shareX(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Analyzing my landing pages with this 12-factor scoring tool. Code SPUNK unlocks it free @SpunkArt13')+'&url='+encodeURIComponent('https://spunk.codes/exclusive-tools'),'_blank')}
+function shareReddit(){window.open('https://www.reddit.com/submit?url='+encodeURIComponent('https://spunk.codes/exclusive-tools')+'&title='+encodeURIComponent('Landing Page Analyzer - 12 Factor Scoring Tool [spunk.codes]'),'_blank')}
+function shareEm(){window.location.href='mailto:?subject='+encodeURIComponent('Landing Page Analyzer Tool')+'&body='+encodeURIComponent('Score landing pages across 12 factors. Code SPUNK: https://spunk.codes/exclusive-tools')}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+</body>
+</html>

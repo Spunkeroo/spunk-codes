@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Performance Budget Calculator - Page Weight Optimizer | SPUNK.CODES Exclusive</title>
+<meta name="description" content="Set page weight budgets by resource type. Calculate savings, loading time estimates, and track optimization progress. Exclusive premium tool.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Performance Budget Calculator - SPUNK.CODES Exclusive">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/performance-budget-calculator">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0d1117;--card:rgba(22,27,34,0.8);--border:rgba(48,54,61,0.6);--gold:#ffd700;--gold-border:rgba(255,215,0,0.3);--text:#e6edf3;--text-dim:#8b949e;--blue:#58a6ff;--cyan:#39d353;--red:#f85149;--orange:#ff8c00;--font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+a{color:var(--blue);text-decoration:none}
+.bg-mesh{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 80% 50% at 20% 20%,rgba(255,215,0,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(255,140,0,0.04) 0%,transparent 60%),var(--bg)}
+.bg-grid{position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,215,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,215,0,0.03) 1px,transparent 1px);background-size:60px 60px}
+.nav{position:sticky;top:0;z-index:100;background:rgba(13,17,23,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,215,0,0.15);padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}
+.nav-brand{font-weight:800;font-size:1.1rem;color:var(--gold);letter-spacing:0.08em}
+.nav-links{display:flex;gap:1.5rem;font-size:0.85rem}.nav-links a{color:var(--text-dim);font-weight:500}.nav-links a.active{color:var(--gold)}
+.lock-gate{position:fixed;inset:0;z-index:1000;background:rgba(13,17,23,0.97);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:2rem}
+.lock-gate.hidden{display:none}
+.lock-icon-big{font-size:4rem}.lock-gate h2{font-size:1.8rem;font-weight:800;text-align:center}.lock-gate h2 span{color:var(--gold)}.lock-gate p{color:var(--text-dim);text-align:center;max-width:400px}
+.code-input-wrap{display:flex;gap:0.5rem}
+.code-input{padding:0.8rem 1.5rem;background:rgba(22,27,34,0.8);border:2px solid var(--gold-border);border-radius:12px;color:var(--gold);font-size:1.2rem;font-weight:800;letter-spacing:3px;text-align:center;width:200px;outline:none;text-transform:uppercase;font-family:var(--font)}
+.code-input:focus{border-color:var(--gold);box-shadow:0 0 20px rgba(255,215,0,0.2)}
+.code-submit{padding:0.8rem 1.5rem;background:linear-gradient(135deg,#ffd700,#ff8c00);border:none;border-radius:12px;color:#000;font-size:1rem;font-weight:800;cursor:pointer}
+.code-error{color:var(--red);font-size:0.85rem;min-height:1.2em}.lock-hint{color:var(--text-dim);font-size:0.8rem}.lock-hint a{color:var(--gold)}
+.exclusive-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;background:linear-gradient(135deg,rgba(255,215,0,0.15),rgba(255,140,0,0.15));border:1px solid var(--gold-border);border-radius:100px;font-size:11px;font-weight:800;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase}
+.main{max-width:1100px;margin:0 auto;padding:2rem}
+.hero-section{text-align:center;padding:2rem 0 2rem}
+.hero-section h1{font-size:2.2rem;font-weight:800;margin:1rem 0 0.5rem}
+.hero-section h1 .gold{background:linear-gradient(135deg,#ffd700,#ff8c00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-section p{color:var(--text-dim);max-width:600px;margin:0 auto}
+.card{background:var(--card);border:1px solid var(--gold-border);border-radius:16px;padding:1.5rem;margin-bottom:1.5rem;backdrop-filter:blur(10px);position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),#ff8c00,var(--gold))}
+.card h2{font-size:1.1rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1rem;margin-bottom:1rem}
+.summary-card{background:rgba(13,17,23,0.6);border:1px solid var(--border);border-radius:12px;padding:1rem;text-align:center}
+.summary-card .val{font-size:1.8rem;font-weight:800;color:var(--gold)}
+.summary-card .label{font-size:0.7rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.5px}
+.summary-card.good .val{color:var(--cyan)}
+.summary-card.bad .val{color:var(--red)}
+.summary-card.warn .val{color:var(--orange)}
+.resource-table{width:100%;border-collapse:collapse}
+.resource-table th{text-align:left;padding:0.6rem;font-size:0.75rem;color:var(--text-dim);text-transform:uppercase;border-bottom:2px solid var(--border)}
+.resource-table td{padding:0.6rem;border-bottom:1px solid rgba(48,54,61,0.3);font-size:0.85rem}
+.resource-table input{width:80px;padding:0.4rem;background:rgba(22,27,34,0.9);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:0.85rem;text-align:right;outline:none}
+.resource-table input:focus{border-color:var(--gold)}
+.resource-table .icon{font-size:1.2rem;margin-right:0.5rem}
+.progress-bar{height:8px;background:rgba(48,54,61,0.5);border-radius:4px;overflow:hidden}
+.progress-fill{height:100%;border-radius:4px;transition:width 0.5s}
+.status-badge{padding:2px 8px;border-radius:4px;font-size:0.7rem;font-weight:700}
+.status-over{background:rgba(248,81,73,0.15);color:var(--red)}
+.status-under{background:rgba(57,211,83,0.15);color:var(--cyan)}
+.status-close{background:rgba(255,215,0,0.15);color:var(--gold)}
+.speed-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0.75rem}
+.speed-card{background:rgba(13,17,23,0.6);border:1px solid var(--border);border-radius:10px;padding:1rem}
+.speed-card .name{font-weight:700;font-size:0.9rem;margin-bottom:0.3rem}
+.speed-card .bandwidth{font-size:0.75rem;color:var(--text-dim)}
+.speed-card .time{font-size:1.5rem;font-weight:800;margin:0.5rem 0}
+.speed-card .rating{font-size:0.75rem;font-weight:700}
+.speed-card.fast .time{color:var(--cyan)}.speed-card.fast .rating{color:var(--cyan)}
+.speed-card.ok .time{color:var(--gold)}.speed-card.ok .rating{color:var(--gold)}
+.speed-card.slow .time{color:var(--red)}.speed-card.slow .rating{color:var(--red)}
+.rec-list{list-style:none;padding:0}
+.rec-list li{padding:0.6rem;border-left:3px solid var(--gold);margin-bottom:0.5rem;background:rgba(13,17,23,0.5);border-radius:0 8px 8px 0;font-size:0.85rem}
+.rec-list .type-tag{font-size:0.65rem;padding:2px 6px;border-radius:4px;background:rgba(255,215,0,0.1);color:var(--gold);font-weight:700;margin-right:0.5rem}
+.history-entry{display:flex;justify-content:space-between;align-items:center;padding:0.5rem;border-bottom:1px solid rgba(48,54,61,0.3);font-size:0.8rem}
+.btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;transition:all 0.2s}
+.btn-gold{background:linear-gradient(135deg,#ffd700,#ff8c00);color:#000}
+.btn-gold:hover{transform:translateY(-1px);box-shadow:0 4px 15px rgba(255,215,0,0.3)}
+.btn-outline{background:transparent;border:1px solid var(--gold-border);color:var(--gold)}
+.btn-sm{padding:0.4rem 0.8rem;font-size:0.75rem}
+.btn-row{display:flex;gap:0.5rem;flex-wrap:wrap}
+.chart-container{height:200px;position:relative;margin-top:1rem}
+.share-cta{background:linear-gradient(135deg,rgba(255,215,0,0.08),rgba(255,140,0,0.05));border:1px solid var(--gold-border);border-radius:16px;padding:2rem;text-align:center;margin-top:2rem}
+.share-cta h3{color:var(--gold);margin-bottom:0.5rem}.share-cta p{color:var(--text-dim);font-size:0.9rem;margin-bottom:1rem}
+.share-btns{display:flex;gap:0.6rem;justify-content:center;flex-wrap:wrap}
+.share-btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;color:#fff}
+.share-x{background:#000;border:1px solid #333}.share-reddit{background:#ff4500}.share-email{background:#21262d;border:1px solid #30363d}
+.footer{text-align:center;padding:2rem;border-top:1px solid rgba(255,215,0,0.1);color:var(--text-dim);font-size:0.75rem;margin-top:3rem}
+.footer a{color:var(--gold)}.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-bottom:1rem}
+.watermark{position:fixed;bottom:10px;right:10px;font-size:0.6rem;color:rgba(255,215,0,0.08);font-weight:800;pointer-events:none;z-index:9999;letter-spacing:1px;text-transform:uppercase}
+@media(max-width:768px){.main{padding:1rem}.hero-section h1{font-size:1.6rem}.nav-links{display:none}.summary-grid{grid-template-columns:repeat(2,1fr)}.resource-table{font-size:0.75rem}.resource-table input{width:60px}}
+</style>
+</head>
+<body>
+<div class="bg-mesh"></div><div class="bg-grid"></div>
+<div class="lock-gate" id="lockGate"><div class="lock-icon-big">&#128274;</div><h2>Enter Code <span>SPUNK</span> to Unlock</h2><p>This exclusive premium tool requires the SPUNK referral code.</p><div class="code-input-wrap"><input type="text" class="code-input" id="codeInput" placeholder="CODE" maxlength="10" autocomplete="off"><button class="code-submit" onclick="submitCode()">Unlock</button></div><div class="code-error" id="codeError"></div><div class="lock-hint">Get the code at <a href="https://spunk.codes/exclusive-tools">spunk.codes/exclusive-tools</a></div></div>
+<nav class="nav"><a href="https://spunk.codes" class="nav-brand">SPUNK.CODES</a><div class="nav-links"><a href="/store">Tools</a><a href="/exclusive-tools" class="active">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a></div></nav>
+
+<div class="main">
+  <section class="hero-section">
+    <div class="exclusive-badge">&#128081; EXCLUSIVE TOOL</div>
+    <h1><span class="gold">Performance Budget</span> Calculator</h1>
+    <p>Set page weight budgets by resource type. Calculate savings needed and estimate loading times across different connections.</p>
+  </section>
+
+  <div class="card">
+    <h2>&#128202; Budget Summary</h2>
+    <div class="summary-grid" id="summaryGrid">
+      <div class="summary-card"><div class="val" id="totalCurrent">0 KB</div><div class="label">Current Total</div></div>
+      <div class="summary-card"><div class="val" id="totalBudget">0 KB</div><div class="label">Budget Total</div></div>
+      <div class="summary-card" id="savingsCard"><div class="val" id="totalSavings">0 KB</div><div class="label">Savings Needed</div></div>
+      <div class="summary-card" id="scoreCard"><div class="val" id="budgetScore">100%</div><div class="label">Budget Score</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>&#9881; Resource Budgets</h2>
+    <div style="overflow-x:auto">
+    <table class="resource-table">
+      <thead><tr><th>Resource</th><th>Current (KB)</th><th>Budget (KB)</th><th>Difference</th><th>Status</th><th>Progress</th></tr></thead>
+      <tbody id="resourceBody"></tbody>
+    </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>&#9889; Loading Time Estimates</h2>
+    <div class="speed-grid" id="speedGrid"></div>
+  </div>
+
+  <div class="card">
+    <h2>&#128161; Optimization Recommendations</h2>
+    <ul class="rec-list" id="recList"></ul>
+  </div>
+
+  <div class="card">
+    <h2>&#128197; Progress History</h2>
+    <div class="btn-row" style="margin-bottom:0.75rem;margin-top:0">
+      <button class="btn btn-gold btn-sm" onclick="saveSnapshot()">Save Current Snapshot</button>
+      <button class="btn btn-outline btn-sm" onclick="clearHistory()">Clear History</button>
+    </div>
+    <div id="historyList"></div>
+    <div class="chart-container" id="chartContainer"></div>
+  </div>
+
+  <div class="share-cta">
+    <h3>&#128275; Share the Code, Unlock More Tools</h3>
+    <p>Share code SPUNK to help others access 15+ exclusive premium tools.</p>
+    <div class="share-btns">
+      <button class="share-btn share-x" onclick="shareX()">&#120143; Share on X</button>
+      <button class="share-btn share-reddit" onclick="shareReddit()">&#128172; Reddit</button>
+      <button class="share-btn share-email" onclick="shareEmail()">&#9993; Email</button>
+    </div>
+  </div>
+</div>
+
+<footer class="footer"><div class="footer-links"><a href="https://spunk.codes">Home</a><a href="/store">Tools</a><a href="/exclusive-tools">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a><a href="https://twitter.com/SpunkArt13" target="_blank">@SpunkArt13</a></div><div>&copy; 2026 SPUNK.CODES EXCLUSIVE.</div></footer>
+<div class="watermark">SPUNK.CODES EXCLUSIVE</div>
+
+<script>
+document.addEventListener('contextmenu',function(e){e.preventDefault()});
+document.addEventListener('keydown',function(e){if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'||e.key==='C'))||(e.ctrlKey&&e.key==='u'))e.preventDefault()});
+function checkCode(){try{var c=localStorage.getItem('spunk_referral_code')||localStorage.getItem('spunk_ref_code')||'';if(c.toUpperCase()==='SPUNK'){document.getElementById('lockGate').classList.add('hidden');return true}}catch(e){}return false}
+function submitCode(){var v=document.getElementById('codeInput').value.trim().toUpperCase();if(v==='SPUNK'){try{localStorage.setItem('spunk_referral_code','SPUNK');localStorage.setItem('spunk_ref_code','SPUNK')}catch(e){}document.getElementById('lockGate').classList.add('hidden')}else{document.getElementById('codeError').textContent='Invalid code. Try: SPUNK';setTimeout(function(){document.getElementById('codeError').textContent=''},2000)}}
+document.getElementById('codeInput').addEventListener('keydown',function(e){if(e.key==='Enter')submitCode()});
+checkCode();
+
+var resources = [
+  {id:'html',name:'HTML',icon:'&#128196;',current:50,budget:50,recs:['Minify HTML','Remove comments','Use server-side compression (gzip/brotli)']},
+  {id:'css',name:'CSS',icon:'&#127912;',current:150,budget:100,recs:['Use PurgeCSS to remove unused styles','Minify CSS','Use CSS-in-JS for critical path only','Avoid @import, use link tags']},
+  {id:'js',name:'JavaScript',icon:'&#9881;',current:400,budget:200,recs:['Code split with dynamic imports','Tree-shake unused code','Use async/defer for non-critical scripts','Replace heavy libraries with lighter alternatives']},
+  {id:'images',name:'Images',icon:'&#128247;',current:800,budget:500,recs:['Use WebP/AVIF format','Implement lazy loading','Use responsive images with srcset','Compress with quality 80-85%','Use CDN for image delivery']},
+  {id:'fonts',name:'Fonts',icon:'&#128244;',current:120,budget:80,recs:['Use font-display: swap','Subset fonts to needed characters','Limit font weights/styles','Use system fonts where possible','Preload critical fonts']},
+  {id:'media',name:'Other Media',icon:'&#127909;',current:0,budget:200,recs:['Use video compression','Lazy load videos','Use poster images','Consider video CDN']}
+];
+
+var connections = [
+  {name:'Slow 3G',speed:0.4,latency:400},
+  {name:'Regular 3G',speed:1.6,latency:300},
+  {name:'4G LTE',speed:12,latency:100},
+  {name:'5G',speed:100,latency:20},
+  {name:'WiFi',speed:30,latency:50},
+  {name:'Cable',speed:50,latency:30}
+];
+
+var history = [];
+
+function loadState(){
+  try{
+    var d=JSON.parse(localStorage.getItem('perfbudget_data')||'{}');
+    if(d.resources){
+      d.resources.forEach(function(dr){
+        var r=resources.find(function(r){return r.id===dr.id});
+        if(r){r.current=dr.current;r.budget=dr.budget}
+      });
+    }
+    if(d.history) history=d.history;
+  }catch(e){}
+}
+
+function saveState(){
+  try{localStorage.setItem('perfbudget_data',JSON.stringify({
+    resources:resources.map(function(r){return{id:r.id,current:r.current,budget:r.budget}}),
+    history:history
+  }))}catch(e){}
+}
+
+function renderResources(){
+  var html='';
+  resources.forEach(function(r,idx){
+    var diff=r.current-r.budget;
+    var pct=r.budget>0?Math.min(100,Math.round(r.current/r.budget*100)):0;
+    var status,statusClass,barColor;
+    if(diff>0){status='Over by '+diff+'KB';statusClass='status-over';barColor='var(--red)'}
+    else if(diff>-20){status='Close';statusClass='status-close';barColor='var(--gold)'}
+    else{status='Under budget';statusClass='status-under';barColor='var(--cyan)'}
+
+    html+='<tr><td>'+r.icon+' '+r.name+'</td>';
+    html+='<td><input type="number" value="'+r.current+'" onchange="updateResource('+idx+',\'current\',this.value)" min="0"></td>';
+    html+='<td><input type="number" value="'+r.budget+'" onchange="updateResource('+idx+',\'budget\',this.value)" min="0"></td>';
+    html+='<td style="color:'+(diff>0?'var(--red)':'var(--cyan)')+';font-weight:700">'+(diff>0?'+':'')+diff+' KB</td>';
+    html+='<td><span class="status-badge '+statusClass+'">'+status+'</span></td>';
+    html+='<td style="min-width:100px"><div class="progress-bar"><div class="progress-fill" style="width:'+Math.min(pct,100)+'%;background:'+barColor+'"></div></div></td></tr>';
+  });
+  document.getElementById('resourceBody').innerHTML=html;
+}
+
+function updateResource(idx,field,val){
+  resources[idx][field]=parseInt(val)||0;
+  saveState();
+  calculate();
+}
+
+function calculate(){
+  renderResources();
+  var totalCurrent=0,totalBudget=0;
+  resources.forEach(function(r){totalCurrent+=r.current;totalBudget+=r.budget});
+  var savings=Math.max(0,totalCurrent-totalBudget);
+  var score=totalBudget>0?Math.min(100,Math.round(totalBudget/Math.max(totalCurrent,1)*100)):100;
+
+  document.getElementById('totalCurrent').textContent=formatSize(totalCurrent);
+  document.getElementById('totalBudget').textContent=formatSize(totalBudget);
+  document.getElementById('totalSavings').textContent=formatSize(savings);
+  document.getElementById('budgetScore').textContent=score+'%';
+
+  var savingsCard=document.getElementById('savingsCard');
+  savingsCard.className='summary-card '+(savings>0?'bad':'good');
+  var scoreCard=document.getElementById('scoreCard');
+  scoreCard.className='summary-card '+(score>=100?'good':score>=80?'warn':'bad');
+
+  // Speed estimates
+  var totalKB=totalCurrent;
+  var html='';
+  connections.forEach(function(c){
+    var timeSec=((totalKB/1024)/(c.speed/8))+(c.latency/1000);
+    var cls=timeSec<2?'fast':timeSec<5?'ok':'slow';
+    var rating=timeSec<2?'Excellent':timeSec<3?'Good':timeSec<5?'Needs work':'Poor';
+    html+='<div class="speed-card '+cls+'"><div class="name">'+c.name+'</div><div class="bandwidth">'+c.speed+' Mbps / '+c.latency+'ms latency</div><div class="time">'+timeSec.toFixed(2)+'s</div><div class="rating">'+rating+'</div></div>';
+  });
+  document.getElementById('speedGrid').innerHTML=html;
+
+  // Recommendations
+  var recs=[];
+  resources.forEach(function(r){
+    if(r.current>r.budget){
+      r.recs.forEach(function(rec){recs.push({type:r.name,text:rec})});
+    }
+  });
+  if(recs.length===0) recs.push({type:'All',text:'You are within budget for all resource types. Keep optimizing!'});
+  var recHtml='';
+  recs.forEach(function(rec){
+    recHtml+='<li><span class="type-tag">'+rec.type+'</span>'+rec.text+'</li>';
+  });
+  document.getElementById('recList').innerHTML=recHtml;
+
+  renderHistory();
+}
+
+function formatSize(kb){
+  if(kb>=1024) return (kb/1024).toFixed(1)+' MB';
+  return kb+' KB';
+}
+
+function saveSnapshot(){
+  var totalCurrent=0;
+  resources.forEach(function(r){totalCurrent+=r.current});
+  history.push({date:new Date().toISOString().split('T')[0],total:totalCurrent,breakdown:resources.map(function(r){return{name:r.name,size:r.current}})});
+  saveState();
+  renderHistory();
+}
+
+function clearHistory(){history=[];saveState();renderHistory()}
+
+function renderHistory(){
+  if(history.length===0){
+    document.getElementById('historyList').innerHTML='<p style="color:var(--text-dim);font-size:0.85rem">No snapshots yet. Save a snapshot to track progress over time.</p>';
+    document.getElementById('chartContainer').innerHTML='';
+    return;
+  }
+  var html='';
+  history.forEach(function(h,idx){
+    html+='<div class="history-entry"><span>'+h.date+'</span><span style="font-weight:700;color:var(--gold)">'+formatSize(h.total)+'</span><span style="color:var(--text-dim);font-size:0.75rem">'+h.breakdown.map(function(b){return b.name+': '+b.size+'KB'}).join(' | ')+'</span></div>';
+  });
+  document.getElementById('historyList').innerHTML=html;
+
+  // Simple SVG chart
+  if(history.length>1){
+    var maxVal=Math.max.apply(null,history.map(function(h){return h.total}));
+    var w=700,h=180,pad=40;
+    var stepX=(w-pad*2)/(history.length-1);
+    var svg='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 '+w+' '+h+'" style="width:100%">';
+    svg+='<line x1="'+pad+'" y1="'+(h-pad)+'" x2="'+(w-pad)+'" y2="'+(h-pad)+'" stroke="rgba(48,54,61,0.5)" stroke-width="1"/>';
+    var points=[];
+    history.forEach(function(entry,idx){
+      var x=pad+idx*stepX;
+      var y=h-pad-((entry.total/maxVal)*(h-pad*2));
+      points.push(x+','+y);
+      svg+='<circle cx="'+x+'" cy="'+y+'" r="4" fill="#ffd700"/>';
+      svg+='<text x="'+x+'" y="'+(h-10)+'" fill="var(--text-dim)" font-size="9" text-anchor="middle">'+entry.date.slice(5)+'</text>';
+      svg+='<text x="'+x+'" y="'+(y-10)+'" fill="#ffd700" font-size="9" text-anchor="middle" font-weight="700">'+formatSize(entry.total)+'</text>';
+    });
+    svg+='<polyline points="'+points.join(' ')+'" fill="none" stroke="#ffd700" stroke-width="2"/>';
+    svg+='</svg>';
+    document.getElementById('chartContainer').innerHTML=svg;
+  }
+}
+
+loadState();
+calculate();
+
+function shareX(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Tracking my performance budget with this calculator. Code SPUNK unlocks it @SpunkArt13')+'&url='+encodeURIComponent('https://spunk.codes/exclusive-tools'),'_blank')}
+function shareReddit(){window.open('https://www.reddit.com/submit?url='+encodeURIComponent('https://spunk.codes/exclusive-tools')+'&title='+encodeURIComponent('Performance Budget Calculator - free with code SPUNK [spunk.codes]'),'_blank')}
+function shareEmail(){window.location.href='mailto:?subject='+encodeURIComponent('Performance Budget Calculator')+'&body='+encodeURIComponent('Page weight budget calculator with loading estimates. Code SPUNK: https://spunk.codes/exclusive-tools')}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+</body>
+</html>

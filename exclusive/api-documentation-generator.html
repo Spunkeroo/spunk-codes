@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>API Documentation Generator - Build Beautiful API Docs | SPUNK.CODES Exclusive</title>
+<meta name="description" content="Generate beautiful, interactive API documentation with code examples in cURL, JavaScript, and Python. Exclusive premium tool.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="API Documentation Generator - SPUNK.CODES Exclusive">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/api-documentation-generator">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0d1117;--card:rgba(22,27,34,0.8);--border:rgba(48,54,61,0.6);--gold:#ffd700;--gold-border:rgba(255,215,0,0.3);--text:#e6edf3;--text-dim:#8b949e;--blue:#58a6ff;--cyan:#39d353;--red:#f85149;--orange:#ff8c00;--font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+a{color:var(--blue);text-decoration:none}
+.bg-mesh{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 80% 50% at 20% 20%,rgba(255,215,0,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(255,140,0,0.04) 0%,transparent 60%),var(--bg)}
+.bg-grid{position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,215,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,215,0,0.03) 1px,transparent 1px);background-size:60px 60px}
+.nav{position:sticky;top:0;z-index:100;background:rgba(13,17,23,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,215,0,0.15);padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}
+.nav-brand{font-weight:800;font-size:1.1rem;color:var(--gold);letter-spacing:0.08em}
+.nav-links{display:flex;gap:1.5rem;font-size:0.85rem}.nav-links a{color:var(--text-dim);font-weight:500}.nav-links a.active{color:var(--gold)}
+.lock-gate{position:fixed;inset:0;z-index:1000;background:rgba(13,17,23,0.97);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:2rem}
+.lock-gate.hidden{display:none}
+.lock-icon-big{font-size:4rem}.lock-gate h2{font-size:1.8rem;font-weight:800;text-align:center}.lock-gate h2 span{color:var(--gold)}.lock-gate p{color:var(--text-dim);text-align:center;max-width:400px}
+.code-input-wrap{display:flex;gap:0.5rem}
+.code-input{padding:0.8rem 1.5rem;background:rgba(22,27,34,0.8);border:2px solid var(--gold-border);border-radius:12px;color:var(--gold);font-size:1.2rem;font-weight:800;letter-spacing:3px;text-align:center;width:200px;outline:none;text-transform:uppercase;font-family:var(--font)}
+.code-input:focus{border-color:var(--gold);box-shadow:0 0 20px rgba(255,215,0,0.2)}
+.code-submit{padding:0.8rem 1.5rem;background:linear-gradient(135deg,#ffd700,#ff8c00);border:none;border-radius:12px;color:#000;font-size:1rem;font-weight:800;cursor:pointer}
+.code-error{color:var(--red);font-size:0.85rem;min-height:1.2em}.lock-hint{color:var(--text-dim);font-size:0.8rem}.lock-hint a{color:var(--gold)}
+.exclusive-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;background:linear-gradient(135deg,rgba(255,215,0,0.15),rgba(255,140,0,0.15));border:1px solid var(--gold-border);border-radius:100px;font-size:11px;font-weight:800;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase}
+.main{max-width:1100px;margin:0 auto;padding:2rem}
+.hero-section{text-align:center;padding:2rem 0 2rem}
+.hero-section h1{font-size:2.2rem;font-weight:800;margin:1rem 0 0.5rem}
+.hero-section h1 .gold{background:linear-gradient(135deg,#ffd700,#ff8c00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-section p{color:var(--text-dim);max-width:600px;margin:0 auto}
+.card{background:var(--card);border:1px solid var(--gold-border);border-radius:16px;padding:1.5rem;margin-bottom:1.5rem;backdrop-filter:blur(10px);position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),#ff8c00,var(--gold))}
+.card h2{font-size:1.1rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}
+.form-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0.75rem;margin-bottom:0.75rem}
+.form-group{display:flex;flex-direction:column;gap:0.3rem}
+.form-group label{font-size:0.75rem;color:var(--text-dim);font-weight:600;text-transform:uppercase;letter-spacing:0.5px}
+.form-group input,.form-group select,.form-group textarea{padding:0.6rem 0.8rem;background:rgba(22,27,34,0.9);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.85rem;font-family:var(--font);outline:none}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--gold);box-shadow:0 0 10px rgba(255,215,0,0.1)}
+.form-group textarea{resize:vertical;min-height:60px}
+.btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;transition:all 0.2s}
+.btn-gold{background:linear-gradient(135deg,#ffd700,#ff8c00);color:#000}
+.btn-gold:hover{transform:translateY(-1px);box-shadow:0 4px 15px rgba(255,215,0,0.3)}
+.btn-outline{background:transparent;border:1px solid var(--gold-border);color:var(--gold)}
+.btn-outline:hover{background:rgba(255,215,0,0.1)}
+.btn-red{background:rgba(248,81,73,0.15);border:1px solid rgba(248,81,73,0.3);color:var(--red)}
+.btn-sm{padding:0.4rem 0.8rem;font-size:0.75rem}
+.btn-row{display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:0.75rem}
+.endpoint-list{display:flex;flex-direction:column;gap:0.75rem}
+.endpoint-item{background:rgba(13,17,23,0.6);border:1px solid var(--border);border-radius:12px;padding:1rem;position:relative}
+.endpoint-item:hover{border-color:var(--gold-border)}
+.endpoint-header{display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap}
+.method-badge{padding:3px 10px;border-radius:6px;font-size:0.7rem;font-weight:800;text-transform:uppercase;letter-spacing:0.5px}
+.method-GET{background:rgba(57,211,83,0.15);color:var(--cyan)}
+.method-POST{background:rgba(88,166,255,0.15);color:var(--blue)}
+.method-PUT{background:rgba(255,215,0,0.15);color:var(--gold)}
+.method-PATCH{background:rgba(255,140,0,0.15);color:var(--orange)}
+.method-DELETE{background:rgba(248,81,73,0.15);color:var(--red)}
+.endpoint-path{font-family:'Courier New',monospace;font-size:0.9rem;font-weight:600;color:var(--text)}
+.endpoint-desc{font-size:0.8rem;color:var(--text-dim);margin-top:0.3rem}
+.endpoint-tag{font-size:0.65rem;padding:2px 8px;background:rgba(255,215,0,0.1);border:1px solid rgba(255,215,0,0.2);border-radius:4px;color:var(--gold)}
+.endpoint-actions{position:absolute;top:0.75rem;right:0.75rem;display:flex;gap:0.3rem}
+.param-table{width:100%;border-collapse:collapse;margin-top:0.5rem;font-size:0.8rem}
+.param-table th{text-align:left;padding:0.4rem;color:var(--text-dim);font-size:0.7rem;text-transform:uppercase;border-bottom:1px solid var(--border)}
+.param-table td{padding:0.4rem;border-bottom:1px solid rgba(48,54,61,0.3)}
+.param-table .type{color:var(--blue);font-family:monospace;font-size:0.75rem}
+.param-table .required{color:var(--red);font-size:0.65rem;font-weight:700}
+.tabs{display:flex;gap:0.25rem;margin-bottom:0.5rem;border-bottom:1px solid var(--border);padding-bottom:0.5rem}
+.tab{padding:0.4rem 0.8rem;border-radius:6px 6px 0 0;font-size:0.75rem;font-weight:600;cursor:pointer;color:var(--text-dim);background:transparent;border:none}
+.tab.active{color:var(--gold);background:rgba(255,215,0,0.1);border-bottom:2px solid var(--gold)}
+.code-block{background:#161b22;border:1px solid var(--border);border-radius:8px;padding:1rem;font-family:'Courier New',monospace;font-size:0.8rem;line-height:1.5;overflow-x:auto;position:relative;white-space:pre-wrap;word-break:break-all}
+.code-block .copy-btn{position:absolute;top:0.5rem;right:0.5rem;padding:0.3rem 0.6rem;background:rgba(255,215,0,0.15);border:1px solid var(--gold-border);border-radius:6px;color:var(--gold);font-size:0.65rem;cursor:pointer;font-weight:700}
+.preview-frame{background:#fff;border-radius:8px;padding:2rem;color:#1a1a2e;min-height:300px;overflow:auto;max-height:500px}
+.preview-frame h1{color:#1a1a2e;font-size:1.6rem;margin-bottom:0.5rem}
+.preview-frame h2{color:#333;font-size:1.2rem;margin:1.5rem 0 0.5rem;padding-bottom:0.3rem;border-bottom:2px solid #eee}
+.preview-frame h3{color:#555;font-size:1rem;margin:1rem 0 0.3rem}
+.preview-frame .p-method{display:inline-block;padding:2px 8px;border-radius:4px;font-weight:700;font-size:0.75rem;color:#fff;margin-right:0.5rem}
+.preview-frame .p-get{background:#28a745}.preview-frame .p-post{background:#007bff}.preview-frame .p-put{background:#ffc107;color:#000}.preview-frame .p-patch{background:#fd7e14}.preview-frame .p-delete{background:#dc3545}
+.preview-frame .p-path{font-family:monospace;font-size:0.9rem;font-weight:600}
+.preview-frame .p-desc{color:#666;font-size:0.85rem;margin:0.3rem 0}
+.preview-frame table{width:100%;border-collapse:collapse;margin:0.5rem 0;font-size:0.8rem}
+.preview-frame th{background:#f5f5f5;text-align:left;padding:0.4rem;border:1px solid #ddd}
+.preview-frame td{padding:0.4rem;border:1px solid #ddd}
+.preview-frame pre{background:#f5f5f5;padding:0.8rem;border-radius:4px;overflow-x:auto;font-size:0.8rem;margin:0.5rem 0}
+.share-cta{background:linear-gradient(135deg,rgba(255,215,0,0.08),rgba(255,140,0,0.05));border:1px solid var(--gold-border);border-radius:16px;padding:2rem;text-align:center;margin-top:2rem}
+.share-cta h3{color:var(--gold);margin-bottom:0.5rem}.share-cta p{color:var(--text-dim);font-size:0.9rem;margin-bottom:1rem}
+.share-btns{display:flex;gap:0.6rem;justify-content:center;flex-wrap:wrap}
+.share-btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;color:#fff}
+.share-x{background:#000;border:1px solid #333}.share-reddit{background:#ff4500}.share-email{background:#21262d;border:1px solid #30363d}
+.footer{text-align:center;padding:2rem;border-top:1px solid rgba(255,215,0,0.1);color:var(--text-dim);font-size:0.75rem;margin-top:3rem}
+.footer a{color:var(--gold)}.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-bottom:1rem}
+.watermark{position:fixed;bottom:10px;right:10px;font-size:0.6rem;color:rgba(255,215,0,0.08);font-weight:800;pointer-events:none;z-index:9999;letter-spacing:1px;text-transform:uppercase}
+.empty-state{text-align:center;padding:3rem;color:var(--text-dim)}
+.empty-state .icon{font-size:3rem;margin-bottom:1rem}
+@media(max-width:768px){.main{padding:1rem}.hero-section h1{font-size:1.6rem}.nav-links{display:none}.form-row{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="bg-mesh"></div><div class="bg-grid"></div>
+<div class="lock-gate" id="lockGate"><div class="lock-icon-big">&#128274;</div><h2>Enter Code <span>SPUNK</span> to Unlock</h2><p>This exclusive premium tool requires the SPUNK referral code.</p><div class="code-input-wrap"><input type="text" class="code-input" id="codeInput" placeholder="CODE" maxlength="10" autocomplete="off"><button class="code-submit" onclick="submitCode()">Unlock</button></div><div class="code-error" id="codeError"></div><div class="lock-hint">Get the code at <a href="https://spunk.codes/exclusive-tools">spunk.codes/exclusive-tools</a></div></div>
+<nav class="nav"><a href="https://spunk.codes" class="nav-brand">SPUNK.CODES</a><div class="nav-links"><a href="/store">Tools</a><a href="/exclusive-tools" class="active">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a></div></nav>
+
+<div class="main">
+  <section class="hero-section">
+    <div class="exclusive-badge">&#128081; EXCLUSIVE TOOL</div>
+    <h1><span class="gold">API Documentation</span> Generator</h1>
+    <p>Define endpoints, parameters, and response schemas. Auto-generate beautiful API docs with code examples in cURL, JavaScript, and Python.</p>
+  </section>
+
+  <div class="card">
+    <h2>&#9881; API Settings</h2>
+    <div class="form-row">
+      <div class="form-group"><label>API Name</label><input type="text" id="apiName" placeholder="My Awesome API" value=""></div>
+      <div class="form-group"><label>Base URL</label><input type="text" id="apiBaseUrl" placeholder="https://api.example.com/v1" value=""></div>
+      <div class="form-group"><label>Version</label><input type="text" id="apiVersion" placeholder="v1.0.0" value=""></div>
+    </div>
+    <div class="form-group"><label>Description</label><textarea id="apiDesc" placeholder="A brief description of your API..." rows="2"></textarea></div>
+  </div>
+
+  <div class="card">
+    <h2>&#128640; Add Endpoint</h2>
+    <div class="form-row">
+      <div class="form-group"><label>Method</label>
+        <select id="epMethod"><option value="GET">GET</option><option value="POST">POST</option><option value="PUT">PUT</option><option value="PATCH">PATCH</option><option value="DELETE">DELETE</option></select>
+      </div>
+      <div class="form-group"><label>Path</label><input type="text" id="epPath" placeholder="/users/{id}"></div>
+      <div class="form-group"><label>Tag / Group</label><input type="text" id="epTag" placeholder="Users"></div>
+    </div>
+    <div class="form-group"><label>Description</label><textarea id="epDesc" placeholder="What does this endpoint do?" rows="2"></textarea></div>
+
+    <h3 style="font-size:0.85rem;margin:1rem 0 0.5rem;color:var(--gold)">Parameters</h3>
+    <div id="paramFields"></div>
+    <button class="btn btn-outline btn-sm" onclick="addParamField()" style="margin-bottom:1rem">+ Add Parameter</button>
+
+    <h3 style="font-size:0.85rem;margin:0.5rem 0 0.5rem;color:var(--gold)">Response Schema (JSON)</h3>
+    <div class="form-group"><textarea id="epResponse" placeholder='{"id": 1, "name": "John", "email": "john@example.com"}' rows="3" style="font-family:monospace"></textarea></div>
+
+    <div class="btn-row">
+      <button class="btn btn-gold" onclick="addEndpoint()">Add Endpoint</button>
+      <button class="btn btn-outline" onclick="clearEndpointForm()">Clear</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>&#128203; Endpoints (<span id="epCount">0</span>)</h2>
+    <div id="endpointList" class="endpoint-list">
+      <div class="empty-state"><div class="icon">&#128196;</div><p>No endpoints yet. Add your first endpoint above.</p></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>&#127912; Preview & Export</h2>
+    <div class="btn-row" style="margin-bottom:1rem;margin-top:0">
+      <button class="btn btn-gold" onclick="generatePreview()">Generate Preview</button>
+      <button class="btn btn-outline" onclick="downloadHTML()">Download as HTML</button>
+      <button class="btn btn-outline" onclick="copyMarkdown()">Copy as Markdown</button>
+    </div>
+    <div id="previewContainer" style="display:none">
+      <div class="preview-frame" id="previewFrame"></div>
+    </div>
+  </div>
+
+  <div class="share-cta">
+    <h3>&#128275; Share the Code, Unlock More Tools</h3>
+    <p>Share code SPUNK to help others access 15+ exclusive premium tools.</p>
+    <div class="share-btns">
+      <button class="share-btn share-x" onclick="shareX()">&#120143; Share on X</button>
+      <button class="share-btn share-reddit" onclick="shareReddit()">&#128172; Reddit</button>
+      <button class="share-btn share-email" onclick="shareEmail()">&#9993; Email</button>
+    </div>
+  </div>
+</div>
+
+<footer class="footer"><div class="footer-links"><a href="https://spunk.codes">Home</a><a href="/store">Tools</a><a href="/exclusive-tools">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a><a href="https://twitter.com/SpunkArt13" target="_blank">@SpunkArt13</a></div><div>&copy; 2026 SPUNK.CODES EXCLUSIVE.</div></footer>
+<div class="watermark">SPUNK.CODES EXCLUSIVE</div>
+
+<script>
+document.addEventListener('contextmenu',function(e){e.preventDefault()});
+document.addEventListener('keydown',function(e){if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'||e.key==='C'))||(e.ctrlKey&&e.key==='u'))e.preventDefault()});
+function checkCode(){try{var c=localStorage.getItem('spunk_referral_code')||localStorage.getItem('spunk_ref_code')||'';if(c.toUpperCase()==='SPUNK'){document.getElementById('lockGate').classList.add('hidden');return true}}catch(e){}return false}
+function submitCode(){var v=document.getElementById('codeInput').value.trim().toUpperCase();if(v==='SPUNK'){try{localStorage.setItem('spunk_referral_code','SPUNK');localStorage.setItem('spunk_ref_code','SPUNK')}catch(e){}document.getElementById('lockGate').classList.add('hidden')}else{document.getElementById('codeError').textContent='Invalid code. Try: SPUNK';setTimeout(function(){document.getElementById('codeError').textContent=''},2000)}}
+document.getElementById('codeInput').addEventListener('keydown',function(e){if(e.key==='Enter')submitCode()});
+checkCode();
+
+// State
+var endpoints = [];
+var editingIdx = -1;
+
+function loadState(){
+  try {
+    var d = JSON.parse(localStorage.getItem('apidoc_data') || '{}');
+    if(d.apiName) document.getElementById('apiName').value = d.apiName;
+    if(d.apiBaseUrl) document.getElementById('apiBaseUrl').value = d.apiBaseUrl;
+    if(d.apiVersion) document.getElementById('apiVersion').value = d.apiVersion;
+    if(d.apiDesc) document.getElementById('apiDesc').value = d.apiDesc;
+    if(d.endpoints) endpoints = d.endpoints;
+  } catch(e){}
+}
+
+function saveState(){
+  try {
+    localStorage.setItem('apidoc_data', JSON.stringify({
+      apiName: document.getElementById('apiName').value,
+      apiBaseUrl: document.getElementById('apiBaseUrl').value,
+      apiVersion: document.getElementById('apiVersion').value,
+      apiDesc: document.getElementById('apiDesc').value,
+      endpoints: endpoints
+    }));
+  } catch(e){}
+}
+
+// Auto-save settings on change
+['apiName','apiBaseUrl','apiVersion','apiDesc'].forEach(function(id){
+  document.getElementById(id).addEventListener('input', saveState);
+});
+
+function addParamField(data){
+  var div = document.createElement('div');
+  div.className = 'form-row param-row';
+  div.style.marginBottom = '0.5rem';
+  div.innerHTML = '<div class="form-group"><label>Name</label><input type="text" class="pname" placeholder="user_id" value="'+(data?data.name:'')+'"></div>' +
+    '<div class="form-group"><label>Type</label><select class="ptype"><option value="string"'+(data&&data.type==='string'?' selected':'')+'>string</option><option value="integer"'+(data&&data.type==='integer'?' selected':'')+'>integer</option><option value="number"'+(data&&data.type==='number'?' selected':'')+'>number</option><option value="boolean"'+(data&&data.type==='boolean'?' selected':'')+'>boolean</option><option value="array"'+(data&&data.type==='array'?' selected':'')+'>array</option><option value="object"'+(data&&data.type==='object'?' selected':'')+'>object</option></select></div>' +
+    '<div class="form-group"><label>In</label><select class="pin"><option value="query"'+(data&&data.in==='query'?' selected':'')+'>query</option><option value="path"'+(data&&data.in==='path'?' selected':'')+'>path</option><option value="header"'+(data&&data.in==='header'?' selected':'')+'>header</option><option value="body"'+(data&&data.in==='body'?' selected':'')+'>body</option></select></div>' +
+    '<div class="form-group"><label>Required</label><select class="preq"><option value="true"'+(data&&data.required==='true'?' selected':'')+'>Yes</option><option value="false"'+(data&&data.required!=='true'?' selected':'')+'>No</option></select></div>' +
+    '<div class="form-group"><label>Description</label><input type="text" class="pdesc" placeholder="Description" value="'+(data?data.desc:'')+'"></div>' +
+    '<div class="form-group" style="justify-content:flex-end"><button class="btn btn-red btn-sm" onclick="this.closest(\'.param-row\').remove()">Remove</button></div>';
+  document.getElementById('paramFields').appendChild(div);
+}
+
+function getParams(){
+  var params = [];
+  document.querySelectorAll('.param-row').forEach(function(row){
+    var name = row.querySelector('.pname').value.trim();
+    if(name){
+      params.push({
+        name: name,
+        type: row.querySelector('.ptype').value,
+        in: row.querySelector('.pin').value,
+        required: row.querySelector('.preq').value,
+        desc: row.querySelector('.pdesc').value.trim()
+      });
+    }
+  });
+  return params;
+}
+
+function clearEndpointForm(){
+  document.getElementById('epMethod').value = 'GET';
+  document.getElementById('epPath').value = '';
+  document.getElementById('epTag').value = '';
+  document.getElementById('epDesc').value = '';
+  document.getElementById('epResponse').value = '';
+  document.getElementById('paramFields').innerHTML = '';
+  editingIdx = -1;
+}
+
+function addEndpoint(){
+  var method = document.getElementById('epMethod').value;
+  var path = document.getElementById('epPath').value.trim();
+  var tag = document.getElementById('epTag').value.trim() || 'General';
+  var desc = document.getElementById('epDesc').value.trim();
+  var response = document.getElementById('epResponse').value.trim();
+  var params = getParams();
+
+  if(!path){alert('Path is required');return}
+
+  var ep = {method:method, path:path, tag:tag, desc:desc, params:params, response:response};
+
+  if(editingIdx >= 0){
+    endpoints[editingIdx] = ep;
+    editingIdx = -1;
+  } else {
+    endpoints.push(ep);
+  }
+
+  saveState();
+  renderEndpoints();
+  clearEndpointForm();
+}
+
+function editEndpoint(idx){
+  var ep = endpoints[idx];
+  document.getElementById('epMethod').value = ep.method;
+  document.getElementById('epPath').value = ep.path;
+  document.getElementById('epTag').value = ep.tag;
+  document.getElementById('epDesc').value = ep.desc;
+  document.getElementById('epResponse').value = ep.response;
+  document.getElementById('paramFields').innerHTML = '';
+  ep.params.forEach(function(p){addParamField(p)});
+  editingIdx = idx;
+  window.scrollTo({top:300,behavior:'smooth'});
+}
+
+function deleteEndpoint(idx){
+  endpoints.splice(idx,1);
+  saveState();
+  renderEndpoints();
+}
+
+function renderEndpoints(){
+  var list = document.getElementById('endpointList');
+  document.getElementById('epCount').textContent = endpoints.length;
+
+  if(endpoints.length === 0){
+    list.innerHTML = '<div class="empty-state"><div class="icon">&#128196;</div><p>No endpoints yet. Add your first endpoint above.</p></div>';
+    return;
+  }
+
+  // Group by tag
+  var groups = {};
+  endpoints.forEach(function(ep, idx){
+    if(!groups[ep.tag]) groups[ep.tag] = [];
+    groups[ep.tag].push({ep:ep, idx:idx});
+  });
+
+  var html = '';
+  Object.keys(groups).forEach(function(tag){
+    html += '<div style="margin-bottom:0.5rem"><span class="endpoint-tag" style="font-size:0.8rem">'+tag+'</span></div>';
+    groups[tag].forEach(function(item){
+      var ep = item.ep;
+      var idx = item.idx;
+      html += '<div class="endpoint-item"><div class="endpoint-actions"><button class="btn btn-outline btn-sm" onclick="editEndpoint('+idx+')">Edit</button><button class="btn btn-red btn-sm" onclick="deleteEndpoint('+idx+')">Del</button></div>';
+      html += '<div class="endpoint-header"><span class="method-badge method-'+ep.method+'">'+ep.method+'</span><span class="endpoint-path">'+ep.path+'</span></div>';
+      html += '<div class="endpoint-desc">'+ep.desc+'</div>';
+      if(ep.params.length > 0){
+        html += '<table class="param-table"><tr><th>Name</th><th>Type</th><th>In</th><th>Required</th><th>Description</th></tr>';
+        ep.params.forEach(function(p){
+          html += '<tr><td><code>'+p.name+'</code></td><td class="type">'+p.type+'</td><td>'+p.in+'</td><td>'+(p.required==='true'?'<span class="required">Yes</span>':'No')+'</td><td>'+p.desc+'</td></tr>';
+        });
+        html += '</table>';
+      }
+      html += '</div>';
+    });
+  });
+
+  list.innerHTML = html;
+}
+
+function generateCurl(ep, baseUrl){
+  var url = (baseUrl || 'https://api.example.com') + ep.path;
+  var cmd = "curl -X " + ep.method + " \\\n  '" + url + "'";
+  if(ep.method !== 'GET' && ep.method !== 'DELETE'){
+    cmd += " \\\n  -H 'Content-Type: application/json'";
+    var bodyParams = ep.params.filter(function(p){return p.in === 'body'});
+    if(bodyParams.length > 0){
+      var body = {};
+      bodyParams.forEach(function(p){
+        if(p.type==='integer'||p.type==='number') body[p.name]=0;
+        else if(p.type==='boolean') body[p.name]=true;
+        else body[p.name]='string';
+      });
+      cmd += " \\\n  -d '" + JSON.stringify(body, null, 2) + "'";
+    }
+  }
+  return cmd;
+}
+
+function generateJS(ep, baseUrl){
+  var url = (baseUrl || 'https://api.example.com') + ep.path;
+  var code = '';
+  if(ep.method === 'GET' || ep.method === 'DELETE'){
+    code = "const response = await fetch('" + url + "', {\n  method: '" + ep.method + "',\n  headers: {\n    'Authorization': 'Bearer YOUR_TOKEN'\n  }\n});\nconst data = await response.json();\nconsole.log(data);";
+  } else {
+    var bodyParams = ep.params.filter(function(p){return p.in === 'body'});
+    var body = {};
+    bodyParams.forEach(function(p){
+      if(p.type==='integer'||p.type==='number') body[p.name]=0;
+      else if(p.type==='boolean') body[p.name]=true;
+      else body[p.name]='string';
+    });
+    code = "const response = await fetch('" + url + "', {\n  method: '" + ep.method + "',\n  headers: {\n    'Content-Type': 'application/json',\n    'Authorization': 'Bearer YOUR_TOKEN'\n  },\n  body: JSON.stringify(" + JSON.stringify(body, null, 4) + ")\n});\nconst data = await response.json();\nconsole.log(data);";
+  }
+  return code;
+}
+
+function generatePython(ep, baseUrl){
+  var url = (baseUrl || 'https://api.example.com') + ep.path;
+  var code = "import requests\n\n";
+  if(ep.method === 'GET'){
+    code += "response = requests.get(\n    '" + url + "',\n    headers={'Authorization': 'Bearer YOUR_TOKEN'}\n)\nprint(response.json())";
+  } else if(ep.method === 'DELETE'){
+    code += "response = requests.delete(\n    '" + url + "',\n    headers={'Authorization': 'Bearer YOUR_TOKEN'}\n)\nprint(response.status_code)";
+  } else {
+    var bodyParams = ep.params.filter(function(p){return p.in === 'body'});
+    var body = {};
+    bodyParams.forEach(function(p){
+      if(p.type==='integer'||p.type==='number') body[p.name]=0;
+      else if(p.type==='boolean') body[p.name]=true;
+      else body[p.name]='string';
+    });
+    code += "response = requests." + ep.method.toLowerCase() + "(\n    '" + url + "',\n    headers={\n        'Content-Type': 'application/json',\n        'Authorization': 'Bearer YOUR_TOKEN'\n    },\n    json=" + JSON.stringify(body, null, 4).replace(/"/g,"'").replace(/true/g,'True').replace(/false/g,'False') + "\n)\nprint(response.json())";
+  }
+  return code;
+}
+
+function generatePreview(){
+  var name = document.getElementById('apiName').value || 'API Documentation';
+  var baseUrl = document.getElementById('apiBaseUrl').value || 'https://api.example.com';
+  var version = document.getElementById('apiVersion').value || 'v1.0.0';
+  var desc = document.getElementById('apiDesc').value || '';
+
+  if(endpoints.length === 0){alert('Add at least one endpoint first');return}
+
+  var groups = {};
+  endpoints.forEach(function(ep){
+    if(!groups[ep.tag]) groups[ep.tag] = [];
+    groups[ep.tag].push(ep);
+  });
+
+  var html = '<h1>' + name + '</h1>';
+  html += '<p style="color:#666"><strong>Base URL:</strong> <code>' + baseUrl + '</code> | <strong>Version:</strong> ' + version + '</p>';
+  if(desc) html += '<p style="color:#666;margin-top:0.5rem">' + desc + '</p>';
+
+  html += '<h2>Table of Contents</h2><ul>';
+  Object.keys(groups).forEach(function(tag){
+    html += '<li><strong>' + tag + '</strong> (' + groups[tag].length + ' endpoints)</li>';
+  });
+  html += '</ul>';
+
+  Object.keys(groups).forEach(function(tag){
+    html += '<h2>' + tag + '</h2>';
+    groups[tag].forEach(function(ep){
+      html += '<div style="margin-bottom:1.5rem;padding:1rem;border:1px solid #e0e0e0;border-radius:8px">';
+      html += '<h3><span class="p-method p-' + ep.method.toLowerCase() + '">' + ep.method + '</span><span class="p-path">' + ep.path + '</span></h3>';
+      html += '<p class="p-desc">' + ep.desc + '</p>';
+
+      if(ep.params.length > 0){
+        html += '<h4 style="font-size:0.85rem;margin:0.5rem 0">Parameters</h4>';
+        html += '<table><tr><th>Name</th><th>Type</th><th>In</th><th>Required</th><th>Description</th></tr>';
+        ep.params.forEach(function(p){
+          html += '<tr><td><code>' + p.name + '</code></td><td>' + p.type + '</td><td>' + p.in + '</td><td>' + (p.required==='true'?'Yes':'No') + '</td><td>' + p.desc + '</td></tr>';
+        });
+        html += '</table>';
+      }
+
+      html += '<h4 style="font-size:0.85rem;margin:0.5rem 0">Code Examples</h4>';
+      html += '<p style="font-size:0.75rem;color:#999;margin-bottom:0.3rem">cURL</p><pre>' + escapeHtml(generateCurl(ep, baseUrl)) + '</pre>';
+      html += '<p style="font-size:0.75rem;color:#999;margin-bottom:0.3rem">JavaScript</p><pre>' + escapeHtml(generateJS(ep, baseUrl)) + '</pre>';
+      html += '<p style="font-size:0.75rem;color:#999;margin-bottom:0.3rem">Python</p><pre>' + escapeHtml(generatePython(ep, baseUrl)) + '</pre>';
+
+      if(ep.response){
+        html += '<h4 style="font-size:0.85rem;margin:0.5rem 0">Response</h4>';
+        try{
+          html += '<pre>' + escapeHtml(JSON.stringify(JSON.parse(ep.response), null, 2)) + '</pre>';
+        }catch(e){
+          html += '<pre>' + escapeHtml(ep.response) + '</pre>';
+        }
+      }
+      html += '</div>';
+    });
+  });
+
+  document.getElementById('previewContainer').style.display = 'block';
+  document.getElementById('previewFrame').innerHTML = html;
+}
+
+function escapeHtml(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+
+function downloadHTML(){
+  var name = document.getElementById('apiName').value || 'API Documentation';
+  var baseUrl = document.getElementById('apiBaseUrl').value || 'https://api.example.com';
+  var version = document.getElementById('apiVersion').value || 'v1.0.0';
+  var desc = document.getElementById('apiDesc').value || '';
+
+  if(endpoints.length === 0){alert('Add at least one endpoint first');return}
+
+  var groups = {};
+  endpoints.forEach(function(ep){
+    if(!groups[ep.tag]) groups[ep.tag] = [];
+    groups[ep.tag].push(ep);
+  });
+
+  var doc = '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+name+'</title><style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:system-ui,sans-serif;max-width:900px;margin:0 auto;padding:2rem;color:#1a1a2e;line-height:1.6}h1{font-size:2rem;margin-bottom:0.5rem}h2{font-size:1.4rem;margin:2rem 0 1rem;padding-bottom:0.5rem;border-bottom:2px solid #eee}h3{font-size:1rem;margin:0.5rem 0}.method{display:inline-block;padding:3px 10px;border-radius:4px;font-weight:700;font-size:0.75rem;color:#fff;margin-right:0.5rem}.get{background:#28a745}.post{background:#007bff}.put{background:#ffc107;color:#000}.patch{background:#fd7e14}.delete{background:#dc3545}.path{font-family:monospace;font-size:1rem;font-weight:600}.desc{color:#666;margin:0.3rem 0}table{width:100%;border-collapse:collapse;margin:0.5rem 0;font-size:0.85rem}th{background:#f5f5f5;text-align:left;padding:0.5rem;border:1px solid #ddd}td{padding:0.5rem;border:1px solid #ddd}pre{background:#f5f5f5;padding:1rem;border-radius:6px;overflow-x:auto;font-size:0.8rem;margin:0.5rem 0}.ep-card{margin:1.5rem 0;padding:1.5rem;border:1px solid #e0e0e0;border-radius:8px}.label{font-size:0.75rem;color:#999;margin-bottom:0.3rem;margin-top:0.5rem}.toc{list-style:none;padding:0}.toc li{padding:0.3rem 0}.base{color:#666;font-size:0.9rem;margin-bottom:1rem}code{background:#f0f0f0;padding:2px 6px;border-radius:3px;font-size:0.85rem}</style></head><body>';
+  doc += '<h1>'+name+'</h1>';
+  doc += '<p class="base"><strong>Base URL:</strong> <code>'+baseUrl+'</code> | <strong>Version:</strong> '+version+'</p>';
+  if(desc) doc += '<p class="base">'+desc+'</p>';
+
+  doc += '<h2>Endpoints</h2><ul class="toc">';
+  Object.keys(groups).forEach(function(tag){
+    doc += '<li><strong>'+tag+'</strong>';
+    doc += '<ul>';
+    groups[tag].forEach(function(ep){
+      doc += '<li><span class="method '+ep.method.toLowerCase()+'">'+ep.method+'</span> '+ep.path+'</li>';
+    });
+    doc += '</ul></li>';
+  });
+  doc += '</ul>';
+
+  Object.keys(groups).forEach(function(tag){
+    doc += '<h2>'+tag+'</h2>';
+    groups[tag].forEach(function(ep){
+      doc += '<div class="ep-card">';
+      doc += '<h3><span class="method '+ep.method.toLowerCase()+'">'+ep.method+'</span><span class="path">'+ep.path+'</span></h3>';
+      doc += '<p class="desc">'+ep.desc+'</p>';
+      if(ep.params.length > 0){
+        doc += '<p class="label"><strong>Parameters</strong></p>';
+        doc += '<table><tr><th>Name</th><th>Type</th><th>In</th><th>Required</th><th>Description</th></tr>';
+        ep.params.forEach(function(p){
+          doc += '<tr><td><code>'+p.name+'</code></td><td>'+p.type+'</td><td>'+p.in+'</td><td>'+(p.required==='true'?'Yes':'No')+'</td><td>'+p.desc+'</td></tr>';
+        });
+        doc += '</table>';
+      }
+      doc += '<p class="label">cURL</p><pre>'+escapeHtml(generateCurl(ep,baseUrl))+'</pre>';
+      doc += '<p class="label">JavaScript</p><pre>'+escapeHtml(generateJS(ep,baseUrl))+'</pre>';
+      doc += '<p class="label">Python</p><pre>'+escapeHtml(generatePython(ep,baseUrl))+'</pre>';
+      if(ep.response){
+        doc += '<p class="label">Response</p>';
+        try{doc += '<pre>'+escapeHtml(JSON.stringify(JSON.parse(ep.response),null,2))+'</pre>';}
+        catch(e){doc += '<pre>'+escapeHtml(ep.response)+'</pre>';}
+      }
+      doc += '</div>';
+    });
+  });
+
+  doc += '<footer style="margin-top:3rem;padding-top:1rem;border-top:1px solid #eee;color:#999;font-size:0.8rem;text-align:center">Generated with SPUNK.CODES API Documentation Generator</footer>';
+  doc += '</body></html>';
+
+  var blob = new Blob([doc], {type:'text/html'});
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = (name.replace(/\s+/g,'-').toLowerCase() || 'api-docs') + '.html';
+  a.click();
+}
+
+function copyMarkdown(){
+  var name = document.getElementById('apiName').value || 'API Documentation';
+  var baseUrl = document.getElementById('apiBaseUrl').value || 'https://api.example.com';
+  var version = document.getElementById('apiVersion').value || 'v1.0.0';
+  var desc = document.getElementById('apiDesc').value || '';
+
+  if(endpoints.length === 0){alert('Add at least one endpoint first');return}
+
+  var groups = {};
+  endpoints.forEach(function(ep){
+    if(!groups[ep.tag]) groups[ep.tag] = [];
+    groups[ep.tag].push(ep);
+  });
+
+  var md = '# ' + name + '\n\n';
+  md += '**Base URL:** `' + baseUrl + '` | **Version:** ' + version + '\n\n';
+  if(desc) md += desc + '\n\n';
+  md += '---\n\n';
+
+  Object.keys(groups).forEach(function(tag){
+    md += '## ' + tag + '\n\n';
+    groups[tag].forEach(function(ep){
+      md += '### `' + ep.method + '` ' + ep.path + '\n\n';
+      md += ep.desc + '\n\n';
+      if(ep.params.length > 0){
+        md += '| Name | Type | In | Required | Description |\n|------|------|----|----------|-------------|\n';
+        ep.params.forEach(function(p){
+          md += '| `' + p.name + '` | ' + p.type + ' | ' + p.in + ' | ' + (p.required==='true'?'Yes':'No') + ' | ' + p.desc + ' |\n';
+        });
+        md += '\n';
+      }
+      md += '**cURL**\n```bash\n' + generateCurl(ep, baseUrl) + '\n```\n\n';
+      md += '**JavaScript**\n```javascript\n' + generateJS(ep, baseUrl) + '\n```\n\n';
+      md += '**Python**\n```python\n' + generatePython(ep, baseUrl) + '\n```\n\n';
+      if(ep.response){
+        md += '**Response**\n```json\n';
+        try{md += JSON.stringify(JSON.parse(ep.response),null,2);}catch(e){md += ep.response;}
+        md += '\n```\n\n';
+      }
+      md += '---\n\n';
+    });
+  });
+
+  navigator.clipboard.writeText(md).then(function(){alert('Markdown copied to clipboard!')});
+}
+
+loadState();
+renderEndpoints();
+
+function shareX(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Building API docs with this insane generator tool. Code SPUNK unlocks it free @SpunkArt13')+'&url='+encodeURIComponent('https://spunk.codes/exclusive-tools'),'_blank')}
+function shareReddit(){window.open('https://www.reddit.com/submit?url='+encodeURIComponent('https://spunk.codes/exclusive-tools')+'&title='+encodeURIComponent('API Documentation Generator - free with code SPUNK [spunk.codes]'),'_blank')}
+function shareEmail(){window.location.href='mailto:?subject='+encodeURIComponent('API Documentation Generator Tool')+'&body='+encodeURIComponent('Generate beautiful API docs with code examples. Code SPUNK: https://spunk.codes/exclusive-tools')}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+</body>
+</html>

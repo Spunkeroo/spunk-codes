@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Content ROI Calculator - Measure Content Marketing ROI | SPUNK.CODES Exclusive</title>
+<meta name="description" content="Calculate ROI for every piece of content. Compare blog, video, podcast, and social performance. Exclusive premium tool.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Content ROI Calculator - SPUNK.CODES Exclusive">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/content-roi-calculator">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0d1117;--card:rgba(22,27,34,0.8);--border:rgba(48,54,61,0.6);--gold:#ffd700;--gold-border:rgba(255,215,0,0.3);--text:#e6edf3;--text-dim:#8b949e;--blue:#58a6ff;--cyan:#39d353;--red:#f85149;--orange:#ff8c00;--font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+a{color:var(--blue);text-decoration:none}
+.bg-mesh{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 80% 50% at 20% 20%,rgba(255,215,0,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(255,140,0,0.04) 0%,transparent 60%),var(--bg)}
+.bg-grid{position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,215,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,215,0,0.03) 1px,transparent 1px);background-size:60px 60px}
+.nav{position:sticky;top:0;z-index:100;background:rgba(13,17,23,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,215,0,0.15);padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}
+.nav-brand{font-weight:800;font-size:1.1rem;color:var(--gold);letter-spacing:0.08em}
+.nav-links{display:flex;gap:1.5rem;font-size:0.85rem}.nav-links a{color:var(--text-dim);font-weight:500}.nav-links a.active{color:var(--gold)}
+.lock-gate{position:fixed;inset:0;z-index:1000;background:rgba(13,17,23,0.97);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:2rem}
+.lock-gate.hidden{display:none}
+.lock-icon-big{font-size:4rem}.lock-gate h2{font-size:1.8rem;font-weight:800;text-align:center}.lock-gate h2 span{color:var(--gold)}.lock-gate p{color:var(--text-dim);text-align:center;max-width:400px}
+.code-input-wrap{display:flex;gap:0.5rem}
+.code-input{padding:0.8rem 1.5rem;background:rgba(22,27,34,0.8);border:2px solid var(--gold-border);border-radius:12px;color:var(--gold);font-size:1.2rem;font-weight:800;letter-spacing:3px;text-align:center;width:200px;outline:none;text-transform:uppercase;font-family:var(--font)}
+.code-input:focus{border-color:var(--gold);box-shadow:0 0 20px rgba(255,215,0,0.2)}
+.code-submit{padding:0.8rem 1.5rem;background:linear-gradient(135deg,#ffd700,#ff8c00);border:none;border-radius:12px;color:#000;font-size:1rem;font-weight:800;cursor:pointer}
+.code-error{color:var(--red);font-size:0.85rem;min-height:1.2em}.lock-hint{color:var(--text-dim);font-size:0.8rem}.lock-hint a{color:var(--gold)}
+.exclusive-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;background:linear-gradient(135deg,rgba(255,215,0,0.15),rgba(255,140,0,0.15));border:1px solid var(--gold-border);border-radius:100px;font-size:11px;font-weight:800;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase}
+.main{max-width:1000px;margin:0 auto;padding:2rem}
+.hero-section{text-align:center;padding:2rem 0 2rem}
+.hero-section h1{font-size:2.2rem;font-weight:800;margin:1rem 0 0.5rem}
+.hero-section h1 .gold{background:linear-gradient(135deg,#ffd700,#ff8c00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-section p{color:var(--text-dim);max-width:600px;margin:0 auto}
+.card{background:var(--card);border:1px solid var(--gold-border);border-radius:16px;padding:1.5rem;margin-bottom:1.5rem;backdrop-filter:blur(10px);position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),#ff8c00,var(--gold))}
+.card h2{font-size:1.1rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.form-group{display:flex;flex-direction:column;gap:0.3rem}
+.form-group label{font-size:0.8rem;color:var(--text-dim);font-weight:600}
+.form-group input,.form-group select{padding:0.6rem 0.8rem;background:rgba(13,17,23,0.8);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.9rem;font-family:var(--font);outline:none}
+.form-group input:focus,.form-group select:focus{border-color:var(--gold);box-shadow:0 0 10px rgba(255,215,0,0.1)}
+.btn{padding:0.7rem 1.5rem;border-radius:10px;font-size:0.85rem;font-weight:700;cursor:pointer;border:none;transition:all 0.2s}
+.btn-gold{background:linear-gradient(135deg,#ffd700,#ff8c00);color:#000}
+.btn-gold:hover{transform:translateY(-1px);box-shadow:0 4px 15px rgba(255,215,0,0.3)}
+.btn-outline{background:transparent;border:1px solid var(--gold-border);color:var(--gold)}
+.btn-outline:hover{background:rgba(255,215,0,0.1)}
+.btn-red{background:rgba(248,81,73,0.15);border:1px solid rgba(248,81,73,0.3);color:var(--red)}
+.btn-row{display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:1rem}
+.roi-display{text-align:center;padding:1.5rem;background:rgba(255,215,0,0.05);border-radius:12px;margin:1rem 0}
+.roi-big{font-size:3rem;font-weight:800;color:var(--gold)}
+.roi-label{font-size:0.85rem;color:var(--text-dim)}
+.metrics-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1rem;margin:1rem 0}
+.metric-card{text-align:center;padding:1rem;background:rgba(22,27,34,0.5);border:1px solid var(--border);border-radius:10px}
+.metric-val{font-size:1.5rem;font-weight:800;color:var(--gold)}
+.metric-lbl{font-size:0.7rem;color:var(--text-dim);margin-top:0.2rem}
+.history-table{width:100%;border-collapse:collapse;font-size:0.8rem;margin-top:1rem}
+.history-table th{text-align:left;padding:0.6rem;color:var(--gold);border-bottom:1px solid var(--gold-border);font-size:0.7rem;text-transform:uppercase;letter-spacing:1px}
+.history-table td{padding:0.6rem;border-bottom:1px solid var(--border)}
+.history-table tr:hover{background:rgba(255,215,0,0.03)}
+.positive{color:var(--cyan)}.negative{color:var(--red)}
+.chart-container{margin:1.5rem 0;overflow-x:auto}
+.tab-bar{display:flex;gap:0.5rem;margin-bottom:1rem;flex-wrap:wrap}
+.tab{padding:0.5rem 1rem;border-radius:8px;font-size:0.8rem;font-weight:600;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--text-dim)}
+.tab.active{border-color:var(--gold);color:var(--gold);background:rgba(255,215,0,0.1)}
+.type-badge{display:inline-block;padding:2px 8px;border-radius:6px;font-size:0.7rem;font-weight:700}
+.type-blog{background:rgba(88,166,255,0.15);color:var(--blue)}
+.type-video{background:rgba(248,81,73,0.15);color:var(--red)}
+.type-podcast{background:rgba(188,143,255,0.15);color:#bc8fff}
+.type-social{background:rgba(57,211,83,0.15);color:var(--cyan)}
+.share-cta{background:linear-gradient(135deg,rgba(255,215,0,0.08),rgba(255,140,0,0.05));border:1px solid var(--gold-border);border-radius:16px;padding:2rem;text-align:center;margin-top:2rem}
+.share-cta h3{color:var(--gold);margin-bottom:0.5rem}.share-cta p{color:var(--text-dim);font-size:0.9rem;margin-bottom:1rem}
+.share-btns{display:flex;gap:0.6rem;justify-content:center;flex-wrap:wrap}
+.share-btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;color:#fff}
+.share-x{background:#000;border:1px solid #333}.share-reddit{background:#ff4500}.share-email{background:#21262d;border:1px solid #30363d}
+.footer{text-align:center;padding:2rem;border-top:1px solid rgba(255,215,0,0.1);color:var(--text-dim);font-size:0.75rem;margin-top:3rem}
+.footer a{color:var(--gold)}.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-bottom:1rem}
+.watermark{position:fixed;bottom:10px;right:10px;font-size:0.6rem;color:rgba(255,215,0,0.08);font-weight:800;pointer-events:none;z-index:9999;letter-spacing:1px;text-transform:uppercase}
+.empty-state{text-align:center;padding:2rem;color:var(--text-dim)}
+@media(max-width:768px){.main{padding:1rem}.hero-section h1{font-size:1.6rem}.nav-links{display:none}.form-grid{grid-template-columns:1fr}.metrics-grid{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="bg-mesh"></div><div class="bg-grid"></div>
+<div class="lock-gate" id="lockGate"><div class="lock-icon-big">&#128274;</div><h2>Enter Code <span>SPUNK</span> to Unlock</h2><p>This exclusive premium tool requires the SPUNK referral code.</p><div class="code-input-wrap"><input type="text" class="code-input" id="codeInput" placeholder="CODE" maxlength="10" autocomplete="off"><button class="code-submit" onclick="submitCode()">Unlock</button></div><div class="code-error" id="codeError"></div><div class="lock-hint">Get the code at <a href="https://spunk.codes/exclusive-tools">spunk.codes/exclusive-tools</a></div></div>
+<nav class="nav"><a href="https://spunk.codes" class="nav-brand">SPUNK.CODES</a><div class="nav-links"><a href="/store">Tools</a><a href="/exclusive-tools" class="active">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a></div></nav>
+
+<div class="main">
+  <section class="hero-section">
+    <div class="exclusive-badge">&#128081; EXCLUSIVE TOOL</div>
+    <h1><span class="gold">Content ROI</span> Calculator</h1>
+    <p>Measure the return on investment for every piece of content. Compare types, track history, and identify your best performers.</p>
+  </section>
+
+  <div class="card">
+    <h2>&#128200; Add Content Entry</h2>
+    <div class="form-grid">
+      <div class="form-group"><label>Content Title</label><input type="text" id="cTitle" placeholder="e.g., How to Scale Your SaaS"></div>
+      <div class="form-group"><label>Content Type</label><select id="cType"><option value="blog">Blog Post</option><option value="video">Video</option><option value="podcast">Podcast</option><option value="social">Social Media</option></select></div>
+      <div class="form-group"><label>Creation Cost ($)</label><input type="number" id="cCreationCost" placeholder="500" min="0" step="1"></div>
+      <div class="form-group"><label>Promotion Cost ($)</label><input type="number" id="cPromoCost" placeholder="200" min="0" step="1"></div>
+      <div class="form-group"><label>Traffic Generated</label><input type="number" id="cTraffic" placeholder="5000" min="0" step="1"></div>
+      <div class="form-group"><label>Conversion Rate (%)</label><input type="number" id="cConvRate" placeholder="2.5" min="0" max="100" step="0.01"></div>
+      <div class="form-group"><label>Customer Value ($)</label><input type="number" id="cCustValue" placeholder="150" min="0" step="1"></div>
+      <div class="form-group"><label>Date</label><input type="date" id="cDate"></div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-gold" onclick="addEntry()">&#10003; Calculate & Save</button>
+      <button class="btn btn-outline" onclick="clearForm()">Clear Form</button>
+    </div>
+  </div>
+
+  <div class="card" id="resultCard" style="display:none">
+    <h2>&#127919; Latest Result</h2>
+    <div class="roi-display">
+      <div class="roi-big" id="roiPercent">0%</div>
+      <div class="roi-label">Return on Investment</div>
+    </div>
+    <div class="metrics-grid">
+      <div class="metric-card"><div class="metric-val" id="mRevenue">$0</div><div class="metric-lbl">Revenue Generated</div></div>
+      <div class="metric-card"><div class="metric-val" id="mCost">$0</div><div class="metric-lbl">Total Cost</div></div>
+      <div class="metric-card"><div class="metric-val" id="mProfit">$0</div><div class="metric-lbl">Net Profit</div></div>
+      <div class="metric-card"><div class="metric-val" id="mConversions">0</div><div class="metric-lbl">Conversions</div></div>
+      <div class="metric-card"><div class="metric-val" id="mCostPerConv">$0</div><div class="metric-lbl">Cost per Conversion</div></div>
+      <div class="metric-card"><div class="metric-val" id="mRevenuePerVisit">$0</div><div class="metric-lbl">Revenue per Visitor</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>&#128202; Type Comparison</h2>
+    <div class="tab-bar">
+      <button class="tab active" onclick="setCompareMetric('roi',this)">ROI %</button>
+      <button class="tab" onclick="setCompareMetric('revenue',this)">Revenue</button>
+      <button class="tab" onclick="setCompareMetric('profit',this)">Profit</button>
+      <button class="tab" onclick="setCompareMetric('costPerConv',this)">Cost/Conv</button>
+    </div>
+    <div class="chart-container" id="compareChart"></div>
+    <div class="empty-state" id="compareEmpty">Add content entries to see type comparisons</div>
+  </div>
+
+  <div class="card">
+    <h2>&#127942; Best Performers Dashboard</h2>
+    <div class="metrics-grid" id="topPerformers"></div>
+    <div class="empty-state" id="topEmpty">Add entries to see your top performers</div>
+  </div>
+
+  <div class="card">
+    <h2>&#128203; History</h2>
+    <div class="btn-row" style="margin-top:0;margin-bottom:1rem">
+      <button class="tab active" onclick="filterHistory('all',this)">All</button>
+      <button class="tab" onclick="filterHistory('blog',this)">Blog</button>
+      <button class="tab" onclick="filterHistory('video',this)">Video</button>
+      <button class="tab" onclick="filterHistory('podcast',this)">Podcast</button>
+      <button class="tab" onclick="filterHistory('social',this)">Social</button>
+    </div>
+    <div style="overflow-x:auto">
+      <table class="history-table">
+        <thead><tr><th>Date</th><th>Title</th><th>Type</th><th>Cost</th><th>Revenue</th><th>ROI</th><th></th></tr></thead>
+        <tbody id="historyBody"></tbody>
+      </table>
+    </div>
+    <div class="empty-state" id="historyEmpty">No entries yet. Add your first content entry above.</div>
+    <div class="btn-row">
+      <button class="btn btn-outline" onclick="exportCSV()">&#128229; Export CSV</button>
+      <button class="btn btn-red" onclick="clearAll()">&#128465; Clear All</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>&#128200; ROI Over Time</h2>
+    <div class="chart-container" id="timelineChart"></div>
+    <div class="empty-state" id="timelineEmpty">Add multiple entries to see ROI trends over time</div>
+  </div>
+
+  <div class="share-cta">
+    <h3>&#128275; Share the Code, Unlock Premium Tools</h3>
+    <p>Know someone who creates content? Share the code SPUNK and help them measure their ROI too.</p>
+    <div class="share-btns">
+      <button class="share-btn share-x" onclick="shareX()">&#120143; Share on X</button>
+      <button class="share-btn share-reddit" onclick="shareReddit()">&#128172; Reddit</button>
+      <button class="share-btn share-email" onclick="shareEmail()">&#9993; Email</button>
+    </div>
+  </div>
+</div>
+
+<footer class="footer"><div class="footer-links"><a href="https://spunk.codes">Home</a><a href="/store">Tools</a><a href="/exclusive-tools">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a><a href="https://twitter.com/SpunkArt13" target="_blank">@SpunkArt13</a></div><div>&copy; 2026 SPUNK.CODES EXCLUSIVE.</div></footer>
+<div class="watermark">SPUNK.CODES EXCLUSIVE</div>
+
+<script>
+document.addEventListener('contextmenu',function(e){e.preventDefault()});
+document.addEventListener('keydown',function(e){if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'||e.key==='C'))||(e.ctrlKey&&e.key==='u'))e.preventDefault()});
+function checkCode(){try{var c=localStorage.getItem('spunk_referral_code')||localStorage.getItem('spunk_ref_code')||'';if(c.toUpperCase()==='SPUNK'){document.getElementById('lockGate').classList.add('hidden');return true}}catch(e){}return false}
+function submitCode(){var v=document.getElementById('codeInput').value.trim().toUpperCase();if(v==='SPUNK'){try{localStorage.setItem('spunk_referral_code','SPUNK');localStorage.setItem('spunk_ref_code','SPUNK')}catch(e){}document.getElementById('lockGate').classList.add('hidden')}else{document.getElementById('codeError').textContent='Invalid code. Try: SPUNK';setTimeout(function(){document.getElementById('codeError').textContent=''},2000)}}
+document.getElementById('codeInput').addEventListener('keydown',function(e){if(e.key==='Enter')submitCode()});
+checkCode();
+
+// Set default date
+document.getElementById('cDate').value = new Date().toISOString().split('T')[0];
+
+// Data management
+var STORAGE_KEY = 'content_roi_entries';
+var currentFilter = 'all';
+var compareMetric = 'roi';
+
+function getEntries() { try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); } catch(e) { return []; } }
+function saveEntries(entries) { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(entries)); } catch(e) {} }
+
+function calculateROI(entry) {
+  var totalCost = (entry.creationCost || 0) + (entry.promoCost || 0);
+  var conversions = Math.round((entry.traffic || 0) * (entry.convRate || 0) / 100);
+  var revenue = conversions * (entry.custValue || 0);
+  var profit = revenue - totalCost;
+  var roi = totalCost > 0 ? ((profit / totalCost) * 100) : 0;
+  var costPerConv = conversions > 0 ? (totalCost / conversions) : 0;
+  var revenuePerVisit = entry.traffic > 0 ? (revenue / entry.traffic) : 0;
+  return { totalCost: totalCost, conversions: conversions, revenue: revenue, profit: profit, roi: roi, costPerConv: costPerConv, revenuePerVisit: revenuePerVisit };
+}
+
+function addEntry() {
+  var title = document.getElementById('cTitle').value.trim();
+  if (!title) { alert('Please enter a content title'); return; }
+  var entry = {
+    id: Date.now(),
+    title: title,
+    type: document.getElementById('cType').value,
+    creationCost: parseFloat(document.getElementById('cCreationCost').value) || 0,
+    promoCost: parseFloat(document.getElementById('cPromoCost').value) || 0,
+    traffic: parseInt(document.getElementById('cTraffic').value) || 0,
+    convRate: parseFloat(document.getElementById('cConvRate').value) || 0,
+    custValue: parseFloat(document.getElementById('cCustValue').value) || 0,
+    date: document.getElementById('cDate').value || new Date().toISOString().split('T')[0]
+  };
+  var entries = getEntries();
+  entries.unshift(entry);
+  saveEntries(entries);
+
+  var calc = calculateROI(entry);
+  showResult(calc);
+  renderAll();
+  clearForm();
+}
+
+function showResult(calc) {
+  document.getElementById('resultCard').style.display = '';
+  document.getElementById('roiPercent').textContent = calc.roi.toFixed(1) + '%';
+  document.getElementById('roiPercent').className = 'roi-big';
+  document.getElementById('roiPercent').style.color = calc.roi >= 0 ? 'var(--cyan)' : 'var(--red)';
+  document.getElementById('mRevenue').textContent = '$' + calc.revenue.toLocaleString();
+  document.getElementById('mCost').textContent = '$' + calc.totalCost.toLocaleString();
+  document.getElementById('mProfit').textContent = '$' + calc.profit.toLocaleString();
+  document.getElementById('mProfit').style.color = calc.profit >= 0 ? 'var(--cyan)' : 'var(--red)';
+  document.getElementById('mConversions').textContent = calc.conversions.toLocaleString();
+  document.getElementById('mCostPerConv').textContent = '$' + calc.costPerConv.toFixed(2);
+  document.getElementById('mRevenuePerVisit').textContent = '$' + calc.revenuePerVisit.toFixed(2);
+}
+
+function clearForm() {
+  ['cTitle','cCreationCost','cPromoCost','cTraffic','cConvRate','cCustValue'].forEach(function(id) { document.getElementById(id).value = ''; });
+  document.getElementById('cDate').value = new Date().toISOString().split('T')[0];
+}
+
+function deleteEntry(id) {
+  var entries = getEntries().filter(function(e) { return e.id !== id; });
+  saveEntries(entries);
+  renderAll();
+}
+
+function clearAll() {
+  if (confirm('Delete all entries? This cannot be undone.')) {
+    localStorage.removeItem(STORAGE_KEY);
+    document.getElementById('resultCard').style.display = 'none';
+    renderAll();
+  }
+}
+
+function filterHistory(type, el) {
+  currentFilter = type;
+  document.querySelectorAll('.btn-row .tab, .tab-bar .tab').forEach(function(t) { t.classList.remove('active'); });
+  if (el) el.classList.add('active');
+  renderHistory();
+}
+
+function setCompareMetric(metric, el) {
+  compareMetric = metric;
+  el.parentElement.querySelectorAll('.tab').forEach(function(t) { t.classList.remove('active'); });
+  el.classList.add('active');
+  renderCompareChart();
+}
+
+function renderHistory() {
+  var entries = getEntries();
+  var filtered = currentFilter === 'all' ? entries : entries.filter(function(e) { return e.type === currentFilter; });
+  var tbody = document.getElementById('historyBody');
+  tbody.innerHTML = '';
+  document.getElementById('historyEmpty').style.display = filtered.length ? 'none' : '';
+
+  filtered.forEach(function(entry) {
+    var calc = calculateROI(entry);
+    var tr = document.createElement('tr');
+    var roiClass = calc.roi >= 0 ? 'positive' : 'negative';
+    tr.innerHTML = '<td>' + entry.date + '</td><td>' + entry.title + '</td><td><span class="type-badge type-' + entry.type + '">' + entry.type + '</span></td><td>$' + calc.totalCost.toLocaleString() + '</td><td>$' + calc.revenue.toLocaleString() + '</td><td class="' + roiClass + '">' + calc.roi.toFixed(1) + '%</td><td><button class="btn btn-red" style="padding:2px 8px;font-size:0.7rem" onclick="deleteEntry(' + entry.id + ')">&#10005;</button></td>';
+    tbody.appendChild(tr);
+  });
+}
+
+function renderCompareChart() {
+  var entries = getEntries();
+  var container = document.getElementById('compareChart');
+  var emptyEl = document.getElementById('compareEmpty');
+  if (entries.length === 0) { container.innerHTML = ''; emptyEl.style.display = ''; return; }
+  emptyEl.style.display = 'none';
+
+  var types = { blog: { label: 'Blog', color: '#58a6ff', values: [] }, video: { label: 'Video', color: '#f85149', values: [] }, podcast: { label: 'Podcast', color: '#bc8fff', values: [] }, social: { label: 'Social', color: '#39d353', values: [] } };
+
+  entries.forEach(function(e) {
+    var calc = calculateROI(e);
+    if (types[e.type]) {
+      if (compareMetric === 'roi') types[e.type].values.push(calc.roi);
+      else if (compareMetric === 'revenue') types[e.type].values.push(calc.revenue);
+      else if (compareMetric === 'profit') types[e.type].values.push(calc.profit);
+      else if (compareMetric === 'costPerConv') types[e.type].values.push(calc.costPerConv);
+    }
+  });
+
+  var barData = [];
+  Object.keys(types).forEach(function(key) {
+    var vals = types[key].values;
+    if (vals.length > 0) {
+      var avg = vals.reduce(function(a, b) { return a + b; }, 0) / vals.length;
+      barData.push({ label: types[key].label, value: avg, color: types[key].color, count: vals.length });
+    }
+  });
+
+  if (barData.length === 0) { container.innerHTML = '<div class="empty-state">No data for comparison</div>'; return; }
+
+  var maxVal = Math.max.apply(null, barData.map(function(d) { return Math.abs(d.value); }));
+  if (maxVal === 0) maxVal = 1;
+  var svgW = 600, barH = 50, gap = 15, svgH = barData.length * (barH + gap) + 40;
+  var prefix = compareMetric === 'roi' ? '' : '$';
+  var suffix = compareMetric === 'roi' ? '%' : '';
+
+  var svg = '<svg viewBox="0 0 ' + svgW + ' ' + svgH + '" width="100%" xmlns="http://www.w3.org/2000/svg" style="max-width:600px">';
+  barData.forEach(function(d, i) {
+    var y = i * (barH + gap) + 10;
+    var barW = Math.abs(d.value) / maxVal * 400;
+    svg += '<text x="0" y="' + (y + 20) + '" fill="#e6edf3" font-size="13" font-weight="600">' + d.label + ' (' + d.count + ')</text>';
+    svg += '<rect x="130" y="' + (y + 5) + '" width="' + barW + '" height="30" rx="6" fill="' + d.color + '" opacity="0.8"/>';
+    svg += '<text x="' + (140 + barW) + '" y="' + (y + 25) + '" fill="#e6edf3" font-size="12" font-weight="700">' + prefix + d.value.toFixed(compareMetric === 'roi' ? 1 : 0) + suffix + '</text>';
+  });
+  svg += '</svg>';
+  container.innerHTML = svg;
+}
+
+function renderTopPerformers() {
+  var entries = getEntries();
+  var container = document.getElementById('topPerformers');
+  var emptyEl = document.getElementById('topEmpty');
+  if (entries.length === 0) { container.innerHTML = ''; emptyEl.style.display = ''; return; }
+  emptyEl.style.display = 'none';
+
+  var withCalc = entries.map(function(e) { return { entry: e, calc: calculateROI(e) }; });
+  var sortedROI = withCalc.slice().sort(function(a, b) { return b.calc.roi - a.calc.roi; });
+  var sortedRev = withCalc.slice().sort(function(a, b) { return b.calc.revenue - a.calc.revenue; });
+  var sortedProfit = withCalc.slice().sort(function(a, b) { return b.calc.profit - a.calc.profit; });
+
+  var html = '';
+  if (sortedROI[0]) html += '<div class="metric-card"><div class="metric-val" style="font-size:1rem">' + sortedROI[0].calc.roi.toFixed(1) + '%</div><div class="metric-lbl">Best ROI</div><div style="font-size:0.75rem;color:var(--text);margin-top:0.3rem">' + sortedROI[0].entry.title.substring(0, 25) + '</div></div>';
+  if (sortedRev[0]) html += '<div class="metric-card"><div class="metric-val" style="font-size:1rem">$' + sortedRev[0].calc.revenue.toLocaleString() + '</div><div class="metric-lbl">Most Revenue</div><div style="font-size:0.75rem;color:var(--text);margin-top:0.3rem">' + sortedRev[0].entry.title.substring(0, 25) + '</div></div>';
+  if (sortedProfit[0]) html += '<div class="metric-card"><div class="metric-val" style="font-size:1rem">$' + sortedProfit[0].calc.profit.toLocaleString() + '</div><div class="metric-lbl">Most Profit</div><div style="font-size:0.75rem;color:var(--text);margin-top:0.3rem">' + sortedProfit[0].entry.title.substring(0, 25) + '</div></div>';
+
+  var totalRev = withCalc.reduce(function(s, x) { return s + x.calc.revenue; }, 0);
+  var totalCost = withCalc.reduce(function(s, x) { return s + x.calc.totalCost; }, 0);
+  var totalProfit = totalRev - totalCost;
+  var avgROI = withCalc.reduce(function(s, x) { return s + x.calc.roi; }, 0) / withCalc.length;
+  html += '<div class="metric-card"><div class="metric-val" style="font-size:1rem">' + avgROI.toFixed(1) + '%</div><div class="metric-lbl">Average ROI</div></div>';
+  html += '<div class="metric-card"><div class="metric-val" style="font-size:1rem">$' + totalRev.toLocaleString() + '</div><div class="metric-lbl">Total Revenue</div></div>';
+  html += '<div class="metric-card"><div class="metric-val" style="font-size:1rem;color:' + (totalProfit >= 0 ? 'var(--cyan)' : 'var(--red)') + '">$' + totalProfit.toLocaleString() + '</div><div class="metric-lbl">Total Profit</div></div>';
+  container.innerHTML = html;
+}
+
+function renderTimelineChart() {
+  var entries = getEntries().slice().sort(function(a, b) { return a.date.localeCompare(b.date); });
+  var container = document.getElementById('timelineChart');
+  var emptyEl = document.getElementById('timelineEmpty');
+  if (entries.length < 2) { container.innerHTML = ''; emptyEl.style.display = ''; return; }
+  emptyEl.style.display = 'none';
+
+  var points = entries.map(function(e) { var calc = calculateROI(e); return { date: e.date, roi: calc.roi }; });
+  var maxROI = Math.max.apply(null, points.map(function(p) { return Math.abs(p.roi); }));
+  if (maxROI === 0) maxROI = 100;
+
+  var svgW = 700, svgH = 250, padX = 60, padY = 30, chartW = svgW - padX * 2, chartH = svgH - padY * 2;
+  var svg = '<svg viewBox="0 0 ' + svgW + ' ' + svgH + '" width="100%" xmlns="http://www.w3.org/2000/svg">';
+  // Grid lines
+  for (var g = 0; g <= 4; g++) {
+    var gy = padY + (chartH / 4) * g;
+    var gval = (maxROI - (maxROI * 2 / 4) * g).toFixed(0);
+    svg += '<line x1="' + padX + '" y1="' + gy + '" x2="' + (svgW - padX) + '" y2="' + gy + '" stroke="rgba(255,215,0,0.1)" stroke-width="1"/>';
+    svg += '<text x="' + (padX - 10) + '" y="' + (gy + 4) + '" fill="#8b949e" font-size="10" text-anchor="end">' + gval + '%</text>';
+  }
+
+  var midY = padY + chartH / 2;
+  var pathD = '';
+  points.forEach(function(p, i) {
+    var x = padX + (i / (points.length - 1)) * chartW;
+    var y = midY - (p.roi / maxROI) * (chartH / 2);
+    pathD += (i === 0 ? 'M' : 'L') + x + ',' + y;
+  });
+  svg += '<path d="' + pathD + '" fill="none" stroke="#ffd700" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>';
+
+  points.forEach(function(p, i) {
+    var x = padX + (i / (points.length - 1)) * chartW;
+    var y = midY - (p.roi / maxROI) * (chartH / 2);
+    var dotColor = p.roi >= 0 ? '#39d353' : '#f85149';
+    svg += '<circle cx="' + x + '" cy="' + y + '" r="4" fill="' + dotColor + '" stroke="var(--bg)" stroke-width="2"/>';
+    if (points.length <= 10) {
+      svg += '<text x="' + x + '" y="' + (svgH - 5) + '" fill="#8b949e" font-size="8" text-anchor="middle">' + p.date.substring(5) + '</text>';
+    }
+  });
+  svg += '</svg>';
+  container.innerHTML = svg;
+}
+
+function exportCSV() {
+  var entries = getEntries();
+  if (entries.length === 0) { alert('No entries to export'); return; }
+  var csv = 'Date,Title,Type,Creation Cost,Promo Cost,Traffic,Conv Rate,Customer Value,Revenue,Profit,ROI\n';
+  entries.forEach(function(e) {
+    var calc = calculateROI(e);
+    csv += e.date + ',' + '"' + e.title.replace(/"/g, '""') + '",' + e.type + ',' + e.creationCost + ',' + e.promoCost + ',' + e.traffic + ',' + e.convRate + ',' + e.custValue + ',' + calc.revenue + ',' + calc.profit + ',' + calc.roi.toFixed(1) + '\n';
+  });
+  var blob = new Blob([csv], { type: 'text/csv' });
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'content-roi-' + new Date().toISOString().split('T')[0] + '.csv';
+  a.click();
+}
+
+function renderAll() { renderHistory(); renderCompareChart(); renderTopPerformers(); renderTimelineChart(); }
+renderAll();
+
+function shareX(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Tracking my content ROI with this premium calculator. Code SPUNK unlocks it free @SpunkArt13')+'&url='+encodeURIComponent('https://spunk.codes/exclusive-tools'),'_blank')}
+function shareReddit(){window.open('https://www.reddit.com/submit?url='+encodeURIComponent('https://spunk.codes/exclusive-tools')+'&title='+encodeURIComponent('Content ROI Calculator - free with code SPUNK [spunk.codes]'),'_blank')}
+function shareEmail(){window.location.href='mailto:?subject='+encodeURIComponent('Content ROI Calculator')+'&body='+encodeURIComponent('Measure your content marketing ROI. Code SPUNK: https://spunk.codes/exclusive-tools')}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+</body>
+</html>

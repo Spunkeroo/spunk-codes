@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SaaS Metrics Dashboard - Exclusive Premium Tool | SPUNK.CODES</title>
+<meta name="description" content="Calculate MRR, ARR, churn rate, LTV, CAC, LTV:CAC ratio, payback period with benchmarks. Exclusive premium tool unlocked with code SPUNK.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="SaaS Metrics Dashboard - SPUNK.CODES Exclusive">
+<meta property="og:description" content="Full SaaS metrics calculator with benchmarks and SVG charts. Unlock with code SPUNK.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://spunk.codes/exclusive/saas-metrics-dashboard">
+<meta property="og:site_name" content="SPUNK.CODES">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/saas-metrics-dashboard">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0d1117;--card:rgba(22,27,34,0.8);--border:rgba(48,54,61,0.6);--gold:#ffd700;--gold-dim:rgba(255,215,0,0.15);--gold-border:rgba(255,215,0,0.3);--text:#e6edf3;--text-dim:#8b949e;--blue:#58a6ff;--cyan:#39d353;--red:#f85149;--orange:#ff8c00;--font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+a{color:var(--blue);text-decoration:none}a:hover{color:#fff}
+.bg-mesh{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 80% 50% at 20% 20%,rgba(255,215,0,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(255,140,0,0.04) 0%,transparent 60%),var(--bg)}
+.bg-grid{position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,215,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,215,0,0.03) 1px,transparent 1px);background-size:60px 60px}
+.nav{position:sticky;top:0;z-index:100;background:rgba(13,17,23,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,215,0,0.15);padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}
+.nav-brand{font-weight:800;font-size:1.1rem;color:var(--gold);letter-spacing:0.08em}
+.nav-links{display:flex;gap:1.5rem;font-size:0.85rem;list-style:none}
+.nav-links a{color:var(--text-dim);transition:color 0.2s;font-weight:500}
+.nav-links a:hover{color:#fff}
+.nav-links a.active{color:var(--gold)}
+.lock-gate{position:fixed;inset:0;z-index:1000;background:rgba(13,17,23,0.97);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:2rem}
+.lock-gate.hidden{display:none}
+.lock-icon-big{font-size:4rem;margin-bottom:0.5rem}
+.lock-gate h2{font-size:1.8rem;font-weight:800;text-align:center}
+.lock-gate h2 span{color:var(--gold)}
+.lock-gate p{color:var(--text-dim);text-align:center;max-width:400px}
+.code-input-wrap{display:flex;gap:0.5rem;margin-top:0.5rem}
+.code-input{padding:0.8rem 1.5rem;background:rgba(22,27,34,0.8);border:2px solid var(--gold-border);border-radius:12px;color:var(--gold);font-size:1.2rem;font-weight:800;letter-spacing:3px;text-align:center;width:200px;outline:none;text-transform:uppercase;font-family:var(--font)}
+.code-input:focus{border-color:var(--gold);box-shadow:0 0 20px rgba(255,215,0,0.2)}
+.code-submit{padding:0.8rem 1.5rem;background:linear-gradient(135deg,#ffd700,#ff8c00);border:none;border-radius:12px;color:#000;font-size:1rem;font-weight:800;cursor:pointer;transition:all 0.3s}
+.code-submit:hover{transform:scale(1.05);box-shadow:0 4px 20px rgba(255,215,0,0.3)}
+.code-error{color:#f85149;font-size:0.85rem;min-height:1.2em}
+.lock-hint{color:var(--text-dim);font-size:0.8rem;margin-top:1rem}
+.lock-hint a{color:var(--gold)}
+.exclusive-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;background:linear-gradient(135deg,rgba(255,215,0,0.15),rgba(255,140,0,0.15));border:1px solid var(--gold-border);border-radius:100px;font-size:11px;font-weight:800;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase}
+.main{max-width:1000px;margin:0 auto;padding:2rem}
+.hero-section{text-align:center;padding:2rem 0 3rem}
+.hero-section h1{font-size:2.2rem;font-weight:800;margin:1rem 0 0.5rem}
+.hero-section h1 .gold{background:linear-gradient(135deg,#ffd700,#ff8c00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-section p{color:var(--text-dim);max-width:600px;margin:0 auto}
+.tool-section{background:var(--card);border:1px solid var(--gold-border);border-radius:16px;padding:2rem;margin-bottom:1.5rem;backdrop-filter:blur(10px);position:relative;overflow:hidden}
+.tool-section::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),#ff8c00,var(--gold))}
+.tool-section h2{font-size:1.2rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}
+.tool-section h2 .icon{font-size:1.4rem}
+label{font-size:0.85rem;color:var(--text-dim);font-weight:600;display:block;margin-bottom:0.4rem}
+input,select,textarea{width:100%;padding:0.75rem 1rem;background:rgba(13,17,23,0.6);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:0.9rem;font-family:var(--font);outline:none;transition:border-color 0.2s}
+input:focus,select:focus,textarea:focus{border-color:var(--gold)}
+.input-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.input-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem}
+.input-group{margin-bottom:1rem}
+.btn{padding:0.75rem 2rem;border:none;border-radius:10px;font-size:0.9rem;font-weight:700;cursor:pointer;transition:all 0.2s;font-family:var(--font)}
+.btn-gold{background:linear-gradient(135deg,#ffd700,#ff8c00);color:#000}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 4px 20px rgba(255,215,0,0.3)}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--text-dim)}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold)}
+.btn-sm{padding:0.5rem 1rem;font-size:0.8rem}
+.btn-row{display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:1rem}
+.metrics-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-top:1.5rem}
+.metric-card{background:rgba(13,17,23,0.5);border:1px solid var(--border);border-radius:12px;padding:1.2rem;text-align:center;transition:border-color 0.3s}
+.metric-card.healthy{border-color:var(--cyan)}
+.metric-card.warning{border-color:var(--gold)}
+.metric-card.critical{border-color:var(--red)}
+.metric-label{font-size:0.75rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px;margin-bottom:0.3rem}
+.metric-value{font-size:1.8rem;font-weight:800}
+.metric-card.healthy .metric-value{color:var(--cyan)}
+.metric-card.warning .metric-value{color:var(--gold)}
+.metric-card.critical .metric-value{color:var(--red)}
+.metric-benchmark{font-size:0.7rem;margin-top:0.3rem;padding:3px 8px;border-radius:6px;display:inline-block}
+.benchmark-healthy{background:rgba(57,211,83,0.15);color:var(--cyan)}
+.benchmark-warning{background:rgba(255,215,0,0.15);color:var(--gold)}
+.benchmark-critical{background:rgba(248,81,73,0.15);color:var(--red)}
+.chart-container{margin-top:1.5rem;background:rgba(13,17,23,0.5);border:1px solid var(--border);border-radius:12px;padding:1.5rem}
+.chart-title{font-size:0.85rem;font-weight:700;margin-bottom:1rem;color:var(--gold)}
+.month-row{display:grid;grid-template-columns:80px 1fr 1fr 1fr 1fr;gap:0.5rem;align-items:center;padding:0.5rem 0;border-bottom:1px solid rgba(48,54,61,0.3);font-size:0.85rem}
+.month-row.header{font-weight:700;color:var(--gold);font-size:0.75rem;text-transform:uppercase;letter-spacing:0.5px}
+.month-row input{padding:0.5rem;font-size:0.85rem}
+.month-label{color:var(--text-dim);font-weight:600}
+.result-box{background:rgba(255,215,0,0.05);border:1px solid var(--gold-border);border-radius:12px;padding:1.5rem;margin-top:1.5rem;display:none}
+.result-box.show{display:block}
+.summary-text{background:rgba(13,17,23,0.5);border:1px solid var(--border);border-radius:10px;padding:1rem;font-size:0.85rem;color:var(--text-dim);line-height:1.8;white-space:pre-line;margin-top:1rem}
+.share-cta{background:linear-gradient(135deg,rgba(255,215,0,0.08),rgba(255,140,0,0.05));border:1px solid var(--gold-border);border-radius:16px;padding:2rem;text-align:center;margin-top:2rem}
+.share-cta h3{color:var(--gold);margin-bottom:0.5rem;font-size:1.1rem}
+.share-cta p{color:var(--text-dim);font-size:0.9rem;margin-bottom:1rem}
+.share-btns{display:flex;gap:0.6rem;justify-content:center;flex-wrap:wrap}
+.share-btn{display:inline-flex;align-items:center;gap:0.4rem;padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;color:#fff;transition:all 0.25s}
+.share-btn:hover{transform:translateY(-2px)}
+.share-x{background:#000;border:1px solid #333}
+.share-reddit{background:#ff4500}
+.share-email{background:#21262d;border:1px solid #30363d}
+.footer{text-align:center;padding:2rem;border-top:1px solid rgba(255,215,0,0.1);color:var(--text-dim);font-size:0.75rem;margin-top:3rem}
+.footer a{color:var(--gold)}
+.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-bottom:1rem}
+.watermark{position:fixed;bottom:10px;right:10px;font-size:0.6rem;color:rgba(255,215,0,0.08);font-weight:800;pointer-events:none;z-index:9999;letter-spacing:1px;text-transform:uppercase}
+.remove-btn{background:none;border:none;color:var(--red);cursor:pointer;font-size:1.1rem;padding:0 4px;opacity:0.6}
+.remove-btn:hover{opacity:1}
+@media(max-width:768px){
+  .main{padding:1rem}
+  .hero-section h1{font-size:1.6rem}
+  .input-grid,.input-grid-3{grid-template-columns:1fr}
+  .nav-links{display:none}
+  .metrics-grid{grid-template-columns:1fr 1fr}
+  .month-row{grid-template-columns:60px 1fr 1fr 1fr 1fr;font-size:0.75rem}
+}
+</style>
+</head>
+<body>
+<div class="bg-mesh"></div>
+<div class="bg-grid"></div>
+
+<!-- Lock Gate -->
+<div class="lock-gate" id="lockGate">
+  <div class="lock-icon-big">&#128274;</div>
+  <h2>Enter Code <span>SPUNK</span> to Unlock</h2>
+  <p>This is an exclusive premium tool. Enter the referral code to get instant access.</p>
+  <div class="code-input-wrap">
+    <input type="text" class="code-input" id="codeInput" placeholder="CODE" maxlength="10" autocomplete="off">
+    <button class="code-submit" onclick="submitCode()">Unlock</button>
+  </div>
+  <div class="code-error" id="codeError"></div>
+  <div class="lock-hint">Get the code at <a href="https://spunk.codes/exclusive-tools">spunk.codes/exclusive-tools</a></div>
+</div>
+
+<nav class="nav">
+  <a href="https://spunk.codes" class="nav-brand">SPUNK.CODES</a>
+  <div class="nav-links">
+    <a href="/store">Tools</a>
+    <a href="/exclusive-tools" class="active">Exclusive</a>
+    <a href="/store#ebook">Ebooks</a>
+    <a href="/blog">Blog</a>
+  </div>
+</nav>
+
+<div class="main" id="mainContent">
+  <section class="hero-section">
+    <div class="exclusive-badge">&#128081; EXCLUSIVE TOOL</div>
+    <h1><span class="gold">SaaS Metrics</span> Dashboard</h1>
+    <p>Track MRR, ARR, churn, LTV, CAC, and more. Input monthly data, visualize growth, and benchmark against industry standards.</p>
+  </section>
+
+  <div class="tool-section">
+    <h2><span class="icon">&#128202;</span> Monthly Data Input</h2>
+    <p style="color:var(--text-dim);font-size:0.85rem;margin-bottom:1rem">Enter your monthly SaaS metrics. Add as many months as you need.</p>
+    <div class="month-row header">
+      <div>Month</div>
+      <div>Revenue ($)</div>
+      <div>New Custs</div>
+      <div>Churned</div>
+      <div>Total Custs</div>
+    </div>
+    <div id="monthRows"></div>
+    <div class="btn-row">
+      <button class="btn btn-outline btn-sm" onclick="addMonth()">+ Add Month</button>
+      <button class="btn btn-outline btn-sm" onclick="loadSampleData()">Load Sample Data</button>
+    </div>
+  </div>
+
+  <div class="tool-section">
+    <h2><span class="icon">&#128176;</span> Acquisition Costs</h2>
+    <div class="input-grid">
+      <div class="input-group">
+        <label>Monthly Marketing Spend ($)</label>
+        <input type="number" id="marketingSpend" placeholder="5000" value="">
+      </div>
+      <div class="input-group">
+        <label>Monthly Sales Spend ($)</label>
+        <input type="number" id="salesSpend" placeholder="3000" value="">
+      </div>
+      <div class="input-group">
+        <label>Average Revenue Per User ($/mo)</label>
+        <input type="number" id="arpu" placeholder="49" value="">
+      </div>
+      <div class="input-group">
+        <label>Gross Margin (%)</label>
+        <input type="number" id="grossMargin" placeholder="80" value="80" min="0" max="100">
+      </div>
+    </div>
+  </div>
+
+  <div class="btn-row" style="justify-content:center;margin-bottom:1.5rem">
+    <button class="btn btn-gold" onclick="calculateMetrics()">&#128640; Calculate All Metrics</button>
+    <button class="btn btn-outline" onclick="clearAll()">Clear All</button>
+  </div>
+
+  <div class="result-box" id="results">
+    <h3 style="color:var(--gold);font-size:1.1rem;margin-bottom:0.5rem">&#127942; Your SaaS Metrics Dashboard</h3>
+    <div class="metrics-grid" id="metricsGrid"></div>
+
+    <div class="chart-container" id="mrrChart" style="display:none">
+      <div class="chart-title">&#128200; MRR Growth Trend</div>
+      <svg id="mrrSvg" width="100%" height="250" viewBox="0 0 800 250"></svg>
+    </div>
+
+    <div class="chart-container" id="churnChart" style="display:none">
+      <div class="chart-title">&#128201; Monthly Churn Rate</div>
+      <svg id="churnSvg" width="100%" height="200" viewBox="0 0 800 200"></svg>
+    </div>
+
+    <div id="summarySection" style="display:none">
+      <h3 style="color:var(--gold);font-size:1rem;margin-top:1.5rem;margin-bottom:0.5rem">&#128221; Executive Summary</h3>
+      <div class="summary-text" id="summaryText"></div>
+    </div>
+
+    <div class="btn-row" style="margin-top:1.5rem">
+      <button class="btn btn-gold btn-sm" onclick="exportCSV()">&#128190; Export CSV</button>
+      <button class="btn btn-outline btn-sm" onclick="copySummary()">&#128203; Copy Summary</button>
+    </div>
+  </div>
+
+  <!-- Share CTA -->
+  <div class="share-cta">
+    <h3>&#128640; Know a founder who needs this?</h3>
+    <p>Share the code <strong style="color:var(--gold)">SPUNK</strong> and help them track their SaaS metrics for free.</p>
+    <div class="share-btns">
+      <button class="share-btn share-x" onclick="shareX()">&#120143; Share on X</button>
+      <button class="share-btn share-reddit" onclick="shareReddit()">&#129513; Reddit</button>
+      <button class="share-btn share-email" onclick="shareEmail()">&#9993; Email</button>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer-links">
+    <a href="https://spunk.codes">Home</a>
+    <a href="/store">Tools</a>
+    <a href="/exclusive-tools">Exclusive</a>
+    <a href="/store#ebook">Ebooks</a>
+    <a href="/blog">Blog</a>
+    <a href="https://x.com/SpunkArt13" target="_blank">@SpunkArt13</a>
+  </div>
+  <p>&copy; 2026 SPUNK.CODES. All rights reserved.</p>
+</footer>
+
+<div class="watermark">SPUNK.CODES EXCLUSIVE</div>
+
+<!-- Code Protection -->
+<script>
+document.addEventListener('contextmenu',function(e){e.preventDefault()});
+document.addEventListener('keydown',function(e){if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&e.key==='I')||(e.ctrlKey&&e.key==='u')){e.preventDefault()}});
+</script>
+
+<!-- Lock Gate Logic -->
+<script>
+function checkAccess(){
+  var code=localStorage.getItem('spunk_referral_code')||localStorage.getItem('spunk_ref_code');
+  if(code&&code.toUpperCase()==='SPUNK'){document.getElementById('lockGate').classList.add('hidden')}
+}
+function submitCode(){
+  var val=document.getElementById('codeInput').value.trim().toUpperCase();
+  if(val==='SPUNK'){
+    localStorage.setItem('spunk_referral_code',val);
+    localStorage.setItem('spunk_ref_code',val);
+    document.getElementById('lockGate').classList.add('hidden');
+    if(typeof gtag==='function')gtag('event','exclusive_unlock',{tool:'saas-metrics-dashboard'});
+  } else {
+    document.getElementById('codeError').textContent='Invalid code. Try again.';
+  }
+}
+document.getElementById('codeInput').addEventListener('keydown',function(e){if(e.key==='Enter')submitCode()});
+checkAccess();
+</script>
+
+<!-- Tool Logic -->
+<script>
+var months=[];
+var STORAGE_KEY='spunk_saas_metrics';
+
+function loadSaved(){
+  try{
+    var saved=JSON.parse(localStorage.getItem(STORAGE_KEY));
+    if(saved&&saved.months&&saved.months.length){
+      months=saved.months;
+      if(saved.marketingSpend)document.getElementById('marketingSpend').value=saved.marketingSpend;
+      if(saved.salesSpend)document.getElementById('salesSpend').value=saved.salesSpend;
+      if(saved.arpu)document.getElementById('arpu').value=saved.arpu;
+      if(saved.grossMargin)document.getElementById('grossMargin').value=saved.grossMargin;
+      renderMonths();
+      return;
+    }
+  }catch(e){}
+  for(var i=0;i<6;i++)months.push({revenue:'',newCust:'',churned:'',totalCust:''});
+  renderMonths();
+}
+
+function saveData(){
+  var data={
+    months:months,
+    marketingSpend:document.getElementById('marketingSpend').value,
+    salesSpend:document.getElementById('salesSpend').value,
+    arpu:document.getElementById('arpu').value,
+    grossMargin:document.getElementById('grossMargin').value
+  };
+  localStorage.setItem(STORAGE_KEY,JSON.stringify(data));
+}
+
+function getMonthLabel(i){
+  var labels=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  return labels[i%12]+' '+(Math.floor(i/12)+1);
+}
+
+function renderMonths(){
+  var html='';
+  months.forEach(function(m,i){
+    html+='<div class="month-row">';
+    html+='<div class="month-label">'+getMonthLabel(i)+'</div>';
+    html+='<input type="number" value="'+(m.revenue||'')+'" onchange="updateMonth('+i+',\'revenue\',this.value)" placeholder="0">';
+    html+='<input type="number" value="'+(m.newCust||'')+'" onchange="updateMonth('+i+',\'newCust\',this.value)" placeholder="0">';
+    html+='<input type="number" value="'+(m.churned||'')+'" onchange="updateMonth('+i+',\'churned\',this.value)" placeholder="0">';
+    html+='<input type="number" value="'+(m.totalCust||'')+'" onchange="updateMonth('+i+',\'totalCust\',this.value)" placeholder="0">';
+    html+='</div>';
+  });
+  document.getElementById('monthRows').innerHTML=html;
+}
+
+function updateMonth(i,field,val){months[i][field]=val;saveData()}
+function addMonth(){months.push({revenue:'',newCust:'',churned:'',totalCust:''});renderMonths();saveData()}
+
+function loadSampleData(){
+  months=[
+    {revenue:'12000',newCust:'30',churned:'3',totalCust:'120'},
+    {revenue:'14500',newCust:'35',churned:'4',totalCust:'151'},
+    {revenue:'17200',newCust:'42',churned:'5',totalCust:'188'},
+    {revenue:'20100',newCust:'48',churned:'6',totalCust:'230'},
+    {revenue:'24000',newCust:'55',churned:'7',totalCust:'278'},
+    {revenue:'28500',newCust:'60',churned:'8',totalCust:'330'},
+    {revenue:'33000',newCust:'65',churned:'9',totalCust:'386'},
+    {revenue:'38000',newCust:'72',churned:'10',totalCust:'448'},
+    {revenue:'43500',newCust:'78',churned:'11',totalCust:'515'},
+    {revenue:'49000',newCust:'85',churned:'12',totalCust:'588'},
+    {revenue:'55000',newCust:'90',churned:'13',totalCust:'665'},
+    {revenue:'62000',newCust:'98',churned:'14',totalCust:'749'}
+  ];
+  document.getElementById('marketingSpend').value='8000';
+  document.getElementById('salesSpend').value='5000';
+  document.getElementById('arpu').value='83';
+  document.getElementById('grossMargin').value='82';
+  renderMonths();saveData();
+}
+
+function calculateMetrics(){
+  var validMonths=months.filter(function(m){return parseFloat(m.revenue)>0});
+  if(validMonths.length<2){alert('Please enter at least 2 months of data.');return}
+
+  var lastMonth=validMonths[validMonths.length-1];
+  var prevMonth=validMonths[validMonths.length-2];
+  var mrr=parseFloat(lastMonth.revenue);
+  var arr=mrr*12;
+  var totalCust=parseFloat(lastMonth.totalCust)||1;
+  var churned=parseFloat(lastMonth.churned)||0;
+  var prevTotal=parseFloat(prevMonth.totalCust)||1;
+  var churnRate=(churned/prevTotal)*100;
+  var marketingSpend=parseFloat(document.getElementById('marketingSpend').value)||0;
+  var salesSpend=parseFloat(document.getElementById('salesSpend').value)||0;
+  var newCust=parseFloat(lastMonth.newCust)||1;
+  var cac=(marketingSpend+salesSpend)/newCust;
+  var arpu=parseFloat(document.getElementById('arpu').value)||(mrr/totalCust);
+  var grossMargin=(parseFloat(document.getElementById('grossMargin').value)||80)/100;
+  var avgLifetimeMonths=churnRate>0?(1/(churnRate/100)):60;
+  var ltv=arpu*avgLifetimeMonths*grossMargin;
+  var ltvCacRatio=cac>0?(ltv/cac):0;
+  var paybackMonths=cac>0&&arpu>0?(cac/(arpu*grossMargin)):0;
+  var mrrGrowth=parseFloat(prevMonth.revenue)>0?((mrr-parseFloat(prevMonth.revenue))/parseFloat(prevMonth.revenue)*100):0;
+
+  // Revenue growth rates for all months
+  var growthRates=[];
+  for(var g=1;g<validMonths.length;g++){
+    var prev=parseFloat(validMonths[g-1].revenue);
+    var curr=parseFloat(validMonths[g].revenue);
+    if(prev>0)growthRates.push(((curr-prev)/prev)*100);
+  }
+  var avgGrowth=growthRates.length?growthRates.reduce(function(a,b){return a+b},0)/growthRates.length:0;
+
+  // Churn rates for all months
+  var churnRates=[];
+  for(var c=1;c<validMonths.length;c++){
+    var pTotal=parseFloat(validMonths[c-1].totalCust)||1;
+    var ch=parseFloat(validMonths[c].churned)||0;
+    churnRates.push((ch/pTotal)*100);
+  }
+
+  // Benchmarks
+  function getBenchmark(metric,val){
+    var benchmarks={
+      mrr_growth:{healthy:15,warning:5,unit:'%/mo'},
+      churn:{healthy:3,warning:7,unit:'%',invert:true},
+      ltv_cac:{healthy:3,warning:1.5,unit:'x'},
+      payback:{healthy:12,warning:18,unit:'mo',invert:true},
+      gross_margin:{healthy:70,warning:50,unit:'%'}
+    };
+    var b=benchmarks[metric];
+    if(!b)return{status:'healthy',text:'Good'};
+    if(b.invert){
+      if(val<=b.healthy)return{status:'healthy',text:'Healthy (< '+b.healthy+b.unit+')'};
+      if(val<=b.warning)return{status:'warning',text:'Watch (< '+b.warning+b.unit+')'};
+      return{status:'critical',text:'Critical (> '+b.warning+b.unit+')'};
+    } else {
+      if(val>=b.healthy)return{status:'healthy',text:'Healthy (> '+b.healthy+b.unit+')'};
+      if(val>=b.warning)return{status:'warning',text:'Moderate'};
+      return{status:'critical',text:'Below benchmark'};
+    }
+  }
+
+  var mrrBench=getBenchmark('mrr_growth',mrrGrowth);
+  var churnBench=getBenchmark('churn',churnRate);
+  var ltvCacBench=getBenchmark('ltv_cac',ltvCacRatio);
+  var paybackBench=getBenchmark('payback',paybackMonths);
+  var marginBench=getBenchmark('gross_margin',grossMargin*100);
+
+  var html='';
+  html+='<div class="metric-card '+mrrBench.status+'"><div class="metric-label">MRR</div><div class="metric-value">$'+formatNum(mrr)+'</div><div class="metric-benchmark benchmark-'+mrrBench.status+'">'+mrrGrowth.toFixed(1)+'% MoM</div></div>';
+  html+='<div class="metric-card '+mrrBench.status+'"><div class="metric-label">ARR</div><div class="metric-value">$'+formatNum(arr)+'</div><div class="metric-benchmark benchmark-'+mrrBench.status+'">'+mrrBench.text+'</div></div>';
+  html+='<div class="metric-card '+churnBench.status+'"><div class="metric-label">Monthly Churn</div><div class="metric-value">'+churnRate.toFixed(1)+'%</div><div class="metric-benchmark benchmark-'+churnBench.status+'">'+churnBench.text+'</div></div>';
+  html+='<div class="metric-card '+(ltvCacBench.status)+'"><div class="metric-label">LTV</div><div class="metric-value">$'+formatNum(ltv)+'</div><div class="metric-benchmark benchmark-'+ltvCacBench.status+'">Avg life: '+avgLifetimeMonths.toFixed(0)+' mo</div></div>';
+  html+='<div class="metric-card '+(cac>0?ltvCacBench.status:'healthy')+'"><div class="metric-label">CAC</div><div class="metric-value">$'+formatNum(cac)+'</div><div class="metric-benchmark benchmark-'+(cac>0?'healthy':'warning')+'">'+(cac>0?'Per customer':'Enter spend data')+'</div></div>';
+  html+='<div class="metric-card '+ltvCacBench.status+'"><div class="metric-label">LTV:CAC Ratio</div><div class="metric-value">'+ltvCacRatio.toFixed(1)+'x</div><div class="metric-benchmark benchmark-'+ltvCacBench.status+'">'+ltvCacBench.text+'</div></div>';
+  html+='<div class="metric-card '+paybackBench.status+'"><div class="metric-label">Payback Period</div><div class="metric-value">'+paybackMonths.toFixed(1)+'</div><div class="metric-benchmark benchmark-'+paybackBench.status+'">months | '+paybackBench.text+'</div></div>';
+  html+='<div class="metric-card '+marginBench.status+'"><div class="metric-label">Gross Margin</div><div class="metric-value">'+(grossMargin*100).toFixed(0)+'%</div><div class="metric-benchmark benchmark-'+marginBench.status+'">'+marginBench.text+'</div></div>';
+
+  document.getElementById('metricsGrid').innerHTML=html;
+
+  // MRR Chart
+  drawMRRChart(validMonths);
+  // Churn Chart
+  drawChurnChart(churnRates);
+
+  // Summary
+  var summary='SaaS METRICS SUMMARY\n';
+  summary+='====================\n';
+  summary+='MRR: $'+formatNum(mrr)+' | ARR: $'+formatNum(arr)+'\n';
+  summary+='MRR Growth: '+mrrGrowth.toFixed(1)+'% MoM | Avg Growth: '+avgGrowth.toFixed(1)+'% MoM\n';
+  summary+='Monthly Churn: '+churnRate.toFixed(1)+'% | Avg Lifetime: '+avgLifetimeMonths.toFixed(0)+' months\n';
+  summary+='LTV: $'+formatNum(ltv)+' | CAC: $'+formatNum(cac)+'\n';
+  summary+='LTV:CAC Ratio: '+ltvCacRatio.toFixed(1)+'x | Payback: '+paybackMonths.toFixed(1)+' months\n';
+  summary+='Gross Margin: '+(grossMargin*100).toFixed(0)+'%\n';
+  summary+='Total Customers: '+totalCust+'\n\n';
+  summary+='HEALTH CHECK\n';
+  summary+='============\n';
+  summary+=(mrrBench.status==='healthy'?'[OK]':'[!!]')+' MRR Growth: '+mrrBench.text+'\n';
+  summary+=(churnBench.status==='healthy'?'[OK]':'[!!]')+' Churn Rate: '+churnBench.text+'\n';
+  summary+=(ltvCacBench.status==='healthy'?'[OK]':'[!!]')+' LTV:CAC: '+ltvCacBench.text+'\n';
+  summary+=(paybackBench.status==='healthy'?'[OK]':'[!!]')+' Payback: '+paybackBench.text+'\n';
+
+  document.getElementById('summaryText').textContent=summary;
+  document.getElementById('summarySection').style.display='block';
+  document.getElementById('results').classList.add('show');
+  document.getElementById('results').scrollIntoView({behavior:'smooth'});
+
+  saveData();
+  if(typeof gtag==='function')gtag('event','metrics_calculated',{tool:'saas-metrics-dashboard',mrr:mrr,churn:churnRate});
+}
+
+function drawMRRChart(data){
+  var svg=document.getElementById('mrrSvg');
+  var values=data.map(function(m){return parseFloat(m.revenue)||0});
+  var maxVal=Math.max.apply(null,values)*1.1;
+  var minVal=0;
+  var w=800,h=250,pad=50;
+  var plotW=w-pad*2,plotH=h-pad*2;
+  var stepX=plotW/(values.length-1||1);
+
+  var path='';
+  var area='M '+pad+' '+(h-pad);
+  var dots='';
+  values.forEach(function(v,i){
+    var x=pad+i*stepX;
+    var y=h-pad-((v-minVal)/(maxVal-minVal))*plotH;
+    if(i===0){path+='M '+x+' '+y;area+=' L '+x+' '+y}
+    else{path+=' L '+x+' '+y;area+=' L '+x+' '+y}
+    dots+='<circle cx="'+x+'" cy="'+y+'" r="4" fill="#ffd700" stroke="#0d1117" stroke-width="2"/>';
+    dots+='<text x="'+x+'" y="'+(y-12)+'" fill="#8b949e" font-size="10" text-anchor="middle">$'+formatNum(v)+'</text>';
+    dots+='<text x="'+x+'" y="'+(h-pad+18)+'" fill="#8b949e" font-size="10" text-anchor="middle">'+getMonthLabel(i)+'</text>';
+  });
+  area+=' L '+(pad+(values.length-1)*stepX)+' '+(h-pad)+' Z';
+
+  svg.innerHTML='<defs><linearGradient id="mrrGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ffd700" stop-opacity="0.3"/><stop offset="100%" stop-color="#ffd700" stop-opacity="0.02"/></linearGradient></defs>';
+  svg.innerHTML+='<path d="'+area+'" fill="url(#mrrGrad)"/>';
+  svg.innerHTML+='<path d="'+path+'" fill="none" stroke="#ffd700" stroke-width="2.5" stroke-linecap="round"/>';
+  svg.innerHTML+=dots;
+
+  document.getElementById('mrrChart').style.display='block';
+}
+
+function drawChurnChart(rates){
+  if(rates.length<1)return;
+  var svg=document.getElementById('churnSvg');
+  var maxVal=Math.max.apply(null,rates.concat([5]))*1.2;
+  var w=800,h=200,pad=50;
+  var plotW=w-pad*2,plotH=h-pad*2;
+  var barW=Math.min(40,plotW/rates.length-8);
+
+  var html='';
+  // Danger line at 5%
+  var dangerY=h-pad-(5/maxVal)*plotH;
+  html+='<line x1="'+pad+'" y1="'+dangerY+'" x2="'+(w-pad)+'" y2="'+dangerY+'" stroke="#f85149" stroke-width="1" stroke-dasharray="6,3"/>';
+  html+='<text x="'+(w-pad+5)+'" y="'+(dangerY+4)+'" fill="#f85149" font-size="10">5%</text>';
+
+  rates.forEach(function(r,i){
+    var x=pad+i*(plotW/rates.length)+plotW/rates.length/2-barW/2;
+    var barH=(r/maxVal)*plotH;
+    var y=h-pad-barH;
+    var color=r<=3?'#39d353':r<=5?'#ffd700':'#f85149';
+    html+='<rect x="'+x+'" y="'+y+'" width="'+barW+'" height="'+barH+'" rx="4" fill="'+color+'" opacity="0.8"/>';
+    html+='<text x="'+(x+barW/2)+'" y="'+(y-6)+'" fill="#8b949e" font-size="10" text-anchor="middle">'+r.toFixed(1)+'%</text>';
+    html+='<text x="'+(x+barW/2)+'" y="'+(h-pad+15)+'" fill="#8b949e" font-size="9" text-anchor="middle">M'+(i+2)+'</text>';
+  });
+  svg.innerHTML=html;
+  document.getElementById('churnChart').style.display='block';
+}
+
+function formatNum(n){
+  if(n>=1000000)return(n/1000000).toFixed(1)+'M';
+  if(n>=1000)return(n/1000).toFixed(1)+'K';
+  return Math.round(n).toLocaleString();
+}
+
+function exportCSV(){
+  var rows=['Month,Revenue,New Customers,Churned,Total Customers'];
+  months.forEach(function(m,i){
+    if(parseFloat(m.revenue)>0){
+      rows.push(getMonthLabel(i)+','+(m.revenue||0)+','+(m.newCust||0)+','+(m.churned||0)+','+(m.totalCust||0));
+    }
+  });
+  var blob=new Blob([rows.join('\n')],{type:'text/csv'});
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='saas-metrics-export.csv';
+  a.click();
+}
+
+function copySummary(){
+  var text=document.getElementById('summaryText').textContent;
+  navigator.clipboard.writeText(text).then(function(){
+    alert('Summary copied to clipboard!');
+  });
+}
+
+function clearAll(){
+  months=[];
+  for(var i=0;i<6;i++)months.push({revenue:'',newCust:'',churned:'',totalCust:''});
+  document.getElementById('marketingSpend').value='';
+  document.getElementById('salesSpend').value='';
+  document.getElementById('arpu').value='';
+  document.getElementById('grossMargin').value='80';
+  document.getElementById('results').classList.remove('show');
+  renderMonths();
+  localStorage.removeItem(STORAGE_KEY);
+}
+
+function shareX(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Just calculated my SaaS metrics with this free dashboard from @SpunkArt13. Use code SPUNK to unlock.')+'&url='+encodeURIComponent('https://spunk.codes/exclusive-tools'),'_blank')}
+function shareReddit(){window.open('https://www.reddit.com/submit?url='+encodeURIComponent('https://spunk.codes/exclusive-tools')+'&title='+encodeURIComponent('Free SaaS Metrics Dashboard - use code SPUNK to unlock [spunk.codes]'),'_blank')}
+function shareEmail(){window.location.href='mailto:?subject='+encodeURIComponent('Free SaaS Metrics Dashboard')+'&body='+encodeURIComponent('Check out this SaaS metrics dashboard tool. Use code SPUNK to unlock it: https://spunk.codes/exclusive-tools')}
+
+loadSaved();
+</script>
+
+<!-- GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<!-- Clarity -->
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+</body>
+</html>

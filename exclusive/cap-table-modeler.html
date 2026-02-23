@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cap Table Modeler - Exclusive Premium Tool | SPUNK.CODES</title>
+<meta name="description" content="Model cap tables with founders, investors, option pools, dilution modeling through funding rounds, and SVG pie charts. Exclusive premium tool.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Cap Table Modeler - SPUNK.CODES Exclusive">
+<meta property="og:description" content="Model your cap table and dilution through funding rounds. Unlock with code SPUNK.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://spunk.codes/exclusive/cap-table-modeler">
+<meta property="og:site_name" content="SPUNK.CODES">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/cap-table-modeler">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0d1117;--card:rgba(22,27,34,0.8);--border:rgba(48,54,61,0.6);--gold:#ffd700;--gold-dim:rgba(255,215,0,0.15);--gold-border:rgba(255,215,0,0.3);--text:#e6edf3;--text-dim:#8b949e;--blue:#58a6ff;--cyan:#39d353;--red:#f85149;--orange:#ff8c00;--font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+a{color:var(--blue);text-decoration:none}a:hover{color:#fff}
+.bg-mesh{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 80% 50% at 20% 20%,rgba(255,215,0,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(255,140,0,0.04) 0%,transparent 60%),var(--bg)}
+.bg-grid{position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,215,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,215,0,0.03) 1px,transparent 1px);background-size:60px 60px}
+.nav{position:sticky;top:0;z-index:100;background:rgba(13,17,23,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,215,0,0.15);padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}.nav-brand{font-weight:800;font-size:1.1rem;color:var(--gold);letter-spacing:0.08em}.nav-links{display:flex;gap:1.5rem;font-size:0.85rem;list-style:none}.nav-links a{color:var(--text-dim);transition:color 0.2s;font-weight:500}.nav-links a:hover{color:#fff}.nav-links a.active{color:var(--gold)}
+.lock-gate{position:fixed;inset:0;z-index:1000;background:rgba(13,17,23,0.97);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:2rem}.lock-gate.hidden{display:none}.lock-icon-big{font-size:4rem;margin-bottom:0.5rem}.lock-gate h2{font-size:1.8rem;font-weight:800;text-align:center}.lock-gate h2 span{color:var(--gold)}.lock-gate p{color:var(--text-dim);text-align:center;max-width:400px}.code-input-wrap{display:flex;gap:0.5rem;margin-top:0.5rem}.code-input{padding:0.8rem 1.5rem;background:rgba(22,27,34,0.8);border:2px solid var(--gold-border);border-radius:12px;color:var(--gold);font-size:1.2rem;font-weight:800;letter-spacing:3px;text-align:center;width:200px;outline:none;text-transform:uppercase;font-family:var(--font)}.code-input:focus{border-color:var(--gold);box-shadow:0 0 20px rgba(255,215,0,0.2)}.code-submit{padding:0.8rem 1.5rem;background:linear-gradient(135deg,#ffd700,#ff8c00);border:none;border-radius:12px;color:#000;font-size:1rem;font-weight:800;cursor:pointer;transition:all 0.3s}.code-submit:hover{transform:scale(1.05)}.code-error{color:#f85149;font-size:0.85rem;min-height:1.2em}.lock-hint{color:var(--text-dim);font-size:0.8rem;margin-top:1rem}.lock-hint a{color:var(--gold)}
+.exclusive-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;background:linear-gradient(135deg,rgba(255,215,0,0.15),rgba(255,140,0,0.15));border:1px solid var(--gold-border);border-radius:100px;font-size:11px;font-weight:800;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase}
+.main{max-width:950px;margin:0 auto;padding:2rem}
+.hero-section{text-align:center;padding:2rem 0 3rem}.hero-section h1{font-size:2.2rem;font-weight:800;margin:1rem 0 0.5rem}.hero-section h1 .gold{background:linear-gradient(135deg,#ffd700,#ff8c00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}.hero-section p{color:var(--text-dim);max-width:600px;margin:0 auto}
+.tool-section{background:var(--card);border:1px solid var(--gold-border);border-radius:16px;padding:2rem;margin-bottom:1.5rem;backdrop-filter:blur(10px);position:relative;overflow:hidden}.tool-section::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),#ff8c00,var(--gold))}.tool-section h2{font-size:1.2rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}.tool-section h2 .icon{font-size:1.4rem}
+label{font-size:0.85rem;color:var(--text-dim);font-weight:600;display:block;margin-bottom:0.4rem}
+input,select{width:100%;padding:0.75rem 1rem;background:rgba(13,17,23,0.6);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:0.9rem;font-family:var(--font);outline:none;transition:border-color 0.2s}input:focus,select:focus{border-color:var(--gold)}
+.input-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}.input-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem}.input-group{margin-bottom:1rem}
+.btn{padding:0.75rem 2rem;border:none;border-radius:10px;font-size:0.9rem;font-weight:700;cursor:pointer;transition:all 0.2s;font-family:var(--font)}.btn-gold{background:linear-gradient(135deg,#ffd700,#ff8c00);color:#000}.btn-gold:hover{transform:translateY(-2px);box-shadow:0 4px 20px rgba(255,215,0,0.3)}.btn-outline{background:transparent;border:1px solid var(--border);color:var(--text-dim)}.btn-outline:hover{border-color:var(--gold);color:var(--gold)}.btn-sm{padding:0.5rem 1rem;font-size:0.8rem}.btn-row{display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:1rem}
+.result-box{background:rgba(255,215,0,0.05);border:1px solid var(--gold-border);border-radius:12px;padding:1.5rem;margin-top:1.5rem;display:none}.result-box.show{display:block}
+.holder-row{display:grid;grid-template-columns:1.5fr 0.8fr 0.8fr auto;gap:0.5rem;align-items:center;margin-bottom:0.5rem;font-size:0.85rem}
+.holder-row input{padding:0.5rem;font-size:0.85rem}
+.holder-row.header{font-weight:700;color:var(--gold);font-size:0.75rem;text-transform:uppercase;letter-spacing:0.5px}
+.remove-btn{background:none;border:none;color:var(--red);cursor:pointer;font-size:1.1rem;padding:0 6px;opacity:0.5}.remove-btn:hover{opacity:1}
+.round-section{background:rgba(13,17,23,0.4);border:1px solid var(--border);border-radius:12px;padding:1.5rem;margin-bottom:1rem}
+.round-section h3{font-size:0.95rem;font-weight:700;color:var(--gold);margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}
+.cap-table{width:100%;border-collapse:collapse;font-size:0.85rem;margin-top:1rem}
+.cap-table th{text-align:left;padding:0.6rem;border-bottom:2px solid var(--gold-border);color:var(--gold);font-size:0.72rem;text-transform:uppercase;letter-spacing:0.5px}
+.cap-table td{padding:0.6rem;border-bottom:1px solid rgba(48,54,61,0.3)}
+.cap-table tr:last-child td{border-bottom:2px solid var(--gold-border);font-weight:700}
+.pct-bar{display:flex;align-items:center;gap:0.5rem}.pct-track{width:80px;height:6px;background:rgba(48,54,61,0.5);border-radius:3px;overflow:hidden;flex-shrink:0}.pct-fill{height:100%;border-radius:3px}
+.pie-wrap{text-align:center;margin:1.5rem 0}
+.valuation-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;margin:1rem 0}
+.val-card{background:rgba(13,17,23,0.5);border:1px solid var(--border);border-radius:12px;padding:1rem;text-align:center}.val-card .val{font-size:1.4rem;font-weight:800;color:var(--gold)}.val-card .lbl{font-size:0.7rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px;margin-bottom:0.2rem}
+.summary-text{background:rgba(13,17,23,0.5);border:1px solid var(--border);border-radius:10px;padding:1rem;font-size:0.85rem;color:var(--text-dim);line-height:1.8;white-space:pre-line;margin-top:1rem}
+.share-cta{background:linear-gradient(135deg,rgba(255,215,0,0.08),rgba(255,140,0,0.05));border:1px solid var(--gold-border);border-radius:16px;padding:2rem;text-align:center;margin-top:2rem}.share-cta h3{color:var(--gold);margin-bottom:0.5rem;font-size:1.1rem}.share-cta p{color:var(--text-dim);font-size:0.9rem;margin-bottom:1rem}.share-btns{display:flex;gap:0.6rem;justify-content:center;flex-wrap:wrap}.share-btn{display:inline-flex;align-items:center;gap:0.4rem;padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;color:#fff;transition:all 0.25s}.share-btn:hover{transform:translateY(-2px)}.share-x{background:#000;border:1px solid #333}.share-reddit{background:#ff4500}.share-email{background:#21262d;border:1px solid #30363d}
+.footer{text-align:center;padding:2rem;border-top:1px solid rgba(255,215,0,0.1);color:var(--text-dim);font-size:0.75rem;margin-top:3rem}.footer a{color:var(--gold)}.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-bottom:1rem}
+.watermark{position:fixed;bottom:10px;right:10px;font-size:0.6rem;color:rgba(255,215,0,0.08);font-weight:800;pointer-events:none;z-index:9999;letter-spacing:1px;text-transform:uppercase}
+@media(max-width:768px){.main{padding:1rem}.hero-section h1{font-size:1.6rem}.input-grid,.input-grid-3{grid-template-columns:1fr}.nav-links{display:none}.holder-row{grid-template-columns:1fr 1fr auto;font-size:0.78rem}}
+</style>
+</head>
+<body>
+<div class="bg-mesh"></div><div class="bg-grid"></div>
+<div class="lock-gate" id="lockGate"><div class="lock-icon-big">&#128274;</div><h2>Enter Code <span>SPUNK</span> to Unlock</h2><p>This is an exclusive premium tool. Enter the referral code to get instant access.</p><div class="code-input-wrap"><input type="text" class="code-input" id="codeInput" placeholder="CODE" maxlength="10" autocomplete="off"><button class="code-submit" onclick="submitCode()">Unlock</button></div><div class="code-error" id="codeError"></div><div class="lock-hint">Get the code at <a href="https://spunk.codes/exclusive-tools">spunk.codes/exclusive-tools</a></div></div>
+<nav class="nav"><a href="https://spunk.codes" class="nav-brand">SPUNK.CODES</a><div class="nav-links"><a href="/store">Tools</a><a href="/exclusive-tools" class="active">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a></div></nav>
+
+<div class="main">
+  <section class="hero-section">
+    <div class="exclusive-badge">&#128081; EXCLUSIVE TOOL</div>
+    <h1><span class="gold">Cap Table</span> Modeler</h1>
+    <p>Add founders, investors, and option pools. Model dilution through Pre-seed, Seed, and Series A rounds with pie chart visualization.</p>
+  </section>
+
+  <div class="tool-section">
+    <h2><span class="icon">&#128101;</span> Founding Cap Table</h2>
+    <p style="color:var(--text-dim);font-size:0.85rem;margin-bottom:1rem">Enter shares for each founder and an option pool.</p>
+    <div class="holder-row header"><div>Name</div><div>Type</div><div>Shares</div><div></div></div>
+    <div id="founderRows"></div>
+    <button class="btn btn-outline btn-sm" onclick="addFounder()">+ Add Holder</button>
+  </div>
+
+  <div class="tool-section">
+    <h2><span class="icon">&#128176;</span> Funding Rounds</h2>
+    <div id="roundsContainer">
+      <div class="round-section" id="round_preseed">
+        <h3>&#128640; Pre-Seed Round</h3>
+        <div class="input-grid-3">
+          <div class="input-group"><label>Investment Amount ($)</label><input type="number" id="preseed_amount" placeholder="250000" value=""></div>
+          <div class="input-group"><label>Pre-Money Valuation ($)</label><input type="number" id="preseed_premoney" placeholder="2000000" value=""></div>
+          <div class="input-group"><label>New Option Pool (%)</label><input type="number" id="preseed_pool" placeholder="10" value="10" min="0" max="50"></div>
+        </div>
+      </div>
+      <div class="round-section" id="round_seed">
+        <h3>&#127793; Seed Round</h3>
+        <div class="input-grid-3">
+          <div class="input-group"><label>Investment Amount ($)</label><input type="number" id="seed_amount" placeholder="2000000" value=""></div>
+          <div class="input-group"><label>Pre-Money Valuation ($)</label><input type="number" id="seed_premoney" placeholder="10000000" value=""></div>
+          <div class="input-group"><label>New Option Pool (%)</label><input type="number" id="seed_pool" placeholder="5" value="5" min="0" max="50"></div>
+        </div>
+      </div>
+      <div class="round-section" id="round_seriesA">
+        <h3>&#128200; Series A</h3>
+        <div class="input-grid-3">
+          <div class="input-group"><label>Investment Amount ($)</label><input type="number" id="seriesa_amount" placeholder="10000000" value=""></div>
+          <div class="input-group"><label>Pre-Money Valuation ($)</label><input type="number" id="seriesa_premoney" placeholder="40000000" value=""></div>
+          <div class="input-group"><label>New Option Pool (%)</label><input type="number" id="seriesa_pool" placeholder="5" value="5" min="0" max="50"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="btn-row" style="justify-content:center;margin-bottom:1.5rem">
+    <button class="btn btn-gold" onclick="model()">&#128640; Model Cap Table</button>
+    <button class="btn btn-outline" onclick="loadExample()">Load Example</button>
+  </div>
+
+  <div class="result-box" id="results">
+    <h3 style="color:var(--gold);font-size:1.1rem;margin-bottom:1rem">&#128202; Cap Table Evolution</h3>
+    <div id="roundResults"></div>
+    <div class="summary-text" id="summaryText"></div>
+    <div class="btn-row"><button class="btn btn-outline btn-sm" onclick="copySummary()">&#128203; Copy Summary</button></div>
+  </div>
+
+  <div class="share-cta"><h3>&#128640; Every fundraising founder needs this.</h3><p>Share code <strong style="color:var(--gold)">SPUNK</strong> to help others model dilution.</p><div class="share-btns"><button class="share-btn share-x" onclick="shareX()">&#120143; Share on X</button><button class="share-btn share-reddit" onclick="shareReddit()">&#129513; Reddit</button><button class="share-btn share-email" onclick="shareEmail()">&#9993; Email</button></div></div>
+</div>
+
+<footer class="footer"><div class="footer-links"><a href="https://spunk.codes">Home</a><a href="/store">Tools</a><a href="/exclusive-tools">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a><a href="https://x.com/SpunkArt13" target="_blank">@SpunkArt13</a></div><p>&copy; 2026 SPUNK.CODES. All rights reserved.</p></footer>
+<div class="watermark">SPUNK.CODES EXCLUSIVE</div>
+
+<script>document.addEventListener('contextmenu',function(e){e.preventDefault()});document.addEventListener('keydown',function(e){if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&e.key==='I')||(e.ctrlKey&&e.key==='u'))e.preventDefault()});</script>
+<script>
+function checkAccess(){var c=localStorage.getItem('spunk_referral_code')||localStorage.getItem('spunk_ref_code');if(c&&c.toUpperCase()==='SPUNK')document.getElementById('lockGate').classList.add('hidden')}
+function submitCode(){var v=document.getElementById('codeInput').value.trim().toUpperCase();if(v==='SPUNK'){localStorage.setItem('spunk_referral_code',v);localStorage.setItem('spunk_ref_code',v);document.getElementById('lockGate').classList.add('hidden');if(typeof gtag==='function')gtag('event','exclusive_unlock',{tool:'cap-table-modeler'})}else{document.getElementById('codeError').textContent='Invalid code. Try again.'}}
+document.getElementById('codeInput').addEventListener('keydown',function(e){if(e.key==='Enter')submitCode()});checkAccess();
+</script>
+
+<script>
+var STORAGE_KEY='spunk_cap_table';
+var pieColors=['#ffd700','#ff8c00','#58a6ff','#bc8cff','#39d353','#f85149','#e3b341','#388bfd','#da3633','#2ea043','#8b5cf6','#ef4444'];
+
+function addFounder(name,type,shares){
+  var id=Date.now()+'_'+Math.random().toString(36).substr(2,4);
+  var row=document.createElement('div');row.className='holder-row';row.id='f_'+id;
+  row.innerHTML='<input type="text" value="'+(name||'')+'" placeholder="Name">';
+  row.innerHTML+='<select><option value="Founder"'+(type==='Founder'?' selected':'')+'>Founder</option><option value="Option Pool"'+(type==='Option Pool'?' selected':'')+'>Option Pool</option><option value="Advisor"'+(type==='Advisor'?' selected':'')+'>Advisor</option><option value="Angel"'+(type==='Angel'?' selected':'')+'>Angel</option></select>';
+  row.innerHTML+='<input type="number" value="'+(shares||'')+'" placeholder="Shares">';
+  row.innerHTML+='<button class="remove-btn" onclick="this.parentElement.remove()">&#10005;</button>';
+  document.getElementById('founderRows').appendChild(row);
+}
+
+function getFounders(){
+  var holders=[];
+  document.querySelectorAll('#founderRows .holder-row').forEach(function(row){
+    var inputs=row.querySelectorAll('input');
+    var sel=row.querySelector('select');
+    var name=inputs[0].value.trim();var shares=parseFloat(inputs[1].value)||0;
+    if(name||shares>0)holders.push({name:name||'Unnamed',type:sel.value,shares:shares});
+  });
+  return holders;
+}
+
+function loadSaved(){
+  try{
+    var s=JSON.parse(localStorage.getItem(STORAGE_KEY));
+    if(s&&s.founders&&s.founders.length){
+      s.founders.forEach(function(f){addFounder(f.name,f.type,f.shares)});
+      ['preseed_amount','preseed_premoney','preseed_pool','seed_amount','seed_premoney','seed_pool','seriesa_amount','seriesa_premoney','seriesa_pool'].forEach(function(id){
+        if(s[id]!==undefined){var el=document.getElementById(id);if(el)el.value=s[id]}
+      });
+      return;
+    }
+  }catch(e){}
+  addFounder('Founder 1','Founder','6000000');
+  addFounder('Founder 2','Founder','4000000');
+  addFounder('Option Pool','Option Pool','1000000');
+}
+
+function loadExample(){
+  document.getElementById('founderRows').innerHTML='';
+  addFounder('Alice (CEO)','Founder','5000000');
+  addFounder('Bob (CTO)','Founder','3000000');
+  addFounder('Carol (COO)','Founder','2000000');
+  addFounder('Option Pool','Option Pool','1000000');
+  addFounder('Angel Investor','Angel','500000');
+  document.getElementById('preseed_amount').value='300000';
+  document.getElementById('preseed_premoney').value='2500000';
+  document.getElementById('preseed_pool').value='10';
+  document.getElementById('seed_amount').value='2500000';
+  document.getElementById('seed_premoney').value='12000000';
+  document.getElementById('seed_pool').value='5';
+  document.getElementById('seriesa_amount').value='12000000';
+  document.getElementById('seriesa_premoney').value='45000000';
+  document.getElementById('seriesa_pool').value='5';
+}
+
+function formatMoney(n){if(n>=1e9)return'$'+(n/1e9).toFixed(1)+'B';if(n>=1e6)return'$'+(n/1e6).toFixed(1)+'M';if(n>=1e3)return'$'+(n/1e3).toFixed(0)+'K';return'$'+n.toFixed(0)}
+
+function model(){
+  var founders=getFounders();
+  if(founders.length<1){alert('Add at least one shareholder.');return}
+  var totalShares=founders.reduce(function(s,f){return s+f.shares},0);
+  if(totalShares<=0){alert('Total shares must be greater than 0.');return}
+
+  var rounds=[
+    {name:'Pre-Seed',amount:parseFloat(document.getElementById('preseed_amount').value)||0,premoney:parseFloat(document.getElementById('preseed_premoney').value)||0,pool:(parseFloat(document.getElementById('preseed_pool').value)||0)/100},
+    {name:'Seed',amount:parseFloat(document.getElementById('seed_amount').value)||0,premoney:parseFloat(document.getElementById('seed_premoney').value)||0,pool:(parseFloat(document.getElementById('seed_pool').value)||0)/100},
+    {name:'Series A',amount:parseFloat(document.getElementById('seriesa_amount').value)||0,premoney:parseFloat(document.getElementById('seriesa_premoney').value)||0,pool:(parseFloat(document.getElementById('seriesa_pool').value)||0)/100}
+  ];
+
+  var results=[];
+  var currentHolders=founders.map(function(f){return{name:f.name,type:f.type,shares:f.shares}});
+  var currentTotal=totalShares;
+
+  // Pre-round cap table
+  results.push({title:'Founding Cap Table',holders:currentHolders.map(function(h){return{name:h.name,type:h.type,shares:h.shares,pct:(h.shares/currentTotal*100)}}),totalShares:currentTotal,valuation:null,postMoney:null});
+
+  rounds.forEach(function(round){
+    if(round.amount<=0||round.premoney<=0)return;
+
+    // New option pool (created before the round, dilutes existing holders)
+    if(round.pool>0){
+      var poolShares=Math.round(currentTotal*round.pool/(1-round.pool));
+      currentHolders.push({name:'New Pool ('+round.name+')',type:'Option Pool',shares:poolShares});
+      currentTotal+=poolShares;
+    }
+
+    // Investment
+    var postMoney=round.premoney+round.amount;
+    var investorPct=round.amount/postMoney;
+    var newShares=Math.round(currentTotal*investorPct/(1-investorPct));
+    currentHolders.push({name:round.name+' Investor',type:'Investor',shares:newShares});
+    currentTotal+=newShares;
+    var pricePerShare=postMoney/currentTotal;
+
+    results.push({
+      title:'After '+round.name,
+      holders:currentHolders.map(function(h){return{name:h.name,type:h.type,shares:h.shares,pct:(h.shares/currentTotal*100),value:h.shares*pricePerShare}}),
+      totalShares:currentTotal,
+      valuation:round.premoney,
+      postMoney:postMoney,
+      raised:round.amount,
+      pricePerShare:pricePerShare
+    });
+  });
+
+  // Render results
+  var html='';
+  results.forEach(function(result,ri){
+    html+='<div style="margin-bottom:2rem">';
+    html+='<h3 style="color:var(--gold);font-size:1rem;margin-bottom:0.5rem">'+result.title+'</h3>';
+
+    if(result.valuation){
+      html+='<div class="valuation-grid">';
+      html+='<div class="val-card"><div class="lbl">Pre-Money</div><div class="val">'+formatMoney(result.valuation)+'</div></div>';
+      html+='<div class="val-card"><div class="lbl">Post-Money</div><div class="val">'+formatMoney(result.postMoney)+'</div></div>';
+      html+='<div class="val-card"><div class="lbl">Raised</div><div class="val">'+formatMoney(result.raised)+'</div></div>';
+      html+='<div class="val-card"><div class="lbl">Price/Share</div><div class="val">$'+result.pricePerShare.toFixed(4)+'</div></div>';
+      html+='</div>';
+    }
+
+    // Pie chart
+    html+='<div class="pie-wrap"><svg width="280" height="280" viewBox="0 0 280 280">';
+    var cx=140,cy=140,r=120;var startAngle=-Math.PI/2;
+    result.holders.forEach(function(h,hi){
+      var angle=(h.pct/100)*2*Math.PI;
+      var endAngle=startAngle+angle;
+      var large=angle>Math.PI?1:0;
+      var x1=cx+r*Math.cos(startAngle),y1=cy+r*Math.sin(startAngle);
+      var x2=cx+r*Math.cos(endAngle),y2=cy+r*Math.sin(endAngle);
+      if(h.pct>0.5){
+        html+='<path d="M'+cx+' '+cy+' L'+x1+' '+y1+' A'+r+' '+r+' 0 '+large+' 1 '+x2+' '+y2+' Z" fill="'+pieColors[hi%pieColors.length]+'" opacity="0.85"/>';
+        if(h.pct>3){
+          var midAngle=startAngle+angle/2;var tx=cx+(r*0.65)*Math.cos(midAngle),ty=cy+(r*0.65)*Math.sin(midAngle);
+          html+='<text x="'+tx+'" y="'+ty+'" fill="#fff" font-size="9" font-weight="700" text-anchor="middle">'+h.pct.toFixed(1)+'%</text>';
+        }
+      }
+      startAngle=endAngle;
+    });
+    html+='</svg></div>';
+
+    // Table
+    html+='<table class="cap-table"><thead><tr><th>Holder</th><th>Type</th><th>Shares</th><th>Ownership</th>'+(result.valuation?'<th>Value</th>':'')+'</tr></thead><tbody>';
+    result.holders.forEach(function(h,hi){
+      html+='<tr><td><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:'+pieColors[hi%pieColors.length]+';margin-right:6px"></span>'+h.name+'</td><td>'+h.type+'</td><td>'+h.shares.toLocaleString()+'</td>';
+      html+='<td><div class="pct-bar"><div class="pct-track"><div class="pct-fill" style="width:'+Math.min(100,h.pct)+'%;background:'+pieColors[hi%pieColors.length]+'"></div></div>'+h.pct.toFixed(1)+'%</div></td>';
+      if(result.valuation)html+='<td>'+formatMoney(h.value)+'</td>';
+      html+='</tr>';
+    });
+    html+='<tr><td><strong>Total</strong></td><td></td><td><strong>'+result.totalShares.toLocaleString()+'</strong></td><td><strong>100%</strong></td>';
+    if(result.valuation)html+='<td><strong>'+formatMoney(result.postMoney)+'</strong></td>';
+    html+='</tr></tbody></table></div>';
+  });
+
+  document.getElementById('roundResults').innerHTML=html;
+
+  // Summary
+  var summary='CAP TABLE SUMMARY\n==================\n\n';
+  results.forEach(function(r){
+    summary+=r.title+'\n'+'-'.repeat(25)+'\n';
+    if(r.valuation)summary+='Pre-Money: '+formatMoney(r.valuation)+' | Post-Money: '+formatMoney(r.postMoney)+' | Raised: '+formatMoney(r.raised)+'\n';
+    r.holders.forEach(function(h){summary+=h.name+': '+h.pct.toFixed(1)+'% ('+h.shares.toLocaleString()+' shares)\n'});
+    summary+='\n';
+  });
+
+  // Show dilution for original founders
+  var origNames=founders.filter(function(f){return f.type==='Founder'}).map(function(f){return f.name});
+  if(results.length>1){
+    summary+='FOUNDER DILUTION\n================\n';
+    origNames.forEach(function(name){
+      var first=results[0].holders.find(function(h){return h.name===name});
+      var last=results[results.length-1].holders.find(function(h){return h.name===name});
+      if(first&&last)summary+=name+': '+first.pct.toFixed(1)+'% -> '+last.pct.toFixed(1)+'% (diluted '+(first.pct-last.pct).toFixed(1)+'pp)\n';
+    });
+  }
+
+  document.getElementById('summaryText').textContent=summary;
+  document.getElementById('results').classList.add('show');
+  document.getElementById('results').scrollIntoView({behavior:'smooth'});
+
+  // Save
+  var saveData={founders:getFounders()};
+  ['preseed_amount','preseed_premoney','preseed_pool','seed_amount','seed_premoney','seed_pool','seriesa_amount','seriesa_premoney','seriesa_pool'].forEach(function(id){saveData[id]=document.getElementById(id).value});
+  localStorage.setItem(STORAGE_KEY,JSON.stringify(saveData));
+  if(typeof gtag==='function')gtag('event','cap_table_modeled',{tool:'cap-table-modeler'});
+}
+
+function copySummary(){navigator.clipboard.writeText(document.getElementById('summaryText').textContent).then(function(){alert('Cap table copied!')})}
+function shareX(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Modeled my cap table with this free tool from @SpunkArt13. Code SPUNK.')+'&url='+encodeURIComponent('https://spunk.codes/exclusive-tools'),'_blank')}
+function shareReddit(){window.open('https://www.reddit.com/submit?url='+encodeURIComponent('https://spunk.codes/exclusive-tools')+'&title='+encodeURIComponent('Free Cap Table Modeler [spunk.codes]'),'_blank')}
+function shareEmail(){window.location.href='mailto:?subject='+encodeURIComponent('Free Cap Table Tool')+'&body='+encodeURIComponent('Model your cap table: https://spunk.codes/exclusive-tools (code: SPUNK)')}
+
+loadSaved();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+</body>
+</html>

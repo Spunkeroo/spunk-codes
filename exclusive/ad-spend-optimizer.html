@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ad Spend Optimizer - Campaign ROI &amp; Budget Reallocation | SPUNK.CODES Exclusive</title>
+<meta name="description" content="Optimize ad spend across campaigns. Calculate CPC, CPM, CPA, ROAS, identify top performers, and simulate budget reallocation. Exclusive premium tool.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Ad Spend Optimizer - SPUNK.CODES Exclusive">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/ad-spend-optimizer">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0d1117;--card:rgba(22,27,34,0.8);--border:rgba(48,54,61,0.6);--gold:#ffd700;--gold-border:rgba(255,215,0,0.3);--text:#e6edf3;--text-dim:#8b949e;--blue:#58a6ff;--cyan:#39d353;--red:#f85149;--orange:#ff8c00;--font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+a{color:var(--blue);text-decoration:none}
+.bg-mesh{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 80% 50% at 20% 20%,rgba(255,215,0,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(255,140,0,0.04) 0%,transparent 60%),var(--bg)}
+.bg-grid{position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,215,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,215,0,0.03) 1px,transparent 1px);background-size:60px 60px}
+.nav{position:sticky;top:0;z-index:100;background:rgba(13,17,23,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,215,0,0.15);padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}
+.nav-brand{font-weight:800;font-size:1.1rem;color:var(--gold);letter-spacing:0.08em}
+.nav-links{display:flex;gap:1.5rem;font-size:0.85rem}.nav-links a{color:var(--text-dim);font-weight:500}.nav-links a.active{color:var(--gold)}
+.lock-gate{position:fixed;inset:0;z-index:1000;background:rgba(13,17,23,0.97);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:2rem}
+.lock-gate.hidden{display:none}
+.lock-icon-big{font-size:4rem}.lock-gate h2{font-size:1.8rem;font-weight:800;text-align:center}.lock-gate h2 span{color:var(--gold)}.lock-gate p{color:var(--text-dim);text-align:center;max-width:400px}
+.code-input-wrap{display:flex;gap:0.5rem}
+.code-input{padding:0.8rem 1.5rem;background:rgba(22,27,34,0.8);border:2px solid var(--gold-border);border-radius:12px;color:var(--gold);font-size:1.2rem;font-weight:800;letter-spacing:3px;text-align:center;width:200px;outline:none;text-transform:uppercase;font-family:var(--font)}
+.code-input:focus{border-color:var(--gold);box-shadow:0 0 20px rgba(255,215,0,0.2)}
+.code-submit{padding:0.8rem 1.5rem;background:linear-gradient(135deg,#ffd700,#ff8c00);border:none;border-radius:12px;color:#000;font-size:1rem;font-weight:800;cursor:pointer}
+.code-error{color:var(--red);font-size:0.85rem;min-height:1.2em}.lock-hint{color:var(--text-dim);font-size:0.8rem}.lock-hint a{color:var(--gold)}
+.exclusive-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;background:linear-gradient(135deg,rgba(255,215,0,0.15),rgba(255,140,0,0.15));border:1px solid var(--gold-border);border-radius:100px;font-size:11px;font-weight:800;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase}
+.main{max-width:1100px;margin:0 auto;padding:2rem}
+.hero-section{text-align:center;padding:2rem 0 2rem}
+.hero-section h1{font-size:2.2rem;font-weight:800;margin:1rem 0 0.5rem}
+.hero-section h1 .gold{background:linear-gradient(135deg,#ffd700,#ff8c00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-section p{color:var(--text-dim);max-width:600px;margin:0 auto}
+.card{background:var(--card);border:1px solid var(--gold-border);border-radius:16px;padding:1.5rem;margin-bottom:1.5rem;backdrop-filter:blur(10px);position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),#ff8c00,var(--gold))}
+.card h2{font-size:1.1rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}
+.form-row{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr 1fr auto;gap:0.5rem;align-items:end;margin-bottom:0.5rem}
+.form-group{display:flex;flex-direction:column;gap:0.2rem}
+.form-group label{font-size:0.7rem;color:var(--text-dim);font-weight:600}
+.form-group input,.form-group select{padding:0.5rem;background:rgba(13,17,23,0.8);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:0.8rem;font-family:var(--font);outline:none}
+.form-group input:focus{border-color:var(--gold)}
+.btn{padding:0.7rem 1.5rem;border-radius:10px;font-size:0.85rem;font-weight:700;cursor:pointer;border:none;transition:all 0.2s}
+.btn-gold{background:linear-gradient(135deg,#ffd700,#ff8c00);color:#000}
+.btn-gold:hover{transform:translateY(-1px);box-shadow:0 4px 15px rgba(255,215,0,0.3)}
+.btn-outline{background:transparent;border:1px solid var(--gold-border);color:var(--gold)}
+.btn-red{background:rgba(248,81,73,0.15);border:1px solid rgba(248,81,73,0.3);color:var(--red)}
+.btn-sm{padding:0.4rem 0.8rem;font-size:0.75rem}
+.btn-row{display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:1rem}
+.metrics-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:0.8rem;margin:1rem 0}
+.metric-card{text-align:center;padding:0.8rem;background:rgba(22,27,34,0.5);border:1px solid var(--border);border-radius:10px}
+.metric-val{font-size:1.3rem;font-weight:800;color:var(--gold)}
+.metric-lbl{font-size:0.65rem;color:var(--text-dim);margin-top:0.2rem}
+.data-table{width:100%;border-collapse:collapse;font-size:0.75rem}
+.data-table th{text-align:left;padding:0.5rem;color:var(--gold);border-bottom:1px solid var(--gold-border);font-size:0.65rem;text-transform:uppercase;letter-spacing:1px}
+.data-table td{padding:0.5rem;border-bottom:1px solid var(--border)}
+.data-table tr:hover{background:rgba(255,215,0,0.02)}
+.positive{color:var(--cyan)}.negative{color:var(--red)}
+.chart-container{margin:1.5rem 0;overflow-x:auto}
+.platform-badge{display:inline-block;padding:2px 6px;border-radius:4px;font-size:0.65rem;font-weight:700}
+.plat-google{background:rgba(66,133,244,0.15);color:#4285f4}
+.plat-facebook{background:rgba(24,119,242,0.15);color:#1877f2}
+.plat-instagram{background:rgba(225,48,108,0.15);color:#e1306c}
+.plat-tiktok{background:rgba(255,0,80,0.15);color:#ff0050}
+.plat-linkedin{background:rgba(0,119,181,0.15);color:#0077b5}
+.plat-twitter{background:rgba(29,161,242,0.15);color:#1da1f2}
+.plat-youtube{background:rgba(255,0,0,0.15);color:#f00}
+.plat-other{background:rgba(139,148,158,0.15);color:#8b949e}
+.realloc-slider{display:flex;align-items:center;gap:0.5rem;margin:0.3rem 0}
+.realloc-slider input[type=range]{flex:1;accent-color:var(--gold)}
+.realloc-val{min-width:50px;text-align:right;font-weight:700;font-size:0.8rem;color:var(--gold)}
+.share-cta{background:linear-gradient(135deg,rgba(255,215,0,0.08),rgba(255,140,0,0.05));border:1px solid var(--gold-border);border-radius:16px;padding:2rem;text-align:center;margin-top:2rem}
+.share-cta h3{color:var(--gold);margin-bottom:0.5rem}.share-cta p{color:var(--text-dim);font-size:0.9rem;margin-bottom:1rem}
+.share-btns{display:flex;gap:0.6rem;justify-content:center;flex-wrap:wrap}
+.share-btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;color:#fff}
+.share-x{background:#000;border:1px solid #333}.share-reddit{background:#ff4500}.share-email{background:#21262d;border:1px solid #30363d}
+.footer{text-align:center;padding:2rem;border-top:1px solid rgba(255,215,0,0.1);color:var(--text-dim);font-size:0.75rem;margin-top:3rem}
+.footer a{color:var(--gold)}.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-bottom:1rem}
+.watermark{position:fixed;bottom:10px;right:10px;font-size:0.6rem;color:rgba(255,215,0,0.08);font-weight:800;pointer-events:none;z-index:9999;letter-spacing:1px;text-transform:uppercase}
+@media(max-width:768px){.main{padding:1rem}.hero-section h1{font-size:1.6rem}.nav-links{display:none}.form-row{grid-template-columns:1fr 1fr;gap:0.5rem}}
+</style>
+</head>
+<body>
+<div class="bg-mesh"></div><div class="bg-grid"></div>
+<div class="lock-gate" id="lockGate"><div class="lock-icon-big">&#128274;</div><h2>Enter Code <span>SPUNK</span> to Unlock</h2><p>This exclusive premium tool requires the SPUNK referral code.</p><div class="code-input-wrap"><input type="text" class="code-input" id="codeInput" placeholder="CODE" maxlength="10" autocomplete="off"><button class="code-submit" onclick="submitCode()">Unlock</button></div><div class="code-error" id="codeError"></div><div class="lock-hint">Get the code at <a href="https://spunk.codes/exclusive-tools">spunk.codes/exclusive-tools</a></div></div>
+<nav class="nav"><a href="https://spunk.codes" class="nav-brand">SPUNK.CODES</a><div class="nav-links"><a href="/store">Tools</a><a href="/exclusive-tools" class="active">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a></div></nav>
+
+<div class="main">
+  <section class="hero-section">
+    <div class="exclusive-badge">&#128081; EXCLUSIVE TOOL</div>
+    <h1><span class="gold">Ad Spend</span> Optimizer</h1>
+    <p>Analyze campaign performance, calculate key metrics (CPC, CPM, CPA, ROAS), and simulate optimal budget reallocation for maximum ROI.</p>
+  </section>
+
+  <div class="card">
+    <h2>&#128200; Add Campaign</h2>
+    <div class="form-row">
+      <div class="form-group"><label>Campaign Name</label><input type="text" id="cName" placeholder="e.g., Summer Sale"></div>
+      <div class="form-group"><label>Platform</label><select id="cPlatform"><option>Google</option><option>Facebook</option><option>Instagram</option><option>TikTok</option><option>LinkedIn</option><option>Twitter</option><option>YouTube</option><option>Other</option></select></div>
+      <div class="form-group"><label>Spend ($)</label><input type="number" id="cSpend" placeholder="1000" min="0"></div>
+      <div class="form-group"><label>Impressions</label><input type="number" id="cImpressions" placeholder="50000" min="0"></div>
+      <div class="form-group"><label>Clicks</label><input type="number" id="cClicks" placeholder="1500" min="0"></div>
+      <div class="form-group"><label>Conversions</label><input type="number" id="cConversions" placeholder="45" min="0"></div>
+    </div>
+    <div class="form-row" style="grid-template-columns:2fr 1fr 1fr 1fr 1fr 1fr auto">
+      <div></div><div></div>
+      <div class="form-group"><label>Revenue ($)</label><input type="number" id="cRevenue" placeholder="4500" min="0"></div>
+      <div></div><div></div><div></div><div></div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-gold" onclick="addCampaign()">+ Add Campaign</button>
+      <button class="btn btn-outline" onclick="loadSample()">Load Sample Data</button>
+    </div>
+  </div>
+
+  <div class="card" id="summaryCard" style="display:none">
+    <h2>&#127919; Portfolio Summary</h2>
+    <div class="metrics-grid" id="summaryMetrics"></div>
+  </div>
+
+  <div class="card" id="tableCard" style="display:none">
+    <h2>&#128203; Campaign Performance</h2>
+    <div style="overflow-x:auto">
+      <table class="data-table">
+        <thead><tr><th>Campaign</th><th>Platform</th><th>Spend</th><th>CPC</th><th>CPM</th><th>CPA</th><th>ROAS</th><th>CTR</th><th>Conv Rate</th><th></th></tr></thead>
+        <tbody id="campaignBody"></tbody>
+      </table>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-outline" onclick="exportData()">&#128229; Export CSV</button>
+      <button class="btn btn-red" onclick="clearAll()">&#128465; Clear All</button>
+    </div>
+  </div>
+
+  <div class="card" id="chartCard" style="display:none">
+    <h2>&#128202; ROAS Comparison</h2>
+    <div class="chart-container" id="roasChart"></div>
+  </div>
+
+  <div class="card" id="reallocCard" style="display:none">
+    <h2>&#128176; Budget Reallocation Simulator</h2>
+    <p style="font-size:0.8rem;color:var(--text-dim);margin-bottom:1rem">Adjust budget allocation to see projected results. Total budget stays the same.</p>
+    <div id="reallocSliders"></div>
+    <div class="metrics-grid" id="reallocResults" style="margin-top:1rem"></div>
+    <div class="btn-row">
+      <button class="btn btn-gold" onclick="autoOptimize()">&#128640; Auto-Optimize (Max ROAS)</button>
+      <button class="btn btn-outline" onclick="resetAlloc()">Reset to Current</button>
+    </div>
+  </div>
+
+  <div class="share-cta">
+    <h3>&#128275; Share the Code, Unlock Premium Tools</h3>
+    <p>Know a media buyer? Share code SPUNK so they can optimize their ad spend too.</p>
+    <div class="share-btns">
+      <button class="share-btn share-x" onclick="shareX()">&#120143; Share on X</button>
+      <button class="share-btn share-reddit" onclick="shareReddit()">&#128172; Reddit</button>
+      <button class="share-btn share-email" onclick="shareEm()">&#9993; Email</button>
+    </div>
+  </div>
+</div>
+
+<footer class="footer"><div class="footer-links"><a href="https://spunk.codes">Home</a><a href="/store">Tools</a><a href="/exclusive-tools">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a><a href="https://twitter.com/SpunkArt13" target="_blank">@SpunkArt13</a></div><div>&copy; 2026 SPUNK.CODES EXCLUSIVE.</div></footer>
+<div class="watermark">SPUNK.CODES EXCLUSIVE</div>
+
+<script>
+document.addEventListener('contextmenu',function(e){e.preventDefault()});
+document.addEventListener('keydown',function(e){if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'||e.key==='C'))||(e.ctrlKey&&e.key==='u'))e.preventDefault()});
+function checkCode(){try{var c=localStorage.getItem('spunk_referral_code')||localStorage.getItem('spunk_ref_code')||'';if(c.toUpperCase()==='SPUNK'){document.getElementById('lockGate').classList.add('hidden');return true}}catch(e){}return false}
+function submitCode(){var v=document.getElementById('codeInput').value.trim().toUpperCase();if(v==='SPUNK'){try{localStorage.setItem('spunk_referral_code','SPUNK');localStorage.setItem('spunk_ref_code','SPUNK')}catch(e){}document.getElementById('lockGate').classList.add('hidden')}else{document.getElementById('codeError').textContent='Invalid code. Try: SPUNK';setTimeout(function(){document.getElementById('codeError').textContent=''},2000)}}
+document.getElementById('codeInput').addEventListener('keydown',function(e){if(e.key==='Enter')submitCode()});
+checkCode();
+
+var STORAGE_KEY = 'ad_spend_campaigns';
+var allocations = {};
+
+function getCampaigns() { try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); } catch(e) { return []; } }
+function saveCampaigns(c) { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(c)); } catch(e) {} }
+
+function calcMetrics(c) {
+  var cpc = c.clicks > 0 ? c.spend / c.clicks : 0;
+  var cpm = c.impressions > 0 ? (c.spend / c.impressions) * 1000 : 0;
+  var cpa = c.conversions > 0 ? c.spend / c.conversions : 0;
+  var roas = c.spend > 0 ? c.revenue / c.spend : 0;
+  var ctr = c.impressions > 0 ? (c.clicks / c.impressions) * 100 : 0;
+  var convRate = c.clicks > 0 ? (c.conversions / c.clicks) * 100 : 0;
+  return { cpc:cpc, cpm:cpm, cpa:cpa, roas:roas, ctr:ctr, convRate:convRate };
+}
+
+function addCampaign() {
+  var name = document.getElementById('cName').value.trim();
+  if (!name) { alert('Enter campaign name'); return; }
+  var campaign = {
+    id: Date.now(), name: name,
+    platform: document.getElementById('cPlatform').value,
+    spend: parseFloat(document.getElementById('cSpend').value) || 0,
+    impressions: parseInt(document.getElementById('cImpressions').value) || 0,
+    clicks: parseInt(document.getElementById('cClicks').value) || 0,
+    conversions: parseInt(document.getElementById('cConversions').value) || 0,
+    revenue: parseFloat(document.getElementById('cRevenue').value) || 0
+  };
+  var campaigns = getCampaigns();
+  campaigns.push(campaign);
+  saveCampaigns(campaigns);
+  ['cName','cSpend','cImpressions','cClicks','cConversions','cRevenue'].forEach(function(id) { document.getElementById(id).value = ''; });
+  renderAll();
+}
+
+function removeCampaign(id) {
+  saveCampaigns(getCampaigns().filter(function(c) { return c.id !== id; }));
+  renderAll();
+}
+
+function loadSample() {
+  var samples = [
+    { id:1, name:'Google Search - Brand', platform:'Google', spend:2500, impressions:150000, clicks:4500, conversions:180, revenue:18000 },
+    { id:2, name:'Facebook Retargeting', platform:'Facebook', spend:1200, impressions:80000, clicks:2400, conversions:96, revenue:7200 },
+    { id:3, name:'Instagram Stories', platform:'Instagram', spend:800, impressions:120000, clicks:1800, conversions:36, revenue:2700 },
+    { id:4, name:'LinkedIn B2B Ads', platform:'LinkedIn', spend:3000, impressions:40000, clicks:800, conversions:32, revenue:16000 },
+    { id:5, name:'TikTok Awareness', platform:'TikTok', spend:600, impressions:200000, clicks:3000, conversions:15, revenue:1125 },
+    { id:6, name:'YouTube Pre-roll', platform:'YouTube', spend:1500, impressions:100000, clicks:2000, conversions:50, revenue:5000 }
+  ];
+  saveCampaigns(samples);
+  renderAll();
+}
+
+function clearAll() { if (confirm('Clear all campaigns?')) { localStorage.removeItem(STORAGE_KEY); renderAll(); } }
+
+function renderSummary() {
+  var campaigns = getCampaigns();
+  if (campaigns.length === 0) { document.getElementById('summaryCard').style.display = 'none'; return; }
+  document.getElementById('summaryCard').style.display = '';
+  var totalSpend = 0, totalRev = 0, totalClicks = 0, totalConv = 0, totalImpr = 0;
+  campaigns.forEach(function(c) { totalSpend += c.spend; totalRev += c.revenue; totalClicks += c.clicks; totalConv += c.conversions; totalImpr += c.impressions; });
+  var avgRoas = totalSpend > 0 ? (totalRev / totalSpend) : 0;
+  var avgCpc = totalClicks > 0 ? (totalSpend / totalClicks) : 0;
+  var avgCpa = totalConv > 0 ? (totalSpend / totalConv) : 0;
+  var profit = totalRev - totalSpend;
+  document.getElementById('summaryMetrics').innerHTML =
+    '<div class="metric-card"><div class="metric-val">$' + totalSpend.toLocaleString() + '</div><div class="metric-lbl">Total Spend</div></div>' +
+    '<div class="metric-card"><div class="metric-val">$' + totalRev.toLocaleString() + '</div><div class="metric-lbl">Total Revenue</div></div>' +
+    '<div class="metric-card"><div class="metric-val" style="color:' + (profit >= 0 ? 'var(--cyan)' : 'var(--red)') + '">$' + profit.toLocaleString() + '</div><div class="metric-lbl">Net Profit</div></div>' +
+    '<div class="metric-card"><div class="metric-val">' + avgRoas.toFixed(2) + 'x</div><div class="metric-lbl">Avg ROAS</div></div>' +
+    '<div class="metric-card"><div class="metric-val">$' + avgCpc.toFixed(2) + '</div><div class="metric-lbl">Avg CPC</div></div>' +
+    '<div class="metric-card"><div class="metric-val">$' + avgCpa.toFixed(2) + '</div><div class="metric-lbl">Avg CPA</div></div>' +
+    '<div class="metric-card"><div class="metric-val">' + campaigns.length + '</div><div class="metric-lbl">Campaigns</div></div>' +
+    '<div class="metric-card"><div class="metric-val">' + totalConv.toLocaleString() + '</div><div class="metric-lbl">Total Conversions</div></div>';
+}
+
+function renderTable() {
+  var campaigns = getCampaigns();
+  if (campaigns.length === 0) { document.getElementById('tableCard').style.display = 'none'; return; }
+  document.getElementById('tableCard').style.display = '';
+  var tbody = document.getElementById('campaignBody');
+  tbody.innerHTML = '';
+  var sorted = campaigns.slice().sort(function(a, b) { var ma = calcMetrics(a), mb = calcMetrics(b); return mb.roas - ma.roas; });
+  sorted.forEach(function(c) {
+    var m = calcMetrics(c);
+    var platClass = 'plat-' + c.platform.toLowerCase();
+    var roasColor = m.roas >= 3 ? 'positive' : m.roas >= 1 ? '' : 'negative';
+    tbody.innerHTML += '<tr><td><strong>' + c.name + '</strong></td><td><span class="platform-badge ' + platClass + '">' + c.platform + '</span></td><td>$' + c.spend.toLocaleString() + '</td><td>$' + m.cpc.toFixed(2) + '</td><td>$' + m.cpm.toFixed(2) + '</td><td>$' + m.cpa.toFixed(2) + '</td><td class="' + roasColor + '"><strong>' + m.roas.toFixed(2) + 'x</strong></td><td>' + m.ctr.toFixed(2) + '%</td><td>' + m.convRate.toFixed(2) + '%</td><td><button class="btn btn-red btn-sm" onclick="removeCampaign(' + c.id + ')">&#10005;</button></td></tr>';
+  });
+}
+
+function renderRoasChart() {
+  var campaigns = getCampaigns();
+  if (campaigns.length === 0) { document.getElementById('chartCard').style.display = 'none'; return; }
+  document.getElementById('chartCard').style.display = '';
+  var sorted = campaigns.slice().sort(function(a, b) { return calcMetrics(b).roas - calcMetrics(a).roas; });
+  var maxRoas = Math.max.apply(null, sorted.map(function(c) { return calcMetrics(c).roas; }));
+  if (maxRoas === 0) maxRoas = 1;
+
+  var svgW = 700, barH = 35, gap = 10, svgH = sorted.length * (barH + gap) + 20;
+  var colors = { Google:'#4285f4', Facebook:'#1877f2', Instagram:'#e1306c', TikTok:'#ff0050', LinkedIn:'#0077b5', Twitter:'#1da1f2', YouTube:'#f00', Other:'#8b949e' };
+
+  var svg = '<svg viewBox="0 0 ' + svgW + ' ' + svgH + '" width="100%" xmlns="http://www.w3.org/2000/svg">';
+  // Break-even line
+  var beLine = 180 / maxRoas * 380;
+  svg += '<line x1="' + (180 + beLine) + '" y1="0" x2="' + (180 + beLine) + '" y2="' + svgH + '" stroke="rgba(248,81,73,0.3)" stroke-width="1" stroke-dasharray="4"/>';
+  svg += '<text x="' + (185 + beLine) + '" y="12" fill="#f85149" font-size="8">Break-even (1x)</text>';
+
+  sorted.forEach(function(c, i) {
+    var m = calcMetrics(c);
+    var y = i * (barH + gap) + 20;
+    var w = m.roas / maxRoas * 380;
+    var color = colors[c.platform] || '#8b949e';
+    svg += '<text x="0" y="' + (y + 20) + '" fill="#e6edf3" font-size="10" font-weight="600">' + c.name.substring(0, 22) + '</text>';
+    svg += '<rect x="180" y="' + (y + 5) + '" width="' + w + '" height="24" rx="5" fill="' + color + '" opacity="0.8"/>';
+    svg += '<text x="' + (190 + w) + '" y="' + (y + 22) + '" fill="#e6edf3" font-size="11" font-weight="700">' + m.roas.toFixed(2) + 'x</text>';
+  });
+  svg += '</svg>';
+  document.getElementById('roasChart').innerHTML = svg;
+}
+
+function renderReallocation() {
+  var campaigns = getCampaigns();
+  if (campaigns.length === 0) { document.getElementById('reallocCard').style.display = 'none'; return; }
+  document.getElementById('reallocCard').style.display = '';
+  var totalBudget = campaigns.reduce(function(s, c) { return s + c.spend; }, 0);
+
+  // Initialize allocations
+  campaigns.forEach(function(c) {
+    if (allocations[c.id] === undefined) allocations[c.id] = c.spend;
+  });
+
+  var html = '<div style="font-size:0.8rem;color:var(--text-dim);margin-bottom:0.5rem">Total Budget: <strong style="color:var(--gold)">$' + totalBudget.toLocaleString() + '</strong></div>';
+  campaigns.forEach(function(c) {
+    var pct = totalBudget > 0 ? ((allocations[c.id] || 0) / totalBudget * 100) : 0;
+    html += '<div class="realloc-slider"><span style="font-size:0.8rem;min-width:140px">' + c.name.substring(0, 18) + '</span><input type="range" min="0" max="' + totalBudget + '" value="' + (allocations[c.id] || 0) + '" step="50" oninput="updateAlloc(' + c.id + ',this.value,' + totalBudget + ')"><span class="realloc-val">$' + Math.round(allocations[c.id] || 0).toLocaleString() + '</span></div>';
+  });
+  document.getElementById('reallocSliders').innerHTML = html;
+
+  // Projected results
+  var projRev = 0, projConv = 0, projSpend = 0;
+  campaigns.forEach(function(c) {
+    var alloc = allocations[c.id] || 0;
+    projSpend += alloc;
+    if (c.spend > 0) {
+      var scale = alloc / c.spend;
+      projRev += c.revenue * scale;
+      projConv += Math.round(c.conversions * scale);
+    }
+  });
+  var projProfit = projRev - projSpend;
+  var projRoas = projSpend > 0 ? projRev / projSpend : 0;
+  var origRev = campaigns.reduce(function(s, c) { return s + c.revenue; }, 0);
+  var revDiff = projRev - origRev;
+
+  document.getElementById('reallocResults').innerHTML =
+    '<div class="metric-card"><div class="metric-val">$' + Math.round(projRev).toLocaleString() + '</div><div class="metric-lbl">Projected Revenue</div></div>' +
+    '<div class="metric-card"><div class="metric-val" style="color:' + (revDiff >= 0 ? 'var(--cyan)' : 'var(--red)') + '">' + (revDiff >= 0 ? '+' : '') + '$' + Math.round(revDiff).toLocaleString() + '</div><div class="metric-lbl">Revenue Change</div></div>' +
+    '<div class="metric-card"><div class="metric-val">' + projRoas.toFixed(2) + 'x</div><div class="metric-lbl">Projected ROAS</div></div>' +
+    '<div class="metric-card"><div class="metric-val">' + projConv.toLocaleString() + '</div><div class="metric-lbl">Projected Conversions</div></div>';
+}
+
+function updateAlloc(id, val, total) {
+  allocations[id] = parseFloat(val);
+  renderReallocation();
+}
+
+function autoOptimize() {
+  var campaigns = getCampaigns();
+  var totalBudget = campaigns.reduce(function(s, c) { return s + c.spend; }, 0);
+  var sorted = campaigns.slice().sort(function(a, b) { return calcMetrics(b).roas - calcMetrics(a).roas; });
+
+  // Weight budget by ROAS
+  var totalRoas = sorted.reduce(function(s, c) { return s + Math.max(calcMetrics(c).roas, 0.01); }, 0);
+  sorted.forEach(function(c) {
+    var weight = Math.max(calcMetrics(c).roas, 0.01) / totalRoas;
+    allocations[c.id] = Math.round(totalBudget * weight);
+  });
+  renderReallocation();
+}
+
+function resetAlloc() {
+  getCampaigns().forEach(function(c) { allocations[c.id] = c.spend; });
+  renderReallocation();
+}
+
+function exportData() {
+  var campaigns = getCampaigns();
+  if (campaigns.length === 0) return;
+  var csv = 'Campaign,Platform,Spend,Impressions,Clicks,Conversions,Revenue,CPC,CPM,CPA,ROAS,CTR,Conv Rate\n';
+  campaigns.forEach(function(c) {
+    var m = calcMetrics(c);
+    csv += '"' + c.name + '",' + c.platform + ',' + c.spend + ',' + c.impressions + ',' + c.clicks + ',' + c.conversions + ',' + c.revenue + ',' + m.cpc.toFixed(2) + ',' + m.cpm.toFixed(2) + ',' + m.cpa.toFixed(2) + ',' + m.roas.toFixed(2) + ',' + m.ctr.toFixed(2) + ',' + m.convRate.toFixed(2) + '\n';
+  });
+  var blob = new Blob([csv], { type: 'text/csv' });
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'ad-spend-' + new Date().toISOString().split('T')[0] + '.csv';
+  a.click();
+}
+
+function renderAll() { renderSummary(); renderTable(); renderRoasChart(); renderReallocation(); }
+renderAll();
+
+function shareX(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Optimizing my ad spend with this ROAS calculator. Code SPUNK unlocks it free @SpunkArt13')+'&url='+encodeURIComponent('https://spunk.codes/exclusive-tools'),'_blank')}
+function shareReddit(){window.open('https://www.reddit.com/submit?url='+encodeURIComponent('https://spunk.codes/exclusive-tools')+'&title='+encodeURIComponent('Ad Spend Optimizer - ROAS & Budget Reallocation [spunk.codes]'),'_blank')}
+function shareEm(){window.location.href='mailto:?subject='+encodeURIComponent('Ad Spend Optimizer Tool')+'&body='+encodeURIComponent('Optimize ad campaigns and reallocate budget. Code SPUNK: https://spunk.codes/exclusive-tools')}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+</body>
+</html>

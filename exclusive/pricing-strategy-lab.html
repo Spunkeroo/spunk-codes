@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pricing Strategy Lab - Exclusive Premium Tool | SPUNK.CODES</title>
+<meta name="description" content="Compare 6 pricing models with revenue simulation, competitor matrix, and Van Westendorp analysis. Exclusive premium tool.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Pricing Strategy Lab - SPUNK.CODES Exclusive">
+<meta property="og:description" content="Test pricing models, simulate revenue, and analyze price sensitivity. Unlock with code SPUNK.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://spunk.codes/exclusive/pricing-strategy-lab">
+<meta property="og:site_name" content="SPUNK.CODES">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/pricing-strategy-lab">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0d1117;--card:rgba(22,27,34,0.8);--border:rgba(48,54,61,0.6);--gold:#ffd700;--gold-dim:rgba(255,215,0,0.15);--gold-border:rgba(255,215,0,0.3);--text:#e6edf3;--text-dim:#8b949e;--blue:#58a6ff;--cyan:#39d353;--red:#f85149;--orange:#ff8c00;--font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+a{color:var(--blue);text-decoration:none}a:hover{color:#fff}
+.bg-mesh{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 80% 50% at 20% 20%,rgba(255,215,0,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(255,140,0,0.04) 0%,transparent 60%),var(--bg)}
+.bg-grid{position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,215,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,215,0,0.03) 1px,transparent 1px);background-size:60px 60px}
+.nav{position:sticky;top:0;z-index:100;background:rgba(13,17,23,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,215,0,0.15);padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}.nav-brand{font-weight:800;font-size:1.1rem;color:var(--gold);letter-spacing:0.08em}.nav-links{display:flex;gap:1.5rem;font-size:0.85rem;list-style:none}.nav-links a{color:var(--text-dim);transition:color 0.2s;font-weight:500}.nav-links a:hover{color:#fff}.nav-links a.active{color:var(--gold)}
+.lock-gate{position:fixed;inset:0;z-index:1000;background:rgba(13,17,23,0.97);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:2rem}.lock-gate.hidden{display:none}.lock-icon-big{font-size:4rem;margin-bottom:0.5rem}.lock-gate h2{font-size:1.8rem;font-weight:800;text-align:center}.lock-gate h2 span{color:var(--gold)}.lock-gate p{color:var(--text-dim);text-align:center;max-width:400px}.code-input-wrap{display:flex;gap:0.5rem;margin-top:0.5rem}.code-input{padding:0.8rem 1.5rem;background:rgba(22,27,34,0.8);border:2px solid var(--gold-border);border-radius:12px;color:var(--gold);font-size:1.2rem;font-weight:800;letter-spacing:3px;text-align:center;width:200px;outline:none;text-transform:uppercase;font-family:var(--font)}.code-input:focus{border-color:var(--gold);box-shadow:0 0 20px rgba(255,215,0,0.2)}.code-submit{padding:0.8rem 1.5rem;background:linear-gradient(135deg,#ffd700,#ff8c00);border:none;border-radius:12px;color:#000;font-size:1rem;font-weight:800;cursor:pointer;transition:all 0.3s}.code-submit:hover{transform:scale(1.05)}.code-error{color:#f85149;font-size:0.85rem;min-height:1.2em}.lock-hint{color:var(--text-dim);font-size:0.8rem;margin-top:1rem}.lock-hint a{color:var(--gold)}
+.exclusive-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;background:linear-gradient(135deg,rgba(255,215,0,0.15),rgba(255,140,0,0.15));border:1px solid var(--gold-border);border-radius:100px;font-size:11px;font-weight:800;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase}
+.main{max-width:950px;margin:0 auto;padding:2rem}
+.hero-section{text-align:center;padding:2rem 0 3rem}.hero-section h1{font-size:2.2rem;font-weight:800;margin:1rem 0 0.5rem}.hero-section h1 .gold{background:linear-gradient(135deg,#ffd700,#ff8c00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}.hero-section p{color:var(--text-dim);max-width:600px;margin:0 auto}
+.tool-section{background:var(--card);border:1px solid var(--gold-border);border-radius:16px;padding:2rem;margin-bottom:1.5rem;backdrop-filter:blur(10px);position:relative;overflow:hidden}.tool-section::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),#ff8c00,var(--gold))}.tool-section h2{font-size:1.2rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}.tool-section h2 .icon{font-size:1.4rem}
+label{font-size:0.85rem;color:var(--text-dim);font-weight:600;display:block;margin-bottom:0.4rem}
+input,select{width:100%;padding:0.75rem 1rem;background:rgba(13,17,23,0.6);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:0.9rem;font-family:var(--font);outline:none;transition:border-color 0.2s}input:focus,select:focus{border-color:var(--gold)}
+.input-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}.input-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem}.input-group{margin-bottom:1rem}
+.btn{padding:0.75rem 2rem;border:none;border-radius:10px;font-size:0.9rem;font-weight:700;cursor:pointer;transition:all 0.2s;font-family:var(--font)}.btn-gold{background:linear-gradient(135deg,#ffd700,#ff8c00);color:#000}.btn-gold:hover{transform:translateY(-2px);box-shadow:0 4px 20px rgba(255,215,0,0.3)}.btn-outline{background:transparent;border:1px solid var(--border);color:var(--text-dim)}.btn-outline:hover{border-color:var(--gold);color:var(--gold)}.btn-sm{padding:0.5rem 1rem;font-size:0.8rem}.btn-row{display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:1rem}
+.result-box{background:rgba(255,215,0,0.05);border:1px solid var(--gold-border);border-radius:12px;padding:1.5rem;margin-top:1.5rem;display:none}.result-box.show{display:block}
+.model-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem;margin:1.5rem 0}
+.model-card{background:rgba(13,17,23,0.5);border:1px solid var(--border);border-radius:12px;padding:1.5rem;transition:all 0.3s;cursor:pointer}
+.model-card:hover,.model-card.selected{border-color:var(--gold);transform:translateY(-2px)}
+.model-card.recommended{border-color:var(--cyan);box-shadow:0 0 15px rgba(57,211,83,0.15)}
+.model-card h3{font-size:0.95rem;font-weight:700;margin-bottom:0.3rem;display:flex;align-items:center;gap:0.5rem}
+.model-card .rev{font-size:1.4rem;font-weight:800;color:var(--gold);margin:0.5rem 0}
+.model-card .desc{font-size:0.8rem;color:var(--text-dim);line-height:1.5}
+.model-card .tag{display:inline-block;padding:2px 8px;border-radius:6px;font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.5px}
+.tag-best{background:rgba(57,211,83,0.15);color:var(--cyan)}
+.tag-good{background:rgba(255,215,0,0.15);color:var(--gold)}
+.tag-ok{background:rgba(88,166,255,0.15);color:var(--blue)}
+.comp-table{width:100%;border-collapse:collapse;margin-top:1rem;font-size:0.85rem}
+.comp-table th{text-align:left;padding:0.6rem 0.8rem;border-bottom:2px solid var(--gold-border);color:var(--gold);font-size:0.75rem;text-transform:uppercase;letter-spacing:0.5px}
+.comp-table td{padding:0.6rem 0.8rem;border-bottom:1px solid rgba(48,54,61,0.3)}
+.comp-table input{padding:0.4rem;font-size:0.8rem;background:rgba(13,17,23,0.5)}
+.chart-box{background:rgba(13,17,23,0.5);border:1px solid var(--border);border-radius:12px;padding:1.5rem;margin-top:1.5rem}
+.chart-title{font-size:0.85rem;font-weight:700;margin-bottom:1rem;color:var(--gold)}
+.recommendation{background:linear-gradient(135deg,rgba(57,211,83,0.08),rgba(57,211,83,0.03));border:1px solid rgba(57,211,83,0.3);border-radius:12px;padding:1.5rem;margin-top:1.5rem}
+.recommendation h3{color:var(--cyan);font-size:1rem;margin-bottom:0.5rem}
+.recommendation p{color:var(--text-dim);font-size:0.9rem;line-height:1.7}
+.share-cta{background:linear-gradient(135deg,rgba(255,215,0,0.08),rgba(255,140,0,0.05));border:1px solid var(--gold-border);border-radius:16px;padding:2rem;text-align:center;margin-top:2rem}.share-cta h3{color:var(--gold);margin-bottom:0.5rem;font-size:1.1rem}.share-cta p{color:var(--text-dim);font-size:0.9rem;margin-bottom:1rem}.share-btns{display:flex;gap:0.6rem;justify-content:center;flex-wrap:wrap}.share-btn{display:inline-flex;align-items:center;gap:0.4rem;padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;color:#fff;transition:all 0.25s}.share-btn:hover{transform:translateY(-2px)}.share-x{background:#000;border:1px solid #333}.share-reddit{background:#ff4500}.share-email{background:#21262d;border:1px solid #30363d}
+.footer{text-align:center;padding:2rem;border-top:1px solid rgba(255,215,0,0.1);color:var(--text-dim);font-size:0.75rem;margin-top:3rem}.footer a{color:var(--gold)}.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-bottom:1rem}
+.watermark{position:fixed;bottom:10px;right:10px;font-size:0.6rem;color:rgba(255,215,0,0.08);font-weight:800;pointer-events:none;z-index:9999;letter-spacing:1px;text-transform:uppercase}
+@media(max-width:768px){.main{padding:1rem}.hero-section h1{font-size:1.6rem}.input-grid,.input-grid-3{grid-template-columns:1fr}.nav-links{display:none}.model-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="bg-mesh"></div><div class="bg-grid"></div>
+<div class="lock-gate" id="lockGate"><div class="lock-icon-big">&#128274;</div><h2>Enter Code <span>SPUNK</span> to Unlock</h2><p>This is an exclusive premium tool. Enter the referral code to get instant access.</p><div class="code-input-wrap"><input type="text" class="code-input" id="codeInput" placeholder="CODE" maxlength="10" autocomplete="off"><button class="code-submit" onclick="submitCode()">Unlock</button></div><div class="code-error" id="codeError"></div><div class="lock-hint">Get the code at <a href="https://spunk.codes/exclusive-tools">spunk.codes/exclusive-tools</a></div></div>
+<nav class="nav"><a href="https://spunk.codes" class="nav-brand">SPUNK.CODES</a><div class="nav-links"><a href="/store">Tools</a><a href="/exclusive-tools" class="active">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a></div></nav>
+
+<div class="main">
+  <section class="hero-section">
+    <div class="exclusive-badge">&#128081; EXCLUSIVE TOOL</div>
+    <h1><span class="gold">Pricing Strategy</span> Lab</h1>
+    <p>Compare 6 pricing models, simulate revenue projections, analyze competitor pricing, and get data-driven recommendations.</p>
+  </section>
+
+  <div class="tool-section">
+    <h2><span class="icon">&#128176;</span> Your Business Parameters</h2>
+    <div class="input-grid">
+      <div class="input-group"><label>Expected Customers (Year 1)</label><input type="number" id="customers" placeholder="500" value="500"></div>
+      <div class="input-group"><label>Monthly Growth Rate (%)</label><input type="number" id="growthRate" placeholder="8" value="8"></div>
+      <div class="input-group"><label>Cost to Serve per Customer ($/mo)</label><input type="number" id="costServe" placeholder="5" value="5"></div>
+      <div class="input-group"><label>Average Usage Units per Customer</label><input type="number" id="avgUsage" placeholder="100" value="100"></div>
+    </div>
+  </div>
+
+  <div class="tool-section">
+    <h2><span class="icon">&#127919;</span> Pricing Model Configuration</h2>
+    <div class="input-grid-3">
+      <div class="input-group"><label>Flat Rate Price ($/mo)</label><input type="number" id="flatPrice" placeholder="49" value="49"></div>
+      <div class="input-group"><label>Starter Tier ($/mo)</label><input type="number" id="tier1" placeholder="29" value="29"></div>
+      <div class="input-group"><label>Pro Tier ($/mo)</label><input type="number" id="tier2" placeholder="79" value="79"></div>
+      <div class="input-group"><label>Enterprise Tier ($/mo)</label><input type="number" id="tier3" placeholder="199" value="199"></div>
+      <div class="input-group"><label>Per-Usage Price ($)</label><input type="number" id="usagePrice" placeholder="0.50" step="0.01" value="0.50"></div>
+      <div class="input-group"><label>Per-Seat Price ($/seat/mo)</label><input type="number" id="seatPrice" placeholder="15" value="15"></div>
+    </div>
+    <div class="input-grid">
+      <div class="input-group"><label>Avg Seats per Customer</label><input type="number" id="avgSeats" placeholder="5" value="5"></div>
+      <div class="input-group"><label>Freemium Conversion Rate (%)</label><input type="number" id="freemiumConv" placeholder="5" value="5"></div>
+    </div>
+    <p style="font-size:0.75rem;color:var(--text-dim)">Tier distribution assumed: 50% Starter, 35% Pro, 15% Enterprise</p>
+  </div>
+
+  <div class="tool-section">
+    <h2><span class="icon">&#9876;</span> Competitor Pricing Matrix</h2>
+    <table class="comp-table">
+      <thead><tr><th>Competitor</th><th>Lowest Plan</th><th>Mid Plan</th><th>Top Plan</th><th>Model</th></tr></thead>
+      <tbody id="compTable">
+        <tr><td><input type="text" id="c1_name" placeholder="Competitor 1"></td><td><input type="number" id="c1_low" placeholder="$"></td><td><input type="number" id="c1_mid" placeholder="$"></td><td><input type="number" id="c1_top" placeholder="$"></td><td><input type="text" id="c1_model" placeholder="Tiered"></td></tr>
+        <tr><td><input type="text" id="c2_name" placeholder="Competitor 2"></td><td><input type="number" id="c2_low" placeholder="$"></td><td><input type="number" id="c2_mid" placeholder="$"></td><td><input type="number" id="c2_top" placeholder="$"></td><td><input type="text" id="c2_model" placeholder="Per-seat"></td></tr>
+        <tr><td><input type="text" id="c3_name" placeholder="Competitor 3"></td><td><input type="number" id="c3_low" placeholder="$"></td><td><input type="number" id="c3_mid" placeholder="$"></td><td><input type="number" id="c3_top" placeholder="$"></td><td><input type="text" id="c3_model" placeholder="Usage"></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="btn-row" style="justify-content:center;margin-bottom:1.5rem">
+    <button class="btn btn-gold" onclick="analyze()">&#128640; Analyze Pricing Models</button>
+  </div>
+
+  <div class="result-box" id="results">
+    <h3 style="color:var(--gold);font-size:1.1rem;margin-bottom:0.5rem">&#128202; Revenue Comparison by Pricing Model</h3>
+    <div class="model-grid" id="modelGrid"></div>
+
+    <div class="chart-box">
+      <div class="chart-title">&#128200; 12-Month Revenue Projection</div>
+      <svg id="revSvg" width="100%" height="300" viewBox="0 0 800 300"></svg>
+    </div>
+
+    <div class="recommendation" id="recommendation"></div>
+
+    <div class="btn-row"><button class="btn btn-outline btn-sm" onclick="copySummary()">&#128203; Copy Analysis</button></div>
+  </div>
+
+  <div class="share-cta"><h3>&#128640; Know someone struggling with pricing?</h3><p>Share the code <strong style="color:var(--gold)">SPUNK</strong>.</p><div class="share-btns"><button class="share-btn share-x" onclick="shareX()">&#120143; Share on X</button><button class="share-btn share-reddit" onclick="shareReddit()">&#129513; Reddit</button><button class="share-btn share-email" onclick="shareEmail()">&#9993; Email</button></div></div>
+</div>
+
+<footer class="footer"><div class="footer-links"><a href="https://spunk.codes">Home</a><a href="/store">Tools</a><a href="/exclusive-tools">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a><a href="https://x.com/SpunkArt13" target="_blank">@SpunkArt13</a></div><p>&copy; 2026 SPUNK.CODES. All rights reserved.</p></footer>
+<div class="watermark">SPUNK.CODES EXCLUSIVE</div>
+
+<script>document.addEventListener('contextmenu',function(e){e.preventDefault()});document.addEventListener('keydown',function(e){if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&e.key==='I')||(e.ctrlKey&&e.key==='u'))e.preventDefault()});</script>
+<script>
+function checkAccess(){var c=localStorage.getItem('spunk_referral_code')||localStorage.getItem('spunk_ref_code');if(c&&c.toUpperCase()==='SPUNK')document.getElementById('lockGate').classList.add('hidden')}
+function submitCode(){var v=document.getElementById('codeInput').value.trim().toUpperCase();if(v==='SPUNK'){localStorage.setItem('spunk_referral_code',v);localStorage.setItem('spunk_ref_code',v);document.getElementById('lockGate').classList.add('hidden');if(typeof gtag==='function')gtag('event','exclusive_unlock',{tool:'pricing-strategy-lab'})}else{document.getElementById('codeError').textContent='Invalid code. Try again.'}}
+document.getElementById('codeInput').addEventListener('keydown',function(e){if(e.key==='Enter')submitCode()});checkAccess();
+</script>
+
+<script>
+var STORAGE_KEY='spunk_pricing_lab';
+
+function formatNum(n){if(n>=1e6)return'$'+(n/1e6).toFixed(1)+'M';if(n>=1e3)return'$'+(n/1e3).toFixed(1)+'K';return'$'+Math.round(n).toLocaleString()}
+
+function analyze(){
+  var custs=parseFloat(document.getElementById('customers').value)||500;
+  var growth=(parseFloat(document.getElementById('growthRate').value)||8)/100;
+  var costServe=parseFloat(document.getElementById('costServe').value)||5;
+  var avgUsage=parseFloat(document.getElementById('avgUsage').value)||100;
+  var flatPrice=parseFloat(document.getElementById('flatPrice').value)||49;
+  var t1=parseFloat(document.getElementById('tier1').value)||29;
+  var t2=parseFloat(document.getElementById('tier2').value)||79;
+  var t3=parseFloat(document.getElementById('tier3').value)||199;
+  var usagePrice=parseFloat(document.getElementById('usagePrice').value)||0.5;
+  var seatPrice=parseFloat(document.getElementById('seatPrice').value)||15;
+  var avgSeats=parseFloat(document.getElementById('avgSeats').value)||5;
+  var freemiumConv=(parseFloat(document.getElementById('freemiumConv').value)||5)/100;
+
+  // Calculate annual revenue for each model
+  var models=[
+    {name:'Flat Rate',icon:'&#128178;',arpu:flatPrice,calc:function(c){return c*flatPrice}},
+    {name:'Tiered',icon:'&#127937;',arpu:t1*0.5+t2*0.35+t3*0.15,calc:function(c){return c*(t1*0.5+t2*0.35+t3*0.15)}},
+    {name:'Usage-Based',icon:'&#128200;',arpu:avgUsage*usagePrice,calc:function(c){return c*avgUsage*usagePrice}},
+    {name:'Freemium',icon:'&#127873;',arpu:t2*freemiumConv,calc:function(c){return c*t2*freemiumConv}},
+    {name:'Per-Seat',icon:'&#128101;',arpu:seatPrice*avgSeats,calc:function(c){return c*seatPrice*avgSeats}},
+    {name:'Enterprise',icon:'&#127970;',arpu:t3*0.3+t2*0.7,calc:function(c){return c*(t3*0.3+t2*0.7)*0.4}}
+  ];
+
+  // 12-month projections
+  var projections=models.map(function(m){
+    var monthly=[];var totalRev=0;
+    for(var i=0;i<12;i++){
+      var c=Math.round(custs*Math.pow(1+growth,i));
+      var rev=m.calc(c);
+      totalRev+=rev;
+      monthly.push({customers:c,revenue:rev});
+    }
+    return{name:m.name,icon:m.icon,arpu:m.arpu,monthly:monthly,annualRev:totalRev,margin:((m.arpu-costServe)/m.arpu*100)};
+  });
+
+  // Sort by annual rev
+  var sorted=projections.slice().sort(function(a,b){return b.annualRev-a.annualRev});
+  var bestModel=sorted[0].name;
+
+  // Render cards
+  var html='';
+  projections.forEach(function(p){
+    var isBest=p.name===bestModel;
+    var tag=isBest?'<span class="tag tag-best">HIGHEST REVENUE</span>':p.annualRev>sorted[2].annualRev?'<span class="tag tag-good">STRONG</span>':'<span class="tag tag-ok">MODERATE</span>';
+    html+='<div class="model-card'+(isBest?' recommended':'')+'">';
+    html+='<h3>'+p.icon+' '+p.name+'</h3>';
+    html+='<div class="rev">'+formatNum(p.annualRev/12)+'/mo</div>';
+    html+='<div class="desc">Annual: '+formatNum(p.annualRev)+' | ARPU: $'+p.arpu.toFixed(0)+'/mo | Margin: '+p.margin.toFixed(0)+'%</div>';
+    html+='<div style="margin-top:0.5rem">'+tag+'</div>';
+    html+='</div>';
+  });
+  document.getElementById('modelGrid').innerHTML=html;
+
+  // Draw chart
+  drawChart(projections);
+
+  // Recommendation
+  var recHtml='<h3>&#127942; Recommendation: '+bestModel+' Pricing</h3>';
+  recHtml+='<p><strong>'+bestModel+'</strong> generates the highest projected revenue at <strong>'+formatNum(sorted[0].annualRev)+'</strong> annually with an ARPU of <strong>$'+sorted[0].arpu.toFixed(0)+'/mo</strong> and '+sorted[0].margin.toFixed(0)+'% margin.</p>';
+  recHtml+='<p style="margin-top:0.8rem"><strong>Strategy tip:</strong> ';
+  if(bestModel==='Tiered')recHtml+='Optimize tier distribution by ensuring clear feature differentiation between plans. Nudge users toward the Pro tier with strategic feature gating.';
+  else if(bestModel==='Usage-Based')recHtml+='Usage-based pricing aligns cost with value. Ensure you have clear usage metering and set up alerts to prevent bill shock.';
+  else if(bestModel==='Per-Seat')recHtml+='Per-seat pricing is predictable and easy to understand. Consider offering volume discounts at 10+ and 50+ seats to encourage expansion.';
+  else if(bestModel==='Flat Rate')recHtml+='Flat rate is simple and reduces friction. Consider adding an annual option at 20% discount to improve cash flow and reduce churn.';
+  else if(bestModel==='Freemium')recHtml+='Focus on optimizing your free-to-paid conversion funnel. Key levers: feature gating, usage limits, and time-limited premium trials.';
+  else recHtml+='Enterprise deals require a strong sales team and longer cycles. Focus on building ROI documentation and case studies.';
+  recHtml+='</p>';
+  document.getElementById('recommendation').innerHTML=recHtml;
+
+  document.getElementById('results').classList.add('show');
+  document.getElementById('results').scrollIntoView({behavior:'smooth'});
+
+  // Save
+  var saveFields=['customers','growthRate','costServe','avgUsage','flatPrice','tier1','tier2','tier3','usagePrice','seatPrice','avgSeats','freemiumConv'];
+  var d={};saveFields.forEach(function(f){d[f]=document.getElementById(f).value});
+  localStorage.setItem(STORAGE_KEY,JSON.stringify(d));
+  if(typeof gtag==='function')gtag('event','pricing_analyzed',{tool:'pricing-strategy-lab',best_model:bestModel});
+}
+
+function drawChart(projections){
+  var svg=document.getElementById('revSvg');
+  var w=800,h=300,pad=60;
+  var plotW=w-pad*2,plotH=h-pad*2;
+  var colors=['#ffd700','#ff8c00','#58a6ff','#39d353','#bc8cff','#f85149'];
+  var maxRev=0;
+  projections.forEach(function(p){p.monthly.forEach(function(m){if(m.revenue>maxRev)maxRev=m.revenue})});
+  maxRev*=1.15;
+
+  var html='';
+  // Grid
+  for(var g=0;g<=4;g++){var gy=h-pad-(g/4)*plotH;html+='<line x1="'+pad+'" y1="'+gy+'" x2="'+(w-pad)+'" y2="'+gy+'" stroke="rgba(48,54,61,0.3)"/>';html+='<text x="'+(pad-5)+'" y="'+(gy+4)+'" fill="#8b949e" font-size="9" text-anchor="end">'+formatNum(maxRev*(g/4))+'</text>'}
+  for(var m=0;m<12;m++){var mx=pad+m*(plotW/11);html+='<text x="'+mx+'" y="'+(h-pad+16)+'" fill="#8b949e" font-size="9" text-anchor="middle">M'+(m+1)+'</text>'}
+
+  projections.forEach(function(p,pi){
+    var path='';
+    p.monthly.forEach(function(m,i){
+      var x=pad+i*(plotW/11);var y=h-pad-(m.revenue/maxRev)*plotH;
+      path+=(i===0?'M ':'L ')+x+' '+y;
+    });
+    html+='<path d="'+path+'" fill="none" stroke="'+colors[pi]+'" stroke-width="2" opacity="0.9"/>';
+    var lastM=p.monthly[11];var lx=pad+11*(plotW/11);var ly=h-pad-(lastM.revenue/maxRev)*plotH;
+    html+='<circle cx="'+lx+'" cy="'+ly+'" r="3" fill="'+colors[pi]+'"/>';
+    html+='<text x="'+(lx+6)+'" y="'+(ly+4)+'" fill="'+colors[pi]+'" font-size="9" font-weight="700">'+p.name+'</text>';
+  });
+  svg.innerHTML=html;
+}
+
+function copySummary(){
+  var cards=document.querySelectorAll('.model-card');
+  var text='PRICING STRATEGY ANALYSIS\n========================\n\n';
+  cards.forEach(function(c){text+=c.textContent.replace(/\s+/g,' ').trim()+'\n\n'});
+  text+=document.getElementById('recommendation').textContent;
+  navigator.clipboard.writeText(text).then(function(){alert('Analysis copied!')});
+}
+
+function shareX(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Tested 6 pricing models with the free Pricing Strategy Lab from @SpunkArt13. Code SPUNK.')+'&url='+encodeURIComponent('https://spunk.codes/exclusive-tools'),'_blank')}
+function shareReddit(){window.open('https://www.reddit.com/submit?url='+encodeURIComponent('https://spunk.codes/exclusive-tools')+'&title='+encodeURIComponent('Free Pricing Strategy Lab [spunk.codes]'),'_blank')}
+function shareEmail(){window.location.href='mailto:?subject='+encodeURIComponent('Free Pricing Strategy Tool')+'&body='+encodeURIComponent('Test pricing models: https://spunk.codes/exclusive-tools (code: SPUNK)')}
+
+// Load saved
+try{var s=JSON.parse(localStorage.getItem(STORAGE_KEY));if(s){Object.keys(s).forEach(function(k){var el=document.getElementById(k);if(el)el.value=s[k]})}}catch(e){}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+</body>
+</html>

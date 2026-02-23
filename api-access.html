@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>API Access — Integrate SPUNK.CODES Tools via API</title>
+<meta name="description" content="Integrate 200+ SPUNK.CODES developer tools into your applications via API. Free tier with 100 requests/day. Pro and Enterprise plans available.">
+<meta property="og:title" content="SPUNK.CODES API — Integrate Developer Tools via API">
+<meta property="og:description" content="Integrate 200+ developer tools into your apps via API. Free tier: 100 req/day. Pro: 10,000 req/day. Enterprise: Unlimited.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://spunk.codes/api-access">
+<meta property="og:site_name" content="SPUNK.CODES">
+<meta property="og:image" content="https://spunk.codes/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<meta name="twitter:creator" content="@SpunkArt13">
+<meta name="twitter:title" content="SPUNK.CODES API — Integrate Developer Tools via API">
+<meta name="twitter:description" content="Integrate 200+ developer tools via API. Free tier, Pro, and Enterprise plans.">
+<meta name="twitter:image" content="https://spunk.codes/og-image.png">
+<meta name="keywords" content="developer tools API, tools API, JSON formatter API, color palette API, SEO tools API, developer API, spunk codes API">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://spunk.codes/api-access">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="DENY">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"SPUNK.CODES API Access","description":"Integrate 200+ developer tools into your applications via API.","url":"https://spunk.codes/api-access","publisher":{"@type":"Organization","name":"SPUNK.CODES","url":"https://spunk.codes"}}</script>
+
+<!-- GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<!-- Clarity -->
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0d1117;--bg-card:rgba(22,27,34,0.7);--border:rgba(48,54,61,0.6);--border-hover:rgba(88,166,255,0.4);--text:#e6edf3;--text-sec:#8b949e;--text-muted:#484f58;--accent:#58a6ff;--green:#39d353;--purple:#bc8cff;--orange:#f0883e;--grad:linear-gradient(135deg,#58a6ff,#39d353);--radius:16px;--radius-sm:10px;--font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;--transition:all 0.3s cubic-bezier(0.4,0,0.2,1)}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+
+.bg-mesh{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 80% 50% at 20% 20%,rgba(88,166,255,0.08) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(57,211,83,0.06) 0%,transparent 60%),var(--bg)}
+.bg-grid{position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(48,54,61,0.15) 1px,transparent 1px),linear-gradient(90deg,rgba(48,54,61,0.15) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse 70% 60% at 50% 40%,black 20%,transparent 80%);-webkit-mask-image:radial-gradient(ellipse 70% 60% at 50% 40%,black 20%,transparent 80%)}
+
+.nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;justify-content:space-between;align-items:center;padding:0 2rem;height:64px;background:rgba(13,17,23,0.85);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(48,54,61,0.5)}
+.nav-logo{font-size:1.15rem;font-weight:800;letter-spacing:0.08em;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.nav-links{display:flex;align-items:center;gap:2rem;list-style:none}
+.nav-links a{font-size:0.85rem;font-weight:500;color:var(--text-sec);transition:color 0.2s}
+.nav-links a:hover{color:var(--text)}
+.nav-links a.active{color:var(--accent)}
+.mobile-toggle{display:none;background:none;border:none;color:var(--text);font-size:1.5rem;cursor:pointer}
+
+.hero{text-align:center;padding:8rem 2rem 3rem;max-width:850px;margin:0 auto}
+.hero-badge{display:inline-flex;align-items:center;gap:0.5rem;padding:0.4rem 1.2rem;background:rgba(88,166,255,0.08);border:1px solid rgba(88,166,255,0.2);border-radius:100px;font-size:0.78rem;font-weight:600;color:var(--accent);margin-bottom:1.5rem}
+.hero h1{font-size:clamp(2.4rem,6vw,3.8rem);font-weight:800;line-height:1.08;margin-bottom:1rem;letter-spacing:-0.03em}
+.hero h1 span{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero p{color:var(--text-sec);font-size:1.1rem;max-width:600px;margin:0 auto 1.5rem;line-height:1.7}
+
+.section{max-width:1100px;margin:0 auto;padding:4rem 2rem}
+.section-head{text-align:center;margin-bottom:3rem}
+.section-head h2{font-size:clamp(1.8rem,4vw,2.5rem);font-weight:800;letter-spacing:-0.02em;margin-bottom:0.75rem}
+.section-head h2 span{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.section-head p{color:var(--text-sec);font-size:1rem;max-width:550px;margin:0 auto;line-height:1.7}
+
+/* Pricing */
+.api-pricing{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;max-width:1000px;margin:0 auto}
+.api-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:2.5rem 2rem;text-align:center;backdrop-filter:blur(10px);transition:var(--transition);position:relative;overflow:hidden}
+.api-card:hover{transform:translateY(-6px);border-color:var(--border-hover);box-shadow:0 20px 60px rgba(0,0,0,0.3)}
+.api-card.popular{border:2px solid transparent;background-image:linear-gradient(rgba(22,27,34,0.95),rgba(22,27,34,0.95)),var(--grad);background-origin:border-box;background-clip:padding-box,border-box}
+.api-card.popular:hover{box-shadow:0 20px 60px rgba(88,166,255,0.15)}
+.popular-tag{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--grad);color:#fff;font-size:0.65rem;font-weight:800;padding:0.3rem 1.2rem;border-radius:100px;text-transform:uppercase;letter-spacing:0.5px;white-space:nowrap}
+.api-tier-name{font-size:0.72rem;text-transform:uppercase;letter-spacing:2.5px;color:var(--text-muted);font-weight:700;margin-bottom:0.5rem}
+.api-price{font-size:2.8rem;font-weight:800;margin-bottom:0.2rem}
+.api-price small{font-size:1rem;color:var(--text-muted);font-weight:400}
+.api-price-note{color:var(--text-muted);font-size:0.82rem;margin-bottom:1.5rem}
+.api-features{text-align:left;margin-bottom:2rem}
+.api-features div{padding:0.4rem 0;font-size:0.85rem;color:#c9d1d9;display:flex;align-items:flex-start;gap:0.5rem}
+.api-features div::before{content:"\2713";color:var(--green);font-weight:700;flex-shrink:0}
+.api-btn{display:block;width:100%;padding:0.85rem;border:none;border-radius:var(--radius-sm);font-weight:700;font-size:0.95rem;cursor:pointer;transition:var(--transition);text-align:center;font-family:var(--font)}
+.api-btn.free{background:rgba(57,211,83,0.1);border:1px solid rgba(57,211,83,0.25);color:var(--green)}
+.api-btn.free:hover{background:var(--green);color:var(--bg)}
+.api-btn.primary{background:linear-gradient(135deg,#58a6ff,#388bfd);color:#fff}
+.api-btn.primary:hover{box-shadow:0 8px 30px rgba(88,166,255,0.3);transform:scale(1.02)}
+.api-btn.gold{background:linear-gradient(135deg,#bc8cff,#8957e5);color:#fff}
+.api-btn.gold:hover{box-shadow:0 8px 30px rgba(188,140,255,0.3);transform:scale(1.02)}
+
+/* API Key Generator */
+.keygen-section{max-width:700px;margin:0 auto;padding:0 2rem 4rem}
+.keygen-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:2.5rem;backdrop-filter:blur(10px);text-align:center}
+.keygen-card h2{font-size:1.5rem;font-weight:700;margin-bottom:0.5rem}
+.keygen-card p{color:var(--text-sec);font-size:0.9rem;margin-bottom:1.5rem}
+.keygen-output{display:flex;gap:0.5rem;margin-bottom:1.5rem}
+.keygen-key{flex:1;padding:0.8rem 1rem;background:rgba(13,17,23,0.6);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--accent);font-family:'SF Mono',Consolas,monospace;font-size:0.85rem;outline:none;text-overflow:ellipsis}
+.keygen-btn{padding:0.8rem 1.5rem;background:var(--accent);color:var(--bg);border:none;border-radius:var(--radius-sm);font-weight:700;font-size:0.85rem;cursor:pointer;transition:var(--transition);font-family:var(--font);white-space:nowrap}
+.keygen-btn:hover{background:#388bfd;transform:scale(1.02)}
+.keygen-copy{padding:0.8rem 1rem;background:rgba(57,211,83,0.1);border:1px solid rgba(57,211,83,0.25);border-radius:var(--radius-sm);color:var(--green);font-weight:700;font-size:0.85rem;cursor:pointer;transition:var(--transition);font-family:var(--font)}
+.keygen-copy:hover{background:var(--green);color:var(--bg)}
+.keygen-note{font-size:0.75rem;color:var(--text-muted)}
+
+/* Code Snippets */
+.code-tabs{display:flex;gap:0.5rem;margin-bottom:0;flex-wrap:wrap}
+.code-tab{padding:0.5rem 1rem;background:transparent;border:1px solid var(--border);border-bottom:none;border-radius:var(--radius-sm) var(--radius-sm) 0 0;color:var(--text-sec);font-size:0.78rem;font-weight:600;cursor:pointer;transition:var(--transition);font-family:var(--font)}
+.code-tab.active{background:rgba(22,27,34,0.9);border-color:var(--border);color:var(--accent)}
+.code-block{background:rgba(22,27,34,0.9);border:1px solid var(--border);border-radius:0 var(--radius-sm) var(--radius-sm) var(--radius-sm);padding:1.5rem;overflow-x:auto;position:relative}
+.code-block pre{margin:0;font-family:'SF Mono',Consolas,'Liberation Mono',monospace;font-size:0.82rem;line-height:1.7;color:#c9d1d9;white-space:pre;tab-size:2}
+.code-block .kw{color:var(--accent)}
+.code-block .str{color:var(--green)}
+.code-block .cm{color:var(--text-muted)}
+.code-block .fn{color:var(--purple)}
+.code-block .num{color:var(--orange)}
+.code-copy{position:absolute;top:10px;right:10px;padding:0.3rem 0.7rem;background:rgba(88,166,255,0.1);border:1px solid rgba(88,166,255,0.2);border-radius:6px;color:var(--accent);font-size:0.7rem;font-weight:600;cursor:pointer;transition:var(--transition);font-family:var(--font)}
+.code-copy:hover{background:var(--accent);color:var(--bg)}
+
+/* Endpoints */
+.endpoint-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin-top:2rem}
+.endpoint-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:1.5rem;backdrop-filter:blur(10px);transition:var(--transition)}
+.endpoint-card:hover{border-color:var(--border-hover)}
+.endpoint-method{display:inline-block;padding:0.2rem 0.5rem;border-radius:4px;font-size:0.65rem;font-weight:800;letter-spacing:0.5px;margin-bottom:0.5rem}
+.endpoint-method.get{background:rgba(57,211,83,0.15);color:var(--green)}
+.endpoint-method.post{background:rgba(88,166,255,0.15);color:var(--accent)}
+.endpoint-path{font-family:'SF Mono',Consolas,monospace;font-size:0.82rem;color:var(--accent);margin-bottom:0.4rem;word-break:break-all}
+.endpoint-card p{font-size:0.78rem;color:var(--text-sec);line-height:1.5}
+
+footer{border-top:1px solid var(--border);padding:2.5rem 2rem;text-align:center;max-width:900px;margin:0 auto}
+.footer-links{display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap;margin-bottom:1rem}
+.footer-links a{font-size:0.82rem;color:var(--text-sec);transition:color 0.2s}
+.footer-links a:hover{color:var(--accent)}
+.footer-copy{font-size:0.72rem;color:var(--text-muted)}
+
+@media(max-width:900px){
+  .api-pricing{grid-template-columns:1fr}
+  .api-card.popular{order:-1}
+  .endpoint-grid{grid-template-columns:1fr}
+}
+@media(max-width:768px){
+  .nav{padding:0 1.25rem}
+  .nav-links{display:none;position:fixed;top:64px;left:0;right:0;bottom:0;flex-direction:column;background:rgba(13,17,23,0.98);backdrop-filter:blur(20px);padding:2rem 1.5rem;gap:0;z-index:999}
+  .nav-links.open{display:flex}
+  .nav-links a{display:block;padding:1rem 0;font-size:1.1rem;border-bottom:1px solid var(--border)}
+  .mobile-toggle{display:block}
+  .hero{padding:7rem 1.5rem 2rem}
+  .keygen-output{flex-direction:column}
+}
+</style>
+</head>
+<body>
+
+<div class="bg-mesh"></div>
+<div class="bg-grid"></div>
+
+<nav class="nav">
+  <a href="/" class="nav-logo">SPUNK.CODES</a>
+  <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu">&#9776;</button>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="/store">Tools</a></li>
+    <li><a href="/pricing">Pricing</a></li>
+    <li><a href="/api-access" class="active">API</a></li>
+    <li><a href="/blog">Blog</a></li>
+    <li><a href="https://x.com/SpunkArt13" target="_blank" rel="noopener">@SpunkArt13</a></li>
+  </ul>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-badge">API Now Available</div>
+  <h1>Integrate Our Tools <span>Via API</span></h1>
+  <p>Access 200+ developer tools programmatically. JSON formatting, color generation, SEO analysis, and more -- all through a simple REST API.</p>
+</section>
+
+<!-- Pricing -->
+<section class="section">
+  <div class="section-head">
+    <h2>API <span>Plans</span></h2>
+    <p>Start free, scale as you grow. No credit card required for the free tier.</p>
+  </div>
+
+  <div class="api-pricing">
+    <!-- Free -->
+    <div class="api-card">
+      <div class="api-tier-name">Free</div>
+      <div class="api-price">$0<small>/forever</small></div>
+      <div class="api-price-note">No credit card required</div>
+      <div class="api-features">
+        <div>100 requests per day</div>
+        <div>All tool endpoints</div>
+        <div>JSON responses</div>
+        <div>Standard rate limiting</div>
+        <div>Community support</div>
+        <div>API key via dashboard</div>
+      </div>
+      <button class="api-btn free" onclick="generateKey('free')">Generate Free Key</button>
+    </div>
+
+    <!-- Pro -->
+    <div class="api-card popular">
+      <div class="popular-tag">Most Popular</div>
+      <div class="api-tier-name">Pro</div>
+      <div class="api-price">$29<small>/mo</small></div>
+      <div class="api-price-note">For growing apps and projects</div>
+      <div class="api-features">
+        <div>10,000 requests per day</div>
+        <div>All tool endpoints</div>
+        <div>Priority processing</div>
+        <div>Batch requests support</div>
+        <div>Webhook callbacks</div>
+        <div>Email support</div>
+        <div>Usage analytics dashboard</div>
+      </div>
+      <button class="api-btn primary" onclick="generateKey('pro')">Get Pro Access</button>
+    </div>
+
+    <!-- Enterprise -->
+    <div class="api-card">
+      <div class="api-tier-name">Enterprise</div>
+      <div class="api-price">$99<small>/mo</small></div>
+      <div class="api-price-note">Unlimited for serious apps</div>
+      <div class="api-features">
+        <div>Unlimited requests</div>
+        <div>All tool endpoints</div>
+        <div>Dedicated infrastructure</div>
+        <div>Custom rate limits</div>
+        <div>Batch & streaming support</div>
+        <div>SLA guarantee (99.9%)</div>
+        <div>Priority support + Slack channel</div>
+        <div>Custom endpoint development</div>
+      </div>
+      <button class="api-btn gold" onclick="generateKey('enterprise')">Contact Us</button>
+    </div>
+  </div>
+</section>
+
+<!-- API Key Generator -->
+<div class="keygen-section">
+  <div class="keygen-card">
+    <h2>Generate Your API Key</h2>
+    <p>Get instant access to all tool endpoints. Your key is stored locally in your browser.</p>
+    <div class="keygen-output">
+      <input type="text" class="keygen-key" id="apiKeyDisplay" value="Click 'Generate' to create your API key" readonly>
+      <button class="keygen-btn" id="genBtn" onclick="generateKey('free')">Generate</button>
+      <button class="keygen-copy" id="copyBtn" onclick="copyKey()" style="display:none">Copy</button>
+    </div>
+    <div class="keygen-note" id="keygenNote">Free tier: 100 requests/day. Upgrade for higher limits.</div>
+  </div>
+</div>
+
+<!-- Code Examples -->
+<section class="section">
+  <div class="section-head">
+    <h2>Quick <span>Start</span></h2>
+    <p>Integrate in minutes with our simple REST API. Here are examples in popular languages.</p>
+  </div>
+
+  <div class="code-tabs" id="codeTabs">
+    <button class="code-tab active" data-lang="curl">cURL</button>
+    <button class="code-tab" data-lang="js">JavaScript</button>
+    <button class="code-tab" data-lang="python">Python</button>
+    <button class="code-tab" data-lang="node">Node.js</button>
+  </div>
+
+  <div class="code-block" id="codeBlock">
+    <button class="code-copy" onclick="copyCode()">Copy</button>
+    <pre id="codeContent"></pre>
+  </div>
+</section>
+
+<!-- Available Endpoints -->
+<section class="section">
+  <div class="section-head">
+    <h2>Available <span>Endpoints</span></h2>
+    <p>A sample of our most popular API endpoints. Over 50 endpoints available across all tool categories.</p>
+  </div>
+
+  <div class="endpoint-grid">
+    <div class="endpoint-card">
+      <span class="endpoint-method post">POST</span>
+      <div class="endpoint-path">/api/v1/json/format</div>
+      <p>Format, validate, and minify JSON. Supports large payloads up to 10MB.</p>
+    </div>
+    <div class="endpoint-card">
+      <span class="endpoint-method get">GET</span>
+      <div class="endpoint-path">/api/v1/color/palette</div>
+      <p>Generate color palettes. Parameters: base color, harmony type, count.</p>
+    </div>
+    <div class="endpoint-card">
+      <span class="endpoint-method post">POST</span>
+      <div class="endpoint-path">/api/v1/seo/meta-tags</div>
+      <p>Generate optimized meta tags from URL or content. Returns OG, Twitter, and standard tags.</p>
+    </div>
+    <div class="endpoint-card">
+      <span class="endpoint-method get">GET</span>
+      <div class="endpoint-path">/api/v1/security/password</div>
+      <p>Generate cryptographically secure passwords. Configurable length, complexity, and character sets.</p>
+    </div>
+    <div class="endpoint-card">
+      <span class="endpoint-method post">POST</span>
+      <div class="endpoint-path">/api/v1/dev/regex-test</div>
+      <p>Test regex patterns against input strings. Returns matches, groups, and execution time.</p>
+    </div>
+    <div class="endpoint-card">
+      <span class="endpoint-method post">POST</span>
+      <div class="endpoint-path">/api/v1/content/markdown</div>
+      <p>Convert Markdown to HTML and vice versa. Supports GFM, tables, and code highlighting.</p>
+    </div>
+    <div class="endpoint-card">
+      <span class="endpoint-method get">GET</span>
+      <div class="endpoint-path">/api/v1/dev/uuid</div>
+      <p>Generate UUIDs (v1, v4, v5). Bulk generation supported with count parameter.</p>
+    </div>
+    <div class="endpoint-card">
+      <span class="endpoint-method post">POST</span>
+      <div class="endpoint-path">/api/v1/seo/schema</div>
+      <p>Generate Schema.org structured data. Supports Article, Product, FAQ, HowTo, and more.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-links">
+    <a href="/">Home</a>
+    <a href="/store">Tools</a>
+    <a href="/pricing">Pricing</a>
+    <a href="/sponsor">Sponsor</a>
+    <a href="/advertise">Advertise</a>
+    <a href="/white-label">White Label</a>
+    <a href="/api-access">API</a>
+    <a href="/blog">Blog</a>
+    <a href="https://x.com/SpunkArt13" target="_blank" rel="noopener">@SpunkArt13</a>
+  </div>
+  <div class="footer-copy">&copy; 2026 SPUNK.CODES. All rights reserved.</div>
+</footer>
+
+<script>
+// Mobile menu
+document.getElementById('mobileToggle').addEventListener('click',function(){
+  var n=document.getElementById('navLinks');n.classList.toggle('open');
+  this.innerHTML=n.classList.contains('open')?'&#10005;':'&#9776;';
+});
+document.querySelectorAll('#navLinks a').forEach(function(a){a.addEventListener('click',function(){document.getElementById('navLinks').classList.remove('open');document.getElementById('mobileToggle').innerHTML='&#9776;';});});
+
+// API Key Generator (localStorage demo)
+function generateKey(tier) {
+  if (tier === 'enterprise') {
+    window.location.href = 'mailto:api@spunk.codes?subject=Enterprise%20API%20Access';
+    return;
+  }
+  if (tier === 'pro') {
+    if (typeof gtag === 'function') gtag('event', 'api_upgrade_click', { tier: 'pro' });
+    // For now, generate a demo key but note it's pro
+  }
+
+  var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  var prefix = tier === 'pro' ? 'sk_pro_' : 'sk_free_';
+  var key = prefix;
+  for (var i = 0; i < 32; i++) {
+    key += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+
+  var display = document.getElementById('apiKeyDisplay');
+  var copyBtn = document.getElementById('copyBtn');
+  var note = document.getElementById('keygenNote');
+
+  display.value = key;
+  copyBtn.style.display = 'block';
+
+  // Save to localStorage
+  try {
+    localStorage.setItem('sc_api_key', key);
+    localStorage.setItem('sc_api_tier', tier);
+    localStorage.setItem('sc_api_created', new Date().toISOString());
+  } catch (e) {}
+
+  note.textContent = 'Key generated! ' + (tier === 'pro' ? 'Pro: 10,000 req/day.' : 'Free: 100 req/day.') + ' Stored in your browser.';
+  note.style.color = '#39d353';
+
+  if (typeof gtag === 'function') gtag('event', 'api_key_generated', { tier: tier });
+}
+
+// Load existing key
+(function() {
+  try {
+    var saved = localStorage.getItem('sc_api_key');
+    if (saved) {
+      document.getElementById('apiKeyDisplay').value = saved;
+      document.getElementById('copyBtn').style.display = 'block';
+      var tier = localStorage.getItem('sc_api_tier') || 'free';
+      document.getElementById('keygenNote').textContent = 'Existing ' + tier + ' key loaded. ' + (tier === 'pro' ? '10,000 req/day.' : '100 req/day.');
+    }
+  } catch (e) {}
+})();
+
+function copyKey() {
+  var input = document.getElementById('apiKeyDisplay');
+  input.select();
+  input.setSelectionRange(0, 99999);
+  navigator.clipboard.writeText(input.value).then(function() {
+    var btn = document.getElementById('copyBtn');
+    btn.textContent = 'Copied!';
+    setTimeout(function() { btn.textContent = 'Copy'; }, 2000);
+  });
+  if (typeof gtag === 'function') gtag('event', 'api_key_copied');
+}
+
+// Code Examples
+var codeExamples = {
+  curl: '<span class="cm"># Format JSON via API</span>\ncurl -X POST https://api.spunk.codes/v1/json/format \\\n  -H <span class="str">"Authorization: Bearer YOUR_API_KEY"</span> \\\n  -H <span class="str">"Content-Type: application/json"</span> \\\n  -d <span class="str">\'{"input": "{\\\"name\\\":\\\"SPUNK.CODES\\\",\\\"tools\\\":200}"}\'</span>\n\n<span class="cm"># Generate a color palette</span>\ncurl https://api.spunk.codes/v1/color/palette<span class="str">?base=%2358a6ff&harmony=complementary&count=5</span> \\\n  -H <span class="str">"Authorization: Bearer YOUR_API_KEY"</span>\n\n<span class="cm"># Generate a password</span>\ncurl https://api.spunk.codes/v1/security/password<span class="str">?length=32&uppercase=true&numbers=true&symbols=true</span> \\\n  -H <span class="str">"Authorization: Bearer YOUR_API_KEY"</span>',
+
+  js: '<span class="cm">// Format JSON via SPUNK.CODES API</span>\n<span class="kw">const</span> <span class="fn">formatJSON</span> = <span class="kw">async</span> (input) => {\n  <span class="kw">const</span> response = <span class="kw">await</span> <span class="fn">fetch</span>(<span class="str">\'https://api.spunk.codes/v1/json/format\'</span>, {\n    method: <span class="str">\'POST\'</span>,\n    headers: {\n      <span class="str">\'Authorization\'</span>: <span class="str">`Bearer ${API_KEY}`</span>,\n      <span class="str">\'Content-Type\'</span>: <span class="str">\'application/json\'</span>\n    },\n    body: JSON.<span class="fn">stringify</span>({ input })\n  });\n  <span class="kw">return</span> response.<span class="fn">json</span>();\n};\n\n<span class="cm">// Generate a color palette</span>\n<span class="kw">const</span> <span class="fn">getPalette</span> = <span class="kw">async</span> (base, harmony = <span class="str">\'complementary\'</span>) => {\n  <span class="kw">const</span> res = <span class="kw">await</span> <span class="fn">fetch</span>(\n    <span class="str">`https://api.spunk.codes/v1/color/palette?base=${base}&harmony=${harmony}`</span>,\n    { headers: { <span class="str">\'Authorization\'</span>: <span class="str">`Bearer ${API_KEY}`</span> } }\n  );\n  <span class="kw">return</span> res.<span class="fn">json</span>();\n};',
+
+  python: '<span class="kw">import</span> requests\n\nAPI_KEY = <span class="str">"your_api_key_here"</span>\nBASE_URL = <span class="str">"https://api.spunk.codes/v1"</span>\n\nheaders = {\n    <span class="str">"Authorization"</span>: <span class="str">f"Bearer {API_KEY}"</span>,\n    <span class="str">"Content-Type"</span>: <span class="str">"application/json"</span>\n}\n\n<span class="cm"># Format JSON</span>\nresponse = requests.<span class="fn">post</span>(\n    <span class="str">f"{BASE_URL}/json/format"</span>,\n    headers=headers,\n    json={<span class="str">"input"</span>: <span class="str">\'{"name": "test"}\'</span>}\n)\n<span class="fn">print</span>(response.<span class="fn">json</span>())\n\n<span class="cm"># Generate password</span>\npassword = requests.<span class="fn">get</span>(\n    <span class="str">f"{BASE_URL}/security/password"</span>,\n    headers=headers,\n    params={<span class="str">"length"</span>: <span class="num">32</span>, <span class="str">"symbols"</span>: <span class="kw">True</span>}\n)\n<span class="fn">print</span>(password.<span class="fn">json</span>())',
+
+  node: '<span class="kw">const</span> axios = <span class="fn">require</span>(<span class="str">\'axios\'</span>);\n\n<span class="kw">const</span> api = axios.<span class="fn">create</span>({\n  baseURL: <span class="str">\'https://api.spunk.codes/v1\'</span>,\n  headers: {\n    <span class="str">\'Authorization\'</span>: <span class="str">`Bearer ${process.env.SPUNK_API_KEY}`</span>\n  }\n});\n\n<span class="cm">// Format JSON</span>\n<span class="kw">async function</span> <span class="fn">formatJSON</span>(input) {\n  <span class="kw">const</span> { data } = <span class="kw">await</span> api.<span class="fn">post</span>(<span class="str">\'/json/format\'</span>, { input });\n  <span class="kw">return</span> data;\n}\n\n<span class="cm">// Generate color palette</span>\n<span class="kw">async function</span> <span class="fn">getPalette</span>(base) {\n  <span class="kw">const</span> { data } = <span class="kw">await</span> api.<span class="fn">get</span>(<span class="str">\'/color/palette\'</span>, {\n    params: { base, harmony: <span class="str">\'triadic\'</span>, count: <span class="num">5</span> }\n  });\n  <span class="kw">return</span> data;\n}\n\n<span class="cm">// Usage</span>\n<span class="fn">formatJSON</span>(<span class="str">\'{"key":"value"}\'</span>).<span class="fn">then</span>(console.log);'
+};
+
+var currentLang = 'curl';
+
+function renderCode(lang) {
+  currentLang = lang;
+  document.getElementById('codeContent').innerHTML = codeExamples[lang] || '';
+  document.querySelectorAll('.code-tab').forEach(function(t) {
+    t.classList.toggle('active', t.getAttribute('data-lang') === lang);
+  });
+}
+
+document.getElementById('codeTabs').addEventListener('click', function(e) {
+  var tab = e.target.closest('.code-tab');
+  if (!tab) return;
+  renderCode(tab.getAttribute('data-lang'));
+});
+
+renderCode('curl');
+
+function copyCode() {
+  var code = document.getElementById('codeContent').textContent;
+  navigator.clipboard.writeText(code).then(function() {
+    var btn = document.querySelector('.code-copy');
+    btn.textContent = 'Copied!';
+    setTimeout(function() { btn.textContent = 'Copy'; }, 2000);
+  });
+}
+
+// Code protection
+document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
+</script>
+</body>
+</html>

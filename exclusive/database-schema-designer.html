@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Database Schema Designer - Visual DB Design Tool | SPUNK.CODES Exclusive</title>
+<meta name="description" content="Design database schemas visually. Define tables, columns, relationships. Generate SQL for PostgreSQL, MySQL, SQLite. Exclusive premium tool.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Database Schema Designer - SPUNK.CODES Exclusive">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/database-schema-designer">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0d1117;--card:rgba(22,27,34,0.8);--border:rgba(48,54,61,0.6);--gold:#ffd700;--gold-border:rgba(255,215,0,0.3);--text:#e6edf3;--text-dim:#8b949e;--blue:#58a6ff;--cyan:#39d353;--red:#f85149;--orange:#ff8c00;--font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+a{color:var(--blue);text-decoration:none}
+.bg-mesh{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 80% 50% at 20% 20%,rgba(255,215,0,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(255,140,0,0.04) 0%,transparent 60%),var(--bg)}
+.bg-grid{position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,215,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,215,0,0.03) 1px,transparent 1px);background-size:60px 60px}
+.nav{position:sticky;top:0;z-index:100;background:rgba(13,17,23,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,215,0,0.15);padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}
+.nav-brand{font-weight:800;font-size:1.1rem;color:var(--gold);letter-spacing:0.08em}
+.nav-links{display:flex;gap:1.5rem;font-size:0.85rem}.nav-links a{color:var(--text-dim);font-weight:500}.nav-links a.active{color:var(--gold)}
+.lock-gate{position:fixed;inset:0;z-index:1000;background:rgba(13,17,23,0.97);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:2rem}
+.lock-gate.hidden{display:none}
+.lock-icon-big{font-size:4rem}.lock-gate h2{font-size:1.8rem;font-weight:800;text-align:center}.lock-gate h2 span{color:var(--gold)}.lock-gate p{color:var(--text-dim);text-align:center;max-width:400px}
+.code-input-wrap{display:flex;gap:0.5rem}
+.code-input{padding:0.8rem 1.5rem;background:rgba(22,27,34,0.8);border:2px solid var(--gold-border);border-radius:12px;color:var(--gold);font-size:1.2rem;font-weight:800;letter-spacing:3px;text-align:center;width:200px;outline:none;text-transform:uppercase;font-family:var(--font)}
+.code-input:focus{border-color:var(--gold);box-shadow:0 0 20px rgba(255,215,0,0.2)}
+.code-submit{padding:0.8rem 1.5rem;background:linear-gradient(135deg,#ffd700,#ff8c00);border:none;border-radius:12px;color:#000;font-size:1rem;font-weight:800;cursor:pointer}
+.code-error{color:var(--red);font-size:0.85rem;min-height:1.2em}.lock-hint{color:var(--text-dim);font-size:0.8rem}.lock-hint a{color:var(--gold)}
+.exclusive-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;background:linear-gradient(135deg,rgba(255,215,0,0.15),rgba(255,140,0,0.15));border:1px solid var(--gold-border);border-radius:100px;font-size:11px;font-weight:800;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase}
+.main{max-width:1100px;margin:0 auto;padding:2rem}
+.hero-section{text-align:center;padding:2rem 0 2rem}
+.hero-section h1{font-size:2.2rem;font-weight:800;margin:1rem 0 0.5rem}
+.hero-section h1 .gold{background:linear-gradient(135deg,#ffd700,#ff8c00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-section p{color:var(--text-dim);max-width:600px;margin:0 auto}
+.card{background:var(--card);border:1px solid var(--gold-border);border-radius:16px;padding:1.5rem;margin-bottom:1.5rem;backdrop-filter:blur(10px);position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),#ff8c00,var(--gold))}
+.card h2{font-size:1.1rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}
+.form-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:0.75rem;margin-bottom:0.75rem}
+.form-group{display:flex;flex-direction:column;gap:0.3rem}
+.form-group label{font-size:0.75rem;color:var(--text-dim);font-weight:600;text-transform:uppercase;letter-spacing:0.5px}
+.form-group input,.form-group select,.form-group textarea{padding:0.6rem 0.8rem;background:rgba(22,27,34,0.9);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.85rem;font-family:var(--font);outline:none}
+.form-group input:focus,.form-group select:focus{border-color:var(--gold);box-shadow:0 0 10px rgba(255,215,0,0.1)}
+.btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;transition:all 0.2s}
+.btn-gold{background:linear-gradient(135deg,#ffd700,#ff8c00);color:#000}
+.btn-gold:hover{transform:translateY(-1px);box-shadow:0 4px 15px rgba(255,215,0,0.3)}
+.btn-outline{background:transparent;border:1px solid var(--gold-border);color:var(--gold)}
+.btn-outline:hover{background:rgba(255,215,0,0.1)}
+.btn-red{background:rgba(248,81,73,0.15);border:1px solid rgba(248,81,73,0.3);color:var(--red)}
+.btn-blue{background:rgba(88,166,255,0.15);border:1px solid rgba(88,166,255,0.3);color:var(--blue)}
+.btn-sm{padding:0.4rem 0.8rem;font-size:0.75rem}
+.btn-row{display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:0.75rem}
+.table-card{background:rgba(13,17,23,0.6);border:1px solid var(--border);border-radius:12px;padding:1rem;margin-bottom:0.75rem}
+.table-card:hover{border-color:var(--gold-border)}
+.table-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem}
+.table-name{font-weight:700;font-size:1rem;color:var(--gold)}
+.col-row{display:grid;grid-template-columns:2fr 1.5fr 2fr 0.5fr;gap:0.5rem;align-items:center;padding:0.3rem 0;font-size:0.8rem;border-bottom:1px solid rgba(48,54,61,0.3)}
+.col-row:last-child{border-bottom:none}
+.col-name{font-family:monospace;color:var(--text)}.col-type{color:var(--blue);font-family:monospace;font-size:0.75rem}
+.col-constraints{color:var(--text-dim);font-size:0.7rem}
+.pk-badge{display:inline-block;padding:1px 6px;background:rgba(255,215,0,0.2);color:var(--gold);border-radius:3px;font-size:0.6rem;font-weight:700}
+.fk-badge{display:inline-block;padding:1px 6px;background:rgba(88,166,255,0.2);color:var(--blue);border-radius:3px;font-size:0.6rem;font-weight:700}
+.nn-badge{display:inline-block;padding:1px 6px;background:rgba(248,81,73,0.15);color:var(--red);border-radius:3px;font-size:0.6rem;font-weight:700}
+.uq-badge{display:inline-block;padding:1px 6px;background:rgba(57,211,83,0.15);color:var(--cyan);border-radius:3px;font-size:0.6rem;font-weight:700}
+.rel-item{display:flex;align-items:center;gap:0.5rem;padding:0.5rem;background:rgba(13,17,23,0.5);border-radius:8px;margin-bottom:0.5rem;font-size:0.8rem}
+.rel-arrow{color:var(--gold);font-weight:700}
+.sql-output{background:#161b22;border:1px solid var(--border);border-radius:8px;padding:1rem;font-family:'Courier New',monospace;font-size:0.8rem;line-height:1.5;overflow-x:auto;white-space:pre-wrap;word-break:break-all;max-height:500px;overflow-y:auto;position:relative}
+.sql-output .copy-btn{position:absolute;top:0.5rem;right:0.5rem;padding:0.3rem 0.6rem;background:rgba(255,215,0,0.15);border:1px solid var(--gold-border);border-radius:6px;color:var(--gold);font-size:0.65rem;cursor:pointer;font-weight:700}
+.diagram-container{background:#161b22;border:1px solid var(--border);border-radius:8px;padding:1rem;overflow:auto;min-height:200px}
+.diagram-container svg{width:100%;min-height:200px}
+.tabs{display:flex;gap:0.25rem;margin-bottom:1rem}
+.tab{padding:0.5rem 1rem;border-radius:8px;font-size:0.8rem;font-weight:600;cursor:pointer;color:var(--text-dim);background:transparent;border:1px solid transparent}
+.tab.active{color:var(--gold);background:rgba(255,215,0,0.1);border-color:var(--gold-border)}
+.share-cta{background:linear-gradient(135deg,rgba(255,215,0,0.08),rgba(255,140,0,0.05));border:1px solid var(--gold-border);border-radius:16px;padding:2rem;text-align:center;margin-top:2rem}
+.share-cta h3{color:var(--gold);margin-bottom:0.5rem}.share-cta p{color:var(--text-dim);font-size:0.9rem;margin-bottom:1rem}
+.share-btns{display:flex;gap:0.6rem;justify-content:center;flex-wrap:wrap}
+.share-btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;color:#fff}
+.share-x{background:#000;border:1px solid #333}.share-reddit{background:#ff4500}.share-email{background:#21262d;border:1px solid #30363d}
+.footer{text-align:center;padding:2rem;border-top:1px solid rgba(255,215,0,0.1);color:var(--text-dim);font-size:0.75rem;margin-top:3rem}
+.footer a{color:var(--gold)}.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-bottom:1rem}
+.watermark{position:fixed;bottom:10px;right:10px;font-size:0.6rem;color:rgba(255,215,0,0.08);font-weight:800;pointer-events:none;z-index:9999;letter-spacing:1px;text-transform:uppercase}
+.empty-state{text-align:center;padding:3rem;color:var(--text-dim)}.empty-state .icon{font-size:3rem;margin-bottom:1rem}
+.chk{width:16px;height:16px;accent-color:var(--gold)}
+@media(max-width:768px){.main{padding:1rem}.hero-section h1{font-size:1.6rem}.nav-links{display:none}.form-row{grid-template-columns:1fr}.col-row{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="bg-mesh"></div><div class="bg-grid"></div>
+<div class="lock-gate" id="lockGate"><div class="lock-icon-big">&#128274;</div><h2>Enter Code <span>SPUNK</span> to Unlock</h2><p>This exclusive premium tool requires the SPUNK referral code.</p><div class="code-input-wrap"><input type="text" class="code-input" id="codeInput" placeholder="CODE" maxlength="10" autocomplete="off"><button class="code-submit" onclick="submitCode()">Unlock</button></div><div class="code-error" id="codeError"></div><div class="lock-hint">Get the code at <a href="https://spunk.codes/exclusive-tools">spunk.codes/exclusive-tools</a></div></div>
+<nav class="nav"><a href="https://spunk.codes" class="nav-brand">SPUNK.CODES</a><div class="nav-links"><a href="/store">Tools</a><a href="/exclusive-tools" class="active">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a></div></nav>
+
+<div class="main">
+  <section class="hero-section">
+    <div class="exclusive-badge">&#128081; EXCLUSIVE TOOL</div>
+    <h1><span class="gold">Database Schema</span> Designer</h1>
+    <p>Design database schemas visually. Define tables, columns, relationships. Generate SQL for PostgreSQL, MySQL, and SQLite.</p>
+  </section>
+
+  <div class="card">
+    <h2>&#128451; Add Table</h2>
+    <div class="form-row">
+      <div class="form-group" style="grid-column:1/-1"><label>Table Name</label><input type="text" id="tableName" placeholder="users"></div>
+    </div>
+    <h3 style="font-size:0.85rem;margin:0.5rem 0;color:var(--gold)">Columns</h3>
+    <div id="columnFields"></div>
+    <button class="btn btn-outline btn-sm" onclick="addColumnField()" style="margin-bottom:0.75rem">+ Add Column</button>
+    <div class="btn-row" style="margin-top:0">
+      <button class="btn btn-gold" onclick="addTable()">Add Table</button>
+      <button class="btn btn-outline" onclick="clearTableForm()">Clear</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>&#128279; Add Relationship</h2>
+    <div class="form-row">
+      <div class="form-group"><label>From Table</label><select id="relFrom"></select></div>
+      <div class="form-group"><label>From Column</label><select id="relFromCol"></select></div>
+      <div class="form-group"><label>Type</label><select id="relType"><option value="one-to-one">One-to-One</option><option value="one-to-many" selected>One-to-Many</option><option value="many-to-many">Many-to-Many</option></select></div>
+      <div class="form-group"><label>To Table</label><select id="relTo"></select></div>
+      <div class="form-group"><label>To Column</label><select id="relToCol"></select></div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-gold" onclick="addRelationship()">Add Relationship</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>&#128203; Tables (<span id="tableCount">0</span>)</h2>
+    <div id="tableList">
+      <div class="empty-state"><div class="icon">&#128451;</div><p>No tables yet. Define your first table above.</p></div>
+    </div>
+  </div>
+
+  <div class="card" id="relCard" style="display:none">
+    <h2>&#128279; Relationships (<span id="relCount">0</span>)</h2>
+    <div id="relList"></div>
+  </div>
+
+  <div class="card">
+    <h2>&#127912; Visual Diagram</h2>
+    <button class="btn btn-gold btn-sm" onclick="renderDiagram()" style="margin-bottom:0.75rem">Generate Diagram</button>
+    <div class="diagram-container" id="diagramContainer">
+      <div class="empty-state"><p>Click "Generate Diagram" to visualize your schema</p></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>&#128190; Generate SQL</h2>
+    <div class="tabs">
+      <button class="tab active" onclick="switchDialect('postgresql',this)">PostgreSQL</button>
+      <button class="tab" onclick="switchDialect('mysql',this)">MySQL</button>
+      <button class="tab" onclick="switchDialect('sqlite',this)">SQLite</button>
+    </div>
+    <div class="btn-row" style="margin-top:0;margin-bottom:0.75rem">
+      <button class="btn btn-gold btn-sm" onclick="generateSQL()">Generate SQL</button>
+      <button class="btn btn-outline btn-sm" onclick="copySQL()">Copy SQL</button>
+      <button class="btn btn-outline btn-sm" onclick="downloadSQL()">Download .sql</button>
+    </div>
+    <div class="sql-output" id="sqlOutput">-- Click "Generate SQL" to see output</div>
+  </div>
+
+  <div class="share-cta">
+    <h3>&#128275; Share the Code, Unlock More Tools</h3>
+    <p>Share code SPUNK to help others access 15+ exclusive premium tools.</p>
+    <div class="share-btns">
+      <button class="share-btn share-x" onclick="shareX()">&#120143; Share on X</button>
+      <button class="share-btn share-reddit" onclick="shareReddit()">&#128172; Reddit</button>
+      <button class="share-btn share-email" onclick="shareEmail()">&#9993; Email</button>
+    </div>
+  </div>
+</div>
+
+<footer class="footer"><div class="footer-links"><a href="https://spunk.codes">Home</a><a href="/store">Tools</a><a href="/exclusive-tools">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a><a href="https://twitter.com/SpunkArt13" target="_blank">@SpunkArt13</a></div><div>&copy; 2026 SPUNK.CODES EXCLUSIVE.</div></footer>
+<div class="watermark">SPUNK.CODES EXCLUSIVE</div>
+
+<script>
+document.addEventListener('contextmenu',function(e){e.preventDefault()});
+document.addEventListener('keydown',function(e){if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'||e.key==='C'))||(e.ctrlKey&&e.key==='u'))e.preventDefault()});
+function checkCode(){try{var c=localStorage.getItem('spunk_referral_code')||localStorage.getItem('spunk_ref_code')||'';if(c.toUpperCase()==='SPUNK'){document.getElementById('lockGate').classList.add('hidden');return true}}catch(e){}return false}
+function submitCode(){var v=document.getElementById('codeInput').value.trim().toUpperCase();if(v==='SPUNK'){try{localStorage.setItem('spunk_referral_code','SPUNK');localStorage.setItem('spunk_ref_code','SPUNK')}catch(e){}document.getElementById('lockGate').classList.add('hidden')}else{document.getElementById('codeError').textContent='Invalid code. Try: SPUNK';setTimeout(function(){document.getElementById('codeError').textContent=''},2000)}}
+document.getElementById('codeInput').addEventListener('keydown',function(e){if(e.key==='Enter')submitCode()});
+checkCode();
+
+var tables = [];
+var relationships = [];
+var currentDialect = 'postgresql';
+var editingTable = -1;
+
+function loadState(){
+  try{
+    var d = JSON.parse(localStorage.getItem('dbschema_data') || '{}');
+    if(d.tables) tables = d.tables;
+    if(d.relationships) relationships = d.relationships;
+  }catch(e){}
+}
+
+function saveState(){
+  try{localStorage.setItem('dbschema_data', JSON.stringify({tables:tables,relationships:relationships}))}catch(e){}
+}
+
+var colTypes = ['INTEGER','BIGINT','SERIAL','BIGSERIAL','VARCHAR(255)','TEXT','BOOLEAN','DATE','TIMESTAMP','TIMESTAMPTZ','FLOAT','DOUBLE','DECIMAL(10,2)','JSON','JSONB','UUID','BLOB','CHAR(1)'];
+
+function addColumnField(data){
+  var div = document.createElement('div');
+  div.className = 'form-row col-field';
+  div.style.marginBottom = '0.5rem';
+  var typeOpts = colTypes.map(function(t){return '<option value="'+t+'"'+(data&&data.type===t?' selected':'')+'>'+t+'</option>'}).join('');
+  div.innerHTML = '<div class="form-group"><label>Name</label><input type="text" class="cname" placeholder="id" value="'+(data?data.name:'')+'"></div>'+
+    '<div class="form-group"><label>Type</label><select class="ctype">'+typeOpts+'</select></div>'+
+    '<div class="form-group"><label>Constraints</label><div style="display:flex;gap:0.5rem;align-items:center;flex-wrap:wrap;font-size:0.75rem"><label><input type="checkbox" class="chk cpk" '+(data&&data.pk?'checked':'')+'>PK</label><label><input type="checkbox" class="chk cnn" '+(data&&data.nn?'checked':'')+'>NOT NULL</label><label><input type="checkbox" class="chk cuq" '+(data&&data.uq?'checked':'')+'>UNIQUE</label><label><input type="checkbox" class="chk cai" '+(data&&data.ai?'checked':'')+'>AUTO INC</label></div></div>'+
+    '<div class="form-group"><label>Default</label><input type="text" class="cdef" placeholder="NULL" value="'+(data?data.def||'':'')+'"></div>'+
+    '<div class="form-group" style="justify-content:flex-end"><button class="btn btn-red btn-sm" onclick="this.closest(\'.col-field\').remove()">X</button></div>';
+  document.getElementById('columnFields').appendChild(div);
+}
+
+function getColumns(){
+  var cols = [];
+  document.querySelectorAll('.col-field').forEach(function(row){
+    var name = row.querySelector('.cname').value.trim();
+    if(name) cols.push({
+      name:name, type:row.querySelector('.ctype').value,
+      pk:row.querySelector('.cpk').checked, nn:row.querySelector('.cnn').checked,
+      uq:row.querySelector('.cuq').checked, ai:row.querySelector('.cai').checked,
+      def:row.querySelector('.cdef').value.trim()
+    });
+  });
+  return cols;
+}
+
+function clearTableForm(){
+  document.getElementById('tableName').value='';
+  document.getElementById('columnFields').innerHTML='';
+  editingTable=-1;
+  addColumnField({name:'id',type:'SERIAL',pk:true,nn:true,uq:false,ai:false,def:''});
+}
+
+function addTable(){
+  var name = document.getElementById('tableName').value.trim().toLowerCase().replace(/\s+/g,'_');
+  var cols = getColumns();
+  if(!name){alert('Table name required');return}
+  if(cols.length===0){alert('Add at least one column');return}
+  if(editingTable>=0){
+    tables[editingTable] = {name:name,columns:cols};
+    editingTable=-1;
+  } else {
+    if(tables.some(function(t){return t.name===name})){alert('Table "'+name+'" already exists');return}
+    tables.push({name:name,columns:cols});
+  }
+  saveState();renderTables();updateRelDropdowns();clearTableForm();
+}
+
+function editTable(idx){
+  var t = tables[idx];
+  document.getElementById('tableName').value = t.name;
+  document.getElementById('columnFields').innerHTML = '';
+  t.columns.forEach(function(c){addColumnField(c)});
+  editingTable = idx;
+  window.scrollTo({top:200,behavior:'smooth'});
+}
+
+function deleteTable(idx){
+  var name = tables[idx].name;
+  relationships = relationships.filter(function(r){return r.from!==name && r.to!==name});
+  tables.splice(idx,1);
+  saveState();renderTables();renderRelationships();updateRelDropdowns();
+}
+
+function renderTables(){
+  var list = document.getElementById('tableList');
+  document.getElementById('tableCount').textContent = tables.length;
+  if(tables.length===0){list.innerHTML='<div class="empty-state"><div class="icon">&#128451;</div><p>No tables yet.</p></div>';return}
+  var html='';
+  tables.forEach(function(t,idx){
+    html+='<div class="table-card"><div class="table-header"><span class="table-name">'+t.name+'</span><div><button class="btn btn-outline btn-sm" onclick="editTable('+idx+')">Edit</button> <button class="btn btn-red btn-sm" onclick="deleteTable('+idx+')">Del</button></div></div>';
+    t.columns.forEach(function(c){
+      var badges='';
+      if(c.pk) badges+=' <span class="pk-badge">PK</span>';
+      if(c.nn) badges+=' <span class="nn-badge">NOT NULL</span>';
+      if(c.uq) badges+=' <span class="uq-badge">UNIQUE</span>';
+      html+='<div class="col-row"><span class="col-name">'+c.name+'</span><span class="col-type">'+c.type+'</span><span class="col-constraints">'+badges+(c.def?' DEFAULT '+c.def:'')+'</span><span></span></div>';
+    });
+    html+='</div>';
+  });
+  list.innerHTML=html;
+}
+
+function updateRelDropdowns(){
+  var selects = ['relFrom','relTo'];
+  selects.forEach(function(id){
+    var sel = document.getElementById(id);
+    sel.innerHTML = tables.map(function(t){return '<option value="'+t.name+'">'+t.name+'</option>'}).join('');
+  });
+  updateColDropdown('relFrom','relFromCol');
+  updateColDropdown('relTo','relToCol');
+}
+
+function updateColDropdown(tableSel,colSel){
+  var tname = document.getElementById(tableSel).value;
+  var t = tables.find(function(t){return t.name===tname});
+  var sel = document.getElementById(colSel);
+  sel.innerHTML = t ? t.columns.map(function(c){return '<option value="'+c.name+'">'+c.name+'</option>'}).join('') : '';
+}
+
+document.getElementById('relFrom').addEventListener('change',function(){updateColDropdown('relFrom','relFromCol')});
+document.getElementById('relTo').addEventListener('change',function(){updateColDropdown('relTo','relToCol')});
+
+function addRelationship(){
+  var from=document.getElementById('relFrom').value;
+  var fromCol=document.getElementById('relFromCol').value;
+  var to=document.getElementById('relTo').value;
+  var toCol=document.getElementById('relToCol').value;
+  var type=document.getElementById('relType').value;
+  if(!from||!to){alert('Select tables');return}
+  relationships.push({from:from,fromCol:fromCol,to:to,toCol:toCol,type:type});
+  saveState();renderRelationships();
+}
+
+function deleteRel(idx){relationships.splice(idx,1);saveState();renderRelationships()}
+
+function renderRelationships(){
+  var card = document.getElementById('relCard');
+  var list = document.getElementById('relList');
+  document.getElementById('relCount').textContent = relationships.length;
+  if(relationships.length===0){card.style.display='none';return}
+  card.style.display='block';
+  var html='';
+  relationships.forEach(function(r,idx){
+    var arrow = r.type==='one-to-one'?'1:1':r.type==='one-to-many'?'1:N':'N:M';
+    html+='<div class="rel-item"><span>'+r.from+'.'+r.fromCol+'</span><span class="rel-arrow">--['+arrow+']--></span><span>'+r.to+'.'+r.toCol+'</span><button class="btn btn-red btn-sm" onclick="deleteRel('+idx+')" style="margin-left:auto">X</button></div>';
+  });
+  list.innerHTML=html;
+}
+
+function switchDialect(d,el){
+  currentDialect=d;
+  document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active')});
+  el.classList.add('active');
+  generateSQL();
+}
+
+function generateSQL(){
+  if(tables.length===0){document.getElementById('sqlOutput').textContent='-- Add tables first';return}
+  var sql='';
+  var d=currentDialect;
+
+  tables.forEach(function(t){
+    sql+='CREATE TABLE '+t.name+' (\n';
+    var lines=[];
+    var pks=[];
+    t.columns.forEach(function(c){
+      var line='  '+c.name+' ';
+      var type=c.type;
+      if(c.ai){
+        if(d==='postgresql') type=type.indexOf('BIG')===0?'BIGSERIAL':'SERIAL';
+        else if(d==='mysql') type=type.replace('SERIAL','INT');
+        else if(d==='sqlite') type='INTEGER';
+      }
+      if(d==='mysql'){
+        type=type.replace('TIMESTAMPTZ','TIMESTAMP').replace('JSONB','JSON').replace('SERIAL','INT AUTO_INCREMENT').replace('BIGSERIAL','BIGINT AUTO_INCREMENT').replace('TEXT','TEXT').replace('UUID','CHAR(36)');
+      }
+      if(d==='sqlite'){
+        type=type.replace('TIMESTAMPTZ','TEXT').replace('TIMESTAMP','TEXT').replace('JSONB','TEXT').replace('JSON','TEXT').replace('SERIAL','INTEGER').replace('BIGSERIAL','INTEGER').replace('BOOLEAN','INTEGER').replace('UUID','TEXT').replace(/VARCHAR\(\d+\)/,'TEXT').replace(/DECIMAL\([^)]+\)/,'REAL').replace('DOUBLE','REAL').replace('FLOAT','REAL');
+      }
+      line+=type;
+      if(c.pk && d==='sqlite') line+=' PRIMARY KEY';
+      if(c.ai && d==='sqlite') line+=' AUTOINCREMENT';
+      if(c.nn && !(c.pk && d==='sqlite')) line+=' NOT NULL';
+      if(c.uq) line+=' UNIQUE';
+      if(c.def && c.def!=='NULL') line+=' DEFAULT '+c.def;
+      lines.push(line);
+      if(c.pk) pks.push(c.name);
+    });
+    if(pks.length>0 && d!=='sqlite') lines.push('  PRIMARY KEY ('+pks.join(', ')+')');
+    relationships.forEach(function(r){
+      if(r.from===t.name){
+        lines.push('  FOREIGN KEY ('+r.fromCol+') REFERENCES '+r.to+'('+r.toCol+')');
+      }
+    });
+    sql+=lines.join(',\n')+'\n);\n\n';
+  });
+
+  // Many-to-many join tables
+  relationships.filter(function(r){return r.type==='many-to-many'}).forEach(function(r){
+    var jt=r.from+'_'+r.to;
+    sql+='-- Join table for '+r.from+' <-> '+r.to+'\n';
+    sql+='CREATE TABLE '+jt+' (\n';
+    sql+='  '+r.from+'_'+r.fromCol+' INTEGER NOT NULL,\n';
+    sql+='  '+r.to+'_'+r.toCol+' INTEGER NOT NULL,\n';
+    sql+='  PRIMARY KEY ('+r.from+'_'+r.fromCol+', '+r.to+'_'+r.toCol+'),\n';
+    sql+='  FOREIGN KEY ('+r.from+'_'+r.fromCol+') REFERENCES '+r.from+'('+r.fromCol+'),\n';
+    sql+='  FOREIGN KEY ('+r.to+'_'+r.toCol+') REFERENCES '+r.to+'('+r.toCol+')\n);\n\n';
+  });
+
+  document.getElementById('sqlOutput').textContent=sql;
+}
+
+function copySQL(){
+  var sql=document.getElementById('sqlOutput').textContent;
+  navigator.clipboard.writeText(sql).then(function(){alert('SQL copied!')});
+}
+
+function downloadSQL(){
+  var sql=document.getElementById('sqlOutput').textContent;
+  var blob=new Blob([sql],{type:'text/sql'});
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='schema.sql';
+  a.click();
+}
+
+function renderDiagram(){
+  if(tables.length===0){document.getElementById('diagramContainer').innerHTML='<div class="empty-state"><p>Add tables first</p></div>';return}
+  var w=Math.max(800,tables.length*220);
+  var h=Math.max(400,tables.length*80);
+  var positions=[];
+  var cols=Math.ceil(Math.sqrt(tables.length));
+  tables.forEach(function(t,i){
+    var col=i%cols;
+    var row=Math.floor(i/cols);
+    positions.push({x:40+col*240,y:40+row*200,w:200,h:30+t.columns.length*22});
+  });
+
+  var svg='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 '+w+' '+h+'">';
+  svg+='<defs><marker id="arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#ffd700"/></marker></defs>';
+
+  // Draw relationships
+  relationships.forEach(function(r){
+    var fi=tables.findIndex(function(t){return t.name===r.from});
+    var ti=tables.findIndex(function(t){return t.name===r.to});
+    if(fi>=0&&ti>=0){
+      var fp=positions[fi];var tp=positions[ti];
+      var x1=fp.x+fp.w;var y1=fp.y+fp.h/2;
+      var x2=tp.x;var y2=tp.y+tp.h/2;
+      var label=r.type==='one-to-one'?'1:1':r.type==='one-to-many'?'1:N':'N:M';
+      svg+='<line x1="'+x1+'" y1="'+y1+'" x2="'+x2+'" y2="'+y2+'" stroke="#ffd700" stroke-width="1.5" marker-end="url(#arrow)" opacity="0.6"/>';
+      svg+='<text x="'+((x1+x2)/2)+'" y="'+((y1+y2)/2-8)+'" fill="#ffd700" font-size="11" text-anchor="middle" font-weight="700">'+label+'</text>';
+    }
+  });
+
+  // Draw tables
+  tables.forEach(function(t,i){
+    var p=positions[i];
+    svg+='<rect x="'+p.x+'" y="'+p.y+'" width="'+p.w+'" height="'+p.h+'" rx="6" fill="#161b22" stroke="#ffd700" stroke-width="1.5"/>';
+    svg+='<rect x="'+p.x+'" y="'+p.y+'" width="'+p.w+'" height="28" rx="6" fill="rgba(255,215,0,0.15)"/>';
+    svg+='<text x="'+(p.x+p.w/2)+'" y="'+(p.y+19)+'" fill="#ffd700" font-size="13" text-anchor="middle" font-weight="700">'+t.name+'</text>';
+    t.columns.forEach(function(c,ci){
+      var cy=p.y+42+ci*22;
+      var prefix=c.pk?'PK ':'   ';
+      svg+='<text x="'+(p.x+10)+'" y="'+cy+'" fill="'+(c.pk?'#ffd700':'#e6edf3')+'" font-size="11" font-family="monospace">'+prefix+c.name+'</text>';
+      svg+='<text x="'+(p.x+p.w-10)+'" y="'+cy+'" fill="#58a6ff" font-size="10" text-anchor="end" font-family="monospace">'+c.type+'</text>';
+    });
+  });
+
+  svg+='</svg>';
+  document.getElementById('diagramContainer').innerHTML=svg;
+}
+
+loadState();
+clearTableForm();
+renderTables();
+renderRelationships();
+updateRelDropdowns();
+
+function shareX(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Designing databases visually with this schema designer. Code SPUNK unlocks it @SpunkArt13')+'&url='+encodeURIComponent('https://spunk.codes/exclusive-tools'),'_blank')}
+function shareReddit(){window.open('https://www.reddit.com/submit?url='+encodeURIComponent('https://spunk.codes/exclusive-tools')+'&title='+encodeURIComponent('Database Schema Designer - free with code SPUNK [spunk.codes]'),'_blank')}
+function shareEmail(){window.location.href='mailto:?subject='+encodeURIComponent('Database Schema Designer Tool')+'&body='+encodeURIComponent('Visual database schema designer with SQL generation. Code SPUNK: https://spunk.codes/exclusive-tools')}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+</body>
+</html>

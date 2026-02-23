@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Viral Coefficient Calculator - K-Factor &amp; Growth Modeling | SPUNK.CODES Exclusive</title>
+<meta name="description" content="Calculate your viral coefficient (K-factor), model exponential growth curves, and compare to benchmarks like Dropbox and Slack. Exclusive premium tool.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Viral Coefficient Calculator - SPUNK.CODES Exclusive">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/viral-coefficient-calculator">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0d1117;--card:rgba(22,27,34,0.8);--border:rgba(48,54,61,0.6);--gold:#ffd700;--gold-border:rgba(255,215,0,0.3);--text:#e6edf3;--text-dim:#8b949e;--blue:#58a6ff;--cyan:#39d353;--red:#f85149;--orange:#ff8c00;--font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+a{color:var(--blue);text-decoration:none}
+.bg-mesh{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 80% 50% at 20% 20%,rgba(255,215,0,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(255,140,0,0.04) 0%,transparent 60%),var(--bg)}
+.bg-grid{position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,215,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,215,0,0.03) 1px,transparent 1px);background-size:60px 60px}
+.nav{position:sticky;top:0;z-index:100;background:rgba(13,17,23,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,215,0,0.15);padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}
+.nav-brand{font-weight:800;font-size:1.1rem;color:var(--gold);letter-spacing:0.08em}
+.nav-links{display:flex;gap:1.5rem;font-size:0.85rem}.nav-links a{color:var(--text-dim);font-weight:500}.nav-links a.active{color:var(--gold)}
+.lock-gate{position:fixed;inset:0;z-index:1000;background:rgba(13,17,23,0.97);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:2rem}
+.lock-gate.hidden{display:none}
+.lock-icon-big{font-size:4rem}.lock-gate h2{font-size:1.8rem;font-weight:800;text-align:center}.lock-gate h2 span{color:var(--gold)}.lock-gate p{color:var(--text-dim);text-align:center;max-width:400px}
+.code-input-wrap{display:flex;gap:0.5rem}
+.code-input{padding:0.8rem 1.5rem;background:rgba(22,27,34,0.8);border:2px solid var(--gold-border);border-radius:12px;color:var(--gold);font-size:1.2rem;font-weight:800;letter-spacing:3px;text-align:center;width:200px;outline:none;text-transform:uppercase;font-family:var(--font)}
+.code-input:focus{border-color:var(--gold);box-shadow:0 0 20px rgba(255,215,0,0.2)}
+.code-submit{padding:0.8rem 1.5rem;background:linear-gradient(135deg,#ffd700,#ff8c00);border:none;border-radius:12px;color:#000;font-size:1rem;font-weight:800;cursor:pointer}
+.code-error{color:var(--red);font-size:0.85rem;min-height:1.2em}.lock-hint{color:var(--text-dim);font-size:0.8rem}.lock-hint a{color:var(--gold)}
+.exclusive-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;background:linear-gradient(135deg,rgba(255,215,0,0.15),rgba(255,140,0,0.15));border:1px solid var(--gold-border);border-radius:100px;font-size:11px;font-weight:800;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase}
+.main{max-width:1000px;margin:0 auto;padding:2rem}
+.hero-section{text-align:center;padding:2rem 0 2rem}
+.hero-section h1{font-size:2.2rem;font-weight:800;margin:1rem 0 0.5rem}
+.hero-section h1 .gold{background:linear-gradient(135deg,#ffd700,#ff8c00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-section p{color:var(--text-dim);max-width:600px;margin:0 auto}
+.card{background:var(--card);border:1px solid var(--gold-border);border-radius:16px;padding:1.5rem;margin-bottom:1.5rem;backdrop-filter:blur(10px);position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),#ff8c00,var(--gold))}
+.card h2{font-size:1.1rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}
+.form-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem}
+.form-group{display:flex;flex-direction:column;gap:0.3rem}
+.form-group label{font-size:0.8rem;color:var(--text-dim);font-weight:600}
+.form-group input{padding:0.6rem 0.8rem;background:rgba(13,17,23,0.8);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.9rem;font-family:var(--font);outline:none}
+.form-group input:focus{border-color:var(--gold);box-shadow:0 0 10px rgba(255,215,0,0.1)}
+.form-group .help{font-size:0.7rem;color:var(--text-dim);margin-top:0.2rem}
+.btn{padding:0.7rem 1.5rem;border-radius:10px;font-size:0.85rem;font-weight:700;cursor:pointer;border:none;transition:all 0.2s}
+.btn-gold{background:linear-gradient(135deg,#ffd700,#ff8c00);color:#000}
+.btn-gold:hover{transform:translateY(-1px);box-shadow:0 4px 15px rgba(255,215,0,0.3)}
+.btn-outline{background:transparent;border:1px solid var(--gold-border);color:var(--gold)}
+.btn-row{display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:1rem}
+.k-display{text-align:center;padding:2rem}
+.k-big{font-size:4rem;font-weight:900}
+.k-label{font-size:0.9rem;color:var(--text-dim);margin-top:0.3rem}
+.k-verdict{font-size:1.1rem;font-weight:700;margin-top:0.5rem;padding:0.5rem 1rem;border-radius:8px;display:inline-block}
+.metrics-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1rem;margin:1rem 0}
+.metric-card{text-align:center;padding:1rem;background:rgba(22,27,34,0.5);border:1px solid var(--border);border-radius:10px}
+.metric-val{font-size:1.5rem;font-weight:800;color:var(--gold)}
+.metric-lbl{font-size:0.7rem;color:var(--text-dim);margin-top:0.2rem}
+.chart-container{margin:1.5rem 0;overflow-x:auto}
+.benchmark-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:0.8rem;margin:1rem 0}
+.bench-card{padding:0.8rem;background:rgba(22,27,34,0.5);border:1px solid var(--border);border-radius:10px;text-align:center}
+.bench-card .name{font-weight:700;font-size:0.85rem;margin-bottom:0.3rem}
+.bench-card .k{font-size:1.3rem;font-weight:800;color:var(--gold)}
+.bench-card .desc{font-size:0.65rem;color:var(--text-dim);margin-top:0.2rem}
+.scenario-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1rem 0}
+.scenario-card{padding:1rem;border-radius:10px;border:1px solid var(--border)}
+.scenario-card h3{font-size:0.9rem;font-weight:700;margin-bottom:0.5rem}
+.range-wrap{display:flex;align-items:center;gap:0.5rem;margin:0.5rem 0}
+.range-wrap input[type=range]{flex:1;accent-color:var(--gold)}
+.range-val{font-weight:700;color:var(--gold);min-width:40px;text-align:center;font-size:0.9rem}
+.share-cta{background:linear-gradient(135deg,rgba(255,215,0,0.08),rgba(255,140,0,0.05));border:1px solid var(--gold-border);border-radius:16px;padding:2rem;text-align:center;margin-top:2rem}
+.share-cta h3{color:var(--gold);margin-bottom:0.5rem}.share-cta p{color:var(--text-dim);font-size:0.9rem;margin-bottom:1rem}
+.share-btns{display:flex;gap:0.6rem;justify-content:center;flex-wrap:wrap}
+.share-btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;color:#fff}
+.share-x{background:#000;border:1px solid #333}.share-reddit{background:#ff4500}.share-email{background:#21262d;border:1px solid #30363d}
+.footer{text-align:center;padding:2rem;border-top:1px solid rgba(255,215,0,0.1);color:var(--text-dim);font-size:0.75rem;margin-top:3rem}
+.footer a{color:var(--gold)}.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-bottom:1rem}
+.watermark{position:fixed;bottom:10px;right:10px;font-size:0.6rem;color:rgba(255,215,0,0.08);font-weight:800;pointer-events:none;z-index:9999;letter-spacing:1px;text-transform:uppercase}
+@media(max-width:768px){.main{padding:1rem}.hero-section h1{font-size:1.6rem}.nav-links{display:none}.form-grid{grid-template-columns:1fr}.scenario-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="bg-mesh"></div><div class="bg-grid"></div>
+<div class="lock-gate" id="lockGate"><div class="lock-icon-big">&#128274;</div><h2>Enter Code <span>SPUNK</span> to Unlock</h2><p>This exclusive premium tool requires the SPUNK referral code.</p><div class="code-input-wrap"><input type="text" class="code-input" id="codeInput" placeholder="CODE" maxlength="10" autocomplete="off"><button class="code-submit" onclick="submitCode()">Unlock</button></div><div class="code-error" id="codeError"></div><div class="lock-hint">Get the code at <a href="https://spunk.codes/exclusive-tools">spunk.codes/exclusive-tools</a></div></div>
+<nav class="nav"><a href="https://spunk.codes" class="nav-brand">SPUNK.CODES</a><div class="nav-links"><a href="/store">Tools</a><a href="/exclusive-tools" class="active">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a></div></nav>
+
+<div class="main">
+  <section class="hero-section">
+    <div class="exclusive-badge">&#128081; EXCLUSIVE TOOL</div>
+    <h1><span class="gold">Viral Coefficient</span> Calculator</h1>
+    <p>Calculate your K-factor, model exponential growth, compare scenarios, and benchmark against the most viral products in history.</p>
+  </section>
+
+  <div class="card">
+    <h2>&#128200; Your Viral Metrics</h2>
+    <div class="form-grid">
+      <div class="form-group"><label>Current Users</label><input type="number" id="vUsers" value="1000" min="1"><div class="help">Starting user base</div></div>
+      <div class="form-group"><label>Invites per User</label><input type="number" id="vInvites" value="3" min="0" step="0.1"><div class="help">Avg invitations each user sends</div></div>
+      <div class="form-group"><label>Invite Conversion Rate (%)</label><input type="number" id="vConvRate" value="15" min="0" max="100" step="0.1"><div class="help">% of invitees who sign up</div></div>
+    </div>
+    <div class="form-grid" style="margin-top:1rem">
+      <div class="form-group"><label>Viral Cycle Time (days)</label><input type="number" id="vCycleTime" value="7" min="1"><div class="help">Days from sign-up to inviting others</div></div>
+      <div class="form-group"><label>Projection Period (days)</label><input type="number" id="vPeriod" value="90" min="7" max="365"><div class="help">How far to project growth</div></div>
+      <div class="form-group"><label>Organic Growth / Cycle</label><input type="number" id="vOrganic" value="50" min="0"><div class="help">Non-viral new users per cycle</div></div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-gold" onclick="calculate()">&#128640; Calculate K-Factor</button>
+    </div>
+  </div>
+
+  <div class="card" id="resultsCard" style="display:none">
+    <h2>&#127919; Results</h2>
+    <div class="k-display">
+      <div class="k-big" id="kValue">0</div>
+      <div class="k-label">K-Factor (Viral Coefficient)</div>
+      <div class="k-verdict" id="kVerdict"></div>
+    </div>
+    <div class="metrics-grid">
+      <div class="metric-card"><div class="metric-val" id="mNewPerCycle">0</div><div class="metric-lbl">New Users / Cycle</div></div>
+      <div class="metric-card"><div class="metric-val" id="mProjected">0</div><div class="metric-lbl">Projected Users</div></div>
+      <div class="metric-card"><div class="metric-val" id="mGrowthRate">0</div><div class="metric-lbl">Growth Rate / Cycle</div></div>
+      <div class="metric-card"><div class="metric-val" id="mDoubling">0</div><div class="metric-lbl">Doubling Time (days)</div></div>
+      <div class="metric-card"><div class="metric-val" id="mViralUsers">0</div><div class="metric-lbl">Viral Users (Total)</div></div>
+      <div class="metric-card"><div class="metric-val" id="mViralPct">0</div><div class="metric-lbl">Viral Share %</div></div>
+    </div>
+  </div>
+
+  <div class="card" id="growthChartCard" style="display:none">
+    <h2>&#128200; Projected Growth Curve</h2>
+    <div class="chart-container" id="growthChart"></div>
+  </div>
+
+  <div class="card">
+    <h2>&#128300; Scenario Modeling</h2>
+    <p style="font-size:0.8rem;color:var(--text-dim);margin-bottom:1rem">Adjust the sliders to see how changes affect your growth trajectory.</p>
+    <div class="scenario-grid">
+      <div class="scenario-card">
+        <h3>&#127919; Scenario A: Improve Invites</h3>
+        <div class="range-wrap"><span style="font-size:0.75rem;color:var(--text-dim)">Invites/User</span><input type="range" min="1" max="10" step="0.5" value="3" id="scAInvites" oninput="updateScenario()"><span class="range-val" id="scAInvitesVal">3</span></div>
+        <div class="range-wrap"><span style="font-size:0.75rem;color:var(--text-dim)">Conv Rate %</span><input type="range" min="1" max="50" step="1" value="15" id="scAConv" oninput="updateScenario()"><span class="range-val" id="scAConvVal">15%</span></div>
+        <div style="margin-top:0.5rem;text-align:center"><div style="font-size:0.75rem;color:var(--text-dim)">K-Factor</div><div id="scAK" style="font-size:1.5rem;font-weight:800;color:var(--gold)">0.45</div><div id="scAUsers" style="font-size:0.8rem;color:var(--text-dim)">Projected: 0</div></div>
+      </div>
+      <div class="scenario-card">
+        <h3>&#128640; Scenario B: Go Viral</h3>
+        <div class="range-wrap"><span style="font-size:0.75rem;color:var(--text-dim)">Invites/User</span><input type="range" min="1" max="10" step="0.5" value="5" id="scBInvites" oninput="updateScenario()"><span class="range-val" id="scBInvitesVal">5</span></div>
+        <div class="range-wrap"><span style="font-size:0.75rem;color:var(--text-dim)">Conv Rate %</span><input type="range" min="1" max="50" step="1" value="25" id="scBConv" oninput="updateScenario()"><span class="range-val" id="scBConvVal">25%</span></div>
+        <div style="margin-top:0.5rem;text-align:center"><div style="font-size:0.75rem;color:var(--text-dim)">K-Factor</div><div id="scBK" style="font-size:1.5rem;font-weight:800;color:var(--gold)">1.25</div><div id="scBUsers" style="font-size:0.8rem;color:var(--text-dim)">Projected: 0</div></div>
+      </div>
+    </div>
+    <div class="chart-container" id="scenarioChart"></div>
+  </div>
+
+  <div class="card">
+    <h2>&#127942; Industry Benchmarks</h2>
+    <p style="font-size:0.8rem;color:var(--text-dim);margin-bottom:1rem">How your K-factor compares to famous viral products.</p>
+    <div class="benchmark-grid" id="benchmarks"></div>
+    <div class="chart-container" id="benchmarkChart"></div>
+  </div>
+
+  <div class="share-cta">
+    <h3>&#128275; Share the Code, Unlock Premium Tools</h3>
+    <p>Know a founder obsessing over growth? Share code SPUNK with them.</p>
+    <div class="share-btns">
+      <button class="share-btn share-x" onclick="shareX()">&#120143; Share on X</button>
+      <button class="share-btn share-reddit" onclick="shareReddit()">&#128172; Reddit</button>
+      <button class="share-btn share-email" onclick="shareEm()">&#9993; Email</button>
+    </div>
+  </div>
+</div>
+
+<footer class="footer"><div class="footer-links"><a href="https://spunk.codes">Home</a><a href="/store">Tools</a><a href="/exclusive-tools">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a><a href="https://twitter.com/SpunkArt13" target="_blank">@SpunkArt13</a></div><div>&copy; 2026 SPUNK.CODES EXCLUSIVE.</div></footer>
+<div class="watermark">SPUNK.CODES EXCLUSIVE</div>
+
+<script>
+document.addEventListener('contextmenu',function(e){e.preventDefault()});
+document.addEventListener('keydown',function(e){if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'||e.key==='C'))||(e.ctrlKey&&e.key==='u'))e.preventDefault()});
+function checkCode(){try{var c=localStorage.getItem('spunk_referral_code')||localStorage.getItem('spunk_ref_code')||'';if(c.toUpperCase()==='SPUNK'){document.getElementById('lockGate').classList.add('hidden');return true}}catch(e){}return false}
+function submitCode(){var v=document.getElementById('codeInput').value.trim().toUpperCase();if(v==='SPUNK'){try{localStorage.setItem('spunk_referral_code','SPUNK');localStorage.setItem('spunk_ref_code','SPUNK')}catch(e){}document.getElementById('lockGate').classList.add('hidden')}else{document.getElementById('codeError').textContent='Invalid code. Try: SPUNK';setTimeout(function(){document.getElementById('codeError').textContent=''},2000)}}
+document.getElementById('codeInput').addEventListener('keydown',function(e){if(e.key==='Enter')submitCode()});
+checkCode();
+
+var benchmarks = [
+  { name: 'Dropbox', k: 1.2, desc: 'Referral: extra storage' },
+  { name: 'Slack', k: 0.9, desc: 'Team invites' },
+  { name: 'Hotmail', k: 1.6, desc: '"Get free email" signature' },
+  { name: 'Instagram', k: 1.1, desc: 'Social sharing' },
+  { name: 'WhatsApp', k: 1.4, desc: 'Network effects' },
+  { name: 'Zoom', k: 0.8, desc: 'Meeting invites' },
+  { name: 'TikTok', k: 1.3, desc: 'Content sharing' },
+  { name: 'PayPal', k: 1.0, desc: 'Payment referrals' },
+  { name: 'Clubhouse', k: 1.5, desc: 'Invite-only scarcity' },
+  { name: 'Notion', k: 0.7, desc: 'Workspace sharing' }
+];
+
+function renderBenchmarks() {
+  var html = '';
+  benchmarks.forEach(function(b) {
+    var color = b.k >= 1.0 ? 'var(--cyan)' : b.k >= 0.7 ? 'var(--gold)' : 'var(--red)';
+    html += '<div class="bench-card"><div class="name">' + b.name + '</div><div class="k" style="color:' + color + '">' + b.k.toFixed(1) + '</div><div class="desc">' + b.desc + '</div></div>';
+  });
+  document.getElementById('benchmarks').innerHTML = html;
+}
+
+function projectGrowth(startUsers, k, cycleTime, periodDays, organic) {
+  var cycles = Math.ceil(periodDays / cycleTime);
+  var data = [{ cycle: 0, users: startUsers, viralNew: 0, organicNew: 0 }];
+  var total = startUsers;
+  var viralTotal = 0;
+  for (var i = 1; i <= cycles; i++) {
+    var viralNew = Math.round(data[i - 1].users * k);
+    if (k < 1) viralNew = Math.round(total * k * Math.pow(k, i - 1));
+    else viralNew = Math.round(total * (k - 1) + startUsers * k);
+    viralNew = Math.max(0, Math.round(data[i - 1].users * k));
+    total += viralNew + organic;
+    viralTotal += viralNew;
+    data.push({ cycle: i, users: total, viralNew: viralNew, organicNew: organic });
+    if (total > 100000000) break;
+  }
+  return { data: data, finalUsers: total, viralTotal: viralTotal };
+}
+
+function calculate() {
+  var users = parseInt(document.getElementById('vUsers').value) || 1000;
+  var invites = parseFloat(document.getElementById('vInvites').value) || 3;
+  var convRate = parseFloat(document.getElementById('vConvRate').value) || 15;
+  var cycleTime = parseInt(document.getElementById('vCycleTime').value) || 7;
+  var period = parseInt(document.getElementById('vPeriod').value) || 90;
+  var organic = parseInt(document.getElementById('vOrganic').value) || 0;
+
+  var k = invites * (convRate / 100);
+  var newPerCycle = Math.round(users * k);
+  var result = projectGrowth(users, k, cycleTime, period, organic);
+  var growthRate = users > 0 ? ((result.finalUsers - users) / users * 100) : 0;
+  var doublingTime = k > 1 ? (cycleTime * Math.log(2) / Math.log(k)).toFixed(1) : 'N/A';
+  var viralPct = result.finalUsers > 0 ? (result.viralTotal / result.finalUsers * 100).toFixed(1) : '0';
+
+  document.getElementById('resultsCard').style.display = '';
+  document.getElementById('growthChartCard').style.display = '';
+
+  var kEl = document.getElementById('kValue');
+  kEl.textContent = k.toFixed(2);
+  kEl.style.color = k >= 1 ? 'var(--cyan)' : k >= 0.6 ? 'var(--gold)' : 'var(--red)';
+
+  var verdict = document.getElementById('kVerdict');
+  if (k >= 1.5) { verdict.textContent = 'Hyper-Viral Growth!'; verdict.style.background = 'rgba(57,211,83,0.15)'; verdict.style.color = 'var(--cyan)'; }
+  else if (k >= 1.0) { verdict.textContent = 'Viral! Exponential Growth'; verdict.style.background = 'rgba(57,211,83,0.15)'; verdict.style.color = 'var(--cyan)'; }
+  else if (k >= 0.6) { verdict.textContent = 'Sub-Viral but Amplifying'; verdict.style.background = 'rgba(255,215,0,0.15)'; verdict.style.color = 'var(--gold)'; }
+  else { verdict.textContent = 'Not Viral Yet'; verdict.style.background = 'rgba(248,81,73,0.15)'; verdict.style.color = 'var(--red)'; }
+
+  document.getElementById('mNewPerCycle').textContent = newPerCycle.toLocaleString();
+  document.getElementById('mProjected').textContent = formatNum(result.finalUsers);
+  document.getElementById('mGrowthRate').textContent = growthRate > 9999 ? '9999%+' : growthRate.toFixed(0) + '%';
+  document.getElementById('mDoubling').textContent = doublingTime === 'N/A' ? 'N/A' : doublingTime + 'd';
+  document.getElementById('mViralUsers').textContent = formatNum(result.viralTotal);
+  document.getElementById('mViralPct').textContent = viralPct + '%';
+
+  renderGrowthChart(result.data, cycleTime);
+  updateScenario();
+
+  // Save to localStorage
+  try { localStorage.setItem('viral_calc_last', JSON.stringify({ users: users, invites: invites, convRate: convRate, cycleTime: cycleTime, period: period, organic: organic })); } catch(e) {}
+}
+
+function formatNum(n) {
+  if (n >= 1e9) return (n / 1e9).toFixed(1) + 'B';
+  if (n >= 1e6) return (n / 1e6).toFixed(1) + 'M';
+  if (n >= 1e3) return (n / 1e3).toFixed(1) + 'K';
+  return n.toLocaleString();
+}
+
+function renderGrowthChart(data, cycleTime) {
+  var svgW = 700, svgH = 300, padX = 70, padY = 30, chartW = svgW - padX * 2, chartH = svgH - padY * 2;
+  var maxY = Math.max.apply(null, data.map(function(d) { return d.users; }));
+  if (maxY === 0) maxY = 1;
+  var useLog = maxY > data[0].users * 100;
+
+  var svg = '<svg viewBox="0 0 ' + svgW + ' ' + svgH + '" width="100%" xmlns="http://www.w3.org/2000/svg">';
+
+  // Grid
+  for (var g = 0; g <= 4; g++) {
+    var gy = padY + (chartH / 4) * g;
+    var gval = useLog ? formatNum(Math.pow(10, Math.log10(maxY) * (1 - g / 4))) : formatNum(Math.round(maxY * (1 - g / 4)));
+    svg += '<line x1="' + padX + '" y1="' + gy + '" x2="' + (svgW - padX) + '" y2="' + gy + '" stroke="rgba(255,215,0,0.08)" stroke-width="1"/>';
+    svg += '<text x="' + (padX - 8) + '" y="' + (gy + 4) + '" fill="#8b949e" font-size="9" text-anchor="end">' + gval + '</text>';
+  }
+
+  // Area fill
+  var areaPath = 'M' + padX + ',' + (padY + chartH);
+  data.forEach(function(d, i) {
+    var x = padX + (i / (data.length - 1)) * chartW;
+    var yVal = useLog ? (Math.log10(Math.max(d.users, 1)) / Math.log10(maxY)) : (d.users / maxY);
+    var y = padY + chartH - yVal * chartH;
+    areaPath += 'L' + x + ',' + y;
+  });
+  areaPath += 'L' + (padX + chartW) + ',' + (padY + chartH) + 'Z';
+  svg += '<path d="' + areaPath + '" fill="url(#goldGrad)" opacity="0.3"/>';
+  svg += '<defs><linearGradient id="goldGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ffd700"/><stop offset="100%" stop-color="transparent"/></linearGradient></defs>';
+
+  // Line
+  var linePath = '';
+  data.forEach(function(d, i) {
+    var x = padX + (i / (data.length - 1)) * chartW;
+    var yVal = useLog ? (Math.log10(Math.max(d.users, 1)) / Math.log10(maxY)) : (d.users / maxY);
+    var y = padY + chartH - yVal * chartH;
+    linePath += (i === 0 ? 'M' : 'L') + x + ',' + y;
+  });
+  svg += '<path d="' + linePath + '" fill="none" stroke="#ffd700" stroke-width="2.5"/>';
+
+  // Points
+  data.forEach(function(d, i) {
+    if (i % Math.max(1, Math.floor(data.length / 10)) === 0 || i === data.length - 1) {
+      var x = padX + (i / (data.length - 1)) * chartW;
+      var yVal = useLog ? (Math.log10(Math.max(d.users, 1)) / Math.log10(maxY)) : (d.users / maxY);
+      var y = padY + chartH - yVal * chartH;
+      svg += '<circle cx="' + x + '" cy="' + y + '" r="3.5" fill="#ffd700" stroke="#0d1117" stroke-width="2"/>';
+      svg += '<text x="' + x + '" y="' + (svgH - 5) + '" fill="#8b949e" font-size="8" text-anchor="middle">D' + (d.cycle * cycleTime) + '</text>';
+    }
+  });
+
+  svg += '</svg>';
+  document.getElementById('growthChart').innerHTML = svg;
+}
+
+function updateScenario() {
+  var users = parseInt(document.getElementById('vUsers').value) || 1000;
+  var cycleTime = parseInt(document.getElementById('vCycleTime').value) || 7;
+  var period = parseInt(document.getElementById('vPeriod').value) || 90;
+  var organic = parseInt(document.getElementById('vOrganic').value) || 0;
+
+  var aInv = parseFloat(document.getElementById('scAInvites').value);
+  var aConv = parseFloat(document.getElementById('scAConv').value);
+  var bInv = parseFloat(document.getElementById('scBInvites').value);
+  var bConv = parseFloat(document.getElementById('scBConv').value);
+
+  document.getElementById('scAInvitesVal').textContent = aInv;
+  document.getElementById('scAConvVal').textContent = aConv + '%';
+  document.getElementById('scBInvitesVal').textContent = bInv;
+  document.getElementById('scBConvVal').textContent = bConv + '%';
+
+  var kA = aInv * (aConv / 100);
+  var kB = bInv * (bConv / 100);
+
+  document.getElementById('scAK').textContent = kA.toFixed(2);
+  document.getElementById('scAK').style.color = kA >= 1 ? 'var(--cyan)' : 'var(--gold)';
+  document.getElementById('scBK').textContent = kB.toFixed(2);
+  document.getElementById('scBK').style.color = kB >= 1 ? 'var(--cyan)' : 'var(--gold)';
+
+  var rA = projectGrowth(users, kA, cycleTime, period, organic);
+  var rB = projectGrowth(users, kB, cycleTime, period, organic);
+
+  document.getElementById('scAUsers').textContent = 'Projected: ' + formatNum(rA.finalUsers);
+  document.getElementById('scBUsers').textContent = 'Projected: ' + formatNum(rB.finalUsers);
+
+  // Comparison chart
+  var maxUsers = Math.max(rA.finalUsers, rB.finalUsers);
+  var svgW = 500, barH = 40;
+  var svg = '<svg viewBox="0 0 ' + svgW + ' 120" width="100%" xmlns="http://www.w3.org/2000/svg">';
+  var wA = maxUsers > 0 ? (rA.finalUsers / maxUsers * 350) : 0;
+  var wB = maxUsers > 0 ? (rB.finalUsers / maxUsers * 350) : 0;
+  svg += '<text x="0" y="25" fill="#e6edf3" font-size="12" font-weight="600">Scenario A (K=' + kA.toFixed(2) + ')</text>';
+  svg += '<rect x="0" y="35" width="' + wA + '" height="25" rx="5" fill="#ffd700" opacity="0.7"/>';
+  svg += '<text x="' + (wA + 10) + '" y="52" fill="#e6edf3" font-size="11" font-weight="700">' + formatNum(rA.finalUsers) + '</text>';
+  svg += '<text x="0" y="80" fill="#e6edf3" font-size="12" font-weight="600">Scenario B (K=' + kB.toFixed(2) + ')</text>';
+  svg += '<rect x="0" y="90" width="' + wB + '" height="25" rx="5" fill="#39d353" opacity="0.7"/>';
+  svg += '<text x="' + (wB + 10) + '" y="107" fill="#e6edf3" font-size="11" font-weight="700">' + formatNum(rB.finalUsers) + '</text>';
+  svg += '</svg>';
+  document.getElementById('scenarioChart').innerHTML = svg;
+}
+
+function renderBenchmarkChart() {
+  var svgW = 600, barH = 28, gap = 8;
+  var svgH = benchmarks.length * (barH + gap) + 20;
+  var maxK = Math.max.apply(null, benchmarks.map(function(b) { return b.k; }));
+
+  var svg = '<svg viewBox="0 0 ' + svgW + ' ' + svgH + '" width="100%" xmlns="http://www.w3.org/2000/svg">';
+  benchmarks.sort(function(a, b) { return b.k - a.k; }).forEach(function(b, i) {
+    var y = i * (barH + gap) + 5;
+    var w = b.k / maxK * 350;
+    var color = b.k >= 1.0 ? '#39d353' : b.k >= 0.7 ? '#ffd700' : '#f85149';
+    svg += '<text x="0" y="' + (y + 18) + '" fill="#e6edf3" font-size="11" font-weight="600">' + b.name + '</text>';
+    svg += '<rect x="100" y="' + (y + 3) + '" width="' + w + '" height="22" rx="5" fill="' + color + '" opacity="0.7"/>';
+    svg += '<text x="' + (110 + w) + '" y="' + (y + 18) + '" fill="#e6edf3" font-size="11" font-weight="700">K=' + b.k.toFixed(1) + '</text>';
+  });
+  svg += '</svg>';
+  document.getElementById('benchmarkChart').innerHTML = svg;
+}
+
+// Load last saved
+try {
+  var last = JSON.parse(localStorage.getItem('viral_calc_last'));
+  if (last) {
+    document.getElementById('vUsers').value = last.users;
+    document.getElementById('vInvites').value = last.invites;
+    document.getElementById('vConvRate').value = last.convRate;
+    document.getElementById('vCycleTime').value = last.cycleTime;
+    document.getElementById('vPeriod').value = last.period;
+    document.getElementById('vOrganic').value = last.organic || 0;
+    calculate();
+  }
+} catch(e) {}
+
+renderBenchmarks();
+renderBenchmarkChart();
+updateScenario();
+
+function shareX(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Calculating my viral coefficient with this K-factor tool. Code SPUNK unlocks it free @SpunkArt13')+'&url='+encodeURIComponent('https://spunk.codes/exclusive-tools'),'_blank')}
+function shareReddit(){window.open('https://www.reddit.com/submit?url='+encodeURIComponent('https://spunk.codes/exclusive-tools')+'&title='+encodeURIComponent('Viral Coefficient Calculator - K-Factor Tool [spunk.codes]'),'_blank')}
+function shareEm(){window.location.href='mailto:?subject='+encodeURIComponent('Viral Coefficient Calculator')+'&body='+encodeURIComponent('Calculate your K-factor and model viral growth. Code SPUNK: https://spunk.codes/exclusive-tools')}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+</body>
+</html>

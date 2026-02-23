@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SaaS Metrics Dashboard - MRR, ARR, Churn, LTV, CAC | spunk.codes</title>
+<meta name="description" content="Free SaaS metrics dashboard. Track MRR, ARR, churn rate, LTV, CAC, and quick ratio in one beautiful dashboard. Essential for SaaS founders.">
+<meta name="keywords" content="SaaS metrics dashboard, MRR calculator, ARR, churn rate, LTV CAC ratio, SaaS KPIs">
+<meta property="og:title" content="SaaS Metrics Dashboard | spunk.codes">
+<meta property="og:description" content="Track MRR, ARR, churn, LTV, CAC in one premium dashboard. Free SaaS tool.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://spunk.codes/saas-metrics-dashboard.html">
+<meta property="og:image" content="https://spunk.codes/art/og-saas-metrics.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/saas-metrics-dashboard.html">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"SoftwareApplication","name":"SaaS Metrics Dashboard","description":"Track MRR, ARR, churn, LTV, CAC in one dashboard.","url":"https://spunk.codes/saas-metrics-dashboard.html","applicationCategory":"BusinessApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Organization","name":"spunk.codes","url":"https://spunk.codes"}}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}body{background:#0d1117;color:#e6edf3;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;line-height:1.6;min-height:100vh;}
+a{color:#58a6ff;text-decoration:none;}a:hover{text-decoration:underline;color:#79c0ff;}
+nav{background:rgba(13,17,23,.95);backdrop-filter:blur(20px);border-bottom:1px solid #21262d;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}.nav-brand{font-weight:800;font-size:1.1rem;color:#58a6ff;}.nav-links{display:flex;gap:20px;font-size:14px;font-weight:500;}.nav-links a{color:#8b949e;}.nav-links a:hover{color:#58a6ff;text-decoration:none;}
+.container{max-width:1100px;margin:0 auto;padding:32px 20px 80px;}
+h1{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;margin-bottom:8px;background:linear-gradient(135deg,#58a6ff,#39d353);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-align:center;}
+.subtitle{color:#8b949e;font-size:15px;margin-bottom:28px;text-align:center;}
+.glass-card{background:rgba(22,27,34,.8);backdrop-filter:blur(20px);border:1px solid #21262d;border-radius:16px;padding:28px;margin-bottom:24px;}.glass-card h2{font-size:1.1rem;font-weight:700;margin-bottom:18px;color:#e6edf3;}
+.input-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:20px;}
+.input-group{display:flex;flex-direction:column;gap:6px;}.input-group label{font-size:13px;color:#8b949e;font-weight:500;}.input-group input{background:#0d1117;border:1px solid #30363d;border-radius:10px;padding:12px 14px;color:#e6edf3;font-size:15px;transition:all .3s;}.input-group input:focus{outline:none;border-color:#58a6ff;box-shadow:0 0 0 3px rgba(88,166,255,.15);}
+.input-group .helper{font-size:11px;color:#484f58;margin-top:2px;}
+.btn-primary{background:linear-gradient(135deg,#58a6ff,#388bfd);color:#fff;border:none;border-radius:10px;padding:14px 32px;font-size:15px;font-weight:700;cursor:pointer;transition:all .3s;width:100%;max-width:320px;margin:0 auto;display:block;}.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(88,166,255,.3);}
+.results{display:none;animation:fadeIn .5s ease;}@keyframes fadeIn{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-bottom:28px;}
+.kpi-card{background:rgba(22,27,34,.9);border:1px solid #21262d;border-radius:14px;padding:20px;text-align:center;position:relative;overflow:hidden;transition:transform .2s;}.kpi-card:hover{transform:translateY(-2px);}
+.kpi-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+.kpi-card.green::before{background:#39d353;}.kpi-card.blue::before{background:#58a6ff;}.kpi-card.red::before{background:#f85149;}.kpi-card.yellow::before{background:#d29922;}.kpi-card.purple::before{background:#bc8cff;}
+.kpi-label{font-size:11px;color:#8b949e;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;}
+.kpi-value{font-size:clamp(1.3rem,2.5vw,1.7rem);font-weight:800;}
+.kpi-value.green{color:#39d353;}.kpi-value.blue{color:#58a6ff;}.kpi-value.red{color:#f85149;}.kpi-value.yellow{color:#d29922;}.kpi-value.purple{color:#bc8cff;}
+.kpi-sub{font-size:11px;color:#484f58;margin-top:2px;}
+.kpi-change{font-size:11px;font-weight:700;margin-top:4px;}.kpi-change.up{color:#39d353;}.kpi-change.down{color:#f85149;}
+.svg-chart{width:100%;height:240px;margin:16px 0;}
+.chart-row{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:20px 0;}
+.mini-chart{height:180px;display:flex;align-items:flex-end;gap:6px;padding-bottom:24px;border-bottom:1px solid #21262d;}
+.mc-w{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;}.mc-bar{width:100%;max-width:40px;border-radius:4px 4px 0 0;transition:height .8s ease;min-height:2px;}.mc-v{font-size:9px;font-weight:700;color:#e6edf3;margin-bottom:2px;}.mc-l{font-size:9px;color:#8b949e;margin-top:4px;}
+.health-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin:20px 0;}
+.health-item{display:flex;align-items:center;gap:12px;padding:14px;background:rgba(22,27,34,.6);border-radius:10px;border:1px solid #21262d;}
+.health-indicator{width:12px;height:12px;border-radius:50%;flex-shrink:0;}
+.health-indicator.good{background:#39d353;box-shadow:0 0 8px rgba(57,211,83,.4);}.health-indicator.warning{background:#d29922;box-shadow:0 0 8px rgba(210,153,34,.4);}.health-indicator.danger{background:#f85149;box-shadow:0 0 8px rgba(248,81,73,.4);}
+.health-text{font-size:13px;}.health-text strong{color:#e6edf3;display:block;}.health-text span{color:#8b949e;}
+.data-table{width:100%;border-collapse:collapse;margin:16px 0;}.data-table th{text-align:left;font-size:11px;color:#8b949e;padding:10px;border-bottom:1px solid #21262d;text-transform:uppercase;}.data-table td{padding:10px;border-bottom:1px solid rgba(33,38,45,.5);font-size:13px;}.data-table tr:hover{background:rgba(88,166,255,.05);}
+.export-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px;}.btn-export{background:rgba(88,166,255,.1);border:1px solid rgba(88,166,255,.2);border-radius:10px;padding:10px 20px;color:#58a6ff;font-size:13px;font-weight:600;cursor:pointer;transition:all .3s;}.btn-export:hover{background:rgba(88,166,255,.2);}
+.pro-cta{background:linear-gradient(135deg,rgba(88,166,255,.1),rgba(57,211,83,.1));border:1px solid rgba(88,166,255,.2);border-radius:16px;padding:32px;text-align:center;margin-top:40px;}.pro-cta h3{font-size:1.3rem;font-weight:800;margin-bottom:8px;}.pro-cta p{color:#8b949e;margin-bottom:16px;font-size:14px;}.pro-cta .btn-pro{display:inline-block;background:linear-gradient(135deg,#58a6ff,#39d353);color:#0d1117;padding:12px 28px;border-radius:10px;font-weight:700;font-size:14px;text-decoration:none;transition:all .3s;}.pro-cta .btn-pro:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(88,166,255,.3);text-decoration:none;}
+footer{border-top:1px solid #21262d;padding:24px 20px;text-align:center;color:#484f58;font-size:13px;}footer a{color:#8b949e;}footer .footer-links{display:flex;justify-content:center;gap:20px;margin-bottom:8px;flex-wrap:wrap;}
+.watermark{position:fixed;bottom:12px;right:16px;font-size:14px;font-weight:800;color:rgba(88,166,255,.08);pointer-events:none;z-index:50;letter-spacing:2px;}
+.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#39d353;color:#0d1117;padding:10px 24px;border-radius:10px;font-size:14px;font-weight:700;z-index:200;display:none;animation:toastIn .3s ease;}@keyframes toastIn{from{opacity:0;transform:translateX(-50%) translateY(10px);}to{opacity:1;transform:translateX(-50%) translateY(0);}}
+@media(max-width:600px){.nav-links{gap:12px;font-size:13px;}.input-grid{grid-template-columns:1fr;}.kpi-grid{grid-template-columns:repeat(2,1fr);}.chart-row{grid-template-columns:1fr;}.health-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<nav><div class="nav-brand">SPUNK.CODES</div><div class="nav-links"><a href="/tools">Tools</a><a href="/social-growth">Social Growth</a><a href="/ebooks">Ebooks</a><a href="/blog">Blog</a></div></nav>
+<div class="container">
+<h1>SaaS Metrics Dashboard</h1>
+<p class="subtitle">Track MRR, ARR, churn, LTV, CAC, and more in one premium dashboard</p>
+
+<div class="glass-card">
+<h2>Core Metrics</h2>
+<div class="input-grid">
+<div class="input-group"><label>Monthly Recurring Revenue ($)</label><input type="number" id="mrr" value="25000" min="0" step="100"><div class="helper">Current MRR</div></div>
+<div class="input-group"><label>MRR Last Month ($)</label><input type="number" id="mrrLast" value="22000" min="0" step="100"><div class="helper">For growth calculation</div></div>
+<div class="input-group"><label>New MRR ($)</label><input type="number" id="newMrr" value="5000" min="0" step="100"><div class="helper">From new customers</div></div>
+<div class="input-group"><label>Churned MRR ($)</label><input type="number" id="churnedMrr" value="1500" min="0" step="100"><div class="helper">Lost this month</div></div>
+<div class="input-group"><label>Expansion MRR ($)</label><input type="number" id="expansionMrr" value="500" min="0" step="100"><div class="helper">Upgrades & upsells</div></div>
+<div class="input-group"><label>Total Customers</label><input type="number" id="totalCust" value="500" min="1"></div>
+<div class="input-group"><label>Customers Lost (month)</label><input type="number" id="custLost" value="15" min="0"></div>
+<div class="input-group"><label>New Customers (month)</label><input type="number" id="newCust" value="40" min="0"></div>
+<div class="input-group"><label>Avg Revenue Per Account ($)</label><input type="number" id="arpa" value="50" min="0" step="1"></div>
+<div class="input-group"><label>Customer Acquisition Cost ($)</label><input type="number" id="cac" value="150" min="0" step="1"></div>
+<div class="input-group"><label>Gross Margin (%)</label><input type="number" id="grossMargin" value="80" min="0" max="100"></div>
+<div class="input-group"><label>Monthly Operating Costs ($)</label><input type="number" id="opCosts" value="18000" min="0" step="100"></div>
+</div>
+<button class="btn-primary" onclick="calculate()">Generate Dashboard</button>
+</div>
+
+<div class="results" id="results">
+<div class="kpi-grid">
+<div class="kpi-card green"><div class="kpi-label">MRR</div><div class="kpi-value green" id="kMrr">$0</div><div class="kpi-change" id="kMrrChange"></div></div>
+<div class="kpi-card blue"><div class="kpi-label">ARR</div><div class="kpi-value blue" id="kArr">$0</div><div class="kpi-sub">Annual run rate</div></div>
+<div class="kpi-card red"><div class="kpi-label">Churn Rate</div><div class="kpi-value red" id="kChurn">0%</div><div class="kpi-sub" id="kChurnSub"></div></div>
+<div class="kpi-card yellow"><div class="kpi-label">Net Revenue Retention</div><div class="kpi-value yellow" id="kNrr">0%</div><div class="kpi-sub" id="kNrrSub"></div></div>
+<div class="kpi-card purple"><div class="kpi-label">LTV</div><div class="kpi-value purple" id="kLtv">$0</div><div class="kpi-sub">Per customer</div></div>
+<div class="kpi-card blue"><div class="kpi-label">LTV:CAC</div><div class="kpi-value blue" id="kLtvCac">0x</div><div class="kpi-sub" id="kLtvCacSub"></div></div>
+<div class="kpi-card green"><div class="kpi-label">Quick Ratio</div><div class="kpi-value green" id="kQuick">0</div><div class="kpi-sub" id="kQuickSub"></div></div>
+<div class="kpi-card yellow"><div class="kpi-label">CAC Payback</div><div class="kpi-value yellow" id="kPayback">0 mo</div><div class="kpi-sub">Months to recoup</div></div>
+<div class="kpi-card green"><div class="kpi-label">MRR Growth</div><div class="kpi-value green" id="kGrowth">0%</div><div class="kpi-sub">Month over month</div></div>
+<div class="kpi-card red"><div class="kpi-label">Burn Rate</div><div class="kpi-value red" id="kBurn">$0</div><div class="kpi-sub" id="kBurnSub"></div></div>
+</div>
+
+<div class="glass-card">
+<h2>MRR Projection (12 months)</h2>
+<svg class="svg-chart" id="mrrChart" viewBox="0 0 900 220" preserveAspectRatio="xMidYMid meet"></svg>
+</div>
+
+<div class="glass-card">
+<h2>MRR Breakdown</h2>
+<div class="chart-row">
+<div><h3 style="font-size:13px;color:#8b949e;margin-bottom:8px">Revenue Components</h3><div class="mini-chart" id="revChart"></div></div>
+<div><h3 style="font-size:13px;color:#8b949e;margin-bottom:8px">Customer Metrics</h3><div class="mini-chart" id="custChart"></div></div>
+</div>
+</div>
+
+<div class="glass-card">
+<h2>Health Check</h2>
+<div class="health-grid" id="healthGrid"></div>
+</div>
+
+<div class="glass-card">
+<h2>Projected Metrics</h2>
+<table class="data-table">
+<thead><tr><th>Month</th><th>MRR</th><th>ARR</th><th>Customers</th><th>Net New MRR</th><th>Cumulative Rev</th></tr></thead>
+<tbody id="projBody"></tbody>
+</table>
+</div>
+
+<div class="export-row">
+<button class="btn-export" onclick="copySummary()">Copy Dashboard</button>
+<button class="btn-export" onclick="exportCSV()">Download CSV</button>
+</div>
+</div>
+
+<div class="pro-cta">
+<h3>Imagine What Pro Can Do</h3>
+<p>Real-time Stripe/Paddle sync, cohort analysis, investor-ready reports, benchmarking against peers, and AI forecasting.</p>
+<a href="/pricing.html" class="btn-pro">Upgrade to Pro</a>
+</div>
+</div>
+<footer><div class="footer-links"><a href="/store">Store</a><a href="/ebooks">Ebooks</a><a href="/blog">Blog</a><a href="https://x.com/SpunkArt13" target="_blank">@SpunkArt13</a></div><p>&copy; 2026 spunk.codes</p></footer>
+<div class="watermark">SPUNK.CODES</div>
+<div class="toast" id="toast"></div>
+
+<script>
+let calcData={},projData=[];const fmt=n=>'$'+Math.round(n).toLocaleString();const fmtK=n=>n>=1000000?'$'+(n/1000000).toFixed(1)+'M':n>=1000?'$'+(n/1000).toFixed(0)+'K':'$'+Math.round(n);
+
+function calculate(){
+const mrr=parseFloat(document.getElementById('mrr').value)||0;
+const mrrLast=parseFloat(document.getElementById('mrrLast').value)||0;
+const newMrr=parseFloat(document.getElementById('newMrr').value)||0;
+const churnedMrr=parseFloat(document.getElementById('churnedMrr').value)||0;
+const expansionMrr=parseFloat(document.getElementById('expansionMrr').value)||0;
+const totalCust=parseInt(document.getElementById('totalCust').value)||1;
+const custLost=parseInt(document.getElementById('custLost').value)||0;
+const newCust=parseInt(document.getElementById('newCust').value)||0;
+const arpa=parseFloat(document.getElementById('arpa').value)||0;
+const cac=parseFloat(document.getElementById('cac').value)||0;
+const gm=(parseFloat(document.getElementById('grossMargin').value)||80)/100;
+const opCosts=parseFloat(document.getElementById('opCosts').value)||0;
+
+const arr=mrr*12;
+const mrrGrowth=mrrLast>0?((mrr-mrrLast)/mrrLast*100):0;
+const revenueChurnRate=mrrLast>0?(churnedMrr/mrrLast*100):0;
+const customerChurnRate=(custLost/totalCust*100);
+const nrr=mrrLast>0?((mrrLast-churnedMrr+expansionMrr)/mrrLast*100):100;
+const avgLifeMonths=customerChurnRate>0?(1/(customerChurnRate/100)):120;
+const ltv=arpa*avgLifeMonths*gm;
+const ltvCac=cac>0?ltv/cac:Infinity;
+const quickRatio=churnedMrr>0?(newMrr+expansionMrr)/churnedMrr:Infinity;
+const paybackMonths=arpa*gm>0?cac/(arpa*gm):Infinity;
+const netNewMrr=newMrr+expansionMrr-churnedMrr;
+const burn=opCosts-mrr;
+const runway=burn>0?Math.floor(mrr*3/burn):Infinity;
+
+document.getElementById('kMrr').textContent=fmtK(mrr);
+document.getElementById('kMrrChange').textContent=(mrrGrowth>=0?'+':'')+mrrGrowth.toFixed(1)+'% MoM';
+document.getElementById('kMrrChange').className='kpi-change '+(mrrGrowth>=0?'up':'down');
+document.getElementById('kArr').textContent=fmtK(arr);
+document.getElementById('kChurn').textContent=revenueChurnRate.toFixed(1)+'%';
+document.getElementById('kChurnSub').textContent=customerChurnRate.toFixed(1)+'% customer churn';
+document.getElementById('kNrr').textContent=nrr.toFixed(0)+'%';
+document.getElementById('kNrrSub').textContent=nrr>=100?'Net positive retention':'Below 100% = net shrinkage';
+document.getElementById('kNrr').className='kpi-value '+(nrr>=100?'green':'red');
+document.getElementById('kLtv').textContent=fmtK(ltv);
+document.getElementById('kLtvCac').textContent=ltvCac===Infinity?'--':ltvCac.toFixed(1)+'x';
+document.getElementById('kLtvCacSub').textContent=ltvCac>=3?'Healthy (3x+)':ltvCac>=1?'Needs improvement':'Below 1x - danger';
+document.getElementById('kQuick').textContent=quickRatio===Infinity?'--':quickRatio.toFixed(1);
+document.getElementById('kQuickSub').textContent=quickRatio>=4?'Excellent (4+)':quickRatio>=2?'Good (2+)':'Low (<2)';
+document.getElementById('kPayback').textContent=paybackMonths===Infinity?'--':Math.round(paybackMonths)+' mo';
+document.getElementById('kGrowth').textContent=(mrrGrowth>=0?'+':'')+mrrGrowth.toFixed(1)+'%';
+document.getElementById('kGrowth').className='kpi-value '+(mrrGrowth>=0?'green':'red');
+document.getElementById('kBurn').textContent=burn>0?fmtK(burn):fmtK(Math.abs(burn));
+document.getElementById('kBurn').className='kpi-value '+(burn>0?'red':'green');
+document.getElementById('kBurnSub').textContent=burn>0?'Burning cash':'Profitable!';
+
+// MRR projection chart
+projData=[];
+let projMrr=mrr;let cumRev=0;let projCust=totalCust;
+const monthlyGrowthRate=mrrGrowth/100;
+const churnRate=revenueChurnRate/100;
+for(let m=1;m<=12;m++){
+projMrr=projMrr*(1+monthlyGrowthRate);
+cumRev+=projMrr;
+projCust=Math.round(projCust*(1-customerChurnRate/100)+newCust);
+const netNew=projMrr*monthlyGrowthRate;
+projData.push({month:m,mrr:projMrr,arr:projMrr*12,cust:projCust,netNew,cumRev});
+}
+
+const svg=document.getElementById('mrrChart');
+const maxMrr=Math.max(...projData.map(d=>d.mrr));
+const minMrr=Math.min(mrr,...projData.map(d=>d.mrr));
+const range=maxMrr-minMrr||1;
+const w=900,h=200,pad=50;
+let path='',area='';
+const xStep=(w-pad*2)/11;
+projData.forEach((d,i)=>{const x=pad+i*xStep;const y=h-pad-((d.mrr-minMrr*0.9)/range)*(h-pad*2);path+=(i===0?'M':'L')+x+','+y;if(i===0)area='M'+x+','+(h-pad);area+='L'+x+','+y;});
+area+='L'+(pad+11*xStep)+','+(h-pad)+'Z';
+svg.innerHTML=`<defs><linearGradient id="mg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#39d353" stop-opacity="0.3"/><stop offset="100%" stop-color="#39d353" stop-opacity="0.02"/></linearGradient></defs><path d="${area}" fill="url(#mg)"/><path d="${path}" fill="none" stroke="#39d353" stroke-width="3" stroke-linecap="round"/>`;
+projData.forEach((d,i)=>{const x=pad+i*xStep;const y=h-pad-((d.mrr-minMrr*0.9)/range)*(h-pad*2);svg.innerHTML+=`<circle cx="${x}" cy="${y}" r="4" fill="#39d353"/><text x="${x}" y="${h-5}" text-anchor="middle" fill="#8b949e" font-size="10">Mo ${d.month}</text>`;});
+
+// Revenue components
+const revChart=document.getElementById('revChart');revChart.innerHTML='';
+const revItems=[{label:'New',val:newMrr,color:'#39d353'},{label:'Expansion',val:expansionMrr,color:'#58a6ff'},{label:'Churned',val:churnedMrr,color:'#f85149'},{label:'Net',val:netNewMrr,color:'#d29922'}];
+const maxRev=Math.max(...revItems.map(r=>Math.abs(r.val)),1);
+revItems.forEach(r=>{const h=Math.max(2,(Math.abs(r.val)/maxRev)*85);revChart.innerHTML+=`<div class="mc-w"><div class="mc-v">${fmtK(r.val)}</div><div class="mc-bar" style="height:${h}%;background:${r.color}"></div><div class="mc-l">${r.label}</div></div>`;});
+
+// Customer metrics
+const custChart=document.getElementById('custChart');custChart.innerHTML='';
+const custItems=[{label:'Total',val:totalCust,color:'#58a6ff'},{label:'New',val:newCust,color:'#39d353'},{label:'Lost',val:custLost,color:'#f85149'},{label:'Net',val:newCust-custLost,color:'#d29922'}];
+const maxCust=Math.max(...custItems.map(c=>Math.abs(c.val)),1);
+custItems.forEach(c=>{const h=Math.max(2,(Math.abs(c.val)/maxCust)*85);custChart.innerHTML+=`<div class="mc-w"><div class="mc-v">${c.val}</div><div class="mc-bar" style="height:${h}%;background:${c.color}"></div><div class="mc-l">${c.label}</div></div>`;});
+
+// Health check
+const health=document.getElementById('healthGrid');health.innerHTML='';
+const checks=[
+{metric:'LTV:CAC Ratio',val:ltvCac===Infinity?10:ltvCac,good:3,warn:1,text:ltvCac.toFixed(1)+'x (target: 3x+)'},
+{metric:'Net Revenue Retention',val:nrr,good:100,warn:90,text:nrr.toFixed(0)+'% (target: >100%)'},
+{metric:'Quick Ratio',val:quickRatio===Infinity?10:quickRatio,good:4,warn:2,text:(quickRatio===Infinity?'>10':quickRatio.toFixed(1))+' (target: 4+)'},
+{metric:'Customer Churn',val:100-customerChurnRate,good:97,warn:95,text:customerChurnRate.toFixed(1)+'% (target: <3%)'},
+{metric:'MRR Growth',val:mrrGrowth+50,good:55,warn:50,text:mrrGrowth.toFixed(1)+'% MoM'},
+{metric:'CAC Payback',val:paybackMonths===Infinity?0:24-paybackMonths,good:12,warn:0,text:(paybackMonths===Infinity?'>24':Math.round(paybackMonths))+' months (target: <12)'},
+];
+checks.forEach(c=>{
+const status=c.val>=c.good?'good':c.val>=c.warn?'warning':'danger';
+health.innerHTML+=`<div class="health-item"><div class="health-indicator ${status}"></div><div class="health-text"><strong>${c.metric}</strong><span>${c.text}</span></div></div>`;
+});
+
+// Projection table
+const tbody=document.getElementById('projBody');tbody.innerHTML='';
+projData.forEach(d=>{
+tbody.innerHTML+=`<tr><td>Month ${d.month}</td><td style="font-weight:700;color:#39d353">${fmtK(d.mrr)}</td><td>${fmtK(d.arr)}</td><td>${d.cust.toLocaleString()}</td><td style="color:${d.netNew>=0?'#39d353':'#f85149'}">${fmtK(d.netNew)}</td><td>${fmtK(d.cumRev)}</td></tr>`;
+});
+
+calcData={mrr,arr,mrrGrowth,revenueChurnRate,customerChurnRate,nrr,ltv,ltvCac,quickRatio,paybackMonths,netNewMrr,burn};
+document.getElementById('results').style.display='block';
+document.getElementById('results').scrollIntoView({behavior:'smooth'});
+}
+
+function copySummary(){
+const d=calcData;
+let txt=`SAAS METRICS DASHBOARD\n${'='.repeat(40)}\n\nMRR: ${fmtK(d.mrr)} | ARR: ${fmtK(d.arr)}\nGrowth: ${d.mrrGrowth.toFixed(1)}% MoM\nRevenue Churn: ${d.revenueChurnRate.toFixed(1)}%\nCustomer Churn: ${d.customerChurnRate.toFixed(1)}%\nNRR: ${d.nrr.toFixed(0)}%\nLTV: ${fmtK(d.ltv)} | LTV:CAC: ${d.ltvCac===Infinity?'--':d.ltvCac.toFixed(1)+'x'}\nQuick Ratio: ${d.quickRatio===Infinity?'--':d.quickRatio.toFixed(1)}\nCAC Payback: ${d.paybackMonths===Infinity?'>24':Math.round(d.paybackMonths)+' months'}\n\n12-MO PROJECTION\n`;
+projData.forEach(p=>txt+=`Mo ${p.month}: MRR ${fmtK(p.mrr)} | ${p.cust} customers\n`);
+txt+='\nGenerated at spunk.codes';
+navigator.clipboard.writeText(txt);showToast('Dashboard copied!');
+}
+function exportCSV(){
+let csv='Month,MRR,ARR,Customers,Net New MRR,Cumulative Revenue\n';
+projData.forEach(d=>csv+=`${d.month},${d.mrr.toFixed(0)},${d.arr.toFixed(0)},${d.cust},${d.netNew.toFixed(0)},${d.cumRev.toFixed(0)}\n`);
+const blob=new Blob([csv],{type:'text/csv'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='saas-metrics.csv';a.click();URL.revokeObjectURL(url);showToast('CSV downloaded!');
+}
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.style.display='block';setTimeout(()=>t.style.display='none',2500);}
+document.addEventListener('contextmenu',e=>e.preventDefault());document.addEventListener('keydown',e=>{if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'))||(e.ctrlKey&&e.key==='u'))e.preventDefault();});
+</script>
+</body>
+</html>

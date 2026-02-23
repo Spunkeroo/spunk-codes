@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lead Scoring System - Build &amp; Score Lead Models | SPUNK.CODES Exclusive</title>
+<meta name="description" content="Build custom lead scoring models with demographic and behavioral criteria. Score leads, categorize hot/warm/cold, and export your model. Exclusive premium tool.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Lead Scoring System - SPUNK.CODES Exclusive">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/lead-scoring-system">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0d1117;--card:rgba(22,27,34,0.8);--border:rgba(48,54,61,0.6);--gold:#ffd700;--gold-border:rgba(255,215,0,0.3);--text:#e6edf3;--text-dim:#8b949e;--blue:#58a6ff;--cyan:#39d353;--red:#f85149;--orange:#ff8c00;--font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+a{color:var(--blue);text-decoration:none}
+.bg-mesh{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 80% 50% at 20% 20%,rgba(255,215,0,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(255,140,0,0.04) 0%,transparent 60%),var(--bg)}
+.bg-grid{position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,215,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,215,0,0.03) 1px,transparent 1px);background-size:60px 60px}
+.nav{position:sticky;top:0;z-index:100;background:rgba(13,17,23,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,215,0,0.15);padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}
+.nav-brand{font-weight:800;font-size:1.1rem;color:var(--gold);letter-spacing:0.08em}
+.nav-links{display:flex;gap:1.5rem;font-size:0.85rem}.nav-links a{color:var(--text-dim);font-weight:500}.nav-links a.active{color:var(--gold)}
+.lock-gate{position:fixed;inset:0;z-index:1000;background:rgba(13,17,23,0.97);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:2rem}
+.lock-gate.hidden{display:none}
+.lock-icon-big{font-size:4rem}.lock-gate h2{font-size:1.8rem;font-weight:800;text-align:center}.lock-gate h2 span{color:var(--gold)}.lock-gate p{color:var(--text-dim);text-align:center;max-width:400px}
+.code-input-wrap{display:flex;gap:0.5rem}
+.code-input{padding:0.8rem 1.5rem;background:rgba(22,27,34,0.8);border:2px solid var(--gold-border);border-radius:12px;color:var(--gold);font-size:1.2rem;font-weight:800;letter-spacing:3px;text-align:center;width:200px;outline:none;text-transform:uppercase;font-family:var(--font)}
+.code-input:focus{border-color:var(--gold);box-shadow:0 0 20px rgba(255,215,0,0.2)}
+.code-submit{padding:0.8rem 1.5rem;background:linear-gradient(135deg,#ffd700,#ff8c00);border:none;border-radius:12px;color:#000;font-size:1rem;font-weight:800;cursor:pointer}
+.code-error{color:var(--red);font-size:0.85rem;min-height:1.2em}.lock-hint{color:var(--text-dim);font-size:0.8rem}.lock-hint a{color:var(--gold)}
+.exclusive-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;background:linear-gradient(135deg,rgba(255,215,0,0.15),rgba(255,140,0,0.15));border:1px solid var(--gold-border);border-radius:100px;font-size:11px;font-weight:800;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase}
+.main{max-width:1000px;margin:0 auto;padding:2rem}
+.hero-section{text-align:center;padding:2rem 0 2rem}
+.hero-section h1{font-size:2.2rem;font-weight:800;margin:1rem 0 0.5rem}
+.hero-section h1 .gold{background:linear-gradient(135deg,#ffd700,#ff8c00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-section p{color:var(--text-dim);max-width:600px;margin:0 auto}
+.card{background:var(--card);border:1px solid var(--gold-border);border-radius:16px;padding:1.5rem;margin-bottom:1.5rem;backdrop-filter:blur(10px);position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),#ff8c00,var(--gold))}
+.card h2{font-size:1.1rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.form-group{display:flex;flex-direction:column;gap:0.3rem}
+.form-group label{font-size:0.8rem;color:var(--text-dim);font-weight:600}
+.form-group input,.form-group select{padding:0.6rem 0.8rem;background:rgba(13,17,23,0.8);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.9rem;font-family:var(--font);outline:none}
+.form-group input:focus,.form-group select:focus{border-color:var(--gold)}
+.btn{padding:0.7rem 1.5rem;border-radius:10px;font-size:0.85rem;font-weight:700;cursor:pointer;border:none;transition:all 0.2s}
+.btn-gold{background:linear-gradient(135deg,#ffd700,#ff8c00);color:#000}
+.btn-gold:hover{transform:translateY(-1px);box-shadow:0 4px 15px rgba(255,215,0,0.3)}
+.btn-outline{background:transparent;border:1px solid var(--gold-border);color:var(--gold)}
+.btn-red{background:rgba(248,81,73,0.15);border:1px solid rgba(248,81,73,0.3);color:var(--red)}
+.btn-sm{padding:0.4rem 0.8rem;font-size:0.75rem}
+.btn-row{display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:1rem}
+.criterion-row{display:grid;grid-template-columns:2fr 1fr auto;gap:0.5rem;align-items:center;padding:0.5rem;background:rgba(22,27,34,0.4);border-radius:8px;margin-bottom:0.3rem}
+.criterion-row .name{font-size:0.85rem;font-weight:600}
+.criterion-row .type-badge{font-size:0.65rem;color:var(--text-dim)}
+.criterion-row input[type=number]{width:60px;padding:0.3rem;text-align:center;background:rgba(13,17,23,0.6);border:1px solid var(--border);border-radius:6px;color:var(--gold);font-weight:700;font-family:var(--font)}
+.section-label{font-size:0.75rem;color:var(--gold);font-weight:700;text-transform:uppercase;letter-spacing:1px;margin:1rem 0 0.5rem;padding-bottom:0.3rem;border-bottom:1px solid var(--gold-border)}
+.lead-card{padding:1rem;background:rgba(22,27,34,0.5);border:1px solid var(--border);border-radius:12px;margin-bottom:0.5rem}
+.lead-header{display:flex;justify-content:space-between;align-items:center}
+.lead-name{font-weight:700;font-size:1rem}
+.lead-score{font-size:1.5rem;font-weight:900;padding:0.2rem 0.8rem;border-radius:8px}
+.lead-hot{background:rgba(248,81,73,0.15);color:var(--red)}
+.lead-warm{background:rgba(255,215,0,0.15);color:var(--gold)}
+.lead-cold{background:rgba(88,166,255,0.15);color:var(--blue)}
+.lead-details{font-size:0.8rem;color:var(--text-dim);margin-top:0.5rem}
+.lead-breakdown{display:flex;flex-wrap:wrap;gap:0.3rem;margin-top:0.5rem}
+.lead-tag{display:inline-block;padding:2px 8px;border-radius:4px;font-size:0.7rem;font-weight:600}
+.metrics-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:0.8rem;margin:1rem 0}
+.metric-card{text-align:center;padding:0.8rem;background:rgba(22,27,34,0.5);border:1px solid var(--border);border-radius:10px}
+.metric-val{font-size:1.3rem;font-weight:800;color:var(--gold)}
+.metric-lbl{font-size:0.65rem;color:var(--text-dim);margin-top:0.2rem}
+.chart-container{margin:1.5rem 0;overflow-x:auto}
+.copy-output{width:100%;min-height:150px;padding:1rem;background:rgba(13,17,23,0.8);border:1px solid var(--border);border-radius:10px;color:var(--text);font-family:monospace;font-size:0.8rem;line-height:1.5;white-space:pre-wrap;overflow:auto;max-height:400px}
+.share-cta{background:linear-gradient(135deg,rgba(255,215,0,0.08),rgba(255,140,0,0.05));border:1px solid var(--gold-border);border-radius:16px;padding:2rem;text-align:center;margin-top:2rem}
+.share-cta h3{color:var(--gold);margin-bottom:0.5rem}.share-cta p{color:var(--text-dim);font-size:0.9rem;margin-bottom:1rem}
+.share-btns{display:flex;gap:0.6rem;justify-content:center;flex-wrap:wrap}
+.share-btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;color:#fff}
+.share-x{background:#000;border:1px solid #333}.share-reddit{background:#ff4500}.share-email{background:#21262d;border:1px solid #30363d}
+.footer{text-align:center;padding:2rem;border-top:1px solid rgba(255,215,0,0.1);color:var(--text-dim);font-size:0.75rem;margin-top:3rem}
+.footer a{color:var(--gold)}.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-bottom:1rem}
+.watermark{position:fixed;bottom:10px;right:10px;font-size:0.6rem;color:rgba(255,215,0,0.08);font-weight:800;pointer-events:none;z-index:9999;letter-spacing:1px;text-transform:uppercase}
+@media(max-width:768px){.main{padding:1rem}.hero-section h1{font-size:1.6rem}.nav-links{display:none}.form-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="bg-mesh"></div><div class="bg-grid"></div>
+<div class="lock-gate" id="lockGate"><div class="lock-icon-big">&#128274;</div><h2>Enter Code <span>SPUNK</span> to Unlock</h2><p>This exclusive premium tool requires the SPUNK referral code.</p><div class="code-input-wrap"><input type="text" class="code-input" id="codeInput" placeholder="CODE" maxlength="10" autocomplete="off"><button class="code-submit" onclick="submitCode()">Unlock</button></div><div class="code-error" id="codeError"></div><div class="lock-hint">Get the code at <a href="https://spunk.codes/exclusive-tools">spunk.codes/exclusive-tools</a></div></div>
+<nav class="nav"><a href="https://spunk.codes" class="nav-brand">SPUNK.CODES</a><div class="nav-links"><a href="/store">Tools</a><a href="/exclusive-tools" class="active">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a></div></nav>
+
+<div class="main">
+  <section class="hero-section">
+    <div class="exclusive-badge">&#128081; EXCLUSIVE TOOL</div>
+    <h1><span class="gold">Lead Scoring</span> System</h1>
+    <p>Build custom scoring models, assign point values to demographic and behavioral criteria, score leads, and categorize them as Hot, Warm, or Cold.</p>
+  </section>
+
+  <div class="card">
+    <h2>&#9881; Scoring Model</h2>
+    <p style="font-size:0.8rem;color:var(--text-dim);margin-bottom:0.5rem">Assign point values to each criterion. Higher points = more important signals.</p>
+    <div class="section-label">&#128100; Demographic Criteria</div>
+    <div id="demoCriteria"></div>
+    <div class="btn-row" style="margin-top:0.5rem"><button class="btn btn-outline btn-sm" onclick="addCriterion('demo')">+ Add Demographic</button></div>
+    <div class="section-label">&#128200; Behavioral Criteria</div>
+    <div id="behaCriteria"></div>
+    <div class="btn-row" style="margin-top:0.5rem"><button class="btn btn-outline btn-sm" onclick="addCriterion('beha')">+ Add Behavioral</button></div>
+    <div class="metrics-grid" style="margin-top:1rem">
+      <div class="metric-card"><div class="metric-val" id="maxScore">0</div><div class="metric-lbl">Max Possible Score</div></div>
+      <div class="metric-card"><div class="metric-val" style="color:var(--red)">80+</div><div class="metric-lbl">Hot Lead Threshold</div></div>
+      <div class="metric-card"><div class="metric-val" style="color:var(--gold)">50-79</div><div class="metric-lbl">Warm Lead Range</div></div>
+      <div class="metric-card"><div class="metric-val" style="color:var(--blue)">&lt;50</div><div class="metric-lbl">Cold Lead Range</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>&#128203; Score a Lead</h2>
+    <div class="form-grid">
+      <div class="form-group"><label>Lead Name / Company</label><input type="text" id="leadName" placeholder="e.g., Acme Corp - John Smith"></div>
+      <div class="form-group"><label>Lead Email</label><input type="text" id="leadEmail" placeholder="john@acme.com"></div>
+    </div>
+    <div class="section-label">Check matching criteria</div>
+    <div id="scoreChecklist"></div>
+    <div class="btn-row">
+      <button class="btn btn-gold" onclick="scoreLead()">&#128200; Score Lead</button>
+    </div>
+    <div id="scoreResult" style="display:none;margin-top:1rem;text-align:center">
+      <div class="lead-score" id="resultScore" style="font-size:3rem;display:inline-block"></div>
+      <div id="resultLabel" style="font-size:1.1rem;font-weight:700;margin-top:0.5rem"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>&#128202; Scored Leads</h2>
+    <div class="metrics-grid" id="leadStats"></div>
+    <div id="leadsList"></div>
+    <div class="chart-container" id="distributionChart"></div>
+    <div class="btn-row">
+      <button class="btn btn-outline" onclick="exportLeads()">&#128229; Export CSV</button>
+      <button class="btn btn-red" onclick="clearLeads()">&#128465; Clear All Leads</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>&#128196; Export Scoring Model</h2>
+    <div class="copy-output" id="modelExport">Click "Generate" to export your scoring model documentation.</div>
+    <div class="btn-row">
+      <button class="btn btn-gold" onclick="exportModel()">&#128196; Generate Model Doc</button>
+      <button class="btn btn-outline" onclick="navigator.clipboard.writeText(document.getElementById('modelExport').textContent).then(function(){alert('Copied!')})">&#128203; Copy</button>
+    </div>
+  </div>
+
+  <div class="share-cta">
+    <h3>&#128275; Share the Code, Unlock Premium Tools</h3>
+    <p>Know a sales team that needs better lead scoring? Share code SPUNK with them.</p>
+    <div class="share-btns">
+      <button class="share-btn share-x" onclick="shareX()">&#120143; Share on X</button>
+      <button class="share-btn share-reddit" onclick="shareReddit()">&#128172; Reddit</button>
+      <button class="share-btn share-email" onclick="shareEm()">&#9993; Email</button>
+    </div>
+  </div>
+</div>
+
+<footer class="footer"><div class="footer-links"><a href="https://spunk.codes">Home</a><a href="/store">Tools</a><a href="/exclusive-tools">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a><a href="https://twitter.com/SpunkArt13" target="_blank">@SpunkArt13</a></div><div>&copy; 2026 SPUNK.CODES EXCLUSIVE.</div></footer>
+<div class="watermark">SPUNK.CODES EXCLUSIVE</div>
+
+<script>
+document.addEventListener('contextmenu',function(e){e.preventDefault()});
+document.addEventListener('keydown',function(e){if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'||e.key==='C'))||(e.ctrlKey&&e.key==='u'))e.preventDefault()});
+function checkCode(){try{var c=localStorage.getItem('spunk_referral_code')||localStorage.getItem('spunk_ref_code')||'';if(c.toUpperCase()==='SPUNK'){document.getElementById('lockGate').classList.add('hidden');return true}}catch(e){}return false}
+function submitCode(){var v=document.getElementById('codeInput').value.trim().toUpperCase();if(v==='SPUNK'){try{localStorage.setItem('spunk_referral_code','SPUNK');localStorage.setItem('spunk_ref_code','SPUNK')}catch(e){}document.getElementById('lockGate').classList.add('hidden')}else{document.getElementById('codeError').textContent='Invalid code. Try: SPUNK';setTimeout(function(){document.getElementById('codeError').textContent=''},2000)}}
+document.getElementById('codeInput').addEventListener('keydown',function(e){if(e.key==='Enter')submitCode()});
+checkCode();
+
+var MODEL_KEY = 'lead_scoring_model';
+var LEADS_KEY = 'lead_scoring_leads';
+
+var defaultDemo = [
+  { name: 'C-Suite / VP Title', points: 15 },
+  { name: 'Director / Manager Title', points: 10 },
+  { name: 'Company Size: 50-500', points: 10 },
+  { name: 'Company Size: 500+', points: 15 },
+  { name: 'Target Industry Match', points: 12 },
+  { name: 'Decision Maker Role', points: 15 },
+  { name: 'Geographic Fit', points: 5 },
+  { name: 'Revenue >$1M', points: 8 }
+];
+
+var defaultBeha = [
+  { name: 'Visited Pricing Page', points: 15 },
+  { name: 'Downloaded Whitepaper', points: 10 },
+  { name: 'Attended Webinar', points: 12 },
+  { name: 'Opened 3+ Emails', points: 8 },
+  { name: 'Clicked Email CTA', points: 10 },
+  { name: 'Requested Demo', points: 20 },
+  { name: 'Viewed Case Study', points: 8 },
+  { name: 'Returned Visit (2+ times)', points: 10 },
+  { name: 'Free Trial Signup', points: 18 },
+  { name: 'Social Media Engagement', points: 5 }
+];
+
+var demoCriteria, behaCriteria;
+
+function loadModel() {
+  try {
+    var d = JSON.parse(localStorage.getItem(MODEL_KEY));
+    if (d) { demoCriteria = d.demo; behaCriteria = d.beha; return; }
+  } catch(e) {}
+  demoCriteria = defaultDemo.slice();
+  behaCriteria = defaultBeha.slice();
+}
+
+function saveModel() {
+  try { localStorage.setItem(MODEL_KEY, JSON.stringify({ demo: demoCriteria, beha: behaCriteria })); } catch(e) {}
+}
+
+function getLeads() { try { return JSON.parse(localStorage.getItem(LEADS_KEY) || '[]'); } catch(e) { return []; } }
+function saveLeads(l) { try { localStorage.setItem(LEADS_KEY, JSON.stringify(l)); } catch(e) {} }
+
+function renderCriteria() {
+  var demoHtml = '';
+  demoCriteria.forEach(function(c, i) {
+    demoHtml += '<div class="criterion-row"><div><div class="name">' + esc(c.name) + '</div><div class="type-badge">Demographic</div></div><input type="number" value="' + c.points + '" min="0" max="50" onchange="updatePoints(\'demo\',' + i + ',this.value)"><button class="btn btn-red btn-sm" onclick="removeCriterion(\'demo\',' + i + ')">&#10005;</button></div>';
+  });
+  document.getElementById('demoCriteria').innerHTML = demoHtml;
+
+  var behaHtml = '';
+  behaCriteria.forEach(function(c, i) {
+    behaHtml += '<div class="criterion-row"><div><div class="name">' + esc(c.name) + '</div><div class="type-badge">Behavioral</div></div><input type="number" value="' + c.points + '" min="0" max="50" onchange="updatePoints(\'beha\',' + i + ',this.value)"><button class="btn btn-red btn-sm" onclick="removeCriterion(\'beha\',' + i + ')">&#10005;</button></div>';
+  });
+  document.getElementById('behaCriteria').innerHTML = behaHtml;
+
+  var maxS = 0;
+  demoCriteria.forEach(function(c) { maxS += c.points; });
+  behaCriteria.forEach(function(c) { maxS += c.points; });
+  document.getElementById('maxScore').textContent = maxS;
+  renderChecklist();
+}
+
+function esc(s) { return (s || '').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+
+function updatePoints(type, idx, val) {
+  var arr = type === 'demo' ? demoCriteria : behaCriteria;
+  arr[idx].points = parseInt(val) || 0;
+  saveModel();
+  renderCriteria();
+}
+
+function removeCriterion(type, idx) {
+  var arr = type === 'demo' ? demoCriteria : behaCriteria;
+  arr.splice(idx, 1);
+  saveModel();
+  renderCriteria();
+}
+
+function addCriterion(type) {
+  var name = prompt('Criterion name:');
+  if (!name) return;
+  var pts = parseInt(prompt('Point value (1-50):', '10')) || 10;
+  var arr = type === 'demo' ? demoCriteria : behaCriteria;
+  arr.push({ name: name, points: Math.min(50, Math.max(1, pts)) });
+  saveModel();
+  renderCriteria();
+}
+
+function renderChecklist() {
+  var html = '';
+  var allCriteria = demoCriteria.map(function(c, i) { return { name: c.name, points: c.points, type: 'demo', idx: i }; })
+    .concat(behaCriteria.map(function(c, i) { return { name: c.name, points: c.points, type: 'beha', idx: i }; }));
+
+  allCriteria.forEach(function(c, i) {
+    html += '<label style="display:flex;align-items:center;gap:0.5rem;padding:0.4rem;cursor:pointer;border-radius:6px;font-size:0.85rem" onmouseover="this.style.background=\'rgba(255,215,0,0.03)\'" onmouseout="this.style.background=\'transparent\'"><input type="checkbox" class="lead-check" data-type="' + c.type + '" data-idx="' + c.idx + '" style="accent-color:var(--gold)"><span>' + esc(c.name) + '</span><span style="margin-left:auto;font-weight:700;color:var(--gold);font-size:0.75rem">+' + c.points + ' pts</span></label>';
+  });
+  document.getElementById('scoreChecklist').innerHTML = html;
+}
+
+function scoreLead() {
+  var name = document.getElementById('leadName').value.trim();
+  if (!name) { alert('Enter lead name'); return; }
+
+  var score = 0;
+  var matched = [];
+  document.querySelectorAll('.lead-check:checked').forEach(function(cb) {
+    var type = cb.getAttribute('data-type');
+    var idx = parseInt(cb.getAttribute('data-idx'));
+    var arr = type === 'demo' ? demoCriteria : behaCriteria;
+    if (arr[idx]) {
+      score += arr[idx].points;
+      matched.push({ name: arr[idx].name, points: arr[idx].points, type: type });
+    }
+  });
+
+  var category = score >= 80 ? 'Hot' : score >= 50 ? 'Warm' : 'Cold';
+  var catClass = score >= 80 ? 'lead-hot' : score >= 50 ? 'lead-warm' : 'lead-cold';
+
+  document.getElementById('scoreResult').style.display = '';
+  var scoreEl = document.getElementById('resultScore');
+  scoreEl.textContent = score;
+  scoreEl.className = 'lead-score ' + catClass;
+  var labelEl = document.getElementById('resultLabel');
+  labelEl.textContent = category + ' Lead';
+  labelEl.style.color = score >= 80 ? 'var(--red)' : score >= 50 ? 'var(--gold)' : 'var(--blue)';
+
+  // Save lead
+  var leads = getLeads();
+  leads.unshift({ name: name, email: document.getElementById('leadEmail').value, score: score, category: category, matched: matched, date: new Date().toISOString() });
+  saveLeads(leads);
+  renderLeads();
+
+  // Reset
+  document.querySelectorAll('.lead-check').forEach(function(cb) { cb.checked = false; });
+  document.getElementById('leadName').value = '';
+  document.getElementById('leadEmail').value = '';
+}
+
+function renderLeads() {
+  var leads = getLeads();
+  if (leads.length === 0) {
+    document.getElementById('leadsList').innerHTML = '<div style="text-align:center;padding:1rem;color:var(--text-dim)">No leads scored yet</div>';
+    document.getElementById('leadStats').innerHTML = '';
+    document.getElementById('distributionChart').innerHTML = '';
+    return;
+  }
+
+  // Stats
+  var hot = leads.filter(function(l) { return l.category === 'Hot'; }).length;
+  var warm = leads.filter(function(l) { return l.category === 'Warm'; }).length;
+  var cold = leads.filter(function(l) { return l.category === 'Cold'; }).length;
+  var avgScore = leads.reduce(function(s, l) { return s + l.score; }, 0) / leads.length;
+  document.getElementById('leadStats').innerHTML =
+    '<div class="metric-card"><div class="metric-val">' + leads.length + '</div><div class="metric-lbl">Total Leads</div></div>' +
+    '<div class="metric-card"><div class="metric-val" style="color:var(--red)">' + hot + '</div><div class="metric-lbl">Hot (80+)</div></div>' +
+    '<div class="metric-card"><div class="metric-val" style="color:var(--gold)">' + warm + '</div><div class="metric-lbl">Warm (50-79)</div></div>' +
+    '<div class="metric-card"><div class="metric-val" style="color:var(--blue)">' + cold + '</div><div class="metric-lbl">Cold (<50)</div></div>' +
+    '<div class="metric-card"><div class="metric-val">' + avgScore.toFixed(0) + '</div><div class="metric-lbl">Avg Score</div></div>';
+
+  // Lead cards
+  var html = '';
+  leads.slice(0, 20).forEach(function(l, i) {
+    var catClass = l.score >= 80 ? 'lead-hot' : l.score >= 50 ? 'lead-warm' : 'lead-cold';
+    html += '<div class="lead-card"><div class="lead-header"><div><span class="lead-name">' + esc(l.name) + '</span><div class="lead-details">' + (l.email || '') + ' - ' + new Date(l.date).toLocaleDateString() + '</div></div><div style="display:flex;align-items:center;gap:0.5rem"><span class="lead-score ' + catClass + '">' + l.score + '</span><button class="btn btn-red btn-sm" onclick="removeLead(' + i + ')">&#10005;</button></div></div>';
+    if (l.matched && l.matched.length) {
+      html += '<div class="lead-breakdown">';
+      l.matched.forEach(function(m) {
+        var tagColor = m.type === 'demo' ? 'background:rgba(88,166,255,0.1);color:var(--blue)' : 'background:rgba(255,215,0,0.1);color:var(--gold)';
+        html += '<span class="lead-tag" style="' + tagColor + '">' + esc(m.name) + ' +' + m.points + '</span>';
+      });
+      html += '</div>';
+    }
+    html += '</div>';
+  });
+  document.getElementById('leadsList').innerHTML = html;
+
+  // Distribution chart
+  var svgW = 400, svgH = 150;
+  var total = leads.length;
+  var barW = 80;
+  var maxCount = Math.max(hot, warm, cold, 1);
+  var svg = '<svg viewBox="0 0 ' + svgW + ' ' + svgH + '" width="100%" style="max-width:400px" xmlns="http://www.w3.org/2000/svg">';
+  var categories = [{ label: 'Hot', count: hot, color: '#f85149' }, { label: 'Warm', count: warm, color: '#ffd700' }, { label: 'Cold', count: cold, color: '#58a6ff' }];
+  categories.forEach(function(cat, ci) {
+    var x = 40 + ci * 130;
+    var h = (cat.count / maxCount) * 90;
+    svg += '<rect x="' + x + '" y="' + (120 - h) + '" width="' + barW + '" height="' + h + '" rx="6" fill="' + cat.color + '" opacity="0.7"/>';
+    svg += '<text x="' + (x + barW / 2) + '" y="' + (115 - h) + '" fill="#e6edf3" font-size="14" font-weight="800" text-anchor="middle">' + cat.count + '</text>';
+    svg += '<text x="' + (x + barW / 2) + '" y="' + 140 + '" fill="#8b949e" font-size="11" text-anchor="middle">' + cat.label + '</text>';
+  });
+  svg += '</svg>';
+  document.getElementById('distributionChart').innerHTML = '<div style="text-align:center">' + svg + '</div>';
+}
+
+function removeLead(idx) { var leads = getLeads(); leads.splice(idx, 1); saveLeads(leads); renderLeads(); }
+function clearLeads() { if (confirm('Clear all leads?')) { localStorage.removeItem(LEADS_KEY); renderLeads(); } }
+
+function exportLeads() {
+  var leads = getLeads();
+  if (leads.length === 0) return;
+  var csv = 'Name,Email,Score,Category,Date,Matched Criteria\n';
+  leads.forEach(function(l) {
+    var matched = (l.matched || []).map(function(m) { return m.name; }).join('; ');
+    csv += '"' + (l.name || '').replace(/"/g, '""') + '","' + (l.email || '') + '",' + l.score + ',' + l.category + ',' + l.date + ',"' + matched + '"\n';
+  });
+  var blob = new Blob([csv], { type: 'text/csv' });
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'lead-scores-' + new Date().toISOString().split('T')[0] + '.csv';
+  a.click();
+}
+
+function exportModel() {
+  var text = '=== LEAD SCORING MODEL ===\n\n';
+  text += 'THRESHOLDS:\n  Hot Lead: 80+ points\n  Warm Lead: 50-79 points\n  Cold Lead: <50 points\n\n';
+  text += '--- DEMOGRAPHIC CRITERIA ---\n';
+  demoCriteria.forEach(function(c) { text += '  [' + c.points + ' pts] ' + c.name + '\n'; });
+  text += '\n--- BEHAVIORAL CRITERIA ---\n';
+  behaCriteria.forEach(function(c) { text += '  [' + c.points + ' pts] ' + c.name + '\n'; });
+  var maxS = 0;
+  demoCriteria.forEach(function(c) { maxS += c.points; });
+  behaCriteria.forEach(function(c) { maxS += c.points; });
+  text += '\nMax Possible Score: ' + maxS + '\n';
+  text += '\n---\nGenerated by SPUNK.CODES Lead Scoring System\n';
+  document.getElementById('modelExport').textContent = text;
+}
+
+loadModel();
+renderCriteria();
+renderLeads();
+
+function shareX(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Building my lead scoring model with this premium tool. Code SPUNK unlocks it free @SpunkArt13')+'&url='+encodeURIComponent('https://spunk.codes/exclusive-tools'),'_blank')}
+function shareReddit(){window.open('https://www.reddit.com/submit?url='+encodeURIComponent('https://spunk.codes/exclusive-tools')+'&title='+encodeURIComponent('Lead Scoring System - Score & Categorize Leads [spunk.codes]'),'_blank')}
+function shareEm(){window.location.href='mailto:?subject='+encodeURIComponent('Lead Scoring System Tool')+'&body='+encodeURIComponent('Build lead scoring models and score leads. Code SPUNK: https://spunk.codes/exclusive-tools')}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+</body>
+</html>
