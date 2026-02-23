@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Digital Product Pricing Calculator | spunk.codes</title>
+<meta name="description" content="Free digital product pricing calculator. Generate tiered pricing, analyze pricing psychology, simulate revenue, and compare competitors. Built for solo founders.">
+<meta name="keywords" content="pricing calculator, digital product pricing, SaaS pricing, pricing strategy, pricing psychology">
+<meta property="og:title" content="Digital Product Pricing Calculator | spunk.codes">
+<meta property="og:description" content="Generate tiered pricing, analyze pricing psychology, simulate revenue at different price points.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://spunk.codes/pricing-calculator.html">
+<meta property="og:image" content="https://spunk.codes/art/og-pricing-calculator.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<meta name="twitter:title" content="Digital Product Pricing Calculator">
+<meta name="twitter:description" content="Generate tiered pricing, simulate revenue, and apply pricing psychology.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Digital Product Pricing Calculator",
+  "description": "Generate tiered pricing, analyze pricing psychology, simulate revenue, and compare competitors for digital products.",
+  "url": "https://spunk.codes/pricing-calculator.html",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "author": { "@type": "Organization", "name": "spunk.codes", "url": "https://spunk.codes" }
+}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#0a0a0a;color:#e8e8e8;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;line-height:1.6;min-height:100vh;}
+a{color:#ff5f1f;text-decoration:none;}a:hover{text-decoration:underline;}
+.cta-banner{background:linear-gradient(135deg,#ff5f1f,#e04500);text-align:center;padding:10px 16px;font-size:14px;font-weight:600;color:#fff;position:sticky;top:0;z-index:100;}
+.cta-banner a{color:#fff;text-decoration:underline;}
+.container{max-width:960px;margin:0 auto;padding:24px 16px 80px;}
+h1{font-size:clamp(1.5rem,4vw,2.2rem);font-weight:800;margin-bottom:6px;}
+h1 span{color:#ff5f1f;}
+.subtitle{color:#888;font-size:14px;margin-bottom:20px;}
+.stats-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:24px;}
+.stat{background:#1a1a1a;border:1px solid #222;border-radius:8px;padding:6px 14px;font-size:12px;color:#888;}
+.stat strong{color:#ff5f1f;}
+h2{font-size:1.1rem;font-weight:700;margin:28px 0 14px;color:#e8e8e8;}
+.templates{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px;}
+.tpl-btn{background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:8px 16px;color:#e8e8e8;cursor:pointer;font-size:12px;font-weight:600;transition:all .2s;}
+.tpl-btn:hover,.tpl-btn.active{border-color:#ff5f1f;color:#ff5f1f;background:#1f1008;}
+.input-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-bottom:24px;}
+.input-group{display:flex;flex-direction:column;gap:5px;}
+.input-group label{font-size:13px;color:#aaa;font-weight:500;}
+.input-group input,.input-group select{background:#111;border:1px solid #333;border-radius:8px;padding:10px 12px;color:#e8e8e8;font-size:14px;transition:border-color .2s;}
+.input-group input:focus,.input-group select:focus{outline:none;border-color:#ff5f1f;}
+.btn-calc{background:#ff5f1f;color:#fff;border:none;border-radius:8px;padding:14px 32px;font-size:15px;font-weight:700;cursor:pointer;transition:background .2s;width:100%;max-width:300px;margin:0 auto 32px;display:block;}
+.btn-calc:hover{background:#e04500;}
+.results{display:none;}
+.tiers-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-bottom:32px;}
+.tier-card{background:#111;border:1px solid #222;border-radius:12px;padding:20px;text-align:center;position:relative;transition:border-color .3s;}
+.tier-card.popular{border-color:#ff5f1f;}
+.tier-badge{position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:#ff5f1f;color:#fff;font-size:10px;font-weight:700;padding:3px 12px;border-radius:10px;text-transform:uppercase;letter-spacing:.5px;}
+.tier-name{font-size:14px;font-weight:600;color:#888;margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px;}
+.tier-price{font-size:2rem;font-weight:800;color:#e8e8e8;margin-bottom:4px;}
+.tier-price .currency{font-size:1rem;vertical-align:super;color:#888;}
+.tier-sub{font-size:12px;color:#666;margin-bottom:14px;}
+.tier-features{list-style:none;text-align:left;font-size:13px;color:#aaa;}
+.tier-features li{padding:4px 0;border-bottom:1px solid #1a1a1a;}
+.tier-features li::before{content:"+ ";color:#10b981;font-weight:700;}
+.psych-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin-bottom:32px;}
+.psych-card{background:#111;border:1px solid #222;border-radius:12px;padding:16px;}
+.psych-card h3{font-size:14px;font-weight:700;margin-bottom:6px;color:#ff5f1f;}
+.psych-card p{font-size:13px;color:#aaa;}
+.psych-card .tip{margin-top:8px;font-size:12px;color:#10b981;font-weight:600;}
+.sim-table{width:100%;border-collapse:collapse;margin-bottom:24px;}
+.sim-table th{text-align:left;font-size:12px;color:#888;padding:8px 12px;border-bottom:1px solid #333;text-transform:uppercase;letter-spacing:.5px;}
+.sim-table td{padding:8px 12px;border-bottom:1px solid #1a1a1a;font-size:14px;}
+.sim-table tr:hover{background:#111;}
+.sim-table .best{color:#10b981;font-weight:700;}
+.chart-wrap{margin-bottom:32px;}
+.bar-chart{display:flex;align-items:flex-end;gap:8px;height:200px;padding:16px 0;border-bottom:1px solid #333;}
+.bar-col{flex:1;display:flex;flex-direction:column;align-items:center;height:100%;justify-content:flex-end;}
+.bar{width:100%;max-width:60px;border-radius:6px 6px 0 0;transition:height .5s ease;min-height:3px;}
+.bar.high{background:linear-gradient(180deg,#10b981,#059669);}
+.bar.med{background:linear-gradient(180deg,#f59e0b,#d97706);}
+.bar.low{background:linear-gradient(180deg,#ef4444,#dc2626);}
+.bar-val{font-size:11px;font-weight:700;margin-bottom:3px;color:#e8e8e8;}
+.bar-lbl{font-size:10px;color:#888;margin-top:6px;text-align:center;}
+.comp-table{width:100%;border-collapse:collapse;margin-bottom:24px;}
+.comp-table th{text-align:left;font-size:12px;color:#888;padding:8px 12px;border-bottom:1px solid #333;}
+.comp-table td{padding:8px 12px;border-bottom:1px solid #1a1a1a;font-size:14px;}
+.comp-table tr:hover{background:#111;}
+.comp-table .your-row{background:#1f1008;border-left:3px solid #ff5f1f;}
+.export-row{display:flex;gap:10px;margin-top:20px;}
+.btn-export{background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:10px 20px;color:#e8e8e8;font-size:13px;cursor:pointer;transition:all .2s;}
+.btn-export:hover{border-color:#ff5f1f;color:#ff5f1f;}
+.watermark{position:fixed;bottom:12px;right:16px;font-size:14px;font-weight:700;color:rgba(255,255,255,.1);pointer-events:none;z-index:50;}
+.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#10b981;color:#fff;padding:10px 24px;border-radius:8px;font-size:14px;font-weight:600;z-index:200;display:none;animation:fadeUp .3s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateX(-50%) translateY(10px);}to{opacity:1;transform:translateX(-50%) translateY(0);}}
+@media(max-width:600px){.tiers-grid{grid-template-columns:1fr;}.psych-cards{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="cta-banner"><a href="https://spunk.codes/store">80+ Free Tools &rarr; spunk.codes/store</a></div>
+<div class="container">
+  <h1><span>Digital Product</span> Pricing Calculator</h1>
+  <p class="subtitle">Generate tiered pricing, apply pricing psychology, and simulate revenue at different price points</p>
+  <div class="stats-row">
+    <div class="stat">Used <strong id="usageCount">0</strong> times</div>
+  </div>
+
+  <h2>Quick Templates</h2>
+  <div class="templates">
+    <button class="tpl-btn" onclick="loadTemplate('saas')">SaaS Product</button>
+    <button class="tpl-btn" onclick="loadTemplate('ebook')">Ebook / Guide</button>
+    <button class="tpl-btn" onclick="loadTemplate('bundle')">Tool Bundle</button>
+    <button class="tpl-btn" onclick="loadTemplate('course')">Online Course</button>
+    <button class="tpl-btn" onclick="loadTemplate('templates')">Template Pack</button>
+  </div>
+
+  <h2>Your Product</h2>
+  <div class="input-grid">
+    <div class="input-group">
+      <label>Product Type</label>
+      <select id="productType">
+        <option value="saas">SaaS / Subscription</option>
+        <option value="digital">Digital Download</option>
+        <option value="course">Online Course</option>
+        <option value="service">Productized Service</option>
+        <option value="bundle">Bundle / Pack</option>
+      </select>
+    </div>
+    <div class="input-group">
+      <label>Target Audience</label>
+      <select id="audience">
+        <option value="indie">Solo Founders / Indie Hackers</option>
+        <option value="smb">Small Businesses</option>
+        <option value="enterprise">Enterprise / Teams</option>
+        <option value="consumer">Individual Consumers</option>
+        <option value="creators">Creators / Freelancers</option>
+      </select>
+    </div>
+    <div class="input-group">
+      <label>Number of Features / Items</label>
+      <input type="number" id="featureCount" value="15" min="1" max="200">
+    </div>
+    <div class="input-group">
+      <label>Monthly Visitors</label>
+      <input type="number" id="monthlyVisitors" value="5000" min="100">
+    </div>
+  </div>
+
+  <h2>Competitor Prices (optional)</h2>
+  <div class="input-grid" style="margin-bottom:8px;">
+    <div class="input-group">
+      <label>Competitor 1 Name</label>
+      <input type="text" id="comp1Name" placeholder="e.g. Gumroad competitor">
+    </div>
+    <div class="input-group">
+      <label>Competitor 1 Price ($)</label>
+      <input type="number" id="comp1Price" placeholder="29" min="0" step="0.01">
+    </div>
+    <div class="input-group">
+      <label>Competitor 2 Name</label>
+      <input type="text" id="comp2Name" placeholder="e.g. Another product">
+    </div>
+    <div class="input-group">
+      <label>Competitor 2 Price ($)</label>
+      <input type="number" id="comp2Price" placeholder="49" min="0" step="0.01">
+    </div>
+  </div>
+  <div class="input-grid">
+    <div class="input-group">
+      <label>Competitor 3 Name</label>
+      <input type="text" id="comp3Name" placeholder="Optional">
+    </div>
+    <div class="input-group">
+      <label>Competitor 3 Price ($)</label>
+      <input type="number" id="comp3Price" placeholder="" min="0" step="0.01">
+    </div>
+  </div>
+
+  <button class="btn-calc" onclick="calculate()">Generate Pricing Strategy</button>
+
+  <div class="results" id="results">
+    <h2>Recommended Tiered Pricing</h2>
+    <div class="tiers-grid" id="tiersGrid"></div>
+
+    <h2>Pricing Psychology Breakdown</h2>
+    <div class="psych-cards" id="psychCards"></div>
+
+    <h2>Revenue Simulator</h2>
+    <p style="font-size:13px;color:#888;margin-bottom:12px;">Estimated conversions at different price points based on price sensitivity modeling</p>
+    <table class="sim-table">
+      <thead><tr><th>Price Point</th><th>Est. Conv. Rate</th><th>Monthly Sales</th><th>Monthly Revenue</th><th>Annual Revenue</th></tr></thead>
+      <tbody id="simBody"></tbody>
+    </table>
+
+    <h2>Price Sensitivity Chart</h2>
+    <div class="chart-wrap">
+      <div class="bar-chart" id="sensChart"></div>
+    </div>
+
+    <div id="compSection" style="display:none;">
+      <h2>Competitor Price Comparison</h2>
+      <table class="comp-table">
+        <thead><tr><th>Product</th><th>Price</th><th>Position</th><th>Difference</th></tr></thead>
+        <tbody id="compBody"></tbody>
+      </table>
+    </div>
+
+    <div class="export-row">
+      <button class="btn-export" onclick="exportStrategy()">Copy Strategy as Text</button>
+    </div>
+  </div>
+</div>
+
+<div class="watermark">SPUNK.CODES</div>
+<div class="toast" id="toast"></div>
+
+<script>
+let usage = parseInt(localStorage.getItem('pc_usage')||'0');
+document.getElementById('usageCount').textContent = usage;
+
+const TEMPLATES = {
+  saas:{type:'saas',audience:'indie',features:20,visitors:8000,c1:'Competitor A',c1p:29,c2:'Competitor B',c2p:79,c3:'',c3p:''},
+  ebook:{type:'digital',audience:'creators',features:8,visitors:3000,c1:'Similar Ebook',c1p:19,c2:'Premium Guide',c2p:39,c3:'',c3p:''},
+  bundle:{type:'bundle',audience:'indie',features:30,visitors:5000,c1:'Starter Pack',c1p:49,c2:'Pro Bundle',c2p:99,c3:'',c3p:''},
+  course:{type:'course',audience:'creators',features:25,visitors:4000,c1:'Udemy Course',c1p:29,c2:'Premium Course',c2p:199,c3:'',c3p:''},
+  templates:{type:'bundle',audience:'smb',features:50,visitors:6000,c1:'Template Kit A',c1p:19,c2:'Template Kit B',c2p:59,c3:'',c3p:''}
+};
+
+function loadTemplate(key){
+  document.querySelectorAll('.tpl-btn').forEach(b=>b.classList.remove('active'));
+  event.target.classList.add('active');
+  const t=TEMPLATES[key];
+  document.getElementById('productType').value=t.type;
+  document.getElementById('audience').value=t.audience;
+  document.getElementById('featureCount').value=t.features;
+  document.getElementById('monthlyVisitors').value=t.visitors;
+  document.getElementById('comp1Name').value=t.c1;
+  document.getElementById('comp1Price').value=t.c1p;
+  document.getElementById('comp2Name').value=t.c2;
+  document.getElementById('comp2Price').value=t.c2p;
+  document.getElementById('comp3Name').value=t.c3;
+  document.getElementById('comp3Price').value=t.c3p||'';
+}
+
+function charmPrice(n){
+  if(n<5)return Math.max(1,Math.floor(n))-0.01;
+  if(n<15)return Math.round(n)-0.01;
+  const base=Math.round(n/5)*5;
+  return base>0?base-1:n;
+}
+
+function fmt(n){return '$'+n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function fmtK(n){return n>=1000?'$'+(n/1000).toFixed(1)+'K':fmt(n);}
+
+let lastResult={};
+
+function calculate(){
+  usage++;localStorage.setItem('pc_usage',usage);document.getElementById('usageCount').textContent=usage;
+
+  const type=document.getElementById('productType').value;
+  const audience=document.getElementById('audience').value;
+  const features=parseInt(document.getElementById('featureCount').value)||10;
+  const visitors=parseInt(document.getElementById('monthlyVisitors').value)||1000;
+
+  const typeM={saas:1.5,digital:0.8,course:1.2,service:2.0,bundle:1.0};
+  const audM={indie:1.0,smb:1.5,enterprise:3.0,consumer:0.7,creators:0.9};
+  const basePrice=features*2*typeM[type]*audM[audience];
+
+  const competitors=[];
+  for(let i=1;i<=3;i++){
+    const name=document.getElementById('comp'+i+'Name').value.trim();
+    const price=parseFloat(document.getElementById('comp'+i+'Price').value);
+    if(name&&price>0)competitors.push({name,price});
+  }
+
+  let avgComp=0;
+  if(competitors.length>0) avgComp=competitors.reduce((s,c)=>s+c.price,0)/competitors.length;
+  let adjustedBase=avgComp>0?(basePrice*0.4+avgComp*0.6):basePrice;
+
+  const isSaaS=type==='saas';
+  const tierCount=isSaaS?3:(features>20?4:3);
+  const tiers=[];
+
+  tiers.push({
+    name:isSaaS?'Starter':'Basic',
+    price:charmPrice(adjustedBase*0.5),
+    features:Math.round(features*0.4),
+    popular:false,
+    desc:isSaaS?'/month':'one-time'
+  });
+  tiers.push({
+    name:isSaaS?'Pro':'Standard',
+    price:charmPrice(adjustedBase),
+    features:Math.round(features*0.75),
+    popular:true,
+    desc:isSaaS?'/month':'one-time'
+  });
+  tiers.push({
+    name:isSaaS?'Business':'Premium',
+    price:charmPrice(adjustedBase*2),
+    features:features,
+    popular:false,
+    desc:isSaaS?'/month':'one-time'
+  });
+  if(tierCount===4){
+    tiers.push({
+      name:'Enterprise',
+      price:charmPrice(adjustedBase*3.5),
+      features:features,
+      popular:false,
+      desc:'custom / contact us'
+    });
+  }
+
+  // Render tiers
+  const tiersGrid=document.getElementById('tiersGrid');
+  tiersGrid.innerHTML='';
+  tiers.forEach(tier=>{
+    const featureLines = [
+      `${tier.features} features included`,
+      `${tier.popular?'Priority':'Standard'} support`,
+      `${tier.features>=features?'All':'Core'} functionality`,
+    ];
+    if(tier.popular) featureLines.push('Best value for most users');
+    if(tier.name==='Enterprise') featureLines.push('Custom onboarding included');
+
+    tiersGrid.innerHTML+=`<div class="tier-card${tier.popular?' popular':''}">
+      ${tier.popular?'<div class="tier-badge">Most Popular</div>':''}
+      <div class="tier-name">${tier.name}</div>
+      <div class="tier-price"><span class="currency">$</span>${tier.price<1000?tier.price.toFixed(0):tier.price.toLocaleString()}</div>
+      <div class="tier-sub">${tier.desc}</div>
+      <ul class="tier-features">${featureLines.map(f=>'<li>'+f+'</li>').join('')}</ul>
+    </div>`;
+  });
+
+  // Psychology
+  const recPrice=tiers.find(t=>t.popular)?.price||tiers[1]?.price||adjustedBase;
+  const psychCards=document.getElementById('psychCards');
+  psychCards.innerHTML=`
+    <div class="psych-card">
+      <h3>Anchoring Effect</h3>
+      <p>Your highest tier at ${fmt(tiers[tiers.length-1].price)} makes the ${fmt(recPrice)} tier feel like a deal. Customers anchor to the most expensive option they see first.</p>
+      <div class="tip">Show the highest tier first or prominently</div>
+    </div>
+    <div class="psych-card">
+      <h3>Decoy Effect</h3>
+      <p>The ${tiers[0].name} tier at ${fmt(tiers[0].price)} has only ${tiers[0].features} features, making the ${tiers[1].name} tier's ${tiers[1].features} features look like much better value for the price difference.</p>
+      <div class="tip">Limit the lowest tier to push upgrades</div>
+    </div>
+    <div class="psych-card">
+      <h3>Charm Pricing</h3>
+      <p>Prices ending in 9 or 7 (like ${fmt(recPrice)}) feel significantly cheaper than round numbers. The left-digit effect makes $${Math.ceil(recPrice)} feel more expensive than ${fmt(recPrice)}.</p>
+      <div class="tip">Always use .99, .97, or .00 endings strategically</div>
+    </div>
+    <div class="psych-card">
+      <h3>Center Stage Effect</h3>
+      <p>Marking the ${tiers.find(t=>t.popular)?.name||'middle'} tier as "Most Popular" creates social proof and guides the choice. 60-70% of buyers typically choose the highlighted middle option.</p>
+      <div class="tip">Always highlight one tier as recommended</div>
+    </div>
+    <div class="psych-card">
+      <h3>Price-Value Framing</h3>
+      <p>At ${fmt(recPrice)} for ${tiers.find(t=>t.popular)?.features||features} features, each feature costs approximately ${fmt(recPrice/(tiers.find(t=>t.popular)?.features||features))}. Frame this in your copy as pennies per feature.</p>
+      <div class="tip">Break the price down per feature, per day, or per use</div>
+    </div>
+    <div class="psych-card">
+      <h3>Loss Aversion</h3>
+      <p>Highlight what the ${tiers[0].name} tier is missing compared to ${tiers[1].name}. People are 2x more motivated by losing something than by gaining the equivalent.</p>
+      <div class="tip">Show crossed-out features on lower tiers</div>
+    </div>`;
+
+  // Revenue simulator
+  const simBody=document.getElementById('simBody');
+  simBody.innerHTML='';
+  const pricePoints=[recPrice*0.5,recPrice*0.75,recPrice,recPrice*1.25,recPrice*1.5,recPrice*2];
+  const baseConvRate=type==='saas'?2.5:3.5;
+  let maxRev=0;
+  const simData=[];
+
+  pricePoints.forEach(pp=>{
+    const priceRatio=recPrice/pp;
+    const convRate=Math.min(baseConvRate*Math.pow(priceRatio,0.8),15);
+    const sales=Math.round(visitors*(convRate/100));
+    const monthlyRev=sales*pp;
+    const annualRev=monthlyRev*12;
+    if(monthlyRev>maxRev)maxRev=monthlyRev;
+    simData.push({pp,convRate,sales,monthlyRev,annualRev});
+  });
+
+  const bestIdx=simData.reduce((best,d,i)=>d.monthlyRev>simData[best].monthlyRev?i:best,0);
+
+  simData.forEach((d,i)=>{
+    const isBest=i===bestIdx;
+    simBody.innerHTML+=`<tr>
+      <td>${fmt(d.pp)}</td>
+      <td>${d.convRate.toFixed(1)}%</td>
+      <td>${d.sales.toLocaleString()}</td>
+      <td class="${isBest?'best':''}">${fmt(d.monthlyRev)}${isBest?' (optimal)':''}</td>
+      <td>${fmtK(d.annualRev)}</td>
+    </tr>`;
+  });
+
+  // Sensitivity chart
+  const chart=document.getElementById('sensChart');
+  chart.innerHTML='';
+  simData.forEach(d=>{
+    const pct=(d.monthlyRev/maxRev)*100;
+    const cls=pct>=90?'high':pct>=60?'med':'low';
+    chart.innerHTML+=`<div class="bar-col"><div class="bar-val">${fmtK(d.monthlyRev)}</div><div class="bar ${cls}" style="height:${Math.max(pct,3)}%"></div><div class="bar-lbl">${fmt(d.pp)}</div></div>`;
+  });
+
+  // Competitor comparison
+  if(competitors.length>0){
+    document.getElementById('compSection').style.display='block';
+    const compBody=document.getElementById('compBody');
+    compBody.innerHTML='';
+    const allPrices=[...competitors.map(c=>({name:c.name,price:c.price,yours:false})),{name:'Your Product (recommended tier)',price:recPrice,yours:true}];
+    allPrices.sort((a,b)=>a.price-b.price);
+    allPrices.forEach((p,i)=>{
+      const position=i===0?'Lowest':i===allPrices.length-1?'Highest':'Mid-range';
+      const diff=p.yours?'--':(((recPrice-p.price)/p.price)*100).toFixed(0)+'% '+(recPrice>p.price?'higher':'lower');
+      compBody.innerHTML+=`<tr class="${p.yours?'your-row':''}"><td>${p.name}</td><td>${fmt(p.price)}</td><td>${position}</td><td>${diff}</td></tr>`;
+    });
+  } else {
+    document.getElementById('compSection').style.display='none';
+  }
+
+  lastResult={tiers,recPrice,simData,competitors,type,audience,features,visitors};
+  document.getElementById('results').style.display='block';
+  document.getElementById('results').scrollIntoView({behavior:'smooth'});
+}
+
+function exportStrategy(){
+  const r=lastResult;
+  let txt=`PRICING STRATEGY — Digital Product Pricing Calculator\nGenerated: ${new Date().toLocaleDateString()}\n${'='.repeat(50)}\n\n`;
+  txt+=`PRODUCT: ${r.type} | Audience: ${r.audience} | Features: ${r.features}\nMonthly Visitors: ${r.visitors.toLocaleString()}\n\n`;
+  txt+=`RECOMMENDED TIERS\n`;
+  r.tiers.forEach(t=>{txt+=`  ${t.name}: $${t.price.toFixed(2)} ${t.desc} (${t.features} features)${t.popular?' <- RECOMMENDED':''}\n`;});
+  txt+=`\nREVENUE PROJECTIONS\n`;
+  r.simData.forEach(d=>{txt+=`  ${fmt(d.pp)} -> ${d.convRate.toFixed(1)}% conv -> ${d.sales} sales -> ${fmt(d.monthlyRev)}/mo -> ${fmtK(d.annualRev)}/yr\n`;});
+  if(r.competitors.length){
+    txt+=`\nCOMPETITOR PRICES\n`;
+    r.competitors.forEach(c=>txt+=`  ${c.name}: ${fmt(c.price)}\n`);
+  }
+  txt+=`\nPRICING PSYCHOLOGY APPLIED: Anchoring, Decoy, Charm Pricing, Center Stage, Loss Aversion\n`;
+  txt+=`\nGenerated at spunk.codes/pricing-calculator.html`;
+  navigator.clipboard.writeText(txt);
+  showToast('Strategy copied to clipboard!');
+}
+
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.style.display='block';setTimeout(()=>t.style.display='none',2000);}
+
+document.addEventListener('contextmenu',e=>e.preventDefault());
+document.addEventListener('keydown',e=>{if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'))||(e.ctrlKey&&e.key==='u'))e.preventDefault();});
+</script>
+</body>
+</html>

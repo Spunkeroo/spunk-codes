@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Revenue Calculator for Solo Founders | spunk.codes</title>
+<meta name="description" content="Free revenue calculator for solo founders. Project monthly and annual revenue across multiple sites with growth modeling and compound projections.">
+<meta name="keywords" content="revenue calculator, solo founder, income projections, growth calculator, startup revenue">
+<meta property="og:title" content="Revenue Calculator for Solo Founders | spunk.codes">
+<meta property="og:description" content="Project your revenue across multiple sites with compound growth modeling. Free tool for solo founders.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://spunk.codes/revenue-calculator.html">
+<meta property="og:image" content="https://spunk.codes/art/og-revenue-calculator.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<meta name="twitter:title" content="Revenue Calculator for Solo Founders">
+<meta name="twitter:description" content="Project your revenue across multiple sites with compound growth modeling.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Revenue Calculator for Solo Founders",
+  "description": "Project monthly and annual revenue across multiple sites with growth modeling and compound projections.",
+  "url": "https://spunk.codes/revenue-calculator.html",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "author": { "@type": "Organization", "name": "spunk.codes", "url": "https://spunk.codes" }
+}
+</script>
+<!-- GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<!-- Clarity -->
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#0a0a0a;color:#e8e8e8;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;line-height:1.6;min-height:100vh;}
+a{color:#ff5f1f;text-decoration:none;}a:hover{text-decoration:underline;}
+.cta-banner{background:linear-gradient(135deg,#ff5f1f,#e04500);text-align:center;padding:10px 16px;font-size:14px;font-weight:600;color:#fff;position:sticky;top:0;z-index:100;}
+.cta-banner a{color:#fff;text-decoration:underline;}
+.container{max-width:960px;margin:0 auto;padding:24px 16px 80px;}
+h1{font-size:clamp(1.6rem,4vw,2.2rem);font-weight:800;margin-bottom:6px;}
+h1 span{color:#ff5f1f;}
+.subtitle{color:#888;font-size:14px;margin-bottom:28px;}
+.usage-badge{display:inline-block;background:#1a1a1a;border:1px solid #333;border-radius:20px;padding:4px 14px;font-size:12px;color:#888;margin-bottom:24px;}
+.usage-badge strong{color:#ff5f1f;}
+.scenarios{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:24px;}
+.scenario-btn{background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:10px 18px;color:#e8e8e8;cursor:pointer;font-size:13px;font-weight:600;transition:all .2s;}
+.scenario-btn:hover,.scenario-btn.active{border-color:#ff5f1f;background:#1f1008;color:#ff5f1f;}
+.input-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:28px;}
+.input-group{display:flex;flex-direction:column;gap:6px;}
+.input-group label{font-size:13px;color:#aaa;font-weight:500;}
+.input-group input,.input-group select{background:#111;border:1px solid #333;border-radius:8px;padding:12px 14px;color:#e8e8e8;font-size:15px;transition:border-color .2s;}
+.input-group input:focus,.input-group select:focus{outline:none;border-color:#ff5f1f;}
+.growth-row{display:flex;gap:12px;align-items:end;margin-bottom:28px;flex-wrap:wrap;}
+.growth-row .input-group{flex:1;min-width:160px;}
+.btn-calc{background:#ff5f1f;color:#fff;border:none;border-radius:8px;padding:14px 32px;font-size:15px;font-weight:700;cursor:pointer;transition:background .2s;width:100%;max-width:300px;margin:0 auto 32px;display:block;}
+.btn-calc:hover{background:#e04500;}
+.results{display:none;}
+.result-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-bottom:32px;}
+.result-card{background:#111;border:1px solid #222;border-radius:12px;padding:20px;text-align:center;}
+.result-card .label{font-size:12px;color:#888;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;}
+.result-card .value{font-size:clamp(1.4rem,3vw,2rem);font-weight:800;color:#10b981;}
+.result-card .value.orange{color:#ff5f1f;}
+.result-card .sub{font-size:12px;color:#666;margin-top:4px;}
+h2{font-size:1.2rem;font-weight:700;margin-bottom:16px;color:#e8e8e8;}
+.chart-section{margin-bottom:32px;}
+.bar-chart{display:flex;align-items:flex-end;gap:12px;height:220px;padding:20px 0;border-bottom:1px solid #333;}
+.bar-wrap{flex:1;display:flex;flex-direction:column;align-items:center;height:100%;justify-content:flex-end;}
+.bar{width:100%;max-width:80px;border-radius:6px 6px 0 0;transition:height .6s ease;position:relative;min-height:4px;}
+.bar.green{background:linear-gradient(180deg,#10b981,#059669);}
+.bar.orange{background:linear-gradient(180deg,#ff5f1f,#e04500);}
+.bar-label{font-size:11px;color:#888;margin-top:8px;text-align:center;}
+.bar-value{font-size:12px;font-weight:700;color:#e8e8e8;margin-bottom:4px;text-align:center;}
+.projections-table{width:100%;border-collapse:collapse;margin-bottom:28px;}
+.projections-table th{text-align:left;font-size:12px;color:#888;padding:10px 12px;border-bottom:1px solid #333;text-transform:uppercase;letter-spacing:.5px;}
+.projections-table td{padding:10px 12px;border-bottom:1px solid #1a1a1a;font-size:14px;}
+.projections-table tr:hover{background:#111;}
+.projections-table .highlight{color:#10b981;font-weight:700;}
+.export-row{display:flex;gap:10px;margin-top:20px;}
+.btn-export{background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:10px 20px;color:#e8e8e8;font-size:13px;cursor:pointer;transition:all .2s;}
+.btn-export:hover{border-color:#ff5f1f;color:#ff5f1f;}
+.watermark{position:fixed;bottom:12px;right:16px;font-size:14px;font-weight:700;color:rgba(255,255,255,.1);pointer-events:none;z-index:50;}
+.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#10b981;color:#fff;padding:10px 24px;border-radius:8px;font-size:14px;font-weight:600;z-index:200;display:none;animation:fadeUp .3s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateX(-50%) translateY(10px);}to{opacity:1;transform:translateX(-50%) translateY(0);}}
+@media(max-width:600px){.input-grid{grid-template-columns:1fr;}.result-cards{grid-template-columns:repeat(2,1fr);}.bar-chart{gap:6px;}}
+</style>
+</head>
+<body>
+<div class="cta-banner"><a href="https://spunk.codes/store">80+ Free Tools &rarr; spunk.codes/store</a></div>
+<div class="container">
+  <h1><span>Revenue Calculator</span> for Solo Founders</h1>
+  <p class="subtitle">Project your income across multiple sites with compound growth modeling</p>
+  <div class="usage-badge">Used <strong id="usageCount">0</strong> times</div>
+
+  <div class="scenarios">
+    <button class="scenario-btn" onclick="loadScenario('starter')">Starter (5 sites)</button>
+    <button class="scenario-btn" onclick="loadScenario('growth')">Growth (25 sites)</button>
+    <button class="scenario-btn" onclick="loadScenario('empire')">Empire (100+ sites)</button>
+  </div>
+
+  <div class="input-grid">
+    <div class="input-group">
+      <label>Number of Sites</label>
+      <input type="number" id="numSites" value="5" min="1" max="10000">
+    </div>
+    <div class="input-group">
+      <label>Avg Monthly Visitors / Site</label>
+      <input type="number" id="avgVisitors" value="2000" min="1">
+    </div>
+    <div class="input-group">
+      <label>Conversion Rate (%)</label>
+      <input type="number" id="convRate" value="2.5" min="0.01" max="100" step="0.1">
+    </div>
+    <div class="input-group">
+      <label>Avg Product Price ($)</label>
+      <input type="number" id="avgPrice" value="29" min="0.01" step="0.01">
+    </div>
+  </div>
+
+  <div class="growth-row">
+    <div class="input-group">
+      <label>Monthly Growth Rate (%)</label>
+      <input type="number" id="growthRate" value="10" min="0" max="500" step="0.5">
+    </div>
+    <div class="input-group">
+      <label>Revenue Model</label>
+      <select id="revenueModel">
+        <option value="one-time">One-Time Purchase</option>
+        <option value="recurring">Recurring (Monthly)</option>
+        <option value="mixed">Mixed (60% one-time, 40% recurring)</option>
+      </select>
+    </div>
+  </div>
+
+  <button class="btn-calc" onclick="calculate()">Calculate Revenue</button>
+
+  <div class="results" id="results">
+    <div class="result-cards">
+      <div class="result-card"><div class="label">Monthly Revenue</div><div class="value" id="monthlyRev">$0</div><div class="sub" id="monthlyRevSub"></div></div>
+      <div class="result-card"><div class="label">Annual Revenue</div><div class="value" id="annualRev">$0</div><div class="sub" id="annualRevSub"></div></div>
+      <div class="result-card"><div class="label">Revenue / Site</div><div class="value orange" id="perSiteRev">$0</div><div class="sub" id="perSiteRevSub"></div></div>
+      <div class="result-card"><div class="label">Total Conversions / Mo</div><div class="value orange" id="totalConv">0</div><div class="sub" id="totalConvSub"></div></div>
+    </div>
+
+    <div class="chart-section">
+      <h2>Growth Projections</h2>
+      <div class="bar-chart" id="barChart"></div>
+    </div>
+
+    <table class="projections-table">
+      <thead><tr><th>Month</th><th>Revenue</th><th>Cumulative</th><th>Visitors</th><th>Conversions</th></tr></thead>
+      <tbody id="projTableBody"></tbody>
+    </table>
+
+    <div class="export-row">
+      <button class="btn-export" onclick="exportResults()">Copy Results as Text</button>
+      <button class="btn-export" onclick="exportCSV()">Export CSV</button>
+    </div>
+  </div>
+</div>
+
+<div class="watermark">SPUNK.CODES</div>
+<div class="toast" id="toast">Copied!</div>
+
+<script>
+let usage = parseInt(localStorage.getItem('rc_usage')||'0');
+document.getElementById('usageCount').textContent = usage;
+
+function incrementUsage(){
+  usage++;
+  localStorage.setItem('rc_usage', usage);
+  document.getElementById('usageCount').textContent = usage;
+}
+
+function loadScenario(type){
+  document.querySelectorAll('.scenario-btn').forEach(b=>b.classList.remove('active'));
+  event.target.classList.add('active');
+  const s = {
+    starter: {sites:5, visitors:2000, conv:2.5, price:29, growth:10},
+    growth: {sites:25, visitors:5000, conv:3, price:39, growth:15},
+    empire: {sites:120, visitors:8000, conv:3.5, price:49, growth:20}
+  }[type];
+  document.getElementById('numSites').value = s.sites;
+  document.getElementById('avgVisitors').value = s.visitors;
+  document.getElementById('convRate').value = s.conv;
+  document.getElementById('avgPrice').value = s.price;
+  document.getElementById('growthRate').value = s.growth;
+}
+
+function fmt(n){
+  if(n>=1000000) return '$'+(n/1000000).toFixed(n>=10000000?1:2)+'M';
+  if(n>=1000) return '$'+(n/1000).toFixed(n>=100000?0:1)+'K';
+  return '$'+n.toFixed(2);
+}
+function fmtFull(n){ return '$'+n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}); }
+function fmtInt(n){ return n.toLocaleString('en-US'); }
+
+let lastCalc = {};
+
+function calculate(){
+  incrementUsage();
+  const sites = parseInt(document.getElementById('numSites').value)||1;
+  const visitors = parseInt(document.getElementById('avgVisitors').value)||1;
+  const conv = parseFloat(document.getElementById('convRate').value)||1;
+  const price = parseFloat(document.getElementById('avgPrice').value)||1;
+  const growth = parseFloat(document.getElementById('growthRate').value)||0;
+  const model = document.getElementById('revenueModel').value;
+
+  const totalVisitors = sites * visitors;
+  const conversions = Math.round(totalVisitors * (conv/100));
+  let monthlyRev = conversions * price;
+  const annualRev = monthlyRev * 12;
+  const perSite = monthlyRev / sites;
+
+  document.getElementById('monthlyRev').textContent = fmt(monthlyRev);
+  document.getElementById('monthlyRevSub').textContent = fmtFull(monthlyRev)+' / month';
+  document.getElementById('annualRev').textContent = fmt(annualRev);
+  document.getElementById('annualRevSub').textContent = 'without growth applied';
+  document.getElementById('perSiteRev').textContent = fmt(perSite);
+  document.getElementById('perSiteRevSub').textContent = fmtFull(perSite)+' per site / month';
+  document.getElementById('totalConv').textContent = fmtInt(conversions);
+  document.getElementById('totalConvSub').textContent = fmtInt(totalVisitors)+' visitors total';
+
+  const milestones = [1,3,6,12,18,24];
+  const projections = [];
+  let cumulative = 0;
+  let maxRev = 0;
+
+  for(let m=1; m<=24; m++){
+    const factor = Math.pow(1+(growth/100), m-1);
+    let mRev = monthlyRev * factor;
+    if(model==='recurring'){
+      mRev = 0;
+      for(let i=1;i<=m;i++) mRev += conversions * price * Math.pow(1+(growth/100), i-1) * 0.85;
+    } else if(model==='mixed'){
+      const oneTimeRev = conversions * price * 0.6 * factor;
+      let recurRev = 0;
+      for(let i=1;i<=m;i++) recurRev += conversions * price * 0.4 * Math.pow(1+(growth/100), i-1) * 0.85;
+      mRev = oneTimeRev + recurRev;
+    }
+    cumulative += mRev;
+    if(mRev > maxRev) maxRev = mRev;
+    projections.push({month:m, rev:mRev, cum:cumulative, visitors:Math.round(totalVisitors*factor), convs:Math.round(conversions*factor)});
+  }
+
+  const chart = document.getElementById('barChart');
+  chart.innerHTML = '';
+  milestones.forEach((m,i)=>{
+    const p = projections[m-1];
+    const pct = (p.rev/maxRev)*100;
+    const c = i < 3 ? 'green' : 'orange';
+    chart.innerHTML += `<div class="bar-wrap"><div class="bar-value">${fmt(p.rev)}</div><div class="bar ${c}" style="height:${Math.max(pct,3)}%"></div><div class="bar-label">Mo ${m}</div></div>`;
+  });
+
+  const tbody = document.getElementById('projTableBody');
+  tbody.innerHTML = '';
+  milestones.forEach(m=>{
+    const p = projections[m-1];
+    tbody.innerHTML += `<tr><td>Month ${m}</td><td class="highlight">${fmtFull(p.rev)}</td><td>${fmtFull(p.cum)}</td><td>${fmtInt(p.visitors)}</td><td>${fmtInt(p.convs)}</td></tr>`;
+  });
+
+  lastCalc = {sites, visitors, conv, price, growth, model, monthlyRev, annualRev, perSite, conversions, projections, milestones};
+  document.getElementById('results').style.display = 'block';
+  document.getElementById('results').scrollIntoView({behavior:'smooth'});
+}
+
+function exportResults(){
+  const c = lastCalc;
+  let txt = `REVENUE PROJECTION — Solo Founder Calculator\nGenerated: ${new Date().toLocaleDateString()}\n${'='.repeat(45)}\n\nINPUTS\nSites: ${c.sites} | Visitors/site: ${fmtInt(c.visitors)} | Conv: ${c.conv}%\nPrice: $${c.price} | Growth: ${c.growth}%/mo | Model: ${c.model}\n\nRESULTS\nMonthly Revenue: ${fmtFull(c.monthlyRev)}\nAnnual Revenue: ${fmtFull(c.annualRev)}\nPer Site: ${fmtFull(c.perSite)}/mo\nConversions/mo: ${fmtInt(c.conversions)}\n\nGROWTH PROJECTIONS\n`;
+  c.milestones.forEach(m=>{const p=c.projections[m-1];txt+=`Month ${m}: ${fmtFull(p.rev)}/mo (cumulative: ${fmtFull(p.cum)})\n`;});
+  txt += `\nGenerated at spunk.codes/revenue-calculator.html`;
+  navigator.clipboard.writeText(txt);
+  showToast('Copied to clipboard!');
+}
+
+function exportCSV(){
+  let csv = 'Month,Monthly Revenue,Cumulative Revenue,Visitors,Conversions\n';
+  lastCalc.projections.forEach(p=>csv+=`${p.month},${p.rev.toFixed(2)},${p.cum.toFixed(2)},${p.visitors},${p.convs}\n`);
+  const blob = new Blob([csv],{type:'text/csv'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href=url;a.download='revenue-projection.csv';a.click();
+  URL.revokeObjectURL(url);
+  showToast('CSV downloaded!');
+}
+
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.style.display='block';setTimeout(()=>t.style.display='none',2000);}
+
+document.addEventListener('contextmenu',e=>e.preventDefault());
+document.addEventListener('keydown',e=>{if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'))||(e.ctrlKey&&e.key==='u'))e.preventDefault();});
+</script>
+</body>
+</html>
