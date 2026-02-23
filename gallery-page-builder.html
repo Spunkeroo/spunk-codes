@@ -188,7 +188,38 @@ layoutCSS=`.gallery{max-width:800px;margin:0 auto;padding:40px 20px}.gallery-ite
 works.forEach(w=>{itemsHTML+=`<div class="gallery-item">${w.url?`<img src="${esc(w.url)}" alt="${esc(w.title)}" loading="lazy">`:''}<div class="info"><h3>${esc(w.title)}</h3>${w.desc?`<p>${esc(w.desc)}</p>`:''}</div></div>`;});
 }
 
-generatedHTML=`<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(title)}</title><style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:${bg};color:${text};line-height:1.6}a{color:${accent}}header{text-align:center;padding:60px 20px 20px}header h1{font-size:2.2rem;margin-bottom:8px}header .artist{font-size:1rem;opacity:0.7;margin-bottom:8px}header .desc{max-width:600px;margin:0 auto;font-size:0.9rem;opacity:0.6}${layoutCSS}footer{text-align:center;padding:30px;font-size:0.8rem;opacity:0.4;border-top:1px solid rgba(255,255,255,0.1);margin-top:40px}</style></head><body><header><h1>${esc(title)}</h1>${artist?`<p class="artist">${esc(artist)}</p>`:''}${desc?`<p class="desc">${esc(desc)}</p>`:''}</header><div class="gallery">${itemsHTML}</div>${layout==='slideshow'?`<script>var cur=0,slides=document.querySelectorAll('.slide'),total=slides.length;function nav(d){slides[cur].classList.remove('active');cur=(cur+d+total)%total;slides[cur].classList.add('active');document.getElementById('slideCount').textContent=(cur+1)+' / '+total;}<\/script>`:''}<footer>&copy; ${new Date().getFullYear()} ${esc(artist||title)}</footer></body></html>`;
+generatedHTML=`<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(title)}</title><style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:${bg};color:${text};line-height:1.6}a{color:${accent}}header{text-align:center;padding:60px 20px 20px}header h1{font-size:2.2rem;margin-bottom:8px}header .artist{font-size:1rem;opacity:0.7;margin-bottom:8px}header .desc{max-width:600px;margin:0 auto;font-size:0.9rem;opacity:0.6}${layoutCSS}footer{text-align:center;padding:30px;font-size:0.8rem;opacity:0.4;border-top:1px solid rgba(255,255,255,0.1);margin-top:40px}</style></head><body><header><h1>${esc(title)}</h1>${artist?`<p class="artist">${esc(artist)}</p>`:''}${desc?`<p class="desc">${esc(desc)}</p>`:''}</header><div class="gallery">${itemsHTML}</div>${layout==='slideshow'?`<script>var cur=0,slides=document.querySelectorAll('.slide'),total=slides.length;function nav(d){slides[cur].classList.remove('active');cur=(cur+d+total)%total;slides[cur].classList.add('active');document.getElementById('slideCount').textContent=(cur+1)+' / '+total;}<\/script>`:''}<footer>&copy; ${new Date().getFullYear()} ${esc(artist||title)}</footer><script src="/auto-monetize.js"></script>
+<!-- Share on X Button -->
+<div id="shareXBtn" style="position:fixed;left:20px;bottom:20px;z-index:9999;">
+  <a id="shareXLink" href="#" target="_blank" rel="noopener noreferrer" title="Share on X"
+     style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;
+     background:rgba(88,166,255,0.15);border:1px solid rgba(88,166,255,0.3);
+     backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:50%;
+     text-decoration:none;transition:all 0.3s ease;cursor:pointer;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+    </svg>
+  </a>
+</div>
+<style>
+  #shareXBtn a:hover {
+    background: rgba(88,166,255,0.35) !important;
+    border-color: rgba(88,166,255,0.6) !important;
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(88,166,255,0.3);
+  }
+</style>
+<script>
+(function(){
+  var page = location.pathname.split("/").pop() || "index.html";
+  var url = "https://spunk.codes/" + page;
+  var text = "Just used this free tool on spunk.codes — amazing! @SpunkArt13";
+  var href = "https://x.com/intent/tweet?text=" + encodeURIComponent(text) + "&url=" + encodeURIComponent(url);
+  document.getElementById("shareXLink").href = href;
+})();
+</script>
+
+</body></html>`;
 
 document.getElementById('previewSection').style.display='block';
 document.getElementById('previewFrame').srcdoc=generatedHTML;
@@ -202,5 +233,6 @@ function downloadGallery(){if(!generatedHTML){showToast('Generate first');return
 <script>
 (function(){document.addEventListener('contextmenu',function(e){e.preventDefault()});document.addEventListener('keydown',function(e){if(e.key==='F12'){e.preventDefault();return false}if((e.ctrlKey||e.metaKey)&&e.shiftKey&&(e.key==='I'||e.key==='i')){e.preventDefault();return false}if((e.ctrlKey||e.metaKey)&&e.shiftKey&&(e.key==='J'||e.key==='j')){e.preventDefault();return false}if((e.ctrlKey||e.metaKey)&&(e.key==='U'||e.key==='u')){e.preventDefault();return false}});console.log('%cSTOP!','color:#ff5555;font-size:48px;font-weight:900;');console.log('%cSPUNK.CODES','color:#58a6ff;font-size:18px;font-weight:700;')})();
 </script>
+<script src="/auto-monetize.js"></script>
 </body>
 </html>
