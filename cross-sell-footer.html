@@ -1,0 +1,207 @@
+<!--
+  SPUNK.CODES — Cross-Sell Footer Section
+  ========================================
+  Reusable footer section for tool pages. Includes:
+    - "You might also like" tool recommendations
+    - Featured ebook with CTA
+    - Referral program mention
+    - Newsletter signup
+
+  USAGE: Include this HTML snippet before your closing </body> or before
+  your existing footer. Self-contained CSS via scoped class prefixes.
+
+  Last updated: 2026-02-23
+-->
+
+<!-- ===== CROSS-SELL FOOTER ===== -->
+<div class="sc-xsell">
+<style>
+.sc-xsell{background:linear-gradient(180deg,transparent 0%,rgba(13,17,23,0.95) 5%,#0d1117 100%);border-top:1px solid rgba(48,54,61,0.4);padding:0;margin-top:3rem;font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#e6edf3;line-height:1.6;-webkit-font-smoothing:antialiased}
+.sc-xsell *{box-sizing:border-box;margin:0;padding:0}
+.sc-xsell a{text-decoration:none;transition:all 0.2s ease}
+
+.sc-xsell-inner{max-width:1100px;margin:0 auto;padding:2.5rem 1.5rem 1.5rem}
+
+/* Section headings */
+.sc-xsell-heading{font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;margin-bottom:1rem;display:flex;align-items:center;gap:0.6rem}
+.sc-xsell-heading::after{content:'';flex:1;height:1px;background:rgba(48,54,61,0.5)}
+.sc-xsell-heading.blue{color:#58a6ff}
+.sc-xsell-heading.green{color:#39d353}
+.sc-xsell-heading.purple{color:#bc8cff}
+
+/* ── Tool Recommendations ── */
+.sc-xsell-tools{display:grid;grid-template-columns:repeat(4,1fr);gap:0.8rem;margin-bottom:2.5rem}
+.sc-xsell-tool{display:flex;align-items:center;gap:0.6rem;padding:0.75rem 1rem;background:rgba(22,27,34,0.6);border:1px solid rgba(48,54,61,0.5);border-radius:12px;color:#c9d1d9;font-size:0.82rem;font-weight:500;transition:all 0.25s}
+.sc-xsell-tool:hover{border-color:rgba(88,166,255,0.4);background:rgba(22,27,34,0.9);color:#fff;transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,0.3)}
+.sc-xsell-tool-icon{font-size:1.1rem;flex-shrink:0;width:22px;text-align:center}
+.sc-xsell-tool-free{margin-left:auto;font-size:0.6rem;font-weight:700;color:#39d353;background:rgba(57,211,83,0.1);padding:2px 8px;border-radius:10px;flex-shrink:0}
+
+/* ── Middle Grid: Ebook + Referral + Newsletter ── */
+.sc-xsell-mid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.5rem;margin-bottom:2rem}
+
+/* Featured Ebook */
+.sc-xsell-ebook{background:linear-gradient(145deg,rgba(22,27,34,0.8),rgba(13,17,23,0.9));border:1px solid rgba(57,211,83,0.2);border-radius:16px;padding:1.8rem;display:flex;flex-direction:column;justify-content:center}
+.sc-xsell-ebook-badge{display:inline-block;padding:3px 10px;background:rgba(57,211,83,0.1);border:1px solid rgba(57,211,83,0.25);border-radius:20px;font-size:0.65rem;font-weight:700;color:#39d353;margin-bottom:10px;letter-spacing:0.5px;width:fit-content}
+.sc-xsell-ebook h3{font-size:1.05rem;font-weight:800;color:#e6edf3;margin-bottom:6px;line-height:1.3}
+.sc-xsell-ebook p{color:#8b949e;font-size:0.78rem;margin-bottom:14px;line-height:1.5}
+.sc-xsell-ebook-cta{display:inline-flex;align-items:center;gap:6px;padding:8px 20px;background:linear-gradient(135deg,#39d353,#2ea043);color:#fff;border-radius:10px;font-size:0.85rem;font-weight:700;transition:all 0.25s;width:fit-content}
+.sc-xsell-ebook-cta:hover{transform:scale(1.03);box-shadow:0 6px 20px rgba(57,211,83,0.3);color:#fff}
+
+/* Referral Program */
+.sc-xsell-referral{background:linear-gradient(145deg,rgba(22,27,34,0.8),rgba(13,17,23,0.9));border:1px solid rgba(88,166,255,0.2);border-radius:16px;padding:1.8rem;display:flex;flex-direction:column;justify-content:center;text-align:center}
+.sc-xsell-referral-icon{font-size:2rem;margin-bottom:8px}
+.sc-xsell-referral h3{font-size:1.05rem;font-weight:800;margin-bottom:6px}
+.sc-xsell-referral h3 span{background:linear-gradient(135deg,#58a6ff,#39d353);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.sc-xsell-referral p{color:#8b949e;font-size:0.78rem;margin-bottom:14px;line-height:1.5}
+.sc-xsell-referral-cta{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:8px 20px;background:linear-gradient(135deg,#58a6ff,#388bfd);color:#fff;border-radius:10px;font-size:0.85rem;font-weight:700;transition:all 0.25s}
+.sc-xsell-referral-cta:hover{transform:scale(1.03);box-shadow:0 6px 20px rgba(88,166,255,0.3);color:#fff}
+
+/* Newsletter */
+.sc-xsell-newsletter{background:linear-gradient(145deg,rgba(22,27,34,0.8),rgba(13,17,23,0.9));border:1px solid rgba(188,140,255,0.2);border-radius:16px;padding:1.8rem;display:flex;flex-direction:column;justify-content:center;text-align:center}
+.sc-xsell-newsletter-icon{font-size:2rem;margin-bottom:8px}
+.sc-xsell-newsletter h3{font-size:1.05rem;font-weight:800;margin-bottom:6px}
+.sc-xsell-newsletter h3 span{background:linear-gradient(135deg,#bc8cff,#58a6ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.sc-xsell-newsletter p{color:#8b949e;font-size:0.78rem;margin-bottom:14px;line-height:1.5}
+.sc-xsell-newsletter-form{display:flex;gap:6px}
+.sc-xsell-newsletter-input{flex:1;padding:8px 12px;background:rgba(22,27,34,0.8);border:1px solid #30363d;border-radius:8px;color:#e6edf3;font-size:13px;outline:none;transition:border-color 0.2s}
+.sc-xsell-newsletter-input:focus{border-color:#bc8cff}
+.sc-xsell-newsletter-input::placeholder{color:#484f58}
+.sc-xsell-newsletter-btn{padding:8px 16px;background:linear-gradient(135deg,#bc8cff,#8957e5);color:#fff;border:none;border-radius:8px;font-size:0.8rem;font-weight:700;cursor:pointer;transition:all 0.25s}
+.sc-xsell-newsletter-btn:hover{transform:scale(1.03);box-shadow:0 4px 16px rgba(188,140,255,0.3)}
+.sc-xsell-newsletter-sub{display:block;font-size:0.65rem;color:#484f58;margin-top:8px}
+
+/* ── Bottom Links ── */
+.sc-xsell-bottom{border-top:1px solid rgba(48,54,61,0.4);padding-top:1rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.8rem;margin-top:0.5rem}
+.sc-xsell-bottom-left{display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap}
+.sc-xsell-brand{font-weight:800;font-size:0.85rem;color:#58a6ff;letter-spacing:1px}
+.sc-xsell-links{display:flex;gap:1rem;flex-wrap:wrap}
+.sc-xsell-links a{color:#484f58;font-size:0.72rem;font-weight:500}
+.sc-xsell-links a:hover{color:#e6edf3}
+.sc-xsell-social a{color:#8b949e;font-size:0.8rem;font-weight:600;display:flex;align-items:center;gap:0.4rem}
+.sc-xsell-social a:hover{color:#fff}
+.sc-xsell-x-icon{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;background:#21262d;border-radius:50%;font-size:0.7rem;font-weight:800;transition:all 0.2s}
+.sc-xsell-social a:hover .sc-xsell-x-icon{background:#58a6ff;color:#fff}
+.sc-xsell-copy{color:#30363d;font-size:0.65rem;text-align:center;padding:0.8rem 0 0.3rem;letter-spacing:0.1em}
+
+/* ── Responsive ── */
+@media(max-width:900px){
+  .sc-xsell-tools{grid-template-columns:repeat(2,1fr)}
+  .sc-xsell-mid{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+  .sc-xsell-inner{padding:2rem 1rem 1rem}
+  .sc-xsell-tools{grid-template-columns:1fr 1fr;gap:0.5rem}
+  .sc-xsell-tool{font-size:0.75rem;padding:0.6rem 0.7rem}
+  .sc-xsell-tool-free{display:none}
+  .sc-xsell-bottom{flex-direction:column;text-align:center}
+  .sc-xsell-bottom-left{flex-direction:column;gap:0.6rem}
+  .sc-xsell-links{justify-content:center}
+  .sc-xsell-social{justify-content:center}
+  .sc-xsell-newsletter-form{flex-direction:column}
+}
+</style>
+
+<div class="sc-xsell-inner">
+
+  <!-- YOU MIGHT ALSO LIKE -->
+  <div class="sc-xsell-heading blue">You Might Also Like</div>
+  <div class="sc-xsell-tools">
+    <a href="/json-formatter.html" class="sc-xsell-tool">
+      <span class="sc-xsell-tool-icon">&#128196;</span> JSON Formatter
+      <span class="sc-xsell-tool-free">FREE</span>
+    </a>
+    <a href="/password-generator.html" class="sc-xsell-tool">
+      <span class="sc-xsell-tool-icon">&#128274;</span> Password Generator
+      <span class="sc-xsell-tool-free">FREE</span>
+    </a>
+    <a href="/color-palette.html" class="sc-xsell-tool">
+      <span class="sc-xsell-tool-icon">&#127912;</span> Color Palette
+      <span class="sc-xsell-tool-free">FREE</span>
+    </a>
+    <a href="/image-compressor.html" class="sc-xsell-tool">
+      <span class="sc-xsell-tool-icon">&#128248;</span> Image Compressor
+      <span class="sc-xsell-tool-free">FREE</span>
+    </a>
+    <a href="/meta-generator.html" class="sc-xsell-tool">
+      <span class="sc-xsell-tool-icon">&#127760;</span> Meta Tag Generator
+      <span class="sc-xsell-tool-free">FREE</span>
+    </a>
+    <a href="/regex-tester.html" class="sc-xsell-tool">
+      <span class="sc-xsell-tool-icon">&#128269;</span> Regex Tester
+      <span class="sc-xsell-tool-free">FREE</span>
+    </a>
+    <a href="/api-tester.html" class="sc-xsell-tool">
+      <span class="sc-xsell-tool-icon">&#128640;</span> API Tester
+      <span class="sc-xsell-tool-free">FREE</span>
+    </a>
+    <a href="/pdf-tools.html" class="sc-xsell-tool">
+      <span class="sc-xsell-tool-icon">&#128203;</span> PDF Tools
+      <span class="sc-xsell-tool-free">FREE</span>
+    </a>
+  </div>
+
+  <!-- MIDDLE: EBOOK + REFERRAL + NEWSLETTER -->
+  <div class="sc-xsell-mid">
+
+    <!-- Featured Ebook -->
+    <div class="sc-xsell-ebook">
+      <div class="sc-xsell-ebook-badge">BESTSELLER</div>
+      <h3>Zero to 120+ Websites in 7 Days</h3>
+      <p>The complete AI blueprint for building a website empire. From $0 to automated revenue in one week. Real strategies, real results.</p>
+      <a href="/ebook.html" class="sc-xsell-ebook-cta" onclick="if(typeof gtag==='function')gtag('event','xsell_click',{event_category:'cross_sell',event_label:'ebook_featured'})">
+        Get the Ebook &rarr;
+      </a>
+    </div>
+
+    <!-- Referral Program -->
+    <div class="sc-xsell-referral">
+      <div class="sc-xsell-referral-icon">&#128176;</div>
+      <h3>Earn <span>50% Commission</span></h3>
+      <p>Share SPUNK.CODES tools with your audience. Earn 50% on every sale. 90-day cookie. Paid monthly in crypto or PayPal.</p>
+      <a href="/affiliates.html" class="sc-xsell-referral-cta" onclick="if(typeof gtag==='function')gtag('event','xsell_click',{event_category:'cross_sell',event_label:'affiliate_program'})">
+        Join Affiliate Program &rarr;
+      </a>
+    </div>
+
+    <!-- Newsletter -->
+    <div class="sc-xsell-newsletter">
+      <div class="sc-xsell-newsletter-icon">&#9993;</div>
+      <h3>Join <span>The Network</span></h3>
+      <p>Free ebooks, new tools, and behind-the-scenes from one developer running 120+ sites. No spam.</p>
+      <form class="sc-xsell-newsletter-form" onsubmit="(function(e){e.preventDefault();var em=e.target.querySelector('input').value;if(!em||em.indexOf('@')<0)return;window.open('https://embeds.beehiiv.com/6831d05b-f121-4e0d-951b-16f88ddd9ec3?email='+encodeURIComponent(em),'_blank');e.target.innerHTML='<p style=&quot;color:#39d353;font-weight:700;font-size:0.85rem&quot;>&#9989; Check your inbox!</p>';if(typeof gtag==='function')gtag('event','xsell_subscribe',{event_category:'cross_sell',event_label:'newsletter_footer'})})(event)">
+        <input type="email" class="sc-xsell-newsletter-input" placeholder="your@email.com" required autocomplete="email" aria-label="Email address">
+        <button type="submit" class="sc-xsell-newsletter-btn">Subscribe</button>
+      </form>
+      <span class="sc-xsell-newsletter-sub">Join 1,000+ builders and founders</span>
+    </div>
+
+  </div>
+
+  <!-- BOTTOM BAR -->
+  <div class="sc-xsell-bottom">
+    <div class="sc-xsell-bottom-left">
+      <a href="/" class="sc-xsell-brand">SPUNK.CODES</a>
+      <div class="sc-xsell-links">
+        <a href="/">Home</a>
+        <a href="/store.html">Store</a>
+        <a href="/ebook.html">Ebooks</a>
+        <a href="/pricing.html">Pricing</a>
+        <a href="/reseller.html">Reseller</a>
+        <a href="/affiliates.html">Affiliates</a>
+        <a href="/blog.html">Blog</a>
+        <a href="https://spunk.bet" target="_blank" rel="noopener">Spunk.Bet</a>
+        <a href="https://predict.pics" target="_blank" rel="noopener">Predict Network</a>
+      </div>
+    </div>
+    <div class="sc-xsell-social">
+      <a href="https://x.com/SpunkArt13" target="_blank" rel="noopener noreferrer">
+        <span class="sc-xsell-x-icon">X</span> @SpunkArt13
+      </a>
+    </div>
+  </div>
+
+  <div class="sc-xsell-copy">&copy; 2026 SPUNK.CODES &mdash; All rights reserved. All tools free forever.</div>
+
+</div>
+</div>
+<!-- ===== END CROSS-SELL FOOTER ===== -->

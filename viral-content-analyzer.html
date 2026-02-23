@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Copyright 2026 spunk.codes. All rights reserved. Unauthorized reproduction prohibited. hello@spunk.codes -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Viral Content Analyzer - Get a Virality Score for Any Post | SPUNK.CODES</title>
+<meta name="description" content="Analyze what makes content go viral. Input any post and get a virality score with detailed breakdown of hooks, emotional triggers, shareability, and more.">
+<meta name="keywords" content="viral content, virality score, content analyzer, viral post checker, social media virality">
+<meta property="og:title" content="Viral Content Analyzer | SPUNK.CODES">
+<meta property="og:description" content="Analyze what makes content go viral. Get a virality score for any post.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://spunk.codes/viral-content-analyzer">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/viral-content-analyzer">
+<meta name="author" content="spunk.codes">
+<meta name="copyright" content="Copyright 2026 spunk.codes. All rights reserved.">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Viral Content Analyzer","description":"Analyze what makes content go viral with a detailed virality score.","url":"https://spunk.codes/viral-content-analyzer.html","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Organization","name":"spunk.codes","url":"https://spunk.codes"}}</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#0d1117;color:#e6edf3;font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;line-height:1.6;min-height:100vh;display:flex;flex-direction:column;}
+a{color:#58a6ff;text-decoration:none;}a:hover{text-decoration:underline;}
+nav{background:rgba(13,17,23,0.8);backdrop-filter:blur(12px);border-bottom:1px solid #21262d;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;position:sticky;top:0;z-index:100;}
+nav .logo{font-weight:800;font-size:1.1rem;color:#58a6ff;letter-spacing:1px;}
+nav .links{display:flex;gap:20px;font-size:0.9rem;}nav .links a{color:#8b949e;transition:color .2s;}nav .links a:hover{color:#58a6ff;}
+.watermark{position:fixed;bottom:10px;right:15px;font-size:0.7rem;color:rgba(88,166,255,0.12);font-weight:700;letter-spacing:2px;pointer-events:none;z-index:0;}
+main{flex:1;max-width:800px;width:100%;margin:0 auto;padding:30px 20px;}
+h1{font-size:2rem;font-weight:700;margin-bottom:8px;}h1 span{color:#58a6ff;}
+.subtitle{color:#8b949e;margin-bottom:10px;font-size:1rem;}
+.pricing-badge{display:inline-block;background:rgba(57,211,83,0.13);border:1px solid rgba(57,211,83,0.3);color:#39d353;padding:6px 16px;border-radius:20px;font-size:0.85rem;font-weight:600;margin-bottom:24px;}
+.section{background:rgba(22,27,34,0.6);backdrop-filter:blur(12px);border:1px solid #21262d;border-radius:12px;padding:24px;margin-bottom:20px;}
+.section h2{font-size:1.1rem;margin-bottom:16px;color:#8b949e;}
+.input-group{margin-bottom:16px;}
+.input-group label{display:block;font-size:0.85rem;color:#8b949e;margin-bottom:6px;}
+.input-group textarea,.input-group select{width:100%;padding:10px 14px;background:rgba(13,17,23,0.8);border:1px solid #30363d;border-radius:8px;color:#e6edf3;font-size:0.95rem;outline:none;transition:border-color .2s;font-family:inherit;}
+.input-group textarea:focus,.input-group select:focus{border-color:#58a6ff;}
+.input-group textarea{resize:vertical;min-height:120px;}
+.btn{padding:12px 24px;border:none;border-radius:8px;font-size:0.95rem;font-weight:600;cursor:pointer;transition:all .2s;}
+.btn-primary{background:#58a6ff;color:#0d1117;width:100%;}.btn-primary:hover{background:#79b8ff;}
+.results{display:none;}
+.score-circle{width:160px;height:160px;border-radius:50%;margin:0 auto 20px;display:flex;align-items:center;justify-content:center;flex-direction:column;position:relative;}
+.score-circle .score-num{font-size:3rem;font-weight:800;line-height:1;}
+.score-circle .score-label{font-size:0.8rem;opacity:0.7;margin-top:4px;}
+.metrics-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;}
+.metric-card{background:rgba(13,17,23,0.6);border:1px solid #30363d;border-radius:10px;padding:16px;}
+.metric-card .metric-label{font-size:0.8rem;color:#8b949e;margin-bottom:8px;}
+.metric-card .metric-bar{height:8px;background:#21262d;border-radius:4px;overflow:hidden;margin-bottom:6px;}
+.metric-card .metric-fill{height:100%;border-radius:4px;transition:width 0.5s ease;}
+.metric-card .metric-score{font-size:0.85rem;font-weight:600;}
+.tips-list{list-style:none;padding:0;}
+.tips-list li{padding:10px 14px;border-left:3px solid #58a6ff;background:rgba(88,166,255,0.05);margin-bottom:8px;border-radius:0 8px 8px 0;font-size:0.9rem;}
+.tips-list li.warning{border-left-color:#f0883e;background:rgba(240,136,62,0.05);}
+.tips-list li.success{border-left-color:#39d353;background:rgba(57,211,83,0.05);}
+.toast{position:fixed;top:20px;left:50%;transform:translateX(-50%);background:#39d353;color:#0d1117;padding:10px 24px;border-radius:8px;font-weight:700;opacity:0;transition:opacity 0.3s;pointer-events:none;z-index:200;}
+.toast.show{opacity:1;}
+.cross-sell{background:linear-gradient(135deg,rgba(88,166,255,0.1),rgba(13,17,23,0.8));border:1px solid rgba(88,166,255,0.2);border-radius:12px;padding:24px;text-align:center;margin-top:40px;}
+.cross-sell h3{color:#58a6ff;margin-bottom:8px;}.cross-sell p{color:#8b949e;margin-bottom:16px;font-size:0.9rem;}
+.cross-sell a.cta{display:inline-block;padding:10px 28px;background:#58a6ff;color:#0d1117;border-radius:8px;font-weight:600;text-decoration:none;}
+footer{text-align:center;padding:20px;color:#484f58;font-size:0.8rem;border-top:1px solid #21262d;}
+@media(max-width:600px){h1{font-size:1.5rem;}main{padding:20px 16px 60px;}.metrics-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="logo">SPUNK.CODES</a>
+  <div class="links">
+    <a href="/">Tools</a>
+    <a href="/social-media-scheduler">Social Growth</a>
+    <a href="/ebook">Ebooks</a>
+    <a href="/blog">Blog</a>
+  </div>
+</nav>
+<main>
+  <h1>Viral Content <span>Analyzer</span></h1>
+  <p class="subtitle">Paste any post and get a detailed virality score with actionable feedback.</p>
+  <div class="pricing-badge">100% Free Tool</div>
+
+  <div class="section">
+    <div class="input-group">
+      <label>Platform</label>
+      <select id="platform">
+        <option value="x">X / Twitter</option>
+        <option value="instagram">Instagram</option>
+        <option value="tiktok">TikTok</option>
+        <option value="linkedin">LinkedIn</option>
+        <option value="reddit">Reddit</option>
+      </select>
+    </div>
+    <div class="input-group">
+      <label>Paste Your Post Content</label>
+      <textarea id="postContent" placeholder="Paste your post text here... Include hashtags, emojis, and all formatting."></textarea>
+    </div>
+    <button class="btn btn-primary" onclick="analyzeContent()">Analyze Virality</button>
+  </div>
+
+  <div class="results" id="results">
+    <div class="section" style="text-align:center;">
+      <h2>Virality Score</h2>
+      <div class="score-circle" id="scoreCircle">
+        <div class="score-num" id="scoreNum">0</div>
+        <div class="score-label" id="scoreLabel">/ 100</div>
+      </div>
+      <p id="scoreVerdict" style="font-size:1.1rem;font-weight:600;margin-bottom:8px;"></p>
+      <p id="scoreDesc" style="color:#8b949e;font-size:0.9rem;"></p>
+    </div>
+
+    <div class="section">
+      <h2>Detailed Breakdown</h2>
+      <div class="metrics-grid" id="metricsGrid"></div>
+    </div>
+
+    <div class="section">
+      <h2>Recommendations</h2>
+      <ul class="tips-list" id="tipsList"></ul>
+    </div>
+  </div>
+
+  <div class="cross-sell">
+    <h3>More Content Tools</h3>
+    <p>Create better content with our free social media toolkit.</p>
+    <a href="/store" class="cta">Browse All Tools</a>
+    <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:16px;">
+      <a href="/hook-headline-tester" style="font-size:0.8rem;color:#8b949e;padding:4px 12px;border:1px solid #30363d;border-radius:6px;">Headline Tester</a>
+      <a href="/content-repurposer" style="font-size:0.8rem;color:#8b949e;padding:4px 12px;border:1px solid #30363d;border-radius:6px;">Content Repurposer</a>
+      <a href="/meme-caption-generator" style="font-size:0.8rem;color:#8b949e;padding:4px 12px;border:1px solid #30363d;border-radius:6px;">Meme Captions</a>
+    </div>
+  </div>
+</main>
+<div class="watermark">SPUNK.CODES</div>
+<div class="toast" id="toast"></div>
+<footer>&copy; 2026 SPUNK.CODES &mdash; <a href="/store" style="color:#58a6ff">Store</a> &middot; <a href="/ebook" style="color:#58a6ff">Ebooks</a> &middot; <a href="/blog" style="color:#8b949e">Blog</a> &middot; <a href="https://twitter.com/SpunkArt13" style="color:#8b949e">@SpunkArt13</a></footer>
+<script>
+function showToast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1500);}
+
+const emotionalWords=['amazing','incredible','shocking','unbelievable','secret','discover','proven','free','urgent','breaking','exclusive','insane','mind-blowing','game-changer','hack','truth','revealed','warning','mistake','finally','never','always','best','worst','perfect','impossible','scary','beautiful','powerful','devastating'];
+const ctaWords=['click','share','retweet','follow','subscribe','comment','like','save','tag','dm','link','check','try','get','grab','claim','join','sign up','download','watch'];
+const hookPatterns=[/^(stop|wait|breaking|unpopular opinion|hot take|thread|story time|psa|reminder|hear me out)/i,/^[0-9]+ (things|ways|tips|reasons|mistakes|steps|secrets|hacks|lessons)/i,/\?$/,/^(what if|imagine|picture this|here's why|the truth about)/i,/^(i just|i can't|nobody|everyone|this is)/i];
+const emojiRegex=/[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F1E0}-\u{1F1FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu;
+
+function analyzeContent(){
+  const content=document.getElementById('postContent').value.trim();
+  const platform=document.getElementById('platform').value;
+  if(!content){showToast('Paste your content first');return;}
+
+  const words=content.split(/\s+/);const wordCount=words.length;const charCount=content.length;
+  const lowerContent=content.toLowerCase();
+
+  // Hook strength (0-100)
+  let hookScore=20;
+  const firstLine=content.split('\n')[0];
+  hookPatterns.forEach(p=>{if(p.test(firstLine))hookScore+=15;});
+  if(firstLine.length<60)hookScore+=10;
+  if(/[!?]/.test(firstLine))hookScore+=5;
+  if(emojiRegex.test(firstLine))hookScore+=5;
+  if(/^[A-Z]/.test(firstLine))hookScore+=5;
+  hookScore=Math.min(100,hookScore);
+
+  // Emotional triggers (0-100)
+  let emotionScore=10;
+  const emotionCount=emotionalWords.filter(w=>lowerContent.includes(w)).length;
+  emotionScore+=emotionCount*12;
+  emotionScore=Math.min(100,emotionScore);
+
+  // CTA strength (0-100)
+  let ctaScore=10;
+  const ctaCount=ctaWords.filter(w=>lowerContent.includes(w)).length;
+  ctaScore+=ctaCount*15;
+  if(/\?/.test(content))ctaScore+=10;
+  ctaScore=Math.min(100,ctaScore);
+
+  // Readability (0-100)
+  let readScore=50;
+  const avgWordLen=words.reduce((a,w)=>a+w.length,0)/wordCount;
+  if(avgWordLen<6)readScore+=20;else if(avgWordLen>8)readScore-=15;
+  if(content.includes('\n'))readScore+=10;
+  const sentences=content.split(/[.!?]+/).filter(s=>s.trim());
+  if(sentences.length>0){const avgSentLen=wordCount/sentences.length;if(avgSentLen<15)readScore+=15;else if(avgSentLen>25)readScore-=10;}
+  readScore=Math.min(100,Math.max(0,readScore));
+
+  // Length optimization (0-100)
+  let lengthScore=50;
+  const idealLengths={x:{min:40,max:280},instagram:{min:100,max:2200},tiktok:{min:20,max:150},linkedin:{min:100,max:1300},reddit:{min:50,max:3000}};
+  const ideal=idealLengths[platform];
+  if(charCount>=ideal.min&&charCount<=ideal.max)lengthScore=90;
+  else if(charCount<ideal.min)lengthScore=Math.max(20,90-((ideal.min-charCount)/ideal.min)*70);
+  else lengthScore=Math.max(20,90-((charCount-ideal.max)/ideal.max)*50);
+
+  // Hashtag usage (0-100)
+  let hashtagScore=50;
+  const hashtags=(content.match(/#\w+/g)||[]).length;
+  const idealHashtags={x:{min:1,max:3},instagram:{min:5,max:15},tiktok:{min:3,max:8},linkedin:{min:3,max:5},reddit:{min:0,max:0}};
+  const ih=idealHashtags[platform];
+  if(hashtags>=ih.min&&hashtags<=ih.max)hashtagScore=90;
+  else if(hashtags<ih.min)hashtagScore=40;
+  else hashtagScore=60;
+
+  // Shareability (0-100)
+  let shareScore=20;
+  if(/thread|story|lesson|tip|hack/i.test(content))shareScore+=15;
+  if(emotionCount>1)shareScore+=10;
+  if(ctaCount>0)shareScore+=10;
+  if(content.includes('?'))shareScore+=10;
+  const emojiCount=(content.match(emojiRegex)||[]).length;
+  if(emojiCount>0&&emojiCount<6)shareScore+=10;
+  if(/\n/.test(content))shareScore+=10;
+  shareScore=Math.min(100,shareScore);
+
+  const metrics=[
+    {label:'Hook Strength',score:hookScore,color:'#58a6ff'},
+    {label:'Emotional Triggers',score:emotionScore,color:'#f0883e'},
+    {label:'Call-to-Action',score:ctaScore,color:'#bc8cff'},
+    {label:'Readability',score:readScore,color:'#39d353'},
+    {label:'Length Optimization',score:lengthScore,color:'#f778ba'},
+    {label:'Hashtag Usage',score:hashtagScore,color:'#79c0ff'},
+    {label:'Shareability',score:shareScore,color:'#ffa657'},
+  ];
+
+  const totalScore=Math.round(metrics.reduce((a,m)=>a+m.score,0)/metrics.length);
+
+  // Render score
+  let scoreColor=totalScore>=75?'#39d353':totalScore>=50?'#f0883e':'#f85149';
+  document.getElementById('scoreCircle').style.background=`conic-gradient(${scoreColor} ${totalScore*3.6}deg, #21262d ${totalScore*3.6}deg)`;
+  document.getElementById('scoreNum').textContent=totalScore;document.getElementById('scoreNum').style.color=scoreColor;
+  const verdicts={90:'Viral Potential!',75:'Strong Content',60:'Good Foundation',40:'Needs Work',0:'Major Improvements Needed'};
+  let verdict='';for(const[threshold,v]of Object.entries(verdicts).sort((a,b)=>b[0]-a[0])){if(totalScore>=parseInt(threshold)){verdict=v;break;}}
+  document.getElementById('scoreVerdict').textContent=verdict;document.getElementById('scoreVerdict').style.color=scoreColor;
+  const descs={90:'This content has strong viral indicators across multiple dimensions.',75:'Solid content with good engagement potential. A few tweaks could push it viral.',60:'Your content has a good base. Focus on the weakest areas to improve.',40:'Several areas need improvement. Review the recommendations below.',0:'Consider a significant rewrite focusing on hooks, emotions, and calls to action.'};
+  let desc='';for(const[threshold,d]of Object.entries(descs).sort((a,b)=>b[0]-a[0])){if(totalScore>=parseInt(threshold)){desc=d;break;}}
+  document.getElementById('scoreDesc').textContent=desc;
+
+  // Render metrics
+  document.getElementById('metricsGrid').innerHTML=metrics.map(m=>`<div class="metric-card"><div class="metric-label">${m.label}</div><div class="metric-bar"><div class="metric-fill" style="width:${m.score}%;background:${m.color};"></div></div><div class="metric-score" style="color:${m.color};">${m.score}/100</div></div>`).join('');
+
+  // Generate tips
+  let tips=[];
+  if(hookScore<60)tips.push({type:'warning',text:'Start with a stronger hook. Try a question, bold statement, or number-based opening.'});
+  else tips.push({type:'success',text:'Good hook! Your opening line grabs attention well.'});
+  if(emotionScore<40)tips.push({type:'warning',text:'Add emotional trigger words like "incredible," "secret," or "game-changer" to increase engagement.'});
+  if(ctaScore<40)tips.push({type:'warning',text:'Include a clear call-to-action. Ask a question or tell readers what to do next.'});
+  else tips.push({type:'success',text:'Your call-to-action is effective. Readers know what to do next.'});
+  if(readScore<50)tips.push({type:'warning',text:'Simplify your language. Use shorter words and break text into smaller paragraphs.'});
+  if(lengthScore<60)tips.push({type:'warning',text:`Adjust your length. Ideal for ${platform}: ${idealLengths[platform].min}-${idealLengths[platform].max} characters. You have ${charCount}.`});
+  if(hashtagScore<60&&platform!=='reddit')tips.push({type:'warning',text:`Optimize hashtags. Aim for ${idealHashtags[platform].min}-${idealHashtags[platform].max} hashtags on ${platform}.`});
+  if(shareScore>=70)tips.push({type:'success',text:'High shareability! This content format encourages sharing and saving.'});
+  else tips.push({type:'warning',text:'Make it more shareable. Add storytelling elements, relatable moments, or actionable tips.'});
+  if(emojiCount===0&&platform!=='linkedin')tips.push({type:'warning',text:'Add 1-3 relevant emojis to increase visual appeal and engagement.'});
+
+  document.getElementById('tipsList').innerHTML=tips.map(t=>`<li class="${t.type}">${t.text}</li>`).join('');
+  document.getElementById('results').style.display='block';
+  document.getElementById('results').scrollIntoView({behavior:'smooth'});
+  gtag('event','analyze_virality',{event_category:'tool_use',event_label:platform,value:totalScore});
+}
+</script>
+<script>(function(){document.addEventListener('contextmenu',function(e){e.preventDefault();});document.addEventListener('keydown',function(e){if(e.key==='F12')e.preventDefault();if(e.ctrlKey&&e.key==='u')e.preventDefault();if(e.ctrlKey&&e.key==='s')e.preventDefault();if(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='i'||e.key==='J'||e.key==='j'||e.key==='C'||e.key==='c'))e.preventDefault();});console.log('%c\u26a0 SPUNK.CODES \u2014 All rights reserved.','color:#58a6ff;font-size:16px;font-weight:bold;');})();</script>
+</body>
+</html>
