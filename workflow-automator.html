@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Copyright 2026 spunk.codes. All rights reserved. Unauthorized reproduction prohibited. hello@spunk.codes -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Workflow Automator - Visual Business Process Automation Designer | SPUNK.CODES</title>
+<meta name="description" content="Design visual workflow automations for business processes. Drag-and-drop triggers, conditions, and actions. Export as JSON. Free workflow automation tool.">
+<meta name="keywords" content="workflow automator, business process automation, visual workflow builder, automation designer, no-code automation, workflow diagram">
+<meta property="og:title" content="Workflow Automator — Visual Process Automation | SPUNK.CODES">
+<meta property="og:description" content="Design business process automations visually. Drag-and-drop workflow builder with JSON export. Free tool.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://spunk.codes/workflow-automator">
+<meta property="og:image" content="https://spunk.codes/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Workflow Automator | SPUNK.CODES">
+<meta name="twitter:description" content="Visual business process automation designer. Free tool.">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/workflow-automator">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<meta name="author" content="spunk.codes">
+<meta name="copyright" content="Copyright 2026 spunk.codes. All rights reserved.">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0d1117;color:#e6edf3;min-height:100vh;display:flex;flex-direction:column;line-height:1.6}
+a{color:#58a6ff;text-decoration:none}a:hover{text-decoration:underline;color:#79b8ff}
+nav{background:rgba(22,27,34,0.95);backdrop-filter:blur(12px);border-bottom:1px solid #21262d;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;position:sticky;top:0;z-index:100}
+nav .logo{font-weight:800;font-size:1.1rem;color:#58a6ff;letter-spacing:1px}
+nav .links{display:flex;gap:20px;font-size:0.9rem}
+nav .links a{color:#8b949e}nav .links a:hover{color:#58a6ff}
+main{flex:1;max-width:1100px;width:100%;margin:0 auto;padding:30px 20px}
+h1{font-size:2rem;font-weight:700;margin-bottom:8px;background:linear-gradient(135deg,#58a6ff,#39d353);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.subtitle{color:#8b949e;margin-bottom:10px;font-size:1rem}
+.pricing-badge{display:inline-block;background:rgba(57,211,83,0.13);border:1px solid rgba(57,211,83,0.27);color:#39d353;padding:6px 16px;border-radius:20px;font-size:0.85rem;font-weight:600;margin-bottom:24px}
+.section{background:rgba(22,27,34,0.8);backdrop-filter:blur(10px);border:1px solid #21262d;border-radius:12px;padding:24px;margin-bottom:20px;position:relative;overflow:hidden}
+.section::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,#58a6ff33,transparent)}
+label{font-size:0.85rem;color:#8b949e;display:block;margin-bottom:8px}
+input[type="text"],select{width:100%;padding:12px 16px;background:#0d1117;border:1px solid #21262d;border-radius:8px;color:#e6edf3;font-size:0.95rem;font-family:inherit;outline:none;transition:border-color .2s}
+input[type="text"]:focus,select:focus{border-color:#58a6ff;box-shadow:0 0 0 3px rgba(88,166,255,0.1)}
+.btn-row{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
+.btn{padding:10px 24px;border:none;border-radius:8px;font-size:0.9rem;font-weight:600;cursor:pointer;transition:all .2s;font-family:inherit}
+.btn-primary{background:linear-gradient(135deg,#58a6ff,#388bfd);color:#fff}.btn-primary:hover{background:linear-gradient(135deg,#79b8ff,#58a6ff);transform:translateY(-1px);box-shadow:0 4px 12px rgba(88,166,255,0.3)}
+.btn-success{background:linear-gradient(135deg,#39d353,#2ea043);color:#fff}.btn-success:hover{background:linear-gradient(135deg,#56d364,#39d353)}
+.btn-danger{background:#da3633;color:#fff}.btn-danger:hover{background:#f85149}
+.btn-secondary{background:#21262d;color:#e6edf3;border:1px solid #30363d}.btn-secondary:hover{background:#30363d}
+.workflow-header{display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap;align-items:center}
+.workflow-header input{flex:1;min-width:200px}
+.node-palette{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px;padding:16px;background:#0d1117;border:1px solid #21262d;border-radius:10px}
+.palette-node{padding:8px 16px;border-radius:8px;font-size:0.82rem;font-weight:600;cursor:grab;user-select:none;border:2px dashed;transition:all .2s}
+.palette-node:hover{transform:translateY(-2px)}
+.palette-node.trigger{background:rgba(88,166,255,0.1);border-color:#58a6ff;color:#58a6ff}
+.palette-node.condition{background:rgba(210,153,34,0.1);border-color:#d29922;color:#d29922}
+.palette-node.action{background:rgba(57,211,83,0.1);border-color:#39d353;color:#39d353}
+.palette-node.output{background:rgba(188,143,243,0.1);border-color:#bc8ff3;color:#bc8ff3}
+.canvas{min-height:400px;background:#0d1117;border:2px dashed #21262d;border-radius:12px;padding:20px;position:relative;transition:border-color .2s;overflow:auto}
+.canvas.drag-over{border-color:#58a6ff;background:rgba(88,166,255,0.02)}
+.canvas-empty{text-align:center;padding:140px 20px;color:#30363d;font-size:0.95rem}
+.wf-node{display:inline-flex;align-items:center;gap:10px;padding:14px 18px;border-radius:10px;margin:6px;font-weight:600;font-size:0.85rem;border:2px solid;position:relative;transition:all .2s}
+.wf-node:hover{transform:translateY(-1px)}
+.wf-node.trigger{background:rgba(88,166,255,0.1);border-color:#58a6ff;color:#58a6ff}
+.wf-node.condition{background:rgba(210,153,34,0.1);border-color:#d29922;color:#d29922}
+.wf-node.action{background:rgba(57,211,83,0.1);border-color:#39d353;color:#39d353}
+.wf-node.output{background:rgba(188,143,243,0.1);border-color:#bc8ff3;color:#bc8ff3}
+.wf-node input,.wf-node select{background:#0d1117;border:1px solid #30363d;color:#e6edf3;border-radius:4px;padding:4px 8px;font-size:0.78rem;outline:none;width:130px}
+.wf-node .remove{background:none;border:none;color:#f85149;cursor:pointer;font-size:1.1rem;padding:0 4px;line-height:1;opacity:0.6;transition:opacity .2s}
+.wf-node .remove:hover{opacity:1}
+.wf-arrow{color:#30363d;font-size:1.5rem;margin:6px 4px;display:inline-flex;align-items:center}
+.output-area{width:100%;min-height:200px;padding:16px;background:#0d1117;border:1px solid #21262d;border-radius:10px;color:#39d353;font-size:0.85rem;font-family:'SF Mono',SFMono-Regular,Consolas,monospace;white-space:pre-wrap;overflow-x:auto;margin-top:12px}
+.saved-list{margin-top:16px}
+.saved-item{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:#0d1117;border:1px solid #21262d;border-radius:8px;margin-bottom:8px}
+.saved-item .name{color:#e6edf3;font-weight:600;font-size:0.9rem}
+.saved-item .meta{color:#484f58;font-size:0.75rem;margin-top:2px}
+.saved-item .actions{display:flex;gap:6px}
+.saved-item .actions button{padding:4px 10px;font-size:0.78rem}
+.template-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-bottom:20px}
+.template-card{padding:16px;background:#0d1117;border:1px solid #21262d;border-radius:10px;cursor:pointer;transition:all .2s}
+.template-card:hover{border-color:#58a6ff;transform:translateY(-2px)}
+.template-card h4{color:#58a6ff;font-size:0.9rem;margin-bottom:4px}
+.template-card p{color:#8b949e;font-size:0.78rem}
+.copied-toast{position:fixed;top:20px;left:50%;transform:translateX(-50%);background:#39d353;color:#fff;padding:10px 24px;border-radius:8px;font-weight:700;opacity:0;transition:opacity 0.3s;pointer-events:none;z-index:100}
+.copied-toast.show{opacity:1}
+.cross-sell{background:linear-gradient(135deg,rgba(88,166,255,0.05),rgba(13,17,23,0.9));border:1px solid #21262d;border-radius:12px;padding:24px;text-align:center;margin-top:40px}
+.cross-sell h3{color:#58a6ff;margin-bottom:8px;font-size:1.1rem}
+.tool-links{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:16px}
+.tool-links a{font-size:0.8rem;color:#8b949e;padding:4px 12px;border:1px solid #21262d;border-radius:6px;transition:all .2s}
+.tool-links a:hover{color:#58a6ff;border-color:#58a6ff;text-decoration:none}
+.cross-sell a.cta{display:inline-block;padding:10px 28px;background:linear-gradient(135deg,#58a6ff,#388bfd);color:#fff;border-radius:8px;font-weight:600;transition:all .2s;text-decoration:none;margin-top:16px}
+footer{text-align:center;padding:20px;color:#484f58;font-size:0.8rem;border-top:1px solid #21262d}
+@media(max-width:600px){h1{font-size:1.5rem}main{padding:20px 16px 60px}.template-grid{grid-template-columns:1fr}}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Workflow Automator","description":"Visual business process automation designer with drag-and-drop workflow building and JSON export.","url":"https://spunk.codes/workflow-automator","applicationCategory":"DeveloperApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Organization","name":"SpunkArt","url":"https://spunk.codes"}}</script>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="logo">SPUNK.CODES</a>
+  <div class="links">
+    <a href="/">Tools</a>
+    <a href="/social-bio">Social Growth</a>
+    <a href="/store">Ebooks</a>
+    <a href="/blog">Blog</a>
+  </div>
+</nav>
+
+<main>
+  <h1>Workflow Automator</h1>
+  <p class="subtitle">Design visual business process automations. Drag triggers, conditions, actions, and outputs to build your workflow. Export as JSON.</p>
+  <div class="pricing-badge">100% Free Tool</div>
+
+  <div class="section">
+    <label>Quick Templates</label>
+    <div class="template-grid">
+      <div class="template-card" onclick="loadTemplate('onboarding')"><h4>User Onboarding</h4><p>Webhook → Validate → Send Email → Log</p></div>
+      <div class="template-card" onclick="loadTemplate('deployment')"><h4>CI/CD Pipeline</h4><p>Git Push → Build → Test → Deploy</p></div>
+      <div class="template-card" onclick="loadTemplate('support')"><h4>Support Ticket</h4><p>Form Submit → Classify → Route → Notify</p></div>
+      <div class="template-card" onclick="loadTemplate('marketing')"><h4>Marketing Funnel</h4><p>Page Visit → Score Lead → Email Sequence → CRM</p></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="workflow-header">
+      <input type="text" id="wfName" placeholder="Workflow name (e.g. Customer Onboarding)">
+      <button class="btn btn-primary" onclick="saveWorkflow()">Save</button>
+      <button class="btn btn-success" onclick="exportJSON()">Export JSON</button>
+    </div>
+    <label>Drag nodes into the canvas:</label>
+    <div class="node-palette">
+      <div class="palette-node trigger" draggable="true" data-type="trigger" data-label="Webhook">Webhook</div>
+      <div class="palette-node trigger" draggable="true" data-type="trigger" data-label="Schedule">Schedule</div>
+      <div class="palette-node trigger" draggable="true" data-type="trigger" data-label="Form Submit">Form Submit</div>
+      <div class="palette-node trigger" draggable="true" data-type="trigger" data-label="API Call">API Call</div>
+      <div class="palette-node trigger" draggable="true" data-type="trigger" data-label="File Upload">File Upload</div>
+      <div class="palette-node trigger" draggable="true" data-type="trigger" data-label="Git Push">Git Push</div>
+      <div class="palette-node condition" draggable="true" data-type="condition" data-label="If/Else">If/Else</div>
+      <div class="palette-node condition" draggable="true" data-type="condition" data-label="Filter">Filter</div>
+      <div class="palette-node condition" draggable="true" data-type="condition" data-label="Switch">Switch</div>
+      <div class="palette-node condition" draggable="true" data-type="condition" data-label="Wait">Wait</div>
+      <div class="palette-node action" draggable="true" data-type="action" data-label="HTTP Request">HTTP Request</div>
+      <div class="palette-node action" draggable="true" data-type="action" data-label="Transform Data">Transform Data</div>
+      <div class="palette-node action" draggable="true" data-type="action" data-label="Run Script">Run Script</div>
+      <div class="palette-node action" draggable="true" data-type="action" data-label="Database Query">DB Query</div>
+      <div class="palette-node action" draggable="true" data-type="action" data-label="AI Process">AI Process</div>
+      <div class="palette-node output" draggable="true" data-type="output" data-label="Send Email">Send Email</div>
+      <div class="palette-node output" draggable="true" data-type="output" data-label="Slack Notify">Slack Notify</div>
+      <div class="palette-node output" draggable="true" data-type="output" data-label="Save to DB">Save to DB</div>
+      <div class="palette-node output" draggable="true" data-type="output" data-label="Webhook Out">Webhook Out</div>
+      <div class="palette-node output" draggable="true" data-type="output" data-label="Log">Log</div>
+    </div>
+    <div class="canvas" id="canvas">
+      <div class="canvas-empty" id="canvasHint">Drop workflow nodes here to build your automation</div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-secondary" onclick="clearCanvas()">Clear Canvas</button>
+      <button class="btn btn-danger" onclick="if(confirm('Clear all?'))clearCanvas()">Reset All</button>
+    </div>
+    <div id="jsonOutput" class="output-area" style="display:none"></div>
+  </div>
+
+  <div class="section">
+    <h3 style="font-size:1rem;margin-bottom:12px;color:#58a6ff">Saved Workflows</h3>
+    <div id="savedList" class="saved-list"><p style="color:#484f58;font-size:0.85rem">No saved workflows yet.</p></div>
+  </div>
+
+  <div class="cross-sell">
+    <h3>More Automation Tools</h3>
+    <div class="tool-links">
+      <a href="/zapier-alternative-finder">Zapier Alternative Finder</a>
+      <a href="/webhook-workflow-builder">Webhook Workflow Builder</a>
+      <a href="/n8n-workflow-designer">n8n Workflow Designer</a>
+      <a href="/cron-job-builder">Cron Job Builder</a>
+      <a href="/github-actions-builder">GitHub Actions Builder</a>
+    </div>
+    <a href="/store" class="cta">Visit the Store</a>
+  </div>
+</main>
+
+<div class="copied-toast" id="toast">Copied!</div>
+<footer>&copy; 2026 SPUNK.CODES &mdash; <a href="/store" style="color:#58a6ff">Store</a> &middot; <a href="/store" style="color:#8b949e">Ebooks</a> &middot; <a href="/blog" style="color:#8b949e">Blog</a> &middot; <a href="https://twitter.com/SpunkArt13" style="color:#8b949e">@SpunkArt13</a></footer>
+
+<script>
+let nodes = [];
+const nodeConfigs = {
+  trigger:{Webhook:{field:'url',ph:'https://hook.example.com'},Schedule:{field:'cron',ph:'0 9 * * 1-5'},'Form Submit':{field:'form_id',ph:'contact-form'},'API Call':{field:'endpoint',ph:'/api/trigger'},'File Upload':{field:'path',ph:'/uploads/'},'Git Push':{field:'branch',ph:'main'}},
+  condition:{'If/Else':{field:'condition',ph:'data.status === 200'},Filter:{field:'expression',ph:'items.length > 0'},Switch:{field:'key',ph:'data.type'},Wait:{field:'seconds',ph:'30'}},
+  action:{'HTTP Request':{field:'url',ph:'https://api.example.com'},'Transform Data':{field:'template',ph:'map(item => item.id)'},'Run Script':{field:'command',ph:'node process.js'},'Database Query':{field:'query',ph:'SELECT * FROM users'},'AI Process':{field:'prompt',ph:'Classify this text:'}},
+  output:{'Send Email':{field:'to',ph:'team@company.com'},'Slack Notify':{field:'channel',ph:'#alerts'},'Save to DB':{field:'table',ph:'results'},'Webhook Out':{field:'url',ph:'https://hook.site/abc'},Log:{field:'level',ph:'info'}}
+};
+
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg||'Copied!';t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1500)}
+
+document.querySelectorAll('.palette-node').forEach(n=>{
+  n.addEventListener('dragstart',e=>{e.dataTransfer.setData('text/plain',JSON.stringify({type:n.dataset.type,label:n.dataset.label}));});
+});
+const canvas=document.getElementById('canvas');
+canvas.addEventListener('dragover',e=>{e.preventDefault();canvas.classList.add('drag-over');});
+canvas.addEventListener('dragleave',()=>canvas.classList.remove('drag-over'));
+canvas.addEventListener('drop',e=>{e.preventDefault();canvas.classList.remove('drag-over');try{const d=JSON.parse(e.dataTransfer.getData('text/plain'));addNode(d.type,d.label);}catch(err){}});
+
+function addNode(type,label){nodes.push({id:Date.now()+Math.random(),type,label,config:''});renderCanvas();gtag('event','add_node',{event_category:'tool_use',node_type:type});}
+function removeNode(id){nodes=nodes.filter(n=>n.id!==id);renderCanvas();}
+function updateNode(id,val){const n=nodes.find(n=>n.id===id);if(n)n.config=val;}
+
+function renderCanvas(){
+  const hint=document.getElementById('canvasHint');
+  if(hint)hint.style.display=nodes.length?'none':'block';
+  canvas.querySelectorAll('.wf-node,.wf-arrow').forEach(el=>el.remove());
+  nodes.forEach((node,i)=>{
+    if(i>0){const arrow=document.createElement('span');arrow.className='wf-arrow';arrow.innerHTML='&#8594;';canvas.appendChild(arrow);}
+    const el=document.createElement('div');
+    el.className='wf-node '+node.type;
+    const cfg=nodeConfigs[node.type]?.[node.label];
+    el.innerHTML=`<strong>${node.label}</strong><input type="text" placeholder="${cfg?cfg.ph:''}" value="${node.config||''}" oninput="updateNode(${node.id},this.value)"><button class="remove" onclick="removeNode(${node.id})">&times;</button>`;
+    canvas.appendChild(el);
+  });
+}
+
+function clearCanvas(){nodes=[];renderCanvas();document.getElementById('jsonOutput').style.display='none';}
+
+function buildJSON(){
+  return{name:document.getElementById('wfName').value.trim()||'Untitled Workflow',version:'1.0',created:new Date().toISOString(),nodes:nodes.map((n,i)=>({step:i+1,type:n.type,label:n.label,config:n.config||null}))};
+}
+
+function exportJSON(){
+  if(!nodes.length){showToast('Add nodes first');return;}
+  const json=JSON.stringify(buildJSON(),null,2);
+  const out=document.getElementById('jsonOutput');out.textContent=json;out.style.display='block';
+  navigator.clipboard.writeText(json).then(()=>showToast('JSON copied!')).catch(()=>{});
+  gtag('event','export_json',{event_category:'tool_use'});
+}
+
+function saveWorkflow(){
+  if(!nodes.length){showToast('Add nodes first');return;}
+  const wf=buildJSON();
+  let saved=JSON.parse(localStorage.getItem('spunkcodes_wf_automator')||'[]');
+  saved.unshift(wf);if(saved.length>50)saved=saved.slice(0,50);
+  localStorage.setItem('spunkcodes_wf_automator',JSON.stringify(saved));
+  renderSaved();showToast('Workflow saved!');
+}
+
+function renderSaved(){
+  const saved=JSON.parse(localStorage.getItem('spunkcodes_wf_automator')||'[]');
+  const list=document.getElementById('savedList');
+  if(!saved.length){list.innerHTML='<p style="color:#484f58;font-size:0.85rem">No saved workflows yet.</p>';return;}
+  list.innerHTML=saved.map((w,i)=>`<div class="saved-item"><div><div class="name">${w.name}</div><div class="meta">${w.nodes.length} nodes &middot; ${new Date(w.created).toLocaleDateString()}</div></div><div class="actions"><button class="btn btn-secondary" style="padding:4px 10px;font-size:0.78rem" onclick="loadWorkflow(${i})">Load</button><button class="btn btn-secondary" style="padding:4px 10px;font-size:0.78rem;color:#f85149" onclick="deleteWorkflow(${i})">Delete</button></div></div>`).join('');
+}
+
+function loadWorkflow(i){
+  const saved=JSON.parse(localStorage.getItem('spunkcodes_wf_automator')||'[]');
+  const wf=saved[i];if(!wf)return;
+  document.getElementById('wfName').value=wf.name;
+  nodes=wf.nodes.map(n=>({id:Date.now()+Math.random(),type:n.type,label:n.label,config:n.config||''}));
+  renderCanvas();showToast('Workflow loaded!');
+}
+
+function deleteWorkflow(i){
+  let saved=JSON.parse(localStorage.getItem('spunkcodes_wf_automator')||'[]');
+  saved.splice(i,1);localStorage.setItem('spunkcodes_wf_automator',JSON.stringify(saved));
+  renderSaved();showToast('Deleted');
+}
+
+const templates={
+  onboarding:[{type:'trigger',label:'Webhook',config:'https://api.example.com/signup'},{type:'condition',label:'If/Else',config:'user.email_verified'},{type:'action',label:'Transform Data',config:'formatUserProfile(data)'},{type:'output',label:'Send Email',config:'welcome@company.com'},{type:'output',label:'Save to DB',config:'users'},{type:'output',label:'Log',config:'info'}],
+  deployment:[{type:'trigger',label:'Git Push',config:'main'},{type:'action',label:'Run Script',config:'npm run build'},{type:'action',label:'Run Script',config:'npm test'},{type:'condition',label:'If/Else',config:'tests.passed'},{type:'action',label:'HTTP Request',config:'https://deploy.example.com'},{type:'output',label:'Slack Notify',config:'#deployments'},{type:'output',label:'Log',config:'info'}],
+  support:[{type:'trigger',label:'Form Submit',config:'support-form'},{type:'action',label:'AI Process',config:'Classify ticket priority'},{type:'condition',label:'Switch',config:'ticket.priority'},{type:'action',label:'HTTP Request',config:'https://crm.example.com/ticket'},{type:'output',label:'Send Email',config:'support@company.com'},{type:'output',label:'Slack Notify',config:'#support'}],
+  marketing:[{type:'trigger',label:'Webhook',config:'https://analytics.example.com/visit'},{type:'action',label:'Transform Data',config:'calculateLeadScore(data)'},{type:'condition',label:'If/Else',config:'score > 80'},{type:'action',label:'HTTP Request',config:'https://email.api/sequence'},{type:'output',label:'Save to DB',config:'leads'},{type:'output',label:'Slack Notify',config:'#sales'}]
+};
+
+function loadTemplate(name){
+  const tpl=templates[name];if(!tpl)return;
+  nodes=tpl.map(n=>({id:Date.now()+Math.random(),type:n.type,label:n.label,config:n.config}));
+  document.getElementById('wfName').value=name.charAt(0).toUpperCase()+name.slice(1)+' Workflow';
+  renderCanvas();showToast('Template loaded!');
+}
+
+renderSaved();
+</script>
+<script>
+(function(){
+  document.addEventListener('contextmenu',function(e){e.preventDefault();});
+  document.addEventListener('keydown',function(e){if(e.key==='F12')e.preventDefault();if(e.ctrlKey&&e.key==='u')e.preventDefault();if(e.ctrlKey&&e.key==='s')e.preventDefault();if(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='i'||e.key==='J'||e.key==='j'||e.key==='C'||e.key==='c'))e.preventDefault();});
+  console.log('%c⚠ SPUNK.CODES — All rights reserved.','color:#58a6ff;font-size:16px;font-weight:bold;');
+  if(!document.querySelector('.watermark')){var w=document.createElement('div');w.className='watermark';w.style.cssText='position:fixed;bottom:10px;right:15px;font-size:0.7rem;color:rgba(88,166,255,0.15);font-weight:700;letter-spacing:2px;pointer-events:none;z-index:9999;';w.textContent='SPUNK.CODES';document.body.appendChild(w);}
+})();
+</script>
+</body>
+</html>
