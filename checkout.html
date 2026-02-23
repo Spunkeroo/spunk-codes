@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Checkout — Secure Purchase | SPUNK.CODES</title>
+<meta name="description" content="Complete your SPUNK.CODES purchase. Secure checkout with instant access to ebooks, tools, and premium features.">
+<meta property="og:title" content="Checkout — SPUNK.CODES">
+<meta property="og:description" content="Secure checkout. Instant access to your purchase.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://spunk.codes/checkout">
+<meta property="og:site_name" content="SPUNK.CODES">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@SpunkArt13">
+<meta name="robots" content="noindex, nofollow">
+<link rel="canonical" href="https://spunk.codes/checkout">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="DENY">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0d1117;color:#e6edf3;line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column}
+a{color:inherit;text-decoration:none}
+
+/* Nav */
+.nav{background:rgba(13,17,23,0.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid #21262d;padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}
+.nav-brand{font-weight:800;font-size:1.1rem;color:#58a6ff;letter-spacing:0.08em}
+.nav-links{display:flex;gap:1.5rem;font-size:0.85rem}
+.nav-links a{color:#8b949e;transition:color 0.2s;font-weight:500}
+.nav-links a:hover{color:#fff}
+
+/* Main Layout */
+.checkout-wrapper{flex:1;display:flex;align-items:flex-start;justify-content:center;padding:3rem 2rem;gap:2rem;max-width:1000px;margin:0 auto;width:100%}
+
+/* Order Summary */
+.order-summary{flex:0 0 340px;background:rgba(22,27,34,0.8);border:1px solid #21262d;border-radius:20px;padding:2rem;backdrop-filter:blur(10px);position:sticky;top:2rem}
+.order-summary h2{font-size:1.2rem;font-weight:700;margin-bottom:1.5rem;display:flex;align-items:center;gap:0.5rem}
+.order-summary h2::before{content:"";display:inline-block;width:8px;height:8px;background:#39d353;border-radius:50%}
+.order-item{display:flex;justify-content:space-between;align-items:flex-start;padding:1rem 0;border-bottom:1px solid #161b22}
+.order-item:last-of-type{border-bottom:none}
+.order-item-name{font-weight:600;font-size:0.95rem}
+.order-item-desc{color:#8b949e;font-size:0.75rem;margin-top:0.2rem}
+.order-item-price{font-weight:800;color:#58a6ff;font-size:1.05rem;white-space:nowrap}
+.order-divider{height:1px;background:#21262d;margin:0.5rem 0}
+.order-total{display:flex;justify-content:space-between;align-items:center;padding:1rem 0 0}
+.order-total-label{font-weight:700;font-size:1rem}
+.order-total-price{font-weight:800;font-size:1.5rem;color:#39d353}
+.order-badges{display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:1.5rem}
+.badge{display:inline-flex;align-items:center;gap:0.4rem;padding:0.3rem 0.8rem;background:rgba(57,211,83,0.06);border:1px solid rgba(57,211,83,0.15);border-radius:8px;font-size:0.7rem;color:#39d353;font-weight:600}
+.badge-secure{color:#58a6ff;background:rgba(88,166,255,0.06);border-color:rgba(88,166,255,0.15)}
+
+/* Checkout Form */
+.checkout-form{flex:1;max-width:500px}
+.checkout-form h1{font-size:1.8rem;font-weight:800;margin-bottom:0.3rem}
+.checkout-sub{color:#8b949e;font-size:0.9rem;margin-bottom:2rem}
+
+.form-card{background:rgba(22,27,34,0.8);border:1px solid #21262d;border-radius:20px;padding:2rem;backdrop-filter:blur(10px);margin-bottom:1.5rem}
+.form-card h3{font-size:0.8rem;text-transform:uppercase;letter-spacing:1.5px;color:#8b949e;margin-bottom:1.2rem;font-weight:700}
+.form-group{margin-bottom:1.2rem}
+.form-group:last-child{margin-bottom:0}
+.form-label{display:block;font-size:0.8rem;color:#8b949e;margin-bottom:0.4rem;font-weight:600}
+.form-input{width:100%;padding:0.8rem 1rem;background:#0d1117;border:1px solid #30363d;border-radius:10px;color:#e6edf3;font-size:0.95rem;outline:none;transition:border-color 0.2s}
+.form-input:focus{border-color:#58a6ff}
+.form-input::placeholder{color:#484f58}
+
+/* Coupon */
+.coupon-row{display:flex;gap:0.5rem}
+.coupon-input{flex:1}
+.coupon-btn{padding:0.8rem 1.5rem;background:#21262d;border:1px solid #30363d;color:#e6edf3;border-radius:10px;font-weight:700;cursor:pointer;transition:all 0.2s;font-size:0.85rem}
+.coupon-btn:hover{background:#30363d;border-color:#58a6ff}
+.coupon-msg{font-size:0.8rem;margin-top:0.5rem;font-weight:600}
+.coupon-msg.success{color:#39d353}
+.coupon-msg.error{color:#f85149}
+
+/* Payment */
+.pay-btn{width:100%;padding:1rem;background:linear-gradient(135deg,#39d353,#2ea043);color:#fff;border:none;border-radius:12px;font-weight:800;font-size:1.1rem;cursor:pointer;transition:all 0.25s;margin-bottom:1rem}
+.pay-btn:hover{box-shadow:0 10px 40px rgba(57,211,83,0.3);transform:scale(1.02)}
+.pay-btn:disabled{opacity:0.5;cursor:not-allowed;transform:none;box-shadow:none}
+.pay-note{text-align:center;font-size:0.75rem;color:#484f58;line-height:1.5}
+.pay-note a{color:#58a6ff}
+
+/* Gumroad/Lemon Squeezy Embed Placeholder */
+.embed-placeholder{background:rgba(22,27,34,0.5);border:2px dashed #21262d;border-radius:16px;padding:3rem 2rem;text-align:center;margin-bottom:1.5rem}
+.embed-placeholder p{color:#484f58;font-size:0.85rem}
+.embed-placeholder .embed-icon{font-size:2rem;margin-bottom:0.8rem;opacity:0.5}
+
+/* Trust Badges */
+.trust-row{display:flex;justify-content:center;gap:2rem;padding:2rem 0;flex-wrap:wrap}
+.trust-item{text-align:center}
+.trust-icon{font-size:1.5rem;margin-bottom:0.3rem}
+.trust-label{font-size:0.7rem;color:#8b949e;font-weight:600}
+
+/* Success State */
+.success-state{display:none;text-align:center;padding:3rem 0}
+.success-icon{font-size:4rem;margin-bottom:1rem}
+.success-state h2{font-size:1.8rem;font-weight:800;color:#39d353;margin-bottom:0.5rem}
+.success-state p{color:#8b949e;font-size:0.95rem;margin-bottom:1.5rem}
+.success-order{background:rgba(22,27,34,0.7);border:1px solid #21262d;border-radius:12px;padding:1.5rem;margin-bottom:1.5rem;display:inline-block}
+.success-order .order-ref{font-family:'SF Mono',Monaco,monospace;color:#58a6ff;font-weight:700;font-size:1rem}
+.success-actions{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+.success-btn{display:inline-block;padding:0.8rem 2rem;border-radius:10px;font-weight:700;font-size:0.9rem;transition:all 0.2s;cursor:pointer;border:none}
+.success-btn.primary{background:#58a6ff;color:#fff}
+.success-btn.primary:hover{background:#388bfd}
+.success-btn.secondary{background:#21262d;color:#e6edf3;border:1px solid #30363d}
+.success-btn.secondary:hover{border-color:#58a6ff}
+
+/* Empty state */
+.empty-state{text-align:center;padding:4rem 2rem}
+.empty-state h2{font-size:1.5rem;margin-bottom:0.5rem}
+.empty-state p{color:#8b949e;margin-bottom:2rem}
+.empty-btn{display:inline-block;padding:0.8rem 2rem;background:#58a6ff;color:#fff;border-radius:10px;font-weight:700;transition:all 0.2s}
+.empty-btn:hover{background:#388bfd}
+
+/* Footer */
+.footer{text-align:center;padding:2rem;border-top:1px solid #21262d;color:#484f58;font-size:0.75rem}
+.footer a{color:#58a6ff}
+
+@media(max-width:768px){
+  .checkout-wrapper{flex-direction:column-reverse;padding:2rem 1rem}
+  .order-summary{flex:auto;width:100%;position:static}
+  .checkout-form{max-width:100%}
+}
+@media(max-width:600px){
+  .nav-links{display:none}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="https://spunk.codes" class="nav-brand">SPUNK.CODES</a>
+  <div class="nav-links">
+    <a href="/store">Tools</a>
+    <a href="/pricing">Pricing</a>
+    <a href="/store#ebook">Ebooks</a>
+    <a href="/blog">Blog</a>
+  </div>
+</nav>
+
+<!-- Empty State (shown when no product selected) -->
+<div class="empty-state" id="emptyState" style="display:none">
+  <h2>No product selected</h2>
+  <p>Browse our tools, ebooks, and bundles to find the right fit.</p>
+  <a href="/pricing" class="empty-btn">View Pricing</a>
+</div>
+
+<!-- Checkout Content -->
+<div class="checkout-wrapper" id="checkoutWrapper">
+
+  <!-- Left: Checkout Form -->
+  <div class="checkout-form" id="checkoutForm">
+    <h1>Checkout</h1>
+    <div class="checkout-sub">Secure checkout. Instant access after purchase.</div>
+
+    <!-- Email -->
+    <div class="form-card">
+      <h3>Your Details</h3>
+      <div class="form-group">
+        <label class="form-label">Email Address (for delivery)</label>
+        <input type="email" class="form-input" id="buyerEmail" placeholder="you@example.com" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Name (optional)</label>
+        <input type="text" class="form-input" id="buyerName" placeholder="Your name">
+      </div>
+    </div>
+
+    <!-- Coupon -->
+    <div class="form-card">
+      <h3>Discount Code</h3>
+      <div class="form-group">
+        <div class="coupon-row">
+          <input type="text" class="form-input coupon-input" id="couponInput" placeholder="Enter coupon code">
+          <button class="coupon-btn" onclick="applyCoupon()">Apply</button>
+        </div>
+        <div class="coupon-msg" id="couponMsg"></div>
+      </div>
+    </div>
+
+    <!-- Payment -->
+    <div class="form-card">
+      <h3>Payment</h3>
+
+      <!-- Gumroad/Lemon Squeezy embed will go here -->
+      <div class="embed-placeholder" id="paymentEmbed">
+        <div class="embed-icon">&#128179;</div>
+        <p>Payment processed securely via Gumroad.<br>Click below to complete your purchase.</p>
+      </div>
+
+      <button class="pay-btn" id="payBtn" onclick="processPayment()">
+        Complete Purchase
+      </button>
+
+      <div class="pay-note">
+        Secure checkout powered by Gumroad. We never see your card details.<br>
+        By purchasing, you agree to our <a href="/store">terms</a>. 30-day money-back guarantee.
+      </div>
+    </div>
+
+    <!-- Trust Badges -->
+    <div class="trust-row">
+      <div class="trust-item">
+        <div class="trust-icon">&#128274;</div>
+        <div class="trust-label">SSL Encrypted</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">&#9889;</div>
+        <div class="trust-label">Instant Access</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">&#128737;</div>
+        <div class="trust-label">30-Day Guarantee</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">&#127760;</div>
+        <div class="trust-label">All Cards Accepted</div>
+      </div>
+    </div>
+
+    <!-- Success State (hidden initially) -->
+    <div class="success-state" id="successState">
+      <div class="success-icon">&#9989;</div>
+      <h2>Purchase Complete!</h2>
+      <p>Your order has been received. Check your email for instant access.</p>
+      <div class="success-order">
+        Order Reference: <span class="order-ref" id="orderRef">--</span>
+      </div>
+      <p style="font-size:0.85rem;color:#8b949e">Delivery within minutes to your email. If you do not see it, check your spam folder.</p>
+      <div class="success-actions">
+        <a href="/store" class="success-btn primary">Browse More Tools</a>
+        <a href="/referral" class="success-btn secondary">Earn $5 Per Referral</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right: Order Summary -->
+  <div class="order-summary" id="orderSummary">
+    <h2>Order Summary</h2>
+
+    <div id="orderItems">
+      <div class="order-item">
+        <div>
+          <div class="order-item-name" id="productName">Loading...</div>
+          <div class="order-item-desc" id="productDesc">--</div>
+        </div>
+        <div class="order-item-price" id="productPrice">--</div>
+      </div>
+    </div>
+
+    <div class="order-divider"></div>
+
+    <div id="discountRow" style="display:none">
+      <div class="order-item">
+        <div>
+          <div class="order-item-name" style="color:#39d353">Discount</div>
+          <div class="order-item-desc" id="discountLabel">--</div>
+        </div>
+        <div class="order-item-price" id="discountAmount" style="color:#39d353">--</div>
+      </div>
+      <div class="order-divider"></div>
+    </div>
+
+    <div class="order-total">
+      <span class="order-total-label">Total</span>
+      <span class="order-total-price" id="totalPrice">--</span>
+    </div>
+
+    <div class="order-badges">
+      <div class="badge">&#9889; Instant Access</div>
+      <div class="badge">&#128274; Lifetime Updates</div>
+      <div class="badge badge-secure">&#128737; 30-Day Guarantee</div>
+      <div class="badge badge-secure">&#128179; Secure Checkout</div>
+    </div>
+  </div>
+
+</div>
+
+<footer class="footer">
+  <div>&copy; 2026 SPUNK.CODES. All rights reserved. <a href="https://twitter.com/SpunkArt13" target="_blank">@SpunkArt13</a></div>
+</footer>
+
+<!-- Content Protection -->
+<script>
+(function(){var w=document.createElement('div');w.style.cssText='position:fixed;bottom:10px;right:10px;font-size:0.6rem;color:rgba(88,166,255,0.1);font-weight:800;pointer-events:none;z-index:9999;letter-spacing:1px;text-transform:uppercase;';w.textContent='SPUNK.CODES';document.body.appendChild(w)})();
+</script>
+
+<script>
+/* Product Catalog */
+var PRODUCTS={
+  'pro-monthly':{name:'Pro Monthly',desc:'All premium features, ebooks, no ads',price:19,period:'/mo'},
+  'pro-annual':{name:'Pro Annual',desc:'All premium features, ebooks, no ads -- billed yearly',price:99,period:'/yr'},
+  'lifetime':{name:'Lifetime Access',desc:'Everything forever. One-time payment.',price:199,period:''},
+  'solo-founder':{name:'Solo Founder Pack',desc:'5 business ebooks + premium tools',price:29.99,period:''},
+  'creator':{name:'Creator Pack',desc:'5 creator ebooks + premium tools',price:29.99,period:''},
+  'social-growth':{name:'Social Growth Pack',desc:'Social media growth ebook + all social tools',price:19.99,period:''},
+  'full-library':{name:'Full Library',desc:'All 20+ ebooks, lifetime updates',price:49.99,period:''},
+  'everything':{name:'Everything Bundle',desc:'All ebooks + lifetime Pro access',price:99,period:''},
+  'ebook':{name:'AI Website Empire Ebook',desc:'120+ sites in 7 days -- the full blueprint',price:14.99,period:''},
+  'ebook-automation':{name:'AI Automation Playbook',desc:'10 chapters on automating with AI',price:29.99,period:''},
+  'ebook-empire':{name:'120-Site Empire Blueprint',desc:'Build massive site networks',price:39.99,period:''},
+  'ebook-vibe':{name:'Vibe Coding Mastery',desc:'Ship 100 projects with AI',price:24.99,period:''},
+  'ebook-tools':{name:'Free Tools That Print Money',desc:'Monetize free tools into revenue',price:19.99,period:''},
+  'ebook-agents':{name:'Building AI Agents',desc:'Autonomous AI workflows guide',price:29.99,period:''},
+  'ebook-passive':{name:'Passive Income Machine',desc:'50 automated revenue streams',price:24.99,period:''},
+  'ebook-nocode':{name:'No-Code Empire',desc:'6-figure business, zero code',price:19.99,period:''}
+};
+
+var COUPONS={
+  LAUNCH50:{type:'percent',value:50,label:'50% off (Launch)'},
+  FIRST10:{type:'percent',value:10,label:'10% off'},
+  TWITTER:{type:'fixed',value:2,label:'$2 off (Twitter)'},
+  NEWSLETTER:{type:'percent',value:10,label:'10% off (Newsletter)'},
+  SPUNK15:{type:'percent',value:15,label:'15% off (Referral)'},
+  SPUNK:{type:'percent',value:10,label:'10% off'}
+};
+
+var GUMROAD_LINK='https://monkeyshine40.gumroad.com/l/mhmzrz';
+
+var currentProduct=null;
+var currentDiscount=null;
+var originalPrice=0;
+
+/* Parse URL params */
+(function(){
+  var params=new URLSearchParams(window.location.search);
+  var productId=params.get('product')||params.get('p')||params.get('item');
+  var coupon=params.get('coupon')||params.get('code');
+
+  if(productId&&PRODUCTS[productId]){
+    currentProduct=PRODUCTS[productId];
+    originalPrice=currentProduct.price;
+    document.getElementById('productName').textContent=currentProduct.name;
+    document.getElementById('productDesc').textContent=currentProduct.desc;
+    document.getElementById('productPrice').textContent='$'+currentProduct.price.toFixed(2)+(currentProduct.period||'');
+    document.getElementById('totalPrice').textContent='$'+currentProduct.price.toFixed(2);
+    document.getElementById('payBtn').textContent='Complete Purchase -- $'+currentProduct.price.toFixed(2);
+  } else {
+    // No product -- show empty state
+    document.getElementById('checkoutWrapper').style.display='none';
+    document.getElementById('emptyState').style.display='block';
+  }
+
+  // Auto-apply coupon from URL
+  if(coupon){
+    document.getElementById('couponInput').value=coupon;
+    setTimeout(applyCoupon,100);
+  }
+
+  // Affiliate tracking
+  var ref=params.get('ref');
+  if(ref&&/^[a-zA-Z0-9_-]{1,64}$/.test(ref)){
+    localStorage.setItem('spunkart_ref',ref);
+    localStorage.setItem('spunkart_ref_time',Date.now().toString());
+  }
+})();
+
+/* Apply coupon */
+function applyCoupon(){
+  var code=document.getElementById('couponInput').value.trim().toUpperCase();
+  var msg=document.getElementById('couponMsg');
+
+  if(!currentProduct){msg.textContent='No product selected';msg.className='coupon-msg error';return}
+
+  if(COUPONS[code]){
+    currentDiscount=COUPONS[code];
+    var newPrice=originalPrice;
+    if(currentDiscount.type==='percent'){
+      newPrice=originalPrice*(1-currentDiscount.value/100);
+    } else {
+      newPrice=Math.max(0,originalPrice-currentDiscount.value);
+    }
+    msg.textContent=currentDiscount.label+' applied!';
+    msg.className='coupon-msg success';
+
+    // Update UI
+    document.getElementById('discountRow').style.display='block';
+    document.getElementById('discountLabel').textContent=currentDiscount.label;
+    document.getElementById('discountAmount').textContent='-$'+(originalPrice-newPrice).toFixed(2);
+    document.getElementById('totalPrice').textContent='$'+newPrice.toFixed(2);
+    document.getElementById('payBtn').textContent='Complete Purchase -- $'+newPrice.toFixed(2);
+
+    if(typeof gtag==='function')gtag('event','coupon_applied',{coupon:code,discount:currentDiscount.label});
+  } else {
+    msg.textContent='Invalid coupon code.';
+    msg.className='coupon-msg error';
+    currentDiscount=null;
+    document.getElementById('discountRow').style.display='none';
+    if(currentProduct){
+      document.getElementById('totalPrice').textContent='$'+originalPrice.toFixed(2);
+      document.getElementById('payBtn').textContent='Complete Purchase -- $'+originalPrice.toFixed(2);
+    }
+  }
+}
+
+/* Process payment (opens Gumroad) */
+function processPayment(){
+  var email=document.getElementById('buyerEmail').value.trim();
+  if(!email||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+    document.getElementById('buyerEmail').style.borderColor='#f85149';
+    document.getElementById('buyerEmail').focus();
+    return;
+  }
+
+  var ref=localStorage.getItem('spunkart_ref')||'';
+  var url=GUMROAD_LINK+'?email='+encodeURIComponent(email);
+  if(ref)url+='&ref='+encodeURIComponent(ref);
+
+  window.open(url,'_blank');
+
+  if(typeof gtag==='function'){
+    gtag('event','begin_checkout',{
+      currency:'USD',
+      value:currentProduct?currentProduct.price:0,
+      payment_type:'gumroad',
+      items:[{item_name:currentProduct?currentProduct.name:'unknown',price:currentProduct?currentProduct.price:0}]
+    });
+  }
+}
+</script>
+
+<!-- GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+
+<!-- Clarity -->
+<script type="text/javascript">
+(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");
+</script>
+
+</body>
+</html>
