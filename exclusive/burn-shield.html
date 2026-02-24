@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BurnShield - Burnout Prevention Tracker | SPUNK.CODES</title>
+<meta name="description" content="Track energy, mood, and stress daily. Get burnout risk scores, weekly pattern analysis, and recovery suggestions.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="BurnShield - SPUNK.CODES Exclusive">
+<meta property="og:description" content="Prevent burnout with data. Track energy, get risk scores and recovery plans. Code SPUNK unlocks it.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://spunk.codes/exclusive/burn-shield">
+<meta property="og:site_name" content="SPUNK.CODES">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/burn-shield">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0d1117;--card:rgba(22,27,34,0.8);--border:rgba(48,54,61,0.6);--gold:#ffd700;--gold-dim:rgba(255,215,0,0.15);--gold-border:rgba(255,215,0,0.3);--text:#e6edf3;--text-dim:#8b949e;--blue:#58a6ff;--cyan:#39d353;--red:#f85149;--orange:#ff8c00;--font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+a{color:var(--blue);text-decoration:none}a:hover{color:#fff}
+.bg-mesh{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 80% 50% at 20% 20%,rgba(255,215,0,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(255,140,0,0.04) 0%,transparent 60%),var(--bg)}
+.bg-grid{position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,215,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,215,0,0.03) 1px,transparent 1px);background-size:60px 60px}
+.nav{position:sticky;top:0;z-index:100;background:rgba(13,17,23,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,215,0,0.15);padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}.nav-brand{font-weight:800;font-size:1.1rem;color:var(--gold);letter-spacing:0.08em}.nav-links{display:flex;gap:1.5rem;font-size:0.85rem;list-style:none}.nav-links a{color:var(--text-dim);transition:color 0.2s;font-weight:500}.nav-links a:hover{color:#fff}.nav-links a.active{color:var(--gold)}
+.lock-gate{position:fixed;inset:0;z-index:1000;background:rgba(13,17,23,0.97);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:2rem}.lock-gate.hidden{display:none}.lock-icon-big{font-size:4rem;margin-bottom:0.5rem}.lock-gate h2{font-size:1.8rem;font-weight:800;text-align:center}.lock-gate h2 span{color:var(--gold)}.lock-gate p{color:var(--text-dim);text-align:center;max-width:400px}.code-input-wrap{display:flex;gap:0.5rem;margin-top:0.5rem}.code-input{padding:0.8rem 1.5rem;background:rgba(22,27,34,0.8);border:2px solid var(--gold-border);border-radius:12px;color:var(--gold);font-size:1.2rem;font-weight:800;letter-spacing:3px;text-align:center;width:200px;outline:none;text-transform:uppercase;font-family:var(--font)}.code-input:focus{border-color:var(--gold);box-shadow:0 0 20px rgba(255,215,0,0.2)}.code-submit{padding:0.8rem 1.5rem;background:linear-gradient(135deg,#ffd700,#ff8c00);border:none;border-radius:12px;color:#000;font-size:1rem;font-weight:800;cursor:pointer;transition:all 0.3s}.code-submit:hover{transform:scale(1.05)}.code-error{color:#f85149;font-size:0.85rem;min-height:1.2em}.lock-hint{color:var(--text-dim);font-size:0.8rem;margin-top:1rem}.lock-hint a{color:var(--gold)}
+.exclusive-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;background:linear-gradient(135deg,rgba(255,215,0,0.15),rgba(255,140,0,0.15));border:1px solid var(--gold-border);border-radius:100px;font-size:11px;font-weight:800;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase}
+.main{max-width:950px;margin:0 auto;padding:2rem}
+.hero-section{text-align:center;padding:2rem 0 3rem}.hero-section h1{font-size:2.2rem;font-weight:800;margin:1rem 0 0.5rem}.hero-section h1 .gold{background:linear-gradient(135deg,#ffd700,#ff8c00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}.hero-section p{color:var(--text-dim);max-width:600px;margin:0 auto}
+.tool-section{background:var(--card);border:1px solid var(--gold-border);border-radius:16px;padding:2rem;margin-bottom:1.5rem;backdrop-filter:blur(10px);position:relative;overflow:hidden}.tool-section::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),#ff8c00,var(--gold))}.tool-section h2{font-size:1.2rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}.tool-section h2 .icon{font-size:1.4rem}
+label{font-size:0.85rem;color:var(--text-dim);font-weight:600;display:block;margin-bottom:0.4rem}
+input,select,textarea{width:100%;padding:0.75rem 1rem;background:rgba(13,17,23,0.6);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:0.9rem;font-family:var(--font);outline:none;transition:border-color 0.2s}input:focus,select:focus,textarea:focus{border-color:var(--gold)}textarea{resize:vertical;min-height:60px}
+.input-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}.input-group{margin-bottom:1rem}
+.btn{padding:0.75rem 2rem;border:none;border-radius:10px;font-size:0.9rem;font-weight:700;cursor:pointer;transition:all 0.2s;font-family:var(--font)}.btn-gold{background:linear-gradient(135deg,#ffd700,#ff8c00);color:#000}.btn-gold:hover{transform:translateY(-2px);box-shadow:0 4px 20px rgba(255,215,0,0.3)}.btn-outline{background:transparent;border:1px solid var(--border);color:var(--text-dim)}.btn-outline:hover{border-color:var(--gold);color:var(--gold)}.btn-sm{padding:0.5rem 1rem;font-size:0.8rem}.btn-row{display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:1rem}
+.metrics-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;margin:1rem 0}
+.metric-card{background:rgba(13,17,23,0.5);border:1px solid var(--border);border-radius:12px;padding:1.2rem;text-align:center}.metric-card .val{font-size:1.5rem;font-weight:800}.metric-card .lbl{font-size:0.72rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px;margin-bottom:0.3rem}.metric-card .sub{font-size:0.7rem;color:var(--text-dim);margin-top:0.3rem}
+.alert-box{padding:1rem 1.5rem;border-radius:12px;margin:1rem 0;font-size:0.9rem;font-weight:600;display:flex;align-items:center;gap:0.8rem}
+.alert-danger{background:rgba(248,81,73,0.1);border:1px solid rgba(248,81,73,0.3);color:var(--red)}
+.alert-warning{background:rgba(255,215,0,0.08);border:1px solid rgba(255,215,0,0.3);color:var(--gold)}
+.alert-ok{background:rgba(57,211,83,0.08);border:1px solid rgba(57,211,83,0.3);color:var(--cyan)}
+.slider-wrap{position:relative;padding:0.5rem 0}.slider-wrap input[type=range]{-webkit-appearance:none;width:100%;height:8px;background:linear-gradient(90deg,var(--red),var(--orange),var(--gold),var(--cyan));border-radius:4px;outline:none}.slider-wrap input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;background:var(--gold);border-radius:50%;cursor:pointer;border:3px solid var(--bg)}.slider-val{text-align:center;font-size:1.8rem;font-weight:800;margin:0.5rem 0}
+.mood-grid{display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:0.5rem}.mood-btn{padding:0.5rem 1rem;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--text-dim);cursor:pointer;font-size:0.85rem;font-family:var(--font);transition:all 0.2s}.mood-btn:hover{border-color:var(--gold);color:var(--gold)}.mood-btn.active{border-color:var(--gold);background:var(--gold-dim);color:var(--gold);font-weight:700}
+.log-item{display:grid;grid-template-columns:100px repeat(4,1fr) auto;gap:0.5rem;align-items:center;padding:0.6rem 0.8rem;border-bottom:1px solid var(--border);font-size:0.8rem}.log-item:first-child{font-weight:700;color:var(--gold);border-bottom:2px solid var(--gold-border)}
+.bar-row{display:flex;align-items:center;gap:0.75rem;margin-bottom:5px}.bar-label{width:40px;font-size:0.75rem;color:var(--text-dim);text-align:right;flex-shrink:0}.bar-track{flex:1;height:22px;background:rgba(13,17,23,0.5);border-radius:6px;overflow:hidden}.bar-fill{height:100%;border-radius:6px;transition:width 0.5s;display:flex;align-items:center;padding-left:6px;font-size:0.7rem;font-weight:700}
+.risk-meter{position:relative;height:40px;border-radius:10px;background:linear-gradient(90deg,var(--cyan),var(--gold),var(--orange),var(--red));margin:1.5rem 0;overflow:visible}.risk-needle{position:absolute;top:-5px;width:4px;height:50px;background:#fff;border-radius:2px;transition:left 0.5s}.risk-label{text-align:center;font-size:2rem;font-weight:800;margin:0.5rem 0}
+.suggestion{background:rgba(13,17,23,0.5);border:1px solid var(--border);border-radius:10px;padding:1rem;margin-bottom:0.5rem;font-size:0.85rem}.suggestion strong{color:var(--gold)}
+.chart-container{background:rgba(13,17,23,0.5);border:1px solid var(--border);border-radius:12px;padding:1.5rem;margin-top:1rem}
+.share-cta{background:linear-gradient(135deg,rgba(255,215,0,0.08),rgba(255,140,0,0.05));border:1px solid var(--gold-border);border-radius:16px;padding:2rem;text-align:center;margin-top:2rem}.share-cta h3{color:var(--gold);margin-bottom:0.5rem;font-size:1.1rem}.share-cta p{color:var(--text-dim);font-size:0.9rem;margin-bottom:1rem}
+.footer{text-align:center;padding:2rem;border-top:1px solid rgba(255,215,0,0.1);color:var(--text-dim);font-size:0.75rem;margin-top:3rem}.footer a{color:var(--gold)}.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-bottom:1rem}
+.watermark{position:fixed;bottom:10px;right:10px;font-size:0.6rem;color:rgba(255,215,0,0.08);font-weight:800;pointer-events:none;z-index:9999;letter-spacing:1px;text-transform:uppercase}
+@media(max-width:768px){.main{padding:1rem}.hero-section h1{font-size:1.6rem}.input-grid{grid-template-columns:1fr}.nav-links{display:none}.log-item{grid-template-columns:80px repeat(4,1fr) auto;font-size:0.7rem}.metrics-grid{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="bg-mesh"></div><div class="bg-grid"></div>
+<div class="lock-gate" id="lockGate"><div class="lock-icon-big">&#128274;</div><h2>Enter Code <span>SPUNK</span> to Unlock</h2><p>This is an exclusive premium tool. Enter the referral code to get instant access.</p><div class="code-input-wrap"><input type="text" class="code-input" id="codeInput" placeholder="CODE" maxlength="10" autocomplete="off"><button class="code-submit" onclick="submitCode()">Unlock</button></div><div class="code-error" id="codeError"></div><div class="lock-hint">Get the code at <a href="https://spunk.codes/exclusive-tools">spunk.codes/exclusive-tools</a></div></div>
+<nav class="nav"><a href="https://spunk.codes" class="nav-brand">SPUNK.CODES</a><div class="nav-links"><a href="/store">Tools</a><a href="/exclusive-tools" class="active">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a></div></nav>
+
+<div class="main">
+  <section class="hero-section">
+    <div class="exclusive-badge">&#128081; EXCLUSIVE TOOL</div>
+    <h1><span class="gold">BurnShield</span></h1>
+    <p>Track energy, mood, and stress daily. See weekly patterns, get a burnout risk score, and receive personalized recovery suggestions before it's too late.</p>
+  </section>
+
+  <!-- Daily Log Input -->
+  <div class="tool-section">
+    <h2><span class="icon">&#128221;</span> Daily Check-In</h2>
+    <div class="input-group">
+      <label>Date</label>
+      <input type="date" id="logDate">
+    </div>
+    <div class="input-group">
+      <label>Energy Level</label>
+      <div class="slider-wrap">
+        <div class="slider-val" id="energyVal">5</div>
+        <input type="range" id="energy" min="1" max="10" value="5" oninput="document.getElementById('energyVal').textContent=this.value">
+        <div style="display:flex;justify-content:space-between;font-size:0.7rem;color:var(--text-dim)"><span>1 - Drained</span><span>10 - Energized</span></div>
+      </div>
+    </div>
+    <div class="input-group">
+      <label>Mood</label>
+      <div class="mood-grid" id="moodGrid">
+        <button class="mood-btn" data-mood="great" onclick="selectMood(this)">Great</button>
+        <button class="mood-btn" data-mood="good" onclick="selectMood(this)">Good</button>
+        <button class="mood-btn" data-mood="okay" onclick="selectMood(this)">Okay</button>
+        <button class="mood-btn" data-mood="low" onclick="selectMood(this)">Low</button>
+        <button class="mood-btn" data-mood="stressed" onclick="selectMood(this)">Stressed</button>
+        <button class="mood-btn" data-mood="anxious" onclick="selectMood(this)">Anxious</button>
+        <button class="mood-btn" data-mood="burned" onclick="selectMood(this)">Burned Out</button>
+      </div>
+    </div>
+    <div class="input-grid">
+      <div class="input-group"><label>Hours Worked</label><input type="number" id="hoursWorked" placeholder="8" min="0" max="24" step="0.5"></div>
+      <div class="input-group"><label>Sleep (hours)</label><input type="number" id="sleepHours" placeholder="7" min="0" max="16" step="0.5"></div>
+    </div>
+    <div class="input-group"><label>Stress Triggers (comma-separated)</label><input type="text" id="triggers" placeholder="deadlines, meetings, client feedback, scope creep..."></div>
+    <div class="input-group"><label>Notes (optional)</label><textarea id="notes" placeholder="How did the day go? Any wins or struggles?"></textarea></div>
+    <div class="btn-row">
+      <button class="btn btn-gold" onclick="saveLog()">Log Today</button>
+    </div>
+  </div>
+
+  <!-- Dashboard -->
+  <div class="tool-section">
+    <h2><span class="icon">&#128202;</span> Burnout Risk Dashboard</h2>
+    <div id="dashboardContent">
+      <p style="color:var(--text-dim);font-size:0.85rem">Log at least 3 days to see your burnout risk analysis.</p>
+    </div>
+  </div>
+
+  <!-- Weekly Patterns -->
+  <div class="tool-section">
+    <h2><span class="icon">&#128197;</span> Weekly Pattern Analysis</h2>
+    <div id="weeklyContent">
+      <p style="color:var(--text-dim);font-size:0.85rem">Log entries across different days of the week to see patterns.</p>
+    </div>
+  </div>
+
+  <!-- 8-Week Trend -->
+  <div class="tool-section">
+    <h2><span class="icon">&#128200;</span> 8-Week Trend</h2>
+    <div class="chart-container" id="trendChart">
+      <p style="color:var(--text-dim);font-size:0.85rem">Trends will appear after logging across multiple weeks.</p>
+    </div>
+  </div>
+
+  <!-- Recovery Suggestions -->
+  <div class="tool-section">
+    <h2><span class="icon">&#128154;</span> Recovery Actions</h2>
+    <div id="recoveryContent">
+      <p style="color:var(--text-dim);font-size:0.85rem">Personalized recovery suggestions will appear based on your data.</p>
+    </div>
+  </div>
+
+  <!-- Log History -->
+  <div class="tool-section">
+    <h2><span class="icon">&#128203;</span> Log History</h2>
+    <div id="logHistory" style="overflow-x:auto"></div>
+    <div class="btn-row">
+      <button class="btn btn-sm btn-outline" onclick="exportCSV()">Export CSV</button>
+      <button class="btn btn-sm btn-outline" onclick="clearLogs()">Clear All Data</button>
+    </div>
+  </div>
+
+  <div class="share-cta">
+    <h3>Protecting your energy?</h3>
+    <p>Share BurnShield with founders who need it.</p>
+    <div class="btn-row" style="justify-content:center">
+      <button class="btn btn-sm btn-gold" onclick="shareX()">Share on X</button>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-links"><a href="/">Home</a><a href="/store">All Tools</a><a href="/exclusive-tools">Exclusive Tools</a><a href="/blog">Blog</a></div>
+    <p>&copy; 2025 SPUNK.CODES. Built for founders who ship.</p>
+  </footer>
+</div>
+
+<div class="watermark">SPUNK.CODES</div>
+
+<script>
+// === Code Gate ===
+function checkAccess(){try{var c1=localStorage.getItem('spunk_referral_code');var c2=localStorage.getItem('spunk_ref_code');if((c1&&c1.toUpperCase()==='SPUNK')||(c2&&c2.toUpperCase()==='SPUNK')){document.getElementById('lockGate').classList.add('hidden');return}}catch(e){}document.getElementById('lockGate').classList.remove('hidden')}
+function submitCode(){var v=document.getElementById('codeInput').value.trim().toUpperCase();if(v==='SPUNK'){try{localStorage.setItem('spunk_referral_code',v)}catch(e){}document.getElementById('lockGate').classList.add('hidden');if(typeof gtag==='function')gtag('event','code_unlock',{tool:'burn-shield'})}else{document.getElementById('codeError').textContent='Invalid code. Try again.'}}
+document.getElementById('codeInput').addEventListener('keydown',function(e){if(e.key==='Enter')submitCode()});
+checkAccess();
+
+// Set today's date
+document.getElementById('logDate').valueAsDate=new Date();
+
+var selectedMood='okay';
+function selectMood(btn){
+  document.querySelectorAll('.mood-btn').forEach(function(b){b.classList.remove('active')});
+  btn.classList.add('active');
+  selectedMood=btn.getAttribute('data-mood');
+}
+
+// === Data ===
+function getLogs(){try{return JSON.parse(localStorage.getItem('burnshield_logs')||'[]')}catch(e){return[]}}
+function setLogs(arr){try{localStorage.setItem('burnshield_logs',JSON.stringify(arr))}catch(e){}}
+
+function saveLog(){
+  var date=document.getElementById('logDate').value;
+  if(!date){alert('Select a date.');return}
+  var energy=parseInt(document.getElementById('energy').value);
+  var mood=selectedMood;
+  var hours=parseFloat(document.getElementById('hoursWorked').value)||8;
+  var sleep=parseFloat(document.getElementById('sleepHours').value)||7;
+  var triggers=document.getElementById('triggers').value;
+  var notes=document.getElementById('notes').value;
+
+  var logs=getLogs();
+  // Remove existing entry for same date
+  logs=logs.filter(function(l){return l.date!==date});
+  logs.push({date:date,energy:energy,mood:mood,hours:hours,sleep:sleep,triggers:triggers,notes:notes});
+  logs.sort(function(a,b){return a.date>b.date?-1:1});
+  setLogs(logs);
+
+  // Reset form
+  document.getElementById('energy').value=5;
+  document.getElementById('energyVal').textContent='5';
+  document.getElementById('hoursWorked').value='';
+  document.getElementById('sleepHours').value='';
+  document.getElementById('triggers').value='';
+  document.getElementById('notes').value='';
+  document.querySelectorAll('.mood-btn').forEach(function(b){b.classList.remove('active')});
+
+  refresh();
+  alert('Day logged!');
+  if(typeof gtag==='function')gtag('event','day_logged',{tool:'burn-shield',energy:energy,mood:mood});
+}
+
+function moodScore(m){
+  var map={great:10,good:8,okay:5,low:3,stressed:2,anxious:2,burned:1};
+  return map[m]||5;
+}
+function moodColor(m){
+  var map={great:'var(--cyan)',good:'var(--blue)',okay:'var(--gold)',low:'var(--orange)',stressed:'var(--orange)',anxious:'var(--orange)',burned:'var(--red)'};
+  return map[m]||'var(--text-dim)';
+}
+
+// === Burnout Risk Score ===
+function calcBurnoutRisk(logs){
+  if(logs.length<3)return{score:0,label:'Insufficient Data',color:'var(--text-dim)'};
+  var recent=logs.slice(0,14); // last 14 entries
+  var avgEnergy=recent.reduce(function(s,l){return s+l.energy},0)/recent.length;
+  var avgHours=recent.reduce(function(s,l){return s+l.hours},0)/recent.length;
+  var avgSleep=recent.reduce(function(s,l){return s+l.sleep},0)/recent.length;
+  var avgMood=recent.reduce(function(s,l){return s+moodScore(l.mood)},0)/recent.length;
+
+  var risk=0;
+  // Low energy contributes heavily
+  risk+=(10-avgEnergy)*8; // 0-80
+  // High hours worked
+  if(avgHours>10)risk+=(avgHours-8)*5;else if(avgHours>8)risk+=(avgHours-8)*3;
+  // Low sleep
+  if(avgSleep<6)risk+=(7-avgSleep)*8;else if(avgSleep<7)risk+=(7-avgSleep)*5;
+  // Bad mood
+  risk+=(10-avgMood)*3;
+  // Consecutive bad days
+  var consec=0;
+  for(var i=0;i<recent.length;i++){
+    if(recent[i].energy<=4||moodScore(recent[i].mood)<=3){consec++}else{break}
+  }
+  risk+=consec*5;
+
+  risk=Math.min(100,Math.max(0,Math.round(risk)));
+  var label,color;
+  if(risk<25){label='Low Risk';color='var(--cyan)'}
+  else if(risk<50){label='Moderate';color='var(--gold)'}
+  else if(risk<75){label='High Risk';color='var(--orange)'}
+  else{label='Critical';color='var(--red)'}
+
+  return{score:risk,label:label,color:color,avgEnergy:avgEnergy,avgHours:avgHours,avgSleep:avgSleep,avgMood:avgMood,consecutive:consec};
+}
+
+// === Refresh All ===
+function refresh(){
+  var logs=getLogs();
+  renderDashboard(logs);
+  renderWeekly(logs);
+  renderTrend(logs);
+  renderRecovery(logs);
+  renderHistory(logs);
+}
+
+function renderDashboard(logs){
+  var el=document.getElementById('dashboardContent');
+  if(logs.length<3){el.innerHTML='<p style="color:var(--text-dim);font-size:0.85rem">Log at least 3 days to see your burnout risk analysis.</p>';return}
+
+  var risk=calcBurnoutRisk(logs);
+  var html='';
+
+  // Risk meter
+  html+='<div class="risk-label" style="color:'+risk.color+'">'+risk.score+'<span style="font-size:0.9rem;color:var(--text-dim)">/100</span></div>';
+  html+='<div style="text-align:center;font-size:1rem;font-weight:700;color:'+risk.color+';margin-bottom:0.5rem">'+risk.label+'</div>';
+  html+='<div class="risk-meter"><div class="risk-needle" style="left:'+risk.score+'%"></div></div>';
+  html+='<div style="display:flex;justify-content:space-between;font-size:0.7rem;color:var(--text-dim);margin-bottom:1.5rem"><span>Low Risk</span><span>Moderate</span><span>High Risk</span><span>Critical</span></div>';
+
+  // Alert
+  if(risk.score>=75)html+='<div class="alert-box alert-danger">&#9888; CRITICAL BURNOUT RISK. You need to take immediate recovery action. See suggestions below.</div>';
+  else if(risk.score>=50)html+='<div class="alert-box alert-warning">&#9888; Your burnout risk is elevated. '+risk.consecutive+' consecutive difficult days detected. Time to adjust.</div>';
+  else if(risk.score>=25)html+='<div class="alert-box alert-warning">&#128161; Moderate stress levels detected. Keep monitoring and maintain recovery habits.</div>';
+  else html+='<div class="alert-box alert-ok">&#9989; Low burnout risk. Your energy and mood patterns are healthy. Keep it up!</div>';
+
+  // Metrics
+  html+='<div class="metrics-grid">';
+  html+='<div class="metric-card"><div class="lbl">Avg Energy</div><div class="val" style="color:'+(risk.avgEnergy>=6?'var(--cyan)':risk.avgEnergy>=4?'var(--gold)':'var(--red)')+'">'+risk.avgEnergy.toFixed(1)+'</div><div class="sub">out of 10</div></div>';
+  html+='<div class="metric-card"><div class="lbl">Avg Hours</div><div class="val" style="color:'+(risk.avgHours<=8?'var(--cyan)':risk.avgHours<=10?'var(--gold)':'var(--red)')+'">'+risk.avgHours.toFixed(1)+'</div><div class="sub">per day</div></div>';
+  html+='<div class="metric-card"><div class="lbl">Avg Sleep</div><div class="val" style="color:'+(risk.avgSleep>=7?'var(--cyan)':risk.avgSleep>=6?'var(--gold)':'var(--red)')+'">'+risk.avgSleep.toFixed(1)+'</div><div class="sub">hours/night</div></div>';
+  html+='<div class="metric-card"><div class="lbl">Streak</div><div class="val" style="color:'+(risk.consecutive>=3?'var(--red)':'var(--cyan)')+'">'+risk.consecutive+'</div><div class="sub">tough days in a row</div></div>';
+  html+='<div class="metric-card"><div class="lbl">Total Logged</div><div class="val" style="color:var(--gold)">'+logs.length+'</div><div class="sub">days tracked</div></div>';
+  html+='</div>';
+  el.innerHTML=html;
+}
+
+function renderWeekly(logs){
+  var el=document.getElementById('weeklyContent');
+  if(logs.length<5){el.innerHTML='<p style="color:var(--text-dim);font-size:0.85rem">Log entries across different days of the week to see patterns.</p>';return}
+
+  var days=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  var dayData={};
+  days.forEach(function(d){dayData[d]={energy:[],hours:[],mood:[],count:0}});
+  logs.forEach(function(l){
+    var d=days[new Date(l.date+'T12:00:00').getDay()];
+    dayData[d].energy.push(l.energy);
+    dayData[d].hours.push(l.hours);
+    dayData[d].mood.push(moodScore(l.mood));
+    dayData[d].count++;
+  });
+
+  var html='<div style="font-size:0.85rem;font-weight:700;color:var(--gold);margin-bottom:1rem">Energy by Day of Week</div>';
+  var bestDay='',bestScore=0,worstDay='',worstScore=11;
+  days.forEach(function(d){
+    var data=dayData[d];
+    if(data.count===0)return;
+    var avg=data.energy.reduce(function(s,v){return s+v},0)/data.count;
+    if(avg>bestScore){bestScore=avg;bestDay=d}
+    if(avg<worstScore){worstScore=avg;worstDay=d}
+    var pct=avg/10*100;
+    var color=avg>=7?'var(--cyan)':avg>=5?'var(--gold)':'var(--red)';
+    html+='<div class="bar-row"><span class="bar-label">'+d+'</span><div class="bar-track"><div class="bar-fill" style="width:'+pct+'%;background:'+color+';color:#000">'+avg.toFixed(1)+'</div></div></div>';
+  });
+
+  if(bestDay&&worstDay){
+    html+='<div style="margin-top:1rem;font-size:0.85rem">';
+    html+='<span style="color:var(--cyan);font-weight:700">Best day: '+bestDay+'</span> (avg energy: '+bestScore.toFixed(1)+') | ';
+    html+='<span style="color:var(--red);font-weight:700">Toughest day: '+worstDay+'</span> (avg energy: '+worstScore.toFixed(1)+')';
+    html+='</div>';
+  }
+
+  // Top triggers
+  var triggerMap={};
+  logs.forEach(function(l){
+    if(!l.triggers)return;
+    l.triggers.split(',').forEach(function(t){
+      t=t.trim().toLowerCase();
+      if(t)triggerMap[t]=(triggerMap[t]||0)+1;
+    });
+  });
+  var sortedTriggers=Object.keys(triggerMap).sort(function(a,b){return triggerMap[b]-triggerMap[a]}).slice(0,5);
+  if(sortedTriggers.length>0){
+    html+='<div style="margin-top:1.5rem;font-size:0.85rem;font-weight:700;color:var(--gold);margin-bottom:0.5rem">Top Stress Triggers</div>';
+    sortedTriggers.forEach(function(t){
+      var pct=triggerMap[t]/logs.length*100;
+      html+='<div class="bar-row"><span class="bar-label" style="width:100px;font-size:0.75rem">'+t+'</span><div class="bar-track"><div class="bar-fill" style="width:'+Math.max(5,pct)+'%;background:var(--orange);color:#000">'+triggerMap[t]+'x</div></div></div>';
+    });
+  }
+  el.innerHTML=html;
+}
+
+function renderTrend(logs){
+  var el=document.getElementById('trendChart');
+  if(logs.length<7){el.innerHTML='<p style="color:var(--text-dim);font-size:0.85rem">Trends will appear after logging across multiple weeks.</p>';return}
+
+  // Group by week
+  var weeks={};
+  logs.forEach(function(l){
+    var d=new Date(l.date+'T12:00:00');
+    var weekStart=new Date(d);
+    weekStart.setDate(d.getDate()-d.getDay());
+    var key=weekStart.toISOString().split('T')[0];
+    if(!weeks[key])weeks[key]={energy:[],hours:[],mood:[],dates:[]};
+    weeks[key].energy.push(l.energy);
+    weeks[key].hours.push(l.hours);
+    weeks[key].mood.push(moodScore(l.mood));
+    weeks[key].dates.push(l.date);
+  });
+
+  var weekKeys=Object.keys(weeks).sort().slice(-8);
+  if(weekKeys.length<2){el.innerHTML='<p style="color:var(--text-dim);font-size:0.85rem">Need data across at least 2 weeks for trends.</p>';return}
+
+  var html='<div style="font-size:0.85rem;font-weight:700;color:var(--gold);margin-bottom:1rem">Energy Trend (8 Weeks)</div>';
+  weekKeys.forEach(function(k,i){
+    var w=weeks[k];
+    var avgEnergy=w.energy.reduce(function(s,v){return s+v},0)/w.energy.length;
+    var avgHours=w.hours.reduce(function(s,v){return s+v},0)/w.hours.length;
+    var pct=avgEnergy/10*100;
+    var color=avgEnergy>=7?'var(--cyan)':avgEnergy>=5?'var(--gold)':'var(--red)';
+    var label='W'+(i+1);
+    html+='<div class="bar-row"><span class="bar-label">'+label+'</span><div class="bar-track"><div class="bar-fill" style="width:'+pct+'%;background:'+color+';color:#000">'+avgEnergy.toFixed(1)+' energy / '+avgHours.toFixed(0)+'h</div></div></div>';
+  });
+  el.innerHTML=html;
+}
+
+function renderRecovery(logs){
+  var el=document.getElementById('recoveryContent');
+  if(logs.length<3){el.innerHTML='<p style="color:var(--text-dim);font-size:0.85rem">Personalized recovery suggestions will appear based on your data.</p>';return}
+
+  var risk=calcBurnoutRisk(logs);
+  var suggestions=[];
+
+  if(risk.avgSleep<7)suggestions.push({icon:'&#128564;',title:'Improve Sleep',text:'Your average sleep is '+risk.avgSleep.toFixed(1)+' hours. Aim for 7-8 hours. Set a consistent bedtime, reduce screen time 1 hour before bed, and avoid caffeine after 2pm.'});
+  if(risk.avgHours>9)suggestions.push({icon:'&#9200;',title:'Set Work Boundaries',text:'You\'re averaging '+risk.avgHours.toFixed(1)+' hours/day. Block your calendar after a set time. Use timeboxing: work in 90-minute focused blocks with 20-minute breaks.'});
+  if(risk.avgEnergy<5)suggestions.push({icon:'&#9889;',title:'Energy Recovery Protocol',text:'Your energy is running low ('+risk.avgEnergy.toFixed(1)+'/10). Schedule "recharge blocks" — 30 min of exercise, walks, or activities that genuinely energize you. Not scrolling.'});
+  if(risk.consecutive>=3)suggestions.push({icon:'&#128680;',title:'Break the Streak',text:risk.consecutive+' consecutive difficult days. Take a half-day or full day off. Recovery is not lost productivity — it prevents the crash that causes weeks of lost productivity.'});
+  if(risk.score>=50)suggestions.push({icon:'&#128172;',title:'Talk to Someone',text:'High burnout risk detected. Talk to a trusted friend, mentor, or therapist. Isolation accelerates burnout. Sharing your load is a strength, not weakness.'});
+  if(risk.avgMood<5)suggestions.push({icon:'&#127774;',title:'Mood Boosters',text:'Your average mood is low. Identify one thing you enjoy and schedule it daily. Small wins compound. Celebrate completing tasks, however minor.'});
+
+  // Always add general advice
+  suggestions.push({icon:'&#128170;',title:'Prevention Habits',text:'Daily: 10 min movement, 5 min journaling, 8 min fresh air. Weekly: 1 full rest day, 1 social connection. Monthly: review your boundaries and energy patterns here.'});
+
+  var html='';
+  suggestions.forEach(function(s){
+    html+='<div class="suggestion"><strong>'+s.icon+' '+s.title+'</strong><br>'+s.text+'</div>';
+  });
+  el.innerHTML=html;
+}
+
+function renderHistory(logs){
+  var el=document.getElementById('logHistory');
+  if(logs.length===0){el.innerHTML='<p style="color:var(--text-dim);font-size:0.85rem">No entries yet.</p>';return}
+
+  var html='<div class="log-item"><span>Date</span><span>Energy</span><span>Mood</span><span>Hours</span><span>Sleep</span><span></span></div>';
+  logs.slice(0,30).forEach(function(l){
+    html+='<div class="log-item"><span>'+l.date+'</span><span style="color:'+(l.energy>=7?'var(--cyan)':l.energy>=4?'var(--gold)':'var(--red)')+';font-weight:700">'+l.energy+'/10</span><span style="color:'+moodColor(l.mood)+'">'+l.mood+'</span><span>'+l.hours+'h</span><span>'+l.sleep+'h</span><span><button class="remove-btn" onclick="deleteLog(\''+l.date+'\')">&times;</button></span></div>';
+  });
+  el.innerHTML=html;
+}
+
+function deleteLog(date){
+  var logs=getLogs().filter(function(l){return l.date!==date});
+  setLogs(logs);
+  refresh();
+}
+
+function clearLogs(){
+  if(!confirm('Delete all logged data? This cannot be undone.'))return;
+  setLogs([]);
+  refresh();
+}
+
+function exportCSV(){
+  var logs=getLogs();
+  if(logs.length===0){alert('No data to export.');return}
+  var csv='Date,Energy,Mood,Hours Worked,Sleep,Triggers,Notes\n';
+  logs.forEach(function(l){
+    csv+=l.date+','+l.energy+','+l.mood+','+l.hours+','+l.sleep+',"'+((l.triggers||'').replace(/"/g,'""'))+'","'+((l.notes||'').replace(/"/g,'""'))+'"\n';
+  });
+  var blob=new Blob([csv],{type:'text/csv'});
+  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='burnshield-data.csv';a.click();
+  if(typeof gtag==='function')gtag('event','export_csv',{tool:'burn-shield'});
+}
+
+function shareX(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Tracking my burnout risk with BurnShield. Free tool from @SpunkArt13 (code: SPUNK)')+'&url='+encodeURIComponent('https://spunk.codes/exclusive-tools'),'_blank')}
+
+// Init
+refresh();
+
+// === Code Protection ===
+document.addEventListener('contextmenu',function(e){e.preventDefault()});
+document.addEventListener('keydown',function(e){if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'))||(e.ctrlKey&&e.key==='u'))e.preventDefault()});
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<script src="/auto-monetize.js"></script>
+<div id="shareXBtn" style="position:fixed;left:20px;bottom:20px;z-index:9999;">
+  <a id="shareXLink" href="#" target="_blank" rel="noopener noreferrer" title="Share on X"
+     style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;
+     background:rgba(255,215,0,0.15);border:1px solid rgba(255,215,0,0.3);
+     backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:50%;
+     text-decoration:none;transition:all 0.3s ease;cursor:pointer;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+    </svg>
+  </a>
+</div>
+<style>#shareXBtn a:hover{background:rgba(255,215,0,0.35)!important;border-color:rgba(255,215,0,0.6)!important;transform:scale(1.1);box-shadow:0 0 15px rgba(255,215,0,0.3)}</style>
+<script>
+(function(){var page=location.pathname.split("/").pop()||"index.html";var url="https://spunk.codes/exclusive/"+page;var text="Tracking my energy & burnout risk with BurnShield on spunk.codes @SpunkArt13";var href="https://x.com/intent/tweet?text="+encodeURIComponent(text)+"&url="+encodeURIComponent(url);document.getElementById("shareXLink").href=href})();
+</script>
+<script src="/usage-tracker.js"></script>
+</body>
+</html>

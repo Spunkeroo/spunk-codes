@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ValidateFirst - Startup Idea Validator | SPUNK.CODES</title>
+<meta name="description" content="Score startup ideas with a weighted scorecard. Compare multiple ideas side by side with radar charts and action recommendations.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="ValidateFirst - SPUNK.CODES Exclusive">
+<meta property="og:description" content="Validate startup ideas before building. Weighted scorecard with radar charts. Code SPUNK unlocks it.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://spunk.codes/exclusive/validate-first">
+<meta property="og:site_name" content="SPUNK.CODES">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/validate-first">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0d1117;--card:rgba(22,27,34,0.8);--border:rgba(48,54,61,0.6);--gold:#ffd700;--gold-dim:rgba(255,215,0,0.15);--gold-border:rgba(255,215,0,0.3);--text:#e6edf3;--text-dim:#8b949e;--blue:#58a6ff;--cyan:#39d353;--red:#f85149;--orange:#ff8c00;--font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+a{color:var(--blue);text-decoration:none}a:hover{color:#fff}
+.bg-mesh{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 80% 50% at 20% 20%,rgba(255,215,0,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(255,140,0,0.04) 0%,transparent 60%),var(--bg)}
+.bg-grid{position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,215,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,215,0,0.03) 1px,transparent 1px);background-size:60px 60px}
+.nav{position:sticky;top:0;z-index:100;background:rgba(13,17,23,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,215,0,0.15);padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}.nav-brand{font-weight:800;font-size:1.1rem;color:var(--gold);letter-spacing:0.08em}.nav-links{display:flex;gap:1.5rem;font-size:0.85rem;list-style:none}.nav-links a{color:var(--text-dim);transition:color 0.2s;font-weight:500}.nav-links a:hover{color:#fff}.nav-links a.active{color:var(--gold)}
+.lock-gate{position:fixed;inset:0;z-index:1000;background:rgba(13,17,23,0.97);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:2rem}.lock-gate.hidden{display:none}.lock-icon-big{font-size:4rem;margin-bottom:0.5rem}.lock-gate h2{font-size:1.8rem;font-weight:800;text-align:center}.lock-gate h2 span{color:var(--gold)}.lock-gate p{color:var(--text-dim);text-align:center;max-width:400px}.code-input-wrap{display:flex;gap:0.5rem;margin-top:0.5rem}.code-input{padding:0.8rem 1.5rem;background:rgba(22,27,34,0.8);border:2px solid var(--gold-border);border-radius:12px;color:var(--gold);font-size:1.2rem;font-weight:800;letter-spacing:3px;text-align:center;width:200px;outline:none;text-transform:uppercase;font-family:var(--font)}.code-input:focus{border-color:var(--gold);box-shadow:0 0 20px rgba(255,215,0,0.2)}.code-submit{padding:0.8rem 1.5rem;background:linear-gradient(135deg,#ffd700,#ff8c00);border:none;border-radius:12px;color:#000;font-size:1rem;font-weight:800;cursor:pointer;transition:all 0.3s}.code-submit:hover{transform:scale(1.05)}.code-error{color:#f85149;font-size:0.85rem;min-height:1.2em}.lock-hint{color:var(--text-dim);font-size:0.8rem;margin-top:1rem}.lock-hint a{color:var(--gold)}
+.exclusive-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;background:linear-gradient(135deg,rgba(255,215,0,0.15),rgba(255,140,0,0.15));border:1px solid var(--gold-border);border-radius:100px;font-size:11px;font-weight:800;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase}
+.main{max-width:1000px;margin:0 auto;padding:2rem}
+.hero-section{text-align:center;padding:2rem 0 3rem}.hero-section h1{font-size:2.2rem;font-weight:800;margin:1rem 0 0.5rem}.hero-section h1 .gold{background:linear-gradient(135deg,#ffd700,#ff8c00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}.hero-section p{color:var(--text-dim);max-width:600px;margin:0 auto}
+.tool-section{background:var(--card);border:1px solid var(--gold-border);border-radius:16px;padding:2rem;margin-bottom:1.5rem;backdrop-filter:blur(10px);position:relative;overflow:hidden}.tool-section::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),#ff8c00,var(--gold))}.tool-section h2{font-size:1.2rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}.tool-section h2 .icon{font-size:1.4rem}
+label{font-size:0.85rem;color:var(--text-dim);font-weight:600;display:block;margin-bottom:0.4rem}
+input,select,textarea{width:100%;padding:0.75rem 1rem;background:rgba(13,17,23,0.6);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:0.9rem;font-family:var(--font);outline:none;transition:border-color 0.2s}input:focus,select:focus,textarea:focus{border-color:var(--gold)}textarea{resize:vertical;min-height:50px}
+.input-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}.input-group{margin-bottom:1rem}
+.btn{padding:0.75rem 2rem;border:none;border-radius:10px;font-size:0.9rem;font-weight:700;cursor:pointer;transition:all 0.2s;font-family:var(--font)}.btn-gold{background:linear-gradient(135deg,#ffd700,#ff8c00);color:#000}.btn-gold:hover{transform:translateY(-2px);box-shadow:0 4px 20px rgba(255,215,0,0.3)}.btn-outline{background:transparent;border:1px solid var(--border);color:var(--text-dim)}.btn-outline:hover{border-color:var(--gold);color:var(--gold)}.btn-sm{padding:0.5rem 1rem;font-size:0.8rem}.btn-row{display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:1rem}
+.result-box{background:rgba(255,215,0,0.05);border:1px solid var(--gold-border);border-radius:12px;padding:1.5rem;margin-top:1.5rem;display:none}.result-box.show{display:block}
+.metrics-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;margin:1rem 0}
+.metric-card{background:rgba(13,17,23,0.5);border:1px solid var(--border);border-radius:12px;padding:1.2rem;text-align:center}.metric-card .val{font-size:1.5rem;font-weight:800}.metric-card .lbl{font-size:0.72rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px;margin-bottom:0.3rem}.metric-card .sub{font-size:0.7rem;color:var(--text-dim);margin-top:0.3rem}
+.alert-box{padding:1rem 1.5rem;border-radius:12px;margin:1rem 0;font-size:0.9rem;font-weight:600;display:flex;align-items:center;gap:0.8rem}
+.alert-danger{background:rgba(248,81,73,0.1);border:1px solid rgba(248,81,73,0.3);color:var(--red)}
+.alert-warning{background:rgba(255,215,0,0.08);border:1px solid rgba(255,215,0,0.3);color:var(--gold)}
+.alert-ok{background:rgba(57,211,83,0.08);border:1px solid rgba(57,211,83,0.3);color:var(--cyan)}
+.criterion{background:rgba(13,17,23,0.5);border:1px solid var(--border);border-radius:12px;padding:1.2rem;margin-bottom:1rem}.criterion .c-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem}.criterion .c-name{font-weight:700;font-size:0.95rem}.criterion .c-weight{font-size:0.75rem;color:var(--gold);font-weight:700}.criterion .c-desc{font-size:0.78rem;color:var(--text-dim);margin-bottom:0.75rem}
+.score-btns{display:flex;gap:4px;margin-bottom:0.5rem}.score-btn{width:36px;height:36px;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--text-dim);cursor:pointer;font-weight:700;font-size:0.85rem;transition:all 0.15s;font-family:var(--font)}.score-btn:hover{border-color:var(--gold);color:var(--gold)}.score-btn.active{background:var(--gold);color:#000;border-color:var(--gold)}
+.radar-container{position:relative;width:300px;height:300px;margin:1.5rem auto}
+.radar-svg{width:100%;height:100%}
+.compare-table{width:100%;border-collapse:collapse;font-size:0.8rem;margin:1rem 0}.compare-table th{padding:0.6rem 0.5rem;border-bottom:2px solid var(--gold-border);color:var(--gold);font-size:0.72rem;text-transform:uppercase;letter-spacing:0.5px;text-align:left}.compare-table td{padding:0.5rem;border-bottom:1px solid var(--border)}
+.idea-tab{display:inline-flex;align-items:center;gap:0.5rem;padding:0.5rem 1.2rem;border-radius:8px;cursor:pointer;font-size:0.85rem;font-weight:700;border:1px solid var(--border);background:transparent;color:var(--text-dim);transition:all 0.2s;margin-right:0.5rem;margin-bottom:0.5rem;font-family:var(--font)}.idea-tab.active{border-color:var(--gold);background:var(--gold-dim);color:var(--gold)}.idea-tab:hover{border-color:var(--gold)}
+.suggestion{background:rgba(13,17,23,0.5);border:1px solid var(--border);border-radius:10px;padding:1rem;margin-bottom:0.5rem;font-size:0.85rem}.suggestion strong{color:var(--gold)}
+.share-cta{background:linear-gradient(135deg,rgba(255,215,0,0.08),rgba(255,140,0,0.05));border:1px solid var(--gold-border);border-radius:16px;padding:2rem;text-align:center;margin-top:2rem}.share-cta h3{color:var(--gold);margin-bottom:0.5rem;font-size:1.1rem}.share-cta p{color:var(--text-dim);font-size:0.9rem;margin-bottom:1rem}
+.footer{text-align:center;padding:2rem;border-top:1px solid rgba(255,215,0,0.1);color:var(--text-dim);font-size:0.75rem;margin-top:3rem}.footer a{color:var(--gold)}.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-bottom:1rem}
+.watermark{position:fixed;bottom:10px;right:10px;font-size:0.6rem;color:rgba(255,215,0,0.08);font-weight:800;pointer-events:none;z-index:9999;letter-spacing:1px;text-transform:uppercase}
+@media(max-width:768px){.main{padding:1rem}.hero-section h1{font-size:1.6rem}.input-grid{grid-template-columns:1fr}.nav-links{display:none}.radar-container{width:250px;height:250px}.score-btns{flex-wrap:wrap}.metrics-grid{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="bg-mesh"></div><div class="bg-grid"></div>
+<div class="lock-gate" id="lockGate"><div class="lock-icon-big">&#128274;</div><h2>Enter Code <span>SPUNK</span> to Unlock</h2><p>This is an exclusive premium tool. Enter the referral code to get instant access.</p><div class="code-input-wrap"><input type="text" class="code-input" id="codeInput" placeholder="CODE" maxlength="10" autocomplete="off"><button class="code-submit" onclick="submitCode()">Unlock</button></div><div class="code-error" id="codeError"></div><div class="lock-hint">Get the code at <a href="https://spunk.codes/exclusive-tools">spunk.codes/exclusive-tools</a></div></div>
+<nav class="nav"><a href="https://spunk.codes" class="nav-brand">SPUNK.CODES</a><div class="nav-links"><a href="/store">Tools</a><a href="/exclusive-tools" class="active">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a></div></nav>
+
+<div class="main">
+  <section class="hero-section">
+    <div class="exclusive-badge">&#128081; EXCLUSIVE TOOL</div>
+    <h1><span class="gold">ValidateFirst</span></h1>
+    <p>Score your startup ideas with a weighted scorecard. Compare multiple ideas side by side, see radar charts, and get data-driven go/no-go recommendations.</p>
+  </section>
+
+  <!-- Idea Selection -->
+  <div class="tool-section">
+    <h2><span class="icon">&#128161;</span> Your Ideas</h2>
+    <div id="ideaTabs"></div>
+    <div class="btn-row">
+      <button class="btn btn-sm btn-gold" onclick="addIdea()">+ New Idea</button>
+    </div>
+  </div>
+
+  <!-- Scoring -->
+  <div id="scoringPanel">
+    <div class="tool-section">
+      <h2><span class="icon">&#128221;</span> Idea Details</h2>
+      <div class="input-group"><label>Idea Name</label><input type="text" id="ideaName" placeholder="e.g. AI Scheduling Tool for Freelancers" onchange="updateIdeaName()"></div>
+      <div class="input-group"><label>One-line Description</label><input type="text" id="ideaDesc" placeholder="e.g. AI that auto-schedules your week based on priorities and energy levels"></div>
+    </div>
+
+    <div class="tool-section">
+      <h2><span class="icon">&#127919;</span> Weighted Scorecard</h2>
+      <p style="color:var(--text-dim);font-size:0.85rem;margin-bottom:1.5rem">Rate each criterion from 1-10. Higher weights mean more impact on the final score.</p>
+      <div id="criteriaList"></div>
+    </div>
+
+    <div class="btn-row" style="justify-content:center;margin-bottom:1.5rem">
+      <button class="btn btn-gold" onclick="scoreIdea()">Score This Idea</button>
+      <button class="btn btn-outline" onclick="saveIdeas()">Save All Ideas</button>
+    </div>
+  </div>
+
+  <!-- Results -->
+  <div class="result-box" id="results">
+    <div id="verdictBox"></div>
+    <div class="metrics-grid" id="metricsGrid"></div>
+    <div style="display:flex;gap:2rem;flex-wrap:wrap;align-items:flex-start;margin-top:1.5rem">
+      <div class="radar-container" id="radarContainer">
+        <svg class="radar-svg" id="radarSvg" viewBox="0 0 300 300"></svg>
+      </div>
+      <div style="flex:1;min-width:250px" id="breakdownList"></div>
+    </div>
+    <div id="actionRecs" style="margin-top:1.5rem"></div>
+  </div>
+
+  <!-- Compare -->
+  <div class="tool-section" style="margin-top:1.5rem">
+    <h2><span class="icon">&#9878;</span> Compare Ideas</h2>
+    <div id="compareContent"><p style="color:var(--text-dim);font-size:0.85rem">Score at least 2 ideas to compare them.</p></div>
+    <div class="btn-row">
+      <button class="btn btn-sm btn-outline" onclick="exportComparison()">Export Comparison (CSV)</button>
+    </div>
+  </div>
+
+  <div class="share-cta">
+    <h3>Validated your idea?</h3>
+    <p>Share ValidateFirst with other founders.</p>
+    <div class="btn-row" style="justify-content:center">
+      <button class="btn btn-sm btn-gold" onclick="shareX()">Share on X</button>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-links"><a href="/">Home</a><a href="/store">All Tools</a><a href="/exclusive-tools">Exclusive Tools</a><a href="/blog">Blog</a></div>
+    <p>&copy; 2025 SPUNK.CODES. Built for founders who ship.</p>
+  </footer>
+</div>
+
+<div class="watermark">SPUNK.CODES</div>
+
+<script>
+// === Code Gate ===
+function checkAccess(){try{var c1=localStorage.getItem('spunk_referral_code');var c2=localStorage.getItem('spunk_ref_code');if((c1&&c1.toUpperCase()==='SPUNK')||(c2&&c2.toUpperCase()==='SPUNK')){document.getElementById('lockGate').classList.add('hidden');return}}catch(e){}document.getElementById('lockGate').classList.remove('hidden')}
+function submitCode(){var v=document.getElementById('codeInput').value.trim().toUpperCase();if(v==='SPUNK'){try{localStorage.setItem('spunk_referral_code',v)}catch(e){}document.getElementById('lockGate').classList.add('hidden');if(typeof gtag==='function')gtag('event','code_unlock',{tool:'validate-first'})}else{document.getElementById('codeError').textContent='Invalid code. Try again.'}}
+document.getElementById('codeInput').addEventListener('keydown',function(e){if(e.key==='Enter')submitCode()});
+checkAccess();
+
+// === Criteria Definition ===
+var CRITERIA=[
+  {key:'problem',name:'Problem Severity',weight:25,desc:'How painful is the problem? Do people actively seek solutions? (1 = mild annoyance, 10 = hair-on-fire problem)'},
+  {key:'willingness',name:'Willingness to Pay',weight:20,desc:'Will people pay money for this? Evidence of existing spend? (1 = nobody pays, 10 = people pay premium)'},
+  {key:'market',name:'Market Size',weight:15,desc:'How many potential customers exist? TAM realistic for a startup? (1 = tiny niche, 10 = massive addressable market)'},
+  {key:'competition',name:'Competition Landscape',weight:15,desc:'How crowded is the space? Can you differentiate? (1 = dominated by giants, 10 = wide open, no real solution)'},
+  {key:'distribution',name:'Distribution Advantage',weight:15,desc:'Can you reach customers efficiently? (1 = no clear channel, 10 = viral growth or existing audience)'},
+  {key:'fit',name:'Founder-Market Fit',weight:10,desc:'Do you have unique insight, experience, or passion for this? (1 = no connection, 10 = deep domain expertise)'}
+];
+
+// === State ===
+var ideas=[];
+var activeIdeaIdx=0;
+
+function getIdeas(){try{return JSON.parse(localStorage.getItem('validatefirst_ideas')||'[]')}catch(e){return[]}}
+function saveIdeas(){try{localStorage.setItem('validatefirst_ideas',JSON.stringify(ideas));alert('All ideas saved!')}catch(e){alert('Could not save.')}}
+
+// === Init ===
+function init(){
+  ideas=getIdeas();
+  if(ideas.length===0){
+    ideas.push({name:'Idea 1',desc:'',scores:{},evidence:{},totalScore:0,scored:false});
+  }
+  activeIdeaIdx=0;
+  renderTabs();
+  renderCriteria();
+  loadIdeaToForm();
+  renderCompare();
+}
+
+function renderTabs(){
+  var html='';
+  ideas.forEach(function(idea,i){
+    var badge=idea.scored?(' ('+idea.totalScore+'/100)'):'';
+    html+='<button class="idea-tab'+(i===activeIdeaIdx?' active':'')+'" onclick="switchIdea('+i+')">'+idea.name+badge+'</button>';
+  });
+  document.getElementById('ideaTabs').innerHTML=html;
+}
+
+function addIdea(){
+  ideas.push({name:'Idea '+(ideas.length+1),desc:'',scores:{},evidence:{},totalScore:0,scored:false});
+  activeIdeaIdx=ideas.length-1;
+  renderTabs();
+  loadIdeaToForm();
+  document.getElementById('results').classList.remove('show');
+}
+
+function switchIdea(idx){
+  saveCurrentToIdea();
+  activeIdeaIdx=idx;
+  renderTabs();
+  loadIdeaToForm();
+  if(ideas[idx].scored){
+    showResults(ideas[idx]);
+  }else{
+    document.getElementById('results').classList.remove('show');
+  }
+}
+
+function saveCurrentToIdea(){
+  var idea=ideas[activeIdeaIdx];
+  if(!idea)return;
+  idea.name=document.getElementById('ideaName').value||('Idea '+(activeIdeaIdx+1));
+  idea.desc=document.getElementById('ideaDesc').value||'';
+  CRITERIA.forEach(function(c){
+    var evEl=document.getElementById('evidence_'+c.key);
+    if(evEl)idea.evidence[c.key]=evEl.value||'';
+  });
+}
+
+function updateIdeaName(){
+  ideas[activeIdeaIdx].name=document.getElementById('ideaName').value||('Idea '+(activeIdeaIdx+1));
+  renderTabs();
+}
+
+function loadIdeaToForm(){
+  var idea=ideas[activeIdeaIdx];
+  document.getElementById('ideaName').value=idea.name||'';
+  document.getElementById('ideaDesc').value=idea.desc||'';
+
+  CRITERIA.forEach(function(c){
+    var score=idea.scores[c.key]||0;
+    document.querySelectorAll('#scores_'+c.key+' .score-btn').forEach(function(btn){
+      btn.classList.toggle('active',parseInt(btn.textContent)===score);
+    });
+    var evEl=document.getElementById('evidence_'+c.key);
+    if(evEl)evEl.value=idea.evidence[c.key]||'';
+  });
+}
+
+function renderCriteria(){
+  var html='';
+  CRITERIA.forEach(function(c){
+    html+='<div class="criterion">';
+    html+='<div class="c-header"><span class="c-name">'+c.name+'</span><span class="c-weight">Weight: '+c.weight+'%</span></div>';
+    html+='<div class="c-desc">'+c.desc+'</div>';
+    html+='<div class="score-btns" id="scores_'+c.key+'">';
+    for(var i=1;i<=10;i++){
+      html+='<button class="score-btn" onclick="setScore(\''+c.key+'\','+i+',this)">'+i+'</button>';
+    }
+    html+='</div>';
+    html+='<div class="input-group" style="margin-top:0.5rem;margin-bottom:0"><label style="font-size:0.75rem">Evidence / Notes</label><textarea id="evidence_'+c.key+'" placeholder="What evidence supports this score?" style="min-height:35px;font-size:0.8rem"></textarea></div>';
+    html+='</div>';
+  });
+  document.getElementById('criteriaList').innerHTML=html;
+}
+
+function setScore(key,val,btn){
+  ideas[activeIdeaIdx].scores[key]=val;
+  document.querySelectorAll('#scores_'+key+' .score-btn').forEach(function(b){
+    b.classList.toggle('active',parseInt(b.textContent)===val);
+  });
+}
+
+// === Score Calculation ===
+function scoreIdea(){
+  saveCurrentToIdea();
+  var idea=ideas[activeIdeaIdx];
+  var totalWeight=CRITERIA.reduce(function(s,c){return s+c.weight},0);
+  var weightedSum=0;
+  var allScored=true;
+
+  CRITERIA.forEach(function(c){
+    var score=idea.scores[c.key]||0;
+    if(score===0)allScored=false;
+    weightedSum+=(score/10)*c.weight;
+  });
+
+  if(!allScored){alert('Please score all 6 criteria before calculating.');return}
+
+  idea.totalScore=Math.round((weightedSum/totalWeight)*100);
+  idea.scored=true;
+
+  showResults(idea);
+  renderTabs();
+  renderCompare();
+  try{localStorage.setItem('validatefirst_ideas',JSON.stringify(ideas))}catch(e){}
+  if(typeof gtag==='function')gtag('event','idea_scored',{tool:'validate-first',score:idea.totalScore,name:idea.name});
+}
+
+function showResults(idea){
+  var score=idea.totalScore;
+  var color=score>=70?'var(--cyan)':score>=50?'var(--gold)':score>=30?'var(--orange)':'var(--red)';
+  var verdict,verdictClass;
+  if(score>=75){verdict='STRONG GO';verdictClass='alert-ok'}
+  else if(score>=60){verdict='CONDITIONAL GO';verdictClass='alert-ok'}
+  else if(score>=45){verdict='NEEDS WORK';verdictClass='alert-warning'}
+  else if(score>=30){verdict='WEAK - PIVOT NEEDED';verdictClass='alert-warning'}
+  else{verdict='NO-GO';verdictClass='alert-danger'}
+
+  document.getElementById('verdictBox').innerHTML='<div class="alert-box '+verdictClass+'" style="justify-content:center;font-size:1.1rem"><strong>'+idea.name+': '+verdict+' ('+score+'/100)</strong></div>';
+
+  // Metrics
+  var weakest={score:11,name:''};var strongest={score:0,name:''};
+  CRITERIA.forEach(function(c){
+    var s=idea.scores[c.key]||0;
+    if(s<weakest.score){weakest={score:s,name:c.name,key:c.key}}
+    if(s>strongest.score){strongest={score:s,name:c.name,key:c.key}}
+  });
+
+  var html='';
+  html+='<div class="metric-card"><div class="lbl">Total Score</div><div class="val" style="color:'+color+'">'+score+'</div><div class="sub">out of 100</div></div>';
+  html+='<div class="metric-card"><div class="lbl">Verdict</div><div class="val" style="color:'+color+';font-size:1rem">'+verdict+'</div></div>';
+  html+='<div class="metric-card"><div class="lbl">Strongest</div><div class="val" style="color:var(--cyan);font-size:1rem">'+strongest.name+'</div><div class="sub">'+strongest.score+'/10</div></div>';
+  html+='<div class="metric-card"><div class="lbl">Weakest</div><div class="val" style="color:var(--red);font-size:1rem">'+weakest.name+'</div><div class="sub">'+weakest.score+'/10</div></div>';
+  document.getElementById('metricsGrid').innerHTML=html;
+
+  // Radar chart (CSS/SVG)
+  drawRadar(idea);
+
+  // Breakdown
+  var bHtml='<div style="font-size:0.85rem;font-weight:700;color:var(--gold);margin-bottom:0.75rem">Score Breakdown</div>';
+  CRITERIA.forEach(function(c){
+    var s=idea.scores[c.key]||0;
+    var barColor=s>=7?'var(--cyan)':s>=5?'var(--gold)':s>=3?'var(--orange)':'var(--red)';
+    bHtml+='<div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:6px"><span style="width:130px;font-size:0.75rem;color:var(--text-dim);text-align:right;flex-shrink:0">'+c.name+'</span><div style="flex:1;height:20px;background:rgba(13,17,23,0.5);border-radius:5px;overflow:hidden"><div style="height:100%;width:'+(s*10)+'%;background:'+barColor+';border-radius:5px;display:flex;align-items:center;padding-left:6px;font-size:0.7rem;font-weight:700;color:#000">'+s+'/10</div></div><span style="width:35px;font-size:0.7rem;color:var(--text-dim);text-align:right">'+c.weight+'%</span></div>';
+  });
+  document.getElementById('breakdownList').innerHTML=bHtml;
+
+  // Action recommendations
+  var recs=[];
+  CRITERIA.forEach(function(c){
+    var s=idea.scores[c.key]||0;
+    if(s<=4){
+      var actions={
+        problem:'Run 10 customer interviews this week. Ask: "What frustrates you most about [area]?" and "How are you solving this today?" Look for emotional responses.',
+        willingness:'Test willingness to pay with a landing page + "Buy Now" button (just capture clicks). Run a pre-sale or Kickstarter-style validation. Price anchoring: show 3 tiers.',
+        market:'Validate TAM with bottom-up sizing: count exact customer segments, not top-down estimates. Consider adjacent markets. A small but growing market can be better than a large stagnant one.',
+        competition:'Study competitors deeply: what do their 1-star reviews say? That is your opportunity. Build a differentiation matrix. Consider: can you out-niche them rather than out-feature them?',
+        distribution:'Map out 3 specific customer acquisition channels. Test the cheapest one this week. Consider: where do your target customers already hang out? Build in public to attract early users.',
+        fit:'Find a co-founder or advisor with domain expertise. Immerse yourself: spend a week shadowing your target customer. Read 5 books on the industry.'
+      };
+      recs.push({icon:'&#9888;',title:c.name+' ('+s+'/10) - Needs Validation',text:actions[c.key]||'Investigate this area further before proceeding.'});
+    }
+  });
+  if(score>=75)recs.unshift({icon:'&#128640;',title:'Ready to Build',text:'Your idea scores well across all criteria. Next steps: build an MVP in 2-4 weeks, get 10 paying customers, and iterate fast based on feedback.'});
+  else if(score>=60)recs.unshift({icon:'&#128161;',title:'Promising but Validate More',text:'Good foundation. Focus on strengthening your weakest scores before going all-in. Run targeted experiments on the areas below 5/10.'});
+
+  var recHtml='<div style="font-size:0.85rem;font-weight:700;color:var(--gold);margin-bottom:0.75rem">Action Recommendations</div>';
+  recs.forEach(function(r){recHtml+='<div class="suggestion"><strong>'+r.icon+' '+r.title+'</strong><br>'+r.text+'</div>'});
+  document.getElementById('actionRecs').innerHTML=recHtml;
+
+  document.getElementById('results').classList.add('show');
+  document.getElementById('results').scrollIntoView({behavior:'smooth'});
+}
+
+// === Radar Chart (SVG) ===
+function drawRadar(idea){
+  var cx=150,cy=150,r=120;
+  var n=CRITERIA.length;
+  var svg=document.getElementById('radarSvg');
+
+  var html='';
+  // Grid rings
+  for(var ring=2;ring<=10;ring+=2){
+    var points='';
+    for(var i=0;i<n;i++){
+      var angle=(Math.PI*2*i/n)-(Math.PI/2);
+      var x=cx+Math.cos(angle)*(r*ring/10);
+      var y=cy+Math.sin(angle)*(r*ring/10);
+      points+=(i===0?'M':'L')+x+','+y;
+    }
+    points+='Z';
+    html+='<path d="'+points+'" fill="none" stroke="rgba(255,215,0,0.1)" stroke-width="1"/>';
+  }
+
+  // Axes
+  for(var i=0;i<n;i++){
+    var angle=(Math.PI*2*i/n)-(Math.PI/2);
+    var x=cx+Math.cos(angle)*r;
+    var y=cy+Math.sin(angle)*r;
+    html+='<line x1="'+cx+'" y1="'+cy+'" x2="'+x+'" y2="'+y+'" stroke="rgba(255,215,0,0.15)" stroke-width="1"/>';
+    // Labels
+    var lx=cx+Math.cos(angle)*(r+20);
+    var ly=cy+Math.sin(angle)*(r+20);
+    var anchor=lx<cx-10?'end':lx>cx+10?'start':'middle';
+    html+='<text x="'+lx+'" y="'+ly+'" fill="#8b949e" font-size="9" text-anchor="'+anchor+'" dominant-baseline="middle">'+CRITERIA[i].name.split(' ')[0]+'</text>';
+  }
+
+  // Data polygon
+  var dataPoints='';
+  for(var i=0;i<n;i++){
+    var s=idea.scores[CRITERIA[i].key]||0;
+    var angle=(Math.PI*2*i/n)-(Math.PI/2);
+    var x=cx+Math.cos(angle)*(r*s/10);
+    var y=cy+Math.sin(angle)*(r*s/10);
+    dataPoints+=(i===0?'M':'L')+x+','+y;
+  }
+  dataPoints+='Z';
+  html+='<path d="'+dataPoints+'" fill="rgba(255,215,0,0.15)" stroke="var(--gold)" stroke-width="2"/>';
+
+  // Data points
+  for(var i=0;i<n;i++){
+    var s=idea.scores[CRITERIA[i].key]||0;
+    var angle=(Math.PI*2*i/n)-(Math.PI/2);
+    var x=cx+Math.cos(angle)*(r*s/10);
+    var y=cy+Math.sin(angle)*(r*s/10);
+    var dotColor=s>=7?'var(--cyan)':s>=5?'var(--gold)':'var(--red)';
+    html+='<circle cx="'+x+'" cy="'+y+'" r="4" fill="'+dotColor+'" stroke="var(--bg)" stroke-width="2"/>';
+  }
+
+  svg.innerHTML=html;
+}
+
+// === Compare ===
+function renderCompare(){
+  var scored=ideas.filter(function(i){return i.scored});
+  var el=document.getElementById('compareContent');
+  if(scored.length<2){el.innerHTML='<p style="color:var(--text-dim);font-size:0.85rem">Score at least 2 ideas to compare them.</p>';return}
+
+  // Sort by score
+  scored.sort(function(a,b){return b.totalScore-a.totalScore});
+
+  var html='<table class="compare-table"><thead><tr><th>Criterion</th>';
+  scored.forEach(function(idea){
+    var color=idea.totalScore>=70?'var(--cyan)':idea.totalScore>=50?'var(--gold)':'var(--red)';
+    html+='<th style="text-align:center;color:'+color+'">'+idea.name+'<br><span style="font-size:1rem">'+idea.totalScore+'</span></th>';
+  });
+  html+='</tr></thead><tbody>';
+
+  CRITERIA.forEach(function(c){
+    html+='<tr><td style="font-weight:600">'+c.name+' <span style="color:var(--text-dim);font-size:0.7rem">('+c.weight+'%)</span></td>';
+    // Find best score for highlighting
+    var bestScore=0;
+    scored.forEach(function(idea){var s=idea.scores[c.key]||0;if(s>bestScore)bestScore=s});
+    scored.forEach(function(idea){
+      var s=idea.scores[c.key]||0;
+      var isBest=s===bestScore&&scored.length>1;
+      var color=s>=7?'var(--cyan)':s>=5?'var(--gold)':s>=3?'var(--orange)':'var(--red)';
+      html+='<td style="text-align:center;font-weight:700;color:'+color+'"'+(isBest?' style="text-align:center;font-weight:700;color:'+color+';background:rgba(57,211,83,0.08)"':'')+'>'+s+'/10</td>';
+    });
+    html+='</tr>';
+  });
+
+  html+='<tr style="border-top:2px solid var(--gold-border)"><td style="font-weight:800;color:var(--gold)">TOTAL SCORE</td>';
+  scored.forEach(function(idea){
+    var color=idea.totalScore>=70?'var(--cyan)':idea.totalScore>=50?'var(--gold)':'var(--red)';
+    html+='<td style="text-align:center;font-weight:800;font-size:1.1rem;color:'+color+'">'+idea.totalScore+'/100</td>';
+  });
+  html+='</tr></tbody></table>';
+
+  // Winner
+  if(scored.length>=2){
+    var diff=scored[0].totalScore-scored[1].totalScore;
+    html+='<div class="alert-box alert-ok" style="justify-content:center;margin-top:1rem">&#127942; <strong>'+scored[0].name+'</strong> leads'+(diff>0?' by '+diff+' points':'')+'</div>';
+  }
+
+  el.innerHTML=html;
+}
+
+// === Export ===
+function exportComparison(){
+  var scored=ideas.filter(function(i){return i.scored});
+  if(scored.length===0){alert('Score at least one idea first.');return}
+
+  var csv='Criterion,Weight';
+  scored.forEach(function(i){csv+=','+i.name});
+  csv+='\n';
+  CRITERIA.forEach(function(c){
+    csv+=c.name+','+c.weight+'%';
+    scored.forEach(function(idea){csv+=','+(idea.scores[c.key]||0)+'/10'});
+    csv+='\n';
+  });
+  csv+='TOTAL SCORE,100%';
+  scored.forEach(function(idea){csv+=','+idea.totalScore+'/100'});
+  csv+='\n';
+
+  var blob=new Blob([csv],{type:'text/csv'});
+  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='validatefirst-comparison.csv';a.click();
+  if(typeof gtag==='function')gtag('event','export_csv',{tool:'validate-first'});
+}
+
+function shareX(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Validating startup ideas with data before building. Free tool from @SpunkArt13 (code: SPUNK)')+'&url='+encodeURIComponent('https://spunk.codes/exclusive-tools'),'_blank')}
+
+// Init
+init();
+
+// === Code Protection ===
+document.addEventListener('contextmenu',function(e){e.preventDefault()});
+document.addEventListener('keydown',function(e){if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'))||(e.ctrlKey&&e.key==='u'))e.preventDefault()});
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<script src="/auto-monetize.js"></script>
+<div id="shareXBtn" style="position:fixed;left:20px;bottom:20px;z-index:9999;">
+  <a id="shareXLink" href="#" target="_blank" rel="noopener noreferrer" title="Share on X"
+     style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;
+     background:rgba(255,215,0,0.15);border:1px solid rgba(255,215,0,0.3);
+     backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:50%;
+     text-decoration:none;transition:all 0.3s ease;cursor:pointer;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+    </svg>
+  </a>
+</div>
+<style>#shareXBtn a:hover{background:rgba(255,215,0,0.35)!important;border-color:rgba(255,215,0,0.6)!important;transform:scale(1.1);box-shadow:0 0 15px rgba(255,215,0,0.3)}</style>
+<script>
+(function(){var page=location.pathname.split("/").pop()||"index.html";var url="https://spunk.codes/exclusive/"+page;var text="Validating my startup ideas with data using ValidateFirst on spunk.codes @SpunkArt13";var href="https://x.com/intent/tweet?text="+encodeURIComponent(text)+"&url="+encodeURIComponent(url);document.getElementById("shareXLink").href=href})();
+</script>
+<script src="/usage-tracker.js"></script>
+</body>
+</html>
