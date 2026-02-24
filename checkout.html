@@ -189,6 +189,21 @@ a{color:inherit;text-decoration:none}
         </div>
       </div>
 
+      <div class="plan-card" data-plan="pro-annual" onclick="selectPlan('pro-annual')">
+        <div class="plan-radio"></div>
+        <div class="plan-info">
+          <div class="plan-info-top">
+            <span class="plan-name">Pro Annual</span>
+            <span class="plan-tag save">Save 35%</span>
+          </div>
+          <div class="plan-desc">Everything in Pro Monthly. Billed yearly &mdash; save $79/yr.</div>
+        </div>
+        <div class="plan-price-col">
+          <div class="plan-price-main">$149/yr</div>
+          <div class="plan-price-note">~$12.42/mo</div>
+        </div>
+      </div>
+
       <div class="plan-card popular-card" data-plan="lifetime" onclick="selectPlan('lifetime')">
         <div class="plan-radio"></div>
         <div class="plan-info">
@@ -210,13 +225,28 @@ a{color:inherit;text-decoration:none}
         <div class="plan-radio"></div>
         <div class="plan-info">
           <div class="plan-info-top">
-            <span class="plan-name">Team / Agency</span>
+            <span class="plan-name">Team Monthly</span>
           </div>
           <div class="plan-desc">Up to 10 members. White-label exports, API access, priority support.</div>
         </div>
         <div class="plan-price-col">
           <div class="plan-price-main">$49/mo</div>
           <div class="plan-price-note">Per team, up to 10 seats</div>
+        </div>
+      </div>
+
+      <div class="plan-card" data-plan="team-annual" onclick="selectPlan('team-annual')">
+        <div class="plan-radio"></div>
+        <div class="plan-info">
+          <div class="plan-info-top">
+            <span class="plan-name">Team Annual</span>
+            <span class="plan-tag save">Save 32%</span>
+          </div>
+          <div class="plan-desc">Everything in Team Monthly. Billed yearly &mdash; save $189/yr.</div>
+        </div>
+        <div class="plan-price-col">
+          <div class="plan-price-main">$399/yr</div>
+          <div class="plan-price-note">~$33.25/mo</div>
         </div>
       </div>
 
@@ -235,17 +265,32 @@ a{color:inherit;text-decoration:none}
         </div>
       </div>
 
-      <div class="plan-card" data-plan="enterprise" onclick="selectPlan('enterprise')">
+      <div class="plan-card" data-plan="enterprise-monthly" onclick="selectPlan('enterprise-monthly')">
         <div class="plan-radio"></div>
         <div class="plan-info">
           <div class="plan-info-top">
-            <span class="plan-name">Enterprise</span>
+            <span class="plan-name">Enterprise Monthly</span>
           </div>
           <div class="plan-desc">Unlimited seats. Custom integrations, SLA, dedicated support, SSO.</div>
         </div>
         <div class="plan-price-col">
           <div class="plan-price-main">$249/mo</div>
           <div class="plan-price-note">Billed monthly</div>
+        </div>
+      </div>
+
+      <div class="plan-card" data-plan="enterprise-annual" onclick="selectPlan('enterprise-annual')">
+        <div class="plan-radio"></div>
+        <div class="plan-info">
+          <div class="plan-info-top">
+            <span class="plan-name">Enterprise Annual</span>
+            <span class="plan-tag save">Save 33%</span>
+          </div>
+          <div class="plan-desc">Everything in Enterprise. Billed yearly &mdash; save $989/yr.</div>
+        </div>
+        <div class="plan-price-col">
+          <div class="plan-price-main">$1,999/yr</div>
+          <div class="plan-price-note">~$166.58/mo</div>
         </div>
       </div>
     </div>
@@ -363,6 +408,22 @@ var plans={
       'Export to all formats','Advanced features unlocked','Email support','Cancel anytime'
     ]
   },
+  'pro-annual':{
+    name:'Pro Annual',
+    price:149,
+    priceLabel:'$149',
+    priceNote:'/year',
+    totalNote:'per year',
+    gumroadKey:'plan-pro-annual',
+    items:[
+      {name:'Pro Annual Subscription',desc:'34 exclusive tools + all ebooks',price:'$149/yr'},
+      {name:'Annual Savings',desc:'Save $79 vs monthly billing',price:'Included'}
+    ],
+    features:[
+      '34 exclusive premium tools','All ebooks included ($200+ value)','Priority tool updates','No ads anywhere',
+      'Export to all formats','Advanced features unlocked','Email support','Save 35% vs monthly'
+    ]
+  },
   'lifetime':{
     name:'Lifetime Access',
     price:349,
@@ -382,7 +443,7 @@ var plans={
     ]
   },
   'team-monthly':{
-    name:'Team / Agency',
+    name:'Team Monthly',
     price:49,
     priceLabel:'$49',
     priceNote:'/month',
@@ -396,15 +457,31 @@ var plans={
       'Priority support','Custom branding on exports','Team admin dashboard','Cancel anytime'
     ]
   },
+  'team-annual':{
+    name:'Team Annual',
+    price:399,
+    priceLabel:'$399',
+    priceNote:'/year',
+    totalNote:'per year',
+    gumroadKey:'plan-team-annual',
+    items:[
+      {name:'Team Annual Subscription',desc:'Up to 10 team members',price:'$399/yr'},
+      {name:'Annual Savings',desc:'Save $189 vs monthly billing',price:'Included'}
+    ],
+    features:[
+      'Everything in Pro','Up to 10 team members','White-label exports','API access',
+      'Priority support','Custom branding on exports','Team admin dashboard','Save 32% vs monthly'
+    ]
+  },
   'whitelabel':{
-    name:'White-Label License',
+    name:'White-Label Reseller',
     price:999,
     priceLabel:'$999',
     priceNote:' one-time',
     totalNote:'one-time license',
     gumroadKey:'plan-whitelabel',
     items:[
-      {name:'White-Label License',desc:'Full rebrand & resell rights',price:'$999'},
+      {name:'White-Label Reseller License',desc:'Full rebrand & resell rights',price:'$999'},
       {name:'Source Files',desc:'All tools with your branding',price:'Included'},
       {name:'Reseller Documentation',desc:'Setup guides & support',price:'Included'}
     ],
@@ -413,22 +490,44 @@ var plans={
       'Custom domain support','Reseller documentation','Priority setup support','Lifetime license'
     ]
   },
-  'enterprise':{
-    name:'Enterprise',
+  'enterprise-monthly':{
+    name:'Enterprise Monthly',
     price:249,
     priceLabel:'$249',
     priceNote:'/month',
     totalNote:'per month',
-    gumroadKey:'plan-enterprise',
+    gumroadKey:'plan-enterprise-monthly',
     items:[
-      {name:'Enterprise Subscription',desc:'Unlimited seats + custom integrations',price:'$249/mo'}
+      {name:'Enterprise Monthly Subscription',desc:'Unlimited seats + custom integrations',price:'$249/mo'}
     ],
     features:[
       'Everything in Team','Unlimited seats','Custom integrations','SLA guarantee',
       'Dedicated account manager','SSO / SAML','Custom reporting','Invoice billing'
     ]
+  },
+  'enterprise-annual':{
+    name:'Enterprise Annual',
+    price:1999,
+    priceLabel:'$1,999',
+    priceNote:'/year',
+    totalNote:'per year',
+    gumroadKey:'plan-enterprise-annual',
+    items:[
+      {name:'Enterprise Annual Subscription',desc:'Unlimited seats + custom integrations',price:'$1,999/yr'},
+      {name:'Annual Savings',desc:'Save $989 vs monthly billing',price:'Included'}
+    ],
+    features:[
+      'Everything in Team','Unlimited seats','Custom integrations','SLA guarantee',
+      'Dedicated account manager','SSO / SAML','Custom reporting','Save 33% vs monthly'
+    ]
   }
 };
+
+// Format price with commas (e.g. 1999 -> "1,999")
+function formatPrice(n){
+  var num=Math.round(n);
+  return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g,',');
+}
 
 var selectedPlan='lifetime';
 var appliedDiscount=null;
@@ -439,7 +538,8 @@ var coupons={
   'WELCOME20':{discount:20,type:'percent',label:'20% off'},
   'LAUNCH10':{discount:10,type:'percent',label:'10% off'},
   'SPUNK':{discount:15,type:'percent',label:'15% off + exclusive rewards'},
-  'WHITELABEL':{discount:20,type:'percent',label:'20% off reseller tiers',restrict:['whitelabel','enterprise']}
+  'WHITELABEL':{discount:20,type:'percent',label:'20% off reseller tiers',restrict:['whitelabel','enterprise-monthly','enterprise-annual']},
+  'REVIEW':{discount:25,type:'percent',label:'25% off — thank you for your review!'}
 };
 
 // Select plan from URL params + auto-apply coupon
@@ -507,7 +607,7 @@ function updateOrderSummary(){
       finalPrice=plan.price-discountAmt;
       document.getElementById('discountLabel').textContent=appliedDiscount.label;
       document.getElementById('discountCode').textContent='Code: '+appliedDiscount.code;
-      document.getElementById('discountAmount').textContent='-$'+discountAmt.toFixed(0);
+      document.getElementById('discountAmount').textContent='-$'+formatPrice(discountAmt);
       discountRow.style.display='block';
     }
   } else {
@@ -515,8 +615,7 @@ function updateOrderSummary(){
   }
 
   // Update total
-  var isMonthly=plan.priceNote.indexOf('month')!==-1;
-  document.getElementById('orderTotal').textContent='$'+finalPrice.toFixed(0);
+  document.getElementById('orderTotal').textContent='$'+formatPrice(finalPrice);
   document.getElementById('orderTotalNote').textContent=plan.totalNote;
 
   // Update feature list
@@ -530,7 +629,7 @@ function updateOrderSummary(){
   });
 
   // Update pay button text
-  var btnPrice='$'+finalPrice.toFixed(0)+plan.priceNote;
+  var btnPrice='$'+formatPrice(finalPrice)+plan.priceNote;
   document.getElementById('payBtn').innerHTML='<span>&#128274;</span> Complete Purchase &mdash; '+btnPrice;
 }
 
