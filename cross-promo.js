@@ -344,7 +344,7 @@
         marginBottom: '16px',
         lineHeight: '1.45'
       }
-    }, '300+ tools, 22 ebooks, 45 premium tools. No signup required.');
+    }, '300+ tools, 22 ebooks, 75 premium tools. No signup required.');
 
     // CTA
     var cardCta = el('a', {

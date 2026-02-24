@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SaaS Pricing Modeler - Revenue Simulation Lab | SPUNK.CODES</title>
+<meta name="description" content="Model SaaS pricing tiers, simulate revenue at different price points, calculate elasticity, and optimize your pricing for maximum MRR with visual projections.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="SaaS Pricing Modeler - SPUNK.CODES Exclusive">
+<meta property="og:description" content="Simulate SaaS pricing strategies and project revenue. Unlock with code SPUNK.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://spunk.codes/exclusive/saas-pricing-modeler">
+<meta property="og:site_name" content="SPUNK.CODES">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/saas-pricing-modeler">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"SaaS Pricing Modeler","applicationCategory":"BusinessApplication","operatingSystem":"Web","description":"Model SaaS pricing tiers, simulate revenue at different price points, and optimize pricing strategy for maximum MRR.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Organization","name":"SPUNK.CODES","url":"https://spunk.codes"}}</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0d1117;--card:rgba(22,27,34,0.8);--border:rgba(48,54,61,0.6);--gold:#ffd700;--gold-dim:rgba(255,215,0,0.15);--gold-border:rgba(255,215,0,0.3);--text:#e6edf3;--text-dim:#8b949e;--blue:#58a6ff;--cyan:#39d353;--red:#f85149;--orange:#ff8c00;--font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+a{color:var(--blue);text-decoration:none}a:hover{color:#fff}
+.bg-mesh{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 80% 50% at 20% 20%,rgba(255,215,0,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(255,140,0,0.04) 0%,transparent 60%),var(--bg)}
+.bg-grid{position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,215,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,215,0,0.03) 1px,transparent 1px);background-size:60px 60px}
+.nav{position:sticky;top:0;z-index:100;background:rgba(13,17,23,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,215,0,0.15);padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}.nav-brand{font-weight:800;font-size:1.1rem;color:var(--gold);letter-spacing:0.08em}.nav-links{display:flex;gap:1.5rem;font-size:0.85rem;list-style:none}.nav-links a{color:var(--text-dim);transition:color 0.2s;font-weight:500}.nav-links a:hover{color:#fff}.nav-links a.active{color:var(--gold)}
+.lock-gate{position:fixed;inset:0;z-index:1000;background:rgba(13,17,23,0.97);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:2rem}.lock-gate.hidden{display:none}.lock-icon-big{font-size:4rem;margin-bottom:0.5rem}.lock-gate h2{font-size:1.8rem;font-weight:800;text-align:center}.lock-gate h2 span{color:var(--gold)}.lock-gate p{color:var(--text-dim);text-align:center;max-width:400px}.code-input-wrap{display:flex;gap:0.5rem;margin-top:0.5rem}.code-input{padding:0.8rem 1.5rem;background:rgba(22,27,34,0.8);border:2px solid var(--gold-border);border-radius:12px;color:var(--gold);font-size:1.2rem;font-weight:800;letter-spacing:3px;text-align:center;width:200px;outline:none;text-transform:uppercase;font-family:var(--font)}.code-input:focus{border-color:var(--gold);box-shadow:0 0 20px rgba(255,215,0,0.2)}.code-submit{padding:0.8rem 1.5rem;background:linear-gradient(135deg,#ffd700,#ff8c00);border:none;border-radius:12px;color:#000;font-size:1rem;font-weight:800;cursor:pointer;transition:all 0.3s}.code-submit:hover{transform:scale(1.05)}.code-error{color:#f85149;font-size:0.85rem;min-height:1.2em}.lock-hint{color:var(--text-dim);font-size:0.8rem;margin-top:1rem}.lock-hint a{color:var(--gold)}
+.exclusive-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;background:linear-gradient(135deg,rgba(255,215,0,0.15),rgba(255,140,0,0.15));border:1px solid var(--gold-border);border-radius:100px;font-size:11px;font-weight:800;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase}
+.main{max-width:1100px;margin:0 auto;padding:2rem}
+.hero-section{text-align:center;padding:2rem 0 3rem}.hero-section h1{font-size:2.2rem;font-weight:800;margin:1rem 0 0.5rem}.hero-section h1 .gold{background:linear-gradient(135deg,#ffd700,#ff8c00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}.hero-section p{color:var(--text-dim);max-width:600px;margin:0 auto}
+.tool-section{background:var(--card);border:1px solid var(--gold-border);border-radius:16px;padding:2rem;margin-bottom:1.5rem;backdrop-filter:blur(10px);position:relative;overflow:hidden}.tool-section::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),#ff8c00,var(--gold))}.tool-section h2{font-size:1.2rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}.tool-section h2 .icon{font-size:1.4rem}
+label{font-size:0.85rem;color:var(--text-dim);font-weight:600;display:block;margin-bottom:0.4rem}
+input,select{width:100%;padding:0.75rem 1rem;background:rgba(13,17,23,0.6);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:0.9rem;font-family:var(--font);outline:none;transition:border-color 0.2s}input:focus,select:focus{border-color:var(--gold)}
+.input-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}.input-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem}.input-group{margin-bottom:1rem}
+.btn{padding:0.75rem 2rem;border:none;border-radius:10px;font-size:0.9rem;font-weight:700;cursor:pointer;transition:all 0.2s;font-family:var(--font)}.btn-gold{background:linear-gradient(135deg,#ffd700,#ff8c00);color:#000}.btn-gold:hover{transform:translateY(-2px);box-shadow:0 4px 20px rgba(255,215,0,0.3)}.btn-outline{background:transparent;border:1px solid var(--border);color:var(--text-dim)}.btn-outline:hover{border-color:var(--gold);color:var(--gold)}.btn-sm{padding:0.5rem 1rem;font-size:0.8rem}.btn-row{display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:1rem}
+.result-box{background:rgba(255,215,0,0.05);border:1px solid var(--gold-border);border-radius:12px;padding:1.5rem;margin-top:1.5rem;display:none}.result-box.show{display:block}
+.metrics-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;margin:1rem 0}
+.metric-card{background:rgba(13,17,23,0.5);border:1px solid var(--border);border-radius:12px;padding:1.2rem;text-align:center}.metric-card .val{font-size:1.5rem;font-weight:800}.metric-card .lbl{font-size:0.72rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px;margin-bottom:0.3rem}.metric-card .sub{font-size:0.7rem;color:var(--text-dim);margin-top:0.3rem}
+.alert-box{padding:1rem 1.5rem;border-radius:12px;margin:1rem 0;font-size:0.9rem;font-weight:600;display:flex;align-items:center;gap:0.8rem}
+.alert-warning{background:rgba(255,215,0,0.08);border:1px solid rgba(255,215,0,0.3);color:var(--gold)}
+.alert-ok{background:rgba(57,211,83,0.08);border:1px solid rgba(57,211,83,0.3);color:var(--cyan)}
+.alert-danger{background:rgba(248,81,73,0.1);border:1px solid rgba(248,81,73,0.3);color:var(--red)}
+table{width:100%;border-collapse:collapse;font-size:0.8rem;margin-top:1rem}th{text-align:left;padding:0.6rem 0.5rem;border-bottom:2px solid var(--gold-border);color:var(--gold);font-size:0.72rem;text-transform:uppercase;letter-spacing:0.5px}td{padding:0.5rem;border-bottom:1px solid var(--border)}.neg{color:var(--red)}.pos{color:var(--cyan)}
+.bar-row{display:flex;align-items:center;gap:0.75rem;margin-bottom:6px}.bar-label{width:70px;font-size:0.75rem;color:var(--text-dim);text-align:right;flex-shrink:0}.bar-track{flex:1;height:28px;background:rgba(13,17,23,0.5);border-radius:6px;overflow:hidden;position:relative}.bar-fill{height:100%;border-radius:6px;display:flex;align-items:center;padding-left:8px;font-size:0.7rem;font-weight:700;transition:width 0.5s;white-space:nowrap;min-width:fit-content}.bar-val{font-size:0.75rem;color:var(--text-dim);width:100px;text-align:right;flex-shrink:0}
+.tier-card{background:rgba(13,17,23,0.5);border:2px solid var(--border);border-radius:16px;padding:1.5rem;text-align:center;transition:all 0.3s}.tier-card.popular{border-color:var(--gold);background:rgba(255,215,0,0.05)}.tier-card h3{font-size:1.1rem;margin-bottom:0.5rem}.tier-price{font-size:2rem;font-weight:800;color:var(--gold);margin:0.5rem 0}.tier-price span{font-size:0.8rem;color:var(--text-dim);font-weight:400}.tier-card ul{list-style:none;text-align:left;font-size:0.82rem;margin:1rem 0}.tier-card li{padding:0.3rem 0;color:var(--text-dim)}.tier-card li::before{content:'\\2713 ';color:var(--cyan);font-weight:700}.tier-metrics{margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border);font-size:0.75rem;color:var(--text-dim)}
+.tier-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;margin:1.5rem 0}
+.tier-input-row{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr auto;gap:0.5rem;align-items:center;margin-bottom:0.5rem;font-size:0.85rem}.tier-input-row input{padding:0.5rem;font-size:0.85rem}
+.remove-btn{background:none;border:none;color:var(--red);cursor:pointer;font-size:1.1rem;padding:0 6px;opacity:0.5;font-family:var(--font)}.remove-btn:hover{opacity:1}
+.chart-container{background:rgba(13,17,23,0.5);border:1px solid var(--border);border-radius:12px;padding:1.5rem;margin-top:1rem}
+.insight-card{background:rgba(13,17,23,0.5);border:1px solid var(--border);border-radius:12px;padding:1.2rem;margin-bottom:0.75rem}.insight-card h4{font-size:0.9rem;font-weight:700;margin-bottom:0.5rem;color:var(--gold)}.insight-card p{font-size:0.82rem;color:var(--text-dim);line-height:1.5}
+.share-cta{background:linear-gradient(135deg,rgba(255,215,0,0.08),rgba(255,140,0,0.05));border:1px solid var(--gold-border);border-radius:16px;padding:2rem;text-align:center;margin-top:2rem}.share-cta h3{color:var(--gold);margin-bottom:0.5rem;font-size:1.1rem}.share-cta p{color:var(--text-dim);font-size:0.9rem;margin-bottom:1rem}
+.footer{text-align:center;padding:2rem;border-top:1px solid rgba(255,215,0,0.1);color:var(--text-dim);font-size:0.75rem;margin-top:3rem}.footer a{color:var(--gold)}.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-bottom:1rem}
+.watermark{position:fixed;bottom:10px;right:10px;font-size:0.6rem;color:rgba(255,215,0,0.08);font-weight:800;pointer-events:none;z-index:9999;letter-spacing:1px;text-transform:uppercase}
+@media(max-width:768px){.main{padding:1rem}.hero-section h1{font-size:1.6rem}.input-grid,.input-grid-3{grid-template-columns:1fr}.nav-links{display:none}.tier-grid{grid-template-columns:1fr}.tier-input-row{grid-template-columns:1fr 1fr}.metrics-grid{grid-template-columns:1fr 1fr}table{font-size:0.7rem}}
+</style>
+</head>
+<body>
+<div class="bg-mesh"></div><div class="bg-grid"></div>
+<div class="lock-gate" id="lockGate"><div class="lock-icon-big">&#128274;</div><h2>Enter Code <span>SPUNK</span> to Unlock</h2><p>This is an exclusive premium tool. Enter the referral code to get instant access.</p><div class="code-input-wrap"><input type="text" class="code-input" id="codeInput" placeholder="CODE" maxlength="10" autocomplete="off"><button class="code-submit" onclick="submitCode()">Unlock</button></div><div class="code-error" id="codeError"></div><div class="lock-hint">Get the code at <a href="https://spunk.codes/exclusive-tools">spunk.codes/exclusive-tools</a></div></div>
+<nav class="nav"><a href="https://spunk.codes" class="nav-brand">SPUNK.CODES</a><div class="nav-links"><a href="/store">Tools</a><a href="/exclusive-tools" class="active">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a></div></nav>
+
+<div class="main">
+  <section class="hero-section">
+    <div class="exclusive-badge">&#128081; EXCLUSIVE TOOL</div>
+    <h1><span class="gold">SaaS Pricing Modeler</span></h1>
+    <p>Design pricing tiers, simulate revenue at different price points, model customer distribution, and find the pricing strategy that maximizes your MRR.</p>
+  </section>
+
+  <div class="tool-section">
+    <h2><span class="icon">&#128176;</span> Market & Business Context</h2>
+    <div class="input-grid">
+      <div class="input-group"><label>Total Addressable Customers</label><input type="number" id="totalMarket" placeholder="10000" min="1"></div>
+      <div class="input-group"><label>Current Customers (if any)</label><input type="number" id="currentCust" placeholder="100" min="0"></div>
+      <div class="input-group"><label>Monthly Customer Growth Rate (%)</label><input type="number" id="growthRate" placeholder="8" min="0" step="0.1"></div>
+      <div class="input-group"><label>Monthly Churn Rate (%)</label><input type="number" id="churnRate" placeholder="3" min="0" step="0.1"></div>
+      <div class="input-group"><label>Cost to Serve per Customer ($/mo)</label><input type="number" id="costServe" placeholder="5" min="0" step="0.01"></div>
+      <div class="input-group"><label>Customer Acquisition Cost ($)</label><input type="number" id="cac" placeholder="150" min="0"></div>
+    </div>
+  </div>
+
+  <div class="tool-section">
+    <h2><span class="icon">&#128179;</span> Pricing Tiers</h2>
+    <p style="color:var(--text-dim);font-size:0.85rem;margin-bottom:1rem">Define 2-5 tiers. Set the price, expected customer share %, and features for each.</p>
+    <div id="tierList">
+      <div class="tier-input-row" style="font-size:0.68rem;color:var(--gold);font-weight:700;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:0.3rem"><span>Tier Name</span><span>Price/mo ($)</span><span>Customer Share %</span><span>Annual Disc. %</span><span>Annual Uptake %</span><span></span></div>
+      <div class="tier-input-row"><input type="text" class="t-name" value="Starter"><input type="number" class="t-price" value="29" min="0"><input type="number" class="t-share" value="50" min="0" max="100"><input type="number" class="t-disc" value="20" min="0" max="100"><input type="number" class="t-annual" value="30" min="0" max="100"><button class="remove-btn" onclick="this.closest('.tier-input-row').remove()">&times;</button></div>
+      <div class="tier-input-row"><input type="text" class="t-name" value="Pro"><input type="number" class="t-price" value="79" min="0"><input type="number" class="t-share" value="35" min="0" max="100"><input type="number" class="t-disc" value="20" min="0" max="100"><input type="number" class="t-annual" value="40" min="0" max="100"><button class="remove-btn" onclick="this.closest('.tier-input-row').remove()">&times;</button></div>
+      <div class="tier-input-row"><input type="text" class="t-name" value="Enterprise"><input type="number" class="t-price" value="199" min="0"><input type="number" class="t-share" value="15" min="0" max="100"><input type="number" class="t-disc" value="15" min="0" max="100"><input type="number" class="t-annual" value="60" min="0" max="100"><button class="remove-btn" onclick="this.closest('.tier-input-row').remove()">&times;</button></div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-sm btn-outline" onclick="addTier()">+ Add Tier</button>
+    </div>
+  </div>
+
+  <div class="tool-section">
+    <h2><span class="icon">&#128200;</span> Price Sensitivity Simulation</h2>
+    <p style="color:var(--text-dim);font-size:0.85rem;margin-bottom:1rem">Simulate what happens when you raise or lower prices. Higher prices typically reduce conversion but increase ARPU.</p>
+    <div class="input-grid">
+      <div class="input-group"><label>Price Elasticity Factor</label><select id="elasticity"><option value="0.5">Low Elasticity (premium product, few alternatives)</option><option value="1.0" selected>Medium Elasticity (competitive market)</option><option value="1.5">High Elasticity (price-sensitive market)</option></select></div>
+      <div class="input-group"><label>Projection Period</label><select id="projPeriod"><option value="6">6 Months</option><option value="12" selected>12 Months</option><option value="24">24 Months</option></select></div>
+    </div>
+  </div>
+
+  <div class="btn-row" style="justify-content:center;margin-bottom:2rem">
+    <button class="btn btn-gold" onclick="modelPricing()">Model Revenue</button>
+    <button class="btn btn-outline" onclick="resetForm()">Reset</button>
+  </div>
+
+  <div class="result-box" id="results">
+    <div id="alertBox"></div>
+    <div class="metrics-grid" id="metricsGrid"></div>
+
+    <h3 style="font-size:1rem;font-weight:700;margin:1.5rem 0 0.75rem;color:var(--gold)">Pricing Tier Preview</h3>
+    <div class="tier-grid" id="tierPreview"></div>
+
+    <div class="chart-container">
+      <div style="font-size:0.85rem;font-weight:700;color:var(--gold);margin-bottom:1rem">Revenue by Tier (Monthly)</div>
+      <div id="revenueChart"></div>
+    </div>
+
+    <div class="chart-container" style="margin-top:1rem">
+      <div style="font-size:0.85rem;font-weight:700;color:var(--gold);margin-bottom:1rem">MRR Projection</div>
+      <div id="projChart"></div>
+    </div>
+
+    <div style="overflow-x:auto">
+      <table id="projTable"></table>
+    </div>
+
+    <h3 style="font-size:1rem;font-weight:700;margin:1.5rem 0 0.75rem;color:var(--gold)">Price Sensitivity Analysis</h3>
+    <div style="overflow-x:auto">
+      <table id="sensitivityTable"></table>
+    </div>
+
+    <h3 style="font-size:1rem;font-weight:700;margin:1.5rem 0 0.75rem;color:var(--gold)">Strategic Insights</h3>
+    <div id="insights"></div>
+
+    <div class="btn-row">
+      <button class="btn btn-sm btn-outline" onclick="exportCSV()">Export CSV</button>
+      <button class="btn btn-sm btn-outline" onclick="copySummary()">Copy Summary</button>
+    </div>
+  </div>
+
+  <div class="share-cta">
+    <h3>Optimized your pricing?</h3>
+    <p>Share SaaS Pricing Modeler with fellow founders.</p>
+    <div class="btn-row" style="justify-content:center">
+      <button class="btn btn-sm btn-gold" onclick="shareX()">Share on X</button>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-links"><a href="/">Home</a><a href="/store">All Tools</a><a href="/exclusive-tools">Exclusive Tools</a><a href="/blog">Blog</a></div>
+    <p>&copy; 2025 SPUNK.CODES. Built for founders who ship.</p>
+  </footer>
+</div>
+
+<div class="watermark">SPUNK.CODES</div>
+
+<script>
+// === Code Gate ===
+function checkAccess(){try{var c1=localStorage.getItem('spunk_referral_code');var c2=localStorage.getItem('spunk_ref_code');if((c1&&c1.toUpperCase()==='SPUNK')||(c2&&c2.toUpperCase()==='SPUNK')){document.getElementById('lockGate').classList.add('hidden');return}}catch(e){}document.getElementById('lockGate').classList.remove('hidden')}
+function submitCode(){var v=document.getElementById('codeInput').value.trim().toUpperCase();if(v==='SPUNK'){try{localStorage.setItem('spunk_referral_code',v)}catch(e){}document.getElementById('lockGate').classList.add('hidden');if(typeof gtag==='function')gtag('event','code_unlock',{tool:'saas-pricing-modeler'})}else{document.getElementById('codeError').textContent='Invalid code. Try again.'}}
+document.getElementById('codeInput').addEventListener('keydown',function(e){if(e.key==='Enter')submitCode()});
+checkAccess();
+
+var projData=[];
+function fmt(n){return'$'+Math.round(n).toLocaleString('en-US')}
+function pct(n){return(n*100).toFixed(1)+'%'}
+
+function addTier(){
+  var list=document.getElementById('tierList');
+  var row=document.createElement('div');row.className='tier-input-row';
+  row.innerHTML='<input type="text" class="t-name" placeholder="Tier name"><input type="number" class="t-price" placeholder="Price" min="0"><input type="number" class="t-share" placeholder="Share %" min="0" max="100"><input type="number" class="t-disc" value="20" min="0" max="100"><input type="number" class="t-annual" value="30" min="0" max="100"><button class="remove-btn" onclick="this.closest(\'.tier-input-row\').remove()">&times;</button>';
+  list.appendChild(row);
+}
+
+function getTiers(){
+  var tiers=[];
+  document.querySelectorAll('.tier-input-row:not(:first-child)').forEach(function(row){
+    var name=row.querySelector('.t-name').value||'Unnamed';
+    var price=parseFloat(row.querySelector('.t-price').value)||0;
+    var share=parseFloat(row.querySelector('.t-share').value)||0;
+    var disc=parseFloat(row.querySelector('.t-disc').value)||0;
+    var annual=parseFloat(row.querySelector('.t-annual').value)||0;
+    if(price>0)tiers.push({name:name,price:price,share:share/100,annualDisc:disc/100,annualUptake:annual/100});
+  });
+  return tiers;
+}
+
+function modelPricing(){
+  var tiers=getTiers();
+  if(tiers.length===0){alert('Add at least one pricing tier.');return}
+
+  var totalMarket=parseInt(document.getElementById('totalMarket').value)||10000;
+  var currentCust=parseInt(document.getElementById('currentCust').value)||100;
+  var growthRate=(parseFloat(document.getElementById('growthRate').value)||8)/100;
+  var churnRate=(parseFloat(document.getElementById('churnRate').value)||3)/100;
+  var costServe=parseFloat(document.getElementById('costServe').value)||5;
+  var cac=parseFloat(document.getElementById('cac').value)||150;
+  var elasticity=parseFloat(document.getElementById('elasticity').value)||1.0;
+  var months=parseInt(document.getElementById('projPeriod').value)||12;
+
+  // Normalize shares
+  var totalShare=tiers.reduce(function(s,t){return s+t.share},0);
+  if(totalShare>0)tiers.forEach(function(t){t.share=t.share/totalShare});
+
+  // Calculate blended metrics
+  var arpu=0;
+  tiers.forEach(function(t){
+    var monthlyCustomers=t.share*(1-t.annualUptake);
+    var annualCustomers=t.share*t.annualUptake;
+    var effectiveMonthly=t.price*monthlyCustomers+t.price*(1-t.annualDisc)*annualCustomers;
+    t.effectiveARPU=effectiveMonthly/t.share;
+    t.monthlyRevPerCust=effectiveMonthly;
+    arpu+=effectiveMonthly;
+  });
+
+  // Current MRR
+  var currentMRR=currentCust*arpu;
+  var grossMarginPerCust=arpu-costServe;
+  var grossMarginPct=arpu>0?grossMarginPerCust/arpu:0;
+  var ltv=churnRate>0?grossMarginPerCust/churnRate:grossMarginPerCust*24;
+  var ltvCacRatio=cac>0?ltv/cac:0;
+  var paybackMonths=grossMarginPerCust>0?cac/grossMarginPerCust:0;
+
+  // Alerts
+  var alertHtml='';
+  if(ltvCacRatio<1)alertHtml='<div class="alert-box alert-danger">&#9888; CRITICAL: LTV:CAC ratio is below 1.0 ('+ltvCacRatio.toFixed(1)+'x). You are losing money on every customer. Raise prices, reduce CAC, or cut churn urgently.</div>';
+  else if(ltvCacRatio<3)alertHtml='<div class="alert-box alert-warning">&#128161; LTV:CAC is '+ltvCacRatio.toFixed(1)+'x. Healthy SaaS targets 3x+. Consider price increases or churn reduction.</div>';
+  else alertHtml='<div class="alert-box alert-ok">&#9989; Strong unit economics. LTV:CAC of '+ltvCacRatio.toFixed(1)+'x. You have room to invest in growth.</div>';
+  document.getElementById('alertBox').innerHTML=alertHtml;
+
+  // Metrics
+  var mHtml='';
+  mHtml+='<div class="metric-card"><div class="lbl">Blended ARPU</div><div class="val" style="color:var(--gold)">'+fmt(arpu)+'</div><div class="sub">/month</div></div>';
+  mHtml+='<div class="metric-card"><div class="lbl">Current MRR</div><div class="val" style="color:var(--cyan)">'+fmt(currentMRR)+'</div></div>';
+  mHtml+='<div class="metric-card"><div class="lbl">Gross Margin</div><div class="val" style="color:'+(grossMarginPct>=0.7?'var(--cyan)':grossMarginPct>=0.5?'var(--gold)':'var(--red)')+'">'+Math.round(grossMarginPct*100)+'%</div></div>';
+  mHtml+='<div class="metric-card"><div class="lbl">Customer LTV</div><div class="val" style="color:var(--gold)">'+fmt(ltv)+'</div></div>';
+  mHtml+='<div class="metric-card"><div class="lbl">LTV:CAC Ratio</div><div class="val" style="color:'+(ltvCacRatio>=3?'var(--cyan)':ltvCacRatio>=1?'var(--gold)':'var(--red)')+'">'+ltvCacRatio.toFixed(1)+'x</div></div>';
+  mHtml+='<div class="metric-card"><div class="lbl">Payback Period</div><div class="val" style="color:'+(paybackMonths<=12?'var(--cyan)':paybackMonths<=18?'var(--gold)':'var(--red)')+'">'+Math.round(paybackMonths)+'</div><div class="sub">months</div></div>';
+  document.getElementById('metricsGrid').innerHTML=mHtml;
+
+  // Tier preview cards
+  var colors=['var(--blue)','var(--gold)','var(--cyan)','var(--orange)','var(--red)'];
+  var maxShare=Math.max.apply(null,tiers.map(function(t){return t.share}));
+  var tpHtml='';
+  tiers.forEach(function(t,i){
+    var isPopular=t.share===maxShare;
+    var custCount=Math.round(currentCust*t.share);
+    var tierMRR=custCount*t.effectiveARPU;
+    tpHtml+='<div class="tier-card'+(isPopular?' popular':'')+'"><h3>'+t.name+'</h3>'+(isPopular?'<div style="font-size:0.7rem;color:var(--gold);font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:0.3rem">Most Popular</div>':'')+'<div class="tier-price">'+fmt(t.price)+'<span>/mo</span></div><div style="font-size:0.8rem;color:var(--text-dim);margin:0.3rem 0">Annual: '+fmt(t.price*(1-t.annualDisc))+'/mo (save '+Math.round(t.annualDisc*100)+'%)</div><div class="tier-metrics"><div>'+Math.round(t.share*100)+'% of customers ('+custCount+')</div><div>Tier MRR: '+fmt(tierMRR)+'</div><div>Effective ARPU: '+fmt(t.effectiveARPU)+'</div></div></div>';
+  });
+  document.getElementById('tierPreview').innerHTML=tpHtml;
+
+  // Revenue by tier chart
+  var maxTierRev=0;
+  tiers.forEach(function(t){var rev=Math.round(currentCust*t.share)*t.effectiveARPU;if(rev>maxTierRev)maxTierRev=rev});
+  if(maxTierRev===0)maxTierRev=1;
+  var rcHtml='';
+  tiers.forEach(function(t,i){
+    var rev=Math.round(currentCust*t.share)*t.effectiveARPU;
+    var w=(rev/maxTierRev)*100;
+    rcHtml+='<div class="bar-row"><span class="bar-label">'+t.name+'</span><div class="bar-track"><div class="bar-fill" style="width:'+Math.max(3,w)+'%;background:'+(colors[i%colors.length])+';color:#000">'+fmt(rev)+'</div></div><span class="bar-val">'+Math.round(t.share*100)+'% share</span></div>';
+  });
+  document.getElementById('revenueChart').innerHTML=rcHtml;
+
+  // MRR projection
+  projData=[];
+  var cust=currentCust;
+  var maxMRR=0;
+  for(var m=0;m<=months;m++){
+    var mrr=cust*arpu;
+    var arr=mrr*12;
+    var newCust=Math.round(cust*growthRate);
+    var churned=Math.round(cust*churnRate);
+    var netNew=newCust-churned;
+    if(mrr>maxMRR)maxMRR=mrr;
+    projData.push({month:m,customers:Math.round(cust),mrr:mrr,arr:arr,newCust:newCust,churned:churned,netNew:netNew,cacSpend:newCust*cac,grossProfit:mrr*grossMarginPct});
+    cust=Math.min(totalMarket,cust+netNew);
+  }
+
+  // Projection chart
+  if(maxMRR===0)maxMRR=1;
+  var pcHtml='';
+  projData.forEach(function(d){
+    var w=(d.mrr/maxMRR)*100;
+    var color=d.month===0?'var(--text-dim)':'linear-gradient(90deg,var(--gold),var(--cyan))';
+    pcHtml+='<div class="bar-row"><span class="bar-label">M'+d.month+'</span><div class="bar-track"><div class="bar-fill" style="width:'+Math.max(3,w)+'%;background:'+color+';color:#000">'+fmt(d.mrr)+'</div></div><span class="bar-val">'+d.customers+' cust</span></div>';
+  });
+  document.getElementById('projChart').innerHTML=pcHtml;
+
+  // Projection table
+  var ptHtml='<thead><tr><th>Month</th><th>Customers</th><th>MRR</th><th>ARR</th><th>New</th><th>Churned</th><th>CAC Spend</th><th>Gross Profit</th></tr></thead><tbody>';
+  projData.forEach(function(d){
+    ptHtml+='<tr><td>M'+d.month+'</td><td>'+d.customers.toLocaleString()+'</td><td style="font-weight:700;color:var(--gold)">'+fmt(d.mrr)+'</td><td>'+fmt(d.arr)+'</td><td class="pos">+'+d.newCust+'</td><td class="neg">-'+d.churned+'</td><td>'+fmt(d.cacSpend)+'</td><td class="pos">'+fmt(d.grossProfit)+'</td></tr>';
+  });
+  ptHtml+='</tbody>';
+  document.getElementById('projTable').innerHTML=ptHtml;
+
+  // Price sensitivity analysis
+  var variations=[-30,-20,-10,0,10,20,30,50];
+  var stHtml='<thead><tr><th>Price Change</th><th>ARPU</th><th>Est. Conversion Change</th><th>Net Customers</th><th>MRR</th><th>vs Current</th></tr></thead><tbody>';
+  var bestMRR=0;var bestChange=0;
+  variations.forEach(function(v){
+    var priceMult=1+(v/100);
+    var newARPU=arpu*priceMult;
+    var conversionChange=-v*elasticity/100;
+    var newCust=Math.round(currentCust*(1+conversionChange));
+    if(newCust<0)newCust=0;
+    var newMRR=newCust*newARPU;
+    var delta=newMRR-currentMRR;
+    if(newMRR>bestMRR){bestMRR=newMRR;bestChange=v}
+    stHtml+='<tr'+(v===0?' style="background:rgba(255,215,0,0.08)"':'')+'><td style="font-weight:700;color:'+(v>0?'var(--cyan)':v<0?'var(--red)':'var(--gold)')+'">'+(v>=0?'+':'')+v+'%</td><td>'+fmt(newARPU)+'</td><td style="color:'+(conversionChange>=0?'var(--cyan)':'var(--red)')+'">'+(conversionChange>=0?'+':'')+Math.round(conversionChange*100)+'%</td><td>'+newCust.toLocaleString()+'</td><td style="font-weight:700">'+fmt(newMRR)+'</td><td style="color:'+(delta>=0?'var(--cyan)':'var(--red)')+'">'+fmt(delta)+'</td></tr>';
+  });
+  stHtml+='</tbody>';
+  document.getElementById('sensitivityTable').innerHTML=stHtml;
+
+  // Insights
+  var insHtml='';
+  if(bestChange!==0){insHtml+='<div class="insight-card"><h4>Optimal Price Point</h4><p>Based on your elasticity model, a '+(bestChange>0?'+':'')+bestChange+'% price change would maximize MRR at '+fmt(bestMRR)+'/mo (vs current '+fmt(currentMRR)+'). This assumes '+elasticity+'x elasticity. Test with a small segment before full rollout.</p></div>';}
+  if(churnRate>0.05){insHtml+='<div class="insight-card"><h4>Churn is Your Biggest Leak</h4><p>At '+pct(churnRate)+' monthly churn, you\'re losing '+Math.round(currentCust*churnRate)+' customers per month. Reducing churn by just 1% would add '+fmt(currentCust*0.01*arpu)+'/mo to MRR. Invest in onboarding, success calls, and feature adoption before spending more on acquisition.</p></div>';}
+  if(paybackMonths>12){insHtml+='<div class="insight-card"><h4>Long Payback Period</h4><p>'+Math.round(paybackMonths)+'-month payback is stretching your cash. Either raise prices (increases ARPU), reduce CAC through organic/referral channels, or improve activation rates to recover acquisition cost faster.</p></div>';}
+  var annualTiers=tiers.filter(function(t){return t.annualUptake<0.4});
+  if(annualTiers.length>0){insHtml+='<div class="insight-card"><h4>Push Annual Plans</h4><p>'+annualTiers.map(function(t){return t.name}).join(', ')+' ha'+(annualTiers.length>1?'ve':'s')+' low annual uptake. Annual customers churn ~50% less than monthly. Add incentives: bigger discounts, bonus features, or priority support for annual commitments.</p></div>';}
+  var topTier=tiers[tiers.length-1];
+  if(topTier&&topTier.share<0.1){insHtml+='<div class="insight-card"><h4>Enterprise Tier Underperforming</h4><p>Only '+Math.round(topTier.share*100)+'% of customers are on '+topTier.name+' ('+fmt(topTier.price)+'/mo). Consider: Is pricing too high? Are enterprise features compelling enough? Add demos, custom onboarding, or dedicated support as differentiators.</p></div>';}
+  if(insHtml===''){insHtml='<div class="insight-card"><h4>Solid Foundation</h4><p>Your pricing structure looks healthy. Focus on execution: grow the customer base, reduce churn incrementally, and experiment with price increases on new customers while grandfathering existing ones.</p></div>';}
+  document.getElementById('insights').innerHTML=insHtml;
+
+  document.getElementById('results').classList.add('show');
+  document.getElementById('results').scrollIntoView({behavior:'smooth'});
+  if(typeof gtag==='function')gtag('event','pricing_model',{tool:'saas-pricing-modeler',tiers:tiers.length,arpu:Math.round(arpu)});
+}
+
+function resetForm(){
+  document.querySelectorAll('input[type="number"],input[type="text"]').forEach(function(el){if(!el.classList.contains('t-name')&&!el.classList.contains('t-price')&&!el.classList.contains('t-share'))el.value=''});
+  document.getElementById('results').classList.remove('show');
+}
+
+function exportCSV(){
+  if(projData.length===0){alert('Run model first.');return}
+  var csv='Month,Customers,MRR,ARR,New,Churned,CAC Spend,Gross Profit\n';
+  projData.forEach(function(d){csv+='M'+d.month+','+d.customers+','+Math.round(d.mrr)+','+Math.round(d.arr)+','+d.newCust+','+d.churned+','+Math.round(d.cacSpend)+','+Math.round(d.grossProfit)+'\n'});
+  var blob=new Blob([csv],{type:'text/csv'});
+  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='saas-pricing-model.csv';a.click();
+  if(typeof gtag==='function')gtag('event','export_csv',{tool:'saas-pricing-modeler'});
+}
+
+function copySummary(){
+  if(projData.length===0){alert('Run model first.');return}
+  var last=projData[projData.length-1];
+  var first=projData[0];
+  var text='SaaS Pricing Model Summary\nCurrent MRR: '+fmt(first.mrr)+'\nProjected MRR (M'+last.month+'): '+fmt(last.mrr)+'\nCustomers: '+first.customers+' -> '+last.customers+'\nARR: '+fmt(last.arr)+'\nGenerated by SPUNK.CODES';
+  navigator.clipboard.writeText(text).then(function(){alert('Summary copied!')});
+}
+
+function shareX(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Modeled my SaaS pricing strategy with this free tool from @SpunkArt13 (code: SPUNK)')+'&url='+encodeURIComponent('https://spunk.codes/exclusive-tools'),'_blank')}
+
+// === Code Protection ===
+document.addEventListener('contextmenu',function(e){e.preventDefault()});
+document.addEventListener('keydown',function(e){if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'))||(e.ctrlKey&&e.key==='u'))e.preventDefault()});
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<script src="/auto-monetize.js"></script>
+<div id="shareXBtn" style="position:fixed;left:20px;bottom:20px;z-index:9999;">
+  <a id="shareXLink" href="#" target="_blank" rel="noopener noreferrer" title="Share on X"
+     style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;
+     background:rgba(255,215,0,0.15);border:1px solid rgba(255,215,0,0.3);
+     backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:50%;
+     text-decoration:none;transition:all 0.3s ease;cursor:pointer;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+    </svg>
+  </a>
+</div>
+<style>#shareXBtn a:hover{background:rgba(255,215,0,0.35)!important;border-color:rgba(255,215,0,0.6)!important;transform:scale(1.1);box-shadow:0 0 15px rgba(255,215,0,0.3)}</style>
+<script>
+(function(){var page=location.pathname.split("/").pop()||"index.html";var url="https://spunk.codes/exclusive/"+page;var text="Modeling my SaaS pricing with SaaS Pricing Modeler on spunk.codes @SpunkArt13";var href="https://x.com/intent/tweet?text="+encodeURIComponent(text)+"&url="+encodeURIComponent(url);document.getElementById("shareXLink").href=href})();
+</script>
+<script src="/usage-tracker.js"></script>
+</body>
+</html>

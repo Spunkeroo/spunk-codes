@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SaaS Growth Analyzer - Full Metrics Dashboard | SPUNK.CODES</title>
+<meta name="description" content="Input MRR, churn, new customers, ARPU and get a complete SaaS growth dashboard with ARR, NDR, Quick Ratio, Rule of 40, Magic Number, and more.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="SaaS Growth Analyzer - SPUNK.CODES Exclusive">
+<meta property="og:description" content="Complete SaaS metrics dashboard. ARR, NDR, Quick Ratio, Rule of 40, Magic Number. Code SPUNK unlocks it.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://spunk.codes/exclusive/saas-growth-analyzer">
+<meta property="og:site_name" content="SPUNK.CODES">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/saas-growth-analyzer">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"SaaS Growth Analyzer","applicationCategory":"BusinessApplication","operatingSystem":"Web","description":"Complete SaaS metrics dashboard with ARR, NDR, Quick Ratio, Rule of 40, Magic Number calculations","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Organization","name":"SPUNK.CODES","url":"https://spunk.codes"}}</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0d1117;--card:rgba(22,27,34,0.8);--border:rgba(48,54,61,0.6);--gold:#ffd700;--gold-dim:rgba(255,215,0,0.15);--gold-border:rgba(255,215,0,0.3);--text:#e6edf3;--text-dim:#8b949e;--blue:#58a6ff;--cyan:#39d353;--red:#f85149;--orange:#ff8c00;--font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+a{color:var(--blue);text-decoration:none}a:hover{color:#fff}
+.bg-mesh{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 80% 50% at 20% 20%,rgba(255,215,0,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(255,140,0,0.04) 0%,transparent 60%),var(--bg)}
+.bg-grid{position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,215,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,215,0,0.03) 1px,transparent 1px);background-size:60px 60px}
+.nav{position:sticky;top:0;z-index:100;background:rgba(13,17,23,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,215,0,0.15);padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}.nav-brand{font-weight:800;font-size:1.1rem;color:var(--gold);letter-spacing:0.08em}.nav-links{display:flex;gap:1.5rem;font-size:0.85rem;list-style:none}.nav-links a{color:var(--text-dim);transition:color 0.2s;font-weight:500}.nav-links a:hover{color:#fff}.nav-links a.active{color:var(--gold)}
+.lock-gate{position:fixed;inset:0;z-index:1000;background:rgba(13,17,23,0.97);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:2rem}.lock-gate.hidden{display:none}.lock-icon-big{font-size:4rem;margin-bottom:0.5rem}.lock-gate h2{font-size:1.8rem;font-weight:800;text-align:center}.lock-gate h2 span{color:var(--gold)}.lock-gate p{color:var(--text-dim);text-align:center;max-width:400px}.code-input-wrap{display:flex;gap:0.5rem;margin-top:0.5rem}.code-input{padding:0.8rem 1.5rem;background:rgba(22,27,34,0.8);border:2px solid var(--gold-border);border-radius:12px;color:var(--gold);font-size:1.2rem;font-weight:800;letter-spacing:3px;text-align:center;width:200px;outline:none;text-transform:uppercase;font-family:var(--font)}.code-input:focus{border-color:var(--gold);box-shadow:0 0 20px rgba(255,215,0,0.2)}.code-submit{padding:0.8rem 1.5rem;background:linear-gradient(135deg,#ffd700,#ff8c00);border:none;border-radius:12px;color:#000;font-size:1rem;font-weight:800;cursor:pointer;transition:all 0.3s}.code-submit:hover{transform:scale(1.05)}.code-error{color:#f85149;font-size:0.85rem;min-height:1.2em}.lock-hint{color:var(--text-dim);font-size:0.8rem;margin-top:1rem}.lock-hint a{color:var(--gold)}
+.exclusive-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;background:linear-gradient(135deg,rgba(255,215,0,0.15),rgba(255,140,0,0.15));border:1px solid var(--gold-border);border-radius:100px;font-size:11px;font-weight:800;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase}
+.main{max-width:1000px;margin:0 auto;padding:2rem}
+.hero-section{text-align:center;padding:2rem 0 3rem}.hero-section h1{font-size:2.2rem;font-weight:800;margin:1rem 0 0.5rem}.hero-section h1 .gold{background:linear-gradient(135deg,#ffd700,#ff8c00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}.hero-section p{color:var(--text-dim);max-width:600px;margin:0 auto}
+.tool-section{background:var(--card);border:1px solid var(--gold-border);border-radius:16px;padding:2rem;margin-bottom:1.5rem;backdrop-filter:blur(10px);position:relative;overflow:hidden}.tool-section::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),#ff8c00,var(--gold))}.tool-section h2{font-size:1.2rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}.tool-section h2 .icon{font-size:1.4rem}
+label{font-size:0.85rem;color:var(--text-dim);font-weight:600;display:block;margin-bottom:0.4rem}
+input,select,textarea{width:100%;padding:0.75rem 1rem;background:rgba(13,17,23,0.6);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:0.9rem;font-family:var(--font);outline:none;transition:border-color 0.2s}input:focus,select:focus,textarea:focus{border-color:var(--gold)}
+.input-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}.input-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem}.input-group{margin-bottom:1rem}
+.btn{padding:0.75rem 2rem;border:none;border-radius:10px;font-size:0.9rem;font-weight:700;cursor:pointer;transition:all 0.2s;font-family:var(--font)}.btn-gold{background:linear-gradient(135deg,#ffd700,#ff8c00);color:#000}.btn-gold:hover{transform:translateY(-2px);box-shadow:0 4px 20px rgba(255,215,0,0.3)}.btn-outline{background:transparent;border:1px solid var(--border);color:var(--text-dim)}.btn-outline:hover{border-color:var(--gold);color:var(--gold)}.btn-sm{padding:0.5rem 1rem;font-size:0.8rem}.btn-row{display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:1rem}
+.metrics-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;margin:1rem 0}
+.metric-card{background:rgba(13,17,23,0.5);border:1px solid var(--border);border-radius:12px;padding:1.2rem;text-align:center;transition:border-color 0.2s}.metric-card:hover{border-color:var(--gold-border)}.metric-card .val{font-size:1.5rem;font-weight:800}.metric-card .lbl{font-size:0.72rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px;margin-bottom:0.3rem}.metric-card .sub{font-size:0.7rem;color:var(--text-dim);margin-top:0.3rem}
+.alert-box{padding:1rem 1.5rem;border-radius:12px;margin:1rem 0;font-size:0.9rem;font-weight:600;display:flex;align-items:flex-start;gap:0.8rem}
+.alert-danger{background:rgba(248,81,73,0.1);border:1px solid rgba(248,81,73,0.3);color:var(--red)}
+.alert-warning{background:rgba(255,215,0,0.08);border:1px solid rgba(255,215,0,0.3);color:var(--gold)}
+.alert-ok{background:rgba(57,211,83,0.08);border:1px solid rgba(57,211,83,0.3);color:var(--cyan)}
+.alert-info{background:rgba(88,166,255,0.08);border:1px solid rgba(88,166,255,0.3);color:var(--blue)}
+.bar-row{display:flex;align-items:center;gap:0.75rem;margin-bottom:5px}.bar-label{width:120px;font-size:0.75rem;color:var(--text-dim);text-align:right;flex-shrink:0}.bar-track{flex:1;height:26px;background:rgba(13,17,23,0.5);border-radius:6px;overflow:hidden}.bar-fill{height:100%;border-radius:6px;transition:width 0.5s;display:flex;align-items:center;padding-left:8px;font-size:0.72rem;font-weight:700}
+.grade-badge{display:inline-flex;align-items:center;justify-content:center;width:80px;height:80px;border-radius:50%;font-size:2rem;font-weight:900;border:3px solid}
+.chart-container{background:rgba(13,17,23,0.5);border:1px solid var(--border);border-radius:12px;padding:1.5rem;margin-top:1rem}
+.insight-card{background:rgba(13,17,23,0.5);border:1px solid var(--border);border-radius:10px;padding:1rem;margin-bottom:0.5rem;font-size:0.85rem}.insight-card strong{color:var(--gold)}
+.share-cta{background:linear-gradient(135deg,rgba(255,215,0,0.08),rgba(255,140,0,0.05));border:1px solid var(--gold-border);border-radius:16px;padding:2rem;text-align:center;margin-top:2rem}.share-cta h3{color:var(--gold);margin-bottom:0.5rem;font-size:1.1rem}.share-cta p{color:var(--text-dim);font-size:0.9rem;margin-bottom:1rem}
+.footer{text-align:center;padding:2rem;border-top:1px solid rgba(255,215,0,0.1);color:var(--text-dim);font-size:0.75rem;margin-top:3rem}.footer a{color:var(--gold)}.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-bottom:1rem}
+.watermark{position:fixed;bottom:10px;right:10px;font-size:0.6rem;color:rgba(255,215,0,0.08);font-weight:800;pointer-events:none;z-index:9999;letter-spacing:1px;text-transform:uppercase}
+.tooltip{position:relative;cursor:help;border-bottom:1px dashed var(--text-dim)}.tooltip:hover::after{content:attr(data-tip);position:absolute;bottom:100%;left:50%;transform:translateX(-50%);background:#161b22;border:1px solid var(--gold-border);color:var(--text);padding:8px 12px;border-radius:8px;font-size:0.75rem;white-space:nowrap;z-index:10;font-weight:400}
+.scenario-tab{display:inline-block;padding:0.5rem 1.2rem;border:1px solid var(--border);border-radius:8px 8px 0 0;cursor:pointer;font-size:0.85rem;font-weight:600;color:var(--text-dim);background:transparent;transition:all 0.2s}.scenario-tab.active{background:var(--gold-dim);border-color:var(--gold-border);color:var(--gold)}
+@media(max-width:768px){.main{padding:1rem}.hero-section h1{font-size:1.6rem}.input-grid,.input-grid-3{grid-template-columns:1fr}.nav-links{display:none}.metrics-grid{grid-template-columns:1fr 1fr}.bar-label{width:80px}}
+</style>
+</head>
+<body>
+<div class="bg-mesh"></div><div class="bg-grid"></div>
+<div class="lock-gate" id="lockGate"><div class="lock-icon-big">&#128274;</div><h2>Enter Code <span>SPUNK</span> to Unlock</h2><p>This is an exclusive premium tool. Enter the referral code to get instant access.</p><div class="code-input-wrap"><input type="text" class="code-input" id="codeInput" placeholder="CODE" maxlength="10" autocomplete="off"><button class="code-submit" onclick="submitCode()">Unlock</button></div><div class="code-error" id="codeError"></div><div class="lock-hint">Get the code at <a href="https://spunk.codes/exclusive-tools">spunk.codes/exclusive-tools</a></div></div>
+<nav class="nav"><a href="https://spunk.codes" class="nav-brand">SPUNK.CODES</a><div class="nav-links"><a href="/store">Tools</a><a href="/exclusive-tools" class="active">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a></div></nav>
+
+<div class="main">
+  <section class="hero-section">
+    <div class="exclusive-badge">&#128081; EXCLUSIVE TOOL</div>
+    <h1>SaaS <span class="gold">Growth Analyzer</span></h1>
+    <p>Input your SaaS metrics and get a complete growth dashboard with ARR, NDR, Quick Ratio, Rule of 40, Magic Number, LTV:CAC, and actionable benchmarks.</p>
+  </section>
+
+  <div class="tool-section">
+    <h2><span class="icon">&#128200;</span> Enter Your SaaS Metrics</h2>
+    <div class="input-grid">
+      <div class="input-group">
+        <label><span class="tooltip" data-tip="Monthly Recurring Revenue at end of current month">Current MRR ($)</span></label>
+        <input type="number" id="mrr" placeholder="50000" min="0" step="100">
+      </div>
+      <div class="input-group">
+        <label><span class="tooltip" data-tip="MRR at end of previous month for growth comparison">Previous Month MRR ($)</span></label>
+        <input type="number" id="prevMrr" placeholder="45000" min="0" step="100">
+      </div>
+    </div>
+    <div class="input-grid-3">
+      <div class="input-group">
+        <label><span class="tooltip" data-tip="New MRR from brand-new customers this month">New MRR ($)</span></label>
+        <input type="number" id="newMrr" placeholder="8000" min="0" step="100">
+      </div>
+      <div class="input-group">
+        <label><span class="tooltip" data-tip="Additional MRR from existing customer expansions/upgrades">Expansion MRR ($)</span></label>
+        <input type="number" id="expansionMrr" placeholder="3000" min="0" step="100">
+      </div>
+      <div class="input-group">
+        <label><span class="tooltip" data-tip="MRR lost from churned and downgraded customers">Churned MRR ($)</span></label>
+        <input type="number" id="churnedMrr" placeholder="6000" min="0" step="100">
+      </div>
+    </div>
+    <div class="input-grid">
+      <div class="input-group">
+        <label><span class="tooltip" data-tip="Total paying customers at end of this month">Total Customers</span></label>
+        <input type="number" id="customers" placeholder="500" min="1">
+      </div>
+      <div class="input-group">
+        <label><span class="tooltip" data-tip="Number of customers who cancelled this month">Churned Customers</span></label>
+        <input type="number" id="churnedCustomers" placeholder="15" min="0">
+      </div>
+    </div>
+    <div class="input-grid-3">
+      <div class="input-group">
+        <label><span class="tooltip" data-tip="Total sales & marketing spend this quarter">S&M Spend This Quarter ($)</span></label>
+        <input type="number" id="smSpend" placeholder="60000" min="0" step="100">
+      </div>
+      <div class="input-group">
+        <label><span class="tooltip" data-tip="Average cost to acquire one new customer">CAC ($)</span></label>
+        <input type="number" id="cac" placeholder="500" min="0" step="10">
+      </div>
+      <div class="input-group">
+        <label><span class="tooltip" data-tip="Gross margin percentage after COGS">Gross Margin (%)</span></label>
+        <input type="number" id="grossMargin" placeholder="75" min="0" max="100" step="1">
+      </div>
+    </div>
+    <div class="input-grid">
+      <div class="input-group">
+        <label><span class="tooltip" data-tip="Your YoY revenue growth rate">Revenue Growth Rate (%)</span></label>
+        <input type="number" id="growthRate" placeholder="80" min="0" step="1">
+      </div>
+      <div class="input-group">
+        <label><span class="tooltip" data-tip="Profit margin (or EBITDA margin) as % of revenue">Profit Margin (%)</span></label>
+        <input type="number" id="profitMargin" placeholder="-20" step="1">
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-gold" onclick="analyze()">Analyze Growth</button>
+      <button class="btn btn-sm btn-outline" onclick="loadExample()">Load Example Data</button>
+    </div>
+  </div>
+
+  <div id="results" style="display:none">
+    <div class="tool-section">
+      <h2><span class="icon">&#127942;</span> Overall Health Score</h2>
+      <div id="healthScore"></div>
+    </div>
+
+    <div class="tool-section">
+      <h2><span class="icon">&#128202;</span> Core SaaS Metrics</h2>
+      <div id="coreMetrics"></div>
+    </div>
+
+    <div class="tool-section">
+      <h2><span class="icon">&#128640;</span> Growth Efficiency Metrics</h2>
+      <div id="growthMetrics"></div>
+    </div>
+
+    <div class="tool-section">
+      <h2><span class="icon">&#128176;</span> Unit Economics</h2>
+      <div id="unitEconomics"></div>
+    </div>
+
+    <div class="tool-section">
+      <h2><span class="icon">&#128161;</span> Benchmark Analysis</h2>
+      <div id="benchmarks"></div>
+    </div>
+
+    <div class="tool-section">
+      <h2><span class="icon">&#127919;</span> Actionable Insights</h2>
+      <div id="insights"></div>
+    </div>
+
+    <div class="btn-row" style="justify-content:center;margin:2rem 0">
+      <button class="btn btn-sm btn-outline" onclick="exportReport()">Export Report (CSV)</button>
+      <button class="btn btn-sm btn-outline" onclick="copyReport()">Copy Summary</button>
+    </div>
+  </div>
+
+  <div class="share-cta">
+    <h3>Know your SaaS numbers?</h3>
+    <p>Share this analyzer with founders who should know theirs.</p>
+    <div class="btn-row" style="justify-content:center">
+      <button class="btn btn-sm btn-gold" onclick="shareX()">Share on X</button>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-links"><a href="/">Home</a><a href="/store">All Tools</a><a href="/exclusive-tools">Exclusive Tools</a><a href="/blog">Blog</a></div>
+    <p>&copy; 2025 SPUNK.CODES. Built for founders who ship.</p>
+  </footer>
+</div>
+
+<div class="watermark">SPUNK.CODES</div>
+
+<script>
+// === Code Gate ===
+function checkAccess(){try{var c1=localStorage.getItem('spunk_referral_code');var c2=localStorage.getItem('spunk_ref_code');if((c1&&c1.toUpperCase()==='SPUNK')||(c2&&c2.toUpperCase()==='SPUNK')){document.getElementById('lockGate').classList.add('hidden');return}}catch(e){}document.getElementById('lockGate').classList.remove('hidden')}
+function submitCode(){var v=document.getElementById('codeInput').value.trim().toUpperCase();if(v==='SPUNK'){try{localStorage.setItem('spunk_referral_code',v)}catch(e){}document.getElementById('lockGate').classList.add('hidden');if(typeof gtag==='function')gtag('event','code_unlock',{tool:'saas-growth-analyzer'})}else{document.getElementById('codeError').textContent='Invalid code. Try again.'}}
+document.getElementById('codeInput').addEventListener('keydown',function(e){if(e.key==='Enter')submitCode()});
+checkAccess();
+
+var reportData={};
+
+function loadExample(){
+  document.getElementById('mrr').value=50000;
+  document.getElementById('prevMrr').value=45000;
+  document.getElementById('newMrr').value=8000;
+  document.getElementById('expansionMrr').value=3000;
+  document.getElementById('churnedMrr').value=6000;
+  document.getElementById('customers').value=500;
+  document.getElementById('churnedCustomers').value=15;
+  document.getElementById('smSpend').value=60000;
+  document.getElementById('cac').value=500;
+  document.getElementById('grossMargin').value=75;
+  document.getElementById('growthRate').value=80;
+  document.getElementById('profitMargin').value=-20;
+}
+
+function fmt(n){if(Math.abs(n)>=1000000)return '$'+((n/1000000).toFixed(1))+'M';if(Math.abs(n)>=1000)return '$'+((n/1000).toFixed(1))+'K';return '$'+n.toFixed(0)}
+function pct(n){return n.toFixed(1)+'%'}
+function ratio(n){return n.toFixed(2)+'x'}
+
+function gradeColor(score){
+  if(score>=80)return'var(--cyan)';if(score>=60)return'var(--gold)';if(score>=40)return'var(--orange)';return'var(--red)';
+}
+function gradeLabel(score){
+  if(score>=90)return'A+';if(score>=80)return'A';if(score>=70)return'B+';if(score>=60)return'B';if(score>=50)return'C+';if(score>=40)return'C';if(score>=30)return'D';return'F';
+}
+
+function analyze(){
+  var mrr=parseFloat(document.getElementById('mrr').value)||0;
+  var prevMrr=parseFloat(document.getElementById('prevMrr').value)||0;
+  var newMrr=parseFloat(document.getElementById('newMrr').value)||0;
+  var expansionMrr=parseFloat(document.getElementById('expansionMrr').value)||0;
+  var churnedMrr=parseFloat(document.getElementById('churnedMrr').value)||0;
+  var customers=parseInt(document.getElementById('customers').value)||1;
+  var churnedCustomers=parseInt(document.getElementById('churnedCustomers').value)||0;
+  var smSpend=parseFloat(document.getElementById('smSpend').value)||0;
+  var cac=parseFloat(document.getElementById('cac').value)||0;
+  var grossMargin=(parseFloat(document.getElementById('grossMargin').value)||75)/100;
+  var growthRate=parseFloat(document.getElementById('growthRate').value)||0;
+  var profitMargin=parseFloat(document.getElementById('profitMargin').value)||0;
+
+  if(mrr<=0){alert('Please enter your current MRR.');return}
+
+  // Core calculations
+  var arr=mrr*12;
+  var arpu=mrr/customers;
+  var mrrGrowthRate=prevMrr>0?((mrr-prevMrr)/prevMrr)*100:0;
+  var revenueChurnRate=prevMrr>0?(churnedMrr/prevMrr)*100:0;
+  var customerChurnRate=customers>0?(churnedCustomers/(customers+churnedCustomers))*100:0;
+  var netNewMrr=newMrr+expansionMrr-churnedMrr;
+  var ndr=prevMrr>0?((prevMrr+expansionMrr-churnedMrr)/prevMrr)*100:100;
+  var gdr=prevMrr>0?((prevMrr-churnedMrr)/prevMrr)*100:100;
+
+  // Growth efficiency
+  var quickRatio=churnedMrr>0?(newMrr+expansionMrr)/churnedMrr:999;
+  var rule40=growthRate+profitMargin;
+  var burnMultiple=netNewMrr>0?(smSpend/3)/netNewMrr:999;
+  var prevQtrMrr=prevMrr;
+  var netNewQtrMrr=(mrr-prevQtrMrr);
+  var magicNumber=smSpend>0?(netNewQtrMrr*12)/smSpend:0;
+
+  // Unit economics
+  var ltv=revenueChurnRate>0?(arpu*grossMargin)/(revenueChurnRate/100):arpu*grossMargin*60;
+  var ltvCac=cac>0?ltv/cac:0;
+  var cacPayback=arpu*grossMargin>0?cac/(arpu*grossMargin):0;
+
+  // Implied annual churn
+  var annualChurn=1-Math.pow(1-customerChurnRate/100,12);
+
+  reportData={arr:arr,arpu:arpu,mrr:mrr,mrrGrowthRate:mrrGrowthRate,revenueChurnRate:revenueChurnRate,customerChurnRate:customerChurnRate,netNewMrr:netNewMrr,ndr:ndr,gdr:gdr,quickRatio:quickRatio,rule40:rule40,burnMultiple:burnMultiple,magicNumber:magicNumber,ltv:ltv,ltvCac:ltvCac,cacPayback:cacPayback,annualChurn:annualChurn*100};
+
+  // Health Score (0-100)
+  var healthScore=50;
+  if(ndr>=120)healthScore+=15;else if(ndr>=110)healthScore+=10;else if(ndr>=100)healthScore+=5;else healthScore-=10;
+  if(quickRatio>=4)healthScore+=10;else if(quickRatio>=2)healthScore+=5;else healthScore-=10;
+  if(rule40>=40)healthScore+=10;else if(rule40>=20)healthScore+=5;else healthScore-=5;
+  if(ltvCac>=5)healthScore+=10;else if(ltvCac>=3)healthScore+=5;else if(ltvCac<1)healthScore-=15;
+  if(cacPayback<=12)healthScore+=10;else if(cacPayback<=18)healthScore+=5;else healthScore-=5;
+  if(customerChurnRate<=2)healthScore+=5;else if(customerChurnRate>5)healthScore-=10;
+  healthScore=Math.max(0,Math.min(100,healthScore));
+
+  renderHealthScore(healthScore);
+  renderCoreMetrics(arr,arpu,mrrGrowthRate,revenueChurnRate,customerChurnRate,netNewMrr,ndr,gdr);
+  renderGrowthMetrics(quickRatio,rule40,burnMultiple,magicNumber);
+  renderUnitEconomics(ltv,ltvCac,cacPayback,cac,arpu,grossMargin);
+  renderBenchmarks(ndr,quickRatio,rule40,ltvCac,cacPayback,customerChurnRate,magicNumber);
+  renderInsights(ndr,quickRatio,rule40,ltvCac,cacPayback,customerChurnRate,burnMultiple,revenueChurnRate,magicNumber,mrrGrowthRate);
+
+  document.getElementById('results').style.display='block';
+  document.getElementById('results').scrollIntoView({behavior:'smooth'});
+
+  if(typeof gtag==='function')gtag('event','analyze_saas',{tool:'saas-growth-analyzer',mrr:mrr,arr:arr});
+}
+
+function renderHealthScore(score){
+  var el=document.getElementById('healthScore');
+  var color=gradeColor(score);
+  var label=gradeLabel(score);
+  var html='<div style="text-align:center;padding:1rem 0">';
+  html+='<div class="grade-badge" style="color:'+color+';border-color:'+color+';font-size:1.8rem;width:90px;height:90px">'+label+'</div>';
+  html+='<div style="font-size:2.5rem;font-weight:900;color:'+color+';margin-top:0.5rem">'+score+'<span style="font-size:1rem;color:var(--text-dim)">/100</span></div>';
+  html+='<div style="font-size:0.9rem;color:var(--text-dim);margin-top:0.3rem">SaaS Health Score</div>';
+  html+='</div>';
+  if(score>=80)html+='<div class="alert-box alert-ok">&#9989; Strong SaaS fundamentals. Your metrics indicate efficient, healthy growth. Keep optimizing.</div>';
+  else if(score>=60)html+='<div class="alert-box alert-warning">&#128161; Good foundation, but there are areas to strengthen. Review the insights below for specific actions.</div>';
+  else if(score>=40)html+='<div class="alert-box alert-warning">&#9888; Several metrics need attention. Prioritize fixing churn and unit economics before scaling spend.</div>';
+  else html+='<div class="alert-box alert-danger">&#9888; Critical issues detected. Pause growth spending and fix fundamentals before they compound.</div>';
+  el.innerHTML=html;
+}
+
+function renderCoreMetrics(arr,arpu,mrrGrowthRate,revenueChurnRate,customerChurnRate,netNewMrr,ndr,gdr){
+  var el=document.getElementById('coreMetrics');
+  var html='<div class="metrics-grid">';
+  html+='<div class="metric-card"><div class="lbl">ARR</div><div class="val" style="color:var(--gold)">'+fmt(arr)+'</div><div class="sub">Annual Recurring Revenue</div></div>';
+  html+='<div class="metric-card"><div class="lbl">ARPU</div><div class="val" style="color:var(--blue)">'+fmt(arpu)+'</div><div class="sub">per customer/month</div></div>';
+  html+='<div class="metric-card"><div class="lbl">MRR Growth</div><div class="val" style="color:'+(mrrGrowthRate>0?'var(--cyan)':'var(--red)')+'">'+pct(mrrGrowthRate)+'</div><div class="sub">month-over-month</div></div>';
+  html+='<div class="metric-card"><div class="lbl">Net New MRR</div><div class="val" style="color:'+(netNewMrr>0?'var(--cyan)':'var(--red)')+'">'+fmt(netNewMrr)+'</div><div class="sub">growth this month</div></div>';
+  html+='<div class="metric-card"><div class="lbl">NDR</div><div class="val" style="color:'+(ndr>=100?'var(--cyan)':'var(--red)')+'">'+pct(ndr)+'</div><div class="sub">Net Dollar Retention</div></div>';
+  html+='<div class="metric-card"><div class="lbl">GDR</div><div class="val" style="color:'+(gdr>=90?'var(--cyan)':gdr>=80?'var(--gold)':'var(--red)')+'">'+pct(gdr)+'</div><div class="sub">Gross Dollar Retention</div></div>';
+  html+='<div class="metric-card"><div class="lbl">Revenue Churn</div><div class="val" style="color:'+(revenueChurnRate<=3?'var(--cyan)':revenueChurnRate<=7?'var(--gold)':'var(--red)')+'">'+pct(revenueChurnRate)+'</div><div class="sub">monthly MRR churn</div></div>';
+  html+='<div class="metric-card"><div class="lbl">Logo Churn</div><div class="val" style="color:'+(customerChurnRate<=3?'var(--cyan)':customerChurnRate<=5?'var(--gold)':'var(--red)')+'">'+pct(customerChurnRate)+'</div><div class="sub">monthly customer churn</div></div>';
+  html+='</div>';
+  el.innerHTML=html;
+}
+
+function renderGrowthMetrics(quickRatio,rule40,burnMultiple,magicNumber){
+  var el=document.getElementById('growthMetrics');
+  var html='<div class="metrics-grid">';
+  html+='<div class="metric-card"><div class="lbl">Quick Ratio</div><div class="val" style="color:'+(quickRatio>=4?'var(--cyan)':quickRatio>=2?'var(--gold)':'var(--red)')+'">'+(quickRatio>=100?'>99':ratio(quickRatio))+'</div><div class="sub">New+Expansion / Churn</div></div>';
+  html+='<div class="metric-card"><div class="lbl">Rule of 40</div><div class="val" style="color:'+(rule40>=40?'var(--cyan)':rule40>=20?'var(--gold)':'var(--red)')+'">'+rule40.toFixed(0)+'</div><div class="sub">Growth% + Profit%</div></div>';
+  html+='<div class="metric-card"><div class="lbl">Burn Multiple</div><div class="val" style="color:'+(burnMultiple<=1?'var(--cyan)':burnMultiple<=2?'var(--gold)':'var(--red)')+'">'+(burnMultiple>=100?'N/A':ratio(burnMultiple))+'</div><div class="sub">Net Burn / Net New ARR</div></div>';
+  html+='<div class="metric-card"><div class="lbl">Magic Number</div><div class="val" style="color:'+(magicNumber>=0.75?'var(--cyan)':magicNumber>=0.5?'var(--gold)':'var(--red)')+'">'+magicNumber.toFixed(2)+'</div><div class="sub">S&M Efficiency</div></div>';
+  html+='</div>';
+  el.innerHTML=html;
+}
+
+function renderUnitEconomics(ltv,ltvCac,cacPayback,cac,arpu,grossMargin){
+  var el=document.getElementById('unitEconomics');
+  var html='<div class="metrics-grid">';
+  html+='<div class="metric-card"><div class="lbl">LTV</div><div class="val" style="color:var(--gold)">'+fmt(ltv)+'</div><div class="sub">Customer Lifetime Value</div></div>';
+  html+='<div class="metric-card"><div class="lbl">LTV:CAC</div><div class="val" style="color:'+(ltvCac>=5?'var(--cyan)':ltvCac>=3?'var(--gold)':'var(--red)')+'">'+ratio(ltvCac)+'</div><div class="sub">Target: >3x</div></div>';
+  html+='<div class="metric-card"><div class="lbl">CAC Payback</div><div class="val" style="color:'+(cacPayback<=12?'var(--cyan)':cacPayback<=18?'var(--gold)':'var(--red)')+'">'+cacPayback.toFixed(1)+'</div><div class="sub">months to recover CAC</div></div>';
+  html+='<div class="metric-card"><div class="lbl">Monthly GM/Customer</div><div class="val" style="color:var(--blue)">'+fmt(arpu*grossMargin)+'</div><div class="sub">gross margin per customer</div></div>';
+  html+='</div>';
+  el.innerHTML=html;
+}
+
+function renderBenchmarks(ndr,quickRatio,rule40,ltvCac,cacPayback,customerChurnRate,magicNumber){
+  var el=document.getElementById('benchmarks');
+  var metrics=[
+    {name:'NDR',val:ndr,good:120,ok:100,unit:'%',desc:'Best-in-class: >120%. Good: >100%. Below 100% = shrinking revenue from existing customers.'},
+    {name:'Quick Ratio',val:quickRatio>99?99:quickRatio,good:4,ok:2,unit:'x',desc:'Elite: >4x. Healthy: >2x. Below 1x = losing more MRR than gaining.'},
+    {name:'Rule of 40',val:rule40,good:40,ok:20,unit:'',desc:'Growth%+Profit% > 40 = top quartile. Best SaaS companies exceed 60.'},
+    {name:'LTV:CAC',val:ltvCac,good:5,ok:3,unit:'x',desc:'Target >3x. Below 1x = losing money per customer. Above 5x = potential underinvestment.'},
+    {name:'CAC Payback',val:cacPayback,good:12,ok:18,unit:' mo',desc:'Under 12 months is strong. Over 18 months is concerning for capital efficiency.',invert:true},
+    {name:'Logo Churn',val:customerChurnRate,good:2,ok:5,unit:'%',desc:'Enterprise: <1%. SMB: <3%. Consumer: <5%. Above 7% is a red flag.',invert:true},
+    {name:'Magic Number',val:magicNumber,good:0.75,ok:0.5,unit:'',desc:'Above 0.75: scale aggressively. 0.5-0.75: cautious scaling. Below 0.5: fix efficiency first.'}
+  ];
+
+  var html='';
+  metrics.forEach(function(m){
+    var pctFill,color;
+    if(m.invert){
+      pctFill=Math.max(5,Math.min(100,(1-m.val/m.ok*0.5)*100));
+      color=m.val<=m.good?'var(--cyan)':m.val<=m.ok?'var(--gold)':'var(--red)';
+    }else{
+      pctFill=Math.max(5,Math.min(100,(m.val/m.good)*50+20));
+      color=m.val>=m.good?'var(--cyan)':m.val>=m.ok?'var(--gold)':'var(--red)';
+    }
+    html+='<div style="margin-bottom:1rem">';
+    html+='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px"><span style="font-size:0.85rem;font-weight:700">'+m.name+'</span><span style="font-size:0.85rem;font-weight:800;color:'+color+'">'+(m.val>99?'>99':m.val.toFixed(1))+m.unit+'</span></div>';
+    html+='<div class="bar-track"><div class="bar-fill" style="width:'+pctFill+'%;background:'+color+'">&nbsp;</div></div>';
+    html+='<div style="font-size:0.72rem;color:var(--text-dim);margin-top:2px">'+m.desc+'</div>';
+    html+='</div>';
+  });
+  el.innerHTML=html;
+}
+
+function renderInsights(ndr,quickRatio,rule40,ltvCac,cacPayback,customerChurnRate,burnMultiple,revenueChurnRate,magicNumber,mrrGrowthRate){
+  var el=document.getElementById('insights');
+  var insights=[];
+
+  if(ndr<100)insights.push({icon:'&#128680;',title:'Revenue Contraction Alert',text:'Your NDR of '+pct(ndr)+' means existing customers are shrinking. Focus on: (1) customer success to reduce churn, (2) upsell/cross-sell motions to increase expansion, (3) product stickiness through deeper integrations and workflows.',priority:1});
+  else if(ndr>=120)insights.push({icon:'&#9989;',title:'Strong NDR',text:'NDR of '+pct(ndr)+' is excellent. Your expansion engine is working. Consider: investing more in land-and-expand motions, as each new customer has strong revenue upside.',priority:3});
+
+  if(quickRatio<2)insights.push({icon:'&#128680;',title:'Leaky Bucket',text:'Quick Ratio of '+ratio(quickRatio)+' means growth is inefficient - you are losing too much MRR relative to what you add. Fix churn before spending more on acquisition. Every $1 saved in churn is more valuable than $1 in new MRR.',priority:1});
+  else if(quickRatio>=4)insights.push({icon:'&#128640;',title:'Efficient Growth',text:'Quick Ratio of '+ratio(quickRatio)+' is elite. Your growth engine is highly efficient. This is a signal you can safely accelerate S&M spend.',priority:3});
+
+  if(rule40<20)insights.push({icon:'&#9888;',title:'Rule of 40 Gap',text:'Score of '+rule40.toFixed(0)+' is below target. If growing fast, focus on path to profitability. If growing slow, need to either cut costs or invest in growth. Pick a lane - being mediocre at both is the worst outcome.',priority:1});
+  else if(rule40>=40)insights.push({icon:'&#127942;',title:'Rule of 40 Winner',text:'Score of '+rule40.toFixed(0)+' puts you in the top quartile of SaaS companies. This combination of growth and efficiency commands premium valuations (10-20x ARR).',priority:3});
+
+  if(ltvCac<3)insights.push({icon:'&#128176;',title:'Unit Economics Warning',text:'LTV:CAC of '+ratio(ltvCac)+' is below the 3x threshold. Either reduce CAC (optimize channels, improve conversion), increase LTV (reduce churn, raise prices), or both. Do not scale acquisition until this is fixed.',priority:1});
+  if(ltvCac>8)insights.push({icon:'&#128161;',title:'Underinvesting in Growth?',text:'LTV:CAC of '+ratio(ltvCac)+' is very high. While unit economics are great, you may be leaving growth on the table. Consider increasing S&M spend - you have a lot of headroom before hitting diminishing returns.',priority:2});
+
+  if(cacPayback>18)insights.push({icon:'&#9200;',title:'Slow CAC Payback',text:'At '+cacPayback.toFixed(1)+' months to recover CAC, your cash efficiency is strained. Consider: annual prepay pricing (discount for upfront payment), reducing CAC through referral programs, or focusing on higher-ARPU segments.',priority:1});
+
+  if(customerChurnRate>5)insights.push({icon:'&#128683;',title:'Churn Emergency',text:'Monthly logo churn of '+pct(customerChurnRate)+' means you lose ~'+pct(reportData.annualChurn)+' of customers annually. This will cap growth regardless of acquisition. Top priorities: (1) customer success automation, (2) activation improvements, (3) exit surveys and win-back campaigns.',priority:1});
+
+  if(magicNumber>=0.75)insights.push({icon:'&#128170;',title:'Scale Signal: Magic Number',text:'Magic Number of '+magicNumber.toFixed(2)+' indicates your S&M spend converts efficiently to ARR. This is a green light to increase investment in sales and marketing.',priority:2});
+  else if(magicNumber<0.5&&magicNumber>0)insights.push({icon:'&#9888;',title:'S&M Efficiency Issue',text:'Magic Number of '+magicNumber.toFixed(2)+' suggests low S&M ROI. Before spending more: audit channel performance, optimize sales cycle, improve lead qualification, or consider product-led growth to reduce CAC.',priority:1});
+
+  if(mrrGrowthRate>15)insights.push({icon:'&#128640;',title:'Hypergrowth Mode',text:'MoM growth of '+pct(mrrGrowthRate)+' is exceptional. Focus on: (1) not breaking what works, (2) investing in infrastructure to sustain it, (3) documenting your playbook now while it is fresh.',priority:2});
+
+  insights.sort(function(a,b){return a.priority-b.priority});
+
+  var html='';
+  if(insights.length===0)insights.push({icon:'&#128202;',title:'Balanced Profile',text:'Your metrics are within normal ranges. Focus on incrementally improving each metric - small improvements compound over time.'});
+  insights.forEach(function(ins){
+    html+='<div class="insight-card"><strong>'+ins.icon+' '+ins.title+'</strong><br>'+ins.text+'</div>';
+  });
+  el.innerHTML=html;
+}
+
+function exportReport(){
+  var r=reportData;
+  var csv='Metric,Value\n';
+  csv+='ARR,'+r.arr+'\nARPU,'+r.arpu.toFixed(2)+'\nMRR Growth Rate,'+r.mrrGrowthRate.toFixed(2)+'%\n';
+  csv+='NDR,'+r.ndr.toFixed(2)+'%\nGDR,'+r.gdr.toFixed(2)+'%\nRevenue Churn Rate,'+r.revenueChurnRate.toFixed(2)+'%\n';
+  csv+='Customer Churn Rate,'+r.customerChurnRate.toFixed(2)+'%\nNet New MRR,'+r.netNewMrr+'\n';
+  csv+='Quick Ratio,'+r.quickRatio.toFixed(2)+'\nRule of 40,'+r.rule40.toFixed(0)+'\n';
+  csv+='Burn Multiple,'+r.burnMultiple.toFixed(2)+'\nMagic Number,'+r.magicNumber.toFixed(2)+'\n';
+  csv+='LTV,'+r.ltv.toFixed(0)+'\nLTV:CAC,'+r.ltvCac.toFixed(2)+'\nCAC Payback (months),'+r.cacPayback.toFixed(1)+'\n';
+  var blob=new Blob([csv],{type:'text/csv'});
+  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='saas-growth-analysis.csv';a.click();
+  if(typeof gtag==='function')gtag('event','export_csv',{tool:'saas-growth-analyzer'});
+}
+
+function copyReport(){
+  var r=reportData;
+  var txt='SaaS Growth Analysis\n========================\n';
+  txt+='ARR: '+fmt(r.arr)+'\nARPU: '+fmt(r.arpu)+'\nMRR Growth: '+pct(r.mrrGrowthRate)+'\n';
+  txt+='NDR: '+pct(r.ndr)+'\nQuick Ratio: '+ratio(r.quickRatio)+'\nRule of 40: '+r.rule40.toFixed(0)+'\n';
+  txt+='LTV:CAC: '+ratio(r.ltvCac)+'\nCAC Payback: '+r.cacPayback.toFixed(1)+' months\n';
+  txt+='Magic Number: '+r.magicNumber.toFixed(2)+'\n\nGenerated by spunk.codes/exclusive/saas-growth-analyzer';
+  navigator.clipboard.writeText(txt).then(function(){alert('Report copied to clipboard!')});
+}
+
+function shareX(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Just analyzed my SaaS metrics. Know your numbers. Free tool from @SpunkArt13 (code: SPUNK)')+'&url='+encodeURIComponent('https://spunk.codes/exclusive-tools'),'_blank')}
+
+// === Code Protection ===
+document.addEventListener('contextmenu',function(e){e.preventDefault()});
+document.addEventListener('keydown',function(e){if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'))||(e.ctrlKey&&e.key==='u'))e.preventDefault()});
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<script src="/auto-monetize.js"></script>
+<div id="shareXBtn" style="position:fixed;left:20px;bottom:20px;z-index:9999;">
+  <a id="shareXLink" href="#" target="_blank" rel="noopener noreferrer" title="Share on X"
+     style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;
+     background:rgba(255,215,0,0.15);border:1px solid rgba(255,215,0,0.3);
+     backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:50%;
+     text-decoration:none;transition:all 0.3s ease;cursor:pointer;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+    </svg>
+  </a>
+</div>
+<style>#shareXBtn a:hover{background:rgba(255,215,0,0.35)!important;border-color:rgba(255,215,0,0.6)!important;transform:scale(1.1);box-shadow:0 0 15px rgba(255,215,0,0.3)}</style>
+<script>
+(function(){var page=location.pathname.split("/").pop()||"index.html";var url="https://spunk.codes/exclusive/"+page;var text="Just analyzed my SaaS growth metrics on spunk.codes @SpunkArt13";var href="https://x.com/intent/tweet?text="+encodeURIComponent(text)+"&url="+encodeURIComponent(url);document.getElementById("shareXLink").href=href})();
+</script>
+<script src="/usage-tracker.js"></script>
+</body>
+</html>

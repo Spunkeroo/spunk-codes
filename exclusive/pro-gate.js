@@ -313,7 +313,7 @@
         '<h2><span>' + escapeHtml(TOOL_NAME) + '</span> is a Pro tool</h2>' +
         '<p>Unlock this tool and 33 more exclusive pro tools, plus all ebooks ($200+ value), no ads, and priority updates.</p>' +
         '<div class="sc-pro-gate-features">' +
-          '<div>34 exclusive pro tools</div>' +
+          '<div>75 exclusive pro tools</div>' +
           '<div>All ebooks included</div>' +
           '<div>No ads anywhere</div>' +
           '<div>Export to all formats</div>' +
@@ -374,7 +374,7 @@
     var banner = document.createElement('div');
     banner.id = 'sc-pro-gate-banner';
     banner.innerHTML =
-      '<span class="sc-pgb-text">&#128274; <span>' + escapeHtml(TOOL_NAME) + '</span> is a Pro tool. Upgrade for full access to 34 exclusive tools + all ebooks.' + trialText + '</span>' +
+      '<span class="sc-pgb-text">&#128274; <span>' + escapeHtml(TOOL_NAME) + '</span> is a Pro tool. Upgrade for full access to 75 exclusive tools + all ebooks.' + trialText + '</span>' +
       '<a href="' + CHECKOUT_URL + '?plan=pro-annual&tool=' + encodeURIComponent(TOOL_NAME) + '" class="sc-pgb-cta">Upgrade to Pro &rarr;</a>' +
       '<button class="sc-pgb-close" aria-label="Dismiss">&times;</button>';
 
