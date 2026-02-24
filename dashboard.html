@@ -1,0 +1,1725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dashboard | SPUNK.CODES</title>
+<meta name="description" content="Your SPUNK.CODES dashboard — manage tools, ebooks, referrals, rewards, and account settings all in one place.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="author" content="SPUNK.CODES">
+
+<!-- Open Graph -->
+<meta property="og:title" content="SPUNK.CODES Dashboard">
+<meta property="og:description" content="Manage your tools, ebooks, referrals, and rewards.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://spunk.codes/dashboard">
+<meta property="og:site_name" content="SPUNK.CODES">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@SpunkArt13">
+<meta name="twitter:title" content="SPUNK.CODES Dashboard">
+
+<link rel="canonical" href="https://spunk.codes/dashboard">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+
+<!-- GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<!-- Microsoft Clarity -->
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+
+<style>
+/* ===========================================================
+   SPUNK.CODES Dashboard — Brand Dark Theme
+   =========================================================== */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0d1117;--bg-card:#161b22;--bg-elevated:#1c2128;
+  --border:#21262d;--border-light:#30363d;
+  --blue:#58a6ff;--green:#39d353;--purple:#bc8cff;--red:#f85149;--orange:#d29922;--cyan:#56d4dd;
+  --text:#e6edf3;--text-secondary:#8b949e;--text-muted:#484f58;
+  --sidebar-w:240px;
+  --nav-h:56px;
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
+  background:var(--bg);color:var(--text);line-height:1.5;
+  min-height:100vh;overflow-x:hidden;
+}
+a{color:var(--blue);text-decoration:none;transition:color .2s}
+a:hover{color:#79c0ff}
+button{font-family:inherit;cursor:pointer}
+input,select,textarea{font-family:inherit}
+
+/* ── TOP NAV ─────────────────────────────────── */
+.dash-nav{
+  position:fixed;top:0;left:0;right:0;height:var(--nav-h);z-index:100;
+  background:rgba(13,17,23,.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;padding:0 20px;gap:16px;
+}
+.dash-logo{
+  font-size:16px;font-weight:800;letter-spacing:1px;color:var(--text);
+  display:flex;align-items:center;gap:8px;white-space:nowrap;
+}
+.dash-logo span{color:var(--blue)}
+.dash-logo-dot{width:8px;height:8px;border-radius:50%;background:var(--green);flex-shrink:0}
+.dash-nav-spacer{flex:1}
+.dash-profile-btn{
+  display:flex;align-items:center;gap:8px;
+  background:none;border:1px solid var(--border);border-radius:8px;
+  padding:6px 12px;color:var(--text);font-size:13px;font-weight:600;
+  transition:all .2s;
+}
+.dash-profile-btn:hover{border-color:var(--blue);background:rgba(88,166,255,.06)}
+.dash-profile-avatar{
+  width:28px;height:28px;border-radius:50%;
+  background:linear-gradient(135deg,var(--blue),var(--purple));
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:800;color:#fff;
+}
+
+/* ── TIER BADGES ─────────────────────────────── */
+.tier-badge{
+  display:inline-flex;align-items:center;gap:4px;
+  padding:2px 10px;border-radius:20px;
+  font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;
+  white-space:nowrap;
+}
+.tier-free{background:rgba(139,148,158,.12);color:var(--text-secondary);border:1px solid rgba(139,148,158,.2)}
+.tier-pro{background:rgba(88,166,255,.12);color:var(--blue);border:1px solid rgba(88,166,255,.25)}
+.tier-lifetime{background:rgba(57,211,83,.12);color:var(--green);border:1px solid rgba(57,211,83,.25)}
+.tier-whitelabel{background:rgba(188,140,255,.12);color:var(--purple);border:1px solid rgba(188,140,255,.25)}
+.tier-referral{background:rgba(210,153,34,.12);color:var(--orange);border:1px solid rgba(210,153,34,.25)}
+
+/* ── SIDEBAR (Desktop) ───────────────────────── */
+.dash-sidebar{
+  position:fixed;top:var(--nav-h);left:0;bottom:0;width:var(--sidebar-w);
+  background:var(--bg);border-right:1px solid var(--border);
+  padding:16px 0;overflow-y:auto;z-index:90;
+}
+.dash-sidebar-section{padding:0 12px;margin-bottom:20px}
+.dash-sidebar-label{
+  font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;
+  color:var(--text-muted);padding:0 12px;margin-bottom:8px;
+}
+.dash-tab-btn{
+  display:flex;align-items:center;gap:10px;width:100%;
+  padding:9px 12px;border:none;border-radius:8px;
+  background:transparent;color:var(--text-secondary);
+  font-size:13px;font-weight:500;text-align:left;
+  transition:all .15s;
+}
+.dash-tab-btn:hover{background:rgba(88,166,255,.06);color:var(--text)}
+.dash-tab-btn.active{background:rgba(88,166,255,.1);color:var(--blue);font-weight:600}
+.dash-tab-btn svg{width:18px;height:18px;flex-shrink:0;opacity:.7}
+.dash-tab-btn.active svg{opacity:1}
+.dash-tab-count{
+  margin-left:auto;font-size:11px;font-weight:600;
+  background:var(--bg-card);border-radius:10px;padding:1px 7px;
+  color:var(--text-muted);
+}
+.dash-tab-btn.active .dash-tab-count{background:rgba(88,166,255,.15);color:var(--blue)}
+
+/* ── MAIN CONTENT ────────────────────────────── */
+.dash-main{
+  margin-left:var(--sidebar-w);padding-top:var(--nav-h);
+  min-height:100vh;
+}
+.dash-content{
+  padding:24px 28px 60px;max-width:1100px;
+}
+
+/* ── CARDS ───────────────────────────────────── */
+.card{
+  background:var(--bg-card);border:1px solid var(--border);
+  border-radius:12px;padding:20px;margin-bottom:16px;
+}
+.card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.card-title{font-size:15px;font-weight:700;color:var(--text)}
+.card-subtitle{font-size:12px;color:var(--text-muted);margin-top:2px}
+
+/* ── STATS ROW ───────────────────────────────── */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+.stat-card{
+  background:var(--bg-card);border:1px solid var(--border);border-radius:10px;
+  padding:16px;text-align:center;
+}
+.stat-value{font-size:26px;font-weight:800;line-height:1.2;margin-bottom:2px}
+.stat-label{font-size:12px;color:var(--text-secondary);font-weight:500}
+.stat-blue .stat-value{color:var(--blue)}
+.stat-green .stat-value{color:var(--green)}
+.stat-purple .stat-value{color:var(--purple)}
+.stat-orange .stat-value{color:var(--orange)}
+
+/* ── QUICK ACTIONS ───────────────────────────── */
+.quick-actions{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}
+.qa-btn{
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  padding:18px 12px;background:var(--bg-card);border:1px solid var(--border);
+  border-radius:10px;color:var(--text);font-size:12px;font-weight:600;
+  text-align:center;transition:all .2s;text-decoration:none;
+}
+.qa-btn:hover{border-color:var(--blue);background:rgba(88,166,255,.04);color:var(--blue);transform:translateY(-2px)}
+.qa-btn svg{width:22px;height:22px;opacity:.6}
+.qa-btn:hover svg{opacity:1}
+
+/* ── ACTIVITY FEED ───────────────────────────── */
+.activity-item{
+  display:flex;align-items:center;gap:12px;
+  padding:10px 0;border-bottom:1px solid rgba(33,38,45,.5);
+}
+.activity-item:last-child{border-bottom:none}
+.activity-icon{
+  width:32px;height:32px;border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;flex-shrink:0;
+}
+.activity-icon.tool{background:rgba(88,166,255,.1);color:var(--blue)}
+.activity-icon.ebook{background:rgba(188,140,255,.1);color:var(--purple)}
+.activity-icon.referral{background:rgba(57,211,83,.1);color:var(--green)}
+.activity-icon.reward{background:rgba(210,153,34,.1);color:var(--orange)}
+.activity-text{font-size:13px;color:var(--text);flex:1}
+.activity-text span{color:var(--text-secondary)}
+.activity-time{font-size:11px;color:var(--text-muted);white-space:nowrap}
+
+/* ── TOOL GRID ───────────────────────────────── */
+.tools-search{
+  display:flex;gap:10px;margin-bottom:16px;align-items:center;
+}
+.tools-search-input{
+  flex:1;padding:10px 14px;background:var(--bg);
+  border:1px solid var(--border);border-radius:8px;
+  color:var(--text);font-size:13px;outline:none;
+  transition:border-color .2s;
+}
+.tools-search-input:focus{border-color:var(--blue)}
+.tools-search-input::placeholder{color:var(--text-muted)}
+.tools-filter{
+  padding:10px 14px;background:var(--bg);
+  border:1px solid var(--border);border-radius:8px;
+  color:var(--text);font-size:13px;outline:none;
+  appearance:none;-webkit-appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%238b949e' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 12px center;
+  padding-right:32px;cursor:pointer;
+}
+.category-header{
+  font-size:13px;font-weight:700;color:var(--text-secondary);
+  text-transform:uppercase;letter-spacing:1px;
+  padding:16px 0 8px;border-bottom:1px solid var(--border);margin-bottom:12px;
+  display:flex;align-items:center;gap:8px;
+}
+.category-header span{
+  background:var(--bg-elevated);border-radius:10px;
+  padding:2px 8px;font-size:11px;color:var(--text-muted);font-weight:600;
+}
+.tool-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin-bottom:24px}
+.tool-card{
+  display:flex;align-items:center;gap:12px;
+  padding:12px;background:var(--bg);border:1px solid var(--border);
+  border-radius:10px;transition:all .2s;position:relative;overflow:hidden;
+}
+.tool-card:hover{border-color:var(--border-light);background:var(--bg-elevated)}
+.tool-card.locked{opacity:.55}
+.tool-card.locked:hover{opacity:.7}
+.tool-icon{
+  width:36px;height:36px;border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;flex-shrink:0;
+}
+.tool-info{flex:1;min-width:0}
+.tool-name{font-size:13px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tool-desc{font-size:11px;color:var(--text-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tool-uses{font-size:10px;color:var(--text-muted);margin-top:1px}
+.tool-action{flex-shrink:0}
+.tool-open-btn{
+  padding:5px 12px;border-radius:6px;font-size:11px;font-weight:600;
+  border:none;transition:all .2s;
+}
+.tool-open-btn.unlocked{background:rgba(88,166,255,.12);color:var(--blue)}
+.tool-open-btn.unlocked:hover{background:rgba(88,166,255,.2)}
+.tool-open-btn.lock{background:rgba(139,148,158,.08);color:var(--text-muted);cursor:default}
+
+/* ── EBOOK GRID ──────────────────────────────── */
+.ebook-banner{
+  background:linear-gradient(135deg,rgba(188,140,255,.08),rgba(88,166,255,.08));
+  border:1px solid rgba(188,140,255,.2);border-radius:10px;
+  padding:14px 20px;margin-bottom:16px;display:flex;align-items:center;gap:12px;
+}
+.ebook-banner-text{font-size:13px;color:var(--text);font-weight:600}
+.ebook-banner-text span{color:var(--purple)}
+.ebook-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+.ebook-card{
+  background:var(--bg);border:1px solid var(--border);border-radius:10px;
+  overflow:hidden;transition:all .2s;
+}
+.ebook-card:hover{border-color:var(--border-light);transform:translateY(-2px)}
+.ebook-cover{
+  height:120px;display:flex;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;
+}
+.ebook-cover-inner{
+  font-size:32px;opacity:.4;position:absolute;
+}
+.ebook-cover-title{
+  position:relative;z-index:1;font-size:12px;font-weight:800;
+  color:#fff;text-align:center;padding:12px;
+  text-transform:uppercase;letter-spacing:.5px;line-height:1.3;
+  text-shadow:0 2px 8px rgba(0,0,0,.5);
+}
+.ebook-body{padding:12px}
+.ebook-title{font-size:13px;font-weight:700;color:var(--text);line-height:1.3;margin-bottom:4px}
+.ebook-meta{display:flex;align-items:center;justify-content:space-between;margin-top:8px}
+.ebook-downloads{font-size:11px;color:var(--text-muted)}
+.ebook-read-btn{
+  padding:5px 14px;border-radius:6px;font-size:11px;font-weight:600;
+  border:none;background:rgba(188,140,255,.12);color:var(--purple);
+  transition:all .2s;
+}
+.ebook-read-btn:hover{background:rgba(188,140,255,.2)}
+
+/* ── REFERRALS ───────────────────────────────── */
+.ref-link-box{
+  display:flex;gap:8px;margin-bottom:16px;align-items:center;
+}
+.ref-link-input{
+  flex:1;padding:10px 14px;background:var(--bg);
+  border:1px solid var(--border);border-radius:8px;
+  color:var(--blue);font-size:13px;font-family:monospace;outline:none;
+}
+.ref-copy-btn{
+  padding:10px 18px;background:linear-gradient(135deg,var(--blue),#388bfd);
+  color:#fff;border:none;border-radius:8px;
+  font-size:13px;font-weight:700;transition:all .2s;white-space:nowrap;
+}
+.ref-copy-btn:hover{transform:scale(1.03);box-shadow:0 4px 16px rgba(88,166,255,.3)}
+.share-buttons{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.share-btn{
+  display:flex;align-items:center;gap:6px;padding:8px 16px;
+  border:1px solid var(--border);border-radius:8px;background:var(--bg);
+  color:var(--text);font-size:12px;font-weight:600;transition:all .2s;
+}
+.share-btn:hover{border-color:var(--blue);background:rgba(88,166,255,.04)}
+.share-btn svg{width:14px;height:14px}
+
+.commission-table{width:100%;border-collapse:collapse;margin:12px 0}
+.commission-table th,.commission-table td{
+  text-align:left;padding:10px 14px;font-size:13px;
+  border-bottom:1px solid var(--border);
+}
+.commission-table th{color:var(--text-secondary);font-weight:600;font-size:12px}
+.commission-table td{color:var(--text)}
+.commission-table tr.current-tier{background:rgba(88,166,255,.05)}
+.commission-rate{font-weight:700}
+
+.payout-table{width:100%;border-collapse:collapse;margin:12px 0}
+.payout-table th,.payout-table td{
+  text-align:left;padding:8px 14px;font-size:12px;
+  border-bottom:1px solid var(--border);
+}
+.payout-table th{color:var(--text-secondary);font-weight:600}
+.payout-empty{text-align:center;padding:24px;color:var(--text-muted);font-size:13px}
+
+.promo-box{
+  background:linear-gradient(135deg,rgba(57,211,83,.06),rgba(88,166,255,.06));
+  border:1px solid rgba(57,211,83,.2);border-radius:10px;
+  padding:20px;text-align:center;margin-top:16px;
+}
+.promo-code{
+  font-size:28px;font-weight:800;letter-spacing:4px;
+  color:var(--green);margin:8px 0;
+}
+
+/* ── REWARDS ─────────────────────────────────── */
+.progress-section{margin-bottom:20px}
+.progress-bar-wrap{
+  height:8px;background:var(--bg);border-radius:4px;overflow:hidden;
+  border:1px solid var(--border);margin:8px 0;
+}
+.progress-bar-fill{
+  height:100%;border-radius:4px;transition:width .5s ease;
+  background:linear-gradient(90deg,var(--blue),var(--green));
+}
+.progress-labels{display:flex;justify-content:space-between;font-size:11px;color:var(--text-muted)}
+.milestones{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;margin-bottom:20px}
+.milestone{
+  padding:14px;background:var(--bg);border:1px solid var(--border);border-radius:10px;
+  text-align:center;transition:all .2s;
+}
+.milestone.reached{border-color:rgba(57,211,83,.3);background:rgba(57,211,83,.04)}
+.milestone-icon{font-size:22px;margin-bottom:4px}
+.milestone-title{font-size:12px;font-weight:700;color:var(--text)}
+.milestone-desc{font-size:11px;color:var(--text-muted);margin-top:2px}
+.milestone-check{
+  display:inline-flex;align-items:center;gap:3px;margin-top:4px;
+  font-size:10px;font-weight:700;border-radius:10px;padding:2px 8px;
+}
+.milestone-check.done{background:rgba(57,211,83,.12);color:var(--green)}
+.milestone-check.pending{background:rgba(139,148,158,.08);color:var(--text-muted)}
+
+.badges-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin-bottom:20px}
+.badge-card{
+  padding:16px;background:var(--bg);border:1px solid var(--border);border-radius:10px;
+  text-align:center;transition:all .2s;
+}
+.badge-card.earned{border-color:rgba(210,153,34,.3);background:rgba(210,153,34,.04)}
+.badge-card.locked{opacity:.4}
+.badge-icon{font-size:28px;margin-bottom:6px}
+.badge-name{font-size:11px;font-weight:700;color:var(--text)}
+.badge-req{font-size:10px;color:var(--text-muted);margin-top:2px}
+
+.points-display{
+  display:flex;align-items:center;gap:20px;padding:20px;
+  background:linear-gradient(135deg,rgba(210,153,34,.06),rgba(188,140,255,.06));
+  border:1px solid rgba(210,153,34,.2);border-radius:12px;
+}
+.points-number{font-size:36px;font-weight:800;color:var(--orange)}
+.points-label{font-size:12px;color:var(--text-secondary);font-weight:600}
+.points-level{
+  padding:4px 12px;border-radius:20px;font-size:12px;font-weight:700;
+  display:inline-flex;align-items:center;gap:4px;
+}
+.level-bronze{background:rgba(205,127,50,.12);color:#cd7f32;border:1px solid rgba(205,127,50,.2)}
+.level-silver{background:rgba(192,192,192,.12);color:#c0c0c0;border:1px solid rgba(192,192,192,.2)}
+.level-gold{background:rgba(255,215,0,.12);color:#ffd700;border:1px solid rgba(255,215,0,.2)}
+.level-platinum{background:rgba(138,168,196,.12);color:#8aa8c4;border:1px solid rgba(138,168,196,.2)}
+.level-diamond{background:rgba(185,242,255,.12);color:#b9f2ff;border:1px solid rgba(185,242,255,.2)}
+
+/* ── SETTINGS ────────────────────────────────── */
+.settings-group{margin-bottom:24px}
+.settings-group-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:12px}
+.settings-row{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:12px 0;border-bottom:1px solid rgba(33,38,45,.5);
+}
+.settings-row:last-child{border-bottom:none}
+.settings-label{font-size:13px;color:var(--text)}
+.settings-label small{display:block;font-size:11px;color:var(--text-muted);font-weight:400;margin-top:2px}
+.settings-input{
+  padding:8px 12px;background:var(--bg);border:1px solid var(--border);
+  border-radius:6px;color:var(--text);font-size:13px;outline:none;
+  width:260px;transition:border-color .2s;
+}
+.settings-input:focus{border-color:var(--blue)}
+.settings-toggle{
+  position:relative;width:40px;height:22px;
+  background:var(--border);border-radius:11px;
+  cursor:pointer;transition:background .2s;border:none;
+}
+.settings-toggle.on{background:var(--green)}
+.settings-toggle::after{
+  content:'';position:absolute;top:2px;left:2px;
+  width:18px;height:18px;border-radius:50%;
+  background:#fff;transition:transform .2s;
+}
+.settings-toggle.on::after{transform:translateX(18px)}
+.settings-btn{
+  padding:8px 18px;border-radius:8px;font-size:13px;font-weight:600;
+  border:none;transition:all .2s;
+}
+.settings-btn-primary{background:var(--blue);color:#fff}
+.settings-btn-primary:hover{background:#79c0ff}
+.settings-btn-danger{background:rgba(248,81,73,.12);color:var(--red);border:1px solid rgba(248,81,73,.2)}
+.settings-btn-danger:hover{background:rgba(248,81,73,.2)}
+.settings-btn-outline{background:transparent;color:var(--text-secondary);border:1px solid var(--border)}
+.settings-btn-outline:hover{border-color:var(--text-secondary);color:var(--text)}
+
+/* ── NETWORK BANNER ──────────────────────────── */
+.network-banner{
+  background:linear-gradient(135deg,rgba(88,166,255,.04),rgba(57,211,83,.04));
+  border:1px solid var(--border);border-radius:10px;
+  padding:14px 20px;display:flex;align-items:center;gap:10px;
+  margin-bottom:16px;
+}
+.network-dot{width:8px;height:8px;border-radius:50%;background:var(--green);flex-shrink:0;
+  animation:netPulse 2s infinite}
+@keyframes netPulse{0%,100%{opacity:.6;transform:scale(1)}50%{opacity:1;transform:scale(1.3)}}
+.network-text{font-size:12px;color:var(--text-secondary)}
+.network-text strong{color:var(--text)}
+
+/* ── MOBILE: Bottom Tabs ─────────────────────── */
+.mobile-tabs{
+  display:none;position:fixed;bottom:0;left:0;right:0;z-index:100;
+  background:rgba(13,17,23,.97);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border-top:1px solid var(--border);
+  padding:6px 4px env(safe-area-inset-bottom,0);
+}
+.mobile-tabs-inner{display:flex;justify-content:space-around}
+.mobile-tab{
+  display:flex;flex-direction:column;align-items:center;gap:2px;
+  background:none;border:none;color:var(--text-muted);
+  font-size:10px;font-weight:600;padding:6px 4px;
+  transition:color .2s;min-width:0;flex:1;
+}
+.mobile-tab.active{color:var(--blue)}
+.mobile-tab svg{width:18px;height:18px}
+
+/* ── TAB PANELS ──────────────────────────────── */
+.tab-panel{display:none}
+.tab-panel.active{display:block}
+
+/* ── UPGRADE CTA ─────────────────────────────── */
+.upgrade-cta{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:8px 18px;background:linear-gradient(135deg,var(--blue),#388bfd);
+  color:#fff;border:none;border-radius:8px;
+  font-size:13px;font-weight:700;transition:all .2s;text-decoration:none;
+}
+.upgrade-cta:hover{transform:scale(1.03);box-shadow:0 4px 16px rgba(88,166,255,.3);color:#fff}
+
+/* ── RESPONSIVE ──────────────────────────────── */
+@media(max-width:860px){
+  .dash-sidebar{display:none}
+  .dash-main{margin-left:0}
+  .mobile-tabs{display:block}
+  .dash-content{padding:20px 16px 80px}
+  .stats-row{grid-template-columns:repeat(2,1fr)}
+  .quick-actions{grid-template-columns:repeat(2,1fr)}
+  .tool-grid{grid-template-columns:1fr}
+  .ebook-grid{grid-template-columns:repeat(auto-fill,minmax(180px,1fr))}
+  .milestones{grid-template-columns:repeat(2,1fr)}
+  .badges-grid{grid-template-columns:repeat(2,1fr)}
+  .ref-link-box{flex-direction:column}
+  .ref-link-input{width:100%}
+  .settings-input{width:100%}
+  .settings-row{flex-direction:column;align-items:flex-start;gap:8px}
+  .points-display{flex-direction:column;text-align:center}
+}
+@media(max-width:480px){
+  .stats-row{grid-template-columns:repeat(2,1fr);gap:8px}
+  .stat-card{padding:12px}
+  .stat-value{font-size:20px}
+  .quick-actions{grid-template-columns:1fr 1fr}
+}
+
+/* ── SCROLLBAR ───────────────────────────────── */
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:var(--border-light)}
+
+/* ── ANIMATIONS ──────────────────────────────── */
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.tab-panel.active{animation:fadeIn .25s ease}
+</style>
+</head>
+<body>
+
+<!-- ═══════════ TOP NAV ═══════════ -->
+<nav class="dash-nav" role="navigation">
+  <a href="/" class="dash-logo"><div class="dash-logo-dot"></div>SPUNK<span>.CODES</span></a>
+  <div class="dash-nav-spacer"></div>
+  <button class="dash-profile-btn" id="navProfileBtn">
+    <span id="navTierBadge" class="tier-badge tier-free">Free</span>
+    <div class="dash-profile-avatar" id="navAvatar">?</div>
+  </button>
+</nav>
+
+<!-- ═══════════ SIDEBAR (Desktop) ═══════════ -->
+<aside class="dash-sidebar" role="complementary">
+  <div class="dash-sidebar-section">
+    <div class="dash-sidebar-label">Dashboard</div>
+    <button class="dash-tab-btn active" data-tab="overview">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      Overview
+    </button>
+    <button class="dash-tab-btn" data-tab="tools">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
+      My Tools <span class="dash-tab-count" id="sidebarToolCount">0</span>
+    </button>
+    <button class="dash-tab-btn" data-tab="ebooks">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+      Ebooks <span class="dash-tab-count">22</span>
+    </button>
+    <button class="dash-tab-btn" data-tab="referrals">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+      Referrals <span class="dash-tab-count" id="sidebarRefCount">0</span>
+    </button>
+    <button class="dash-tab-btn" data-tab="rewards">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+      Rewards
+    </button>
+    <button class="dash-tab-btn" data-tab="settings">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+      Settings
+    </button>
+  </div>
+  <div class="dash-sidebar-section" style="margin-top:auto;padding-top:12px;border-top:1px solid var(--border)">
+    <a href="/" class="dash-tab-btn" style="text-decoration:none">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+      Back to Site
+    </a>
+  </div>
+</aside>
+
+<!-- ═══════════ MOBILE BOTTOM TABS ═══════════ -->
+<div class="mobile-tabs">
+  <div class="mobile-tabs-inner">
+    <button class="mobile-tab active" data-tab="overview">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      Overview
+    </button>
+    <button class="mobile-tab" data-tab="tools">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
+      Tools
+    </button>
+    <button class="mobile-tab" data-tab="ebooks">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+      Ebooks
+    </button>
+    <button class="mobile-tab" data-tab="referrals">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+      Referrals
+    </button>
+    <button class="mobile-tab" data-tab="rewards">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+      Rewards
+    </button>
+    <button class="mobile-tab" data-tab="settings">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+      Settings
+    </button>
+  </div>
+</div>
+
+<!-- ═══════════ MAIN AREA ═══════════ -->
+<main class="dash-main" role="main">
+<div class="dash-content">
+
+<!-- ╔═══════════════════════════════╗
+     ║        OVERVIEW TAB          ║
+     ╚═══════════════════════════════╝ -->
+<div class="tab-panel active" id="tab-overview">
+
+  <!-- Welcome Card -->
+  <div class="card" style="background:linear-gradient(135deg,rgba(88,166,255,.04),rgba(57,211,83,.04))">
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
+      <div>
+        <div style="font-size:18px;font-weight:800;color:var(--text);margin-bottom:4px">
+          Welcome back<span id="welcomeName"></span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+          <span>Your plan:</span>
+          <span id="overviewTierBadge" class="tier-badge tier-free">Free</span>
+          <span id="overviewPlanPrice" style="font-size:12px;color:var(--text-muted)"></span>
+        </div>
+      </div>
+      <a href="/pricing.html" class="upgrade-cta" id="overviewUpgradeBtn" style="display:none">Upgrade Plan</a>
+    </div>
+  </div>
+
+  <!-- Stats Row -->
+  <div class="stats-row">
+    <div class="stat-card stat-blue">
+      <div class="stat-value" id="statTools" data-auto-update="true" data-update-key="sc_dash_tools_unlocked">0</div>
+      <div class="stat-label">Tools Unlocked</div>
+    </div>
+    <div class="stat-card stat-purple">
+      <div class="stat-value" id="statEbooks" data-auto-update="true" data-update-key="sc_dash_ebooks_available">0</div>
+      <div class="stat-label">Ebooks Available</div>
+    </div>
+    <div class="stat-card stat-green">
+      <div class="stat-value" id="statReferrals" data-auto-update="true" data-update-key="sc_dash_referral_count">0</div>
+      <div class="stat-label">Referrals</div>
+    </div>
+    <div class="stat-card stat-orange">
+      <div class="stat-value" id="statEarnings" data-auto-update="true" data-update-key="sc_dash_earnings">$0</div>
+      <div class="stat-label">Earnings</div>
+    </div>
+  </div>
+
+  <!-- Network Banner -->
+  <div class="network-banner">
+    <div class="network-dot"></div>
+    <div class="network-text">Part of a <strong>120+ website network</strong> generating organic SEO traffic to all your shared content</div>
+  </div>
+
+  <!-- Quick Actions -->
+  <div class="quick-actions">
+    <a href="#" class="qa-btn" onclick="switchTab('tools');return false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
+      Browse Tools
+    </a>
+    <a href="#" class="qa-btn" onclick="switchTab('ebooks');return false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+      Read Ebooks
+    </a>
+    <a href="#" class="qa-btn" onclick="switchTab('referrals');return false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+      Share &amp; Earn
+    </a>
+    <a href="mailto:hello@spunk.codes" class="qa-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      Get Support
+    </a>
+  </div>
+
+  <!-- Recent Activity -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">Recent Activity</div>
+      <span style="font-size:11px;color:var(--text-muted)" id="activityUpdated">Updates every 10s</span>
+    </div>
+    <div id="activityFeed">
+      <div style="text-align:center;padding:20px;color:var(--text-muted);font-size:13px">
+        No activity yet. Start using tools and reading ebooks to see your history here.
+      </div>
+    </div>
+  </div>
+
+</div><!-- /tab-overview -->
+
+
+<!-- ╔═══════════════════════════════╗
+     ║        MY TOOLS TAB          ║
+     ╚═══════════════════════════════╝ -->
+<div class="tab-panel" id="tab-tools">
+
+  <div class="tools-search">
+    <input type="text" class="tools-search-input" id="toolSearch" placeholder="Search tools...">
+    <select class="tools-filter" id="toolFilter">
+      <option value="all">All Categories</option>
+      <option value="automation">Automation</option>
+      <option value="business">Business &amp; Finance</option>
+      <option value="seo">SEO &amp; Marketing</option>
+      <option value="design">Design</option>
+      <option value="development">Development</option>
+      <option value="analytics">Analytics &amp; Growth</option>
+      <option value="content">Content</option>
+      <option value="saas">SaaS</option>
+    </select>
+  </div>
+
+  <div id="toolsContainer"></div>
+
+</div><!-- /tab-tools -->
+
+
+<!-- ╔═══════════════════════════════╗
+     ║        EBOOKS TAB            ║
+     ╚═══════════════════════════════╝ -->
+<div class="tab-panel" id="tab-ebooks">
+
+  <div class="ebook-banner">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+    <div class="ebook-banner-text">All <span>22 ebooks</span> are free with Pro or Lifetime plans</div>
+  </div>
+
+  <div class="ebook-grid" id="ebookGrid"></div>
+
+</div><!-- /tab-ebooks -->
+
+
+<!-- ╔═══════════════════════════════╗
+     ║       REFERRALS TAB          ║
+     ╚═══════════════════════════════╝ -->
+<div class="tab-panel" id="tab-referrals">
+
+  <!-- Referral Link -->
+  <div class="card">
+    <div class="card-title">Your Referral Link</div>
+    <div class="card-subtitle">Share this link to earn commissions on every signup</div>
+    <div class="ref-link-box" style="margin-top:12px">
+      <input type="text" class="ref-link-input" id="refLinkInput" readonly value="https://spunk.codes/?ref=SPUNK_XXXXXX">
+      <button class="ref-copy-btn" id="refCopyBtn">Copy Link</button>
+    </div>
+    <div class="share-buttons">
+      <button class="share-btn" id="shareX">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        Share on X
+      </button>
+      <button class="share-btn" id="shareLinkedIn">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        LinkedIn
+      </button>
+      <button class="share-btn" id="shareEmail">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        Email
+      </button>
+      <button class="share-btn" id="shareCopyLink">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+        Copy
+      </button>
+    </div>
+  </div>
+
+  <!-- Referral Stats -->
+  <div class="stats-row">
+    <div class="stat-card stat-blue">
+      <div class="stat-value" id="refClicks">0</div>
+      <div class="stat-label">Link Clicks</div>
+    </div>
+    <div class="stat-card stat-green">
+      <div class="stat-value" id="refSignups">0</div>
+      <div class="stat-label">Signups</div>
+    </div>
+    <div class="stat-card stat-purple">
+      <div class="stat-value" id="refConversions">0</div>
+      <div class="stat-label">Conversions</div>
+    </div>
+    <div class="stat-card stat-orange">
+      <div class="stat-value" id="refEarnings">$0</div>
+      <div class="stat-label">Earned</div>
+    </div>
+  </div>
+
+  <!-- Commission Rates -->
+  <div class="card">
+    <div class="card-title">Commission Rates by Tier</div>
+    <table class="commission-table">
+      <thead><tr><th>Tier</th><th>Rate</th><th>Details</th></tr></thead>
+      <tbody id="commissionBody">
+        <tr data-tier="free"><td><span class="tier-badge tier-free">Free</span></td><td class="commission-rate" style="color:var(--text-secondary)">10%</td><td>Earn on every Pro/Lifetime referral</td></tr>
+        <tr data-tier="pro"><td><span class="tier-badge tier-pro">Pro</span></td><td class="commission-rate" style="color:var(--blue)">20%</td><td>Double the commission rate</td></tr>
+        <tr data-tier="lifetime"><td><span class="tier-badge tier-lifetime">Lifetime</span></td><td class="commission-rate" style="color:var(--green)">25%</td><td>Highest individual rate</td></tr>
+        <tr data-tier="whitelabel"><td><span class="tier-badge tier-whitelabel">White-Label</span></td><td class="commission-rate" style="color:var(--purple)">30%</td><td>Maximum earning potential</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Promo Section -->
+  <div class="promo-box">
+    <div style="font-size:13px;color:var(--text-secondary);font-weight:600">Share this code for 5 free starter tools</div>
+    <div class="promo-code">SPUNK</div>
+    <div style="font-size:12px;color:var(--text-muted)">Anyone who enters this code gets free access to 5 automation tools</div>
+  </div>
+
+  <!-- Payout History -->
+  <div class="card" style="margin-top:16px">
+    <div class="card-title">Payout History</div>
+    <table class="payout-table">
+      <thead><tr><th>Date</th><th>Amount</th><th>Status</th><th>Method</th></tr></thead>
+      <tbody id="payoutBody">
+        <tr><td colspan="4" class="payout-empty">No payouts yet. Start referring to earn commissions.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</div><!-- /tab-referrals -->
+
+
+<!-- ╔═══════════════════════════════╗
+     ║       REWARDS TAB            ║
+     ╚═══════════════════════════════╝ -->
+<div class="tab-panel" id="tab-rewards">
+
+  <!-- Points Display -->
+  <div class="points-display" style="margin-bottom:20px">
+    <div>
+      <div class="points-number" id="totalPoints">0</div>
+      <div class="points-label">Total Points</div>
+    </div>
+    <div>
+      <div style="font-size:12px;color:var(--text-secondary);margin-bottom:4px">Current Level</div>
+      <span class="points-level level-bronze" id="pointsLevel">Bronze</span>
+    </div>
+    <div style="font-size:11px;color:var(--text-muted);flex:1;text-align:right">
+      <div>1 pt per tool use</div>
+      <div>5 pts per referral</div>
+      <div>10 pts per sale</div>
+    </div>
+  </div>
+
+  <!-- Tier Progression -->
+  <div class="card">
+    <div class="card-title">Referral Progress</div>
+    <div class="card-subtitle">Unlock new perks as you refer more users</div>
+    <div class="progress-section" style="margin-top:12px">
+      <div class="progress-bar-wrap">
+        <div class="progress-bar-fill" id="refProgressBar" style="width:0%"></div>
+      </div>
+      <div class="progress-labels">
+        <span>0 referrals</span>
+        <span id="refProgressTarget">Next: 5 referrals</span>
+        <span>50 referrals</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Milestones -->
+  <div class="card">
+    <div class="card-title" style="margin-bottom:12px">Milestones</div>
+    <div class="milestones" id="milestonesGrid">
+      <!-- Populated by JS -->
+    </div>
+  </div>
+
+  <!-- Achievement Badges -->
+  <div class="card">
+    <div class="card-title" style="margin-bottom:12px">Achievement Badges</div>
+    <div class="badges-grid" id="badgesGrid">
+      <!-- Populated by JS -->
+    </div>
+  </div>
+
+</div><!-- /tab-rewards -->
+
+
+<!-- ╔═══════════════════════════════╗
+     ║       SETTINGS TAB           ║
+     ╚═══════════════════════════════╝ -->
+<div class="tab-panel" id="tab-settings">
+
+  <!-- Profile -->
+  <div class="card">
+    <div class="settings-group">
+      <div class="settings-group-title">Profile</div>
+      <div class="settings-row">
+        <div class="settings-label">Display Name</div>
+        <input type="text" class="settings-input" id="settingName" placeholder="Your name">
+      </div>
+      <div class="settings-row">
+        <div class="settings-label">Email</div>
+        <input type="email" class="settings-input" id="settingEmail" placeholder="your@email.com">
+      </div>
+      <div class="settings-row">
+        <div class="settings-label">X Handle</div>
+        <input type="text" class="settings-input" id="settingXHandle" placeholder="@yourhandle">
+      </div>
+      <div style="margin-top:12px">
+        <button class="settings-btn settings-btn-primary" id="saveProfileBtn">Save Profile</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Plan Management -->
+  <div class="card">
+    <div class="settings-group">
+      <div class="settings-group-title">Plan Management</div>
+      <div class="settings-row">
+        <div class="settings-label">
+          Current Plan
+          <small id="settingPlanDetail">Free tier</small>
+        </div>
+        <span id="settingTierBadge" class="tier-badge tier-free">Free</span>
+      </div>
+      <div class="settings-row" id="settingUpgradeRow">
+        <div class="settings-label">
+          Upgrade your plan
+          <small>Access all 95 tools and 22 ebooks</small>
+        </div>
+        <a href="/pricing.html" class="settings-btn settings-btn-primary">View Plans</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notifications -->
+  <div class="card">
+    <div class="settings-group">
+      <div class="settings-group-title">Notification Preferences</div>
+      <div class="settings-row">
+        <div class="settings-label">New tool alerts<small>Get notified when new tools are added</small></div>
+        <button class="settings-toggle on" id="toggleNewTools" data-key="sc_pref_new_tools"></button>
+      </div>
+      <div class="settings-row">
+        <div class="settings-label">Referral updates<small>Notifications about referral activity</small></div>
+        <button class="settings-toggle on" id="toggleReferrals" data-key="sc_pref_referrals"></button>
+      </div>
+      <div class="settings-row">
+        <div class="settings-label">Weekly digest<small>Weekly summary of your activity</small></div>
+        <button class="settings-toggle on" id="toggleDigest" data-key="sc_pref_digest"></button>
+      </div>
+      <div class="settings-row">
+        <div class="settings-label">Promotional offers<small>Special deals and discounts</small></div>
+        <button class="settings-toggle" id="togglePromos" data-key="sc_pref_promos"></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Data -->
+  <div class="card">
+    <div class="settings-group">
+      <div class="settings-group-title">Data &amp; Privacy</div>
+      <div class="settings-row">
+        <div class="settings-label">Export all data<small>Download your activity, preferences, and referral data as JSON</small></div>
+        <button class="settings-btn settings-btn-outline" id="exportDataBtn">Export Data</button>
+      </div>
+      <div class="settings-row">
+        <div class="settings-label">Delete account<small>Clear all localStorage data. This cannot be undone.</small></div>
+        <button class="settings-btn settings-btn-danger" id="deleteAccountBtn">Delete All Data</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Support -->
+  <div class="card">
+    <div class="settings-group">
+      <div class="settings-group-title">Support</div>
+      <div class="settings-row">
+        <div class="settings-label">Need help?<small>Reach out to our team</small></div>
+        <a href="mailto:hello@spunk.codes" class="settings-btn settings-btn-outline">Contact Support</a>
+      </div>
+      <div class="settings-row">
+        <div class="settings-label">Follow us<small>Get updates and announcements</small></div>
+        <a href="https://x.com/SpunkArt13" target="_blank" rel="noopener" class="settings-btn settings-btn-outline">@SpunkArt13 on X</a>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /tab-settings -->
+
+</div><!-- /dash-content -->
+</main>
+
+<!-- ═══════════ SCRIPTS ═══════════ -->
+<script src="/share-widget.js" defer></script>
+<script src="/email-capture.js" defer></script>
+<script src="/heartbeat.js" defer></script>
+<script src="/universal-referral.js" defer></script>
+<script>
+(function() {
+'use strict';
+
+/* ══════════════════════════════════════════════
+   DATA: All exclusive tools with metadata
+   ══════════════════════════════════════════════ */
+var ALL_TOOLS = [
+  // Automation
+  {slug:'social-media-scheduler',name:'Social Media Scheduler',desc:'Schedule and automate posts across platforms',cat:'automation',icon:'#58a6ff'},
+  {slug:'email-automation-builder',name:'Email Automation Builder',desc:'Build automated email workflows and sequences',cat:'automation',icon:'#58a6ff'},
+  {slug:'workflow-automator',name:'Workflow Automator',desc:'Create multi-step automated workflows',cat:'automation',icon:'#58a6ff'},
+  {slug:'content-repurposer',name:'Content Repurposer',desc:'Transform content for multiple platforms',cat:'automation',icon:'#58a6ff'},
+  {slug:'content-batch',name:'Content Batch Processor',desc:'Process and format content in bulk',cat:'automation',icon:'#58a6ff'},
+  // Business & Finance
+  {slug:'pitch-deck-builder',name:'Pitch Deck Builder',desc:'Create investor-ready pitch decks',cat:'business',icon:'#39d353'},
+  {slug:'startup-valuation-calculator',name:'Startup Valuation Calculator',desc:'Estimate your startup valuation',cat:'business',icon:'#39d353'},
+  {slug:'invoice-calculator',name:'Invoice Calculator',desc:'Generate and calculate invoices',cat:'business',icon:'#39d353'},
+  {slug:'invoice-hawk',name:'Invoice Hawk',desc:'Track and manage outstanding invoices',cat:'business',icon:'#39d353'},
+  {slug:'burn-rate-analyzer',name:'Burn Rate Analyzer',desc:'Track and optimize your burn rate',cat:'business',icon:'#39d353'},
+  {slug:'burn-shield',name:'Burn Shield',desc:'Cash runway protection alerts',cat:'business',icon:'#39d353'},
+  {slug:'cap-table-modeler',name:'Cap Table Modeler',desc:'Model cap table scenarios and dilution',cat:'business',icon:'#39d353'},
+  {slug:'freelance-rate-calculator',name:'Freelance Rate Calculator',desc:'Calculate optimal freelance rates',cat:'business',icon:'#39d353'},
+  {slug:'fundraising-tracker',name:'Fundraising Tracker',desc:'Track investor outreach and pipeline',cat:'business',icon:'#39d353'},
+  {slug:'investor-update-generator',name:'Investor Update Generator',desc:'Create professional investor updates',cat:'business',icon:'#39d353'},
+  {slug:'client-proposal-generator',name:'Client Proposal Generator',desc:'Build winning client proposals',cat:'business',icon:'#39d353'},
+  {slug:'contract-craft',name:'Contract Craft',desc:'Generate and customize contracts',cat:'business',icon:'#39d353'},
+  {slug:'deal-flow-lite',name:'Deal Flow Lite',desc:'Track and manage deal pipelines',cat:'business',icon:'#39d353'},
+  {slug:'million-dollar-roadmap',name:'Million Dollar Roadmap',desc:'Map your path to $1M revenue',cat:'business',icon:'#39d353'},
+  {slug:'revenue-goal-planner',name:'Revenue Goal Planner',desc:'Set and track revenue milestones',cat:'business',icon:'#39d353'},
+  {slug:'revenue-multiplier',name:'Revenue Multiplier',desc:'Identify revenue growth levers',cat:'business',icon:'#39d353'},
+  {slug:'revenue-forecast-model',name:'Revenue Forecast Model',desc:'Project future revenue scenarios',cat:'business',icon:'#39d353'},
+  {slug:'passive-income-calculator',name:'Passive Income Calculator',desc:'Calculate passive income streams',cat:'business',icon:'#39d353'},
+  {slug:'passive-income-planner',name:'Passive Income Planner',desc:'Plan multiple income streams',cat:'business',icon:'#39d353'},
+  {slug:'profit-margin-optimizer',name:'Profit Margin Optimizer',desc:'Optimize pricing for max profit',cat:'business',icon:'#39d353'},
+  {slug:'runway-map',name:'Runway Map',desc:'Visualize your startup runway',cat:'business',icon:'#39d353'},
+  {slug:'breakeven-blueprint',name:'Breakeven Blueprint',desc:'Calculate your breakeven point',cat:'business',icon:'#39d353'},
+  {slug:'time-value-calculator',name:'Time Value Calculator',desc:'Calculate the value of your time',cat:'business',icon:'#39d353'},
+  {slug:'timeprofit-analyzer',name:'TimeProfit Analyzer',desc:'Analyze profit per hour spent',cat:'business',icon:'#39d353'},
+  {slug:'unit-economics-calculator',name:'Unit Economics Calculator',desc:'Calculate LTV, CAC, and margins',cat:'business',icon:'#39d353'},
+  {slug:'weekly-ceo-dashboard',name:'Weekly CEO Dashboard',desc:'Track key metrics weekly',cat:'business',icon:'#39d353'},
+  {slug:'weekly-wins',name:'Weekly Wins',desc:'Track and celebrate weekly progress',cat:'business',icon:'#39d353'},
+  {slug:'meeting-agenda-builder',name:'Meeting Agenda Builder',desc:'Create structured meeting agendas',cat:'business',icon:'#39d353'},
+  {slug:'okr-planner',name:'OKR Planner',desc:'Set and track OKRs',cat:'business',icon:'#39d353'},
+  {slug:'project-estimator',name:'Project Estimator',desc:'Estimate project scope and cost',cat:'business',icon:'#39d353'},
+  {slug:'scope-forge',name:'Scope Forge',desc:'Define and manage project scope',cat:'business',icon:'#39d353'},
+  {slug:'decision-vault',name:'Decision Vault',desc:'Framework for better decisions',cat:'business',icon:'#39d353'},
+  {slug:'validate-first',name:'Validate First',desc:'Validate ideas before building',cat:'business',icon:'#39d353'},
+  // SEO & Marketing
+  {slug:'seo-audit-pro',name:'SEO Audit Pro',desc:'Comprehensive SEO analysis tool',cat:'seo',icon:'#bc8cff'},
+  {slug:'landing-page-analyzer',name:'Landing Page Analyzer',desc:'Audit landing page effectiveness',cat:'seo',icon:'#bc8cff'},
+  {slug:'landing-page-grader',name:'Landing Page Grader',desc:'Grade your landing page performance',cat:'seo',icon:'#bc8cff'},
+  {slug:'landing-page-pro',name:'Landing Page Pro',desc:'Build high-converting landing pages',cat:'seo',icon:'#bc8cff'},
+  {slug:'lead-scoring-system',name:'Lead Scoring System',desc:'Score and prioritize leads',cat:'seo',icon:'#bc8cff'},
+  {slug:'conversion-funnel-builder',name:'Conversion Funnel Builder',desc:'Design and optimize funnels',cat:'seo',icon:'#bc8cff'},
+  {slug:'ad-spend-optimizer',name:'Ad Spend Optimizer',desc:'Optimize ad budgets for max ROI',cat:'seo',icon:'#bc8cff'},
+  {slug:'influencer-campaign-planner',name:'Influencer Campaign Planner',desc:'Plan influencer marketing campaigns',cat:'seo',icon:'#bc8cff'},
+  {slug:'email-sequence-builder',name:'Email Sequence Builder',desc:'Build drip email sequences',cat:'seo',icon:'#bc8cff'},
+  {slug:'email-sequence-pro',name:'Email Sequence Pro',desc:'Advanced email sequence tools',cat:'seo',icon:'#bc8cff'},
+  {slug:'email-warmup-planner',name:'Email Warmup Planner',desc:'Plan email warmup campaigns',cat:'seo',icon:'#bc8cff'},
+  {slug:'social-media-pro',name:'Social Media Pro',desc:'Advanced social media management',cat:'seo',icon:'#bc8cff'},
+  {slug:'viral-content-planner',name:'Viral Content Planner',desc:'Plan content for viral reach',cat:'seo',icon:'#bc8cff'},
+  {slug:'viral-coefficient-calculator',name:'Viral Coefficient Calculator',desc:'Calculate your viral coefficient',cat:'seo',icon:'#bc8cff'},
+  {slug:'viral-launch-playbook',name:'Viral Launch Playbook',desc:'Step-by-step viral launch guide',cat:'seo',icon:'#bc8cff'},
+  {slug:'brand-strategy-pro',name:'Brand Strategy Pro',desc:'Develop brand positioning and strategy',cat:'seo',icon:'#bc8cff'},
+  {slug:'competitor-intel',name:'Competitor Intel',desc:'Analyze competitor strategies',cat:'seo',icon:'#bc8cff'},
+  {slug:'competitor-spy-tool',name:'Competitor Spy Tool',desc:'Monitor competitor moves',cat:'seo',icon:'#bc8cff'},
+  {slug:'rival-radar',name:'Rival Radar',desc:'Track competitor updates in real-time',cat:'seo',icon:'#bc8cff'},
+  {slug:'customer-persona-builder',name:'Customer Persona Builder',desc:'Build detailed customer personas',cat:'seo',icon:'#bc8cff'},
+  {slug:'customer-journey-mapper',name:'Customer Journey Mapper',desc:'Map the complete customer journey',cat:'seo',icon:'#bc8cff'},
+  {slug:'pricing-strategy-lab',name:'Pricing Strategy Lab',desc:'Optimize your pricing strategy',cat:'seo',icon:'#bc8cff'},
+  {slug:'pricing-page-generator',name:'Pricing Page Generator',desc:'Generate pricing page layouts',cat:'seo',icon:'#bc8cff'},
+  {slug:'priceright-pro',name:'PriceRight Pro',desc:'Dynamic pricing optimization',cat:'seo',icon:'#bc8cff'},
+  {slug:'domain-name-generator',name:'Domain Name Generator',desc:'Generate available domain ideas',cat:'seo',icon:'#bc8cff'},
+  {slug:'market-sizing-tool',name:'Market Sizing Tool',desc:'Estimate your total addressable market',cat:'seo',icon:'#bc8cff'},
+  {slug:'launch-checklist-pro',name:'Launch Checklist Pro',desc:'Complete product launch checklist',cat:'seo',icon:'#bc8cff'},
+  // Design
+  {slug:'color-system-builder',name:'Color System Builder',desc:'Build consistent design color systems',cat:'design',icon:'#d29922'},
+  {slug:'css-animation-studio',name:'CSS Animation Studio',desc:'Create CSS animations visually',cat:'design',icon:'#d29922'},
+  {slug:'color-contrast-checker',name:'Color Contrast Checker',desc:'Check WCAG contrast compliance',cat:'design',icon:'#d29922'},
+  {slug:'component-library-generator',name:'Component Library Generator',desc:'Generate UI component libraries',cat:'design',icon:'#d29922'},
+  {slug:'premium-templates-pack',name:'Premium Templates Pack',desc:'Collection of premium templates',cat:'design',icon:'#d29922'},
+  // Development
+  {slug:'api-documentation-generator',name:'API Documentation Generator',desc:'Auto-generate API documentation',cat:'development',icon:'#56d4dd'},
+  {slug:'database-query-optimizer',name:'Database Query Optimizer',desc:'Optimize SQL and NoSQL queries',cat:'development',icon:'#56d4dd'},
+  {slug:'database-schema-designer',name:'Database Schema Designer',desc:'Design database schemas visually',cat:'development',icon:'#56d4dd'},
+  {slug:'microservice-mapper',name:'Microservice Mapper',desc:'Map and visualize microservice architecture',cat:'development',icon:'#56d4dd'},
+  {slug:'webhook-tester',name:'Webhook Tester',desc:'Test and debug webhook payloads',cat:'development',icon:'#56d4dd'},
+  {slug:'env-file-manager',name:'Env File Manager',desc:'Manage environment variables safely',cat:'development',icon:'#56d4dd'},
+  {slug:'api-rate-limit-calculator',name:'API Rate Limit Calculator',desc:'Calculate and plan API rate limits',cat:'development',icon:'#56d4dd'},
+  {slug:'cron-expression-builder',name:'Cron Expression Builder',desc:'Build cron expressions visually',cat:'development',icon:'#56d4dd'},
+  {slug:'regex-lab',name:'Regex Lab',desc:'Test and debug regex patterns',cat:'development',icon:'#56d4dd'},
+  {slug:'git-workflow-planner',name:'Git Workflow Planner',desc:'Plan git branching strategies',cat:'development',icon:'#56d4dd'},
+  {slug:'changelog-generator',name:'Changelog Generator',desc:'Auto-generate changelogs from commits',cat:'development',icon:'#56d4dd'},
+  {slug:'sla-uptime-calculator',name:'SLA Uptime Calculator',desc:'Calculate SLA uptime percentages',cat:'development',icon:'#56d4dd'},
+  {slug:'performance-budget-calculator',name:'Performance Budget Calculator',desc:'Set and track performance budgets',cat:'development',icon:'#56d4dd'},
+  {slug:'tech-stack-analyzer',name:'Tech Stack Analyzer',desc:'Analyze and compare tech stacks',cat:'development',icon:'#56d4dd'},
+  {slug:'sprint-velocity-tracker',name:'Sprint Velocity Tracker',desc:'Track sprint velocity over time',cat:'development',icon:'#56d4dd'},
+  // Analytics & Growth
+  {slug:'growth-hacking-toolkit',name:'Growth Hacking Toolkit',desc:'Tools for rapid growth experiments',cat:'analytics',icon:'#f0883e'},
+  {slug:'growth-experiment-tracker',name:'Growth Experiment Tracker',desc:'Track and measure growth experiments',cat:'analytics',icon:'#f0883e'},
+  {slug:'customer-cohort-analyzer',name:'Customer Cohort Analyzer',desc:'Analyze retention by customer cohort',cat:'analytics',icon:'#f0883e'},
+  {slug:'customer-feedback-analyzer',name:'Customer Feedback Analyzer',desc:'Analyze customer feedback at scale',cat:'analytics',icon:'#f0883e'},
+  {slug:'churn-predictor',name:'Churn Predictor',desc:'Predict and prevent customer churn',cat:'analytics',icon:'#f0883e'},
+  {slug:'ab-test-duration-calculator',name:'A/B Test Duration Calculator',desc:'Calculate optimal test duration',cat:'analytics',icon:'#f0883e'},
+  {slug:'retention-playbook',name:'Retention Playbook',desc:'Strategies to improve user retention',cat:'analytics',icon:'#f0883e'},
+  {slug:'solo-pulse',name:'Solo Pulse',desc:'Daily health check for solo founders',cat:'analytics',icon:'#f0883e'},
+  // Content
+  {slug:'content-empire-builder',name:'Content Empire Builder',desc:'Scale content production systematically',cat:'content',icon:'#da3633'},
+  {slug:'content-roi-calculator',name:'Content ROI Calculator',desc:'Calculate ROI of content marketing',cat:'content',icon:'#da3633'},
+  {slug:'mastermind-toolkit',name:'Mastermind Toolkit',desc:'Run and manage mastermind groups',cat:'content',icon:'#da3633'},
+  // SaaS
+  {slug:'saas-metrics-dashboard',name:'SaaS Metrics Dashboard',desc:'Track MRR, churn, LTV, and more',cat:'saas',icon:'#f778ba'},
+  {slug:'saas-growth-analyzer',name:'SaaS Growth Analyzer',desc:'Analyze SaaS growth trajectory',cat:'saas',icon:'#f778ba'},
+  {slug:'saas-pricing-modeler',name:'SaaS Pricing Modeler',desc:'Model SaaS pricing tiers',cat:'saas',icon:'#f778ba'},
+  {slug:'ai-business-advisor',name:'AI Business Advisor',desc:'AI-powered business strategy advice',cat:'saas',icon:'#f778ba'},
+  {slug:'ai-business-plan-generator',name:'AI Business Plan Generator',desc:'Generate business plans with AI',cat:'saas',icon:'#f778ba'}
+];
+
+var TOTAL_TOOLS = ALL_TOOLS.length;
+
+/* ── Ebooks ── */
+var ALL_EBOOKS = [
+  {slug:'ebook-ai-automation',title:'The AI Automation Playbook',desc:'Automate everything with AI as a solo founder',color:'linear-gradient(135deg,#58a6ff,#388bfd)',emoji:'&#129302;'},
+  {slug:'ebook-ai-agents',title:'Building AI Agents',desc:'Create autonomous AI agents from scratch',color:'linear-gradient(135deg,#bc8cff,#8b5cf6)',emoji:'&#129302;'},
+  {slug:'ebook-vibe-coding',title:'Vibe Coding Mastery',desc:'Ship 100 projects with AI-assisted dev',color:'linear-gradient(135deg,#39d353,#238636)',emoji:'&#9889;'},
+  {slug:'ebook-vibe-coders-playbook',title:"The Vibe Coder's Playbook",desc:'Advanced strategies for AI-first development',color:'linear-gradient(135deg,#56d4dd,#1f8ea3)',emoji:'&#127911;'},
+  {slug:'ebook-prompt-engineering',title:'Prompt Engineering Pro',desc:'Master the art of AI prompting',color:'linear-gradient(135deg,#d29922,#bb8009)',emoji:'&#128161;'},
+  {slug:'ebook-cursor-ai-mastery',title:'Cursor AI Mastery',desc:'Master Cursor for 10x productivity',color:'linear-gradient(135deg,#f0883e,#db6d28)',emoji:'&#128187;'},
+  {slug:'ebook-github-copilot-guide',title:'GitHub Copilot Guide',desc:'Get the most out of GitHub Copilot',color:'linear-gradient(135deg,#8b949e,#6e7681)',emoji:'&#129302;'},
+  {slug:'ebook-mcp-guide',title:'MCP Integration Guide',desc:'Connect AI models to real-world tools',color:'linear-gradient(135deg,#58a6ff,#1f6feb)',emoji:'&#128268;'},
+  {slug:'ebook-seo-masterclass',title:'SEO Masterclass',desc:'Rank #1 on Google with proven strategies',color:'linear-gradient(135deg,#39d353,#1a7f37)',emoji:'&#128270;'},
+  {slug:'ebook-landing-page-secrets',title:'Landing Page Secrets',desc:'Build pages that convert at 10%+',color:'linear-gradient(135deg,#bc8cff,#6e40c9)',emoji:'&#128640;'},
+  {slug:'ebook-email-marketing',title:'Email Marketing Mastery',desc:'Build and monetize your email list',color:'linear-gradient(135deg,#f85149,#da3633)',emoji:'&#128233;'},
+  {slug:'ebook-social-media-growth',title:'Social Media Growth',desc:'Grow from 0 to 10K followers organically',color:'linear-gradient(135deg,#58a6ff,#0969da)',emoji:'&#128200;'},
+  {slug:'ebook-automation-mastery',title:'Automation Mastery',desc:'Automate your entire business workflow',color:'linear-gradient(135deg,#d29922,#9e6a03)',emoji:'&#9881;'},
+  {slug:'ebook-no-code-empire',title:'No-Code Empire',desc:'Build a business without writing code',color:'linear-gradient(135deg,#f0883e,#bf5600)',emoji:'&#127760;'},
+  {slug:'ebook-site-empire',title:'Site Empire Blueprint',desc:'Build a network of profitable websites',color:'linear-gradient(135deg,#56d4dd,#0d8ea8)',emoji:'&#127959;'},
+  {slug:'ebook-github-pages-empire',title:'GitHub Pages Empire',desc:'Turn free hosting into a revenue stream',color:'linear-gradient(135deg,#8b949e,#57606a)',emoji:'&#128736;'},
+  {slug:'ebook-crypto-trading',title:'Crypto Trading Guide',desc:'Strategies for profitable crypto trading',color:'linear-gradient(135deg,#f0883e,#db6d28)',emoji:'&#128176;'},
+  {slug:'ebook-passive-income',title:'Passive Income Systems',desc:'Build income streams that run on autopilot',color:'linear-gradient(135deg,#39d353,#2ea043)',emoji:'&#128181;'},
+  {slug:'ebook-free-tools-money',title:'Free Tools to Money',desc:'Monetize free tools and attract users',color:'linear-gradient(135deg,#58a6ff,#388bfd)',emoji:'&#128178;'},
+  {slug:'ebook-micro-saas-playbook',title:'Micro SaaS Playbook',desc:'Launch a profitable micro SaaS from scratch',color:'linear-gradient(135deg,#bc8cff,#8957e5)',emoji:'&#128295;'},
+  {slug:'ebook-affiliate-marketing-2026',title:'Affiliate Marketing 2026',desc:'Modern affiliate marketing strategies',color:'linear-gradient(135deg,#f85149,#cf222e)',emoji:'&#128184;'},
+  {slug:'ebook-100-side-hustles',title:'100 Side Hustles',desc:'100 proven ways to make money on the side',color:'linear-gradient(135deg,#d29922,#bb8009)',emoji:'&#128170;'}
+];
+
+/* ── Category labels ── */
+var CAT_LABELS = {
+  automation:'Automation',business:'Business & Finance',seo:'SEO & Marketing',
+  design:'Design',development:'Development',analytics:'Analytics & Growth',
+  content:'Content',saas:'SaaS & AI'
+};
+
+/* ══════════════════════════════════════════════
+   HELPERS
+   ══════════════════════════════════════════════ */
+function ls(k){try{return localStorage.getItem(k)}catch(e){return null}}
+function lsSet(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+function lsNum(k){return parseInt(ls(k)||'0',10)}
+function lsJSON(k){try{return JSON.parse(ls(k)||'[]')}catch(e){return[]}}
+function lsBool(k){return ls(k)==='true'||ls(k)==='1'}
+function slugToName(s){return s.replace(/-/g,' ').replace(/\b\w/g,function(c){return c.toUpperCase()})}
+
+/* ── Plan detection from pro-gate.js keys ── */
+function getPlanInfo(){
+  var isPro=ls('spunk_pro')==='true';
+  var plan=ls('spunk_pro_plan')||'';
+  var expires=ls('spunk_pro_expires')||'';
+  var hasRef=ls('spunk_referral_unlocked')==='true';
+  var refTier=ls('spunk_referral_tier')||'starter';
+  var refCount=lsNum('spunk_referral_count');
+
+  // Check expiry
+  if(isPro&&expires&&expires!=='0'){
+    var ts=parseInt(expires,10);
+    if(ts>0&&Date.now()>ts)isPro=false;
+  }
+
+  var tier='free';
+  var tierLabel='Free';
+  var tierClass='tier-free';
+  var priceText='';
+
+  if(isPro){
+    if(plan==='lifetime'){
+      tier='lifetime';tierLabel='Lifetime';tierClass='tier-lifetime';priceText='$349 one-time';
+    }else if(plan==='team-monthly'||plan==='team-annual'||plan==='whitelabel'){
+      tier='whitelabel';tierLabel='White-Label';tierClass='tier-whitelabel';priceText='$999 one-time';
+    }else{
+      tier='pro';tierLabel='Pro';tierClass='tier-pro';
+      priceText=plan==='pro-annual'?'$79/yr':'$19/mo';
+    }
+  }else if(hasRef){
+    tier='referral';tierLabel='Referral ('+slugToName(refTier)+')';tierClass='tier-referral';
+  }
+
+  // Tools unlocked count
+  var unlocked=0;
+  if(tier==='pro'||tier==='lifetime'||tier==='whitelabel')unlocked=TOTAL_TOOLS;
+  else if(hasRef){
+    if(refTier==='unlimited')unlocked=TOTAL_TOOLS;
+    else if(refTier==='growth')unlocked=15;
+    else unlocked=5;
+  }
+
+  // Ebooks
+  var ebooksAvailable=(tier==='pro'||tier==='lifetime'||tier==='whitelabel')?22:0;
+
+  return{
+    isPro:isPro,tier:tier,tierLabel:tierLabel,tierClass:tierClass,
+    priceText:priceText,plan:plan,hasRef:hasRef,refTier:refTier,
+    refCount:refCount,unlocked:unlocked,ebooksAvailable:ebooksAvailable
+  };
+}
+
+/* ── Tool access check ── */
+var STARTER_TOOLS=['social-media-scheduler','email-automation-builder','workflow-automator','content-repurposer','content-batch'];
+var GROWTH_TOOLS=STARTER_TOOLS.concat(['pitch-deck-builder','competitor-intel','api-documentation-generator','color-system-builder','burn-rate-analyzer','brand-strategy-pro','ad-spend-optimizer','css-animation-studio','sprint-velocity-tracker','revenue-multiplier']);
+
+function isToolUnlocked(slug,info){
+  if(info.tier==='pro'||info.tier==='lifetime'||info.tier==='whitelabel')return true;
+  if(info.hasRef){
+    if(info.refTier==='unlimited')return true;
+    if(info.refTier==='growth')return GROWTH_TOOLS.indexOf(slug)!==-1;
+    return STARTER_TOOLS.indexOf(slug)!==-1;
+  }
+  return false;
+}
+
+/* ── Tool use tracking ── */
+function getToolUses(slug){return lsNum('sc_tool_uses_'+slug)}
+function getTotalToolUses(){
+  var total=0;
+  ALL_TOOLS.forEach(function(t){total+=getToolUses(t.slug)});
+  return total;
+}
+
+/* ── Ebook download tracking ── */
+function getEbookDownloads(slug){return lsNum('sc_ebook_dl_'+slug)}
+function trackEbookOpen(slug){
+  var k='sc_ebook_dl_'+slug;
+  lsSet(k,(lsNum(k)+1).toString());
+  addActivity('ebook','Read: '+slugToName(slug.replace('ebook-','')));
+}
+
+/* ── Activity feed ── */
+function addActivity(type,text){
+  var feed=lsJSON('sc_activity_feed');
+  feed.unshift({type:type,text:text,time:Date.now()});
+  if(feed.length>50)feed=feed.slice(0,50);
+  lsSet('sc_activity_feed',JSON.stringify(feed));
+}
+
+function renderActivity(){
+  var feed=lsJSON('sc_activity_feed');
+  var container=document.getElementById('activityFeed');
+  if(!feed.length){
+    container.innerHTML='<div style="text-align:center;padding:20px;color:var(--text-muted);font-size:13px">No activity yet. Start using tools and reading ebooks to see your history here.</div>';
+    return;
+  }
+  var html='';
+  var shown=feed.slice(0,8);
+  shown.forEach(function(item){
+    var iconClass=item.type||'tool';
+    var icons={tool:'&#128295;',ebook:'&#128214;',referral:'&#128279;',reward:'&#127942;'};
+    var ago=timeAgo(item.time);
+    html+='<div class="activity-item"><div class="activity-icon '+iconClass+'">'+(icons[iconClass]||'&#128295;')+'</div><div class="activity-text">'+escHtml(item.text)+'</div><div class="activity-time">'+ago+'</div></div>';
+  });
+  container.innerHTML=html;
+}
+
+function timeAgo(ts){
+  var diff=Date.now()-ts;
+  var mins=Math.floor(diff/60000);
+  if(mins<1)return'Just now';
+  if(mins<60)return mins+'m ago';
+  var hrs=Math.floor(mins/60);
+  if(hrs<24)return hrs+'h ago';
+  var days=Math.floor(hrs/24);
+  return days+'d ago';
+}
+
+function escHtml(s){
+  var d=document.createElement('div');
+  d.appendChild(document.createTextNode(s));
+  return d.innerHTML;
+}
+
+/* ══════════════════════════════════════════════
+   TAB SWITCHING
+   ══════════════════════════════════════════════ */
+function switchTab(tabName){
+  // Update sidebar
+  document.querySelectorAll('.dash-tab-btn[data-tab]').forEach(function(btn){
+    btn.classList.toggle('active',btn.getAttribute('data-tab')===tabName);
+  });
+  // Update mobile tabs
+  document.querySelectorAll('.mobile-tab[data-tab]').forEach(function(btn){
+    btn.classList.toggle('active',btn.getAttribute('data-tab')===tabName);
+  });
+  // Show panel
+  document.querySelectorAll('.tab-panel').forEach(function(panel){
+    panel.classList.toggle('active',panel.id==='tab-'+tabName);
+  });
+  // Update URL
+  if(window.history&&window.history.replaceState){
+    var url=window.location.pathname;
+    if(tabName!=='overview')url+='?tab='+tabName;
+    window.history.replaceState({},'',url);
+  }
+  // Track
+  if(typeof gtag==='function'){
+    gtag('event','dashboard_tab',{tab:tabName});
+  }
+  // Scroll to top
+  window.scrollTo(0,0);
+}
+window.switchTab=switchTab;
+
+// Tab click handlers
+document.querySelectorAll('[data-tab]').forEach(function(btn){
+  btn.addEventListener('click',function(){switchTab(this.getAttribute('data-tab'))});
+});
+
+/* ══════════════════════════════════════════════
+   RENDER: TOOLS TAB
+   ══════════════════════════════════════════════ */
+function renderTools(filter,search){
+  var info=getPlanInfo();
+  var container=document.getElementById('toolsContainer');
+  var groups={};
+  var catOrder=['automation','business','seo','design','development','analytics','content','saas'];
+
+  ALL_TOOLS.forEach(function(tool){
+    if(filter&&filter!=='all'&&tool.cat!==filter)return;
+    if(search){
+      var q=search.toLowerCase();
+      if(tool.name.toLowerCase().indexOf(q)===-1&&tool.desc.toLowerCase().indexOf(q)===-1&&tool.slug.indexOf(q)===-1)return;
+    }
+    if(!groups[tool.cat])groups[tool.cat]=[];
+    groups[tool.cat].push(tool);
+  });
+
+  var html='';
+  catOrder.forEach(function(cat){
+    if(!groups[cat])return;
+    var tools=groups[cat];
+    html+='<div class="category-header">'+CAT_LABELS[cat]+' <span>'+tools.length+'</span></div>';
+    html+='<div class="tool-grid">';
+    tools.forEach(function(tool){
+      var unlocked=isToolUnlocked(tool.slug,info);
+      var uses=getToolUses(tool.slug);
+      var usesText=uses>0?uses+' uses':'';
+      html+='<div class="tool-card'+(unlocked?'':' locked')+'">';
+      html+='<div class="tool-icon" style="background:'+tool.icon+'22;color:'+tool.icon+'">&#9881;</div>';
+      html+='<div class="tool-info"><div class="tool-name">'+escHtml(tool.name)+'</div><div class="tool-desc">'+escHtml(tool.desc)+'</div>';
+      if(usesText)html+='<div class="tool-uses">'+usesText+'</div>';
+      html+='</div>';
+      html+='<div class="tool-action">';
+      if(unlocked){
+        html+='<a href="/exclusive/'+tool.slug+'" class="tool-open-btn unlocked" onclick="trackToolOpen(\''+tool.slug+'\')">Open</a>';
+      }else{
+        html+='<span class="tool-open-btn lock">&#128274;</span>';
+      }
+      html+='</div></div>';
+    });
+    html+='</div>';
+  });
+
+  if(!html)html='<div style="text-align:center;padding:40px;color:var(--text-muted)">No tools match your search.</div>';
+  container.innerHTML=html;
+}
+
+window.trackToolOpen=function(slug){
+  var k='sc_tool_uses_'+slug;
+  lsSet(k,(lsNum(k)+1).toString());
+  addActivity('tool','Used: '+slugToName(slug));
+};
+
+// Search & filter
+var searchTimeout;
+document.getElementById('toolSearch').addEventListener('input',function(){
+  var val=this.value;
+  clearTimeout(searchTimeout);
+  searchTimeout=setTimeout(function(){
+    renderTools(document.getElementById('toolFilter').value,val);
+  },200);
+});
+document.getElementById('toolFilter').addEventListener('change',function(){
+  renderTools(this.value,document.getElementById('toolSearch').value);
+});
+
+/* ══════════════════════════════════════════════
+   RENDER: EBOOKS TAB
+   ══════════════════════════════════════════════ */
+function renderEbooks(){
+  var info=getPlanInfo();
+  var grid=document.getElementById('ebookGrid');
+  var html='';
+
+  ALL_EBOOKS.forEach(function(ebook){
+    var dls=getEbookDownloads(ebook.slug);
+    var canRead=(info.tier==='pro'||info.tier==='lifetime'||info.tier==='whitelabel');
+    html+='<div class="ebook-card">';
+    html+='<div class="ebook-cover" style="background:'+ebook.color+'">';
+    html+='<div class="ebook-cover-inner">'+ebook.emoji+'</div>';
+    html+='<div class="ebook-cover-title">'+escHtml(ebook.title)+'</div>';
+    html+='</div>';
+    html+='<div class="ebook-body">';
+    html+='<div class="ebook-title">'+escHtml(ebook.title)+'</div>';
+    html+='<div style="font-size:11px;color:var(--text-muted);margin-bottom:4px">'+escHtml(ebook.desc)+'</div>';
+    html+='<div class="ebook-meta">';
+    html+='<span class="ebook-downloads">'+(dls>0?dls+' reads':'')+'</span>';
+    if(canRead){
+      html+='<a href="/'+ebook.slug+'" class="ebook-read-btn" onclick="trackEbookClick(\''+ebook.slug+'\')">Read</a>';
+    }else{
+      html+='<a href="/pricing.html" class="ebook-read-btn" style="opacity:.5">Upgrade</a>';
+    }
+    html+='</div></div></div>';
+  });
+
+  grid.innerHTML=html;
+}
+
+window.trackEbookClick=function(slug){
+  trackEbookOpen(slug);
+};
+
+/* ══════════════════════════════════════════════
+   RENDER: REFERRALS TAB
+   ══════════════════════════════════════════════ */
+function renderReferrals(){
+  var info=getPlanInfo();
+  var refId=ls('spunk_referral_id')||'SPUNK_'+Math.random().toString(36).substr(2,6).toUpperCase();
+  if(!ls('spunk_referral_id'))lsSet('spunk_referral_id',refId);
+  var refLink=ls('spunk_referral_link')||'https://spunk.codes/?ref='+refId;
+  if(!ls('spunk_referral_link'))lsSet('spunk_referral_link',refLink);
+
+  document.getElementById('refLinkInput').value=refLink;
+
+  // Stats
+  var refClicks=lsNum('sc_ref_clicks');
+  var refSignups=lsNum('sc_ref_signups');
+  var refConversions=lsNum('sc_ref_conversions');
+  var refEarnings=lsNum('sc_ref_earnings');
+  document.getElementById('refClicks').textContent=refClicks;
+  document.getElementById('refSignups').textContent=refSignups;
+  document.getElementById('refConversions').textContent=refConversions;
+  document.getElementById('refEarnings').textContent='$'+refEarnings;
+
+  // Highlight current tier in commission table
+  var tierMap={free:'free',pro:'pro',lifetime:'lifetime',whitelabel:'whitelabel',referral:'free'};
+  var currentTier=tierMap[info.tier]||'free';
+  document.querySelectorAll('#commissionBody tr').forEach(function(tr){
+    tr.classList.toggle('current-tier',tr.getAttribute('data-tier')===currentTier);
+  });
+
+  // Copy button
+  document.getElementById('refCopyBtn').onclick=function(){
+    navigator.clipboard.writeText(refLink).then(function(){
+      document.getElementById('refCopyBtn').textContent='Copied!';
+      setTimeout(function(){document.getElementById('refCopyBtn').textContent='Copy Link'},2000);
+    }).catch(function(){
+      var inp=document.getElementById('refLinkInput');
+      inp.select();document.execCommand('copy');
+      document.getElementById('refCopyBtn').textContent='Copied!';
+      setTimeout(function(){document.getElementById('refCopyBtn').textContent='Copy Link'},2000);
+    });
+  };
+
+  // Share buttons
+  document.getElementById('shareX').onclick=function(){
+    var text='I use @SpunkArt13\'s SPUNK.CODES for 95+ exclusive developer tools. Check it out: '+refLink+' Use code SPUNK for 5 free tools!';
+    window.open('https://x.com/intent/tweet?text='+encodeURIComponent(text),'_blank','width=600,height=400');
+  };
+  document.getElementById('shareLinkedIn').onclick=function(){
+    window.open('https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent(refLink),'_blank','width=600,height=500');
+  };
+  document.getElementById('shareEmail').onclick=function(){
+    var subject='Check out SPUNK.CODES - 300+ free developer tools';
+    var body='Hey, I\'ve been using SPUNK.CODES and they have 95+ exclusive tools for developers and founders. Use code SPUNK for 5 free tools: '+refLink;
+    window.location.href='mailto:?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
+  };
+  document.getElementById('shareCopyLink').onclick=function(){
+    navigator.clipboard.writeText(refLink).catch(function(){});
+    this.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Copied!';
+    var self=this;
+    setTimeout(function(){self.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy'},2000);
+  };
+
+  // Payout history from localStorage
+  var payouts=lsJSON('sc_payouts');
+  var payoutBody=document.getElementById('payoutBody');
+  if(payouts.length){
+    var html='';
+    payouts.forEach(function(p){
+      html+='<tr><td>'+escHtml(p.date)+'</td><td>$'+p.amount+'</td><td>'+escHtml(p.status)+'</td><td>'+escHtml(p.method)+'</td></tr>';
+    });
+    payoutBody.innerHTML=html;
+  }
+}
+
+/* ══════════════════════════════════════════════
+   RENDER: REWARDS TAB
+   ══════════════════════════════════════════════ */
+function renderRewards(){
+  var info=getPlanInfo();
+  var refCount=info.refCount;
+  var totalUses=getTotalToolUses();
+  var totalEbookReads=0;
+  ALL_EBOOKS.forEach(function(e){totalEbookReads+=getEbookDownloads(e.slug)});
+
+  // Points: 1 per tool use, 5 per referral, 10 per sale
+  var sales=lsNum('sc_ref_conversions');
+  var points=totalUses+(refCount*5)+(sales*10);
+  lsSet('sc_dash_points',points.toString());
+
+  document.getElementById('totalPoints').textContent=points;
+
+  // Level
+  var level='Bronze',levelClass='level-bronze';
+  if(points>=500){level='Diamond';levelClass='level-diamond'}
+  else if(points>=200){level='Platinum';levelClass='level-platinum'}
+  else if(points>=100){level='Gold';levelClass='level-gold'}
+  else if(points>=25){level='Silver';levelClass='level-silver'}
+
+  var levelEl=document.getElementById('pointsLevel');
+  levelEl.textContent=level;
+  levelEl.className='points-level '+levelClass;
+
+  // Progress bar (towards 50 referrals)
+  var progress=Math.min(100,Math.round((refCount/50)*100));
+  document.getElementById('refProgressBar').style.width=progress+'%';
+  var nextMilestone=refCount<1?1:refCount<5?5:refCount<10?10:refCount<25?25:50;
+  document.getElementById('refProgressTarget').textContent=refCount>=50?'Max reached!':'Next: '+nextMilestone+' referrals';
+
+  // Milestones
+  var milestones=[
+    {count:1,title:'First Referral',desc:'Get your first referral',reward:'+5% commission bonus',icon:'&#127937;'},
+    {count:5,title:'5 Referrals',desc:'Unlock Growth tier tools',reward:'15 tools unlocked',icon:'&#128293;'},
+    {count:10,title:'10 Referrals',desc:'All tools unlocked via referral',reward:'Full tool access',icon:'&#128640;'},
+    {count:25,title:'25 Referrals',desc:'Priority support access',reward:'VIP support',icon:'&#11088;'},
+    {count:50,title:'50 Referrals',desc:'Exclusive partner status',reward:'Partner badge + bonus',icon:'&#128081;'}
+  ];
+
+  var milestonesHtml='';
+  milestones.forEach(function(m){
+    var reached=refCount>=m.count;
+    milestonesHtml+='<div class="milestone'+(reached?' reached':'')+'">';
+    milestonesHtml+='<div class="milestone-icon">'+m.icon+'</div>';
+    milestonesHtml+='<div class="milestone-title">'+m.title+'</div>';
+    milestonesHtml+='<div class="milestone-desc">'+m.desc+'</div>';
+    milestonesHtml+='<div class="milestone-check '+(reached?'done':'pending')+'">'+(reached?'&#10003; Unlocked':''+m.count+' needed')+'</div>';
+    milestonesHtml+='</div>';
+  });
+  document.getElementById('milestonesGrid').innerHTML=milestonesHtml;
+
+  // Badges
+  var badges=[
+    {name:'Early Adopter',icon:'&#127775;',req:'Join the platform',check:true},
+    {name:'Tool Master',icon:'&#128295;',req:'Use 10+ different tools',check:totalUses>=10},
+    {name:'Ebook Scholar',icon:'&#128218;',req:'Read 5+ ebooks',check:totalEbookReads>=5},
+    {name:'Top Referrer',icon:'&#128279;',req:'Refer 10+ users',check:refCount>=10},
+    {name:'Power User',icon:'&#9889;',req:'50+ total tool uses',check:totalUses>=50},
+    {name:'Revenue Driver',icon:'&#128176;',req:'Generate a sale',check:sales>0},
+    {name:'Networker',icon:'&#127760;',req:'Share on 3+ platforms',check:lsNum('sc_share_platforms')>=3},
+    {name:'Diamond Member',icon:'&#128142;',req:'Reach Diamond level',check:level==='Diamond'}
+  ];
+
+  var badgesHtml='';
+  badges.forEach(function(b){
+    badgesHtml+='<div class="badge-card'+(b.check?' earned':' locked')+'">';
+    badgesHtml+='<div class="badge-icon">'+b.icon+'</div>';
+    badgesHtml+='<div class="badge-name">'+b.name+'</div>';
+    badgesHtml+='<div class="badge-req">'+b.req+'</div>';
+    badgesHtml+='</div>';
+  });
+  document.getElementById('badgesGrid').innerHTML=badgesHtml;
+}
+
+/* ══════════════════════════════════════════════
+   RENDER: SETTINGS TAB
+   ══════════════════════════════════════════════ */
+function renderSettings(){
+  var info=getPlanInfo();
+
+  // Profile fields
+  document.getElementById('settingName').value=ls('sc_profile_name')||'';
+  document.getElementById('settingEmail').value=ls('sc_profile_email')||ls('spunk_pro_email')||'';
+  document.getElementById('settingXHandle').value=ls('sc_profile_xhandle')||'';
+
+  // Plan info
+  document.getElementById('settingTierBadge').className='tier-badge '+info.tierClass;
+  document.getElementById('settingTierBadge').textContent=info.tierLabel;
+  var detail=info.priceText?info.tierLabel+' ('+info.priceText+')':info.tierLabel+' tier';
+  if(info.plan){
+    var activated=ls('spunk_pro_activated');
+    if(activated)detail+=' since '+new Date(activated).toLocaleDateString();
+  }
+  document.getElementById('settingPlanDetail').textContent=detail;
+
+  // Hide upgrade row for lifetime/whitelabel
+  if(info.tier==='lifetime'||info.tier==='whitelabel'){
+    document.getElementById('settingUpgradeRow').style.display='none';
+  }
+
+  // Toggle states
+  document.querySelectorAll('.settings-toggle[data-key]').forEach(function(toggle){
+    var key=toggle.getAttribute('data-key');
+    var val=ls(key);
+    // Default to on unless explicitly off
+    if(val===null||val==='true'||val==='1'){
+      toggle.classList.add('on');
+    }else{
+      toggle.classList.remove('on');
+    }
+    toggle.onclick=function(){
+      this.classList.toggle('on');
+      lsSet(key,this.classList.contains('on')?'true':'false');
+    };
+  });
+
+  // Save profile
+  document.getElementById('saveProfileBtn').onclick=function(){
+    lsSet('sc_profile_name',document.getElementById('settingName').value.trim());
+    lsSet('sc_profile_email',document.getElementById('settingEmail').value.trim());
+    lsSet('sc_profile_xhandle',document.getElementById('settingXHandle').value.trim());
+    this.textContent='Saved!';
+    var self=this;
+    setTimeout(function(){self.textContent='Save Profile'},1500);
+    updateNav();
+  };
+
+  // Export data
+  document.getElementById('exportDataBtn').onclick=function(){
+    var data={};
+    for(var i=0;i<localStorage.length;i++){
+      var key=localStorage.key(i);
+      if(key.indexOf('sc_')===0||key.indexOf('spunk_')===0){
+        data[key]=ls(key);
+      }
+    }
+    var blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+    var url=URL.createObjectURL(blob);
+    var a=document.createElement('a');
+    a.href=url;a.download='spunk-codes-data-'+new Date().toISOString().split('T')[0]+'.json';
+    document.body.appendChild(a);a.click();document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
+  // Delete account
+  document.getElementById('deleteAccountBtn').onclick=function(){
+    if(confirm('Are you sure? This will delete ALL your SPUNK.CODES data from this browser. This cannot be undone.')){
+      var keysToRemove=[];
+      for(var i=0;i<localStorage.length;i++){
+        var key=localStorage.key(i);
+        if(key.indexOf('sc_')===0||key.indexOf('spunk_')===0){
+          keysToRemove.push(key);
+        }
+      }
+      keysToRemove.forEach(function(k){localStorage.removeItem(k)});
+      window.location.reload();
+    }
+  };
+}
+
+/* ══════════════════════════════════════════════
+   NAV & GLOBAL UI UPDATES
+   ══════════════════════════════════════════════ */
+function updateNav(){
+  var info=getPlanInfo();
+  var name=ls('sc_profile_name')||'';
+
+  // Nav badge
+  document.getElementById('navTierBadge').className='tier-badge '+info.tierClass;
+  document.getElementById('navTierBadge').textContent=info.tierLabel;
+
+  // Avatar
+  var initial=name?name.charAt(0).toUpperCase():'?';
+  document.getElementById('navAvatar').textContent=initial;
+
+  // Overview welcome
+  document.getElementById('welcomeName').textContent=name?', '+name:'';
+  document.getElementById('overviewTierBadge').className='tier-badge '+info.tierClass;
+  document.getElementById('overviewTierBadge').textContent=info.tierLabel;
+  document.getElementById('overviewPlanPrice').textContent=info.priceText;
+
+  // Upgrade button
+  var showUpgrade=(info.tier!=='lifetime'&&info.tier!=='whitelabel');
+  document.getElementById('overviewUpgradeBtn').style.display=showUpgrade?'inline-flex':'none';
+
+  // Stats
+  document.getElementById('statTools').textContent=info.unlocked+'/'+TOTAL_TOOLS;
+  lsSet('sc_dash_tools_unlocked',info.unlocked+'/'+TOTAL_TOOLS);
+  document.getElementById('statEbooks').textContent=info.ebooksAvailable+'/22';
+  lsSet('sc_dash_ebooks_available',info.ebooksAvailable+'/22');
+  document.getElementById('statReferrals').textContent=info.refCount;
+  lsSet('sc_dash_referral_count',info.refCount.toString());
+  var earnings=lsNum('sc_ref_earnings');
+  document.getElementById('statEarnings').textContent='$'+earnings;
+  lsSet('sc_dash_earnings','$'+earnings);
+
+  // Sidebar counts
+  document.getElementById('sidebarToolCount').textContent=info.unlocked;
+  document.getElementById('sidebarRefCount').textContent=info.refCount;
+
+  // Profile button click -> settings tab
+  document.getElementById('navProfileBtn').onclick=function(){switchTab('settings')};
+}
+
+/* ══════════════════════════════════════════════
+   INIT
+   ══════════════════════════════════════════════ */
+function init(){
+  // Check URL params for tab
+  var params=new URLSearchParams(window.location.search);
+  var tab=params.get('tab');
+  if(tab&&document.getElementById('tab-'+tab)){
+    switchTab(tab);
+  }
+
+  // Render everything
+  updateNav();
+  renderActivity();
+  renderTools('all','');
+  renderEbooks();
+  renderReferrals();
+  renderRewards();
+  renderSettings();
+}
+
+// 10-second heartbeat update
+setInterval(function(){
+  updateNav();
+  renderActivity();
+  // Update auto-update elements
+  document.querySelectorAll('[data-auto-update="true"]').forEach(function(el){
+    var key=el.getAttribute('data-update-key');
+    if(key){var val=ls(key);if(val!==null)el.textContent=val}
+  });
+},10000);
+
+// Run
+if(document.readyState==='loading'){
+  document.addEventListener('DOMContentLoaded',init);
+}else{
+  init();
+}
+
+})();
+</script>
+</body>
+</html>

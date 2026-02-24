@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SEO Keyword Cluster Tool - Topic Clustering & Content Planning | SPUNK.CODES Exclusive</title>
+<meta name="description" content="Cluster seed keywords into topic groups, generate content briefs, pillar pages, internal linking maps. Export full SEO content plan. Exclusive premium tool.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="SEO Keyword Cluster Tool - SPUNK.CODES Exclusive">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/seo-keyword-cluster">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0d1117;--card:rgba(22,27,34,0.8);--border:rgba(48,54,61,0.6);--gold:#ffd700;--gold-border:rgba(255,215,0,0.3);--text:#e6edf3;--text-dim:#8b949e;--blue:#58a6ff;--cyan:#39d353;--red:#f85149;--orange:#ff8c00;--font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+a{color:var(--blue);text-decoration:none}
+.bg-mesh{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 80% 50% at 20% 20%,rgba(255,215,0,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(255,140,0,0.04) 0%,transparent 60%),var(--bg)}
+.bg-grid{position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,215,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,215,0,0.03) 1px,transparent 1px);background-size:60px 60px}
+.nav{position:sticky;top:0;z-index:100;background:rgba(13,17,23,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,215,0,0.15);padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}
+.nav-brand{font-weight:800;font-size:1.1rem;color:var(--gold);letter-spacing:0.08em}
+.nav-links{display:flex;gap:1.5rem;font-size:0.85rem}.nav-links a{color:var(--text-dim);font-weight:500}.nav-links a.active{color:var(--gold)}
+.lock-gate{position:fixed;inset:0;z-index:1000;background:rgba(13,17,23,0.97);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:2rem}
+.lock-gate.hidden{display:none}
+.lock-icon-big{font-size:4rem}.lock-gate h2{font-size:1.8rem;font-weight:800;text-align:center}.lock-gate h2 span{color:var(--gold)}.lock-gate p{color:var(--text-dim);text-align:center;max-width:400px}
+.code-input-wrap{display:flex;gap:0.5rem}
+.code-input{padding:0.8rem 1.5rem;background:rgba(22,27,34,0.8);border:2px solid var(--gold-border);border-radius:12px;color:var(--gold);font-size:1.2rem;font-weight:800;letter-spacing:3px;text-align:center;width:200px;outline:none;text-transform:uppercase;font-family:var(--font)}
+.code-input:focus{border-color:var(--gold);box-shadow:0 0 20px rgba(255,215,0,0.2)}
+.code-submit{padding:0.8rem 1.5rem;background:linear-gradient(135deg,#ffd700,#ff8c00);border:none;border-radius:12px;color:#000;font-size:1rem;font-weight:800;cursor:pointer}
+.code-error{color:var(--red);font-size:0.85rem;min-height:1.2em}.lock-hint{color:var(--text-dim);font-size:0.8rem}.lock-hint a{color:var(--gold)}
+.exclusive-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;background:linear-gradient(135deg,rgba(255,215,0,0.15),rgba(255,140,0,0.15));border:1px solid var(--gold-border);border-radius:100px;font-size:11px;font-weight:800;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase}
+.main{max-width:1000px;margin:0 auto;padding:2rem}
+.hero-section{text-align:center;padding:2rem 0 2rem}
+.hero-section h1{font-size:2.2rem;font-weight:800;margin:1rem 0 0.5rem}
+.hero-section h1 .gold{background:linear-gradient(135deg,#ffd700,#ff8c00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-section p{color:var(--text-dim);max-width:600px;margin:0 auto}
+.card{background:var(--card);border:1px solid var(--gold-border);border-radius:16px;padding:1.5rem;margin-bottom:1.5rem;backdrop-filter:blur(10px);position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),#ff8c00,var(--gold))}
+.card h2{font-size:1.1rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}
+.form-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:0.75rem;margin-bottom:0.75rem}
+.form-group{display:flex;flex-direction:column;gap:0.3rem}
+.form-group label{font-size:0.75rem;color:var(--text-dim);font-weight:600;text-transform:uppercase;letter-spacing:0.5px}
+.form-group input,.form-group select,.form-group textarea{padding:0.6rem 0.8rem;background:rgba(22,27,34,0.9);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.85rem;font-family:var(--font);outline:none}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--gold)}
+.form-group textarea{resize:vertical;min-height:50px}
+.btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;transition:all 0.2s}
+.btn-gold{background:linear-gradient(135deg,#ffd700,#ff8c00);color:#000}
+.btn-gold:hover{transform:translateY(-1px);box-shadow:0 4px 15px rgba(255,215,0,0.3)}
+.btn-outline{background:transparent;border:1px solid var(--gold-border);color:var(--gold)}
+.btn-outline:hover{background:rgba(255,215,0,0.1)}
+.btn-red{background:rgba(248,81,73,0.15);border:1px solid rgba(248,81,73,0.3);color:var(--red)}
+.btn-sm{padding:0.4rem 0.8rem;font-size:0.75rem}
+.btn-row{display:flex;gap:0.5rem;flex-wrap:wrap}
+.kw-input-area{display:flex;gap:0.5rem;margin-bottom:0.5rem}
+.kw-input-area input{flex:1}
+.kw-tags{display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:0.75rem}
+.kw-tag{display:inline-flex;align-items:center;gap:0.3rem;padding:0.3rem 0.7rem;background:rgba(255,215,0,0.1);border:1px solid var(--gold-border);border-radius:20px;font-size:0.8rem;color:var(--gold)}
+.kw-tag button{background:none;border:none;color:var(--red);cursor:pointer;font-size:0.9rem;padding:0 0.2rem;font-weight:700}
+.cluster-group{background:rgba(13,17,23,0.6);border:1px solid var(--border);border-radius:12px;padding:1rem;margin-bottom:1rem}
+.cluster-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem}
+.cluster-header h3{font-size:0.95rem;color:var(--gold)}
+.intent-badge{padding:3px 10px;border-radius:20px;font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.5px}
+.intent-informational{background:rgba(88,166,255,0.15);color:var(--blue)}
+.intent-transactional{background:rgba(57,211,83,0.15);color:var(--cyan)}
+.intent-navigational{background:rgba(255,215,0,0.15);color:var(--gold)}
+.diff-badge{padding:2px 8px;border-radius:10px;font-size:0.6rem;font-weight:700;text-transform:uppercase}
+.diff-easy{background:rgba(57,211,83,0.15);color:var(--cyan)}
+.diff-medium{background:rgba(255,215,0,0.15);color:var(--gold)}
+.diff-hard{background:rgba(248,81,73,0.15);color:var(--red)}
+.pillar-item{padding:0.5rem 0;border-bottom:1px solid rgba(48,54,61,0.3);font-size:0.85rem;display:flex;justify-content:space-between;align-items:center}
+.pillar-item:last-child{border-bottom:none}
+.supporting-list{padding-left:1.2rem;margin:0.3rem 0}
+.supporting-list li{font-size:0.8rem;color:var(--text-dim);padding:0.15rem 0}
+.brief-section{background:rgba(13,17,23,0.5);border:1px solid var(--border);border-radius:8px;padding:1rem;margin-bottom:0.75rem}
+.brief-section h4{font-size:0.85rem;color:var(--gold);margin-bottom:0.5rem}
+.brief-h2{font-size:0.8rem;color:var(--text-dim);padding:0.2rem 0 0.2rem 0.8rem;border-left:2px solid var(--gold-border)}
+.link-map{display:flex;flex-direction:column;gap:0.4rem}
+.link-row{display:flex;align-items:center;gap:0.5rem;font-size:0.8rem;padding:0.3rem 0}
+.link-arrow{color:var(--gold);font-weight:700;flex-shrink:0}
+.md-output{background:#161b22;border:1px solid var(--border);border-radius:8px;padding:1rem;font-family:'Courier New',monospace;font-size:0.8rem;line-height:1.5;overflow:auto;white-space:pre-wrap;max-height:400px;position:relative}
+.md-output .copy-btn{position:absolute;top:0.5rem;right:0.5rem;padding:0.3rem 0.6rem;background:rgba(255,215,0,0.15);border:1px solid var(--gold-border);border-radius:6px;color:var(--gold);font-size:0.65rem;cursor:pointer;font-weight:700}
+.share-cta{background:linear-gradient(135deg,rgba(255,215,0,0.08),rgba(255,140,0,0.05));border:1px solid var(--gold-border);border-radius:16px;padding:2rem;text-align:center;margin-top:2rem}
+.share-cta h3{color:var(--gold);margin-bottom:0.5rem}.share-cta p{color:var(--text-dim);font-size:0.9rem;margin-bottom:1rem}
+.share-btns{display:flex;gap:0.6rem;justify-content:center;flex-wrap:wrap}
+.share-btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;color:#fff}
+.share-x{background:#000;border:1px solid #333}.share-reddit{background:#ff4500}.share-email{background:#21262d;border:1px solid #30363d}
+.footer{text-align:center;padding:2rem;border-top:1px solid rgba(255,215,0,0.1);color:var(--text-dim);font-size:0.75rem;margin-top:3rem}
+.footer a{color:var(--gold)}.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-bottom:1rem}
+.watermark{position:fixed;bottom:10px;right:10px;font-size:0.6rem;color:rgba(255,215,0,0.08);font-weight:800;pointer-events:none;z-index:9999;letter-spacing:1px;text-transform:uppercase}
+.stat-box{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:0.75rem;margin-bottom:1rem}
+.stat{text-align:center;padding:0.8rem;background:rgba(13,17,23,0.6);border:1px solid var(--border);border-radius:10px}
+.stat .num{font-size:1.4rem;font-weight:800;color:var(--gold)}.stat .label{font-size:0.65rem;color:var(--text-dim);text-transform:uppercase}
+@media(max-width:768px){.main{padding:1rem}.hero-section h1{font-size:1.6rem}.nav-links{display:none}.form-row{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="bg-mesh"></div><div class="bg-grid"></div>
+<div class="lock-gate" id="lockGate"><div class="lock-icon-big">&#128274;</div><h2>Enter Code <span>SPUNK</span> to Unlock</h2><p>This exclusive premium tool requires the SPUNK referral code.</p><div class="code-input-wrap"><input type="text" class="code-input" id="codeInput" placeholder="CODE" maxlength="10" autocomplete="off"><button class="code-submit" onclick="submitCode()">Unlock</button></div><div class="code-error" id="codeError"></div><div class="lock-hint">Get the code at <a href="https://spunk.codes/exclusive-tools">spunk.codes/exclusive-tools</a></div></div>
+<nav class="nav"><a href="https://spunk.codes" class="nav-brand">SPUNK.CODES</a><div class="nav-links"><a href="/store">Tools</a><a href="/exclusive-tools" class="active">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a></div></nav>
+
+<div class="main">
+  <section class="hero-section">
+    <div class="exclusive-badge">&#128081; EXCLUSIVE TOOL</div>
+    <h1><span class="gold">SEO Keyword</span> Cluster Tool</h1>
+    <p>Input seed keywords, auto-group into topic clusters, generate content briefs, pillar pages, and internal linking maps.</p>
+  </section>
+
+  <div class="card">
+    <h2>&#127793; Seed Keywords</h2>
+    <p style="font-size:0.8rem;color:var(--text-dim);margin-bottom:0.75rem">Add up to 10 seed keywords. Press Enter or click Add.</p>
+    <div class="kw-input-area">
+      <input type="text" id="kwInput" placeholder="e.g. best email marketing tools" class="form-group input" style="padding:0.6rem 0.8rem;background:rgba(22,27,34,0.9);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.85rem;outline:none;flex:1">
+      <button class="btn btn-gold" onclick="addKeyword()">Add</button>
+    </div>
+    <div class="kw-tags" id="kwTags"></div>
+    <div class="btn-row">
+      <button class="btn btn-gold" onclick="clusterKeywords()">Cluster Keywords</button>
+      <button class="btn btn-outline" onclick="loadExample()">Load Example</button>
+      <button class="btn btn-red btn-sm" onclick="clearAll()">Clear All</button>
+    </div>
+  </div>
+
+  <div class="card" id="statsCard" style="display:none">
+    <h2>&#128202; Cluster Overview</h2>
+    <div class="stat-box" id="statsBox"></div>
+  </div>
+
+  <div class="card" id="clusterCard" style="display:none">
+    <h2>&#127760; Topic Clusters</h2>
+    <div id="clusterResults"></div>
+  </div>
+
+  <div class="card" id="pillarCard" style="display:none">
+    <h2>&#127959; Pillar Content & Supporting Articles</h2>
+    <div id="pillarResults"></div>
+  </div>
+
+  <div class="card" id="briefCard" style="display:none">
+    <h2>&#128221; Content Briefs</h2>
+    <div id="briefResults"></div>
+  </div>
+
+  <div class="card" id="linkCard" style="display:none">
+    <h2>&#128279; Internal Linking Map</h2>
+    <p style="font-size:0.8rem;color:var(--text-dim);margin-bottom:0.75rem">Recommended internal links between articles in your content plan.</p>
+    <div class="link-map" id="linkMapResults"></div>
+  </div>
+
+  <div class="card" id="exportCard" style="display:none">
+    <h2>&#128196; Export Content Plan</h2>
+    <div class="btn-row" style="margin-bottom:0.75rem">
+      <button class="btn btn-gold btn-sm" onclick="exportCSV()">Export CSV</button>
+      <button class="btn btn-outline btn-sm" onclick="exportMarkdown()">Export Markdown</button>
+      <button class="btn btn-outline btn-sm" onclick="copyOutput()">Copy</button>
+    </div>
+    <div class="md-output" id="mdOutput"><button class="copy-btn" onclick="copyOutput()">Copy</button>Click "Cluster Keywords" to generate your content plan.</div>
+  </div>
+
+  <div class="share-cta">
+    <h3>&#128275; Share the Code, Unlock More Tools</h3>
+    <p>Share code SPUNK to help others access 15+ exclusive premium tools.</p>
+    <div class="share-btns">
+      <button class="share-btn share-x" onclick="shareX()">&#120143; Share on X</button>
+      <button class="share-btn share-reddit" onclick="shareReddit()">&#128172; Reddit</button>
+      <button class="share-btn share-email" onclick="shareEmail()">&#9993; Email</button>
+    </div>
+  </div>
+</div>
+
+<footer class="footer"><div class="footer-links"><a href="https://spunk.codes">Home</a><a href="/store">Tools</a><a href="/exclusive-tools">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a><a href="https://twitter.com/SpunkArt13" target="_blank">@SpunkArt13</a></div><div>&copy; 2026 SPUNK.CODES EXCLUSIVE.</div></footer>
+<div class="watermark">SPUNK.CODES EXCLUSIVE</div>
+
+<script>
+document.addEventListener('contextmenu',function(e){e.preventDefault()});
+document.addEventListener('keydown',function(e){if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'||e.key==='C'))||(e.ctrlKey&&e.key==='u'))e.preventDefault()});
+function checkCode(){try{var c=localStorage.getItem('spunk_referral_code')||localStorage.getItem('spunk_ref_code')||'';if(c.toUpperCase()==='SPUNK'){document.getElementById('lockGate').classList.add('hidden');return true}}catch(e){}return false}
+function submitCode(){var v=document.getElementById('codeInput').value.trim().toUpperCase();if(v==='SPUNK'){try{localStorage.setItem('spunk_referral_code','SPUNK');localStorage.setItem('spunk_ref_code','SPUNK')}catch(e){}document.getElementById('lockGate').classList.add('hidden')}else{document.getElementById('codeError').textContent='Invalid code. Try: SPUNK';setTimeout(function(){document.getElementById('codeError').textContent=''},2000)}}
+document.getElementById('codeInput').addEventListener('keydown',function(e){if(e.key==='Enter')submitCode()});
+checkCode();
+
+var keywords=[];
+var clusters=[];
+var contentPlan=[];
+
+var INFORMATIONAL_MODS=['how to','what is','what are','guide','tutorial','learn','tips','why','when','examples','explained','definition','ways to','steps','beginner','introduction','understanding'];
+var TRANSACTIONAL_MODS=['best','buy','top','review','compare','vs','alternative','cheap','affordable','pricing','discount','deal','free','tool','software','service','platform','app','plugin'];
+var NAVIGATIONAL_MODS=['login','sign up','dashboard','download','official','website','support','contact','docs','documentation','api'];
+
+function classifyIntent(kw){
+  var lower=kw.toLowerCase();
+  var score={informational:0,transactional:0,navigational:0};
+  INFORMATIONAL_MODS.forEach(function(m){if(lower.indexOf(m)!==-1)score.informational++});
+  TRANSACTIONAL_MODS.forEach(function(m){if(lower.indexOf(m)!==-1)score.transactional++});
+  NAVIGATIONAL_MODS.forEach(function(m){if(lower.indexOf(m)!==-1)score.navigational++});
+  if(score.transactional>=score.informational&&score.transactional>=score.navigational)return score.transactional>0?'transactional':'informational';
+  if(score.navigational>=score.informational&&score.navigational>=score.transactional)return'navigational';
+  return'informational';
+}
+
+function estimateDifficulty(kw){
+  var words=kw.trim().split(/\s+/).length;
+  var lower=kw.toLowerCase();
+  var hasEasyMods=lower.indexOf('how to')!==-1||lower.indexOf('what is')!==-1||lower.indexOf('for beginners')!==-1||words>=5;
+  var hasHardMods=words<=2||lower.indexOf('best')!==-1&&words<=3;
+  if(hasEasyMods)return'easy';
+  if(hasHardMods)return'hard';
+  return'medium';
+}
+
+function getTopicRoot(kw){
+  var lower=kw.toLowerCase();
+  var cleaned=lower;
+  var allMods=INFORMATIONAL_MODS.concat(TRANSACTIONAL_MODS).concat(NAVIGATIONAL_MODS);
+  allMods.sort(function(a,b){return b.length-a.length});
+  allMods.forEach(function(m){cleaned=cleaned.replace(new RegExp('\\b'+m.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'\\b','g'),'')});
+  cleaned=cleaned.replace(/\s+/g,' ').trim();
+  return cleaned||lower;
+}
+
+function similarity(a,b){
+  var wa=a.toLowerCase().split(/\s+/);
+  var wb=b.toLowerCase().split(/\s+/);
+  var shared=0;
+  wa.forEach(function(w){if(wb.indexOf(w)!==-1)shared++});
+  return shared/Math.max(wa.length,wb.length);
+}
+
+function addKeyword(){
+  var input=document.getElementById('kwInput');
+  var kw=input.value.trim();
+  if(!kw)return;
+  if(keywords.length>=10){alert('Maximum 10 seed keywords allowed.');return}
+  if(keywords.indexOf(kw)!==-1){alert('Keyword already added.');return}
+  keywords.push(kw);
+  input.value='';
+  renderTags();
+}
+
+function removeKeyword(idx){
+  keywords.splice(idx,1);
+  renderTags();
+}
+
+function renderTags(){
+  var html='';
+  keywords.forEach(function(kw,i){
+    html+='<span class="kw-tag">'+escapeHtml(kw)+'<button onclick="removeKeyword('+i+')">&times;</button></span>';
+  });
+  document.getElementById('kwTags').innerHTML=html;
+}
+
+function loadExample(){
+  keywords=['email marketing tools','how to build an email list','best email automation software','email marketing vs social media','email marketing for beginners','email deliverability tips','free email marketing platforms','email subject line examples'];
+  renderTags();
+}
+
+function clearAll(){
+  keywords=[];clusters=[];contentPlan=[];
+  renderTags();
+  ['statsCard','clusterCard','pillarCard','briefCard','linkCard','exportCard'].forEach(function(id){document.getElementById(id).style.display='none'});
+}
+
+function clusterKeywords(){
+  if(keywords.length<2){alert('Add at least 2 seed keywords.');return}
+
+  clusters=[];
+  var assigned=[];
+
+  keywords.forEach(function(kw){
+    var root=getTopicRoot(kw);
+    var intent=classifyIntent(kw);
+    var diff=estimateDifficulty(kw);
+    var foundCluster=false;
+
+    clusters.forEach(function(cl){
+      if(foundCluster)return;
+      cl.keywords.forEach(function(ckw){
+        if(foundCluster)return;
+        if(similarity(root,getTopicRoot(ckw))>=0.3){
+          cl.keywords.push(kw);
+          cl.intents.push(intent);
+          cl.difficulties.push(diff);
+          foundCluster=true;
+        }
+      });
+    });
+
+    if(!foundCluster){
+      clusters.push({
+        name:root.split(' ').map(function(w){return w.charAt(0).toUpperCase()+w.slice(1)}).join(' '),
+        keywords:[kw],
+        intents:[intent],
+        difficulties:[diff]
+      });
+    }
+  });
+
+  clusters.forEach(function(cl){
+    var counts={informational:0,transactional:0,navigational:0};
+    cl.intents.forEach(function(i){counts[i]++});
+    cl.primaryIntent=Object.keys(counts).sort(function(a,b){return counts[b]-counts[a]})[0];
+    var dCounts={easy:0,medium:0,hard:0};
+    cl.difficulties.forEach(function(d){dCounts[d]++});
+    cl.avgDifficulty=Object.keys(dCounts).sort(function(a,b){return dCounts[b]-dCounts[a]})[0];
+  });
+
+  generateContentPlan();
+  renderStats();
+  renderClusters();
+  renderPillars();
+  renderBriefs();
+  renderLinkMap();
+  renderExport();
+}
+
+function generateContentPlan(){
+  contentPlan=[];
+  clusters.forEach(function(cl){
+    var pillar={
+      type:'pillar',
+      cluster:cl.name,
+      title:'The Complete Guide to '+cl.name,
+      keyword:cl.keywords[0],
+      intent:cl.primaryIntent,
+      difficulty:cl.avgDifficulty,
+      h2s:generateH2s(cl.keywords[0],cl.primaryIntent),
+      supporting:[]
+    };
+
+    var maxSupporting=Math.min(cl.keywords.length,5);
+    for(var i=0;i<maxSupporting;i++){
+      var kw=cl.keywords[i];
+      var intent=cl.intents[i];
+      var diff=cl.difficulties[i];
+      var title=generateTitle(kw,intent);
+      pillar.supporting.push({
+        type:'supporting',
+        cluster:cl.name,
+        title:title,
+        keyword:kw,
+        intent:intent,
+        difficulty:diff,
+        h2s:generateH2s(kw,intent)
+      });
+    }
+    contentPlan.push(pillar);
+  });
+}
+
+function generateTitle(kw,intent){
+  var cap=kw.split(' ').map(function(w){return w.charAt(0).toUpperCase()+w.slice(1)}).join(' ');
+  if(intent==='informational'){
+    if(kw.toLowerCase().indexOf('how to')!==-1)return cap+': A Step-by-Step Guide';
+    if(kw.toLowerCase().indexOf('what is')!==-1)return cap+' (Everything You Need to Know)';
+    return cap+': Complete Guide for 2026';
+  }
+  if(intent==='transactional'){
+    if(kw.toLowerCase().indexOf('best')!==-1)return cap+' (Compared & Reviewed)';
+    if(kw.toLowerCase().indexOf('vs')!==-1)return cap+': Which One Should You Choose?';
+    return'Top '+cap+' You Should Know About';
+  }
+  return cap+': Quick Reference Guide';
+}
+
+function generateH2s(kw,intent){
+  var h2s=[];
+  var lower=kw.toLowerCase();
+  if(intent==='informational'){
+    h2s.push('What Is '+titleCase(lower)+'?');
+    h2s.push('Why '+titleCase(lower)+' Matters');
+    h2s.push('Key Benefits and Advantages');
+    h2s.push('Step-by-Step Guide');
+    h2s.push('Common Mistakes to Avoid');
+    h2s.push('Best Practices for '+titleCase(lower));
+    h2s.push('Frequently Asked Questions');
+  }else if(intent==='transactional'){
+    h2s.push('Quick Comparison Overview');
+    h2s.push('How We Evaluated Each Option');
+    h2s.push('Top Picks at a Glance');
+    h2s.push('Detailed Reviews');
+    h2s.push('Pricing Comparison');
+    h2s.push('Who Should Use What');
+    h2s.push('Our Final Recommendation');
+  }else{
+    h2s.push('Getting Started');
+    h2s.push('Key Features Overview');
+    h2s.push('How to Access '+titleCase(lower));
+    h2s.push('Tips for Getting the Most Out of It');
+    h2s.push('Troubleshooting Common Issues');
+  }
+  return h2s;
+}
+
+function titleCase(s){return s.split(' ').map(function(w){return w.charAt(0).toUpperCase()+w.slice(1)}).join(' ')}
+
+function renderStats(){
+  var totalKw=keywords.length;
+  var totalClusters=clusters.length;
+  var totalArticles=0;
+  contentPlan.forEach(function(p){totalArticles+=1+p.supporting.length});
+  var intents={informational:0,transactional:0,navigational:0};
+  clusters.forEach(function(cl){intents[cl.primaryIntent]++});
+
+  document.getElementById('statsBox').innerHTML=
+    '<div class="stat"><div class="num">'+totalKw+'</div><div class="label">Keywords</div></div>'+
+    '<div class="stat"><div class="num">'+totalClusters+'</div><div class="label">Clusters</div></div>'+
+    '<div class="stat"><div class="num">'+totalArticles+'</div><div class="label">Articles</div></div>'+
+    '<div class="stat"><div class="num">'+intents.informational+'</div><div class="label">Informational</div></div>'+
+    '<div class="stat"><div class="num">'+intents.transactional+'</div><div class="label">Transactional</div></div>';
+  document.getElementById('statsCard').style.display='block';
+}
+
+function renderClusters(){
+  var html='';
+  clusters.forEach(function(cl,i){
+    html+='<div class="cluster-group"><div class="cluster-header"><h3>'+escapeHtml(cl.name)+'</h3><div><span class="intent-badge intent-'+cl.primaryIntent+'">'+cl.primaryIntent+'</span> <span class="diff-badge diff-'+cl.avgDifficulty+'">'+cl.avgDifficulty+'</span></div></div>';
+    cl.keywords.forEach(function(kw,j){
+      html+='<div class="pillar-item"><span>'+escapeHtml(kw)+'</span><div><span class="intent-badge intent-'+cl.intents[j]+'">'+cl.intents[j]+'</span> <span class="diff-badge diff-'+cl.difficulties[j]+'">'+cl.difficulties[j]+'</span></div></div>';
+    });
+    html+='</div>';
+  });
+  document.getElementById('clusterResults').innerHTML=html;
+  document.getElementById('clusterCard').style.display='block';
+}
+
+function renderPillars(){
+  var html='';
+  contentPlan.forEach(function(pillar){
+    html+='<div class="cluster-group"><div class="cluster-header"><h3>'+escapeHtml(pillar.title)+'</h3><span class="intent-badge intent-'+pillar.intent+'">Pillar</span></div>';
+    html+='<p style="font-size:0.8rem;color:var(--text-dim);margin-bottom:0.5rem">Target keyword: <strong style="color:var(--gold)">'+escapeHtml(pillar.keyword)+'</strong></p>';
+    if(pillar.supporting.length>0){
+      html+='<p style="font-size:0.75rem;color:var(--text-dim);margin-bottom:0.3rem">Supporting articles:</p><ul class="supporting-list">';
+      pillar.supporting.forEach(function(s){
+        html+='<li><span style="color:var(--text)">'+escapeHtml(s.title)+'</span> <span class="diff-badge diff-'+s.difficulty+'">'+s.difficulty+'</span></li>';
+      });
+      html+='</ul>';
+    }
+    html+='</div>';
+  });
+  document.getElementById('pillarResults').innerHTML=html;
+  document.getElementById('pillarCard').style.display='block';
+}
+
+function renderBriefs(){
+  var html='';
+  contentPlan.forEach(function(pillar){
+    html+='<div class="brief-section"><h4>'+escapeHtml(pillar.title)+'</h4>';
+    pillar.h2s.forEach(function(h2){
+      html+='<div class="brief-h2">'+escapeHtml(h2)+'</div>';
+    });
+    html+='</div>';
+    pillar.supporting.forEach(function(s){
+      html+='<div class="brief-section"><h4>'+escapeHtml(s.title)+'</h4>';
+      s.h2s.forEach(function(h2){
+        html+='<div class="brief-h2">'+escapeHtml(h2)+'</div>';
+      });
+      html+='</div>';
+    });
+  });
+  document.getElementById('briefResults').innerHTML=html;
+  document.getElementById('briefCard').style.display='block';
+}
+
+function renderLinkMap(){
+  var html='';
+  contentPlan.forEach(function(pillar){
+    pillar.supporting.forEach(function(s){
+      html+='<div class="link-row"><span style="color:var(--text)">'+escapeHtml(s.title)+'</span><span class="link-arrow">&rarr;</span><span style="color:var(--gold)">'+escapeHtml(pillar.title)+'</span></div>';
+    });
+    for(var i=0;i<pillar.supporting.length;i++){
+      for(var j=i+1;j<pillar.supporting.length;j++){
+        if(similarity(pillar.supporting[i].keyword,pillar.supporting[j].keyword)>=0.2){
+          html+='<div class="link-row"><span style="color:var(--text)">'+escapeHtml(pillar.supporting[i].title)+'</span><span class="link-arrow">&harr;</span><span style="color:var(--text)">'+escapeHtml(pillar.supporting[j].title)+'</span></div>';
+        }
+      }
+    }
+  });
+  if(contentPlan.length>1){
+    for(var a=0;a<contentPlan.length;a++){
+      for(var b=a+1;b<contentPlan.length;b++){
+        html+='<div class="link-row"><span style="color:var(--gold)">'+escapeHtml(contentPlan[a].title)+'</span><span class="link-arrow">&harr;</span><span style="color:var(--gold)">'+escapeHtml(contentPlan[b].title)+'</span></div>';
+      }
+    }
+  }
+  document.getElementById('linkMapResults').innerHTML=html||'<p style="color:var(--text-dim);font-size:0.85rem">No cross-links to generate.</p>';
+  document.getElementById('linkCard').style.display='block';
+}
+
+function buildMarkdown(){
+  var md='# SEO Content Plan\n\nGenerated by SPUNK.CODES SEO Keyword Cluster Tool\n\n';
+  md+='## Overview\n\n';
+  md+='- **Keywords:** '+keywords.length+'\n';
+  md+='- **Clusters:** '+clusters.length+'\n';
+  var total=0;contentPlan.forEach(function(p){total+=1+p.supporting.length});
+  md+='- **Total Articles:** '+total+'\n\n';
+
+  md+='## Topic Clusters\n\n';
+  clusters.forEach(function(cl){
+    md+='### '+cl.name+' ('+cl.primaryIntent+', '+cl.avgDifficulty+')\n\n';
+    cl.keywords.forEach(function(kw,i){
+      md+='- '+kw+' ['+cl.intents[i]+', '+cl.difficulties[i]+']\n';
+    });
+    md+='\n';
+  });
+
+  md+='## Content Plan\n\n';
+  contentPlan.forEach(function(pillar){
+    md+='### PILLAR: '+pillar.title+'\n\n';
+    md+='**Target keyword:** '+pillar.keyword+'\n';
+    md+='**Intent:** '+pillar.intent+' | **Difficulty:** '+pillar.difficulty+'\n\n';
+    md+='**Suggested H2s:**\n';
+    pillar.h2s.forEach(function(h2){md+='- '+h2+'\n'});
+    md+='\n';
+    if(pillar.supporting.length>0){
+      md+='**Supporting Articles:**\n\n';
+      pillar.supporting.forEach(function(s){
+        md+='#### '+s.title+'\n\n';
+        md+='**Target keyword:** '+s.keyword+'\n';
+        md+='**Intent:** '+s.intent+' | **Difficulty:** '+s.difficulty+'\n\n';
+        md+='**Suggested H2s:**\n';
+        s.h2s.forEach(function(h2){md+='- '+h2+'\n'});
+        md+='\n';
+      });
+    }
+    md+='---\n\n';
+  });
+
+  md+='## Internal Linking Map\n\n';
+  contentPlan.forEach(function(pillar){
+    pillar.supporting.forEach(function(s){
+      md+='- '+s.title+' -> '+pillar.title+'\n';
+    });
+  });
+  md+='\n---\nGenerated with SPUNK.CODES | spunk.codes/exclusive-tools\n';
+  return md;
+}
+
+function buildCSV(){
+  var rows=[['Type','Cluster','Title','Target Keyword','Intent','Difficulty','H2s']];
+  contentPlan.forEach(function(pillar){
+    rows.push(['Pillar',pillar.cluster,pillar.title,pillar.keyword,pillar.intent,pillar.difficulty,'"'+pillar.h2s.join('; ')+'"']);
+    pillar.supporting.forEach(function(s){
+      rows.push(['Supporting',s.cluster,s.title,s.keyword,s.intent,s.difficulty,'"'+s.h2s.join('; ')+'"']);
+    });
+  });
+  return rows.map(function(r){return r.join(',')}).join('\n');
+}
+
+function renderExport(){
+  var md=buildMarkdown();
+  document.getElementById('mdOutput').innerHTML='<button class="copy-btn" onclick="copyOutput()">Copy</button>'+escapeHtml(md);
+  document.getElementById('exportCard').style.display='block';
+}
+
+function exportCSV(){
+  var csv=buildCSV();
+  var blob=new Blob([csv],{type:'text/csv'});
+  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='seo-content-plan.csv';a.click();
+}
+
+function exportMarkdown(){
+  var md=buildMarkdown();
+  var blob=new Blob([md],{type:'text/markdown'});
+  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='seo-content-plan.md';a.click();
+}
+
+function copyOutput(){
+  var el=document.getElementById('mdOutput');
+  var text=el.textContent.replace('Copy','').trim();
+  navigator.clipboard.writeText(text).then(function(){alert('Copied!')});
+}
+
+function escapeHtml(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+
+document.getElementById('kwInput').addEventListener('keydown',function(e){if(e.key==='Enter')addKeyword()});
+
+function shareX(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Just clustered my SEO keywords with this tool. Auto-generates content briefs and linking maps. Code SPUNK @SpunkArt13')+'&url='+encodeURIComponent('https://spunk.codes/exclusive-tools'),'_blank')}
+function shareReddit(){window.open('https://www.reddit.com/submit?url='+encodeURIComponent('https://spunk.codes/exclusive-tools')+'&title='+encodeURIComponent('SEO Keyword Cluster Tool - free with code SPUNK [spunk.codes]'),'_blank')}
+function shareEmail(){window.location.href='mailto:?subject='+encodeURIComponent('SEO Keyword Cluster Tool')+'&body='+encodeURIComponent('Cluster keywords into topics, generate content briefs and linking maps. Code SPUNK: https://spunk.codes/exclusive-tools')}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<script src="/auto-monetize.js"></script>
+<div id="shareXBtn" style="position:fixed;left:20px;bottom:20px;z-index:9999;">
+  <a id="shareXLink" href="#" target="_blank" rel="noopener noreferrer" title="Share on X"
+     style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;
+     background:rgba(88,166,255,0.15);border:1px solid rgba(88,166,255,0.3);
+     backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:50%;
+     text-decoration:none;transition:all 0.3s ease;cursor:pointer;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+    </svg>
+  </a>
+</div>
+<style>#shareXBtn a:hover{background:rgba(88,166,255,0.35)!important;border-color:rgba(88,166,255,0.6)!important;transform:scale(1.1);box-shadow:0 0 15px rgba(88,166,255,0.3)}</style>
+<script>
+(function(){
+  var page=location.pathname.split("/").pop()||"index.html";
+  var url="https://spunk.codes/"+page;
+  var text="Just used this free tool on spunk.codes — amazing! @SpunkArt13";
+  var href="https://x.com/intent/tweet?text="+encodeURIComponent(text)+"&url="+encodeURIComponent(url);
+  document.getElementById("shareXLink").href=href;
+})();
+</script>
+<script src="/exclusive/pro-gate.js"></script>
+<script src="/usage-tracker.js"></script>
+</body>
+</html>

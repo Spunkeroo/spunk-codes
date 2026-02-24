@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Subscription Tracker & Killer — Stop Wasting Money | SPUNK.CODES Exclusive</title>
+<meta name="description" content="Track all subscriptions, find wasted money, get free alternatives. Kill subscriptions you do not use. Export as CSV. Free premium tool.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Subscription Tracker & Killer — SPUNK.CODES Exclusive">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/subscription-tracker">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0d1117;--card:rgba(22,27,34,0.8);--border:rgba(48,54,61,0.6);--gold:#ffd700;--gold-border:rgba(255,215,0,0.3);--text:#e6edf3;--text-dim:#8b949e;--blue:#58a6ff;--cyan:#39d353;--red:#f85149;--orange:#ff8c00;--font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+a{color:var(--blue);text-decoration:none}
+.bg-mesh{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 80% 50% at 20% 20%,rgba(255,215,0,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(255,140,0,0.04) 0%,transparent 60%),var(--bg)}
+.bg-grid{position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,215,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,215,0,0.03) 1px,transparent 1px);background-size:60px 60px}
+.nav{position:sticky;top:0;z-index:100;background:rgba(13,17,23,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,215,0,0.15);padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}
+.nav-brand{font-weight:800;font-size:1.1rem;color:var(--gold);letter-spacing:0.08em}
+.nav-links{display:flex;gap:1.5rem;font-size:0.85rem}.nav-links a{color:var(--text-dim);font-weight:500}.nav-links a.active{color:var(--gold)}
+.lock-gate{position:fixed;inset:0;z-index:1000;background:rgba(13,17,23,0.97);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:2rem}
+.lock-gate.hidden{display:none}
+.lock-icon-big{font-size:4rem}.lock-gate h2{font-size:1.8rem;font-weight:800;text-align:center}.lock-gate h2 span{color:var(--gold)}.lock-gate p{color:var(--text-dim);text-align:center;max-width:400px}
+.code-input-wrap{display:flex;gap:0.5rem}
+.code-input{padding:0.8rem 1.5rem;background:rgba(22,27,34,0.8);border:2px solid var(--gold-border);border-radius:12px;color:var(--gold);font-size:1.2rem;font-weight:800;letter-spacing:3px;text-align:center;width:200px;outline:none;text-transform:uppercase;font-family:var(--font)}
+.code-input:focus{border-color:var(--gold);box-shadow:0 0 20px rgba(255,215,0,0.2)}
+.code-submit{padding:0.8rem 1.5rem;background:linear-gradient(135deg,#ffd700,#ff8c00);border:none;border-radius:12px;color:#000;font-size:1rem;font-weight:800;cursor:pointer}
+.code-error{color:var(--red);font-size:0.85rem;min-height:1.2em}.lock-hint{color:var(--text-dim);font-size:0.8rem}.lock-hint a{color:var(--gold)}
+.exclusive-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;background:linear-gradient(135deg,rgba(255,215,0,0.15),rgba(255,140,0,0.15));border:1px solid var(--gold-border);border-radius:100px;font-size:11px;font-weight:800;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase}
+.main{max-width:1100px;margin:0 auto;padding:2rem}
+.hero-section{text-align:center;padding:2rem 0 2rem}
+.hero-section h1{font-size:2.2rem;font-weight:800;margin:1rem 0 0.5rem}
+.hero-section h1 .gold{background:linear-gradient(135deg,#ffd700,#ff8c00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-section p{color:var(--text-dim);max-width:600px;margin:0 auto}
+.card{background:var(--card);border:1px solid var(--gold-border);border-radius:16px;padding:1.5rem;margin-bottom:1.5rem;backdrop-filter:blur(10px);position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),#ff8c00,var(--gold))}
+.card h2{font-size:1.1rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}
+.form-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:0.75rem;margin-bottom:0.75rem}
+.form-group{display:flex;flex-direction:column;gap:0.3rem}
+.form-group label{font-size:0.75rem;color:var(--text-dim);font-weight:600;text-transform:uppercase;letter-spacing:0.5px}
+.form-group input,.form-group select{padding:0.6rem 0.8rem;background:rgba(22,27,34,0.9);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.85rem;font-family:var(--font);outline:none}
+.form-group input:focus,.form-group select:focus{border-color:var(--gold)}
+.btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;transition:all 0.2s}
+.btn-gold{background:linear-gradient(135deg,#ffd700,#ff8c00);color:#000}
+.btn-gold:hover{transform:translateY(-1px);box-shadow:0 4px 15px rgba(255,215,0,0.3)}
+.btn-outline{background:transparent;border:1px solid var(--gold-border);color:var(--gold)}
+.btn-outline:hover{background:rgba(255,215,0,0.1)}
+.btn-red{background:rgba(248,81,73,0.15);border:1px solid rgba(248,81,73,0.3);color:var(--red)}
+.btn-sm{padding:0.4rem 0.8rem;font-size:0.75rem}
+.btn-row{display:flex;gap:0.5rem;flex-wrap:wrap}
+.result-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;margin:1rem 0}
+.result-box{background:rgba(13,17,23,0.6);border:1px solid var(--border);border-radius:12px;padding:1rem;text-align:center}
+.result-box .value{font-size:1.5rem;font-weight:800;color:var(--gold)}
+.result-box .label{font-size:0.7rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.5px;margin-top:0.3rem}
+.result-box.highlight{border-color:var(--gold-border);background:rgba(255,215,0,0.05)}
+.result-box.good .value{color:var(--cyan)}
+.result-box.bad .value{color:var(--red)}
+.sub-row{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr auto;gap:0.5rem;align-items:center;padding:0.6rem 0.8rem;background:rgba(13,17,23,0.6);border:1px solid var(--border);border-radius:8px;margin-bottom:0.4rem;font-size:0.8rem}
+.sub-row.flagged{border-color:rgba(248,81,73,0.4);background:rgba(248,81,73,0.05)}
+.sub-row.flagged .s-name{color:var(--red)}
+.sub-row .s-name{font-weight:700}
+.sub-row .s-cost{color:var(--gold);font-weight:700}
+.sub-row .s-usage{text-align:center}
+.sub-row .s-cat{color:var(--text-dim)}
+.sub-header{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr auto;gap:0.5rem;padding:0.4rem 0.8rem;font-size:0.7rem;color:var(--text-dim);font-weight:700;text-transform:uppercase;letter-spacing:0.5px}
+.stars{color:var(--gold);letter-spacing:1px}
+.kill-badge{display:inline-block;padding:2px 8px;background:rgba(248,81,73,0.2);border:1px solid rgba(248,81,73,0.3);border-radius:4px;font-size:0.65rem;font-weight:800;color:var(--red);text-transform:uppercase}
+.keep-badge{display:inline-block;padding:2px 8px;background:rgba(57,211,83,0.15);border:1px solid rgba(57,211,83,0.3);border-radius:4px;font-size:0.65rem;font-weight:800;color:var(--cyan);text-transform:uppercase}
+.alt-item{background:rgba(57,211,83,0.08);border:1px solid rgba(57,211,83,0.2);border-radius:8px;padding:0.75rem;margin-bottom:0.5rem;font-size:0.85rem}
+.alt-item strong{color:var(--cyan)}
+.alt-item .alt-sub{color:var(--text-dim);font-size:0.8rem}
+.chart-wrap{display:flex;align-items:center;gap:2rem;margin:1rem 0;flex-wrap:wrap;justify-content:center}
+.chart-wrap canvas{max-width:260px}
+.chart-legend{display:flex;flex-direction:column;gap:0.4rem}
+.legend-item{display:flex;align-items:center;gap:0.5rem;font-size:0.8rem}
+.legend-dot{width:12px;height:12px;border-radius:3px}
+.renewal-item{display:flex;justify-content:space-between;align-items:center;padding:0.5rem 0;border-bottom:1px solid rgba(48,54,61,0.3);font-size:0.8rem}
+.renewal-date{color:var(--gold);font-weight:700}
+.share-cta{background:linear-gradient(135deg,rgba(255,215,0,0.08),rgba(255,140,0,0.05));border:1px solid var(--gold-border);border-radius:16px;padding:2rem;text-align:center;margin-top:2rem}
+.share-cta h3{color:var(--gold);margin-bottom:0.5rem}.share-cta p{color:var(--text-dim);font-size:0.9rem;margin-bottom:1rem}
+.share-btns{display:flex;gap:0.6rem;justify-content:center;flex-wrap:wrap}
+.share-btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;color:#fff}
+.share-x{background:#000;border:1px solid #333}.share-reddit{background:#ff4500}.share-email{background:#21262d;border:1px solid #30363d}
+.footer{text-align:center;padding:2rem;border-top:1px solid rgba(255,215,0,0.1);color:var(--text-dim);font-size:0.75rem;margin-top:3rem}
+.footer a{color:var(--gold)}.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-bottom:1rem}
+.watermark{position:fixed;bottom:10px;right:10px;font-size:0.6rem;color:rgba(255,215,0,0.08);font-weight:800;pointer-events:none;z-index:9999;letter-spacing:1px;text-transform:uppercase}
+@media(max-width:768px){.main{padding:1rem}.hero-section h1{font-size:1.6rem}.nav-links{display:none}.form-row{grid-template-columns:1fr}.sub-row,.sub-header{grid-template-columns:1.5fr 1fr 1fr auto;font-size:0.75rem}.sub-row .s-cat,.sub-header .sh-cat{display:none}.sub-row .s-usage,.sub-header .sh-usage{display:none}}
+</style>
+</head>
+<body>
+<div class="bg-mesh"></div><div class="bg-grid"></div>
+<div class="lock-gate" id="lockGate"><div class="lock-icon-big">&#128274;</div><h2>Enter Code <span>SPUNK</span> to Unlock</h2><p>This exclusive premium tool requires the SPUNK referral code.</p><div class="code-input-wrap"><input type="text" class="code-input" id="codeInput" placeholder="CODE" maxlength="10" autocomplete="off"><button class="code-submit" onclick="submitCode()">Unlock</button></div><div class="code-error" id="codeError"></div><div class="lock-hint">Get the code at <a href="https://spunk.codes/exclusive-tools">spunk.codes/exclusive-tools</a></div></div>
+<nav class="nav"><a href="https://spunk.codes" class="nav-brand">SPUNK.CODES</a><div class="nav-links"><a href="/store">Tools</a><a href="/exclusive-tools" class="active">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a></div></nav>
+
+<div class="main">
+  <section class="hero-section">
+    <div class="exclusive-badge">&#128081; EXCLUSIVE TOOL</div>
+    <h1><span class="gold">Subscription</span> Tracker & Killer</h1>
+    <p>Find the subscriptions draining your bank account. Kill the ones you do not use. Save hundreds per year.</p>
+  </section>
+
+  <div class="card">
+    <h2>&#10010; Add Subscription</h2>
+    <div class="form-row">
+      <div class="form-group"><label>Name</label><input type="text" id="addName" placeholder="e.g. Netflix"></div>
+      <div class="form-group"><label>Cost ($)</label><input type="number" id="addCost" value="" placeholder="15.99" step="0.01" min="0"></div>
+      <div class="form-group"><label>Billing</label>
+        <select id="addBilling">
+          <option value="monthly">Monthly</option>
+          <option value="yearly">Yearly</option>
+          <option value="weekly">Weekly</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Category</label>
+        <select id="addCategory">
+          <option value="Streaming">Streaming</option>
+          <option value="Software">Software</option>
+          <option value="Gaming">Gaming</option>
+          <option value="News/Media">News/Media</option>
+          <option value="Fitness">Fitness</option>
+          <option value="Cloud/Storage">Cloud/Storage</option>
+          <option value="Music">Music</option>
+          <option value="Education">Education</option>
+          <option value="Food/Delivery">Food/Delivery</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Usage (1-5)</label>
+        <select id="addUsage">
+          <option value="5">5 - Daily</option>
+          <option value="4">4 - Weekly</option>
+          <option value="3" selected>3 - Monthly</option>
+          <option value="2">2 - Rarely</option>
+          <option value="1">1 - Never</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Renewal Date (optional)</label><input type="date" id="addRenewal"></div>
+    </div>
+    <button class="btn btn-gold" onclick="addSubscription()">Add Subscription</button>
+  </div>
+
+  <div class="card" id="quickAddCard">
+    <h2>&#9889; Quick Add Common Subscriptions</h2>
+    <div class="btn-row" id="quickAddBtns" style="flex-wrap:wrap"></div>
+  </div>
+
+  <div id="resultsSection" style="display:none">
+    <div class="card">
+      <h2>&#128176; Cost Summary</h2>
+      <div class="result-grid">
+        <div class="result-box highlight"><div class="value" id="rMonthly">-</div><div class="label">Monthly Total</div></div>
+        <div class="result-box bad"><div class="value" id="rYearly">-</div><div class="label">Yearly Total</div></div>
+        <div class="result-box"><div class="value" id="rDaily">-</div><div class="label">Per Day</div></div>
+        <div class="result-box"><div class="value" id="rCount">-</div><div class="label">Active Subscriptions</div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>&#128203; All Subscriptions</h2>
+      <div class="sub-header">
+        <span>Name</span><span>Monthly Cost</span><span class="sh-cat">Category</span><span class="sh-usage">Usage</span><span>Status</span><span></span>
+      </div>
+      <div id="subList"></div>
+    </div>
+
+    <div class="card">
+      <h2>&#128293; Kill List — Cancel These</h2>
+      <p style="color:var(--text-dim);font-size:0.8rem;margin-bottom:1rem">Low-usage, high-cost subscriptions flagged for cancellation.</p>
+      <div id="killList"></div>
+      <div class="result-grid" style="margin-top:1rem">
+        <div class="result-box good"><div class="value" id="rSaveMonthly">-</div><div class="label">Monthly Savings if Cancelled</div></div>
+        <div class="result-box good"><div class="value" id="rSaveYearly">-</div><div class="label">Yearly Savings if Cancelled</div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>&#127856; Category Breakdown</h2>
+      <div class="chart-wrap">
+        <canvas id="pieChart" width="260" height="260"></canvas>
+        <div class="chart-legend" id="chartLegend"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>&#128161; Free Alternatives</h2>
+      <div id="alternatives"></div>
+    </div>
+
+    <div class="card">
+      <h2>&#128197; Upcoming Renewals</h2>
+      <div id="renewalList"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>&#128190; Data</h2>
+    <div class="btn-row">
+      <button class="btn btn-outline btn-sm" onclick="exportCSV()">Export CSV</button>
+      <button class="btn btn-outline btn-sm" onclick="saveData()">Save to Browser</button>
+      <button class="btn btn-outline btn-sm" onclick="loadData()">Load Saved Data</button>
+      <button class="btn btn-red btn-sm" onclick="clearAll()">Clear All</button>
+    </div>
+  </div>
+
+  <div class="share-cta">
+    <h3>&#128275; Share the Code, Unlock More Tools</h3>
+    <p>Share code SPUNK to help others access 15+ exclusive premium tools.</p>
+    <div class="share-btns">
+      <button class="share-btn share-x" onclick="shareX()">&#120143; Share on X</button>
+      <button class="share-btn share-reddit" onclick="shareReddit()">&#128172; Reddit</button>
+      <button class="share-btn share-email" onclick="shareEmail()">&#9993; Email</button>
+    </div>
+  </div>
+</div>
+
+<footer class="footer"><div class="footer-links"><a href="https://spunk.codes">Home</a><a href="/store">Tools</a><a href="/exclusive-tools">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a><a href="https://twitter.com/SpunkArt13" target="_blank">@SpunkArt13</a></div><div>&copy; 2026 SPUNK.CODES EXCLUSIVE.</div></footer>
+<div class="watermark">SPUNK.CODES EXCLUSIVE</div>
+
+<script>
+document.addEventListener('contextmenu',function(e){e.preventDefault()});
+document.addEventListener('keydown',function(e){if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'||e.key==='C'))||(e.ctrlKey&&e.key==='u'))e.preventDefault()});
+function checkCode(){try{var c=localStorage.getItem('spunk_referral_code')||localStorage.getItem('spunk_ref_code')||'';if(c.toUpperCase()==='SPUNK'){document.getElementById('lockGate').classList.add('hidden');return true}}catch(e){}return false}
+function submitCode(){var v=document.getElementById('codeInput').value.trim().toUpperCase();if(v==='SPUNK'){try{localStorage.setItem('spunk_referral_code','SPUNK');localStorage.setItem('spunk_ref_code','SPUNK')}catch(e){}document.getElementById('lockGate').classList.add('hidden')}else{document.getElementById('codeError').textContent='Invalid code. Try: SPUNK';setTimeout(function(){document.getElementById('codeError').textContent=''},2000)}}
+document.getElementById('codeInput').addEventListener('keydown',function(e){if(e.key==='Enter')submitCode()});
+checkCode();
+
+function fmt(n){return '$'+Number(n).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}
+function fmtInt(n){return '$'+Number(n).toLocaleString('en-US',{minimumFractionDigits:0,maximumFractionDigits:0})}
+
+var subs=[];
+var chartColors=['#ffd700','#58a6ff','#39d353','#f85149','#bc8cff','#ff6b9d','#ff8c00','#39d2c0','#6366f1','#ec4899'];
+
+var quickAdds=[
+  {name:'Netflix',cost:15.49,billing:'monthly',category:'Streaming',usage:4},
+  {name:'Spotify',cost:11.99,billing:'monthly',category:'Music',usage:5},
+  {name:'Amazon Prime',cost:14.99,billing:'monthly',category:'Streaming',usage:4},
+  {name:'Disney+',cost:13.99,billing:'monthly',category:'Streaming',usage:3},
+  {name:'YouTube Premium',cost:13.99,billing:'monthly',category:'Streaming',usage:4},
+  {name:'Hulu',cost:7.99,billing:'monthly',category:'Streaming',usage:3},
+  {name:'HBO Max',cost:15.99,billing:'monthly',category:'Streaming',usage:3},
+  {name:'ChatGPT Plus',cost:20,billing:'monthly',category:'Software',usage:5},
+  {name:'Adobe CC',cost:54.99,billing:'monthly',category:'Software',usage:3},
+  {name:'iCloud+',cost:2.99,billing:'monthly',category:'Cloud/Storage',usage:5},
+  {name:'Google One',cost:2.99,billing:'monthly',category:'Cloud/Storage',usage:4},
+  {name:'Gym Membership',cost:40,billing:'monthly',category:'Fitness',usage:3},
+  {name:'DoorDash DashPass',cost:9.99,billing:'monthly',category:'Food/Delivery',usage:3},
+  {name:'Xbox Game Pass',cost:16.99,billing:'monthly',category:'Gaming',usage:3},
+  {name:'PlayStation Plus',cost:17.99,billing:'monthly',category:'Gaming',usage:3},
+  {name:'Ahrefs',cost:99,billing:'monthly',category:'Software',usage:3},
+  {name:'SEMrush',cost:129.95,billing:'monthly',category:'Software',usage:3},
+  {name:'Notion',cost:8,billing:'monthly',category:'Software',usage:4},
+  {name:'Slack Pro',cost:7.25,billing:'monthly',category:'Software',usage:4},
+  {name:'Dropbox',cost:11.99,billing:'monthly',category:'Cloud/Storage',usage:3}
+];
+
+var freeAlternatives={
+  'Netflix':['Tubi (free with ads)','Pluto TV (free)','Crackle (free)'],
+  'Spotify':['YouTube Music (free tier)','Soundcloud (free)','spunk.codes has no music but has free tools!'],
+  'Adobe CC':['Photopea (free Photoshop alternative)','GIMP (free)','Canva (free tier)'],
+  'Ahrefs':['spunk.codes SEO tools (FREE with code SPUNK)','Google Search Console (free)','Ubersuggest (free tier)'],
+  'SEMrush':['spunk.codes SEO tools (FREE with code SPUNK)','Google Search Console (free)','Ubersuggest (free tier)'],
+  'ChatGPT Plus':['Claude (free tier)','Google Gemini (free)','Perplexity (free)'],
+  'Notion':['Obsidian (free)','Google Docs (free)','spunk.codes note tools (FREE)'],
+  'Slack Pro':['Discord (free)','Google Chat (free)','Matrix/Element (free)'],
+  'Dropbox':['Google Drive 15GB (free)','iCloud 5GB (free)','Proton Drive (free tier)'],
+  'DoorDash DashPass':['Cook at home and save $200+/month','Meal prep on weekends'],
+  'Gym Membership':['YouTube fitness channels (free)','Running/outdoor workouts (free)','Bodyweight exercises (free)']
+};
+
+// Quick add buttons
+var qhtml='';
+quickAdds.forEach(function(q){
+  qhtml+='<button class="btn btn-outline btn-sm" onclick="quickAdd(\''+q.name+'\')">'+q.name+' ('+fmt(q.cost)+'/mo)</button>';
+});
+document.getElementById('quickAddBtns').innerHTML=qhtml;
+
+function quickAdd(name){
+  var q=quickAdds.find(function(qa){return qa.name===name});
+  if(!q) return;
+  if(subs.find(function(s){return s.name===q.name})){alert(q.name+' already added.');return}
+  subs.push({name:q.name,cost:q.cost,billing:q.billing,category:q.category,usage:q.usage,renewal:'',id:Date.now()});
+  renderAll();
+}
+
+function addSubscription(){
+  var name=document.getElementById('addName').value.trim();
+  var cost=parseFloat(document.getElementById('addCost').value)||0;
+  var billing=document.getElementById('addBilling').value;
+  var category=document.getElementById('addCategory').value;
+  var usage=parseInt(document.getElementById('addUsage').value)||3;
+  var renewal=document.getElementById('addRenewal').value||'';
+  if(!name){alert('Enter a subscription name.');return}
+  if(cost<=0){alert('Enter a cost.');return}
+  subs.push({name:name,cost:cost,billing:billing,category:category,usage:usage,renewal:renewal,id:Date.now()});
+  document.getElementById('addName').value='';
+  document.getElementById('addCost').value='';
+  renderAll();
+}
+
+function removeSub(id){
+  subs=subs.filter(function(s){return s.id!==id});
+  renderAll();
+}
+
+function getMonthly(s){
+  if(s.billing==='yearly') return s.cost/12;
+  if(s.billing==='weekly') return s.cost*4.33;
+  return s.cost;
+}
+
+function renderAll(){
+  if(subs.length===0){document.getElementById('resultsSection').style.display='none';return}
+  document.getElementById('resultsSection').style.display='block';
+
+  var totalMonthly=subs.reduce(function(s,sub){return s+getMonthly(sub)},0);
+  document.getElementById('rMonthly').textContent=fmt(totalMonthly);
+  document.getElementById('rYearly').textContent=fmtInt(totalMonthly*12);
+  document.getElementById('rDaily').textContent=fmt(totalMonthly/30.44);
+  document.getElementById('rCount').textContent=subs.length;
+
+  // Sub list
+  var sorted=subs.slice().sort(function(a,b){return getMonthly(b)-getMonthly(a)});
+  var listHtml='';
+  sorted.forEach(function(s){
+    var monthly=getMonthly(s);
+    var flagged=s.usage<=2&&monthly>5;
+    var stars='';for(var i=0;i<5;i++){stars+=i<s.usage?'&#9733;':'&#9734;'}
+    listHtml+='<div class="sub-row'+(flagged?' flagged':'')+'">';
+    listHtml+='<span class="s-name">'+s.name+'</span>';
+    listHtml+='<span class="s-cost">'+fmt(monthly)+'/mo</span>';
+    listHtml+='<span class="s-cat">'+s.category+'</span>';
+    listHtml+='<span class="s-usage stars">'+stars+'</span>';
+    listHtml+='<span>'+(flagged?'<span class="kill-badge">Kill</span>':'<span class="keep-badge">Keep</span>')+'</span>';
+    listHtml+='<button class="btn btn-red btn-sm" onclick="removeSub('+s.id+')">X</button>';
+    listHtml+='</div>';
+  });
+  document.getElementById('subList').innerHTML=listHtml;
+
+  // Kill list
+  var killable=sorted.filter(function(s){return s.usage<=2&&getMonthly(s)>5});
+  var killHtml='';
+  var killSavings=0;
+  if(killable.length===0){killHtml='<p style="color:var(--cyan);font-size:0.85rem">No subscriptions flagged for cancellation. Nice!</p>'}
+  else{
+    killable.forEach(function(s){
+      var monthly=getMonthly(s);
+      killSavings+=monthly;
+      killHtml+='<div class="sub-row flagged"><span class="s-name">'+s.name+'</span><span class="s-cost">'+fmt(monthly)+'/mo</span><span class="s-cat">'+s.category+'</span><span class="s-usage">Usage: '+s.usage+'/5</span><span><span class="kill-badge">Cancel</span></span><span></span></div>';
+    });
+  }
+  document.getElementById('killList').innerHTML=killHtml;
+  document.getElementById('rSaveMonthly').textContent=fmt(killSavings);
+  document.getElementById('rSaveYearly').textContent=fmtInt(killSavings*12);
+
+  // Category pie chart
+  var cats={};
+  subs.forEach(function(s){
+    var m=getMonthly(s);
+    if(!cats[s.category]) cats[s.category]=0;
+    cats[s.category]+=m;
+  });
+  drawPieChart(cats,totalMonthly);
+
+  // Free alternatives
+  var altHtml='';
+  subs.forEach(function(s){
+    if(freeAlternatives[s.name]){
+      altHtml+='<div class="alt-item"><strong>Cancel '+s.name+' ('+fmt(getMonthly(s))+'/mo)</strong><div class="alt-sub">Free alternatives:</div>';
+      freeAlternatives[s.name].forEach(function(a){altHtml+='<div style="font-size:0.8rem;padding:0.15rem 0;padding-left:1rem">&#8226; '+a+'</div>'});
+      altHtml+='</div>';
+    }
+  });
+  if(!altHtml) altHtml='<p style="color:var(--text-dim);font-size:0.85rem">No specific alternatives found. Check spunk.codes for free tools!</p>';
+  document.getElementById('alternatives').innerHTML=altHtml;
+
+  // Renewals
+  var withRenewals=subs.filter(function(s){return s.renewal}).sort(function(a,b){return a.renewal.localeCompare(b.renewal)});
+  var renHtml='';
+  if(withRenewals.length===0){renHtml='<p style="color:var(--text-dim);font-size:0.85rem">No renewal dates set. Add them when adding subscriptions.</p>'}
+  else{
+    withRenewals.forEach(function(s){
+      var d=new Date(s.renewal+'T00:00:00');
+      renHtml+='<div class="renewal-item"><span>'+s.name+'</span><span class="renewal-date">'+d.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})+'</span></div>';
+    });
+  }
+  document.getElementById('renewalList').innerHTML=renHtml;
+}
+
+function drawPieChart(cats,total){
+  var canvas=document.getElementById('pieChart');
+  var ctx=canvas.getContext('2d');
+  var cx=130,cy=130,r=110;
+  ctx.clearRect(0,0,260,260);
+  if(total===0) return;
+  var startAngle=-Math.PI/2;
+  var legendHtml='';
+  var keys=Object.keys(cats).sort(function(a,b){return cats[b]-cats[a]});
+  keys.forEach(function(k,i){
+    var val=cats[k];
+    var sliceAngle=(val/total)*2*Math.PI;
+    ctx.beginPath();ctx.moveTo(cx,cy);ctx.arc(cx,cy,r,startAngle,startAngle+sliceAngle);ctx.closePath();
+    ctx.fillStyle=chartColors[i%chartColors.length];ctx.fill();
+    ctx.strokeStyle='rgba(13,17,23,0.8)';ctx.lineWidth=2;ctx.stroke();
+    legendHtml+='<div class="legend-item"><div class="legend-dot" style="background:'+chartColors[i%chartColors.length]+'"></div>'+k+' '+fmt(val)+'/mo ('+(val/total*100).toFixed(1)+'%)</div>';
+    startAngle+=sliceAngle;
+  });
+  document.getElementById('chartLegend').innerHTML=legendHtml;
+}
+
+function exportCSV(){
+  var rows=[['Name','Cost','Billing','Monthly Cost','Category','Usage (1-5)','Renewal Date','Status']];
+  subs.forEach(function(s){
+    var monthly=getMonthly(s);
+    var flagged=s.usage<=2&&monthly>5;
+    rows.push([s.name,s.cost,s.billing,monthly.toFixed(2),s.category,s.usage,s.renewal,flagged?'CANCEL':'KEEP']);
+  });
+  var totalMonthly=subs.reduce(function(s,sub){return s+getMonthly(sub)},0);
+  rows.push([]);
+  rows.push(['TOTAL MONTHLY','','',totalMonthly.toFixed(2)]);
+  rows.push(['TOTAL YEARLY','','',(totalMonthly*12).toFixed(2)]);
+  var csv=rows.map(function(r){return r.map(function(c){return'"'+c+'"'}).join(',')}).join('\n');
+  var blob=new Blob([csv],{type:'text/csv'});
+  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='subscriptions-'+new Date().toISOString().split('T')[0]+'.csv';a.click();
+}
+
+function saveData(){
+  try{localStorage.setItem('sub_tracker_data',JSON.stringify(subs));alert('Saved!')}catch(e){alert('Error saving.')}
+}
+
+function loadData(){
+  try{var d=JSON.parse(localStorage.getItem('sub_tracker_data')||'[]');if(d.length>0){subs=d;renderAll();alert('Loaded '+d.length+' subscriptions.')}else{alert('No saved data found.')}}catch(e){alert('Error loading.')}
+}
+
+function clearAll(){
+  if(confirm('Clear all subscriptions?')){subs=[];renderAll();document.getElementById('resultsSection').style.display='none';try{localStorage.removeItem('sub_tracker_data')}catch(e){}}
+}
+
+// Auto-load saved data on page load
+try{var saved=JSON.parse(localStorage.getItem('sub_tracker_data')||'[]');if(saved.length>0){subs=saved;renderAll()}}catch(e){}
+
+function shareX(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Found out I spend $'+Math.round(subs.reduce(function(s,sub){return s+getMonthly(sub)},0))+'/month on subscriptions. This tracker shows what to cancel. Code SPUNK @SpunkArt13')+'&url='+encodeURIComponent('https://spunk.codes/exclusive-tools'),'_blank')}
+function shareReddit(){window.open('https://www.reddit.com/submit?url='+encodeURIComponent('https://spunk.codes/exclusive-tools')+'&title='+encodeURIComponent('Subscription Tracker & Killer - find wasted money [code SPUNK]'),'_blank')}
+function shareEmail(){window.location.href='mailto:?subject='+encodeURIComponent('Subscription Tracker Tool')+'&body='+encodeURIComponent('Track all your subscriptions and find what to cancel. Code SPUNK: https://spunk.codes/exclusive-tools')}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<script src="/auto-monetize.js"></script>
+<div id="shareXBtn" style="position:fixed;left:20px;bottom:20px;z-index:9999;">
+  <a id="shareXLink" href="#" target="_blank" rel="noopener noreferrer" title="Share on X"
+     style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;
+     background:rgba(88,166,255,0.15);border:1px solid rgba(88,166,255,0.3);
+     backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:50%;
+     text-decoration:none;transition:all 0.3s ease;cursor:pointer;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+    </svg>
+  </a>
+</div>
+<style>
+  #shareXBtn a:hover {
+    background: rgba(88,166,255,0.35) !important;
+    border-color: rgba(88,166,255,0.6) !important;
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(88,166,255,0.3);
+  }
+</style>
+<script>
+(function(){
+  var page = location.pathname.split("/").pop() || "index.html";
+  var url = "https://spunk.codes/" + page;
+  var text = "Just used this free tool on spunk.codes — amazing! @SpunkArt13";
+  var href = "https://x.com/intent/tweet?text=" + encodeURIComponent(text) + "&url=" + encodeURIComponent(url);
+  document.getElementById("shareXLink").href = href;
+})();
+</script>
+<script src="/usage-tracker.js"></script>
+</body>
+</html>

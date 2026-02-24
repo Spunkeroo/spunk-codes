@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bill Reduction Tracker - Track & Cut Monthly Bills | SPUNK.CODES Exclusive</title>
+<meta name="description" content="Add all your monthly bills, get auto-analysis of reduction opportunities, track negotiated savings, and see your 12-month savings projection. Exclusive premium tool.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Bill Reduction Tracker - SPUNK.CODES Exclusive">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/bill-reduction-tracker">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0d1117;--card:rgba(22,27,34,0.8);--border:rgba(48,54,61,0.6);--gold:#ffd700;--gold-border:rgba(255,215,0,0.3);--text:#e6edf3;--text-dim:#8b949e;--blue:#58a6ff;--cyan:#39d353;--red:#f85149;--orange:#ff8c00;--font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+a{color:var(--blue);text-decoration:none}
+.bg-mesh{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 80% 50% at 20% 20%,rgba(255,215,0,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(255,140,0,0.04) 0%,transparent 60%),var(--bg)}
+.bg-grid{position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,215,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,215,0,0.03) 1px,transparent 1px);background-size:60px 60px}
+.nav{position:sticky;top:0;z-index:100;background:rgba(13,17,23,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,215,0,0.15);padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}
+.nav-brand{font-weight:800;font-size:1.1rem;color:var(--gold);letter-spacing:0.08em}
+.nav-links{display:flex;gap:1.5rem;font-size:0.85rem}.nav-links a{color:var(--text-dim);font-weight:500}.nav-links a.active{color:var(--gold)}
+.lock-gate{position:fixed;inset:0;z-index:1000;background:rgba(13,17,23,0.97);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:2rem}
+.lock-gate.hidden{display:none}
+.lock-icon-big{font-size:4rem}.lock-gate h2{font-size:1.8rem;font-weight:800;text-align:center}.lock-gate h2 span{color:var(--gold)}.lock-gate p{color:var(--text-dim);text-align:center;max-width:400px}
+.code-input-wrap{display:flex;gap:0.5rem}
+.code-input{padding:0.8rem 1.5rem;background:rgba(22,27,34,0.8);border:2px solid var(--gold-border);border-radius:12px;color:var(--gold);font-size:1.2rem;font-weight:800;letter-spacing:3px;text-align:center;width:200px;outline:none;text-transform:uppercase;font-family:var(--font)}
+.code-input:focus{border-color:var(--gold);box-shadow:0 0 20px rgba(255,215,0,0.2)}
+.code-submit{padding:0.8rem 1.5rem;background:linear-gradient(135deg,#ffd700,#ff8c00);border:none;border-radius:12px;color:#000;font-size:1rem;font-weight:800;cursor:pointer}
+.code-error{color:var(--red);font-size:0.85rem;min-height:1.2em}.lock-hint{color:var(--text-dim);font-size:0.8rem}.lock-hint a{color:var(--gold)}
+.exclusive-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;background:linear-gradient(135deg,rgba(255,215,0,0.15),rgba(255,140,0,0.15));border:1px solid var(--gold-border);border-radius:100px;font-size:11px;font-weight:800;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase}
+.main{max-width:1000px;margin:0 auto;padding:2rem}
+.hero-section{text-align:center;padding:2rem 0 2rem}
+.hero-section h1{font-size:2.2rem;font-weight:800;margin:1rem 0 0.5rem}
+.hero-section h1 .gold{background:linear-gradient(135deg,#ffd700,#ff8c00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-section p{color:var(--text-dim);max-width:600px;margin:0 auto}
+.card{background:var(--card);border:1px solid var(--gold-border);border-radius:16px;padding:1.5rem;margin-bottom:1.5rem;backdrop-filter:blur(10px);position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),#ff8c00,var(--gold))}
+.card h2{font-size:1.1rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}
+.form-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:0.75rem;margin-bottom:0.75rem}
+.form-group{display:flex;flex-direction:column;gap:0.3rem}
+.form-group label{font-size:0.75rem;color:var(--text-dim);font-weight:600;text-transform:uppercase;letter-spacing:0.5px}
+.form-group input,.form-group select,.form-group textarea{padding:0.6rem 0.8rem;background:rgba(22,27,34,0.9);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.85rem;font-family:var(--font);outline:none}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--gold)}
+.btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;transition:all 0.2s}
+.btn-gold{background:linear-gradient(135deg,#ffd700,#ff8c00);color:#000}
+.btn-gold:hover{transform:translateY(-1px);box-shadow:0 4px 15px rgba(255,215,0,0.3)}
+.btn-outline{background:transparent;border:1px solid var(--gold-border);color:var(--gold)}
+.btn-outline:hover{background:rgba(255,215,0,0.1)}
+.btn-red{background:rgba(248,81,73,0.15);border:1px solid rgba(248,81,73,0.3);color:var(--red)}
+.btn-sm{padding:0.4rem 0.8rem;font-size:0.75rem}
+.btn-row{display:flex;gap:0.5rem;flex-wrap:wrap}
+.dashboard-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-bottom:1.5rem}
+.dash-card{background:rgba(13,17,23,0.6);border:1px solid var(--border);border-radius:12px;padding:1.2rem;text-align:center}
+.dash-card .dash-num{font-size:1.8rem;font-weight:800;color:var(--gold)}
+.dash-card .dash-label{font-size:0.7rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px;font-weight:600}
+.dash-card.savings .dash-num{color:var(--cyan)}
+.bill-table{width:100%;border-collapse:collapse;font-size:0.82rem}
+.bill-table th{text-align:left;padding:0.5rem;color:var(--text-dim);font-size:0.7rem;text-transform:uppercase;letter-spacing:0.5px;border-bottom:1px solid var(--border)}
+.bill-table td{padding:0.5rem;border-bottom:1px solid rgba(48,54,61,0.3);vertical-align:middle}
+.bill-table tr:hover{background:rgba(255,215,0,0.03)}
+.flag{display:inline-block;padding:2px 6px;border-radius:4px;font-size:0.65rem;font-weight:700;text-transform:uppercase}
+.flag-high{background:rgba(248,81,73,0.15);color:var(--red)}
+.flag-expiring{background:rgba(255,140,0,0.15);color:var(--orange)}
+.flag-bundle{background:rgba(88,166,255,0.15);color:var(--blue)}
+.flag-loyalty{background:rgba(57,211,83,0.15);color:var(--cyan)}
+.flag-saved{background:rgba(57,211,83,0.15);color:var(--cyan)}
+.action-item{display:flex;align-items:flex-start;gap:0.75rem;padding:0.75rem;background:rgba(13,17,23,0.6);border:1px solid var(--border);border-radius:10px;margin-bottom:0.5rem}
+.action-priority{min-width:28px;height:28px;display:flex;align-items:center;justify-content:center;border-radius:50%;font-size:0.7rem;font-weight:800}
+.action-priority.high{background:rgba(248,81,73,0.2);color:var(--red)}
+.action-priority.med{background:rgba(255,140,0,0.2);color:var(--orange)}
+.action-priority.low{background:rgba(88,166,255,0.2);color:var(--blue)}
+.action-details{flex:1}
+.action-details h4{font-size:0.85rem;margin-bottom:0.2rem}
+.action-details p{font-size:0.75rem;color:var(--text-dim)}
+.action-save{font-weight:800;color:var(--cyan);font-size:0.85rem;white-space:nowrap}
+.celebration{background:linear-gradient(135deg,rgba(57,211,83,0.1),rgba(255,215,0,0.1));border:2px solid rgba(57,211,83,0.3);border-radius:16px;padding:2rem;text-align:center;margin-bottom:1.5rem;display:none}
+.celebration h3{font-size:1.5rem;color:var(--cyan);margin-bottom:0.3rem}
+.celebration .big-num{font-size:2.5rem;font-weight:800;color:var(--gold)}
+.celebration p{color:var(--text-dim);font-size:0.85rem}
+.chart-wrap{background:rgba(13,17,23,0.6);border:1px solid var(--border);border-radius:12px;padding:1rem;margin-top:0.75rem}
+.share-cta{background:linear-gradient(135deg,rgba(255,215,0,0.08),rgba(255,140,0,0.05));border:1px solid var(--gold-border);border-radius:16px;padding:2rem;text-align:center;margin-top:2rem}
+.share-cta h3{color:var(--gold);margin-bottom:0.5rem}.share-cta p{color:var(--text-dim);font-size:0.9rem;margin-bottom:1rem}
+.share-btns{display:flex;gap:0.6rem;justify-content:center;flex-wrap:wrap}
+.share-btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;color:#fff}
+.share-x{background:#000;border:1px solid #333}.share-reddit{background:#ff4500}.share-email{background:#21262d;border:1px solid #30363d}
+.footer{text-align:center;padding:2rem;border-top:1px solid rgba(255,215,0,0.1);color:var(--text-dim);font-size:0.75rem;margin-top:3rem}
+.footer a{color:var(--gold)}.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-bottom:1rem}
+.watermark{position:fixed;bottom:10px;right:10px;font-size:0.6rem;color:rgba(255,215,0,0.08);font-weight:800;pointer-events:none;z-index:9999;letter-spacing:1px;text-transform:uppercase}
+@media(max-width:768px){.main{padding:1rem}.hero-section h1{font-size:1.6rem}.nav-links{display:none}.form-row{grid-template-columns:1fr}.dashboard-grid{grid-template-columns:1fr 1fr}.bill-table{font-size:0.72rem}.bill-table th,.bill-table td{padding:0.3rem}}
+</style>
+</head>
+<body>
+<div class="bg-mesh"></div><div class="bg-grid"></div>
+<div class="lock-gate" id="lockGate"><div class="lock-icon-big">&#128274;</div><h2>Enter Code <span>SPUNK</span> to Unlock</h2><p>This exclusive premium tool requires the SPUNK referral code.</p><div class="code-input-wrap"><input type="text" class="code-input" id="codeInput" placeholder="CODE" maxlength="10" autocomplete="off"><button class="code-submit" onclick="submitCode()">Unlock</button></div><div class="code-error" id="codeError"></div><div class="lock-hint">Get the code at <a href="https://spunk.codes/exclusive-tools">spunk.codes/exclusive-tools</a></div></div>
+<nav class="nav"><a href="https://spunk.codes" class="nav-brand">SPUNK.CODES</a><div class="nav-links"><a href="/store">Tools</a><a href="/exclusive-tools" class="active">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a></div></nav>
+
+<div class="main">
+  <section class="hero-section">
+    <div class="exclusive-badge">&#128081; EXCLUSIVE TOOL</div>
+    <h1><span class="gold">Bill Reduction</span> Tracker</h1>
+    <p>Add your monthly bills, discover reduction opportunities, track negotiations, and watch your savings grow.</p>
+  </section>
+
+  <div class="celebration" id="celebration">
+    <h3>You've saved</h3>
+    <div class="big-num" id="celebrationAmount">$0</div>
+    <p>this year by negotiating your bills</p>
+  </div>
+
+  <div class="dashboard-grid" id="dashboardGrid">
+    <div class="dash-card"><div class="dash-num" id="dashBills">0</div><div class="dash-label">Total Bills</div></div>
+    <div class="dash-card"><div class="dash-num" id="dashMonthly">$0</div><div class="dash-label">Monthly Spend</div></div>
+    <div class="dash-card"><div class="dash-num" id="dashYearly">$0</div><div class="dash-label">Yearly Spend</div></div>
+    <div class="dash-card savings"><div class="dash-num" id="dashSaved">$0</div><div class="dash-label">Saved This Year</div></div>
+  </div>
+
+  <div class="card">
+    <h2>&#10010; Add a Bill</h2>
+    <div class="form-row">
+      <div class="form-group"><label>Bill Name</label><input type="text" id="billName" placeholder="e.g., Comcast Internet"></div>
+      <div class="form-group"><label>Monthly Amount ($)</label><input type="number" id="billAmount" placeholder="89.99" min="0" step="0.01"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Category</label>
+        <select id="billCategory">
+          <option value="internet">Internet</option><option value="phone">Phone</option><option value="cable">Cable/TV</option>
+          <option value="insurance">Insurance</option><option value="utilities">Utilities</option><option value="streaming">Streaming</option>
+          <option value="subscription">Subscription</option><option value="gym">Gym/Fitness</option><option value="rent">Rent/Mortgage</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Provider</label><input type="text" id="billProvider" placeholder="e.g., Comcast"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Contract End Date</label><input type="date" id="billContractEnd"></div>
+      <div class="form-group"><label>Customer Since</label><input type="date" id="billCustomerSince"></div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-gold" onclick="addBill()">Add Bill</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>&#128203; Your Bills</h2>
+    <div style="overflow-x:auto">
+      <table class="bill-table">
+        <thead><tr><th>Bill</th><th>Amount</th><th>Category</th><th>Provider</th><th>Flags</th><th>Negotiated</th><th>Actions</th></tr></thead>
+        <tbody id="billsTableBody">
+          <tr><td colspan="7" style="text-align:center;color:var(--text-dim);padding:1.5rem">No bills added yet. Add your first bill above.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>&#127919; Reduction Opportunities</h2>
+    <div id="opportunitiesList">
+      <p style="color:var(--text-dim);font-size:0.85rem">Add bills to see auto-analyzed reduction opportunities.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>&#128200; Action Plan</h2>
+    <div id="actionPlan">
+      <p style="color:var(--text-dim);font-size:0.85rem">Add bills to generate a prioritized action plan.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>&#128200; 12-Month Savings Projection</h2>
+    <div class="chart-wrap">
+      <canvas id="savingsChart" width="940" height="300" style="width:100%;max-height:300px"></canvas>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>&#128190; Export & Manage</h2>
+    <div class="btn-row">
+      <button class="btn btn-gold" onclick="exportCSV()">&#128196; Export as CSV</button>
+      <button class="btn btn-outline" onclick="exportText()">Export as Text</button>
+      <button class="btn btn-red btn-sm" onclick="clearAllBills()">Clear All Bills</button>
+    </div>
+  </div>
+
+  <div class="share-cta">
+    <h3>&#128275; Share the Code, Unlock More Tools</h3>
+    <p>Share code SPUNK to help others access 15+ exclusive premium tools.</p>
+    <div class="share-btns">
+      <button class="share-btn share-x" onclick="shareX()">&#120143; Share on X</button>
+      <button class="share-btn share-reddit" onclick="shareReddit()">&#128172; Reddit</button>
+      <button class="share-btn share-email" onclick="shareEmail()">&#9993; Email</button>
+    </div>
+  </div>
+</div>
+
+<footer class="footer"><div class="footer-links"><a href="https://spunk.codes">Home</a><a href="/store">Tools</a><a href="/exclusive-tools">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a><a href="https://twitter.com/SpunkArt13" target="_blank">@SpunkArt13</a></div><div>&copy; 2026 SPUNK.CODES EXCLUSIVE.</div></footer>
+<div class="watermark">SPUNK.CODES EXCLUSIVE</div>
+
+<script>
+document.addEventListener('contextmenu',function(e){e.preventDefault()});
+document.addEventListener('keydown',function(e){if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'||e.key==='C'))||(e.ctrlKey&&e.key==='u'))e.preventDefault()});
+function checkCode(){try{var c=localStorage.getItem('spunk_referral_code')||localStorage.getItem('spunk_ref_code')||'';if(c.toUpperCase()==='SPUNK'){document.getElementById('lockGate').classList.add('hidden');return true}}catch(e){}return false}
+function submitCode(){var v=document.getElementById('codeInput').value.trim().toUpperCase();if(v==='SPUNK'){try{localStorage.setItem('spunk_referral_code','SPUNK');localStorage.setItem('spunk_ref_code','SPUNK')}catch(e){}document.getElementById('lockGate').classList.add('hidden')}else{document.getElementById('codeError').textContent='Invalid code. Try: SPUNK';setTimeout(function(){document.getElementById('codeError').textContent=''},2000)}}
+document.getElementById('codeInput').addEventListener('keydown',function(e){if(e.key==='Enter')submitCode()});
+checkCode();
+
+// Category averages (national monthly averages in USD)
+var categoryAvg={internet:65,phone:75,cable:100,insurance:150,utilities:120,streaming:15,subscription:12,gym:40,rent:1500,other:50};
+
+var bills=[];
+function loadBills(){try{bills=JSON.parse(localStorage.getItem('brt_bills')||'[]')}catch(e){bills=[]}}
+function saveBills(){try{localStorage.setItem('brt_bills',JSON.stringify(bills))}catch(e){}}
+function fmt(n){return '$'+n.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,',')}
+function fmtInt(n){return '$'+Math.round(n).toLocaleString()}
+
+function addBill(){
+  var name=document.getElementById('billName').value.trim();
+  var amount=parseFloat(document.getElementById('billAmount').value);
+  var category=document.getElementById('billCategory').value;
+  var provider=document.getElementById('billProvider').value.trim();
+  var contractEnd=document.getElementById('billContractEnd').value;
+  var customerSince=document.getElementById('billCustomerSince').value;
+  if(!name){alert('Enter a bill name');return}
+  if(!amount||amount<=0){alert('Enter a valid amount');return}
+  bills.push({id:Date.now(),name:name,amount:amount,category:category,provider:provider||'--',contractEnd:contractEnd,customerSince:customerSince,negotiated:0,originalAmount:amount});
+  document.getElementById('billName').value='';
+  document.getElementById('billAmount').value='';
+  document.getElementById('billProvider').value='';
+  document.getElementById('billContractEnd').value='';
+  document.getElementById('billCustomerSince').value='';
+  saveBills();
+  render();
+}
+
+function removeBill(id){
+  bills=bills.filter(function(b){return b.id!==id});
+  saveBills();render();
+}
+
+function logNegotiation(id){
+  var bill=bills.find(function(b){return b.id===id});
+  if(!bill) return;
+  var newRate=prompt('Enter your new negotiated monthly rate for "'+bill.name+'":','');
+  if(newRate===null) return;
+  newRate=parseFloat(newRate);
+  if(isNaN(newRate)||newRate<0){alert('Enter a valid number');return}
+  bill.negotiated=bill.amount-newRate;
+  bill.amount=newRate;
+  saveBills();render();
+}
+
+function getFlags(bill){
+  var flags=[];
+  var avg=categoryAvg[bill.category]||50;
+  if(bill.amount>avg*1.3) flags.push({type:'high',text:'Above Avg'});
+  if(bill.contractEnd){
+    var end=new Date(bill.contractEnd);
+    var now=new Date();
+    var daysLeft=Math.ceil((end-now)/(1000*60*60*24));
+    if(daysLeft<=60&&daysLeft>0) flags.push({type:'expiring',text:'Expires '+daysLeft+'d'});
+    if(daysLeft<=0) flags.push({type:'expiring',text:'Expired'});
+  }
+  // Bundling check
+  var sameCategory=bills.filter(function(b){return b.category===bill.category&&b.id!==bill.id});
+  if(sameCategory.length>0) flags.push({type:'bundle',text:'Bundle'});
+  // Loyalty
+  if(bill.customerSince){
+    var since=new Date(bill.customerSince);
+    var years=Math.floor((new Date()-since)/(365.25*24*60*60*1000));
+    if(years>=2) flags.push({type:'loyalty',text:years+'yr Loyalty'});
+  }
+  if(bill.negotiated>0) flags.push({type:'saved',text:'Saved '+fmt(bill.negotiated)});
+  return flags;
+}
+
+function render(){
+  // Dashboard
+  var totalMonthly=0,totalSaved=0;
+  bills.forEach(function(b){totalMonthly+=b.amount;totalSaved+=b.negotiated});
+  document.getElementById('dashBills').textContent=bills.length;
+  document.getElementById('dashMonthly').textContent=fmtInt(totalMonthly);
+  document.getElementById('dashYearly').textContent=fmtInt(totalMonthly*12);
+  document.getElementById('dashSaved').textContent=fmtInt(totalSaved*12);
+  // Celebration
+  if(totalSaved>0){
+    document.getElementById('celebration').style.display='block';
+    document.getElementById('celebrationAmount').textContent=fmtInt(totalSaved*12);
+  } else {
+    document.getElementById('celebration').style.display='none';
+  }
+  // Table
+  if(bills.length===0){
+    document.getElementById('billsTableBody').innerHTML='<tr><td colspan="7" style="text-align:center;color:var(--text-dim);padding:1.5rem">No bills added yet.</td></tr>';
+  } else {
+    var thtml='';
+    bills.forEach(function(b){
+      var flags=getFlags(b);
+      var flagHtml='';
+      flags.forEach(function(f){flagHtml+='<span class="flag flag-'+f.type+'">'+f.text+'</span> '});
+      thtml+='<tr><td><strong>'+esc(b.name)+'</strong></td><td>'+fmt(b.amount)+'</td><td>'+b.category+'</td><td>'+esc(b.provider)+'</td><td>'+flagHtml+'</td><td>'+(b.negotiated>0?'<span style="color:var(--cyan)">-'+fmt(b.negotiated)+'/mo</span>':'--')+'</td>';
+      thtml+='<td><button class="btn btn-outline btn-sm" onclick="logNegotiation('+b.id+')">Log Savings</button> <button class="btn btn-red btn-sm" onclick="removeBill('+b.id+')">X</button></td></tr>';
+    });
+    document.getElementById('billsTableBody').innerHTML=thtml;
+  }
+  renderOpportunities();
+  renderActionPlan();
+  renderChart();
+}
+
+function renderOpportunities(){
+  if(bills.length===0){document.getElementById('opportunitiesList').innerHTML='<p style="color:var(--text-dim);font-size:0.85rem">Add bills to see opportunities.</p>';return}
+  var opps=[];
+  bills.forEach(function(b){
+    var avg=categoryAvg[b.category]||50;
+    if(b.amount>avg*1.3){
+      var save=b.amount-avg;
+      opps.push({bill:b.name,text:'Your '+b.category+' bill ('+fmt(b.amount)+') is '+Math.round((b.amount/avg-1)*100)+'% above the national average ('+fmt(avg)+'). Potential savings: '+fmt(save)+'/mo.',save:save,type:'high'});
+    }
+    if(b.contractEnd){
+      var end=new Date(b.contractEnd);
+      var daysLeft=Math.ceil((end-new Date())/(1000*60*60*24));
+      if(daysLeft<=60&&daysLeft>0){
+        opps.push({bill:b.name,text:'Contract expires in '+daysLeft+' days. Call now to negotiate before auto-renewal. Typical savings: 15-30%.',save:b.amount*0.2,type:'expiring'});
+      }
+    }
+    if(b.customerSince){
+      var years=Math.floor((new Date()-new Date(b.customerSince))/(365.25*24*60*60*1000));
+      if(years>=2){
+        opps.push({bill:b.name,text:years+'+ year customer with '+esc(b.provider)+'. Ask for loyalty discount (5-15%). Mention competitor rates.',save:b.amount*0.10,type:'loyalty'});
+      }
+    }
+  });
+  // Bundling
+  var cats={};
+  bills.forEach(function(b){if(!cats[b.category]) cats[b.category]=[];cats[b.category].push(b)});
+  var internetPhone=[];
+  if(cats.internet) internetPhone=internetPhone.concat(cats.internet);
+  if(cats.phone) internetPhone=internetPhone.concat(cats.phone);
+  if(cats.cable) internetPhone=internetPhone.concat(cats.cable);
+  if(internetPhone.length>=2){
+    var bundleTotal=0;internetPhone.forEach(function(b){bundleTotal+=b.amount});
+    opps.push({bill:'Bundle',text:'Bundle '+internetPhone.map(function(b){return b.name}).join(' + ')+' for 15-25% savings. Current total: '+fmt(bundleTotal)+'/mo.',save:bundleTotal*0.20,type:'bundle'});
+  }
+  opps.sort(function(a,b){return b.save-a.save});
+  if(opps.length===0){
+    document.getElementById('opportunitiesList').innerHTML='<p style="color:var(--cyan);font-size:0.85rem">No flagged opportunities. Your bills look optimized.</p>';
+    return;
+  }
+  var html='';
+  opps.forEach(function(o){
+    html+='<div class="action-item"><div class="action-priority '+(o.save>30?'high':o.save>15?'med':'low')+'">!</div><div class="action-details"><h4>'+esc(o.bill)+'</h4><p>'+o.text+'</p></div><div class="action-save">~'+fmt(o.save)+'/mo</div></div>';
+  });
+  document.getElementById('opportunitiesList').innerHTML=html;
+}
+
+function renderActionPlan(){
+  if(bills.length===0){document.getElementById('actionPlan').innerHTML='<p style="color:var(--text-dim);font-size:0.85rem">Add bills to generate action plan.</p>';return}
+  var actions=[];
+  bills.forEach(function(b,i){
+    if(b.negotiated>0) return;
+    var avg=categoryAvg[b.category]||50;
+    var estSave=Math.max(b.amount*0.1,b.amount-avg);
+    if(estSave<5) estSave=b.amount*0.1;
+    var priority='low';
+    if(estSave>30) priority='high';
+    else if(estSave>15) priority='med';
+    var tip='';
+    if(b.contractEnd){
+      var daysLeft=Math.ceil((new Date(b.contractEnd)-new Date())/(1000*60*60*24));
+      if(daysLeft<=60) tip='Contract expiring soon - negotiate NOW.';
+    }
+    if(!tip) tip='Call '+esc(b.provider)+' and ask for their best available rate. Mention competitor pricing.';
+    actions.push({name:b.name,provider:b.provider,estSave:estSave,priority:priority,tip:tip});
+  });
+  actions.sort(function(a,b){return b.estSave-a.estSave});
+  if(actions.length===0){
+    document.getElementById('actionPlan').innerHTML='<p style="color:var(--cyan);font-size:0.85rem">All bills have been negotiated. Great work!</p>';
+    return;
+  }
+  var html='';
+  actions.forEach(function(a,i){
+    html+='<div class="action-item"><div class="action-priority '+a.priority+'">'+(i+1)+'</div><div class="action-details"><h4>Negotiate: '+esc(a.name)+'</h4><p>'+a.tip+'</p></div><div class="action-save">~'+fmt(a.estSave)+'/mo</div></div>';
+  });
+  document.getElementById('actionPlan').innerHTML=html;
+}
+
+function renderChart(){
+  var canvas=document.getElementById('savingsChart');
+  var ctx=canvas.getContext('2d');
+  var w=canvas.width,h=canvas.height;
+  ctx.clearRect(0,0,w,h);
+  var totalSaved=0;
+  bills.forEach(function(b){totalSaved+=b.negotiated});
+  var months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var currentMonth=new Date().getMonth();
+  var data=[];
+  var cumulative=0;
+  for(var i=0;i<12;i++){
+    var monthIdx=(currentMonth+i)%12;
+    cumulative+=totalSaved;
+    data.push({label:months[monthIdx],value:cumulative});
+  }
+  var maxVal=Math.max(data[11].value,100);
+  var padLeft=60,padRight=20,padTop=20,padBottom=40;
+  var chartW=w-padLeft-padRight,chartH=h-padTop-padBottom;
+  // Grid
+  ctx.strokeStyle='rgba(48,54,61,0.3)';ctx.lineWidth=1;
+  for(var g=0;g<=4;g++){
+    var gy=padTop+chartH-(chartH*g/4);
+    ctx.beginPath();ctx.moveTo(padLeft,gy);ctx.lineTo(w-padRight,gy);ctx.stroke();
+    ctx.fillStyle='#8b949e';ctx.font='11px system-ui';ctx.textAlign='right';
+    ctx.fillText('$'+Math.round(maxVal*g/4).toLocaleString(),padLeft-8,gy+4);
+  }
+  // Bars
+  var barW=chartW/12-8;
+  for(var b=0;b<12;b++){
+    var x=padLeft+b*(chartW/12)+4;
+    var barH=(data[b].value/maxVal)*chartH;
+    var y=padTop+chartH-barH;
+    var grad=ctx.createLinearGradient(x,y,x,padTop+chartH);
+    grad.addColorStop(0,'rgba(57,211,83,0.8)');
+    grad.addColorStop(1,'rgba(57,211,83,0.2)');
+    ctx.fillStyle=grad;
+    ctx.beginPath();
+    ctx.roundRect(x,y,barW,barH,4);
+    ctx.fill();
+    // Label
+    ctx.fillStyle='#8b949e';ctx.font='11px system-ui';ctx.textAlign='center';
+    ctx.fillText(data[b].label,x+barW/2,h-padBottom+16);
+    // Value
+    if(data[b].value>0){
+      ctx.fillStyle='#39d353';ctx.font='bold 10px system-ui';
+      ctx.fillText('$'+Math.round(data[b].value).toLocaleString(),x+barW/2,y-6);
+    }
+  }
+}
+
+function exportCSV(){
+  if(bills.length===0){alert('No bills to export');return}
+  var csv='Bill Name,Monthly Amount,Category,Provider,Contract End,Customer Since,Monthly Savings,Original Amount\n';
+  bills.forEach(function(b){
+    csv+='"'+b.name+'",'+b.amount+',"'+b.category+'","'+b.provider+'","'+(b.contractEnd||'')+'","'+(b.customerSince||'')+'",'+b.negotiated+','+(b.originalAmount||b.amount)+'\n';
+  });
+  var totalMonthly=0,totalSaved=0;
+  bills.forEach(function(b){totalMonthly+=b.amount;totalSaved+=b.negotiated});
+  csv+='\n"TOTAL",'+totalMonthly.toFixed(2)+',,,,'+totalSaved.toFixed(2)+'\n';
+  csv+='"YEARLY","'+fmt(totalMonthly*12)+'",,,,"'+fmt(totalSaved*12)+'"\n';
+  var blob=new Blob([csv],{type:'text/csv'});
+  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='bill-tracker.csv';a.click();
+}
+
+function exportText(){
+  if(bills.length===0){alert('No bills to export');return}
+  var lines=['BILL REDUCTION TRACKER','Generated by SPUNK.CODES','Date: '+new Date().toLocaleDateString(),''];
+  var totalMonthly=0,totalSaved=0;
+  bills.forEach(function(b){totalMonthly+=b.amount;totalSaved+=b.negotiated});
+  lines.push('SUMMARY: '+bills.length+' bills | '+fmt(totalMonthly)+'/mo | '+fmtInt(totalMonthly*12)+'/yr | Saved: '+fmtInt(totalSaved*12)+'/yr');
+  lines.push('');
+  bills.forEach(function(b){
+    lines.push(b.name+' | '+fmt(b.amount)+'/mo | '+b.category+' | '+b.provider+(b.negotiated>0?' | SAVED: '+fmt(b.negotiated)+'/mo':''));
+  });
+  lines.push('');
+  lines.push('Generated at spunk.codes/exclusive/bill-reduction-tracker');
+  var blob=new Blob([lines.join('\n')],{type:'text/plain'});
+  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='bill-tracker.txt';a.click();
+}
+
+function clearAllBills(){if(confirm('Clear all bills? This cannot be undone.')){bills=[];saveBills();render()}}
+function esc(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML}
+
+// Init
+loadBills();render();
+
+function shareX(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Tracking and cutting my monthly bills with this tool. Already saving. Code SPUNK @SpunkArt13')+'&url='+encodeURIComponent('https://spunk.codes/exclusive-tools'),'_blank')}
+function shareReddit(){window.open('https://www.reddit.com/submit?url='+encodeURIComponent('https://spunk.codes/exclusive-tools')+'&title='+encodeURIComponent('Bill Reduction Tracker - track and cut your monthly bills [free with code SPUNK]'),'_blank')}
+function shareEmail(){window.location.href='mailto:?subject='+encodeURIComponent('Bill Reduction Tracker')+'&body='+encodeURIComponent('Track and reduce your monthly bills. Code SPUNK: https://spunk.codes/exclusive-tools')}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<script src="/auto-monetize.js"></script>
+<div id="shareXBtn" style="position:fixed;left:20px;bottom:20px;z-index:9999;">
+  <a id="shareXLink" href="#" target="_blank" rel="noopener noreferrer" title="Share on X"
+     style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;
+     background:rgba(88,166,255,0.15);border:1px solid rgba(88,166,255,0.3);
+     backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:50%;
+     text-decoration:none;transition:all 0.3s ease;cursor:pointer;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+    </svg>
+  </a>
+</div>
+<style>#shareXBtn a:hover{background:rgba(88,166,255,0.35)!important;border-color:rgba(88,166,255,0.6)!important;transform:scale(1.1);box-shadow:0 0 15px rgba(88,166,255,0.3)}</style>
+<script>
+(function(){
+  var page=location.pathname.split("/").pop()||"index.html";
+  var url="https://spunk.codes/"+page;
+  var text="Just used this free tool on spunk.codes — amazing! @SpunkArt13";
+  var href="https://x.com/intent/tweet?text="+encodeURIComponent(text)+"&url="+encodeURIComponent(url);
+  document.getElementById("shareXLink").href=href;
+})();
+</script>
+<script src="/usage-tracker.js"></script>
+</body>
+</html>

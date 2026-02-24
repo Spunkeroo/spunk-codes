@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Cron Expression Builder - Visual Cron Scheduler | SPUNK.CODES Exclusive</title>
-<meta name="description" content="Visual cron expression builder. Click to set schedule, see human-readable descriptions, next run times, and validate expressions. Exclusive premium tool.">
+<title>Cron Expression Builder - Visual Scheduler | SPUNK.CODES Exclusive</title>
+<meta name="description" content="Build cron expressions visually. Set minute, hour, day, month, weekday with clicks. Human-readable descriptions, next 10 executions, common presets, validation. Exclusive premium tool.">
 <meta name="robots" content="noindex, nofollow">
 <meta property="og:title" content="Cron Expression Builder - SPUNK.CODES Exclusive">
 <meta name="twitter:card" content="summary_large_image">
@@ -37,53 +37,48 @@ a{color:var(--blue);text-decoration:none}
 .card{background:var(--card);border:1px solid var(--gold-border);border-radius:16px;padding:1.5rem;margin-bottom:1.5rem;backdrop-filter:blur(10px);position:relative;overflow:hidden}
 .card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),#ff8c00,var(--gold))}
 .card h2{font-size:1.1rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}
-.form-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:0.75rem;margin-bottom:0.75rem}
-.form-group{display:flex;flex-direction:column;gap:0.3rem}
-.form-group label{font-size:0.75rem;color:var(--text-dim);font-weight:600;text-transform:uppercase;letter-spacing:0.5px}
-.form-group input,.form-group select,.form-group textarea{padding:0.6rem 0.8rem;background:rgba(22,27,34,0.9);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.85rem;font-family:var(--font);outline:none}
-.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--gold)}
-.form-group textarea{resize:vertical;min-height:50px}
 .btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;transition:all 0.2s}
 .btn-gold{background:linear-gradient(135deg,#ffd700,#ff8c00);color:#000}
 .btn-gold:hover{transform:translateY(-1px);box-shadow:0 4px 15px rgba(255,215,0,0.3)}
 .btn-outline{background:transparent;border:1px solid var(--gold-border);color:var(--gold)}
 .btn-outline:hover{background:rgba(255,215,0,0.1)}
-.btn-red{background:rgba(248,81,73,0.15);border:1px solid rgba(248,81,73,0.3);color:var(--red)}
 .btn-sm{padding:0.4rem 0.8rem;font-size:0.75rem}
 .btn-row{display:flex;gap:0.5rem;flex-wrap:wrap}
-.cron-display{display:flex;align-items:center;justify-content:center;gap:0.3rem;margin-bottom:1.5rem;flex-wrap:wrap}
-.cron-part{padding:0.7rem 1.2rem;background:rgba(13,17,23,0.6);border:2px solid var(--border);border-radius:10px;text-align:center;min-width:70px;cursor:pointer;transition:all 0.2s}
-.cron-part:hover{border-color:var(--gold)}
-.cron-part.active{border-color:var(--gold);box-shadow:0 0 15px rgba(255,215,0,0.15)}
-.cron-part .val{font-size:1.6rem;font-weight:800;color:var(--gold);font-family:'Courier New',monospace}
-.cron-part .label{font-size:0.6rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.5px;margin-top:2px}
-.cron-sep{font-size:1.4rem;color:var(--text-dim);font-weight:800;padding:0 2px}
-.cron-raw{display:flex;align-items:center;gap:0.5rem;margin-bottom:1rem}
-.cron-raw input{flex:1;padding:0.7rem 1rem;background:rgba(22,27,34,0.9);border:2px solid var(--border);border-radius:10px;color:var(--gold);font-size:1.2rem;font-weight:800;font-family:'Courier New',monospace;letter-spacing:2px;text-align:center;outline:none}
-.cron-raw input:focus{border-color:var(--gold)}
-.human-desc{padding:1rem;background:rgba(57,211,83,0.08);border:1px solid rgba(57,211,83,0.2);border-radius:10px;margin-bottom:1rem;font-size:0.95rem;color:var(--cyan);font-weight:600;text-align:center}
-.human-desc.error{background:rgba(248,81,73,0.08);border-color:rgba(248,81,73,0.2);color:var(--red)}
-.picker-panel{background:rgba(13,17,23,0.8);border:1px solid var(--gold-border);border-radius:12px;padding:1rem;margin-bottom:1rem}
-.picker-panel h3{font-size:0.85rem;color:var(--gold);margin-bottom:0.75rem;font-weight:700}
-.picker-grid{display:flex;flex-wrap:wrap;gap:4px}
-.picker-cell{width:38px;height:34px;display:flex;align-items:center;justify-content:center;border-radius:6px;font-size:0.75rem;font-weight:600;cursor:pointer;border:1px solid var(--border);background:rgba(22,27,34,0.6);color:var(--text-dim);transition:all 0.15s}
-.picker-cell:hover{border-color:var(--gold);color:var(--text)}
-.picker-cell.selected{background:rgba(255,215,0,0.2);border-color:var(--gold);color:var(--gold);font-weight:800}
-.picker-cell.all-marker{width:auto;padding:0 12px;background:rgba(88,166,255,0.1);border-color:rgba(88,166,255,0.3);color:var(--blue)}
-.picker-cell.all-marker.selected{background:rgba(88,166,255,0.25);color:var(--blue)}
-.picker-controls{display:flex;gap:0.5rem;margin-bottom:0.5rem;flex-wrap:wrap}
-.picker-controls select{padding:0.4rem;background:rgba(22,27,34,0.9);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:0.8rem;font-family:var(--font);outline:none}
-.next-runs{list-style:none;padding:0}
-.next-runs li{display:flex;align-items:center;gap:0.75rem;padding:0.5rem 0.75rem;font-size:0.85rem;border-bottom:1px solid rgba(48,54,61,0.3)}
-.next-runs li:last-child{border-bottom:none}
-.run-num{color:var(--gold);font-weight:800;font-size:0.75rem;min-width:22px}
-.run-date{color:var(--text);font-family:'Courier New',monospace;font-size:0.8rem}
-.run-relative{color:var(--text-dim);font-size:0.75rem;margin-left:auto}
-.presets-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:0.5rem}
-.preset-item{padding:0.6rem 0.8rem;background:rgba(13,17,23,0.6);border:1px solid var(--border);border-radius:8px;cursor:pointer;transition:all 0.2s}
-.preset-item:hover{border-color:var(--gold);background:rgba(255,215,0,0.05)}
-.preset-item .expr{font-family:'Courier New',monospace;font-size:0.8rem;color:var(--gold);font-weight:700}
-.preset-item .desc{font-size:0.75rem;color:var(--text-dim);margin-top:2px}
+.cron-display{background:rgba(13,17,23,0.8);border:2px solid var(--gold);border-radius:16px;padding:1.5rem;text-align:center;margin-bottom:1.5rem}
+.cron-expression{font-family:'Courier New',monospace;font-size:2rem;font-weight:800;color:var(--gold);letter-spacing:6px;margin-bottom:0.5rem;word-break:break-all}
+.cron-human{font-size:1rem;color:var(--cyan);font-weight:600}
+.cron-copy-row{margin-top:0.75rem;display:flex;justify-content:center;gap:0.5rem}
+.field-section{margin-bottom:1.5rem}
+.field-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem}
+.field-header h3{font-size:0.9rem;font-weight:700;color:var(--text)}
+.field-header .field-val{font-family:'Courier New',monospace;color:var(--gold);font-weight:700;font-size:0.85rem}
+.field-modes{display:flex;gap:0.4rem;margin-bottom:0.5rem;flex-wrap:wrap}
+.field-mode{padding:0.3rem 0.7rem;background:rgba(13,17,23,0.6);border:1px solid var(--border);border-radius:8px;font-size:0.7rem;font-weight:600;cursor:pointer;color:var(--text-dim);transition:all 0.2s}
+.field-mode:hover{border-color:var(--gold-border);color:var(--text)}
+.field-mode.active{border-color:var(--gold);color:var(--gold);background:rgba(255,215,0,0.08)}
+.value-grid{display:flex;flex-wrap:wrap;gap:4px}
+.value-cell{width:36px;height:32px;display:flex;align-items:center;justify-content:center;background:rgba(13,17,23,0.6);border:1px solid var(--border);border-radius:6px;font-size:0.75rem;font-weight:600;cursor:pointer;transition:all 0.15s;color:var(--text-dim)}
+.value-cell:hover{border-color:var(--gold-border);color:var(--text)}
+.value-cell.selected{background:rgba(255,215,0,0.15);border-color:var(--gold);color:var(--gold);font-weight:800}
+.value-cell.dow{width:auto;padding:0 0.6rem}
+.interval-row{display:flex;align-items:center;gap:0.5rem;font-size:0.85rem;color:var(--text-dim)}
+.interval-row input{width:60px;padding:0.4rem;background:rgba(22,27,34,0.9);border:1px solid var(--border);border-radius:6px;color:var(--gold);font-size:0.85rem;font-weight:700;text-align:center;outline:none}
+.interval-row input:focus{border-color:var(--gold)}
+.range-row{display:flex;align-items:center;gap:0.5rem;font-size:0.85rem;color:var(--text-dim)}
+.range-row input{width:60px;padding:0.4rem;background:rgba(22,27,34,0.9);border:1px solid var(--border);border-radius:6px;color:var(--gold);font-size:0.85rem;font-weight:700;text-align:center;outline:none}
+.range-row input:focus{border-color:var(--gold)}
+.preset-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:0.5rem}
+.preset{padding:0.6rem 0.8rem;background:rgba(13,17,23,0.6);border:1px solid var(--border);border-radius:10px;cursor:pointer;transition:all 0.2s}
+.preset:hover{border-color:var(--gold);background:rgba(255,215,0,0.04)}
+.preset .preset-name{font-size:0.8rem;font-weight:700;color:var(--text)}
+.preset .preset-expr{font-family:'Courier New',monospace;font-size:0.7rem;color:var(--gold)}
+.exec-list{list-style:none}
+.exec-list li{padding:0.4rem 0;border-bottom:1px solid rgba(48,54,61,0.3);font-size:0.85rem;display:flex;justify-content:space-between;align-items:center}
+.exec-list li:last-child{border-bottom:none}
+.exec-list .exec-num{color:var(--text-dim);font-size:0.7rem;font-weight:600;min-width:20px}
+.exec-list .exec-date{color:var(--text)}
+.exec-list .exec-rel{color:var(--gold);font-size:0.75rem}
+.warning-box{background:rgba(248,81,73,0.08);border:1px solid rgba(248,81,73,0.3);border-radius:10px;padding:0.8rem 1rem;margin-top:0.75rem;font-size:0.8rem;color:var(--red);display:none}
 .share-cta{background:linear-gradient(135deg,rgba(255,215,0,0.08),rgba(255,140,0,0.05));border:1px solid var(--gold-border);border-radius:16px;padding:2rem;text-align:center;margin-top:2rem}
 .share-cta h3{color:var(--gold);margin-bottom:0.5rem}.share-cta p{color:var(--text-dim);font-size:0.9rem;margin-bottom:1rem}
 .share-btns{display:flex;gap:0.6rem;justify-content:center;flex-wrap:wrap}
@@ -92,7 +87,7 @@ a{color:var(--blue);text-decoration:none}
 .footer{text-align:center;padding:2rem;border-top:1px solid rgba(255,215,0,0.1);color:var(--text-dim);font-size:0.75rem;margin-top:3rem}
 .footer a{color:var(--gold)}.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-bottom:1rem}
 .watermark{position:fixed;bottom:10px;right:10px;font-size:0.6rem;color:rgba(255,215,0,0.08);font-weight:800;pointer-events:none;z-index:9999;letter-spacing:1px;text-transform:uppercase}
-@media(max-width:768px){.main{padding:1rem}.hero-section h1{font-size:1.6rem}.nav-links{display:none}.form-row{grid-template-columns:1fr}.cron-display{gap:0.2rem}.cron-part{min-width:55px;padding:0.5rem 0.7rem}.cron-part .val{font-size:1.2rem}.picker-cell{width:32px;height:30px;font-size:0.7rem}}
+@media(max-width:768px){.main{padding:1rem}.hero-section h1{font-size:1.6rem}.nav-links{display:none}.cron-expression{font-size:1.3rem;letter-spacing:3px}.preset-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -104,59 +99,85 @@ a{color:var(--blue);text-decoration:none}
   <section class="hero-section">
     <div class="exclusive-badge">&#128081; EXCLUSIVE TOOL</div>
     <h1><span class="gold">Cron Expression</span> Builder</h1>
-    <p>Visual cron expression builder with human-readable descriptions, next run time previews, and common presets.</p>
+    <p>Build cron expressions visually. Click to set each field, see human-readable descriptions and the next 10 execution times.</p>
   </section>
 
-  <div class="card">
-    <h2>&#128339; Cron Expression</h2>
-    <div class="cron-display">
-      <div class="cron-part" onclick="selectField(0)" id="cp-0"><div class="val" id="cv-0">*</div><div class="label">Minute</div></div>
-      <span class="cron-sep">&nbsp;</span>
-      <div class="cron-part" onclick="selectField(1)" id="cp-1"><div class="val" id="cv-1">*</div><div class="label">Hour</div></div>
-      <span class="cron-sep">&nbsp;</span>
-      <div class="cron-part" onclick="selectField(2)" id="cp-2"><div class="val" id="cv-2">*</div><div class="label">Day</div></div>
-      <span class="cron-sep">&nbsp;</span>
-      <div class="cron-part" onclick="selectField(3)" id="cp-3"><div class="val" id="cv-3">*</div><div class="label">Month</div></div>
-      <span class="cron-sep">&nbsp;</span>
-      <div class="cron-part" onclick="selectField(4)" id="cp-4"><div class="val" id="cv-4">*</div><div class="label">Weekday</div></div>
-    </div>
-    <div class="cron-raw">
-      <input type="text" id="cronRaw" value="* * * * *" oninput="parseCronRaw()">
-      <button class="btn btn-gold btn-sm" onclick="copyCron()">Copy</button>
-    </div>
-    <div class="human-desc" id="humanDesc">Every minute</div>
-  </div>
-
-  <div class="card" id="pickerCard">
-    <h2>&#127918; Value Picker</h2>
-    <div id="pickerContent">
-      <p style="color:var(--text-dim);font-size:0.85rem">Click a field above to configure its value.</p>
+  <div class="cron-display">
+    <div class="cron-expression" id="cronExpr">* * * * *</div>
+    <div class="cron-human" id="cronHuman">Every minute</div>
+    <div class="cron-copy-row">
+      <button class="btn btn-gold btn-sm" onclick="copyCron()">Copy Expression</button>
     </div>
   </div>
 
   <div class="card">
-    <h2>&#128197; Next 10 Run Times</h2>
-    <ul class="next-runs" id="nextRuns">
-      <li style="color:var(--text-dim);font-size:0.85rem">Calculating...</li>
-    </ul>
+    <h2>&#9200; Common Presets</h2>
+    <div class="preset-grid" id="presetGrid"></div>
   </div>
 
   <div class="card">
-    <h2>&#9889; Common Presets</h2>
-    <div class="presets-grid">
-      <div class="preset-item" onclick="applyPreset('* * * * *')"><div class="expr">* * * * *</div><div class="desc">Every minute</div></div>
-      <div class="preset-item" onclick="applyPreset('*/5 * * * *')"><div class="expr">*/5 * * * *</div><div class="desc">Every 5 minutes</div></div>
-      <div class="preset-item" onclick="applyPreset('*/15 * * * *')"><div class="expr">*/15 * * * *</div><div class="desc">Every 15 minutes</div></div>
-      <div class="preset-item" onclick="applyPreset('0 * * * *')"><div class="expr">0 * * * *</div><div class="desc">Every hour</div></div>
-      <div class="preset-item" onclick="applyPreset('0 */6 * * *')"><div class="expr">0 */6 * * *</div><div class="desc">Every 6 hours</div></div>
-      <div class="preset-item" onclick="applyPreset('0 0 * * *')"><div class="expr">0 0 * * *</div><div class="desc">Daily at midnight</div></div>
-      <div class="preset-item" onclick="applyPreset('0 9 * * *')"><div class="expr">0 9 * * *</div><div class="desc">Daily at 9 AM</div></div>
-      <div class="preset-item" onclick="applyPreset('0 9 * * 1-5')"><div class="expr">0 9 * * 1-5</div><div class="desc">Weekdays at 9 AM</div></div>
-      <div class="preset-item" onclick="applyPreset('0 0 * * 0')"><div class="expr">0 0 * * 0</div><div class="desc">Weekly (Sunday midnight)</div></div>
-      <div class="preset-item" onclick="applyPreset('0 0 1 * *')"><div class="expr">0 0 1 * *</div><div class="desc">Monthly (1st at midnight)</div></div>
-      <div class="preset-item" onclick="applyPreset('0 0 1 1 *')"><div class="expr">0 0 1 1 *</div><div class="desc">Yearly (Jan 1st midnight)</div></div>
-      <div class="preset-item" onclick="applyPreset('0 0 * * 1')"><div class="expr">0 0 * * 1</div><div class="desc">Every Monday at midnight</div></div>
+    <h2>&#128736; Visual Builder</h2>
+
+    <div class="field-section" id="minuteSection">
+      <div class="field-header"><h3>Minute</h3><span class="field-val" id="minuteVal">*</span></div>
+      <div class="field-modes">
+        <span class="field-mode active" data-field="minute" data-mode="every" onclick="setMode('minute','every')">Every (*)</span>
+        <span class="field-mode" data-field="minute" data-mode="specific" onclick="setMode('minute','specific')">Specific</span>
+        <span class="field-mode" data-field="minute" data-mode="interval" onclick="setMode('minute','interval')">Interval</span>
+        <span class="field-mode" data-field="minute" data-mode="range" onclick="setMode('minute','range')">Range</span>
+      </div>
+      <div id="minuteBody"></div>
     </div>
+
+    <div class="field-section" id="hourSection">
+      <div class="field-header"><h3>Hour</h3><span class="field-val" id="hourVal">*</span></div>
+      <div class="field-modes">
+        <span class="field-mode active" data-field="hour" data-mode="every" onclick="setMode('hour','every')">Every (*)</span>
+        <span class="field-mode" data-field="hour" data-mode="specific" onclick="setMode('hour','specific')">Specific</span>
+        <span class="field-mode" data-field="hour" data-mode="interval" onclick="setMode('hour','interval')">Interval</span>
+        <span class="field-mode" data-field="hour" data-mode="range" onclick="setMode('hour','range')">Range</span>
+      </div>
+      <div id="hourBody"></div>
+    </div>
+
+    <div class="field-section" id="domSection">
+      <div class="field-header"><h3>Day of Month</h3><span class="field-val" id="domVal">*</span></div>
+      <div class="field-modes">
+        <span class="field-mode active" data-field="dom" data-mode="every" onclick="setMode('dom','every')">Every (*)</span>
+        <span class="field-mode" data-field="dom" data-mode="specific" onclick="setMode('dom','specific')">Specific</span>
+        <span class="field-mode" data-field="dom" data-mode="interval" onclick="setMode('dom','interval')">Interval</span>
+        <span class="field-mode" data-field="dom" data-mode="range" onclick="setMode('dom','range')">Range</span>
+      </div>
+      <div id="domBody"></div>
+    </div>
+
+    <div class="field-section" id="monthSection">
+      <div class="field-header"><h3>Month</h3><span class="field-val" id="monthVal">*</span></div>
+      <div class="field-modes">
+        <span class="field-mode active" data-field="month" data-mode="every" onclick="setMode('month','every')">Every (*)</span>
+        <span class="field-mode" data-field="month" data-mode="specific" onclick="setMode('month','specific')">Specific</span>
+        <span class="field-mode" data-field="month" data-mode="interval" onclick="setMode('month','interval')">Interval</span>
+        <span class="field-mode" data-field="month" data-mode="range" onclick="setMode('month','range')">Range</span>
+      </div>
+      <div id="monthBody"></div>
+    </div>
+
+    <div class="field-section" id="dowSection">
+      <div class="field-header"><h3>Day of Week</h3><span class="field-val" id="dowVal">*</span></div>
+      <div class="field-modes">
+        <span class="field-mode active" data-field="dow" data-mode="every" onclick="setMode('dow','every')">Every (*)</span>
+        <span class="field-mode" data-field="dow" data-mode="specific" onclick="setMode('dow','specific')">Specific</span>
+        <span class="field-mode" data-field="dow" data-mode="range" onclick="setMode('dow','range')">Range</span>
+      </div>
+      <div id="dowBody"></div>
+    </div>
+
+    <div class="warning-box" id="warningBox"></div>
+  </div>
+
+  <div class="card">
+    <h2>&#128197; Next 10 Executions</h2>
+    <ul class="exec-list" id="execList"></ul>
   </div>
 
   <div class="share-cta">
@@ -181,324 +202,346 @@ function submitCode(){var v=document.getElementById('codeInput').value.trim().to
 document.getElementById('codeInput').addEventListener('keydown',function(e){if(e.key==='Enter')submitCode()});
 checkCode();
 
-var fields=['*','*','*','*','*'];
-var fieldNames=['Minute','Hour','Day of Month','Month','Day of Week'];
-var fieldRanges=[[0,59],[0,23],[1,31],[1,12],[0,6]];
-var monthNames=['','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-var dayNames=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-var activeField=-1;
+var MONTHS=['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+var DAYS=['SUN','MON','TUE','WED','THU','FRI','SAT'];
+var MONTH_NAMES=['January','February','March','April','May','June','July','August','September','October','November','December'];
+var DAY_NAMES=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 
-function updateDisplay(){
-  for(var i=0;i<5;i++){
-    document.getElementById('cv-'+i).textContent=fields[i];
-  }
-  document.getElementById('cronRaw').value=fields.join(' ');
-  updateHumanDescription();
-  calculateNextRuns();
-}
+var fields={
+  minute:{mode:'every',selected:[],interval:5,rangeStart:0,rangeEnd:59,min:0,max:59},
+  hour:{mode:'every',selected:[],interval:1,rangeStart:0,rangeEnd:23,min:0,max:23},
+  dom:{mode:'every',selected:[],interval:1,rangeStart:1,rangeEnd:31,min:1,max:31},
+  month:{mode:'every',selected:[],interval:1,rangeStart:1,rangeEnd:12,min:1,max:12},
+  dow:{mode:'every',selected:[],interval:1,rangeStart:0,rangeEnd:6,min:0,max:6}
+};
 
-function selectField(idx){
-  activeField=idx;
-  for(var i=0;i<5;i++){
-    document.getElementById('cp-'+i).classList.toggle('active',i===idx);
-  }
-  renderPicker(idx);
-}
+var presets=[
+  {name:'Every Minute',expr:'* * * * *'},
+  {name:'Every 5 Minutes',expr:'*/5 * * * *'},
+  {name:'Every 15 Minutes',expr:'*/15 * * * *'},
+  {name:'Every 30 Minutes',expr:'*/30 * * * *'},
+  {name:'Every Hour',expr:'0 * * * *'},
+  {name:'Every 6 Hours',expr:'0 */6 * * *'},
+  {name:'Daily at Midnight',expr:'0 0 * * *'},
+  {name:'Daily at 9 AM',expr:'0 9 * * *'},
+  {name:'Daily at 3:15 PM',expr:'15 15 * * *'},
+  {name:'Weekdays at 9 AM',expr:'0 9 * * 1-5'},
+  {name:'Every Monday 9 AM',expr:'0 9 * * 1'},
+  {name:'Every Friday 5 PM',expr:'0 17 * * 5'},
+  {name:'Weekly Sunday Midnight',expr:'0 0 * * 0'},
+  {name:'1st of Month at Noon',expr:'0 12 1 * *'},
+  {name:'Monthly (1st at Midnight)',expr:'0 0 1 * *'},
+  {name:'Quarterly (Jan/Apr/Jul/Oct)',expr:'0 0 1 1,4,7,10 *'},
+  {name:'Yearly (Jan 1st)',expr:'0 0 1 1 *'},
+  {name:'Every Weekday at 6 AM',expr:'0 6 * * 1-5'}
+];
 
-function renderPicker(idx){
-  var range=fieldRanges[idx];
-  var html='<div class="picker-panel"><h3>'+fieldNames[idx]+' ('+range[0]+'-'+range[1]+')</h3>';
-  html+='<div class="picker-controls"><select onchange="setFieldMode('+idx+',this.value)"><option value="every">Every '+fieldNames[idx].toLowerCase()+'</option><option value="specific">Specific values</option><option value="range">Range</option><option value="step">Every N '+fieldNames[idx].toLowerCase()+'s</option></select></div>';
-
-  // Parse current value
-  var currentVals=parseFieldValues(fields[idx],range);
-  var isAll=fields[idx]==='*';
-
-  html+='<div class="picker-grid">';
-  html+='<div class="picker-cell all-marker'+(isAll?' selected':'')+'" onclick="setFieldAll('+idx+')">ALL</div>';
-  for(var v=range[0];v<=range[1];v++){
-    var sel=!isAll&&currentVals.indexOf(v)!==-1;
-    var label=v;
-    if(idx===3&&v>=1) label=monthNames[v]||v;
-    if(idx===4) label=dayNames[v]||v;
-    html+='<div class="picker-cell'+(sel?' selected':'')+'" onclick="toggleValue('+idx+','+v+')">'+label+'</div>';
-  }
-  html+='</div>';
-
-  // Step input
-  html+='<div style="margin-top:0.75rem;display:flex;gap:0.5rem;align-items:center"><span style="font-size:0.8rem;color:var(--text-dim)">Every</span><input type="number" min="1" max="'+(range[1]-range[0]+1)+'" value="1" id="stepInput" style="width:60px;padding:0.4rem;background:rgba(22,27,34,0.9);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:0.8rem;outline:none"><span style="font-size:0.8rem;color:var(--text-dim)">'+fieldNames[idx].toLowerCase()+'(s)</span><button class="btn btn-outline btn-sm" onclick="setStep('+idx+')">Apply</button></div>';
-
-  html+='</div>';
-  document.getElementById('pickerContent').innerHTML=html;
-}
-
-function parseFieldValues(expr,range){
-  if(expr==='*') return [];
-  var vals=[];
-  expr.split(',').forEach(function(part){
-    part=part.trim();
-    if(part.indexOf('/')!==-1){
-      var sp=part.split('/');
-      var start=sp[0]==='*'?range[0]:parseInt(sp[0]);
-      var step=parseInt(sp[1]);
-      for(var v=start;v<=range[1];v+=step) vals.push(v);
-    } else if(part.indexOf('-')!==-1){
-      var rng=part.split('-');
-      for(var v=parseInt(rng[0]);v<=parseInt(rng[1]);v++) vals.push(v);
-    } else {
-      vals.push(parseInt(part));
-    }
+function renderPresets(){
+  var html='';
+  presets.forEach(function(p){
+    html+='<div class="preset" onclick="applyPreset(\''+p.expr+'\')"><div class="preset-name">'+p.name+'</div><div class="preset-expr">'+p.expr+'</div></div>';
   });
-  return vals;
-}
-
-function setFieldAll(idx){
-  fields[idx]='*';
-  updateDisplay();
-  renderPicker(idx);
-}
-
-function toggleValue(idx,val){
-  var range=fieldRanges[idx];
-  var current=fields[idx];
-  if(current==='*'){
-    fields[idx]=String(val);
-  } else {
-    var vals=parseFieldValues(current,range);
-    var pos=vals.indexOf(val);
-    if(pos!==-1){vals.splice(pos,1)} else {vals.push(val)}
-    vals.sort(function(a,b){return a-b});
-    if(vals.length===0) fields[idx]='*';
-    else if(vals.length===range[1]-range[0]+1) fields[idx]='*';
-    else fields[idx]=compressValues(vals);
-  }
-  updateDisplay();
-  renderPicker(idx);
-}
-
-function compressValues(vals){
-  if(vals.length===0) return '*';
-  // Try to find consecutive ranges
-  var parts=[];
-  var i=0;
-  while(i<vals.length){
-    var start=vals[i];
-    while(i+1<vals.length&&vals[i+1]===vals[i]+1) i++;
-    var end=vals[i];
-    if(end-start>=2) parts.push(start+'-'+end);
-    else if(end-start===1) parts.push(start+','+end);
-    else parts.push(String(start));
-    i++;
-  }
-  return parts.join(',');
-}
-
-function setStep(idx){
-  var step=parseInt(document.getElementById('stepInput').value)||1;
-  if(step<=1) fields[idx]='*';
-  else fields[idx]='*/'+step;
-  updateDisplay();
-  renderPicker(idx);
-}
-
-function setFieldMode(idx,mode){
-  if(mode==='every') setFieldAll(idx);
-}
-
-function parseCronRaw(){
-  var raw=document.getElementById('cronRaw').value.trim();
-  var parts=raw.split(/\s+/);
-  if(parts.length===5){
-    for(var i=0;i<5;i++) fields[i]=parts[i];
-    for(var i=0;i<5;i++) document.getElementById('cv-'+i).textContent=fields[i];
-    updateHumanDescription();
-    calculateNextRuns();
-    if(activeField>=0) renderPicker(activeField);
-  }
-}
-
-function updateHumanDescription(){
-  var el=document.getElementById('humanDesc');
-  try{
-    var desc=describeCron(fields);
-    el.textContent=desc;
-    el.classList.remove('error');
-  }catch(e){
-    el.textContent='Invalid expression: '+e.message;
-    el.classList.add('error');
-  }
-}
-
-function describeCron(f){
-  var min=f[0],hr=f[1],dom=f[2],mon=f[3],dow=f[4];
-
-  // Every minute
-  if(min==='*'&&hr==='*'&&dom==='*'&&mon==='*'&&dow==='*') return 'Every minute';
-
-  var parts=[];
-
-  // Time description
-  if(min.indexOf('/')!==-1){
-    var step=min.split('/')[1];
-    parts.push('Every '+step+' minute'+(step==='1'?'':'s'));
-  } else if(min==='*'&&hr!=='*'){
-    parts.push('Every minute');
-  }
-
-  if(hr.indexOf('/')!==-1){
-    var step=hr.split('/')[1];
-    parts.push('every '+step+' hour'+(step==='1'?'':'s'));
-  }
-
-  if(min!=='*'&&!min.includes('/')&&hr!=='*'&&!hr.includes('/')){
-    parts.push('At '+formatTime(hr,min));
-  } else if(min!=='*'&&!min.includes('/')&&hr==='*'){
-    parts.push('At minute '+min+' of every hour');
-  } else if(min==='*'&&hr!=='*'&&!hr.includes('/')){
-    parts.push('during hour '+hr);
-  }
-
-  // Day description
-  if(dom!=='*'&&!dom.includes('/')){
-    parts.push('on day '+dom+' of the month');
-  } else if(dom.includes('/')){
-    parts.push('every '+dom.split('/')[1]+' days');
-  }
-
-  // Month description
-  if(mon!=='*'&&!mon.includes('/')){
-    var mvals=mon.split(',').map(function(m){return monthNames[parseInt(m)]||m});
-    parts.push('in '+mvals.join(', '));
-  } else if(mon.includes('/')){
-    parts.push('every '+mon.split('/')[1]+' months');
-  }
-
-  // Weekday description
-  if(dow!=='*'&&!dow.includes('/')){
-    var dvals=parseFieldValues(dow,[0,6]).map(function(d){return dayNames[d]||d});
-    parts.push('on '+dvals.join(', '));
-  } else if(dow.includes('/')){
-    parts.push('every '+dow.split('/')[1]+' days of the week');
-  }
-
-  return parts.join(', ')||'Custom schedule';
-}
-
-function formatTime(hr,min){
-  var hours=hr.split(',');
-  var mins=min.split(',');
-  if(hours.length===1&&mins.length===1){
-    var h=parseInt(hours[0]);
-    var m=parseInt(mins[0]);
-    var ampm=h>=12?'PM':'AM';
-    var h12=h%12||12;
-    return h12+':'+(m<10?'0':'')+m+' '+ampm;
-  }
-  return hr+':'+min;
-}
-
-function calculateNextRuns(){
-  var el=document.getElementById('nextRuns');
-  try{
-    var runs=getNextRuns(fields,10);
-    if(runs.length===0){el.innerHTML='<li style="color:var(--text-dim)">No upcoming runs found</li>';return}
-    var now=new Date();
-    var html='';
-    runs.forEach(function(d,i){
-      var diff=d-now;
-      var rel=formatRelative(diff);
-      html+='<li><span class="run-num">#'+(i+1)+'</span><span class="run-date">'+formatDate(d)+'</span><span class="run-relative">'+rel+'</span></li>';
-    });
-    el.innerHTML=html;
-  }catch(e){
-    el.innerHTML='<li style="color:var(--red)">Error calculating: '+e.message+'</li>';
-  }
-}
-
-function getNextRuns(f,count){
-  var runs=[];
-  var d=new Date();
-  d.setSeconds(0,0);
-  d=new Date(d.getTime()+60000); // Start from next minute
-  var maxIter=525600; // 1 year of minutes
-
-  var minVals=expandField(f[0],0,59);
-  var hrVals=expandField(f[1],0,23);
-  var domVals=expandField(f[2],1,31);
-  var monVals=expandField(f[3],1,12);
-  var dowVals=expandField(f[4],0,6);
-
-  for(var i=0;i<maxIter&&runs.length<count;i++){
-    if(monVals.indexOf(d.getMonth()+1)!==-1&&
-       domVals.indexOf(d.getDate())!==-1&&
-       dowVals.indexOf(d.getDay())!==-1&&
-       hrVals.indexOf(d.getHours())!==-1&&
-       minVals.indexOf(d.getMinutes())!==-1){
-      runs.push(new Date(d));
-    }
-    d=new Date(d.getTime()+60000);
-  }
-  return runs;
-}
-
-function expandField(expr,min,max){
-  if(expr==='*'){
-    var arr=[];for(var i=min;i<=max;i++) arr.push(i);return arr;
-  }
-  var vals=[];
-  expr.split(',').forEach(function(part){
-    part=part.trim();
-    if(part.indexOf('/')!==-1){
-      var sp=part.split('/');
-      var start=sp[0]==='*'?min:parseInt(sp[0]);
-      var step=parseInt(sp[1]);
-      for(var v=start;v<=max;v+=step) vals.push(v);
-    } else if(part.indexOf('-')!==-1){
-      var rng=part.split('-');
-      for(var v=parseInt(rng[0]);v<=parseInt(rng[1]);v++) vals.push(v);
-    } else {
-      vals.push(parseInt(part));
-    }
-  });
-  return vals;
-}
-
-function formatDate(d){
-  var days=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-  var months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  return days[d.getDay()]+', '+months[d.getMonth()]+' '+d.getDate()+', '+d.getFullYear()+' '+
-    (d.getHours()<10?'0':'')+d.getHours()+':'+(d.getMinutes()<10?'0':'')+d.getMinutes();
-}
-
-function formatRelative(ms){
-  if(ms<0) return 'past';
-  var sec=Math.floor(ms/1000);
-  if(sec<60) return 'in '+sec+'s';
-  var min=Math.floor(sec/60);
-  if(min<60) return 'in '+min+'m';
-  var hr=Math.floor(min/60);
-  if(hr<24) return 'in '+hr+'h '+min%60+'m';
-  var days=Math.floor(hr/24);
-  return 'in '+days+'d '+hr%24+'h';
+  document.getElementById('presetGrid').innerHTML=html;
 }
 
 function applyPreset(expr){
-  var parts=expr.split(/\s+/);
-  for(var i=0;i<5;i++) fields[i]=parts[i];
-  updateDisplay();
-  if(activeField>=0) renderPicker(activeField);
+  var parts=expr.split(' ');
+  if(parts.length!==5)return;
+  parseField('minute',parts[0]);
+  parseField('hour',parts[1]);
+  parseField('dom',parts[2]);
+  parseField('month',parts[3]);
+  parseField('dow',parts[4]);
+  renderAllFields();
+  updateCron();
+}
+
+function parseField(name,val){
+  var f=fields[name];
+  f.selected=[];
+  if(val==='*'){f.mode='every';return}
+  if(val.indexOf('/')!==-1){
+    f.mode='interval';
+    var iParts=val.split('/');
+    f.interval=parseInt(iParts[1])||1;
+    return;
+  }
+  if(val.indexOf('-')!==-1&&val.indexOf(',')===-1){
+    f.mode='range';
+    var rParts=val.split('-');
+    f.rangeStart=parseInt(rParts[0]);
+    f.rangeEnd=parseInt(rParts[1]);
+    return;
+  }
+  f.mode='specific';
+  f.selected=val.split(',').map(function(v){return parseInt(v)}).filter(function(v){return!isNaN(v)});
+}
+
+function setMode(name,mode){
+  fields[name].mode=mode;
+  fields[name].selected=[];
+  renderField(name);
+  updateCron();
+}
+
+function renderField(name){
+  var f=fields[name];
+  var body=document.getElementById(name+'Body');
+  var modes=document.querySelectorAll('.field-mode[data-field="'+name+'"]');
+  modes.forEach(function(m){m.classList.toggle('active',m.dataset.mode===f.mode)});
+
+  if(f.mode==='every'){
+    body.innerHTML='';
+  }else if(f.mode==='specific'){
+    var html='<div class="value-grid">';
+    if(name==='dow'){
+      for(var i=0;i<=6;i++){
+        var sel=f.selected.indexOf(i)!==-1?'selected':'';
+        html+='<div class="value-cell dow '+sel+'" onclick="toggleValue(\''+name+'\','+i+')">'+DAYS[i]+'</div>';
+      }
+    }else if(name==='month'){
+      for(var i=1;i<=12;i++){
+        var sel=f.selected.indexOf(i)!==-1?'selected':'';
+        html+='<div class="value-cell dow '+sel+'" onclick="toggleValue(\''+name+'\','+i+')">'+MONTHS[i-1]+'</div>';
+      }
+    }else{
+      for(var i=f.min;i<=f.max;i++){
+        var sel=f.selected.indexOf(i)!==-1?'selected':'';
+        html+='<div class="value-cell '+sel+'" onclick="toggleValue(\''+name+'\','+i+')">'+i+'</div>';
+      }
+    }
+    html+='</div>';
+    body.innerHTML=html;
+  }else if(f.mode==='interval'){
+    body.innerHTML='<div class="interval-row">Every <input type="number" value="'+f.interval+'" min="1" max="'+(f.max-f.min+1)+'" onchange="setInterval_(\''+name+'\',this.value)"> '+(name==='minute'?'minutes':name==='hour'?'hours':name==='dom'?'days':name==='month'?'months':'days')+'</div>';
+  }else if(f.mode==='range'){
+    body.innerHTML='<div class="range-row">From <input type="number" value="'+f.rangeStart+'" min="'+f.min+'" max="'+f.max+'" onchange="setRange(\''+name+'\',\'start\',this.value)"> to <input type="number" value="'+f.rangeEnd+'" min="'+f.min+'" max="'+f.max+'" onchange="setRange(\''+name+'\',\'end\',this.value)"></div>';
+  }
+}
+
+function renderAllFields(){
+  ['minute','hour','dom','month','dow'].forEach(renderField);
+}
+
+function toggleValue(name,val){
+  var f=fields[name];
+  var idx=f.selected.indexOf(val);
+  if(idx===-1){f.selected.push(val);f.selected.sort(function(a,b){return a-b})}
+  else f.selected.splice(idx,1);
+  renderField(name);
+  updateCron();
+}
+
+function setInterval_(name,val){
+  fields[name].interval=parseInt(val)||1;
+  updateCron();
+}
+
+function setRange(name,which,val){
+  if(which==='start')fields[name].rangeStart=parseInt(val)||fields[name].min;
+  else fields[name].rangeEnd=parseInt(val)||fields[name].max;
+  updateCron();
+}
+
+function getFieldExpr(name){
+  var f=fields[name];
+  if(f.mode==='every')return'*';
+  if(f.mode==='specific')return f.selected.length>0?f.selected.join(','):'*';
+  if(f.mode==='interval')return'*/'+f.interval;
+  if(f.mode==='range')return f.rangeStart+'-'+f.rangeEnd;
+  return'*';
+}
+
+function updateCron(){
+  var parts=['minute','hour','dom','month','dow'].map(function(n){
+    var v=getFieldExpr(n);
+    document.getElementById(n+'Val').textContent=v;
+    return v;
+  });
+  var expr=parts.join(' ');
+  document.getElementById('cronExpr').textContent=expr;
+  document.getElementById('cronHuman').textContent=toHuman(parts);
+  validate(parts);
+  calcNextExecutions(parts);
+}
+
+function toHuman(p){
+  var min=p[0],hr=p[1],dom=p[2],mon=p[3],dow=p[4];
+  var parts=[];
+
+  // Time part
+  if(min==='*'&&hr==='*')parts.push('Every minute');
+  else if(min.indexOf('/')!==-1&&hr==='*')parts.push('Every '+min.split('/')[1]+' minutes');
+  else if(hr.indexOf('/')!==-1&&min==='0')parts.push('Every '+hr.split('/')[1]+' hours');
+  else if(min!=='*'&&hr!=='*'){
+    var hVal=hr,mVal=min;
+    if(hVal.indexOf(',')===-1&&hVal.indexOf('-')===-1&&hVal.indexOf('/')===-1&&mVal.indexOf(',')===-1&&mVal.indexOf('-')===-1&&mVal.indexOf('/')===-1){
+      var h=parseInt(hVal),m=parseInt(mVal);
+      var ampm=h>=12?'PM':'AM';
+      var h12=h===0?12:h>12?h-12:h;
+      parts.push('At '+h12+':'+String(m).padStart(2,'0')+' '+ampm);
+    }else{
+      if(min!=='*')parts.push('At minute '+min);
+      if(hr!=='*')parts.push('past hour '+hr);
+    }
+  }else{
+    if(min!=='*'){
+      if(min.indexOf('/')!==-1)parts.push('Every '+min.split('/')[1]+' minutes');
+      else parts.push('At minute '+min);
+    }
+    if(hr!=='*'){
+      if(hr.indexOf('/')!==-1)parts.push('every '+hr.split('/')[1]+' hours');
+      else parts.push('past hour '+hr);
+    }
+  }
+
+  // Day part
+  if(dow!=='*'){
+    if(dow.indexOf('-')!==-1){
+      var dParts=dow.split('-');
+      parts.push('on '+DAY_NAMES[parseInt(dParts[0])]+' through '+DAY_NAMES[parseInt(dParts[1])]);
+    }else if(dow.indexOf(',')!==-1){
+      var days=dow.split(',').map(function(d){return DAY_NAMES[parseInt(d)]});
+      parts.push('on '+days.join(', '));
+    }else{
+      parts.push('on '+DAY_NAMES[parseInt(dow)]);
+    }
+  }
+
+  if(dom!=='*'){
+    if(dom.indexOf('/')!==-1)parts.push('every '+dom.split('/')[1]+' days');
+    else if(dom.indexOf('-')!==-1)parts.push('on days '+dom+' of the month');
+    else parts.push('on day '+dom+' of the month');
+  }
+
+  if(mon!=='*'){
+    if(mon.indexOf(',')!==-1){
+      var mons=mon.split(',').map(function(m){return MONTH_NAMES[parseInt(m)-1]});
+      parts.push('in '+mons.join(', '));
+    }else if(mon.indexOf('-')!==-1){
+      var mParts=mon.split('-');
+      parts.push('in '+MONTH_NAMES[parseInt(mParts[0])-1]+' through '+MONTH_NAMES[parseInt(mParts[1])-1]);
+    }else if(mon.indexOf('/')!==-1){
+      parts.push('every '+mon.split('/')[1]+' months');
+    }else{
+      parts.push('in '+MONTH_NAMES[parseInt(mon)-1]);
+    }
+  }
+
+  return parts.join(' ')||'Every minute';
+}
+
+function validate(p){
+  var warnings=[];
+  if(p[0]==='*'&&p[1]==='*')warnings.push('This runs every minute (60 times per hour). Are you sure?');
+  if(p[2]!=='*'&&p[4]!=='*')warnings.push('Both day-of-month and day-of-week are set. In standard cron, this creates an OR condition (runs on EITHER matching day).');
+  if(p[2]==='31')warnings.push('Day 31 does not exist in all months. This will skip months with fewer than 31 days.');
+  if(p[2]==='30')warnings.push('Day 30 does not exist in February. This will skip February.');
+  if(p[2]==='29')warnings.push('Day 29 does not exist in February (except leap years).');
+
+  var box=document.getElementById('warningBox');
+  if(warnings.length>0){
+    box.innerHTML=warnings.join('<br>');
+    box.style.display='block';
+  }else{
+    box.style.display='none';
+  }
+}
+
+function expandField(val,min,max){
+  if(val==='*'){var r=[];for(var i=min;i<=max;i++)r.push(i);return r}
+  if(val.indexOf('/')!==-1){
+    var pts=val.split('/');
+    var step=parseInt(pts[1]);
+    var start=pts[0]==='*'?min:parseInt(pts[0]);
+    var r=[];for(var i=start;i<=max;i+=step)r.push(i);return r;
+  }
+  if(val.indexOf('-')!==-1){
+    var pts=val.split('-');var s=parseInt(pts[0]);var e=parseInt(pts[1]);
+    var r=[];for(var i=s;i<=e;i++)r.push(i);return r;
+  }
+  if(val.indexOf(',')!==-1){return val.split(',').map(function(v){return parseInt(v)})}
+  return[parseInt(val)];
+}
+
+function calcNextExecutions(p){
+  var minutes=expandField(p[0],0,59);
+  var hours=expandField(p[1],0,23);
+  var doms=p[2]==='*'?null:expandField(p[2],1,31);
+  var months=expandField(p[3],1,12);
+  var dows=p[4]==='*'?null:expandField(p[4],0,6);
+
+  var now=new Date();
+  var results=[];
+  var check=new Date(now.getTime()+60000);
+  check.setSeconds(0,0);
+  var limit=525600;// max 1 year of minutes to check
+
+  while(results.length<10&&limit-->0){
+    var m=check.getMinutes();
+    var h=check.getHours();
+    var d=check.getDate();
+    var mo=check.getMonth()+1;
+    var wd=check.getDay();
+
+    if(minutes.indexOf(m)!==-1&&hours.indexOf(h)!==-1&&months.indexOf(mo)!==-1){
+      var domMatch=doms===null||doms.indexOf(d)!==-1;
+      var dowMatch=dows===null||dows.indexOf(wd)!==-1;
+      if(doms!==null&&dows!==null){
+        if(domMatch||dowMatch)results.push(new Date(check));
+      }else{
+        if(domMatch&&dowMatch)results.push(new Date(check));
+      }
+    }
+    check.setTime(check.getTime()+60000);
+  }
+
+  var html='';
+  if(results.length===0){
+    html='<li><span class="exec-date" style="color:var(--text-dim)">No executions found in the next year.</span></li>';
+  }else{
+    results.forEach(function(d,i){
+      var diff=d.getTime()-now.getTime();
+      var rel=formatRelative(diff);
+      var opts={weekday:'short',year:'numeric',month:'short',day:'numeric',hour:'2-digit',minute:'2-digit',hour12:true};
+      html+='<li><span class="exec-num">#'+(i+1)+'</span><span class="exec-date">'+d.toLocaleDateString('en-US',opts)+'</span><span class="exec-rel">'+rel+'</span></li>';
+    });
+  }
+  document.getElementById('execList').innerHTML=html;
+}
+
+function formatRelative(ms){
+  var sec=Math.floor(ms/1000);
+  if(sec<60)return'in '+sec+'s';
+  var min=Math.floor(sec/60);
+  if(min<60)return'in '+min+'m';
+  var hr=Math.floor(min/60);
+  var rm=min%60;
+  if(hr<24)return'in '+hr+'h'+( rm>0?' '+rm+'m':'');
+  var days=Math.floor(hr/24);
+  var rh=hr%24;
+  if(days<30)return'in '+days+'d'+(rh>0?' '+rh+'h':'');
+  var mos=Math.floor(days/30);
+  return'in ~'+mos+' month'+(mos>1?'s':'');
 }
 
 function copyCron(){
-  navigator.clipboard.writeText(fields.join(' ')).then(function(){alert('Copied: '+fields.join(' '))});
+  var expr=document.getElementById('cronExpr').textContent;
+  navigator.clipboard.writeText(expr).then(function(){
+    var btn=document.querySelector('.cron-copy-row .btn');
+    btn.textContent='Copied!';
+    setTimeout(function(){btn.textContent='Copy Expression'},1500);
+  });
 }
 
 // Init
-updateDisplay();
+renderPresets();
+renderAllFields();
+updateCron();
 
-function shareX(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Building cron expressions visually. Free with code SPUNK @SpunkArt13')+'&url='+encodeURIComponent('https://spunk.codes/exclusive-tools'),'_blank')}
+function shareX(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Building cron expressions visually with next 10 execution times. No more cron syntax guessing. Code SPUNK @SpunkArt13')+'&url='+encodeURIComponent('https://spunk.codes/exclusive-tools'),'_blank')}
 function shareReddit(){window.open('https://www.reddit.com/submit?url='+encodeURIComponent('https://spunk.codes/exclusive-tools')+'&title='+encodeURIComponent('Cron Expression Builder - free with code SPUNK [spunk.codes]'),'_blank')}
-function shareEmail(){window.location.href='mailto:?subject='+encodeURIComponent('Cron Expression Builder')+'&body='+encodeURIComponent('Visual cron expression builder. Code SPUNK: https://spunk.codes/exclusive-tools')}
+function shareEmail(){window.location.href='mailto:?subject='+encodeURIComponent('Cron Expression Builder')+'&body='+encodeURIComponent('Build cron expressions visually with human-readable descriptions and next 10 executions. Code SPUNK: https://spunk.codes/exclusive-tools')}
 </script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
@@ -515,24 +558,17 @@ function shareEmail(){window.location.href='mailto:?subject='+encodeURIComponent
     </svg>
   </a>
 </div>
-<style>
-  #shareXBtn a:hover {
-    background: rgba(88,166,255,0.35) !important;
-    border-color: rgba(88,166,255,0.6) !important;
-    transform: scale(1.1);
-    box-shadow: 0 0 15px rgba(88,166,255,0.3);
-  }
-</style>
+<style>#shareXBtn a:hover{background:rgba(88,166,255,0.35)!important;border-color:rgba(88,166,255,0.6)!important;transform:scale(1.1);box-shadow:0 0 15px rgba(88,166,255,0.3)}</style>
 <script>
 (function(){
-  var page = location.pathname.split("/").pop() || "index.html";
-  var url = "https://spunk.codes/" + page;
-  var text = "Just used this free tool on spunk.codes — amazing! @SpunkArt13";
-  var href = "https://x.com/intent/tweet?text=" + encodeURIComponent(text) + "&url=" + encodeURIComponent(url);
-  document.getElementById("shareXLink").href = href;
+  var page=location.pathname.split("/").pop()||"index.html";
+  var url="https://spunk.codes/"+page;
+  var text="Just used this free tool on spunk.codes — amazing! @SpunkArt13";
+  var href="https://x.com/intent/tweet?text="+encodeURIComponent(text)+"&url="+encodeURIComponent(url);
+  document.getElementById("shareXLink").href=href;
 })();
 </script>
-<script src="/cross-promo.js"></script>
+<script src="/exclusive/pro-gate.js"></script>
 <script src="/usage-tracker.js"></script>
 </body>
 </html>

@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Insurance Savings Calculator - Save $2,000+/Year | SPUNK.CODES Exclusive</title>
+<meta name="description" content="Calculate exactly how much you can save on auto, home, health, and life insurance. Proven strategies to cut premiums by $2,000+ per year. Exclusive premium tool.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Insurance Savings Calculator - SPUNK.CODES Exclusive">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/insurance-savings-calculator">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0d1117;--card:rgba(22,27,34,0.8);--border:rgba(48,54,61,0.6);--gold:#ffd700;--gold-border:rgba(255,215,0,0.3);--text:#e6edf3;--text-dim:#8b949e;--blue:#58a6ff;--cyan:#39d353;--red:#f85149;--orange:#ff8c00;--font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+a{color:var(--blue);text-decoration:none}
+.bg-mesh{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 80% 50% at 20% 20%,rgba(255,215,0,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(255,140,0,0.04) 0%,transparent 60%),var(--bg)}
+.bg-grid{position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,215,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,215,0,0.03) 1px,transparent 1px);background-size:60px 60px}
+.nav{position:sticky;top:0;z-index:100;background:rgba(13,17,23,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,215,0,0.15);padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}
+.nav-brand{font-weight:800;font-size:1.1rem;color:var(--gold);letter-spacing:0.08em}
+.nav-links{display:flex;gap:1.5rem;font-size:0.85rem}.nav-links a{color:var(--text-dim);font-weight:500}.nav-links a.active{color:var(--gold)}
+.lock-gate{position:fixed;inset:0;z-index:1000;background:rgba(13,17,23,0.97);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:2rem}
+.lock-gate.hidden{display:none}
+.lock-icon-big{font-size:4rem}.lock-gate h2{font-size:1.8rem;font-weight:800;text-align:center}.lock-gate h2 span{color:var(--gold)}.lock-gate p{color:var(--text-dim);text-align:center;max-width:400px}
+.code-input-wrap{display:flex;gap:0.5rem}
+.code-input{padding:0.8rem 1.5rem;background:rgba(22,27,34,0.8);border:2px solid var(--gold-border);border-radius:12px;color:var(--gold);font-size:1.2rem;font-weight:800;letter-spacing:3px;text-align:center;width:200px;outline:none;text-transform:uppercase;font-family:var(--font)}
+.code-input:focus{border-color:var(--gold);box-shadow:0 0 20px rgba(255,215,0,0.2)}
+.code-submit{padding:0.8rem 1.5rem;background:linear-gradient(135deg,#ffd700,#ff8c00);border:none;border-radius:12px;color:#000;font-size:1rem;font-weight:800;cursor:pointer}
+.code-error{color:var(--red);font-size:0.85rem;min-height:1.2em}.lock-hint{color:var(--text-dim);font-size:0.8rem}.lock-hint a{color:var(--gold)}
+.exclusive-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;background:linear-gradient(135deg,rgba(255,215,0,0.15),rgba(255,140,0,0.15));border:1px solid var(--gold-border);border-radius:100px;font-size:11px;font-weight:800;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase}
+.main{max-width:1000px;margin:0 auto;padding:2rem}
+.hero-section{text-align:center;padding:2rem 0 2rem}
+.hero-section h1{font-size:2.2rem;font-weight:800;margin:1rem 0 0.5rem}
+.hero-section h1 .gold{background:linear-gradient(135deg,#ffd700,#ff8c00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-section p{color:var(--text-dim);max-width:600px;margin:0 auto}
+.card{background:var(--card);border:1px solid var(--gold-border);border-radius:16px;padding:1.5rem;margin-bottom:1.5rem;backdrop-filter:blur(10px);position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),#ff8c00,var(--gold))}
+.card h2{font-size:1.1rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}
+.form-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:0.75rem;margin-bottom:0.75rem}
+.form-group{display:flex;flex-direction:column;gap:0.3rem}
+.form-group label{font-size:0.75rem;color:var(--text-dim);font-weight:600;text-transform:uppercase;letter-spacing:0.5px}
+.form-group input,.form-group select,.form-group textarea{padding:0.6rem 0.8rem;background:rgba(22,27,34,0.9);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.85rem;font-family:var(--font);outline:none}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--gold)}
+.form-group textarea{resize:vertical;min-height:50px}
+.btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;transition:all 0.2s}
+.btn-gold{background:linear-gradient(135deg,#ffd700,#ff8c00);color:#000}
+.btn-gold:hover{transform:translateY(-1px);box-shadow:0 4px 15px rgba(255,215,0,0.3)}
+.btn-outline{background:transparent;border:1px solid var(--gold-border);color:var(--gold)}
+.btn-outline:hover{background:rgba(255,215,0,0.1)}
+.btn-red{background:rgba(248,81,73,0.15);border:1px solid rgba(248,81,73,0.3);color:var(--red)}
+.btn-sm{padding:0.4rem 0.8rem;font-size:0.75rem}
+.btn-row{display:flex;gap:0.5rem;flex-wrap:wrap}
+.tabs{display:flex;gap:0.5rem;margin-bottom:1.5rem;flex-wrap:wrap}
+.tab{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--text-dim);transition:all 0.2s}
+.tab.active{border-color:var(--gold);color:var(--gold);background:rgba(255,215,0,0.08)}
+.tab:hover{border-color:var(--gold);color:var(--gold)}
+.tab-panel{display:none}.tab-panel.active{display:block}
+.result-box{background:rgba(13,17,23,0.6);border:1px solid var(--border);border-radius:12px;padding:1rem;margin-top:0.75rem}
+.result-row{display:flex;justify-content:space-between;align-items:center;padding:0.4rem 0;font-size:0.85rem;border-bottom:1px solid rgba(48,54,61,0.3)}
+.result-row:last-child{border-bottom:none}
+.result-row .label{color:var(--text-dim)}.result-row .value{font-weight:700;color:var(--cyan)}
+.result-row .value.negative{color:var(--red)}
+.savings-total{font-size:2rem;font-weight:800;color:var(--gold);text-align:center;padding:1rem 0}
+.savings-label{font-size:0.85rem;color:var(--text-dim);text-align:center}
+.tip-item{padding:0.6rem 0;border-bottom:1px solid rgba(48,54,61,0.3);font-size:0.85rem;display:flex;gap:0.5rem;align-items:flex-start}
+.tip-item:last-child{border-bottom:none}
+.tip-num{color:var(--gold);font-weight:800;min-width:24px}
+.comparison-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:0.75rem;margin-top:0.75rem}
+.comparison-card{background:rgba(13,17,23,0.6);border:1px solid var(--border);border-radius:10px;padding:1rem;text-align:center}
+.comparison-card.recommended{border-color:var(--gold);background:rgba(255,215,0,0.05)}
+.comparison-card .cc-label{font-size:0.7rem;color:var(--text-dim);text-transform:uppercase;font-weight:600;letter-spacing:0.5px}
+.comparison-card .cc-price{font-size:1.3rem;font-weight:800;color:var(--text);margin:0.3rem 0}
+.comparison-card .cc-save{font-size:0.75rem;color:var(--cyan);font-weight:700}
+.comparison-card.recommended .cc-save{color:var(--gold)}
+.dashboard-box{background:linear-gradient(135deg,rgba(255,215,0,0.08),rgba(255,140,0,0.05));border:2px solid var(--gold-border);border-radius:16px;padding:2rem;text-align:center;margin-bottom:1.5rem}
+.share-cta{background:linear-gradient(135deg,rgba(255,215,0,0.08),rgba(255,140,0,0.05));border:1px solid var(--gold-border);border-radius:16px;padding:2rem;text-align:center;margin-top:2rem}
+.share-cta h3{color:var(--gold);margin-bottom:0.5rem}.share-cta p{color:var(--text-dim);font-size:0.9rem;margin-bottom:1rem}
+.share-btns{display:flex;gap:0.6rem;justify-content:center;flex-wrap:wrap}
+.share-btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;color:#fff}
+.share-x{background:#000;border:1px solid #333}.share-reddit{background:#ff4500}.share-email{background:#21262d;border:1px solid #30363d}
+.footer{text-align:center;padding:2rem;border-top:1px solid rgba(255,215,0,0.1);color:var(--text-dim);font-size:0.75rem;margin-top:3rem}
+.footer a{color:var(--gold)}.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-bottom:1rem}
+.watermark{position:fixed;bottom:10px;right:10px;font-size:0.6rem;color:rgba(255,215,0,0.08);font-weight:800;pointer-events:none;z-index:9999;letter-spacing:1px;text-transform:uppercase}
+@media(max-width:768px){.main{padding:1rem}.hero-section h1{font-size:1.6rem}.nav-links{display:none}.form-row{grid-template-columns:1fr}.tabs{flex-direction:column}.comparison-grid{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="bg-mesh"></div><div class="bg-grid"></div>
+<div class="lock-gate" id="lockGate"><div class="lock-icon-big">&#128274;</div><h2>Enter Code <span>SPUNK</span> to Unlock</h2><p>This exclusive premium tool requires the SPUNK referral code.</p><div class="code-input-wrap"><input type="text" class="code-input" id="codeInput" placeholder="CODE" maxlength="10" autocomplete="off"><button class="code-submit" onclick="submitCode()">Unlock</button></div><div class="code-error" id="codeError"></div><div class="lock-hint">Get the code at <a href="https://spunk.codes/exclusive-tools">spunk.codes/exclusive-tools</a></div></div>
+<nav class="nav"><a href="https://spunk.codes" class="nav-brand">SPUNK.CODES</a><div class="nav-links"><a href="/store">Tools</a><a href="/exclusive-tools" class="active">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a></div></nav>
+
+<div class="main">
+  <section class="hero-section">
+    <div class="exclusive-badge">&#128081; EXCLUSIVE TOOL</div>
+    <h1><span class="gold">Insurance Savings</span> Calculator</h1>
+    <p>Analyze your auto, home, health, and life insurance to find hidden savings. Most people save $2,000+ per year.</p>
+  </section>
+
+  <div class="dashboard-box" id="totalDashboard">
+    <div class="savings-label">YOUR ESTIMATED ANNUAL SAVINGS</div>
+    <div class="savings-total" id="totalSavings">$0</div>
+    <div class="savings-label">Complete each section below to see your full savings potential</div>
+    <div class="btn-row" style="justify-content:center;margin-top:1rem">
+      <button class="btn btn-gold" onclick="exportSavingsPlan()">&#128196; Export Savings Plan</button>
+      <button class="btn btn-outline" onclick="resetAll()">Reset All</button>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('auto')">&#128663; Auto</button>
+    <button class="tab" onclick="switchTab('home')">&#127968; Home/Renters</button>
+    <button class="tab" onclick="switchTab('health')">&#127973; Health</button>
+    <button class="tab" onclick="switchTab('life')">&#128153; Life</button>
+    <button class="tab" onclick="switchTab('tips')">&#128161; 15 Tips</button>
+  </div>
+
+  <!-- AUTO INSURANCE -->
+  <div class="tab-panel active" id="panel-auto">
+    <div class="card">
+      <h2>&#128663; Auto Insurance Savings</h2>
+      <div class="form-row">
+        <div class="form-group"><label>Current Annual Premium ($)</label><input type="number" id="autoCurrentPremium" placeholder="1800" min="0"></div>
+        <div class="form-group"><label>Coverage Level</label>
+          <select id="autoCoverage">
+            <option value="full">Full Coverage</option>
+            <option value="standard">Standard</option>
+            <option value="liability">Liability Only</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Current Deductible ($)</label>
+          <select id="autoDeductible">
+            <option value="250">$250</option>
+            <option value="500" selected>$500</option>
+            <option value="1000">$1,000</option>
+            <option value="2000">$2,000</option>
+          </select>
+        </div>
+        <div class="form-group"><label>Driving Record</label>
+          <select id="autoDriving">
+            <option value="clean">Clean (no incidents)</option>
+            <option value="minor">Minor (1-2 tickets)</option>
+            <option value="accident">Accident history</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Your Age</label><input type="number" id="autoAge" placeholder="35" min="16" max="99"></div>
+        <div class="form-group"><label>Vehicle Year</label><input type="number" id="autoVehicleYear" placeholder="2020" min="1990" max="2026"></div>
+        <div class="form-group"><label>Annual Mileage</label>
+          <select id="autoMileage">
+            <option value="low">Under 7,500</option>
+            <option value="avg" selected>7,500 - 15,000</option>
+            <option value="high">Over 15,000</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Bundled with Home?</label>
+          <select id="autoBundled"><option value="no">No</option><option value="yes">Yes</option></select>
+        </div>
+        <div class="form-group"><label>Have Other Vehicles?</label>
+          <select id="autoMultiCar"><option value="no">No</option><option value="yes">Yes</option></select>
+        </div>
+      </div>
+      <button class="btn btn-gold" onclick="calcAuto()" style="margin-top:0.5rem">Calculate Auto Savings</button>
+      <div id="autoResults" style="display:none">
+        <div class="result-box">
+          <h3 style="font-size:0.9rem;color:var(--gold);margin-bottom:0.5rem">Deductible Optimization</h3>
+          <div id="autoDeductibleResult"></div>
+        </div>
+        <div class="result-box">
+          <h3 style="font-size:0.9rem;color:var(--gold);margin-bottom:0.5rem">Available Discounts</h3>
+          <div id="autoDiscountResults"></div>
+        </div>
+        <div class="result-box">
+          <h3 style="font-size:0.9rem;color:var(--gold);margin-bottom:0.5rem">Coverage Level Comparison</h3>
+          <div class="comparison-grid" id="autoCoverageComparison"></div>
+        </div>
+        <div class="result-box">
+          <div class="savings-label">ESTIMATED AUTO SAVINGS</div>
+          <div class="savings-total" id="autoTotalSavings" style="font-size:1.5rem">$0</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HOME INSURANCE -->
+  <div class="tab-panel" id="panel-home">
+    <div class="card">
+      <h2>&#127968; Home / Renters Insurance Savings</h2>
+      <div class="form-row">
+        <div class="form-group"><label>Insurance Type</label>
+          <select id="homeType"><option value="home">Homeowners</option><option value="renters">Renters</option></select>
+        </div>
+        <div class="form-group"><label>Home Value / Contents ($)</label><input type="number" id="homeValue" placeholder="350000" min="0"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Current Annual Premium ($)</label><input type="number" id="homeCurrentPremium" placeholder="1400" min="0"></div>
+        <div class="form-group"><label>Current Deductible ($)</label>
+          <select id="homeDeductible">
+            <option value="500">$500</option>
+            <option value="1000" selected>$1,000</option>
+            <option value="2500">$2,500</option>
+            <option value="5000">$5,000</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Security System?</label>
+          <select id="homeSecurity">
+            <option value="none">None</option>
+            <option value="basic">Basic Alarm</option>
+            <option value="monitored">Monitored System</option>
+            <option value="smart">Smart Home Security</option>
+          </select>
+        </div>
+        <div class="form-group"><label>Years Claims-Free</label>
+          <select id="homeClaimsFree">
+            <option value="0">Had recent claims</option>
+            <option value="3">3+ years</option>
+            <option value="5" selected>5+ years</option>
+            <option value="10">10+ years</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Bundled with Auto?</label>
+          <select id="homeBundled"><option value="no">No</option><option value="yes">Yes</option></select>
+        </div>
+      </div>
+      <button class="btn btn-gold" onclick="calcHome()" style="margin-top:0.5rem">Calculate Home Savings</button>
+      <div id="homeResults" style="display:none">
+        <div class="result-box">
+          <h3 style="font-size:0.9rem;color:var(--gold);margin-bottom:0.5rem">Available Savings</h3>
+          <div id="homeDiscountResults"></div>
+        </div>
+        <div class="result-box">
+          <div class="savings-label">ESTIMATED HOME SAVINGS</div>
+          <div class="savings-total" id="homeTotalSavings" style="font-size:1.5rem">$0</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HEALTH INSURANCE -->
+  <div class="tab-panel" id="panel-health">
+    <div class="card">
+      <h2>&#127973; Health Insurance Savings</h2>
+      <div class="form-row">
+        <div class="form-group"><label>Current Monthly Premium ($)</label><input type="number" id="healthPremium" placeholder="450" min="0"></div>
+        <div class="form-group"><label>Current Deductible ($)</label><input type="number" id="healthDeductible" placeholder="1500" min="0"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Expected Doctor Visits/Year</label><input type="number" id="healthVisits" placeholder="6" min="0" max="52"></div>
+        <div class="form-group"><label>Avg Cost Per Visit ($)</label><input type="number" id="healthVisitCost" placeholder="200" min="0"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Expected Prescriptions/Month</label><input type="number" id="healthRx" placeholder="2" min="0"></div>
+        <div class="form-group"><label>Avg Rx Cost/Month ($)</label><input type="number" id="healthRxCost" placeholder="50" min="0"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Plan Type</label>
+          <select id="healthPlanType">
+            <option value="traditional">Traditional (PPO/HMO)</option>
+            <option value="hdhp">High-Deductible (HDHP)</option>
+          </select>
+        </div>
+        <div class="form-group"><label>Out-of-Pocket Maximum ($)</label><input type="number" id="healthOOP" placeholder="6000" min="0"></div>
+      </div>
+      <button class="btn btn-gold" onclick="calcHealth()" style="margin-top:0.5rem">Calculate Health Savings</button>
+      <div id="healthResults" style="display:none">
+        <div class="result-box">
+          <h3 style="font-size:0.9rem;color:var(--gold);margin-bottom:0.5rem">HSA vs Traditional Comparison</h3>
+          <div id="healthHSAComparison"></div>
+        </div>
+        <div class="result-box">
+          <h3 style="font-size:0.9rem;color:var(--gold);margin-bottom:0.5rem">Break-Even Analysis</h3>
+          <div id="healthBreakeven"></div>
+        </div>
+        <div class="result-box">
+          <h3 style="font-size:0.9rem;color:var(--gold);margin-bottom:0.5rem">Out-of-Pocket Maximum Analysis</h3>
+          <div id="healthOOPAnalysis"></div>
+        </div>
+        <div class="result-box">
+          <div class="savings-label">ESTIMATED HEALTH SAVINGS</div>
+          <div class="savings-total" id="healthTotalSavings" style="font-size:1.5rem">$0</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LIFE INSURANCE -->
+  <div class="tab-panel" id="panel-life">
+    <div class="card">
+      <h2>&#128153; Life Insurance Savings</h2>
+      <div class="form-row">
+        <div class="form-group"><label>Your Age</label><input type="number" id="lifeAge" placeholder="35" min="18" max="80"></div>
+        <div class="form-group"><label>Health Status</label>
+          <select id="lifeHealth">
+            <option value="excellent">Excellent</option>
+            <option value="good" selected>Good</option>
+            <option value="average">Average</option>
+            <option value="below">Below Average</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Annual Income ($)</label><input type="number" id="lifeIncome" placeholder="75000" min="0"></div>
+        <div class="form-group"><label>Coverage Needed ($)</label><input type="number" id="lifeCoverage" placeholder="500000" min="0"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Term Length (Years)</label>
+          <select id="lifeTerm">
+            <option value="10">10 years</option>
+            <option value="20" selected>20 years</option>
+            <option value="30">30 years</option>
+          </select>
+        </div>
+        <div class="form-group"><label>Current Policy Type</label>
+          <select id="lifeCurrentType">
+            <option value="none">No current policy</option>
+            <option value="term">Term Life</option>
+            <option value="whole">Whole Life</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Current Monthly Premium ($)</label><input type="number" id="lifeCurrentPremium" placeholder="0" min="0"></div>
+      </div>
+      <button class="btn btn-gold" onclick="calcLife()" style="margin-top:0.5rem">Calculate Life Insurance</button>
+      <div id="lifeResults" style="display:none">
+        <div class="result-box">
+          <h3 style="font-size:0.9rem;color:var(--gold);margin-bottom:0.5rem">Coverage Calculator</h3>
+          <div id="lifeCoverageCalc"></div>
+        </div>
+        <div class="result-box">
+          <h3 style="font-size:0.9rem;color:var(--gold);margin-bottom:0.5rem">Term vs Whole Life (20-Year Cost)</h3>
+          <div class="comparison-grid" id="lifeComparison"></div>
+        </div>
+        <div class="result-box">
+          <div class="savings-label">ESTIMATED LIFE INSURANCE SAVINGS</div>
+          <div class="savings-total" id="lifeTotalSavings" style="font-size:1.5rem">$0</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TIPS -->
+  <div class="tab-panel" id="panel-tips">
+    <div class="card">
+      <h2>&#128161; 15 Proven Ways to Lower Insurance Costs</h2>
+      <div id="tipsList"></div>
+    </div>
+  </div>
+
+  <div class="share-cta">
+    <h3>&#128275; Share the Code, Unlock More Tools</h3>
+    <p>Share code SPUNK to help others access 15+ exclusive premium tools.</p>
+    <div class="share-btns">
+      <button class="share-btn share-x" onclick="shareX()">&#120143; Share on X</button>
+      <button class="share-btn share-reddit" onclick="shareReddit()">&#128172; Reddit</button>
+      <button class="share-btn share-email" onclick="shareEmail()">&#9993; Email</button>
+    </div>
+  </div>
+</div>
+
+<footer class="footer"><div class="footer-links"><a href="https://spunk.codes">Home</a><a href="/store">Tools</a><a href="/exclusive-tools">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a><a href="https://twitter.com/SpunkArt13" target="_blank">@SpunkArt13</a></div><div>&copy; 2026 SPUNK.CODES EXCLUSIVE.</div></footer>
+<div class="watermark">SPUNK.CODES EXCLUSIVE</div>
+
+<script>
+document.addEventListener('contextmenu',function(e){e.preventDefault()});
+document.addEventListener('keydown',function(e){if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'||e.key==='C'))||(e.ctrlKey&&e.key==='u'))e.preventDefault()});
+function checkCode(){try{var c=localStorage.getItem('spunk_referral_code')||localStorage.getItem('spunk_ref_code')||'';if(c.toUpperCase()==='SPUNK'){document.getElementById('lockGate').classList.add('hidden');return true}}catch(e){}return false}
+function submitCode(){var v=document.getElementById('codeInput').value.trim().toUpperCase();if(v==='SPUNK'){try{localStorage.setItem('spunk_referral_code','SPUNK');localStorage.setItem('spunk_ref_code','SPUNK')}catch(e){}document.getElementById('lockGate').classList.add('hidden')}else{document.getElementById('codeError').textContent='Invalid code. Try: SPUNK';setTimeout(function(){document.getElementById('codeError').textContent=''},2000)}}
+document.getElementById('codeInput').addEventListener('keydown',function(e){if(e.key==='Enter')submitCode()});
+checkCode();
+
+// State
+var savings = {auto:0, home:0, health:0, life:0};
+
+function fmt(n){return '$'+Math.round(n).toLocaleString()}
+function switchTab(name){
+  document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active')});
+  document.querySelectorAll('.tab-panel').forEach(function(p){p.classList.remove('active')});
+  document.getElementById('panel-'+name).classList.add('active');
+  event.target.classList.add('active');
+}
+function updateTotalSavings(){
+  var total=savings.auto+savings.home+savings.health+savings.life;
+  document.getElementById('totalSavings').textContent=fmt(total);
+  if(total>0) document.getElementById('totalSavings').style.color='var(--cyan)';
+}
+
+// AUTO
+function calcAuto(){
+  var premium=parseFloat(document.getElementById('autoCurrentPremium').value)||0;
+  if(premium<=0){alert('Enter your current auto premium');return}
+  var deductible=parseInt(document.getElementById('autoDeductible').value);
+  var driving=document.getElementById('autoDriving').value;
+  var age=parseInt(document.getElementById('autoAge').value)||35;
+  var vYear=parseInt(document.getElementById('autoVehicleYear').value)||2020;
+  var mileage=document.getElementById('autoMileage').value;
+  var bundled=document.getElementById('autoBundled').value;
+  var multiCar=document.getElementById('autoMultiCar').value;
+  var totalSave=0;
+  var html='';
+  // Deductible optimization
+  var deductibleSavings=0;
+  if(deductible<1000){
+    var savePct=(deductible===250)?0.18:(deductible===500)?0.12:0.06;
+    deductibleSavings=Math.round(premium*savePct);
+    document.getElementById('autoDeductibleResult').innerHTML=
+      '<div class="result-row"><span class="label">Raising deductible to $1,000</span><span class="value">'+fmt(deductibleSavings)+'/yr</span></div>'+
+      '<div style="font-size:0.75rem;color:var(--text-dim);margin-top:0.3rem">Tip: Only if you have $1,000 in emergency savings. Average claim frequency is once every 17.9 years.</div>';
+    totalSave+=deductibleSavings;
+  } else {
+    document.getElementById('autoDeductibleResult').innerHTML='<div class="result-row"><span class="label">Deductible already optimized</span><span class="value" style="color:var(--text-dim)">$0</span></div>';
+  }
+  // Discounts
+  var discounts=[];
+  if(bundled==='no'){
+    var bundleSave=Math.round(premium*0.2);
+    discounts.push({name:'Bundle with Home/Renters (15-25%)',save:bundleSave});
+    totalSave+=bundleSave;
+  }
+  if(driving==='clean'){
+    var safeSave=Math.round(premium*0.1);
+    discounts.push({name:'Safe Driver Discount (up to 10%)',save:safeSave});
+    totalSave+=safeSave;
+  }
+  if(mileage==='low'){
+    var mileSave=Math.round(premium*0.08);
+    discounts.push({name:'Low Mileage Discount (<7,500 mi)',save:mileSave});
+    totalSave+=mileSave;
+  }
+  if(age>=25&&age<=65){
+    var ageSave=Math.round(premium*0.05);
+    discounts.push({name:'Age-Based Rate Optimization',save:ageSave});
+    totalSave+=ageSave;
+  }
+  if(multiCar==='yes'){
+    var mcSave=Math.round(premium*0.12);
+    discounts.push({name:'Multi-Car Discount (10-15%)',save:mcSave});
+    totalSave+=mcSave;
+  }
+  var vAge=2026-vYear;
+  if(vAge>10){
+    var dropSave=Math.round(premium*0.15);
+    discounts.push({name:'Drop Collision on Older Vehicle',save:dropSave});
+    totalSave+=dropSave;
+  }
+  discounts.push({name:'Defensive Driving Course',save:Math.round(premium*0.05)});
+  totalSave+=Math.round(premium*0.05);
+  discounts.push({name:'Pay-in-Full Discount (vs monthly)',save:Math.round(premium*0.06)});
+  totalSave+=Math.round(premium*0.06);
+  var dhtml='';
+  discounts.forEach(function(d){dhtml+='<div class="result-row"><span class="label">'+d.name+'</span><span class="value">'+fmt(d.save)+'/yr</span></div>'});
+  document.getElementById('autoDiscountResults').innerHTML=dhtml;
+  // Coverage comparison
+  var levels=[
+    {name:'Liability Only',pct:0.45,desc:'Basic legal minimum'},
+    {name:'Standard',pct:0.70,desc:'Balanced coverage'},
+    {name:'Full Coverage',pct:1.0,desc:'Maximum protection'}
+  ];
+  var covHtml='';
+  levels.forEach(function(l){
+    var est=Math.round(premium*l.pct);
+    var diff=premium-est;
+    var rec=l.pct===0.70?'recommended':'';
+    covHtml+='<div class="comparison-card '+rec+'"><div class="cc-label">'+l.name+'</div><div class="cc-price">'+fmt(est)+'</div><div class="cc-save">'+(diff>0?'Save '+fmt(diff)+'/yr':l.desc)+'</div></div>';
+  });
+  document.getElementById('autoCoverageComparison').innerHTML=covHtml;
+  savings.auto=totalSave;
+  document.getElementById('autoTotalSavings').textContent=fmt(totalSave);
+  document.getElementById('autoResults').style.display='block';
+  updateTotalSavings();
+}
+
+// HOME
+function calcHome(){
+  var premium=parseFloat(document.getElementById('homeCurrentPremium').value)||0;
+  if(premium<=0){alert('Enter your current home insurance premium');return}
+  var homeValue=parseFloat(document.getElementById('homeValue').value)||0;
+  var deductible=parseInt(document.getElementById('homeDeductible').value);
+  var security=document.getElementById('homeSecurity').value;
+  var claimsFree=parseInt(document.getElementById('homeClaimsFree').value);
+  var bundled=document.getElementById('homeBundled').value;
+  var totalSave=0;
+  var discounts=[];
+  // Deductible
+  if(deductible<2500){
+    var dedSave=Math.round(premium*(deductible<=500?0.15:0.08));
+    discounts.push({name:'Raise Deductible to $2,500',save:dedSave});
+    totalSave+=dedSave;
+  }
+  // Security
+  var secPct={none:0,basic:0.05,monitored:0.12,smart:0.20};
+  if(security==='none'){
+    var secSave=Math.round(premium*0.12);
+    discounts.push({name:'Install Monitored Security (5-20%)',save:secSave});
+    totalSave+=secSave;
+  } else {
+    var secSave2=Math.round(premium*secPct[security]);
+    discounts.push({name:'Security System Discount Applied',save:secSave2});
+    totalSave+=secSave2;
+  }
+  // Claims-free
+  if(claimsFree>=3){
+    var cfPct=claimsFree>=10?0.15:claimsFree>=5?0.10:0.05;
+    var cfSave=Math.round(premium*cfPct);
+    discounts.push({name:'Claims-Free Discount ('+claimsFree+'+ years)',save:cfSave});
+    totalSave+=cfSave;
+  }
+  // Bundling
+  if(bundled==='no'){
+    var bundleSave=Math.round(premium*0.18);
+    discounts.push({name:'Bundle with Auto Insurance (15-25%)',save:bundleSave});
+    totalSave+=bundleSave;
+  }
+  // Additional
+  discounts.push({name:'Roof/Plumbing Updates Credit',save:Math.round(premium*0.05)});
+  totalSave+=Math.round(premium*0.05);
+  discounts.push({name:'Loyalty Discount (Stay 3+ years)',save:Math.round(premium*0.06)});
+  totalSave+=Math.round(premium*0.06);
+  discounts.push({name:'Annual Shop-Around Savings (avg)',save:Math.round(premium*0.10)});
+  totalSave+=Math.round(premium*0.10);
+  var dhtml='';
+  discounts.forEach(function(d){dhtml+='<div class="result-row"><span class="label">'+d.name+'</span><span class="value">'+fmt(d.save)+'/yr</span></div>'});
+  document.getElementById('homeDiscountResults').innerHTML=dhtml;
+  savings.home=totalSave;
+  document.getElementById('homeTotalSavings').textContent=fmt(totalSave);
+  document.getElementById('homeResults').style.display='block';
+  updateTotalSavings();
+}
+
+// HEALTH
+function calcHealth(){
+  var monthlyPrem=parseFloat(document.getElementById('healthPremium').value)||0;
+  if(monthlyPrem<=0){alert('Enter your current monthly health premium');return}
+  var annualPrem=monthlyPrem*12;
+  var deductible=parseFloat(document.getElementById('healthDeductible').value)||1500;
+  var visits=parseInt(document.getElementById('healthVisits').value)||6;
+  var visitCost=parseFloat(document.getElementById('healthVisitCost').value)||200;
+  var rxCount=parseInt(document.getElementById('healthRx').value)||2;
+  var rxCost=parseFloat(document.getElementById('healthRxCost').value)||50;
+  var planType=document.getElementById('healthPlanType').value;
+  var oop=parseFloat(document.getElementById('healthOOP').value)||6000;
+  var totalMedical=(visits*visitCost)+(rxCount*rxCost*12);
+  // HSA comparison
+  var hdhpPremium=Math.round(monthlyPrem*0.70);
+  var hdhpDeductible=Math.max(deductible,1650);
+  var hsaContribution=Math.min(4150,Math.round(annualPrem*0.15));
+  var hsaTaxSave=Math.round(hsaContribution*0.25);
+  var tradTotal=annualPrem+Math.min(totalMedical,oop);
+  var hdhpTotal=(hdhpPremium*12)+Math.min(totalMedical,oop*1.2)-hsaTaxSave;
+  var healthSave=0;
+  var hsaHtml='';
+  hsaHtml+='<div class="comparison-grid">';
+  hsaHtml+='<div class="comparison-card"><div class="cc-label">Traditional Plan</div><div class="cc-price">'+fmt(tradTotal)+'/yr</div><div class="cc-save">Premium: '+fmt(annualPrem)+'</div></div>';
+  hsaHtml+='<div class="comparison-card '+(hdhpTotal<tradTotal?'recommended':'')+'"><div class="cc-label">HDHP + HSA</div><div class="cc-price">'+fmt(hdhpTotal)+'/yr</div><div class="cc-save">'+(hdhpTotal<tradTotal?'Save '+fmt(tradTotal-hdhpTotal):'Costs '+fmt(hdhpTotal-tradTotal)+' more')+'</div></div>';
+  hsaHtml+='</div>';
+  hsaHtml+='<div style="margin-top:0.5rem;font-size:0.8rem;color:var(--text-dim)"><strong>HSA Tax Savings:</strong> '+fmt(hsaTaxSave)+'/yr ('+fmt(hsaContribution)+' contribution x 25% tax bracket)</div>';
+  document.getElementById('healthHSAComparison').innerHTML=hsaHtml;
+  if(hdhpTotal<tradTotal) healthSave+=Math.round(tradTotal-hdhpTotal);
+  // Break-even
+  var premDiff=(monthlyPrem-hdhpPremium)*12;
+  var dedDiff=hdhpDeductible-deductible;
+  var breakeven=dedDiff>0?Math.ceil(dedDiff/((premDiff+hsaTaxSave)/12)):0;
+  document.getElementById('healthBreakeven').innerHTML=
+    '<div class="result-row"><span class="label">Monthly Premium Savings (HDHP)</span><span class="value">'+fmt(monthlyPrem-hdhpPremium)+'/mo</span></div>'+
+    '<div class="result-row"><span class="label">Higher Deductible Cost</span><span class="value negative">+'+fmt(dedDiff)+'</span></div>'+
+    '<div class="result-row"><span class="label">Break-Even Point</span><span class="value" style="color:var(--gold)">'+(breakeven>0?breakeven+' months':'Immediate savings')+'</span></div>'+
+    '<div style="font-size:0.75rem;color:var(--text-dim);margin-top:0.3rem">If you have fewer than '+Math.ceil(hdhpDeductible/visitCost)+' doctor visits per year, HDHP + HSA likely saves money.</div>';
+  // OOP Analysis
+  var worstCase=annualPrem+oop;
+  var expectedCase=annualPrem+totalMedical;
+  document.getElementById('healthOOPAnalysis').innerHTML=
+    '<div class="result-row"><span class="label">Expected Annual Cost</span><span class="value">'+fmt(expectedCase)+'</span></div>'+
+    '<div class="result-row"><span class="label">Worst Case (hit OOP max)</span><span class="value negative">'+fmt(worstCase)+'</span></div>'+
+    '<div class="result-row"><span class="label">Expected Medical Spending</span><span class="value">'+fmt(totalMedical)+'</span></div>'+
+    '<div class="result-row"><span class="label">Deductible Utilization</span><span class="value">'+(Math.min(100,Math.round(totalMedical/deductible*100)))+'%</span></div>';
+  if(healthSave===0) healthSave=Math.round(annualPrem*0.05);
+  savings.health=healthSave;
+  document.getElementById('healthTotalSavings').textContent=fmt(healthSave);
+  document.getElementById('healthResults').style.display='block';
+  updateTotalSavings();
+}
+
+// LIFE
+function calcLife(){
+  var age=parseInt(document.getElementById('lifeAge').value)||35;
+  var health=document.getElementById('lifeHealth').value;
+  var income=parseFloat(document.getElementById('lifeIncome').value)||75000;
+  var coverage=parseFloat(document.getElementById('lifeCoverage').value)||500000;
+  var term=parseInt(document.getElementById('lifeTerm').value);
+  var currentType=document.getElementById('lifeCurrentType').value;
+  var currentPrem=parseFloat(document.getElementById('lifeCurrentPremium').value)||0;
+  // Coverage calculator
+  var recCoverage=income*10;
+  var covHtml='';
+  covHtml+='<div class="result-row"><span class="label">Income Replacement (10x)</span><span class="value">'+fmt(recCoverage)+'</span></div>';
+  covHtml+='<div class="result-row"><span class="label">Your Selected Coverage</span><span class="value">'+(coverage>=recCoverage?fmt(coverage):fmt(coverage))+'</span></div>';
+  if(coverage<recCoverage){
+    covHtml+='<div style="font-size:0.75rem;color:var(--orange);margin-top:0.3rem">Consider increasing coverage. Financial advisors recommend 10-12x annual income.</div>';
+  } else {
+    covHtml+='<div style="font-size:0.75rem;color:var(--cyan);margin-top:0.3rem">Your coverage meets or exceeds the recommended 10x income replacement.</div>';
+  }
+  document.getElementById('lifeCoverageCalc').innerHTML=covHtml;
+  // Term vs Whole Life comparison
+  var healthMult={excellent:0.8,good:1.0,average:1.3,below:1.7};
+  var baseRate=(coverage/1000)*0.12*(1+(age-25)*0.04)*healthMult[health];
+  var termMonthly=Math.max(15,Math.round(baseRate));
+  var wholeMonthly=Math.round(termMonthly*5.5);
+  var termTotal=termMonthly*12*term;
+  var wholeTotal=wholeMonthly*12*20;
+  var investDiff=(wholeMonthly-termMonthly)*12*20;
+  var investGrowth=Math.round(investDiff*1.08);
+  var compHtml='';
+  compHtml+='<div class="comparison-card recommended"><div class="cc-label">Term Life ('+term+' yr)</div><div class="cc-price">'+fmt(termMonthly)+'/mo</div><div class="cc-save">Total: '+fmt(termTotal)+'</div></div>';
+  compHtml+='<div class="comparison-card"><div class="cc-label">Whole Life</div><div class="cc-price">'+fmt(wholeMonthly)+'/mo</div><div class="cc-save">Total: '+fmt(wholeTotal)+'</div></div>';
+  compHtml+='<div class="comparison-card"><div class="cc-label">Difference</div><div class="cc-price">'+fmt(wholeMonthly-termMonthly)+'/mo</div><div class="cc-save">'+fmt(wholeTotal-termTotal)+' more</div></div>';
+  compHtml+='<div class="comparison-card"><div class="cc-label">If Invested</div><div class="cc-price">'+fmt(investGrowth)+'</div><div class="cc-save">Invest the difference @ 8%</div></div>';
+  document.getElementById('lifeComparison').innerHTML=compHtml;
+  var lifeSave=0;
+  if(currentType==='whole'&&currentPrem>0){
+    lifeSave=Math.round((currentPrem-termMonthly)*12);
+    if(lifeSave<0) lifeSave=0;
+  } else if(currentType==='term'&&currentPrem>termMonthly){
+    lifeSave=Math.round((currentPrem-termMonthly)*12);
+  } else {
+    lifeSave=Math.round((wholeMonthly-termMonthly)*12);
+  }
+  savings.life=lifeSave;
+  document.getElementById('lifeTotalSavings').textContent=fmt(lifeSave);
+  document.getElementById('lifeResults').style.display='block';
+  updateTotalSavings();
+}
+
+// TIPS
+var tips=[
+  'Shop around every year. Insurance rates vary 50%+ between companies for identical coverage.',
+  'Bundle home and auto with the same insurer for 15-25% discounts on both policies.',
+  'Raise your deductibles. Going from $500 to $1,000 saves 10-15% on premiums.',
+  'Ask about every discount: safe driver, good student, military, professional association, alumni.',
+  'Pay annually instead of monthly to avoid installment fees (saves 5-10%).',
+  'Improve your credit score. Insurers in most states use credit-based insurance scores.',
+  'Take a defensive driving course for an additional 5-10% auto discount.',
+  'Install a security system for 5-20% off home insurance.',
+  'Review coverage annually. Drop collision on vehicles worth less than $4,000.',
+  'Use an HSA with a high-deductible health plan for triple tax advantages.',
+  'Buy term life instead of whole life. Invest the difference for higher returns.',
+  'Ask about loyalty discounts if staying with the same insurer 3+ years.',
+  'Reduce coverage on older vehicles. Only carry what the car is worth.',
+  'Maintain a claims-free record. Even small claims can raise rates for 3-5 years.',
+  'Use telematics/usage-based insurance if you are a safe, low-mileage driver.'
+];
+var tipsHtml='';
+tips.forEach(function(t,i){tipsHtml+='<div class="tip-item"><span class="tip-num">'+(i+1)+'.</span><span>'+t+'</span></div>'});
+document.getElementById('tipsList').innerHTML=tipsHtml;
+
+function exportSavingsPlan(){
+  var lines=['INSURANCE SAVINGS PLAN','Generated by SPUNK.CODES','Date: '+new Date().toLocaleDateString(),'','===== SAVINGS SUMMARY ====='];
+  var total=savings.auto+savings.home+savings.health+savings.life;
+  lines.push('Total Estimated Annual Savings: '+fmt(total));
+  lines.push('');
+  if(savings.auto>0) lines.push('Auto Insurance Savings: '+fmt(savings.auto));
+  if(savings.home>0) lines.push('Home Insurance Savings: '+fmt(savings.home));
+  if(savings.health>0) lines.push('Health Insurance Savings: '+fmt(savings.health));
+  if(savings.life>0) lines.push('Life Insurance Savings: '+fmt(savings.life));
+  lines.push('');
+  lines.push('===== 15 TIPS TO SAVE =====');
+  tips.forEach(function(t,i){lines.push((i+1)+'. '+t)});
+  lines.push('');
+  lines.push('Generated at spunk.codes/exclusive/insurance-savings-calculator');
+  var blob=new Blob([lines.join('\n')],{type:'text/plain'});
+  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='insurance-savings-plan.txt';a.click();
+}
+
+function resetAll(){
+  savings={auto:0,home:0,health:0,life:0};
+  document.querySelectorAll('input[type="number"]').forEach(function(i){i.value=''});
+  ['autoResults','homeResults','healthResults','lifeResults'].forEach(function(id){document.getElementById(id).style.display='none'});
+  updateTotalSavings();
+}
+
+function shareX(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Just found out I can save thousands on insurance with this calculator. Code SPUNK @SpunkArt13')+'&url='+encodeURIComponent('https://spunk.codes/exclusive-tools'),'_blank')}
+function shareReddit(){window.open('https://www.reddit.com/submit?url='+encodeURIComponent('https://spunk.codes/exclusive-tools')+'&title='+encodeURIComponent('Insurance Savings Calculator - save $2,000+/year [free with code SPUNK]'),'_blank')}
+function shareEmail(){window.location.href='mailto:?subject='+encodeURIComponent('Insurance Savings Calculator')+'&body='+encodeURIComponent('Calculate your insurance savings. Code SPUNK: https://spunk.codes/exclusive-tools')}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<script src="/auto-monetize.js"></script>
+<div id="shareXBtn" style="position:fixed;left:20px;bottom:20px;z-index:9999;">
+  <a id="shareXLink" href="#" target="_blank" rel="noopener noreferrer" title="Share on X"
+     style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;
+     background:rgba(88,166,255,0.15);border:1px solid rgba(88,166,255,0.3);
+     backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:50%;
+     text-decoration:none;transition:all 0.3s ease;cursor:pointer;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+    </svg>
+  </a>
+</div>
+<style>#shareXBtn a:hover{background:rgba(88,166,255,0.35)!important;border-color:rgba(88,166,255,0.6)!important;transform:scale(1.1);box-shadow:0 0 15px rgba(88,166,255,0.3)}</style>
+<script>
+(function(){
+  var page=location.pathname.split("/").pop()||"index.html";
+  var url="https://spunk.codes/"+page;
+  var text="Just used this free tool on spunk.codes — amazing! @SpunkArt13";
+  var href="https://x.com/intent/tweet?text="+encodeURIComponent(text)+"&url="+encodeURIComponent(url);
+  document.getElementById("shareXLink").href=href;
+})();
+</script>
+<script src="/usage-tracker.js"></script>
+</body>
+</html>

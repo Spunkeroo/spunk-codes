@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Side Hustle Income Calculator — Know Your Worth | SPUNK.CODES Exclusive</title>
+<meta name="description" content="Calculate side hustle earnings, hourly rates, tax estimates, break-even analysis. Plan your path to financial freedom. Free premium tool.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Side Hustle Income Calculator — SPUNK.CODES Exclusive">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/side-hustle-calculator">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0d1117;--card:rgba(22,27,34,0.8);--border:rgba(48,54,61,0.6);--gold:#ffd700;--gold-border:rgba(255,215,0,0.3);--text:#e6edf3;--text-dim:#8b949e;--blue:#58a6ff;--cyan:#39d353;--red:#f85149;--orange:#ff8c00;--font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+a{color:var(--blue);text-decoration:none}
+.bg-mesh{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 80% 50% at 20% 20%,rgba(255,215,0,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(255,140,0,0.04) 0%,transparent 60%),var(--bg)}
+.bg-grid{position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,215,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,215,0,0.03) 1px,transparent 1px);background-size:60px 60px}
+.nav{position:sticky;top:0;z-index:100;background:rgba(13,17,23,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,215,0,0.15);padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}
+.nav-brand{font-weight:800;font-size:1.1rem;color:var(--gold);letter-spacing:0.08em}
+.nav-links{display:flex;gap:1.5rem;font-size:0.85rem}.nav-links a{color:var(--text-dim);font-weight:500}.nav-links a.active{color:var(--gold)}
+.lock-gate{position:fixed;inset:0;z-index:1000;background:rgba(13,17,23,0.97);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:2rem}
+.lock-gate.hidden{display:none}
+.lock-icon-big{font-size:4rem}.lock-gate h2{font-size:1.8rem;font-weight:800;text-align:center}.lock-gate h2 span{color:var(--gold)}.lock-gate p{color:var(--text-dim);text-align:center;max-width:400px}
+.code-input-wrap{display:flex;gap:0.5rem}
+.code-input{padding:0.8rem 1.5rem;background:rgba(22,27,34,0.8);border:2px solid var(--gold-border);border-radius:12px;color:var(--gold);font-size:1.2rem;font-weight:800;letter-spacing:3px;text-align:center;width:200px;outline:none;text-transform:uppercase;font-family:var(--font)}
+.code-input:focus{border-color:var(--gold);box-shadow:0 0 20px rgba(255,215,0,0.2)}
+.code-submit{padding:0.8rem 1.5rem;background:linear-gradient(135deg,#ffd700,#ff8c00);border:none;border-radius:12px;color:#000;font-size:1rem;font-weight:800;cursor:pointer}
+.code-error{color:var(--red);font-size:0.85rem;min-height:1.2em}.lock-hint{color:var(--text-dim);font-size:0.8rem}.lock-hint a{color:var(--gold)}
+.exclusive-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;background:linear-gradient(135deg,rgba(255,215,0,0.15),rgba(255,140,0,0.15));border:1px solid var(--gold-border);border-radius:100px;font-size:11px;font-weight:800;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase}
+.main{max-width:1100px;margin:0 auto;padding:2rem}
+.hero-section{text-align:center;padding:2rem 0 2rem}
+.hero-section h1{font-size:2.2rem;font-weight:800;margin:1rem 0 0.5rem}
+.hero-section h1 .gold{background:linear-gradient(135deg,#ffd700,#ff8c00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-section p{color:var(--text-dim);max-width:600px;margin:0 auto}
+.card{background:var(--card);border:1px solid var(--gold-border);border-radius:16px;padding:1.5rem;margin-bottom:1.5rem;backdrop-filter:blur(10px);position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),#ff8c00,var(--gold))}
+.card h2{font-size:1.1rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}
+.form-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:0.75rem;margin-bottom:0.75rem}
+.form-group{display:flex;flex-direction:column;gap:0.3rem}
+.form-group label{font-size:0.75rem;color:var(--text-dim);font-weight:600;text-transform:uppercase;letter-spacing:0.5px}
+.form-group input,.form-group select{padding:0.6rem 0.8rem;background:rgba(22,27,34,0.9);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.85rem;font-family:var(--font);outline:none}
+.form-group input:focus,.form-group select:focus{border-color:var(--gold)}
+.btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;transition:all 0.2s}
+.btn-gold{background:linear-gradient(135deg,#ffd700,#ff8c00);color:#000}
+.btn-gold:hover{transform:translateY(-1px);box-shadow:0 4px 15px rgba(255,215,0,0.3)}
+.btn-outline{background:transparent;border:1px solid var(--gold-border);color:var(--gold)}
+.btn-outline:hover{background:rgba(255,215,0,0.1)}
+.btn-sm{padding:0.4rem 0.8rem;font-size:0.75rem}
+.btn-row{display:flex;gap:0.5rem;flex-wrap:wrap}
+.result-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;margin:1rem 0}
+.result-box{background:rgba(13,17,23,0.6);border:1px solid var(--border);border-radius:12px;padding:1rem;text-align:center}
+.result-box .value{font-size:1.4rem;font-weight:800;color:var(--gold)}
+.result-box .label{font-size:0.7rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.5px;margin-top:0.3rem}
+.result-box.highlight{border-color:var(--gold-border);background:rgba(255,215,0,0.05)}
+.result-box.good .value{color:var(--cyan)}
+.hustle-card{background:rgba(13,17,23,0.6);border:1px solid var(--border);border-radius:12px;padding:1.25rem;margin-bottom:0.75rem}
+.hustle-card h3{font-size:0.95rem;color:var(--gold);margin-bottom:0.5rem}
+.hustle-card .desc{font-size:0.8rem;color:var(--text-dim);margin-bottom:0.5rem}
+.hustle-card .earnings{font-size:1.1rem;font-weight:800;color:var(--cyan)}
+.hustle-card .detail{font-size:0.75rem;color:var(--text-dim);margin-top:0.3rem}
+.hustle-card .tools-link{font-size:0.75rem;color:var(--blue);margin-top:0.3rem;display:block}
+.tax-row{display:flex;justify-content:space-between;padding:0.4rem 0;font-size:0.85rem;border-bottom:1px solid rgba(48,54,61,0.3)}
+.tax-row .tl{color:var(--text-dim)}.tax-row .tv{font-weight:700}
+.tax-row.total{font-weight:800;color:var(--gold);border-top:2px solid var(--gold-border);margin-top:0.5rem;padding-top:0.75rem}
+.breakeven-box{background:rgba(57,211,83,0.08);border:1px solid rgba(57,211,83,0.2);border-radius:12px;padding:1.5rem;text-align:center;margin:1rem 0}
+.breakeven-box .big{font-size:2rem;font-weight:800;color:var(--cyan)}
+.breakeven-box .sub{color:var(--text-dim);font-size:0.85rem;margin-top:0.5rem}
+.growth-month{display:grid;grid-template-columns:60px 1fr 80px;gap:0.5rem;align-items:center;padding:0.4rem 0;border-bottom:1px solid rgba(48,54,61,0.3);font-size:0.8rem}
+.growth-bar{height:10px;border-radius:5px;background:rgba(48,54,61,0.5);overflow:hidden}
+.growth-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--cyan));border-radius:5px}
+.share-cta{background:linear-gradient(135deg,rgba(255,215,0,0.08),rgba(255,140,0,0.05));border:1px solid var(--gold-border);border-radius:16px;padding:2rem;text-align:center;margin-top:2rem}
+.share-cta h3{color:var(--gold);margin-bottom:0.5rem}.share-cta p{color:var(--text-dim);font-size:0.9rem;margin-bottom:1rem}
+.share-btns{display:flex;gap:0.6rem;justify-content:center;flex-wrap:wrap}
+.share-btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;color:#fff}
+.share-x{background:#000;border:1px solid #333}.share-reddit{background:#ff4500}.share-email{background:#21262d;border:1px solid #30363d}
+.footer{text-align:center;padding:2rem;border-top:1px solid rgba(255,215,0,0.1);color:var(--text-dim);font-size:0.75rem;margin-top:3rem}
+.footer a{color:var(--gold)}.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-bottom:1rem}
+.watermark{position:fixed;bottom:10px;right:10px;font-size:0.6rem;color:rgba(255,215,0,0.08);font-weight:800;pointer-events:none;z-index:9999;letter-spacing:1px;text-transform:uppercase}
+@media(max-width:768px){.main{padding:1rem}.hero-section h1{font-size:1.6rem}.nav-links{display:none}.form-row{grid-template-columns:1fr}.result-grid{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="bg-mesh"></div><div class="bg-grid"></div>
+<div class="lock-gate" id="lockGate"><div class="lock-icon-big">&#128274;</div><h2>Enter Code <span>SPUNK</span> to Unlock</h2><p>This exclusive premium tool requires the SPUNK referral code.</p><div class="code-input-wrap"><input type="text" class="code-input" id="codeInput" placeholder="CODE" maxlength="10" autocomplete="off"><button class="code-submit" onclick="submitCode()">Unlock</button></div><div class="code-error" id="codeError"></div><div class="lock-hint">Get the code at <a href="https://spunk.codes/exclusive-tools">spunk.codes/exclusive-tools</a></div></div>
+<nav class="nav"><a href="https://spunk.codes" class="nav-brand">SPUNK.CODES</a><div class="nav-links"><a href="/store">Tools</a><a href="/exclusive-tools" class="active">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a></div></nav>
+
+<div class="main">
+  <section class="hero-section">
+    <div class="exclusive-badge">&#128081; EXCLUSIVE TOOL</div>
+    <h1><span class="gold">Side Hustle</span> Income Calculator</h1>
+    <p>Calculate what you can earn, what to charge, taxes owed, and how to replace your salary.</p>
+  </section>
+
+  <div class="card">
+    <h2>&#128337; Your Availability & Goals</h2>
+    <div class="form-row">
+      <div class="form-group"><label>Hours Available / Week</label><input type="number" id="hoursWeek" value="15" min="1" max="80"></div>
+      <div class="form-group"><label>Desired Monthly Income ($)</label><input type="number" id="desiredIncome" value="3000" min="0"></div>
+      <div class="form-group"><label>Current Salary ($/year, optional)</label><input type="number" id="currentSalary" value="60000" min="0"></div>
+    </div>
+    <button class="btn btn-gold" onclick="calculate()">Calculate My Options</button>
+  </div>
+
+  <div id="results" style="display:none">
+    <div class="card">
+      <h2>&#128176; Hourly Rate Calculator</h2>
+      <div class="result-grid">
+        <div class="result-box highlight"><div class="value" id="rRate">-</div><div class="label">Required Hourly Rate</div></div>
+        <div class="result-box"><div class="value" id="rMonthlyHours">-</div><div class="label">Monthly Hours</div></div>
+        <div class="result-box"><div class="value" id="rYearlyGross">-</div><div class="label">Yearly Gross</div></div>
+        <div class="result-box good"><div class="value" id="rYearlyNet">-</div><div class="label">Yearly After Tax (est.)</div></div>
+      </div>
+      <p style="color:var(--text-dim);font-size:0.8rem;margin-top:0.5rem">To earn your desired monthly income of <span id="desiredDisplay">$3,000</span> working <span id="hoursDisplay">15</span> hours/week, you need to charge at least the hourly rate shown above.</p>
+    </div>
+
+    <div class="card">
+      <h2>&#128640; Side Hustle Options</h2>
+      <p style="color:var(--text-dim);font-size:0.8rem;margin-bottom:1rem">Based on your available hours, here is what you could earn with different side hustles.</p>
+      <div id="hustleList"></div>
+    </div>
+
+    <div class="card">
+      <h2>&#128181; Self-Employment Tax Estimate</h2>
+      <p style="color:var(--text-dim);font-size:0.8rem;margin-bottom:1rem">Side hustle income is subject to self-employment tax (15.3% for Social Security + Medicare) plus income tax.</p>
+      <div class="form-row">
+        <div class="form-group"><label>Annual Side Hustle Income ($)</label><input type="number" id="taxIncome" value="36000" min="0"></div>
+        <div class="form-group"><label>Business Expenses ($)</label><input type="number" id="taxExpenses" value="3000" min="0"></div>
+        <div class="form-group"><label>Filing Status</label>
+          <select id="taxStatus">
+            <option value="single">Single</option>
+            <option value="married">Married Filing Jointly</option>
+          </select>
+        </div>
+      </div>
+      <button class="btn btn-gold btn-sm" onclick="calcTax()">Calculate Tax</button>
+      <div id="taxResults" style="display:none;margin-top:1rem">
+        <div id="taxBreakdown"></div>
+        <div class="result-grid">
+          <div class="result-box"><div class="value" id="rQuarterly">-</div><div class="label">Quarterly Estimated Payment</div></div>
+          <div class="result-box good"><div class="value" id="rTakeHome">-</div><div class="label">Annual Take-Home</div></div>
+          <div class="result-box"><div class="value" id="rEffRate">-</div><div class="label">Effective Tax Rate</div></div>
+        </div>
+        <p style="color:var(--text-dim);font-size:0.75rem;margin-top:0.5rem">Quarterly payments due: April 15, June 15, September 15, January 15. Set aside taxes monthly to avoid surprises.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>&#127919; Salary Replacement Break-Even</h2>
+      <div class="form-row">
+        <div class="form-group"><label>Salary to Replace ($/year)</label><input type="number" id="beReplace" value="60000" min="0"></div>
+        <div class="form-group"><label>Average Client Value ($/month)</label><input type="number" id="beClientValue" value="1500" min="0"></div>
+        <div class="form-group"><label>Hours Per Client / Month</label><input type="number" id="beClientHours" value="15" min="1"></div>
+      </div>
+      <button class="btn btn-gold btn-sm" onclick="calcBreakeven()">Calculate Break-Even</button>
+      <div id="breakevenResult" style="display:none"></div>
+    </div>
+
+    <div class="card">
+      <h2>&#128200; 12-Month Growth Projection</h2>
+      <p style="color:var(--text-dim);font-size:0.8rem;margin-bottom:1rem">Assuming 10% monthly revenue growth from your starting point.</p>
+      <div class="form-row">
+        <div class="form-group"><label>Starting Monthly Revenue ($)</label><input type="number" id="growthStart" value="1000" min="0"></div>
+        <div class="form-group"><label>Monthly Growth Rate (%)</label><input type="number" id="growthRate" value="10" step="1" min="0" max="100"></div>
+      </div>
+      <button class="btn btn-gold btn-sm" onclick="calcGrowth()">Project Growth</button>
+      <div id="growthResults" style="display:none;margin-top:1rem">
+        <div id="growthList"></div>
+        <div class="result-grid" style="margin-top:1rem">
+          <div class="result-box highlight"><div class="value" id="rMonth12">-</div><div class="label">Month 12 Revenue</div></div>
+          <div class="result-box good"><div class="value" id="rYear1Total">-</div><div class="label">Year 1 Total Revenue</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>&#128279; Useful Tools for Your Hustle</h2>
+      <div class="hustle-card">
+        <h3>Freelancing / Consulting</h3>
+        <div class="tools-link"><a href="https://spunk.codes/invoice-generator">Invoice Generator</a> - Create professional invoices instantly</div>
+        <div class="tools-link"><a href="https://spunk.codes/exclusive/subscription-tracker">Subscription Tracker</a> - Cut expenses to keep more profit</div>
+      </div>
+      <div class="hustle-card">
+        <h3>Content Creation / SEO</h3>
+        <div class="tools-link"><a href="https://spunk.codes/keyword-research">Keyword Research Tool</a> - Find profitable keywords for free</div>
+        <div class="tools-link"><a href="https://spunk.codes/seo-analyzer">SEO Analyzer</a> - Audit any site instantly</div>
+        <div class="tools-link"><a href="https://spunk.codes/meta-tag-generator">Meta Tag Generator</a> - Optimize your content for search</div>
+      </div>
+      <div class="hustle-card">
+        <h3>Digital Products / SaaS</h3>
+        <div class="tools-link"><a href="https://spunk.codes/exclusive/changelog-generator">Changelog Generator</a> - Professional changelogs for your product</div>
+        <div class="tools-link"><a href="https://spunk.codes/json-formatter">JSON Formatter</a> - Essential dev tool</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="share-cta">
+    <h3>&#128275; Share the Code, Unlock More Tools</h3>
+    <p>Share code SPUNK to help others access 15+ exclusive premium tools.</p>
+    <div class="share-btns">
+      <button class="share-btn share-x" onclick="shareX()">&#120143; Share on X</button>
+      <button class="share-btn share-reddit" onclick="shareReddit()">&#128172; Reddit</button>
+      <button class="share-btn share-email" onclick="shareEmail()">&#9993; Email</button>
+    </div>
+  </div>
+</div>
+
+<footer class="footer"><div class="footer-links"><a href="https://spunk.codes">Home</a><a href="/store">Tools</a><a href="/exclusive-tools">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a><a href="https://twitter.com/SpunkArt13" target="_blank">@SpunkArt13</a></div><div>&copy; 2026 SPUNK.CODES EXCLUSIVE.</div></footer>
+<div class="watermark">SPUNK.CODES EXCLUSIVE</div>
+
+<script>
+document.addEventListener('contextmenu',function(e){e.preventDefault()});
+document.addEventListener('keydown',function(e){if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'||e.key==='C'))||(e.ctrlKey&&e.key==='u'))e.preventDefault()});
+function checkCode(){try{var c=localStorage.getItem('spunk_referral_code')||localStorage.getItem('spunk_ref_code')||'';if(c.toUpperCase()==='SPUNK'){document.getElementById('lockGate').classList.add('hidden');return true}}catch(e){}return false}
+function submitCode(){var v=document.getElementById('codeInput').value.trim().toUpperCase();if(v==='SPUNK'){try{localStorage.setItem('spunk_referral_code','SPUNK');localStorage.setItem('spunk_ref_code','SPUNK')}catch(e){}document.getElementById('lockGate').classList.add('hidden')}else{document.getElementById('codeError').textContent='Invalid code. Try: SPUNK';setTimeout(function(){document.getElementById('codeError').textContent=''},2000)}}
+document.getElementById('codeInput').addEventListener('keydown',function(e){if(e.key==='Enter')submitCode()});
+checkCode();
+
+function fmt(n){return '$'+Number(n).toLocaleString('en-US',{minimumFractionDigits:0,maximumFractionDigits:0})}
+function fmtDec(n){return '$'+Number(n).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}
+function gv(id){return parseFloat(document.getElementById(id).value)||0}
+
+var hustles=[
+  {name:'Freelance Web Development',rateRange:[50,150],desc:'Build websites and web apps for businesses. High demand, remote-friendly.',tools:'spunk.codes HTML/CSS/JS tools'},
+  {name:'Freelance Writing / Copywriting',rateRange:[30,100],desc:'Blog posts, marketing copy, email sequences. Every business needs content.',tools:'spunk.codes SEO tools for keyword research'},
+  {name:'Graphic Design',rateRange:[35,100],desc:'Logos, social media graphics, brand identity. Creative and flexible schedule.',tools:'spunk.codes image optimization tools'},
+  {name:'SEO Consulting',rateRange:[75,200],desc:'Help businesses rank higher on Google. High-value, recurring revenue.',tools:'spunk.codes full SEO toolkit'},
+  {name:'Social Media Management',rateRange:[25,75],desc:'Manage social accounts, create content, grow followings for businesses.',tools:'spunk.codes content tools'},
+  {name:'Online Tutoring',rateRange:[25,80],desc:'Teach skills you already have. Math, coding, languages, test prep.',tools:'spunk.codes for coding tutorials'},
+  {name:'Digital Product Sales',rateRange:[0,0],desc:'Create once, sell forever. Templates, courses, ebooks, tools.',tools:'spunk.codes for building web tools'},
+  {name:'Virtual Assistant',rateRange:[20,50],desc:'Admin tasks, email management, scheduling. Low barrier to entry.',tools:'spunk.codes productivity tools'},
+  {name:'Video Editing',rateRange:[35,100],desc:'Edit YouTube videos, social media reels, business content.',tools:'spunk.codes for thumbnail optimization'},
+  {name:'Consulting (Your Industry)',rateRange:[100,300],desc:'Leverage your professional expertise. Highest earning potential per hour.',tools:'Use spunk.codes invoice generator'}
+];
+
+function calculate(){
+  var hours=gv('hoursWeek');
+  var desired=gv('desiredIncome');
+  var salary=gv('currentSalary');
+  var monthlyHours=hours*4.33;
+  var rate=monthlyHours>0?desired/monthlyHours:0;
+  var yearlyGross=desired*12;
+  var seTax=yearlyGross*0.9235*0.153;
+  var incomeTax=yearlyGross*0.18;
+  var yearlyNet=yearlyGross-seTax-incomeTax;
+
+  document.getElementById('rRate').textContent=fmtDec(rate)+'/hr';
+  document.getElementById('rMonthlyHours').textContent=Math.round(monthlyHours);
+  document.getElementById('rYearlyGross').textContent=fmt(yearlyGross);
+  document.getElementById('rYearlyNet').textContent=fmt(yearlyNet);
+  document.getElementById('desiredDisplay').textContent=fmt(desired);
+  document.getElementById('hoursDisplay').textContent=hours;
+
+  // Update tax fields
+  document.getElementById('taxIncome').value=yearlyGross;
+  if(salary>0) document.getElementById('beReplace').value=salary;
+
+  // Hustle options
+  var html='';
+  hustles.forEach(function(h){
+    var lowRate=h.rateRange[0];
+    var highRate=h.rateRange[1];
+    var lowEarn=lowRate*monthlyHours;
+    var highEarn=highRate*monthlyHours;
+    var isDigitalProduct=lowRate===0;
+
+    html+='<div class="hustle-card">';
+    html+='<h3>'+h.name+'</h3>';
+    html+='<div class="desc">'+h.desc+'</div>';
+    if(isDigitalProduct){
+      html+='<div class="earnings">$500 - $10,000+/mo</div>';
+      html+='<div class="detail">Passive income potential. Revenue scales without trading time for money.</div>';
+    } else {
+      html+='<div class="earnings">'+fmt(lowEarn)+' - '+fmt(highEarn)+'/mo</div>';
+      html+='<div class="detail">At '+hours+' hrs/week: '+fmt(lowRate)+' - '+fmt(highRate)+'/hr typical rates</div>';
+    }
+    html+='<div class="tools-link">Tools: '+h.tools+'</div>';
+    html+='</div>';
+  });
+  document.getElementById('hustleList').innerHTML=html;
+
+  document.getElementById('results').style.display='block';
+  document.getElementById('results').scrollIntoView({behavior:'smooth'});
+}
+
+function calcTax(){
+  var income=gv('taxIncome');
+  var expenses=gv('taxExpenses');
+  var status=document.getElementById('taxStatus').value;
+  var net=income-expenses;
+  if(net<0) net=0;
+
+  // Self-employment tax (15.3% on 92.35% of net)
+  var seBase=net*0.9235;
+  var ssTax=Math.min(seBase,168600)*0.124;
+  var medicareTax=seBase*0.029;
+  var seTax=ssTax+medicareTax;
+  var seDeduction=seTax/2;
+
+  // Income tax (simplified brackets for 2025 single)
+  var taxableIncome=net-seDeduction;
+  var standardDeduction=status==='single'?14600:29200;
+  taxableIncome=Math.max(0,taxableIncome-standardDeduction);
+
+  var incomeTax=0;
+  var brackets;
+  if(status==='single'){
+    brackets=[[11600,0.10],[47150,0.12],[100525,0.22],[191950,0.24],[243725,0.32],[609350,0.35],[Infinity,0.37]];
+  } else {
+    brackets=[[23200,0.10],[94300,0.12],[201050,0.22],[383900,0.24],[487450,0.32],[731200,0.35],[Infinity,0.37]];
+  }
+  var remaining=taxableIncome;
+  var prev=0;
+  brackets.forEach(function(b){
+    var bracketSize=b[0]-prev;
+    var taxable=Math.min(remaining,bracketSize);
+    incomeTax+=taxable*b[1];
+    remaining-=taxable;
+    prev=b[0];
+  });
+
+  var totalTax=seTax+incomeTax;
+  var quarterly=totalTax/4;
+  var takeHome=net-totalTax;
+  var effRate=net>0?(totalTax/net*100):0;
+
+  var html='';
+  html+='<div class="tax-row"><span class="tl">Gross Income</span><span class="tv">'+fmt(income)+'</span></div>';
+  html+='<div class="tax-row"><span class="tl">Business Expenses</span><span class="tv">-'+fmt(expenses)+'</span></div>';
+  html+='<div class="tax-row"><span class="tl">Net Self-Employment Income</span><span class="tv">'+fmt(net)+'</span></div>';
+  html+='<div class="tax-row"><span class="tl">Self-Employment Tax (15.3%)</span><span class="tv" style="color:var(--red)">-'+fmt(seTax)+'</span></div>';
+  html+='<div class="tax-row"><span class="tl">SE Tax Deduction</span><span class="tv" style="color:var(--cyan)">-'+fmt(seDeduction)+'</span></div>';
+  html+='<div class="tax-row"><span class="tl">Standard Deduction</span><span class="tv" style="color:var(--cyan)">-'+fmt(standardDeduction)+'</span></div>';
+  html+='<div class="tax-row"><span class="tl">Estimated Income Tax</span><span class="tv" style="color:var(--red)">-'+fmt(incomeTax)+'</span></div>';
+  html+='<div class="tax-row total"><span class="tl">TOTAL TAX</span><span class="tv">'+fmt(totalTax)+'</span></div>';
+
+  document.getElementById('taxBreakdown').innerHTML=html;
+  document.getElementById('rQuarterly').textContent=fmt(quarterly);
+  document.getElementById('rTakeHome').textContent=fmt(takeHome);
+  document.getElementById('rEffRate').textContent=effRate.toFixed(1)+'%';
+  document.getElementById('taxResults').style.display='block';
+}
+
+function calcBreakeven(){
+  var salary=gv('beReplace');
+  var clientValue=gv('beClientValue');
+  var clientHours=gv('beClientHours');
+  if(clientValue<=0){alert('Enter a client value.');return}
+
+  // Account for self-employment taxes (roughly 30% total tax burden)
+  var grossNeeded=salary/0.70;
+  var monthlyNeeded=grossNeeded/12;
+  var clientsNeeded=Math.ceil(monthlyNeeded/clientValue);
+  var hoursNeeded=clientsNeeded*clientHours;
+  var hourlyRate=clientValue/clientHours;
+  var weeksNeeded=hoursNeeded/40;
+
+  var html='<div class="breakeven-box">';
+  html+='<div class="big">'+clientsNeeded+' Clients</div>';
+  html+='<div class="sub">at '+fmt(clientValue)+'/month each to replace your '+fmt(salary)+'/year salary</div>';
+  html+='<div style="margin-top:1rem;display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;text-align:center">';
+  html+='<div><div style="font-size:1.2rem;font-weight:800;color:var(--gold)">'+fmtDec(hourlyRate)+'/hr</div><div style="font-size:0.7rem;color:var(--text-dim)">Effective Rate</div></div>';
+  html+='<div><div style="font-size:1.2rem;font-weight:800;color:var(--gold)">'+hoursNeeded+' hrs/mo</div><div style="font-size:0.7rem;color:var(--text-dim)">Hours Required</div></div>';
+  html+='<div><div style="font-size:1.2rem;font-weight:800;color:var(--gold)">'+fmt(monthlyNeeded)+'</div><div style="font-size:0.7rem;color:var(--text-dim)">Gross Monthly Needed</div></div>';
+  html+='</div></div>';
+  html+='<p style="color:var(--text-dim);font-size:0.8rem;text-align:center">Gross amount accounts for ~30% self-employment + income tax burden.</p>';
+
+  document.getElementById('breakevenResult').innerHTML=html;
+  document.getElementById('breakevenResult').style.display='block';
+}
+
+function calcGrowth(){
+  var start=gv('growthStart');
+  var rate=gv('growthRate')/100;
+  var months=[];
+  var total=0;
+  var current=start;
+
+  for(var i=1;i<=12;i++){
+    months.push({month:i,revenue:current});
+    total+=current;
+    current*=(1+rate);
+  }
+
+  var maxRev=months[11].revenue;
+  var html='';
+  months.forEach(function(m){
+    var pct=(m.revenue/maxRev*100).toFixed(0);
+    html+='<div class="growth-month"><span style="color:var(--text-dim)">Month '+m.month+'</span><div class="growth-bar"><div class="growth-fill" style="width:'+pct+'%"></div></div><span style="font-weight:700;color:var(--gold);text-align:right">'+fmt(m.revenue)+'</span></div>';
+  });
+
+  document.getElementById('growthList').innerHTML=html;
+  document.getElementById('rMonth12').textContent=fmt(months[11].revenue);
+  document.getElementById('rYear1Total').textContent=fmt(total);
+  document.getElementById('growthResults').style.display='block';
+}
+
+function shareX(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Just calculated my side hustle potential. This tool shows exactly what to charge and taxes owed. Code SPUNK @SpunkArt13')+'&url='+encodeURIComponent('https://spunk.codes/exclusive-tools'),'_blank')}
+function shareReddit(){window.open('https://www.reddit.com/submit?url='+encodeURIComponent('https://spunk.codes/exclusive-tools')+'&title='+encodeURIComponent('Side Hustle Income Calculator - know what to charge [code SPUNK]'),'_blank')}
+function shareEmail(){window.location.href='mailto:?subject='+encodeURIComponent('Side Hustle Income Calculator')+'&body='+encodeURIComponent('Calculate side hustle earnings, tax estimates, and break-even analysis. Code SPUNK: https://spunk.codes/exclusive-tools')}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<script src="/auto-monetize.js"></script>
+<div id="shareXBtn" style="position:fixed;left:20px;bottom:20px;z-index:9999;">
+  <a id="shareXLink" href="#" target="_blank" rel="noopener noreferrer" title="Share on X"
+     style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;
+     background:rgba(88,166,255,0.15);border:1px solid rgba(88,166,255,0.3);
+     backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:50%;
+     text-decoration:none;transition:all 0.3s ease;cursor:pointer;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+    </svg>
+  </a>
+</div>
+<style>
+  #shareXBtn a:hover {
+    background: rgba(88,166,255,0.35) !important;
+    border-color: rgba(88,166,255,0.6) !important;
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(88,166,255,0.3);
+  }
+</style>
+<script>
+(function(){
+  var page = location.pathname.split("/").pop() || "index.html";
+  var url = "https://spunk.codes/" + page;
+  var text = "Just used this free tool on spunk.codes — amazing! @SpunkArt13";
+  var href = "https://x.com/intent/tweet?text=" + encodeURIComponent(text) + "&url=" + encodeURIComponent(url);
+  document.getElementById("shareXLink").href = href;
+})();
+</script>
+<script src="/usage-tracker.js"></script>
+</body>
+</html>

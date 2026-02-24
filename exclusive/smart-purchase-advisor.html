@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Smart Purchase Advisor - Buy or Wait? | SPUNK.CODES Exclusive</title>
+<meta name="description" content="Analyze any purchase with cost-per-use, opportunity cost, decision matrix, and alternatives. Know if you should buy or wait. Exclusive premium tool.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Smart Purchase Advisor - SPUNK.CODES Exclusive">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/smart-purchase-advisor">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0d1117;--card:rgba(22,27,34,0.8);--border:rgba(48,54,61,0.6);--gold:#ffd700;--gold-border:rgba(255,215,0,0.3);--text:#e6edf3;--text-dim:#8b949e;--blue:#58a6ff;--cyan:#39d353;--red:#f85149;--orange:#ff8c00;--font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+a{color:var(--blue);text-decoration:none}
+.bg-mesh{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 80% 50% at 20% 20%,rgba(255,215,0,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(255,140,0,0.04) 0%,transparent 60%),var(--bg)}
+.bg-grid{position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,215,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,215,0,0.03) 1px,transparent 1px);background-size:60px 60px}
+.nav{position:sticky;top:0;z-index:100;background:rgba(13,17,23,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,215,0,0.15);padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}
+.nav-brand{font-weight:800;font-size:1.1rem;color:var(--gold);letter-spacing:0.08em}
+.nav-links{display:flex;gap:1.5rem;font-size:0.85rem}.nav-links a{color:var(--text-dim);font-weight:500}.nav-links a.active{color:var(--gold)}
+.lock-gate{position:fixed;inset:0;z-index:1000;background:rgba(13,17,23,0.97);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:2rem}
+.lock-gate.hidden{display:none}
+.lock-icon-big{font-size:4rem}.lock-gate h2{font-size:1.8rem;font-weight:800;text-align:center}.lock-gate h2 span{color:var(--gold)}.lock-gate p{color:var(--text-dim);text-align:center;max-width:400px}
+.code-input-wrap{display:flex;gap:0.5rem}
+.code-input{padding:0.8rem 1.5rem;background:rgba(22,27,34,0.8);border:2px solid var(--gold-border);border-radius:12px;color:var(--gold);font-size:1.2rem;font-weight:800;letter-spacing:3px;text-align:center;width:200px;outline:none;text-transform:uppercase;font-family:var(--font)}
+.code-input:focus{border-color:var(--gold);box-shadow:0 0 20px rgba(255,215,0,0.2)}
+.code-submit{padding:0.8rem 1.5rem;background:linear-gradient(135deg,#ffd700,#ff8c00);border:none;border-radius:12px;color:#000;font-size:1rem;font-weight:800;cursor:pointer}
+.code-error{color:var(--red);font-size:0.85rem;min-height:1.2em}.lock-hint{color:var(--text-dim);font-size:0.8rem}.lock-hint a{color:var(--gold)}
+.exclusive-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;background:linear-gradient(135deg,rgba(255,215,0,0.15),rgba(255,140,0,0.15));border:1px solid var(--gold-border);border-radius:100px;font-size:11px;font-weight:800;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase}
+.main{max-width:1000px;margin:0 auto;padding:2rem}
+.hero-section{text-align:center;padding:2rem 0 2rem}
+.hero-section h1{font-size:2.2rem;font-weight:800;margin:1rem 0 0.5rem}
+.hero-section h1 .gold{background:linear-gradient(135deg,#ffd700,#ff8c00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-section p{color:var(--text-dim);max-width:600px;margin:0 auto}
+.card{background:var(--card);border:1px solid var(--gold-border);border-radius:16px;padding:1.5rem;margin-bottom:1.5rem;backdrop-filter:blur(10px);position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),#ff8c00,var(--gold))}
+.card h2{font-size:1.1rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}
+.form-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:0.75rem;margin-bottom:0.75rem}
+.form-group{display:flex;flex-direction:column;gap:0.3rem}
+.form-group label{font-size:0.75rem;color:var(--text-dim);font-weight:600;text-transform:uppercase;letter-spacing:0.5px}
+.form-group input,.form-group select,.form-group textarea{padding:0.6rem 0.8rem;background:rgba(22,27,34,0.9);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.85rem;font-family:var(--font);outline:none}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--gold)}
+.form-group textarea{resize:vertical;min-height:50px}
+.btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;transition:all 0.2s}
+.btn-gold{background:linear-gradient(135deg,#ffd700,#ff8c00);color:#000}
+.btn-gold:hover{transform:translateY(-1px);box-shadow:0 4px 15px rgba(255,215,0,0.3)}
+.btn-outline{background:transparent;border:1px solid var(--gold-border);color:var(--gold)}
+.btn-outline:hover{background:rgba(255,215,0,0.1)}
+.btn-red{background:rgba(248,81,73,0.15);border:1px solid rgba(248,81,73,0.3);color:var(--red)}
+.btn-sm{padding:0.4rem 0.8rem;font-size:0.75rem}
+.btn-row{display:flex;gap:0.5rem;flex-wrap:wrap}
+.result-box{background:rgba(13,17,23,0.6);border:1px solid var(--border);border-radius:12px;padding:1rem;margin-top:0.75rem}
+.result-row{display:flex;justify-content:space-between;align-items:center;padding:0.4rem 0;font-size:0.85rem;border-bottom:1px solid rgba(48,54,61,0.3)}
+.result-row:last-child{border-bottom:none}
+.result-row .label{color:var(--text-dim)}.result-row .value{font-weight:700;color:var(--cyan)}
+.result-row .value.warn{color:var(--orange)}.result-row .value.bad{color:var(--red)}
+.verdict-box{text-align:center;padding:2rem;margin:1rem 0;border-radius:16px;border:2px solid}
+.verdict-box.buy{border-color:rgba(57,211,83,0.4);background:rgba(57,211,83,0.05)}
+.verdict-box.wait{border-color:rgba(255,140,0,0.4);background:rgba(255,140,0,0.05)}
+.verdict-box.skip{border-color:rgba(248,81,73,0.4);background:rgba(248,81,73,0.05)}
+.verdict-title{font-size:1.5rem;font-weight:800;margin-bottom:0.3rem}
+.verdict-box.buy .verdict-title{color:var(--cyan)}
+.verdict-box.wait .verdict-title{color:var(--orange)}
+.verdict-box.skip .verdict-title{color:var(--red)}
+.verdict-reason{font-size:0.85rem;color:var(--text-dim)}
+.matrix-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:0.75rem;margin:1rem 0}
+.matrix-item{background:rgba(13,17,23,0.6);border:1px solid var(--border);border-radius:10px;padding:1rem;text-align:center}
+.matrix-item .m-label{font-size:0.7rem;color:var(--text-dim);text-transform:uppercase;font-weight:600;letter-spacing:0.5px}
+.matrix-item .m-score{font-size:1.8rem;font-weight:800;margin:0.3rem 0}
+.matrix-item .m-bar{height:6px;background:rgba(48,54,61,0.5);border-radius:3px;overflow:hidden;margin-top:0.3rem}
+.matrix-item .m-fill{height:100%;border-radius:3px;transition:width 0.5s}
+.alt-item{display:flex;gap:0.75rem;align-items:flex-start;padding:0.6rem 0;border-bottom:1px solid rgba(48,54,61,0.3);font-size:0.85rem}
+.alt-item:last-child{border-bottom:none}
+.alt-icon{font-size:1.2rem;min-width:28px;text-align:center}
+.alt-details h4{font-size:0.85rem;margin-bottom:0.1rem}
+.alt-details p{font-size:0.75rem;color:var(--text-dim)}
+.wishlist-item{display:flex;align-items:center;gap:0.75rem;padding:0.6rem;background:rgba(13,17,23,0.4);border:1px solid var(--border);border-radius:8px;margin-bottom:0.5rem;font-size:0.82rem}
+.wishlist-item .wi-name{flex:1;font-weight:600}
+.wishlist-item .wi-price{color:var(--gold);font-weight:700}
+.wishlist-item .wi-date{color:var(--text-dim);font-size:0.72rem}
+.review-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-bottom:1rem}
+.review-card{background:rgba(13,17,23,0.6);border:1px solid var(--border);border-radius:12px;padding:1.2rem;text-align:center}
+.review-card .rc-num{font-size:1.8rem;font-weight:800;color:var(--gold)}
+.review-card .rc-label{font-size:0.7rem;color:var(--text-dim);text-transform:uppercase;font-weight:600;letter-spacing:1px}
+.share-cta{background:linear-gradient(135deg,rgba(255,215,0,0.08),rgba(255,140,0,0.05));border:1px solid var(--gold-border);border-radius:16px;padding:2rem;text-align:center;margin-top:2rem}
+.share-cta h3{color:var(--gold);margin-bottom:0.5rem}.share-cta p{color:var(--text-dim);font-size:0.9rem;margin-bottom:1rem}
+.share-btns{display:flex;gap:0.6rem;justify-content:center;flex-wrap:wrap}
+.share-btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;color:#fff}
+.share-x{background:#000;border:1px solid #333}.share-reddit{background:#ff4500}.share-email{background:#21262d;border:1px solid #30363d}
+.footer{text-align:center;padding:2rem;border-top:1px solid rgba(255,215,0,0.1);color:var(--text-dim);font-size:0.75rem;margin-top:3rem}
+.footer a{color:var(--gold)}.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-bottom:1rem}
+.watermark{position:fixed;bottom:10px;right:10px;font-size:0.6rem;color:rgba(255,215,0,0.08);font-weight:800;pointer-events:none;z-index:9999;letter-spacing:1px;text-transform:uppercase}
+@media(max-width:768px){.main{padding:1rem}.hero-section h1{font-size:1.6rem}.nav-links{display:none}.form-row{grid-template-columns:1fr}.matrix-grid{grid-template-columns:1fr 1fr}.review-grid{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="bg-mesh"></div><div class="bg-grid"></div>
+<div class="lock-gate" id="lockGate"><div class="lock-icon-big">&#128274;</div><h2>Enter Code <span>SPUNK</span> to Unlock</h2><p>This exclusive premium tool requires the SPUNK referral code.</p><div class="code-input-wrap"><input type="text" class="code-input" id="codeInput" placeholder="CODE" maxlength="10" autocomplete="off"><button class="code-submit" onclick="submitCode()">Unlock</button></div><div class="code-error" id="codeError"></div><div class="lock-hint">Get the code at <a href="https://spunk.codes/exclusive-tools">spunk.codes/exclusive-tools</a></div></div>
+<nav class="nav"><a href="https://spunk.codes" class="nav-brand">SPUNK.CODES</a><div class="nav-links"><a href="/store">Tools</a><a href="/exclusive-tools" class="active">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a></div></nav>
+
+<div class="main">
+  <section class="hero-section">
+    <div class="exclusive-badge">&#128081; EXCLUSIVE TOOL</div>
+    <h1><span class="gold">Smart Purchase</span> Advisor</h1>
+    <p>Analyze any purchase with cost-per-use, opportunity cost, work hours needed, and a decision matrix. Stop impulse buying.</p>
+  </section>
+
+  <!-- PURCHASE ANALYZER -->
+  <div class="card">
+    <h2>&#128269; Analyze a Purchase</h2>
+    <div class="form-row">
+      <div class="form-group"><label>Item Name</label><input type="text" id="itemName" placeholder="e.g., Sony WH-1000XM5 Headphones"></div>
+      <div class="form-group"><label>Price ($)</label><input type="number" id="itemPrice" placeholder="349" min="0" step="0.01"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Category</label>
+        <select id="itemCategory">
+          <option value="electronics">Electronics</option><option value="clothing">Clothing</option><option value="home">Home & Kitchen</option>
+          <option value="fitness">Fitness & Health</option><option value="hobby">Hobby & Entertainment</option><option value="tools">Tools & Equipment</option>
+          <option value="education">Education / Courses</option><option value="vehicle">Vehicle / Transport</option><option value="other">Other</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Your Hourly Rate ($)</label><input type="number" id="hourlyRate" placeholder="35" min="0" step="0.01"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Expected Uses Per Month</label><input type="number" id="usesPerMonth" placeholder="20" min="0"></div>
+      <div class="form-group"><label>Expected Lifespan (months)</label><input type="number" id="lifespan" placeholder="36" min="1"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Is This Planned or Impulse?</label>
+        <select id="purchaseType">
+          <option value="planned">Planned (researched 30+ days)</option>
+          <option value="recent">Recent idea (7-30 days)</option>
+          <option value="impulse">Impulse (saw it today)</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Is It On Sale?</label>
+        <select id="onSale">
+          <option value="no">No</option>
+          <option value="small">Small sale (under 20%)</option>
+          <option value="big">Big sale (20%+ off)</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Need (1-10)</label><input type="range" id="scoreNeed" min="1" max="10" value="5"><span id="scoreNeedVal" style="font-size:0.8rem;color:var(--gold);font-weight:700;text-align:center">5</span></div>
+      <div class="form-group"><label>Value for Money (1-10)</label><input type="range" id="scoreValue" min="1" max="10" value="5"><span id="scoreValueVal" style="font-size:0.8rem;color:var(--gold);font-weight:700;text-align:center">5</span></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Alternatives Available (1-10, 10=many)</label><input type="range" id="scoreAlts" min="1" max="10" value="5"><span id="scoreAltsVal" style="font-size:0.8rem;color:var(--gold);font-weight:700;text-align:center">5</span></div>
+      <div class="form-group"><label>Timing (1-10, 10=perfect time)</label><input type="range" id="scoreTiming" min="1" max="10" value="5"><span id="scoreTimingVal" style="font-size:0.8rem;color:var(--gold);font-weight:700;text-align:center">5</span></div>
+    </div>
+    <button class="btn btn-gold" onclick="analyzePurchase()" style="margin-top:0.5rem">Analyze Purchase</button>
+    <button class="btn btn-outline" onclick="addToWishlist()" style="margin-top:0.5rem">Add to Wishlist</button>
+  </div>
+
+  <!-- RESULTS -->
+  <div id="analysisResults" style="display:none">
+    <div id="verdictBox"></div>
+
+    <div class="card">
+      <h2>&#128202; Purchase Analysis</h2>
+      <div class="result-box" id="analysisDetails"></div>
+    </div>
+
+    <div class="card">
+      <h2>&#127919; Decision Matrix</h2>
+      <div class="matrix-grid" id="matrixGrid"></div>
+      <div class="result-box"><div class="result-row"><span class="label">Overall Score</span><span class="value" id="overallScore" style="font-size:1.2rem"></span></div></div>
+    </div>
+
+    <div class="card">
+      <h2>&#128161; Alternatives to Consider</h2>
+      <div id="alternativesList"></div>
+    </div>
+  </div>
+
+  <!-- WISHLIST -->
+  <div class="card">
+    <h2>&#128203; Wishlist Tracker</h2>
+    <div id="wishlistItems">
+      <p style="color:var(--text-dim);font-size:0.85rem">No items on your wishlist. Analyze a purchase and click "Add to Wishlist" to save it.</p>
+    </div>
+  </div>
+
+  <!-- MONTHLY REVIEW -->
+  <div class="card">
+    <h2>&#128200; Monthly Purchase Review</h2>
+    <div class="review-grid" id="reviewGrid">
+      <div class="review-card"><div class="rc-num" id="revTotal">$0</div><div class="rc-label">Total Analyzed</div></div>
+      <div class="review-card"><div class="rc-num" id="revCount">0</div><div class="rc-label">Items Analyzed</div></div>
+      <div class="review-card"><div class="rc-num" id="revAvgCPU">$0</div><div class="rc-label">Avg Cost/Use</div></div>
+      <div class="review-card"><div class="rc-num" id="revBest">--</div><div class="rc-label">Best Value</div></div>
+    </div>
+    <div id="purchaseHistory">
+      <p style="color:var(--text-dim);font-size:0.85rem">Purchase analysis history will appear here.</p>
+    </div>
+    <div class="btn-row" style="margin-top:1rem">
+      <button class="btn btn-outline" onclick="exportHistory()">&#128196; Export History</button>
+      <button class="btn btn-red btn-sm" onclick="clearHistory()">Clear History</button>
+    </div>
+  </div>
+
+  <div class="share-cta">
+    <h3>&#128275; Share the Code, Unlock More Tools</h3>
+    <p>Share code SPUNK to help others access 15+ exclusive premium tools.</p>
+    <div class="share-btns">
+      <button class="share-btn share-x" onclick="shareX()">&#120143; Share on X</button>
+      <button class="share-btn share-reddit" onclick="shareReddit()">&#128172; Reddit</button>
+      <button class="share-btn share-email" onclick="shareEmail()">&#9993; Email</button>
+    </div>
+  </div>
+</div>
+
+<footer class="footer"><div class="footer-links"><a href="https://spunk.codes">Home</a><a href="/store">Tools</a><a href="/exclusive-tools">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a><a href="https://twitter.com/SpunkArt13" target="_blank">@SpunkArt13</a></div><div>&copy; 2026 SPUNK.CODES EXCLUSIVE.</div></footer>
+<div class="watermark">SPUNK.CODES EXCLUSIVE</div>
+
+<script>
+document.addEventListener('contextmenu',function(e){e.preventDefault()});
+document.addEventListener('keydown',function(e){if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'||e.key==='C'))||(e.ctrlKey&&e.key==='u'))e.preventDefault()});
+function checkCode(){try{var c=localStorage.getItem('spunk_referral_code')||localStorage.getItem('spunk_ref_code')||'';if(c.toUpperCase()==='SPUNK'){document.getElementById('lockGate').classList.add('hidden');return true}}catch(e){}return false}
+function submitCode(){var v=document.getElementById('codeInput').value.trim().toUpperCase();if(v==='SPUNK'){try{localStorage.setItem('spunk_referral_code','SPUNK');localStorage.setItem('spunk_ref_code','SPUNK')}catch(e){}document.getElementById('lockGate').classList.add('hidden')}else{document.getElementById('codeError').textContent='Invalid code. Try: SPUNK';setTimeout(function(){document.getElementById('codeError').textContent=''},2000)}}
+document.getElementById('codeInput').addEventListener('keydown',function(e){if(e.key==='Enter')submitCode()});
+checkCode();
+
+// Slider labels
+['Need','Value','Alts','Timing'].forEach(function(s){
+  var el=document.getElementById('score'+s);
+  el.addEventListener('input',function(){document.getElementById('score'+s+'Val').textContent=el.value});
+});
+
+var history=[];var wishlist=[];
+function loadData(){try{history=JSON.parse(localStorage.getItem('spa_history')||'[]');wishlist=JSON.parse(localStorage.getItem('spa_wishlist')||'[]')}catch(e){}}
+function saveData(){try{localStorage.setItem('spa_history',JSON.stringify(history));localStorage.setItem('spa_wishlist',JSON.stringify(wishlist))}catch(e){}}
+function fmt(n){return '$'+n.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,',')}
+function fmtInt(n){return '$'+Math.round(n).toLocaleString()}
+function esc(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML}
+
+function analyzePurchase(){
+  var name=document.getElementById('itemName').value.trim();
+  var price=parseFloat(document.getElementById('itemPrice').value);
+  var category=document.getElementById('itemCategory').value;
+  var hourly=parseFloat(document.getElementById('hourlyRate').value)||25;
+  var usesMonth=parseInt(document.getElementById('usesPerMonth').value)||10;
+  var lifespan=parseInt(document.getElementById('lifespan').value)||24;
+  var pType=document.getElementById('purchaseType').value;
+  var onSale=document.getElementById('onSale').value;
+  var sNeed=parseInt(document.getElementById('scoreNeed').value);
+  var sValue=parseInt(document.getElementById('scoreValue').value);
+  var sAlts=parseInt(document.getElementById('scoreAlts').value);
+  var sTiming=parseInt(document.getElementById('scoreTiming').value);
+  if(!name){alert('Enter an item name');return}
+  if(!price||price<=0){alert('Enter a valid price');return}
+
+  // Calculations
+  var totalUses=usesMonth*lifespan;
+  var costPerUse=price/totalUses;
+  var hoursNeeded=price/hourly;
+  var investedValue=price*Math.pow(1.10,10); // 10% annual return over 10 years
+  var opportunityCost=investedValue-price;
+  var impulseRisk=pType==='impulse'?'HIGH':pType==='recent'?'MEDIUM':'LOW';
+  var impulseColor=pType==='impulse'?'bad':pType==='recent'?'warn':'';
+
+  // Analysis details
+  var ahtml='';
+  ahtml+='<div class="result-row"><span class="label">Cost Per Use</span><span class="value'+(costPerUse>5?' warn':'')+'">'+fmt(costPerUse)+'</span></div>';
+  ahtml+='<div class="result-row"><span class="label">Total Uses ('+usesMonth+'/mo x '+lifespan+' mo)</span><span class="value">'+totalUses.toLocaleString()+' uses</span></div>';
+  ahtml+='<div class="result-row"><span class="label">Hours of Work to Pay For It</span><span class="value'+(hoursNeeded>40?' warn':'')+'">'+hoursNeeded.toFixed(1)+' hours</span></div>';
+  ahtml+='<div class="result-row"><span class="label">Work Days Equivalent</span><span class="value">'+(hoursNeeded/8).toFixed(1)+' days</span></div>';
+  ahtml+='<div class="result-row"><span class="label">If Invested Instead (10yr @ 10%)</span><span class="value" style="color:var(--gold)">'+fmtInt(investedValue)+'</span></div>';
+  ahtml+='<div class="result-row"><span class="label">Opportunity Cost</span><span class="value warn">'+fmtInt(opportunityCost)+'</span></div>';
+  ahtml+='<div class="result-row"><span class="label">30-Day Rule Check</span><span class="value '+impulseColor+'">'+impulseRisk+' IMPULSE RISK</span></div>';
+  ahtml+='<div class="result-row"><span class="label">On Sale?</span><span class="value">'+(onSale==='no'?'No - check price history first':onSale==='small'?'Small discount - may see better deals':'Good sale - check if lowest price')+'</span></div>';
+  document.getElementById('analysisDetails').innerHTML=ahtml;
+
+  // Decision Matrix
+  var altsScore=11-sAlts; // Invert: fewer alternatives = better score for buying
+  var scores={need:sNeed,value:sValue,alternatives:altsScore,timing:sTiming};
+  var overall=((sNeed*3)+(sValue*3)+(altsScore*2)+(sTiming*2))/10;
+  // Adjust for impulse
+  if(pType==='impulse') overall=overall*0.7;
+  else if(pType==='recent') overall=overall*0.85;
+  var mhtml='';
+  var scoreItems=[
+    {key:'need',label:'Need',score:sNeed},
+    {key:'value',label:'Value',score:sValue},
+    {key:'alternatives',label:'Uniqueness',score:altsScore},
+    {key:'timing',label:'Timing',score:sTiming}
+  ];
+  scoreItems.forEach(function(item){
+    var color=item.score>=7?'var(--cyan)':item.score>=4?'var(--gold)':'var(--red)';
+    mhtml+='<div class="matrix-item"><div class="m-label">'+item.label+'</div><div class="m-score" style="color:'+color+'">'+item.score+'</div><div class="m-bar"><div class="m-fill" style="width:'+item.score*10+'%;background:'+color+'"></div></div></div>';
+  });
+  document.getElementById('matrixGrid').innerHTML=mhtml;
+  document.getElementById('overallScore').textContent=overall.toFixed(1)+'/10';
+  document.getElementById('overallScore').style.color=overall>=7?'var(--cyan)':overall>=4.5?'var(--gold)':'var(--red)';
+
+  // Verdict
+  var verdict,verdictClass,reason;
+  if(overall>=7&&pType!=='impulse'){
+    verdict='BUY IT'; verdictClass='buy';
+    reason='High need, good value, and well-timed. This looks like a smart purchase.';
+  } else if(overall>=4.5||pType==='planned'){
+    verdict='WAIT 7 DAYS'; verdictClass='wait';
+    reason='Decent score but not a clear yes. Add it to your wishlist, wait a week, and see if you still want it.';
+    if(pType==='impulse') reason='This is an impulse purchase. Wait at least 30 days before buying. Add it to your wishlist.';
+  } else {
+    verdict='SKIP IT'; verdictClass='skip';
+    reason='Low overall score. The cost per use is high and there are likely better alternatives. Save your money.';
+  }
+  if(costPerUse>10&&overall<8){
+    verdict='WAIT 7 DAYS';verdictClass='wait';
+    reason+=' Cost per use ('+fmt(costPerUse)+') is high - make sure you will actually use this enough.';
+  }
+  document.getElementById('verdictBox').innerHTML='<div class="verdict-box '+verdictClass+'"><div class="verdict-title">'+verdict+'</div><div class="verdict-reason">'+reason+'</div></div>';
+
+  // Alternatives
+  var altMap={
+    electronics:[
+      {icon:'&#128269;',name:'Check Refurbished',desc:'Same product, 20-40% cheaper. Check manufacturer refurb stores, Back Market, or Amazon Renewed.'},
+      {icon:'&#128197;',name:'Wait for Sale Events',desc:'Prime Day (July), Black Friday (Nov), or manufacturer sales. Set price alerts on CamelCamelCamel.'},
+      {icon:'&#128257;',name:'Previous Generation',desc:'Last year\'s model is often 30-50% cheaper with 90% of the features.'},
+      {icon:'&#127968;',name:'Borrow or Rent First',desc:'Try before you buy. Ask friends, check rental services, or buy with return policy.'}
+    ],
+    clothing:[
+      {icon:'&#128722;',name:'Thrift / Secondhand',desc:'ThredUp, Poshmark, local thrift stores. Save 70-90% on quality clothing.'},
+      {icon:'&#128197;',name:'End-of-Season Sales',desc:'Buy winter clothes in spring, summer clothes in fall. 50-70% off.'},
+      {icon:'&#128176;',name:'Quality Over Quantity',desc:'One $100 item that lasts 5 years beats five $30 items that last 1 year each.'},
+      {icon:'&#128269;',name:'Check Outlet Stores',desc:'Same brands, lower prices. Also check online outlet sections.'}
+    ],
+    home:[
+      {icon:'&#127968;',name:'Facebook Marketplace',desc:'Furniture and home goods for 50-80% off retail. Negotiate further in person.'},
+      {icon:'&#128295;',name:'DIY Alternative',desc:'Many home items can be made for a fraction of the cost. Check YouTube tutorials.'},
+      {icon:'&#128197;',name:'Holiday Sales',desc:'Memorial Day, Labor Day, and Presidents Day have the best home goods sales.'},
+      {icon:'&#128257;',name:'Open Box / Floor Model',desc:'Check stores for display models and open-box items at 20-50% off.'}
+    ]
+  };
+  var alts=altMap[category]||[
+    {icon:'&#128269;',name:'Compare Prices',desc:'Check Google Shopping, Honey, or CamelCamelCamel for price history and competitors.'},
+    {icon:'&#128197;',name:'Set a Price Alert',desc:'Use browser extensions or apps to get notified when the price drops.'},
+    {icon:'&#128257;',name:'Look for Used/Refurbished',desc:'Check eBay, Facebook Marketplace, or dedicated resale sites for your category.'},
+    {icon:'&#128176;',name:'Free Alternatives',desc:'Search for free or open-source alternatives. Many paid products have free competitors.'}
+  ];
+  var altHtml='';
+  alts.forEach(function(a){
+    altHtml+='<div class="alt-item"><div class="alt-icon">'+a.icon+'</div><div class="alt-details"><h4>'+a.name+'</h4><p>'+a.desc+'</p></div></div>';
+  });
+  document.getElementById('alternativesList').innerHTML=altHtml;
+
+  document.getElementById('analysisResults').style.display='block';
+
+  // Save to history
+  history.push({name:name,price:price,category:category,costPerUse:costPerUse,score:overall,verdict:verdict,date:new Date().toISOString().split('T')[0],id:Date.now()});
+  saveData();
+  renderHistory();
+  renderWishlist();
+}
+
+function addToWishlist(){
+  var name=document.getElementById('itemName').value.trim();
+  var price=parseFloat(document.getElementById('itemPrice').value);
+  if(!name||!price){alert('Enter item name and price first');return}
+  wishlist.push({name:name,price:price,dateAdded:new Date().toISOString().split('T')[0],id:Date.now()});
+  saveData();
+  renderWishlist();
+  alert(name+' added to your wishlist. Come back in 30 days to reassess.');
+}
+
+function removeFromWishlist(id){
+  wishlist=wishlist.filter(function(w){return w.id!==id});
+  saveData();renderWishlist();
+}
+
+function renderWishlist(){
+  if(wishlist.length===0){
+    document.getElementById('wishlistItems').innerHTML='<p style="color:var(--text-dim);font-size:0.85rem">No items on your wishlist.</p>';
+    return;
+  }
+  var html='';
+  wishlist.forEach(function(w){
+    var daysSince=Math.floor((new Date()-new Date(w.dateAdded))/(1000*60*60*24));
+    var status=daysSince>=30?'<span style="color:var(--cyan);font-weight:700">30-day check passed</span>':daysSince+' days ago (wait '+(30-daysSince)+' more)';
+    html+='<div class="wishlist-item"><span class="wi-name">'+esc(w.name)+'</span><span class="wi-price">'+fmt(w.price)+'</span><span class="wi-date">Added '+status+'</span><button class="btn btn-red btn-sm" onclick="removeFromWishlist('+w.id+')">X</button></div>';
+  });
+  document.getElementById('wishlistItems').innerHTML=html;
+}
+
+function renderHistory(){
+  if(history.length===0){
+    document.getElementById('purchaseHistory').innerHTML='<p style="color:var(--text-dim);font-size:0.85rem">No purchase history yet.</p>';
+    document.getElementById('revTotal').textContent='$0';
+    document.getElementById('revCount').textContent='0';
+    document.getElementById('revAvgCPU').textContent='$0';
+    document.getElementById('revBest').textContent='--';
+    return;
+  }
+  var totalPrice=0,totalCPU=0,bestItem=null,bestCPU=999999;
+  history.forEach(function(h){
+    totalPrice+=h.price;
+    totalCPU+=h.costPerUse;
+    if(h.costPerUse<bestCPU){bestCPU=h.costPerUse;bestItem=h.name}
+  });
+  document.getElementById('revTotal').textContent=fmtInt(totalPrice);
+  document.getElementById('revCount').textContent=history.length;
+  document.getElementById('revAvgCPU').textContent=fmt(totalCPU/history.length);
+  document.getElementById('revBest').textContent=bestItem||'--';
+  var html='<div style="overflow-x:auto"><table class="bill-table" style="width:100%;font-size:0.8rem"><thead><tr><th>Item</th><th>Price</th><th>Cost/Use</th><th>Score</th><th>Verdict</th><th>Date</th></tr></thead><tbody>';
+  history.slice().reverse().forEach(function(h){
+    var sc=h.score>=7?'var(--cyan)':h.score>=4.5?'var(--gold)':'var(--red)';
+    html+='<tr><td>'+esc(h.name)+'</td><td>'+fmt(h.price)+'</td><td>'+fmt(h.costPerUse)+'</td><td style="color:'+sc+';font-weight:700">'+h.score.toFixed(1)+'</td><td>'+h.verdict+'</td><td>'+h.date+'</td></tr>';
+  });
+  html+='</tbody></table></div>';
+  document.getElementById('purchaseHistory').innerHTML=html;
+}
+
+function exportHistory(){
+  if(history.length===0){alert('No history to export');return}
+  var lines=['SMART PURCHASE ADVISOR - HISTORY','Generated by SPUNK.CODES','Date: '+new Date().toLocaleDateString(),''];
+  history.forEach(function(h){
+    lines.push(h.name+' | '+fmt(h.price)+' | Cost/Use: '+fmt(h.costPerUse)+' | Score: '+h.score.toFixed(1)+' | '+h.verdict+' | '+h.date);
+  });
+  lines.push('');
+  if(wishlist.length>0){
+    lines.push('WISHLIST:');
+    wishlist.forEach(function(w){lines.push(w.name+' | '+fmt(w.price)+' | Added: '+w.dateAdded)});
+  }
+  lines.push('');
+  lines.push('Generated at spunk.codes/exclusive/smart-purchase-advisor');
+  var blob=new Blob([lines.join('\n')],{type:'text/plain'});
+  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='purchase-history.txt';a.click();
+}
+
+function clearHistory(){if(confirm('Clear all purchase history?')){history=[];saveData();renderHistory()}}
+
+// Init
+loadData();renderHistory();renderWishlist();
+
+function shareX(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('This purchase advisor tool stopped me from impulse buying. Cost per use analysis is eye-opening. Code SPUNK @SpunkArt13')+'&url='+encodeURIComponent('https://spunk.codes/exclusive-tools'),'_blank')}
+function shareReddit(){window.open('https://www.reddit.com/submit?url='+encodeURIComponent('https://spunk.codes/exclusive-tools')+'&title='+encodeURIComponent('Smart Purchase Advisor - analyze any purchase before buying [free with code SPUNK]'),'_blank')}
+function shareEmail(){window.location.href='mailto:?subject='+encodeURIComponent('Smart Purchase Advisor')+'&body='+encodeURIComponent('Analyze purchases before buying. Code SPUNK: https://spunk.codes/exclusive-tools')}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<script src="/auto-monetize.js"></script>
+<div id="shareXBtn" style="position:fixed;left:20px;bottom:20px;z-index:9999;">
+  <a id="shareXLink" href="#" target="_blank" rel="noopener noreferrer" title="Share on X"
+     style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;
+     background:rgba(88,166,255,0.15);border:1px solid rgba(88,166,255,0.3);
+     backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:50%;
+     text-decoration:none;transition:all 0.3s ease;cursor:pointer;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+    </svg>
+  </a>
+</div>
+<style>#shareXBtn a:hover{background:rgba(88,166,255,0.35)!important;border-color:rgba(88,166,255,0.6)!important;transform:scale(1.1);box-shadow:0 0 15px rgba(88,166,255,0.3)}</style>
+<script>
+(function(){
+  var page=location.pathname.split("/").pop()||"index.html";
+  var url="https://spunk.codes/"+page;
+  var text="Just used this free tool on spunk.codes — amazing! @SpunkArt13";
+  var href="https://x.com/intent/tweet?text="+encodeURIComponent(text)+"&url="+encodeURIComponent(url);
+  document.getElementById("shareXLink").href=href;
+})();
+</script>
+<script src="/usage-tracker.js"></script>
+</body>
+</html>

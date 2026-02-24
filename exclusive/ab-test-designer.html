@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>A/B Test Designer & Calculator - Statistical Significance | SPUNK.CODES Exclusive</title>
+<meta name="description" content="Design A/B tests with hypothesis builder, sample size calculator, duration estimator, p-value calculator, and Bayesian probability. Exclusive premium tool.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="A/B Test Designer & Calculator - SPUNK.CODES Exclusive">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/ab-test-designer">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0d1117;--card:rgba(22,27,34,0.8);--border:rgba(48,54,61,0.6);--gold:#ffd700;--gold-border:rgba(255,215,0,0.3);--text:#e6edf3;--text-dim:#8b949e;--blue:#58a6ff;--cyan:#39d353;--red:#f85149;--orange:#ff8c00;--font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+a{color:var(--blue);text-decoration:none}
+.bg-mesh{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 80% 50% at 20% 20%,rgba(255,215,0,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(255,140,0,0.04) 0%,transparent 60%),var(--bg)}
+.bg-grid{position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,215,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,215,0,0.03) 1px,transparent 1px);background-size:60px 60px}
+.nav{position:sticky;top:0;z-index:100;background:rgba(13,17,23,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,215,0,0.15);padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}
+.nav-brand{font-weight:800;font-size:1.1rem;color:var(--gold);letter-spacing:0.08em}
+.nav-links{display:flex;gap:1.5rem;font-size:0.85rem}.nav-links a{color:var(--text-dim);font-weight:500}.nav-links a.active{color:var(--gold)}
+.lock-gate{position:fixed;inset:0;z-index:1000;background:rgba(13,17,23,0.97);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:2rem}
+.lock-gate.hidden{display:none}
+.lock-icon-big{font-size:4rem}.lock-gate h2{font-size:1.8rem;font-weight:800;text-align:center}.lock-gate h2 span{color:var(--gold)}.lock-gate p{color:var(--text-dim);text-align:center;max-width:400px}
+.code-input-wrap{display:flex;gap:0.5rem}
+.code-input{padding:0.8rem 1.5rem;background:rgba(22,27,34,0.8);border:2px solid var(--gold-border);border-radius:12px;color:var(--gold);font-size:1.2rem;font-weight:800;letter-spacing:3px;text-align:center;width:200px;outline:none;text-transform:uppercase;font-family:var(--font)}
+.code-input:focus{border-color:var(--gold);box-shadow:0 0 20px rgba(255,215,0,0.2)}
+.code-submit{padding:0.8rem 1.5rem;background:linear-gradient(135deg,#ffd700,#ff8c00);border:none;border-radius:12px;color:#000;font-size:1rem;font-weight:800;cursor:pointer}
+.code-error{color:var(--red);font-size:0.85rem;min-height:1.2em}.lock-hint{color:var(--text-dim);font-size:0.8rem}.lock-hint a{color:var(--gold)}
+.exclusive-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;background:linear-gradient(135deg,rgba(255,215,0,0.15),rgba(255,140,0,0.15));border:1px solid var(--gold-border);border-radius:100px;font-size:11px;font-weight:800;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase}
+.main{max-width:1000px;margin:0 auto;padding:2rem}
+.hero-section{text-align:center;padding:2rem 0 2rem}
+.hero-section h1{font-size:2.2rem;font-weight:800;margin:1rem 0 0.5rem}
+.hero-section h1 .gold{background:linear-gradient(135deg,#ffd700,#ff8c00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-section p{color:var(--text-dim);max-width:600px;margin:0 auto}
+.card{background:var(--card);border:1px solid var(--gold-border);border-radius:16px;padding:1.5rem;margin-bottom:1.5rem;backdrop-filter:blur(10px);position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),#ff8c00,var(--gold))}
+.card h2{font-size:1.1rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}
+.form-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:0.75rem;margin-bottom:0.75rem}
+.form-group{display:flex;flex-direction:column;gap:0.3rem}
+.form-group label{font-size:0.75rem;color:var(--text-dim);font-weight:600;text-transform:uppercase;letter-spacing:0.5px}
+.form-group input,.form-group select,.form-group textarea{padding:0.6rem 0.8rem;background:rgba(22,27,34,0.9);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.85rem;font-family:var(--font);outline:none}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--gold)}
+.form-group textarea{resize:vertical;min-height:50px}
+.btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;transition:all 0.2s}
+.btn-gold{background:linear-gradient(135deg,#ffd700,#ff8c00);color:#000}
+.btn-gold:hover{transform:translateY(-1px);box-shadow:0 4px 15px rgba(255,215,0,0.3)}
+.btn-outline{background:transparent;border:1px solid var(--gold-border);color:var(--gold)}
+.btn-outline:hover{background:rgba(255,215,0,0.1)}
+.btn-sm{padding:0.4rem 0.8rem;font-size:0.75rem}
+.btn-row{display:flex;gap:0.5rem;flex-wrap:wrap}
+.hypothesis-box{background:rgba(13,17,23,0.6);border:1px solid var(--border);border-radius:12px;padding:1.2rem;margin-bottom:1rem;font-size:0.95rem;line-height:1.8}
+.hypothesis-box .hl{color:var(--gold);font-weight:700}
+.stat-box{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:0.75rem;margin-bottom:1rem}
+.stat{text-align:center;padding:0.8rem;background:rgba(13,17,23,0.6);border:1px solid var(--border);border-radius:10px}
+.stat .num{font-size:1.4rem;font-weight:800;color:var(--gold)}.stat .label{font-size:0.65rem;color:var(--text-dim);text-transform:uppercase}
+.result-box{background:rgba(13,17,23,0.6);border-radius:12px;padding:1rem;margin-bottom:0.75rem}
+.result-box h3{font-size:0.9rem;margin-bottom:0.5rem;color:var(--gold)}
+.sig-yes{color:var(--cyan);font-weight:800}.sig-no{color:var(--red);font-weight:800}
+.bayesian-bar{width:100%;height:30px;background:rgba(248,81,73,0.2);border-radius:8px;overflow:hidden;margin:0.5rem 0;position:relative}
+.bayesian-fill{height:100%;background:linear-gradient(90deg,var(--cyan),#27ae60);border-radius:8px;transition:width 0.5s ease}
+.bayesian-label{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:0.75rem;font-weight:800;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,0.5)}
+.md-output{background:#161b22;border:1px solid var(--border);border-radius:8px;padding:1rem;font-family:'Courier New',monospace;font-size:0.8rem;line-height:1.5;overflow:auto;white-space:pre-wrap;max-height:400px;position:relative}
+.md-output .copy-btn{position:absolute;top:0.5rem;right:0.5rem;padding:0.3rem 0.6rem;background:rgba(255,215,0,0.15);border:1px solid var(--gold-border);border-radius:6px;color:var(--gold);font-size:0.65rem;cursor:pointer;font-weight:700}
+.share-cta{background:linear-gradient(135deg,rgba(255,215,0,0.08),rgba(255,140,0,0.05));border:1px solid var(--gold-border);border-radius:16px;padding:2rem;text-align:center;margin-top:2rem}
+.share-cta h3{color:var(--gold);margin-bottom:0.5rem}.share-cta p{color:var(--text-dim);font-size:0.9rem;margin-bottom:1rem}
+.share-btns{display:flex;gap:0.6rem;justify-content:center;flex-wrap:wrap}
+.share-btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;color:#fff}
+.share-x{background:#000;border:1px solid #333}.share-reddit{background:#ff4500}.share-email{background:#21262d;border:1px solid #30363d}
+.footer{text-align:center;padding:2rem;border-top:1px solid rgba(255,215,0,0.1);color:var(--text-dim);font-size:0.75rem;margin-top:3rem}
+.footer a{color:var(--gold)}.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-bottom:1rem}
+.watermark{position:fixed;bottom:10px;right:10px;font-size:0.6rem;color:rgba(255,215,0,0.08);font-weight:800;pointer-events:none;z-index:9999;letter-spacing:1px;text-transform:uppercase}
+.slider-group{display:flex;flex-direction:column;gap:0.3rem}
+.slider-group label{font-size:0.75rem;color:var(--text-dim);font-weight:600;text-transform:uppercase;letter-spacing:0.5px}
+.slider-group input[type=range]{width:100%;accent-color:var(--gold)}
+.slider-val{font-size:0.85rem;color:var(--gold);font-weight:700;text-align:right}
+@media(max-width:768px){.main{padding:1rem}.hero-section h1{font-size:1.6rem}.nav-links{display:none}.form-row{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="bg-mesh"></div><div class="bg-grid"></div>
+<div class="lock-gate" id="lockGate"><div class="lock-icon-big">&#128274;</div><h2>Enter Code <span>SPUNK</span> to Unlock</h2><p>This exclusive premium tool requires the SPUNK referral code.</p><div class="code-input-wrap"><input type="text" class="code-input" id="codeInput" placeholder="CODE" maxlength="10" autocomplete="off"><button class="code-submit" onclick="submitCode()">Unlock</button></div><div class="code-error" id="codeError"></div><div class="lock-hint">Get the code at <a href="https://spunk.codes/exclusive-tools">spunk.codes/exclusive-tools</a></div></div>
+<nav class="nav"><a href="https://spunk.codes" class="nav-brand">SPUNK.CODES</a><div class="nav-links"><a href="/store">Tools</a><a href="/exclusive-tools" class="active">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a></div></nav>
+
+<div class="main">
+  <section class="hero-section">
+    <div class="exclusive-badge">&#128081; EXCLUSIVE TOOL</div>
+    <h1><span class="gold">A/B Test</span> Designer & Calculator</h1>
+    <p>Build hypotheses, calculate sample sizes, estimate duration, analyze results with p-values and Bayesian probability.</p>
+  </section>
+
+  <div class="card">
+    <h2>&#128161; Hypothesis Builder</h2>
+    <div class="form-row">
+      <div class="form-group"><label>If we change...</label><input type="text" id="hypChange" placeholder="e.g. the CTA button color to green"></div>
+      <div class="form-group"><label>Then this metric...</label><input type="text" id="hypMetric" placeholder="e.g. click-through rate"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Will...</label>
+        <select id="hypDirection"><option value="increase">Increase</option><option value="decrease">Decrease</option></select>
+      </div>
+      <div class="form-group"><label>By at least...</label><input type="number" id="hypPercent" placeholder="10" min="1" max="100" value="10"></div>
+    </div>
+    <button class="btn btn-gold" onclick="buildHypothesis()" style="margin-top:0.5rem">Build Hypothesis</button>
+    <div class="hypothesis-box" id="hypothesisBox" style="display:none"></div>
+  </div>
+
+  <div class="card">
+    <h2>&#128202; Sample Size Calculator</h2>
+    <div class="form-row">
+      <div class="form-group"><label>Baseline Conversion Rate (%)</label><input type="number" id="baselineRate" placeholder="5" min="0.1" max="100" step="0.1" value="5"></div>
+      <div class="form-group"><label>Minimum Detectable Effect (%)</label><input type="number" id="mde" placeholder="10" min="1" max="100" step="1" value="10"></div>
+    </div>
+    <div class="form-row">
+      <div class="slider-group"><label>Confidence Level: <span class="slider-val" id="confVal">95%</span></label><input type="range" id="confLevel" min="80" max="99" value="95" oninput="document.getElementById('confVal').textContent=this.value+'%'"></div>
+      <div class="slider-group"><label>Statistical Power: <span class="slider-val" id="powerVal">80%</span></label><input type="range" id="statPower" min="70" max="95" value="80" oninput="document.getElementById('powerVal').textContent=this.value+'%'"></div>
+    </div>
+    <button class="btn btn-gold" onclick="calcSampleSize()" style="margin-top:0.5rem">Calculate Sample Size</button>
+    <div class="stat-box" id="sampleStats" style="margin-top:1rem;display:none"></div>
+  </div>
+
+  <div class="card">
+    <h2>&#9200; Duration Estimator</h2>
+    <div class="form-row">
+      <div class="form-group"><label>Daily Traffic (visitors)</label><input type="number" id="dailyTraffic" placeholder="1000" min="1" value="1000"></div>
+      <div class="form-group"><label>% of Traffic in Test</label><input type="number" id="trafficPct" placeholder="100" min="1" max="100" value="100"></div>
+    </div>
+    <button class="btn btn-gold" onclick="calcDuration()">Estimate Duration</button>
+    <div class="stat-box" id="durationStats" style="margin-top:1rem;display:none"></div>
+  </div>
+
+  <div class="card">
+    <h2>&#128200; Results Calculator</h2>
+    <div class="form-row">
+      <div class="form-group"><label>Variant A Visitors</label><input type="number" id="visitorsA" placeholder="5000" min="1"></div>
+      <div class="form-group"><label>Variant A Conversions</label><input type="number" id="conversionsA" placeholder="250" min="0"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Variant B Visitors</label><input type="number" id="visitorsB" placeholder="5000" min="1"></div>
+      <div class="form-group"><label>Variant B Conversions</label><input type="number" id="conversionsB" placeholder="300" min="0"></div>
+    </div>
+    <button class="btn btn-gold" onclick="calcResults()">Analyze Results</button>
+    <div id="resultsOutput" style="margin-top:1rem;display:none">
+      <div class="stat-box" id="resultStats"></div>
+      <div class="result-box" id="sigResult"></div>
+      <div class="result-box">
+        <h3>Bayesian Probability (Chance B Beats A)</h3>
+        <div class="bayesian-bar"><div class="bayesian-fill" id="bayesianFill" style="width:50%"></div><div class="bayesian-label" id="bayesianLabel">50%</div></div>
+        <p style="font-size:0.8rem;color:var(--text-dim)" id="bayesianDesc"></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>&#128196; Export Test Plan</h2>
+    <div class="btn-row" style="margin-bottom:0.75rem">
+      <button class="btn btn-gold btn-sm" onclick="generateTestPlan()">Generate</button>
+      <button class="btn btn-outline btn-sm" onclick="copyTestPlan()">Copy</button>
+      <button class="btn btn-outline btn-sm" onclick="downloadTestPlan()">Download .md</button>
+    </div>
+    <div class="md-output" id="mdOutput"><button class="copy-btn" onclick="copyTestPlan()">Copy</button>Fill in the sections above, then click "Generate" to create your test plan.</div>
+  </div>
+
+  <div class="share-cta">
+    <h3>&#128275; Share the Code, Unlock More Tools</h3>
+    <p>Share code SPUNK to help others access 15+ exclusive premium tools.</p>
+    <div class="share-btns">
+      <button class="share-btn share-x" onclick="shareX()">&#120143; Share on X</button>
+      <button class="share-btn share-reddit" onclick="shareReddit()">&#128172; Reddit</button>
+      <button class="share-btn share-email" onclick="shareEmail()">&#9993; Email</button>
+    </div>
+  </div>
+</div>
+
+<footer class="footer"><div class="footer-links"><a href="https://spunk.codes">Home</a><a href="/store">Tools</a><a href="/exclusive-tools">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a><a href="https://twitter.com/SpunkArt13" target="_blank">@SpunkArt13</a></div><div>&copy; 2026 SPUNK.CODES EXCLUSIVE.</div></footer>
+<div class="watermark">SPUNK.CODES EXCLUSIVE</div>
+
+<script>
+document.addEventListener('contextmenu',function(e){e.preventDefault()});
+document.addEventListener('keydown',function(e){if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'||e.key==='C'))||(e.ctrlKey&&e.key==='u'))e.preventDefault()});
+function checkCode(){try{var c=localStorage.getItem('spunk_referral_code')||localStorage.getItem('spunk_ref_code')||'';if(c.toUpperCase()==='SPUNK'){document.getElementById('lockGate').classList.add('hidden');return true}}catch(e){}return false}
+function submitCode(){var v=document.getElementById('codeInput').value.trim().toUpperCase();if(v==='SPUNK'){try{localStorage.setItem('spunk_referral_code','SPUNK');localStorage.setItem('spunk_ref_code','SPUNK')}catch(e){}document.getElementById('lockGate').classList.add('hidden')}else{document.getElementById('codeError').textContent='Invalid code. Try: SPUNK';setTimeout(function(){document.getElementById('codeError').textContent=''},2000)}}
+document.getElementById('codeInput').addEventListener('keydown',function(e){if(e.key==='Enter')submitCode()});
+checkCode();
+
+var savedSampleSize=0;
+var hypothesisText='';
+
+function buildHypothesis(){
+  var change=document.getElementById('hypChange').value.trim()||'[change]';
+  var metric=document.getElementById('hypMetric').value.trim()||'[metric]';
+  var dir=document.getElementById('hypDirection').value;
+  var pct=document.getElementById('hypPercent').value||'X';
+  hypothesisText='If we '+change+', then '+metric+' will '+dir+' by at least '+pct+'%.';
+  document.getElementById('hypothesisBox').innerHTML='<span class="hl">Hypothesis:</span> '+escapeHtml(hypothesisText);
+  document.getElementById('hypothesisBox').style.display='block';
+}
+
+// Normal distribution inverse (approximation using rational approximation)
+function normInv(p){
+  if(p<=0)return-Infinity;if(p>=1)return Infinity;
+  var a1=-39.69683028665376,a2=220.9460984245205,a3=-275.9285104469687,a4=138.3577518672690,a5=-30.66479806614716,a6=2.506628277459239;
+  var b1=-54.47609879822406,b2=161.5858368580409,b3=-155.6989798598866,b4=66.80131188771972,b5=-13.28068155288572;
+  var c1=-0.007784894002430293,c2=-0.3223964580411365,c3=-2.400758277161838,c4=-2.549732539343734,c5=4.374664141464968,c6=2.938163982698783;
+  var d1=0.007784695709041462,d2=0.3224671290700398,d3=2.445134137142996,d4=3.754408661907416;
+  var pLow=0.02425,pHigh=1-pLow;
+  var q,r;
+  if(p<pLow){q=Math.sqrt(-2*Math.log(p));return(((((c1*q+c2)*q+c3)*q+c4)*q+c5)*q+c6)/((((d1*q+d2)*q+d3)*q+d4)*q+1)}
+  if(p<=pHigh){q=p-0.5;r=q*q;return(((((a1*r+a2)*r+a3)*r+a4)*r+a5)*r+a6)*q/(((((b1*r+b2)*r+b3)*r+b4)*r+b5)*r+1)}
+  q=Math.sqrt(-2*Math.log(1-p));
+  return-(((((c1*q+c2)*q+c3)*q+c4)*q+c5)*q+c6)/((((d1*q+d2)*q+d3)*q+d4)*q+1);
+}
+
+function normCdf(x){
+  var t=1/(1+0.2316419*Math.abs(x));
+  var d=0.3989422804014327;
+  var p=d*Math.exp(-x*x/2)*(0.3193815*t-0.3565638*t*t+1.781478*t*t*t-1.8212560*t*t*t*t+1.3302744*t*t*t*t*t);
+  return x>0?1-p:p;
+}
+
+function calcSampleSize(){
+  var p1=parseFloat(document.getElementById('baselineRate').value)/100;
+  var mde=parseFloat(document.getElementById('mde').value)/100;
+  var conf=parseFloat(document.getElementById('confLevel').value)/100;
+  var power=parseFloat(document.getElementById('statPower').value)/100;
+
+  if(!p1||!mde){alert('Please fill in baseline rate and MDE.');return}
+
+  var p2=p1*(1+mde);
+  var zAlpha=normInv(1-(1-conf)/2);
+  var zBeta=normInv(power);
+  var pAvg=(p1+p2)/2;
+
+  var n=Math.ceil((Math.pow(zAlpha*Math.sqrt(2*pAvg*(1-pAvg))+zBeta*Math.sqrt(p1*(1-p1)+p2*(1-p2)),2))/Math.pow(p2-p1,2));
+  savedSampleSize=n;
+
+  document.getElementById('sampleStats').innerHTML=
+    '<div class="stat"><div class="num">'+n.toLocaleString()+'</div><div class="label">Per Variant</div></div>'+
+    '<div class="stat"><div class="num">'+(n*2).toLocaleString()+'</div><div class="label">Total Sample</div></div>'+
+    '<div class="stat"><div class="num">'+(p1*100).toFixed(1)+'%</div><div class="label">Baseline</div></div>'+
+    '<div class="stat"><div class="num">'+(p2*100).toFixed(1)+'%</div><div class="label">Target Rate</div></div>';
+  document.getElementById('sampleStats').style.display='grid';
+}
+
+function calcDuration(){
+  if(!savedSampleSize){calcSampleSize()}
+  if(!savedSampleSize){alert('Calculate sample size first.');return}
+
+  var daily=parseInt(document.getElementById('dailyTraffic').value)||1000;
+  var pct=parseInt(document.getElementById('trafficPct').value)||100;
+  var effectiveDaily=daily*(pct/100);
+  var perVariant=effectiveDaily/2;
+  var days=Math.ceil(savedSampleSize/perVariant);
+  var weeks=Math.ceil(days/7);
+
+  document.getElementById('durationStats').innerHTML=
+    '<div class="stat"><div class="num">'+days+'</div><div class="label">Days Needed</div></div>'+
+    '<div class="stat"><div class="num">'+weeks+'</div><div class="label">Weeks</div></div>'+
+    '<div class="stat"><div class="num">'+Math.floor(effectiveDaily).toLocaleString()+'</div><div class="label">Daily in Test</div></div>'+
+    '<div class="stat"><div class="num">'+Math.floor(perVariant).toLocaleString()+'</div><div class="label">Daily per Variant</div></div>';
+  document.getElementById('durationStats').style.display='grid';
+
+  if(days<7){
+    document.getElementById('durationStats').innerHTML+='<div style="grid-column:1/-1;text-align:center;font-size:0.8rem;color:var(--orange);padding:0.5rem">Warning: Tests shorter than 7 days may miss weekly traffic patterns. Consider running for at least 1 full week.</div>';
+  }
+}
+
+function calcResults(){
+  var nA=parseInt(document.getElementById('visitorsA').value);
+  var cA=parseInt(document.getElementById('conversionsA').value);
+  var nB=parseInt(document.getElementById('visitorsB').value);
+  var cB=parseInt(document.getElementById('conversionsB').value);
+
+  if(!nA||!nB||cA===undefined||cB===undefined||isNaN(cA)||isNaN(cB)){alert('Please fill in all result fields.');return}
+
+  var pA=cA/nA;
+  var pB=cB/nB;
+  var lift=((pB-pA)/pA)*100;
+  var seA=Math.sqrt(pA*(1-pA)/nA);
+  var seB=Math.sqrt(pB*(1-pB)/nB);
+  var seDiff=Math.sqrt(seA*seA+seB*seB);
+  var zScore=(pB-pA)/seDiff;
+  var pValue=2*(1-normCdf(Math.abs(zScore)));
+  var confInt95=[(pB-pA-1.96*seDiff)*100,(pB-pA+1.96*seDiff)*100];
+
+  var confLevel=parseFloat(document.getElementById('confLevel').value)/100||0.95;
+  var isSignificant=pValue<(1-confLevel);
+
+  // Bayesian approximation using beta distribution
+  var alphaA=cA+1,betaA=nA-cA+1;
+  var alphaB=cB+1,betaB=nB-cB+1;
+  var probBBeatsA=bayesianProbBBeatsA(alphaA,betaA,alphaB,betaB);
+
+  document.getElementById('resultStats').innerHTML=
+    '<div class="stat"><div class="num">'+(pA*100).toFixed(2)+'%</div><div class="label">Rate A (Control)</div></div>'+
+    '<div class="stat"><div class="num">'+(pB*100).toFixed(2)+'%</div><div class="label">Rate B (Variant)</div></div>'+
+    '<div class="stat"><div class="num">'+(lift>=0?'+':'')+lift.toFixed(2)+'%</div><div class="label">Relative Lift</div></div>'+
+    '<div class="stat"><div class="num">'+pValue.toFixed(4)+'</div><div class="label">P-Value</div></div>';
+
+  var sigClass=isSignificant?'sig-yes':'sig-no';
+  var sigText=isSignificant?'STATISTICALLY SIGNIFICANT':'NOT SIGNIFICANT';
+  document.getElementById('sigResult').innerHTML=
+    '<h3>Statistical Significance</h3>'+
+    '<p style="font-size:1.1rem" class="'+sigClass+'">'+sigText+'</p>'+
+    '<p style="font-size:0.8rem;color:var(--text-dim);margin-top:0.5rem">P-value: '+pValue.toFixed(4)+' | Z-score: '+zScore.toFixed(3)+'</p>'+
+    '<p style="font-size:0.8rem;color:var(--text-dim)">95% CI for difference: ['+confInt95[0].toFixed(3)+'%, '+confInt95[1].toFixed(3)+'%]</p>';
+
+  var probPct=(probBBeatsA*100).toFixed(1);
+  document.getElementById('bayesianFill').style.width=probPct+'%';
+  document.getElementById('bayesianLabel').textContent=probPct+'%';
+  document.getElementById('bayesianDesc').textContent=probBBeatsA>=0.95?'Strong evidence B beats A.':probBBeatsA>=0.8?'Moderate evidence B beats A. Consider more data.':probBBeatsA>=0.5?'Slight edge for B, but inconclusive. Need more data.':'A appears to be performing better than B.';
+
+  document.getElementById('resultsOutput').style.display='block';
+}
+
+function bayesianProbBBeatsA(aA,bA,aB,bB){
+  // Monte Carlo simulation for P(B > A)
+  var wins=0,trials=10000;
+  for(var i=0;i<trials;i++){
+    var sA=betaSample(aA,bA);
+    var sB=betaSample(aB,bB);
+    if(sB>sA)wins++;
+  }
+  return wins/trials;
+}
+
+function betaSample(a,b){
+  var x=gammaSample(a);
+  var y=gammaSample(b);
+  return x/(x+y);
+}
+
+function gammaSample(shape){
+  if(shape<1){return gammaSample(shape+1)*Math.pow(Math.random(),1/shape)}
+  var d=shape-1/3;
+  var c=1/Math.sqrt(9*d);
+  while(true){
+    var x,v;
+    do{x=randn();v=1+c*x}while(v<=0);
+    v=v*v*v;
+    var u=Math.random();
+    if(u<1-0.0331*x*x*x*x)return d*v;
+    if(Math.log(u)<0.5*x*x+d*(1-v+Math.log(v)))return d*v;
+  }
+}
+
+function randn(){var u=0,v=0;while(u===0)u=Math.random();while(v===0)v=Math.random();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v)}
+
+function generateTestPlan(){
+  var md='# A/B Test Plan\n\nGenerated by SPUNK.CODES A/B Test Designer\n\n';
+  md+='## Hypothesis\n\n';
+  md+=(hypothesisText||'_Not defined yet._')+'\n\n';
+
+  var baseline=document.getElementById('baselineRate').value;
+  var mde=document.getElementById('mde').value;
+  var conf=document.getElementById('confLevel').value;
+  var power=document.getElementById('statPower').value;
+
+  md+='## Test Parameters\n\n';
+  md+='| Parameter | Value |\n|---|---|\n';
+  md+='| Baseline Rate | '+baseline+'% |\n';
+  md+='| Min. Detectable Effect | '+mde+'% |\n';
+  md+='| Confidence Level | '+conf+'% |\n';
+  md+='| Statistical Power | '+power+'% |\n';
+  if(savedSampleSize){md+='| Sample Size (per variant) | '+savedSampleSize.toLocaleString()+' |\n';md+='| Total Sample Needed | '+(savedSampleSize*2).toLocaleString()+' |\n'}
+
+  var daily=document.getElementById('dailyTraffic').value;
+  if(daily&&savedSampleSize){
+    var pct=parseInt(document.getElementById('trafficPct').value)||100;
+    var effectiveDaily=parseInt(daily)*(pct/100);
+    var days=Math.ceil(savedSampleSize/(effectiveDaily/2));
+    md+='| Daily Traffic | '+daily+' |\n';
+    md+='| Estimated Duration | '+days+' days |\n';
+  }
+  md+='\n';
+
+  var nA=document.getElementById('visitorsA').value;
+  var cA=document.getElementById('conversionsA').value;
+  var nB=document.getElementById('visitorsB').value;
+  var cB=document.getElementById('conversionsB').value;
+  if(nA&&cA&&nB&&cB){
+    var pA=(parseInt(cA)/parseInt(nA)*100).toFixed(2);
+    var pB=(parseInt(cB)/parseInt(nB)*100).toFixed(2);
+    md+='## Results\n\n';
+    md+='| Variant | Visitors | Conversions | Rate |\n|---|---|---|---|\n';
+    md+='| A (Control) | '+nA+' | '+cA+' | '+pA+'% |\n';
+    md+='| B (Variant) | '+nB+' | '+cB+' | '+pB+'% |\n\n';
+  }
+
+  md+='## Checklist\n\n';
+  md+='- [ ] Hypothesis documented\n- [ ] Sample size calculated\n- [ ] Test configured in platform\n- [ ] QA passed on both variants\n- [ ] Tracking verified\n- [ ] Test launched\n- [ ] Minimum duration reached\n- [ ] Results analyzed\n- [ ] Decision documented\n- [ ] Winner implemented\n\n';
+  md+='---\nGenerated with SPUNK.CODES | spunk.codes/exclusive-tools\n';
+
+  document.getElementById('mdOutput').innerHTML='<button class="copy-btn" onclick="copyTestPlan()">Copy</button>'+escapeHtml(md);
+}
+
+function copyTestPlan(){
+  var text=document.getElementById('mdOutput').textContent.replace('Copy','').trim();
+  navigator.clipboard.writeText(text).then(function(){alert('Copied!')});
+}
+
+function downloadTestPlan(){
+  generateTestPlan();
+  var text=document.getElementById('mdOutput').textContent.replace('Copy','').trim();
+  var blob=new Blob([text],{type:'text/markdown'});
+  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='ab-test-plan.md';a.click();
+}
+
+function escapeHtml(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+
+function shareX(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Designing A/B tests with statistical rigor using this tool. Sample size calc, p-values, Bayesian probability. Code SPUNK @SpunkArt13')+'&url='+encodeURIComponent('https://spunk.codes/exclusive-tools'),'_blank')}
+function shareReddit(){window.open('https://www.reddit.com/submit?url='+encodeURIComponent('https://spunk.codes/exclusive-tools')+'&title='+encodeURIComponent('A/B Test Designer & Calculator - free with code SPUNK [spunk.codes]'),'_blank')}
+function shareEmail(){window.location.href='mailto:?subject='+encodeURIComponent('A/B Test Designer Tool')+'&body='+encodeURIComponent('Design A/B tests with sample size calculator, p-values, and Bayesian analysis. Code SPUNK: https://spunk.codes/exclusive-tools')}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<script src="/auto-monetize.js"></script>
+<div id="shareXBtn" style="position:fixed;left:20px;bottom:20px;z-index:9999;">
+  <a id="shareXLink" href="#" target="_blank" rel="noopener noreferrer" title="Share on X"
+     style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;
+     background:rgba(88,166,255,0.15);border:1px solid rgba(88,166,255,0.3);
+     backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:50%;
+     text-decoration:none;transition:all 0.3s ease;cursor:pointer;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+    </svg>
+  </a>
+</div>
+<style>#shareXBtn a:hover{background:rgba(88,166,255,0.35)!important;border-color:rgba(88,166,255,0.6)!important;transform:scale(1.1);box-shadow:0 0 15px rgba(88,166,255,0.3)}</style>
+<script>
+(function(){
+  var page=location.pathname.split("/").pop()||"index.html";
+  var url="https://spunk.codes/"+page;
+  var text="Just used this free tool on spunk.codes — amazing! @SpunkArt13";
+  var href="https://x.com/intent/tweet?text="+encodeURIComponent(text)+"&url="+encodeURIComponent(url);
+  document.getElementById("shareXLink").href=href;
+})();
+</script>
+<script src="/exclusive/pro-gate.js"></script>
+<script src="/usage-tracker.js"></script>
+</body>
+</html>
