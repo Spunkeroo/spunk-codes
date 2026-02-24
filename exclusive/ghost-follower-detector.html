@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ghost Follower Detector — Who's Lurking? | SPUNK.CODES Exclusive</title>
+<meta name="description" content="Find out how many of your followers are ghosts who never engage. Generate a fun, shareable Ghost Report and shame your silent followers into action.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Ghost Follower Detector — Who's Lurking? | SPUNK.CODES Exclusive">
+<meta property="og:description" content="Find out how many of your followers are ghosts. Generate your shareable Ghost Report now.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://spunk.codes/exclusive/ghost-follower-detector">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<meta name="twitter:title" content="Ghost Follower Detector — Who's Lurking?">
+<meta name="twitter:description" content="Find out how many of your followers are ghosts who never engage.">
+<link rel="canonical" href="https://spunk.codes/exclusive/ghost-follower-detector">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0d1117;--card:rgba(22,27,34,0.8);--border:rgba(48,54,61,0.6);--gold:#ffd700;--gold-border:rgba(255,215,0,0.3);--text:#e6edf3;--text-dim:#8b949e;--blue:#58a6ff;--cyan:#39d353;--red:#f85149;--orange:#ff8c00;--purple:#bc8cff;--font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+a{color:var(--blue);text-decoration:none}
+.bg-mesh{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 80% 50% at 20% 20%,rgba(255,215,0,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(255,140,0,0.04) 0%,transparent 60%),var(--bg)}
+.bg-grid{position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,215,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,215,0,0.03) 1px,transparent 1px);background-size:60px 60px}
+.nav{position:sticky;top:0;z-index:100;background:rgba(13,17,23,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,215,0,0.15);padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}
+.nav-brand{font-weight:800;font-size:1.1rem;color:var(--gold);letter-spacing:0.08em}
+.nav-links{display:flex;gap:1.5rem;font-size:0.85rem}.nav-links a{color:var(--text-dim);font-weight:500}.nav-links a.active{color:var(--gold)}
+.lock-gate{position:fixed;inset:0;z-index:1000;background:rgba(13,17,23,0.97);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:2rem}
+.lock-gate.hidden{display:none}
+.lock-icon-big{font-size:4rem}.lock-gate h2{font-size:1.8rem;font-weight:800;text-align:center}.lock-gate h2 span{color:var(--gold)}.lock-gate p{color:var(--text-dim);text-align:center;max-width:400px}
+.code-input-wrap{display:flex;gap:0.5rem}
+.code-input{padding:0.8rem 1.5rem;background:rgba(22,27,34,0.8);border:2px solid var(--gold-border);border-radius:12px;color:var(--gold);font-size:1.2rem;font-weight:800;letter-spacing:3px;text-align:center;width:200px;outline:none;text-transform:uppercase;font-family:var(--font)}
+.code-input:focus{border-color:var(--gold);box-shadow:0 0 20px rgba(255,215,0,0.2)}
+.code-submit{padding:0.8rem 1.5rem;background:linear-gradient(135deg,#ffd700,#ff8c00);border:none;border-radius:12px;color:#000;font-size:1rem;font-weight:800;cursor:pointer}
+.code-error{color:var(--red);font-size:0.85rem;min-height:1.2em}.lock-hint{color:var(--text-dim);font-size:0.8rem}.lock-hint a{color:var(--gold)}
+.exclusive-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;background:linear-gradient(135deg,rgba(255,215,0,0.15),rgba(255,140,0,0.15));border:1px solid var(--gold-border);border-radius:100px;font-size:11px;font-weight:800;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase}
+.main{max-width:900px;margin:0 auto;padding:2rem}
+.hero-section{text-align:center;padding:2rem 0 2rem}
+.hero-section h1{font-size:2.2rem;font-weight:800;margin:1rem 0 0.5rem}
+.hero-section h1 .gold{background:linear-gradient(135deg,#ffd700,#ff8c00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-section p{color:var(--text-dim);max-width:600px;margin:0 auto}
+.card{background:var(--card);border:1px solid var(--gold-border);border-radius:16px;padding:1.5rem;margin-bottom:1.5rem;backdrop-filter:blur(10px);position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),#ff8c00,var(--gold))}
+.card h2{font-size:1.1rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}
+.form-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:0.75rem;margin-bottom:0.75rem}
+.form-group{display:flex;flex-direction:column;gap:0.3rem}
+.form-group label{font-size:0.75rem;color:var(--text-dim);font-weight:600;text-transform:uppercase;letter-spacing:0.5px}
+.form-group input,.form-group select,.form-group textarea{padding:0.6rem 0.8rem;background:rgba(22,27,34,0.9);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.85rem;font-family:var(--font);outline:none}
+.form-group input:focus,.form-group select:focus{border-color:var(--gold)}
+.btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;transition:all 0.2s;display:inline-flex;align-items:center;gap:0.4rem}
+.btn-gold{background:linear-gradient(135deg,#ffd700,#ff8c00);color:#000}
+.btn-gold:hover{transform:translateY(-1px);box-shadow:0 4px 15px rgba(255,215,0,0.3)}
+.btn-outline{background:transparent;border:1px solid var(--gold-border);color:var(--gold)}
+.btn-outline:hover{background:rgba(255,215,0,0.1)}
+.btn-lg{padding:0.9rem 2rem;font-size:1rem;border-radius:12px}
+.btn-row{display:flex;gap:0.5rem;flex-wrap:wrap}
+
+/* Ghost Animations */
+@keyframes ghostFloat{
+  0%,100%{transform:translateY(0) rotate(-3deg)}
+  25%{transform:translateY(-18px) rotate(3deg)}
+  50%{transform:translateY(-8px) rotate(-2deg)}
+  75%{transform:translateY(-22px) rotate(4deg)}
+}
+@keyframes ghostDrift{
+  0%{transform:translate(0,0) scale(1);opacity:0.6}
+  25%{transform:translate(30px,-20px) scale(1.1);opacity:0.8}
+  50%{transform:translate(-10px,-35px) scale(0.9);opacity:0.5}
+  75%{transform:translate(20px,-15px) scale(1.05);opacity:0.7}
+  100%{transform:translate(0,0) scale(1);opacity:0.6}
+}
+@keyframes ghostFadeIn{
+  from{opacity:0;transform:translateY(30px) scale(0.8)}
+  to{opacity:1;transform:translateY(0) scale(1)}
+}
+@keyframes pulseGlow{
+  0%,100%{box-shadow:0 0 20px rgba(255,215,0,0.1)}
+  50%{box-shadow:0 0 40px rgba(255,215,0,0.25),0 0 60px rgba(255,215,0,0.1)}
+}
+@keyframes shakeIt{
+  0%,100%{transform:translateX(0)}
+  10%,30%,50%,70%,90%{transform:translateX(-4px)}
+  20%,40%,60%,80%{transform:translateX(4px)}
+}
+@keyframes numberCount{from{opacity:0;transform:scale(0.5)}to{opacity:1;transform:scale(1)}}
+@keyframes slideInLeft{from{opacity:0;transform:translateX(-40px)}to{opacity:1;transform:translateX(0)}}
+@keyframes slideInRight{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:translateX(0)}}
+@keyframes bounceIn{0%{opacity:0;transform:scale(0.3)}50%{opacity:1;transform:scale(1.05)}70%{transform:scale(0.95)}100%{transform:scale(1)}}
+
+.hero-ghost{font-size:3.5rem;animation:ghostFloat 4s ease-in-out infinite;display:inline-block;margin-bottom:0.5rem;cursor:default;user-select:none}
+
+/* Floating ambient ghosts */
+.ghost-bg{position:fixed;pointer-events:none;z-index:-1;font-size:2rem;opacity:0.06}
+.ghost-bg:nth-child(1){top:15%;left:10%;animation:ghostDrift 8s ease-in-out infinite}
+.ghost-bg:nth-child(2){top:40%;right:8%;animation:ghostDrift 10s ease-in-out infinite 2s;font-size:1.5rem}
+.ghost-bg:nth-child(3){bottom:20%;left:20%;animation:ghostDrift 12s ease-in-out infinite 4s;font-size:2.5rem}
+.ghost-bg:nth-child(4){top:70%;right:15%;animation:ghostDrift 9s ease-in-out infinite 1s;font-size:1.8rem}
+.ghost-bg:nth-child(5){top:10%;right:30%;animation:ghostDrift 11s ease-in-out infinite 3s}
+
+/* Results Section */
+#resultsSection{display:none}
+.result-card{animation:ghostFadeIn 0.6s ease forwards;opacity:0}
+.result-card:nth-child(2){animation-delay:0.15s}
+.result-card:nth-child(3){animation-delay:0.3s}
+.result-card:nth-child(4){animation-delay:0.45s}
+.result-card:nth-child(5){animation-delay:0.6s}
+.result-card:nth-child(6){animation-delay:0.75s}
+
+/* Ghost Percentage Hero */
+.ghost-pct-hero{text-align:center;padding:2rem 1rem}
+.ghost-pct-number{font-size:5rem;font-weight:900;background:linear-gradient(135deg,#ffd700,#ff8c00,#ff4500);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;animation:numberCount 0.8s ease forwards}
+.ghost-pct-label{font-size:1.4rem;font-weight:700;margin-top:0.3rem;color:var(--text)}
+.ghost-pct-sub{color:var(--text-dim);font-size:0.9rem;margin-top:0.5rem}
+.big-ghost{font-size:5rem;animation:ghostFloat 3s ease-in-out infinite;display:inline-block;margin:1rem 0}
+
+/* Engagement Stats */
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:1rem;margin-top:1rem}
+.stat-box{background:rgba(13,17,23,0.6);border:1px solid var(--border);border-radius:12px;padding:1rem;text-align:center}
+.stat-box .stat-num{font-size:1.8rem;font-weight:800;color:var(--gold)}
+.stat-box .stat-label{font-size:0.7rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.5px;margin-top:0.2rem}
+.stat-box.good .stat-num{color:var(--cyan)}
+.stat-box.warn .stat-num{color:var(--orange)}
+.stat-box.bad .stat-num{color:var(--red)}
+
+/* Ghost Hall of Shame */
+.shame-category{background:rgba(13,17,23,0.5);border:1px solid var(--border);border-radius:12px;padding:1rem 1.2rem;margin-bottom:0.75rem;display:flex;align-items:flex-start;gap:1rem;transition:all 0.3s;cursor:default}
+.shame-category:hover{border-color:var(--gold-border);background:rgba(255,215,0,0.03);transform:translateX(4px)}
+.shame-emoji{font-size:2rem;flex-shrink:0;animation:ghostFloat 5s ease-in-out infinite}
+.shame-category:nth-child(2) .shame-emoji{animation-delay:0.5s}
+.shame-category:nth-child(3) .shame-emoji{animation-delay:1s}
+.shame-category:nth-child(4) .shame-emoji{animation-delay:1.5s}
+.shame-category:nth-child(5) .shame-emoji{animation-delay:2s}
+.shame-content{flex:1}
+.shame-title{font-weight:700;font-size:0.95rem;color:var(--gold);margin-bottom:0.2rem}
+.shame-desc{font-size:0.82rem;color:var(--text-dim);line-height:1.5}
+.shame-count{font-size:0.75rem;font-weight:700;color:var(--orange);margin-top:0.3rem;display:inline-flex;align-items:center;gap:0.3rem;padding:2px 8px;background:rgba(255,140,0,0.1);border-radius:6px}
+
+/* Gauge Canvas */
+.gauge-wrap{text-align:center;padding:1rem 0}
+#shameGauge{max-width:100%;height:auto}
+.gauge-label{font-size:1.2rem;font-weight:800;color:var(--gold);margin-top:0.5rem}
+.gauge-sublabel{font-size:0.85rem;color:var(--text-dim)}
+
+/* Ghost Buster Tips */
+.tip-item{display:flex;align-items:flex-start;gap:0.8rem;padding:0.7rem 0;border-bottom:1px solid rgba(48,54,61,0.3)}
+.tip-item:last-child{border-bottom:none}
+.tip-num{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,rgba(255,215,0,0.2),rgba(255,140,0,0.2));border:1px solid var(--gold-border);display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:800;color:var(--gold);flex-shrink:0}
+.tip-text{font-size:0.88rem;color:var(--text);line-height:1.5}
+.tip-text strong{color:var(--gold)}
+
+/* Leaderboard */
+.lb-row{display:flex;align-items:center;gap:0.8rem;padding:0.6rem 0.8rem;border-radius:8px;margin-bottom:0.4rem;background:rgba(13,17,23,0.4);transition:all 0.2s}
+.lb-row:hover{background:rgba(255,215,0,0.05)}
+.lb-row.you{background:rgba(255,215,0,0.08);border:1px solid var(--gold-border)}
+.lb-rank{font-weight:800;color:var(--gold);font-size:1rem;min-width:30px;text-align:center}
+.lb-handle{flex:1;font-weight:600;font-size:0.85rem}
+.lb-pct{font-weight:800;color:var(--orange);font-size:0.9rem}
+.lb-empty{text-align:center;color:var(--text-dim);font-size:0.85rem;padding:2rem 1rem}
+
+/* Share Section */
+.share-cta{background:linear-gradient(135deg,rgba(255,215,0,0.08),rgba(255,140,0,0.05));border:1px solid var(--gold-border);border-radius:16px;padding:2rem;text-align:center;margin-top:2rem}
+.share-cta h3{color:var(--gold);margin-bottom:0.5rem}.share-cta p{color:var(--text-dim);font-size:0.9rem;margin-bottom:1rem}
+.share-btns{display:flex;gap:0.6rem;justify-content:center;flex-wrap:wrap}
+.share-btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;color:#fff;display:inline-flex;align-items:center;gap:0.4rem;transition:all 0.2s}
+.share-btn:hover{transform:translateY(-2px)}
+.share-x{background:#000;border:1px solid #333}.share-x:hover{box-shadow:0 4px 15px rgba(0,0,0,0.4)}
+.share-linkedin{background:#0a66c2}.share-linkedin:hover{box-shadow:0 4px 15px rgba(10,102,194,0.4)}
+.share-copy{background:rgba(255,215,0,0.15);border:1px solid var(--gold-border);color:var(--gold)}.share-copy:hover{background:rgba(255,215,0,0.25)}
+
+/* Tweet Preview */
+.tweet-preview{background:#000;border:1px solid #333;border-radius:16px;padding:1.2rem;margin:1rem 0;text-align:left;font-size:0.9rem;line-height:1.6;color:#e7e9ea;position:relative}
+.tweet-preview::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#1d9bf0,transparent);border-radius:16px 16px 0 0}
+.tweet-handle{color:var(--text-dim);font-size:0.8rem;margin-bottom:0.5rem}
+.tweet-actions{display:flex;gap:0.5rem;margin-top:1rem}
+
+/* Shame Post Modal */
+.modal-overlay{position:fixed;inset:0;z-index:10000;background:rgba(0,0,0,0.8);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;padding:1rem;display:none}
+.modal-overlay.active{display:flex}
+.modal{background:linear-gradient(145deg,#161b22,#0d1117);border:1px solid var(--gold-border);border-radius:20px;padding:2rem;max-width:520px;width:100%;max-height:90vh;overflow-y:auto}
+.modal h3{font-size:1.2rem;color:var(--gold);margin-bottom:1rem}
+.modal textarea{width:100%;min-height:160px;background:rgba(13,17,23,0.8);border:1px solid var(--border);border-radius:10px;padding:1rem;color:var(--text);font-size:0.9rem;font-family:var(--font);resize:vertical;outline:none;line-height:1.6}
+.modal textarea:focus{border-color:var(--gold)}
+.modal-actions{display:flex;gap:0.5rem;margin-top:1rem;justify-content:flex-end;flex-wrap:wrap}
+.char-count{font-size:0.75rem;color:var(--text-dim);margin-top:0.3rem}
+
+/* Footer */
+.footer{text-align:center;padding:2rem;border-top:1px solid rgba(255,215,0,0.1);color:var(--text-dim);font-size:0.75rem;margin-top:3rem}
+.footer a{color:var(--gold)}.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-bottom:1rem}
+.watermark{position:fixed;bottom:10px;right:10px;font-size:0.6rem;color:rgba(255,215,0,0.08);font-weight:800;pointer-events:none;z-index:9999;letter-spacing:1px;text-transform:uppercase}
+
+/* Loading Animation */
+.scan-animation{text-align:center;padding:3rem 1rem;display:none}
+.scan-animation.active{display:block}
+.scan-text{font-size:1.1rem;color:var(--gold);font-weight:700;margin-top:1rem}
+.scan-sub{color:var(--text-dim);font-size:0.85rem;margin-top:0.3rem}
+.scan-bar{width:80%;max-width:300px;height:6px;background:rgba(48,54,61,0.6);border-radius:3px;margin:1.5rem auto 0;overflow:hidden}
+.scan-bar-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--gold),var(--orange));border-radius:3px;transition:width 0.3s ease}
+.scan-ghost{font-size:4rem;animation:shakeIt 0.5s ease-in-out infinite}
+
+@media(max-width:768px){
+  .main{padding:1rem}
+  .hero-section h1{font-size:1.6rem}
+  .nav-links{display:none}
+  .form-row{grid-template-columns:1fr}
+  .ghost-pct-number{font-size:3.5rem}
+  .big-ghost{font-size:3.5rem}
+  .stat-grid{grid-template-columns:repeat(2,1fr)}
+  .shame-category{flex-direction:column;gap:0.5rem;align-items:center;text-align:center}
+  .modal{padding:1.5rem}
+}
+</style>
+</head>
+<body>
+<div class="bg-mesh"></div><div class="bg-grid"></div>
+
+<!-- Floating ambient ghosts -->
+<div class="ghost-bg">&#128123;</div>
+<div class="ghost-bg">&#128123;</div>
+<div class="ghost-bg">&#128123;</div>
+<div class="ghost-bg">&#128123;</div>
+<div class="ghost-bg">&#128123;</div>
+
+<!-- Lock Gate -->
+<div class="lock-gate" id="lockGate"><div class="lock-icon-big">&#128274;</div><h2>Enter Code <span>SPUNK</span> to Unlock</h2><p>This exclusive premium tool requires the SPUNK referral code.</p><div class="code-input-wrap"><input type="text" class="code-input" id="codeInput" placeholder="CODE" maxlength="10" autocomplete="off"><button class="code-submit" onclick="submitCode()">Unlock</button></div><div class="code-error" id="codeError"></div><div class="lock-hint">Get the code at <a href="https://spunk.codes/exclusive-tools">spunk.codes/exclusive-tools</a></div></div>
+
+<!-- Nav -->
+<nav class="nav"><a href="https://spunk.codes" class="nav-brand">SPUNK.CODES</a><div class="nav-links"><a href="/store">Tools</a><a href="/exclusive-tools" class="active">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a></div></nav>
+
+<div class="main">
+  <!-- Hero -->
+  <section class="hero-section">
+    <div class="exclusive-badge">&#128081; EXCLUSIVE TOOL</div>
+    <div class="hero-ghost" title="Boo!">&#128123;</div>
+    <h1><span class="gold">Ghost Follower</span> Detector</h1>
+    <p>Find out how many of your followers are silent lurkers who never engage. Generate a shareable Ghost Report and call them out (with love).</p>
+  </section>
+
+  <!-- Input Section -->
+  <div class="card" id="inputCard">
+    <h2>&#128270; Scan Your Audience</h2>
+    <p style="color:var(--text-dim);font-size:0.85rem;margin-bottom:1rem">Enter your social media stats to detect ghost followers. Be honest -- the ghosts already know who they are.</p>
+    <div class="form-row">
+      <div class="form-group" style="grid-column:1/-1">
+        <label>Your X / Social Handle</label>
+        <input type="text" id="inputHandle" placeholder="@YourHandle" maxlength="50" autocomplete="off">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Follower Count</label>
+        <input type="number" id="inputFollowers" placeholder="10000" min="1" max="999999999">
+      </div>
+      <div class="form-group">
+        <label>Avg. Likes Per Post</label>
+        <input type="number" id="inputLikes" placeholder="150" min="0" max="999999999">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Avg. Comments Per Post</label>
+        <input type="number" id="inputComments" placeholder="12" min="0" max="999999999">
+      </div>
+      <div class="form-group">
+        <label>Avg. Reposts Per Post</label>
+        <input type="number" id="inputReposts" placeholder="8" min="0" max="999999999">
+      </div>
+    </div>
+    <div style="margin-top:1rem;text-align:center">
+      <button class="btn btn-gold btn-lg" onclick="runGhostScan()" id="scanBtn">&#128123; Detect My Ghosts</button>
+    </div>
+  </div>
+
+  <!-- Scan Animation -->
+  <div class="scan-animation" id="scanAnim">
+    <div class="scan-ghost">&#128123;</div>
+    <div class="scan-text" id="scanText">Initializing ghost detector...</div>
+    <div class="scan-sub" id="scanSub">Warming up the ectoplasm sensors</div>
+    <div class="scan-bar"><div class="scan-bar-fill" id="scanBar"></div></div>
+  </div>
+
+  <!-- Results Section -->
+  <div id="resultsSection">
+
+    <!-- Ghost Percentage Hero -->
+    <div class="card result-card" id="ghostHeroCard">
+      <div class="ghost-pct-hero">
+        <div class="big-ghost">&#128123;</div>
+        <div class="ghost-pct-number" id="ghostPctNum">0%</div>
+        <div class="ghost-pct-label">of your followers are <span style="color:var(--orange)">GHOSTS</span></div>
+        <div class="ghost-pct-sub" id="ghostPctSub"></div>
+      </div>
+    </div>
+
+    <!-- Engagement Stats -->
+    <div class="card result-card">
+      <h2>&#128200; Engagement Breakdown</h2>
+      <div class="stat-grid">
+        <div class="stat-box" id="statEngRate"><div class="stat-num" id="engRateNum">0%</div><div class="stat-label">Engagement Rate</div></div>
+        <div class="stat-box" id="statBenchmark"><div class="stat-num" id="benchmarkNum">3-5%</div><div class="stat-label">Healthy Benchmark</div></div>
+        <div class="stat-box" id="statGhosts"><div class="stat-num" id="ghostCountNum">0</div><div class="stat-label">Ghost Followers</div></div>
+        <div class="stat-box" id="statActive"><div class="stat-num" id="activeCountNum">0</div><div class="stat-label">Active Followers</div></div>
+      </div>
+      <div id="engVerdict" style="text-align:center;margin-top:1rem;font-size:0.9rem;color:var(--text-dim)"></div>
+    </div>
+
+    <!-- Ghost Hall of Shame -->
+    <div class="card result-card">
+      <h2>&#127979; Ghost Hall of Shame</h2>
+      <p style="color:var(--text-dim);font-size:0.82rem;margin-bottom:1rem">Based on your numbers, here is what your ghost followers are up to:</p>
+      <div id="shameList"></div>
+    </div>
+
+    <!-- Shame-O-Meter Gauge -->
+    <div class="card result-card">
+      <h2>&#127919; The Shame-O-Meter</h2>
+      <div class="gauge-wrap">
+        <canvas id="shameGauge" width="400" height="260"></canvas>
+        <div class="gauge-label" id="gaugeLabel">Scanning...</div>
+        <div class="gauge-sublabel" id="gaugeSub"></div>
+      </div>
+    </div>
+
+    <!-- Generate Shame Post -->
+    <div class="card result-card">
+      <h2>&#128227; Generate Your Shame Post</h2>
+      <p style="color:var(--text-dim);font-size:0.85rem;margin-bottom:1rem">Copy this pre-written post to call out your ghost followers on X. Watch the likes roll in as they panic.</p>
+      <div class="tweet-preview" id="tweetPreview">
+        <div class="tweet-handle" id="tweetHandle">@you</div>
+        <div id="tweetContent"></div>
+      </div>
+      <div class="btn-row" style="justify-content:center">
+        <button class="btn btn-gold" onclick="postShameToX()">&#120143; Post to X</button>
+        <button class="btn btn-outline" onclick="copyShamePost()">&#128203; Copy Post</button>
+        <button class="btn btn-outline" onclick="openEditModal()">&#9998; Edit First</button>
+      </div>
+    </div>
+
+    <!-- Ghost Buster Mode -->
+    <div class="card result-card">
+      <h2>&#128296; Ghost Buster Mode</h2>
+      <p style="color:var(--text-dim);font-size:0.85rem;margin-bottom:1rem">Proven tactics to convert your ghosts into engaged, loyal followers:</p>
+      <div id="tipsSection">
+        <div class="tip-item"><div class="tip-num">1</div><div class="tip-text"><strong>Post a poll</strong> -- ghosts literally cannot resist clicking a poll. It is the lowest-effort engagement and they know it. One tap, no commitment, no witnesses.</div></div>
+        <div class="tip-item"><div class="tip-num">2</div><div class="tip-text"><strong>Ask a direct question</strong> -- "What is your biggest struggle with X?" Curiosity kills the ghost. They want to answer but they have been lurking so long it feels weird. Make it easy.</div></div>
+        <div class="tip-item"><div class="tip-num">3</div><div class="tip-text"><strong>Post a spicy (but fair) take</strong> -- nothing mean-spirited, just something they cannot scroll past without forming an opinion. Opinions demand engagement.</div></div>
+        <div class="tip-item"><div class="tip-num">4</div><div class="tip-text"><strong>Share your Ghost Report</strong> -- use this very tool! Nothing calls out lurkers like showing them the exact percentage of ghosts in your audience. Guilt is a powerful motivator.</div></div>
+        <div class="tip-item"><div class="tip-num">5</div><div class="tip-text"><strong>Go Live or post video</strong> -- video creates parasocial connection. Once they hear your voice, they feel like they know you. That makes the Like button a lot less scary.</div></div>
+        <div class="tip-item"><div class="tip-num">6</div><div class="tip-text"><strong>Reward engagers publicly</strong> -- "Shoutout to everyone who replied yesterday!" Ghosts see active followers getting recognized and experience FOMO. Works every time.</div></div>
+        <div class="tip-item"><div class="tip-num">7</div><div class="tip-text"><strong>Tag @SpunkArt13 with your results</strong> -- share your Ghost Report and join the ghost-busting community. We will boost your post and help you convert those silent watchers.</div></div>
+      </div>
+    </div>
+
+    <!-- Ghost Leaderboard -->
+    <div class="card result-card">
+      <h2>&#127942; Ghost Leaderboard</h2>
+      <p style="color:var(--text-dim);font-size:0.82rem;margin-bottom:1rem">The most ghosted users on SPUNK.CODES. How do you rank?</p>
+      <div id="leaderboard"></div>
+    </div>
+
+    <!-- Share Section -->
+    <div class="share-cta result-card">
+      <h3>&#128123; Share Your Ghost Report</h3>
+      <p>Let the world know about your ghosts. The more people who see this, the more ghosts get shamed into engaging.</p>
+      <div class="share-btns">
+        <button class="share-btn share-x" onclick="shareOnX()"><svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg> Share on X</button>
+        <button class="share-btn share-linkedin" onclick="shareOnLinkedIn()">&#128188; Share on LinkedIn</button>
+        <button class="share-btn share-copy" onclick="copyReportLink()">&#128279; Copy Report Link</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Modal -->
+<div class="modal-overlay" id="editModal">
+  <div class="modal">
+    <h3>&#9998; Edit Your Shame Post</h3>
+    <textarea id="editTweet"></textarea>
+    <div class="char-count"><span id="charCount">0</span> / 280 characters</div>
+    <div class="modal-actions">
+      <button class="btn btn-outline" onclick="closeEditModal()">Cancel</button>
+      <button class="btn btn-gold" onclick="saveAndPostEdit()">&#120143; Post to X</button>
+      <button class="btn btn-outline" onclick="saveAndCopyEdit()">&#128203; Copy</button>
+    </div>
+  </div>
+</div>
+
+<footer class="footer"><div class="footer-links"><a href="https://spunk.codes">Home</a><a href="/store">Tools</a><a href="/exclusive-tools">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a><a href="https://twitter.com/SpunkArt13" target="_blank">@SpunkArt13</a></div><div>&copy; 2026 SPUNK.CODES EXCLUSIVE.</div></footer>
+<div class="watermark">SPUNK.CODES EXCLUSIVE</div>
+
+<script>
+// ── Lock Gate ─────────────────────────────────────────────
+document.addEventListener('contextmenu',function(e){e.preventDefault()});
+document.addEventListener('keydown',function(e){if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'||e.key==='C'))||(e.ctrlKey&&e.key==='u'))e.preventDefault()});
+function checkCode(){try{var c=localStorage.getItem('spunk_referral_code')||localStorage.getItem('spunk_ref_code')||'';if(c.toUpperCase()==='SPUNK'){document.getElementById('lockGate').classList.add('hidden');return true}}catch(e){}return false}
+function submitCode(){var v=document.getElementById('codeInput').value.trim().toUpperCase();if(v==='SPUNK'){try{localStorage.setItem('spunk_referral_code','SPUNK');localStorage.setItem('spunk_ref_code','SPUNK')}catch(e){}document.getElementById('lockGate').classList.add('hidden')}else{document.getElementById('codeError').textContent='Invalid code. Try: SPUNK';setTimeout(function(){document.getElementById('codeError').textContent=''},2000)}}
+document.getElementById('codeInput').addEventListener('keydown',function(e){if(e.key==='Enter')submitCode()});
+checkCode();
+
+// ── State ─────────────────────────────────────────────────
+var ghostData = null;
+var shamePostText = '';
+
+// ── URL Params ────────────────────────────────────────────
+function loadFromURL() {
+  var params = new URLSearchParams(window.location.search);
+  var handle = params.get('handle');
+  var ghosts = params.get('ghosts');
+  if (handle) document.getElementById('inputHandle').value = '@' + handle.replace('@','');
+  if (ghosts) {
+    // Pre-fill a simulated view
+    var pct = parseFloat(ghosts);
+    if (!isNaN(pct) && pct > 0 && pct <= 100) {
+      // Show a message inviting them to run their own scan
+      document.getElementById('inputCard').insertAdjacentHTML('afterbegin',
+        '<div style="background:rgba(255,215,0,0.08);border:1px solid var(--gold-border);border-radius:10px;padding:0.8rem 1rem;margin-bottom:1rem;font-size:0.85rem;text-align:center">'+
+        '<strong style="color:var(--gold)">&#128123; ' + (handle ? handle.replace('@','') : 'Someone') + ' has ' + pct + '% ghost followers!</strong><br>'+
+        '<span style="color:var(--text-dim)">Run your own scan below to see how you compare.</span></div>'
+      );
+    }
+  }
+}
+loadFromURL();
+
+// ── Scan Animation ────────────────────────────────────────
+var scanMessages = [
+  {text: 'Initializing ghost detector...', sub: 'Warming up the ectoplasm sensors'},
+  {text: 'Scanning follower list...', sub: 'Looking for signs of life'},
+  {text: 'Checking engagement patterns...', sub: 'Separating the real ones from the apparitions'},
+  {text: 'Detecting silent stalkers...', sub: 'They think we cannot see them'},
+  {text: 'Counting the lurkers...', sub: 'This is worse than we thought'},
+  {text: 'Analyzing scroll-past behavior...', sub: 'Your content deserved better'},
+  {text: 'Calculating ghost percentage...', sub: 'Brace yourself'},
+  {text: 'Generating Ghost Report...', sub: 'The truth is coming'}
+];
+
+function runScanAnimation(callback) {
+  var anim = document.getElementById('scanAnim');
+  var bar = document.getElementById('scanBar');
+  var textEl = document.getElementById('scanText');
+  var subEl = document.getElementById('scanSub');
+  anim.classList.add('active');
+  document.getElementById('inputCard').style.display = 'none';
+
+  var step = 0;
+  var totalSteps = scanMessages.length;
+  var interval = setInterval(function() {
+    if (step >= totalSteps) {
+      clearInterval(interval);
+      bar.style.width = '100%';
+      textEl.textContent = 'Ghost Report ready!';
+      subEl.textContent = 'Prepare to meet your ghosts...';
+      setTimeout(function() {
+        anim.classList.remove('active');
+        callback();
+      }, 600);
+      return;
+    }
+    textEl.textContent = scanMessages[step].text;
+    subEl.textContent = scanMessages[step].sub;
+    bar.style.width = ((step + 1) / totalSteps * 100) + '%';
+    step++;
+  }, 400);
+}
+
+// ── Main Scan Logic ───────────────────────────────────────
+function runGhostScan() {
+  var handle = (document.getElementById('inputHandle').value || '').trim();
+  var followers = parseInt(document.getElementById('inputFollowers').value) || 0;
+  var likes = parseInt(document.getElementById('inputLikes').value) || 0;
+  var comments = parseInt(document.getElementById('inputComments').value) || 0;
+  var reposts = parseInt(document.getElementById('inputReposts').value) || 0;
+
+  // Validation
+  if (!handle) { shakeInput('inputHandle'); return; }
+  if (followers < 1) { shakeInput('inputFollowers'); return; }
+
+  // Clean handle
+  if (handle.charAt(0) !== '@') handle = '@' + handle;
+
+  // Calculate engagement
+  var totalEngagement = likes + comments + reposts;
+  var engagementRate = followers > 0 ? (totalEngagement / followers * 100) : 0;
+  var ghostCount = Math.max(0, followers - Math.round(totalEngagement * 2.5)); // Assume each engager represents ~2.5 unique people
+  var ghostPct = Math.min(99.9, Math.max(0, (ghostCount / followers * 100)));
+
+  // If engagement is very high, floor ghost pct
+  if (engagementRate > 10) {
+    ghostPct = Math.max(30, ghostPct * 0.6);
+    ghostCount = Math.round(followers * ghostPct / 100);
+  }
+  // Everyone has SOME ghosts
+  if (ghostPct < 20) {
+    ghostPct = 20 + Math.random() * 10;
+    ghostCount = Math.round(followers * ghostPct / 100);
+  }
+
+  var activeCount = followers - ghostCount;
+
+  ghostData = {
+    handle: handle,
+    followers: followers,
+    likes: likes,
+    comments: comments,
+    reposts: reposts,
+    totalEngagement: totalEngagement,
+    engagementRate: engagementRate,
+    ghostCount: ghostCount,
+    ghostPct: ghostPct,
+    activeCount: activeCount
+  };
+
+  // Track
+  trackEvent('ghost_scan_started', {handle: handle, followers: followers});
+
+  // Run animation then show results
+  runScanAnimation(function() {
+    showResults();
+    saveToLeaderboard();
+    trackEvent('ghost_report_generated', {handle: handle, ghost_pct: ghostPct.toFixed(1), followers: followers});
+  });
+}
+
+function shakeInput(id) {
+  var el = document.getElementById(id);
+  el.style.animation = 'shakeIt 0.5s ease';
+  el.style.borderColor = 'var(--red)';
+  el.focus();
+  setTimeout(function() {
+    el.style.animation = '';
+    el.style.borderColor = '';
+  }, 600);
+}
+
+// ── Show Results ──────────────────────────────────────────
+function showResults() {
+  var d = ghostData;
+  document.getElementById('resultsSection').style.display = 'block';
+
+  // Ghost Percentage Hero
+  animateNumber('ghostPctNum', d.ghostPct, '%');
+  document.getElementById('ghostPctSub').textContent =
+    "That is " + formatNumber(d.ghostCount) + " out of " + formatNumber(d.followers) + " followers silently watching from the shadows.";
+
+  // Engagement Stats
+  var rateClass = d.engagementRate >= 3 ? 'good' : d.engagementRate >= 1 ? 'warn' : 'bad';
+  document.getElementById('statEngRate').className = 'stat-box ' + rateClass;
+  document.getElementById('engRateNum').textContent = d.engagementRate.toFixed(2) + '%';
+  document.getElementById('ghostCountNum').textContent = formatNumber(d.ghostCount);
+  document.getElementById('statGhosts').className = 'stat-box bad';
+  document.getElementById('activeCountNum').textContent = formatNumber(d.activeCount);
+  document.getElementById('statActive').className = 'stat-box good';
+
+  // Engagement verdict
+  var verdict = '';
+  if (d.engagementRate >= 5) verdict = 'Your engagement is actually above average! But you still have ghosts lurking in the shadows...';
+  else if (d.engagementRate >= 3) verdict = 'You are in the healthy range (3-5%). Not bad, but there is room to bust more ghosts.';
+  else if (d.engagementRate >= 1) verdict = 'Below average engagement. Your ghosts are winning. Time to fight back.';
+  else verdict = 'Critical ghost infestation detected. Your audience is a digital graveyard. Deploy ghost busters immediately.';
+  document.getElementById('engVerdict').textContent = verdict;
+
+  // Ghost Hall of Shame
+  buildShameList(d);
+
+  // Gauge
+  setTimeout(function() { drawGauge(d.ghostPct); }, 500);
+
+  // Shame Post
+  buildShamePost(d);
+
+  // Leaderboard
+  renderLeaderboard();
+
+  // Scroll to results
+  document.getElementById('resultsSection').scrollIntoView({behavior:'smooth', block:'start'});
+
+  // Update URL for sharing
+  if (window.history && window.history.replaceState) {
+    var shareUrl = window.location.pathname + '?handle=' + encodeURIComponent(d.handle.replace('@','')) + '&ghosts=' + d.ghostPct.toFixed(1);
+    window.history.replaceState({}, '', shareUrl);
+  }
+}
+
+// ── Animate Number ────────────────────────────────────────
+function animateNumber(elId, target, suffix) {
+  var el = document.getElementById(elId);
+  var start = 0;
+  var duration = 1500;
+  var startTime = null;
+  suffix = suffix || '';
+
+  function step(ts) {
+    if (!startTime) startTime = ts;
+    var progress = Math.min((ts - startTime) / duration, 1);
+    var eased = 1 - Math.pow(1 - progress, 3); // ease out cubic
+    var current = start + (target - start) * eased;
+    el.textContent = current.toFixed(1) + suffix;
+    if (progress < 1) requestAnimationFrame(step);
+    else el.textContent = target.toFixed(1) + suffix;
+  }
+  requestAnimationFrame(step);
+}
+
+// ── Format Number ─────────────────────────────────────────
+function formatNumber(n) {
+  if (n >= 1000000) return (n / 1000000).toFixed(1) + 'M';
+  if (n >= 1000) return (n / 1000).toFixed(1) + 'K';
+  return n.toLocaleString();
+}
+
+// ── Ghost Hall of Shame ──────────────────────────────────
+function buildShameList(d) {
+  var ghosts = d.ghostCount;
+  var categories = [
+    {
+      emoji: '&#128064;',
+      title: 'The Silent Stalkers',
+      desc: 'They check your profile daily. They read every post. They have opinions about your content. But touch the Like button? Absolutely not. That would be too much commitment. They are the emotional unavailables of social media.',
+      pct: 35
+    },
+    {
+      emoji: '&#128248;',
+      title: 'The Screenshot Thieves',
+      desc: 'Your hot takes? Screenshotted. Your advice threads? Saved to camera roll. Your memes? Sent to the group chat. Credit given? Never. The Like button remains untouched as they distribute your genius to people who will never find your page.',
+      pct: 15
+    },
+    {
+      emoji: '&#128247;',
+      title: 'The Scroll-Past Squad',
+      desc: 'Your content is not even slowing their thumb down. They followed you during that one viral moment and have been speed-scrolling past you ever since. They do not even know what you post about anymore.',
+      pct: 25
+    },
+    {
+      emoji: '&#128278;',
+      title: 'The Bookmark Hoarders',
+      desc: 'They save everything "for later." They have 847 bookmarks and have revisited exactly zero of them. But a Like? That is public. Someone might see. The bookmark is their secret shame.',
+      pct: 15
+    },
+    {
+      emoji: '&#127769;',
+      title: 'The 3AM Lurkers',
+      desc: 'It is 3:17 AM. They are doom-scrolling through your entire post history. They have read your thread from six months ago. They almost hit Like on that one post... but pulled back at the last second. Cowards. Beautiful, insomniac cowards.',
+      pct: 10
+    }
+  ];
+
+  var html = '';
+  categories.forEach(function(cat) {
+    var count = Math.round(ghosts * cat.pct / 100);
+    html += '<div class="shame-category">' +
+      '<div class="shame-emoji">' + cat.emoji + '</div>' +
+      '<div class="shame-content">' +
+        '<div class="shame-title">' + cat.title + '</div>' +
+        '<div class="shame-desc">' + cat.desc + '</div>' +
+        '<div class="shame-count">~' + formatNumber(count) + ' ghosts in this category</div>' +
+      '</div>' +
+    '</div>';
+  });
+
+  document.getElementById('shameList').innerHTML = html;
+}
+
+// ── Shame-O-Meter Gauge (Canvas) ─────────────────────────
+function drawGauge(ghostPct) {
+  var canvas = document.getElementById('shameGauge');
+  var ctx = canvas.getContext('2d');
+  var dpr = window.devicePixelRatio || 1;
+
+  // Hi-DPI support
+  canvas.width = 400 * dpr;
+  canvas.height = 260 * dpr;
+  canvas.style.width = '400px';
+  canvas.style.height = '260px';
+  ctx.scale(dpr, dpr);
+
+  var cx = 200, cy = 200, radius = 150;
+  var startAngle = Math.PI;
+  var endAngle = 2 * Math.PI;
+
+  // Clear
+  ctx.clearRect(0, 0, 400, 260);
+
+  // Background arc
+  ctx.beginPath();
+  ctx.arc(cx, cy, radius, startAngle, endAngle);
+  ctx.lineWidth = 30;
+  ctx.strokeStyle = 'rgba(48,54,61,0.4)';
+  ctx.lineCap = 'round';
+  ctx.stroke();
+
+  // Colored segments
+  var segments = [
+    {start: 0, end: 0.2, color: '#39d353'},    // Friendly
+    {start: 0.2, end: 0.4, color: '#8bc34a'},   // Mildly Ghosted
+    {start: 0.4, end: 0.6, color: '#ffd700'},   // Ghosted
+    {start: 0.6, end: 0.8, color: '#ff8c00'},   // Heavily Ghosted
+    {start: 0.8, end: 1.0, color: '#f85149'}    // Ghost Town
+  ];
+
+  segments.forEach(function(seg) {
+    var segStart = startAngle + seg.start * Math.PI;
+    var segEnd = startAngle + seg.end * Math.PI;
+    ctx.beginPath();
+    ctx.arc(cx, cy, radius, segStart, segEnd);
+    ctx.lineWidth = 30;
+    ctx.strokeStyle = seg.color;
+    ctx.lineCap = 'butt';
+    ctx.stroke();
+  });
+
+  // Round caps on ends
+  ctx.beginPath();
+  ctx.arc(cx, cy, radius, startAngle, startAngle + 0.01);
+  ctx.lineWidth = 30;
+  ctx.strokeStyle = '#39d353';
+  ctx.lineCap = 'round';
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.arc(cx, cy, radius, endAngle - 0.01, endAngle);
+  ctx.lineWidth = 30;
+  ctx.strokeStyle = '#f85149';
+  ctx.lineCap = 'round';
+  ctx.stroke();
+
+  // Animate needle
+  var targetAngle = startAngle + (ghostPct / 100) * Math.PI;
+  var currentAngle = startAngle;
+  var animStart = null;
+  var animDuration = 2000;
+
+  function drawNeedle(angle) {
+    // Needle
+    ctx.save();
+    ctx.translate(cx, cy);
+    ctx.rotate(angle);
+    ctx.beginPath();
+    ctx.moveTo(-8, 0);
+    ctx.lineTo(0, -(radius - 20));
+    ctx.lineTo(8, 0);
+    ctx.closePath();
+    ctx.fillStyle = '#e6edf3';
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(0,0,0,0.3)';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+    ctx.restore();
+
+    // Center circle
+    ctx.beginPath();
+    ctx.arc(cx, cy, 12, 0, 2 * Math.PI);
+    ctx.fillStyle = '#ffd700';
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(cx, cy, 6, 0, 2 * Math.PI);
+    ctx.fillStyle = '#0d1117';
+    ctx.fill();
+  }
+
+  // Labels
+  ctx.font = 'bold 11px system-ui';
+  ctx.textAlign = 'center';
+
+  // Left label
+  ctx.fillStyle = '#39d353';
+  ctx.save();
+  ctx.translate(cx - radius - 10, cy + 20);
+  ctx.fillText('Friendly', 0, 0);
+  ctx.fillText('Audience', 0, 14);
+  ctx.restore();
+
+  // Right label
+  ctx.fillStyle = '#f85149';
+  ctx.save();
+  ctx.translate(cx + radius + 10, cy + 20);
+  ctx.fillText('Ghost', 0, 0);
+  ctx.fillText('Town', 0, 14);
+  ctx.restore();
+
+  // Center label
+  ctx.fillStyle = '#ffd700';
+  ctx.font = 'bold 13px system-ui';
+  ctx.fillText('Ghosted', cx, cy - radius - 15);
+
+  function animateNeedle(ts) {
+    if (!animStart) animStart = ts;
+    var progress = Math.min((ts - animStart) / animDuration, 1);
+    var eased = 1 - Math.pow(1 - progress, 4);
+    var angle = currentAngle + (targetAngle - currentAngle) * eased;
+
+    // Clear needle area
+    ctx.clearRect(0, 0, 400, 260);
+
+    // Redraw segments
+    ctx.beginPath();
+    ctx.arc(cx, cy, radius, startAngle, endAngle);
+    ctx.lineWidth = 30;
+    ctx.strokeStyle = 'rgba(48,54,61,0.4)';
+    ctx.lineCap = 'round';
+    ctx.stroke();
+
+    segments.forEach(function(seg) {
+      var segStart = startAngle + seg.start * Math.PI;
+      var segEnd = startAngle + seg.end * Math.PI;
+      ctx.beginPath();
+      ctx.arc(cx, cy, radius, segStart, segEnd);
+      ctx.lineWidth = 30;
+      ctx.strokeStyle = seg.color;
+      ctx.lineCap = 'butt';
+      ctx.stroke();
+    });
+    ctx.beginPath();ctx.arc(cx,cy,radius,startAngle,startAngle+0.01);ctx.lineWidth=30;ctx.strokeStyle='#39d353';ctx.lineCap='round';ctx.stroke();
+    ctx.beginPath();ctx.arc(cx,cy,radius,endAngle-0.01,endAngle);ctx.lineWidth=30;ctx.strokeStyle='#f85149';ctx.lineCap='round';ctx.stroke();
+
+    // Labels
+    ctx.font = 'bold 11px system-ui';
+    ctx.textAlign = 'center';
+    ctx.fillStyle = '#39d353';
+    ctx.save();ctx.translate(cx-radius-10,cy+20);ctx.fillText('Friendly',0,0);ctx.fillText('Audience',0,14);ctx.restore();
+    ctx.fillStyle = '#f85149';
+    ctx.save();ctx.translate(cx+radius+10,cy+20);ctx.fillText('Ghost',0,0);ctx.fillText('Town',0,14);ctx.restore();
+    ctx.fillStyle = '#ffd700';ctx.font='bold 13px system-ui';ctx.fillText('Ghosted',cx,cy-radius-15);
+
+    // Needle needs angle offset because we position from -PI/2 reference
+    drawNeedle(angle - Math.PI / 2);
+
+    if (progress < 1) requestAnimationFrame(animateNeedle);
+  }
+  requestAnimationFrame(animateNeedle);
+
+  // Gauge verdict
+  var label, sub;
+  if (ghostPct < 30) { label = 'Friendly Audience'; sub = 'Your followers actually like you. Cherish them.'; }
+  else if (ghostPct < 50) { label = 'Mildly Ghosted'; sub = 'Some lurkers, but you have a solid engaged core.'; }
+  else if (ghostPct < 65) { label = 'Moderately Ghosted'; sub = 'More ghosts than humans. The haunting has begun.'; }
+  else if (ghostPct < 80) { label = 'Heavily Ghosted'; sub = 'Your notifications are a ghost town. Time for an intervention.'; }
+  else if (ghostPct < 90) { label = 'Ghost Infestation'; sub = 'Paranormal activity confirmed. Your Like button has cobwebs.'; }
+  else { label = 'Full Ghost Town'; sub = 'Are... are you even real? Or are YOU the ghost?'; }
+
+  document.getElementById('gaugeLabel').textContent = label;
+  document.getElementById('gaugeSub').textContent = sub;
+}
+
+// ── Shame Post Builder ────────────────────────────────────
+function buildShamePost(d) {
+  shamePostText = '\uD83D\uDEA8 GHOST REPORT: ' + d.ghostPct.toFixed(1) + '% of my ' + formatNumber(d.followers) + ' followers are GHOSTS who never engage \uD83D\uDC7B\n\n' +
+    'If you\'re reading this and you\'ve never liked one of my posts... I SEE YOU \uD83D\uDC40\n\n' +
+    'Hit that like button or I\'m deploying the ghost detector \uD83D\uDD0D\n\n' +
+    'Free tool: spunk.codes/exclusive/ghost-follower-detector @SpunkArt13';
+
+  document.getElementById('tweetHandle').textContent = d.handle;
+  document.getElementById('tweetContent').innerHTML = escapeHtml(shamePostText).replace(/\n/g, '<br>');
+}
+
+function postShameToX() {
+  var url = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(shamePostText);
+  window.open(url, '_blank');
+  trackEvent('ghost_shame_post_x', {handle: ghostData.handle, ghost_pct: ghostData.ghostPct.toFixed(1)});
+}
+
+function copyShamePost() {
+  navigator.clipboard.writeText(shamePostText).then(function() {
+    var btn = event.target;
+    var orig = btn.innerHTML;
+    btn.innerHTML = '&#10003; Copied!';
+    setTimeout(function() { btn.innerHTML = orig; }, 2000);
+  });
+  trackEvent('ghost_shame_post_copy', {handle: ghostData.handle});
+}
+
+// ── Edit Modal ────────────────────────────────────────────
+function openEditModal() {
+  document.getElementById('editModal').classList.add('active');
+  var ta = document.getElementById('editTweet');
+  ta.value = shamePostText;
+  updateCharCount();
+  ta.focus();
+}
+
+function closeEditModal() {
+  document.getElementById('editModal').classList.remove('active');
+}
+
+function updateCharCount() {
+  var count = document.getElementById('editTweet').value.length;
+  var el = document.getElementById('charCount');
+  el.textContent = count;
+  el.style.color = count > 280 ? 'var(--red)' : 'var(--text-dim)';
+}
+
+document.getElementById('editTweet').addEventListener('input', updateCharCount);
+
+function saveAndPostEdit() {
+  shamePostText = document.getElementById('editTweet').value;
+  document.getElementById('tweetContent').innerHTML = escapeHtml(shamePostText).replace(/\n/g, '<br>');
+  closeEditModal();
+  postShameToX();
+}
+
+function saveAndCopyEdit() {
+  shamePostText = document.getElementById('editTweet').value;
+  document.getElementById('tweetContent').innerHTML = escapeHtml(shamePostText).replace(/\n/g, '<br>');
+  navigator.clipboard.writeText(shamePostText);
+  closeEditModal();
+  trackEvent('ghost_shame_post_edit_copy', {});
+}
+
+// Close modal on overlay click
+document.getElementById('editModal').addEventListener('click', function(e) {
+  if (e.target === this) closeEditModal();
+});
+
+// ── Share Functions ───────────────────────────────────────
+function shareOnX() {
+  if (!ghostData) return;
+  var d = ghostData;
+  var text = '\uD83D\uDC7B I just found out ' + d.ghostPct.toFixed(1) + '% of my ' + formatNumber(d.followers) + ' followers are GHOSTS who never engage!\n\n' +
+    'Find your ghost followers: spunk.codes/exclusive/ghost-follower-detector\n\n' +
+    '@SpunkArt13 #GhostFollowers #GhostReport';
+  var url = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(text);
+  window.open(url, '_blank');
+  trackEvent('ghost_share_x', {handle: d.handle, ghost_pct: d.ghostPct.toFixed(1)});
+}
+
+function shareOnLinkedIn() {
+  if (!ghostData) return;
+  var shareUrl = 'https://spunk.codes/exclusive/ghost-follower-detector?handle=' +
+    encodeURIComponent(ghostData.handle.replace('@','')) + '&ghosts=' + ghostData.ghostPct.toFixed(1);
+  var url = 'https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(shareUrl);
+  window.open(url, '_blank');
+  trackEvent('ghost_share_linkedin', {handle: ghostData.handle});
+}
+
+function copyReportLink() {
+  if (!ghostData) return;
+  var shareUrl = 'https://spunk.codes/exclusive/ghost-follower-detector?handle=' +
+    encodeURIComponent(ghostData.handle.replace('@','')) + '&ghosts=' + ghostData.ghostPct.toFixed(1);
+  navigator.clipboard.writeText(shareUrl).then(function() {
+    var btn = event.target;
+    var orig = btn.innerHTML;
+    btn.innerHTML = '&#10003; Copied!';
+    setTimeout(function() { btn.innerHTML = orig; }, 2000);
+  });
+  trackEvent('ghost_share_copy_link', {handle: ghostData.handle});
+}
+
+// ── Leaderboard (localStorage) ────────────────────────────
+function saveToLeaderboard() {
+  if (!ghostData) return;
+  try {
+    var lb = JSON.parse(localStorage.getItem('ghost_leaderboard') || '[]');
+    // Check if handle already exists
+    var found = false;
+    lb.forEach(function(entry) {
+      if (entry.handle.toLowerCase() === ghostData.handle.toLowerCase()) {
+        entry.ghostPct = ghostData.ghostPct;
+        entry.followers = ghostData.followers;
+        entry.timestamp = Date.now();
+        found = true;
+      }
+    });
+    if (!found) {
+      lb.push({
+        handle: ghostData.handle,
+        ghostPct: ghostData.ghostPct,
+        followers: ghostData.followers,
+        timestamp: Date.now()
+      });
+    }
+    // Sort by ghost percentage descending
+    lb.sort(function(a, b) { return b.ghostPct - a.ghostPct; });
+    // Keep top 50
+    lb = lb.slice(0, 50);
+    localStorage.setItem('ghost_leaderboard', JSON.stringify(lb));
+  } catch(e) {}
+}
+
+function renderLeaderboard() {
+  var container = document.getElementById('leaderboard');
+  try {
+    var lb = JSON.parse(localStorage.getItem('ghost_leaderboard') || '[]');
+    if (lb.length === 0) {
+      container.innerHTML = '<div class="lb-empty">&#128123; No entries yet. You will be the first on the leaderboard!</div>';
+      return;
+    }
+
+    var html = '';
+    var myRank = -1;
+    lb.forEach(function(entry, i) {
+      var isYou = ghostData && entry.handle.toLowerCase() === ghostData.handle.toLowerCase();
+      if (isYou) myRank = i + 1;
+      var rankEmoji = i === 0 ? '&#128081;' : i === 1 ? '&#129352;' : i === 2 ? '&#129353;' : (i + 1);
+      html += '<div class="lb-row' + (isYou ? ' you' : '') + '">' +
+        '<div class="lb-rank">' + rankEmoji + '</div>' +
+        '<div class="lb-handle">' + escapeHtml(entry.handle) + (isYou ? ' <span style="color:var(--gold);font-size:0.7rem">(YOU)</span>' : '') + '</div>' +
+        '<div class="lb-pct">' + entry.ghostPct.toFixed(1) + '% &#128123;</div>' +
+      '</div>';
+    });
+
+    if (myRank > 0) {
+      html += '<div style="text-align:center;margin-top:1rem;font-size:0.85rem;color:var(--text-dim)">' +
+        'You are the <strong style="color:var(--gold)">#' + myRank + '</strong> most ghosted person on SPUNK.CODES' +
+      '</div>';
+    }
+
+    container.innerHTML = html;
+  } catch(e) {
+    container.innerHTML = '<div class="lb-empty">Leaderboard unavailable</div>';
+  }
+}
+
+// ── Utilities ─────────────────────────────────────────────
+function escapeHtml(s) {
+  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+function trackEvent(action, params) {
+  if (typeof gtag === 'function') {
+    gtag('event', action, Object.assign({event_category: 'ghost_detector', page: window.location.pathname}, params || {}));
+  }
+}
+
+// ── Reset / Re-Scan ───────────────────────────────────────
+function resetScan() {
+  document.getElementById('resultsSection').style.display = 'none';
+  document.getElementById('inputCard').style.display = 'block';
+  document.getElementById('inputCard').scrollIntoView({behavior:'smooth'});
+  ghostData = null;
+  if (window.history && window.history.replaceState) {
+    window.history.replaceState({}, '', window.location.pathname);
+  }
+}
+
+// Add reset button after results load (will be appended dynamically)
+var observer = new MutationObserver(function() {
+  if (document.getElementById('resultsSection').style.display !== 'none' && !document.getElementById('rescanBtn')) {
+    var rescanDiv = document.createElement('div');
+    rescanDiv.style.cssText = 'text-align:center;margin:1.5rem 0';
+    rescanDiv.innerHTML = '<button class="btn btn-outline" id="rescanBtn" onclick="resetScan()">&#128260; Scan Another Account</button>';
+    document.getElementById('resultsSection').insertBefore(rescanDiv, document.getElementById('resultsSection').firstChild);
+  }
+});
+observer.observe(document.getElementById('resultsSection'), {attributes: true, attributeFilter: ['style']});
+
+// ── Keyboard shortcut ─────────────────────────────────────
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Enter' && document.activeElement.id && document.activeElement.id.startsWith('input')) {
+    runGhostScan();
+  }
+  if (e.key === 'Escape') closeEditModal();
+});
+</script>
+
+<!-- GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+
+<!-- Clarity -->
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+
+<!-- Pro Gate -->
+<script src="/exclusive/pro-gate.js"></script>
+
+<!-- Auto Monetize -->
+<script src="/auto-monetize.js"></script>
+
+<!-- Share on X Floating Button -->
+<div id="shareXBtn" style="position:fixed;left:20px;bottom:20px;z-index:9999;">
+  <a id="shareXLink" href="#" target="_blank" rel="noopener noreferrer" title="Share on X"
+     style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;
+     background:rgba(88,166,255,0.15);border:1px solid rgba(88,166,255,0.3);
+     backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:50%;
+     text-decoration:none;transition:all 0.3s ease;cursor:pointer;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+    </svg>
+  </a>
+</div>
+<style>
+  #shareXBtn a:hover {
+    background: rgba(88,166,255,0.35) !important;
+    border-color: rgba(88,166,255,0.6) !important;
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(88,166,255,0.3);
+  }
+</style>
+<script>
+(function(){
+  var url = "https://spunk.codes/exclusive/ghost-follower-detector";
+  var text = "Just found out how many of my followers are GHOSTS \uD83D\uDC7B Free Ghost Follower Detector @SpunkArt13";
+  var href = "https://x.com/intent/tweet?text=" + encodeURIComponent(text) + "&url=" + encodeURIComponent(url);
+  document.getElementById("shareXLink").href = href;
+})();
+</script>
+
+<script src="/usage-tracker.js"></script>
+</body>
+</html>
