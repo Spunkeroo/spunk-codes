@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>eBay Profit Calculator - Fees, Margins & ROI | SPUNK.CODES Exclusive</title>
+<meta name="description" content="Calculate exact eBay profits after all fees. Final value fee, payment processing, promoted listings, shipping. Bulk mode, break-even, monthly projections. Exclusive premium tool.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="eBay Profit Calculator - SPUNK.CODES Exclusive">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/ebay-profit-calculator">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0d1117;--card:rgba(22,27,34,0.8);--border:rgba(48,54,61,0.6);--gold:#ffd700;--gold-border:rgba(255,215,0,0.3);--text:#e6edf3;--text-dim:#8b949e;--blue:#58a6ff;--cyan:#39d353;--red:#f85149;--orange:#ff8c00;--font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+a{color:var(--blue);text-decoration:none}
+.bg-mesh{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 80% 50% at 20% 20%,rgba(255,215,0,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(255,140,0,0.04) 0%,transparent 60%),var(--bg)}
+.bg-grid{position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,215,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,215,0,0.03) 1px,transparent 1px);background-size:60px 60px}
+.nav{position:sticky;top:0;z-index:100;background:rgba(13,17,23,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,215,0,0.15);padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}
+.nav-brand{font-weight:800;font-size:1.1rem;color:var(--gold);letter-spacing:0.08em}
+.nav-links{display:flex;gap:1.5rem;font-size:0.85rem}.nav-links a{color:var(--text-dim);font-weight:500}.nav-links a.active{color:var(--gold)}
+.lock-gate{position:fixed;inset:0;z-index:1000;background:rgba(13,17,23,0.97);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:2rem}
+.lock-gate.hidden{display:none}
+.lock-icon-big{font-size:4rem}.lock-gate h2{font-size:1.8rem;font-weight:800;text-align:center}.lock-gate h2 span{color:var(--gold)}.lock-gate p{color:var(--text-dim);text-align:center;max-width:400px}
+.code-input-wrap{display:flex;gap:0.5rem}
+.code-input{padding:0.8rem 1.5rem;background:rgba(22,27,34,0.8);border:2px solid var(--gold-border);border-radius:12px;color:var(--gold);font-size:1.2rem;font-weight:800;letter-spacing:3px;text-align:center;width:200px;outline:none;text-transform:uppercase;font-family:var(--font)}
+.code-input:focus{border-color:var(--gold);box-shadow:0 0 20px rgba(255,215,0,0.2)}
+.code-submit{padding:0.8rem 1.5rem;background:linear-gradient(135deg,#ffd700,#ff8c00);border:none;border-radius:12px;color:#000;font-size:1rem;font-weight:800;cursor:pointer}
+.code-error{color:var(--red);font-size:0.85rem;min-height:1.2em}.lock-hint{color:var(--text-dim);font-size:0.8rem}.lock-hint a{color:var(--gold)}
+.exclusive-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;background:linear-gradient(135deg,rgba(255,215,0,0.15),rgba(255,140,0,0.15));border:1px solid var(--gold-border);border-radius:100px;font-size:11px;font-weight:800;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase}
+.main{max-width:1000px;margin:0 auto;padding:2rem}
+.hero-section{text-align:center;padding:2rem 0 2rem}
+.hero-section h1{font-size:2.2rem;font-weight:800;margin:1rem 0 0.5rem}
+.hero-section h1 .gold{background:linear-gradient(135deg,#ffd700,#ff8c00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-section p{color:var(--text-dim);max-width:600px;margin:0 auto}
+.card{background:var(--card);border:1px solid var(--gold-border);border-radius:16px;padding:1.5rem;margin-bottom:1.5rem;backdrop-filter:blur(10px);position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),#ff8c00,var(--gold))}
+.card h2{font-size:1.1rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}
+.form-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:0.75rem;margin-bottom:0.75rem}
+.form-group{display:flex;flex-direction:column;gap:0.3rem}
+.form-group label{font-size:0.75rem;color:var(--text-dim);font-weight:600;text-transform:uppercase;letter-spacing:0.5px}
+.form-group input,.form-group select,.form-group textarea{padding:0.6rem 0.8rem;background:rgba(22,27,34,0.9);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.85rem;font-family:var(--font);outline:none}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--gold)}
+.form-group textarea{resize:vertical;min-height:50px}
+.btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;transition:all 0.2s}
+.btn-gold{background:linear-gradient(135deg,#ffd700,#ff8c00);color:#000}
+.btn-gold:hover{transform:translateY(-1px);box-shadow:0 4px 15px rgba(255,215,0,0.3)}
+.btn-outline{background:transparent;border:1px solid var(--gold-border);color:var(--gold)}
+.btn-outline:hover{background:rgba(255,215,0,0.1)}
+.btn-red{background:rgba(248,81,73,0.15);border:1px solid rgba(248,81,73,0.3);color:var(--red)}
+.btn-sm{padding:0.4rem 0.8rem;font-size:0.75rem}
+.btn-row{display:flex;gap:0.5rem;flex-wrap:wrap}
+.result-box{background:rgba(13,17,23,0.6);border:1px solid var(--border);border-radius:12px;padding:1rem;margin-top:0.75rem}
+.result-row{display:flex;justify-content:space-between;align-items:center;padding:0.4rem 0;border-bottom:1px solid rgba(48,54,61,0.3);font-size:0.85rem}
+.result-row:last-child{border-bottom:none}
+.result-row .label{color:var(--text-dim)}.result-row .value{font-weight:700;color:var(--gold)}
+.result-row .value.green{color:var(--cyan)}.result-row .value.red{color:var(--red)}
+.result-row.section-header{border-bottom:2px solid var(--gold-border);margin-top:0.5rem}
+.result-row.section-header .label{font-weight:700;color:var(--gold);font-size:0.75rem;text-transform:uppercase;letter-spacing:0.5px}
+.result-row.big .value{font-size:1.3rem}
+.tip-box{background:rgba(255,215,0,0.06);border:1px solid var(--gold-border);border-radius:10px;padding:0.8rem 1rem;margin-top:0.5rem;font-size:0.82rem;color:var(--text-dim)}
+.tip-box strong{color:var(--gold)}
+.big-number{text-align:center;padding:1.5rem;margin:0.75rem 0}
+.big-number .num{font-size:3rem;font-weight:900}.big-number .sub{font-size:0.85rem;color:var(--text-dim)}
+.profit-positive .num{color:var(--cyan)}.profit-negative .num{color:var(--red)}.profit-neutral .num{color:var(--gold)}
+.tab-bar{display:flex;gap:0;margin-bottom:1rem;border-radius:10px;overflow:hidden;border:1px solid var(--gold-border)}
+.tab-btn{flex:1;padding:0.6rem;text-align:center;font-size:0.8rem;font-weight:700;cursor:pointer;background:transparent;border:none;color:var(--text-dim);transition:all 0.2s}
+.tab-btn.active{background:linear-gradient(135deg,rgba(255,215,0,0.2),rgba(255,140,0,0.15));color:var(--gold)}
+.tab-btn:hover:not(.active){background:rgba(255,215,0,0.05)}
+.tab-content{display:none}.tab-content.active{display:block}
+.bulk-table{width:100%;border-collapse:collapse;font-size:0.8rem;margin-top:0.75rem}
+.bulk-table th{text-align:left;padding:0.5rem;color:var(--gold);font-size:0.7rem;text-transform:uppercase;letter-spacing:0.5px;border-bottom:2px solid var(--gold-border)}
+.bulk-table td{padding:0.5rem;border-bottom:1px solid var(--border)}
+.bulk-table input{width:100%;padding:0.4rem;background:rgba(22,27,34,0.9);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:0.8rem;outline:none}
+.bulk-table input:focus{border-color:var(--gold)}
+.bulk-table .profit-cell{font-weight:700}
+.bulk-total{background:rgba(255,215,0,0.08);font-weight:700}
+.gauge-wrap{display:flex;justify-content:center;gap:2rem;flex-wrap:wrap;margin:1rem 0}
+.gauge{text-align:center}
+.gauge .val{font-size:2rem;font-weight:900;color:var(--gold)}.gauge .lbl{font-size:0.75rem;color:var(--text-dim)}
+.share-cta{background:linear-gradient(135deg,rgba(255,215,0,0.08),rgba(255,140,0,0.05));border:1px solid var(--gold-border);border-radius:16px;padding:2rem;text-align:center;margin-top:2rem}
+.share-cta h3{color:var(--gold);margin-bottom:0.5rem}.share-cta p{color:var(--text-dim);font-size:0.9rem;margin-bottom:1rem}
+.share-btns{display:flex;gap:0.6rem;justify-content:center;flex-wrap:wrap}
+.share-btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;color:#fff}
+.share-x{background:#000;border:1px solid #333}.share-reddit{background:#ff4500}.share-email{background:#21262d;border:1px solid #30363d}
+.footer{text-align:center;padding:2rem;border-top:1px solid rgba(255,215,0,0.1);color:var(--text-dim);font-size:0.75rem;margin-top:3rem}
+.footer a{color:var(--gold)}.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-bottom:1rem}
+.watermark{position:fixed;bottom:10px;right:10px;font-size:0.6rem;color:rgba(255,215,0,0.08);font-weight:800;pointer-events:none;z-index:9999;letter-spacing:1px;text-transform:uppercase}
+@media(max-width:768px){.main{padding:1rem}.hero-section h1{font-size:1.6rem}.nav-links{display:none}.form-row{grid-template-columns:1fr}.gauge-wrap{gap:1rem}.gauge .val{font-size:1.5rem}}
+</style>
+</head>
+<body>
+<div class="bg-mesh"></div><div class="bg-grid"></div>
+<div class="lock-gate" id="lockGate"><div class="lock-icon-big">&#128274;</div><h2>Enter Code <span>SPUNK</span> to Unlock</h2><p>This exclusive premium tool requires the SPUNK referral code.</p><div class="code-input-wrap"><input type="text" class="code-input" id="codeInput" placeholder="CODE" maxlength="10" autocomplete="off"><button class="code-submit" onclick="submitCode()">Unlock</button></div><div class="code-error" id="codeError"></div><div class="lock-hint">Get the code at <a href="https://spunk.codes/exclusive-tools">spunk.codes/exclusive-tools</a></div></div>
+<nav class="nav"><a href="https://spunk.codes" class="nav-brand">SPUNK.CODES</a><div class="nav-links"><a href="/store">Tools</a><a href="/exclusive-tools" class="active">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a></div></nav>
+
+<div class="main">
+  <section class="hero-section">
+    <div class="exclusive-badge">&#128081; EXCLUSIVE TOOL</div>
+    <h1><span class="gold">eBay Profit</span> Calculator</h1>
+    <p>Know your exact profit after every eBay fee. Single item, bulk inventory, break-even analysis, and monthly income projections.</p>
+  </section>
+
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('single')">Single Item</button>
+    <button class="tab-btn" onclick="switchTab('bulk')">Bulk Mode</button>
+    <button class="tab-btn" onclick="switchTab('breakeven')">Break-Even</button>
+    <button class="tab-btn" onclick="switchTab('projector')">Income Projector</button>
+  </div>
+
+  <!-- SINGLE ITEM TAB -->
+  <div class="tab-content active" id="tab-single">
+    <div class="card">
+      <h2>&#128176; Single Item Profit</h2>
+      <div class="form-row">
+        <div class="form-group"><label>Sale Price ($)</label><input type="number" id="salePrice" placeholder="29.99" step="0.01" min="0"></div>
+        <div class="form-group"><label>Item Cost ($)</label><input type="number" id="itemCost" placeholder="10.00" step="0.01" min="0"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Shipping Cost (you pay) ($)</label><input type="number" id="shipCost" placeholder="5.00" step="0.01" min="0"></div>
+        <div class="form-group"><label>Shipping Charged to Buyer ($)</label><input type="number" id="shipCharged" placeholder="0.00" step="0.01" min="0"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Promoted Listing % (optional)</label><input type="number" id="promoRate" placeholder="0" step="0.1" min="0" max="100"></div>
+        <div class="form-group"><label>eBay Store Subscription</label>
+          <select id="storeType">
+            <option value="13.25">No Store (13.25%)</option>
+            <option value="12.90">Basic (12.90%)</option>
+            <option value="12.35">Premium (12.35%)</option>
+            <option value="11.50">Anchor (11.50%)</option>
+            <option value="10.25">Enterprise (10.25%)</option>
+          </select>
+        </div>
+      </div>
+      <button class="btn btn-gold" onclick="calcSingle()">Calculate Profit</button>
+      <div id="singleResult"></div>
+    </div>
+  </div>
+
+  <!-- BULK MODE TAB -->
+  <div class="tab-content" id="tab-bulk">
+    <div class="card">
+      <h2>&#128230; Bulk Inventory Profit</h2>
+      <p style="font-size:0.8rem;color:var(--text-dim);margin-bottom:0.75rem">Add multiple items to calculate total inventory profit. All calculations use 13.25% FVF + 2.9% + $0.30 processing.</p>
+      <div class="form-row">
+        <div class="form-group"><label>eBay Store</label>
+          <select id="bulkStore">
+            <option value="13.25">No Store (13.25%)</option>
+            <option value="12.90">Basic (12.90%)</option>
+            <option value="12.35">Premium (12.35%)</option>
+            <option value="11.50">Anchor (11.50%)</option>
+          </select>
+        </div>
+      </div>
+      <table class="bulk-table" id="bulkTable">
+        <thead>
+          <tr><th>Item Name</th><th>Sale $</th><th>Cost $</th><th>Ship $</th><th>Profit</th><th></th></tr>
+        </thead>
+        <tbody id="bulkBody"></tbody>
+        <tfoot>
+          <tr class="bulk-total"><td><strong>TOTALS</strong></td><td id="bulkTotalSale">$0</td><td id="bulkTotalCost">$0</td><td id="bulkTotalShip">$0</td><td id="bulkTotalProfit">$0</td><td></td></tr>
+        </tfoot>
+      </table>
+      <div class="btn-row" style="margin-top:0.75rem">
+        <button class="btn btn-gold btn-sm" onclick="addBulkRow()">+ Add Item</button>
+        <button class="btn btn-outline btn-sm" onclick="addBulkRow();addBulkRow();addBulkRow();addBulkRow();addBulkRow()">+ Add 5 Rows</button>
+        <button class="btn btn-outline btn-sm" onclick="calcBulk()">Recalculate All</button>
+        <button class="btn btn-outline btn-sm" onclick="exportBulkCSV()">Export CSV</button>
+        <button class="btn btn-red btn-sm" onclick="clearBulk()">Clear All</button>
+      </div>
+      <div id="bulkSummary"></div>
+    </div>
+
+    <div class="card">
+      <h2>&#128203; Paste Bulk Data</h2>
+      <p style="font-size:0.8rem;color:var(--text-dim);margin-bottom:0.5rem">Paste tab or comma-separated data: Name, Sale Price, Item Cost, Shipping Cost (one item per line)</p>
+      <div class="form-group"><textarea id="bulkPaste" rows="5" placeholder="Widget A, 29.99, 10.00, 5.00&#10;Widget B, 49.99, 20.00, 7.50&#10;Widget C, 15.00, 3.00, 4.00"></textarea></div>
+      <button class="btn btn-gold btn-sm" onclick="parseBulkPaste()" style="margin-top:0.5rem">Import Data</button>
+    </div>
+  </div>
+
+  <!-- BREAK-EVEN TAB -->
+  <div class="tab-content" id="tab-breakeven">
+    <div class="card">
+      <h2>&#127919; Break-Even Calculator</h2>
+      <p style="font-size:0.8rem;color:var(--text-dim);margin-bottom:0.75rem">Find the minimum sale price you need to break even after all costs and fees.</p>
+      <div class="form-row">
+        <div class="form-group"><label>Item Cost ($)</label><input type="number" id="beCost" placeholder="10.00" step="0.01" min="0"></div>
+        <div class="form-group"><label>Shipping Cost ($)</label><input type="number" id="beShip" placeholder="5.00" step="0.01" min="0"></div>
+        <div class="form-group"><label>Other Costs ($)</label><input type="number" id="beOther" placeholder="0.00" step="0.01" min="0"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>eBay FVF Rate (%)</label><input type="number" id="beFVF" value="13.25" step="0.01" min="0"></div>
+        <div class="form-group"><label>Promoted Listing % (optional)</label><input type="number" id="bePromo" placeholder="0" step="0.1" min="0"></div>
+        <div class="form-group"><label>Target Profit ($)</label><input type="number" id="beTarget" placeholder="0.00" step="0.01" min="0"></div>
+      </div>
+      <button class="btn btn-gold" onclick="calcBreakeven()">Calculate Break-Even Price</button>
+      <div id="beResult"></div>
+    </div>
+  </div>
+
+  <!-- INCOME PROJECTOR TAB -->
+  <div class="tab-content" id="tab-projector">
+    <div class="card">
+      <h2>&#128200; Monthly Income Projector</h2>
+      <div class="form-row">
+        <div class="form-group"><label>Items Sold per Month</label><input type="number" id="projItems" placeholder="50" min="0"></div>
+        <div class="form-group"><label>Average Sale Price ($)</label><input type="number" id="projAvgSale" placeholder="25.00" step="0.01" min="0"></div>
+        <div class="form-group"><label>Average Item Cost ($)</label><input type="number" id="projAvgCost" placeholder="8.00" step="0.01" min="0"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Average Shipping Cost ($)</label><input type="number" id="projAvgShip" placeholder="5.00" step="0.01" min="0"></div>
+        <div class="form-group"><label>eBay FVF Rate (%)</label><input type="number" id="projFVF" value="13.25" step="0.01"></div>
+        <div class="form-group"><label>Promoted Listing % (optional)</label><input type="number" id="projPromo" placeholder="0" step="0.1" min="0"></div>
+      </div>
+      <button class="btn btn-gold" onclick="calcProjection()">Project Monthly Income</button>
+      <div id="projResult"></div>
+    </div>
+
+    <div class="card">
+      <h2>&#128183; Self-Employment Tax Estimate</h2>
+      <p style="font-size:0.8rem;color:var(--text-dim);margin-bottom:0.75rem">Estimate your tax obligation on eBay income (US-based).</p>
+      <div class="form-row">
+        <div class="form-group"><label>Annual Net Profit ($)</label><input type="number" id="taxProfit" placeholder="30000" step="1" min="0"></div>
+        <div class="form-group"><label>Filing Status</label>
+          <select id="taxStatus">
+            <option value="single">Single</option>
+            <option value="married">Married Filing Jointly</option>
+          </select>
+        </div>
+      </div>
+      <button class="btn btn-gold btn-sm" onclick="calcTax()">Estimate Taxes</button>
+      <div id="taxResult"></div>
+    </div>
+  </div>
+
+  <div class="share-cta">
+    <h3>&#128275; Share the Code, Unlock More Tools</h3>
+    <p>Share code SPUNK to help others access 15+ exclusive premium tools.</p>
+    <div class="share-btns">
+      <button class="share-btn share-x" onclick="shareX()">&#120143; Share on X</button>
+      <button class="share-btn share-reddit" onclick="shareReddit()">&#128172; Reddit</button>
+      <button class="share-btn share-email" onclick="shareEmail()">&#9993; Email</button>
+    </div>
+  </div>
+</div>
+
+<footer class="footer"><div class="footer-links"><a href="https://spunk.codes">Home</a><a href="/store">Tools</a><a href="/exclusive-tools">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a><a href="https://twitter.com/SpunkArt13" target="_blank">@SpunkArt13</a></div><div>&copy; 2026 SPUNK.CODES EXCLUSIVE.</div></footer>
+<div class="watermark">SPUNK.CODES EXCLUSIVE</div>
+
+<script>
+document.addEventListener('contextmenu',function(e){e.preventDefault()});
+document.addEventListener('keydown',function(e){if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'||e.key==='C'))||(e.ctrlKey&&e.key==='u'))e.preventDefault()});
+function checkCode(){try{var c=localStorage.getItem('spunk_referral_code')||localStorage.getItem('spunk_ref_code')||'';if(c.toUpperCase()==='SPUNK'){document.getElementById('lockGate').classList.add('hidden');return true}}catch(e){}return false}
+function submitCode(){var v=document.getElementById('codeInput').value.trim().toUpperCase();if(v==='SPUNK'){try{localStorage.setItem('spunk_referral_code','SPUNK');localStorage.setItem('spunk_ref_code','SPUNK')}catch(e){}document.getElementById('lockGate').classList.add('hidden')}else{document.getElementById('codeError').textContent='Invalid code. Try: SPUNK';setTimeout(function(){document.getElementById('codeError').textContent=''},2000)}}
+document.getElementById('codeInput').addEventListener('keydown',function(e){if(e.key==='Enter')submitCode()});
+checkCode();
+
+/* --- Tab switching --- */
+function switchTab(tab){
+  document.querySelectorAll('.tab-btn').forEach(function(b,i){
+    b.classList.toggle('active',b.textContent.toLowerCase().replace(/[^a-z]/g,'').indexOf(tab)!==-1||
+      (tab==='single'&&i===0)||(tab==='bulk'&&i===1)||(tab==='breakeven'&&i===2)||(tab==='projector'&&i===3));
+  });
+  document.querySelectorAll('.tab-content').forEach(function(t){t.classList.remove('active')});
+  var el=document.getElementById('tab-'+tab);
+  if(el)el.classList.add('active');
+}
+
+/* --- Single Item Calculator --- */
+function calcSingle(){
+  var sale=parseFloat(document.getElementById('salePrice').value)||0;
+  var cost=parseFloat(document.getElementById('itemCost').value)||0;
+  var ship=parseFloat(document.getElementById('shipCost').value)||0;
+  var shipCharged=parseFloat(document.getElementById('shipCharged').value)||0;
+  var promoRate=parseFloat(document.getElementById('promoRate').value)||0;
+  var fvfRate=parseFloat(document.getElementById('storeType').value)/100;
+
+  var totalReceived=sale+shipCharged;
+  var ebayFVF=totalReceived*fvfRate;
+  var paymentFee=totalReceived*0.029+0.30;
+  var promoFee=promoRate>0?sale*(promoRate/100):0;
+  var totalFees=ebayFVF+paymentFee+promoFee;
+  var totalCosts=cost+ship;
+  var grossProfit=totalReceived-totalCosts;
+  var netProfit=totalReceived-totalFees-totalCosts;
+  var margin=totalReceived>0?(netProfit/totalReceived)*100:0;
+  var roi=totalCosts>0?(netProfit/totalCosts)*100:0;
+
+  var cls=netProfit>=0?'profit-positive':'profit-negative';
+
+  var h='<div class="big-number '+cls+'"><div class="num">$'+netProfit.toFixed(2)+'</div><div class="sub">Net Profit per Item</div></div>';
+  h+='<div class="gauge-wrap">';
+  h+='<div class="gauge"><div class="val" style="color:'+(margin>=20?'var(--cyan)':margin>=0?'var(--gold)':'var(--red)')+'">'+margin.toFixed(1)+'%</div><div class="lbl">Profit Margin</div></div>';
+  h+='<div class="gauge"><div class="val" style="color:'+(roi>=50?'var(--cyan)':roi>=0?'var(--gold)':'var(--red)')+'">'+roi.toFixed(1)+'%</div><div class="lbl">ROI</div></div>';
+  h+='<div class="gauge"><div class="val" style="color:var(--red)">$'+totalFees.toFixed(2)+'</div><div class="lbl">Total Fees</div></div>';
+  h+='</div>';
+
+  h+='<div class="result-box">';
+  h+='<div class="result-row section-header"><span class="label">Revenue Breakdown</span><span></span></div>';
+  h+='<div class="result-row"><span class="label">Sale Price</span><span class="value">$'+sale.toFixed(2)+'</span></div>';
+  h+='<div class="result-row"><span class="label">Buyer Shipping</span><span class="value">$'+shipCharged.toFixed(2)+'</span></div>';
+  h+='<div class="result-row"><span class="label">Total Received</span><span class="value green">$'+totalReceived.toFixed(2)+'</span></div>';
+
+  h+='<div class="result-row section-header"><span class="label" style="color:var(--red)">Fees</span><span></span></div>';
+  h+='<div class="result-row"><span class="label">eBay Final Value Fee ('+(fvfRate*100).toFixed(2)+'%)</span><span class="value red">-$'+ebayFVF.toFixed(2)+'</span></div>';
+  h+='<div class="result-row"><span class="label">Payment Processing (2.9% + $0.30)</span><span class="value red">-$'+paymentFee.toFixed(2)+'</span></div>';
+  if(promoFee>0)h+='<div class="result-row"><span class="label">Promoted Listing ('+promoRate+'%)</span><span class="value red">-$'+promoFee.toFixed(2)+'</span></div>';
+  h+='<div class="result-row"><span class="label">Total eBay Fees</span><span class="value red">-$'+totalFees.toFixed(2)+'</span></div>';
+
+  h+='<div class="result-row section-header"><span class="label" style="color:var(--red)">Costs</span><span></span></div>';
+  h+='<div class="result-row"><span class="label">Item Cost</span><span class="value red">-$'+cost.toFixed(2)+'</span></div>';
+  h+='<div class="result-row"><span class="label">Shipping Label Cost</span><span class="value red">-$'+ship.toFixed(2)+'</span></div>';
+
+  h+='<div class="result-row section-header"><span class="label">Bottom Line</span><span></span></div>';
+  h+='<div class="result-row"><span class="label">Gross Profit</span><span class="value">$'+grossProfit.toFixed(2)+'</span></div>';
+  h+='<div class="result-row big"><span class="label" style="font-weight:700;color:var(--text)">Net Profit</span><span class="value '+(netProfit>=0?'green':'red')+'">$'+netProfit.toFixed(2)+'</span></div>';
+  h+='<div class="result-row"><span class="label">Profit Margin</span><span class="value '+(margin>=20?'green':margin>=0?'':'red')+'">'+margin.toFixed(1)+'%</span></div>';
+  h+='<div class="result-row"><span class="label">Return on Investment</span><span class="value '+(roi>=0?'green':'red')+'">'+roi.toFixed(1)+'%</span></div>';
+  h+='</div>';
+
+  if(netProfit<0){
+    var be=(totalCosts+0.30)/(1-fvfRate-0.029-(promoRate/100));
+    h+='<div class="tip-box"><strong>You\'re losing money.</strong> Break-even price: <strong>$'+be.toFixed(2)+'</strong>. Either raise your price or lower your costs.</div>';
+  } else {
+    h+='<div class="tip-box"><strong>Tip:</strong> You keep $'+netProfit.toFixed(2)+' of every $'+sale.toFixed(2)+' sale. eBay takes $'+totalFees.toFixed(2)+' in fees ('+(totalFees/totalReceived*100).toFixed(1)+'% of revenue).</div>';
+  }
+
+  document.getElementById('singleResult').innerHTML=h;
+}
+
+/* --- Bulk Mode --- */
+var bulkItems=[];
+var bulkId=0;
+
+function addBulkRow(name,sale,cost,ship){
+  bulkId++;
+  var id=bulkId;
+  bulkItems.push({id:id,name:name||'',sale:sale||0,cost:cost||0,ship:ship||0});
+  renderBulk();
+}
+
+function removeBulkRow(id){
+  bulkItems=bulkItems.filter(function(r){return r.id!==id});
+  renderBulk();
+}
+
+function renderBulk(){
+  var body=document.getElementById('bulkBody');
+  var html='';
+  bulkItems.forEach(function(item){
+    html+='<tr data-id="'+item.id+'">';
+    html+='<td><input type="text" value="'+escapeHtml(item.name)+'" onchange="updateBulkItem('+item.id+',\'name\',this.value)"></td>';
+    html+='<td><input type="number" value="'+(item.sale||'')+'" step="0.01" onchange="updateBulkItem('+item.id+',\'sale\',this.value)"></td>';
+    html+='<td><input type="number" value="'+(item.cost||'')+'" step="0.01" onchange="updateBulkItem('+item.id+',\'cost\',this.value)"></td>';
+    html+='<td><input type="number" value="'+(item.ship||'')+'" step="0.01" onchange="updateBulkItem('+item.id+',\'ship\',this.value)"></td>';
+    var profit=calcItemProfit(item);
+    html+='<td class="profit-cell" style="color:'+(profit>=0?'var(--cyan)':'var(--red)')+'">$'+profit.toFixed(2)+'</td>';
+    html+='<td><button class="btn btn-red btn-sm" onclick="removeBulkRow('+item.id+')">X</button></td>';
+    html+='</tr>';
+  });
+  body.innerHTML=html;
+  calcBulk();
+}
+
+function updateBulkItem(id,field,val){
+  bulkItems.forEach(function(item){
+    if(item.id===id){
+      if(field==='name')item.name=val;
+      else item[field]=parseFloat(val)||0;
+    }
+  });
+  renderBulk();
+}
+
+function calcItemProfit(item){
+  var fvf=parseFloat(document.getElementById('bulkStore').value)/100;
+  var fees=item.sale*fvf+item.sale*0.029+0.30;
+  return item.sale-fees-item.cost-item.ship;
+}
+
+function calcBulk(){
+  var totalSale=0,totalCost=0,totalShip=0,totalProfit=0;
+  bulkItems.forEach(function(item){
+    totalSale+=item.sale;
+    totalCost+=item.cost;
+    totalShip+=item.ship;
+    totalProfit+=calcItemProfit(item);
+  });
+  document.getElementById('bulkTotalSale').textContent='$'+totalSale.toFixed(2);
+  document.getElementById('bulkTotalCost').textContent='$'+totalCost.toFixed(2);
+  document.getElementById('bulkTotalShip').textContent='$'+totalShip.toFixed(2);
+  document.getElementById('bulkTotalProfit').textContent='$'+totalProfit.toFixed(2);
+  document.getElementById('bulkTotalProfit').style.color=totalProfit>=0?'var(--cyan)':'var(--red)';
+
+  if(bulkItems.length>0){
+    var totalFees=0;
+    var fvf=parseFloat(document.getElementById('bulkStore').value)/100;
+    bulkItems.forEach(function(item){totalFees+=item.sale*fvf+item.sale*0.029+0.30});
+    var margin=totalSale>0?(totalProfit/totalSale*100):0;
+    var h='<div class="result-box"><div class="result-row"><span class="label">Items</span><span class="value">'+bulkItems.length+'</span></div>';
+    h+='<div class="result-row"><span class="label">Total Revenue</span><span class="value green">$'+totalSale.toFixed(2)+'</span></div>';
+    h+='<div class="result-row"><span class="label">Total Fees</span><span class="value red">-$'+totalFees.toFixed(2)+'</span></div>';
+    h+='<div class="result-row"><span class="label">Total COGS + Shipping</span><span class="value red">-$'+(totalCost+totalShip).toFixed(2)+'</span></div>';
+    h+='<div class="result-row big"><span class="label" style="font-weight:700">Total Net Profit</span><span class="value '+(totalProfit>=0?'green':'red')+'">$'+totalProfit.toFixed(2)+'</span></div>';
+    h+='<div class="result-row"><span class="label">Average Margin</span><span class="value">'+margin.toFixed(1)+'%</span></div>';
+    h+='</div>';
+    document.getElementById('bulkSummary').innerHTML=h;
+  }
+}
+
+function clearBulk(){bulkItems=[];renderBulk();document.getElementById('bulkSummary').innerHTML=''}
+
+function parseBulkPaste(){
+  var text=document.getElementById('bulkPaste').value.trim();
+  if(!text){alert('Paste some data first');return}
+  var lines=text.split('\n');
+  lines.forEach(function(line){
+    var parts=line.split(/[,\t]+/).map(function(p){return p.trim()});
+    if(parts.length>=4){
+      addBulkRow(parts[0],parseFloat(parts[1])||0,parseFloat(parts[2])||0,parseFloat(parts[3])||0);
+    } else if(parts.length===3){
+      addBulkRow('Item',parseFloat(parts[0])||0,parseFloat(parts[1])||0,parseFloat(parts[2])||0);
+    }
+  });
+}
+
+function exportBulkCSV(){
+  if(bulkItems.length===0){alert('No items to export');return}
+  var csv='Item Name,Sale Price,Item Cost,Shipping Cost,Net Profit\n';
+  bulkItems.forEach(function(item){
+    var profit=calcItemProfit(item);
+    csv+='"'+item.name.replace(/"/g,'""')+'",'+item.sale.toFixed(2)+','+item.cost.toFixed(2)+','+item.ship.toFixed(2)+','+profit.toFixed(2)+'\n';
+  });
+  var totalProfit=0;bulkItems.forEach(function(i){totalProfit+=calcItemProfit(i)});
+  csv+='"TOTAL",'+(bulkItems.reduce(function(a,b){return a+b.sale},0)).toFixed(2)+','+(bulkItems.reduce(function(a,b){return a+b.cost},0)).toFixed(2)+','+(bulkItems.reduce(function(a,b){return a+b.ship},0)).toFixed(2)+','+totalProfit.toFixed(2)+'\n';
+
+  var blob=new Blob([csv],{type:'text/csv'});
+  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='ebay-profit-report-'+Date.now()+'.csv';a.click();
+}
+
+/* --- Break-Even --- */
+function calcBreakeven(){
+  var cost=parseFloat(document.getElementById('beCost').value)||0;
+  var ship=parseFloat(document.getElementById('beShip').value)||0;
+  var other=parseFloat(document.getElementById('beOther').value)||0;
+  var fvf=(parseFloat(document.getElementById('beFVF').value)||13.25)/100;
+  var promo=(parseFloat(document.getElementById('bePromo').value)||0)/100;
+  var target=parseFloat(document.getElementById('beTarget').value)||0;
+
+  var totalCosts=cost+ship+other+target;
+  // sale - sale*fvf - sale*0.029 - 0.30 - sale*promo = totalCosts
+  // sale*(1 - fvf - 0.029 - promo) = totalCosts + 0.30
+  var rate=1-fvf-0.029-promo;
+  var breakeven=(totalCosts+0.30)/rate;
+
+  var fees=breakeven*fvf+breakeven*0.029+0.30+breakeven*promo;
+
+  var h='<div class="big-number profit-neutral"><div class="num">$'+breakeven.toFixed(2)+'</div><div class="sub">Minimum Sale Price'+(target>0?' (includes $'+target.toFixed(2)+' target profit)':'')+'</div></div>';
+  h+='<div class="result-box">';
+  h+='<div class="result-row"><span class="label">Item Cost</span><span class="value">$'+cost.toFixed(2)+'</span></div>';
+  h+='<div class="result-row"><span class="label">Shipping Cost</span><span class="value">$'+ship.toFixed(2)+'</span></div>';
+  if(other>0)h+='<div class="result-row"><span class="label">Other Costs</span><span class="value">$'+other.toFixed(2)+'</span></div>';
+  h+='<div class="result-row"><span class="label">eBay Fees at Break-Even</span><span class="value red">$'+fees.toFixed(2)+'</span></div>';
+  if(target>0)h+='<div class="result-row"><span class="label">Target Profit</span><span class="value green">$'+target.toFixed(2)+'</span></div>';
+  h+='<div class="result-row big"><span class="label" style="font-weight:700">Break-Even Price</span><span class="value" style="font-size:1.3rem">$'+breakeven.toFixed(2)+'</span></div>';
+  h+='</div>';
+
+  h+='<div class="tip-box"><strong>Pricing guide:</strong> List at $'+(breakeven*1.1).toFixed(2)+' for 10% margin, $'+(breakeven*1.2).toFixed(2)+' for 20% margin, $'+(breakeven*1.5).toFixed(2)+' for 50% margin.</div>';
+
+  document.getElementById('beResult').innerHTML=h;
+}
+
+/* --- Income Projector --- */
+function calcProjection(){
+  var items=parseInt(document.getElementById('projItems').value)||0;
+  var avgSale=parseFloat(document.getElementById('projAvgSale').value)||0;
+  var avgCost=parseFloat(document.getElementById('projAvgCost').value)||0;
+  var avgShip=parseFloat(document.getElementById('projAvgShip').value)||0;
+  var fvf=(parseFloat(document.getElementById('projFVF').value)||13.25)/100;
+  var promo=(parseFloat(document.getElementById('projPromo').value)||0)/100;
+
+  var perItemFees=avgSale*fvf+avgSale*0.029+0.30+(avgSale*promo);
+  var perItemProfit=avgSale-perItemFees-avgCost-avgShip;
+  var monthlyRevenue=items*avgSale;
+  var monthlyFees=items*perItemFees;
+  var monthlyCOGS=items*(avgCost+avgShip);
+  var monthlyProfit=items*perItemProfit;
+  var annualProfit=monthlyProfit*12;
+
+  var h='<div class="gauge-wrap">';
+  h+='<div class="gauge"><div class="val" style="color:var(--cyan)">$'+monthlyRevenue.toFixed(0)+'</div><div class="lbl">Monthly Revenue</div></div>';
+  h+='<div class="gauge"><div class="val" style="color:'+(monthlyProfit>=0?'var(--cyan)':'var(--red)')+'">$'+monthlyProfit.toFixed(0)+'</div><div class="lbl">Monthly Profit</div></div>';
+  h+='<div class="gauge"><div class="val" style="color:'+(annualProfit>=0?'var(--gold)':'var(--red)')+'">$'+annualProfit.toFixed(0)+'</div><div class="lbl">Annual Profit</div></div>';
+  h+='</div>';
+
+  h+='<div class="result-box">';
+  h+='<div class="result-row section-header"><span class="label">Monthly Breakdown</span><span></span></div>';
+  h+='<div class="result-row"><span class="label">Items Sold</span><span class="value">'+items+'</span></div>';
+  h+='<div class="result-row"><span class="label">Gross Revenue</span><span class="value green">$'+monthlyRevenue.toFixed(2)+'</span></div>';
+  h+='<div class="result-row"><span class="label">Total eBay Fees</span><span class="value red">-$'+monthlyFees.toFixed(2)+'</span></div>';
+  h+='<div class="result-row"><span class="label">Total COGS + Shipping</span><span class="value red">-$'+monthlyCOGS.toFixed(2)+'</span></div>';
+  h+='<div class="result-row big"><span class="label" style="font-weight:700">Monthly Net Profit</span><span class="value '+(monthlyProfit>=0?'green':'red')+'">$'+monthlyProfit.toFixed(2)+'</span></div>';
+
+  h+='<div class="result-row section-header"><span class="label">Per Item</span><span></span></div>';
+  h+='<div class="result-row"><span class="label">Profit per Item</span><span class="value '+(perItemProfit>=0?'green':'red')+'">$'+perItemProfit.toFixed(2)+'</span></div>';
+  h+='<div class="result-row"><span class="label">Fees per Item</span><span class="value red">$'+perItemFees.toFixed(2)+'</span></div>';
+
+  h+='<div class="result-row section-header"><span class="label">Annual Projection</span><span></span></div>';
+  h+='<div class="result-row"><span class="label">Annual Revenue</span><span class="value">$'+(monthlyRevenue*12).toFixed(0)+'</span></div>';
+  h+='<div class="result-row big"><span class="label" style="font-weight:700">Annual Net Profit</span><span class="value '+(annualProfit>=0?'green':'red')+'">$'+annualProfit.toFixed(0)+'</span></div>';
+  h+='</div>';
+
+  // Auto-fill tax calculator
+  document.getElementById('taxProfit').value=Math.round(annualProfit);
+
+  h+='<div class="tip-box"><strong>If you sell '+items+' items/month at $'+avgSale.toFixed(2)+' average:</strong> You\'ll make $'+monthlyProfit.toFixed(2)+'/month ($'+annualProfit.toFixed(0)+'/year). That\'s $'+(perItemProfit).toFixed(2)+' profit per sale.</div>';
+
+  document.getElementById('projResult').innerHTML=h;
+}
+
+/* --- Tax Estimate --- */
+function calcTax(){
+  var profit=parseFloat(document.getElementById('taxProfit').value)||0;
+  var status=document.getElementById('taxStatus').value;
+
+  // Self-employment tax: 15.3% on 92.35% of net earnings
+  var seBase=profit*0.9235;
+  var seTax=seBase*0.153;
+  var seDeduction=seTax/2;
+
+  // Simplified federal income tax estimate
+  var taxableIncome=profit-seDeduction-((status==='married')?29200:14600); // 2024 standard deduction
+  if(taxableIncome<0)taxableIncome=0;
+
+  var fedTax=0;
+  if(status==='single'){
+    if(taxableIncome<=11600)fedTax=taxableIncome*0.10;
+    else if(taxableIncome<=47150)fedTax=1160+(taxableIncome-11600)*0.12;
+    else if(taxableIncome<=100525)fedTax=5426+(taxableIncome-47150)*0.22;
+    else fedTax=17168.50+(taxableIncome-100525)*0.24;
+  } else {
+    if(taxableIncome<=23200)fedTax=taxableIncome*0.10;
+    else if(taxableIncome<=94300)fedTax=2320+(taxableIncome-23200)*0.12;
+    else if(taxableIncome<=201050)fedTax=10852+(taxableIncome-94300)*0.22;
+    else fedTax=34337+(taxableIncome-201050)*0.24;
+  }
+
+  var totalTax=seTax+fedTax;
+  var effectiveRate=profit>0?(totalTax/profit*100):0;
+  var afterTax=profit-totalTax;
+  var quarterlyPayment=totalTax/4;
+
+  var h='<div class="result-box" style="margin-top:0.75rem">';
+  h+='<div class="result-row"><span class="label">Net Profit</span><span class="value">$'+profit.toFixed(0)+'</span></div>';
+  h+='<div class="result-row"><span class="label">Self-Employment Tax (15.3%)</span><span class="value red">-$'+seTax.toFixed(0)+'</span></div>';
+  h+='<div class="result-row"><span class="label">Estimated Federal Income Tax</span><span class="value red">-$'+fedTax.toFixed(0)+'</span></div>';
+  h+='<div class="result-row"><span class="label">Total Estimated Tax</span><span class="value red">-$'+totalTax.toFixed(0)+'</span></div>';
+  h+='<div class="result-row"><span class="label">Effective Tax Rate</span><span class="value">'+effectiveRate.toFixed(1)+'%</span></div>';
+  h+='<div class="result-row big"><span class="label" style="font-weight:700">After-Tax Income</span><span class="value green">$'+afterTax.toFixed(0)+'</span></div>';
+  h+='<div class="result-row"><span class="label">Quarterly Tax Payment</span><span class="value">$'+quarterlyPayment.toFixed(0)+'</span></div>';
+  h+='</div>';
+  h+='<div class="tip-box"><strong>Important:</strong> This is an estimate. Actual taxes depend on your full financial picture, state taxes, deductions, and credits. Set aside ~'+Math.ceil(effectiveRate)+'% of profit for taxes. Pay quarterly to avoid penalties (due Apr 15, Jun 15, Sep 15, Jan 15).</div>';
+
+  document.getElementById('taxResult').innerHTML=h;
+}
+
+function escapeHtml(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+
+// Init with 3 bulk rows
+addBulkRow();addBulkRow();addBulkRow();
+
+function shareX(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Calculating my exact eBay profit after fees with this tool. Free with code SPUNK @SpunkArt13')+'&url='+encodeURIComponent('https://spunk.codes/exclusive-tools'),'_blank')}
+function shareReddit(){window.open('https://www.reddit.com/submit?url='+encodeURIComponent('https://spunk.codes/exclusive-tools')+'&title='+encodeURIComponent('eBay Profit Calculator - free with code SPUNK [spunk.codes]'),'_blank')}
+function shareEmail(){window.location.href='mailto:?subject='+encodeURIComponent('eBay Profit Calculator')+'&body='+encodeURIComponent('Calculate exact eBay profit after all fees. Code SPUNK: https://spunk.codes/exclusive-tools')}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<script src="/auto-monetize.js"></script>
+<div id="shareXBtn" style="position:fixed;left:20px;bottom:20px;z-index:9999;">
+  <a id="shareXLink" href="#" target="_blank" rel="noopener noreferrer" title="Share on X"
+     style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;
+     background:rgba(88,166,255,0.15);border:1px solid rgba(88,166,255,0.3);
+     backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:50%;
+     text-decoration:none;transition:all 0.3s ease;cursor:pointer;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+    </svg>
+  </a>
+</div>
+<style>#shareXBtn a:hover{background:rgba(88,166,255,0.35)!important;border-color:rgba(88,166,255,0.6)!important;transform:scale(1.1);box-shadow:0 0 15px rgba(88,166,255,0.3)}</style>
+<script>
+(function(){
+  var page=location.pathname.split("/").pop()||"index.html";
+  var url="https://spunk.codes/"+page;
+  var text="Just used this free tool on spunk.codes — amazing! @SpunkArt13";
+  var href="https://x.com/intent/tweet?text="+encodeURIComponent(text)+"&url="+encodeURIComponent(url);
+  document.getElementById("shareXLink").href=href;
+})();
+</script>
+<script src="/usage-tracker.js"></script>
+</body>
+</html>

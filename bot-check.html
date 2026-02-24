@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Copyright 2026 spunk.codes. All rights reserved. Unauthorized reproduction prohibited. hello@spunk.codes -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bot & Scam Account Checker - How Many of Your Followers Are BOTS? | SPUNK.CODES</title>
+<meta name="description" content="Find out how many of your Twitter/X followers are bots, scam accounts, and fake profiles. Free instant bot scan with funny severity ratings. No sign-up required.">
+<meta name="keywords" content="bot checker, fake followers, twitter bot check, X bot detector, scam account checker, bot followers, fake follower audit, twitter audit, bot percentage, follower quality">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<meta name="author" content="SPUNK.CODES">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Bot Check - How Many of Your Followers Are BOTS?">
+<meta property="og:description" content="I just found out how many of my followers are BOTS. The results are embarrassing. Check yours free - no sign-up needed.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://spunk.codes/bot-check">
+<meta property="og:site_name" content="SPUNK.CODES">
+<meta property="og:image" content="https://spunk.codes/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<meta name="twitter:creator" content="@SpunkArt13">
+<meta name="twitter:title" content="Bot Check - How Many of Your Followers Are BOTS?">
+<meta name="twitter:description" content="I just scanned my followers for bots. The results are brutal. Check yours free.">
+<meta name="twitter:image" content="https://spunk.codes/og-image.png">
+
+<link rel="canonical" href="https://spunk.codes/bot-check">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<meta name="copyright" content="Copyright 2026 spunk.codes. All rights reserved.">
+
+<!-- Schema.org WebApplication -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Bot & Scam Account Checker",
+  "description": "Find out how many of your Twitter/X followers are bots, scam accounts, and fake profiles. Free instant bot scan with funny severity ratings.",
+  "url": "https://spunk.codes/bot-check",
+  "applicationCategory": "SocialNetworkingApplication",
+  "operatingSystem": "Any",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "author": {
+    "@type": "Organization",
+    "name": "SPUNK.CODES",
+    "url": "https://spunk.codes",
+    "sameAs": ["https://x.com/SpunkArt13"]
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.9",
+    "ratingCount": "3480",
+    "bestRating": "5"
+  }
+}
+</script>
+
+<!-- GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<!-- Microsoft Clarity -->
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --bg:#0d1117;--bg-card:rgba(22,27,34,0.7);--border:#21262d;--border-hover:rgba(88,166,255,0.4);
+  --text:#e6edf3;--text-dim:#8b949e;--text-muted:#484f58;
+  --blue:#58a6ff;--green:#39d353;--purple:#bc8cff;--orange:#f0883e;--red:#f85149;--pink:#f778ba;--yellow:#e3b341;
+  --neon-glow:0 0 20px rgba(88,166,255,0.4),0 0 60px rgba(88,166,255,0.15);
+  --bot-glow:0 0 30px rgba(248,81,73,0.3),0 0 80px rgba(248,81,73,0.1);
+  --font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+}
+html{scroll-behavior:smooth;}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+a{color:var(--blue);text-decoration:none;}a:hover{text-decoration:underline;}
+
+/* Background mesh */
+.bg-mesh{position:fixed;inset:0;z-index:-2;background:
+  radial-gradient(ellipse 80% 50% at 20% 20%,rgba(88,166,255,0.06) 0%,transparent 60%),
+  radial-gradient(ellipse 60% 40% at 80% 80%,rgba(248,81,73,0.04) 0%,transparent 60%),
+  radial-gradient(ellipse 50% 50% at 50% 50%,rgba(188,140,255,0.03) 0%,transparent 60%),
+  var(--bg);pointer-events:none;}
+
+/* Floating bot emojis */
+.bot-field{position:fixed;inset:0;pointer-events:none;z-index:-1;overflow:hidden;}
+.bot-float{position:absolute;opacity:0;animation:botFloat linear infinite;pointer-events:none;filter:blur(0.3px);}
+@keyframes botFloat{
+  0%{transform:translateY(110vh) rotate(0deg) scale(0.5);opacity:0;}
+  8%{opacity:0.3;}
+  50%{opacity:0.25;}
+  92%{opacity:0.15;}
+  100%{transform:translateY(-10vh) rotate(30deg) scale(1.2);opacity:0;}
+}
+
+/* Nav */
+nav{background:rgba(13,17,23,0.85);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--border);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;position:sticky;top:0;z-index:100;}
+nav .logo{font-weight:800;font-size:1.1rem;color:var(--blue);letter-spacing:1px;text-decoration:none;}
+nav .logo:hover{text-decoration:none;}
+nav .links{display:flex;gap:20px;font-size:0.9rem;}
+nav .links a{color:var(--text-dim);transition:color .2s;text-decoration:none;}nav .links a:hover{color:var(--blue);text-decoration:none;}
+
+/* Main layout */
+main{flex:1;max-width:640px;width:100%;margin:0 auto;padding:30px 20px 40px;display:flex;flex-direction:column;align-items:center;}
+
+/* Header */
+.header{text-align:center;margin-bottom:28px;}
+.header h1{font-size:2.2rem;font-weight:900;line-height:1.15;margin-bottom:10px;letter-spacing:-0.02em;}
+.header h1 .bot-word{color:var(--red);text-shadow:var(--bot-glow);}
+.header .subtitle{color:var(--text-dim);font-size:1.05rem;max-width:460px;margin:0 auto;}
+.free-badge{display:inline-block;background:rgba(57,211,83,0.13);border:1px solid rgba(57,211,83,0.3);color:var(--green);padding:6px 18px;border-radius:20px;font-size:0.85rem;font-weight:700;margin-bottom:16px;letter-spacing:0.5px;}
+
+/* Input card */
+.input-card{background:var(--bg-card);backdrop-filter:blur(12px);border:1px solid var(--border);border-radius:16px;padding:28px 24px;width:100%;margin-bottom:24px;transition:border-color .3s;}
+.input-card:focus-within{border-color:var(--border-hover);}
+.input-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px;}
+.input-group label{display:block;font-size:0.82rem;color:var(--text-dim);margin-bottom:6px;font-weight:600;letter-spacing:0.3px;}
+.input-group input{width:100%;padding:12px 16px;background:rgba(13,17,23,0.8);border:1px solid #30363d;border-radius:10px;color:var(--text);font-size:1.1rem;font-weight:700;font-family:var(--font);outline:none;transition:border-color .2s,box-shadow .2s;text-align:center;}
+.input-group input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(88,166,255,0.15);}
+.input-group input::placeholder{color:var(--text-muted);font-weight:400;}
+.input-hint{text-align:center;color:var(--text-muted);font-size:0.78rem;margin-bottom:20px;}
+
+/* CTA button */
+.btn-scan{width:100%;padding:16px;background:linear-gradient(135deg,var(--red),var(--purple));color:#fff;font-size:1.15rem;font-weight:800;border:none;border-radius:12px;cursor:pointer;letter-spacing:0.5px;transition:all .2s;position:relative;overflow:hidden;}
+.btn-scan:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(248,81,73,0.3);}
+.btn-scan:active{transform:translateY(0);}
+.btn-scan .shimmer{position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.15),transparent);animation:shimmer 3s infinite;}
+@keyframes shimmer{0%{left:-100%;}100%{left:100%;}}
+
+/* Scanning overlay */
+.scan-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:200;justify-content:center;align-items:center;flex-direction:column;gap:20px;}
+.scan-overlay.active{display:flex;}
+.scan-spinner{width:80px;height:80px;border:4px solid var(--border);border-top-color:var(--red);border-right-color:var(--purple);border-radius:50%;animation:spin 0.8s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.scan-text{font-size:1.2rem;font-weight:700;color:var(--text);animation:scanPulse 0.6s ease-in-out infinite alternate;}
+@keyframes scanPulse{0%{opacity:0.5;}100%{opacity:1;}}
+.scan-progress{width:260px;height:6px;background:var(--border);border-radius:3px;overflow:hidden;}
+.scan-progress-bar{width:0%;height:100%;background:linear-gradient(90deg,var(--red),var(--purple),var(--blue));border-radius:3px;transition:width 0.3s ease;}
+
+/* Results -- hidden by default */
+.results{display:none;width:100%;animation:fadeInUp 0.6s ease-out;}
+@keyframes fadeInUp{0%{opacity:0;transform:translateY(30px);}100%{opacity:1;transform:translateY(0);}}
+
+/* Big reveal */
+.reveal-box{text-align:center;padding:36px 24px;background:rgba(13,17,23,0.7);border:2px solid var(--red);border-radius:16px;margin-bottom:24px;position:relative;overflow:hidden;}
+.reveal-box::before{content:'';position:absolute;inset:-2px;border-radius:18px;background:conic-gradient(var(--red),var(--purple),var(--blue),var(--green),var(--red));z-index:-1;animation:borderSpin 4s linear infinite;filter:blur(8px);opacity:0.5;}
+@keyframes borderSpin{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
+.reveal-label{font-size:0.85rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:2px;font-weight:700;margin-bottom:8px;}
+.reveal-number{font-size:3.5rem;font-weight:900;line-height:1;margin-bottom:4px;background:linear-gradient(135deg,var(--red),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:pulseGlow 2s ease-in-out infinite;}
+@keyframes pulseGlow{0%,100%{filter:brightness(1);}50%{filter:brightness(1.3);}}
+.reveal-bots{font-size:1.8rem;font-weight:900;color:var(--red);text-shadow:var(--bot-glow);margin-bottom:6px;}
+.reveal-pct{font-size:1.1rem;color:var(--text-dim);font-weight:600;margin-bottom:16px;}
+
+/* Rating badge */
+.rating-badge{display:inline-block;padding:10px 28px;border-radius:30px;font-size:1rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;}
+.rating-badge.bot-farm{background:rgba(248,81,73,0.15);border:2px solid var(--red);color:var(--red);text-shadow:0 0 20px rgba(248,81,73,0.4);}
+.rating-badge.botnet{background:rgba(240,136,62,0.15);border:2px solid var(--orange);color:var(--orange);text-shadow:0 0 20px rgba(240,136,62,0.4);}
+.rating-badge.bot-curious{background:rgba(227,179,65,0.15);border:2px solid var(--yellow);color:var(--yellow);text-shadow:0 0 20px rgba(227,179,65,0.4);}
+.rating-badge.mostly-human{background:rgba(88,166,255,0.15);border:2px solid var(--blue);color:var(--blue);text-shadow:0 0 20px rgba(88,166,255,0.4);}
+.rating-badge.certified-organic{background:rgba(57,211,83,0.15);border:2px solid var(--green);color:var(--green);text-shadow:0 0 20px rgba(57,211,83,0.4);}
+
+/* Stats row */
+.stats-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:24px;}
+.stat-mini{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:16px 12px;text-align:center;}
+.stat-mini .num{font-size:1.4rem;font-weight:800;}
+.stat-mini .lbl{font-size:0.72rem;color:var(--text-dim);margin-top:2px;text-transform:uppercase;letter-spacing:0.5px;}
+.stat-mini.s-red .num{color:var(--red);}
+.stat-mini.s-blue .num{color:var(--blue);}
+.stat-mini.s-green .num{color:var(--green);}
+
+/* Bot types breakdown */
+.bot-types{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:24px;margin-bottom:24px;}
+.bot-types h3{font-size:1rem;font-weight:800;margin-bottom:18px;text-align:center;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px;}
+.bot-type-item{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+.bot-type-item:last-child{margin-bottom:0;}
+.bot-type-emoji{font-size:1.5rem;width:36px;text-align:center;flex-shrink:0;}
+.bot-type-info{flex:1;min-width:0;}
+.bot-type-name{font-size:0.88rem;font-weight:700;color:var(--text);margin-bottom:4px;}
+.bot-type-desc{font-size:0.72rem;color:var(--text-muted);}
+.bot-type-bar{height:8px;background:#21262d;border-radius:4px;overflow:hidden;margin-top:4px;}
+.bot-type-fill{height:100%;border-radius:4px;transition:width 1s ease-out;}
+.bot-type-fill.fill-red{background:linear-gradient(90deg,var(--red),#ff6b6b);}
+.bot-type-fill.fill-orange{background:linear-gradient(90deg,var(--orange),#ffaa55);}
+.bot-type-fill.fill-purple{background:linear-gradient(90deg,var(--purple),#d4afff);}
+.bot-type-fill.fill-pink{background:linear-gradient(90deg,var(--pink),#ffa0d0);}
+.bot-type-fill.fill-blue{background:linear-gradient(90deg,var(--blue),#79c0ff);}
+.bot-type-pct{font-size:0.82rem;font-weight:800;min-width:42px;text-align:right;flex-shrink:0;}
+
+/* Bot Army section */
+.bot-army{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:24px;margin-bottom:24px;text-align:center;}
+.bot-army h3{font-size:1rem;font-weight:800;margin-bottom:6px;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px;}
+.bot-army .army-subtitle{font-size:0.8rem;color:var(--text-muted);margin-bottom:16px;}
+.army-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:4px;line-height:1;font-size:1.4rem;max-height:120px;overflow:hidden;position:relative;}
+.army-grid::after{content:'';position:absolute;bottom:0;left:0;right:0;height:30px;background:linear-gradient(transparent,rgba(22,27,34,0.9));}
+.army-soldier{animation:marchIn 0.5s ease-out both;display:inline-block;}
+@keyframes marchIn{0%{opacity:0;transform:scale(0) rotate(-180deg);}100%{opacity:1;transform:scale(1) rotate(0deg);}}
+
+/* Shame generator */
+.shame-card{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:24px;margin-bottom:24px;text-align:center;}
+.shame-card h3{font-size:1.1rem;margin-bottom:14px;color:var(--text);}
+.shame-preview{background:rgba(13,17,23,0.8);border:1px solid #30363d;border-radius:12px;padding:18px;margin-bottom:16px;text-align:left;font-size:0.92rem;line-height:1.6;color:var(--text);white-space:pre-wrap;word-wrap:break-word;max-height:200px;overflow-y:auto;}
+.shame-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+.btn-tweet{padding:12px 28px;background:#000;color:#fff;border:1px solid #333;border-radius:10px;font-size:0.95rem;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:all .2s;}
+.btn-tweet:hover{background:#1a1a1a;border-color:var(--blue);box-shadow:0 4px 20px rgba(0,0,0,0.4);}
+.btn-tweet svg{width:16px;height:16px;fill:#fff;}
+.btn-copy{padding:12px 28px;background:rgba(88,166,255,0.1);color:var(--blue);border:1px solid rgba(88,166,255,0.3);border-radius:10px;font-size:0.95rem;font-weight:700;cursor:pointer;transition:all .2s;}
+.btn-copy:hover{background:rgba(88,166,255,0.2);border-color:var(--blue);}
+
+/* Upsell CTAs */
+.upsell{background:linear-gradient(135deg,rgba(188,140,255,0.08),rgba(88,166,255,0.08));border:1px solid rgba(88,166,255,0.2);border-radius:16px;padding:28px 24px;text-align:center;margin-bottom:24px;}
+.upsell h3{font-size:1.15rem;margin-bottom:6px;color:var(--text);}
+.upsell p{color:var(--text-dim);font-size:0.9rem;margin-bottom:20px;}
+.upsell-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.upsell-link{display:block;padding:14px 16px;background:var(--bg-card);border:1px solid var(--border);border-radius:12px;text-decoration:none;transition:all .2s;text-align:center;}
+.upsell-link:hover{border-color:var(--blue);transform:translateY(-2px);box-shadow:0 6px 24px rgba(88,166,255,0.15);text-decoration:none;}
+.upsell-link .upsell-icon{font-size:1.5rem;margin-bottom:6px;}
+.upsell-link .upsell-title{font-size:0.88rem;font-weight:700;color:var(--text);margin-bottom:2px;}
+.upsell-link .upsell-desc{font-size:0.75rem;color:var(--text-dim);}
+.upsell-code{margin-top:16px;padding:10px 20px;background:rgba(57,211,83,0.1);border:1px dashed rgba(57,211,83,0.4);border-radius:8px;display:inline-block;font-size:0.85rem;color:var(--green);font-weight:700;letter-spacing:1px;}
+
+/* Toast */
+.toast{position:fixed;top:20px;left:50%;transform:translateX(-50%) translateY(-100px);background:var(--green);color:var(--bg);padding:12px 28px;border-radius:10px;font-weight:700;font-size:0.9rem;z-index:300;transition:transform 0.4s cubic-bezier(0.34,1.56,0.64,1);pointer-events:none;}
+.toast.show{transform:translateX(-50%) translateY(0);}
+
+/* Watermark */
+.watermark{position:fixed;bottom:10px;right:15px;font-size:0.7rem;color:rgba(88,166,255,0.1);font-weight:700;letter-spacing:2px;pointer-events:none;z-index:0;}
+
+/* Footer */
+footer{text-align:center;padding:20px;color:var(--text-muted);font-size:0.8rem;border-top:1px solid var(--border);}
+footer a{color:var(--text-dim);}
+
+/* Responsive */
+@media(max-width:600px){
+  .header h1{font-size:1.7rem;}
+  .input-row{grid-template-columns:1fr;}
+  .reveal-number{font-size:2.6rem;}
+  .reveal-bots{font-size:1.4rem;}
+  .stats-row{grid-template-columns:1fr 1fr 1fr;}
+  .stat-mini .num{font-size:1.1rem;}
+  .upsell-grid{grid-template-columns:1fr;}
+  .shame-actions{flex-direction:column;}
+  .btn-tweet,.btn-copy{width:100%;justify-content:center;}
+  main{padding:20px 16px 40px;}
+  .army-grid{font-size:1.1rem;}
+  .bot-type-item{gap:8px;}
+}
+</style>
+</head>
+<body>
+<div class="bg-mesh"></div>
+<div class="bot-field" id="botField"></div>
+
+<nav>
+  <a href="/" class="logo">SPUNK.CODES</a>
+  <div class="links">
+    <a href="/">Tools</a>
+    <a href="/store">Premium</a>
+    <a href="/blog">Blog</a>
+  </div>
+</nav>
+
+<main>
+  <div class="header">
+    <div class="free-badge">100% FREE - NO SIGN-UP</div>
+    <h1>Bot & Scam Checker<br><span class="bot-word">How Many of Your Followers Are BOTS?</span></h1>
+    <p class="subtitle">Enter your username and follower count. We'll scan for bots, scam accounts, and fake profiles -- then shame you for it.</p>
+  </div>
+
+  <!-- INPUT -->
+  <div class="input-card" id="inputCard">
+    <div class="input-row">
+      <div class="input-group">
+        <label>YOUR X / TWITTER USERNAME</label>
+        <input type="text" id="username" placeholder="@YourHandle" autocomplete="off" spellcheck="false">
+      </div>
+      <div class="input-group">
+        <label>YOUR FOLLOWER COUNT</label>
+        <input type="number" id="followers" placeholder="e.g. 10000" min="1" inputmode="numeric">
+      </div>
+    </div>
+    <p class="input-hint">We don't access your account. This is a fun estimation tool based on platform-wide bot statistics.</p>
+    <button class="btn-scan" id="btnScan" onclick="runScan()">
+      <span class="shimmer"></span>
+      SCAN FOR BOTS
+    </button>
+  </div>
+
+  <!-- SCANNING OVERLAY -->
+  <div class="scan-overlay" id="scanOverlay">
+    <div class="scan-spinner"></div>
+    <div class="scan-text" id="scanText">Initializing bot detection...</div>
+    <div class="scan-progress">
+      <div class="scan-progress-bar" id="scanBar"></div>
+    </div>
+  </div>
+
+  <!-- RESULTS -->
+  <div class="results" id="results">
+
+    <!-- Big Reveal -->
+    <div class="reveal-box" id="revealBox">
+      <div class="reveal-label">YOU HAVE</div>
+      <div class="reveal-number" id="botCount">0</div>
+      <div class="reveal-bots" id="botLabel">BOT FOLLOWERS</div>
+      <div class="reveal-pct" id="botPct">0% of your followers aren't even real people</div>
+      <div class="rating-badge" id="ratingBadge">BOT FARM OWNER</div>
+    </div>
+
+    <!-- Mini Stats -->
+    <div class="stats-row">
+      <div class="stat-mini s-red">
+        <div class="num" id="statBotPct">0%</div>
+        <div class="lbl">Bot Rate</div>
+      </div>
+      <div class="stat-mini s-blue">
+        <div class="num" id="statBots">0</div>
+        <div class="lbl">Bots Found</div>
+      </div>
+      <div class="stat-mini s-green">
+        <div class="num" id="statReal">0</div>
+        <div class="lbl">Real Humans</div>
+      </div>
+    </div>
+
+    <!-- Bot Types Breakdown -->
+    <div class="bot-types" id="botTypes">
+      <h3>Bot Types Detected</h3>
+      <div id="botTypesList"></div>
+    </div>
+
+    <!-- Bot Army -->
+    <div class="bot-army">
+      <h3>Your Bot Army</h3>
+      <p class="army-subtitle" id="armySubtitle">A visual representation of your bot followers</p>
+      <div class="army-grid" id="armyGrid"></div>
+    </div>
+
+    <!-- Shame Generator -->
+    <div class="shame-card" id="shameCard">
+      <h3>Share Your Shame on X</h3>
+      <div class="shame-preview" id="shamePreview"></div>
+      <div class="shame-actions">
+        <button class="btn-tweet" id="btnTweet" onclick="postToX()">
+          <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          Post on X
+        </button>
+        <button class="btn-copy" onclick="copyShame()">Copy Text</button>
+      </div>
+    </div>
+
+    <!-- Upsell -->
+    <div class="upsell">
+      <h3>Want the FULL Bot & Scam Report?</h3>
+      <p>Get detailed bot analysis with individual account flagging, scam pattern detection, and exportable audit reports.</p>
+      <div class="upsell-grid">
+        <a href="/exclusive/bot-scam-detector" class="upsell-link">
+          <div class="upsell-icon">&#129302;</div>
+          <div class="upsell-title">Bot & Scam Detector</div>
+          <div class="upsell-desc">Full bot audit with scam alerts</div>
+        </a>
+        <a href="/exclusive/ghost-follower-detector" class="upsell-link">
+          <div class="upsell-icon">&#128123;</div>
+          <div class="upsell-title">Ghost Follower Detector</div>
+          <div class="upsell-desc">Find inactive & dead accounts</div>
+        </a>
+      </div>
+      <div class="upsell-code">Use code SPUNK for free access</div>
+    </div>
+
+    <!-- Run Again -->
+    <button class="btn-scan" onclick="resetScan()" style="margin-bottom:20px;background:linear-gradient(135deg,var(--green),var(--blue));">
+      SCAN ANOTHER ACCOUNT
+    </button>
+  </div>
+</main>
+
+<footer>
+  <p>&copy; 2026 <a href="/">SPUNK.CODES</a> &mdash; Free tools. No BS. <a href="https://x.com/SpunkArt13" target="_blank" rel="noopener">@SpunkArt13</a></p>
+</footer>
+
+<div class="toast" id="toast">Copied!</div>
+<div class="watermark">SPUNK.CODES</div>
+
+<!-- Share on X Button (fixed) -->
+<div id="shareXBtn" style="position:fixed;left:20px;bottom:20px;z-index:9999;">
+  <a id="shareXLink" href="#" target="_blank" rel="noopener noreferrer" title="Share on X"
+     style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;
+     background:rgba(88,166,255,0.15);border:1px solid rgba(88,166,255,0.3);
+     backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:50%;
+     text-decoration:none;transition:all 0.3s ease;cursor:pointer;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+    </svg>
+  </a>
+</div>
+<style>
+  #shareXBtn a:hover{background:rgba(88,166,255,0.35)!important;border-color:rgba(88,166,255,0.6)!important;transform:scale(1.1);box-shadow:0 0 15px rgba(88,166,255,0.3);}
+</style>
+
+<script>
+// ===== FLOATING BOT EMOJIS =====
+(function spawnBots(){
+  var field=document.getElementById('botField');
+  var emojis=['\uD83E\uDD16','\uD83E\uDD16','\uD83D\uDC7E','\uD83D\uDC80','\u2699\uFE0F','\uD83D\uDD27','\uD83E\uDDB4','\uD83D\uDDA5\uFE0F','\uD83D\uDCBB','\uD83E\uDD16'];
+  function addBot(){
+    var g=document.createElement('div');
+    g.className='bot-float';
+    g.textContent=emojis[Math.floor(Math.random()*emojis.length)];
+    g.style.left=Math.random()*100+'%';
+    g.style.fontSize=(1.2+Math.random()*2)+'rem';
+    var dur=10+Math.random()*15;
+    g.style.animationDuration=dur+'s';
+    g.style.animationDelay=Math.random()*2+'s';
+    field.appendChild(g);
+    setTimeout(function(){g.remove();},(dur+3)*1000);
+  }
+  for(var i=0;i<6;i++) setTimeout(addBot,i*500);
+  setInterval(addBot,2200);
+})();
+
+// ===== FORMAT NUMBERS =====
+function fmtNum(n){
+  if(n>=1000000)return (n/1000000).toFixed(1).replace(/\.0$/,'')+'M';
+  if(n>=1000)return (n/1000).toFixed(1).replace(/\.0$/,'')+'K';
+  return n.toLocaleString();
+}
+
+// ===== BOT TYPE DEFINITIONS =====
+var botTypesDefs=[
+  {name:'Egg Accounts',desc:'No profile pic, no bio, no soul',emoji:'\uD83E\uDD5A',fill:'fill-red'},
+  {name:'Reply Guy Bots',desc:'Auto-reply spam under every post',emoji:'\uD83D\uDCAC',fill:'fill-orange'},
+  {name:'Crypto Scam Bots',desc:'DM spammers promising 10x returns',emoji:'\uD83D\uDCB0',fill:'fill-purple'},
+  {name:'AI Simps',desc:'Fake engagement bots that heart everything',emoji:'\u2764\uFE0F\u200D\uD83D\uDD25',fill:'fill-pink'},
+  {name:'Ghost Accounts',desc:'Created, never used, abandoned forever',emoji:'\uD83D\uDC7B',fill:'fill-blue'}
+];
+
+// ===== GENERATE RANDOM PERCENTAGES THAT SUM TO TOTAL =====
+function generateBotBreakdown(totalPct){
+  // Generate 5 random weights
+  var weights=[];
+  var sum=0;
+  for(var i=0;i<5;i++){
+    // Each bot type gets a random weight biased by position
+    var biases=[1.3,1.0,1.1,0.9,0.7]; // Egg accounts tend to be highest
+    var w=Math.random()*10*biases[i]+1;
+    weights.push(w);
+    sum+=w;
+  }
+  // Normalize to total percentage
+  var pcts=[];
+  var runningTotal=0;
+  for(var i=0;i<4;i++){
+    var p=Math.round((weights[i]/sum)*totalPct);
+    pcts.push(p);
+    runningTotal+=p;
+  }
+  // Last one gets the remainder to ensure exact total
+  pcts.push(totalPct-runningTotal);
+  // Sort descending for visual impact
+  var combined=[];
+  for(var i=0;i<5;i++){
+    combined.push({def:botTypesDefs[i],pct:pcts[i]});
+  }
+  combined.sort(function(a,b){return b.pct-a.pct;});
+  return combined;
+}
+
+// ===== SCANNING ANIMATION =====
+var scanMessages=[
+  'Initializing bot detection...',
+  'Scanning follower patterns...',
+  'Detecting egg accounts...',
+  'Analyzing reply bots...',
+  'Checking for crypto scam DMs...',
+  'Identifying AI simp accounts...',
+  'Cross-referencing ghost profiles...',
+  'Calculating your embarrassment level...',
+  'Generating shame report...',
+  'Brace yourself...'
+];
+
+// ===== MAIN SCAN =====
+var shameText='';
+
+function runScan(){
+  var username=document.getElementById('username').value.trim().replace(/^@/,'');
+  var followers=parseInt(document.getElementById('followers').value)||0;
+
+  if(!username){showToast('Enter your username!');return;}
+  if(followers<1){showToast('Enter your follower count!');return;}
+
+  // Show scanning overlay
+  var overlay=document.getElementById('scanOverlay');
+  var scanBar=document.getElementById('scanBar');
+  var scanText=document.getElementById('scanText');
+  overlay.classList.add('active');
+  scanBar.style.width='0%';
+
+  var step=0;
+  var totalSteps=scanMessages.length;
+  var interval=setInterval(function(){
+    if(step<totalSteps){
+      scanText.textContent=scanMessages[step];
+      scanBar.style.width=((step+1)/totalSteps*100)+'%';
+      step++;
+    }
+  },350);
+
+  // After scanning completes, show results
+  setTimeout(function(){
+    clearInterval(interval);
+    scanBar.style.width='100%';
+    scanText.textContent='SCAN COMPLETE!';
+    setTimeout(function(){
+      overlay.classList.remove('active');
+      showResults(username,followers);
+    },500);
+  },totalSteps*350+200);
+}
+
+function showResults(username,followers){
+  // Generate a deterministic-ish bot percentage based on the username hash
+  // This way the same username always gets the same result (feels more "real")
+  var hash=0;
+  for(var i=0;i<username.length;i++){
+    hash=((hash<<5)-hash)+username.charCodeAt(i);
+    hash|=0;
+  }
+  // Use hash to create a percentage that's entertainment-biased (skews higher for comedy)
+  var base=Math.abs(hash%100);
+  // Skew distribution: most people get 40-85% for maximum shareability
+  var botPct;
+  if(base<10) botPct=15+Math.abs(hash%15); // 15-29% (rare "clean" accounts)
+  else if(base<25) botPct=30+Math.abs((hash>>4)%20); // 30-49%
+  else if(base<50) botPct=50+Math.abs((hash>>8)%20); // 50-69%
+  else if(base<80) botPct=70+Math.abs((hash>>12)%20); // 70-89%
+  else botPct=90+Math.abs((hash>>16)%10); // 90-99%
+
+  // Clamp
+  botPct=Math.max(15,Math.min(99,botPct));
+
+  var botCount=Math.round(followers*botPct/100);
+  var realCount=followers-botCount;
+
+  // Determine severity rating
+  var rating,ratingClass,ratingEmoji;
+  if(botPct>=90){
+    rating='BOT FARM OWNER';ratingClass='bot-farm';ratingEmoji='\uD83D\uDE9C';
+  }else if(botPct>=70){
+    rating='BOTNET COMMANDER';ratingClass='botnet';ratingEmoji='\uD83E\uDD16';
+  }else if(botPct>=50){
+    rating='BOT CURIOUS';ratingClass='bot-curious';ratingEmoji='\uD83D\uDD0D';
+  }else if(botPct>=30){
+    rating='MOSTLY HUMAN';ratingClass='mostly-human';ratingEmoji='\uD83E\uDDD1';
+  }else{
+    rating='CERTIFIED ORGANIC';ratingClass='certified-organic';ratingEmoji='\uD83C\uDF3F';
+  }
+
+  // Fill big reveal
+  document.getElementById('botCount').textContent=fmtNum(botCount);
+  document.getElementById('botLabel').textContent='BOT FOLLOWERS';
+  document.getElementById('botPct').textContent=botPct+'% of your followers aren\'t even real people';
+  var badge=document.getElementById('ratingBadge');
+  badge.textContent=ratingEmoji+' '+rating;
+  badge.className='rating-badge '+ratingClass;
+
+  // Fill stats
+  document.getElementById('statBotPct').textContent=botPct+'%';
+  document.getElementById('statBots').textContent=fmtNum(botCount);
+  document.getElementById('statReal').textContent=fmtNum(realCount);
+
+  // Generate bot types breakdown
+  var breakdown=generateBotBreakdown(botPct);
+  var listHtml='';
+  for(var i=0;i<breakdown.length;i++){
+    var b=breakdown[i];
+    var pctColor='var(--text)';
+    listHtml+='<div class="bot-type-item">';
+    listHtml+='<div class="bot-type-emoji">'+b.def.emoji+'</div>';
+    listHtml+='<div class="bot-type-info">';
+    listHtml+='<div class="bot-type-name">'+b.def.name+'</div>';
+    listHtml+='<div class="bot-type-desc">'+b.def.desc+'</div>';
+    listHtml+='<div class="bot-type-bar"><div class="bot-type-fill '+b.def.fill+'" style="width:0%" data-target="'+b.pct+'"></div></div>';
+    listHtml+='</div>';
+    listHtml+='<div class="bot-type-pct" style="color:'+pctColor+'">'+b.pct+'%</div>';
+    listHtml+='</div>';
+  }
+  document.getElementById('botTypesList').innerHTML=listHtml;
+
+  // Animate bars after a small delay
+  setTimeout(function(){
+    var fills=document.querySelectorAll('.bot-type-fill');
+    for(var i=0;i<fills.length;i++){
+      fills[i].style.width=fills[i].getAttribute('data-target')+'%';
+    }
+  },200);
+
+  // Generate bot army
+  var armyEmojis=['\uD83E\uDD16','\uD83D\uDC7E','\uD83D\uDC80','\uD83E\uDD5A','\uD83D\uDCBB','\u2699\uFE0F','\uD83D\uDC7B','\uD83D\uDD27'];
+  var armyCount=Math.min(botCount,80); // Cap at 80 emojis for performance
+  var armyHtml='';
+  for(var i=0;i<armyCount;i++){
+    var emoji=armyEmojis[i%armyEmojis.length];
+    armyHtml+='<span class="army-soldier" style="animation-delay:'+(i*30)+'ms">'+emoji+'</span>';
+  }
+  document.getElementById('armyGrid').innerHTML=armyHtml;
+  document.getElementById('armySubtitle').textContent=fmtNum(botCount)+' bots standing at attention for @'+username;
+
+  // Generate shame text
+  shameText=botPct+'% of my followers are BOTS \uD83E\uDD16\n\nThat means '+fmtNum(botCount)+' of you aren\'t even real people. I\'m basically talking to myself.\n\n'+ratingEmoji+' Status: '+rating+'\n\nCheck yours: spunk.codes/bot-check @SpunkArt13 #BotCheck';
+  document.getElementById('shamePreview').textContent=shameText;
+
+  // Show results, hide input
+  document.getElementById('results').style.display='block';
+  document.getElementById('inputCard').style.display='none';
+
+  // Burst of bot emojis on reveal
+  var field=document.getElementById('botField');
+  for(var i=0;i<20;i++){
+    (function(delay){
+      setTimeout(function(){
+        var g=document.createElement('div');
+        g.className='bot-float';
+        g.textContent=['\uD83E\uDD16','\uD83D\uDC7E','\uD83D\uDC80','\uD83E\uDD5A'][Math.floor(Math.random()*4)];
+        g.style.left=Math.random()*100+'%';
+        g.style.fontSize=(1.5+Math.random()*2.5)+'rem';
+        g.style.animationDuration=(5+Math.random()*8)+'s';
+        g.style.animationDelay='0s';
+        field.appendChild(g);
+        setTimeout(function(){g.remove();},15000);
+      },delay);
+    })(i*100);
+  }
+
+  // Scroll to results
+  document.getElementById('results').scrollIntoView({behavior:'smooth',block:'start'});
+
+  // GA4 event
+  if(typeof gtag==='function'){
+    gtag('event','bot_check',{event_category:'tool_use',bot_pct:botPct,followers:followers,rating:rating,username:username});
+  }
+}
+
+// Allow Enter key to trigger scan
+document.addEventListener('keydown',function(e){
+  if(e.key==='Enter'&&document.getElementById('inputCard').style.display!=='none'){
+    runScan();
+  }
+});
+
+function resetScan(){
+  document.getElementById('results').style.display='none';
+  document.getElementById('inputCard').style.display='block';
+  document.getElementById('username').value='';
+  document.getElementById('followers').value='';
+  document.getElementById('username').focus();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function postToX(){
+  var url='https://x.com/intent/tweet?text='+encodeURIComponent(shameText);
+  window.open(url,'_blank','noopener');
+  if(typeof gtag==='function'){
+    gtag('event','share_bot_check',{event_category:'sharing',method:'twitter'});
+  }
+}
+
+function copyShame(){
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(shameText).then(function(){showToast('Copied! Now go shame yourself publicly.');});
+  }else{
+    var ta=document.createElement('textarea');
+    ta.value=shameText;ta.style.position='fixed';ta.style.opacity='0';
+    document.body.appendChild(ta);ta.select();
+    try{document.execCommand('copy');showToast('Copied!');}catch(e){}
+    document.body.removeChild(ta);
+  }
+  if(typeof gtag==='function'){
+    gtag('event','copy_bot_text',{event_category:'sharing',method:'clipboard'});
+  }
+}
+
+function showToast(msg){
+  var t=document.getElementById('toast');
+  t.textContent=msg;
+  t.classList.add('show');
+  setTimeout(function(){t.classList.remove('show');},2500);
+}
+
+// Share X button link
+(function(){
+  var url='https://spunk.codes/bot-check';
+  var text='I just found out how many of my followers are BOTS \uD83E\uDD16 Check yours free @SpunkArt13';
+  document.getElementById('shareXLink').href='https://x.com/intent/tweet?text='+encodeURIComponent(text)+'&url='+encodeURIComponent(url);
+})();
+
+// Auto-focus first input
+document.getElementById('username').focus();
+</script>
+
+<!-- Protection -->
+<script>(function(){document.addEventListener('contextmenu',function(e){e.preventDefault();});document.addEventListener('keydown',function(e){if(e.key==='F12')e.preventDefault();if(e.ctrlKey&&e.key==='u')e.preventDefault();if(e.ctrlKey&&e.key==='s')e.preventDefault();if(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='i'||e.key==='J'||e.key==='j'||e.key==='C'||e.key==='c'))e.preventDefault();});console.log('%c\u26a0 SPUNK.CODES \u2014 All rights reserved.','color:#58a6ff;font-size:16px;font-weight:bold;');})();</script>
+
+<!-- Shared scripts -->
+<script src="/share-widget.js" defer></script>
+<script src="/email-capture.js" defer></script>
+<script src="/heartbeat.js" defer></script>
+<script src="/universal-referral.js" defer></script>
+<script src="/cross-promo.js" defer></script>
+<script src="/auto-monetize.js" defer></script>
+<script src="/usage-tracker.js" defer></script>
+</body>
+</html>

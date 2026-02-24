@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Social Shame Report Generator - Call Out Your Lurkers | SPUNK.CODES Exclusive</title>
+<meta name="description" content="Generate personalized shame reports for friends, family, and followers who never engage with your posts. Hilarious, shareable lurker call-outs. Exclusive premium tool.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Social Shame Report Generator - SPUNK.CODES Exclusive">
+<meta property="og:description" content="Generate personalized shame reports for your lurkers. Call them out with style.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/social-shame-report">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0d1117;--card:rgba(22,27,34,0.8);--border:rgba(48,54,61,0.6);--gold:#ffd700;--gold-border:rgba(255,215,0,0.3);--text:#e6edf3;--text-dim:#8b949e;--blue:#58a6ff;--cyan:#39d353;--red:#f85149;--orange:#ff8c00;--font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;--serif:'Georgia','Times New Roman',serif;--crimson:#dc2626;--verdict-bg:#1a0a0a}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+a{color:var(--blue);text-decoration:none}
+.bg-mesh{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 80% 50% at 20% 20%,rgba(255,215,0,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(255,140,0,0.04) 0%,transparent 60%),var(--bg)}
+.bg-grid{position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,215,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,215,0,0.03) 1px,transparent 1px);background-size:60px 60px}
+.nav{position:sticky;top:0;z-index:100;background:rgba(13,17,23,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,215,0,0.15);padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}
+.nav-brand{font-weight:800;font-size:1.1rem;color:var(--gold);letter-spacing:0.08em}
+.nav-links{display:flex;gap:1.5rem;font-size:0.85rem}.nav-links a{color:var(--text-dim);font-weight:500}.nav-links a.active{color:var(--gold)}
+.lock-gate{position:fixed;inset:0;z-index:1000;background:rgba(13,17,23,0.97);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:2rem}
+.lock-gate.hidden{display:none}
+.lock-icon-big{font-size:4rem}.lock-gate h2{font-size:1.8rem;font-weight:800;text-align:center}.lock-gate h2 span{color:var(--gold)}.lock-gate p{color:var(--text-dim);text-align:center;max-width:400px}
+.code-input-wrap{display:flex;gap:0.5rem}
+.code-input{padding:0.8rem 1.5rem;background:rgba(22,27,34,0.8);border:2px solid var(--gold-border);border-radius:12px;color:var(--gold);font-size:1.2rem;font-weight:800;letter-spacing:3px;text-align:center;width:200px;outline:none;text-transform:uppercase;font-family:var(--font)}
+.code-input:focus{border-color:var(--gold);box-shadow:0 0 20px rgba(255,215,0,0.2)}
+.code-submit{padding:0.8rem 1.5rem;background:linear-gradient(135deg,#ffd700,#ff8c00);border:none;border-radius:12px;color:#000;font-size:1rem;font-weight:800;cursor:pointer}
+.code-error{color:var(--red);font-size:0.85rem;min-height:1.2em}.lock-hint{color:var(--text-dim);font-size:0.8rem}.lock-hint a{color:var(--gold)}
+.exclusive-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;background:linear-gradient(135deg,rgba(255,215,0,0.15),rgba(255,140,0,0.15));border:1px solid var(--gold-border);border-radius:100px;font-size:11px;font-weight:800;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase}
+.main{max-width:1000px;margin:0 auto;padding:2rem}
+.hero-section{text-align:center;padding:2rem 0 2rem}
+.hero-section h1{font-size:2.2rem;font-weight:800;margin:1rem 0 0.5rem}
+.hero-section h1 .gold{background:linear-gradient(135deg,#ffd700,#ff8c00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-section p{color:var(--text-dim);max-width:600px;margin:0 auto}
+.hero-tagline{font-size:1rem;color:var(--red);font-weight:700;margin-top:0.5rem;letter-spacing:0.5px}
+.card{background:var(--card);border:1px solid var(--gold-border);border-radius:16px;padding:1.5rem;margin-bottom:1.5rem;backdrop-filter:blur(10px);position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),#ff8c00,var(--gold))}
+.card h2{font-size:1.1rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}
+.form-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:0.75rem;margin-bottom:0.75rem}
+.form-group{display:flex;flex-direction:column;gap:0.3rem}
+.form-group label{font-size:0.75rem;color:var(--text-dim);font-weight:600;text-transform:uppercase;letter-spacing:0.5px}
+.form-group input,.form-group select,.form-group textarea{padding:0.6rem 0.8rem;background:rgba(22,27,34,0.9);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.85rem;font-family:var(--font);outline:none}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--gold)}
+.form-group textarea{resize:vertical;min-height:50px}
+.btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;transition:all 0.2s;display:inline-flex;align-items:center;gap:0.4rem}
+.btn-gold{background:linear-gradient(135deg,#ffd700,#ff8c00);color:#000}
+.btn-gold:hover{transform:translateY(-1px);box-shadow:0 4px 15px rgba(255,215,0,0.3)}
+.btn-outline{background:transparent;border:1px solid var(--gold-border);color:var(--gold)}
+.btn-outline:hover{background:rgba(255,215,0,0.1)}
+.btn-red{background:linear-gradient(135deg,#dc2626,#991b1b);color:#fff}
+.btn-red:hover{transform:translateY(-1px);box-shadow:0 4px 15px rgba(220,38,38,0.4)}
+.btn-sm{padding:0.4rem 0.8rem;font-size:0.75rem}
+.btn-row{display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:0.75rem}
+
+/* Lurker list */
+.lurker-entry{display:flex;align-items:center;gap:0.75rem;padding:0.75rem;background:rgba(13,17,23,0.6);border:1px solid var(--border);border-radius:10px;margin-bottom:0.5rem;transition:all 0.2s}
+.lurker-entry:hover{border-color:var(--red);background:rgba(220,38,38,0.03)}
+.lurker-num{width:28px;height:28px;border-radius:50%;background:rgba(220,38,38,0.15);border:1px solid rgba(220,38,38,0.3);display:flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:800;color:var(--red);flex-shrink:0}
+.lurker-info{flex:1;min-width:0}
+.lurker-name{font-weight:700;font-size:0.9rem;color:var(--text)}
+.lurker-crime{font-size:0.75rem;color:var(--text-dim);margin-top:2px}
+.lurker-remove{background:none;border:none;color:var(--text-dim);cursor:pointer;font-size:1rem;padding:0.3rem;transition:color 0.2s;flex-shrink:0}
+.lurker-remove:hover{color:var(--red)}
+.lurker-family-tag{display:inline-block;padding:1px 6px;background:rgba(255,215,0,0.12);border:1px solid var(--gold-border);border-radius:4px;font-size:0.6rem;font-weight:700;color:var(--gold);text-transform:uppercase;margin-left:6px;letter-spacing:0.5px}
+.lurker-count{text-align:right;font-size:0.75rem;color:var(--text-dim);margin-top:0.5rem}
+
+/* Shame Report Card */
+.report-card{background:linear-gradient(145deg,#1a0808,#0d1117);border:2px solid rgba(220,38,38,0.4);border-radius:16px;padding:2rem;margin-bottom:1.5rem;position:relative;overflow:hidden;page-break-inside:avoid}
+.report-card::before{content:'OFFICIAL SHAME REPORT';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-25deg);font-size:3.5rem;font-weight:900;color:rgba(220,38,38,0.04);white-space:nowrap;pointer-events:none;font-family:var(--serif);letter-spacing:4px}
+.report-card::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#dc2626,#ffd700,#dc2626)}
+.report-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1.2rem;position:relative;z-index:1}
+.report-header-left{flex:1}
+.report-doc-title{font-family:var(--serif);font-size:0.65rem;color:var(--red);text-transform:uppercase;letter-spacing:3px;font-weight:700;margin-bottom:0.3rem}
+.report-case-no{font-size:0.7rem;color:var(--text-dim);font-family:monospace}
+.report-stamp{width:90px;height:90px;border:3px solid var(--red);border-radius:8px;display:flex;align-items:center;justify-content:center;transform:rotate(-12deg);flex-shrink:0;position:relative}
+.report-stamp-text{font-family:var(--serif);font-weight:900;font-size:1rem;color:var(--red);text-transform:uppercase;letter-spacing:3px;text-align:center;line-height:1.1}
+.report-stamp-border{position:absolute;inset:3px;border:1px solid var(--red);border-radius:5px}
+.report-defendant{position:relative;z-index:1;margin-bottom:1.2rem;text-align:center}
+.report-defendant-name{font-size:2rem;font-weight:900;background:linear-gradient(135deg,#ffd700,#ff8c00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-transform:uppercase;letter-spacing:2px}
+.report-defendant-label{font-size:0.7rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:2px;margin-bottom:0.3rem}
+.report-crime{position:relative;z-index:1;background:rgba(220,38,38,0.06);border:1px solid rgba(220,38,38,0.2);border-radius:10px;padding:1rem;margin-bottom:1rem}
+.report-crime-label{font-family:var(--serif);font-size:0.7rem;color:var(--red);text-transform:uppercase;letter-spacing:2px;font-weight:700;margin-bottom:0.4rem}
+.report-crime-text{font-size:0.95rem;color:var(--text);font-style:italic;line-height:1.5}
+.report-skulls{position:relative;z-index:1;text-align:center;margin-bottom:1rem}
+.report-skulls-label{font-size:0.7rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:0.4rem}
+.report-skulls-row{font-size:1.5rem;letter-spacing:4px}
+.report-skulls-score{font-size:0.75rem;color:var(--red);font-weight:700;margin-top:0.2rem}
+.report-verdict{position:relative;z-index:1;background:rgba(13,17,23,0.7);border:1px solid var(--border);border-radius:10px;padding:1rem;margin-bottom:1rem}
+.report-verdict-label{font-family:var(--serif);font-size:0.7rem;color:var(--gold);text-transform:uppercase;letter-spacing:2px;font-weight:700;margin-bottom:0.4rem}
+.report-verdict-text{font-family:var(--serif);font-size:1rem;color:var(--text);line-height:1.6;font-style:italic}
+.report-roast{position:relative;z-index:1;text-align:center;padding:0.8rem;background:rgba(255,215,0,0.05);border:1px dashed var(--gold-border);border-radius:8px;margin-bottom:1rem}
+.report-roast-text{font-size:0.95rem;color:var(--gold);font-weight:600;line-height:1.5}
+.report-rehab{position:relative;z-index:1;background:rgba(57,211,83,0.06);border:1px solid rgba(57,211,83,0.2);border-radius:10px;padding:1rem;margin-bottom:1rem}
+.report-rehab-label{font-size:0.7rem;color:var(--cyan);text-transform:uppercase;letter-spacing:1.5px;font-weight:700;margin-bottom:0.4rem}
+.report-rehab-text{font-size:0.85rem;color:var(--text-dim);line-height:1.5}
+.report-qr{position:relative;z-index:1;text-align:center;margin-bottom:0.5rem}
+.report-qr-box{display:inline-block;border:2px solid var(--border);border-radius:8px;padding:12px 20px;background:rgba(13,17,23,0.8);font-family:monospace;font-size:0.6rem;line-height:1.1;color:var(--text-dim);letter-spacing:1px;position:relative}
+.report-qr-label{font-size:0.65rem;color:var(--text-dim);margin-top:0.4rem}
+.report-actions{position:relative;z-index:1;display:flex;gap:0.5rem;flex-wrap:wrap;justify-content:center;padding-top:0.5rem;border-top:1px solid var(--border)}
+.report-filed-by{position:relative;z-index:1;text-align:center;margin-top:0.8rem;font-size:0.7rem;color:var(--text-dim)}
+.report-filed-by span{color:var(--gold)}
+
+/* Gavel animation */
+@keyframes gavelSlam{0%{transform:rotate(-40deg) translateY(-20px)}60%{transform:rotate(5deg) translateY(0)}80%{transform:rotate(-3deg)}100%{transform:rotate(0deg)}}
+@keyframes gavelShake{0%,100%{transform:translateX(0)}10%,30%,50%{transform:translateX(-3px)}20%,40%{transform:translateX(3px)}}
+@keyframes stampSlam{0%{transform:rotate(-12deg) scale(2);opacity:0}50%{transform:rotate(-12deg) scale(0.9);opacity:1}70%{transform:rotate(-12deg) scale(1.05)}100%{transform:rotate(-12deg) scale(1)}}
+.gavel-anim{display:inline-block;transform-origin:bottom right;animation:gavelSlam 0.6s ease-out}
+.shake-anim{animation:gavelShake 0.4s ease-out 0.6s}
+.stamp-anim{animation:stampSlam 0.5s ease-out 0.3s both}
+
+/* Confetti */
+@keyframes confettiFall{0%{transform:translateY(-100vh) rotate(0deg);opacity:1}100%{transform:translateY(100vh) rotate(720deg);opacity:0}}
+.confetti-piece{position:fixed;top:-10px;z-index:9998;pointer-events:none;animation:confettiFall linear forwards}
+
+/* Bulk post */
+.bulk-post-output{background:#161b22;border:1px solid var(--border);border-radius:10px;padding:1.2rem;font-family:var(--font);font-size:0.85rem;line-height:1.6;white-space:pre-wrap;color:var(--text);position:relative;max-height:400px;overflow:auto}
+
+/* Wall of Shame */
+.shame-leaderboard{list-style:none;padding:0}
+.shame-leaderboard li{display:flex;align-items:center;gap:0.75rem;padding:0.6rem 0.75rem;border-bottom:1px solid rgba(48,54,61,0.3);transition:background 0.2s}
+.shame-leaderboard li:hover{background:rgba(220,38,38,0.04)}
+.shame-rank{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.65rem;font-weight:800;flex-shrink:0}
+.shame-rank-1{background:rgba(255,215,0,0.2);color:var(--gold);border:1px solid var(--gold-border)}
+.shame-rank-2{background:rgba(192,192,192,0.15);color:#c0c0c0;border:1px solid rgba(192,192,192,0.3)}
+.shame-rank-3{background:rgba(205,127,50,0.15);color:#cd7f32;border:1px solid rgba(205,127,50,0.3)}
+.shame-rank-default{background:rgba(48,54,61,0.3);color:var(--text-dim);border:1px solid var(--border)}
+.shame-name{font-weight:700;font-size:0.85rem;flex:1}
+.shame-count{font-size:0.75rem;color:var(--red);font-weight:700}
+
+/* Family section */
+.family-card{background:linear-gradient(135deg,rgba(255,215,0,0.05),rgba(255,140,0,0.03));border-color:var(--gold-border)}
+.family-verdict{display:flex;align-items:flex-start;gap:0.75rem;padding:0.75rem;background:rgba(13,17,23,0.5);border-radius:8px;margin-bottom:0.5rem}
+.family-verdict-icon{font-size:1.5rem;flex-shrink:0}
+.family-verdict-text{font-family:var(--serif);font-size:0.9rem;color:var(--text);line-height:1.5;font-style:italic}
+.family-verdict-who{font-size:0.7rem;color:var(--gold);text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-top:0.3rem;font-family:var(--font);font-style:normal}
+
+.share-cta{background:linear-gradient(135deg,rgba(255,215,0,0.08),rgba(255,140,0,0.05));border:1px solid var(--gold-border);border-radius:16px;padding:2rem;text-align:center;margin-top:2rem}
+.share-cta h3{color:var(--gold);margin-bottom:0.5rem}.share-cta p{color:var(--text-dim);font-size:0.9rem;margin-bottom:1rem}
+.share-btns{display:flex;gap:0.6rem;justify-content:center;flex-wrap:wrap}
+.share-btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;color:#fff}
+.share-x{background:#000;border:1px solid #333}.share-reddit{background:#ff4500}.share-email{background:#21262d;border:1px solid #30363d}
+.footer{text-align:center;padding:2rem;border-top:1px solid rgba(255,215,0,0.1);color:var(--text-dim);font-size:0.75rem;margin-top:3rem}
+.footer a{color:var(--gold)}.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-bottom:1rem}
+.watermark{position:fixed;bottom:10px;right:10px;font-size:0.6rem;color:rgba(255,215,0,0.08);font-weight:800;pointer-events:none;z-index:9999;letter-spacing:1px;text-transform:uppercase}
+
+.empty-state{text-align:center;padding:2rem;color:var(--text-dim);font-size:0.85rem}
+.empty-state .empty-icon{font-size:3rem;margin-bottom:0.5rem;opacity:0.5}
+
+.tab-bar{display:flex;gap:0;margin-bottom:1rem;border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.tab-btn{flex:1;padding:0.6rem;background:transparent;border:none;color:var(--text-dim);font-size:0.8rem;font-weight:700;cursor:pointer;transition:all 0.2s;font-family:var(--font)}
+.tab-btn.active{background:rgba(255,215,0,0.1);color:var(--gold)}
+.tab-btn:hover:not(.active){background:rgba(255,215,0,0.03)}
+.tab-content{display:none}.tab-content.active{display:block}
+
+.crime-select{max-width:100%}
+.crime-option-preview{font-size:0.7rem;color:var(--text-dim)}
+
+@media(max-width:768px){.main{padding:1rem}.hero-section h1{font-size:1.6rem}.nav-links{display:none}.form-row{grid-template-columns:1fr}.report-defendant-name{font-size:1.5rem}.report-stamp{width:70px;height:70px}.report-stamp-text{font-size:0.8rem}.report-card::before{font-size:2rem}}
+
+@media print{
+.nav,.lock-gate,.bg-mesh,.bg-grid,.watermark,.share-cta,.footer,.report-actions,.btn-row,#shareXBtn{display:none!important}
+.main{max-width:100%;padding:0.5rem}
+.card{border:1px solid #ccc;page-break-inside:avoid}
+.report-card{border:2px solid #dc2626;page-break-inside:avoid;background:#fff!important;color:#000!important}
+.report-card::before{color:rgba(220,38,38,0.08)!important}
+.report-defendant-name{-webkit-text-fill-color:#000!important;color:#000!important}
+.report-crime,.report-verdict,.report-rehab,.report-roast{background:#f9f9f9!important;border-color:#ddd!important}
+.report-crime-text,.report-verdict-text,.report-roast-text,.report-rehab-text{color:#222!important}
+body{background:#fff!important;color:#000!important}
+}
+</style>
+</head>
+<body>
+<div class="bg-mesh"></div><div class="bg-grid"></div>
+<div class="lock-gate" id="lockGate"><div class="lock-icon-big">&#128274;</div><h2>Enter Code <span>SPUNK</span> to Unlock</h2><p>This exclusive premium tool requires the SPUNK referral code.</p><div class="code-input-wrap"><input type="text" class="code-input" id="codeInput" placeholder="CODE" maxlength="10" autocomplete="off"><button class="code-submit" onclick="submitCode()">Unlock</button></div><div class="code-error" id="codeError"></div><div class="lock-hint">Get the code at <a href="https://spunk.codes/exclusive-tools">spunk.codes/exclusive-tools</a></div></div>
+<nav class="nav"><a href="https://spunk.codes" class="nav-brand">SPUNK.CODES</a><div class="nav-links"><a href="/store">Tools</a><a href="/exclusive-tools" class="active">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a></div></nav>
+
+<div class="main">
+  <section class="hero-section">
+    <div class="exclusive-badge">&#128081; EXCLUSIVE TOOL</div>
+    <h1>Social <span class="gold">Shame Report</span> Generator</h1>
+    <p>Generate personalized, hilariously dramatic "shame reports" to send to specific friends, family, and followers who never engage with your posts.</p>
+    <div class="hero-tagline">Call Out Your Lurkers. Demand Justice.</div>
+  </section>
+
+  <!-- STEP 1: Your Profile -->
+  <div class="card">
+    <h2>&#128100; Step 1: Your Profile</h2>
+    <div class="form-row">
+      <div class="form-group"><label>Your Name / Handle</label><input type="text" id="yourName" placeholder="@YourHandle or Name"></div>
+      <div class="form-group"><label>Posts Per Week</label><input type="number" id="postsPerWeek" placeholder="5" min="1" max="100" value="5"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Best Post Likes</label><input type="number" id="bestLikes" placeholder="47" min="0" value="47"></div>
+      <div class="form-group"><label>Your Follower Count</label><input type="number" id="followerCount" placeholder="1200" min="1" value="1200"></div>
+      <div class="form-group"><label>Posting Since (months)</label><input type="number" id="monthsPosting" placeholder="18" min="1" value="18"></div>
+    </div>
+  </div>
+
+  <!-- STEP 2: Add Lurkers -->
+  <div class="card">
+    <h2>&#128123; Step 2: Add Lurkers to Shame (up to 10)</h2>
+    <div class="form-row">
+      <div class="form-group"><label>Name / Handle</label><input type="text" id="lurkerName" placeholder="@TheirHandle or First Name" maxlength="30"></div>
+      <div class="form-group"><label>Their Crime</label>
+        <select id="lurkerCrime" class="crime-select">
+          <option value="0">Watches my stories but never likes posts</option>
+          <option value="1">Likes everyone else's posts but mine</option>
+          <option value="2">I can see them online but they skip my content</option>
+          <option value="3">Left me on read when I shared my post</option>
+          <option value="4">Said "I'll check it out" and never did</option>
+          <option value="5">Follows me but only engages with memes</option>
+          <option value="6">My own family member who won't tap like</option>
+          <option value="7">Coworker who scrolls past me daily</option>
+          <option value="8">Claims to be my biggest supporter but engagement says otherwise</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Relationship (optional)</label>
+        <select id="lurkerRelation">
+          <option value="">-- Select --</option>
+          <option value="friend">Friend</option>
+          <option value="bestfriend">Best Friend</option>
+          <option value="mom">Mom</option>
+          <option value="dad">Dad</option>
+          <option value="brother">Brother</option>
+          <option value="sister">Sister</option>
+          <option value="cousin">Cousin</option>
+          <option value="coworker">Coworker</option>
+          <option value="ex">Ex</option>
+          <option value="crush">Crush</option>
+          <option value="boss">Boss</option>
+          <option value="neighbor">Neighbor</option>
+        </select>
+      </div>
+      <div class="form-group" style="justify-content:flex-end"><button class="btn btn-red" onclick="addLurker()">&#128683; Add to Shame List</button></div>
+    </div>
+    <div id="lurkerList"></div>
+    <div class="lurker-count" id="lurkerCount"></div>
+  </div>
+
+  <!-- STEP 3: Generate -->
+  <div class="card">
+    <h2>&#9878;&#65039; Step 3: Generate Shame Reports</h2>
+    <p style="color:var(--text-dim);font-size:0.85rem;margin-bottom:1rem">Add lurkers above, then bring down the gavel. Each person gets their own personalized, brutally funny shame report.</p>
+    <div class="btn-row" style="margin-top:0">
+      <button class="btn btn-red" onclick="generateAllReports()" style="font-size:0.95rem;padding:0.8rem 2rem">&#128296; GENERATE SHAME REPORTS</button>
+      <button class="btn btn-gold" onclick="generateBulkPost()">&#128227; Bulk Call-Out Post</button>
+      <button class="btn btn-outline" onclick="printReports()">&#128424; Print All Reports</button>
+    </div>
+  </div>
+
+  <!-- Tabs: Reports / Bulk Post / Family / Wall of Shame -->
+  <div class="tab-bar" id="tabBar" style="display:none">
+    <button class="tab-btn active" onclick="switchTab('reports')">&#128220; Reports</button>
+    <button class="tab-btn" onclick="switchTab('bulk')">&#128227; Bulk Post</button>
+    <button class="tab-btn" onclick="switchTab('family')">&#128106; Family Zone</button>
+    <button class="tab-btn" onclick="switchTab('wall')">&#127942; Wall of Shame</button>
+  </div>
+
+  <!-- Reports Output -->
+  <div class="tab-content active" id="tab-reports">
+    <div id="reportsOutput">
+      <div class="empty-state"><div class="empty-icon">&#128123;</div>Add lurkers and generate reports to see them here</div>
+    </div>
+  </div>
+
+  <!-- Bulk Post -->
+  <div class="tab-content" id="tab-bulk">
+    <div class="card">
+      <h2>&#128227; Bulk Lurker Call-Out Post</h2>
+      <p style="color:var(--text-dim);font-size:0.85rem;margin-bottom:1rem">One post to shame them all. Copy and paste to X, Instagram, or wherever you need justice served.</p>
+      <div id="bulkPostOutput" class="bulk-post-output" style="display:none"></div>
+      <div class="btn-row" id="bulkActions" style="display:none">
+        <button class="btn btn-gold btn-sm" onclick="copyBulkPost()">&#128203; Copy Post</button>
+        <button class="btn btn-sm share-btn share-x" onclick="shareBulkX()">&#120143; Post to X</button>
+      </div>
+      <div class="empty-state" id="bulkEmpty"><div class="empty-icon">&#128227;</div>Generate a bulk post to see it here</div>
+    </div>
+  </div>
+
+  <!-- Family Zone -->
+  <div class="tab-content" id="tab-family">
+    <div class="card family-card">
+      <h2>&#128106; The Family Shame Section</h2>
+      <p style="color:var(--text-dim);font-size:0.85rem;margin-bottom:1rem">When your own bloodline won't engage. Special verdicts for family members who somehow find time to like everyone else's posts but yours.</p>
+      <div id="familyVerdicts"></div>
+      <div class="empty-state" id="familyEmpty"><div class="empty-icon">&#128106;</div>Add family members as lurkers (select a family relationship) to see personalized family verdicts</div>
+    </div>
+  </div>
+
+  <!-- Wall of Shame Leaderboard -->
+  <div class="tab-content" id="tab-wall">
+    <div class="card">
+      <h2>&#127942; Wall of Shame Leaderboard</h2>
+      <p style="color:var(--text-dim);font-size:0.85rem;margin-bottom:1rem">The most shamed lurkers across all SPUNK.CODES users. Your lurkers get added automatically when you generate reports.</p>
+      <ol class="shame-leaderboard" id="shameLeaderboard"></ol>
+      <div class="empty-state" id="wallEmpty"><div class="empty-icon">&#127942;</div>Generate shame reports to populate the Wall of Shame</div>
+      <div class="btn-row">
+        <button class="btn btn-outline btn-sm" onclick="clearWall()">&#128465; Clear Leaderboard</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="share-cta">
+    <h3>&#128275; Share the Shame, Spread the Justice</h3>
+    <p>Share code SPUNK to help others roast their lurkers with 15+ exclusive premium tools.</p>
+    <div class="share-btns">
+      <button class="share-btn share-x" onclick="shareToolX()">&#120143; Share on X</button>
+      <button class="share-btn share-reddit" onclick="shareToolReddit()">&#128172; Reddit</button>
+      <button class="share-btn share-email" onclick="shareToolEmail()">&#9993; Email</button>
+    </div>
+  </div>
+</div>
+
+<footer class="footer"><div class="footer-links"><a href="https://spunk.codes">Home</a><a href="/store">Tools</a><a href="/exclusive-tools">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a><a href="https://twitter.com/SpunkArt13" target="_blank">@SpunkArt13</a></div><div>&copy; 2026 SPUNK.CODES EXCLUSIVE. All lurkers will be prosecuted to the fullest extent of the algorithm.</div></footer>
+<div class="watermark">SPUNK.CODES EXCLUSIVE</div>
+
+<script>
+/* ── Lock Gate ─────────────────────────────────────────── */
+document.addEventListener('contextmenu',function(e){e.preventDefault()});
+document.addEventListener('keydown',function(e){if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'||e.key==='C'))||(e.ctrlKey&&e.key==='u'))e.preventDefault()});
+function checkCode(){try{var c=localStorage.getItem('spunk_referral_code')||localStorage.getItem('spunk_ref_code')||'';if(c.toUpperCase()==='SPUNK'){document.getElementById('lockGate').classList.add('hidden');return true}}catch(e){}return false}
+function submitCode(){var v=document.getElementById('codeInput').value.trim().toUpperCase();if(v==='SPUNK'){try{localStorage.setItem('spunk_referral_code','SPUNK');localStorage.setItem('spunk_ref_code','SPUNK')}catch(e){}document.getElementById('lockGate').classList.add('hidden')}else{document.getElementById('codeError').textContent='Invalid code. Try: SPUNK';setTimeout(function(){document.getElementById('codeError').textContent=''},2000)}}
+document.getElementById('codeInput').addEventListener('keydown',function(e){if(e.key==='Enter')submitCode()});
+checkCode();
+
+/* ── URL Params for shared reports ────────────────────── */
+(function(){
+  var params=new URLSearchParams(window.location.search);
+  var lurker=params.get('lurker');
+  var crime=params.get('crime');
+  if(lurker){
+    setTimeout(function(){
+      document.getElementById('lurkerName').value=decodeURIComponent(lurker);
+      if(crime!==null){var sel=document.getElementById('lurkerCrime');if(sel.options[crime])sel.selectedIndex=parseInt(crime)}
+    },300);
+  }
+})();
+
+/* ── Data ──────────────────────────────────────────────── */
+var lurkers=[];
+var generatedReports=[];
+
+var CRIMES=[
+  {text:"Watches my stories but never likes posts",short:"story watcher, zero likes",severity:6},
+  {text:"Likes everyone else's posts but mine",short:"selective liker (not you)",severity:8},
+  {text:"I can see them online but they skip my content",short:"active avoider",severity:7},
+  {text:"Left me on read when I shared my post",short:"left you on read",severity:9},
+  {text:'Said "I\'ll check it out" and never did',short:"empty promise maker",severity:7},
+  {text:"Follows me but only engages with memes",short:"meme-only engager",severity:5},
+  {text:"My own family member who won't tap like",short:"family betrayal",severity:10},
+  {text:"Coworker who scrolls past me daily",short:"daily scroll-paster",severity:6},
+  {text:"Claims to be my biggest supporter but engagement says otherwise",short:"fake supporter",severity:9}
+];
+
+var VERDICTS=[
+  "The court finds {name} GUILTY of chronic lurking in the first degree. No parole.",
+  "{name} has been sentenced to 30 days of mandatory liking. Failure to comply will result in a public unfollowing.",
+  "Evidence: {name} has scrolled past approximately {posts} of your posts without so much as a double-tap.",
+  "After careful deliberation, the jury unanimously finds {name} guilty on all counts of digital ghosting.",
+  "{name} is hereby ordered to engage with no fewer than 5 posts immediately, or face permanent placement on the Wall of Shame.",
+  "The court notes that {name} had every opportunity to tap a single button and chose violence instead.",
+  "This court has seen many lurkers, but {name}'s level of non-engagement is truly unprecedented. Sentencing: maximum shame.",
+  "{name} has been found guilty of First Degree Scrolling with Intent to Ignore.",
+  "The algorithm confirms: {name} saw your post, paused for 1.3 seconds, and kept scrolling. The audacity.",
+  "Let the record show that {name} follows {followerCount} accounts and engages with exactly zero of yours."
+];
+
+var ROASTS=[
+  "Hey {name}, the like button is free. I checked.",
+  "{name}, I know you saw my post at 2am. The read receipts don't lie.",
+  "{name}, even my spam followers engage more than you.",
+  "Imagine following someone for {months} months and never pressing a single button. That's you, {name}.",
+  "{name}, my posts have a better relationship with the void than with your engagement.",
+  "Breaking: {name} discovered a way to consume content without leaving any trace. Scientists are baffled.",
+  "{name}, you scroll past my posts like they owe you money.",
+  "I've posted {totalPosts} times since you followed me, {name}. Zero likes. Zero comments. Are you okay?",
+  "The FBI couldn't find evidence of {name} ever engaging with a post. Case closed.",
+  "{name}, the double-tap workout could change your life. Try it.",
+  "Plot twist: {name}'s phone doesn't have a like button. Just kidding, they like everyone else's posts.",
+  "{name} watched every single story but liking a post? Too much commitment apparently.",
+  "Dear {name}, my engagement rate would literally improve if I lost you as a follower. Think about that.",
+  "Fun fact: {name} has spent more time avoiding my posts than it would take to like all of them.",
+  "{name}, I've seen tumbleweeds with better engagement stats than you."
+];
+
+var FAMILY_VERDICTS={
+  mom:[
+    "Mom, I've liked every photo of your garden, your recipes, and that blurry sunset you posted 47 times. Return. The. Favor.",
+    "Mom, you figured out how to FaceTime the dog but you can't find the like button? Suspicious.",
+    "Mom, you share minion memes to 200 people daily but my actual content gets nothing? I see how it is.",
+    "Mom, I didn't spend 9 months in the womb for this kind of disrespect."
+  ],
+  dad:[
+    "Dad, I taught you how to use the phone. USE THE LIKE BUTTON.",
+    "Dad, you watch YouTube fishing videos for 6 hours but can't spend 0.2 seconds on my post? Noted.",
+    "Dad, your engagement with my content is somehow worse than your WiFi password attempts.",
+    "Dad, even your 'sent from my iPhone' signature gets more engagement than your likes on my posts."
+  ],
+  brother:[
+    "Brother, we share DNA but apparently not engagement. How does that work?",
+    "Brother, you'll like a stranger's gym selfie but not my actual content? Blood is NOT thicker than algorithms apparently.",
+    "Brother, I've defended you in every argument since childhood. You can't click a heart? Really?",
+    "Brother, our sibling rivalry just took a digital turn and you're losing."
+  ],
+  sister:[
+    "Sister, you share every BuzzFeed quiz result but can't tap like on my posts? Make it make sense.",
+    "Sister, we've been through everything together except apparently my feed.",
+    "Sister, you'll screenshot my posts to discuss in the group chat but won't give me a public like? EXPOSED.",
+    "Sister, I liked your 47-photo vacation album. Every. Single. One. Where's my energy?"
+  ],
+  cousin:[
+    "Cousin, you like MLM posts but not mine? Really? REALLY?",
+    "Cousin, we see each other at every family event and you can't see my posts? The algorithm isn't that broken.",
+    "Cousin, you'll share a GoFundMe for someone you met once but can't like my actual content? Family meeting needed.",
+    "Cousin, our grandma engages with my posts more than you do. Let that sink in."
+  ],
+  ex:[
+    "Still following me but won't like anything? That's a whole vibe and it's called unresolved digital tension.",
+    "You can stalk my profile at 3am but can't double-tap in daylight? Coward behavior.",
+    "You follow me, my friends, and my dog's account but engage with none of them. Therapy is available.",
+    "The audacity of watching every story, reading every post, and pretending I don't exist in the comments."
+  ],
+  bestfriend:[
+    "Best friend? BEST FRIEND? My engagement rate determined that was a lie.",
+    "We talk every day but you act like my posts are written in a language you can't read.",
+    "Best friends are supposed to be your hype squad. You're more like the silent audience at a mime show.",
+    "I've hyped every single thing you've ever posted. My turn. Like button. Now."
+  ],
+  crush:[
+    "You view every story within 30 seconds but liking a post would be 'too obvious'? We see you.",
+    "The courage to follow me but not to like a single post. Dating in 2026 is wild.",
+    "If you like my post I promise I won't read into it. Okay I will. But still. DO IT.",
+    "You're lurking on my profile more than my analytics dashboard. Just engage already."
+  ],
+  friend:[
+    "Friend, I thought friendship came with a minimum engagement requirement. Apparently not.",
+    "We hang out in real life but you ghost me online? That's a level of compartmentalization I can't respect.",
+    "Friend, your like-to-viewing ratio on my content is statistically impossible. Are you trying?",
+    "Friend, acquaintances I met once at a party engage more than you. Let that marinate."
+  ],
+  coworker:[
+    "We share an office, a Slack channel, and apparently nothing else. Like my post, Karen.",
+    "You'll CC me on 47 unnecessary emails but can't drop a like? The disrespect is corporate.",
+    "Coworker, I see you scrolling during meetings. I know you saw my post. I was watching.",
+    "We're LinkedIn connections AND you follow me on X but zero engagement? HR is going to hear about this."
+  ],
+  boss:[
+    "You approved my PTO request in 2 minutes but can't approve a like on my post? Priorities.",
+    "Boss, my annual review better not mention 'engagement' because yours is nonexistent.",
+    "You send company-wide emails about 'team culture' but won't engage with your own team's content? Noted.",
+    "Boss, if my engagement at work matched your engagement with my posts, I'd be fired."
+  ],
+  neighbor:[
+    "You wave at me every morning but my posts get nothing? The fake friendliness is astronomical.",
+    "Neighbor, you borrowed my lawnmower AND my WiFi but can't give me a like? Eviction notice incoming.",
+    "You know where I live AND you follow me online, but still zero engagement. That's just cold.",
+    "Neighbor, your Ring doorbell gives my posts more attention than you do."
+  ]
+};
+
+var QR_ART=[
+  "+-----------+",
+  "|  # # # #  |",
+  "|  # . . #  |",
+  "|  # . . #  |",
+  "|  # # # #  |",
+  "|    # #    |",
+  "|  # # # #  |",
+  "+-----------+"
+];
+
+/* ── Helpers ───────────────────────────────────────────── */
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function rand(arr){return arr[Math.floor(Math.random()*arr.length)]}
+function randInt(min,max){return Math.floor(Math.random()*(max-min+1))+min}
+function getCaseNumber(){return 'LURK-'+new Date().getFullYear()+'-'+String(randInt(10000,99999))}
+function getSkullRating(severity){var s='';for(var i=0;i<severity;i++)s+='\u{1F480}';for(var j=severity;j<10;j++)s+='\u{1F4A8}';return s}
+function fillTemplate(tpl,data){var r=tpl;Object.keys(data).forEach(function(k){r=r.replace(new RegExp('\\{'+k+'\\}','g'),data[k])});return r}
+
+/* ── Add Lurker ────────────────────────────────────────── */
+function addLurker(){
+  if(lurkers.length>=10){alert('Maximum 10 lurkers. Quality over quantity. (But all 10 deserve it.)');return}
+  var name=document.getElementById('lurkerName').value.trim();
+  if(!name){alert('Enter a name or handle to shame.');return}
+  var crimeIdx=parseInt(document.getElementById('lurkerCrime').value);
+  var relation=document.getElementById('lurkerRelation').value;
+  lurkers.push({name:name,crimeIdx:crimeIdx,relation:relation,id:Date.now()});
+  document.getElementById('lurkerName').value='';
+  document.getElementById('lurkerRelation').selectedIndex=0;
+  renderLurkers();
+}
+
+function removeLurker(id){
+  lurkers=lurkers.filter(function(l){return l.id!==id});
+  renderLurkers();
+}
+
+function renderLurkers(){
+  var el=document.getElementById('lurkerList');
+  var countEl=document.getElementById('lurkerCount');
+  if(lurkers.length===0){el.innerHTML='';countEl.textContent='';return}
+  var html='';
+  lurkers.forEach(function(l,i){
+    var crime=CRIMES[l.crimeIdx];
+    var familyTag=l.relation&&['mom','dad','brother','sister','cousin'].indexOf(l.relation)!==-1?'<span class="lurker-family-tag">FAMILY</span>':'';
+    html+='<div class="lurker-entry"><div class="lurker-num">'+(i+1)+'</div><div class="lurker-info"><div class="lurker-name">'+esc(l.name)+familyTag+'</div><div class="lurker-crime">'+esc(crime.text)+'</div></div><button class="lurker-remove" onclick="removeLurker('+l.id+')" title="Remove">&times;</button></div>';
+  });
+  el.innerHTML=html;
+  countEl.textContent=lurkers.length+'/10 lurkers on the shame list';
+}
+
+/* ── Confetti ──────────────────────────────────────────── */
+function fireConfetti(){
+  var colors=['#ffd700','#ff8c00','#dc2626','#ff6b6b','#58a6ff','#39d353','#ffffff'];
+  for(var i=0;i<60;i++){
+    var piece=document.createElement('div');
+    piece.className='confetti-piece';
+    piece.style.left=Math.random()*100+'vw';
+    piece.style.width=randInt(6,12)+'px';
+    piece.style.height=randInt(4,8)+'px';
+    piece.style.background=rand(colors);
+    piece.style.borderRadius=Math.random()>0.5?'50%':'2px';
+    piece.style.animationDuration=randInt(2000,4000)+'ms';
+    piece.style.animationDelay=randInt(0,1500)+'ms';
+    document.body.appendChild(piece);
+    setTimeout(function(p){p.remove()}.bind(null,piece),5500);
+  }
+}
+
+/* ── Generate All Reports ──────────────────────────────── */
+function generateAllReports(){
+  if(lurkers.length===0){alert('Add at least one lurker to shame. Justice demands it.');return}
+
+  var yourName=document.getElementById('yourName').value.trim()||'The Prosecution';
+  var postsPerWeek=parseInt(document.getElementById('postsPerWeek').value)||5;
+  var bestLikes=parseInt(document.getElementById('bestLikes').value)||47;
+  var followerCount=parseInt(document.getElementById('followerCount').value)||1200;
+  var months=parseInt(document.getElementById('monthsPosting').value)||18;
+  var totalPosts=postsPerWeek*months*4;
+
+  generatedReports=[];
+  var html='';
+
+  lurkers.forEach(function(l,i){
+    var crime=CRIMES[l.crimeIdx];
+    var data={name:esc(l.name),posts:String(randInt(Math.floor(totalPosts*0.3),totalPosts)),months:String(months),totalPosts:String(totalPosts),followerCount:String(followerCount),yourName:esc(yourName)};
+    var verdict=fillTemplate(rand(VERDICTS),data);
+    var roast=fillTemplate(rand(ROASTS),data);
+    var caseNo=getCaseNumber();
+    var skulls=getSkullRating(crime.severity);
+    var rehabPosts=randInt(3,10);
+    var rehabDays=randInt(7,30);
+
+    var reportData={name:l.name,crime:crime.text,verdict:verdict,roast:roast,caseNo:caseNo,severity:crime.severity,skulls:skulls,rehabPosts:rehabPosts,rehabDays:rehabDays,relation:l.relation,crimeIdx:l.crimeIdx};
+    generatedReports.push(reportData);
+
+    html+='<div class="report-card shake-anim" style="animation-delay:'+(i*0.15)+'s">';
+    html+='<div class="report-header"><div class="report-header-left"><div class="report-doc-title">Official Social Shame Report</div><div class="report-case-no">Case No: '+caseNo+' | Filed: '+new Date().toLocaleDateString()+'</div></div><div class="report-stamp stamp-anim" style="animation-delay:'+(0.3+i*0.15)+'s"><div class="report-stamp-border"></div><div class="report-stamp-text">GUILTY</div></div></div>';
+    html+='<div class="report-defendant"><div class="report-defendant-label">The Defendant</div><div class="report-defendant-name">'+esc(l.name)+'</div></div>';
+    html+='<div class="report-crime"><div class="report-crime-label">Charge</div><div class="report-crime-text">"'+esc(crime.text)+'"</div></div>';
+    html+='<div class="report-skulls"><div class="report-skulls-label">Lurker Score</div><div class="report-skulls-row">'+skulls+'</div><div class="report-skulls-score">'+crime.severity+'/10 &mdash; '+(crime.severity>=8?'MAXIMUM OFFENSE':crime.severity>=6?'SEVERE LURKING':'MODERATE LURKING')+'</div></div>';
+    html+='<div class="report-verdict"><div class="report-verdict-label">The Verdict</div><div class="report-verdict-text">'+esc(verdict)+'</div></div>';
+    html+='<div class="report-roast"><div class="report-roast-text">"'+esc(roast)+'"</div></div>';
+    html+='<div class="report-rehab"><div class="report-rehab-label">Rehabilitation Plan</div><div class="report-rehab-text">'+esc(l.name)+' is hereby ordered to like the next '+rehabPosts+' posts within '+rehabDays+' days to clear their record. Failure to comply will result in permanent placement on the Wall of Shame and possible unfollowing.</div></div>';
+    html+='<div class="report-qr"><div class="report-qr-box">'+QR_ART.join('<br>')+'<br><strong style="color:var(--gold);font-size:0.7rem">SCAN TO LIKE A POST</strong></div><div class="report-qr-label">(It\'s literally just a like button. It takes 0.1 seconds.)</div></div>';
+    html+='<div class="report-actions"><button class="btn btn-sm btn-gold" onclick="copyReportDM('+i+')">&#128172; Copy for DM</button><button class="btn btn-sm share-btn share-x" onclick="shareReportX('+i+')">&#120143; Post to X</button><button class="btn btn-sm btn-outline" onclick="copyShareLink('+i+')">&#128279; Share Link</button></div>';
+    html+='<div class="report-filed-by">Filed by <span>'+esc(yourName)+'</span> via SPUNK.CODES | <a href="https://spunk.codes/exclusive/social-shame-report" style="color:var(--gold)">Generate yours free</a></div>';
+    html+='</div>';
+  });
+
+  document.getElementById('reportsOutput').innerHTML=html;
+  document.getElementById('tabBar').style.display='flex';
+  switchTab('reports');
+  fireConfetti();
+  updateWallOfShame();
+  generateFamilyVerdicts();
+  trackEvent('shame_reports_generated',{count:lurkers.length});
+}
+
+/* ── Copy Report as DM ─────────────────────────────────── */
+function copyReportDM(idx){
+  var r=generatedReports[idx];if(!r)return;
+  var yourName=document.getElementById('yourName').value.trim()||'Someone';
+  var text='--- OFFICIAL SHAME REPORT ---\n\n';
+  text+='Case No: '+r.caseNo+'\n';
+  text+='Defendant: '+r.name+'\n\n';
+  text+='CHARGE: "'+r.crime+'"\n\n';
+  text+='LURKER SCORE: '+r.severity+'/10\n\n';
+  text+='VERDICT: '+r.verdict+'\n\n';
+  text+='"'+r.roast+'"\n\n';
+  text+='REHABILITATION: Like the next '+r.rehabPosts+' posts within '+r.rehabDays+' days to clear your record.\n\n';
+  text+='Filed by '+yourName+' via spunk.codes/exclusive/social-shame-report\n';
+  text+='Generate yours: spunk.codes @SpunkArt13';
+  navigator.clipboard.writeText(text).then(function(){alert('Report copied! Send it via DM and watch them squirm.')});
+  trackEvent('shame_report_dm_copied',{lurker:r.name});
+}
+
+/* ── Share Report on X ─────────────────────────────────── */
+function shareReportX(idx){
+  var r=generatedReports[idx];if(!r)return;
+  var text='OFFICIAL SHAME REPORT\n\n';
+  text+=r.name+' has been found GUILTY of: "'+r.crime+'"\n\n';
+  text+='Lurker Score: '+r.severity+'/10\n';
+  text+='"'+r.roast+'"\n\n';
+  text+='Generate yours free: spunk.codes @SpunkArt13';
+  window.open('https://x.com/intent/tweet?text='+encodeURIComponent(text),'_blank');
+  trackEvent('shame_report_shared_x',{lurker:r.name});
+}
+
+/* ── Copy Share Link ───────────────────────────────────── */
+function copyShareLink(idx){
+  var r=generatedReports[idx];if(!r)return;
+  var url='https://spunk.codes/exclusive/social-shame-report?lurker='+encodeURIComponent(r.name)+'&crime='+r.crimeIdx;
+  navigator.clipboard.writeText(url).then(function(){alert('Share link copied! Anyone who opens this will see '+r.name+'\'s name pre-loaded and ready for judgment.')});
+  trackEvent('shame_report_link_copied',{lurker:r.name});
+}
+
+/* ── Bulk Post Generator ───────────────────────────────── */
+function generateBulkPost(){
+  if(lurkers.length===0){alert('Add lurkers first. You need at least one name for the call-out post.');return}
+  var yourName=document.getElementById('yourName').value.trim()||'@me';
+
+  var text='\u{1F6A8} OFFICIAL LURKER REPORT \u{1F6A8}\n\n';
+  text+='These people follow '+yourName+' but have NEVER liked a single post:\n\n';
+  lurkers.forEach(function(l){
+    var crime=CRIMES[l.crimeIdx];
+    text+='\u{1F47B} '+l.name+' \u{2014} '+crime.short+'\n';
+  });
+  text+='\nYou have 24 hours to like something or you\'re getting unfollowed \u{1F624}\n\n';
+  text+='Generate yours free: spunk.codes @SpunkArt13';
+
+  document.getElementById('bulkPostOutput').textContent=text;
+  document.getElementById('bulkPostOutput').style.display='block';
+  document.getElementById('bulkActions').style.display='flex';
+  document.getElementById('bulkEmpty').style.display='none';
+  document.getElementById('tabBar').style.display='flex';
+  switchTab('bulk');
+  trackEvent('bulk_shame_post_generated',{count:lurkers.length});
+}
+
+function copyBulkPost(){
+  var text=document.getElementById('bulkPostOutput').textContent;
+  navigator.clipboard.writeText(text).then(function(){alert('Bulk call-out post copied! Paste it everywhere.')});
+  trackEvent('bulk_post_copied');
+}
+
+function shareBulkX(){
+  var text=document.getElementById('bulkPostOutput').textContent;
+  if(text.length>280)text=text.substring(0,277)+'...';
+  window.open('https://x.com/intent/tweet?text='+encodeURIComponent(text),'_blank');
+  trackEvent('bulk_post_shared_x');
+}
+
+/* ── Family Verdicts ───────────────────────────────────── */
+function generateFamilyVerdicts(){
+  var familyLurkers=lurkers.filter(function(l){return l.relation&&FAMILY_VERDICTS[l.relation]});
+  var el=document.getElementById('familyVerdicts');
+  var emptyEl=document.getElementById('familyEmpty');
+
+  if(familyLurkers.length===0){el.innerHTML='';emptyEl.style.display='block';return}
+  emptyEl.style.display='none';
+
+  var icons={mom:'\u{1F469}',dad:'\u{1F468}',brother:'\u{1F466}',sister:'\u{1F467}',cousin:'\u{1F9D1}',ex:'\u{1F494}',bestfriend:'\u{1F91D}',crush:'\u{1F60D}',friend:'\u{1F44B}',coworker:'\u{1F4BC}',boss:'\u{1F454}',neighbor:'\u{1F3E0}'};
+  var labels={mom:'Mom',dad:'Dad',brother:'Brother',sister:'Sister',cousin:'Cousin',ex:'Ex',bestfriend:'Best Friend',crush:'Crush',friend:'Friend',coworker:'Coworker',boss:'Boss',neighbor:'Neighbor'};
+
+  var html='';
+  familyLurkers.forEach(function(l){
+    var verdictPool=FAMILY_VERDICTS[l.relation]||FAMILY_VERDICTS['friend'];
+    var verdict=rand(verdictPool);
+    var icon=icons[l.relation]||'\u{1F47B}';
+    var label=labels[l.relation]||'Family';
+    html+='<div class="family-verdict"><div class="family-verdict-icon">'+icon+'</div><div><div class="family-verdict-text">"'+esc(verdict)+'"</div><div class="family-verdict-who">'+esc(l.name)+' &mdash; '+label+'</div></div></div>';
+  });
+  el.innerHTML=html;
+}
+
+/* ── Wall of Shame ─────────────────────────────────────── */
+function updateWallOfShame(){
+  try{
+    var wall=JSON.parse(localStorage.getItem('shame_wall')||'{}');
+    lurkers.forEach(function(l){
+      var key=l.name.toLowerCase().trim();
+      if(!wall[key])wall[key]={name:l.name,count:0};
+      wall[key].count++;
+      wall[key].name=l.name;
+    });
+    localStorage.setItem('shame_wall',JSON.stringify(wall));
+    renderWall();
+  }catch(e){}
+}
+
+function renderWall(){
+  try{
+    var wall=JSON.parse(localStorage.getItem('shame_wall')||'{}');
+    var entries=Object.values(wall).sort(function(a,b){return b.count-a.count}).slice(0,10);
+    var el=document.getElementById('shameLeaderboard');
+    var emptyEl=document.getElementById('wallEmpty');
+
+    if(entries.length===0){el.innerHTML='';emptyEl.style.display='block';return}
+    emptyEl.style.display='none';
+
+    var html='';
+    entries.forEach(function(e,i){
+      var rankClass=i===0?'shame-rank-1':i===1?'shame-rank-2':i===2?'shame-rank-3':'shame-rank-default';
+      var medal=i===0?'\u{1F947}':i===1?'\u{1F948}':i===2?'\u{1F949}':'';
+      html+='<li><div class="shame-rank '+rankClass+'">'+(medal||(i+1))+'</div><div class="shame-name">'+esc(e.name)+'</div><div class="shame-count">Shamed '+e.count+'x</div></li>';
+    });
+    el.innerHTML=html;
+  }catch(e){}
+}
+
+function clearWall(){
+  if(confirm('Clear the entire Wall of Shame? All lurkers get a fresh start. (They don\'t deserve it.)')){
+    localStorage.removeItem('shame_wall');
+    renderWall();
+  }
+}
+
+/* ── Tab Switching ─────────────────────────────────────── */
+function switchTab(name){
+  document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active')});
+  document.querySelectorAll('.tab-content').forEach(function(c){c.classList.remove('active')});
+  document.getElementById('tab-'+name).classList.add('active');
+  var btns=document.querySelectorAll('.tab-btn');
+  var tabMap={reports:0,bulk:1,family:2,wall:3};
+  if(btns[tabMap[name]])btns[tabMap[name]].classList.add('active');
+}
+
+/* ── Print Reports ─────────────────────────────────────── */
+function printReports(){
+  if(generatedReports.length===0){alert('Generate reports first, then print them for maximum shame.');return}
+  window.print();
+  trackEvent('shame_reports_printed',{count:generatedReports.length});
+}
+
+/* ── Share Tool ────────────────────────────────────────── */
+function shareToolX(){window.open('https://x.com/intent/tweet?text='+encodeURIComponent('Just generated Shame Reports for my lurkers who never like my posts. This tool is BRUTAL. Code SPUNK @SpunkArt13')+'&url='+encodeURIComponent('https://spunk.codes/exclusive-tools'),'_blank');trackEvent('tool_shared_x')}
+function shareToolReddit(){window.open('https://www.reddit.com/submit?url='+encodeURIComponent('https://spunk.codes/exclusive-tools')+'&title='+encodeURIComponent('Social Shame Report Generator - call out your lurkers (free with code SPUNK)'),'_blank');trackEvent('tool_shared_reddit')}
+function shareToolEmail(){window.location.href='mailto:?subject='+encodeURIComponent('You NEED this Shame Report Generator')+'&body='+encodeURIComponent('Generate personalized shame reports for followers who never engage with your posts. It\'s hilarious. Code SPUNK: https://spunk.codes/exclusive-tools');trackEvent('tool_shared_email')}
+
+/* ── GA4 Tracking ──────────────────────────────────────── */
+function trackEvent(action,params){
+  if(typeof gtag==='function'){gtag('event',action,Object.assign({event_category:'shame_report',page:window.location.pathname},params||{}))}
+}
+
+/* ── Init ──────────────────────────────────────────────── */
+renderLurkers();
+renderWall();
+
+/* ── Enter key on lurker name ──────────────────────────── */
+document.getElementById('lurkerName').addEventListener('keydown',function(e){if(e.key==='Enter')addLurker()});
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<script src="/auto-monetize.js"></script>
+<!-- Share on X Button -->
+<div id="shareXBtn" style="position:fixed;left:20px;bottom:20px;z-index:9999;">
+  <a id="shareXLink" href="#" target="_blank" rel="noopener noreferrer" title="Share on X"
+     style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;
+     background:rgba(88,166,255,0.15);border:1px solid rgba(88,166,255,0.3);
+     backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:50%;
+     text-decoration:none;transition:all 0.3s ease;cursor:pointer;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+    </svg>
+  </a>
+</div>
+<style>
+  #shareXBtn a:hover {
+    background: rgba(88,166,255,0.35) !important;
+    border-color: rgba(88,166,255,0.6) !important;
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(88,166,255,0.3);
+  }
+</style>
+<script>
+(function(){
+  var page = location.pathname.split("/").pop() || "index.html";
+  var url = "https://spunk.codes/" + page;
+  var text = "Just used this free tool on spunk.codes \u2014 amazing! @SpunkArt13";
+  var href = "https://x.com/intent/tweet?text=" + encodeURIComponent(text) + "&url=" + encodeURIComponent(url);
+  document.getElementById("shareXLink").href = href;
+})();
+</script>
+<script src="/usage-tracker.js"></script>
+</body>
+</html>
