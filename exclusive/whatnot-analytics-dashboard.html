@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Whatnot Analytics Dashboard | SPUNK.CODES</title>
+<meta name="description" content="Track Whatnot live show performance with revenue trends, viewer analytics, sell-through rates, show comparisons, and growth calculations.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Whatnot Analytics Dashboard - SPUNK.CODES Exclusive">
+<meta property="og:description" content="Analyze your Whatnot show performance: revenue trends, viewer growth, sell-through rates, and show comparisons. Code SPUNK unlocks it.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://spunk.codes/exclusive/whatnot-analytics-dashboard">
+<meta property="og:site_name" content="SPUNK.CODES">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/whatnot-analytics-dashboard">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Whatnot Analytics Dashboard","applicationCategory":"BusinessApplication","operatingSystem":"Web","description":"Track Whatnot live show performance with revenue trends, viewer analytics, sell-through rates, show comparisons, and growth rate calculations.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Organization","name":"SPUNK.CODES","url":"https://spunk.codes"}}</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0d1117;--card:rgba(22,27,34,0.8);--border:rgba(48,54,61,0.6);--gold:#ffd700;--gold-dim:rgba(255,215,0,0.15);--gold-border:rgba(255,215,0,0.3);--text:#e6edf3;--text-dim:#8b949e;--blue:#58a6ff;--cyan:#39d353;--red:#f85149;--orange:#ff8c00;--font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+a{color:var(--blue);text-decoration:none}a:hover{color:#fff}
+.bg-mesh{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 80% 50% at 20% 20%,rgba(255,215,0,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(255,140,0,0.04) 0%,transparent 60%),var(--bg)}
+.bg-grid{position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,215,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,215,0,0.03) 1px,transparent 1px);background-size:60px 60px}
+.nav{position:sticky;top:0;z-index:100;background:rgba(13,17,23,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,215,0,0.15);padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}.nav-brand{font-weight:800;font-size:1.1rem;color:var(--gold);letter-spacing:0.08em}.nav-links{display:flex;gap:1.5rem;font-size:0.85rem;list-style:none}.nav-links a{color:var(--text-dim);transition:color 0.2s;font-weight:500}.nav-links a:hover{color:#fff}.nav-links a.active{color:var(--gold)}
+.lock-gate{position:fixed;inset:0;z-index:1000;background:rgba(13,17,23,0.97);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:2rem}.lock-gate.hidden{display:none}.lock-icon-big{font-size:4rem;margin-bottom:0.5rem}.lock-gate h2{font-size:1.8rem;font-weight:800;text-align:center}.lock-gate h2 span{color:var(--gold)}.lock-gate p{color:var(--text-dim);text-align:center;max-width:400px}.code-input-wrap{display:flex;gap:0.5rem;margin-top:0.5rem}.code-input{padding:0.8rem 1.5rem;background:rgba(22,27,34,0.8);border:2px solid var(--gold-border);border-radius:12px;color:var(--gold);font-size:1.2rem;font-weight:800;letter-spacing:3px;text-align:center;width:200px;outline:none;text-transform:uppercase;font-family:var(--font)}.code-input:focus{border-color:var(--gold);box-shadow:0 0 20px rgba(255,215,0,0.2)}.code-submit{padding:0.8rem 1.5rem;background:linear-gradient(135deg,#ffd700,#ff8c00);border:none;border-radius:12px;color:#000;font-size:1rem;font-weight:800;cursor:pointer;transition:all 0.3s}.code-submit:hover{transform:scale(1.05)}.code-error{color:#f85149;font-size:0.85rem;min-height:1.2em}.lock-hint{color:var(--text-dim);font-size:0.8rem;margin-top:1rem}.lock-hint a{color:var(--gold)}
+.exclusive-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;background:linear-gradient(135deg,rgba(255,215,0,0.15),rgba(255,140,0,0.15));border:1px solid var(--gold-border);border-radius:100px;font-size:11px;font-weight:800;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase}
+.main{max-width:1100px;margin:0 auto;padding:2rem}
+.hero-section{text-align:center;padding:2rem 0 3rem}.hero-section h1{font-size:2.2rem;font-weight:800;margin:1rem 0 0.5rem}.hero-section h1 .gold{background:linear-gradient(135deg,#ffd700,#ff8c00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}.hero-section p{color:var(--text-dim);max-width:600px;margin:0 auto}
+.tool-section{background:var(--card);border:1px solid var(--gold-border);border-radius:16px;padding:2rem;margin-bottom:1.5rem;backdrop-filter:blur(10px);position:relative;overflow:hidden}.tool-section::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),#ff8c00,var(--gold))}.tool-section h2{font-size:1.2rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}.tool-section h2 .icon{font-size:1.4rem}
+label{font-size:0.85rem;color:var(--text-dim);font-weight:600;display:block;margin-bottom:0.4rem}
+input,select,textarea{width:100%;padding:0.75rem 1rem;background:rgba(13,17,23,0.6);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:0.9rem;font-family:var(--font);outline:none;transition:border-color 0.2s}input:focus,select:focus,textarea:focus{border-color:var(--gold)}select option{background:#161b22;color:var(--text)}
+.input-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}.input-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem}.input-grid-6{display:grid;grid-template-columns:repeat(6,1fr);gap:0.75rem}.input-group{margin-bottom:1rem}
+.btn{padding:0.75rem 2rem;border:none;border-radius:10px;font-size:0.9rem;font-weight:700;cursor:pointer;transition:all 0.2s;font-family:var(--font)}.btn-gold{background:linear-gradient(135deg,#ffd700,#ff8c00);color:#000}.btn-gold:hover{transform:translateY(-2px);box-shadow:0 4px 20px rgba(255,215,0,0.3)}.btn-outline{background:transparent;border:1px solid var(--border);color:var(--text-dim)}.btn-outline:hover{border-color:var(--gold);color:var(--gold)}.btn-sm{padding:0.5rem 1rem;font-size:0.8rem}.btn-row{display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:1rem}
+.metrics-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1rem;margin:1rem 0}
+.metric-card{background:rgba(13,17,23,0.5);border:1px solid var(--border);border-radius:12px;padding:1.2rem;text-align:center}.metric-card .val{font-size:1.5rem;font-weight:800}.metric-card .lbl{font-size:0.72rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px;margin-bottom:0.3rem}.metric-card .sub{font-size:0.7rem;color:var(--text-dim);margin-top:0.3rem}.metric-card .change{font-size:0.72rem;font-weight:700;margin-top:0.2rem}
+table{width:100%;border-collapse:collapse;font-size:0.82rem}th{text-align:left;padding:0.6rem 0.4rem;color:var(--gold);border-bottom:2px solid var(--gold-border);font-weight:700;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.5px;cursor:pointer;user-select:none;white-space:nowrap}th:hover{color:#fff}td{padding:0.5rem 0.4rem;border-bottom:1px solid var(--border)}tr:hover td{background:rgba(255,215,0,0.03)}
+.chart-wrap{background:rgba(13,17,23,0.5);border:1px solid var(--border);border-radius:12px;padding:1rem;margin-top:0.75rem}
+.highlight-card{border:1px solid var(--gold-border);border-radius:12px;padding:1.2rem;background:rgba(255,215,0,0.04)}.highlight-card h4{color:var(--gold);font-size:0.85rem;margin-bottom:0.5rem;text-transform:uppercase;letter-spacing:0.5px}
+.compare-grid{display:grid;grid-template-columns:1fr auto 1fr;gap:1.5rem;align-items:start;margin-top:1rem}.compare-col{background:rgba(13,17,23,0.5);border:1px solid var(--border);border-radius:12px;padding:1.2rem}.compare-col h4{color:var(--gold);font-size:0.85rem;margin-bottom:0.75rem;text-align:center}.compare-vs{display:flex;align-items:center;justify-content:center;color:var(--gold);font-weight:800;font-size:1.2rem}
+.compare-stat{display:flex;justify-content:space-between;padding:0.4rem 0;border-bottom:1px solid rgba(48,54,61,0.3);font-size:0.85rem}.compare-stat .label{color:var(--text-dim)}.compare-stat .value{font-weight:700}
+.tip-card{background:rgba(13,17,23,0.5);border:1px solid var(--border);border-radius:10px;padding:1rem;margin-bottom:0.75rem;font-size:0.88rem;line-height:1.6}.tip-card strong{color:var(--gold)}.tip-card .tip-tag{display:inline-block;padding:2px 8px;border-radius:6px;font-size:0.65rem;font-weight:800;text-transform:uppercase;letter-spacing:0.5px;margin-right:0.5rem}
+.remove-btn{background:none;border:none;color:var(--red);cursor:pointer;font-size:1.1rem;padding:2px 6px;border-radius:4px}.remove-btn:hover{background:rgba(248,81,73,0.15)}
+.share-cta{background:linear-gradient(135deg,rgba(255,215,0,0.08),rgba(255,140,0,0.05));border:1px solid var(--gold-border);border-radius:16px;padding:2rem;text-align:center;margin-top:2rem}.share-cta h3{color:var(--gold);margin-bottom:0.5rem;font-size:1.1rem}.share-cta p{color:var(--text-dim);font-size:0.9rem;margin-bottom:1rem}
+.footer{text-align:center;padding:2rem;border-top:1px solid rgba(255,215,0,0.1);color:var(--text-dim);font-size:0.75rem;margin-top:3rem}.footer a{color:var(--gold)}.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-bottom:1rem}
+.watermark{position:fixed;bottom:10px;right:10px;font-size:0.6rem;color:rgba(255,215,0,0.08);font-weight:800;pointer-events:none;z-index:9999;letter-spacing:1px;text-transform:uppercase}
+@media(max-width:768px){.main{padding:1rem}.hero-section h1{font-size:1.6rem}.input-grid,.input-grid-3{grid-template-columns:1fr}.input-grid-6{grid-template-columns:1fr 1fr 1fr}.nav-links{display:none}.metrics-grid{grid-template-columns:1fr 1fr}table{font-size:0.7rem}.compare-grid{grid-template-columns:1fr;gap:0.75rem}.compare-vs{padding:0.5rem 0}}
+</style>
+</head>
+<body>
+<div class="bg-mesh"></div><div class="bg-grid"></div>
+<div class="lock-gate" id="lockGate"><div class="lock-icon-big">&#128274;</div><h2>Enter Code <span>SPUNK</span> to Unlock</h2><p>This is an exclusive premium tool. Enter the referral code to get instant access.</p><div class="code-input-wrap"><input type="text" class="code-input" id="codeInput" placeholder="CODE" maxlength="10" autocomplete="off"><button class="code-submit" onclick="submitCode()">Unlock</button></div><div class="code-error" id="codeError"></div><div class="lock-hint">Get the code at <a href="https://spunk.codes/exclusive-tools">spunk.codes/exclusive-tools</a></div></div>
+<nav class="nav"><a href="https://spunk.codes" class="nav-brand">SPUNK.CODES</a><div class="nav-links"><a href="/store">Tools</a><a href="/exclusive-tools" class="active">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a></div></nav>
+
+<div class="main">
+  <section class="hero-section">
+    <div class="exclusive-badge">&#128081; EXCLUSIVE TOOL</div>
+    <h1><span class="gold">Whatnot Analytics Dashboard</span></h1>
+    <p>Track every show. See revenue trends, viewer growth, sell-through rates, compare shows side by side, and get data-driven tips to grow your Whatnot business.</p>
+  </section>
+
+  <!-- Add Show Data -->
+  <div class="tool-section">
+    <h2><span class="icon">&#10133;</span> Log Show Data</h2>
+    <div class="input-grid-3">
+      <div class="input-group">
+        <label>Show Date</label>
+        <input type="date" id="sDate">
+      </div>
+      <div class="input-group">
+        <label>Show Title (optional)</label>
+        <input type="text" id="sTitle" placeholder="e.g. Friday Night Vintage">
+      </div>
+      <div class="input-group">
+        <label>Duration (minutes)</label>
+        <input type="number" id="sDuration" placeholder="120" min="1" max="600">
+      </div>
+    </div>
+    <div class="input-grid-6">
+      <div class="input-group">
+        <label>Items Listed</label>
+        <input type="number" id="sItemsListed" placeholder="30" min="0">
+      </div>
+      <div class="input-group">
+        <label>Items Sold</label>
+        <input type="number" id="sItemsSold" placeholder="22" min="0">
+      </div>
+      <div class="input-group">
+        <label>Total Revenue ($)</label>
+        <input type="number" id="sRevenue" placeholder="450" min="0" step="0.01">
+      </div>
+      <div class="input-group">
+        <label>Peak Viewers</label>
+        <input type="number" id="sViewers" placeholder="50" min="0">
+      </div>
+      <div class="input-group">
+        <label>New Followers</label>
+        <input type="number" id="sFollowers" placeholder="12" min="0">
+      </div>
+      <div class="input-group">
+        <label>Unique Buyers</label>
+        <input type="number" id="sBuyers" placeholder="15" min="0">
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-gold" onclick="addShow()">Log Show</button>
+    </div>
+  </div>
+
+  <!-- Key Metrics -->
+  <div class="tool-section">
+    <h2><span class="icon">&#128202;</span> Key Metrics</h2>
+    <div id="metricsContent">
+      <p style="color:var(--text-dim);font-size:0.85rem">Log shows to see your key performance metrics.</p>
+    </div>
+  </div>
+
+  <!-- Show History Table -->
+  <div class="tool-section">
+    <h2><span class="icon">&#128203;</span> Show History</h2>
+    <div style="overflow-x:auto">
+      <table>
+        <thead><tr>
+          <th onclick="sortBy('date')">Date</th>
+          <th onclick="sortBy('title')">Title</th>
+          <th onclick="sortBy('duration')">Duration</th>
+          <th onclick="sortBy('itemsSold')">Sold</th>
+          <th onclick="sortBy('revenue')">Revenue</th>
+          <th onclick="sortBy('viewers')">Viewers</th>
+          <th onclick="sortBy('followers')">+Follows</th>
+          <th onclick="sortBy('sellThrough')">Sell%</th>
+          <th onclick="sortBy('revPerMin')">$/Min</th>
+          <th></th>
+        </tr></thead>
+        <tbody id="showBody"></tbody>
+      </table>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-sm btn-outline" onclick="exportCSV()">Export CSV</button>
+      <button class="btn btn-sm btn-outline" onclick="clearAll()">Clear All</button>
+    </div>
+  </div>
+
+  <!-- Charts -->
+  <div class="tool-section">
+    <h2><span class="icon">&#128200;</span> Trends</h2>
+    <div class="input-group" style="max-width:200px">
+      <label>Chart Metric</label>
+      <select id="chartMetric" onchange="renderCharts()">
+        <option value="revenue">Revenue</option>
+        <option value="viewers">Peak Viewers</option>
+        <option value="itemsSold">Items Sold</option>
+        <option value="sellThrough">Sell-Through %</option>
+        <option value="followers">New Followers</option>
+        <option value="revPerMin">$/Minute</option>
+      </select>
+    </div>
+    <div class="chart-wrap">
+      <canvas id="trendChart" height="280"></canvas>
+    </div>
+  </div>
+
+  <!-- Best / Worst -->
+  <div class="tool-section">
+    <h2><span class="icon">&#127942;</span> Best &amp; Worst Shows</h2>
+    <div id="highlightsContent">
+      <p style="color:var(--text-dim);font-size:0.85rem">Log at least 3 shows to see highlights.</p>
+    </div>
+  </div>
+
+  <!-- Show Comparison -->
+  <div class="tool-section">
+    <h2><span class="icon">&#128260;</span> Show Comparison</h2>
+    <div class="input-grid">
+      <div class="input-group">
+        <label>Show A</label>
+        <select id="compareA" onchange="renderComparison()"><option value="">Select a show...</option></select>
+      </div>
+      <div class="input-group">
+        <label>Show B</label>
+        <select id="compareB" onchange="renderComparison()"><option value="">Select a show...</option></select>
+      </div>
+    </div>
+    <div id="comparisonContent"></div>
+  </div>
+
+  <!-- Growth Rates -->
+  <div class="tool-section">
+    <h2><span class="icon">&#128640;</span> Growth Rates</h2>
+    <div id="growthContent">
+      <p style="color:var(--text-dim);font-size:0.85rem">Log at least 2 shows to see growth calculations.</p>
+    </div>
+  </div>
+
+  <!-- Tips -->
+  <div class="tool-section">
+    <h2><span class="icon">&#128161;</span> Tips &amp; Best Practices</h2>
+    <div class="tip-card">
+      <span class="tip-tag" style="background:rgba(57,211,83,0.15);color:var(--cyan)">TIMING</span>
+      <strong>Best times to go live on Whatnot:</strong> Weekday evenings (7-10 PM local) and weekend afternoons (1-5 PM) consistently draw the most viewers. Thursday and Sunday tend to perform best. Avoid Monday mornings and late nights past 11 PM.
+    </div>
+    <div class="tip-card">
+      <span class="tip-tag" style="background:rgba(88,166,255,0.15);color:var(--blue)">DURATION</span>
+      <strong>Optimal show length:</strong> 1.5-2.5 hours is the sweet spot. Shows under 60 minutes don't build enough momentum. Shows over 3 hours see viewer drop-off. If you have 50+ items, consider splitting into two shows.
+    </div>
+    <div class="tip-card">
+      <span class="tip-tag" style="background:rgba(255,215,0,0.15);color:var(--gold)">PRICING</span>
+      <strong>Pricing strategies that work:</strong> Start bids at 40-60% of market value to drive engagement. Use $1 start auctions for the first 3 items to hook viewers early. Place your best items at 25% and 75% through the show to maintain energy peaks.
+    </div>
+    <div class="tip-card">
+      <span class="tip-tag" style="background:rgba(255,140,0,0.15);color:var(--orange)">ENGAGEMENT</span>
+      <strong>Viewer retention tactics:</strong> Call out buyers by name. Run flash giveaways every 20 minutes. Tease upcoming items ("Wait until you see what's next"). Ask questions to chat. The more interactive, the longer viewers stay.
+    </div>
+    <div class="tip-card">
+      <span class="tip-tag" style="background:rgba(248,81,73,0.15);color:var(--red)">GROWTH</span>
+      <strong>Growing your following:</strong> Go live on a consistent schedule (same day/time each week). Cross-promote on Instagram, TikTok, and X. Collaborate with other sellers for cross-streams. Every show should end with "Follow for the next drop."
+    </div>
+  </div>
+
+  <div class="share-cta">
+    <h3>Growing on Whatnot?</h3>
+    <p>Share this analytics dashboard with fellow sellers.</p>
+    <div class="btn-row" style="justify-content:center">
+      <button class="btn btn-sm btn-gold" onclick="shareX()">Share on X</button>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-links"><a href="/">Home</a><a href="/store">All Tools</a><a href="/exclusive-tools">Exclusive Tools</a><a href="/blog">Blog</a></div>
+    <p>&copy; 2025 SPUNK.CODES. Built for live sellers who grow.</p>
+  </footer>
+</div>
+
+<div class="watermark">SPUNK.CODES</div>
+
+<script>
+// === Code Gate ===
+function checkAccess(){try{var c1=localStorage.getItem('spunk_referral_code');var c2=localStorage.getItem('spunk_ref_code');if((c1&&c1.toUpperCase()==='SPUNK')||(c2&&c2.toUpperCase()==='SPUNK')){document.getElementById('lockGate').classList.add('hidden');return}}catch(e){}document.getElementById('lockGate').classList.remove('hidden')}
+function submitCode(){var v=document.getElementById('codeInput').value.trim().toUpperCase();if(v==='SPUNK'){try{localStorage.setItem('spunk_referral_code',v)}catch(e){}document.getElementById('lockGate').classList.add('hidden');if(typeof gtag==='function')gtag('event','code_unlock',{tool:'whatnot-analytics-dashboard'})}else{document.getElementById('codeError').textContent='Invalid code. Try again.'}}
+document.getElementById('codeInput').addEventListener('keydown',function(e){if(e.key==='Enter')submitCode()});
+checkAccess();
+
+// Set today
+document.getElementById('sDate').valueAsDate=new Date();
+
+// === Data ===
+var STORAGE_KEY='whatnot_analytics';
+var shows=[];
+var sortField='date';
+var sortDir=-1;
+
+function loadData(){try{shows=JSON.parse(localStorage.getItem(STORAGE_KEY)||'[]')}catch(e){shows=[]}}
+function saveData(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(shows))}catch(e){}}
+
+function addShow(){
+  var date=document.getElementById('sDate').value;
+  if(!date){alert('Select a show date.');return}
+  var itemsListed=parseInt(document.getElementById('sItemsListed').value)||0;
+  var itemsSold=parseInt(document.getElementById('sItemsSold').value)||0;
+  var revenue=parseFloat(document.getElementById('sRevenue').value)||0;
+  var duration=parseInt(document.getElementById('sDuration').value)||0;
+
+  var show={
+    id:Date.now(),
+    date:date,
+    title:document.getElementById('sTitle').value.trim()||'Show '+date,
+    duration:duration,
+    itemsListed:itemsListed,
+    itemsSold:itemsSold,
+    revenue:revenue,
+    viewers:parseInt(document.getElementById('sViewers').value)||0,
+    followers:parseInt(document.getElementById('sFollowers').value)||0,
+    buyers:parseInt(document.getElementById('sBuyers').value)||0,
+    sellThrough:itemsListed>0?Math.round((itemsSold/itemsListed)*100):0,
+    revPerMin:duration>0?(revenue/duration):0
+  };
+  shows.push(show);
+  shows.sort(function(a,b){return a.date>b.date?1:-1});
+
+  // Reset
+  document.getElementById('sTitle').value='';
+  document.getElementById('sDuration').value='';
+  document.getElementById('sItemsListed').value='';
+  document.getElementById('sItemsSold').value='';
+  document.getElementById('sRevenue').value='';
+  document.getElementById('sViewers').value='';
+  document.getElementById('sFollowers').value='';
+  document.getElementById('sBuyers').value='';
+  refreshAll();
+  if(typeof gtag==='function')gtag('event','show_logged',{tool:'whatnot-analytics-dashboard',revenue:revenue});
+}
+
+function removeShow(id){
+  shows=shows.filter(function(s){return s.id!==id});
+  refreshAll();
+}
+
+function sortBy(field){
+  if(sortField===field)sortDir*=-1;else{sortField=field;sortDir=1}
+  refreshAll();
+}
+
+function clearAll(){
+  if(!confirm('Delete all show data? This cannot be undone.'))return;
+  shows=[];
+  refreshAll();
+}
+
+function getSorted(){
+  var sorted=shows.slice();
+  sorted.sort(function(a,b){
+    var va=a[sortField]||'',vb=b[sortField]||'';
+    if(typeof va==='string')va=va.toLowerCase();
+    if(typeof vb==='string')vb=vb.toLowerCase();
+    if(va<vb)return -1*sortDir;if(va>vb)return 1*sortDir;return 0;
+  });
+  return sorted;
+}
+
+// === Render All ===
+function refreshAll(){
+  saveData();
+  renderMetrics();
+  renderTable();
+  renderCharts();
+  renderHighlights();
+  renderCompareDropdowns();
+  renderComparison();
+  renderGrowth();
+}
+
+function renderMetrics(){
+  var el=document.getElementById('metricsContent');
+  if(shows.length===0){el.innerHTML='<p style="color:var(--text-dim);font-size:0.85rem">Log shows to see your key performance metrics.</p>';return}
+
+  var totalShows=shows.length;
+  var totalRev=shows.reduce(function(s,sh){return s+sh.revenue},0);
+  var totalSold=shows.reduce(function(s,sh){return s+sh.itemsSold},0);
+  var totalListed=shows.reduce(function(s,sh){return s+sh.itemsListed},0);
+  var totalViewers=shows.reduce(function(s,sh){return s+sh.viewers},0);
+  var totalFollowers=shows.reduce(function(s,sh){return s+sh.followers},0);
+  var totalDuration=shows.reduce(function(s,sh){return s+sh.duration},0);
+  var totalBuyers=shows.reduce(function(s,sh){return s+sh.buyers},0);
+
+  var avgRev=totalRev/totalShows;
+  var avgSold=totalSold/totalShows;
+  var avgViewers=totalViewers/totalShows;
+  var avgSellThrough=totalListed>0?((totalSold/totalListed)*100):0;
+  var avgFollowers=totalFollowers/totalShows;
+  var avgRevPerMin=totalDuration>0?(totalRev/totalDuration):0;
+  var avgConversion=totalViewers>0?((totalBuyers/totalViewers)*100):0;
+
+  // Recent trend (last 3 vs previous 3)
+  function getChangeClass(val){return val>0?'color:var(--cyan)':val<0?'color:var(--red)':'color:var(--text-dim)'}
+  function getChangeText(val){return val>0?'+'+val.toFixed(1)+'%':val.toFixed(1)+'%'}
+  var recentChange='';
+  if(shows.length>=6){
+    var recent3=shows.slice(-3);
+    var prev3=shows.slice(-6,-3);
+    var recentAvgRev=recent3.reduce(function(s,sh){return s+sh.revenue},0)/3;
+    var prevAvgRev=prev3.reduce(function(s,sh){return s+sh.revenue},0)/3;
+    var revChange=prevAvgRev>0?((recentAvgRev-prevAvgRev)/prevAvgRev*100):0;
+    recentChange='<div class="change" style="'+getChangeClass(revChange)+'">'+getChangeText(revChange)+' vs prev 3</div>';
+  }
+
+  var html='<div class="metrics-grid">';
+  html+='<div class="metric-card"><div class="lbl">Total Revenue</div><div class="val" style="color:var(--cyan)">$'+totalRev.toFixed(0)+'</div><div class="sub">across '+totalShows+' shows</div></div>';
+  html+='<div class="metric-card"><div class="lbl">Avg Rev / Show</div><div class="val" style="color:var(--gold)">$'+avgRev.toFixed(0)+'</div>'+recentChange+'</div>';
+  html+='<div class="metric-card"><div class="lbl">Avg Items Sold</div><div class="val" style="color:var(--orange)">'+avgSold.toFixed(1)+'</div><div class="sub">per show</div></div>';
+  html+='<div class="metric-card"><div class="lbl">Sell-Through</div><div class="val" style="color:'+(avgSellThrough>=70?'var(--cyan)':avgSellThrough>=50?'var(--gold)':'var(--red)')+'">'+avgSellThrough.toFixed(1)+'%</div><div class="sub">overall</div></div>';
+  html+='<div class="metric-card"><div class="lbl">Avg Viewers</div><div class="val" style="color:var(--blue)">'+avgViewers.toFixed(0)+'</div><div class="sub">peak per show</div></div>';
+  html+='<div class="metric-card"><div class="lbl">Avg New Follows</div><div class="val" style="color:var(--gold)">'+avgFollowers.toFixed(1)+'</div><div class="sub">per show</div></div>';
+  html+='<div class="metric-card"><div class="lbl">$ / Minute</div><div class="val" style="color:var(--cyan)">$'+avgRevPerMin.toFixed(2)+'</div><div class="sub">avg efficiency</div></div>';
+  html+='<div class="metric-card"><div class="lbl">Conversion Rate</div><div class="val" style="color:'+(avgConversion>=20?'var(--cyan)':avgConversion>=10?'var(--gold)':'var(--red)')+'">'+avgConversion.toFixed(1)+'%</div><div class="sub">viewers to buyers</div></div>';
+  html+='</div>';
+  el.innerHTML=html;
+}
+
+function renderTable(){
+  var tbody=document.getElementById('showBody');
+  var sorted=getSorted();
+  if(sorted.length===0){tbody.innerHTML='<tr><td colspan="10" style="color:var(--text-dim);text-align:center;padding:1.5rem">No shows logged yet</td></tr>';return}
+
+  var html='';
+  sorted.forEach(function(sh){
+    html+='<tr>';
+    html+='<td style="color:var(--gold);font-weight:600">'+sh.date+'</td>';
+    html+='<td>'+esc(sh.title)+'</td>';
+    html+='<td>'+sh.duration+'m</td>';
+    html+='<td>'+sh.itemsSold+(sh.itemsListed?'/'+sh.itemsListed:'')+'</td>';
+    html+='<td style="color:var(--cyan);font-weight:700">$'+sh.revenue.toFixed(0)+'</td>';
+    html+='<td>'+sh.viewers+'</td>';
+    html+='<td style="color:var(--gold)">+'+sh.followers+'</td>';
+    html+='<td style="color:'+(sh.sellThrough>=70?'var(--cyan)':sh.sellThrough>=50?'var(--gold)':'var(--red)')+'">'+sh.sellThrough+'%</td>';
+    html+='<td>$'+sh.revPerMin.toFixed(2)+'</td>';
+    html+='<td><button class="remove-btn" onclick="removeShow('+sh.id+')">&times;</button></td>';
+    html+='</tr>';
+  });
+  tbody.innerHTML=html;
+}
+
+// === Charts ===
+function renderCharts(){
+  var canvas=document.getElementById('trendChart');
+  var ctx=canvas.getContext('2d');
+  var W=canvas.width=canvas.parentElement.clientWidth-32;
+  var H=canvas.height=280;
+  ctx.clearRect(0,0,W,H);
+
+  if(shows.length<2){
+    ctx.fillStyle='#8b949e';ctx.font='14px system-ui';ctx.textAlign='center';
+    ctx.fillText('Log at least 2 shows to see trends',W/2,H/2);
+    return;
+  }
+
+  var metric=document.getElementById('chartMetric').value;
+  var sorted=shows.slice().sort(function(a,b){return a.date<b.date?-1:1});
+  var last20=sorted.slice(-20);
+  var data=last20.map(function(sh){return sh[metric]||0});
+  var labels=last20.map(function(sh){return sh.date.substring(5)});
+
+  var maxVal=Math.max.apply(null,data);
+  var minVal=Math.min.apply(null,data);
+  if(maxVal===minVal){maxVal+=10;minVal=Math.max(0,minVal-10)}
+  var range=maxVal-minVal;
+
+  var pad={top:30,right:20,bottom:50,left:70};
+  var cw=W-pad.left-pad.right;
+  var ch=H-pad.top-pad.bottom;
+
+  // Grid
+  ctx.strokeStyle='rgba(255,215,0,0.1)';ctx.lineWidth=1;
+  for(var i=0;i<=4;i++){
+    var y=pad.top+ch-ch*(i/4);
+    ctx.beginPath();ctx.moveTo(pad.left,y);ctx.lineTo(W-pad.right,y);ctx.stroke();
+    var val=minVal+range*(i/4);
+    ctx.fillStyle='#8b949e';ctx.font='11px system-ui';ctx.textAlign='right';
+    ctx.fillText(metric==='revenue'||metric==='revPerMin'?'$'+val.toFixed(metric==='revPerMin'?2:0):val.toFixed(0),pad.left-8,y+4);
+  }
+
+  // Area fill
+  ctx.beginPath();
+  data.forEach(function(v,i){
+    var x=pad.left+i*(cw/(data.length-1));
+    var y=pad.top+ch-((v-minVal)/range)*ch;
+    if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);
+  });
+  ctx.lineTo(pad.left+(data.length-1)*(cw/(data.length-1)),pad.top+ch);
+  ctx.lineTo(pad.left,pad.top+ch);
+  ctx.closePath();
+  var grad=ctx.createLinearGradient(0,pad.top,0,pad.top+ch);
+  grad.addColorStop(0,'rgba(255,215,0,0.2)');grad.addColorStop(1,'rgba(255,215,0,0)');
+  ctx.fillStyle=grad;ctx.fill();
+
+  // Line
+  ctx.beginPath();
+  data.forEach(function(v,i){
+    var x=pad.left+i*(cw/(data.length-1));
+    var y=pad.top+ch-((v-minVal)/range)*ch;
+    if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);
+  });
+  ctx.strokeStyle='#ffd700';ctx.lineWidth=2.5;ctx.stroke();
+
+  // Points
+  data.forEach(function(v,i){
+    var x=pad.left+i*(cw/(data.length-1));
+    var y=pad.top+ch-((v-minVal)/range)*ch;
+    ctx.beginPath();ctx.arc(x,y,4,0,Math.PI*2);
+    ctx.fillStyle='#ffd700';ctx.fill();
+    ctx.strokeStyle='#0d1117';ctx.lineWidth=2;ctx.stroke();
+  });
+
+  // X labels
+  ctx.fillStyle='#8b949e';ctx.font='10px system-ui';ctx.textAlign='center';
+  labels.forEach(function(l,i){
+    if(labels.length<=10||i%Math.ceil(labels.length/10)===0){
+      var x=pad.left+i*(cw/(data.length-1));
+      ctx.save();ctx.translate(x,H-pad.bottom+15);ctx.rotate(-0.4);ctx.fillText(l,0,0);ctx.restore();
+    }
+  });
+
+  // Moving average line (3-show)
+  if(data.length>=3){
+    ctx.beginPath();
+    ctx.strokeStyle='rgba(88,166,255,0.6)';ctx.lineWidth=1.5;ctx.setLineDash([5,3]);
+    for(var j=2;j<data.length;j++){
+      var avg=(data[j]+data[j-1]+data[j-2])/3;
+      var x=pad.left+j*(cw/(data.length-1));
+      var y=pad.top+ch-((avg-minVal)/range)*ch;
+      if(j===2)ctx.moveTo(x,y);else ctx.lineTo(x,y);
+    }
+    ctx.stroke();ctx.setLineDash([]);
+  }
+
+  // Legend
+  ctx.fillStyle='#ffd700';ctx.fillRect(W-180,8,12,3);
+  ctx.fillStyle='#8b949e';ctx.font='10px system-ui';ctx.textAlign='left';ctx.fillText(metric,W-164,13);
+  if(data.length>=3){
+    ctx.strokeStyle='rgba(88,166,255,0.6)';ctx.lineWidth=1.5;ctx.setLineDash([4,2]);
+    ctx.beginPath();ctx.moveTo(W-180,24);ctx.lineTo(W-168,24);ctx.stroke();ctx.setLineDash([]);
+    ctx.fillStyle='#8b949e';ctx.fillText('3-show avg',W-164,28);
+  }
+}
+
+// === Highlights ===
+function renderHighlights(){
+  var el=document.getElementById('highlightsContent');
+  if(shows.length<3){el.innerHTML='<p style="color:var(--text-dim);font-size:0.85rem">Log at least 3 shows to see highlights.</p>';return}
+
+  var bestRev=shows.reduce(function(best,sh){return sh.revenue>best.revenue?sh:best},shows[0]);
+  var worstRev=shows.reduce(function(worst,sh){return sh.revenue<worst.revenue?sh:worst},shows[0]);
+  var bestViewers=shows.reduce(function(best,sh){return sh.viewers>best.viewers?sh:best},shows[0]);
+  var bestSellThrough=shows.reduce(function(best,sh){return sh.sellThrough>best.sellThrough?sh:best},shows[0]);
+  var bestRevPerMin=shows.reduce(function(best,sh){return sh.revPerMin>best.revPerMin?sh:best},shows[0]);
+
+  var html='<div class="metrics-grid" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr))">';
+
+  html+='<div class="highlight-card"><h4>Best Revenue</h4>';
+  html+='<div style="font-size:1.4rem;font-weight:800;color:var(--cyan)">$'+bestRev.revenue.toFixed(0)+'</div>';
+  html+='<div style="font-size:0.8rem;color:var(--text-dim)">'+esc(bestRev.title)+' ('+bestRev.date+')</div></div>';
+
+  html+='<div class="highlight-card"><h4>Lowest Revenue</h4>';
+  html+='<div style="font-size:1.4rem;font-weight:800;color:var(--red)">$'+worstRev.revenue.toFixed(0)+'</div>';
+  html+='<div style="font-size:0.8rem;color:var(--text-dim)">'+esc(worstRev.title)+' ('+worstRev.date+')</div></div>';
+
+  html+='<div class="highlight-card"><h4>Most Viewers</h4>';
+  html+='<div style="font-size:1.4rem;font-weight:800;color:var(--blue)">'+bestViewers.viewers+'</div>';
+  html+='<div style="font-size:0.8rem;color:var(--text-dim)">'+esc(bestViewers.title)+' ('+bestViewers.date+')</div></div>';
+
+  html+='<div class="highlight-card"><h4>Best Sell-Through</h4>';
+  html+='<div style="font-size:1.4rem;font-weight:800;color:var(--gold)">'+bestSellThrough.sellThrough+'%</div>';
+  html+='<div style="font-size:0.8rem;color:var(--text-dim)">'+esc(bestSellThrough.title)+' ('+bestSellThrough.date+')</div></div>';
+
+  html+='<div class="highlight-card"><h4>Best $/Minute</h4>';
+  html+='<div style="font-size:1.4rem;font-weight:800;color:var(--orange)">$'+bestRevPerMin.revPerMin.toFixed(2)+'</div>';
+  html+='<div style="font-size:0.8rem;color:var(--text-dim)">'+esc(bestRevPerMin.title)+' ('+bestRevPerMin.date+')</div></div>';
+
+  html+='</div>';
+  el.innerHTML=html;
+}
+
+// === Comparison ===
+function renderCompareDropdowns(){
+  var selA=document.getElementById('compareA');
+  var selB=document.getElementById('compareB');
+  var valA=selA.value;var valB=selB.value;
+  var html='<option value="">Select a show...</option>';
+  shows.forEach(function(sh){
+    html+='<option value="'+sh.id+'">'+sh.date+' - '+esc(sh.title)+'</option>';
+  });
+  selA.innerHTML=html;selB.innerHTML=html;
+  if(valA)selA.value=valA;if(valB)selB.value=valB;
+}
+
+function renderComparison(){
+  var el=document.getElementById('comparisonContent');
+  var idA=document.getElementById('compareA').value;
+  var idB=document.getElementById('compareB').value;
+  if(!idA||!idB){el.innerHTML='';return}
+
+  var a=shows.find(function(s){return s.id==idA});
+  var b=shows.find(function(s){return s.id==idB});
+  if(!a||!b){el.innerHTML='';return}
+
+  function winnerColor(va,vb){return va>vb?'color:var(--cyan)':va<vb?'color:var(--red)':'color:var(--text)'}
+
+  var stats=[
+    {label:'Revenue',va:'$'+a.revenue.toFixed(0),vb:'$'+b.revenue.toFixed(0),na:a.revenue,nb:b.revenue},
+    {label:'Items Sold',va:a.itemsSold,vb:b.itemsSold,na:a.itemsSold,nb:b.itemsSold},
+    {label:'Sell-Through',va:a.sellThrough+'%',vb:b.sellThrough+'%',na:a.sellThrough,nb:b.sellThrough},
+    {label:'Viewers',va:a.viewers,vb:b.viewers,na:a.viewers,nb:b.viewers},
+    {label:'New Followers',va:'+'+a.followers,vb:'+'+b.followers,na:a.followers,nb:b.followers},
+    {label:'Duration',va:a.duration+'m',vb:b.duration+'m',na:a.duration,nb:b.duration},
+    {label:'$/Minute',va:'$'+a.revPerMin.toFixed(2),vb:'$'+b.revPerMin.toFixed(2),na:a.revPerMin,nb:b.revPerMin},
+    {label:'Buyers',va:a.buyers,vb:b.buyers,na:a.buyers,nb:b.buyers}
+  ];
+
+  var html='<div class="compare-grid">';
+  // Col A
+  html+='<div class="compare-col"><h4>'+esc(a.title)+'</h4><div style="font-size:0.75rem;color:var(--text-dim);text-align:center;margin-bottom:0.75rem">'+a.date+'</div>';
+  stats.forEach(function(s){
+    html+='<div class="compare-stat"><span class="label">'+s.label+'</span><span class="value" style="'+winnerColor(s.na,s.nb)+'">'+s.va+'</span></div>';
+  });
+  html+='</div>';
+  // VS
+  html+='<div class="compare-vs">VS</div>';
+  // Col B
+  html+='<div class="compare-col"><h4>'+esc(b.title)+'</h4><div style="font-size:0.75rem;color:var(--text-dim);text-align:center;margin-bottom:0.75rem">'+b.date+'</div>';
+  stats.forEach(function(s){
+    html+='<div class="compare-stat"><span class="label">'+s.label+'</span><span class="value" style="'+winnerColor(s.nb,s.na)+'">'+s.vb+'</span></div>';
+  });
+  html+='</div>';
+  html+='</div>';
+
+  // Diff summary
+  var revDiff=b.revenue-a.revenue;
+  var revPct=a.revenue>0?((revDiff/a.revenue)*100):0;
+  html+='<div style="margin-top:1rem;padding:1rem;border-radius:10px;background:rgba(13,17,23,0.5);border:1px solid var(--border);font-size:0.85rem">';
+  html+='<strong style="color:var(--gold)">Difference:</strong> Revenue '+(revDiff>=0?'<span style="color:var(--cyan)">+$'+revDiff.toFixed(0)+' (+'+revPct.toFixed(1)+'%)</span>':'<span style="color:var(--red)">-$'+Math.abs(revDiff).toFixed(0)+' ('+revPct.toFixed(1)+'%)</span>');
+  var viewerDiff=b.viewers-a.viewers;
+  html+=' | Viewers '+(viewerDiff>=0?'<span style="color:var(--cyan)">+'+viewerDiff+'</span>':'<span style="color:var(--red)">'+viewerDiff+'</span>');
+  html+='</div>';
+
+  el.innerHTML=html;
+}
+
+// === Growth ===
+function renderGrowth(){
+  var el=document.getElementById('growthContent');
+  if(shows.length<2){el.innerHTML='<p style="color:var(--text-dim);font-size:0.85rem">Log at least 2 shows to see growth calculations.</p>';return}
+
+  var sorted=shows.slice().sort(function(a,b){return a.date<b.date?-1:1});
+  var first=sorted[0];
+  var last=sorted[sorted.length-1];
+  var daysBetween=Math.max(1,Math.floor((new Date(last.date)-new Date(first.date))/(1000*60*60*24)));
+  var weeksBetween=Math.max(1,daysBetween/7);
+
+  // Overall growth
+  var revGrowth=first.revenue>0?((last.revenue-first.revenue)/first.revenue*100):0;
+  var viewerGrowth=first.viewers>0?((last.viewers-first.viewers)/first.viewers*100):0;
+  var followerGrowth=first.followers>0?((last.followers-first.followers)/first.followers*100):0;
+
+  // Shows per week
+  var showsPerWeek=(shows.length/weeksBetween).toFixed(1);
+
+  // Cumulative followers
+  var totalFollowers=shows.reduce(function(s,sh){return s+sh.followers},0);
+
+  // Revenue trajectory
+  var avgRevPerShow=shows.reduce(function(s,sh){return s+sh.revenue},0)/shows.length;
+  var projMonthly=avgRevPerShow*(shows.length/(weeksBetween/4.3));
+  var projWeekly=avgRevPerShow*parseFloat(showsPerWeek);
+
+  // Recent momentum (last 3 vs first 3)
+  var momentum='';
+  if(shows.length>=6){
+    var first3=sorted.slice(0,3);
+    var last3=sorted.slice(-3);
+    var f3Avg=first3.reduce(function(s,sh){return s+sh.revenue},0)/3;
+    var l3Avg=last3.reduce(function(s,sh){return s+sh.revenue},0)/3;
+    var momPct=f3Avg>0?((l3Avg-f3Avg)/f3Avg*100):0;
+    momentum=momPct>=0?'+'+momPct.toFixed(1)+'%':momPct.toFixed(1)+'%';
+  }
+
+  var html='<div class="metrics-grid">';
+  html+='<div class="metric-card"><div class="lbl">Revenue Growth</div><div class="val" style="color:'+(revGrowth>=0?'var(--cyan)':'var(--red)')+'">'+(revGrowth>=0?'+':'')+revGrowth.toFixed(1)+'%</div><div class="sub">first to last show</div></div>';
+  html+='<div class="metric-card"><div class="lbl">Viewer Growth</div><div class="val" style="color:'+(viewerGrowth>=0?'var(--cyan)':'var(--red)')+'">'+(viewerGrowth>=0?'+':'')+viewerGrowth.toFixed(1)+'%</div><div class="sub">first to last show</div></div>';
+  html+='<div class="metric-card"><div class="lbl">Total Followers Gained</div><div class="val" style="color:var(--gold)">'+totalFollowers+'</div><div class="sub">across all shows</div></div>';
+  html+='<div class="metric-card"><div class="lbl">Shows / Week</div><div class="val" style="color:var(--blue)">'+showsPerWeek+'</div><div class="sub">avg frequency</div></div>';
+  html+='<div class="metric-card"><div class="lbl">Proj. Weekly Rev</div><div class="val" style="color:var(--cyan)">$'+projWeekly.toFixed(0)+'</div><div class="sub">at current pace</div></div>';
+  if(momentum)html+='<div class="metric-card"><div class="lbl">Momentum</div><div class="val" style="color:'+(parseFloat(momentum)>=0?'var(--cyan)':'var(--red)')+'">'+momentum+'</div><div class="sub">last 3 vs first 3</div></div>';
+  html+='</div>';
+
+  // Growth per-show breakdown
+  if(sorted.length>=3){
+    html+='<div style="margin-top:1.5rem;font-size:0.85rem;font-weight:700;color:var(--gold);margin-bottom:0.5rem">Show-over-Show Revenue Change</div>';
+    html+='<table><thead><tr><th>Show</th><th>Date</th><th>Revenue</th><th>Change</th></tr></thead><tbody>';
+    sorted.forEach(function(sh,i){
+      var change='--';
+      var changeColor='var(--text-dim)';
+      if(i>0){
+        var prev=sorted[i-1];
+        var diff=sh.revenue-prev.revenue;
+        var pct=prev.revenue>0?((diff/prev.revenue)*100):0;
+        change=(diff>=0?'+$':'-$')+Math.abs(diff).toFixed(0)+' ('+(pct>=0?'+':'')+pct.toFixed(1)+'%)';
+        changeColor=diff>=0?'var(--cyan)':'var(--red)';
+      }
+      html+='<tr><td>'+esc(sh.title)+'</td><td style="color:var(--text-dim)">'+sh.date+'</td><td style="color:var(--gold);font-weight:700">$'+sh.revenue.toFixed(0)+'</td><td style="color:'+changeColor+'">'+change+'</td></tr>';
+    });
+    html+='</tbody></table>';
+  }
+
+  el.innerHTML=html;
+}
+
+// === Export ===
+function exportCSV(){
+  if(shows.length===0){alert('No data to export.');return}
+  var csv='Date,Title,Duration (min),Items Listed,Items Sold,Sell-Through %,Revenue,Peak Viewers,New Followers,Unique Buyers,$/Minute\n';
+  shows.forEach(function(sh){
+    csv+=sh.date+',"'+sh.title.replace(/"/g,'""')+'",'+sh.duration+','+sh.itemsListed+','+sh.itemsSold+','+sh.sellThrough+','+sh.revenue.toFixed(2)+','+sh.viewers+','+sh.followers+','+sh.buyers+','+sh.revPerMin.toFixed(2)+'\n';
+  });
+  var blob=new Blob([csv],{type:'text/csv'});
+  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='whatnot-analytics-'+new Date().toISOString().split('T')[0]+'.csv';a.click();
+  if(typeof gtag==='function')gtag('event','export_csv',{tool:'whatnot-analytics-dashboard'});
+}
+
+function esc(s){var d=document.createElement('div');d.appendChild(document.createTextNode(s));return d.innerHTML}
+function shareX(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Tracking my Whatnot live show analytics with this free dashboard from @SpunkArt13 (code: SPUNK)')+'&url='+encodeURIComponent('https://spunk.codes/exclusive-tools'),'_blank')}
+
+// === Init ===
+loadData();
+refreshAll();
+
+// Resize chart on window resize
+window.addEventListener('resize',function(){clearTimeout(window._chartResize);window._chartResize=setTimeout(renderCharts,200)});
+
+// === Code Protection ===
+document.addEventListener('contextmenu',function(e){e.preventDefault()});
+document.addEventListener('keydown',function(e){if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'))||(e.ctrlKey&&e.key==='u'))e.preventDefault()});
+</script>
+<script src="/exclusive/pro-gate.js"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<script src="/auto-monetize.js"></script>
+<div id="shareXBtn" style="position:fixed;left:20px;bottom:20px;z-index:9999;">
+  <a id="shareXLink" href="#" target="_blank" rel="noopener noreferrer" title="Share on X"
+     style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;
+     background:rgba(255,215,0,0.15);border:1px solid rgba(255,215,0,0.3);
+     backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:50%;
+     text-decoration:none;transition:all 0.3s ease;cursor:pointer;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+    </svg>
+  </a>
+</div>
+<style>#shareXBtn a:hover{background:rgba(255,215,0,0.35)!important;border-color:rgba(255,215,0,0.6)!important;transform:scale(1.1);box-shadow:0 0 15px rgba(255,215,0,0.3)}</style>
+<script>
+(function(){var page=location.pathname.split("/").pop()||"index.html";var url="https://spunk.codes/exclusive/"+page;var text="Analyzing my Whatnot live show performance with this free analytics dashboard on spunk.codes @SpunkArt13";var href="https://x.com/intent/tweet?text="+encodeURIComponent(text)+"&url="+encodeURIComponent(url);document.getElementById("shareXLink").href=href})();
+</script>
+<script src="/usage-tracker.js"></script>
+</body>
+</html>

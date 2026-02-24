@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Reseller Inventory Tracker | SPUNK.CODES</title>
+<meta name="description" content="Track reseller inventory across Whatnot, eBay, Mercari, and Poshmark. Dashboard with ROI, profit calculator, monthly P&L, and platform fee comparisons.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Reseller Inventory Tracker - SPUNK.CODES Exclusive">
+<meta property="og:description" content="Track inventory, calculate profits, compare platform fees, and see monthly P&L. Code SPUNK unlocks it.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://spunk.codes/exclusive/reseller-inventory-tracker">
+<meta property="og:site_name" content="SPUNK.CODES">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/reseller-inventory-tracker">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Reseller Inventory Tracker","applicationCategory":"BusinessApplication","operatingSystem":"Web","description":"Track reseller inventory across Whatnot, eBay, Mercari, and Poshmark with ROI dashboard, profit calculator, monthly P&L charts, and platform fee comparisons.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Organization","name":"SPUNK.CODES","url":"https://spunk.codes"}}</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0d1117;--card:rgba(22,27,34,0.8);--border:rgba(48,54,61,0.6);--gold:#ffd700;--gold-dim:rgba(255,215,0,0.15);--gold-border:rgba(255,215,0,0.3);--text:#e6edf3;--text-dim:#8b949e;--blue:#58a6ff;--cyan:#39d353;--red:#f85149;--orange:#ff8c00;--font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+a{color:var(--blue);text-decoration:none}a:hover{color:#fff}
+.bg-mesh{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 80% 50% at 20% 20%,rgba(255,215,0,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(255,140,0,0.04) 0%,transparent 60%),var(--bg)}
+.bg-grid{position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,215,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,215,0,0.03) 1px,transparent 1px);background-size:60px 60px}
+.nav{position:sticky;top:0;z-index:100;background:rgba(13,17,23,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,215,0,0.15);padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}.nav-brand{font-weight:800;font-size:1.1rem;color:var(--gold);letter-spacing:0.08em}.nav-links{display:flex;gap:1.5rem;font-size:0.85rem;list-style:none}.nav-links a{color:var(--text-dim);transition:color 0.2s;font-weight:500}.nav-links a:hover{color:#fff}.nav-links a.active{color:var(--gold)}
+.lock-gate{position:fixed;inset:0;z-index:1000;background:rgba(13,17,23,0.97);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:2rem}.lock-gate.hidden{display:none}.lock-icon-big{font-size:4rem;margin-bottom:0.5rem}.lock-gate h2{font-size:1.8rem;font-weight:800;text-align:center}.lock-gate h2 span{color:var(--gold)}.lock-gate p{color:var(--text-dim);text-align:center;max-width:400px}.code-input-wrap{display:flex;gap:0.5rem;margin-top:0.5rem}.code-input{padding:0.8rem 1.5rem;background:rgba(22,27,34,0.8);border:2px solid var(--gold-border);border-radius:12px;color:var(--gold);font-size:1.2rem;font-weight:800;letter-spacing:3px;text-align:center;width:200px;outline:none;text-transform:uppercase;font-family:var(--font)}.code-input:focus{border-color:var(--gold);box-shadow:0 0 20px rgba(255,215,0,0.2)}.code-submit{padding:0.8rem 1.5rem;background:linear-gradient(135deg,#ffd700,#ff8c00);border:none;border-radius:12px;color:#000;font-size:1rem;font-weight:800;cursor:pointer;transition:all 0.3s}.code-submit:hover{transform:scale(1.05)}.code-error{color:#f85149;font-size:0.85rem;min-height:1.2em}.lock-hint{color:var(--text-dim);font-size:0.8rem;margin-top:1rem}.lock-hint a{color:var(--gold)}
+.exclusive-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;background:linear-gradient(135deg,rgba(255,215,0,0.15),rgba(255,140,0,0.15));border:1px solid var(--gold-border);border-radius:100px;font-size:11px;font-weight:800;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase}
+.main{max-width:1100px;margin:0 auto;padding:2rem}
+.hero-section{text-align:center;padding:2rem 0 3rem}.hero-section h1{font-size:2.2rem;font-weight:800;margin:1rem 0 0.5rem}.hero-section h1 .gold{background:linear-gradient(135deg,#ffd700,#ff8c00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}.hero-section p{color:var(--text-dim);max-width:600px;margin:0 auto}
+.tool-section{background:var(--card);border:1px solid var(--gold-border);border-radius:16px;padding:2rem;margin-bottom:1.5rem;backdrop-filter:blur(10px);position:relative;overflow:hidden}.tool-section::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),#ff8c00,var(--gold))}.tool-section h2{font-size:1.2rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}.tool-section h2 .icon{font-size:1.4rem}
+label{font-size:0.85rem;color:var(--text-dim);font-weight:600;display:block;margin-bottom:0.4rem}
+input,select,textarea{width:100%;padding:0.75rem 1rem;background:rgba(13,17,23,0.6);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:0.9rem;font-family:var(--font);outline:none;transition:border-color 0.2s}input:focus,select:focus,textarea:focus{border-color:var(--gold)}select option{background:#161b22;color:var(--text)}
+.input-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}.input-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem}.input-grid-4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:1rem}.input-group{margin-bottom:1rem}
+.btn{padding:0.75rem 2rem;border:none;border-radius:10px;font-size:0.9rem;font-weight:700;cursor:pointer;transition:all 0.2s;font-family:var(--font)}.btn-gold{background:linear-gradient(135deg,#ffd700,#ff8c00);color:#000}.btn-gold:hover{transform:translateY(-2px);box-shadow:0 4px 20px rgba(255,215,0,0.3)}.btn-outline{background:transparent;border:1px solid var(--border);color:var(--text-dim)}.btn-outline:hover{border-color:var(--gold);color:var(--gold)}.btn-sm{padding:0.5rem 1rem;font-size:0.8rem}.btn-row{display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:1rem}
+.metrics-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;margin:1rem 0}
+.metric-card{background:rgba(13,17,23,0.5);border:1px solid var(--border);border-radius:12px;padding:1.2rem;text-align:center}.metric-card .val{font-size:1.5rem;font-weight:800}.metric-card .lbl{font-size:0.72rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px;margin-bottom:0.3rem}.metric-card .sub{font-size:0.7rem;color:var(--text-dim);margin-top:0.3rem}
+table{width:100%;border-collapse:collapse;font-size:0.82rem}th{text-align:left;padding:0.6rem 0.4rem;color:var(--gold);border-bottom:2px solid var(--gold-border);font-weight:700;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.5px;cursor:pointer;user-select:none;white-space:nowrap}th:hover{color:#fff}td{padding:0.5rem 0.4rem;border-bottom:1px solid var(--border)}tr:hover td{background:rgba(255,215,0,0.03)}
+.status-badge{display:inline-block;padding:2px 10px;border-radius:20px;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.5px}.status-listed{background:rgba(88,166,255,0.15);color:var(--blue);border:1px solid rgba(88,166,255,0.3)}.status-sold{background:rgba(57,211,83,0.15);color:var(--cyan);border:1px solid rgba(57,211,83,0.3)}.status-unlisted{background:rgba(139,148,158,0.15);color:var(--text-dim);border:1px solid var(--border)}
+.alert-box{padding:0.8rem 1.2rem;border-radius:10px;margin:0.5rem 0;font-size:0.85rem;font-weight:600;display:flex;align-items:center;gap:0.6rem}
+.alert-warning{background:rgba(255,215,0,0.08);border:1px solid rgba(255,215,0,0.3);color:var(--gold)}
+.alert-danger{background:rgba(248,81,73,0.1);border:1px solid rgba(248,81,73,0.3);color:var(--red)}
+.filter-bar{display:flex;gap:0.75rem;flex-wrap:wrap;margin-bottom:1rem;align-items:center}.filter-bar select,.filter-bar input{width:auto;min-width:140px;padding:0.5rem 0.75rem;font-size:0.8rem}
+.fee-table{font-size:0.8rem}.fee-table td,.fee-table th{padding:0.6rem 0.8rem;text-align:center}.fee-table th:first-child,.fee-table td:first-child{text-align:left}
+.chart-wrap{background:rgba(13,17,23,0.5);border:1px solid var(--border);border-radius:12px;padding:1rem;margin-top:1rem}
+.remove-btn{background:none;border:none;color:var(--red);cursor:pointer;font-size:1.1rem;padding:2px 6px;border-radius:4px}.remove-btn:hover{background:rgba(248,81,73,0.15)}
+.share-cta{background:linear-gradient(135deg,rgba(255,215,0,0.08),rgba(255,140,0,0.05));border:1px solid var(--gold-border);border-radius:16px;padding:2rem;text-align:center;margin-top:2rem}.share-cta h3{color:var(--gold);margin-bottom:0.5rem;font-size:1.1rem}.share-cta p{color:var(--text-dim);font-size:0.9rem;margin-bottom:1rem}
+.footer{text-align:center;padding:2rem;border-top:1px solid rgba(255,215,0,0.1);color:var(--text-dim);font-size:0.75rem;margin-top:3rem}.footer a{color:var(--gold)}.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-bottom:1rem}
+.watermark{position:fixed;bottom:10px;right:10px;font-size:0.6rem;color:rgba(255,215,0,0.08);font-weight:800;pointer-events:none;z-index:9999;letter-spacing:1px;text-transform:uppercase}
+.aging-flag{color:var(--orange);font-weight:700;font-size:0.7rem}
+@media(max-width:768px){.main{padding:1rem}.hero-section h1{font-size:1.6rem}.input-grid,.input-grid-3,.input-grid-4{grid-template-columns:1fr}.nav-links{display:none}.metrics-grid{grid-template-columns:1fr 1fr}table{font-size:0.7rem}.filter-bar{flex-direction:column}.filter-bar select,.filter-bar input{width:100%}}
+</style>
+</head>
+<body>
+<div class="bg-mesh"></div><div class="bg-grid"></div>
+<div class="lock-gate" id="lockGate"><div class="lock-icon-big">&#128274;</div><h2>Enter Code <span>SPUNK</span> to Unlock</h2><p>This is an exclusive premium tool. Enter the referral code to get instant access.</p><div class="code-input-wrap"><input type="text" class="code-input" id="codeInput" placeholder="CODE" maxlength="10" autocomplete="off"><button class="code-submit" onclick="submitCode()">Unlock</button></div><div class="code-error" id="codeError"></div><div class="lock-hint">Get the code at <a href="https://spunk.codes/exclusive-tools">spunk.codes/exclusive-tools</a></div></div>
+<nav class="nav"><a href="https://spunk.codes" class="nav-brand">SPUNK.CODES</a><div class="nav-links"><a href="/store">Tools</a><a href="/exclusive-tools" class="active">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a></div></nav>
+
+<div class="main">
+  <section class="hero-section">
+    <div class="exclusive-badge">&#128081; EXCLUSIVE TOOL</div>
+    <h1><span class="gold">Reseller Inventory Tracker</span></h1>
+    <p>Track every item across Whatnot, eBay, Mercari, and Poshmark. See your ROI, calculate per-item profit, run monthly P&L reports, and compare platform fees.</p>
+  </section>
+
+  <!-- Add Item -->
+  <div class="tool-section">
+    <h2><span class="icon">&#10133;</span> Add Inventory Item</h2>
+    <div class="input-grid">
+      <div class="input-group">
+        <label>Item Name</label>
+        <input type="text" id="iName" placeholder="e.g. Nike Air Max 90 - Size 10">
+      </div>
+      <div class="input-group">
+        <label>Category</label>
+        <select id="iCategory">
+          <option value="Clothing">Clothing</option>
+          <option value="Shoes">Shoes</option>
+          <option value="Accessories">Accessories</option>
+          <option value="Collectibles">Collectibles</option>
+          <option value="Trading Cards">Trading Cards</option>
+          <option value="Electronics">Electronics</option>
+          <option value="Home & Garden">Home & Garden</option>
+          <option value="Toys">Toys</option>
+          <option value="Vintage">Vintage</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+    </div>
+    <div class="input-grid-4">
+      <div class="input-group">
+        <label>Purchase Price ($)</label>
+        <input type="number" id="iPurchase" placeholder="15.00" min="0" step="0.01">
+      </div>
+      <div class="input-group">
+        <label>Platform</label>
+        <select id="iPlatform">
+          <option value="Whatnot">Whatnot</option>
+          <option value="eBay">eBay</option>
+          <option value="Mercari">Mercari</option>
+          <option value="Poshmark">Poshmark</option>
+        </select>
+      </div>
+      <div class="input-group">
+        <label>Condition</label>
+        <select id="iCondition">
+          <option value="New">New</option>
+          <option value="Like New">Like New</option>
+          <option value="Good">Good</option>
+          <option value="Fair">Fair</option>
+          <option value="Poor">Poor</option>
+        </select>
+      </div>
+      <div class="input-group">
+        <label>Date Acquired</label>
+        <input type="date" id="iDate">
+      </div>
+    </div>
+    <div class="input-grid-3">
+      <div class="input-group">
+        <label>Listed Price ($)</label>
+        <input type="number" id="iListPrice" placeholder="45.00" min="0" step="0.01">
+      </div>
+      <div class="input-group">
+        <label>Status</label>
+        <select id="iStatus">
+          <option value="Unlisted">Unlisted</option>
+          <option value="Listed">Listed</option>
+          <option value="Sold">Sold</option>
+        </select>
+      </div>
+      <div class="input-group">
+        <label>Photos Count</label>
+        <input type="number" id="iPhotos" placeholder="5" min="0" value="0">
+      </div>
+    </div>
+    <div id="soldFields" style="display:none">
+      <div class="input-grid-3">
+        <div class="input-group">
+          <label>Sale Price ($)</label>
+          <input type="number" id="iSalePrice" placeholder="40.00" min="0" step="0.01">
+        </div>
+        <div class="input-group">
+          <label>Shipping Cost ($)</label>
+          <input type="number" id="iShipping" placeholder="5.00" min="0" step="0.01">
+        </div>
+        <div class="input-group">
+          <label>Sale Date</label>
+          <input type="date" id="iSaleDate">
+        </div>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-gold" onclick="addItem()">Add Item</button>
+    </div>
+  </div>
+
+  <!-- Dashboard -->
+  <div class="tool-section">
+    <h2><span class="icon">&#128202;</span> Dashboard</h2>
+    <div id="dashboardContent">
+      <p style="color:var(--text-dim);font-size:0.85rem">Add inventory items to see your dashboard metrics.</p>
+    </div>
+  </div>
+
+  <!-- Alerts -->
+  <div id="alertsSection"></div>
+
+  <!-- Inventory Table -->
+  <div class="tool-section">
+    <h2><span class="icon">&#128203;</span> Inventory</h2>
+    <div class="filter-bar">
+      <select id="filterPlatform" onchange="refreshAll()">
+        <option value="">All Platforms</option>
+        <option value="Whatnot">Whatnot</option>
+        <option value="eBay">eBay</option>
+        <option value="Mercari">Mercari</option>
+        <option value="Poshmark">Poshmark</option>
+      </select>
+      <select id="filterCategory" onchange="refreshAll()">
+        <option value="">All Categories</option>
+        <option value="Clothing">Clothing</option>
+        <option value="Shoes">Shoes</option>
+        <option value="Accessories">Accessories</option>
+        <option value="Collectibles">Collectibles</option>
+        <option value="Trading Cards">Trading Cards</option>
+        <option value="Electronics">Electronics</option>
+        <option value="Home & Garden">Home & Garden</option>
+        <option value="Toys">Toys</option>
+        <option value="Vintage">Vintage</option>
+        <option value="Other">Other</option>
+      </select>
+      <select id="filterStatus" onchange="refreshAll()">
+        <option value="">All Statuses</option>
+        <option value="Listed">Listed</option>
+        <option value="Sold">Sold</option>
+        <option value="Unlisted">Unlisted</option>
+      </select>
+      <input type="text" id="filterSearch" placeholder="Search items..." oninput="refreshAll()" style="flex:1;min-width:160px">
+    </div>
+    <div style="overflow-x:auto">
+      <table id="invTable">
+        <thead><tr>
+          <th onclick="sortBy('name')">Item</th>
+          <th onclick="sortBy('platform')">Platform</th>
+          <th onclick="sortBy('category')">Category</th>
+          <th onclick="sortBy('purchase')">Cost</th>
+          <th onclick="sortBy('listPrice')">List $</th>
+          <th onclick="sortBy('status')">Status</th>
+          <th onclick="sortBy('date')">Acquired</th>
+          <th onclick="sortBy('profit')">Profit</th>
+          <th></th>
+        </tr></thead>
+        <tbody id="invBody"></tbody>
+      </table>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-sm btn-outline" onclick="exportCSV()">Export CSV</button>
+      <button class="btn btn-sm btn-outline" onclick="clearAll()">Clear All</button>
+    </div>
+  </div>
+
+  <!-- Profit Calculator -->
+  <div class="tool-section">
+    <h2><span class="icon">&#128176;</span> Profit Calculator</h2>
+    <div class="input-grid-4">
+      <div class="input-group">
+        <label>Purchase Price ($)</label>
+        <input type="number" id="calcPurchase" placeholder="15" min="0" step="0.01" oninput="calcProfit()">
+      </div>
+      <div class="input-group">
+        <label>Sale Price ($)</label>
+        <input type="number" id="calcSale" placeholder="45" min="0" step="0.01" oninput="calcProfit()">
+      </div>
+      <div class="input-group">
+        <label>Shipping ($)</label>
+        <input type="number" id="calcShipping" placeholder="5" min="0" step="0.01" oninput="calcProfit()">
+      </div>
+      <div class="input-group">
+        <label>Platform</label>
+        <select id="calcPlatform" onchange="calcProfit()">
+          <option value="Whatnot">Whatnot</option>
+          <option value="eBay">eBay</option>
+          <option value="Mercari">Mercari</option>
+          <option value="Poshmark">Poshmark</option>
+        </select>
+      </div>
+    </div>
+    <div id="calcResult"></div>
+  </div>
+
+  <!-- Monthly P&L -->
+  <div class="tool-section">
+    <h2><span class="icon">&#128200;</span> Monthly P&amp;L Summary</h2>
+    <div class="chart-wrap">
+      <canvas id="plChart" height="250"></canvas>
+    </div>
+    <div id="plTable" style="margin-top:1rem"></div>
+  </div>
+
+  <!-- Platform Fee Comparison -->
+  <div class="tool-section">
+    <h2><span class="icon">&#128181;</span> Platform Fee Comparison</h2>
+    <p style="color:var(--text-dim);font-size:0.85rem;margin-bottom:1rem">See what each platform takes from a sale. Rates as of 2025.</p>
+    <div style="overflow-x:auto">
+      <table class="fee-table">
+        <thead><tr><th>Platform</th><th>Seller Fee</th><th>Payment Processing</th><th>Total Fee</th><th>On a $50 Sale</th><th>You Keep</th></tr></thead>
+        <tbody>
+          <tr><td style="color:var(--gold);font-weight:700">Whatnot</td><td>8%</td><td>2.9% + $0.30</td><td>~10.9%</td><td style="color:var(--red)">$5.75</td><td style="color:var(--cyan)">$44.25</td></tr>
+          <tr><td style="color:var(--gold);font-weight:700">eBay</td><td>13.25%*</td><td>Included</td><td>~13.25%</td><td style="color:var(--red)">$6.63</td><td style="color:var(--cyan)">$43.37</td></tr>
+          <tr><td style="color:var(--gold);font-weight:700">Mercari</td><td>10%</td><td>2.9% + $0.50</td><td>~12.9%</td><td style="color:var(--red)">$6.95</td><td style="color:var(--cyan)">$43.05</td></tr>
+          <tr><td style="color:var(--gold);font-weight:700">Poshmark</td><td>20%**</td><td>Included</td><td>~20%</td><td style="color:var(--red)">$10.00</td><td style="color:var(--cyan)">$40.00</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="color:var(--text-dim);font-size:0.72rem;margin-top:0.75rem">* eBay: 13.25% avg for most categories. Varies 3-15%. ** Poshmark: flat $2.95 for sales under $15, 20% for $15+.</p>
+  </div>
+
+  <div class="share-cta">
+    <h3>Growing your reselling business?</h3>
+    <p>Share this tracker with fellow resellers.</p>
+    <div class="btn-row" style="justify-content:center">
+      <button class="btn btn-sm btn-gold" onclick="shareX()">Share on X</button>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-links"><a href="/">Home</a><a href="/store">All Tools</a><a href="/exclusive-tools">Exclusive Tools</a><a href="/blog">Blog</a></div>
+    <p>&copy; 2025 SPUNK.CODES. Built for resellers who hustle.</p>
+  </footer>
+</div>
+
+<div class="watermark">SPUNK.CODES</div>
+
+<script>
+// === Code Gate ===
+function checkAccess(){try{var c1=localStorage.getItem('spunk_referral_code');var c2=localStorage.getItem('spunk_ref_code');if((c1&&c1.toUpperCase()==='SPUNK')||(c2&&c2.toUpperCase()==='SPUNK')){document.getElementById('lockGate').classList.add('hidden');return}}catch(e){}document.getElementById('lockGate').classList.remove('hidden')}
+function submitCode(){var v=document.getElementById('codeInput').value.trim().toUpperCase();if(v==='SPUNK'){try{localStorage.setItem('spunk_referral_code',v)}catch(e){}document.getElementById('lockGate').classList.add('hidden');if(typeof gtag==='function')gtag('event','code_unlock',{tool:'reseller-inventory-tracker'})}else{document.getElementById('codeError').textContent='Invalid code. Try again.'}}
+document.getElementById('codeInput').addEventListener('keydown',function(e){if(e.key==='Enter')submitCode()});
+checkAccess();
+
+// Show/hide sold fields
+document.getElementById('iStatus').addEventListener('change',function(){
+  document.getElementById('soldFields').style.display=this.value==='Sold'?'block':'none';
+});
+
+// Set today
+document.getElementById('iDate').valueAsDate=new Date();
+
+// === Data ===
+var STORAGE_KEY='reseller_inventory';
+var inventory=[];
+var sortField='date';
+var sortDir=-1;
+
+function loadData(){try{inventory=JSON.parse(localStorage.getItem(STORAGE_KEY)||'[]')}catch(e){inventory=[]}}
+function saveData(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(inventory))}catch(e){}}
+
+// Platform fees
+var FEES={
+  'Whatnot':{sellerPct:0.08,processingPct:0.029,processingFlat:0.30},
+  'eBay':{sellerPct:0.1325,processingPct:0,processingFlat:0},
+  'Mercari':{sellerPct:0.10,processingPct:0.029,processingFlat:0.50},
+  'Poshmark':{sellerPct:0.20,processingPct:0,processingFlat:0,flatFee:2.95,flatThreshold:15}
+};
+
+function calcFees(platform,salePrice){
+  var f=FEES[platform]||FEES['Whatnot'];
+  if(f.flatThreshold&&salePrice<f.flatThreshold)return f.flatFee||0;
+  return salePrice*f.sellerPct+salePrice*f.processingPct+f.processingFlat;
+}
+
+function addItem(){
+  var name=document.getElementById('iName').value.trim();
+  if(!name){alert('Enter an item name.');return}
+  var item={
+    id:Date.now(),
+    name:name,
+    category:document.getElementById('iCategory').value,
+    purchase:parseFloat(document.getElementById('iPurchase').value)||0,
+    platform:document.getElementById('iPlatform').value,
+    condition:document.getElementById('iCondition').value,
+    date:document.getElementById('iDate').value||new Date().toISOString().split('T')[0],
+    listPrice:parseFloat(document.getElementById('iListPrice').value)||0,
+    status:document.getElementById('iStatus').value,
+    photos:parseInt(document.getElementById('iPhotos').value)||0,
+    salePrice:0,
+    shipping:0,
+    saleDate:''
+  };
+  if(item.status==='Sold'){
+    item.salePrice=parseFloat(document.getElementById('iSalePrice').value)||0;
+    item.shipping=parseFloat(document.getElementById('iShipping').value)||0;
+    item.saleDate=document.getElementById('iSaleDate').value||'';
+  }
+  inventory.push(item);
+  // Reset form
+  document.getElementById('iName').value='';
+  document.getElementById('iPurchase').value='';
+  document.getElementById('iListPrice').value='';
+  document.getElementById('iPhotos').value='0';
+  document.getElementById('iSalePrice').value='';
+  document.getElementById('iShipping').value='';
+  document.getElementById('soldFields').style.display='none';
+  document.getElementById('iStatus').value='Unlisted';
+  refreshAll();
+  if(typeof gtag==='function')gtag('event','item_added',{tool:'reseller-inventory-tracker',platform:item.platform});
+}
+
+function removeItem(id){
+  inventory=inventory.filter(function(i){return i.id!==id});
+  refreshAll();
+}
+
+function markSold(id){
+  var item=inventory.find(function(i){return i.id===id});
+  if(!item)return;
+  var price=prompt('Sale price ($):');
+  if(price===null)return;
+  var shipping=prompt('Shipping cost ($):','0');
+  item.status='Sold';
+  item.salePrice=parseFloat(price)||0;
+  item.shipping=parseFloat(shipping)||0;
+  item.saleDate=new Date().toISOString().split('T')[0];
+  refreshAll();
+}
+
+function sortBy(field){
+  if(sortField===field)sortDir*=-1;else{sortField=field;sortDir=1}
+  refreshAll();
+}
+
+function clearAll(){
+  if(!confirm('Delete all inventory data? This cannot be undone.'))return;
+  inventory=[];
+  refreshAll();
+}
+
+// === Filtering ===
+function getFiltered(){
+  var platform=document.getElementById('filterPlatform').value;
+  var category=document.getElementById('filterCategory').value;
+  var status=document.getElementById('filterStatus').value;
+  var search=document.getElementById('filterSearch').value.toLowerCase();
+  var filtered=inventory.filter(function(i){
+    if(platform&&i.platform!==platform)return false;
+    if(category&&i.category!==category)return false;
+    if(status&&i.status!==status)return false;
+    if(search&&i.name.toLowerCase().indexOf(search)===-1)return false;
+    return true;
+  });
+  filtered.sort(function(a,b){
+    var va,vb;
+    if(sortField==='name'){va=a.name.toLowerCase();vb=b.name.toLowerCase()}
+    else if(sortField==='platform'){va=a.platform;vb=b.platform}
+    else if(sortField==='category'){va=a.category;vb=b.category}
+    else if(sortField==='purchase'){va=a.purchase;vb=b.purchase}
+    else if(sortField==='listPrice'){va=a.listPrice;vb=b.listPrice}
+    else if(sortField==='status'){va=a.status;vb=b.status}
+    else if(sortField==='date'){va=a.date;vb=b.date}
+    else if(sortField==='profit'){va=getProfit(a);vb=getProfit(b)}
+    else{va=a.date;vb=b.date}
+    if(va<vb)return -1*sortDir;if(va>vb)return 1*sortDir;return 0;
+  });
+  return filtered;
+}
+
+function getProfit(item){
+  if(item.status!=='Sold')return item.listPrice-item.purchase-calcFees(item.platform,item.listPrice);
+  return item.salePrice-item.purchase-item.shipping-calcFees(item.platform,item.salePrice);
+}
+
+function getDaysHeld(item){
+  var acq=new Date(item.date+'T12:00:00');
+  var now=item.status==='Sold'&&item.saleDate?new Date(item.saleDate+'T12:00:00'):new Date();
+  return Math.floor((now-acq)/(1000*60*60*24));
+}
+
+// === Render ===
+function refreshAll(){
+  saveData();
+  renderDashboard();
+  renderAlerts();
+  renderTable();
+  renderPL();
+  calcProfit();
+}
+
+function renderDashboard(){
+  var el=document.getElementById('dashboardContent');
+  if(inventory.length===0){el.innerHTML='<p style="color:var(--text-dim);font-size:0.85rem">Add inventory items to see your dashboard metrics.</p>';return}
+
+  var totalItems=inventory.length;
+  var totalInvested=inventory.reduce(function(s,i){return s+i.purchase},0);
+  var listedItems=inventory.filter(function(i){return i.status==='Listed'});
+  var soldItems=inventory.filter(function(i){return i.status==='Sold'});
+  var unlistedItems=inventory.filter(function(i){return i.status==='Unlisted'});
+
+  var estimatedValue=0;
+  inventory.forEach(function(i){
+    if(i.status==='Sold')estimatedValue+=i.salePrice;
+    else estimatedValue+=i.listPrice||i.purchase;
+  });
+
+  var totalRevenue=soldItems.reduce(function(s,i){return s+i.salePrice},0);
+  var totalCOGS=soldItems.reduce(function(s,i){return s+i.purchase},0);
+  var totalShipping=soldItems.reduce(function(s,i){return s+i.shipping},0);
+  var totalFees=soldItems.reduce(function(s,i){return s+calcFees(i.platform,i.salePrice)},0);
+  var totalProfit=totalRevenue-totalCOGS-totalShipping-totalFees;
+  var roi=totalCOGS>0?((totalProfit/totalCOGS)*100):0;
+
+  var potentialProfit=0;
+  inventory.forEach(function(i){
+    if(i.status!=='Sold'){
+      var price=i.listPrice||i.purchase;
+      potentialProfit+=price-i.purchase-calcFees(i.platform,price);
+    }
+  });
+
+  var html='<div class="metrics-grid">';
+  html+='<div class="metric-card"><div class="lbl">Total Items</div><div class="val" style="color:var(--gold)">'+totalItems+'</div><div class="sub">'+listedItems.length+' listed, '+soldItems.length+' sold, '+unlistedItems.length+' unlisted</div></div>';
+  html+='<div class="metric-card"><div class="lbl">Total Invested</div><div class="val" style="color:var(--orange)">$'+totalInvested.toFixed(0)+'</div><div class="sub">cost of goods</div></div>';
+  html+='<div class="metric-card"><div class="lbl">Estimated Value</div><div class="val" style="color:var(--blue)">$'+estimatedValue.toFixed(0)+'</div><div class="sub">current inventory + sold</div></div>';
+  html+='<div class="metric-card"><div class="lbl">Realized Profit</div><div class="val" style="color:'+(totalProfit>=0?'var(--cyan)':'var(--red)')+'">$'+totalProfit.toFixed(0)+'</div><div class="sub">from '+soldItems.length+' sold items</div></div>';
+  html+='<div class="metric-card"><div class="lbl">Potential Profit</div><div class="val" style="color:var(--gold)">$'+potentialProfit.toFixed(0)+'</div><div class="sub">unsold inventory</div></div>';
+  html+='<div class="metric-card"><div class="lbl">ROI</div><div class="val" style="color:'+(roi>=0?'var(--cyan)':'var(--red)')+'">'+roi.toFixed(1)+'%</div><div class="sub">on sold items</div></div>';
+  html+='</div>';
+  el.innerHTML=html;
+}
+
+function renderAlerts(){
+  var el=document.getElementById('alertsSection');
+  var alerts=[];
+  var now=new Date();
+
+  // Low stock by category
+  var catCounts={};
+  inventory.filter(function(i){return i.status!=='Sold'}).forEach(function(i){
+    catCounts[i.category]=(catCounts[i.category]||0)+1;
+  });
+  Object.keys(catCounts).forEach(function(cat){
+    if(catCounts[cat]<=2)alerts.push({type:'warning',text:'Low stock: Only '+catCounts[cat]+' unsold item(s) in '+cat});
+  });
+
+  // Aging inventory
+  var aging=inventory.filter(function(i){
+    if(i.status==='Sold')return false;
+    return getDaysHeld(i)>=30;
+  });
+  if(aging.length>0)alerts.push({type:'danger',text:aging.length+' item(s) unsold for 30+ days. Consider repricing or bundling.'});
+
+  if(alerts.length===0){el.innerHTML='';return}
+  var html='<div class="tool-section"><h2><span class="icon">&#9888;</span> Alerts</h2>';
+  alerts.forEach(function(a){
+    html+='<div class="alert-box alert-'+a.type+'">'+a.text+'</div>';
+  });
+  html+='</div>';
+  el.innerHTML=html;
+}
+
+function renderTable(){
+  var tbody=document.getElementById('invBody');
+  var filtered=getFiltered();
+  if(filtered.length===0){tbody.innerHTML='<tr><td colspan="9" style="color:var(--text-dim);text-align:center;padding:1.5rem">No items match your filters</td></tr>';return}
+
+  var html='';
+  filtered.forEach(function(item){
+    var profit=getProfit(item);
+    var days=getDaysHeld(item);
+    var agingFlag=item.status!=='Sold'&&days>=30;
+    var statusClass=item.status==='Listed'?'status-listed':item.status==='Sold'?'status-sold':'status-unlisted';
+
+    html+='<tr>';
+    html+='<td><strong>'+esc(item.name)+'</strong>'+(agingFlag?' <span class="aging-flag">'+days+'d</span>':'')+'</td>';
+    html+='<td>'+esc(item.platform)+'</td>';
+    html+='<td style="color:var(--text-dim)">'+esc(item.category)+'</td>';
+    html+='<td>$'+item.purchase.toFixed(2)+'</td>';
+    html+='<td>'+(item.status==='Sold'?'$'+item.salePrice.toFixed(2):'$'+item.listPrice.toFixed(2))+'</td>';
+    html+='<td><span class="status-badge '+statusClass+'">'+item.status+'</span></td>';
+    html+='<td style="color:var(--text-dim)">'+item.date+'</td>';
+    html+='<td style="color:'+(profit>=0?'var(--cyan)':'var(--red)')+';font-weight:700">'+(profit>=0?'+':'')+profit.toFixed(2)+'</td>';
+    html+='<td style="white-space:nowrap">';
+    if(item.status!=='Sold')html+='<button class="remove-btn" onclick="markSold('+item.id+')" title="Mark as Sold" style="color:var(--cyan)">$</button>';
+    html+='<button class="remove-btn" onclick="removeItem('+item.id+')" title="Delete">&times;</button>';
+    html+='</td></tr>';
+  });
+  tbody.innerHTML=html;
+}
+
+// === Profit Calculator ===
+function calcProfit(){
+  var el=document.getElementById('calcResult');
+  var purchase=parseFloat(document.getElementById('calcPurchase').value)||0;
+  var sale=parseFloat(document.getElementById('calcSale').value)||0;
+  var shipping=parseFloat(document.getElementById('calcShipping').value)||0;
+  var platform=document.getElementById('calcPlatform').value;
+
+  if(sale===0){el.innerHTML='';return}
+
+  var fees=calcFees(platform,sale);
+  var net=sale-purchase-shipping-fees;
+  var margin=sale>0?((net/sale)*100):0;
+  var roi=purchase>0?((net/purchase)*100):0;
+
+  var html='<div class="metrics-grid">';
+  html+='<div class="metric-card"><div class="lbl">Platform Fees</div><div class="val" style="color:var(--red)">-$'+fees.toFixed(2)+'</div><div class="sub">'+platform+'</div></div>';
+  html+='<div class="metric-card"><div class="lbl">Net Profit</div><div class="val" style="color:'+(net>=0?'var(--cyan)':'var(--red)')+'">'+(net>=0?'+$':'$')+net.toFixed(2)+'</div><div class="sub">after all costs</div></div>';
+  html+='<div class="metric-card"><div class="lbl">Profit Margin</div><div class="val" style="color:'+(margin>=0?'var(--gold)':'var(--red)')+'">'+margin.toFixed(1)+'%</div><div class="sub">of sale price</div></div>';
+  html+='<div class="metric-card"><div class="lbl">ROI</div><div class="val" style="color:'+(roi>=0?'var(--cyan)':'var(--red)')+'">'+roi.toFixed(1)+'%</div><div class="sub">return on cost</div></div>';
+  html+='</div>';
+
+  // Breakdown
+  html+='<div style="font-size:0.82rem;color:var(--text-dim);margin-top:0.5rem">';
+  html+='Sale: $'+sale.toFixed(2)+' - Cost: $'+purchase.toFixed(2)+' - Shipping: $'+shipping.toFixed(2)+' - Fees: $'+fees.toFixed(2)+' = <strong style="color:'+(net>=0?'var(--cyan)':'var(--red)')+'">'+(net>=0?'+':'')+net.toFixed(2)+'</strong>';
+  html+='</div>';
+  el.innerHTML=html;
+}
+
+// === Monthly P&L ===
+function renderPL(){
+  var soldItems=inventory.filter(function(i){return i.status==='Sold'&&i.saleDate});
+  if(soldItems.length===0){
+    document.getElementById('plTable').innerHTML='<p style="color:var(--text-dim);font-size:0.85rem">Mark items as sold to see your monthly P&L.</p>';
+    var ctx=document.getElementById('plChart').getContext('2d');
+    ctx.clearRect(0,0,ctx.canvas.width,ctx.canvas.height);
+    return;
+  }
+
+  // Group by month
+  var months={};
+  soldItems.forEach(function(item){
+    var key=item.saleDate.substring(0,7); // YYYY-MM
+    if(!months[key])months[key]={revenue:0,cogs:0,shipping:0,fees:0,count:0};
+    months[key].revenue+=item.salePrice;
+    months[key].cogs+=item.purchase;
+    months[key].shipping+=item.shipping;
+    months[key].fees+=calcFees(item.platform,item.salePrice);
+    months[key].count++;
+  });
+
+  var keys=Object.keys(months).sort();
+  var last6=keys.slice(-6);
+
+  // Chart
+  var canvas=document.getElementById('plChart');
+  var ctx=canvas.getContext('2d');
+  var W=canvas.width=canvas.parentElement.clientWidth-32;
+  var H=canvas.height=250;
+  ctx.clearRect(0,0,W,H);
+
+  var maxVal=0;
+  last6.forEach(function(k){
+    var m=months[k];
+    maxVal=Math.max(maxVal,m.revenue,m.revenue-m.cogs-m.shipping-m.fees);
+  });
+  if(maxVal===0)maxVal=100;
+
+  var pad={top:30,right:20,bottom:40,left:60};
+  var cw=W-pad.left-pad.right;
+  var ch=H-pad.top-pad.bottom;
+  var barW=Math.min(40,cw/last6.length/3);
+  var gap=cw/last6.length;
+
+  // Y axis
+  ctx.strokeStyle='rgba(255,215,0,0.15)';ctx.lineWidth=1;
+  for(var i=0;i<=4;i++){
+    var y=pad.top+ch-ch*(i/4);
+    ctx.beginPath();ctx.moveTo(pad.left,y);ctx.lineTo(W-pad.right,y);ctx.stroke();
+    ctx.fillStyle='#8b949e';ctx.font='11px system-ui';ctx.textAlign='right';
+    ctx.fillText('$'+Math.round(maxVal*(i/4)),pad.left-8,y+4);
+  }
+
+  last6.forEach(function(k,i){
+    var m=months[k];
+    var x=pad.left+i*gap+gap/2;
+    var profit=m.revenue-m.cogs-m.shipping-m.fees;
+
+    // Revenue bar
+    var rh=(m.revenue/maxVal)*ch;
+    ctx.fillStyle='rgba(88,166,255,0.6)';
+    ctx.fillRect(x-barW-2,pad.top+ch-rh,barW,rh);
+
+    // Profit bar
+    var ph=Math.abs(profit)/maxVal*ch;
+    ctx.fillStyle=profit>=0?'rgba(57,211,83,0.7)':'rgba(248,81,73,0.7)';
+    ctx.fillRect(x+2,pad.top+ch-ph,barW,ph);
+
+    // Label
+    ctx.fillStyle='#8b949e';ctx.font='11px system-ui';ctx.textAlign='center';
+    ctx.fillText(k.substring(5),x,H-pad.bottom+18);
+  });
+
+  // Legend
+  ctx.fillStyle='rgba(88,166,255,0.6)';ctx.fillRect(pad.left,8,12,12);
+  ctx.fillStyle='#8b949e';ctx.font='11px system-ui';ctx.textAlign='left';ctx.fillText('Revenue',pad.left+18,18);
+  ctx.fillStyle='rgba(57,211,83,0.7)';ctx.fillRect(pad.left+90,8,12,12);
+  ctx.fillStyle='#8b949e';ctx.fillText('Profit',pad.left+108,18);
+
+  // Table
+  var thtml='<table><thead><tr><th>Month</th><th>Sales</th><th>Revenue</th><th>COGS</th><th>Fees</th><th>Shipping</th><th>Net Profit</th></tr></thead><tbody>';
+  last6.forEach(function(k){
+    var m=months[k];
+    var profit=m.revenue-m.cogs-m.shipping-m.fees;
+    thtml+='<tr><td style="color:var(--gold)">'+k+'</td><td>'+m.count+'</td><td>$'+m.revenue.toFixed(2)+'</td><td>$'+m.cogs.toFixed(2)+'</td><td>$'+m.fees.toFixed(2)+'</td><td>$'+m.shipping.toFixed(2)+'</td><td style="color:'+(profit>=0?'var(--cyan)':'var(--red)')+';font-weight:700">'+(profit>=0?'+':'')+profit.toFixed(2)+'</td></tr>';
+  });
+  thtml+='</tbody></table>';
+  document.getElementById('plTable').innerHTML=thtml;
+}
+
+// === Export ===
+function exportCSV(){
+  if(inventory.length===0){alert('No data to export.');return}
+  var csv='Name,Category,Platform,Condition,Purchase Price,List Price,Status,Date Acquired,Sale Price,Shipping,Sale Date,Photos,Profit\n';
+  inventory.forEach(function(i){
+    var profit=getProfit(i);
+    csv+='"'+i.name.replace(/"/g,'""')+'",'+i.category+','+i.platform+','+i.condition+','+i.purchase+','+i.listPrice+','+i.status+','+i.date+','+i.salePrice+','+i.shipping+','+i.saleDate+','+i.photos+','+profit.toFixed(2)+'\n';
+  });
+  var blob=new Blob([csv],{type:'text/csv'});
+  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='reseller-inventory-'+new Date().toISOString().split('T')[0]+'.csv';a.click();
+  if(typeof gtag==='function')gtag('event','export_csv',{tool:'reseller-inventory-tracker'});
+}
+
+function esc(s){var d=document.createElement('div');d.appendChild(document.createTextNode(s));return d.innerHTML}
+function shareX(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Tracking my reseller inventory and profits with this free tool from @SpunkArt13 (code: SPUNK)')+'&url='+encodeURIComponent('https://spunk.codes/exclusive-tools'),'_blank')}
+
+// === Init ===
+loadData();
+refreshAll();
+
+// Resize chart on window resize
+window.addEventListener('resize',function(){clearTimeout(window._plResize);window._plResize=setTimeout(renderPL,200)});
+
+// === Code Protection ===
+document.addEventListener('contextmenu',function(e){e.preventDefault()});
+document.addEventListener('keydown',function(e){if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'))||(e.ctrlKey&&e.key==='u'))e.preventDefault()});
+</script>
+<script src="/exclusive/pro-gate.js"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<script src="/auto-monetize.js"></script>
+<div id="shareXBtn" style="position:fixed;left:20px;bottom:20px;z-index:9999;">
+  <a id="shareXLink" href="#" target="_blank" rel="noopener noreferrer" title="Share on X"
+     style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;
+     background:rgba(255,215,0,0.15);border:1px solid rgba(255,215,0,0.3);
+     backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:50%;
+     text-decoration:none;transition:all 0.3s ease;cursor:pointer;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+    </svg>
+  </a>
+</div>
+<style>#shareXBtn a:hover{background:rgba(255,215,0,0.35)!important;border-color:rgba(255,215,0,0.6)!important;transform:scale(1.1);box-shadow:0 0 15px rgba(255,215,0,0.3)}</style>
+<script>
+(function(){var page=location.pathname.split("/").pop()||"index.html";var url="https://spunk.codes/exclusive/"+page;var text="Tracking my reseller inventory & profits across platforms with this free tool on spunk.codes @SpunkArt13";var href="https://x.com/intent/tweet?text="+encodeURIComponent(text)+"&url="+encodeURIComponent(url);document.getElementById("shareXLink").href=href})();
+</script>
+<script src="/usage-tracker.js"></script>
+</body>
+</html>

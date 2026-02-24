@@ -124,12 +124,15 @@ a{color:var(--blue);text-decoration:none}
 .card h2{font-size:1.1rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}
 
 /* Form */
-.scan-input-wrap{display:flex;gap:0.75rem;align-items:stretch;flex-wrap:wrap}
+.scan-form-grid{display:grid;grid-template-columns:140px 1fr 160px;gap:0.75rem;align-items:end}
+.form-group{display:flex;flex-direction:column;gap:0.3rem}
+.form-group label{font-size:0.75rem;color:var(--text-dim);font-weight:600;text-transform:uppercase;letter-spacing:0.5px}
 .platform-select{padding:0.8rem 1rem;background:rgba(22,27,34,0.9);border:1px solid var(--border);border-radius:12px;color:var(--text);font-size:0.9rem;font-family:var(--font);outline:none;cursor:pointer;min-width:140px}
 .platform-select:focus{border-color:var(--gold)}
-.username-input{flex:1;min-width:200px;padding:0.8rem 1rem;background:rgba(22,27,34,0.9);border:1px solid var(--border);border-radius:12px;color:var(--text);font-size:0.95rem;font-family:var(--font);outline:none}
-.username-input:focus{border-color:var(--gold);box-shadow:0 0 20px rgba(255,215,0,0.1)}
-.username-input::placeholder{color:var(--text-dim)}
+.username-input,.follower-input{width:100%;padding:0.8rem 1rem;background:rgba(22,27,34,0.9);border:1px solid var(--border);border-radius:12px;color:var(--text);font-size:0.95rem;font-family:var(--font);outline:none}
+.username-input:focus,.follower-input:focus{border-color:var(--gold);box-shadow:0 0 20px rgba(255,215,0,0.1)}
+.username-input::placeholder,.follower-input::placeholder{color:var(--text-dim)}
+.scan-row{display:flex;gap:0.75rem;align-items:stretch;flex-wrap:wrap;margin-top:0.5rem}
 
 /* Buttons */
 .btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;transition:all 0.2s;display:inline-flex;align-items:center;gap:0.4rem}
@@ -144,7 +147,7 @@ a{color:var(--blue);text-decoration:none}
 .btn-red:hover{box-shadow:0 4px 15px rgba(248,81,73,0.3)}
 
 /* Deep Scan Button */
-.btn-deep-scan{position:relative;padding:1rem 2.5rem;font-size:1.05rem;font-weight:800;border-radius:14px;background:linear-gradient(135deg,#ffd700,#ff8c00);color:#000;border:none;cursor:pointer;overflow:hidden;transition:all 0.3s;letter-spacing:0.5px}
+.btn-deep-scan{position:relative;padding:1rem 2.5rem;font-size:1.05rem;font-weight:800;border-radius:14px;background:linear-gradient(135deg,#ffd700,#ff8c00);color:#000;border:none;cursor:pointer;overflow:hidden;transition:all 0.3s;letter-spacing:0.5px;width:100%}
 .btn-deep-scan:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(255,215,0,0.4)}
 .btn-deep-scan:active{transform:translateY(0)}
 .btn-deep-scan::after{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:linear-gradient(45deg,transparent 30%,rgba(255,255,255,0.3) 50%,transparent 70%);animation:shimmer 3s infinite;pointer-events:none}
@@ -157,7 +160,6 @@ a{color:var(--blue);text-decoration:none}
 .compare-toggle input[type="checkbox"]{accent-color:var(--gold);width:16px;height:16px;cursor:pointer}
 .compare-fields{display:none;margin-top:1rem;padding-top:1rem;border-top:1px dashed var(--border)}
 .compare-fields.active{display:block}
-.compare-fields .scan-input-wrap{margin-top:0.5rem}
 .compare-label{font-size:0.75rem;color:var(--gold);font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:0.5rem}
 
 /* Animations */
@@ -171,7 +173,7 @@ a{color:var(--blue);text-decoration:none}
 @keyframes radarSweep{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
 @keyframes shakeIt{0%,100%{transform:translateX(0)}10%,30%,50%,70%,90%{transform:translateX(-4px)}20%,40%,60%,80%{transform:translateX(4px)}}
 @keyframes blinkWarn{0%,100%{opacity:1}50%{opacity:0.4}}
-@keyframes fillGauge{from{stroke-dashoffset:283}to{stroke-dashoffset:var(--gauge-offset)}}
+@keyframes goldShimmer{0%{background-position:-200% center}100%{background-position:200% center}}
 
 /* Scan animation */
 .scan-animation{text-align:center;padding:3rem 1rem;display:none}
@@ -197,13 +199,9 @@ a{color:var(--blue);text-decoration:none}
 .result-card:nth-child(7){animation-delay:0.9s}
 .result-card:nth-child(8){animation-delay:1.05s}
 
-/* Bot Score Gauge */
+/* Bot Score Gauge - Canvas Semicircle */
 .gauge-container{text-align:center;padding:1.5rem 0}
-.gauge-svg{width:220px;height:220px}
-.gauge-bg{fill:none;stroke:rgba(48,54,61,0.6);stroke-width:12}
-.gauge-fill{fill:none;stroke-width:12;stroke-linecap:round;transform:rotate(-90deg);transform-origin:center;animation:fillGauge 1.5s ease forwards}
-.gauge-text{font-size:3rem;font-weight:900;fill:var(--gold)}
-.gauge-label-text{font-size:0.75rem;fill:var(--text-dim);text-transform:uppercase;letter-spacing:1px}
+.gauge-canvas{display:block;margin:0 auto}
 .gauge-score-label{font-size:1.3rem;font-weight:800;color:var(--gold);margin-top:0.5rem}
 .gauge-score-desc{font-size:0.85rem;color:var(--text-dim);margin-top:0.2rem}
 
@@ -231,6 +229,18 @@ a{color:var(--blue);text-decoration:none}
 .pct-orange .breakdown-bar-fill{background:var(--orange)}
 .pct-red{color:var(--red)}
 .pct-red .breakdown-bar-fill{background:var(--red)}
+
+/* Full-width stacked bar */
+.follower-bar-wrap{margin-top:1rem}
+.follower-bar{display:flex;height:32px;border-radius:8px;overflow:hidden;position:relative}
+.follower-bar-seg{height:100%;display:flex;align-items:center;justify-content:center;transition:width 1s ease;font-size:0.65rem;font-weight:800;color:#000;white-space:nowrap;overflow:hidden}
+.follower-bar-seg.seg-real{background:linear-gradient(135deg,#39d353,#2ea043)}
+.follower-bar-seg.seg-bot{background:linear-gradient(135deg,#f85149,#da3633)}
+.follower-bar-seg.seg-scam{background:linear-gradient(135deg,#ff8c00,#e67700)}
+.follower-bar-seg.seg-inactive{background:linear-gradient(135deg,#ffd700,#ccac00)}
+.follower-bar-legend{display:flex;justify-content:center;gap:1.2rem;margin-top:0.6rem;flex-wrap:wrap}
+.legend-item{display:flex;align-items:center;gap:0.3rem;font-size:0.72rem;color:var(--text-dim)}
+.legend-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
 
 /* Suspicious Patterns */
 .pattern-item{display:flex;align-items:flex-start;gap:1rem;padding:0.8rem 1rem;background:rgba(13,17,23,0.5);border:1px solid var(--border);border-radius:10px;margin-bottom:0.5rem;transition:all 0.3s}
@@ -320,9 +330,7 @@ a{color:var(--blue);text-decoration:none}
 .compare-grid{display:grid;grid-template-columns:1fr auto 1fr;gap:1rem;align-items:start}
 .compare-vs{font-size:1.5rem;font-weight:900;color:var(--gold);align-self:center;text-align:center;padding:1rem 0}
 .compare-col{text-align:center}
-.compare-col .gauge-svg{width:160px;height:160px}
-.compare-col .gauge-text{font-size:2rem}
-.compare-col .breakdown-grid{grid-template-columns:1fr 1fr}
+.compare-col .gauge-canvas{width:160px;height:100px}
 .compare-stat-row{display:flex;justify-content:space-between;align-items:center;padding:0.5rem 0;border-bottom:1px solid var(--border)}
 .compare-stat-row:last-child{border-bottom:none}
 .compare-stat-label{font-size:0.8rem;color:var(--text-dim);text-align:center;flex:1}
@@ -350,18 +358,19 @@ a{color:var(--blue);text-decoration:none}
   .nav{padding:0.6rem 1rem}
   .nav-links{gap:0.8rem;font-size:0.75rem}
   .hero-section h1{font-size:1.7rem}
-  .scan-input-wrap{flex-direction:column}
+  .scan-form-grid{grid-template-columns:1fr;gap:0.5rem}
+  .scan-row{flex-direction:column}
   .breakdown-grid{grid-template-columns:repeat(2,1fr)}
   .shame-stats-grid{grid-template-columns:repeat(2,1fr)}
   .compare-grid{grid-template-columns:1fr;gap:0.5rem}
   .compare-vs{padding:0.5rem 0}
-  .compare-col .gauge-svg{width:140px;height:140px}
+  .compare-col .gauge-canvas{width:140px;height:88px}
   .age-chart{height:80px}
+  .auth-detail{grid-template-columns:1fr 1fr}
 }
 @media(max-width:480px){
   .hero-section h1{font-size:1.4rem}
   .breakdown-grid{grid-template-columns:1fr 1fr}
-  .gauge-svg{width:180px;height:180px}
 }
 </style>
 </head>
@@ -382,7 +391,7 @@ a{color:var(--blue);text-decoration:none}
   <!-- Hero -->
   <section class="hero-section">
     <div class="exclusive-badge">PREMIUM TOOL</div>
-    <div class="hero-icon">🤖</div>
+    <div class="hero-icon">&#129302;</div>
     <h1>Bot &amp; Scam <span class="gold">Account Detector</span></h1>
     <p>Deep scan any social media account to expose bot followers, fake engagement, scam patterns, and suspicious behavior. Premium AI-powered analysis.</p>
     <div class="free-link">Looking for the basic version? <a href="/bot-check">Try the free Bot Check</a></div>
@@ -390,28 +399,11 @@ a{color:var(--blue);text-decoration:none}
 
   <!-- Scan Input -->
   <div class="card" id="scanCard">
-    <h2>🔍 Deep Scan</h2>
-    <div class="scan-input-wrap">
-      <select class="platform-select" id="platformSelect">
-        <option value="x">X (Twitter)</option>
-        <option value="instagram">Instagram</option>
-        <option value="tiktok">TikTok</option>
-        <option value="youtube">YouTube</option>
-        <option value="bluesky">Bluesky</option>
-        <option value="threads">Threads</option>
-      </select>
-      <input type="text" class="username-input" id="usernameInput" placeholder="Enter username or handle..." autocomplete="off" spellcheck="false">
-      <button class="btn-deep-scan" id="scanBtn" onclick="startScan()">Deep Scan</button>
-    </div>
-
-    <!-- Compare Mode -->
-    <div class="compare-toggle">
-      <label><input type="checkbox" id="compareToggle" onchange="toggleCompare()"> Enable Compare Mode — scan 2 accounts side by side</label>
-    </div>
-    <div class="compare-fields" id="compareFields">
-      <div class="compare-label">Compare Against:</div>
-      <div class="scan-input-wrap">
-        <select class="platform-select" id="platformSelect2">
+    <h2>&#128269; Deep Scan</h2>
+    <div class="scan-form-grid">
+      <div class="form-group">
+        <label for="platformSelect">Platform</label>
+        <select class="platform-select" id="platformSelect">
           <option value="x">X (Twitter)</option>
           <option value="instagram">Instagram</option>
           <option value="tiktok">TikTok</option>
@@ -419,14 +411,53 @@ a{color:var(--blue);text-decoration:none}
           <option value="bluesky">Bluesky</option>
           <option value="threads">Threads</option>
         </select>
-        <input type="text" class="username-input" id="usernameInput2" placeholder="Enter second username..." autocomplete="off" spellcheck="false">
+      </div>
+      <div class="form-group">
+        <label for="usernameInput">Username / Handle</label>
+        <input type="text" class="username-input" id="usernameInput" placeholder="Enter username or handle..." autocomplete="off" spellcheck="false">
+      </div>
+      <div class="form-group">
+        <label for="followerInput">Follower Count</label>
+        <input type="number" class="follower-input" id="followerInput" placeholder="e.g. 50000" min="0" autocomplete="off">
+      </div>
+    </div>
+    <div style="margin-top:1rem">
+      <button class="btn-deep-scan" id="scanBtn" onclick="startScan()">&#128270; Deep Scan</button>
+    </div>
+
+    <!-- Compare Mode -->
+    <div class="compare-toggle">
+      <label><input type="checkbox" id="compareToggle" onchange="toggleCompare()"> Enable Compare Mode &mdash; scan 2 accounts side by side</label>
+    </div>
+    <div class="compare-fields" id="compareFields">
+      <div class="compare-label">Compare Against:</div>
+      <div class="scan-form-grid" style="margin-top:0.5rem">
+        <div class="form-group">
+          <label for="platformSelect2">Platform</label>
+          <select class="platform-select" id="platformSelect2">
+            <option value="x">X (Twitter)</option>
+            <option value="instagram">Instagram</option>
+            <option value="tiktok">TikTok</option>
+            <option value="youtube">YouTube</option>
+            <option value="bluesky">Bluesky</option>
+            <option value="threads">Threads</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="usernameInput2">Username / Handle</label>
+          <input type="text" class="username-input" id="usernameInput2" placeholder="Enter second username..." autocomplete="off" spellcheck="false">
+        </div>
+        <div class="form-group">
+          <label for="followerInput2">Follower Count</label>
+          <input type="number" class="follower-input" id="followerInput2" placeholder="e.g. 25000" min="0" autocomplete="off">
+        </div>
       </div>
     </div>
   </div>
 
   <!-- Scan Animation -->
   <div class="scan-animation" id="scanAnimation">
-    <div class="scan-bot">🤖</div>
+    <div class="scan-bot">&#129302;</div>
     <div class="scan-text" id="scanText">Initializing deep scan...</div>
     <div class="scan-sub" id="scanSub">This may take a few seconds</div>
     <div class="scan-bar"><div class="scan-bar-fill" id="scanBarFill"></div></div>
@@ -444,16 +475,11 @@ a{color:var(--blue);text-decoration:none}
   <!-- Results Section -->
   <div id="resultsSection">
 
-    <!-- Bot Score Gauge -->
+    <!-- Bot Score Gauge (Canvas Semicircle) -->
     <div class="card result-card" id="botScoreCard">
-      <h2>🎯 Bot Score</h2>
+      <h2>&#127919; Bot Score</h2>
       <div class="gauge-container">
-        <svg class="gauge-svg" viewBox="0 0 100 100">
-          <circle class="gauge-bg" cx="50" cy="50" r="45"/>
-          <circle class="gauge-fill" id="gaugeCircle" cx="50" cy="50" r="45" stroke-dasharray="283" stroke-dashoffset="283"/>
-          <text class="gauge-text" x="50" y="50" text-anchor="middle" dominant-baseline="central" id="gaugeText">0</text>
-          <text class="gauge-label-text" x="50" y="68" text-anchor="middle" id="gaugeLabelSvg">BOT SCORE</text>
-        </svg>
+        <canvas class="gauge-canvas" id="gaugeCanvas" width="280" height="170"></canvas>
         <div class="gauge-score-label" id="gaugeLabel">Analyzing...</div>
         <div class="gauge-score-desc" id="gaugeDesc"></div>
       </div>
@@ -461,7 +487,7 @@ a{color:var(--blue);text-decoration:none}
 
     <!-- Scam Risk Level -->
     <div class="card result-card" id="riskCard">
-      <h2>⚠️ Scam Risk Level</h2>
+      <h2>&#9888;&#65039; Scam Risk Level</h2>
       <div style="text-align:center;padding:1rem 0">
         <div class="risk-badge" id="riskBadge">ANALYZING</div>
         <p style="color:var(--text-dim);font-size:0.85rem;margin-top:0.75rem;max-width:500px;margin-left:auto;margin-right:auto" id="riskDesc"></p>
@@ -470,26 +496,30 @@ a{color:var(--blue);text-decoration:none}
 
     <!-- Follower Quality Breakdown -->
     <div class="card result-card" id="breakdownCard">
-      <h2>👥 Follower Quality Breakdown</h2>
+      <h2>&#128101; Follower Quality Breakdown</h2>
+      <div class="follower-bar-wrap">
+        <div class="follower-bar" id="followerBar"></div>
+        <div class="follower-bar-legend" id="followerBarLegend"></div>
+      </div>
       <div class="breakdown-grid" id="breakdownGrid"></div>
     </div>
 
     <!-- Suspicious Pattern Detection -->
     <div class="card result-card" id="patternsCard">
-      <h2>🕵️ Suspicious Pattern Detection</h2>
+      <h2>&#128373;&#65039; Suspicious Pattern Detection</h2>
       <div id="patternsContainer"></div>
     </div>
 
     <!-- Account Age Analysis -->
     <div class="card result-card" id="ageCard">
-      <h2>📅 Follower Account Age Analysis</h2>
-      <p style="font-size:0.82rem;color:var(--text-dim)">Distribution of followers by account age — newer accounts are more likely to be bots</p>
+      <h2>&#128197; Follower Account Age Analysis</h2>
+      <p style="font-size:0.82rem;color:var(--text-dim)">Distribution of followers by account age &mdash; newer accounts are more likely to be bots</p>
       <div class="age-chart" id="ageChart"></div>
     </div>
 
     <!-- Engagement Authenticity Score -->
     <div class="card result-card" id="engagementCard">
-      <h2>💬 Engagement Authenticity Score</h2>
+      <h2>&#128172; Engagement Authenticity Score</h2>
       <div class="auth-meter">
         <div class="auth-bar-wrap">
           <div class="auth-bar-real" id="authBarReal"><span class="auth-bar-text" id="authRealText"></span></div>
@@ -505,29 +535,29 @@ a{color:var(--blue);text-decoration:none}
 
     <!-- Red Flags Found -->
     <div class="card result-card" id="flagsCard">
-      <h2>🚩 Red Flags Found</h2>
+      <h2>&#128681; Red Flags Found</h2>
       <div id="flagsContainer"></div>
     </div>
 
     <!-- Shame Report Card -->
     <div class="card result-card" id="shameSection">
-      <h2>📋 Bot Shame Report Card</h2>
+      <h2>&#128203; Bot Shame Report Card</h2>
       <div class="shame-card" id="shameCard"></div>
       <div class="btn-row" style="margin-top:1rem;justify-content:center">
-        <button class="btn btn-gold" onclick="downloadShameCard()">Download as Image</button>
-        <button class="btn btn-outline" onclick="shareShameCard()">Share on X</button>
+        <button class="btn btn-gold" onclick="downloadShameCard()">&#128190; Download as Image</button>
+        <button class="btn btn-outline" onclick="shareShameCard()">&#120143; Share on X</button>
       </div>
     </div>
 
     <!-- Compare Results (hidden unless compare mode) -->
     <div class="card result-card" id="compareCard" style="display:none">
-      <h2>⚔️ Head-to-Head Comparison</h2>
+      <h2>&#9876;&#65039; Head-to-Head Comparison</h2>
       <div class="compare-grid" id="compareGrid"></div>
     </div>
 
     <!-- Actions -->
     <div class="card result-card">
-      <h2>🔄 What's Next?</h2>
+      <h2>&#128260; What's Next?</h2>
       <div class="btn-row">
         <button class="btn btn-gold" onclick="resetScan()">Scan Another Account</button>
         <button class="btn btn-outline" onclick="exportResults()">Export Full Report (JSON)</button>
@@ -537,44 +567,44 @@ a{color:var(--blue);text-decoration:none}
 
   <!-- Scan History -->
   <div class="card" id="historyCard">
-    <h2>📜 Scan History</h2>
+    <h2>&#128220; Scan History</h2>
     <div id="historyContainer"></div>
-    <div class="btn-row" style="margin-top:0.75rem" id="historyClearRow" style="display:none">
+    <div class="btn-row" style="margin-top:0.75rem" id="historyClearRow">
       <button class="btn btn-sm btn-outline" onclick="clearHistory()">Clear History</button>
     </div>
   </div>
 
   <!-- Other Premium Tools -->
   <div class="card">
-    <h2>⭐ More Premium Tools</h2>
+    <h2>&#11088; More Premium Tools</h2>
     <div class="tools-grid">
       <a href="/exclusive/ghost-follower-detector" class="tool-link">
-        <div class="tool-link-icon">👻</div>
+        <div class="tool-link-icon">&#128123;</div>
         <div class="tool-link-name">Ghost Follower Detector</div>
         <div class="tool-link-desc">Find your silent lurkers</div>
       </a>
       <a href="/exclusive/social-shame-report" class="tool-link">
-        <div class="tool-link-icon">📋</div>
+        <div class="tool-link-icon">&#128203;</div>
         <div class="tool-link-name">Social Shame Report</div>
         <div class="tool-link-desc">Call out your lurkers</div>
       </a>
       <a href="/exclusive/competitor-spy-tool" class="tool-link">
-        <div class="tool-link-icon">🔎</div>
+        <div class="tool-link-icon">&#128270;</div>
         <div class="tool-link-name">Competitor Spy Tool</div>
         <div class="tool-link-desc">Analyze rival accounts</div>
       </a>
       <a href="/exclusive/viral-content-planner" class="tool-link">
-        <div class="tool-link-icon">🚀</div>
+        <div class="tool-link-icon">&#128640;</div>
         <div class="tool-link-name">Viral Content Planner</div>
         <div class="tool-link-desc">Plan viral campaigns</div>
       </a>
       <a href="/exclusive/growth-hacking-toolkit" class="tool-link">
-        <div class="tool-link-icon">📈</div>
+        <div class="tool-link-icon">&#128200;</div>
         <div class="tool-link-name">Growth Hacking Toolkit</div>
         <div class="tool-link-desc">Scale your audience fast</div>
       </a>
       <a href="/exclusive/seo-audit-pro" class="tool-link">
-        <div class="tool-link-icon">🔍</div>
+        <div class="tool-link-icon">&#128269;</div>
         <div class="tool-link-name">SEO Audit Pro</div>
         <div class="tool-link-desc">Full site SEO analysis</div>
       </a>
@@ -590,29 +620,29 @@ a{color:var(--blue);text-decoration:none}
     <a href="/bot-check">Free Bot Check</a>
     <a href="/ebook-store">Ebooks</a>
   </div>
-  <p>&copy; 2026 <a href="https://spunk.codes">SPUNK.CODES</a> — All rights reserved.</p>
+  <p>&copy; 2026 <a href="https://spunk.codes">SPUNK.CODES</a> &mdash; All rights reserved.</p>
 </footer>
 
-<div class="watermark">SPUNK.CODES PREMIUM</div>
+<div class="watermark">SPUNK.CODES EXCLUSIVE</div>
 
 <script>
 /* ================================================================
    Bot & Scam Account Detector — Premium Engine
    ================================================================ */
 
-// ── State ──────────────────────────────────────────────────────
+// -- State --
 let currentResults = null;
 let compareResults = null;
 let scanHistory = JSON.parse(localStorage.getItem('bsd_history') || '[]');
 
-// ── Track GA4 events ───────────────────────────────────────────
+// -- Track GA4 events --
 function track(name, params) {
   if (typeof gtag === 'function') {
     gtag('event', name, params || {});
   }
 }
 
-// ── Utility ────────────────────────────────────────────────────
+// -- Utility --
 function rand(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
 function randFloat(min, max) { return +(Math.random() * (max - min) + min).toFixed(1); }
 function hashCode(str) {
@@ -625,7 +655,7 @@ function hashCode(str) {
   return Math.abs(hash);
 }
 
-// ── Seeded random for consistent results per username ──────────
+// -- Seeded random for consistent results per username --
 function seededRand(seed) {
   let s = hashCode(seed);
   return function() {
@@ -634,8 +664,190 @@ function seededRand(seed) {
   };
 }
 
-// ── Generate comprehensive analysis for a username ─────────────
-function generateAnalysis(username, platform) {
+// -- Draw animated gold semicircle gauge on Canvas --
+function drawGauge(canvasId, score, animated) {
+  const canvas = document.getElementById(canvasId);
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const w = canvas.width;
+  const h = canvas.height;
+  const cx = w / 2;
+  const cy = h - 15;
+  const radius = Math.min(cx, cy) - 20;
+  const startAngle = Math.PI;
+  const endAngle = 2 * Math.PI;
+
+  let gaugeColor;
+  if (score < 25) gaugeColor = '#39d353';
+  else if (score < 50) gaugeColor = '#ffd700';
+  else if (score < 75) gaugeColor = '#ff8c00';
+  else gaugeColor = '#f85149';
+
+  let currentScore = 0;
+  const targetScore = score;
+  const duration = animated ? 1500 : 0;
+  const startTime = performance.now();
+
+  function easeOutCubic(t) { return 1 - Math.pow(1 - t, 3); }
+
+  function frame(now) {
+    const elapsed = now - startTime;
+    const progress = duration > 0 ? Math.min(elapsed / duration, 1) : 1;
+    currentScore = Math.round(targetScore * easeOutCubic(progress));
+
+    ctx.clearRect(0, 0, w, h);
+
+    // Background arc
+    ctx.beginPath();
+    ctx.arc(cx, cy, radius, startAngle, endAngle);
+    ctx.lineWidth = 18;
+    ctx.strokeStyle = 'rgba(48,54,61,0.6)';
+    ctx.lineCap = 'round';
+    ctx.stroke();
+
+    // Score arc
+    const scoreAngle = startAngle + (Math.PI * currentScore / 100);
+    if (currentScore > 0) {
+      ctx.beginPath();
+      ctx.arc(cx, cy, radius, startAngle, scoreAngle);
+      ctx.lineWidth = 18;
+      ctx.lineCap = 'round';
+
+      // Gold shimmer gradient
+      const grad = ctx.createLinearGradient(cx - radius, cy, cx + radius, cy);
+      if (score < 25) {
+        grad.addColorStop(0, '#39d353');
+        grad.addColorStop(1, '#2ea043');
+      } else if (score < 50) {
+        grad.addColorStop(0, '#ffd700');
+        grad.addColorStop(0.5, '#ffec80');
+        grad.addColorStop(1, '#ffd700');
+      } else if (score < 75) {
+        grad.addColorStop(0, '#ffd700');
+        grad.addColorStop(0.5, '#ff8c00');
+        grad.addColorStop(1, '#ff6600');
+      } else {
+        grad.addColorStop(0, '#ff8c00');
+        grad.addColorStop(0.5, '#f85149');
+        grad.addColorStop(1, '#da3633');
+      }
+      ctx.strokeStyle = grad;
+      ctx.stroke();
+
+      // Gold glow
+      ctx.save();
+      ctx.shadowColor = gaugeColor;
+      ctx.shadowBlur = 15;
+      ctx.beginPath();
+      ctx.arc(cx, cy, radius, Math.max(startAngle, scoreAngle - 0.1), scoreAngle);
+      ctx.lineWidth = 18;
+      ctx.lineCap = 'round';
+      ctx.strokeStyle = gaugeColor;
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    // Score text
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillStyle = gaugeColor;
+    ctx.font = 'bold 48px system-ui';
+    ctx.fillText(String(currentScore), cx, cy - radius / 2 + 5);
+
+    // Label
+    ctx.fillStyle = '#8b949e';
+    ctx.font = '600 11px system-ui';
+    ctx.letterSpacing = '2px';
+    ctx.fillText('BOT SCORE', cx, cy - radius / 2 + 30);
+
+    // Scale markers 0 and 100
+    ctx.fillStyle = '#484f58';
+    ctx.font = '600 10px system-ui';
+    ctx.textAlign = 'left';
+    ctx.fillText('0', cx - radius - 8, cy + 12);
+    ctx.textAlign = 'right';
+    ctx.fillText('100', cx + radius + 8, cy + 12);
+
+    // Tick marks
+    for (let i = 0; i <= 10; i++) {
+      const tickAngle = startAngle + (Math.PI * i / 10);
+      const innerR = radius - 13;
+      const outerR = radius - 8;
+      const x1 = cx + innerR * Math.cos(tickAngle);
+      const y1 = cy + innerR * Math.sin(tickAngle);
+      const x2 = cx + outerR * Math.cos(tickAngle);
+      const y2 = cy + outerR * Math.sin(tickAngle);
+      ctx.beginPath();
+      ctx.moveTo(x1, y1);
+      ctx.lineTo(x2, y2);
+      ctx.lineWidth = i % 5 === 0 ? 2 : 1;
+      ctx.strokeStyle = i % 5 === 0 ? '#484f58' : '#30363d';
+      ctx.stroke();
+    }
+
+    if (progress < 1) {
+      requestAnimationFrame(frame);
+    }
+  }
+
+  if (animated) {
+    requestAnimationFrame(frame);
+  } else {
+    frame(startTime + duration);
+  }
+}
+
+// -- Draw a smaller gauge for compare mode --
+function drawCompareGauge(canvasEl, score) {
+  const ctx = canvasEl.getContext('2d');
+  const w = canvasEl.width;
+  const h = canvasEl.height;
+  const cx = w / 2;
+  const cy = h - 8;
+  const radius = Math.min(cx, cy) - 12;
+  const startAngle = Math.PI;
+
+  let gaugeColor;
+  if (score < 25) gaugeColor = '#39d353';
+  else if (score < 50) gaugeColor = '#ffd700';
+  else if (score < 75) gaugeColor = '#ff8c00';
+  else gaugeColor = '#f85149';
+
+  ctx.clearRect(0, 0, w, h);
+
+  // BG arc
+  ctx.beginPath();
+  ctx.arc(cx, cy, radius, startAngle, 2 * Math.PI);
+  ctx.lineWidth = 12;
+  ctx.strokeStyle = 'rgba(48,54,61,0.6)';
+  ctx.lineCap = 'round';
+  ctx.stroke();
+
+  // Score arc
+  const scoreAngle = startAngle + (Math.PI * score / 100);
+  if (score > 0) {
+    ctx.beginPath();
+    ctx.arc(cx, cy, radius, startAngle, scoreAngle);
+    ctx.lineWidth = 12;
+    ctx.lineCap = 'round';
+    ctx.strokeStyle = gaugeColor;
+    ctx.stroke();
+  }
+
+  // Score text
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillStyle = gaugeColor;
+  ctx.font = 'bold 28px system-ui';
+  ctx.fillText(String(score), cx, cy - radius / 2 + 5);
+
+  ctx.fillStyle = '#8b949e';
+  ctx.font = '600 8px system-ui';
+  ctx.fillText('BOT SCORE', cx, cy - radius / 2 + 22);
+}
+
+// -- Generate comprehensive analysis for a username --
+function generateAnalysis(username, platform, followerCountInput) {
   const key = platform + ':' + username.toLowerCase().replace(/^@/, '');
   const r = seededRand(key);
 
@@ -647,8 +859,14 @@ function generateAnalysis(username, platform) {
   if (uLower.length > 15) botBias += 5;
   if (/^[a-z]+\d+$/i.test(uLower)) botBias += 10;
 
+  // Follower count influences score: extremely large counts with suspicious names score higher
+  const fc = followerCountInput || Math.round(r() * 500000 + 100);
+  if (fc > 1000000) botBias += 8;
+  else if (fc > 100000) botBias += 4;
+  if (fc > 10000 && fc < 200 ) botBias += 15; // impossible, skip
+
   const botScore = Math.min(99, Math.max(1, Math.round(r() * 60 + botBias + r() * 20)));
-  const followerCount = Math.round(r() * 500000 + 100);
+  const followerCount = fc;
 
   // Follower quality breakdown
   const realHumans = Math.max(5, Math.round(100 - botScore - r() * 15));
@@ -690,16 +908,16 @@ function generateAnalysis(username, platform) {
 
   // Suspicious patterns
   const allPatterns = [
-    { name: 'Follow/Unfollow Churning', desc: 'Rapid cycles of following and unfollowing accounts to inflate follower count. Detected ' + rand(50, 2000) + ' follow/unfollow cycles in the last 30 days.', icon: '🔄', severity: botScore > 50 ? 'high' : 'medium', detected: r() < 0.6 + botScore / 200 },
-    { name: 'Bulk Following Behavior', desc: 'Following hundreds of accounts in short bursts, a classic bot pattern. Average ' + rand(30, 150) + ' new follows per hour detected.', icon: '👥', severity: 'high', detected: r() < 0.5 + botScore / 200 },
-    { name: 'Identical Bio Patterns', desc: rand(5, 40) + '% of followers share similar bio templates (e.g., "Crypto enthusiast | DM for collab | ' + rand(10, 99) + 'k follower coach").', icon: '📝', severity: 'medium', detected: r() < 0.55 + botScore / 250 },
-    { name: 'Crypto Scam DM Network', desc: 'Connected to accounts flagged for sending unsolicited crypto/investment DMs. ' + rand(3, 25) + ' known scam relay nodes in follower network.', icon: '💰', severity: 'critical', detected: r() < 0.3 + botScore / 200 },
-    { name: 'Engagement Manipulation', desc: 'Suspicious like/retweet patterns — ' + rand(20, 80) + '% of engagement comes from accounts less than ' + rand(7, 60) + ' days old.', icon: '📊', severity: botScore > 60 ? 'critical' : 'high', detected: r() < 0.5 + botScore / 200 },
-    { name: 'Coordinated Reply Farming', desc: 'Replies show repetitive patterns. Detected ' + rand(5, 50) + ' reply clusters from probable bot networks.', icon: '💬', severity: 'medium', detected: r() < 0.4 + botScore / 200 },
-    { name: 'Profile Photo Recycling', desc: rand(3, 20) + '% of followers use AI-generated or stolen profile photos. ' + rand(2, 15) + ' duplicate images found.', icon: '🖼️', severity: 'high', detected: r() < 0.45 + botScore / 200 },
-    { name: 'Suspicious Growth Spikes', desc: 'Follower count jumped ' + rand(500, 10000) + ' in a single day (' + rand(1, 6) + ' months ago), inconsistent with organic growth.', icon: '📈', severity: 'high', detected: r() < 0.4 + botScore / 150 },
-    { name: 'Auto-DM Network', desc: 'Connected to automated direct message campaigns. ' + rand(2, 12) + ' auto-DM templates detected in follower interactions.', icon: '🤖', severity: 'medium', detected: r() < 0.35 + botScore / 200 },
-    { name: 'Hashtag Spam Clusters', desc: 'Followers frequently use ' + rand(10, 30) + '+ hashtags per post, a common spam/bot indicator.', icon: '#️⃣', severity: 'low', detected: r() < 0.5 + botScore / 300 }
+    { name: 'Follow/Unfollow Churning', desc: 'Rapid cycles of following and unfollowing accounts to inflate follower count. Detected ' + rand(50, 2000) + ' follow/unfollow cycles in the last 30 days.', icon: '\u{1F504}', severity: botScore > 50 ? 'high' : 'medium', detected: r() < 0.6 + botScore / 200 },
+    { name: 'Bulk Following Behavior', desc: 'Following hundreds of accounts in short bursts, a classic bot pattern. Average ' + rand(30, 150) + ' new follows per hour detected.', icon: '\u{1F465}', severity: 'high', detected: r() < 0.5 + botScore / 200 },
+    { name: 'Identical Bio Patterns', desc: rand(5, 40) + '% of followers share similar bio templates (e.g., "Crypto enthusiast | DM for collab | ' + rand(10, 99) + 'k follower coach").', icon: '\u{1F4DD}', severity: 'medium', detected: r() < 0.55 + botScore / 250 },
+    { name: 'Crypto Scam DM Network', desc: 'Connected to accounts flagged for sending unsolicited crypto/investment DMs. ' + rand(3, 25) + ' known scam relay nodes in follower network.', icon: '\u{1F4B0}', severity: 'critical', detected: r() < 0.3 + botScore / 200 },
+    { name: 'Engagement Manipulation', desc: 'Suspicious like/retweet patterns \u2014 ' + rand(20, 80) + '% of engagement comes from accounts less than ' + rand(7, 60) + ' days old.', icon: '\u{1F4CA}', severity: botScore > 60 ? 'critical' : 'high', detected: r() < 0.5 + botScore / 200 },
+    { name: 'Coordinated Reply Farming', desc: 'Replies show repetitive patterns. Detected ' + rand(5, 50) + ' reply clusters from probable bot networks.', icon: '\u{1F4AC}', severity: 'medium', detected: r() < 0.4 + botScore / 200 },
+    { name: 'Profile Photo Recycling', desc: rand(3, 20) + '% of followers use AI-generated or stolen profile photos. ' + rand(2, 15) + ' duplicate images found.', icon: '\u{1F5BC}\uFE0F', severity: 'high', detected: r() < 0.45 + botScore / 200 },
+    { name: 'Suspicious Growth Spikes', desc: 'Follower count jumped ' + rand(500, 10000) + ' in a single day (' + rand(1, 6) + ' months ago), inconsistent with organic growth.', icon: '\u{1F4C8}', severity: 'high', detected: r() < 0.4 + botScore / 150 },
+    { name: 'Auto-DM Network', desc: 'Connected to automated direct message campaigns. ' + rand(2, 12) + ' auto-DM templates detected in follower interactions.', icon: '\u{1F916}', severity: 'medium', detected: r() < 0.35 + botScore / 200 },
+    { name: 'Hashtag Spam Clusters', desc: 'Followers frequently use ' + rand(10, 30) + '+ hashtags per post, a common spam/bot indicator.', icon: '#\uFE0F\u20E3', severity: 'low', detected: r() < 0.5 + botScore / 300 }
   ];
   const patterns = allPatterns.filter(p => p.detected);
 
@@ -741,13 +959,14 @@ function generateAnalysis(username, platform) {
     { text: breakdown.scamAccounts + '% of followers flagged as scam accounts', severity: breakdown.scamAccounts > 10 ? 4 : breakdown.scamAccounts > 5 ? 3 : 1, tag: breakdown.scamAccounts > 10 ? 'danger' : breakdown.scamAccounts > 5 ? 'warn' : 'info' },
     { text: breakdown.inactive + '% of followers are inactive/dead accounts', severity: breakdown.inactive > 30 ? 3 : breakdown.inactive > 15 ? 2 : 1, tag: breakdown.inactive > 30 ? 'warn' : 'info' },
     { text: patterns.length + ' suspicious behavior patterns detected', severity: patterns.length > 5 ? 4 : patterns.length > 3 ? 3 : patterns.length > 1 ? 2 : 1, tag: patterns.length > 5 ? 'danger' : patterns.length > 3 ? 'warn' : 'info' },
-    { text: 'Comment-to-like ratio of ' + engagement.commentToLikeRatio + '% suggests ' + (engagement.commentToLikeRatio > 10 ? 'possible comment farming' : engagement.commentToLikeRatio < 1 ? 'very low genuine engagement' : 'normal interaction levels'), severity: engagement.commentToLikeRatio > 10 || engagement.commentToLikeRatio < 1 ? 3 : 1, tag: engagement.commentToLikeRatio > 10 || engagement.commentToLikeRatio < 1 ? 'warn' : 'info' }
+    { text: 'Comment-to-like ratio of ' + engagement.commentToLikeRatio + '% suggests ' + (engagement.commentToLikeRatio > 10 ? 'possible comment farming' : engagement.commentToLikeRatio < 1 ? 'very low genuine engagement' : 'normal interaction levels'), severity: engagement.commentToLikeRatio > 10 || engagement.commentToLikeRatio < 1 ? 3 : 1, tag: engagement.commentToLikeRatio > 10 || engagement.commentToLikeRatio < 1 ? 'warn' : 'info' },
+    { text: followerCount.toLocaleString() + ' total followers with ' + Math.round(followerCount * breakdown.bots / 100).toLocaleString() + ' estimated bots', severity: breakdown.bots > 25 ? 3 : 2, tag: breakdown.bots > 25 ? 'warn' : 'info' }
   ];
   const flags = allFlags.filter(f => f.severity >= 2).sort((a, b) => b.severity - a.severity);
 
   // Shame verdict
   const verdicts = [
-    { min: 0, max: 15, text: 'This account is remarkably clean. Genuine followers, authentic engagement. Nothing to shame here — respect.' },
+    { min: 0, max: 15, text: 'This account is remarkably clean. Genuine followers, authentic engagement. Nothing to shame here \u2014 respect.' },
     { min: 16, max: 30, text: 'Mostly legit with a few suspicious followers hanging around. A minor cleanup would make this account spotless.' },
     { min: 31, max: 50, text: 'Houston, we have bots. A concerning number of followers are fake or inactive. This account needs a serious follower audit.' },
     { min: 51, max: 70, text: 'More bots than a Tesla factory. Over half the "audience" is artificial. This follower count is basically fiction.' },
@@ -775,36 +994,39 @@ function generateAnalysis(username, platform) {
   };
 }
 
-// ── Toggle Compare Mode ────────────────────────────────────────
+// -- Toggle Compare Mode --
 function toggleCompare() {
   const checked = document.getElementById('compareToggle').checked;
   document.getElementById('compareFields').classList.toggle('active', checked);
 }
 
-// ── Start Scan ─────────────────────────────────────────────────
+// -- Start Scan --
 function startScan() {
   const username = document.getElementById('usernameInput').value.trim();
   if (!username) {
     document.getElementById('usernameInput').style.borderColor = '#f85149';
     document.getElementById('usernameInput').focus();
-    setTimeout(() => { document.getElementById('usernameInput').style.borderColor = ''; }, 2000);
+    setTimeout(function() { document.getElementById('usernameInput').style.borderColor = ''; }, 2000);
     return;
   }
 
   const platform = document.getElementById('platformSelect').value;
+  const followerVal = parseInt(document.getElementById('followerInput').value) || 0;
   const isCompare = document.getElementById('compareToggle').checked;
   let username2 = '';
   let platform2 = '';
+  let followerVal2 = 0;
 
   if (isCompare) {
     username2 = document.getElementById('usernameInput2').value.trim();
     if (!username2) {
       document.getElementById('usernameInput2').style.borderColor = '#f85149';
       document.getElementById('usernameInput2').focus();
-      setTimeout(() => { document.getElementById('usernameInput2').style.borderColor = ''; }, 2000);
+      setTimeout(function() { document.getElementById('usernameInput2').style.borderColor = ''; }, 2000);
       return;
     }
     platform2 = document.getElementById('platformSelect2').value;
+    followerVal2 = parseInt(document.getElementById('followerInput2').value) || 0;
   }
 
   // Track event
@@ -820,8 +1042,8 @@ function startScan() {
   document.getElementById('scanBtn').disabled = true;
 
   // Animate the scan steps
-  const steps = document.querySelectorAll('.scan-step');
-  const scanTexts = [
+  var steps = document.querySelectorAll('.scan-step');
+  var scanTexts = [
     'Connecting to platform API...',
     'Analyzing follower patterns...',
     'Detecting bot signatures...',
@@ -830,14 +1052,14 @@ function startScan() {
     'Profiling follower age distribution...',
     'Generating threat assessment...'
   ];
-  const bar = document.getElementById('scanBarFill');
-  let currentStep = 0;
+  var bar = document.getElementById('scanBarFill');
+  var currentStep = 0;
 
   function advanceStep() {
     if (currentStep > 0) {
       steps[currentStep - 1].classList.remove('active');
       steps[currentStep - 1].classList.add('done');
-      steps[currentStep - 1].textContent = '✓ ' + scanTexts[currentStep - 1];
+      steps[currentStep - 1].textContent = '\u2713 ' + scanTexts[currentStep - 1];
     }
     if (currentStep < steps.length) {
       steps[currentStep].classList.add('active');
@@ -847,14 +1069,14 @@ function startScan() {
       setTimeout(advanceStep, 400 + Math.random() * 300);
     } else {
       // Done
-      setTimeout(() => {
-        finishScan(username, platform, isCompare, username2, platform2);
+      setTimeout(function() {
+        finishScan(username, platform, followerVal, isCompare, username2, platform2, followerVal2);
       }, 500);
     }
   }
 
   // Reset steps
-  steps.forEach((s, i) => {
+  steps.forEach(function(s, i) {
     s.classList.remove('active', 'done');
     s.textContent = scanTexts[i];
   });
@@ -863,13 +1085,13 @@ function startScan() {
   setTimeout(advanceStep, 300);
 }
 
-// ── Finish Scan ────────────────────────────────────────────────
-function finishScan(username, platform, isCompare, username2, platform2) {
+// -- Finish Scan --
+function finishScan(username, platform, followers, isCompare, username2, platform2, followers2) {
   document.getElementById('scanAnimation').classList.remove('active');
   document.getElementById('scanBtn').disabled = false;
 
-  currentResults = generateAnalysis(username, platform);
-  compareResults = isCompare ? generateAnalysis(username2, platform2) : null;
+  currentResults = generateAnalysis(username, platform, followers || null);
+  compareResults = isCompare ? generateAnalysis(username2, platform2, followers2 || null) : null;
 
   renderResults(currentResults);
 
@@ -889,59 +1111,81 @@ function finishScan(username, platform, isCompare, username2, platform2) {
   renderHistory();
 }
 
-// ── Render Results ─────────────────────────────────────────────
+// -- Render Results --
 function renderResults(data) {
-  // Bot Score Gauge
-  const gaugeCircle = document.getElementById('gaugeCircle');
-  const offset = 283 - (283 * data.botScore / 100);
-  gaugeCircle.style.setProperty('--gauge-offset', offset);
-  gaugeCircle.style.strokeDashoffset = offset;
+  // Bot Score Gauge (Canvas semicircle)
+  drawGauge('gaugeCanvas', data.botScore, true);
 
-  let gaugeColor;
-  if (data.botScore < 25) gaugeColor = '#39d353';
-  else if (data.botScore < 50) gaugeColor = '#ffd700';
-  else if (data.botScore < 75) gaugeColor = '#ff8c00';
-  else gaugeColor = '#f85149';
-  gaugeCircle.style.stroke = gaugeColor;
-
-  document.getElementById('gaugeText').textContent = data.botScore;
   document.getElementById('gaugeLabel').textContent = '@' + data.username + ' on ' + data.platform.charAt(0).toUpperCase() + data.platform.slice(1);
   document.getElementById('gaugeDesc').textContent = data.followerCount.toLocaleString() + ' followers analyzed';
 
   // Risk Badge
-  const riskBadge = document.getElementById('riskBadge');
+  var riskBadge = document.getElementById('riskBadge');
   riskBadge.className = 'risk-badge ' + data.riskClass;
   riskBadge.textContent = data.riskLevel + ' RISK';
   document.getElementById('riskDesc').textContent = data.riskDesc;
 
-  // Follower Breakdown
-  const grid = document.getElementById('breakdownGrid');
-  grid.innerHTML = '';
-  const bdItems = [
-    { icon: '👤', label: 'Real Humans', pct: data.breakdown.realHumans, cls: 'pct-green' },
-    { icon: '🤖', label: 'Bots', pct: data.breakdown.bots, cls: 'pct-red' },
-    { icon: '⚠️', label: 'Scam Accounts', pct: data.breakdown.scamAccounts, cls: 'pct-orange' },
-    { icon: '💀', label: 'Inactive/Dead', pct: data.breakdown.inactive, cls: 'pct-gold' }
+  // Full-width stacked follower bar
+  var fBar = document.getElementById('followerBar');
+  fBar.innerHTML = '';
+  var segments = [
+    { pct: data.breakdown.realHumans, cls: 'seg-real', label: 'Real ' + data.breakdown.realHumans + '%' },
+    { pct: data.breakdown.bots, cls: 'seg-bot', label: 'Bots ' + data.breakdown.bots + '%' },
+    { pct: data.breakdown.scamAccounts, cls: 'seg-scam', label: 'Scam ' + data.breakdown.scamAccounts + '%' },
+    { pct: data.breakdown.inactive, cls: 'seg-inactive', label: 'Dead ' + data.breakdown.inactive + '%' }
   ];
-  bdItems.forEach(item => {
-    const div = document.createElement('div');
+  segments.forEach(function(seg) {
+    var div = document.createElement('div');
+    div.className = 'follower-bar-seg ' + seg.cls;
+    div.style.width = seg.pct + '%';
+    if (seg.pct >= 8) div.textContent = seg.label;
+    fBar.appendChild(div);
+  });
+
+  var legend = document.getElementById('followerBarLegend');
+  legend.innerHTML = '';
+  var legendItems = [
+    { color: '#39d353', label: 'Real Humans ' + data.breakdown.realHumans + '%' },
+    { color: '#f85149', label: 'Bots ' + data.breakdown.bots + '%' },
+    { color: '#ff8c00', label: 'Scam ' + data.breakdown.scamAccounts + '%' },
+    { color: '#ffd700', label: 'Inactive ' + data.breakdown.inactive + '%' }
+  ];
+  legendItems.forEach(function(item) {
+    var span = document.createElement('span');
+    span.className = 'legend-item';
+    span.innerHTML = '<span class="legend-dot" style="background:' + item.color + '"></span>' + item.label;
+    legend.appendChild(span);
+  });
+
+  // Follower Breakdown cards
+  var grid = document.getElementById('breakdownGrid');
+  grid.innerHTML = '';
+  var bdItems = [
+    { icon: '\u{1F464}', label: 'Real Humans', pct: data.breakdown.realHumans, cls: 'pct-green', count: Math.round(data.followerCount * data.breakdown.realHumans / 100) },
+    { icon: '\u{1F916}', label: 'Bots', pct: data.breakdown.bots, cls: 'pct-red', count: Math.round(data.followerCount * data.breakdown.bots / 100) },
+    { icon: '\u26A0\uFE0F', label: 'Scam Accounts', pct: data.breakdown.scamAccounts, cls: 'pct-orange', count: Math.round(data.followerCount * data.breakdown.scamAccounts / 100) },
+    { icon: '\u{1F480}', label: 'Inactive/Dead', pct: data.breakdown.inactive, cls: 'pct-gold', count: Math.round(data.followerCount * data.breakdown.inactive / 100) }
+  ];
+  bdItems.forEach(function(item) {
+    var div = document.createElement('div');
     div.className = 'breakdown-item ' + item.cls;
     div.innerHTML =
       '<div class="breakdown-icon">' + item.icon + '</div>' +
       '<div class="breakdown-pct">' + item.pct + '%</div>' +
       '<div class="breakdown-label">' + item.label + '</div>' +
+      '<div style="font-size:0.7rem;color:var(--text-dim);margin-top:0.2rem">\u2248 ' + item.count.toLocaleString() + '</div>' +
       '<div class="breakdown-bar"><div class="breakdown-bar-fill" style="width:' + item.pct + '%"></div></div>';
     grid.appendChild(div);
   });
 
   // Suspicious Patterns
-  const pc = document.getElementById('patternsContainer');
+  var pc = document.getElementById('patternsContainer');
   pc.innerHTML = '';
   if (data.patterns.length === 0) {
     pc.innerHTML = '<p style="color:var(--cyan);text-align:center;padding:1rem">No suspicious patterns detected. This looks clean.</p>';
   } else {
-    data.patterns.forEach(p => {
-      const div = document.createElement('div');
+    data.patterns.forEach(function(p) {
+      var div = document.createElement('div');
       div.className = 'pattern-item';
       div.innerHTML =
         '<div class="pattern-icon">' + p.icon + '</div>' +
@@ -955,52 +1199,52 @@ function renderResults(data) {
   }
 
   // Account Age Chart
-  const chart = document.getElementById('ageChart');
+  var chart = document.getElementById('ageChart');
   chart.innerHTML = '';
-  const maxPct = Math.max(...data.ageDistribution.map(d => d.pct));
-  data.ageDistribution.forEach(bar => {
-    const wrap = document.createElement('div');
+  var maxPct = Math.max.apply(null, data.ageDistribution.map(function(d) { return d.pct; }));
+  data.ageDistribution.forEach(function(barData) {
+    var wrap = document.createElement('div');
     wrap.className = 'age-bar-wrap';
-    const height = Math.max(3, (bar.pct / maxPct) * 100);
+    var height = Math.max(3, (barData.pct / maxPct) * 100);
     wrap.innerHTML =
-      '<div class="age-bar-pct">' + bar.pct + '%</div>' +
-      '<div class="age-bar" style="height:' + height + '%;background:' + bar.color + '"></div>' +
-      '<div class="age-bar-label">' + bar.label + '</div>';
+      '<div class="age-bar-pct">' + barData.pct + '%</div>' +
+      '<div class="age-bar" style="height:' + height + '%;background:' + barData.color + '"></div>' +
+      '<div class="age-bar-label">' + barData.label + '</div>';
     chart.appendChild(wrap);
   });
 
   // Engagement Authenticity
-  const authReal = document.getElementById('authBarReal');
-  const authBot = document.getElementById('authBarBot');
+  var authReal = document.getElementById('authBarReal');
+  var authBot = document.getElementById('authBarBot');
   authReal.style.width = data.engagement.realComments + '%';
   authBot.style.width = data.engagement.botComments + '%';
   document.getElementById('authRealText').textContent = 'Real ' + data.engagement.realComments + '%';
   document.getElementById('authBotText').textContent = 'Bot ' + data.engagement.botComments + '%';
   document.getElementById('authScoreNum').textContent = data.engagement.authScore;
 
-  const detail = document.getElementById('authDetail');
+  var detail = document.getElementById('authDetail');
   detail.innerHTML = '';
-  const authStats = [
+  var authStats = [
     { num: data.engagement.avgLikes.toLocaleString(), label: 'Avg Likes/Post' },
     { num: data.engagement.avgComments.toLocaleString(), label: 'Avg Comments/Post' },
     { num: data.engagement.likeToFollowerRatio + '%', label: 'Like/Follower Ratio' },
     { num: data.engagement.commentToLikeRatio + '%', label: 'Comment/Like Ratio' }
   ];
-  authStats.forEach(s => {
-    const div = document.createElement('div');
+  authStats.forEach(function(s) {
+    var div = document.createElement('div');
     div.className = 'auth-stat';
     div.innerHTML = '<div class="auth-stat-num">' + s.num + '</div><div class="auth-stat-label">' + s.label + '</div>';
     detail.appendChild(div);
   });
 
   // Red Flags
-  const fc = document.getElementById('flagsContainer');
+  var fc = document.getElementById('flagsContainer');
   fc.innerHTML = '';
   if (data.flags.length === 0) {
     fc.innerHTML = '<p style="color:var(--cyan);text-align:center;padding:1rem">No red flags found. This account looks legitimate.</p>';
   } else {
-    data.flags.forEach(f => {
-      const div = document.createElement('div');
+    data.flags.forEach(function(f) {
+      var div = document.createElement('div');
       div.className = 'flag-item';
       div.innerHTML =
         '<div class="flag-severity sev-' + f.severity + '"></div>' +
@@ -1013,11 +1257,11 @@ function renderResults(data) {
   renderShameCard(data);
 }
 
-// ── Render Shame Card ──────────────────────────────────────────
+// -- Render Shame Card --
 function renderShameCard(data) {
-  const card = document.getElementById('shameCard');
-  const stampText = data.botScore >= 75 ? 'BOT<br>FARM' : data.botScore >= 50 ? 'SUS' : data.botScore >= 25 ? 'MILD' : 'CLEAN';
-  const stampColor = data.botScore >= 75 ? 'var(--red)' : data.botScore >= 50 ? 'var(--orange)' : data.botScore >= 25 ? 'var(--gold)' : 'var(--cyan)';
+  var card = document.getElementById('shameCard');
+  var stampText = data.botScore >= 75 ? 'BOT<br>FARM' : data.botScore >= 50 ? 'SUS' : data.botScore >= 25 ? 'MILD' : 'CLEAN';
+  var stampColor = data.botScore >= 75 ? 'var(--red)' : data.botScore >= 50 ? 'var(--orange)' : data.botScore >= 25 ? 'var(--gold)' : 'var(--cyan)';
 
   card.innerHTML =
     '<div class="shame-header">' +
@@ -1032,7 +1276,7 @@ function renderShameCard(data) {
     '<div class="shame-account">' +
       '<div style="font-size:0.7rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:2px;margin-bottom:0.2rem">Subject</div>' +
       '<div class="shame-account-name">@' + data.username + '</div>' +
-      '<div class="shame-account-platform">' + data.platform.charAt(0).toUpperCase() + data.platform.slice(1) + ' &bull; ' + data.followerCount.toLocaleString() + ' followers</div>' +
+      '<div class="shame-account-platform">' + data.platform.charAt(0).toUpperCase() + data.platform.slice(1) + ' \u2022 ' + data.followerCount.toLocaleString() + ' followers</div>' +
     '</div>' +
     '<div class="shame-stats-grid">' +
       '<div class="shame-stat"><div class="shame-stat-num" style="color:' + (data.botScore >= 50 ? 'var(--red)' : 'var(--gold)') + '">' + data.botScore + '</div><div class="shame-stat-label">Bot Score</div></div>' +
@@ -1047,37 +1291,27 @@ function renderShameCard(data) {
     '</div>' +
     '<div class="shame-footer">' +
       'Scanned on ' + new Date(data.timestamp).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) +
-      ' &bull; spunk.codes/exclusive/bot-scam-detector' +
+      ' \u2022 spunk.codes/exclusive/bot-scam-detector' +
     '</div>';
 }
 
-// ── Render Compare ─────────────────────────────────────────────
+// -- Render Compare --
 function renderCompare(a, b) {
-  const grid = document.getElementById('compareGrid');
+  var grid = document.getElementById('compareGrid');
 
-  function gaugeHtml(data, id) {
-    const offset = 283 - (283 * data.botScore / 100);
-    let color;
-    if (data.botScore < 25) color = '#39d353';
-    else if (data.botScore < 50) color = '#ffd700';
-    else if (data.botScore < 75) color = '#ff8c00';
-    else color = '#f85149';
-
+  function colHtml(data, suffix) {
+    var canvasId = 'compareCanvas' + suffix;
     return '<div class="compare-col">' +
       '<h3 style="font-size:1rem;margin-bottom:0.5rem;color:var(--gold)">@' + data.username + '</h3>' +
-      '<svg class="gauge-svg" viewBox="0 0 100 100">' +
-        '<circle class="gauge-bg" cx="50" cy="50" r="45"/>' +
-        '<circle class="gauge-fill" cx="50" cy="50" r="45" stroke-dasharray="283" stroke-dashoffset="' + offset + '" style="stroke:' + color + ';transform:rotate(-90deg);transform-origin:center"/>' +
-        '<text class="gauge-text" x="50" y="50" text-anchor="middle" dominant-baseline="central" style="font-size:2.5rem">' + data.botScore + '</text>' +
-        '<text class="gauge-label-text" x="50" y="68" text-anchor="middle">BOT SCORE</text>' +
-      '</svg>' +
+      '<canvas id="' + canvasId + '" width="160" height="100" class="gauge-canvas" style="width:160px;height:100px"></canvas>' +
       '<div class="risk-badge ' + data.riskClass + '" style="margin-top:0.5rem;font-size:0.7rem">' + data.riskLevel + '</div>' +
+      '<div style="font-size:0.75rem;color:var(--text-dim);margin-top:0.3rem">' + data.followerCount.toLocaleString() + ' followers</div>' +
     '</div>';
   }
 
   function statRow(label, valA, valB, lowerIsBetter) {
-    const aWin = lowerIsBetter ? parseFloat(valA) < parseFloat(valB) : parseFloat(valA) > parseFloat(valB);
-    const bWin = !aWin && valA !== valB;
+    var aWin = lowerIsBetter ? parseFloat(valA) < parseFloat(valB) : parseFloat(valA) > parseFloat(valB);
+    var bWin = !aWin && valA !== valB;
     return '<div class="compare-stat-row">' +
       '<div class="compare-stat-val ' + (aWin ? 'compare-winner' : bWin ? 'compare-loser' : '') + '">' + valA + '</div>' +
       '<div class="compare-stat-label">' + label + '</div>' +
@@ -1086,9 +1320,9 @@ function renderCompare(a, b) {
   }
 
   grid.innerHTML =
-    gaugeHtml(a, 'compareA') +
+    colHtml(a, 'A') +
     '<div class="compare-vs">VS</div>' +
-    gaugeHtml(b, 'compareB') +
+    colHtml(b, 'B') +
     '<div style="grid-column:1/-1;margin-top:1rem">' +
       statRow('Bot Score', a.botScore, b.botScore, true) +
       statRow('Real Humans', a.breakdown.realHumans + '%', b.breakdown.realHumans + '%', false) +
@@ -1098,28 +1332,35 @@ function renderCompare(a, b) {
       statRow('Red Flags', a.flags.length, b.flags.length, true) +
       statRow('Patterns', a.patterns.length, b.patterns.length, true) +
     '</div>';
+
+  // Draw compare gauges after DOM insertion
+  setTimeout(function() {
+    drawCompareGauge(document.getElementById('compareCanvasA'), a.botScore);
+    drawCompareGauge(document.getElementById('compareCanvasB'), b.botScore);
+  }, 50);
 }
 
-// ── History ────────────────────────────────────────────────────
+// -- History --
 function saveToHistory(data) {
-  const entry = {
+  var entry = {
     username: data.username,
     platform: data.platform,
     botScore: data.botScore,
     riskLevel: data.riskLevel,
+    followerCount: data.followerCount,
     timestamp: data.timestamp,
     scanId: data.scanId
   };
   // Avoid duplicates of exact same scan
-  scanHistory = scanHistory.filter(h => h.scanId !== entry.scanId);
+  scanHistory = scanHistory.filter(function(h) { return h.scanId !== entry.scanId; });
   scanHistory.unshift(entry);
   if (scanHistory.length > 50) scanHistory = scanHistory.slice(0, 50);
   localStorage.setItem('bsd_history', JSON.stringify(scanHistory));
 }
 
 function renderHistory() {
-  const container = document.getElementById('historyContainer');
-  const clearRow = document.getElementById('historyClearRow');
+  var container = document.getElementById('historyContainer');
+  var clearRow = document.getElementById('historyClearRow');
 
   if (scanHistory.length === 0) {
     container.innerHTML = '<div class="history-empty">No scans yet. Enter a username above to start your first deep scan.</div>';
@@ -1128,18 +1369,18 @@ function renderHistory() {
   }
 
   clearRow.style.display = '';
-  let html = '<div class="history-list">';
-  scanHistory.forEach((h, i) => {
-    let scoreClass = 'score-low';
+  var html = '<div class="history-list">';
+  scanHistory.forEach(function(h, i) {
+    var scoreClass = 'score-low';
     if (h.botScore >= 75) scoreClass = 'score-crit';
     else if (h.botScore >= 50) scoreClass = 'score-high';
     else if (h.botScore >= 25) scoreClass = 'score-mid';
 
-    html += '<div class="history-item" onclick="rescan(\'' + h.username + '\',\'' + h.platform + '\')">' +
+    html += '<div class="history-item" onclick="rescan(\'' + h.username.replace(/'/g, "\\'") + '\',\'' + h.platform + '\',' + (h.followerCount || 0) + ')">' +
       '<div class="history-score ' + scoreClass + '">' + h.botScore + '</div>' +
       '<div class="history-info">' +
         '<div class="history-name">@' + h.username + '</div>' +
-        '<div class="history-meta">' + h.platform + ' &bull; ' + h.riskLevel + ' &bull; ' + new Date(h.timestamp).toLocaleDateString() + '</div>' +
+        '<div class="history-meta">' + h.platform + ' \u2022 ' + h.riskLevel + ' \u2022 ' + (h.followerCount ? h.followerCount.toLocaleString() + ' followers \u2022 ' : '') + new Date(h.timestamp).toLocaleDateString() + '</div>' +
       '</div>' +
       '<button class="history-remove" onclick="event.stopPropagation();removeHistory(' + i + ')" title="Remove">&times;</button>' +
     '</div>';
@@ -1162,14 +1403,15 @@ function clearHistory() {
   }
 }
 
-function rescan(username, platform) {
+function rescan(username, platform, followers) {
   document.getElementById('usernameInput').value = username;
   document.getElementById('platformSelect').value = platform;
+  if (followers) document.getElementById('followerInput').value = followers;
   document.getElementById('scanCard').scrollIntoView({ behavior: 'smooth' });
   setTimeout(startScan, 400);
 }
 
-// ── Download Shame Card ────────────────────────────────────────
+// -- Download Shame Card --
 function downloadShameCard() {
   if (!currentResults) return;
 
@@ -1180,13 +1422,13 @@ function downloadShameCard() {
   });
 
   // Create canvas-based image
-  const canvas = document.createElement('canvas');
+  var canvas = document.createElement('canvas');
   canvas.width = 800;
   canvas.height = 600;
-  const ctx = canvas.getContext('2d');
+  var ctx = canvas.getContext('2d');
 
   // Background
-  const grad = ctx.createLinearGradient(0, 0, 800, 600);
+  var grad = ctx.createLinearGradient(0, 0, 800, 600);
   grad.addColorStop(0, '#0d1117');
   grad.addColorStop(1, '#161b22');
   ctx.fillStyle = grad;
@@ -1200,7 +1442,6 @@ function downloadShameCard() {
   // Header
   ctx.fillStyle = '#ffd700';
   ctx.font = 'bold 12px system-ui';
-  ctx.letterSpacing = '3px';
   ctx.fillText('BOT & SCAM THREAT REPORT', 30, 50);
 
   ctx.fillStyle = '#8b949e';
@@ -1228,10 +1469,10 @@ function downloadShameCard() {
 
   ctx.fillStyle = '#8b949e';
   ctx.font = '14px system-ui';
-  ctx.fillText(currentResults.platform.charAt(0).toUpperCase() + currentResults.platform.slice(1) + ' • ' + currentResults.followerCount.toLocaleString() + ' followers', 400, 168);
+  ctx.fillText(currentResults.platform.charAt(0).toUpperCase() + currentResults.platform.slice(1) + ' \u2022 ' + currentResults.followerCount.toLocaleString() + ' followers', 400, 168);
 
   // Stats row
-  const stats = [
+  var stats = [
     { label: 'Bot Score', value: currentResults.botScore, color: currentResults.botScore >= 50 ? '#f85149' : '#ffd700' },
     { label: 'Bots', value: currentResults.breakdown.bots + '%', color: '#f85149' },
     { label: 'Scam', value: currentResults.breakdown.scamAccounts + '%', color: '#ff8c00' },
@@ -1240,10 +1481,10 @@ function downloadShameCard() {
     { label: 'Flags', value: currentResults.flags.length, color: currentResults.flags.length > 3 ? '#f85149' : '#ffd700' }
   ];
 
-  const boxW = 110;
-  const startX = 400 - (stats.length * boxW) / 2;
-  stats.forEach((s, i) => {
-    const x = startX + i * boxW;
+  var boxW = 110;
+  var startX = 400 - (stats.length * boxW) / 2;
+  stats.forEach(function(s, i) {
+    var x = startX + i * boxW;
     ctx.fillStyle = 'rgba(22,27,34,0.8)';
     ctx.fillRect(x, 200, boxW - 10, 80);
     ctx.strokeStyle = 'rgba(48,54,61,0.6)';
@@ -1270,11 +1511,11 @@ function downloadShameCard() {
   ctx.fillStyle = '#ffd700';
   ctx.font = 'italic 14px system-ui';
   ctx.textAlign = 'center';
-  const words = currentResults.verdict.split(' ');
-  let line = '';
-  let y = 340;
-  words.forEach(w => {
-    const test = line + w + ' ';
+  var words = currentResults.verdict.split(' ');
+  var line = '';
+  var y = 340;
+  words.forEach(function(w) {
+    var test = line + w + ' ';
     if (ctx.measureText(test).width > 700) {
       ctx.fillText(line, 400, y);
       line = w + ' ';
@@ -1293,19 +1534,24 @@ function downloadShameCard() {
 
   ctx.fillStyle = '#e6edf3';
   ctx.font = '12px system-ui';
-  currentResults.flags.slice(0, 4).forEach((f, i) => {
-    const flagText = f.text.length > 80 ? f.text.substring(0, 77) + '...' : f.text;
-    ctx.fillText('• ' + flagText, 40, 455 + i * 22);
+  currentResults.flags.slice(0, 4).forEach(function(f, i) {
+    var flagText = f.text.length > 80 ? f.text.substring(0, 77) + '...' : f.text;
+    ctx.fillText('\u2022 ' + flagText, 40, 455 + i * 22);
   });
 
   // Footer
   ctx.textAlign = 'center';
   ctx.fillStyle = '#484f58';
   ctx.font = '11px system-ui';
-  ctx.fillText('Scanned on ' + new Date(currentResults.timestamp).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) + ' • spunk.codes/exclusive/bot-scam-detector', 400, 570);
+  ctx.fillText('Scanned on ' + new Date(currentResults.timestamp).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) + ' \u2022 spunk.codes/exclusive/bot-scam-detector', 400, 560);
+
+  // SPUNK.CODES watermark
+  ctx.fillStyle = 'rgba(255,215,0,0.06)';
+  ctx.font = 'bold 10px system-ui';
+  ctx.fillText('SPUNK.CODES EXCLUSIVE', 400, 580);
 
   // Top gold line
-  const topGrad = ctx.createLinearGradient(0, 0, 800, 0);
+  var topGrad = ctx.createLinearGradient(0, 0, 800, 0);
   topGrad.addColorStop(0, '#ffd700');
   topGrad.addColorStop(0.5, '#ff8c00');
   topGrad.addColorStop(1, '#ffd700');
@@ -1313,13 +1559,13 @@ function downloadShameCard() {
   ctx.fillRect(10, 10, 780, 3);
 
   // Download
-  const link = document.createElement('a');
+  var link = document.createElement('a');
   link.download = 'bot-report-' + currentResults.username + '.png';
   link.href = canvas.toDataURL('image/png');
   link.click();
 }
 
-// ── Share on X ─────────────────────────────────────────────────
+// -- Share on X --
 function shareShameCard() {
   if (!currentResults) return;
 
@@ -1329,61 +1575,72 @@ function shareShameCard() {
     bot_score: currentResults.botScore
   });
 
-  const text = '🤖 Just scanned @' + currentResults.username + ' with the Bot & Scam Detector:\n\n' +
-    '🎯 Bot Score: ' + currentResults.botScore + '/100\n' +
-    '⚠️ Risk: ' + currentResults.riskLevel + '\n' +
-    '👤 Real humans: ' + currentResults.breakdown.realHumans + '%\n' +
-    '🤖 Bots: ' + currentResults.breakdown.bots + '%\n' +
-    '🚩 Red flags: ' + currentResults.flags.length + '\n\n' +
-    'Check your own account 👇\nhttps://spunk.codes/exclusive/bot-scam-detector';
+  var text = '\u{1F916} Just scanned @' + currentResults.username + ' with the Bot & Scam Detector by @SpunkArt13:\n\n' +
+    '\u{1F3AF} Bot Score: ' + currentResults.botScore + '/100\n' +
+    '\u26A0\uFE0F Risk: ' + currentResults.riskLevel + '\n' +
+    '\u{1F464} Real humans: ' + currentResults.breakdown.realHumans + '%\n' +
+    '\u{1F916} Bots: ' + currentResults.breakdown.bots + '%\n' +
+    '\u{1F6A9} Red flags: ' + currentResults.flags.length + '\n\n' +
+    'Check your own account \u{1F447}\nhttps://spunk.codes/exclusive/bot-scam-detector';
 
-  const url = 'https://x.com/intent/tweet?text=' + encodeURIComponent(text);
+  var url = 'https://x.com/intent/tweet?text=' + encodeURIComponent(text);
   window.open(url, '_blank', 'width=550,height=500');
 }
 
-// ── Export Results ──────────────────────────────────────────────
+// -- Export Results --
 function exportResults() {
   if (!currentResults) return;
 
-  const exportData = {
-    ...currentResults,
+  var exportData = Object.assign({}, currentResults, {
     exportedAt: new Date().toISOString(),
     tool: 'SPUNK.CODES Bot & Scam Account Detector',
     url: 'https://spunk.codes/exclusive/bot-scam-detector'
-  };
+  });
 
   if (compareResults) {
     exportData.comparison = compareResults;
   }
 
-  const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
+  var blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
+  var blobUrl = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = blobUrl;
   a.download = 'bot-report-' + currentResults.username + '-' + Date.now() + '.json';
   a.click();
-  URL.revokeObjectURL(url);
+  URL.revokeObjectURL(blobUrl);
 }
 
-// ── Reset Scan ─────────────────────────────────────────────────
+// -- Reset Scan --
 function resetScan() {
   document.getElementById('resultsSection').style.display = 'none';
   document.getElementById('usernameInput').value = '';
   document.getElementById('usernameInput2').value = '';
+  document.getElementById('followerInput').value = '';
+  document.getElementById('followerInput2').value = '';
   document.getElementById('scanCard').scrollIntoView({ behavior: 'smooth' });
   document.getElementById('usernameInput').focus();
 }
 
-// ── Enter key support ──────────────────────────────────────────
+// -- Enter key support --
 document.getElementById('usernameInput').addEventListener('keydown', function(e) {
   if (e.key === 'Enter') startScan();
 });
 document.getElementById('usernameInput2').addEventListener('keydown', function(e) {
   if (e.key === 'Enter') startScan();
 });
+document.getElementById('followerInput').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') startScan();
+});
+document.getElementById('followerInput2').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') startScan();
+});
 
-// ── Init ───────────────────────────────────────────────────────
+// -- Init --
 renderHistory();
 </script>
+
+<!-- Auto-monetize & Usage Tracker -->
+<script src="/auto-monetize.js"></script>
+<script src="/usage-tracker.js"></script>
 </body>
 </html>
