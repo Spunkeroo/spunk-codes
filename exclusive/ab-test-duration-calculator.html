@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>A/B Test Duration Calculator - Statistical Test Planner | SPUNK.CODES</title>
+<meta name="description" content="Calculate how long to run A/B tests based on baseline conversion rate, minimum detectable effect, traffic volume, and statistical significance. Stop guessing, start knowing.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="A/B Test Duration Calculator - SPUNK.CODES Exclusive">
+<meta property="og:description" content="Calculate A/B test duration with proper statistics. Unlock with code SPUNK.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://spunk.codes/exclusive/ab-test-duration-calculator">
+<meta property="og:site_name" content="SPUNK.CODES">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/ab-test-duration-calculator">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"A/B Test Duration Calculator","applicationCategory":"BusinessApplication","operatingSystem":"Web","description":"Calculate the required duration for A/B tests based on baseline conversion rate, minimum detectable effect, daily traffic, and statistical significance level.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Organization","name":"SPUNK.CODES","url":"https://spunk.codes"}}</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0d1117;--card:rgba(22,27,34,0.8);--border:rgba(48,54,61,0.6);--gold:#ffd700;--gold-dim:rgba(255,215,0,0.15);--gold-border:rgba(255,215,0,0.3);--text:#e6edf3;--text-dim:#8b949e;--blue:#58a6ff;--cyan:#39d353;--red:#f85149;--orange:#ff8c00;--font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+a{color:var(--blue);text-decoration:none}a:hover{color:#fff}
+.bg-mesh{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 80% 50% at 20% 20%,rgba(255,215,0,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(255,140,0,0.04) 0%,transparent 60%),var(--bg)}
+.bg-grid{position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,215,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,215,0,0.03) 1px,transparent 1px);background-size:60px 60px}
+.nav{position:sticky;top:0;z-index:100;background:rgba(13,17,23,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,215,0,0.15);padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}.nav-brand{font-weight:800;font-size:1.1rem;color:var(--gold);letter-spacing:0.08em}.nav-links{display:flex;gap:1.5rem;font-size:0.85rem;list-style:none}.nav-links a{color:var(--text-dim);transition:color 0.2s;font-weight:500}.nav-links a:hover{color:#fff}.nav-links a.active{color:var(--gold)}
+.lock-gate{position:fixed;inset:0;z-index:1000;background:rgba(13,17,23,0.97);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:2rem}.lock-gate.hidden{display:none}.lock-icon-big{font-size:4rem;margin-bottom:0.5rem}.lock-gate h2{font-size:1.8rem;font-weight:800;text-align:center}.lock-gate h2 span{color:var(--gold)}.lock-gate p{color:var(--text-dim);text-align:center;max-width:400px}.code-input-wrap{display:flex;gap:0.5rem;margin-top:0.5rem}.code-input{padding:0.8rem 1.5rem;background:rgba(22,27,34,0.8);border:2px solid var(--gold-border);border-radius:12px;color:var(--gold);font-size:1.2rem;font-weight:800;letter-spacing:3px;text-align:center;width:200px;outline:none;text-transform:uppercase;font-family:var(--font)}.code-input:focus{border-color:var(--gold);box-shadow:0 0 20px rgba(255,215,0,0.2)}.code-submit{padding:0.8rem 1.5rem;background:linear-gradient(135deg,#ffd700,#ff8c00);border:none;border-radius:12px;color:#000;font-size:1rem;font-weight:800;cursor:pointer;transition:all 0.3s}.code-submit:hover{transform:scale(1.05)}.code-error{color:#f85149;font-size:0.85rem;min-height:1.2em}.lock-hint{color:var(--text-dim);font-size:0.8rem;margin-top:1rem}.lock-hint a{color:var(--gold)}
+.exclusive-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;background:linear-gradient(135deg,rgba(255,215,0,0.15),rgba(255,140,0,0.15));border:1px solid var(--gold-border);border-radius:100px;font-size:11px;font-weight:800;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase}
+.main{max-width:1000px;margin:0 auto;padding:2rem}
+.hero-section{text-align:center;padding:2rem 0 3rem}.hero-section h1{font-size:2.2rem;font-weight:800;margin:1rem 0 0.5rem}.hero-section h1 .gold{background:linear-gradient(135deg,#ffd700,#ff8c00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}.hero-section p{color:var(--text-dim);max-width:600px;margin:0 auto}
+.tool-section{background:var(--card);border:1px solid var(--gold-border);border-radius:16px;padding:2rem;margin-bottom:1.5rem;backdrop-filter:blur(10px);position:relative;overflow:hidden}.tool-section::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),#ff8c00,var(--gold))}.tool-section h2{font-size:1.2rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}.tool-section h2 .icon{font-size:1.4rem}
+label{font-size:0.85rem;color:var(--text-dim);font-weight:600;display:block;margin-bottom:0.4rem}
+input,select{width:100%;padding:0.75rem 1rem;background:rgba(13,17,23,0.6);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:0.9rem;font-family:var(--font);outline:none;transition:border-color 0.2s}input:focus,select:focus{border-color:var(--gold)}
+.input-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}.input-group{margin-bottom:1rem}
+.help-text{font-size:0.75rem;color:var(--text-dim);margin-top:0.3rem;line-height:1.4}
+.btn{padding:0.75rem 2rem;border:none;border-radius:10px;font-size:0.9rem;font-weight:700;cursor:pointer;transition:all 0.2s;font-family:var(--font)}.btn-gold{background:linear-gradient(135deg,#ffd700,#ff8c00);color:#000}.btn-gold:hover{transform:translateY(-2px);box-shadow:0 4px 20px rgba(255,215,0,0.3)}.btn-outline{background:transparent;border:1px solid var(--border);color:var(--text-dim)}.btn-outline:hover{border-color:var(--gold);color:var(--gold)}.btn-sm{padding:0.5rem 1rem;font-size:0.8rem}.btn-row{display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:1rem}
+.result-box{background:rgba(255,215,0,0.05);border:1px solid var(--gold-border);border-radius:12px;padding:1.5rem;margin-top:1.5rem;display:none}.result-box.show{display:block}
+.metrics-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;margin:1rem 0}
+.metric-card{background:rgba(13,17,23,0.5);border:1px solid var(--border);border-radius:12px;padding:1.2rem;text-align:center}.metric-card .val{font-size:1.5rem;font-weight:800}.metric-card .lbl{font-size:0.72rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px;margin-bottom:0.3rem}.metric-card .sub{font-size:0.7rem;color:var(--text-dim);margin-top:0.3rem}
+.alert-box{padding:1rem 1.5rem;border-radius:12px;margin:1rem 0;font-size:0.9rem;font-weight:600;display:flex;align-items:center;gap:0.8rem}
+.alert-warning{background:rgba(255,215,0,0.08);border:1px solid rgba(255,215,0,0.3);color:var(--gold)}
+.alert-ok{background:rgba(57,211,83,0.08);border:1px solid rgba(57,211,83,0.3);color:var(--cyan)}
+.alert-danger{background:rgba(248,81,73,0.1);border:1px solid rgba(248,81,73,0.3);color:var(--red)}
+table{width:100%;border-collapse:collapse;font-size:0.8rem;margin-top:1rem}th{text-align:left;padding:0.6rem 0.5rem;border-bottom:2px solid var(--gold-border);color:var(--gold);font-size:0.72rem;text-transform:uppercase;letter-spacing:0.5px}td{padding:0.5rem;border-bottom:1px solid var(--border)}
+.bar-row{display:flex;align-items:center;gap:0.75rem;margin-bottom:6px}.bar-label{width:70px;font-size:0.75rem;color:var(--text-dim);text-align:right;flex-shrink:0}.bar-track{flex:1;height:28px;background:rgba(13,17,23,0.5);border-radius:6px;overflow:hidden;position:relative}.bar-fill{height:100%;border-radius:6px;display:flex;align-items:center;padding-left:8px;font-size:0.7rem;font-weight:700;transition:width 0.5s;white-space:nowrap;min-width:fit-content}.bar-val{font-size:0.75rem;color:var(--text-dim);width:100px;text-align:right;flex-shrink:0}
+.chart-container{background:rgba(13,17,23,0.5);border:1px solid var(--border);border-radius:12px;padding:1.5rem;margin-top:1rem}
+.formula-box{background:rgba(13,17,23,0.5);border:1px solid var(--border);border-radius:12px;padding:1.2rem;margin:1rem 0;font-family:'Courier New',monospace;font-size:0.85rem;color:var(--gold);line-height:1.8;overflow-x:auto}
+.tip-card{background:rgba(13,17,23,0.5);border:1px solid var(--border);border-radius:12px;padding:1.2rem;margin-bottom:0.75rem}.tip-card h4{font-size:0.9rem;font-weight:700;margin-bottom:0.5rem;color:var(--gold)}.tip-card p{font-size:0.82rem;color:var(--text-dim);line-height:1.5}
+.scenario-tabs{display:flex;gap:0.5rem;margin:1rem 0;flex-wrap:wrap}.scenario-tab{padding:0.5rem 1.2rem;border-radius:8px;cursor:pointer;font-size:0.8rem;font-weight:700;border:1px solid var(--border);background:transparent;color:var(--text-dim);transition:all 0.2s;font-family:var(--font)}.scenario-tab.active{border-color:var(--gold);color:var(--gold);background:var(--gold-dim)}.scenario-tab:hover{border-color:var(--gold);color:var(--gold)}
+.share-cta{background:linear-gradient(135deg,rgba(255,215,0,0.08),rgba(255,140,0,0.05));border:1px solid var(--gold-border);border-radius:16px;padding:2rem;text-align:center;margin-top:2rem}.share-cta h3{color:var(--gold);margin-bottom:0.5rem;font-size:1.1rem}.share-cta p{color:var(--text-dim);font-size:0.9rem;margin-bottom:1rem}
+.footer{text-align:center;padding:2rem;border-top:1px solid rgba(255,215,0,0.1);color:var(--text-dim);font-size:0.75rem;margin-top:3rem}.footer a{color:var(--gold)}.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-bottom:1rem}
+.watermark{position:fixed;bottom:10px;right:10px;font-size:0.6rem;color:rgba(255,215,0,0.08);font-weight:800;pointer-events:none;z-index:9999;letter-spacing:1px;text-transform:uppercase}
+.slider-wrap{display:flex;align-items:center;gap:1rem}.slider-wrap input[type="range"]{flex:1;accent-color:var(--gold);height:6px}.slider-val{min-width:50px;text-align:right;font-weight:700;color:var(--gold);font-size:0.9rem}
+@media(max-width:768px){.main{padding:1rem}.hero-section h1{font-size:1.6rem}.input-grid{grid-template-columns:1fr}.nav-links{display:none}.metrics-grid{grid-template-columns:1fr 1fr}table{font-size:0.7rem}.scenario-tabs{flex-direction:column}}
+</style>
+</head>
+<body>
+<div class="bg-mesh"></div><div class="bg-grid"></div>
+<div class="lock-gate" id="lockGate"><div class="lock-icon-big">&#128274;</div><h2>Enter Code <span>SPUNK</span> to Unlock</h2><p>This is an exclusive premium tool. Enter the referral code to get instant access.</p><div class="code-input-wrap"><input type="text" class="code-input" id="codeInput" placeholder="CODE" maxlength="10" autocomplete="off"><button class="code-submit" onclick="submitCode()">Unlock</button></div><div class="code-error" id="codeError"></div><div class="lock-hint">Get the code at <a href="https://spunk.codes/exclusive-tools">spunk.codes/exclusive-tools</a></div></div>
+<nav class="nav"><a href="https://spunk.codes" class="nav-brand">SPUNK.CODES</a><div class="nav-links"><a href="/store">Tools</a><a href="/exclusive-tools" class="active">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a></div></nav>
+
+<div class="main">
+  <section class="hero-section">
+    <div class="exclusive-badge">&#128081; EXCLUSIVE TOOL</div>
+    <h1><span class="gold">A/B Test Duration Calculator</span></h1>
+    <p>Calculate exactly how long to run your A/B test to get statistically valid results. Stop calling tests too early and making decisions on noise.</p>
+  </section>
+
+  <div class="tool-section">
+    <h2><span class="icon">&#128202;</span> Test Parameters</h2>
+    <div class="input-grid">
+      <div class="input-group">
+        <label>Baseline Conversion Rate (%)</label>
+        <div class="slider-wrap"><input type="range" id="baselineSlider" min="0.1" max="50" step="0.1" value="3" oninput="syncSlider('baseline')"><span class="slider-val" id="baselineVal">3%</span></div>
+        <input type="number" id="baseline" value="3" min="0.01" max="100" step="0.01" style="margin-top:0.5rem" oninput="syncInput('baseline')">
+        <div class="help-text">Your current conversion rate. E.g., 3% means 3 out of 100 visitors convert.</div>
+      </div>
+      <div class="input-group">
+        <label>Minimum Detectable Effect (%)</label>
+        <div class="slider-wrap"><input type="range" id="mdeSlider" min="1" max="50" step="0.5" value="10" oninput="syncSlider('mde')"><span class="slider-val" id="mdeVal">10%</span></div>
+        <input type="number" id="mde" value="10" min="1" max="100" step="0.1" style="margin-top:0.5rem" oninput="syncInput('mde')">
+        <div class="help-text">The minimum relative improvement you want to detect. 10% MDE on 3% baseline = detecting a lift from 3.0% to 3.3%.</div>
+      </div>
+      <div class="input-group">
+        <label>Daily Visitors (per variation)</label>
+        <input type="number" id="dailyVisitors" value="1000" min="1">
+        <div class="help-text">How many visitors per day will be allocated to EACH variation (control + treatment).</div>
+      </div>
+      <div class="input-group">
+        <label>Number of Variations</label>
+        <select id="variations"><option value="2" selected>2 (A/B)</option><option value="3">3 (A/B/C)</option><option value="4">4 (A/B/C/D)</option></select>
+        <div class="help-text">More variations require more traffic per variation or longer test duration.</div>
+      </div>
+      <div class="input-group">
+        <label>Statistical Significance Level</label>
+        <select id="significance"><option value="0.90">90% (alpha = 0.10)</option><option value="0.95" selected>95% (alpha = 0.05)</option><option value="0.99">99% (alpha = 0.01)</option></select>
+        <div class="help-text">Probability that a detected effect is real, not random chance. 95% is the industry standard.</div>
+      </div>
+      <div class="input-group">
+        <label>Statistical Power</label>
+        <select id="power"><option value="0.70">70%</option><option value="0.80" selected>80% (Standard)</option><option value="0.90">90% (Conservative)</option><option value="0.95">95%</option></select>
+        <div class="help-text">Probability of detecting a real effect when one exists. 80% is standard; 90% for important decisions.</div>
+      </div>
+    </div>
+    <div class="input-group">
+      <label>Test Type</label>
+      <select id="testType"><option value="two-sided" selected>Two-sided (detect any difference)</option><option value="one-sided">One-sided (detect improvement only)</option></select>
+      <div class="help-text">Two-sided detects both improvements and regressions. One-sided has more power but only detects changes in one direction.</div>
+    </div>
+    <div class="btn-row" style="justify-content:center">
+      <button class="btn btn-gold" onclick="calculate()">Calculate Duration</button>
+    </div>
+  </div>
+
+  <div class="result-box" id="results">
+    <div id="alertBox"></div>
+    <div class="metrics-grid" id="metricsGrid"></div>
+
+    <div class="formula-box" id="formulaBox"></div>
+
+    <div class="chart-container">
+      <div style="font-size:0.85rem;font-weight:700;color:var(--gold);margin-bottom:1rem">Duration by MDE (at your traffic level)</div>
+      <div id="mdeChart"></div>
+    </div>
+
+    <div class="tool-section" style="margin-top:1.5rem">
+      <h2><span class="icon">&#128203;</span> Sensitivity Matrix</h2>
+      <p style="color:var(--text-dim);font-size:0.85rem;margin-bottom:1rem">How duration changes across different MDEs and traffic levels.</p>
+      <div style="overflow-x:auto"><table id="sensitivityTable"></table></div>
+    </div>
+
+    <div class="tool-section" style="margin-top:1.5rem">
+      <h2><span class="icon">&#128161;</span> What This Means</h2>
+      <div id="interpretations"></div>
+    </div>
+
+    <div class="tool-section" style="margin-top:1.5rem">
+      <h2><span class="icon">&#9888;</span> Common Mistakes to Avoid</h2>
+      <div id="mistakes"></div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-sm btn-outline" onclick="copyResult()">Copy Results</button>
+      <button class="btn btn-sm btn-outline" onclick="exportCSV()">Export Sensitivity CSV</button>
+    </div>
+  </div>
+
+  <div class="share-cta">
+    <h3>Running better A/B tests?</h3>
+    <p>Share this calculator with your growth team.</p>
+    <div class="btn-row" style="justify-content:center">
+      <button class="btn btn-sm btn-gold" onclick="shareX()">Share on X</button>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-links"><a href="/">Home</a><a href="/store">All Tools</a><a href="/exclusive-tools">Exclusive Tools</a><a href="/blog">Blog</a></div>
+    <p>&copy; 2025 SPUNK.CODES. Built for founders who ship.</p>
+  </footer>
+</div>
+
+<div class="watermark">SPUNK.CODES</div>
+
+<script>
+// === Code Gate ===
+function checkAccess(){try{var c1=localStorage.getItem('spunk_referral_code');var c2=localStorage.getItem('spunk_ref_code');if((c1&&c1.toUpperCase()==='SPUNK')||(c2&&c2.toUpperCase()==='SPUNK')){document.getElementById('lockGate').classList.add('hidden');return}}catch(e){}document.getElementById('lockGate').classList.remove('hidden')}
+function submitCode(){var v=document.getElementById('codeInput').value.trim().toUpperCase();if(v==='SPUNK'){try{localStorage.setItem('spunk_referral_code',v)}catch(e){}document.getElementById('lockGate').classList.add('hidden');if(typeof gtag==='function')gtag('event','code_unlock',{tool:'ab-test-duration-calculator'})}else{document.getElementById('codeError').textContent='Invalid code. Try again.'}}
+document.getElementById('codeInput').addEventListener('keydown',function(e){if(e.key==='Enter')submitCode()});
+checkAccess();
+
+// Slider sync
+function syncSlider(type){
+  if(type==='baseline'){
+    var v=document.getElementById('baselineSlider').value;
+    document.getElementById('baseline').value=v;
+    document.getElementById('baselineVal').textContent=v+'%';
+  }else{
+    var v=document.getElementById('mdeSlider').value;
+    document.getElementById('mde').value=v;
+    document.getElementById('mdeVal').textContent=v+'%';
+  }
+}
+function syncInput(type){
+  if(type==='baseline'){
+    var v=document.getElementById('baseline').value;
+    document.getElementById('baselineSlider').value=v;
+    document.getElementById('baselineVal').textContent=v+'%';
+  }else{
+    var v=document.getElementById('mde').value;
+    document.getElementById('mdeSlider').value=v;
+    document.getElementById('mdeVal').textContent=v+'%';
+  }
+}
+
+// === Statistical Functions ===
+// Normal distribution inverse CDF (rational approximation)
+function normInv(p){
+  if(p<=0)return-Infinity;if(p>=1)return Infinity;
+  if(p<0.5)return-normInv(1-p);
+  var t=Math.sqrt(-2*Math.log(1-p));
+  var c0=2.515517;var c1=0.802853;var c2=0.010328;
+  var d1=1.432788;var d2=0.189269;var d3=0.001308;
+  return t-(c0+c1*t+c2*t*t)/(1+d1*t+d2*t*t+d3*t*t*t);
+}
+
+function sampleSize(p1,mdeRel,alpha,power,tails){
+  var p2=p1*(1+mdeRel);
+  var zAlpha=tails===2?normInv(1-alpha/2):normInv(1-alpha);
+  var zBeta=normInv(power);
+  var pBar=(p1+p2)/2;
+  // Sample size formula for two proportions
+  var n=Math.pow(zAlpha*Math.sqrt(2*pBar*(1-pBar))+zBeta*Math.sqrt(p1*(1-p1)+p2*(1-p2)),2)/Math.pow(p1-p2,2);
+  return Math.ceil(n);
+}
+
+var lastCalc={};
+
+function calculate(){
+  var baseline=parseFloat(document.getElementById('baseline').value)/100;
+  var mde=parseFloat(document.getElementById('mde').value)/100;
+  var dailyVisitors=parseInt(document.getElementById('dailyVisitors').value)||1000;
+  var numVariations=parseInt(document.getElementById('variations').value)||2;
+  var sigLevel=parseFloat(document.getElementById('significance').value);
+  var powerLevel=parseFloat(document.getElementById('power').value);
+  var testType=document.getElementById('testType').value;
+  var tails=testType==='two-sided'?2:1;
+  var alpha=1-sigLevel;
+
+  if(baseline<=0||baseline>=1){alert('Baseline must be between 0% and 100%.');return}
+  if(mde<=0){alert('MDE must be greater than 0%.');return}
+
+  var n=sampleSize(baseline,mde,alpha,powerLevel,tails);
+  var totalPerVariation=n;
+  var totalSample=n*numVariations;
+  var daysNeeded=Math.ceil(totalPerVariation/dailyVisitors);
+  var weeksNeeded=(daysNeeded/7).toFixed(1);
+  var expectedConversion=baseline*(1+mde);
+  var absoluteEffect=expectedConversion-baseline;
+
+  // Alerts
+  var alertHtml='';
+  if(daysNeeded>90)alertHtml='<div class="alert-box alert-danger">&#9888; This test requires '+daysNeeded+' days ('+weeksNeeded+' weeks). Consider increasing traffic, accepting a larger MDE, or reducing significance level to make this feasible.</div>';
+  else if(daysNeeded>30)alertHtml='<div class="alert-box alert-warning">&#128161; This test needs '+daysNeeded+' days. Long tests risk external factors (seasonality, product changes) contaminating results. Consider running during a stable period.</div>';
+  else if(daysNeeded>=7)alertHtml='<div class="alert-box alert-ok">&#9989; '+daysNeeded+' days is a reasonable test duration. Make sure to run for at least 1 full business cycle (7 days) to capture weekday/weekend effects.</div>';
+  else alertHtml='<div class="alert-box alert-warning">&#128161; '+daysNeeded+' days is very short. Even with enough sample, run for at least 7 days to capture weekly patterns. Results under 7 days should be treated with caution.</div>';
+
+  if(daysNeeded<7)alertHtml+='<div class="alert-box alert-warning">&#128197; MINIMUM RECOMMENDATION: Run for at least 7 days regardless of sample size to account for day-of-week effects.</div>';
+  document.getElementById('alertBox').innerHTML=alertHtml;
+
+  var effectiveDays=Math.max(7,daysNeeded);
+
+  // Metrics
+  var mHtml='';
+  mHtml+='<div class="metric-card"><div class="lbl">Required Duration</div><div class="val" style="color:var(--gold)">'+effectiveDays+'</div><div class="sub">days ('+weeksNeeded+' weeks)</div></div>';
+  mHtml+='<div class="metric-card"><div class="lbl">Sample per Variation</div><div class="val" style="color:var(--cyan)">'+totalPerVariation.toLocaleString()+'</div><div class="sub">visitors needed</div></div>';
+  mHtml+='<div class="metric-card"><div class="lbl">Total Sample</div><div class="val" style="color:var(--text)">'+totalSample.toLocaleString()+'</div><div class="sub">across '+numVariations+' variations</div></div>';
+  mHtml+='<div class="metric-card"><div class="lbl">Detecting</div><div class="val" style="color:var(--orange)">'+(baseline*100).toFixed(2)+'%</div><div class="sub">to '+(expectedConversion*100).toFixed(2)+'%</div></div>';
+  mHtml+='<div class="metric-card"><div class="lbl">Absolute Effect</div><div class="val" style="color:var(--gold)">'+(absoluteEffect*100).toFixed(2)+'%</div><div class="sub">percentage points</div></div>';
+  mHtml+='<div class="metric-card"><div class="lbl">Confidence</div><div class="val" style="color:var(--cyan)">'+Math.round(sigLevel*100)+'%</div><div class="sub">significance</div></div>';
+  document.getElementById('metricsGrid').innerHTML=mHtml;
+
+  // Formula
+  var zAlpha=tails===2?normInv(1-alpha/2):normInv(1-alpha);
+  var zBeta=normInv(powerLevel);
+  document.getElementById('formulaBox').innerHTML='<strong>Formula Used:</strong><br>n = (Z<sub>&alpha;/'+tails+'</sub> &middot; &radic;(2p&#772;q&#772;) + Z<sub>&beta;</sub> &middot; &radic;(p&#8321;q&#8321; + p&#8322;q&#8322;))&sup2; / (p&#8321; - p&#8322;)&sup2;<br><br>Where:<br>Z<sub>&alpha;</sub> = '+zAlpha.toFixed(4)+' | Z<sub>&beta;</sub> = '+zBeta.toFixed(4)+' | p&#8321; = '+(baseline*100).toFixed(2)+'% | p&#8322; = '+(expectedConversion*100).toFixed(2)+'%<br>Required n per variation = <strong>'+totalPerVariation.toLocaleString()+'</strong>';
+
+  // MDE sensitivity chart
+  var mdes=[5,10,15,20,25,30,40,50];
+  var maxDays=0;
+  var chartData=[];
+  mdes.forEach(function(m){
+    var nn=sampleSize(baseline,m/100,alpha,powerLevel,tails);
+    var dd=Math.max(7,Math.ceil(nn/dailyVisitors));
+    if(dd>maxDays)maxDays=dd;
+    chartData.push({mde:m,days:dd,sample:nn,current:m===(mde*100)});
+  });
+  if(maxDays===0)maxDays=1;
+
+  var cHtml='';
+  chartData.forEach(function(d){
+    var w=Math.min(100,(d.days/maxDays)*100);
+    var color=d.current?'linear-gradient(90deg,var(--gold),var(--orange))':d.days>90?'var(--red)':d.days>30?'var(--orange)':'var(--cyan)';
+    cHtml+='<div class="bar-row"><span class="bar-label">'+d.mde+'% MDE</span><div class="bar-track"><div class="bar-fill" style="width:'+Math.max(3,w)+'%;background:'+color+';color:#000">'+d.days+'d</div></div><span class="bar-val">'+d.sample.toLocaleString()+' per var</span></div>';
+  });
+  document.getElementById('mdeChart').innerHTML=cHtml;
+
+  // Sensitivity matrix
+  var trafficLevels=[100,500,1000,2500,5000,10000];
+  var mdeLevels=[5,10,15,20,30,50];
+  var stHtml='<thead><tr><th>Daily Visitors</th>';
+  mdeLevels.forEach(function(m){stHtml+='<th>'+m+'% MDE</th>'});
+  stHtml+='</tr></thead><tbody>';
+  trafficLevels.forEach(function(tv){
+    stHtml+='<tr><td style="font-weight:700">'+tv.toLocaleString()+'</td>';
+    mdeLevels.forEach(function(m){
+      var nn=sampleSize(baseline,m/100,alpha,powerLevel,tails);
+      var dd=Math.max(7,Math.ceil(nn/tv));
+      var isHighlight=tv===dailyVisitors&&m===Math.round(mde*100);
+      var color=dd>90?'var(--red)':dd>30?'var(--orange)':dd>14?'var(--gold)':'var(--cyan)';
+      stHtml+='<td style="color:'+color+';font-weight:'+(isHighlight?'800':'400')+';'+(isHighlight?'background:rgba(255,215,0,0.1);':'')+'">'+dd+'d</td>';
+    });
+    stHtml+='</tr>';
+  });
+  stHtml+='</tbody>';
+  document.getElementById('sensitivityTable').innerHTML=stHtml;
+
+  // Interpretations
+  var iHtml='';
+  iHtml+='<div class="tip-card"><h4>What You Can Detect</h4><p>With this configuration, your test can detect a conversion rate change from <strong>'+(baseline*100).toFixed(2)+'%</strong> to <strong>'+(expectedConversion*100).toFixed(2)+'%</strong> (or a drop to <strong>'+(baseline*(1-mde)*100).toFixed(2)+'%</strong>). Any effect smaller than this will likely be invisible to the test - you\'ll need more traffic or time to detect smaller changes.</p></div>';
+  iHtml+='<div class="tip-card"><h4>Revenue Impact Estimate</h4><p>If you get 1,000 conversions/month at $50 average value, detecting a '+Math.round(mde*100)+'% lift means finding an extra '+Math.round(1000*mde)+' conversions/month = <strong>$'+Math.round(1000*mde*50).toLocaleString()+'/month</strong> in additional revenue. Is the test duration worth this potential uplift?</p></div>';
+  if(effectiveDays>30){iHtml+='<div class="tip-card"><h4>Reducing Test Duration</h4><p>To run a shorter test, you can: (1) Accept a larger MDE - test only for big wins, not small optimizations. (2) Increase traffic by running the test on a higher-traffic page. (3) Lower significance to 90% if this is a low-stakes test. (4) Use one-sided testing if you\'re only interested in detecting improvements.</p></div>';}
+  document.getElementById('interpretations').innerHTML=iHtml;
+
+  // Common mistakes
+  var mHtml2='';
+  mHtml2+='<div class="tip-card"><h4>Peeking at Results Early</h4><p>Checking results daily and stopping when you see significance dramatically increases false positives. With daily peeking, your actual false positive rate can be 20-30% instead of 5%. Wait for the full calculated duration before analyzing.</p></div>';
+  mHtml2+='<div class="tip-card"><h4>Stopping at First Significance</h4><p>Statistical significance can fluctuate. A test might show p < 0.05 on day 5, then p > 0.05 on day 8. The sample size calculation assumes you look at results ONCE at the end. If you must peek, use sequential testing methods.</p></div>';
+  mHtml2+='<div class="tip-card"><h4>Testing Too Many Variations</h4><p>Each additional variation splits your traffic. With '+numVariations+' variations, each gets '+Math.round(100/numVariations)+'% of traffic. More variations = longer tests. Also apply Bonferroni correction when comparing multiple pairs.</p></div>';
+  mHtml2+='<div class="tip-card"><h4>Ignoring Day-of-Week Effects</h4><p>User behavior varies by day. Always run tests for complete weeks (7, 14, 21 days, etc.) to avoid bias from weekday/weekend differences in conversion rates.</p></div>';
+  document.getElementById('mistakes').innerHTML=mHtml2;
+
+  lastCalc={baseline:baseline,mde:mde,days:effectiveDays,sample:totalPerVariation,total:totalSample,significance:sigLevel,power:powerLevel};
+  document.getElementById('results').classList.add('show');
+  document.getElementById('results').scrollIntoView({behavior:'smooth'});
+  if(typeof gtag==='function')gtag('event','ab_calculate',{tool:'ab-test-duration-calculator',days:effectiveDays,baseline:baseline,mde:mde});
+}
+
+function copyResult(){
+  if(!lastCalc.days){alert('Calculate first.');return}
+  var text='A/B Test Duration: '+lastCalc.days+' days\n';
+  text+='Sample per variation: '+lastCalc.sample.toLocaleString()+'\n';
+  text+='Total sample: '+lastCalc.total.toLocaleString()+'\n';
+  text+='Baseline: '+(lastCalc.baseline*100).toFixed(2)+'%\n';
+  text+='MDE: '+Math.round(lastCalc.mde*100)+'%\n';
+  text+='Significance: '+Math.round(lastCalc.significance*100)+'%\n';
+  text+='Power: '+Math.round(lastCalc.power*100)+'%\n';
+  text+='Generated by SPUNK.CODES A/B Test Duration Calculator';
+  navigator.clipboard.writeText(text).then(function(){alert('Results copied!')});
+}
+
+function exportCSV(){
+  var baseline=parseFloat(document.getElementById('baseline').value)/100;
+  var sigLevel=parseFloat(document.getElementById('significance').value);
+  var powerLevel=parseFloat(document.getElementById('power').value);
+  var alpha=1-sigLevel;
+  var tails=document.getElementById('testType').value==='two-sided'?2:1;
+
+  var trafficLevels=[100,250,500,1000,2500,5000,10000,25000];
+  var mdeLevels=[5,10,15,20,25,30,40,50];
+
+  var csv='Daily Visitors';
+  mdeLevels.forEach(function(m){csv+=','+m+'% MDE'});csv+='\n';
+  trafficLevels.forEach(function(tv){
+    csv+=tv;
+    mdeLevels.forEach(function(m){
+      var nn=sampleSize(baseline,m/100,alpha,powerLevel,tails);
+      var dd=Math.max(7,Math.ceil(nn/tv));
+      csv+=','+dd;
+    });csv+='\n';
+  });
+
+  var blob=new Blob([csv],{type:'text/csv'});
+  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='ab-test-duration-matrix.csv';a.click();
+  if(typeof gtag==='function')gtag('event','export_csv',{tool:'ab-test-duration-calculator'});
+}
+
+function shareX(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Calculating my A/B test duration with proper statistics. Free tool from @SpunkArt13 (code: SPUNK)')+'&url='+encodeURIComponent('https://spunk.codes/exclusive-tools'),'_blank')}
+
+// === Code Protection ===
+document.addEventListener('contextmenu',function(e){e.preventDefault()});
+document.addEventListener('keydown',function(e){if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'))||(e.ctrlKey&&e.key==='u'))e.preventDefault()});
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<script src="/auto-monetize.js"></script>
+<div id="shareXBtn" style="position:fixed;left:20px;bottom:20px;z-index:9999;">
+  <a id="shareXLink" href="#" target="_blank" rel="noopener noreferrer" title="Share on X"
+     style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;
+     background:rgba(255,215,0,0.15);border:1px solid rgba(255,215,0,0.3);
+     backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:50%;
+     text-decoration:none;transition:all 0.3s ease;cursor:pointer;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+    </svg>
+  </a>
+</div>
+<style>#shareXBtn a:hover{background:rgba(255,215,0,0.35)!important;border-color:rgba(255,215,0,0.6)!important;transform:scale(1.1);box-shadow:0 0 15px rgba(255,215,0,0.3)}</style>
+<script>
+(function(){var page=location.pathname.split("/").pop()||"index.html";var url="https://spunk.codes/exclusive/"+page;var text="Calculating A/B test duration with proper stats using A/B Test Duration Calculator on spunk.codes @SpunkArt13";var href="https://x.com/intent/tweet?text="+encodeURIComponent(text)+"&url="+encodeURIComponent(url);document.getElementById("shareXLink").href=href})();
+</script>
+<script src="/usage-tracker.js"></script>
+</body>
+</html>

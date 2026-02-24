@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cron Expression Builder - Visual Cron Scheduler | SPUNK.CODES Exclusive</title>
+<meta name="description" content="Visual cron expression builder. Click to set schedule, see human-readable descriptions, next run times, and validate expressions. Exclusive premium tool.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Cron Expression Builder - SPUNK.CODES Exclusive">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/cron-expression-builder">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0d1117;--card:rgba(22,27,34,0.8);--border:rgba(48,54,61,0.6);--gold:#ffd700;--gold-border:rgba(255,215,0,0.3);--text:#e6edf3;--text-dim:#8b949e;--blue:#58a6ff;--cyan:#39d353;--red:#f85149;--orange:#ff8c00;--font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+a{color:var(--blue);text-decoration:none}
+.bg-mesh{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 80% 50% at 20% 20%,rgba(255,215,0,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(255,140,0,0.04) 0%,transparent 60%),var(--bg)}
+.bg-grid{position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,215,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,215,0,0.03) 1px,transparent 1px);background-size:60px 60px}
+.nav{position:sticky;top:0;z-index:100;background:rgba(13,17,23,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,215,0,0.15);padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}
+.nav-brand{font-weight:800;font-size:1.1rem;color:var(--gold);letter-spacing:0.08em}
+.nav-links{display:flex;gap:1.5rem;font-size:0.85rem}.nav-links a{color:var(--text-dim);font-weight:500}.nav-links a.active{color:var(--gold)}
+.lock-gate{position:fixed;inset:0;z-index:1000;background:rgba(13,17,23,0.97);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:2rem}
+.lock-gate.hidden{display:none}
+.lock-icon-big{font-size:4rem}.lock-gate h2{font-size:1.8rem;font-weight:800;text-align:center}.lock-gate h2 span{color:var(--gold)}.lock-gate p{color:var(--text-dim);text-align:center;max-width:400px}
+.code-input-wrap{display:flex;gap:0.5rem}
+.code-input{padding:0.8rem 1.5rem;background:rgba(22,27,34,0.8);border:2px solid var(--gold-border);border-radius:12px;color:var(--gold);font-size:1.2rem;font-weight:800;letter-spacing:3px;text-align:center;width:200px;outline:none;text-transform:uppercase;font-family:var(--font)}
+.code-input:focus{border-color:var(--gold);box-shadow:0 0 20px rgba(255,215,0,0.2)}
+.code-submit{padding:0.8rem 1.5rem;background:linear-gradient(135deg,#ffd700,#ff8c00);border:none;border-radius:12px;color:#000;font-size:1rem;font-weight:800;cursor:pointer}
+.code-error{color:var(--red);font-size:0.85rem;min-height:1.2em}.lock-hint{color:var(--text-dim);font-size:0.8rem}.lock-hint a{color:var(--gold)}
+.exclusive-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;background:linear-gradient(135deg,rgba(255,215,0,0.15),rgba(255,140,0,0.15));border:1px solid var(--gold-border);border-radius:100px;font-size:11px;font-weight:800;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase}
+.main{max-width:1000px;margin:0 auto;padding:2rem}
+.hero-section{text-align:center;padding:2rem 0 2rem}
+.hero-section h1{font-size:2.2rem;font-weight:800;margin:1rem 0 0.5rem}
+.hero-section h1 .gold{background:linear-gradient(135deg,#ffd700,#ff8c00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-section p{color:var(--text-dim);max-width:600px;margin:0 auto}
+.card{background:var(--card);border:1px solid var(--gold-border);border-radius:16px;padding:1.5rem;margin-bottom:1.5rem;backdrop-filter:blur(10px);position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),#ff8c00,var(--gold))}
+.card h2{font-size:1.1rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}
+.form-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:0.75rem;margin-bottom:0.75rem}
+.form-group{display:flex;flex-direction:column;gap:0.3rem}
+.form-group label{font-size:0.75rem;color:var(--text-dim);font-weight:600;text-transform:uppercase;letter-spacing:0.5px}
+.form-group input,.form-group select,.form-group textarea{padding:0.6rem 0.8rem;background:rgba(22,27,34,0.9);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.85rem;font-family:var(--font);outline:none}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--gold)}
+.form-group textarea{resize:vertical;min-height:50px}
+.btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;transition:all 0.2s}
+.btn-gold{background:linear-gradient(135deg,#ffd700,#ff8c00);color:#000}
+.btn-gold:hover{transform:translateY(-1px);box-shadow:0 4px 15px rgba(255,215,0,0.3)}
+.btn-outline{background:transparent;border:1px solid var(--gold-border);color:var(--gold)}
+.btn-outline:hover{background:rgba(255,215,0,0.1)}
+.btn-red{background:rgba(248,81,73,0.15);border:1px solid rgba(248,81,73,0.3);color:var(--red)}
+.btn-sm{padding:0.4rem 0.8rem;font-size:0.75rem}
+.btn-row{display:flex;gap:0.5rem;flex-wrap:wrap}
+.cron-display{display:flex;align-items:center;justify-content:center;gap:0.3rem;margin-bottom:1.5rem;flex-wrap:wrap}
+.cron-part{padding:0.7rem 1.2rem;background:rgba(13,17,23,0.6);border:2px solid var(--border);border-radius:10px;text-align:center;min-width:70px;cursor:pointer;transition:all 0.2s}
+.cron-part:hover{border-color:var(--gold)}
+.cron-part.active{border-color:var(--gold);box-shadow:0 0 15px rgba(255,215,0,0.15)}
+.cron-part .val{font-size:1.6rem;font-weight:800;color:var(--gold);font-family:'Courier New',monospace}
+.cron-part .label{font-size:0.6rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.5px;margin-top:2px}
+.cron-sep{font-size:1.4rem;color:var(--text-dim);font-weight:800;padding:0 2px}
+.cron-raw{display:flex;align-items:center;gap:0.5rem;margin-bottom:1rem}
+.cron-raw input{flex:1;padding:0.7rem 1rem;background:rgba(22,27,34,0.9);border:2px solid var(--border);border-radius:10px;color:var(--gold);font-size:1.2rem;font-weight:800;font-family:'Courier New',monospace;letter-spacing:2px;text-align:center;outline:none}
+.cron-raw input:focus{border-color:var(--gold)}
+.human-desc{padding:1rem;background:rgba(57,211,83,0.08);border:1px solid rgba(57,211,83,0.2);border-radius:10px;margin-bottom:1rem;font-size:0.95rem;color:var(--cyan);font-weight:600;text-align:center}
+.human-desc.error{background:rgba(248,81,73,0.08);border-color:rgba(248,81,73,0.2);color:var(--red)}
+.picker-panel{background:rgba(13,17,23,0.8);border:1px solid var(--gold-border);border-radius:12px;padding:1rem;margin-bottom:1rem}
+.picker-panel h3{font-size:0.85rem;color:var(--gold);margin-bottom:0.75rem;font-weight:700}
+.picker-grid{display:flex;flex-wrap:wrap;gap:4px}
+.picker-cell{width:38px;height:34px;display:flex;align-items:center;justify-content:center;border-radius:6px;font-size:0.75rem;font-weight:600;cursor:pointer;border:1px solid var(--border);background:rgba(22,27,34,0.6);color:var(--text-dim);transition:all 0.15s}
+.picker-cell:hover{border-color:var(--gold);color:var(--text)}
+.picker-cell.selected{background:rgba(255,215,0,0.2);border-color:var(--gold);color:var(--gold);font-weight:800}
+.picker-cell.all-marker{width:auto;padding:0 12px;background:rgba(88,166,255,0.1);border-color:rgba(88,166,255,0.3);color:var(--blue)}
+.picker-cell.all-marker.selected{background:rgba(88,166,255,0.25);color:var(--blue)}
+.picker-controls{display:flex;gap:0.5rem;margin-bottom:0.5rem;flex-wrap:wrap}
+.picker-controls select{padding:0.4rem;background:rgba(22,27,34,0.9);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:0.8rem;font-family:var(--font);outline:none}
+.next-runs{list-style:none;padding:0}
+.next-runs li{display:flex;align-items:center;gap:0.75rem;padding:0.5rem 0.75rem;font-size:0.85rem;border-bottom:1px solid rgba(48,54,61,0.3)}
+.next-runs li:last-child{border-bottom:none}
+.run-num{color:var(--gold);font-weight:800;font-size:0.75rem;min-width:22px}
+.run-date{color:var(--text);font-family:'Courier New',monospace;font-size:0.8rem}
+.run-relative{color:var(--text-dim);font-size:0.75rem;margin-left:auto}
+.presets-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:0.5rem}
+.preset-item{padding:0.6rem 0.8rem;background:rgba(13,17,23,0.6);border:1px solid var(--border);border-radius:8px;cursor:pointer;transition:all 0.2s}
+.preset-item:hover{border-color:var(--gold);background:rgba(255,215,0,0.05)}
+.preset-item .expr{font-family:'Courier New',monospace;font-size:0.8rem;color:var(--gold);font-weight:700}
+.preset-item .desc{font-size:0.75rem;color:var(--text-dim);margin-top:2px}
+.share-cta{background:linear-gradient(135deg,rgba(255,215,0,0.08),rgba(255,140,0,0.05));border:1px solid var(--gold-border);border-radius:16px;padding:2rem;text-align:center;margin-top:2rem}
+.share-cta h3{color:var(--gold);margin-bottom:0.5rem}.share-cta p{color:var(--text-dim);font-size:0.9rem;margin-bottom:1rem}
+.share-btns{display:flex;gap:0.6rem;justify-content:center;flex-wrap:wrap}
+.share-btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;color:#fff}
+.share-x{background:#000;border:1px solid #333}.share-reddit{background:#ff4500}.share-email{background:#21262d;border:1px solid #30363d}
+.footer{text-align:center;padding:2rem;border-top:1px solid rgba(255,215,0,0.1);color:var(--text-dim);font-size:0.75rem;margin-top:3rem}
+.footer a{color:var(--gold)}.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-bottom:1rem}
+.watermark{position:fixed;bottom:10px;right:10px;font-size:0.6rem;color:rgba(255,215,0,0.08);font-weight:800;pointer-events:none;z-index:9999;letter-spacing:1px;text-transform:uppercase}
+@media(max-width:768px){.main{padding:1rem}.hero-section h1{font-size:1.6rem}.nav-links{display:none}.form-row{grid-template-columns:1fr}.cron-display{gap:0.2rem}.cron-part{min-width:55px;padding:0.5rem 0.7rem}.cron-part .val{font-size:1.2rem}.picker-cell{width:32px;height:30px;font-size:0.7rem}}
+</style>
+</head>
+<body>
+<div class="bg-mesh"></div><div class="bg-grid"></div>
+<div class="lock-gate" id="lockGate"><div class="lock-icon-big">&#128274;</div><h2>Enter Code <span>SPUNK</span> to Unlock</h2><p>This exclusive premium tool requires the SPUNK referral code.</p><div class="code-input-wrap"><input type="text" class="code-input" id="codeInput" placeholder="CODE" maxlength="10" autocomplete="off"><button class="code-submit" onclick="submitCode()">Unlock</button></div><div class="code-error" id="codeError"></div><div class="lock-hint">Get the code at <a href="https://spunk.codes/exclusive-tools">spunk.codes/exclusive-tools</a></div></div>
+<nav class="nav"><a href="https://spunk.codes" class="nav-brand">SPUNK.CODES</a><div class="nav-links"><a href="/store">Tools</a><a href="/exclusive-tools" class="active">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a></div></nav>
+
+<div class="main">
+  <section class="hero-section">
+    <div class="exclusive-badge">&#128081; EXCLUSIVE TOOL</div>
+    <h1><span class="gold">Cron Expression</span> Builder</h1>
+    <p>Visual cron expression builder with human-readable descriptions, next run time previews, and common presets.</p>
+  </section>
+
+  <div class="card">
+    <h2>&#128339; Cron Expression</h2>
+    <div class="cron-display">
+      <div class="cron-part" onclick="selectField(0)" id="cp-0"><div class="val" id="cv-0">*</div><div class="label">Minute</div></div>
+      <span class="cron-sep">&nbsp;</span>
+      <div class="cron-part" onclick="selectField(1)" id="cp-1"><div class="val" id="cv-1">*</div><div class="label">Hour</div></div>
+      <span class="cron-sep">&nbsp;</span>
+      <div class="cron-part" onclick="selectField(2)" id="cp-2"><div class="val" id="cv-2">*</div><div class="label">Day</div></div>
+      <span class="cron-sep">&nbsp;</span>
+      <div class="cron-part" onclick="selectField(3)" id="cp-3"><div class="val" id="cv-3">*</div><div class="label">Month</div></div>
+      <span class="cron-sep">&nbsp;</span>
+      <div class="cron-part" onclick="selectField(4)" id="cp-4"><div class="val" id="cv-4">*</div><div class="label">Weekday</div></div>
+    </div>
+    <div class="cron-raw">
+      <input type="text" id="cronRaw" value="* * * * *" oninput="parseCronRaw()">
+      <button class="btn btn-gold btn-sm" onclick="copyCron()">Copy</button>
+    </div>
+    <div class="human-desc" id="humanDesc">Every minute</div>
+  </div>
+
+  <div class="card" id="pickerCard">
+    <h2>&#127918; Value Picker</h2>
+    <div id="pickerContent">
+      <p style="color:var(--text-dim);font-size:0.85rem">Click a field above to configure its value.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>&#128197; Next 10 Run Times</h2>
+    <ul class="next-runs" id="nextRuns">
+      <li style="color:var(--text-dim);font-size:0.85rem">Calculating...</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>&#9889; Common Presets</h2>
+    <div class="presets-grid">
+      <div class="preset-item" onclick="applyPreset('* * * * *')"><div class="expr">* * * * *</div><div class="desc">Every minute</div></div>
+      <div class="preset-item" onclick="applyPreset('*/5 * * * *')"><div class="expr">*/5 * * * *</div><div class="desc">Every 5 minutes</div></div>
+      <div class="preset-item" onclick="applyPreset('*/15 * * * *')"><div class="expr">*/15 * * * *</div><div class="desc">Every 15 minutes</div></div>
+      <div class="preset-item" onclick="applyPreset('0 * * * *')"><div class="expr">0 * * * *</div><div class="desc">Every hour</div></div>
+      <div class="preset-item" onclick="applyPreset('0 */6 * * *')"><div class="expr">0 */6 * * *</div><div class="desc">Every 6 hours</div></div>
+      <div class="preset-item" onclick="applyPreset('0 0 * * *')"><div class="expr">0 0 * * *</div><div class="desc">Daily at midnight</div></div>
+      <div class="preset-item" onclick="applyPreset('0 9 * * *')"><div class="expr">0 9 * * *</div><div class="desc">Daily at 9 AM</div></div>
+      <div class="preset-item" onclick="applyPreset('0 9 * * 1-5')"><div class="expr">0 9 * * 1-5</div><div class="desc">Weekdays at 9 AM</div></div>
+      <div class="preset-item" onclick="applyPreset('0 0 * * 0')"><div class="expr">0 0 * * 0</div><div class="desc">Weekly (Sunday midnight)</div></div>
+      <div class="preset-item" onclick="applyPreset('0 0 1 * *')"><div class="expr">0 0 1 * *</div><div class="desc">Monthly (1st at midnight)</div></div>
+      <div class="preset-item" onclick="applyPreset('0 0 1 1 *')"><div class="expr">0 0 1 1 *</div><div class="desc">Yearly (Jan 1st midnight)</div></div>
+      <div class="preset-item" onclick="applyPreset('0 0 * * 1')"><div class="expr">0 0 * * 1</div><div class="desc">Every Monday at midnight</div></div>
+    </div>
+  </div>
+
+  <div class="share-cta">
+    <h3>&#128275; Share the Code, Unlock More Tools</h3>
+    <p>Share code SPUNK to help others access 15+ exclusive premium tools.</p>
+    <div class="share-btns">
+      <button class="share-btn share-x" onclick="shareX()">&#120143; Share on X</button>
+      <button class="share-btn share-reddit" onclick="shareReddit()">&#128172; Reddit</button>
+      <button class="share-btn share-email" onclick="shareEmail()">&#9993; Email</button>
+    </div>
+  </div>
+</div>
+
+<footer class="footer"><div class="footer-links"><a href="https://spunk.codes">Home</a><a href="/store">Tools</a><a href="/exclusive-tools">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a><a href="https://twitter.com/SpunkArt13" target="_blank">@SpunkArt13</a></div><div>&copy; 2026 SPUNK.CODES EXCLUSIVE.</div></footer>
+<div class="watermark">SPUNK.CODES EXCLUSIVE</div>
+
+<script>
+document.addEventListener('contextmenu',function(e){e.preventDefault()});
+document.addEventListener('keydown',function(e){if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'||e.key==='C'))||(e.ctrlKey&&e.key==='u'))e.preventDefault()});
+function checkCode(){try{var c=localStorage.getItem('spunk_referral_code')||localStorage.getItem('spunk_ref_code')||'';if(c.toUpperCase()==='SPUNK'){document.getElementById('lockGate').classList.add('hidden');return true}}catch(e){}return false}
+function submitCode(){var v=document.getElementById('codeInput').value.trim().toUpperCase();if(v==='SPUNK'){try{localStorage.setItem('spunk_referral_code','SPUNK');localStorage.setItem('spunk_ref_code','SPUNK')}catch(e){}document.getElementById('lockGate').classList.add('hidden')}else{document.getElementById('codeError').textContent='Invalid code. Try: SPUNK';setTimeout(function(){document.getElementById('codeError').textContent=''},2000)}}
+document.getElementById('codeInput').addEventListener('keydown',function(e){if(e.key==='Enter')submitCode()});
+checkCode();
+
+var fields=['*','*','*','*','*'];
+var fieldNames=['Minute','Hour','Day of Month','Month','Day of Week'];
+var fieldRanges=[[0,59],[0,23],[1,31],[1,12],[0,6]];
+var monthNames=['','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+var dayNames=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+var activeField=-1;
+
+function updateDisplay(){
+  for(var i=0;i<5;i++){
+    document.getElementById('cv-'+i).textContent=fields[i];
+  }
+  document.getElementById('cronRaw').value=fields.join(' ');
+  updateHumanDescription();
+  calculateNextRuns();
+}
+
+function selectField(idx){
+  activeField=idx;
+  for(var i=0;i<5;i++){
+    document.getElementById('cp-'+i).classList.toggle('active',i===idx);
+  }
+  renderPicker(idx);
+}
+
+function renderPicker(idx){
+  var range=fieldRanges[idx];
+  var html='<div class="picker-panel"><h3>'+fieldNames[idx]+' ('+range[0]+'-'+range[1]+')</h3>';
+  html+='<div class="picker-controls"><select onchange="setFieldMode('+idx+',this.value)"><option value="every">Every '+fieldNames[idx].toLowerCase()+'</option><option value="specific">Specific values</option><option value="range">Range</option><option value="step">Every N '+fieldNames[idx].toLowerCase()+'s</option></select></div>';
+
+  // Parse current value
+  var currentVals=parseFieldValues(fields[idx],range);
+  var isAll=fields[idx]==='*';
+
+  html+='<div class="picker-grid">';
+  html+='<div class="picker-cell all-marker'+(isAll?' selected':'')+'" onclick="setFieldAll('+idx+')">ALL</div>';
+  for(var v=range[0];v<=range[1];v++){
+    var sel=!isAll&&currentVals.indexOf(v)!==-1;
+    var label=v;
+    if(idx===3&&v>=1) label=monthNames[v]||v;
+    if(idx===4) label=dayNames[v]||v;
+    html+='<div class="picker-cell'+(sel?' selected':'')+'" onclick="toggleValue('+idx+','+v+')">'+label+'</div>';
+  }
+  html+='</div>';
+
+  // Step input
+  html+='<div style="margin-top:0.75rem;display:flex;gap:0.5rem;align-items:center"><span style="font-size:0.8rem;color:var(--text-dim)">Every</span><input type="number" min="1" max="'+(range[1]-range[0]+1)+'" value="1" id="stepInput" style="width:60px;padding:0.4rem;background:rgba(22,27,34,0.9);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:0.8rem;outline:none"><span style="font-size:0.8rem;color:var(--text-dim)">'+fieldNames[idx].toLowerCase()+'(s)</span><button class="btn btn-outline btn-sm" onclick="setStep('+idx+')">Apply</button></div>';
+
+  html+='</div>';
+  document.getElementById('pickerContent').innerHTML=html;
+}
+
+function parseFieldValues(expr,range){
+  if(expr==='*') return [];
+  var vals=[];
+  expr.split(',').forEach(function(part){
+    part=part.trim();
+    if(part.indexOf('/')!==-1){
+      var sp=part.split('/');
+      var start=sp[0]==='*'?range[0]:parseInt(sp[0]);
+      var step=parseInt(sp[1]);
+      for(var v=start;v<=range[1];v+=step) vals.push(v);
+    } else if(part.indexOf('-')!==-1){
+      var rng=part.split('-');
+      for(var v=parseInt(rng[0]);v<=parseInt(rng[1]);v++) vals.push(v);
+    } else {
+      vals.push(parseInt(part));
+    }
+  });
+  return vals;
+}
+
+function setFieldAll(idx){
+  fields[idx]='*';
+  updateDisplay();
+  renderPicker(idx);
+}
+
+function toggleValue(idx,val){
+  var range=fieldRanges[idx];
+  var current=fields[idx];
+  if(current==='*'){
+    fields[idx]=String(val);
+  } else {
+    var vals=parseFieldValues(current,range);
+    var pos=vals.indexOf(val);
+    if(pos!==-1){vals.splice(pos,1)} else {vals.push(val)}
+    vals.sort(function(a,b){return a-b});
+    if(vals.length===0) fields[idx]='*';
+    else if(vals.length===range[1]-range[0]+1) fields[idx]='*';
+    else fields[idx]=compressValues(vals);
+  }
+  updateDisplay();
+  renderPicker(idx);
+}
+
+function compressValues(vals){
+  if(vals.length===0) return '*';
+  // Try to find consecutive ranges
+  var parts=[];
+  var i=0;
+  while(i<vals.length){
+    var start=vals[i];
+    while(i+1<vals.length&&vals[i+1]===vals[i]+1) i++;
+    var end=vals[i];
+    if(end-start>=2) parts.push(start+'-'+end);
+    else if(end-start===1) parts.push(start+','+end);
+    else parts.push(String(start));
+    i++;
+  }
+  return parts.join(',');
+}
+
+function setStep(idx){
+  var step=parseInt(document.getElementById('stepInput').value)||1;
+  if(step<=1) fields[idx]='*';
+  else fields[idx]='*/'+step;
+  updateDisplay();
+  renderPicker(idx);
+}
+
+function setFieldMode(idx,mode){
+  if(mode==='every') setFieldAll(idx);
+}
+
+function parseCronRaw(){
+  var raw=document.getElementById('cronRaw').value.trim();
+  var parts=raw.split(/\s+/);
+  if(parts.length===5){
+    for(var i=0;i<5;i++) fields[i]=parts[i];
+    for(var i=0;i<5;i++) document.getElementById('cv-'+i).textContent=fields[i];
+    updateHumanDescription();
+    calculateNextRuns();
+    if(activeField>=0) renderPicker(activeField);
+  }
+}
+
+function updateHumanDescription(){
+  var el=document.getElementById('humanDesc');
+  try{
+    var desc=describeCron(fields);
+    el.textContent=desc;
+    el.classList.remove('error');
+  }catch(e){
+    el.textContent='Invalid expression: '+e.message;
+    el.classList.add('error');
+  }
+}
+
+function describeCron(f){
+  var min=f[0],hr=f[1],dom=f[2],mon=f[3],dow=f[4];
+
+  // Every minute
+  if(min==='*'&&hr==='*'&&dom==='*'&&mon==='*'&&dow==='*') return 'Every minute';
+
+  var parts=[];
+
+  // Time description
+  if(min.indexOf('/')!==-1){
+    var step=min.split('/')[1];
+    parts.push('Every '+step+' minute'+(step==='1'?'':'s'));
+  } else if(min==='*'&&hr!=='*'){
+    parts.push('Every minute');
+  }
+
+  if(hr.indexOf('/')!==-1){
+    var step=hr.split('/')[1];
+    parts.push('every '+step+' hour'+(step==='1'?'':'s'));
+  }
+
+  if(min!=='*'&&!min.includes('/')&&hr!=='*'&&!hr.includes('/')){
+    parts.push('At '+formatTime(hr,min));
+  } else if(min!=='*'&&!min.includes('/')&&hr==='*'){
+    parts.push('At minute '+min+' of every hour');
+  } else if(min==='*'&&hr!=='*'&&!hr.includes('/')){
+    parts.push('during hour '+hr);
+  }
+
+  // Day description
+  if(dom!=='*'&&!dom.includes('/')){
+    parts.push('on day '+dom+' of the month');
+  } else if(dom.includes('/')){
+    parts.push('every '+dom.split('/')[1]+' days');
+  }
+
+  // Month description
+  if(mon!=='*'&&!mon.includes('/')){
+    var mvals=mon.split(',').map(function(m){return monthNames[parseInt(m)]||m});
+    parts.push('in '+mvals.join(', '));
+  } else if(mon.includes('/')){
+    parts.push('every '+mon.split('/')[1]+' months');
+  }
+
+  // Weekday description
+  if(dow!=='*'&&!dow.includes('/')){
+    var dvals=parseFieldValues(dow,[0,6]).map(function(d){return dayNames[d]||d});
+    parts.push('on '+dvals.join(', '));
+  } else if(dow.includes('/')){
+    parts.push('every '+dow.split('/')[1]+' days of the week');
+  }
+
+  return parts.join(', ')||'Custom schedule';
+}
+
+function formatTime(hr,min){
+  var hours=hr.split(',');
+  var mins=min.split(',');
+  if(hours.length===1&&mins.length===1){
+    var h=parseInt(hours[0]);
+    var m=parseInt(mins[0]);
+    var ampm=h>=12?'PM':'AM';
+    var h12=h%12||12;
+    return h12+':'+(m<10?'0':'')+m+' '+ampm;
+  }
+  return hr+':'+min;
+}
+
+function calculateNextRuns(){
+  var el=document.getElementById('nextRuns');
+  try{
+    var runs=getNextRuns(fields,10);
+    if(runs.length===0){el.innerHTML='<li style="color:var(--text-dim)">No upcoming runs found</li>';return}
+    var now=new Date();
+    var html='';
+    runs.forEach(function(d,i){
+      var diff=d-now;
+      var rel=formatRelative(diff);
+      html+='<li><span class="run-num">#'+(i+1)+'</span><span class="run-date">'+formatDate(d)+'</span><span class="run-relative">'+rel+'</span></li>';
+    });
+    el.innerHTML=html;
+  }catch(e){
+    el.innerHTML='<li style="color:var(--red)">Error calculating: '+e.message+'</li>';
+  }
+}
+
+function getNextRuns(f,count){
+  var runs=[];
+  var d=new Date();
+  d.setSeconds(0,0);
+  d=new Date(d.getTime()+60000); // Start from next minute
+  var maxIter=525600; // 1 year of minutes
+
+  var minVals=expandField(f[0],0,59);
+  var hrVals=expandField(f[1],0,23);
+  var domVals=expandField(f[2],1,31);
+  var monVals=expandField(f[3],1,12);
+  var dowVals=expandField(f[4],0,6);
+
+  for(var i=0;i<maxIter&&runs.length<count;i++){
+    if(monVals.indexOf(d.getMonth()+1)!==-1&&
+       domVals.indexOf(d.getDate())!==-1&&
+       dowVals.indexOf(d.getDay())!==-1&&
+       hrVals.indexOf(d.getHours())!==-1&&
+       minVals.indexOf(d.getMinutes())!==-1){
+      runs.push(new Date(d));
+    }
+    d=new Date(d.getTime()+60000);
+  }
+  return runs;
+}
+
+function expandField(expr,min,max){
+  if(expr==='*'){
+    var arr=[];for(var i=min;i<=max;i++) arr.push(i);return arr;
+  }
+  var vals=[];
+  expr.split(',').forEach(function(part){
+    part=part.trim();
+    if(part.indexOf('/')!==-1){
+      var sp=part.split('/');
+      var start=sp[0]==='*'?min:parseInt(sp[0]);
+      var step=parseInt(sp[1]);
+      for(var v=start;v<=max;v+=step) vals.push(v);
+    } else if(part.indexOf('-')!==-1){
+      var rng=part.split('-');
+      for(var v=parseInt(rng[0]);v<=parseInt(rng[1]);v++) vals.push(v);
+    } else {
+      vals.push(parseInt(part));
+    }
+  });
+  return vals;
+}
+
+function formatDate(d){
+  var days=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  var months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  return days[d.getDay()]+', '+months[d.getMonth()]+' '+d.getDate()+', '+d.getFullYear()+' '+
+    (d.getHours()<10?'0':'')+d.getHours()+':'+(d.getMinutes()<10?'0':'')+d.getMinutes();
+}
+
+function formatRelative(ms){
+  if(ms<0) return 'past';
+  var sec=Math.floor(ms/1000);
+  if(sec<60) return 'in '+sec+'s';
+  var min=Math.floor(sec/60);
+  if(min<60) return 'in '+min+'m';
+  var hr=Math.floor(min/60);
+  if(hr<24) return 'in '+hr+'h '+min%60+'m';
+  var days=Math.floor(hr/24);
+  return 'in '+days+'d '+hr%24+'h';
+}
+
+function applyPreset(expr){
+  var parts=expr.split(/\s+/);
+  for(var i=0;i<5;i++) fields[i]=parts[i];
+  updateDisplay();
+  if(activeField>=0) renderPicker(activeField);
+}
+
+function copyCron(){
+  navigator.clipboard.writeText(fields.join(' ')).then(function(){alert('Copied: '+fields.join(' '))});
+}
+
+// Init
+updateDisplay();
+
+function shareX(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Building cron expressions visually. Free with code SPUNK @SpunkArt13')+'&url='+encodeURIComponent('https://spunk.codes/exclusive-tools'),'_blank')}
+function shareReddit(){window.open('https://www.reddit.com/submit?url='+encodeURIComponent('https://spunk.codes/exclusive-tools')+'&title='+encodeURIComponent('Cron Expression Builder - free with code SPUNK [spunk.codes]'),'_blank')}
+function shareEmail(){window.location.href='mailto:?subject='+encodeURIComponent('Cron Expression Builder')+'&body='+encodeURIComponent('Visual cron expression builder. Code SPUNK: https://spunk.codes/exclusive-tools')}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<script src="/auto-monetize.js"></script>
+<div id="shareXBtn" style="position:fixed;left:20px;bottom:20px;z-index:9999;">
+  <a id="shareXLink" href="#" target="_blank" rel="noopener noreferrer" title="Share on X"
+     style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;
+     background:rgba(88,166,255,0.15);border:1px solid rgba(88,166,255,0.3);
+     backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:50%;
+     text-decoration:none;transition:all 0.3s ease;cursor:pointer;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+    </svg>
+  </a>
+</div>
+<style>
+  #shareXBtn a:hover {
+    background: rgba(88,166,255,0.35) !important;
+    border-color: rgba(88,166,255,0.6) !important;
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(88,166,255,0.3);
+  }
+</style>
+<script>
+(function(){
+  var page = location.pathname.split("/").pop() || "index.html";
+  var url = "https://spunk.codes/" + page;
+  var text = "Just used this free tool on spunk.codes — amazing! @SpunkArt13";
+  var href = "https://x.com/intent/tweet?text=" + encodeURIComponent(text) + "&url=" + encodeURIComponent(url);
+  document.getElementById("shareXLink").href = href;
+})();
+</script>
+<script src="/cross-promo.js"></script>
+<script src="/usage-tracker.js"></script>
+</body>
+</html>

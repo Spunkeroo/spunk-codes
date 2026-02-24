@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ENV File Manager - Encrypt, Edit & Switch Environments | SPUNK.CODES Exclusive</title>
+<meta name="description" content="Manage .env files with encryption, variable grouping, environment switching (dev/staging/prod), and multi-format export. Exclusive premium tool.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="ENV File Manager - SPUNK.CODES Exclusive">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/env-file-manager">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0d1117;--card:rgba(22,27,34,0.8);--border:rgba(48,54,61,0.6);--gold:#ffd700;--gold-border:rgba(255,215,0,0.3);--text:#e6edf3;--text-dim:#8b949e;--blue:#58a6ff;--cyan:#39d353;--red:#f85149;--orange:#ff8c00;--font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+a{color:var(--blue);text-decoration:none}
+.bg-mesh{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 80% 50% at 20% 20%,rgba(255,215,0,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(255,140,0,0.04) 0%,transparent 60%),var(--bg)}
+.bg-grid{position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,215,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,215,0,0.03) 1px,transparent 1px);background-size:60px 60px}
+.nav{position:sticky;top:0;z-index:100;background:rgba(13,17,23,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,215,0,0.15);padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}
+.nav-brand{font-weight:800;font-size:1.1rem;color:var(--gold);letter-spacing:0.08em}
+.nav-links{display:flex;gap:1.5rem;font-size:0.85rem}.nav-links a{color:var(--text-dim);font-weight:500}.nav-links a.active{color:var(--gold)}
+.lock-gate{position:fixed;inset:0;z-index:1000;background:rgba(13,17,23,0.97);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:2rem}
+.lock-gate.hidden{display:none}
+.lock-icon-big{font-size:4rem}.lock-gate h2{font-size:1.8rem;font-weight:800;text-align:center}.lock-gate h2 span{color:var(--gold)}.lock-gate p{color:var(--text-dim);text-align:center;max-width:400px}
+.code-input-wrap{display:flex;gap:0.5rem}
+.code-input{padding:0.8rem 1.5rem;background:rgba(22,27,34,0.8);border:2px solid var(--gold-border);border-radius:12px;color:var(--gold);font-size:1.2rem;font-weight:800;letter-spacing:3px;text-align:center;width:200px;outline:none;text-transform:uppercase;font-family:var(--font)}
+.code-input:focus{border-color:var(--gold);box-shadow:0 0 20px rgba(255,215,0,0.2)}
+.code-submit{padding:0.8rem 1.5rem;background:linear-gradient(135deg,#ffd700,#ff8c00);border:none;border-radius:12px;color:#000;font-size:1rem;font-weight:800;cursor:pointer}
+.code-error{color:var(--red);font-size:0.85rem;min-height:1.2em}.lock-hint{color:var(--text-dim);font-size:0.8rem}.lock-hint a{color:var(--gold)}
+.exclusive-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;background:linear-gradient(135deg,rgba(255,215,0,0.15),rgba(255,140,0,0.15));border:1px solid var(--gold-border);border-radius:100px;font-size:11px;font-weight:800;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase}
+.main{max-width:1000px;margin:0 auto;padding:2rem}
+.hero-section{text-align:center;padding:2rem 0 2rem}
+.hero-section h1{font-size:2.2rem;font-weight:800;margin:1rem 0 0.5rem}
+.hero-section h1 .gold{background:linear-gradient(135deg,#ffd700,#ff8c00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-section p{color:var(--text-dim);max-width:600px;margin:0 auto}
+.card{background:var(--card);border:1px solid var(--gold-border);border-radius:16px;padding:1.5rem;margin-bottom:1.5rem;backdrop-filter:blur(10px);position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),#ff8c00,var(--gold))}
+.card h2{font-size:1.1rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}
+.form-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:0.75rem;margin-bottom:0.75rem}
+.form-group{display:flex;flex-direction:column;gap:0.3rem}
+.form-group label{font-size:0.75rem;color:var(--text-dim);font-weight:600;text-transform:uppercase;letter-spacing:0.5px}
+.form-group input,.form-group select,.form-group textarea{padding:0.6rem 0.8rem;background:rgba(22,27,34,0.9);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.85rem;font-family:var(--font);outline:none}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--gold)}
+.form-group textarea{resize:vertical;min-height:50px}
+.btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;transition:all 0.2s}
+.btn-gold{background:linear-gradient(135deg,#ffd700,#ff8c00);color:#000}
+.btn-gold:hover{transform:translateY(-1px);box-shadow:0 4px 15px rgba(255,215,0,0.3)}
+.btn-outline{background:transparent;border:1px solid var(--gold-border);color:var(--gold)}
+.btn-outline:hover{background:rgba(255,215,0,0.1)}
+.btn-red{background:rgba(248,81,73,0.15);border:1px solid rgba(248,81,73,0.3);color:var(--red)}
+.btn-sm{padding:0.4rem 0.8rem;font-size:0.75rem}
+.btn-row{display:flex;gap:0.5rem;flex-wrap:wrap}
+.env-tabs{display:flex;gap:0.25rem;margin-bottom:1rem;flex-wrap:wrap}
+.env-tab{padding:0.5rem 1rem;border-radius:8px 8px 0 0;font-size:0.8rem;font-weight:700;cursor:pointer;border:1px solid var(--border);border-bottom:none;background:transparent;color:var(--text-dim);transition:all 0.2s}
+.env-tab.active{background:rgba(255,215,0,0.1);border-color:var(--gold-border);color:var(--gold)}
+.env-tab:hover:not(.active){background:rgba(255,215,0,0.05)}
+.var-row{display:grid;grid-template-columns:auto 1fr 1fr auto auto;gap:0.5rem;align-items:center;padding:0.5rem 0;border-bottom:1px solid rgba(48,54,61,0.3);font-size:0.85rem}
+.var-row:last-child{border-bottom:none}
+.var-key{font-family:'Courier New',monospace;color:var(--cyan);font-weight:700;font-size:0.8rem}
+.var-val{font-family:'Courier New',monospace;color:var(--text);font-size:0.8rem;padding:0.3rem 0.5rem;background:rgba(13,17,23,0.6);border:1px solid var(--border);border-radius:4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.var-val.masked{color:var(--text-dim);letter-spacing:2px}
+.var-group-label{font-size:0.7rem;color:var(--orange);font-weight:700;text-transform:uppercase;letter-spacing:0.5px;padding:0.3rem 0.6rem;background:rgba(255,140,0,0.1);border-radius:4px;display:inline-block}
+.group-header{padding:0.8rem 0 0.3rem;font-size:0.8rem;font-weight:700;color:var(--gold);border-bottom:1px solid var(--gold-border);margin-bottom:0.5rem;margin-top:0.5rem}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:0.75rem;margin-bottom:1rem}
+.stat-box{background:rgba(13,17,23,0.6);border:1px solid var(--border);border-radius:8px;padding:0.75rem;text-align:center}
+.stat-box .num{font-size:1.5rem;font-weight:800;color:var(--gold)}
+.stat-box .label{font-size:0.65rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.5px}
+.md-output{background:#161b22;border:1px solid var(--border);border-radius:8px;padding:1rem;font-family:'Courier New',monospace;font-size:0.8rem;line-height:1.5;overflow:auto;white-space:pre-wrap;max-height:400px;position:relative}
+.md-output .copy-btn{position:absolute;top:0.5rem;right:0.5rem;padding:0.3rem 0.6rem;background:rgba(255,215,0,0.15);border:1px solid var(--gold-border);border-radius:6px;color:var(--gold);font-size:0.65rem;cursor:pointer;font-weight:700}
+.diff-added{color:var(--cyan)}.diff-removed{color:var(--red)}.diff-changed{color:var(--gold)}
+.share-cta{background:linear-gradient(135deg,rgba(255,215,0,0.08),rgba(255,140,0,0.05));border:1px solid var(--gold-border);border-radius:16px;padding:2rem;text-align:center;margin-top:2rem}
+.share-cta h3{color:var(--gold);margin-bottom:0.5rem}.share-cta p{color:var(--text-dim);font-size:0.9rem;margin-bottom:1rem}
+.share-btns{display:flex;gap:0.6rem;justify-content:center;flex-wrap:wrap}
+.share-btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;color:#fff}
+.share-x{background:#000;border:1px solid #333}.share-reddit{background:#ff4500}.share-email{background:#21262d;border:1px solid #30363d}
+.footer{text-align:center;padding:2rem;border-top:1px solid rgba(255,215,0,0.1);color:var(--text-dim);font-size:0.75rem;margin-top:3rem}
+.footer a{color:var(--gold)}.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-bottom:1rem}
+.watermark{position:fixed;bottom:10px;right:10px;font-size:0.6rem;color:rgba(255,215,0,0.08);font-weight:800;pointer-events:none;z-index:9999;letter-spacing:1px;text-transform:uppercase}
+.encrypt-indicator{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:4px;font-size:0.7rem;font-weight:700}
+.encrypt-on{background:rgba(57,211,83,0.15);color:var(--cyan)}
+.encrypt-off{background:rgba(248,81,73,0.15);color:var(--red)}
+.import-zone{border:2px dashed var(--border);border-radius:12px;padding:2rem;text-align:center;cursor:pointer;transition:all 0.2s;margin-bottom:1rem}
+.import-zone:hover,.import-zone.dragover{border-color:var(--gold);background:rgba(255,215,0,0.05)}
+.import-zone p{color:var(--text-dim);font-size:0.85rem}
+@media(max-width:768px){.main{padding:1rem}.hero-section h1{font-size:1.6rem}.nav-links{display:none}.form-row{grid-template-columns:1fr}.var-row{grid-template-columns:1fr;gap:0.25rem}}
+</style>
+</head>
+<body>
+<div class="bg-mesh"></div><div class="bg-grid"></div>
+<div class="lock-gate" id="lockGate"><div class="lock-icon-big">&#128274;</div><h2>Enter Code <span>SPUNK</span> to Unlock</h2><p>This exclusive premium tool requires the SPUNK referral code.</p><div class="code-input-wrap"><input type="text" class="code-input" id="codeInput" placeholder="CODE" maxlength="10" autocomplete="off"><button class="code-submit" onclick="submitCode()">Unlock</button></div><div class="code-error" id="codeError"></div><div class="lock-hint">Get the code at <a href="https://spunk.codes/exclusive-tools">spunk.codes/exclusive-tools</a></div></div>
+<nav class="nav"><a href="https://spunk.codes" class="nav-brand">SPUNK.CODES</a><div class="nav-links"><a href="/store">Tools</a><a href="/exclusive-tools" class="active">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a></div></nav>
+
+<div class="main">
+  <section class="hero-section">
+    <div class="exclusive-badge">&#128081; EXCLUSIVE TOOL</div>
+    <h1><span class="gold">.ENV File</span> Manager</h1>
+    <p>Edit, encrypt, group, and switch between environment configurations. Export to any format with one click.</p>
+  </section>
+
+  <div class="card">
+    <h2>&#128196; Import / Create Environment</h2>
+    <div class="import-zone" id="importZone">
+      <p>&#128229; Drop a .env file here or click to paste</p>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Environment Name</label><input type="text" id="envName" placeholder="development"></div>
+      <div class="form-group"><label>Base Template</label>
+        <select id="envTemplate">
+          <option value="">Blank</option>
+          <option value="node">Node.js</option>
+          <option value="react">React / Vite</option>
+          <option value="django">Django</option>
+          <option value="rails">Rails</option>
+          <option value="laravel">Laravel</option>
+        </select>
+      </div>
+      <div class="form-group" style="justify-content:flex-end"><button class="btn btn-gold btn-sm" onclick="createEnvironment()">Create Env</button></div>
+    </div>
+    <div class="form-group" style="margin-top:0.5rem"><label>Paste .env Content</label><textarea id="envPaste" placeholder="DB_HOST=localhost&#10;DB_PORT=5432&#10;SECRET_KEY=mykey123" rows="4" style="font-family:'Courier New',monospace;font-size:0.8rem"></textarea></div>
+    <button class="btn btn-outline btn-sm" style="margin-top:0.5rem" onclick="parseEnvContent()">Parse & Import</button>
+  </div>
+
+  <div class="card">
+    <h2>&#127760; Environments</h2>
+    <div class="env-tabs" id="envTabs"></div>
+    <div class="stats-grid" id="envStats"></div>
+    <div id="envVariables"></div>
+  </div>
+
+  <div class="card">
+    <h2>&#10010; Add Variable</h2>
+    <div class="form-row">
+      <div class="form-group"><label>Key</label><input type="text" id="varKey" placeholder="DATABASE_URL" style="font-family:'Courier New',monospace;text-transform:uppercase"></div>
+      <div class="form-group"><label>Value</label><input type="text" id="varValue" placeholder="postgres://localhost:5432/mydb" style="font-family:'Courier New',monospace"></div>
+      <div class="form-group"><label>Group</label>
+        <select id="varGroup">
+          <option value="general">General</option>
+          <option value="database">Database</option>
+          <option value="auth">Authentication</option>
+          <option value="api">API Keys</option>
+          <option value="email">Email / SMTP</option>
+          <option value="storage">Storage / CDN</option>
+          <option value="monitoring">Monitoring</option>
+          <option value="feature">Feature Flags</option>
+          <option value="custom">Custom</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Sensitive?</label>
+        <select id="varSensitive">
+          <option value="false">No</option>
+          <option value="true">Yes (will mask)</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Comment</label><input type="text" id="varComment" placeholder="Optional description"></div>
+      <div class="form-group" style="justify-content:flex-end"><button class="btn btn-gold" onclick="addVariable()">Add Variable</button></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>&#128272; Encryption</h2>
+    <div class="form-row">
+      <div class="form-group"><label>Encryption Password</label><input type="password" id="encryptPass" placeholder="Strong password"></div>
+      <div class="form-group" style="justify-content:flex-end;gap:0.5rem;flex-direction:row;align-items:flex-end">
+        <button class="btn btn-gold btn-sm" onclick="encryptEnv()">Encrypt All Sensitive</button>
+        <button class="btn btn-outline btn-sm" onclick="decryptEnv()">Decrypt All</button>
+      </div>
+    </div>
+    <p style="font-size:0.75rem;color:var(--text-dim);margin-top:0.5rem">Uses AES-256 via Web Crypto API. Encryption happens entirely in your browser.</p>
+  </div>
+
+  <div class="card">
+    <h2>&#128194; Compare Environments</h2>
+    <div class="form-row">
+      <div class="form-group"><label>Compare</label><select id="diffFrom"></select></div>
+      <div class="form-group"><label>With</label><select id="diffTo"></select></div>
+      <div class="form-group" style="justify-content:flex-end"><button class="btn btn-gold btn-sm" onclick="compareEnvs()">Compare</button></div>
+    </div>
+    <div class="md-output" id="diffOutput" style="display:none"></div>
+  </div>
+
+  <div class="card">
+    <h2>&#128230; Export</h2>
+    <div class="btn-row">
+      <button class="btn btn-gold btn-sm" onclick="exportAs('env')">.env File</button>
+      <button class="btn btn-outline btn-sm" onclick="exportAs('json')">JSON</button>
+      <button class="btn btn-outline btn-sm" onclick="exportAs('yaml')">YAML</button>
+      <button class="btn btn-outline btn-sm" onclick="exportAs('toml')">TOML</button>
+      <button class="btn btn-outline btn-sm" onclick="exportAs('docker')">Docker Compose</button>
+      <button class="btn btn-outline btn-sm" onclick="exportAs('shell')">Shell Export</button>
+      <button class="btn btn-outline btn-sm" onclick="exportAs('dotenv-vault')">.env.vault</button>
+    </div>
+    <div class="md-output" id="exportOutput" style="margin-top:1rem"><button class="copy-btn" onclick="copyExport()">Copy</button>Select an export format above</div>
+  </div>
+
+  <div class="share-cta">
+    <h3>&#128275; Share the Code, Unlock More Tools</h3>
+    <p>Share code SPUNK to help others access 15+ exclusive premium tools.</p>
+    <div class="share-btns">
+      <button class="share-btn share-x" onclick="shareX()">&#120143; Share on X</button>
+      <button class="share-btn share-reddit" onclick="shareReddit()">&#128172; Reddit</button>
+      <button class="share-btn share-email" onclick="shareEmail()">&#9993; Email</button>
+    </div>
+  </div>
+</div>
+
+<footer class="footer"><div class="footer-links"><a href="https://spunk.codes">Home</a><a href="/store">Tools</a><a href="/exclusive-tools">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a><a href="https://twitter.com/SpunkArt13" target="_blank">@SpunkArt13</a></div><div>&copy; 2026 SPUNK.CODES EXCLUSIVE.</div></footer>
+<div class="watermark">SPUNK.CODES EXCLUSIVE</div>
+
+<script>
+document.addEventListener('contextmenu',function(e){e.preventDefault()});
+document.addEventListener('keydown',function(e){if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'||e.key==='C'))||(e.ctrlKey&&e.key==='u'))e.preventDefault()});
+function checkCode(){try{var c=localStorage.getItem('spunk_referral_code')||localStorage.getItem('spunk_ref_code')||'';if(c.toUpperCase()==='SPUNK'){document.getElementById('lockGate').classList.add('hidden');return true}}catch(e){}return false}
+function submitCode(){var v=document.getElementById('codeInput').value.trim().toUpperCase();if(v==='SPUNK'){try{localStorage.setItem('spunk_referral_code','SPUNK');localStorage.setItem('spunk_ref_code','SPUNK')}catch(e){}document.getElementById('lockGate').classList.add('hidden')}else{document.getElementById('codeError').textContent='Invalid code. Try: SPUNK';setTimeout(function(){document.getElementById('codeError').textContent=''},2000)}}
+document.getElementById('codeInput').addEventListener('keydown',function(e){if(e.key==='Enter')submitCode()});
+checkCode();
+
+/* ── State ── */
+var environments = {};
+var activeEnv = '';
+var STORAGE_KEY = 'env_manager_data';
+
+var TEMPLATES = {
+  node: 'NODE_ENV=development\nPORT=3000\nDATABASE_URL=postgres://localhost:5432/mydb\nREDIS_URL=redis://localhost:6379\nJWT_SECRET=changeme\nSESSION_SECRET=changeme\nLOG_LEVEL=debug\nCORS_ORIGIN=http://localhost:3000',
+  react: 'VITE_API_URL=http://localhost:3000/api\nVITE_APP_TITLE=My App\nVITE_PUBLIC_URL=http://localhost:5173\nVITE_SENTRY_DSN=\nVITE_GA_ID=\nVITE_ENABLE_ANALYTICS=false',
+  django: 'DEBUG=True\nSECRET_KEY=django-insecure-changeme\nDATABASE_URL=postgres://localhost:5432/django_db\nALLOWED_HOSTS=localhost,127.0.0.1\nREDIS_URL=redis://localhost:6379/0\nEMAIL_BACKEND=django.core.mail.backends.console.EmailBackend\nSTATIC_URL=/static/\nMEDIA_URL=/media/',
+  rails: 'RAILS_ENV=development\nSECRET_KEY_BASE=changeme\nDATABASE_URL=postgres://localhost:5432/rails_dev\nREDIS_URL=redis://localhost:6379/0\nRAILS_LOG_LEVEL=debug\nRAILS_SERVE_STATIC_FILES=true\nSMTP_ADDRESS=smtp.gmail.com\nSMTP_PORT=587',
+  laravel: 'APP_NAME=Laravel\nAPP_ENV=local\nAPP_KEY=base64:changeme\nAPP_DEBUG=true\nAPP_URL=http://localhost\nDB_CONNECTION=mysql\nDB_HOST=127.0.0.1\nDB_PORT=3306\nDB_DATABASE=laravel\nDB_USERNAME=root\nDB_PASSWORD=\nMAIL_MAILER=smtp\nMAIL_HOST=mailpit\nMAIL_PORT=1025'
+};
+
+var GROUP_ICONS = {general:'&#9881;',database:'&#128451;',auth:'&#128274;',api:'&#128279;',email:'&#9993;',storage:'&#128230;',monitoring:'&#128200;',feature:'&#127987;',custom:'&#128204;'};
+
+function loadState(){try{var d=JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}');if(d.environments)environments=d.environments;if(d.activeEnv)activeEnv=d.activeEnv}catch(e){}}
+function saveState(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify({environments:environments,activeEnv:activeEnv}))}catch(e){}}
+
+function autoDetectGroup(key){
+  var k=key.toUpperCase();
+  if(/^(DB_|DATABASE|MONGO|MYSQL|POSTGRES|REDIS|PG_)/.test(k))return'database';
+  if(/^(JWT|AUTH|SECRET|SESSION|PASSWORD|TOKEN|OAUTH|SSO)/.test(k))return'auth';
+  if(/^(API_|STRIPE|TWILIO|SENDGRID|AWS_|AZURE_|GCP_)/.test(k))return'api';
+  if(/^(SMTP|MAIL|EMAIL|SES_)/.test(k))return'email';
+  if(/^(S3_|STORAGE|CDN|CLOUDINARY|BUCKET|UPLOAD)/.test(k))return'storage';
+  if(/^(SENTRY|DATADOG|LOG|NEWRELIC|MONITOR)/.test(k))return'monitoring';
+  if(/^(FEATURE_|FLAG_|ENABLE_|DISABLE_)/.test(k))return'feature';
+  return'general';
+}
+
+function isSensitiveKey(key){
+  var k=key.toUpperCase();
+  return/SECRET|PASSWORD|KEY|TOKEN|PRIVATE|CREDENTIAL|DSN/.test(k);
+}
+
+function parseEnvString(str){
+  var vars=[];
+  str.split('\n').forEach(function(line){
+    line=line.trim();
+    if(!line||line.startsWith('#'))return;
+    var eq=line.indexOf('=');
+    if(eq===-1)return;
+    var key=line.substring(0,eq).trim();
+    var val=line.substring(eq+1).trim();
+    if((val.startsWith('"')&&val.endsWith('"'))||(val.startsWith("'")&&val.endsWith("'")))val=val.slice(1,-1);
+    vars.push({key:key,value:val,group:autoDetectGroup(key),sensitive:isSensitiveKey(key),comment:'',encrypted:false});
+  });
+  return vars;
+}
+
+function createEnvironment(){
+  var name=document.getElementById('envName').value.trim().toLowerCase()||'development';
+  var tpl=document.getElementById('envTemplate').value;
+  var vars=[];
+  if(tpl&&TEMPLATES[tpl])vars=parseEnvString(TEMPLATES[tpl]);
+  environments[name]={variables:vars,created:new Date().toISOString()};
+  activeEnv=name;
+  saveState();render();
+  document.getElementById('envName').value='';
+}
+
+function parseEnvContent(){
+  var content=document.getElementById('envPaste').value.trim();
+  if(!content){alert('Paste .env content first');return}
+  var name=document.getElementById('envName').value.trim().toLowerCase()||'imported';
+  var vars=parseEnvString(content);
+  environments[name]={variables:vars,created:new Date().toISOString()};
+  activeEnv=name;
+  document.getElementById('envPaste').value='';
+  saveState();render();
+}
+
+function switchEnv(name){activeEnv=name;saveState();render()}
+
+function addVariable(){
+  if(!activeEnv){alert('Create an environment first');return}
+  var key=document.getElementById('varKey').value.trim().toUpperCase();
+  var val=document.getElementById('varValue').value;
+  var group=document.getElementById('varGroup').value;
+  var sensitive=document.getElementById('varSensitive').value==='true';
+  var comment=document.getElementById('varComment').value.trim();
+  if(!key){alert('Enter a variable key');return}
+  var env=environments[activeEnv];
+  var existing=env.variables.findIndex(function(v){return v.key===key});
+  if(existing>-1){env.variables[existing]={key:key,value:val,group:group,sensitive:sensitive,comment:comment,encrypted:false}}
+  else{env.variables.push({key:key,value:val,group:group,sensitive:sensitive,comment:comment,encrypted:false})}
+  document.getElementById('varKey').value='';
+  document.getElementById('varValue').value='';
+  document.getElementById('varComment').value='';
+  saveState();render();
+}
+
+function deleteVariable(key){
+  if(!activeEnv)return;
+  environments[activeEnv].variables=environments[activeEnv].variables.filter(function(v){return v.key!==key});
+  saveState();render();
+}
+
+function deleteEnvironment(name){
+  if(!confirm('Delete environment "'+name+'"?'))return;
+  delete environments[name];
+  if(activeEnv===name){var keys=Object.keys(environments);activeEnv=keys.length?keys[0]:''}
+  saveState();render();
+}
+
+function duplicateEnv(){
+  if(!activeEnv)return;
+  var newName=prompt('New environment name:','staging');
+  if(!newName)return;
+  newName=newName.toLowerCase().trim();
+  environments[newName]={variables:JSON.parse(JSON.stringify(environments[activeEnv].variables)),created:new Date().toISOString()};
+  activeEnv=newName;
+  saveState();render();
+}
+
+function toggleMask(key){
+  var el=document.getElementById('val-'+key);
+  if(el.classList.contains('masked')){
+    var v=environments[activeEnv].variables.find(function(x){return x.key===key});
+    el.textContent=v?v.value:'';
+    el.classList.remove('masked');
+  }else{
+    el.textContent='*'.repeat(12);
+    el.classList.add('masked');
+  }
+}
+
+/* ── Encryption (AES-GCM via Web Crypto) ── */
+async function deriveKey(password,salt){
+  var enc=new TextEncoder();
+  var keyMaterial=await crypto.subtle.importKey('raw',enc.encode(password),{name:'PBKDF2'},false,['deriveKey']);
+  return crypto.subtle.deriveKey({name:'PBKDF2',salt:salt,iterations:100000,hash:'SHA-256'},keyMaterial,{name:'AES-GCM',length:256},false,['encrypt','decrypt']);
+}
+
+async function encryptValue(value,password){
+  var enc=new TextEncoder();
+  var salt=crypto.getRandomValues(new Uint8Array(16));
+  var iv=crypto.getRandomValues(new Uint8Array(12));
+  var key=await deriveKey(password,salt);
+  var encrypted=await crypto.subtle.encrypt({name:'AES-GCM',iv:iv},key,enc.encode(value));
+  var combined=new Uint8Array(salt.length+iv.length+new Uint8Array(encrypted).length);
+  combined.set(salt,0);combined.set(iv,salt.length);combined.set(new Uint8Array(encrypted),salt.length+iv.length);
+  return btoa(String.fromCharCode.apply(null,combined));
+}
+
+async function decryptValue(encryptedB64,password){
+  var data=Uint8Array.from(atob(encryptedB64),function(c){return c.charCodeAt(0)});
+  var salt=data.slice(0,16);var iv=data.slice(16,28);var ciphertext=data.slice(28);
+  var key=await deriveKey(password,salt);
+  var dec=new TextDecoder();
+  var decrypted=await crypto.subtle.decrypt({name:'AES-GCM',iv:iv},key,ciphertext);
+  return dec.decode(decrypted);
+}
+
+async function encryptEnv(){
+  var pass=document.getElementById('encryptPass').value;
+  if(!pass){alert('Enter an encryption password');return}
+  if(!activeEnv)return;
+  var vars=environments[activeEnv].variables;
+  for(var i=0;i<vars.length;i++){
+    if(vars[i].sensitive&&!vars[i].encrypted){
+      vars[i].value=await encryptValue(vars[i].value,pass);
+      vars[i].encrypted=true;
+    }
+  }
+  saveState();render();
+  alert('Sensitive variables encrypted!');
+}
+
+async function decryptEnv(){
+  var pass=document.getElementById('encryptPass').value;
+  if(!pass){alert('Enter the encryption password');return}
+  if(!activeEnv)return;
+  var vars=environments[activeEnv].variables;
+  try{
+    for(var i=0;i<vars.length;i++){
+      if(vars[i].encrypted){
+        vars[i].value=await decryptValue(vars[i].value,pass);
+        vars[i].encrypted=false;
+      }
+    }
+    saveState();render();
+    alert('Variables decrypted!');
+  }catch(e){alert('Decryption failed. Wrong password?')}
+}
+
+/* ── Compare ── */
+function compareEnvs(){
+  var from=document.getElementById('diffFrom').value;
+  var to=document.getElementById('diffTo').value;
+  if(!from||!to||from===to){alert('Select two different environments');return}
+  var envA=environments[from]?environments[from].variables:[];
+  var envB=environments[to]?environments[to].variables:[];
+  var mapA={},mapB={};
+  envA.forEach(function(v){mapA[v.key]=v.value});
+  envB.forEach(function(v){mapB[v.key]=v.value});
+  var allKeys=new Set(Object.keys(mapA).concat(Object.keys(mapB)));
+  var lines=['# Environment Diff: '+from+' vs '+to,'# Generated by SPUNK.CODES ENV File Manager',''];
+  allKeys.forEach(function(k){
+    if(!(k in mapA)){lines.push('<span class="diff-added">+ '+k+'='+escHtml(mapB[k])+' (only in '+to+')</span>')}
+    else if(!(k in mapB)){lines.push('<span class="diff-removed">- '+k+'='+escHtml(mapA[k])+' (only in '+from+')</span>')}
+    else if(mapA[k]!==mapB[k]){lines.push('<span class="diff-changed">~ '+k+'</span>');lines.push('<span class="diff-removed">  - '+escHtml(mapA[k])+'</span>');lines.push('<span class="diff-added">  + '+escHtml(mapB[k])+'</span>')}
+    else{lines.push('  '+k+'='+escHtml(mapA[k]))}
+  });
+  var el=document.getElementById('diffOutput');
+  el.innerHTML=lines.join('\n');
+  el.style.display='block';
+}
+
+/* ── Export ── */
+function exportAs(fmt){
+  if(!activeEnv||!environments[activeEnv]){alert('No environment selected');return}
+  var vars=environments[activeEnv].variables;
+  var output='';
+  if(fmt==='env'){
+    var groups={};
+    vars.forEach(function(v){if(!groups[v.group])groups[v.group]=[];groups[v.group].push(v)});
+    Object.keys(groups).sort().forEach(function(g){
+      output+='# '+g.toUpperCase()+'\n';
+      groups[g].forEach(function(v){
+        if(v.comment)output+='# '+v.comment+'\n';
+        var val=v.value;
+        if(val.indexOf(' ')>-1||val.indexOf('#')>-1)val='"'+val+'"';
+        output+=v.key+'='+val+'\n';
+      });
+      output+='\n';
+    });
+  }else if(fmt==='json'){
+    var obj={};vars.forEach(function(v){obj[v.key]=v.value});
+    output=JSON.stringify(obj,null,2);
+  }else if(fmt==='yaml'){
+    output='# Environment: '+activeEnv+'\n';
+    vars.forEach(function(v){
+      if(v.comment)output+='# '+v.comment+'\n';
+      var val=v.value;
+      if(val===''||val==='true'||val==='false'||val==='null'||!isNaN(val))val='"'+val+'"';
+      else if(val.indexOf(':')>-1||val.indexOf('#')>-1||val.indexOf('{')>-1)val='"'+val+'"';
+      output+=v.key+': '+val+'\n';
+    });
+  }else if(fmt==='toml'){
+    output='# Environment: '+activeEnv+'\n\n[env]\n';
+    vars.forEach(function(v){
+      if(v.comment)output+='# '+v.comment+'\n';
+      output+=v.key+' = "'+v.value.replace(/"/g,'\\"')+'"\n';
+    });
+  }else if(fmt==='docker'){
+    output='# docker-compose.yml environment section\nenvironment:\n';
+    vars.forEach(function(v){
+      output+='  - '+v.key+'='+v.value+'\n';
+    });
+  }else if(fmt==='shell'){
+    output='#!/bin/bash\n# Export environment: '+activeEnv+'\n\n';
+    vars.forEach(function(v){
+      output+='export '+v.key+'="'+v.value.replace(/"/g,'\\"')+'"\n';
+    });
+  }else if(fmt==='dotenv-vault'){
+    output='#/-------------------[DOTENV_PUBLIC_KEY]--------------------/\n';
+    output+='#/            public-key (generated placeholder)           /\n';
+    output+='#/----------------------------------------------------------/\n';
+    output+='DOTENV_VAULT_'+activeEnv.toUpperCase()+'=encrypted_placeholder\n\n';
+    output+='# Actual variables:\n';
+    vars.forEach(function(v){output+=v.key+'='+v.value+'\n'});
+  }
+  document.getElementById('exportOutput').innerHTML='<button class="copy-btn" onclick="copyExport()">Copy</button>'+escHtml(output);
+}
+
+function copyExport(){
+  var text=document.getElementById('exportOutput').textContent;
+  navigator.clipboard.writeText(text).then(function(){alert('Copied!')});
+}
+
+function downloadExport(){
+  var text=document.getElementById('exportOutput').textContent;
+  var blob=new Blob([text],{type:'text/plain'});
+  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='.env.'+activeEnv;a.click();
+}
+
+/* ── Render ── */
+function render(){
+  // Tabs
+  var tabsHtml='';
+  Object.keys(environments).forEach(function(name){
+    tabsHtml+='<button class="env-tab'+(name===activeEnv?' active':'')+'" onclick="switchEnv(\''+name+'\')">'+escHtml(name)+'</button>';
+  });
+  if(activeEnv){
+    tabsHtml+='<button class="env-tab" onclick="duplicateEnv()" title="Duplicate">&#128203; Clone</button>';
+    tabsHtml+='<button class="env-tab" style="color:var(--red)" onclick="deleteEnvironment(\''+activeEnv+'\')" title="Delete">&#128465;</button>';
+  }
+  document.getElementById('envTabs').innerHTML=tabsHtml;
+
+  // Stats
+  if(activeEnv&&environments[activeEnv]){
+    var vars=environments[activeEnv].variables;
+    var sensitiveCount=vars.filter(function(v){return v.sensitive}).length;
+    var encryptedCount=vars.filter(function(v){return v.encrypted}).length;
+    var groups=new Set(vars.map(function(v){return v.group}));
+    document.getElementById('envStats').innerHTML=
+      '<div class="stat-box"><div class="num">'+vars.length+'</div><div class="label">Variables</div></div>'+
+      '<div class="stat-box"><div class="num">'+sensitiveCount+'</div><div class="label">Sensitive</div></div>'+
+      '<div class="stat-box"><div class="num">'+encryptedCount+'</div><div class="label">Encrypted</div></div>'+
+      '<div class="stat-box"><div class="num">'+groups.size+'</div><div class="label">Groups</div></div>';
+  }else{document.getElementById('envStats').innerHTML=''}
+
+  // Variables
+  if(activeEnv&&environments[activeEnv]){
+    var vars=environments[activeEnv].variables;
+    if(vars.length===0){
+      document.getElementById('envVariables').innerHTML='<p style="color:var(--text-dim);font-size:0.85rem">No variables yet. Add your first variable above.</p>';
+    }else{
+      var grouped={};
+      vars.forEach(function(v){if(!grouped[v.group])grouped[v.group]=[];grouped[v.group].push(v)});
+      var html='';
+      Object.keys(grouped).sort().forEach(function(g){
+        html+='<div class="group-header">'+(GROUP_ICONS[g]||'&#9881;')+' '+g.toUpperCase()+'</div>';
+        grouped[g].forEach(function(v){
+          var displayVal=v.sensitive&&!v.encrypted?'*'.repeat(Math.min(v.value.length,12)):v.value;
+          var encBadge=v.encrypted?'<span class="encrypt-indicator encrypt-on">&#128274; ENC</span>':'';
+          html+='<div class="var-row">'+
+            '<span class="var-key">'+escHtml(v.key)+'</span>'+
+            '<span class="var-val'+(v.sensitive&&!v.encrypted?' masked':'')+'" id="val-'+v.key+'">'+escHtml(v.encrypted?v.value.substring(0,20)+'...':displayVal)+'</span>'+
+            encBadge+
+            (v.sensitive?'<button class="btn btn-outline btn-sm" onclick="toggleMask(\''+v.key+'\')" style="padding:0.2rem 0.5rem;font-size:0.65rem">&#128065;</button>':'<span></span>')+
+            '<button class="btn btn-red btn-sm" onclick="deleteVariable(\''+escHtml(v.key)+'\')" style="padding:0.2rem 0.5rem;font-size:0.65rem">X</button>'+
+          '</div>';
+        });
+      });
+      document.getElementById('envVariables').innerHTML=html;
+    }
+  }else{document.getElementById('envVariables').innerHTML='<p style="color:var(--text-dim);font-size:0.85rem">Create or import an environment to get started.</p>'}
+
+  // Diff selects
+  var envKeys=Object.keys(environments);
+  var opts=envKeys.map(function(k){return'<option value="'+k+'">'+escHtml(k)+'</option>'}).join('');
+  document.getElementById('diffFrom').innerHTML=opts;
+  document.getElementById('diffTo').innerHTML=opts;
+}
+
+function escHtml(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+
+/* ── Drag & Drop ── */
+var zone=document.getElementById('importZone');
+zone.addEventListener('dragover',function(e){e.preventDefault();zone.classList.add('dragover')});
+zone.addEventListener('dragleave',function(){zone.classList.remove('dragover')});
+zone.addEventListener('drop',function(e){
+  e.preventDefault();zone.classList.remove('dragover');
+  var file=e.dataTransfer.files[0];
+  if(!file)return;
+  var reader=new FileReader();
+  reader.onload=function(ev){
+    document.getElementById('envPaste').value=ev.target.result;
+    var name=file.name.replace(/^\.env\.?/,'').replace(/\.env$/,'')||'imported';
+    document.getElementById('envName').value=name||'imported';
+  };
+  reader.readAsText(file);
+});
+zone.addEventListener('click',function(){document.getElementById('envPaste').focus()});
+
+/* ── Init ── */
+loadState();
+render();
+
+function shareX(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Managing .env files like a pro with this tool. Code SPUNK @SpunkArt13')+'&url='+encodeURIComponent('https://spunk.codes/exclusive-tools'),'_blank')}
+function shareReddit(){window.open('https://www.reddit.com/submit?url='+encodeURIComponent('https://spunk.codes/exclusive-tools')+'&title='+encodeURIComponent('ENV File Manager - free with code SPUNK [spunk.codes]'),'_blank')}
+function shareEmail(){window.location.href='mailto:?subject='+encodeURIComponent('ENV File Manager Tool')+'&body='+encodeURIComponent('Manage .env files with encryption and export. Code SPUNK: https://spunk.codes/exclusive-tools')}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<script src="/auto-monetize.js"></script>
+<div id="shareXBtn" style="position:fixed;left:20px;bottom:20px;z-index:9999;">
+  <a id="shareXLink" href="#" target="_blank" rel="noopener noreferrer" title="Share on X"
+     style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;
+     background:rgba(88,166,255,0.15);border:1px solid rgba(88,166,255,0.3);
+     backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:50%;
+     text-decoration:none;transition:all 0.3s ease;cursor:pointer;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+    </svg>
+  </a>
+</div>
+<style>
+  #shareXBtn a:hover {
+    background: rgba(88,166,255,0.35) !important;
+    border-color: rgba(88,166,255,0.6) !important;
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(88,166,255,0.3);
+  }
+</style>
+<script>
+(function(){
+  var page = location.pathname.split("/").pop() || "index.html";
+  var url = "https://spunk.codes/" + page;
+  var text = "Just used this free tool on spunk.codes — amazing! @SpunkArt13";
+  var href = "https://x.com/intent/tweet?text=" + encodeURIComponent(text) + "&url=" + encodeURIComponent(url);
+  document.getElementById("shareXLink").href = href;
+})();
+</script>
+<script src="/cross-promo.js"></script>
+<script src="/usage-tracker.js"></script>
+</body>
+</html>
