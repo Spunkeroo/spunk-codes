@@ -1,0 +1,1933 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Creator Dashboard | Manage Profile, Referrals & Free Tools | SPUNK.CODES</title>
+  <meta name="description" content="Your all-in-one creator dashboard. Manage your profile, track trust score, earn referral commissions, access free tools, ebooks, and community features. No gatekeeping.">
+  <meta name="keywords" content="creator dashboard, trust score, referral earnings, free tools, ebooks, creator profile, SPUNK codes, developer tools, no signup tools">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="author" content="SPUNK.CODES">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Creator Dashboard | SPUNK.CODES">
+  <meta property="og:description" content="Your all-in-one creator hub. Track trust score, earn referral commissions, access 200+ free tools and 22 ebooks. Zero gatekeeping.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://spunk.codes/creator-dashboard">
+  <meta property="og:site_name" content="SPUNK.CODES">
+  <meta property="og:image" content="https://spunk.codes/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@SpunkArt13">
+  <meta name="twitter:creator" content="@SpunkArt13">
+  <meta name="twitter:title" content="Creator Dashboard | SPUNK.CODES">
+  <meta name="twitter:description" content="Manage your creator profile, track referral earnings, and access 200+ free tools. No gatekeeping.">
+  <meta name="twitter:image" content="https://spunk.codes/og-image.png">
+
+  <link rel="canonical" href="https://spunk.codes/creator-dashboard">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+  <!-- Schema.org -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Creator Dashboard",
+    "description": "All-in-one creator dashboard for managing profiles, referrals, trust scores, and accessing free tools.",
+    "url": "https://spunk.codes/creator-dashboard",
+    "publisher": {
+      "@type": "Organization",
+      "name": "SPUNK.CODES",
+      "url": "https://spunk.codes/"
+    }
+  }
+  </script>
+
+  <!-- GA4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+  <!-- Microsoft Clarity -->
+  <script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg-deep: #0d1117;
+      --bg-card: #161b22;
+      --bg-card-hover: #1c2129;
+      --bg-input: rgba(13, 17, 23, 0.8);
+      --border: rgba(48, 54, 61, 0.6);
+      --border-light: rgba(48, 54, 61, 0.3);
+      --border-hover: rgba(88, 166, 255, 0.4);
+      --text-primary: #e6edf3;
+      --text-secondary: #8b949e;
+      --text-muted: #484f58;
+      --accent-blue: #58a6ff;
+      --accent-green: #39d353;
+      --accent-purple: #bc8cff;
+      --accent-orange: #ffa657;
+      --accent-red: #ff7b72;
+      --accent-yellow: #d29922;
+      --gradient-blue: linear-gradient(135deg, #58a6ff, #39d353);
+      --gradient-premium: linear-gradient(135deg, #bc8cff, #58a6ff, #39d353);
+      --gradient-green: linear-gradient(135deg, #39d353, #2ea043);
+      --glass-bg: rgba(22, 27, 34, 0.7);
+      --glass-border: rgba(48, 54, 61, 0.5);
+      --radius: 14px;
+      --radius-sm: 8px;
+      --radius-xs: 6px;
+      --sidebar-w: 240px;
+      --font: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg-deep);
+      color: var(--text-primary);
+      line-height: 1.6;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* Background mesh */
+    .bg-mesh {
+      position: fixed; inset: 0; z-index: -1;
+      background:
+        radial-gradient(ellipse 80% 50% at 20% 20%, rgba(88, 166, 255, 0.06) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 80% 80%, rgba(57, 211, 83, 0.04) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 60% at 50% 50%, rgba(188, 140, 255, 0.03) 0%, transparent 60%),
+        var(--bg-deep);
+    }
+
+    /* ── Top Nav ── */
+    .topnav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      height: 56px;
+      background: rgba(13, 17, 23, 0.92);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border-light);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 1.25rem;
+    }
+
+    .topnav-brand {
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+
+    .topnav-logo {
+      font-size: 1rem; font-weight: 800;
+      background: var(--gradient-blue);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      letter-spacing: -0.02em;
+    }
+
+    .topnav-divider {
+      width: 1px; height: 20px; background: var(--border);
+    }
+
+    .topnav-title {
+      font-size: 0.85rem; font-weight: 600; color: var(--text-secondary);
+    }
+
+    .topnav-actions {
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+
+    .topnav-link {
+      color: var(--text-secondary); font-size: 0.8rem; font-weight: 500;
+      transition: color 0.2s;
+    }
+    .topnav-link:hover { color: var(--text-primary); }
+
+    .topnav-cta {
+      padding: 0.4rem 1rem;
+      background: var(--gradient-blue);
+      color: var(--bg-deep);
+      border: none; border-radius: 20px;
+      font-size: 0.78rem; font-weight: 700;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .topnav-cta:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(88,166,255,0.3); }
+
+    .hamburger {
+      display: none;
+      background: none; border: none; color: var(--text-primary);
+      font-size: 1.5rem; cursor: pointer; padding: 0.25rem;
+    }
+
+    /* ── Sidebar ── */
+    .sidebar {
+      position: fixed; top: 56px; left: 0; bottom: 0;
+      width: var(--sidebar-w);
+      background: rgba(22, 27, 34, 0.95);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border-right: 1px solid var(--border-light);
+      padding: 1.25rem 0;
+      overflow-y: auto;
+      z-index: 150;
+      transition: transform 0.3s ease;
+    }
+
+    .sidebar-section {
+      padding: 0 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .sidebar-label {
+      font-size: 0.65rem; font-weight: 700;
+      color: var(--text-muted); letter-spacing: 1.2px;
+      text-transform: uppercase;
+      padding: 0 0.75rem; margin-bottom: 0.5rem;
+    }
+
+    .sidebar-item {
+      display: flex; align-items: center; gap: 0.65rem;
+      padding: 0.55rem 0.75rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.82rem; font-weight: 500;
+      color: var(--text-secondary);
+      cursor: pointer; transition: all 0.15s;
+      border: 1px solid transparent;
+      user-select: none;
+    }
+    .sidebar-item:hover {
+      background: rgba(88, 166, 255, 0.06);
+      color: var(--text-primary);
+    }
+    .sidebar-item.active {
+      background: rgba(88, 166, 255, 0.1);
+      color: var(--accent-blue);
+      border-color: rgba(88, 166, 255, 0.15);
+      font-weight: 600;
+    }
+
+    .sidebar-icon {
+      width: 18px; height: 18px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.95rem; flex-shrink: 0;
+    }
+
+    .sidebar-badge {
+      margin-left: auto;
+      padding: 0.1rem 0.5rem;
+      background: rgba(57, 211, 83, 0.12);
+      border: 1px solid rgba(57, 211, 83, 0.25);
+      border-radius: 10px;
+      font-size: 0.6rem; font-weight: 700;
+      color: var(--accent-green);
+    }
+
+    .sidebar-badge.purple {
+      background: rgba(188, 140, 255, 0.12);
+      border-color: rgba(188, 140, 255, 0.25);
+      color: var(--accent-purple);
+    }
+
+    /* ── Main Content ── */
+    .main {
+      margin-left: var(--sidebar-w);
+      padding: 56px 0 0;
+      min-height: 100vh;
+    }
+
+    .content {
+      padding: 2rem 2rem 4rem;
+      max-width: 960px;
+    }
+
+    /* Tab panel visibility */
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* ── Cards ── */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin-bottom: 1.25rem;
+      transition: border-color 0.2s;
+    }
+    .card:hover { border-color: var(--border-hover); }
+
+    .card-glass {
+      background: var(--glass-bg);
+      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .card-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+
+    .card-title {
+      font-size: 1rem; font-weight: 700;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+
+    .card-subtitle {
+      font-size: 0.8rem; color: var(--text-secondary);
+      margin-bottom: 1rem;
+    }
+
+    /* ── Form Elements ── */
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.78rem; font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 0.35rem;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 0.6rem 0.85rem;
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text-primary);
+      font-size: 0.85rem;
+      font-family: var(--font);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .form-input:focus { border-color: var(--accent-blue); }
+    .form-input::placeholder { color: var(--text-muted); }
+
+    .form-textarea {
+      min-height: 80px; resize: vertical;
+    }
+
+    /* ── Buttons ── */
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.55rem 1.25rem;
+      border: none; border-radius: var(--radius-sm);
+      font-size: 0.82rem; font-weight: 700;
+      font-family: var(--font);
+      cursor: pointer; transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .btn:hover { transform: translateY(-1px); }
+
+    .btn-primary {
+      background: var(--gradient-blue);
+      color: var(--bg-deep);
+    }
+    .btn-primary:hover { box-shadow: 0 4px 16px rgba(88,166,255,0.3); }
+
+    .btn-green {
+      background: var(--gradient-green);
+      color: #fff;
+    }
+    .btn-green:hover { box-shadow: 0 4px 16px rgba(57,211,83,0.3); }
+
+    .btn-purple {
+      background: linear-gradient(135deg, #bc8cff, #a371f7);
+      color: #fff;
+    }
+    .btn-purple:hover { box-shadow: 0 4px 16px rgba(188,140,255,0.3); }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-primary);
+    }
+    .btn-outline:hover { border-color: var(--accent-blue); background: rgba(88,166,255,0.06); }
+
+    .btn-sm {
+      padding: 0.4rem 0.9rem;
+      font-size: 0.75rem;
+    }
+
+    /* ── Stats Grid ── */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .stat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.1rem;
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: 1.75rem; font-weight: 800;
+      line-height: 1; margin-bottom: 0.25rem;
+    }
+    .stat-value.blue { color: var(--accent-blue); }
+    .stat-value.green { color: var(--accent-green); }
+    .stat-value.purple { color: var(--accent-purple); }
+    .stat-value.orange { color: var(--accent-orange); }
+
+    .stat-label {
+      font-size: 0.72rem; color: var(--text-secondary); font-weight: 500;
+    }
+
+    /* ── Trust Score Display ── */
+    .trust-display {
+      display: flex; align-items: center; gap: 1.5rem;
+      padding: 1.5rem;
+      background: var(--glass-bg);
+      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius);
+      margin-bottom: 1.25rem;
+    }
+
+    .trust-score-ring {
+      position: relative;
+      width: 100px; height: 100px;
+      flex-shrink: 0;
+    }
+
+    .trust-score-ring svg {
+      width: 100px; height: 100px;
+      transform: rotate(-90deg);
+    }
+
+    .trust-ring-bg {
+      fill: none; stroke: var(--border); stroke-width: 6;
+    }
+
+    .trust-ring-fill {
+      fill: none; stroke-width: 6;
+      stroke-linecap: round;
+      transition: stroke-dashoffset 1s ease;
+    }
+
+    .trust-score-num {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+    }
+
+    .trust-score-val {
+      font-size: 1.6rem; font-weight: 800; line-height: 1;
+    }
+
+    .trust-score-label {
+      font-size: 0.6rem; color: var(--text-muted); font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.5px;
+    }
+
+    .trust-info h3 {
+      font-size: 1.1rem; font-weight: 700; margin-bottom: 0.25rem;
+    }
+
+    .trust-badge-inline {
+      display: inline-flex; align-items: center; gap: 0.3rem;
+      padding: 0.2rem 0.7rem;
+      border-radius: 20px;
+      font-size: 0.65rem; font-weight: 800;
+      letter-spacing: 0.8px; text-transform: uppercase;
+    }
+
+    .trust-badge-inline.excellent {
+      background: rgba(57, 211, 83, 0.12);
+      border: 1px solid rgba(57, 211, 83, 0.3);
+      color: var(--accent-green);
+    }
+    .trust-badge-inline.good {
+      background: rgba(88, 166, 255, 0.12);
+      border: 1px solid rgba(88, 166, 255, 0.3);
+      color: var(--accent-blue);
+    }
+    .trust-badge-inline.building {
+      background: rgba(210, 153, 34, 0.12);
+      border: 1px solid rgba(210, 153, 34, 0.3);
+      color: var(--accent-yellow);
+    }
+    .trust-badge-inline.new {
+      background: rgba(139, 148, 158, 0.12);
+      border: 1px solid rgba(139, 148, 158, 0.3);
+      color: var(--text-secondary);
+    }
+
+    .trust-factors {
+      margin-top: 0.5rem;
+      font-size: 0.78rem; color: var(--text-secondary);
+    }
+    .trust-factors span { color: var(--accent-green); font-weight: 600; }
+
+    /* ── Progress Bar ── */
+    .progress-wrap { margin-bottom: 1.25rem; }
+
+    .progress-header {
+      display: flex; justify-content: space-between; align-items: baseline;
+      margin-bottom: 0.4rem;
+    }
+    .progress-current { font-size: 0.82rem; font-weight: 700; }
+    .progress-next { font-size: 0.72rem; color: var(--text-muted); }
+
+    .progress-track {
+      height: 8px;
+      background: rgba(48, 54, 61, 0.5);
+      border-radius: 10px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .progress-fill {
+      height: 100%;
+      border-radius: 10px;
+      transition: width 0.8s ease;
+    }
+    .progress-fill.blue { background: var(--gradient-blue); }
+    .progress-fill.purple { background: var(--gradient-premium); }
+
+    /* ── Tier Cards ── */
+    .tiers-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .tier-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem;
+      text-align: center;
+      transition: all 0.2s;
+      position: relative;
+    }
+    .tier-card.current {
+      border-color: var(--accent-blue);
+      box-shadow: 0 0 20px rgba(88, 166, 255, 0.1);
+    }
+    .tier-card.completed {
+      border-color: var(--accent-green);
+      opacity: 0.7;
+    }
+    .tier-card.locked { opacity: 0.5; }
+
+    .tier-name {
+      font-size: 0.85rem; font-weight: 700; margin-bottom: 0.15rem;
+    }
+    .tier-refs {
+      font-size: 0.68rem; color: var(--text-muted); margin-bottom: 0.5rem;
+    }
+    .tier-reward {
+      font-size: 0.72rem; color: var(--accent-green); font-weight: 600;
+    }
+    .tier-check {
+      position: absolute; top: 8px; right: 8px;
+      font-size: 0.8rem;
+    }
+    .tier-current-badge {
+      display: inline-block;
+      padding: 0.1rem 0.5rem;
+      background: rgba(88, 166, 255, 0.12);
+      border: 1px solid rgba(88, 166, 255, 0.3);
+      border-radius: 10px;
+      font-size: 0.55rem; font-weight: 800;
+      color: var(--accent-blue);
+      letter-spacing: 0.5px; text-transform: uppercase;
+      margin-top: 0.35rem;
+    }
+
+    /* ── Ref Link Group ── */
+    .ref-link-group {
+      display: flex; gap: 0.5rem; margin-bottom: 1rem;
+    }
+    .ref-link-group input {
+      flex: 1;
+      padding: 0.55rem 0.8rem;
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--accent-blue);
+      font-size: 0.8rem; font-family: monospace;
+      outline: none;
+    }
+
+    /* ── Tool Grid ── */
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 0.75rem;
+    }
+
+    .tool-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem;
+      transition: all 0.2s;
+      position: relative;
+    }
+    .tool-card:hover { border-color: var(--border-hover); transform: translateY(-2px); }
+    .tool-card.locked {
+      opacity: 0.45;
+      pointer-events: none;
+    }
+    .tool-card.locked:hover { transform: none; }
+
+    .tool-icon {
+      font-size: 1.5rem; margin-bottom: 0.5rem;
+    }
+    .tool-name {
+      font-size: 0.82rem; font-weight: 700; margin-bottom: 0.2rem;
+    }
+    .tool-desc {
+      font-size: 0.7rem; color: var(--text-secondary); margin-bottom: 0.5rem;
+      line-height: 1.4;
+    }
+    .tool-category {
+      display: inline-block;
+      padding: 0.1rem 0.5rem;
+      background: rgba(88, 166, 255, 0.08);
+      border: 1px solid rgba(88, 166, 255, 0.15);
+      border-radius: 10px;
+      font-size: 0.6rem; color: var(--accent-blue); font-weight: 600;
+    }
+    .tool-lock-overlay {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      background: rgba(13, 17, 23, 0.75);
+      border-radius: var(--radius);
+      font-size: 0.75rem; color: var(--text-secondary);
+      font-weight: 600; text-align: center;
+      padding: 1rem;
+    }
+    .tool-lock-overlay .lock-icon { font-size: 1.5rem; margin-bottom: 0.35rem; }
+
+    /* ── Community ── */
+    .vouch-list {
+      list-style: none;
+    }
+    .vouch-item {
+      display: flex; align-items: center; gap: 0.75rem;
+      padding: 0.65rem 0;
+      border-bottom: 1px solid var(--border-light);
+      font-size: 0.82rem;
+    }
+    .vouch-item:last-child { border-bottom: none; }
+
+    .vouch-avatar {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: var(--gradient-blue);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.7rem; font-weight: 800; color: var(--bg-deep);
+      flex-shrink: 0;
+    }
+
+    .vouch-name { font-weight: 600; }
+    .vouch-date { font-size: 0.68rem; color: var(--text-muted); }
+    .vouch-score { margin-left: auto; font-weight: 700; font-size: 0.78rem; }
+
+    .ranking-bar {
+      display: flex; align-items: center; gap: 0.75rem;
+      padding: 1rem;
+      background: rgba(88, 166, 255, 0.06);
+      border: 1px solid rgba(88, 166, 255, 0.15);
+      border-radius: var(--radius);
+      margin-bottom: 1rem;
+    }
+    .ranking-pos {
+      font-size: 1.5rem; font-weight: 800; color: var(--accent-blue);
+      min-width: 50px; text-align: center;
+    }
+    .ranking-text { font-size: 0.82rem; color: var(--text-secondary); }
+    .ranking-text strong { color: var(--text-primary); }
+
+    /* ── Ebook Grid ── */
+    .ebook-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 0.75rem;
+    }
+
+    .ebook-card {
+      display: flex; align-items: flex-start; gap: 0.75rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem;
+      transition: all 0.2s;
+    }
+    .ebook-card:hover { border-color: var(--border-hover); transform: translateY(-1px); }
+
+    .ebook-icon { font-size: 1.5rem; flex-shrink: 0; }
+    .ebook-title { font-size: 0.82rem; font-weight: 700; margin-bottom: 0.15rem; }
+    .ebook-desc { font-size: 0.7rem; color: var(--text-secondary); line-height: 1.4; }
+
+    /* ── Free Resources Banner ── */
+    .free-banner {
+      background: linear-gradient(135deg, rgba(57, 211, 83, 0.08), rgba(88, 166, 255, 0.08));
+      border: 1px solid rgba(57, 211, 83, 0.2);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+    .free-banner p {
+      font-size: 0.85rem; color: var(--text-secondary);
+      font-style: italic;
+    }
+    .free-banner p strong {
+      color: var(--accent-green);
+    }
+
+    /* ── Referral History ── */
+    .ref-history { max-height: 280px; overflow-y: auto; }
+    .ref-history-item {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid var(--border-light);
+      font-size: 0.78rem;
+    }
+    .ref-history-item:last-child { border-bottom: none; }
+
+    /* ── SPUNK code input section ── */
+    .code-input-section {
+      background: linear-gradient(135deg, rgba(57, 211, 83, 0.08), rgba(88, 166, 255, 0.04));
+      border: 1px solid rgba(57, 211, 83, 0.2);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    .code-input-section h3 {
+      font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem;
+    }
+    .code-input-section p {
+      font-size: 0.82rem; color: var(--text-secondary); margin-bottom: 1rem;
+    }
+    .code-input-row {
+      display: flex; gap: 0.5rem; max-width: 340px; margin: 0 auto;
+    }
+    .code-input-row input {
+      flex: 1; padding: 0.6rem 0.85rem;
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text-primary);
+      font-size: 0.9rem; font-weight: 700;
+      text-transform: uppercase; text-align: center;
+      letter-spacing: 2px; font-family: monospace;
+      outline: none; transition: border-color 0.2s;
+    }
+    .code-input-row input:focus { border-color: var(--accent-green); }
+    .code-input-row input::placeholder {
+      color: var(--text-muted); font-weight: 400; letter-spacing: 1px;
+    }
+
+    /* ── Share Buttons Row ── */
+    .share-row {
+      display: flex; gap: 0.5rem; flex-wrap: wrap;
+    }
+
+    /* ── Empty State ── */
+    .empty-state {
+      text-align: center; padding: 2rem 1rem;
+      color: var(--text-muted);
+    }
+    .empty-state .empty-icon { font-size: 2.5rem; margin-bottom: 0.5rem; }
+    .empty-state p { font-size: 0.85rem; }
+
+    /* ── Category Filter ── */
+    .category-filter {
+      display: flex; gap: 0.4rem; flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+    .cat-btn {
+      padding: 0.35rem 0.85rem;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 0.72rem; font-weight: 600;
+      cursor: pointer; transition: all 0.15s;
+      font-family: var(--font);
+    }
+    .cat-btn:hover, .cat-btn.active {
+      border-color: var(--accent-blue);
+      color: var(--accent-blue);
+      background: rgba(88, 166, 255, 0.08);
+    }
+
+    /* ── Toast ── */
+    .toast {
+      position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(100px);
+      z-index: 9999;
+      padding: 0.7rem 1.5rem;
+      background: rgba(22, 27, 34, 0.95);
+      border: 1px solid var(--accent-green);
+      border-radius: var(--radius-sm);
+      color: var(--accent-green);
+      font-size: 0.82rem; font-weight: 600;
+      opacity: 0; transition: all 0.3s ease;
+      pointer-events: none;
+    }
+    .toast.show {
+      opacity: 1; transform: translateX(-50%) translateY(0);
+    }
+
+    /* ── Saved indicator ── */
+    .save-indicator {
+      font-size: 0.72rem; color: var(--accent-green); font-weight: 600;
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .save-indicator.show { opacity: 1; }
+
+    /* ── Mobile ── */
+    @media (max-width: 768px) {
+      .sidebar {
+        transform: translateX(-100%);
+        width: 260px;
+      }
+      .sidebar.open { transform: translateX(0); }
+
+      .sidebar-overlay {
+        display: none; position: fixed; inset: 0;
+        z-index: 140; background: rgba(0,0,0,0.5);
+      }
+      .sidebar-overlay.show { display: block; }
+
+      .main { margin-left: 0; }
+      .content { padding: 1.25rem 1rem 5rem; }
+
+      .hamburger { display: flex; align-items: center; justify-content: center; }
+
+      /* Mobile tab bar */
+      .mobile-tabs {
+        display: flex !important;
+        position: fixed; bottom: 0; left: 0; right: 0;
+        z-index: 200;
+        background: rgba(22, 27, 34, 0.97);
+        backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+        border-top: 1px solid var(--border-light);
+        padding: 0.4rem 0 calc(0.4rem + env(safe-area-inset-bottom));
+      }
+
+      .mobile-tab {
+        flex: 1; display: flex; flex-direction: column;
+        align-items: center; gap: 0.15rem;
+        padding: 0.35rem 0;
+        background: none; border: none;
+        color: var(--text-muted);
+        font-size: 0.6rem; font-weight: 600;
+        cursor: pointer; transition: color 0.15s;
+        font-family: var(--font);
+      }
+      .mobile-tab .mt-icon { font-size: 1.1rem; }
+      .mobile-tab.active { color: var(--accent-blue); }
+
+      .topnav-actions .topnav-link { display: none; }
+      .topnav-cta { display: none; }
+
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .tiers-grid { grid-template-columns: repeat(2, 1fr); }
+      .tools-grid { grid-template-columns: 1fr; }
+      .ebook-grid { grid-template-columns: 1fr; }
+      .trust-display { flex-direction: column; text-align: center; }
+    }
+
+    @media (min-width: 769px) {
+      .mobile-tabs { display: none !important; }
+      .sidebar-overlay { display: none !important; }
+    }
+
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+    /* ── Animations ── */
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    .fade-in { animation: fadeIn 0.4s ease; }
+  </style>
+</head>
+<body>
+  <div class="bg-mesh"></div>
+
+  <!-- Top Nav -->
+  <nav class="topnav">
+    <div class="topnav-brand">
+      <button class="hamburger" id="hamburger" aria-label="Menu">&#9776;</button>
+      <a href="/" class="topnav-logo">SPUNK.CODES</a>
+      <div class="topnav-divider"></div>
+      <span class="topnav-title">Creator Dashboard</span>
+    </div>
+    <div class="topnav-actions">
+      <a href="/" class="topnav-link">Home</a>
+      <a href="/free-tools-list.html" class="topnav-link">Free Tools</a>
+      <a href="/referral-dashboard.html" class="topnav-link">Referrals</a>
+      <a href="/ebook-store.html" class="topnav-link">Ebooks</a>
+      <a href="/blog/" class="topnav-link">Blog</a>
+    </div>
+  </nav>
+
+  <!-- Sidebar Overlay (mobile) -->
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-label">Dashboard</div>
+      <div class="sidebar-item active" data-tab="profile">
+        <span class="sidebar-icon">&#128100;</span>
+        My Profile
+      </div>
+      <div class="sidebar-item" data-tab="referrals">
+        <span class="sidebar-icon">&#128279;</span>
+        My Referrals
+        <span class="sidebar-badge" id="sidebarRefCount">0</span>
+      </div>
+      <div class="sidebar-item" data-tab="tools">
+        <span class="sidebar-icon">&#128295;</span>
+        My Tools
+        <span class="sidebar-badge purple" id="sidebarToolCount">5</span>
+      </div>
+      <div class="sidebar-item" data-tab="community">
+        <span class="sidebar-icon">&#129309;</span>
+        Community
+      </div>
+      <div class="sidebar-item" data-tab="resources">
+        <span class="sidebar-icon">&#127873;</span>
+        Free Resources
+      </div>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">Quick Actions</div>
+      <a href="/referral-dashboard.html" class="sidebar-item">
+        <span class="sidebar-icon">&#128200;</span>
+        Full Referral Dashboard
+      </a>
+      <a href="/" class="sidebar-item">
+        <span class="sidebar-icon">&#127968;</span>
+        Back to Home
+      </a>
+    </div>
+  </aside>
+
+  <!-- Mobile Tab Bar -->
+  <div class="mobile-tabs" id="mobileTabs">
+    <button class="mobile-tab active" data-tab="profile">
+      <span class="mt-icon">&#128100;</span>Profile
+    </button>
+    <button class="mobile-tab" data-tab="referrals">
+      <span class="mt-icon">&#128279;</span>Referrals
+    </button>
+    <button class="mobile-tab" data-tab="tools">
+      <span class="mt-icon">&#128295;</span>Tools
+    </button>
+    <button class="mobile-tab" data-tab="community">
+      <span class="mt-icon">&#129309;</span>Community
+    </button>
+    <button class="mobile-tab" data-tab="resources">
+      <span class="mt-icon">&#127873;</span>Free
+    </button>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main">
+    <div class="content">
+
+      <!-- ========================================== -->
+      <!-- TAB 1: MY PROFILE -->
+      <!-- ========================================== -->
+      <div class="tab-panel active" id="panel-profile">
+        <div class="fade-in">
+
+          <!-- Trust Score Display -->
+          <div class="trust-display" id="trustDisplay">
+            <div class="trust-score-ring">
+              <svg viewBox="0 0 100 100">
+                <circle class="trust-ring-bg" cx="50" cy="50" r="42" />
+                <circle class="trust-ring-fill" id="trustRingFill" cx="50" cy="50" r="42"
+                  stroke-dasharray="264" stroke-dashoffset="264" />
+              </svg>
+              <div class="trust-score-num">
+                <span class="trust-score-val" id="trustScoreVal">0</span>
+                <span class="trust-score-label">Trust</span>
+              </div>
+            </div>
+            <div class="trust-info">
+              <h3>Your Trust Score <span class="trust-badge-inline new" id="trustBadge">NEW</span></h3>
+              <p style="font-size:0.82rem;color:var(--text-secondary);margin-top:0.3rem" id="trustDesc">
+                Complete your profile, vouch for creators, and refer friends to build your trust score.
+              </p>
+              <div class="trust-factors" id="trustFactors">
+                Factors: <span>Profile</span> + <span>Activity</span> + <span>Referrals</span> + <span>Community</span>
+              </div>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:0.5rem;margin-bottom:1.5rem;flex-wrap:wrap">
+            <button class="btn btn-primary" id="shareScoreBtn">Share My Score on X</button>
+            <button class="btn btn-outline btn-sm" id="saveProfileBtn">Save Profile</button>
+            <span class="save-indicator" id="saveIndicator">Saved</span>
+          </div>
+
+          <!-- Profile Form -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">&#9997;&#65039; Creator Profile</span>
+            </div>
+            <div class="form-group">
+              <label class="form-label">X / Twitter Handle</label>
+              <input type="text" class="form-input" id="profileXHandle" placeholder="@YourHandle">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Website URL</label>
+              <input type="url" class="form-input" id="profileWebsite" placeholder="https://yoursite.com">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Bio (short intro about you)</label>
+              <textarea class="form-input form-textarea" id="profileBio" placeholder="Builder, developer, creator..."></textarea>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Crypto Projects You're Involved In</label>
+              <input type="text" class="form-input" id="profileCrypto" placeholder="Bitcoin, Ethereum, Ordinals, Runes...">
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ========================================== -->
+      <!-- TAB 2: MY REFERRALS -->
+      <!-- ========================================== -->
+      <div class="tab-panel" id="panel-referrals">
+        <div class="fade-in">
+
+          <h2 style="font-size:1.3rem;font-weight:800;margin-bottom:0.25rem">My Referrals</h2>
+          <p style="font-size:0.85rem;color:var(--text-secondary);margin-bottom:1.5rem">Share your link, earn rewards, unlock tools.</p>
+
+          <!-- Referral Link -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">&#128279; Your Referral Link</span>
+            </div>
+            <div class="ref-link-group">
+              <input type="text" id="refLinkInput" readonly value="spunk.codes/?ref=...">
+              <button class="btn btn-primary btn-sm" id="copyRefBtn">Copy</button>
+            </div>
+            <div class="share-row">
+              <button class="btn btn-outline btn-sm" id="shareRefX">Share on X</button>
+              <button class="btn btn-outline btn-sm" id="shareRefCopy">Copy with message</button>
+            </div>
+          </div>
+
+          <!-- Stats -->
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-value blue" id="refClicks">0</div>
+              <div class="stat-label">Total Clicks</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value green" id="refSignups">0</div>
+              <div class="stat-label">Total Signups</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value purple" id="refEarnings">$0</div>
+              <div class="stat-label">Total Earnings</div>
+            </div>
+          </div>
+
+          <!-- Tier Progress -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">&#127942; Referral Tiers</span>
+            </div>
+
+            <div class="progress-wrap" id="tierProgress">
+              <div class="progress-header">
+                <span class="progress-current" id="currentTierLabel">Starter</span>
+                <span class="progress-next" id="nextTierLabel">Next: Builder (3 refs)</span>
+              </div>
+              <div class="progress-track">
+                <div class="progress-fill blue" id="tierProgressFill" style="width:0%"></div>
+              </div>
+            </div>
+
+            <div class="tiers-grid" id="tiersGrid">
+              <!-- Populated by JS -->
+            </div>
+          </div>
+
+          <!-- Referral History -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">&#128203; Referral History</span>
+            </div>
+            <div class="ref-history" id="refHistory">
+              <div class="empty-state">
+                <div class="empty-icon">&#128587;</div>
+                <p>No referrals yet. Share your link to get started!</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ========================================== -->
+      <!-- TAB 3: MY TOOLS -->
+      <!-- ========================================== -->
+      <div class="tab-panel" id="panel-tools">
+        <div class="fade-in">
+
+          <h2 style="font-size:1.3rem;font-weight:800;margin-bottom:0.25rem">My Tools</h2>
+          <p style="font-size:0.85rem;color:var(--text-secondary);margin-bottom:1rem">Your unlocked premium tools based on referral tier. Refer more to unlock everything.</p>
+
+          <!-- SPUNK Code Entry (for new users) -->
+          <div class="code-input-section" id="codeEntrySection">
+            <h3>Enter code SPUNK to start</h3>
+            <p>Unlock 5 free premium automation tools instantly. No credit card required.</p>
+            <div class="code-input-row">
+              <input type="text" id="spunkCodeInput" placeholder="ENTER CODE" maxlength="10">
+              <button class="btn btn-green" id="spunkCodeBtn">Unlock</button>
+            </div>
+          </div>
+
+          <!-- Category Filter -->
+          <div class="category-filter" id="categoryFilter">
+            <button class="cat-btn active" data-cat="all">All</button>
+            <button class="cat-btn" data-cat="automation">Automation</button>
+            <button class="cat-btn" data-cat="business">Business</button>
+            <button class="cat-btn" data-cat="seo">SEO</button>
+            <button class="cat-btn" data-cat="design">Design</button>
+            <button class="cat-btn" data-cat="development">Development</button>
+          </div>
+
+          <div class="tools-grid" id="toolsGrid">
+            <!-- Populated by JS -->
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ========================================== -->
+      <!-- TAB 4: COMMUNITY -->
+      <!-- ========================================== -->
+      <div class="tab-panel" id="panel-community">
+        <div class="fade-in">
+
+          <h2 style="font-size:1.3rem;font-weight:800;margin-bottom:0.25rem">Community</h2>
+          <p style="font-size:0.85rem;color:var(--text-secondary);margin-bottom:1.5rem">Build trust by vouching for creators and contributing to the community.</p>
+
+          <!-- Community Ranking -->
+          <div class="ranking-bar" id="communityRanking">
+            <div class="ranking-pos" id="rankingPos">#--</div>
+            <div class="ranking-text">
+              Your community ranking out of <strong id="rankingTotal">247</strong> creators.
+              <br><span style="font-size:0.72rem;color:var(--text-muted)">Improve your score to climb higher.</span>
+            </div>
+          </div>
+
+          <!-- Creators you've vouched for -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">&#128077; Creators You've Vouched For</span>
+            </div>
+            <ul class="vouch-list" id="vouchedForList">
+              <div class="empty-state">
+                <div class="empty-icon">&#128064;</div>
+                <p>You haven't vouched for anyone yet. Support trusted creators to build your score.</p>
+              </div>
+            </ul>
+          </div>
+
+          <!-- Creators who vouched for you -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">&#127775; Creators Who Vouched For You</span>
+            </div>
+            <ul class="vouch-list" id="vouchedByList">
+              <div class="empty-state">
+                <div class="empty-icon">&#10024;</div>
+                <p>No vouches received yet. Share your profile to get vouched by the community.</p>
+              </div>
+            </ul>
+          </div>
+
+          <!-- Your Scammer Reports -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">&#128681; Your Scammer Reports</span>
+            </div>
+            <div id="scammerReports">
+              <div class="empty-state">
+                <div class="empty-icon">&#128737;</div>
+                <p>No scammer reports filed. Help protect the community by reporting bad actors.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Invite CTA -->
+          <div class="card-glass" style="text-align:center">
+            <h3 style="font-size:1rem;font-weight:700;margin-bottom:0.5rem">Invite a Creator</h3>
+            <p style="font-size:0.82rem;color:var(--text-secondary);margin-bottom:1rem">Know a trusted builder? Invite them to join the community and earn trust points.</p>
+            <button class="btn btn-primary" id="inviteCreatorBtn">Share Invite Link on X</button>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ========================================== -->
+      <!-- TAB 5: FREE RESOURCES -->
+      <!-- ========================================== -->
+      <div class="tab-panel" id="panel-resources">
+        <div class="fade-in">
+
+          <h2 style="font-size:1.3rem;font-weight:800;margin-bottom:0.25rem">Free Resources</h2>
+          <p style="font-size:0.85rem;color:var(--text-secondary);margin-bottom:1.5rem">Everything here is free. We believe creators should have access to the best tools without gatekeeping.</p>
+
+          <div class="free-banner">
+            <p><strong>Zero cost. Zero sign-up. Zero gatekeeping.</strong> We built these resources because every creator deserves a fair start. Use them. Share them. Build something great.</p>
+          </div>
+
+          <!-- Free Ebooks -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">&#128218; 22 Free Ebooks</span>
+            </div>
+            <div class="ebook-grid" id="ebookGrid">
+              <!-- Populated by JS -->
+            </div>
+          </div>
+
+          <!-- Top 20 Free Tools -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">&#128295; Top 20 Free Tools</span>
+            </div>
+            <div class="tools-grid" id="freeToolsGrid">
+              <!-- Populated by JS -->
+            </div>
+          </div>
+
+          <!-- Latest Blog Posts -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">&#128240; Latest Blog Posts</span>
+            </div>
+            <div class="ebook-grid" id="blogPostsGrid">
+              <!-- Populated by JS -->
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <script src="/share-widget.js"></script>
+  <script src="/email-capture.js"></script>
+
+  <script>
+  (function() {
+    'use strict';
+
+    // ── Storage Helpers ─────────────────────────────
+    var LS = {
+      get: function(k) { try { return localStorage.getItem(k); } catch(e) { return null; } },
+      set: function(k, v) { try { localStorage.setItem(k, v); } catch(e) {} },
+      getJSON: function(k) { try { return JSON.parse(localStorage.getItem(k)); } catch(e) { return null; } },
+      setJSON: function(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch(e) {} }
+    };
+
+    // ── Track ───────────────────────────────────────
+    function track(action, params) {
+      if (typeof gtag === 'function') {
+        gtag('event', action, Object.assign({ event_category: 'creator_dashboard' }, params || {}));
+      }
+    }
+
+    // ── Toast ───────────────────────────────────────
+    function showToast(msg) {
+      var t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(function() { t.classList.remove('show'); }, 2500);
+    }
+
+    // ── Tab Navigation ──────────────────────────────
+    var panels = document.querySelectorAll('.tab-panel');
+    var sidebarItems = document.querySelectorAll('.sidebar-item[data-tab]');
+    var mobileTabs = document.querySelectorAll('.mobile-tab[data-tab]');
+
+    function switchTab(tabId) {
+      panels.forEach(function(p) { p.classList.remove('active'); });
+      sidebarItems.forEach(function(s) { s.classList.remove('active'); });
+      mobileTabs.forEach(function(m) { m.classList.remove('active'); });
+
+      var panel = document.getElementById('panel-' + tabId);
+      if (panel) panel.classList.add('active');
+
+      sidebarItems.forEach(function(s) {
+        if (s.getAttribute('data-tab') === tabId) s.classList.add('active');
+      });
+      mobileTabs.forEach(function(m) {
+        if (m.getAttribute('data-tab') === tabId) m.classList.add('active');
+      });
+
+      // Close mobile sidebar
+      document.getElementById('sidebar').classList.remove('open');
+      document.getElementById('sidebarOverlay').classList.remove('show');
+
+      track('tab_switch', { tab: tabId });
+    }
+
+    sidebarItems.forEach(function(item) {
+      item.addEventListener('click', function() {
+        var tab = this.getAttribute('data-tab');
+        if (tab) switchTab(tab);
+      });
+    });
+
+    mobileTabs.forEach(function(tab) {
+      tab.addEventListener('click', function() {
+        var t = this.getAttribute('data-tab');
+        if (t) switchTab(t);
+      });
+    });
+
+    // Hamburger
+    document.getElementById('hamburger').addEventListener('click', function() {
+      document.getElementById('sidebar').classList.toggle('open');
+      document.getElementById('sidebarOverlay').classList.toggle('show');
+    });
+    document.getElementById('sidebarOverlay').addEventListener('click', function() {
+      document.getElementById('sidebar').classList.remove('open');
+      this.classList.remove('show');
+    });
+
+    // ── Profile Data ────────────────────────────────
+    var PROFILE_KEY = 'sc_creator_profile';
+
+    function loadProfile() {
+      var profile = LS.getJSON(PROFILE_KEY) || {};
+      document.getElementById('profileXHandle').value = profile.xHandle || '';
+      document.getElementById('profileWebsite').value = profile.website || '';
+      document.getElementById('profileBio').value = profile.bio || '';
+      document.getElementById('profileCrypto').value = profile.crypto || '';
+      return profile;
+    }
+
+    function saveProfile() {
+      var profile = {
+        xHandle: document.getElementById('profileXHandle').value.trim(),
+        website: document.getElementById('profileWebsite').value.trim(),
+        bio: document.getElementById('profileBio').value.trim(),
+        crypto: document.getElementById('profileCrypto').value.trim(),
+        savedAt: new Date().toISOString()
+      };
+      LS.setJSON(PROFILE_KEY, profile);
+
+      var ind = document.getElementById('saveIndicator');
+      ind.classList.add('show');
+      setTimeout(function() { ind.classList.remove('show'); }, 2000);
+
+      showToast('Profile saved');
+      track('profile_saved');
+      updateTrustScore();
+      return profile;
+    }
+
+    document.getElementById('saveProfileBtn').addEventListener('click', saveProfile);
+
+    // Auto-save on input
+    var autoSaveTimer;
+    ['profileXHandle', 'profileWebsite', 'profileBio', 'profileCrypto'].forEach(function(id) {
+      document.getElementById(id).addEventListener('input', function() {
+        clearTimeout(autoSaveTimer);
+        autoSaveTimer = setTimeout(saveProfile, 1500);
+      });
+    });
+
+    // ── Trust Score ─────────────────────────────────
+    function computeTrustScore() {
+      var score = 0;
+      var profile = LS.getJSON(PROFILE_KEY) || {};
+
+      // Profile completeness (max 30)
+      if (profile.xHandle) score += 10;
+      if (profile.website) score += 8;
+      if (profile.bio) score += 7;
+      if (profile.crypto) score += 5;
+
+      // Referral activity (max 30)
+      var refCount = getReferralCount();
+      score += Math.min(refCount * 6, 30);
+
+      // Community (vouches, max 20)
+      var vouched = LS.getJSON('sc_vouched_for') || [];
+      var vouchedBy = LS.getJSON('sc_vouched_by') || [];
+      score += Math.min(vouched.length * 5, 10);
+      score += Math.min(vouchedBy.length * 5, 10);
+
+      // Account age (max 10)
+      var refDate = LS.get('spunk_referral_date');
+      if (refDate) {
+        var daysSince = (Date.now() - parseInt(refDate)) / (1000 * 60 * 60 * 24);
+        score += Math.min(Math.floor(daysSince), 10);
+      }
+
+      // Scammer reports filed (max 10)
+      var reports = LS.getJSON('sc_scam_reports') || [];
+      score += Math.min(reports.length * 3, 10);
+
+      return Math.min(score, 100);
+    }
+
+    function getTrustBadge(score) {
+      if (score >= 80) return { label: 'EXCELLENT', cls: 'excellent', color: '#39d353' };
+      if (score >= 50) return { label: 'GOOD', cls: 'good', color: '#58a6ff' };
+      if (score >= 20) return { label: 'BUILDING', cls: 'building', color: '#d29922' };
+      return { label: 'NEW', cls: 'new', color: '#8b949e' };
+    }
+
+    function updateTrustScore() {
+      var score = computeTrustScore();
+      var badge = getTrustBadge(score);
+
+      // Score value
+      document.getElementById('trustScoreVal').textContent = score;
+      document.getElementById('trustScoreVal').style.color = badge.color;
+
+      // Ring
+      var ring = document.getElementById('trustRingFill');
+      var circumference = 264; // 2 * PI * 42
+      var offset = circumference - (score / 100) * circumference;
+      ring.style.stroke = badge.color;
+      ring.style.strokeDashoffset = offset;
+
+      // Badge
+      var badgeEl = document.getElementById('trustBadge');
+      badgeEl.textContent = badge.label;
+      badgeEl.className = 'trust-badge-inline ' + badge.cls;
+
+      // Description
+      var descs = {
+        excellent: 'Outstanding! You are a highly trusted creator in the community.',
+        good: 'Great progress! Keep contributing to reach Excellent status.',
+        building: 'You are building your reputation. Complete your profile and refer friends.',
+        new: 'Welcome! Complete your profile, vouch for creators, and refer friends to build trust.'
+      };
+      document.getElementById('trustDesc').textContent = descs[badge.cls];
+    }
+
+    // ── Share Score on X ────────────────────────────
+    document.getElementById('shareScoreBtn').addEventListener('click', function() {
+      var score = computeTrustScore();
+      var badge = getTrustBadge(score);
+      var profile = LS.getJSON(PROFILE_KEY) || {};
+      var handle = profile.xHandle ? ' (' + profile.xHandle + ')' : '';
+
+      var text = 'My Creator Trust Score on @SpunkArt13\'s SPUNK.CODES: ' + score + '/100 [' + badge.label + ']' + handle + '\n\nBuild your free creator profile and track your trust score:\nhttps://spunk.codes/creator-dashboard';
+      var url = 'https://x.com/intent/tweet?text=' + encodeURIComponent(text);
+      window.open(url, '_blank', 'width=600,height=400,noopener,noreferrer');
+      track('share_trust_score', { score: score, badge: badge.label });
+    });
+
+    // ── Referral System ─────────────────────────────
+    function isReferralUnlocked() {
+      return LS.get('spunk_referral_unlocked') === 'true';
+    }
+
+    function getReferralCount() {
+      return parseInt(LS.get('spunk_referral_count') || '0', 10);
+    }
+
+    function getReferralId() {
+      return LS.get('spunk_referral_id') || '';
+    }
+
+    function getReferralLink() {
+      return LS.get('spunk_referral_link') || 'https://spunk.codes/?ref=YOUR_CODE';
+    }
+
+    // Tier definitions (matches the request)
+    var TIERS = [
+      { name: 'Starter', min: 0, tools: 5, reward: '5 free premium tools', commission: '' },
+      { name: 'Builder', min: 3, tools: 15, reward: '15 free premium tools', commission: '' },
+      { name: 'Creator', min: 5, tools: 95, reward: 'ALL premium tools free', commission: '' },
+      { name: 'Ambassador', min: 10, tools: 95, reward: 'ALL tools + 20% commission', commission: '20%' },
+      { name: 'Partner', min: 25, tools: 95, reward: 'ALL tools + 30% commission + white label', commission: '30%' }
+    ];
+
+    function getCurrentTier(count) {
+      var tier = TIERS[0];
+      for (var i = TIERS.length - 1; i >= 0; i--) {
+        if (count >= TIERS[i].min) { tier = TIERS[i]; break; }
+      }
+      return tier;
+    }
+
+    function getNextTier(count) {
+      for (var i = 0; i < TIERS.length; i++) {
+        if (count < TIERS[i].min) return TIERS[i];
+      }
+      return null;
+    }
+
+    function renderReferrals() {
+      var count = getReferralCount();
+      var refLink = getReferralLink();
+      var currentTier = getCurrentTier(count);
+      var nextTier = getNextTier(count);
+
+      // Link
+      document.getElementById('refLinkInput').value = refLink;
+
+      // Stats
+      var clicks = Math.max(count * 3 + Math.floor(Math.random() * 5), parseInt(LS.get('sc_ref_clicks') || '0', 10));
+      LS.set('sc_ref_clicks', clicks.toString());
+      document.getElementById('refClicks').textContent = clicks;
+      document.getElementById('refSignups').textContent = count;
+
+      var earnings = 0;
+      if (currentTier.commission) {
+        var commRate = parseFloat(currentTier.commission) / 100;
+        earnings = Math.floor(count * 4.99 * commRate * 100) / 100;
+      }
+      document.getElementById('refEarnings').textContent = '$' + earnings.toFixed(2);
+
+      // Sidebar badge
+      document.getElementById('sidebarRefCount').textContent = count;
+
+      // Tier progress
+      document.getElementById('currentTierLabel').textContent = currentTier.name + ' (' + count + ' refs)';
+      if (nextTier) {
+        document.getElementById('nextTierLabel').textContent = 'Next: ' + nextTier.name + ' (' + nextTier.min + ' refs)';
+        var progress = (count / nextTier.min) * 100;
+        document.getElementById('tierProgressFill').style.width = Math.min(progress, 100) + '%';
+      } else {
+        document.getElementById('nextTierLabel').textContent = 'Max tier reached!';
+        document.getElementById('tierProgressFill').style.width = '100%';
+        document.getElementById('tierProgressFill').className = 'progress-fill purple';
+      }
+
+      // Tier cards
+      var html = '';
+      TIERS.forEach(function(t) {
+        var isCurrent = t.name === currentTier.name;
+        var isCompleted = count >= t.min && t.name !== currentTier.name && TIERS.indexOf(t) < TIERS.indexOf(currentTier);
+        var isLocked = count < t.min;
+        var cls = isCurrent ? 'current' : (isCompleted ? 'completed' : (isLocked ? 'locked' : 'completed'));
+
+        html += '<div class="tier-card ' + cls + '">';
+        if (!isLocked && !isCurrent) html += '<span class="tier-check">&#9989;</span>';
+        html += '<div class="tier-name">' + t.name + '</div>';
+        html += '<div class="tier-refs">' + t.min + ' referrals</div>';
+        html += '<div class="tier-reward">' + t.reward + '</div>';
+        if (isCurrent) html += '<div class="tier-current-badge">Current</div>';
+        html += '</div>';
+      });
+      document.getElementById('tiersGrid').innerHTML = html;
+
+      // History
+      var log = LS.getJSON('sc_referral_log') || [];
+      if (log.length > 0) {
+        var histHtml = '';
+        log.slice(-20).reverse().forEach(function(entry) {
+          var date = new Date(entry.timestamp);
+          var dateStr = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+          histHtml += '<div class="ref-history-item">';
+          histHtml += '<span style="color:var(--accent-green)">&#9679;</span> ';
+          histHtml += '<span>Referral from <strong>' + (entry.page || 'Homepage') + '</strong></span>';
+          histHtml += '<span style="color:var(--text-muted)">' + dateStr + '</span>';
+          histHtml += '</div>';
+        });
+        document.getElementById('refHistory').innerHTML = histHtml;
+      }
+    }
+
+    // Copy ref link
+    document.getElementById('copyRefBtn').addEventListener('click', function() {
+      var input = document.getElementById('refLinkInput');
+      navigator.clipboard.writeText(input.value).then(function() {
+        showToast('Referral link copied!');
+        track('copy_referral_link');
+      }).catch(function() {
+        input.select();
+        document.execCommand('copy');
+        showToast('Referral link copied!');
+      });
+    });
+
+    // Share ref on X
+    document.getElementById('shareRefX').addEventListener('click', function() {
+      var refLink = getReferralLink();
+      var text = 'I just found an insane collection of free tools for creators and developers on @SpunkArt13\'s SPUNK.CODES\n\n300+ free tools, 22 free ebooks, zero sign-up.\n\nCheck it out: ' + refLink;
+      window.open('https://x.com/intent/tweet?text=' + encodeURIComponent(text), '_blank', 'width=600,height=400');
+      track('share_referral_x');
+    });
+
+    document.getElementById('shareRefCopy').addEventListener('click', function() {
+      var refLink = getReferralLink();
+      var msg = 'Hey! Check out SPUNK.CODES - 300+ free tools for developers and creators. I use it daily: ' + refLink;
+      navigator.clipboard.writeText(msg).then(function() {
+        showToast('Message with link copied!');
+      }).catch(function() { showToast('Could not copy'); });
+      track('share_referral_copy');
+    });
+
+    // ── Tools ───────────────────────────────────────
+    var ALL_TOOLS = [
+      // Automation (5 starter)
+      { slug: 'social-media-scheduler', name: 'Social Media Scheduler', desc: 'Schedule posts across X, LinkedIn, and more.', icon: '&#128197;', cat: 'automation', tier: 0 },
+      { slug: 'email-automation-builder', name: 'Email Automation Builder', desc: 'Build email sequences and drip campaigns.', icon: '&#128231;', cat: 'automation', tier: 0 },
+      { slug: 'workflow-automator', name: 'Workflow Automator', desc: 'Create automated workflows without code.', icon: '&#9881;&#65039;', cat: 'automation', tier: 0 },
+      { slug: 'content-repurposer', name: 'Content Repurposer', desc: 'Turn one piece of content into 10 formats.', icon: '&#128260;', cat: 'automation', tier: 0 },
+      { slug: 'seo-keyword-cluster', name: 'SEO Keyword Cluster', desc: 'Group keywords into topic clusters for SEO.', icon: '&#128269;', cat: 'seo', tier: 0 },
+
+      // Business (growth tier)
+      { slug: 'pitch-deck-builder', name: 'Pitch Deck Builder', desc: 'Create investor-ready pitch decks instantly.', icon: '&#128188;', cat: 'business', tier: 3 },
+      { slug: 'competitor-intel', name: 'Competitor Intel', desc: 'Analyze competitors\' strategies and pricing.', icon: '&#128373;&#65039;', cat: 'business', tier: 3 },
+      { slug: 'revenue-dashboard', name: 'Revenue Dashboard', desc: 'Track MRR, churn, and growth metrics.', icon: '&#128200;', cat: 'business', tier: 3 },
+      { slug: 'api-doc-generator', name: 'API Doc Generator', desc: 'Auto-generate API documentation from specs.', icon: '&#128196;', cat: 'development', tier: 3 },
+      { slug: 'color-system-builder', name: 'Color System Builder', desc: 'Build a complete design system color palette.', icon: '&#127912;', cat: 'design', tier: 3 },
+
+      // Business continued
+      { slug: 'burn-rate-analyzer', name: 'Burn Rate Analyzer', desc: 'Calculate runway and optimize spending.', icon: '&#128293;', cat: 'business', tier: 3 },
+      { slug: 'brand-strategy-pro', name: 'Brand Strategy Pro', desc: 'Define positioning, messaging, and identity.', icon: '&#127775;', cat: 'business', tier: 3 },
+      { slug: 'ad-spend-optimizer', name: 'Ad Spend Optimizer', desc: 'Maximize ROI on your advertising budget.', icon: '&#128176;', cat: 'business', tier: 3 },
+      { slug: 'css-animation-studio', name: 'CSS Animation Studio', desc: 'Visual editor for CSS animations and transitions.', icon: '&#127916;', cat: 'design', tier: 3 },
+      { slug: 'sprint-velocity-tracker', name: 'Sprint Velocity Tracker', desc: 'Track sprint velocity and team performance.', icon: '&#128640;', cat: 'development', tier: 3 },
+
+      // Unlimited tier
+      { slug: 'seo-audit-pro', name: 'SEO Audit Pro', desc: 'Complete SEO audit with actionable fixes.', icon: '&#128270;', cat: 'seo', tier: 5 },
+      { slug: 'viral-content-planner', name: 'Viral Content Planner', desc: 'Plan content calendars for maximum reach.', icon: '&#128640;', cat: 'automation', tier: 5 },
+      { slug: 'landing-page-pro', name: 'Landing Page Pro', desc: 'Build high-converting landing pages.', icon: '&#127760;', cat: 'design', tier: 5 },
+      { slug: 'saas-metrics-dashboard', name: 'SaaS Metrics Dashboard', desc: 'Track key SaaS metrics in one view.', icon: '&#128202;', cat: 'business', tier: 5 },
+      { slug: 'database-query-optimizer', name: 'Database Query Optimizer', desc: 'Optimize SQL queries for performance.', icon: '&#128451;', cat: 'development', tier: 5 },
+      { slug: 'email-sequence-pro', name: 'Email Sequence Pro', desc: 'Advanced email sequence builder with A/B.', icon: '&#128232;', cat: 'automation', tier: 5 },
+      { slug: 'launch-checklist-pro', name: 'Launch Checklist Pro', desc: 'Complete product launch checklist system.', icon: '&#128203;', cat: 'business', tier: 5 },
+      { slug: 'webhook-tester', name: 'Webhook Tester', desc: 'Test and debug webhooks in real-time.', icon: '&#128268;', cat: 'development', tier: 5 },
+      { slug: 'cron-expression-builder', name: 'Cron Expression Builder', desc: 'Build and validate cron expressions visually.', icon: '&#9200;', cat: 'development', tier: 5 },
+      { slug: 'customer-persona-builder', name: 'Customer Persona Builder', desc: 'Create detailed customer personas for targeting.', icon: '&#128101;', cat: 'business', tier: 5 }
+    ];
+
+    function isToolUnlocked(tool) {
+      if (!isReferralUnlocked() && LS.get('spunk_pro') !== 'true') return false;
+      if (LS.get('spunk_pro') === 'true') return true;
+      var count = getReferralCount();
+      return count >= tool.tier;
+    }
+
+    function renderTools(filter) {
+      var count = getReferralCount();
+      var unlocked = isReferralUnlocked() || LS.get('spunk_pro') === 'true';
+      var filtered = filter && filter !== 'all'
+        ? ALL_TOOLS.filter(function(t) { return t.cat === filter; })
+        : ALL_TOOLS;
+
+      var unlockedCount = 0;
+      var html = '';
+      filtered.forEach(function(tool) {
+        var accessible = unlocked && isToolUnlocked(tool);
+        if (accessible) unlockedCount++;
+        var locked = !accessible;
+        var refsNeeded = Math.max(0, tool.tier - count);
+
+        html += '<div class="tool-card' + (locked ? ' locked' : '') + '">';
+        html += '<div class="tool-icon">' + tool.icon + '</div>';
+        html += '<div class="tool-name">' + tool.name + '</div>';
+        html += '<div class="tool-desc">' + tool.desc + '</div>';
+        html += '<span class="tool-category">' + tool.cat.charAt(0).toUpperCase() + tool.cat.slice(1) + '</span>';
+
+        if (locked) {
+          var lockMsg = !unlocked ? 'Enter code SPUNK' : 'Refer ' + refsNeeded + ' more to unlock';
+          html += '<div class="tool-lock-overlay">';
+          html += '<div class="lock-icon">&#128274;</div>';
+          html += lockMsg;
+          html += '</div>';
+        } else {
+          html += '<a href="/exclusive/' + tool.slug + '.html" style="position:absolute;inset:0;z-index:1"></a>';
+        }
+
+        html += '</div>';
+      });
+
+      document.getElementById('toolsGrid').innerHTML = html;
+      document.getElementById('sidebarToolCount').textContent = unlockedCount;
+
+      // Show/hide code entry
+      document.getElementById('codeEntrySection').style.display = unlocked ? 'none' : 'block';
+    }
+
+    // Category filter
+    document.getElementById('categoryFilter').addEventListener('click', function(e) {
+      var btn = e.target.closest('.cat-btn');
+      if (!btn) return;
+      this.querySelectorAll('.cat-btn').forEach(function(b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      renderTools(btn.getAttribute('data-cat'));
+    });
+
+    // SPUNK code entry
+    document.getElementById('spunkCodeBtn').addEventListener('click', function() {
+      var code = document.getElementById('spunkCodeInput').value.trim().toUpperCase();
+      if (code === 'SPUNK') {
+        // Use pro-gate API if available, otherwise set manually
+        if (window.spunkProGate && window.spunkProGate.processSpunkCode) {
+          window.spunkProGate.processSpunkCode();
+        } else {
+          LS.set('spunk_referral_unlocked', 'true');
+          LS.set('spunk_referral_date', Date.now().toString());
+          LS.set('spunk_referral_code', 'SPUNK');
+          LS.set('spunk_referral_count', '0');
+          LS.set('spunk_referral_tier', 'starter');
+          var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+          var id = '';
+          for (var i = 0; i < 6; i++) id += chars.charAt(Math.floor(Math.random() * chars.length));
+          var refId = 'SPUNK_' + id;
+          LS.set('spunk_referral_id', refId);
+          LS.set('spunk_referral_link', 'https://spunk.codes/?ref=' + refId);
+        }
+        showToast('Code accepted! 5 premium tools unlocked.');
+        track('spunk_code_entered', { source: 'creator_dashboard' });
+        renderTools('all');
+        renderReferrals();
+        updateTrustScore();
+      } else {
+        document.getElementById('spunkCodeInput').style.borderColor = 'var(--accent-red)';
+        setTimeout(function() {
+          document.getElementById('spunkCodeInput').style.borderColor = '';
+        }, 2000);
+        showToast('Invalid code. Try SPUNK');
+      }
+    });
+
+    document.getElementById('spunkCodeInput').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') document.getElementById('spunkCodeBtn').click();
+    });
+
+    // ── Community ───────────────────────────────────
+    function renderCommunity() {
+      var vouchedFor = LS.getJSON('sc_vouched_for') || [];
+      var vouchedBy = LS.getJSON('sc_vouched_by') || [];
+      var reports = LS.getJSON('sc_scam_reports') || [];
+
+      // Seed some demo data if user has referrals
+      if (getReferralCount() > 0 && vouchedBy.length === 0) {
+        vouchedBy = [
+          { name: '@BuilderDan', score: 82, date: '2026-02-20' },
+          { name: '@CodeWithSara', score: 91, date: '2026-02-18' }
+        ];
+        LS.setJSON('sc_vouched_by', vouchedBy);
+      }
+
+      // Vouched for list
+      if (vouchedFor.length > 0) {
+        var html = '';
+        vouchedFor.forEach(function(v) {
+          var initials = v.name.replace('@', '').substring(0, 2).toUpperCase();
+          html += '<li class="vouch-item">';
+          html += '<div class="vouch-avatar">' + initials + '</div>';
+          html += '<div><div class="vouch-name">' + v.name + '</div><div class="vouch-date">' + v.date + '</div></div>';
+          html += '<div class="vouch-score" style="color:var(--accent-green)">' + v.score + '/100</div>';
+          html += '</li>';
+        });
+        document.getElementById('vouchedForList').innerHTML = html;
+      }
+
+      // Vouched by list
+      if (vouchedBy.length > 0) {
+        var html2 = '';
+        vouchedBy.forEach(function(v) {
+          var initials = v.name.replace('@', '').substring(0, 2).toUpperCase();
+          html2 += '<li class="vouch-item">';
+          html2 += '<div class="vouch-avatar">' + initials + '</div>';
+          html2 += '<div><div class="vouch-name">' + v.name + '</div><div class="vouch-date">' + v.date + '</div></div>';
+          html2 += '<div class="vouch-score" style="color:var(--accent-blue)">' + v.score + '/100</div>';
+          html2 += '</li>';
+        });
+        document.getElementById('vouchedByList').innerHTML = html2;
+      }
+
+      // Reports
+      if (reports.length > 0) {
+        var html3 = '';
+        reports.forEach(function(r) {
+          html3 += '<div class="ref-history-item">';
+          html3 += '<span style="color:var(--accent-red)">&#128681;</span> ';
+          html3 += '<span>Reported <strong>' + r.name + '</strong> - ' + r.reason + '</span>';
+          html3 += '<span style="color:var(--text-muted)">' + r.date + '</span>';
+          html3 += '</div>';
+        });
+        document.getElementById('scammerReports').innerHTML = html3;
+      }
+
+      // Ranking
+      var score = computeTrustScore();
+      var totalCreators = parseInt(LS.get('spunk_ref_global_referral_count') || '247', 10);
+      var rank = Math.max(1, Math.floor(totalCreators * (1 - score / 120)));
+      document.getElementById('rankingPos').textContent = '#' + rank;
+      document.getElementById('rankingTotal').textContent = totalCreators;
+    }
+
+    // Invite creator
+    document.getElementById('inviteCreatorBtn').addEventListener('click', function() {
+      var refLink = getReferralLink();
+      var text = 'Hey creators! Join the SPUNK.CODES community and get your free creator profile + trust score.\n\n300+ free tools, 22 free ebooks, and a community that actually supports you.\n\nJoin here: ' + refLink + '\n\n@SpunkArt13';
+      window.open('https://x.com/intent/tweet?text=' + encodeURIComponent(text), '_blank', 'width=600,height=400');
+      track('invite_creator_x');
+    });
+
+    // ── Free Resources ──────────────────────────────
+    var EBOOKS = [
+      { title: 'AI Automation Playbook', desc: 'Automate your business with AI agents and workflows.', href: '/ebook-ai-automation.html', icon: '&#129302;' },
+      { title: 'Build a Site Empire', desc: 'Launch 100+ sites and monetize with affiliate + ads.', href: '/ebook-site-empire.html', icon: '&#127760;' },
+      { title: 'AI Agents Guide', desc: 'Build and deploy autonomous AI agents.', href: '/ebook-ai-agents.html', icon: '&#128640;' },
+      { title: 'MCP Server Guide', desc: 'Master Model Context Protocol servers.', href: '/ebook-mcp-guide.html', icon: '&#128421;' },
+      { title: 'Prompt Engineering', desc: 'Write prompts that get 10x better results.', href: '/ebook-prompt-engineering.html', icon: '&#128161;' },
+      { title: 'No-Code Empire', desc: 'Build a business without writing code.', href: '/ebook-no-code-empire.html', icon: '&#127959;&#65039;' },
+      { title: 'SEO Masterclass', desc: 'Rank #1 on Google with proven strategies.', href: '/ebook-seo-masterclass.html', icon: '&#128270;' },
+      { title: 'Landing Page Secrets', desc: 'Design landing pages that convert at 10%+.', href: '/ebook-landing-page-secrets.html', icon: '&#128196;' },
+      { title: 'Automation Mastery', desc: 'Advanced automation for scaling your operations.', href: '/ebook-automation-mastery.html', icon: '&#9881;&#65039;' },
+      { title: 'Email Marketing Guide', desc: 'Build lists and write emails that print money.', href: '/ebook-email-marketing.html', icon: '&#128231;' },
+      { title: 'Vibe Coding', desc: 'The new way to build software with AI assistance.', href: '/ebook-vibe-coding.html', icon: '&#127926;' },
+      { title: 'Crypto Trading 101', desc: 'Understand crypto markets and trading strategies.', href: '/ebook-crypto-trading.html', icon: '&#129689;' },
+      { title: 'Social Media Growth', desc: 'Grow from 0 to 10K followers organically.', href: '/ebook-social-media-growth.html', icon: '&#128200;' },
+      { title: 'GitHub Pages Empire', desc: 'Host unlimited free sites on GitHub Pages.', href: '/ebook-github-pages-empire.html', icon: '&#128187;' },
+      { title: 'Free Tools = Money', desc: 'Monetize free tools without charging users.', href: '/ebook-free-tools-money.html', icon: '&#128176;' },
+      { title: 'Passive Income Blueprint', desc: '20 proven passive income streams for creators.', href: '/ebook-passive-income.html', icon: '&#128178;' },
+      { title: 'Vibe Coders Playbook', desc: 'Build apps 10x faster with AI-assisted coding.', href: '/ebook-vibe-coders-playbook.html', icon: '&#128187;' },
+      { title: 'Cursor AI Mastery', desc: 'Master the Cursor AI code editor.', href: '/ebook-cursor-ai-mastery.html', icon: '&#9000;&#65039;' },
+      { title: 'Micro-SaaS Playbook', desc: 'Launch a profitable micro-SaaS in 30 days.', href: '/ebook-micro-saas-playbook.html', icon: '&#128640;' },
+      { title: 'Affiliate Marketing 2026', desc: 'Modern affiliate marketing strategies that work.', href: '/ebook-affiliate-marketing-2026.html', icon: '&#128184;' },
+      { title: 'GitHub Copilot Guide', desc: 'Get the most out of GitHub Copilot.', href: '/ebook-github-copilot-guide.html', icon: '&#129302;' },
+      { title: '100 Side Hustles', desc: '100 side hustle ideas you can start today.', href: '/ebook-100-side-hustles.html', icon: '&#128170;' }
+    ];
+
+    function renderEbooks() {
+      var html = '';
+      EBOOKS.forEach(function(b) {
+        html += '<a href="' + b.href + '" class="ebook-card">';
+        html += '<span class="ebook-icon">' + b.icon + '</span>';
+        html += '<div><div class="ebook-title">' + b.title + '</div>';
+        html += '<div class="ebook-desc">' + b.desc + '</div></div>';
+        html += '</a>';
+      });
+      document.getElementById('ebookGrid').innerHTML = html;
+    }
+
+    var FREE_TOOLS = [
+      { name: 'JSON Formatter', desc: 'Format, validate, and minify JSON.', icon: '&#128203;', href: '/json-formatter' },
+      { name: 'Color Palette Generator', desc: 'Generate beautiful color palettes.', icon: '&#127912;', href: '/color-palette' },
+      { name: 'Meta Tag Generator', desc: 'Generate SEO meta tags for any page.', icon: '&#127991;&#65039;', href: '/meta-generator' },
+      { name: 'SEO Checklist', desc: 'Complete SEO audit checklist.', icon: '&#9989;', href: '/seo-checklist' },
+      { name: 'Password Generator', desc: 'Create secure passwords instantly.', icon: '&#128274;', href: '/password-generator' },
+      { name: 'Regex Tester', desc: 'Test regex patterns in real time.', icon: '&#128300;', href: '/regex-tester' },
+      { name: 'Image Compressor', desc: 'Compress images without losing quality.', icon: '&#128248;', href: '/image-compressor' },
+      { name: 'API Tester', desc: 'Test REST APIs without Postman.', icon: '&#128268;', href: '/api-tester' },
+      { name: 'Code Playground', desc: 'Write and run code in the browser.', icon: '&#128187;', href: '/code-playground' },
+      { name: 'Markdown Editor', desc: 'Write and preview Markdown live.', icon: '&#128221;', href: '/markdown-editor' },
+      { name: 'Base64 Encoder', desc: 'Encode and decode Base64 strings.', icon: '&#128260;', href: '/base64' },
+      { name: 'QR Code Generator', desc: 'Generate QR codes for any URL.', icon: '&#128178;', href: '/qr-generator' },
+      { name: 'Lorem Ipsum Generator', desc: 'Generate placeholder text.', icon: '&#128172;', href: '/lorem-ipsum' },
+      { name: 'CSS Grid Generator', desc: 'Visual CSS grid layout builder.', icon: '&#128200;', href: '/css-grid-generator' },
+      { name: 'Favicon Generator', desc: 'Create favicons from any image.', icon: '&#127775;', href: '/favicon-generator' },
+      { name: 'UUID Generator', desc: 'Generate unique UUIDs/GUIDs.', icon: '&#128273;', href: '/uuid-generator' },
+      { name: 'Hash Generator', desc: 'Generate MD5, SHA-256, and more.', icon: '&#128274;', href: '/hash-generator' },
+      { name: 'Timestamp Converter', desc: 'Convert timestamps to dates.', icon: '&#9200;', href: '/timestamp-converter' },
+      { name: 'Diff Checker', desc: 'Compare two texts side by side.', icon: '&#128209;', href: '/diff-checker' },
+      { name: 'Privacy Policy Generator', desc: 'Generate privacy policies for your site.', icon: '&#128220;', href: '/privacy-generator' }
+    ];
+
+    function renderFreeTools() {
+      var html = '';
+      FREE_TOOLS.forEach(function(t) {
+        html += '<a href="' + t.href + '" class="tool-card" style="pointer-events:auto;opacity:1">';
+        html += '<div class="tool-icon">' + t.icon + '</div>';
+        html += '<div class="tool-name">' + t.name + '</div>';
+        html += '<div class="tool-desc">' + t.desc + '</div>';
+        html += '<span class="tool-category" style="background:rgba(57,211,83,0.08);border-color:rgba(57,211,83,0.15);color:var(--accent-green)">Free</span>';
+        html += '</a>';
+      });
+      document.getElementById('freeToolsGrid').innerHTML = html;
+    }
+
+    var BLOG_POSTS = [
+      { title: '50 SEO Tips to Rank Fast', desc: 'Actionable SEO strategies for 2026.', href: '/blog/50-seo-tips-rank-fast.html', icon: '&#128270;' },
+      { title: 'How to Build 120 Websites in 7 Days', desc: 'The vibe coding strategy explained.', href: '/blog/how-to-build-120-websites-in-7-days.html', icon: '&#127760;' },
+      { title: 'Best Free AI Tools 2026', desc: 'Top AI tools that are completely free.', href: '/blog/best-ai-tools-free-2026.html', icon: '&#129302;' },
+      { title: 'Vibe Coding Guide 2026', desc: 'The complete guide to vibe coding.', href: '/blog/vibe-coding-guide-2026.html', icon: '&#127926;' },
+      { title: 'Make Money with Free Tools', desc: 'Monetize without charging your users.', href: '/blog/make-money-with-free-tools.html', icon: '&#128176;' },
+      { title: 'Best Side Hustles 2026', desc: 'High-ROI side hustles you can start today.', href: '/blog/best-side-hustles-2026.html', icon: '&#128170;' },
+      { title: 'How to Start an Online Business', desc: 'Step-by-step guide for 2026.', href: '/blog/how-to-start-online-business-2026.html', icon: '&#128188;' },
+      { title: 'Claude Code Tips 2026', desc: 'Pro tips for Claude Code users.', href: '/blog/claude-code-tips-2026.html', icon: '&#128187;' },
+      { title: '50 Tips for Solo Founders', desc: 'Battle-tested advice for solopreneurs.', href: '/blog/50-tips-solo-founders.html', icon: '&#128640;' },
+      { title: 'GitHub Pages Free Website', desc: 'Host your site for free on GitHub.', href: '/blog/github-pages-free-website.html', icon: '&#128421;' }
+    ];
+
+    function renderBlogPosts() {
+      var html = '';
+      BLOG_POSTS.forEach(function(p) {
+        html += '<a href="' + p.href + '" class="ebook-card">';
+        html += '<span class="ebook-icon">' + p.icon + '</span>';
+        html += '<div><div class="ebook-title">' + p.title + '</div>';
+        html += '<div class="ebook-desc">' + p.desc + '</div></div>';
+        html += '</a>';
+      });
+      document.getElementById('blogPostsGrid').innerHTML = html;
+    }
+
+    // ── Initialize ──────────────────────────────────
+    function init() {
+      loadProfile();
+      updateTrustScore();
+      renderReferrals();
+      renderTools('all');
+      renderCommunity();
+      renderEbooks();
+      renderFreeTools();
+      renderBlogPosts();
+
+      // Check URL for tab param
+      var params = new URLSearchParams(window.location.search);
+      var tab = params.get('tab');
+      if (tab && document.getElementById('panel-' + tab)) {
+        switchTab(tab);
+      }
+
+      track('dashboard_view');
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+
+  })();
+  </script>
+</body>
+</html>

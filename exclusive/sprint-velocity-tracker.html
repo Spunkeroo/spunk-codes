@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sprint Velocity Tracker - Agile Team Analytics | SPUNK.CODES Exclusive</title>
+<meta name="description" content="Track sprint velocity, visualize burndown charts, forecast delivery timelines. Agile team analytics tool. Exclusive premium tool.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Sprint Velocity Tracker - SPUNK.CODES Exclusive">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/sprint-velocity-tracker">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0d1117;--card:rgba(22,27,34,0.8);--border:rgba(48,54,61,0.6);--gold:#ffd700;--gold-border:rgba(255,215,0,0.3);--text:#e6edf3;--text-dim:#8b949e;--blue:#58a6ff;--cyan:#39d353;--red:#f85149;--orange:#ff8c00;--font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+a{color:var(--blue);text-decoration:none}
+.bg-mesh{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 80% 50% at 20% 20%,rgba(255,215,0,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(255,140,0,0.04) 0%,transparent 60%),var(--bg)}
+.bg-grid{position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,215,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,215,0,0.03) 1px,transparent 1px);background-size:60px 60px}
+.nav{position:sticky;top:0;z-index:100;background:rgba(13,17,23,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,215,0,0.15);padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}
+.nav-brand{font-weight:800;font-size:1.1rem;color:var(--gold);letter-spacing:0.08em}
+.nav-links{display:flex;gap:1.5rem;font-size:0.85rem}.nav-links a{color:var(--text-dim);font-weight:500}.nav-links a.active{color:var(--gold)}
+.lock-gate{position:fixed;inset:0;z-index:1000;background:rgba(13,17,23,0.97);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:2rem}
+.lock-gate.hidden{display:none}
+.lock-icon-big{font-size:4rem}.lock-gate h2{font-size:1.8rem;font-weight:800;text-align:center}.lock-gate h2 span{color:var(--gold)}.lock-gate p{color:var(--text-dim);text-align:center;max-width:400px}
+.code-input-wrap{display:flex;gap:0.5rem}
+.code-input{padding:0.8rem 1.5rem;background:rgba(22,27,34,0.8);border:2px solid var(--gold-border);border-radius:12px;color:var(--gold);font-size:1.2rem;font-weight:800;letter-spacing:3px;text-align:center;width:200px;outline:none;text-transform:uppercase;font-family:var(--font)}
+.code-input:focus{border-color:var(--gold);box-shadow:0 0 20px rgba(255,215,0,0.2)}
+.code-submit{padding:0.8rem 1.5rem;background:linear-gradient(135deg,#ffd700,#ff8c00);border:none;border-radius:12px;color:#000;font-size:1rem;font-weight:800;cursor:pointer}
+.code-error{color:var(--red);font-size:0.85rem;min-height:1.2em}.lock-hint{color:var(--text-dim);font-size:0.8rem}.lock-hint a{color:var(--gold)}
+.exclusive-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;background:linear-gradient(135deg,rgba(255,215,0,0.15),rgba(255,140,0,0.15));border:1px solid var(--gold-border);border-radius:100px;font-size:11px;font-weight:800;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase}
+.main{max-width:1100px;margin:0 auto;padding:2rem}
+.hero-section{text-align:center;padding:2rem 0 2rem}
+.hero-section h1{font-size:2.2rem;font-weight:800;margin:1rem 0 0.5rem}
+.hero-section h1 .gold{background:linear-gradient(135deg,#ffd700,#ff8c00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-section p{color:var(--text-dim);max-width:600px;margin:0 auto}
+.card{background:var(--card);border:1px solid var(--gold-border);border-radius:16px;padding:1.5rem;margin-bottom:1.5rem;backdrop-filter:blur(10px);position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),#ff8c00,var(--gold))}
+.card h2{font-size:1.1rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}
+.form-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:0.75rem;margin-bottom:0.75rem}
+.form-group{display:flex;flex-direction:column;gap:0.3rem}
+.form-group label{font-size:0.75rem;color:var(--text-dim);font-weight:600;text-transform:uppercase;letter-spacing:0.5px}
+.form-group input,.form-group select,.form-group textarea{padding:0.6rem 0.8rem;background:rgba(22,27,34,0.9);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.85rem;font-family:var(--font);outline:none}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--gold)}
+.btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;transition:all 0.2s}
+.btn-gold{background:linear-gradient(135deg,#ffd700,#ff8c00);color:#000}
+.btn-gold:hover{transform:translateY(-1px);box-shadow:0 4px 15px rgba(255,215,0,0.3)}
+.btn-outline{background:transparent;border:1px solid var(--gold-border);color:var(--gold)}
+.btn-outline:hover{background:rgba(255,215,0,0.1)}
+.btn-red{background:rgba(248,81,73,0.15);border:1px solid rgba(248,81,73,0.3);color:var(--red)}
+.btn-sm{padding:0.4rem 0.8rem;font-size:0.75rem}
+.btn-row{display:flex;gap:0.5rem;flex-wrap:wrap}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1rem;margin-bottom:1.5rem}
+.stat-box{background:rgba(13,17,23,0.6);border:1px solid var(--border);border-radius:12px;padding:1rem;text-align:center}
+.stat-box .num{font-size:1.8rem;font-weight:800;color:var(--gold)}
+.stat-box .label{font-size:0.7rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.5px}
+.sprint-table{width:100%;border-collapse:collapse;font-size:0.85rem}
+.sprint-table th{text-align:left;padding:0.6rem;border-bottom:2px solid var(--gold-border);color:var(--gold);font-size:0.75rem;text-transform:uppercase;letter-spacing:0.5px}
+.sprint-table td{padding:0.6rem;border-bottom:1px solid var(--border)}
+.sprint-table tr:hover{background:rgba(255,215,0,0.03)}
+.velocity-bar{height:8px;border-radius:4px;background:rgba(255,215,0,0.15)}
+.velocity-bar-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--gold),var(--orange));transition:width 0.3s}
+canvas{width:100%;border-radius:8px;background:rgba(13,17,23,0.6);border:1px solid var(--border)}
+.share-cta{background:linear-gradient(135deg,rgba(255,215,0,0.08),rgba(255,140,0,0.05));border:1px solid var(--gold-border);border-radius:16px;padding:2rem;text-align:center;margin-top:2rem}
+.share-cta h3{color:var(--gold);margin-bottom:0.5rem}.share-cta p{color:var(--text-dim);font-size:0.9rem;margin-bottom:1rem}
+.share-btns{display:flex;gap:0.6rem;justify-content:center;flex-wrap:wrap}
+.share-btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;color:#fff}
+.share-x{background:#000;border:1px solid #333}.share-reddit{background:#ff4500}.share-email{background:#21262d;border:1px solid #30363d}
+.footer{text-align:center;padding:2rem;border-top:1px solid rgba(255,215,0,0.1);color:var(--text-dim);font-size:0.75rem;margin-top:3rem}
+.footer a{color:var(--gold)}.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-bottom:1rem}
+.watermark{position:fixed;bottom:10px;right:10px;font-size:0.6rem;color:rgba(255,215,0,0.08);font-weight:800;pointer-events:none;z-index:9999;letter-spacing:1px;text-transform:uppercase}
+.forecast-result{background:rgba(255,215,0,0.08);border:1px solid var(--gold-border);border-radius:12px;padding:1.5rem;text-align:center;margin-top:1rem}
+.forecast-result .big{font-size:2rem;font-weight:800;color:var(--gold)}
+.forecast-result .sub{color:var(--text-dim);font-size:0.85rem}
+@media(max-width:768px){.main{padding:1rem}.hero-section h1{font-size:1.6rem}.nav-links{display:none}.form-row{grid-template-columns:1fr}.stats-grid{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<div class="bg-mesh"></div><div class="bg-grid"></div>
+<div class="lock-gate" id="lockGate"><div class="lock-icon-big">&#128274;</div><h2>Enter Code <span>SPUNK</span> to Unlock</h2><p>This exclusive premium tool requires the SPUNK referral code.</p><div class="code-input-wrap"><input type="text" class="code-input" id="codeInput" placeholder="CODE" maxlength="10" autocomplete="off"><button class="code-submit" onclick="submitCode()">Unlock</button></div><div class="code-error" id="codeError"></div><div class="lock-hint">Get the code at <a href="https://spunk.codes/exclusive-tools">spunk.codes/exclusive-tools</a></div></div>
+<nav class="nav"><a href="https://spunk.codes" class="nav-brand">SPUNK.CODES</a><div class="nav-links"><a href="/store">Tools</a><a href="/exclusive-tools" class="active">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a></div></nav>
+
+<div class="main">
+  <section class="hero-section">
+    <div class="exclusive-badge">&#128081; EXCLUSIVE TOOL</div>
+    <h1><span class="gold">Sprint Velocity</span> Tracker</h1>
+    <p>Track your agile team's velocity, visualize trends, forecast delivery timelines, and export sprint analytics.</p>
+  </section>
+
+  <div class="stats-grid" id="statsGrid">
+    <div class="stat-box"><div class="num" id="statAvgVelocity">0</div><div class="label">Avg Velocity</div></div>
+    <div class="stat-box"><div class="num" id="statTotalSprints">0</div><div class="label">Sprints</div></div>
+    <div class="stat-box"><div class="num" id="statTotalPoints">0</div><div class="label">Total Points</div></div>
+    <div class="stat-box"><div class="num" id="statCompletionRate">0%</div><div class="label">Completion Rate</div></div>
+  </div>
+
+  <div class="card">
+    <h2>&#10010; Add Sprint</h2>
+    <div class="form-row">
+      <div class="form-group"><label>Sprint Name</label><input type="text" id="sprintName" placeholder="Sprint 1"></div>
+      <div class="form-group"><label>Start Date</label><input type="date" id="sprintStart"></div>
+      <div class="form-group"><label>End Date</label><input type="date" id="sprintEnd"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Planned Points</label><input type="number" id="plannedPoints" placeholder="30" min="0"></div>
+      <div class="form-group"><label>Completed Points</label><input type="number" id="completedPoints" placeholder="25" min="0"></div>
+      <div class="form-group" style="justify-content:flex-end"><button class="btn btn-gold" onclick="addSprint()">Add Sprint</button></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>&#128202; Velocity Trend</h2>
+    <canvas id="velocityChart" height="280"></canvas>
+  </div>
+
+  <div class="card">
+    <h2>&#128293; Sprint Burndown</h2>
+    <div class="form-row" style="margin-bottom:1rem">
+      <div class="form-group"><label>Select Sprint</label>
+        <select id="burndownSelect" onchange="drawBurndown()"><option value="">-- Select --</option></select>
+      </div>
+    </div>
+    <canvas id="burndownChart" height="250"></canvas>
+  </div>
+
+  <div class="card">
+    <h2>&#128302; Forecast Calculator</h2>
+    <div class="form-row">
+      <div class="form-group"><label>Remaining Story Points</label><input type="number" id="forecastPoints" placeholder="100" min="1"></div>
+      <div class="form-group" style="justify-content:flex-end"><button class="btn btn-gold" onclick="calcForecast()">Calculate</button></div>
+    </div>
+    <div class="forecast-result" id="forecastResult" style="display:none">
+      <div class="big" id="forecastSprints">-</div>
+      <div class="sub" id="forecastText">sprints to complete</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>&#128203; Sprint History</h2>
+    <div class="btn-row" style="margin-bottom:1rem">
+      <button class="btn btn-outline btn-sm" onclick="exportCSV()">Export CSV</button>
+      <button class="btn btn-red btn-sm" onclick="clearAll()">Clear All</button>
+    </div>
+    <div style="overflow-x:auto">
+      <table class="sprint-table" id="sprintTable">
+        <thead><tr><th>Sprint</th><th>Dates</th><th>Planned</th><th>Completed</th><th>Velocity</th><th></th></tr></thead>
+        <tbody id="sprintBody"></tbody>
+      </table>
+    </div>
+    <p id="noSprints" style="color:var(--text-dim);font-size:0.85rem;margin-top:0.5rem">No sprints yet. Add your first sprint above.</p>
+  </div>
+
+  <div class="share-cta">
+    <h3>&#128275; Share the Code, Unlock More Tools</h3>
+    <p>Share code SPUNK to help others access 15+ exclusive premium tools.</p>
+    <div class="share-btns">
+      <button class="share-btn share-x" onclick="shareX()">&#120143; Share on X</button>
+      <button class="share-btn share-reddit" onclick="shareReddit()">&#128172; Reddit</button>
+      <button class="share-btn share-email" onclick="shareEmail()">&#9993; Email</button>
+    </div>
+  </div>
+</div>
+
+<footer class="footer"><div class="footer-links"><a href="https://spunk.codes">Home</a><a href="/store">Tools</a><a href="/exclusive-tools">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a><a href="https://twitter.com/SpunkArt13" target="_blank">@SpunkArt13</a></div><div>&copy; 2026 SPUNK.CODES EXCLUSIVE.</div></footer>
+<div class="watermark">SPUNK.CODES EXCLUSIVE</div>
+
+<script>
+document.addEventListener('contextmenu',function(e){e.preventDefault()});
+document.addEventListener('keydown',function(e){if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'||e.key==='C'))||(e.ctrlKey&&e.key==='u'))e.preventDefault()});
+function checkCode(){try{var c=localStorage.getItem('spunk_referral_code')||localStorage.getItem('spunk_ref_code')||'';if(c.toUpperCase()==='SPUNK'){document.getElementById('lockGate').classList.add('hidden');return true}}catch(e){}return false}
+function submitCode(){var v=document.getElementById('codeInput').value.trim().toUpperCase();if(v==='SPUNK'){try{localStorage.setItem('spunk_referral_code','SPUNK');localStorage.setItem('spunk_ref_code','SPUNK')}catch(e){}document.getElementById('lockGate').classList.add('hidden')}else{document.getElementById('codeError').textContent='Invalid code. Try: SPUNK';setTimeout(function(){document.getElementById('codeError').textContent=''},2000)}}
+document.getElementById('codeInput').addEventListener('keydown',function(e){if(e.key==='Enter')submitCode()});
+checkCode();
+
+var sprints = [];
+
+function loadState(){
+  try{var d=JSON.parse(localStorage.getItem('sprint_velocity_data')||'[]');if(Array.isArray(d))sprints=d}catch(e){}
+}
+function saveState(){
+  try{localStorage.setItem('sprint_velocity_data',JSON.stringify(sprints))}catch(e){}
+}
+
+function addSprint(){
+  var name=document.getElementById('sprintName').value.trim();
+  var start=document.getElementById('sprintStart').value;
+  var end=document.getElementById('sprintEnd').value;
+  var planned=parseInt(document.getElementById('plannedPoints').value)||0;
+  var completed=parseInt(document.getElementById('completedPoints').value)||0;
+  if(!name){alert('Enter a sprint name');return}
+  if(!start||!end){alert('Enter start and end dates');return}
+  if(planned<=0){alert('Planned points must be > 0');return}
+  sprints.push({id:Date.now(),name:name,start:start,end:end,planned:planned,completed:completed});
+  document.getElementById('sprintName').value='';
+  document.getElementById('plannedPoints').value='';
+  document.getElementById('completedPoints').value='';
+  saveState();renderAll();
+}
+
+function deleteSprint(id){
+  sprints=sprints.filter(function(s){return s.id!==id});
+  saveState();renderAll();
+}
+
+function clearAll(){
+  if(!confirm('Clear all sprint data?'))return;
+  sprints=[];saveState();renderAll();
+}
+
+function updateStats(){
+  var total=sprints.length;
+  var totalCompleted=sprints.reduce(function(s,sp){return s+sp.completed},0);
+  var totalPlanned=sprints.reduce(function(s,sp){return s+sp.planned},0);
+  var avg=total>0?Math.round(totalCompleted/total):0;
+  var rate=totalPlanned>0?Math.round((totalCompleted/totalPlanned)*100):0;
+  document.getElementById('statAvgVelocity').textContent=avg;
+  document.getElementById('statTotalSprints').textContent=total;
+  document.getElementById('statTotalPoints').textContent=totalCompleted;
+  document.getElementById('statCompletionRate').textContent=rate+'%';
+}
+
+function renderTable(){
+  var tbody=document.getElementById('sprintBody');
+  var noMsg=document.getElementById('noSprints');
+  if(sprints.length===0){tbody.innerHTML='';noMsg.style.display='block';return}
+  noMsg.style.display='none';
+  var maxPlanned=Math.max.apply(null,sprints.map(function(s){return s.planned}));
+  tbody.innerHTML=sprints.map(function(s){
+    var pct=s.planned>0?Math.round((s.completed/s.planned)*100):0;
+    return '<tr><td style="font-weight:700">'+escHtml(s.name)+'</td><td style="font-size:0.8rem;color:var(--text-dim)">'+s.start+' &rarr; '+s.end+'</td><td>'+s.planned+'</td><td>'+s.completed+'</td><td><div style="display:flex;align-items:center;gap:0.5rem"><div class="velocity-bar" style="width:100px"><div class="velocity-bar-fill" style="width:'+Math.min(pct,100)+'%"></div></div><span style="font-size:0.8rem;color:'+(pct>=100?'var(--cyan)':pct>=80?'var(--gold)':'var(--red)')+'">'+pct+'%</span></div></td><td><button class="btn btn-red btn-sm" onclick="deleteSprint('+s.id+')">X</button></td></tr>';
+  }).join('');
+}
+
+function updateBurndownSelect(){
+  var sel=document.getElementById('burndownSelect');
+  var val=sel.value;
+  sel.innerHTML='<option value="">-- Select --</option>';
+  sprints.forEach(function(s,i){
+    sel.innerHTML+='<option value="'+i+'">'+escHtml(s.name)+'</option>';
+  });
+  sel.value=val;
+}
+
+function drawVelocityChart(){
+  var canvas=document.getElementById('velocityChart');
+  var ctx=canvas.getContext('2d');
+  var dpr=window.devicePixelRatio||1;
+  canvas.width=canvas.offsetWidth*dpr;canvas.height=280*dpr;
+  ctx.scale(dpr,dpr);
+  var w=canvas.offsetWidth,h=280;
+  ctx.clearRect(0,0,w,h);
+  if(sprints.length===0){
+    ctx.fillStyle='#8b949e';ctx.font='14px system-ui';ctx.textAlign='center';
+    ctx.fillText('Add sprints to see velocity trend',w/2,h/2);return;
+  }
+  var pad={top:30,right:30,bottom:50,left:50};
+  var cw=w-pad.left-pad.right,ch=h-pad.top-pad.bottom;
+  var maxVal=Math.max.apply(null,sprints.map(function(s){return Math.max(s.planned,s.completed)}))*1.2;
+  if(maxVal===0)maxVal=10;
+  var barW=Math.min(40,cw/(sprints.length*3));
+
+  // Grid lines
+  ctx.strokeStyle='rgba(48,54,61,0.4)';ctx.lineWidth=1;
+  for(var i=0;i<=5;i++){
+    var y=pad.top+ch-(ch/5)*i;
+    ctx.beginPath();ctx.moveTo(pad.left,y);ctx.lineTo(w-pad.right,y);ctx.stroke();
+    ctx.fillStyle='#8b949e';ctx.font='11px system-ui';ctx.textAlign='right';
+    ctx.fillText(Math.round(maxVal/5*i),pad.left-8,y+4);
+  }
+
+  // Bars
+  sprints.forEach(function(s,idx){
+    var x=pad.left+(cw/(sprints.length))*(idx+0.5);
+    var hPlanned=(s.planned/maxVal)*ch;
+    var hCompleted=(s.completed/maxVal)*ch;
+    // Planned bar
+    ctx.fillStyle='rgba(255,215,0,0.2)';
+    ctx.fillRect(x-barW-2,pad.top+ch-hPlanned,barW,hPlanned);
+    ctx.strokeStyle='rgba(255,215,0,0.5)';ctx.lineWidth=1;
+    ctx.strokeRect(x-barW-2,pad.top+ch-hPlanned,barW,hPlanned);
+    // Completed bar
+    var grad=ctx.createLinearGradient(0,pad.top+ch-hCompleted,0,pad.top+ch);
+    grad.addColorStop(0,'#ffd700');grad.addColorStop(1,'#ff8c00');
+    ctx.fillStyle=grad;
+    ctx.fillRect(x+2,pad.top+ch-hCompleted,barW,hCompleted);
+    // Label
+    ctx.fillStyle='#8b949e';ctx.font='11px system-ui';ctx.textAlign='center';
+    ctx.save();ctx.translate(x,pad.top+ch+15);
+    var label=s.name.length>10?s.name.substring(0,10)+'...':s.name;
+    ctx.fillText(label,0,0);ctx.restore();
+  });
+
+  // Trend line
+  if(sprints.length>1){
+    ctx.beginPath();ctx.strokeStyle='var(--cyan)';ctx.lineWidth=2;ctx.setLineDash([5,3]);
+    sprints.forEach(function(s,idx){
+      var x=pad.left+(cw/(sprints.length))*(idx+0.5);
+      var y=pad.top+ch-(s.completed/maxVal)*ch;
+      if(idx===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);
+    });
+    ctx.stroke();ctx.setLineDash([]);
+  }
+
+  // Average line
+  var avg=sprints.reduce(function(s,sp){return s+sp.completed},0)/sprints.length;
+  var avgY=pad.top+ch-(avg/maxVal)*ch;
+  ctx.beginPath();ctx.strokeStyle='rgba(248,81,73,0.6)';ctx.lineWidth=1.5;ctx.setLineDash([8,4]);
+  ctx.moveTo(pad.left,avgY);ctx.lineTo(w-pad.right,avgY);ctx.stroke();ctx.setLineDash([]);
+  ctx.fillStyle='var(--red)';ctx.font='11px system-ui';ctx.textAlign='left';
+  ctx.fillText('Avg: '+Math.round(avg),pad.left+5,avgY-6);
+
+  // Legend
+  ctx.fillStyle='rgba(255,215,0,0.3)';ctx.fillRect(w-180,8,12,12);
+  ctx.fillStyle='#8b949e';ctx.font='11px system-ui';ctx.textAlign='left';ctx.fillText('Planned',w-164,18);
+  ctx.fillStyle='#ffd700';ctx.fillRect(w-100,8,12,12);
+  ctx.fillStyle='#8b949e';ctx.fillText('Completed',w-84,18);
+}
+
+function drawBurndown(){
+  var canvas=document.getElementById('burndownChart');
+  var ctx=canvas.getContext('2d');
+  var dpr=window.devicePixelRatio||1;
+  canvas.width=canvas.offsetWidth*dpr;canvas.height=250*dpr;
+  ctx.scale(dpr,dpr);
+  var w=canvas.offsetWidth,h=250;
+  ctx.clearRect(0,0,w,h);
+  var idx=parseInt(document.getElementById('burndownSelect').value);
+  if(isNaN(idx)||!sprints[idx]){
+    ctx.fillStyle='#8b949e';ctx.font='14px system-ui';ctx.textAlign='center';
+    ctx.fillText('Select a sprint to view burndown',w/2,h/2);return;
+  }
+  var sp=sprints[idx];
+  var startD=new Date(sp.start),endD=new Date(sp.end);
+  var days=Math.max(1,Math.round((endD-startD)/(86400000)));
+  var pad={top:30,right:30,bottom:40,left:50};
+  var cw=w-pad.left-pad.right,ch=h-pad.top-pad.bottom;
+
+  // Grid
+  ctx.strokeStyle='rgba(48,54,61,0.4)';ctx.lineWidth=1;
+  for(var i=0;i<=4;i++){
+    var y=pad.top+(ch/4)*i;
+    ctx.beginPath();ctx.moveTo(pad.left,y);ctx.lineTo(w-pad.right,y);ctx.stroke();
+    ctx.fillStyle='#8b949e';ctx.font='11px system-ui';ctx.textAlign='right';
+    ctx.fillText(Math.round(sp.planned*(1-i/4)),pad.left-8,y+4);
+  }
+
+  // Ideal burndown line
+  ctx.beginPath();ctx.strokeStyle='rgba(255,215,0,0.4)';ctx.lineWidth=2;ctx.setLineDash([6,3]);
+  ctx.moveTo(pad.left,pad.top);ctx.lineTo(pad.left+cw,pad.top+ch);
+  ctx.stroke();ctx.setLineDash([]);
+
+  // Simulated actual burndown (pseudo-random based on data)
+  var seed=sp.planned+sp.completed+days;
+  function rand(){seed=(seed*9301+49297)%233280;return seed/233280}
+  var remaining=sp.planned;
+  var dailyIdeal=sp.planned/days;
+  var points=[[0,remaining]];
+  for(var d=1;d<=days;d++){
+    var burn=dailyIdeal*(0.5+rand()*1.2);
+    remaining=Math.max(0,remaining-burn);
+    if(d===days)remaining=sp.planned-sp.completed;
+    points.push([d,remaining]);
+  }
+
+  // Draw actual line
+  ctx.beginPath();
+  var grad=ctx.createLinearGradient(pad.left,0,pad.left+cw,0);
+  grad.addColorStop(0,'#39d353');grad.addColorStop(1,remaining<=0?'#39d353':'#f85149');
+  ctx.strokeStyle=grad;ctx.lineWidth=2.5;
+  points.forEach(function(p,i){
+    var x=pad.left+(p[0]/days)*cw;
+    var y=pad.top+((sp.planned-p[1])/sp.planned)*ch;
+    y=pad.top+ch-(p[1]/sp.planned)*ch;
+    if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);
+  });
+  ctx.stroke();
+
+  // Fill area
+  ctx.lineTo(pad.left+cw,pad.top+ch);ctx.lineTo(pad.left,pad.top+ch);ctx.closePath();
+  ctx.fillStyle='rgba(57,211,83,0.06)';ctx.fill();
+
+  // Day labels
+  ctx.fillStyle='#8b949e';ctx.font='11px system-ui';ctx.textAlign='center';
+  var step=Math.max(1,Math.floor(days/8));
+  for(var d=0;d<=days;d+=step){
+    var x=pad.left+(d/days)*cw;
+    ctx.fillText('D'+d,x,h-pad.bottom+18);
+  }
+
+  // Legend
+  ctx.fillStyle='#8b949e';ctx.font='11px system-ui';ctx.textAlign='left';
+  ctx.setLineDash([6,3]);ctx.strokeStyle='rgba(255,215,0,0.4)';ctx.lineWidth=2;
+  ctx.beginPath();ctx.moveTo(w-200,12);ctx.lineTo(w-175,12);ctx.stroke();ctx.setLineDash([]);
+  ctx.fillText('Ideal',w-170,16);
+  ctx.strokeStyle='#39d353';ctx.lineWidth=2.5;
+  ctx.beginPath();ctx.moveTo(w-120,12);ctx.lineTo(w-95,12);ctx.stroke();
+  ctx.fillText('Actual',w-90,16);
+}
+
+function calcForecast(){
+  var pts=parseInt(document.getElementById('forecastPoints').value)||0;
+  if(pts<=0){alert('Enter remaining story points');return}
+  var avg=sprints.length>0?sprints.reduce(function(s,sp){return s+sp.completed},0)/sprints.length:0;
+  if(avg<=0){alert('Need at least one sprint with completed points');return}
+  var needed=Math.ceil(pts/avg);
+  document.getElementById('forecastSprints').textContent=needed;
+  var sprintLen=14;
+  if(sprints.length>0){
+    var s=sprints[sprints.length-1];
+    sprintLen=Math.max(1,Math.round((new Date(s.end)-new Date(s.start))/86400000));
+  }
+  var totalDays=needed*sprintLen;
+  var weeks=Math.round(totalDays/7*10)/10;
+  document.getElementById('forecastText').textContent=pts+' story points at avg velocity of '+Math.round(avg)+' = '+needed+' sprints (~'+weeks+' weeks)';
+  document.getElementById('forecastResult').style.display='block';
+}
+
+function exportCSV(){
+  if(sprints.length===0){alert('No data to export');return}
+  var csv='Sprint Name,Start Date,End Date,Planned Points,Completed Points,Completion %\n';
+  sprints.forEach(function(s){
+    var pct=s.planned>0?Math.round((s.completed/s.planned)*100):0;
+    csv+='"'+s.name+'",'+s.start+','+s.end+','+s.planned+','+s.completed+','+pct+'%\n';
+  });
+  var avg=sprints.reduce(function(s,sp){return s+sp.completed},0)/sprints.length;
+  csv+='\nAverage Velocity,'+Math.round(avg)+'\nTotal Sprints,'+sprints.length+'\n';
+  var blob=new Blob([csv],{type:'text/csv'});
+  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='sprint-velocity.csv';a.click();
+}
+
+function escHtml(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+
+function renderAll(){
+  updateStats();renderTable();updateBurndownSelect();drawVelocityChart();drawBurndown();
+}
+
+// Init
+var today=new Date().toISOString().split('T')[0];
+document.getElementById('sprintStart').value=today;
+var endDate=new Date();endDate.setDate(endDate.getDate()+14);
+document.getElementById('sprintEnd').value=endDate.toISOString().split('T')[0];
+loadState();renderAll();
+window.addEventListener('resize',function(){drawVelocityChart();drawBurndown()});
+
+function shareX(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Tracking sprint velocity with this tool. Agile analytics made easy. Code SPUNK @SpunkArt13')+'&url='+encodeURIComponent('https://spunk.codes/exclusive-tools'),'_blank')}
+function shareReddit(){window.open('https://www.reddit.com/submit?url='+encodeURIComponent('https://spunk.codes/exclusive-tools')+'&title='+encodeURIComponent('Sprint Velocity Tracker - free with code SPUNK [spunk.codes]'),'_blank')}
+function shareEmail(){window.location.href='mailto:?subject='+encodeURIComponent('Sprint Velocity Tracker Tool')+'&body='+encodeURIComponent('Track sprint velocity and forecast delivery. Code SPUNK: https://spunk.codes/exclusive-tools')}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<script src="/auto-monetize.js"></script>
+<div id="shareXBtn" style="position:fixed;left:20px;bottom:20px;z-index:9999;">
+  <a id="shareXLink" href="#" target="_blank" rel="noopener noreferrer" title="Share on X"
+     style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;
+     background:rgba(88,166,255,0.15);border:1px solid rgba(88,166,255,0.3);
+     backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:50%;
+     text-decoration:none;transition:all 0.3s ease;cursor:pointer;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+    </svg>
+  </a>
+</div>
+<style>#shareXBtn a:hover{background:rgba(88,166,255,0.35)!important;border-color:rgba(88,166,255,0.6)!important;transform:scale(1.1);box-shadow:0 0 15px rgba(88,166,255,0.3)}</style>
+<script>
+(function(){var page=location.pathname.split("/").pop()||"index.html";var url="https://spunk.codes/"+page;var text="Just used this free tool on spunk.codes — amazing! @SpunkArt13";var href="https://x.com/intent/tweet?text="+encodeURIComponent(text)+"&url="+encodeURIComponent(url);document.getElementById("shareXLink").href=href})();
+</script>
+<script src="/usage-tracker.js"></script>
+</body>
+</html>

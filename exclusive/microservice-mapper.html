@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Microservice Architecture Mapper - Visual Service Graph | SPUNK.CODES Exclusive</title>
+<meta name="description" content="Map microservice architectures with visual dependency graphs, API docs, health checks. Export architecture diagrams as JSON. Exclusive premium tool.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Microservice Architecture Mapper - SPUNK.CODES Exclusive">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/microservice-mapper">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0d1117;--card:rgba(22,27,34,0.8);--border:rgba(48,54,61,0.6);--gold:#ffd700;--gold-border:rgba(255,215,0,0.3);--text:#e6edf3;--text-dim:#8b949e;--blue:#58a6ff;--cyan:#39d353;--red:#f85149;--orange:#ff8c00;--font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+a{color:var(--blue);text-decoration:none}
+.bg-mesh{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 80% 50% at 20% 20%,rgba(255,215,0,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(255,140,0,0.04) 0%,transparent 60%),var(--bg)}
+.bg-grid{position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,215,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,215,0,0.03) 1px,transparent 1px);background-size:60px 60px}
+.nav{position:sticky;top:0;z-index:100;background:rgba(13,17,23,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,215,0,0.15);padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}
+.nav-brand{font-weight:800;font-size:1.1rem;color:var(--gold);letter-spacing:0.08em}
+.nav-links{display:flex;gap:1.5rem;font-size:0.85rem}.nav-links a{color:var(--text-dim);font-weight:500}.nav-links a.active{color:var(--gold)}
+.lock-gate{position:fixed;inset:0;z-index:1000;background:rgba(13,17,23,0.97);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:2rem}
+.lock-gate.hidden{display:none}
+.lock-icon-big{font-size:4rem}.lock-gate h2{font-size:1.8rem;font-weight:800;text-align:center}.lock-gate h2 span{color:var(--gold)}.lock-gate p{color:var(--text-dim);text-align:center;max-width:400px}
+.code-input-wrap{display:flex;gap:0.5rem}
+.code-input{padding:0.8rem 1.5rem;background:rgba(22,27,34,0.8);border:2px solid var(--gold-border);border-radius:12px;color:var(--gold);font-size:1.2rem;font-weight:800;letter-spacing:3px;text-align:center;width:200px;outline:none;text-transform:uppercase;font-family:var(--font)}
+.code-input:focus{border-color:var(--gold);box-shadow:0 0 20px rgba(255,215,0,0.2)}
+.code-submit{padding:0.8rem 1.5rem;background:linear-gradient(135deg,#ffd700,#ff8c00);border:none;border-radius:12px;color:#000;font-size:1rem;font-weight:800;cursor:pointer}
+.code-error{color:var(--red);font-size:0.85rem;min-height:1.2em}.lock-hint{color:var(--text-dim);font-size:0.8rem}.lock-hint a{color:var(--gold)}
+.exclusive-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;background:linear-gradient(135deg,rgba(255,215,0,0.15),rgba(255,140,0,0.15));border:1px solid var(--gold-border);border-radius:100px;font-size:11px;font-weight:800;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase}
+.main{max-width:1200px;margin:0 auto;padding:2rem}
+.hero-section{text-align:center;padding:2rem 0 2rem}
+.hero-section h1{font-size:2.2rem;font-weight:800;margin:1rem 0 0.5rem}
+.hero-section h1 .gold{background:linear-gradient(135deg,#ffd700,#ff8c00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-section p{color:var(--text-dim);max-width:600px;margin:0 auto}
+.card{background:var(--card);border:1px solid var(--gold-border);border-radius:16px;padding:1.5rem;margin-bottom:1.5rem;backdrop-filter:blur(10px);position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),#ff8c00,var(--gold))}
+.card h2{font-size:1.1rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}
+.form-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:0.75rem;margin-bottom:0.75rem}
+.form-group{display:flex;flex-direction:column;gap:0.3rem}
+.form-group label{font-size:0.75rem;color:var(--text-dim);font-weight:600;text-transform:uppercase;letter-spacing:0.5px}
+.form-group input,.form-group select,.form-group textarea{padding:0.6rem 0.8rem;background:rgba(22,27,34,0.9);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.85rem;font-family:var(--font);outline:none}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--gold)}
+.form-group textarea{resize:vertical;min-height:50px}
+.btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;transition:all 0.2s}
+.btn-gold{background:linear-gradient(135deg,#ffd700,#ff8c00);color:#000}
+.btn-gold:hover{transform:translateY(-1px);box-shadow:0 4px 15px rgba(255,215,0,0.3)}
+.btn-outline{background:transparent;border:1px solid var(--gold-border);color:var(--gold)}
+.btn-outline:hover{background:rgba(255,215,0,0.1)}
+.btn-red{background:rgba(248,81,73,0.15);border:1px solid rgba(248,81,73,0.3);color:var(--red)}
+.btn-sm{padding:0.4rem 0.8rem;font-size:0.75rem}
+.btn-row{display:flex;gap:0.5rem;flex-wrap:wrap}
+.type-tag{display:inline-block;padding:2px 10px;border-radius:4px;font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.5px}
+.type-api{background:rgba(88,166,255,0.15);color:var(--blue)}
+.type-worker{background:rgba(255,140,0,0.15);color:var(--orange)}
+.type-database{background:rgba(57,211,83,0.15);color:var(--cyan)}
+.type-cache{background:rgba(255,215,0,0.15);color:var(--gold)}
+.type-queue{background:rgba(248,81,73,0.15);color:var(--red)}
+.type-gateway{background:rgba(139,148,158,0.15);color:var(--text-dim)}
+.service-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:0.75rem}
+.service-card{background:rgba(13,17,23,0.6);border:1px solid var(--border);border-radius:12px;padding:1rem;transition:border-color 0.3s}
+.service-card:hover{border-color:var(--gold-border)}
+.service-card h3{font-size:0.95rem;font-weight:700;margin-bottom:0.3rem;display:flex;align-items:center;gap:0.5rem}
+.service-card .deps{font-size:0.75rem;color:var(--text-dim);margin-top:0.3rem}
+.service-card .endpoints{margin-top:0.5rem;font-size:0.75rem}
+.endpoint-item{display:flex;align-items:center;gap:0.3rem;padding:2px 0}
+.method-badge{display:inline-block;padding:1px 6px;border-radius:3px;font-size:0.6rem;font-weight:800;min-width:36px;text-align:center}
+.method-GET{background:rgba(57,211,83,0.15);color:var(--cyan)}
+.method-POST{background:rgba(88,166,255,0.15);color:var(--blue)}
+.method-PUT{background:rgba(255,215,0,0.15);color:var(--gold)}
+.method-DELETE{background:rgba(248,81,73,0.15);color:var(--red)}
+.method-PATCH{background:rgba(255,140,0,0.15);color:var(--orange)}
+canvas{width:100%;border-radius:8px;background:rgba(13,17,23,0.6);border:1px solid var(--border);cursor:grab}
+canvas:active{cursor:grabbing}
+.health-table{width:100%;border-collapse:collapse;font-size:0.85rem}
+.health-table th{text-align:left;padding:0.5rem;border-bottom:2px solid var(--gold-border);color:var(--gold);font-size:0.75rem;text-transform:uppercase}
+.health-table td{padding:0.5rem;border-bottom:1px solid var(--border)}
+.health-dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px}
+.health-up{background:var(--cyan)}.health-down{background:var(--red)}.health-unknown{background:var(--text-dim)}
+.json-output{background:#161b22;border:1px solid var(--border);border-radius:8px;padding:1rem;font-family:'Courier New',monospace;font-size:0.8rem;line-height:1.5;overflow:auto;white-space:pre-wrap;max-height:400px;color:var(--cyan)}
+.share-cta{background:linear-gradient(135deg,rgba(255,215,0,0.08),rgba(255,140,0,0.05));border:1px solid var(--gold-border);border-radius:16px;padding:2rem;text-align:center;margin-top:2rem}
+.share-cta h3{color:var(--gold);margin-bottom:0.5rem}.share-cta p{color:var(--text-dim);font-size:0.9rem;margin-bottom:1rem}
+.share-btns{display:flex;gap:0.6rem;justify-content:center;flex-wrap:wrap}
+.share-btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;color:#fff}
+.share-x{background:#000;border:1px solid #333}.share-reddit{background:#ff4500}.share-email{background:#21262d;border:1px solid #30363d}
+.footer{text-align:center;padding:2rem;border-top:1px solid rgba(255,215,0,0.1);color:var(--text-dim);font-size:0.75rem;margin-top:3rem}
+.footer a{color:var(--gold)}.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-bottom:1rem}
+.watermark{position:fixed;bottom:10px;right:10px;font-size:0.6rem;color:rgba(255,215,0,0.08);font-weight:800;pointer-events:none;z-index:9999;letter-spacing:1px;text-transform:uppercase}
+.dep-check{display:flex;flex-wrap:wrap;gap:0.3rem;margin-top:0.3rem}
+.dep-chip{padding:2px 8px;border-radius:4px;font-size:0.7rem;background:rgba(48,54,61,0.4);color:var(--text-dim);cursor:pointer;border:1px solid transparent}
+.dep-chip.selected{border-color:var(--gold);color:var(--gold);background:rgba(255,215,0,0.1)}
+@media(max-width:768px){.main{padding:1rem}.hero-section h1{font-size:1.6rem}.nav-links{display:none}.form-row{grid-template-columns:1fr}.service-list{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="bg-mesh"></div><div class="bg-grid"></div>
+<div class="lock-gate" id="lockGate"><div class="lock-icon-big">&#128274;</div><h2>Enter Code <span>SPUNK</span> to Unlock</h2><p>This exclusive premium tool requires the SPUNK referral code.</p><div class="code-input-wrap"><input type="text" class="code-input" id="codeInput" placeholder="CODE" maxlength="10" autocomplete="off"><button class="code-submit" onclick="submitCode()">Unlock</button></div><div class="code-error" id="codeError"></div><div class="lock-hint">Get the code at <a href="https://spunk.codes/exclusive-tools">spunk.codes/exclusive-tools</a></div></div>
+<nav class="nav"><a href="https://spunk.codes" class="nav-brand">SPUNK.CODES</a><div class="nav-links"><a href="/store">Tools</a><a href="/exclusive-tools" class="active">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a></div></nav>
+
+<div class="main">
+  <section class="hero-section">
+    <div class="exclusive-badge">&#128081; EXCLUSIVE TOOL</div>
+    <h1><span class="gold">Microservice</span> Architecture Mapper</h1>
+    <p>Map your microservice architecture with visual dependency graphs, API documentation, and health check configuration.</p>
+  </section>
+
+  <div class="card">
+    <h2>&#10010; Add Service</h2>
+    <div class="form-row">
+      <div class="form-group"><label>Service Name</label><input type="text" id="svcName" placeholder="user-service"></div>
+      <div class="form-group"><label>Type</label>
+        <select id="svcType">
+          <option value="api">API</option><option value="worker">Worker</option><option value="database">Database</option>
+          <option value="cache">Cache</option><option value="queue">Message Queue</option><option value="gateway">API Gateway</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Port</label><input type="number" id="svcPort" placeholder="3000"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Description</label><input type="text" id="svcDesc" placeholder="Handles user authentication"></div>
+      <div class="form-group"><label>Health Check URL</label><input type="text" id="svcHealth" placeholder="/health"></div>
+    </div>
+    <div class="form-group" style="margin-bottom:0.75rem"><label>Dependencies (click to select)</label>
+      <div class="dep-check" id="depChecks"><span style="color:var(--text-dim);font-size:0.8rem">Add services first</span></div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-gold" onclick="addService()">Add Service</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>&#128302; Dependency Graph</h2>
+    <canvas id="graphCanvas" height="450"></canvas>
+  </div>
+
+  <div class="card">
+    <h2>&#128203; Services (<span id="svcCount">0</span>)</h2>
+    <div class="btn-row" style="margin-bottom:1rem">
+      <button class="btn btn-outline btn-sm" onclick="exportJSON()">Export JSON</button>
+      <button class="btn btn-outline btn-sm" onclick="importJSON()">Import JSON</button>
+      <button class="btn btn-red btn-sm" onclick="clearAll()">Clear All</button>
+    </div>
+    <div class="service-list" id="serviceList">
+      <p style="color:var(--text-dim);font-size:0.85rem">No services yet. Add your first microservice above.</p>
+    </div>
+  </div>
+
+  <div class="card" id="endpointCard">
+    <h2>&#128196; API Endpoints</h2>
+    <div class="form-row">
+      <div class="form-group"><label>Service</label><select id="epService" onchange="renderEndpoints()"><option value="">-- Select --</option></select></div>
+      <div class="form-group"><label>Method</label>
+        <select id="epMethod"><option>GET</option><option>POST</option><option>PUT</option><option>PATCH</option><option>DELETE</option></select>
+      </div>
+      <div class="form-group"><label>Path</label><input type="text" id="epPath" placeholder="/api/users/:id"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Description</label><input type="text" id="epDesc" placeholder="Get user by ID"></div>
+      <div class="form-group" style="justify-content:flex-end"><button class="btn btn-gold btn-sm" onclick="addEndpoint()">Add Endpoint</button></div>
+    </div>
+    <div id="endpointList" style="margin-top:1rem"></div>
+  </div>
+
+  <div class="card">
+    <h2>&#128994; Health Check Config</h2>
+    <table class="health-table" id="healthTable">
+      <thead><tr><th>Service</th><th>Type</th><th>Health URL</th><th>Port</th><th>Status</th></tr></thead>
+      <tbody id="healthBody"><tr><td colspan="5" style="color:var(--text-dim)">No services configured</td></tr></tbody>
+    </table>
+  </div>
+
+  <div class="card" id="jsonCard" style="display:none">
+    <h2>&#128196; Architecture JSON</h2>
+    <div class="btn-row" style="margin-bottom:0.75rem">
+      <button class="btn btn-outline btn-sm" onclick="copyJSON()">Copy JSON</button>
+      <button class="btn btn-outline btn-sm" onclick="downloadJSON()">Download</button>
+    </div>
+    <div class="json-output" id="jsonOutput"></div>
+  </div>
+
+  <div class="share-cta">
+    <h3>&#128275; Share the Code, Unlock More Tools</h3>
+    <p>Share code SPUNK to help others access 15+ exclusive premium tools.</p>
+    <div class="share-btns">
+      <button class="share-btn share-x" onclick="shareX()">&#120143; Share on X</button>
+      <button class="share-btn share-reddit" onclick="shareReddit()">&#128172; Reddit</button>
+      <button class="share-btn share-email" onclick="shareEmail()">&#9993; Email</button>
+    </div>
+  </div>
+</div>
+
+<footer class="footer"><div class="footer-links"><a href="https://spunk.codes">Home</a><a href="/store">Tools</a><a href="/exclusive-tools">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a><a href="https://twitter.com/SpunkArt13" target="_blank">@SpunkArt13</a></div><div>&copy; 2026 SPUNK.CODES EXCLUSIVE.</div></footer>
+<div class="watermark">SPUNK.CODES EXCLUSIVE</div>
+
+<script>
+document.addEventListener('contextmenu',function(e){e.preventDefault()});
+document.addEventListener('keydown',function(e){if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'||e.key==='C'))||(e.ctrlKey&&e.key==='u'))e.preventDefault()});
+function checkCode(){try{var c=localStorage.getItem('spunk_referral_code')||localStorage.getItem('spunk_ref_code')||'';if(c.toUpperCase()==='SPUNK'){document.getElementById('lockGate').classList.add('hidden');return true}}catch(e){}return false}
+function submitCode(){var v=document.getElementById('codeInput').value.trim().toUpperCase();if(v==='SPUNK'){try{localStorage.setItem('spunk_referral_code','SPUNK');localStorage.setItem('spunk_ref_code','SPUNK')}catch(e){}document.getElementById('lockGate').classList.add('hidden')}else{document.getElementById('codeError').textContent='Invalid code. Try: SPUNK';setTimeout(function(){document.getElementById('codeError').textContent=''},2000)}}
+document.getElementById('codeInput').addEventListener('keydown',function(e){if(e.key==='Enter')submitCode()});
+checkCode();
+
+var services=[];
+var selectedDeps=new Set();
+var typeColors={api:'#58a6ff',worker:'#ff8c00',database:'#39d353',cache:'#ffd700',queue:'#f85149',gateway:'#8b949e'};
+var typeIcons={api:'API',worker:'WRK',database:'DB',cache:'$',queue:'MQ',gateway:'GW'};
+
+function loadState(){try{var d=JSON.parse(localStorage.getItem('microservice_data')||'[]');if(Array.isArray(d))services=d}catch(e){}}
+function saveState(){try{localStorage.setItem('microservice_data',JSON.stringify(services))}catch(e){}}
+
+function addService(){
+  var name=document.getElementById('svcName').value.trim();
+  var type=document.getElementById('svcType').value;
+  var port=parseInt(document.getElementById('svcPort').value)||0;
+  var desc=document.getElementById('svcDesc').value.trim();
+  var health=document.getElementById('svcHealth').value.trim()||'/health';
+  if(!name){alert('Enter a service name');return}
+  if(services.find(function(s){return s.name===name})){alert('Service already exists');return}
+  services.push({id:Date.now(),name:name,type:type,port:port,desc:desc,health:health,deps:Array.from(selectedDeps),endpoints:[]});
+  document.getElementById('svcName').value='';document.getElementById('svcPort').value='';
+  document.getElementById('svcDesc').value='';document.getElementById('svcHealth').value='';
+  selectedDeps.clear();
+  saveState();renderAll();
+}
+
+function deleteService(id){
+  var svc=services.find(function(s){return s.id===id});
+  if(!svc)return;
+  services=services.filter(function(s){return s.id!==id});
+  services.forEach(function(s){s.deps=s.deps.filter(function(d){return d!==svc.name})});
+  saveState();renderAll();
+}
+
+function clearAll(){if(!confirm('Clear all services?'))return;services=[];saveState();renderAll()}
+
+function updateDepChecks(){
+  var container=document.getElementById('depChecks');
+  if(services.length===0){container.innerHTML='<span style="color:var(--text-dim);font-size:0.8rem">Add services first</span>';return}
+  container.innerHTML=services.map(function(s){
+    return '<span class="dep-chip'+(selectedDeps.has(s.name)?' selected':'')+'" onclick="toggleDep(\''+escHtml(s.name)+'\')">'+escHtml(s.name)+'</span>';
+  }).join('');
+}
+
+function toggleDep(name){
+  if(selectedDeps.has(name))selectedDeps.delete(name);else selectedDeps.add(name);
+  updateDepChecks();
+}
+
+function renderServiceList(){
+  var list=document.getElementById('serviceList');
+  document.getElementById('svcCount').textContent=services.length;
+  if(services.length===0){list.innerHTML='<p style="color:var(--text-dim);font-size:0.85rem">No services yet.</p>';return}
+  list.innerHTML=services.map(function(s){
+    var depHtml=s.deps.length>0?'Depends on: '+s.deps.map(function(d){return '<span style="color:var(--blue)">'+escHtml(d)+'</span>'}).join(', '):'No dependencies';
+    var epCount=s.endpoints?s.endpoints.length:0;
+    return '<div class="service-card"><h3><span class="type-tag type-'+s.type+'">'+s.type.toUpperCase()+'</span>'+escHtml(s.name)+'</h3><p style="font-size:0.8rem;color:var(--text-dim)">'+escHtml(s.desc||'No description')+'</p><div class="deps">'+depHtml+'</div><div style="display:flex;justify-content:space-between;align-items:center;margin-top:0.5rem"><span style="font-size:0.75rem;color:var(--text-dim)">Port: '+(s.port||'N/A')+' | Endpoints: '+epCount+'</span><button class="btn btn-red btn-sm" onclick="deleteService('+s.id+')">Remove</button></div></div>';
+  }).join('');
+}
+
+function updateServiceSelects(){
+  var sel=document.getElementById('epService');
+  var val=sel.value;
+  sel.innerHTML='<option value="">-- Select --</option>';
+  services.forEach(function(s){sel.innerHTML+='<option value="'+s.name+'">'+escHtml(s.name)+'</option>'});
+  sel.value=val;
+}
+
+function addEndpoint(){
+  var svcName=document.getElementById('epService').value;
+  var method=document.getElementById('epMethod').value;
+  var path=document.getElementById('epPath').value.trim();
+  var desc=document.getElementById('epDesc').value.trim();
+  if(!svcName){alert('Select a service');return}
+  if(!path){alert('Enter an endpoint path');return}
+  var svc=services.find(function(s){return s.name===svcName});
+  if(!svc)return;
+  if(!svc.endpoints)svc.endpoints=[];
+  svc.endpoints.push({method:method,path:path,desc:desc,id:Date.now()});
+  document.getElementById('epPath').value='';document.getElementById('epDesc').value='';
+  saveState();renderEndpoints();renderServiceList();
+}
+
+function deleteEndpoint(svcName,epId){
+  var svc=services.find(function(s){return s.name===svcName});
+  if(!svc||!svc.endpoints)return;
+  svc.endpoints=svc.endpoints.filter(function(e){return e.id!==epId});
+  saveState();renderEndpoints();renderServiceList();
+}
+
+function renderEndpoints(){
+  var svcName=document.getElementById('epService').value;
+  var container=document.getElementById('endpointList');
+  if(!svcName){container.innerHTML='';return}
+  var svc=services.find(function(s){return s.name===svcName});
+  if(!svc||!svc.endpoints||svc.endpoints.length===0){container.innerHTML='<p style="color:var(--text-dim);font-size:0.85rem">No endpoints yet.</p>';return}
+  container.innerHTML=svc.endpoints.map(function(ep){
+    return '<div class="endpoint-item"><span class="method-badge method-'+ep.method+'">'+ep.method+'</span><span style="font-family:monospace;font-size:0.85rem">'+escHtml(ep.path)+'</span><span style="color:var(--text-dim);font-size:0.8rem;margin-left:0.5rem">'+escHtml(ep.desc)+'</span><button class="btn btn-red btn-sm" style="margin-left:auto" onclick="deleteEndpoint(\''+svcName+'\','+ep.id+')">X</button></div>';
+  }).join('');
+}
+
+function renderHealthTable(){
+  var tbody=document.getElementById('healthBody');
+  if(services.length===0){tbody.innerHTML='<tr><td colspan="5" style="color:var(--text-dim)">No services configured</td></tr>';return}
+  tbody.innerHTML=services.map(function(s){
+    var statuses=['up','up','up','down','unknown'];
+    var status=statuses[Math.floor(Math.abs(Math.sin(s.id))*statuses.length)];
+    return '<tr><td style="font-weight:700">'+escHtml(s.name)+'</td><td><span class="type-tag type-'+s.type+'">'+s.type+'</span></td><td style="font-family:monospace;font-size:0.8rem">'+escHtml(s.health)+'</td><td>'+(s.port||'-')+'</td><td><span class="health-dot health-'+status+'"></span>'+status.toUpperCase()+'</td></tr>';
+  }).join('');
+}
+
+function drawGraph(){
+  var canvas=document.getElementById('graphCanvas');
+  var ctx=canvas.getContext('2d');
+  var dpr=window.devicePixelRatio||1;
+  canvas.width=canvas.offsetWidth*dpr;canvas.height=450*dpr;
+  ctx.scale(dpr,dpr);
+  var w=canvas.offsetWidth,h=450;
+  ctx.clearRect(0,0,w,h);
+  if(services.length===0){
+    ctx.fillStyle='#8b949e';ctx.font='14px system-ui';ctx.textAlign='center';
+    ctx.fillText('Add services to see dependency graph',w/2,h/2);return;
+  }
+
+  // Layout services in a circle
+  var cx=w/2,cy=h/2,radius=Math.min(w,h)*0.35;
+  var positions={};
+  services.forEach(function(s,i){
+    var angle=(2*Math.PI/services.length)*i-Math.PI/2;
+    positions[s.name]={x:cx+Math.cos(angle)*radius,y:cy+Math.sin(angle)*radius};
+  });
+
+  // Draw dependency arrows
+  services.forEach(function(s){
+    if(!s.deps)return;
+    s.deps.forEach(function(dep){
+      if(!positions[dep])return;
+      var from=positions[s.name],to=positions[dep];
+      var dx=to.x-from.x,dy=to.y-from.y;
+      var dist=Math.sqrt(dx*dx+dy*dy);
+      var nx=dx/dist,ny=dy/dist;
+      var startX=from.x+nx*35,startY=from.y+ny*35;
+      var endX=to.x-nx*35,endY=to.y-ny*35;
+      // Line
+      ctx.beginPath();ctx.strokeStyle='rgba(255,215,0,0.3)';ctx.lineWidth=1.5;
+      ctx.moveTo(startX,startY);ctx.lineTo(endX,endY);ctx.stroke();
+      // Arrowhead
+      var arrowLen=10,arrowAngle=Math.PI/6;
+      var angle=Math.atan2(endY-startY,endX-startX);
+      ctx.beginPath();ctx.fillStyle='rgba(255,215,0,0.5)';
+      ctx.moveTo(endX,endY);
+      ctx.lineTo(endX-arrowLen*Math.cos(angle-arrowAngle),endY-arrowLen*Math.sin(angle-arrowAngle));
+      ctx.lineTo(endX-arrowLen*Math.cos(angle+arrowAngle),endY-arrowLen*Math.sin(angle+arrowAngle));
+      ctx.closePath();ctx.fill();
+    });
+  });
+
+  // Draw service nodes
+  services.forEach(function(s){
+    var pos=positions[s.name];
+    var color=typeColors[s.type]||'#8b949e';
+    // Circle
+    ctx.beginPath();ctx.arc(pos.x,pos.y,30,0,Math.PI*2);
+    ctx.fillStyle=color+'20';ctx.fill();
+    ctx.strokeStyle=color;ctx.lineWidth=2;ctx.stroke();
+    // Icon text
+    ctx.fillStyle=color;ctx.font='bold 11px system-ui';ctx.textAlign='center';ctx.textBaseline='middle';
+    ctx.fillText(typeIcons[s.type]||'SVC',pos.x,pos.y);
+    // Name below
+    ctx.fillStyle='var(--text)';ctx.font='12px system-ui';ctx.textBaseline='top';
+    var label=s.name.length>16?s.name.substring(0,16)+'...':s.name;
+    ctx.fillText(label,pos.x,pos.y+36);
+    // Port
+    if(s.port){
+      ctx.fillStyle='#8b949e';ctx.font='10px system-ui';
+      ctx.fillText(':'+s.port,pos.x,pos.y+50);
+    }
+  });
+}
+
+function exportJSON(){
+  var arch={name:'Microservice Architecture',generated:new Date().toISOString(),generator:'SPUNK.CODES Exclusive',services:services.map(function(s){return{name:s.name,type:s.type,port:s.port,description:s.desc,healthCheck:s.health,dependencies:s.deps,endpoints:(s.endpoints||[]).map(function(ep){return{method:ep.method,path:ep.path,description:ep.desc}})}})};
+  var json=JSON.stringify(arch,null,2);
+  document.getElementById('jsonOutput').textContent=json;
+  document.getElementById('jsonCard').style.display='block';
+}
+
+function copyJSON(){navigator.clipboard.writeText(document.getElementById('jsonOutput').textContent).then(function(){alert('JSON copied!')})}
+
+function downloadJSON(){
+  exportJSON();
+  var blob=new Blob([document.getElementById('jsonOutput').textContent],{type:'application/json'});
+  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='architecture.json';a.click();
+}
+
+function importJSON(){
+  var input=document.createElement('input');input.type='file';input.accept='.json';
+  input.onchange=function(e){
+    var file=e.target.files[0];if(!file)return;
+    var reader=new FileReader();
+    reader.onload=function(ev){
+      try{
+        var data=JSON.parse(ev.target.result);
+        if(data.services&&Array.isArray(data.services)){
+          services=data.services.map(function(s,i){return{id:Date.now()+i,name:s.name,type:s.type||'api',port:s.port||0,desc:s.description||'',health:s.healthCheck||'/health',deps:s.dependencies||[],endpoints:(s.endpoints||[]).map(function(ep,j){return{method:ep.method||'GET',path:ep.path||'',desc:ep.description||'',id:Date.now()+i*100+j}})}});
+          saveState();renderAll();alert('Imported '+services.length+' services');
+        }else{alert('Invalid architecture JSON')}
+      }catch(err){alert('Failed to parse JSON: '+err.message)}
+    };reader.readAsText(file);
+  };input.click();
+}
+
+function escHtml(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/'/g,'&#39;').replace(/"/g,'&quot;')}
+
+function renderAll(){
+  updateDepChecks();renderServiceList();updateServiceSelects();renderEndpoints();renderHealthTable();drawGraph();
+}
+
+loadState();renderAll();
+window.addEventListener('resize',drawGraph);
+
+function shareX(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Mapping microservice architecture with this tool. Code SPUNK @SpunkArt13')+'&url='+encodeURIComponent('https://spunk.codes/exclusive-tools'),'_blank')}
+function shareReddit(){window.open('https://www.reddit.com/submit?url='+encodeURIComponent('https://spunk.codes/exclusive-tools')+'&title='+encodeURIComponent('Microservice Architecture Mapper - free with code SPUNK [spunk.codes]'),'_blank')}
+function shareEmail(){window.location.href='mailto:?subject='+encodeURIComponent('Microservice Mapper Tool')+'&body='+encodeURIComponent('Map microservice architectures visually. Code SPUNK: https://spunk.codes/exclusive-tools')}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<script src="/auto-monetize.js"></script>
+<div id="shareXBtn" style="position:fixed;left:20px;bottom:20px;z-index:9999;">
+  <a id="shareXLink" href="#" target="_blank" rel="noopener noreferrer" title="Share on X"
+     style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;
+     background:rgba(88,166,255,0.15);border:1px solid rgba(88,166,255,0.3);
+     backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:50%;
+     text-decoration:none;transition:all 0.3s ease;cursor:pointer;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+    </svg>
+  </a>
+</div>
+<style>#shareXBtn a:hover{background:rgba(88,166,255,0.35)!important;border-color:rgba(88,166,255,0.6)!important;transform:scale(1.1);box-shadow:0 0 15px rgba(88,166,255,0.3)}</style>
+<script>
+(function(){var page=location.pathname.split("/").pop()||"index.html";var url="https://spunk.codes/"+page;var text="Just used this free tool on spunk.codes — amazing! @SpunkArt13";var href="https://x.com/intent/tweet?text="+encodeURIComponent(text)+"&url="+encodeURIComponent(url);document.getElementById("shareXLink").href=href})();
+</script>
+<script src="/usage-tracker.js"></script>
+</body>
+</html>
