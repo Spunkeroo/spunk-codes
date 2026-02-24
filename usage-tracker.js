@@ -10,6 +10,16 @@
   var path = window.location.pathname.replace(/^\//, '').replace(/\.html$/, '').replace(/\//g, '_');
   if (!path) return; // skip index/root
 
+  // Skip non-tool pages
+  var skipPages = ['index','store','pricing','checkout','affiliate','ebook-store','revenue-dashboard',
+    'automation-status','network-hub','404','blog','exclusive-tools','master-dashboard','spunk-rewards',
+    'newsletter','install','join','launch','giveaway','challenge','advertise','sponsor',
+    'cross-sell-footer','network-footer-snippet','network-stats','terms-of-service','referral',
+    'reseller','white-label','api-access','affiliates','affiliate-tracker','analytics-dashboard',
+    'site-empire-dashboard','free-tools-list','spunk'];
+  var baseName = path.split('_').pop() || path;
+  if (skipPages.indexOf(path) !== -1 || skipPages.indexOf(baseName) !== -1) return;
+
   var STORAGE_KEY = 'sa_usage_' + path;
   var SEED_KEY = 'sa_seed_' + path;
 
@@ -56,22 +66,22 @@
   // Styles
   var s = badge.style;
   s.position = 'fixed';
-  s.top = '72px';
-  s.right = '16px';
+  s.top = '12px';
+  s.right = '12px';
   s.zIndex = '9998';
   s.display = 'inline-flex';
   s.alignItems = 'center';
   s.gap = '4px';
-  s.padding = '5px 14px';
-  s.fontSize = '0.72rem';
+  s.padding = '4px 12px';
+  s.fontSize = '12px';
   s.fontWeight = '600';
   s.fontFamily = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-  s.color = 'rgba(200,220,255,0.85)';
+  s.color = '#8b949e';
   s.background = 'rgba(88,166,255,0.1)';
   s.border = '1px solid rgba(88,166,255,0.2)';
   s.borderRadius = '20px';
-  s.backdropFilter = 'blur(12px)';
-  s.webkitBackdropFilter = 'blur(12px)';
+  s.backdropFilter = 'blur(10px)';
+  s.webkitBackdropFilter = 'blur(10px)';
   s.pointerEvents = 'none';
   s.userSelect = 'none';
   s.transition = 'opacity 0.3s ease';

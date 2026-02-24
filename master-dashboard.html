@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Master Dashboard</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="googlebot" content="noindex, nofollow">
+
+  <!-- GA4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+
+  <!-- Clarity -->
+  <script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a0f;
+      --surface: rgba(255,255,255,0.04);
+      --surface-hover: rgba(255,255,255,0.08);
+      --border: rgba(255,255,255,0.08);
+      --border-bright: rgba(255,255,255,0.15);
+      --text: #e8e8ed;
+      --text-dim: #8888a0;
+      --accent: #a855f7;
+      --accent2: #06b6d4;
+      --green: #22c55e;
+      --orange: #f59e0b;
+      --red: #ef4444;
+      --glass: rgba(168,85,247,0.06);
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.5;
+    }
+
+    /* AUTH GATE */
+    #auth-gate {
+      position: fixed; inset: 0; z-index: 9999;
+      background: var(--bg);
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 20px;
+    }
+    #auth-gate h1 { font-size: 1.5rem; color: var(--accent); }
+    #auth-gate input {
+      background: var(--surface); border: 1px solid var(--border-bright);
+      color: var(--text); padding: 12px 20px; border-radius: 8px;
+      font-size: 1rem; width: 280px; text-align: center;
+      outline: none;
+    }
+    #auth-gate input:focus { border-color: var(--accent); }
+    #auth-gate button {
+      background: var(--accent); color: #fff; border: none;
+      padding: 10px 32px; border-radius: 8px; font-size: 1rem;
+      cursor: pointer; font-weight: 600;
+    }
+    #auth-gate .error { color: var(--red); font-size: 0.85rem; min-height: 1.2em; }
+
+    /* DASHBOARD */
+    #dashboard { display: none; }
+    #dashboard.visible { display: block; }
+
+    .topbar {
+      padding: 16px 24px; display: flex; align-items: center;
+      justify-content: space-between; border-bottom: 1px solid var(--border);
+      position: sticky; top: 0; background: rgba(10,10,15,0.95);
+      backdrop-filter: blur(12px); z-index: 100;
+    }
+    .topbar h1 { font-size: 1.2rem; color: var(--accent); }
+    .topbar .meta { color: var(--text-dim); font-size: 0.85rem; }
+    .topbar button {
+      background: var(--surface); border: 1px solid var(--border);
+      color: var(--text-dim); padding: 6px 14px; border-radius: 6px;
+      cursor: pointer; font-size: 0.8rem;
+    }
+
+    .container { max-width: 1400px; margin: 0 auto; padding: 24px; }
+
+    .grid { display: grid; gap: 20px; }
+    .grid-2 { grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); }
+    .grid-3 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+    .grid-4 { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+
+    .card {
+      background: var(--glass);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      backdrop-filter: blur(8px);
+      transition: border-color 0.2s;
+    }
+    .card:hover { border-color: var(--border-bright); }
+
+    .card h2 {
+      font-size: 1rem; color: var(--accent); margin-bottom: 16px;
+      padding-bottom: 8px; border-bottom: 1px solid var(--border);
+      text-transform: uppercase; letter-spacing: 0.5px; font-weight: 700;
+    }
+    .card h3 { font-size: 0.9rem; color: var(--text); margin: 12px 0 6px; }
+
+    .section-title {
+      font-size: 1.1rem; color: var(--accent); margin: 32px 0 16px;
+      text-transform: uppercase; letter-spacing: 1px; font-weight: 700;
+    }
+
+    /* STAT BOXES */
+    .stat-row { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 20px; }
+    .stat-box {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 10px; padding: 16px 20px; flex: 1; min-width: 140px;
+      text-align: center;
+    }
+    .stat-box .num { font-size: 1.8rem; font-weight: 800; color: var(--accent); }
+    .stat-box .label { font-size: 0.75rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 4px; }
+
+    /* SITE CARDS */
+    .site-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 8px 0; border-bottom: 1px solid var(--border);
+    }
+    .site-item:last-child { border-bottom: none; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .dot.live { background: var(--green); box-shadow: 0 0 6px var(--green); }
+    .dot.unknown { background: var(--orange); }
+    .site-item a {
+      color: var(--text); text-decoration: none; font-size: 0.88rem;
+      transition: color 0.15s;
+    }
+    .site-item a:hover { color: var(--accent); }
+    .site-tag {
+      font-size: 0.65rem; background: var(--surface); color: var(--text-dim);
+      padding: 2px 8px; border-radius: 4px; margin-left: auto; white-space: nowrap;
+    }
+
+    /* REVENUE INPUTS */
+    .rev-row {
+      display: flex; align-items: center; gap: 10px;
+      padding: 6px 0; border-bottom: 1px solid var(--border);
+    }
+    .rev-row:last-child { border-bottom: none; }
+    .rev-row label { flex: 1; font-size: 0.85rem; color: var(--text-dim); }
+    .rev-row .price { font-size: 0.75rem; color: var(--accent); min-width: 70px; }
+    .rev-row input {
+      width: 90px; background: var(--surface); border: 1px solid var(--border);
+      color: var(--text); padding: 4px 8px; border-radius: 4px; font-size: 0.85rem;
+      text-align: right; outline: none;
+    }
+    .rev-row input:focus { border-color: var(--accent); }
+    .rev-total {
+      margin-top: 12px; padding-top: 12px; border-top: 2px solid var(--border-bright);
+      display: flex; justify-content: space-between; font-weight: 700;
+    }
+    .rev-total .amount { color: var(--green); font-size: 1.1rem; }
+
+    /* BLOG LIST */
+    .blog-list { max-height: 500px; overflow-y: auto; }
+    .blog-list::-webkit-scrollbar { width: 4px; }
+    .blog-list::-webkit-scrollbar-thumb { background: var(--border-bright); border-radius: 2px; }
+    .blog-item {
+      padding: 6px 0; border-bottom: 1px solid var(--border);
+      font-size: 0.85rem;
+    }
+    .blog-item:last-child { border-bottom: none; }
+    .blog-item a { color: var(--text); text-decoration: none; }
+    .blog-item a:hover { color: var(--accent); }
+
+    /* QUICK ACTIONS */
+    .action-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 8px; }
+    .action-btn {
+      display: block; text-align: center; padding: 10px 12px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 8px; color: var(--text); text-decoration: none;
+      font-size: 0.8rem; transition: all 0.15s;
+    }
+    .action-btn:hover { background: var(--surface-hover); border-color: var(--accent); color: var(--accent); }
+
+    /* NOTES */
+    #notes-area {
+      width: 100%; min-height: 160px; background: var(--surface);
+      border: 1px solid var(--border); border-radius: 8px;
+      color: var(--text); padding: 12px; font-size: 0.88rem;
+      font-family: inherit; resize: vertical; outline: none; line-height: 1.6;
+    }
+    #notes-area:focus { border-color: var(--accent); }
+    .notes-meta { font-size: 0.75rem; color: var(--text-dim); margin-top: 6px; }
+
+    /* SPUNK TRACKER */
+    .tracker-value { font-size: 2rem; font-weight: 800; color: var(--accent2); }
+    .tracker-note { font-size: 0.75rem; color: var(--text-dim); margin-top: 8px; }
+
+    /* PREDICT GRID */
+    .predict-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 6px; }
+    .predict-chip {
+      display: flex; align-items: center; gap: 6px;
+      padding: 6px 10px; background: var(--surface); border-radius: 6px;
+      font-size: 0.78rem;
+    }
+    .predict-chip a { color: var(--text); text-decoration: none; }
+    .predict-chip a:hover { color: var(--accent2); }
+
+    @media (max-width: 768px) {
+      .container { padding: 12px; }
+      .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+      .stat-row { flex-direction: column; }
+      .stat-box { min-width: auto; }
+      .action-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- AUTH GATE -->
+<div id="auth-gate">
+  <h1>MASTER DASHBOARD</h1>
+  <p style="color:var(--text-dim);font-size:0.85rem;">Owner access only</p>
+  <input type="password" id="auth-input" placeholder="Enter password" autofocus>
+  <button onclick="attemptAuth()">Unlock</button>
+  <div class="error" id="auth-error"></div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="dashboard">
+  <div class="topbar">
+    <div>
+      <h1>MASTER DASHBOARD</h1>
+      <span class="meta" id="last-updated"></span>
+    </div>
+    <button onclick="logout()">Lock</button>
+  </div>
+
+  <div class="container">
+
+    <!-- TOP STATS -->
+    <div class="stat-row">
+      <div class="stat-box"><div class="num">300+</div><div class="label">Free Tools</div></div>
+      <div class="stat-box"><div class="num">45</div><div class="label">Premium Tools</div></div>
+      <div class="stat-box"><div class="num">22</div><div class="label">Ebooks</div></div>
+      <div class="stat-box"><div class="num" id="blog-count">0</div><div class="label">Blog Posts</div></div>
+      <div class="stat-box"><div class="num">20+</div><div class="label">Total Sites</div></div>
+    </div>
+
+    <!-- SITE NETWORK + REVENUE -->
+    <div class="section-title">Network &amp; Revenue</div>
+    <div class="grid grid-2">
+
+      <!-- SITE NETWORK -->
+      <div class="card">
+        <h2>Site Network</h2>
+
+        <h3>Core Sites</h3>
+        <div class="site-item">
+          <span class="dot live"></span>
+          <a href="https://spunk.codes" target="_blank">spunk.codes</a>
+          <span class="site-tag">300+ tools, 45 premium, 22 ebooks</span>
+        </div>
+        <div class="site-item">
+          <span class="dot live"></span>
+          <a href="https://spunkart.com" target="_blank">spunkart.com</a>
+          <span class="site-tag">Art portfolio</span>
+        </div>
+        <div class="site-item">
+          <span class="dot live"></span>
+          <a href="https://spunk.bet" target="_blank">spunk.bet</a>
+          <span class="site-tag">Casino / SPUNK runes</span>
+        </div>
+
+        <h3>Predict Network (16 sites)</h3>
+        <div class="predict-grid">
+          <div class="predict-chip"><span class="dot live"></span><a href="https://predict.horse" target="_blank">predict.horse</a></div>
+          <div class="predict-chip"><span class="dot live"></span><a href="https://predict.pics" target="_blank">predict.pics</a></div>
+          <div class="predict-chip"><span class="dot live"></span><a href="https://predict.mom" target="_blank">predict.mom</a></div>
+          <div class="predict-chip"><span class="dot live"></span><a href="https://predict.gay" target="_blank">predict.gay</a></div>
+          <div class="predict-chip"><span class="dot live"></span><a href="https://predict.autos" target="_blank">predict.autos</a></div>
+          <div class="predict-chip"><span class="dot live"></span><a href="https://predict.beauty" target="_blank">predict.beauty</a></div>
+          <div class="predict-chip"><span class="dot live"></span><a href="https://predict.christmas" target="_blank">predict.christmas</a></div>
+          <div class="predict-chip"><span class="dot live"></span><a href="https://predict.codes" target="_blank">predict.codes</a></div>
+          <div class="predict-chip"><span class="dot live"></span><a href="https://predict.courses" target="_blank">predict.courses</a></div>
+          <div class="predict-chip"><span class="dot live"></span><a href="https://predict.hair" target="_blank">predict.hair</a></div>
+          <div class="predict-chip"><span class="dot live"></span><a href="https://predict.garden" target="_blank">predict.garden</a></div>
+          <div class="predict-chip"><span class="dot live"></span><a href="https://predict.makeup" target="_blank">predict.makeup</a></div>
+          <div class="predict-chip"><span class="dot live"></span><a href="https://predict.singles" target="_blank">predict.singles</a></div>
+          <div class="predict-chip"><span class="dot live"></span><a href="https://predict.tattoo" target="_blank">predict.tattoo</a></div>
+          <div class="predict-chip"><span class="dot live"></span><a href="https://predict.skin" target="_blank">predict.skin</a></div>
+          <div class="predict-chip"><span class="dot live"></span><a href="https://predict.surf" target="_blank">predict.surf</a></div>
+        </div>
+      </div>
+
+      <!-- REVENUE STREAMS -->
+      <div class="card">
+        <h2>Revenue Tracker (Monthly)</h2>
+        <div id="revenue-form">
+          <div class="rev-row">
+            <label>Pro Subscriptions</label>
+            <span class="price">$19/mo ea</span>
+            <input type="number" data-rev="pro" placeholder="Count" min="0">
+          </div>
+          <div class="rev-row">
+            <label>Lifetime Sales</label>
+            <span class="price">$349 ea</span>
+            <input type="number" data-rev="lifetime" placeholder="Count" min="0">
+          </div>
+          <div class="rev-row">
+            <label>Team Plans</label>
+            <span class="price">$49/mo ea</span>
+            <input type="number" data-rev="team" placeholder="Count" min="0">
+          </div>
+          <div class="rev-row">
+            <label>White-Label</label>
+            <span class="price">$999 ea</span>
+            <input type="number" data-rev="whitelabel" placeholder="Count" min="0">
+          </div>
+          <div class="rev-row">
+            <label>Enterprise</label>
+            <span class="price">$249/mo ea</span>
+            <input type="number" data-rev="enterprise" placeholder="Count" min="0">
+          </div>
+          <div class="rev-row">
+            <label>Ebook Sales</label>
+            <span class="price">$ total</span>
+            <input type="number" data-rev="ebooks" placeholder="$" min="0">
+          </div>
+          <div class="rev-row">
+            <label>Affiliate Commissions</label>
+            <span class="price">$ total</span>
+            <input type="number" data-rev="affiliate" placeholder="$" min="0">
+          </div>
+          <div class="rev-total">
+            <span>Estimated Monthly</span>
+            <span class="amount" id="rev-total-display">$0</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTENT + SPUNK TRACKER + QUICK ACTIONS -->
+    <div class="section-title">Content &amp; Actions</div>
+    <div class="grid grid-3">
+
+      <!-- CONTENT STATS -->
+      <div class="card">
+        <h2>Content Stats</h2>
+        <div class="site-item">
+          <span style="color:var(--accent);font-weight:700;min-width:50px;">300+</span>
+          <a href="https://spunk.codes/#tools" target="_blank">Free Tools</a>
+        </div>
+        <div class="site-item">
+          <span style="color:var(--accent);font-weight:700;min-width:50px;">45</span>
+          <a href="https://spunk.codes/store" target="_blank">Premium Tools</a>
+        </div>
+        <div class="site-item">
+          <span style="color:var(--accent);font-weight:700;min-width:50px;">22</span>
+          <a href="https://spunk.codes/ebooks" target="_blank">Ebooks</a>
+        </div>
+        <div class="site-item">
+          <span style="color:var(--accent);font-weight:700;min-width:50px;" id="blog-count-2">0</span>
+          <a href="https://spunk.codes/blog/" target="_blank">Blog Posts</a>
+        </div>
+        <div class="site-item">
+          <span style="color:var(--accent);font-weight:700;min-width:50px;">20+</span>
+          <span style="color:var(--text-dim);font-size:0.88rem;">Total Sites Live</span>
+        </div>
+      </div>
+
+      <!-- SPUNK CODE TRACKER -->
+      <div class="card">
+        <h2>SPUNK Code Tracker</h2>
+        <div class="tracker-value" id="spunk-code-count">0</div>
+        <p style="color:var(--text-dim);font-size:0.85rem;margin-top:8px;">Times code <strong style="color:var(--accent);">SPUNK</strong> has been used</p>
+        <div class="tracker-note">This is a localStorage aggregate and tracks per-device only. It does not represent total unique users across all devices. For full analytics, check GA4 event tracking.</div>
+        <div style="margin-top:12px;">
+          <button onclick="resetSpunkCounter()" style="background:var(--surface);border:1px solid var(--border);color:var(--text-dim);padding:4px 12px;border-radius:4px;cursor:pointer;font-size:0.75rem;">Reset Counter</button>
+        </div>
+      </div>
+
+      <!-- QUICK ACTIONS -->
+      <div class="card">
+        <h2>Quick Actions</h2>
+        <div class="action-grid">
+          <a class="action-btn" href="https://analytics.google.com" target="_blank">GA4 Dashboard</a>
+          <a class="action-btn" href="https://dash.cloudflare.com" target="_blank">Cloudflare</a>
+          <a class="action-btn" href="https://github.com/Spunkeroo" target="_blank">GitHub Repos</a>
+          <a class="action-btn" href="https://gumroad.com/dashboard" target="_blank">Gumroad</a>
+          <a class="action-btn" href="https://magiceden.io" target="_blank">Magic Eden</a>
+          <a class="action-btn" href="https://spunk.codes/pricing" target="_blank">Pricing Page</a>
+          <a class="action-btn" href="https://spunk.codes/store" target="_blank">Store</a>
+          <a class="action-btn" href="https://spunk.codes/ebooks" target="_blank">Ebook Store</a>
+          <a class="action-btn" href="https://spunk.codes/affiliates" target="_blank">Affiliate Page</a>
+          <a class="action-btn" href="https://spunk.codes/blog/" target="_blank">Blog Index</a>
+          <a class="action-btn" href="https://clarity.microsoft.com" target="_blank">MS Clarity</a>
+          <a class="action-btn" href="https://x.com/SpunkArt13" target="_blank">@SpunkArt13</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- BLOG POSTS INDEX -->
+    <div class="section-title">Blog Posts Index</div>
+    <div class="card">
+      <h2>All Blog Posts (<span id="blog-count-3">0</span>)</h2>
+      <div class="blog-list" id="blog-list">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+
+    <!-- NOTES -->
+    <div class="section-title">Notes &amp; Todos</div>
+    <div class="card">
+      <h2>Quick Notes</h2>
+      <textarea id="notes-area" placeholder="Type your notes here... They save automatically to localStorage."></textarea>
+      <div class="notes-meta">Auto-saved to localStorage. <span id="notes-save-status"></span></div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// SHA-256 hash function
+async function sha256(message) {
+  const msgBuffer = new TextEncoder().encode(message);
+  const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+// Password hash: SHA256 of "spunkmaster"
+const PASSWORD_HASH = '2b42b24b6ca0b1e7a3d4f20029ea570e6bb9da0b3ec580408e466f2266924fcd';
+
+// Check auth
+function checkAuth() {
+  const auth = localStorage.getItem('master_auth');
+  if (auth) {
+    try {
+      const data = JSON.parse(auth);
+      if (data.valid && data.expires > Date.now()) {
+        showDashboard();
+        return;
+      }
+    } catch(e) {}
+    localStorage.removeItem('master_auth');
+  }
+  document.getElementById('auth-gate').style.display = 'flex';
+}
+
+async function attemptAuth() {
+  const input = document.getElementById('auth-input').value;
+  const hash = await sha256(input);
+  if (hash === PASSWORD_HASH) {
+    const expires = Date.now() + (24 * 60 * 60 * 1000); // 24 hours
+    localStorage.setItem('master_auth', JSON.stringify({ valid: true, expires }));
+    showDashboard();
+  } else {
+    document.getElementById('auth-error').textContent = 'Incorrect password';
+    document.getElementById('auth-input').value = '';
+    document.getElementById('auth-input').focus();
+  }
+}
+
+document.getElementById('auth-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter') attemptAuth();
+});
+
+function showDashboard() {
+  document.getElementById('auth-gate').style.display = 'none';
+  document.getElementById('dashboard').classList.add('visible');
+  initDashboard();
+}
+
+function logout() {
+  localStorage.removeItem('master_auth');
+  document.getElementById('dashboard').classList.remove('visible');
+  document.getElementById('auth-gate').style.display = 'flex';
+  document.getElementById('auth-input').value = '';
+  document.getElementById('auth-input').focus();
+}
+
+// BLOG POSTS (hardcoded from /blog/ directory)
+const blogPosts = [
+  { slug: '50-seo-tips-rank-fast', title: '50 SEO Tips to Rank Fast' },
+  { slug: 'make-money-with-free-tools', title: 'Make Money with Free Tools' },
+  { slug: 'best-color-palette-generators-2026', title: 'Best Color Palette Generators 2026' },
+  { slug: 'claude-code-tips-2026', title: 'Claude Code Tips 2026' },
+  { slug: 'how-to-build-120-websites-in-7-days', title: 'How to Build 120 Websites in 7 Days' },
+  { slug: 'passive-income-ideas-2026', title: 'Passive Income Ideas 2026' },
+  { slug: '50-best-industries-2026', title: '50 Best Industries 2026' },
+  { slug: 'cloudflare-workers-tutorial-beginners', title: 'Cloudflare Workers Tutorial for Beginners' },
+  { slug: 'best-password-managers-2026', title: 'Best Password Managers 2026' },
+  { slug: 'best-free-online-tools-2026', title: 'Best Free Online Tools 2026' },
+  { slug: 'vibe-coding-tools-2026', title: 'Vibe Coding Tools 2026' },
+  { slug: 'free-tools-for-startups-2026', title: 'Free Tools for Startups 2026' },
+  { slug: '50-marketing-tips-zero-budget', title: '50 Marketing Tips on Zero Budget' },
+  { slug: 'how-to-make-money-reselling-digital-products', title: 'How to Make Money Reselling Digital Products' },
+  { slug: 'protect-yourself-online-security-guide', title: 'Protect Yourself Online Security Guide' },
+  { slug: 'best-free-seo-tools', title: 'Best Free SEO Tools' },
+  { slug: 'how-to-make-money-online-2026', title: 'How to Make Money Online 2026' },
+  { slug: '50-tips-solo-founders', title: '50 Tips for Solo Founders' },
+  { slug: '50-best-chrome-extensions', title: '50 Best Chrome Extensions' },
+  { slug: 'chatgpt-alternatives-free', title: 'ChatGPT Alternatives (Free)' },
+  { slug: 'free-website-builders-2026', title: 'Free Website Builders 2026' },
+  { slug: 'social-media-marketing-guide-2026', title: 'Social Media Marketing Guide 2026' },
+  { slug: 'how-to-start-saas-2026', title: 'How to Start a SaaS 2026' },
+  { slug: 'mcp-servers-guide-2026', title: 'MCP Servers Guide 2026' },
+  { slug: '50-vibe-coding-tips', title: '50 Vibe Coding Tips' },
+  { slug: 'vibe-coding-guide-2026', title: 'Vibe Coding Guide 2026' },
+  { slug: '50-ways-get-first-customers', title: '50 Ways to Get Your First Customers' },
+  { slug: 'best-no-code-tools-2026', title: 'Best No-Code Tools 2026' },
+  { slug: 'affiliate-marketing-beginners-guide', title: 'Affiliate Marketing Beginners Guide' },
+  { slug: 'best-side-hustles-2026', title: 'Best Side Hustles 2026' },
+  { slug: 'best-ai-tools-free-2026', title: 'Best AI Tools (Free) 2026' },
+  { slug: '50-productivity-tips-founders', title: '50 Productivity Tips for Founders' },
+  { slug: 'best-ai-prompts-2026', title: 'Best AI Prompts 2026' },
+  { slug: 'prediction-markets-explained', title: 'Prediction Markets Explained' },
+  { slug: 'github-pages-free-website', title: 'GitHub Pages Free Website' },
+  { slug: 'free-online-tools-no-signup', title: 'Free Online Tools (No Signup)' },
+  { slug: 'how-to-start-online-business-2026', title: 'How to Start an Online Business 2026' },
+  { slug: 'best-free-developer-tools-2026', title: 'Best Free Developer Tools 2026' },
+  { slug: '50-website-design-tips-convert', title: '50 Website Design Tips That Convert' },
+  { slug: 'how-to-make-money-selling-digital-products', title: 'How to Make Money Selling Digital Products' },
+  { slug: 'free-crypto-casino-games-no-deposit', title: 'Free Crypto Casino Games (No Deposit)' },
+  { slug: 'how-to-speed-up-your-website', title: 'How to Speed Up Your Website' },
+  { slug: 'llc-guide-solo-founders', title: 'LLC Guide for Solo Founders' },
+  { slug: 'how-to-create-invoice-free', title: 'How to Create an Invoice Free' },
+  { slug: 'how-to-build-email-list', title: 'How to Build an Email List' },
+  { slug: '50-ways-save-money-startup', title: '50 Ways to Save Money on Your Startup' },
+  { slug: '50-free-apis-developers', title: '50 Free APIs for Developers' },
+  { slug: 'best-free-developer-tools-online-2026', title: 'Best Free Developer Tools Online 2026' },
+  { slug: 'social-media-growth-tools-free-2026', title: 'Social Media Growth Tools (Free) 2026' },
+  { slug: 'saas-pricing-strategies-guide', title: 'SaaS Pricing Strategies Guide' },
+  { slug: 'how-to-calculate-startup-runway', title: 'How to Calculate Startup Runway' },
+  { slug: 'build-pitch-deck-guide', title: 'Build a Pitch Deck Guide' },
+  { slug: 'solo-founder-tools-stack', title: 'Solo Founder Tools Stack' },
+  { slug: 'content-marketing-roi-calculator', title: 'Content Marketing ROI Calculator' },
+  { slug: 'email-marketing-sequences-guide', title: 'Email Marketing Sequences Guide' },
+  { slug: 'free-seo-tools-beginners', title: 'Free SEO Tools for Beginners' },
+  { slug: 'startup-financial-modeling-guide', title: 'Startup Financial Modeling Guide' },
+  { slug: 'vibe-coding-revolution-2026', title: 'Vibe Coding Revolution 2026' },
+];
+
+function initDashboard() {
+  // Timestamp
+  document.getElementById('last-updated').textContent = 'Loaded: ' + new Date().toLocaleString();
+
+  // Blog count
+  const count = blogPosts.length;
+  document.getElementById('blog-count').textContent = count;
+  document.getElementById('blog-count-2').textContent = count;
+  document.getElementById('blog-count-3').textContent = count;
+
+  // Render blog list
+  const blogList = document.getElementById('blog-list');
+  blogList.innerHTML = blogPosts.map((p, i) =>
+    `<div class="blog-item"><span style="color:var(--text-dim);font-size:0.75rem;margin-right:8px;">${i+1}.</span><a href="https://spunk.codes/blog/${p.slug}" target="_blank">${p.title}</a></div>`
+  ).join('');
+
+  // Revenue tracker
+  loadRevenue();
+  document.querySelectorAll('[data-rev]').forEach(input => {
+    input.addEventListener('input', saveRevenue);
+  });
+
+  // SPUNK code tracker
+  loadSpunkCounter();
+
+  // Notes
+  loadNotes();
+  document.getElementById('notes-area').addEventListener('input', debounce(saveNotes, 500));
+}
+
+// REVENUE
+const REV_PRICES = { pro: 19, lifetime: 349, team: 49, whitelabel: 999, enterprise: 249, ebooks: 1, affiliate: 1 };
+
+function loadRevenue() {
+  const saved = JSON.parse(localStorage.getItem('master_revenue') || '{}');
+  document.querySelectorAll('[data-rev]').forEach(input => {
+    const key = input.dataset.rev;
+    if (saved[key] !== undefined) input.value = saved[key];
+  });
+  calcRevenue();
+}
+
+function saveRevenue() {
+  const data = {};
+  document.querySelectorAll('[data-rev]').forEach(input => {
+    data[input.dataset.rev] = input.value ? parseFloat(input.value) : 0;
+  });
+  localStorage.setItem('master_revenue', JSON.stringify(data));
+  calcRevenue();
+}
+
+function calcRevenue() {
+  let total = 0;
+  document.querySelectorAll('[data-rev]').forEach(input => {
+    const key = input.dataset.rev;
+    const val = parseFloat(input.value) || 0;
+    total += val * REV_PRICES[key];
+  });
+  document.getElementById('rev-total-display').textContent = '$' + total.toLocaleString();
+}
+
+// SPUNK CODE
+function loadSpunkCounter() {
+  const count = parseInt(localStorage.getItem('spunk_code_uses') || '0');
+  document.getElementById('spunk-code-count').textContent = count;
+}
+
+function resetSpunkCounter() {
+  if (confirm('Reset SPUNK code counter to 0?')) {
+    localStorage.setItem('spunk_code_uses', '0');
+    document.getElementById('spunk-code-count').textContent = '0';
+  }
+}
+
+// NOTES
+function loadNotes() {
+  const notes = localStorage.getItem('master_notes') || '';
+  document.getElementById('notes-area').value = notes;
+}
+
+function saveNotes() {
+  localStorage.setItem('master_notes', document.getElementById('notes-area').value);
+  document.getElementById('notes-save-status').textContent = 'Saved ' + new Date().toLocaleTimeString();
+}
+
+function debounce(fn, ms) {
+  let t; return (...a) => { clearTimeout(t); t = setTimeout(() => fn(...a), ms); };
+}
+
+// Init
+checkAuth();
+</script>
+</body>
+</html>

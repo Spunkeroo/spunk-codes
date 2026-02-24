@@ -36,6 +36,11 @@ a{color:inherit;text-decoration:none}
 .nav-back{color:#8b949e;font-size:0.85rem;font-weight:500;display:flex;align-items:center;gap:0.5rem;transition:color 0.2s}
 .nav-back:hover{color:#fff}
 
+/* Promo Banner */
+.promo-banner{background:linear-gradient(135deg,rgba(57,211,83,0.08),rgba(57,211,83,0.03));border-bottom:1px solid rgba(57,211,83,0.15);text-align:center;padding:0.7rem 1rem;font-size:0.85rem;color:#39d353;font-weight:700;display:flex;align-items:center;justify-content:center;gap:0.6rem;cursor:pointer;transition:background 0.2s}
+.promo-banner:hover{background:rgba(57,211,83,0.08)}
+.promo-banner a{color:#39d353;text-decoration:underline;text-underline-offset:2px}
+
 /* Secure Banner */
 .secure-banner{background:rgba(57,211,83,0.04);border-bottom:1px solid rgba(57,211,83,0.1);text-align:center;padding:0.6rem 1rem;font-size:0.8rem;color:#39d353;font-weight:600;display:flex;align-items:center;justify-content:center;gap:0.5rem}
 
@@ -58,12 +63,13 @@ a{color:inherit;text-decoration:none}
 .plan-card.selected .plan-radio{border-color:#58a6ff}
 .plan-card.selected .plan-radio::after{content:'';width:10px;height:10px;background:#58a6ff;border-radius:50%}
 .plan-info{flex:1}
-.plan-info-top{display:flex;align-items:center;gap:0.5rem;margin-bottom:0.2rem}
+.plan-info-top{display:flex;align-items:center;gap:0.5rem;margin-bottom:0.2rem;flex-wrap:wrap}
 .plan-name{font-weight:700;font-size:1rem}
 .plan-tag{padding:0.15rem 0.6rem;border-radius:20px;font-size:0.65rem;font-weight:800;letter-spacing:0.5px;text-transform:uppercase}
 .plan-tag.popular{background:linear-gradient(135deg,#58a6ff,#388bfd);color:#fff}
 .plan-tag.best{background:linear-gradient(135deg,#39d353,#2ea043);color:#fff}
 .plan-tag.save{background:rgba(57,211,83,0.1);color:#39d353;border:1px solid rgba(57,211,83,0.2)}
+.plan-tag.reseller{background:linear-gradient(135deg,#d29922,#e3b341);color:#fff}
 .plan-desc{font-size:0.8rem;color:#8b949e}
 .plan-price-col{text-align:right;flex-shrink:0}
 .plan-price-main{font-size:1.3rem;font-weight:800}
@@ -82,11 +88,12 @@ a{color:inherit;text-decoration:none}
 .coupon-row{display:flex;gap:0.5rem}
 .coupon-input{flex:1;padding:0.75rem 1rem;background:#0d1117;border:1px solid #30363d;border-radius:10px;color:#e6edf3;font-size:0.9rem;outline:none;transition:border-color 0.2s;font-family:inherit}
 .coupon-input:focus{border-color:#58a6ff}
-.coupon-btn{padding:0.75rem 1.5rem;background:#21262d;border:1px solid #30363d;color:#e6edf3;border-radius:10px;font-weight:700;cursor:pointer;transition:all 0.2s;font-size:0.85rem;font-family:inherit}
-.coupon-btn:hover{background:#30363d;border-color:#58a6ff}
+.coupon-input.applied{border-color:#39d353;background:rgba(57,211,83,0.03)}
 .coupon-msg{font-size:0.8rem;margin-top:0.5rem;font-weight:600}
 .coupon-msg.success{color:#39d353}
 .coupon-msg.error{color:#f85149}
+.coupon-btn{padding:0.75rem 1.5rem;background:#21262d;border:1px solid #30363d;color:#e6edf3;border-radius:10px;font-weight:700;cursor:pointer;transition:all 0.2s;font-size:0.85rem;font-family:inherit}
+.coupon-btn:hover{background:#30363d;border-color:#58a6ff}
 
 /* Pay Button */
 .pay-btn{width:100%;padding:1.1rem;background:linear-gradient(135deg,#39d353,#2ea043);color:#fff;border:none;border-radius:12px;font-weight:800;font-size:1.15rem;cursor:pointer;transition:all 0.25s;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:0.5rem}
@@ -104,6 +111,7 @@ a{color:inherit;text-decoration:none}
 .order-item-name{font-weight:600;font-size:0.9rem}
 .order-item-desc{color:#8b949e;font-size:0.75rem;margin-top:0.15rem}
 .order-item-price{font-weight:800;color:#58a6ff;font-size:1rem;white-space:nowrap}
+.order-item-price.discount{color:#39d353}
 .order-divider{height:1px;background:#21262d;margin:0.5rem 0}
 .order-total{display:flex;justify-content:space-between;align-items:center;padding:1rem 0 0}
 .order-total-label{font-weight:700;font-size:1rem}
@@ -149,6 +157,11 @@ a{color:inherit;text-decoration:none}
   <a href="/pricing.html" class="nav-back">&larr; Back to Pricing</a>
 </nav>
 
+<!-- Promo Banner -->
+<div class="promo-banner" onclick="autoApplySpunk()">
+  &#127873; Use code <strong>SPUNK</strong> for 15% off + exclusive rewards &mdash; <a href="/spunk-rewards.html">Learn more</a>
+</div>
+
 <!-- Secure Banner -->
 <div class="secure-banner">&#128274; Secure checkout powered by Gumroad. Your data is encrypted and protected.</div>
 
@@ -171,40 +184,24 @@ a{color:inherit;text-decoration:none}
           <div class="plan-desc">34 exclusive tools + all ebooks + no ads. Cancel anytime.</div>
         </div>
         <div class="plan-price-col">
-          <div class="plan-price-main">$9/mo</div>
+          <div class="plan-price-main">$19/mo</div>
           <div class="plan-price-note">Billed monthly</div>
         </div>
       </div>
 
-      <div class="plan-card popular-card" data-plan="pro-annual" onclick="selectPlan('pro-annual')">
-        <div class="plan-radio"></div>
-        <div class="plan-info">
-          <div class="plan-info-top">
-            <span class="plan-name">Pro Annual</span>
-            <span class="plan-tag popular">Most Popular</span>
-            <span class="plan-tag save">Save 27%</span>
-          </div>
-          <div class="plan-desc">Everything in Pro, billed annually. Best value for individuals.</div>
-        </div>
-        <div class="plan-price-col">
-          <div class="plan-price-orig">$108/yr</div>
-          <div class="plan-price-main">$79/yr</div>
-          <div class="plan-price-note">$6.58/mo effective</div>
-        </div>
-      </div>
-
-      <div class="plan-card" data-plan="lifetime" onclick="selectPlan('lifetime')">
+      <div class="plan-card popular-card" data-plan="lifetime" onclick="selectPlan('lifetime')">
         <div class="plan-radio"></div>
         <div class="plan-info">
           <div class="plan-info-top">
             <span class="plan-name">Lifetime</span>
+            <span class="plan-tag popular">Most Popular</span>
             <span class="plan-tag best">Best Deal</span>
           </div>
           <div class="plan-desc">Everything in Pro, forever. All future tools + ebooks. Founding member perks.</div>
         </div>
         <div class="plan-price-col">
           <div class="plan-price-orig">$499</div>
-          <div class="plan-price-main">$149</div>
+          <div class="plan-price-main">$349</div>
           <div class="plan-price-note">One-time, never again</div>
         </div>
       </div>
@@ -218,24 +215,37 @@ a{color:inherit;text-decoration:none}
           <div class="plan-desc">Up to 10 members. White-label exports, API access, priority support.</div>
         </div>
         <div class="plan-price-col">
-          <div class="plan-price-main">$29/mo</div>
+          <div class="plan-price-main">$49/mo</div>
           <div class="plan-price-note">Per team, up to 10 seats</div>
         </div>
       </div>
 
-      <div class="plan-card" data-plan="team-annual" onclick="selectPlan('team-annual')" style="display:none">
+      <div class="plan-card" data-plan="whitelabel" onclick="selectPlan('whitelabel')">
         <div class="plan-radio"></div>
         <div class="plan-info">
           <div class="plan-info-top">
-            <span class="plan-name">Team Annual</span>
-            <span class="plan-tag save">Save 28%</span>
+            <span class="plan-name">White-Label</span>
+            <span class="plan-tag reseller">Reseller</span>
           </div>
-          <div class="plan-desc">Team plan billed annually. Up to 10 members.</div>
+          <div class="plan-desc">Full white-label rights. Rebrand and resell all tools under your own brand.</div>
         </div>
         <div class="plan-price-col">
-          <div class="plan-price-orig">$348/yr</div>
-          <div class="plan-price-main">$249/yr</div>
-          <div class="plan-price-note">$20.75/mo effective</div>
+          <div class="plan-price-main">$999</div>
+          <div class="plan-price-note">One-time license</div>
+        </div>
+      </div>
+
+      <div class="plan-card" data-plan="enterprise" onclick="selectPlan('enterprise')">
+        <div class="plan-radio"></div>
+        <div class="plan-info">
+          <div class="plan-info-top">
+            <span class="plan-name">Enterprise</span>
+          </div>
+          <div class="plan-desc">Unlimited seats. Custom integrations, SLA, dedicated support, SSO.</div>
+        </div>
+        <div class="plan-price-col">
+          <div class="plan-price-main">$249/mo</div>
+          <div class="plan-price-note">Billed monthly</div>
         </div>
       </div>
     </div>
@@ -251,7 +261,7 @@ a{color:inherit;text-decoration:none}
     <!-- Coupon -->
     <div class="coupon-section">
       <div class="coupon-row">
-        <input type="text" class="coupon-input" id="couponInput" placeholder="Have a discount code?">
+        <input type="text" class="coupon-input" id="couponInput" placeholder="Have a discount code? Try SPUNK for 15% off">
         <button class="coupon-btn" onclick="applyCoupon()">Apply</button>
       </div>
       <div class="coupon-msg" id="couponMsg"></div>
@@ -273,13 +283,24 @@ a{color:inherit;text-decoration:none}
         <!-- Populated by JS -->
       </div>
 
+      <div id="discountRow" style="display:none">
+        <div class="order-divider"></div>
+        <div class="order-item">
+          <div>
+            <div class="order-item-name" id="discountLabel">Discount</div>
+            <div class="order-item-desc" id="discountCode">Code applied</div>
+          </div>
+          <div class="order-item-price discount" id="discountAmount">-$0</div>
+        </div>
+      </div>
+
       <div class="order-divider"></div>
 
       <div class="order-total">
         <span class="order-total-label">Total</span>
         <div>
-          <div class="order-total-price" id="orderTotal">$79</div>
-          <div class="order-total-note" id="orderTotalNote">per year</div>
+          <div class="order-total-price" id="orderTotal">$349</div>
+          <div class="order-total-note" id="orderTotalNote">one-time payment</div>
         </div>
       </div>
 
@@ -314,7 +335,7 @@ a{color:inherit;text-decoration:none}
 
 <!-- Footer -->
 <footer class="footer">
-  <p>&copy; 2026 SPUNK.CODES. Secure checkout powered by Gumroad. <a href="/pricing.html">View pricing</a> | <a href="/">Back to tools</a></p>
+  <p>&copy; 2026 SPUNK.CODES. Secure checkout powered by Gumroad. <a href="/pricing.html">View pricing</a> | <a href="/">Back to tools</a> | <a href="/spunk-rewards.html">SPUNK Code Rewards</a></p>
 </footer>
 
 <!-- Gumroad Links -->
@@ -325,45 +346,32 @@ a{color:inherit;text-decoration:none}
 document.addEventListener('contextmenu',function(e){e.preventDefault()});
 document.addEventListener('keydown',function(e){if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'))||(e.ctrlKey&&e.key==='U'))e.preventDefault()});
 
-// Plan data
+// Plan data with updated pricing
 var plans={
   'pro-monthly':{
     name:'Pro Monthly',
-    price:'$9',
+    price:19,
+    priceLabel:'$19',
     priceNote:'/month',
     totalNote:'per month',
     gumroadKey:'plan-pro-monthly',
     items:[
-      {name:'Pro Monthly Subscription',desc:'34 exclusive tools + all ebooks',price:'$9/mo'}
+      {name:'Pro Monthly Subscription',desc:'34 exclusive tools + all ebooks',price:'$19/mo'}
     ],
     features:[
       '34 exclusive premium tools','All ebooks included ($200+ value)','Priority tool updates','No ads anywhere',
       'Export to all formats','Advanced features unlocked','Email support','Cancel anytime'
     ]
   },
-  'pro-annual':{
-    name:'Pro Annual',
-    price:'$79',
-    priceNote:'/year',
-    totalNote:'per year (save 27%)',
-    gumroadKey:'plan-pro-annual',
-    items:[
-      {name:'Pro Annual Subscription',desc:'34 exclusive tools + all ebooks',price:'$79/yr'},
-      {name:'Annual Savings',desc:'vs $108 monthly total',price:'-$29'}
-    ],
-    features:[
-      '34 exclusive premium tools','All ebooks included ($200+ value)','Priority tool updates','No ads anywhere',
-      'Export to all formats','Advanced features unlocked','Email support','Save 27% vs monthly'
-    ]
-  },
   'lifetime':{
     name:'Lifetime Access',
-    price:'$149',
+    price:349,
+    priceLabel:'$349',
     priceNote:' one-time',
     totalNote:'one-time payment',
     gumroadKey:'plan-lifetime',
     items:[
-      {name:'Lifetime Access',desc:'Everything in Pro, forever',price:'$149'},
+      {name:'Lifetime Access',desc:'Everything in Pro, forever',price:'$349'},
       {name:'All Future Tools',desc:'Included at no extra cost',price:'Free'},
       {name:'All Future Ebooks',desc:'Every new ebook, forever',price:'Free'},
       {name:'Founding Member Badge',desc:'Exclusive to first 500 members',price:'Free'}
@@ -374,40 +382,67 @@ var plans={
     ]
   },
   'team-monthly':{
-    name:'Team / Agency Monthly',
-    price:'$29',
+    name:'Team / Agency',
+    price:49,
+    priceLabel:'$49',
     priceNote:'/month',
     totalNote:'per month',
-    gumroadKey:'plan-pro-monthly',
+    gumroadKey:'plan-team-monthly',
     items:[
-      {name:'Team Monthly Subscription',desc:'Up to 10 team members',price:'$29/mo'}
+      {name:'Team Monthly Subscription',desc:'Up to 10 team members',price:'$49/mo'}
     ],
     features:[
       'Everything in Pro','Up to 10 team members','White-label exports','API access',
       'Priority support','Custom branding on exports','Team admin dashboard','Cancel anytime'
     ]
   },
-  'team-annual':{
-    name:'Team / Agency Annual',
-    price:'$249',
-    priceNote:'/year',
-    totalNote:'per year (save 28%)',
-    gumroadKey:'plan-pro-annual',
+  'whitelabel':{
+    name:'White-Label License',
+    price:999,
+    priceLabel:'$999',
+    priceNote:' one-time',
+    totalNote:'one-time license',
+    gumroadKey:'plan-whitelabel',
     items:[
-      {name:'Team Annual Subscription',desc:'Up to 10 team members',price:'$249/yr'},
-      {name:'Annual Savings',desc:'vs $348 monthly total',price:'-$99'}
+      {name:'White-Label License',desc:'Full rebrand & resell rights',price:'$999'},
+      {name:'Source Files',desc:'All tools with your branding',price:'Included'},
+      {name:'Reseller Documentation',desc:'Setup guides & support',price:'Included'}
     ],
     features:[
-      'Everything in Pro','Up to 10 team members','White-label exports','API access',
-      'Priority support','Custom branding on exports','Team admin dashboard','Save 28% vs monthly'
+      'Full white-label rights','Rebrand all tools','Resell under your brand','Source file access',
+      'Custom domain support','Reseller documentation','Priority setup support','Lifetime license'
+    ]
+  },
+  'enterprise':{
+    name:'Enterprise',
+    price:249,
+    priceLabel:'$249',
+    priceNote:'/month',
+    totalNote:'per month',
+    gumroadKey:'plan-enterprise',
+    items:[
+      {name:'Enterprise Subscription',desc:'Unlimited seats + custom integrations',price:'$249/mo'}
+    ],
+    features:[
+      'Everything in Team','Unlimited seats','Custom integrations','SLA guarantee',
+      'Dedicated account manager','SSO / SAML','Custom reporting','Invoice billing'
     ]
   }
 };
 
-var selectedPlan='pro-annual';
+var selectedPlan='lifetime';
 var appliedDiscount=null;
 
-// Select plan from URL params
+// Coupon codes
+var coupons={
+  'HALFOFF':{discount:50,type:'percent',label:'50% off'},
+  'WELCOME20':{discount:20,type:'percent',label:'20% off'},
+  'LAUNCH10':{discount:10,type:'percent',label:'10% off'},
+  'SPUNK':{discount:15,type:'percent',label:'15% off + exclusive rewards'},
+  'WHITELABEL':{discount:20,type:'percent',label:'20% off reseller tiers',restrict:['whitelabel','enterprise']}
+};
+
+// Select plan from URL params + auto-apply coupon
 (function(){
   var params=new URLSearchParams(window.location.search);
   var planParam=params.get('plan');
@@ -415,6 +450,13 @@ var appliedDiscount=null;
     selectedPlan=planParam;
   }
   selectPlan(selectedPlan);
+
+  // Auto-apply coupon from URL
+  var couponParam=params.get('coupon');
+  if(couponParam){
+    document.getElementById('couponInput').value=couponParam;
+    setTimeout(function(){applyCoupon();},300);
+  }
 })();
 
 function selectPlan(planId){
@@ -426,7 +468,17 @@ function selectPlan(planId){
     card.classList.toggle('selected',card.dataset.plan===planId);
   });
 
-  var plan=plans[planId];
+  updateOrderSummary();
+
+  // GA4
+  if(typeof gtag==='function'){
+    gtag('event','checkout_plan_selected',{plan:planId,price:plans[planId].priceLabel});
+  }
+}
+
+function updateOrderSummary(){
+  var plan=plans[selectedPlan];
+  if(!plan) return;
 
   // Update order items
   var orderItems=document.getElementById('orderItems');
@@ -438,8 +490,33 @@ function selectPlan(planId){
     orderItems.appendChild(div);
   });
 
+  // Calculate discount
+  var finalPrice=plan.price;
+  var discountRow=document.getElementById('discountRow');
+
+  if(appliedDiscount){
+    // Check restriction
+    if(appliedDiscount.restrict&&appliedDiscount.restrict.indexOf(selectedPlan)===-1){
+      // Restricted coupon doesn't apply to this plan - still show but note it
+      discountRow.style.display='none';
+    } else {
+      var discountAmt=0;
+      if(appliedDiscount.type==='percent'){
+        discountAmt=Math.round(plan.price*(appliedDiscount.discount/100)*100)/100;
+      }
+      finalPrice=plan.price-discountAmt;
+      document.getElementById('discountLabel').textContent=appliedDiscount.label;
+      document.getElementById('discountCode').textContent='Code: '+appliedDiscount.code;
+      document.getElementById('discountAmount').textContent='-$'+discountAmt.toFixed(0);
+      discountRow.style.display='block';
+    }
+  } else {
+    discountRow.style.display='none';
+  }
+
   // Update total
-  document.getElementById('orderTotal').textContent=plan.price;
+  var isMonthly=plan.priceNote.indexOf('month')!==-1;
+  document.getElementById('orderTotal').textContent='$'+finalPrice.toFixed(0);
   document.getElementById('orderTotalNote').textContent=plan.totalNote;
 
   // Update feature list
@@ -453,16 +530,13 @@ function selectPlan(planId){
   });
 
   // Update pay button text
-  document.getElementById('payBtn').innerHTML='<span>&#128274;</span> Complete Purchase &mdash; '+plan.price+plan.priceNote;
-
-  // GA4
-  if(typeof gtag==='function'){
-    gtag('event','checkout_plan_selected',{plan:planId,price:plan.price});
-  }
+  var btnPrice='$'+finalPrice.toFixed(0)+plan.priceNote;
+  document.getElementById('payBtn').innerHTML='<span>&#128274;</span> Complete Purchase &mdash; '+btnPrice;
 }
 
 function applyCoupon(){
-  var code=document.getElementById('couponInput').value.trim().toUpperCase();
+  var input=document.getElementById('couponInput');
+  var code=input.value.trim().toUpperCase();
   var msg=document.getElementById('couponMsg');
 
   if(!code){
@@ -471,23 +545,46 @@ function applyCoupon(){
     return;
   }
 
-  // Demo coupon codes
-  var coupons={
-    'HALFOFF':{discount:50,type:'percent',label:'50% off'},
-    'WELCOME20':{discount:20,type:'percent',label:'20% off'},
-    'LAUNCH10':{discount:10,type:'percent',label:'10% off'},
-    'SPUNK':{discount:15,type:'percent',label:'15% off (referral)'}
-  };
-
   if(coupons[code]){
-    appliedDiscount=coupons[code];
+    var coupon=coupons[code];
+
+    // Check restriction
+    if(coupon.restrict&&coupon.restrict.indexOf(selectedPlan)===-1){
+      msg.className='coupon-msg error';
+      msg.textContent='Code '+code+' is only valid for: '+coupon.restrict.map(function(p){return plans[p]?plans[p].name:p;}).join(', ')+'. Select an eligible plan.';
+      appliedDiscount=null;
+      updateOrderSummary();
+      return;
+    }
+
+    appliedDiscount={discount:coupon.discount,type:coupon.type,label:coupon.label,code:code,restrict:coupon.restrict||null};
+    input.classList.add('applied');
     msg.className='coupon-msg success';
-    msg.textContent='Coupon applied: '+appliedDiscount.label+'! Discount applied at checkout.';
-    if(typeof gtag==='function') gtag('event','coupon_applied',{code:code,discount:appliedDiscount.label});
+
+    if(code==='SPUNK'){
+      msg.innerHTML='&#10003; SPUNK code applied: 15% off! <a href="/spunk-rewards.html" style="color:#58a6ff;text-decoration:underline">View all SPUNK rewards</a>';
+    } else {
+      msg.textContent='Coupon applied: '+coupon.label+'! Discount shown in summary.';
+    }
+
+    updateOrderSummary();
+    if(typeof gtag==='function') gtag('event','coupon_applied',{code:code,discount:coupon.label,plan:selectedPlan});
   } else {
+    appliedDiscount=null;
+    input.classList.remove('applied');
     msg.className='coupon-msg error';
     msg.textContent='Invalid coupon code. Check the code and try again.';
+    updateOrderSummary();
     if(typeof gtag==='function') gtag('event','coupon_failed',{code:code});
+  }
+}
+
+function autoApplySpunk(){
+  var input=document.getElementById('couponInput');
+  if(!appliedDiscount){
+    input.value='SPUNK';
+    applyCoupon();
+    input.scrollIntoView({behavior:'smooth',block:'center'});
   }
 }
 
@@ -499,7 +596,7 @@ function proceedToPayment(){
   if(typeof gtag==='function'){
     gtag('event','begin_checkout',{
       plan:selectedPlan,
-      price:plan.price,
+      price:plan.priceLabel,
       discount:appliedDiscount?appliedDiscount.label:'none',
       source:document.referrer||'direct'
     });
@@ -510,10 +607,11 @@ function proceedToPayment(){
     });
   }
 
-  // Mark as pro in localStorage (for when payment integration goes live)
+  // Mark in localStorage
   try{
     localStorage.setItem('spunk_checkout_plan',selectedPlan);
     localStorage.setItem('spunk_checkout_ts',Date.now().toString());
+    if(appliedDiscount) localStorage.setItem('spunk_checkout_coupon',appliedDiscount.code);
   }catch(e){}
 
   // Open Gumroad checkout
