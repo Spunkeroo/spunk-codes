@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Social Card Generator - SPUNK.CODES</title>
+  <meta name="description" content="Generate branded share card images for SPUNK.CODES content. Perfect for X/Twitter, LinkedIn, and Open Graph previews.">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg-deep: #0d1117;
+      --bg-card: rgba(22, 27, 34, 0.6);
+      --bg-card-solid: #161b22;
+      --border: rgba(48, 54, 61, 0.6);
+      --border-hover: rgba(88, 166, 255, 0.4);
+      --text-primary: #e6edf3;
+      --text-secondary: #8b949e;
+      --text-muted: #484f58;
+      --accent-blue: #58a6ff;
+      --accent-cyan: #39d353;
+      --accent-purple: #bc8cff;
+      --accent-orange: #ffa657;
+      --accent-red: #ff7b72;
+      --gradient-blue: linear-gradient(135deg, #58a6ff, #39d353);
+      --gradient-hero: linear-gradient(135deg, #58a6ff 0%, #79c0ff 50%, #39d353 100%);
+      --radius: 16px;
+      --radius-sm: 10px;
+      --font: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg-deep);
+      color: var(--text-primary);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .bg-mesh {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      background:
+        radial-gradient(ellipse 80% 50% at 20% 20%, rgba(88, 166, 255, 0.08) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 80% 80%, rgba(57, 211, 83, 0.06) 0%, transparent 60%),
+        var(--bg-deep);
+    }
+
+    /* Nav */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0 2rem; height: 64px;
+      background: rgba(13, 17, 23, 0.9);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(48, 54, 61, 0.5);
+    }
+    .nav-logo {
+      font-size: 1.15rem; font-weight: 800; letter-spacing: 0.08em;
+      background: var(--gradient-hero); -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .nav-back {
+      font-size: 0.84rem; font-weight: 500; color: var(--text-secondary);
+      transition: color 0.2s;
+    }
+    .nav-back:hover { color: var(--text-primary); }
+
+    /* Main layout */
+    .container {
+      max-width: 1400px; margin: 0 auto; padding: 96px 2rem 4rem;
+      display: grid; grid-template-columns: 340px 1fr; gap: 2rem;
+      align-items: start;
+    }
+
+    /* Sidebar controls */
+    .controls {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1.5rem;
+      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      position: sticky; top: 80px;
+    }
+
+    .controls h2 {
+      font-size: 1.1rem; font-weight: 800; margin-bottom: 1.25rem;
+      background: var(--gradient-hero); -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent; background-clip: text;
+    }
+
+    .field { margin-bottom: 1rem; }
+
+    .field label {
+      display: block; font-size: 0.78rem; font-weight: 600;
+      color: var(--text-secondary); text-transform: uppercase;
+      letter-spacing: 0.06em; margin-bottom: 0.35rem;
+    }
+
+    .field input, .field textarea, .field select {
+      width: 100%; padding: 0.6rem 0.8rem;
+      background: rgba(13, 17, 23, 0.8); border: 1px solid var(--border);
+      border-radius: 8px; color: var(--text-primary);
+      font-size: 0.88rem; font-family: var(--font);
+      outline: none; transition: var(--transition);
+    }
+
+    .field input:focus, .field textarea:focus, .field select:focus {
+      border-color: var(--accent-blue);
+    }
+
+    .field textarea { resize: vertical; min-height: 60px; }
+
+    .field select {
+      cursor: pointer; appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%238b949e' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 0.8rem center;
+      padding-right: 2rem;
+    }
+
+    .field select option { background: #161b22; color: var(--text-primary); }
+
+    /* Templates */
+    .templates {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .template-btn {
+      padding: 0.45rem 0.6rem; background: rgba(88, 166, 255, 0.06);
+      border: 1px solid var(--border); border-radius: 8px;
+      color: var(--text-secondary); font-size: 0.72rem; font-weight: 600;
+      font-family: var(--font); cursor: pointer; transition: var(--transition);
+      text-align: center;
+    }
+
+    .template-btn:hover {
+      background: rgba(88, 166, 255, 0.15); border-color: var(--accent-blue);
+      color: var(--accent-blue);
+    }
+
+    .template-btn.active {
+      background: rgba(88, 166, 255, 0.15); border-color: var(--accent-blue);
+      color: var(--accent-blue);
+    }
+
+    /* Action buttons */
+    .btn-download {
+      width: 100%; padding: 0.75rem; border: none;
+      background: var(--gradient-blue); border-radius: var(--radius-sm);
+      color: #0d1117; font-size: 0.9rem; font-weight: 700;
+      font-family: var(--font); cursor: pointer; transition: var(--transition);
+      margin-top: 0.5rem;
+    }
+
+    .btn-download:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(88, 166, 255, 0.25);
+    }
+
+    .btn-copy {
+      width: 100%; padding: 0.6rem; margin-top: 0.5rem;
+      background: rgba(88, 166, 255, 0.1); border: 1px solid rgba(88, 166, 255, 0.2);
+      border-radius: var(--radius-sm); color: var(--accent-blue);
+      font-size: 0.82rem; font-weight: 600; font-family: var(--font);
+      cursor: pointer; transition: var(--transition);
+    }
+
+    .btn-copy:hover {
+      background: rgba(88, 166, 255, 0.2);
+    }
+
+    /* Preview area */
+    .preview-area {
+      display: flex; flex-direction: column; align-items: center; gap: 1rem;
+    }
+
+    .preview-label {
+      font-size: 0.78rem; font-weight: 600; color: var(--text-muted);
+      text-transform: uppercase; letter-spacing: 0.08em;
+      align-self: flex-start;
+    }
+
+    .canvas-wrapper {
+      width: 100%; max-width: 900px; aspect-ratio: 1200 / 630;
+      border-radius: var(--radius); overflow: hidden;
+      border: 1px solid var(--border);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    }
+
+    .canvas-wrapper canvas {
+      width: 100%; height: 100%; display: block;
+    }
+
+    .size-info {
+      font-size: 0.72rem; color: var(--text-muted); text-align: center;
+    }
+
+    /* Color pickers */
+    .color-row {
+      display: flex; gap: 0.5rem; align-items: center;
+    }
+
+    .color-swatch {
+      width: 32px; height: 32px; border-radius: 6px; border: 2px solid var(--border);
+      cursor: pointer; overflow: hidden; position: relative; flex-shrink: 0;
+    }
+
+    .color-swatch input[type="color"] {
+      position: absolute; inset: -4px; width: 40px; height: 40px;
+      border: none; padding: 0; cursor: pointer;
+    }
+
+    .color-hex {
+      flex: 1; padding: 0.45rem 0.6rem; background: rgba(13, 17, 23, 0.8);
+      border: 1px solid var(--border); border-radius: 6px;
+      color: var(--text-primary); font-size: 0.8rem; font-family: monospace;
+      outline: none;
+    }
+
+    .color-hex:focus { border-color: var(--accent-blue); }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .container {
+        grid-template-columns: 1fr; padding: 80px 1rem 3rem;
+      }
+      .controls { position: static; }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-mesh"></div>
+
+  <nav class="nav">
+    <a href="/" class="nav-logo">SPUNK.CODES</a>
+    <a href="/" class="nav-back">&larr; Back to Home</a>
+  </nav>
+
+  <div class="container">
+    <!-- Controls sidebar -->
+    <div class="controls">
+      <h2>Social Card Generator</h2>
+
+      <label style="font-size:0.72rem;font-weight:600;color:var(--text-muted);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:0.5rem;display:block;">Quick Templates</label>
+      <div class="templates">
+        <button class="template-btn" data-template="free-tool">Free Tool</button>
+        <button class="template-btn" data-template="blog-post">New Blog Post</button>
+        <button class="template-btn" data-template="premium-launch">Premium Launch</button>
+        <button class="template-btn" data-template="top-50">Top 50 List</button>
+        <button class="template-btn" data-template="viral-stats">Viral Stats</button>
+      </div>
+
+      <div class="field">
+        <label>Title</label>
+        <textarea id="cardTitle" rows="2" placeholder="300+ Free Developer Tools">300+ Free Developer Tools</textarea>
+      </div>
+
+      <div class="field">
+        <label>Subtitle</label>
+        <input type="text" id="cardSubtitle" placeholder="No sign-up. No paywall. Ship faster." value="No sign-up. No paywall. Ship faster.">
+      </div>
+
+      <div class="field">
+        <label>Category Tag</label>
+        <select id="cardCategory">
+          <option value="FREE TOOL">FREE TOOL</option>
+          <option value="BLOG POST">BLOG POST</option>
+          <option value="PREMIUM">PREMIUM</option>
+          <option value="EBOOK">EBOOK</option>
+          <option value="TOP 50">TOP 50</option>
+          <option value="GUIDE">GUIDE</option>
+          <option value="NEW">NEW</option>
+          <option value="VIRAL">VIRAL</option>
+          <option value="DEV TOOLS">DEV TOOLS</option>
+          <option value="AI">AI</option>
+          <option value="SEO">SEO</option>
+          <option value="DESIGN">DESIGN</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>URL</label>
+        <input type="text" id="cardUrl" placeholder="spunk.codes/json-formatter" value="spunk.codes">
+      </div>
+
+      <div class="field">
+        <label>Accent Color</label>
+        <div class="color-row">
+          <div class="color-swatch">
+            <input type="color" id="accentColor" value="#39d353">
+          </div>
+          <input type="text" class="color-hex" id="accentHex" value="#39d353" maxlength="7">
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Background Style</label>
+        <select id="bgStyle">
+          <option value="gradient-mesh">Gradient Mesh (Default)</option>
+          <option value="grid">Grid Pattern</option>
+          <option value="dots">Dot Matrix</option>
+          <option value="radial">Radial Glow</option>
+          <option value="minimal">Minimal Dark</option>
+        </select>
+      </div>
+
+      <button class="btn-download" id="btnDownload">Download PNG (1200x630)</button>
+      <button class="btn-copy" id="btnCopyClipboard">Copy to Clipboard</button>
+    </div>
+
+    <!-- Preview area -->
+    <div class="preview-area">
+      <div class="preview-label">Preview</div>
+      <div class="canvas-wrapper">
+        <canvas id="cardCanvas" width="1200" height="630"></canvas>
+      </div>
+      <div class="size-info">1200 x 630px &mdash; Twitter/OG standard &mdash; PNG</div>
+    </div>
+  </div>
+
+  <script>
+  (function() {
+    'use strict';
+
+    var canvas = document.getElementById('cardCanvas');
+    var ctx = canvas.getContext('2d');
+    var titleEl = document.getElementById('cardTitle');
+    var subtitleEl = document.getElementById('cardSubtitle');
+    var categoryEl = document.getElementById('cardCategory');
+    var urlEl = document.getElementById('cardUrl');
+    var accentColorEl = document.getElementById('accentColor');
+    var accentHexEl = document.getElementById('accentHex');
+    var bgStyleEl = document.getElementById('bgStyle');
+    var btnDownload = document.getElementById('btnDownload');
+    var btnCopy = document.getElementById('btnCopyClipboard');
+
+    // Templates
+    var templates = {
+      'free-tool': {
+        title: '300+ Free Developer Tools',
+        subtitle: 'No sign-up. No paywall. Ship faster.',
+        category: 'FREE TOOL',
+        url: 'spunk.codes/store',
+        accent: '#39d353'
+      },
+      'blog-post': {
+        title: 'The Complete Vibe Coding Guide (2026)',
+        subtitle: 'Ship 10x faster with AI-powered workflows.',
+        category: 'BLOG POST',
+        url: 'spunk.codes/blog',
+        accent: '#58a6ff'
+      },
+      'premium-launch': {
+        title: '75 Premium Tools Unlocked',
+        subtitle: 'Professional-grade tools for serious builders.',
+        category: 'PREMIUM',
+        url: 'spunk.codes/exclusive-tools',
+        accent: '#bc8cff'
+      },
+      'top-50': {
+        title: 'Top 50 Free SEO Tools in 2026',
+        subtitle: 'Rank faster without spending a dollar.',
+        category: 'TOP 50',
+        url: 'spunk.codes/blog/50-seo-tips',
+        accent: '#ffa657'
+      },
+      'viral-stats': {
+        title: '120+ Sites. 300+ Tools. 1 Person.',
+        subtitle: 'Built entirely with AI in 7 days.',
+        category: 'VIRAL',
+        url: 'spunk.codes',
+        accent: '#ff7b72'
+      }
+    };
+
+    // Apply template
+    var templateBtns = document.querySelectorAll('.template-btn');
+    for (var i = 0; i < templateBtns.length; i++) {
+      templateBtns[i].addEventListener('click', function() {
+        var key = this.getAttribute('data-template');
+        var t = templates[key];
+        if (!t) return;
+
+        // Clear active states
+        for (var j = 0; j < templateBtns.length; j++) {
+          templateBtns[j].classList.remove('active');
+        }
+        this.classList.add('active');
+
+        titleEl.value = t.title;
+        subtitleEl.value = t.subtitle;
+        categoryEl.value = t.category;
+        urlEl.value = t.url;
+        accentColorEl.value = t.accent;
+        accentHexEl.value = t.accent;
+        render();
+      });
+    }
+
+    // Sync color picker and hex input
+    accentColorEl.addEventListener('input', function() {
+      accentHexEl.value = this.value;
+      render();
+    });
+
+    accentHexEl.addEventListener('input', function() {
+      var val = this.value;
+      if (/^#[0-9A-Fa-f]{6}$/.test(val)) {
+        accentColorEl.value = val;
+        render();
+      }
+    });
+
+    // Re-render on any input change
+    var inputs = [titleEl, subtitleEl, categoryEl, urlEl, bgStyleEl];
+    for (var k = 0; k < inputs.length; k++) {
+      inputs[k].addEventListener('input', render);
+      inputs[k].addEventListener('change', render);
+    }
+
+    function hexToRgb(hex) {
+      var r = parseInt(hex.slice(1, 3), 16);
+      var g = parseInt(hex.slice(3, 5), 16);
+      var b = parseInt(hex.slice(5, 7), 16);
+      return { r: r, g: g, b: b };
+    }
+
+    function drawBackground(accent) {
+      var style = bgStyleEl.value;
+      var rgb = hexToRgb(accent);
+
+      // Base fill
+      ctx.fillStyle = '#0d1117';
+      ctx.fillRect(0, 0, 1200, 630);
+
+      if (style === 'gradient-mesh') {
+        // Gradient mesh with accent color orbs
+        var g1 = ctx.createRadialGradient(200, 150, 0, 200, 150, 500);
+        g1.addColorStop(0, 'rgba(' + rgb.r + ',' + rgb.g + ',' + rgb.b + ',0.12)');
+        g1.addColorStop(1, 'transparent');
+        ctx.fillStyle = g1;
+        ctx.fillRect(0, 0, 1200, 630);
+
+        var g2 = ctx.createRadialGradient(1000, 500, 0, 1000, 500, 450);
+        g2.addColorStop(0, 'rgba(88,166,255,0.08)');
+        g2.addColorStop(1, 'transparent');
+        ctx.fillStyle = g2;
+        ctx.fillRect(0, 0, 1200, 630);
+
+        var g3 = ctx.createRadialGradient(600, 300, 0, 600, 300, 350);
+        g3.addColorStop(0, 'rgba(188,140,255,0.04)');
+        g3.addColorStop(1, 'transparent');
+        ctx.fillStyle = g3;
+        ctx.fillRect(0, 0, 1200, 630);
+
+      } else if (style === 'grid') {
+        ctx.strokeStyle = 'rgba(48,54,61,0.2)';
+        ctx.lineWidth = 1;
+        for (var x = 0; x < 1200; x += 40) {
+          ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, 630); ctx.stroke();
+        }
+        for (var y = 0; y < 630; y += 40) {
+          ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(1200, y); ctx.stroke();
+        }
+        // Accent glow at center
+        var gg = ctx.createRadialGradient(600, 315, 0, 600, 315, 400);
+        gg.addColorStop(0, 'rgba(' + rgb.r + ',' + rgb.g + ',' + rgb.b + ',0.06)');
+        gg.addColorStop(1, 'transparent');
+        ctx.fillStyle = gg;
+        ctx.fillRect(0, 0, 1200, 630);
+
+      } else if (style === 'dots') {
+        ctx.fillStyle = 'rgba(48,54,61,0.25)';
+        for (var dx = 20; dx < 1200; dx += 30) {
+          for (var dy = 20; dy < 630; dy += 30) {
+            ctx.beginPath();
+            ctx.arc(dx, dy, 1.2, 0, Math.PI * 2);
+            ctx.fill();
+          }
+        }
+        var gd = ctx.createRadialGradient(300, 250, 0, 300, 250, 500);
+        gd.addColorStop(0, 'rgba(' + rgb.r + ',' + rgb.g + ',' + rgb.b + ',0.1)');
+        gd.addColorStop(1, 'transparent');
+        ctx.fillStyle = gd;
+        ctx.fillRect(0, 0, 1200, 630);
+
+      } else if (style === 'radial') {
+        var gr = ctx.createRadialGradient(600, 315, 0, 600, 315, 600);
+        gr.addColorStop(0, 'rgba(' + rgb.r + ',' + rgb.g + ',' + rgb.b + ',0.15)');
+        gr.addColorStop(0.4, 'rgba(' + rgb.r + ',' + rgb.g + ',' + rgb.b + ',0.04)');
+        gr.addColorStop(1, 'transparent');
+        ctx.fillStyle = gr;
+        ctx.fillRect(0, 0, 1200, 630);
+      }
+      // 'minimal' just keeps the base fill
+    }
+
+    function drawRoundedRect(x, y, w, h, r) {
+      ctx.beginPath();
+      ctx.moveTo(x + r, y);
+      ctx.lineTo(x + w - r, y);
+      ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+      ctx.lineTo(x + w, y + h - r);
+      ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+      ctx.lineTo(x + r, y + h);
+      ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+      ctx.lineTo(x, y + r);
+      ctx.quadraticCurveTo(x, y, x + r, y);
+      ctx.closePath();
+    }
+
+    function wrapText(text, maxWidth, fontSize) {
+      ctx.font = '800 ' + fontSize + 'px system-ui, -apple-system, sans-serif';
+      var words = text.split(' ');
+      var lines = [];
+      var currentLine = '';
+
+      for (var i = 0; i < words.length; i++) {
+        var testLine = currentLine ? currentLine + ' ' + words[i] : words[i];
+        var metrics = ctx.measureText(testLine);
+        if (metrics.width > maxWidth && currentLine) {
+          lines.push(currentLine);
+          currentLine = words[i];
+        } else {
+          currentLine = testLine;
+        }
+      }
+      if (currentLine) lines.push(currentLine);
+      return lines;
+    }
+
+    function render() {
+      var accent = accentColorEl.value;
+      var accentRgb = hexToRgb(accent);
+      var title = titleEl.value || 'SPUNK.CODES';
+      var subtitle = subtitleEl.value || '';
+      var category = categoryEl.value || 'FREE TOOL';
+      var url = urlEl.value || 'spunk.codes';
+
+      // Background
+      drawBackground(accent);
+
+      // Top accent line
+      var lineGrad = ctx.createLinearGradient(0, 0, 1200, 0);
+      lineGrad.addColorStop(0, accent);
+      lineGrad.addColorStop(0.5, '#58a6ff');
+      lineGrad.addColorStop(1, accent);
+      ctx.fillStyle = lineGrad;
+      ctx.fillRect(0, 0, 1200, 4);
+
+      // Bottom accent line
+      ctx.fillStyle = lineGrad;
+      ctx.fillRect(0, 626, 1200, 4);
+
+      // Category badge - top left
+      ctx.font = '700 16px system-ui, -apple-system, sans-serif';
+      var catWidth = ctx.measureText(category).width + 28;
+      var catX = 60;
+      var catY = 55;
+
+      drawRoundedRect(catX, catY, catWidth, 34, 17);
+      ctx.fillStyle = 'rgba(' + accentRgb.r + ',' + accentRgb.g + ',' + accentRgb.b + ',0.15)';
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(' + accentRgb.r + ',' + accentRgb.g + ',' + accentRgb.b + ',0.4)';
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+
+      ctx.fillStyle = accent;
+      ctx.font = '700 14px system-ui, -apple-system, sans-serif';
+      ctx.letterSpacing = '0.08em';
+      ctx.fillText(category, catX + 14, catY + 22);
+
+      // Title - large bold text
+      var titleFontSize = title.length > 40 ? 52 : title.length > 25 ? 60 : 68;
+      var titleLines = wrapText(title, 1080, titleFontSize);
+      var titleStartY = 160;
+
+      // Adjust start if many lines
+      if (titleLines.length > 2) {
+        titleStartY = 140;
+        titleFontSize = Math.min(titleFontSize, 52);
+        titleLines = wrapText(title, 1080, titleFontSize);
+      }
+
+      ctx.font = '800 ' + titleFontSize + 'px system-ui, -apple-system, sans-serif';
+      ctx.fillStyle = '#e6edf3';
+
+      for (var li = 0; li < titleLines.length; li++) {
+        ctx.fillText(titleLines[li], 60, titleStartY + (li * (titleFontSize * 1.2)));
+      }
+
+      // Subtitle
+      if (subtitle) {
+        var subY = titleStartY + (titleLines.length * (titleFontSize * 1.2)) + 20;
+        ctx.font = '400 26px system-ui, -apple-system, sans-serif';
+        ctx.fillStyle = '#8b949e';
+        ctx.fillText(subtitle, 60, subY);
+      }
+
+      // Accent bar separator
+      var barY = 480;
+      var barGrad = ctx.createLinearGradient(60, 0, 500, 0);
+      barGrad.addColorStop(0, accent);
+      barGrad.addColorStop(1, 'rgba(' + accentRgb.r + ',' + accentRgb.g + ',' + accentRgb.b + ',0)');
+      ctx.fillStyle = barGrad;
+      ctx.fillRect(60, barY, 440, 3);
+
+      // Bottom section: SPUNK.CODES branding + URL
+      // Logo text
+      ctx.font = '800 28px system-ui, -apple-system, sans-serif';
+      var logoGrad = ctx.createLinearGradient(60, 0, 280, 0);
+      logoGrad.addColorStop(0, '#58a6ff');
+      logoGrad.addColorStop(0.5, '#79c0ff');
+      logoGrad.addColorStop(1, '#39d353');
+      ctx.fillStyle = logoGrad;
+      ctx.fillText('SPUNK.CODES', 60, 545);
+
+      // Tagline
+      ctx.font = '500 16px system-ui, -apple-system, sans-serif';
+      ctx.fillStyle = '#484f58';
+      ctx.fillText('Free tools for developers, creators & founders', 60, 575);
+
+      // URL on the right
+      ctx.font = '500 18px system-ui, -apple-system, sans-serif';
+      ctx.fillStyle = accent;
+      var urlText = url;
+      var urlWidth = ctx.measureText(urlText).width;
+      ctx.fillText(urlText, 1140 - urlWidth, 555);
+
+      // Small globe/link icon indicator before URL
+      ctx.font = '500 14px system-ui, -apple-system, sans-serif';
+      ctx.fillStyle = 'rgba(' + accentRgb.r + ',' + accentRgb.g + ',' + accentRgb.b + ',0.5)';
+
+      // Corner decorative dots
+      ctx.fillStyle = 'rgba(' + accentRgb.r + ',' + accentRgb.g + ',' + accentRgb.b + ',0.3)';
+      ctx.beginPath();
+      ctx.arc(1160, 70, 4, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(1140, 70, 3, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(1120, 70, 2, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    // Download PNG
+    btnDownload.addEventListener('click', function() {
+      render();
+      var link = document.createElement('a');
+      var title = titleEl.value || 'spunkcodes';
+      var safeName = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
+      link.download = 'spunkcodes-' + safeName + '.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+
+      if (typeof gtag === 'function') {
+        gtag('event', 'social_card_download', {
+          event_category: 'social_cards',
+          event_label: titleEl.value
+        });
+      }
+    });
+
+    // Copy to clipboard
+    btnCopy.addEventListener('click', function() {
+      render();
+      canvas.toBlob(function(blob) {
+        if (navigator.clipboard && navigator.clipboard.write) {
+          var item = new ClipboardItem({ 'image/png': blob });
+          navigator.clipboard.write([item]).then(function() {
+            btnCopy.textContent = 'Copied!';
+            setTimeout(function() { btnCopy.textContent = 'Copy to Clipboard'; }, 2000);
+          }).catch(function() {
+            btnCopy.textContent = 'Copy failed - use Download instead';
+            setTimeout(function() { btnCopy.textContent = 'Copy to Clipboard'; }, 2000);
+          });
+        } else {
+          btnCopy.textContent = 'Clipboard API not supported - use Download';
+          setTimeout(function() { btnCopy.textContent = 'Copy to Clipboard'; }, 2000);
+        }
+      }, 'image/png');
+
+      if (typeof gtag === 'function') {
+        gtag('event', 'social_card_copy', {
+          event_category: 'social_cards',
+          event_label: titleEl.value
+        });
+      }
+    });
+
+    // Initial render
+    render();
+  })();
+  </script>
+</body>
+</html>

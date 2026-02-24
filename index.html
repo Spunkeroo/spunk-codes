@@ -1790,12 +1790,13 @@
 
         <div class="premium-value">
           <span class="premium-price-old">$500+/mo value</span>
-          <span class="premium-price-new">$19/mo Pro</span>
+          <span class="premium-price-new" id="indexProPrice">$14/mo Pro</span>
         </div>
 
-        <div class="premium-code">Or $349 Lifetime</div>
+        <div class="premium-code" id="indexLifetimePrice">Or $249 Lifetime (was $499)</div>
 
-        <p style="font-size:0.85rem;margin-bottom:1.25rem;">Unlock all <strong style="color:var(--accent-purple)">75 premium tools</strong> + future tools included forever</p>
+        <p style="font-size:0.85rem;margin-bottom:0.5rem;">Unlock all <strong style="color:var(--accent-purple)">75 premium tools</strong> + future tools included forever</p>
+        <p style="font-size:0.82rem;margin-bottom:1.25rem;color:var(--accent-red);font-weight:700;">LAUNCH WEEK SALE &mdash; Limited time pricing</p>
 
         <div class="premium-buttons">
           <a href="/exclusive-tools" class="btn-premium">Browse Premium Tools &rarr;</a>
@@ -2304,6 +2305,29 @@
       trackClick('.blog-card', 'blog_card_click');
       trackClick('.cat-card', 'category_card_click');
     })();
+
+    // ============================================================
+    // A/B Test pricing sync with pricing page
+    // ============================================================
+    (function() {
+      var abGroup = localStorage.getItem('sc_ab_group');
+      if (!abGroup) {
+        abGroup = Math.random() < 0.5 ? 'A' : 'B';
+        localStorage.setItem('sc_ab_group', abGroup);
+      }
+      var prices = {
+        A: { proMo: '$19/mo Pro', lifetime: 'Or $349 Lifetime (was $499)' },
+        B: { proMo: '$14/mo Pro', lifetime: 'Or $249 Lifetime (was $499)' }
+      };
+      var proEl = document.getElementById('indexProPrice');
+      var ltEl = document.getElementById('indexLifetimePrice');
+      if (proEl) proEl.textContent = prices[abGroup].proMo;
+      if (ltEl) ltEl.textContent = prices[abGroup].lifetime;
+    })();
   </script>
+
+  <!-- Share Widget + Email Capture -->
+  <script src="/share-widget.js" defer></script>
+  <script src="/email-capture.js" defer></script>
 </body>
 </html>
