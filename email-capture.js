@@ -320,7 +320,7 @@
   var bar = document.createElement('div');
   bar.id = 'sc-email-bar';
   bar.innerHTML = [
-    '<div class="sc-bar-text">Enter code <span class="sc-code-highlight">SPUNK</span> for <span>5 free premium tools</span> &mdash; or subscribe for weekly free tools</div>',
+    '<div class="sc-bar-text">Enter code <span class="sc-code-highlight">SPUNK</span> for <span>5 free premium tools + Ghost Follower Detector</span> &mdash; share with friends to unlock more</div>',
     '<div class="sc-bar-form" id="sc-bar-form">',
       '<input type="email" class="sc-bar-input" id="sc-bar-email" placeholder="your@email.com" autocomplete="email">',
       '<button class="sc-bar-submit" id="sc-bar-submit">Subscribe</button>',
@@ -429,7 +429,7 @@
         '<button class="sc-exit-close" id="sc-exit-close" aria-label="Close">&times;</button>',
         '<div class="sc-exit-icon">\u26A1</div>',
         '<div class="sc-exit-title">Wait! Grab your <span>free tools</span></div>',
-        '<div class="sc-exit-desc">Join 2,400+ developers who get free tools, ebooks, and guides delivered every week. No spam, ever.</div>',
+        '<div class="sc-exit-desc">Join 2,400+ developers. Get free tools + our viral Ghost Follower Detector &amp; Lurker Shame Report. Share with 3 friends to unlock ALL premium tools free.</div>',
         '<div class="sc-exit-perks">',
           '<span class="sc-exit-perk">Free ebooks</span>',
           '<span class="sc-exit-perk">New tool alerts</span>',
