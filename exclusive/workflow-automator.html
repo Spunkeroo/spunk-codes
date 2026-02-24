@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Business Workflow Automator - Visual Workflow Builder | SPUNK.CODES Exclusive</title>
+<meta name="description" content="Build automated business workflows visually. Trigger, action, condition chains with pre-built templates. Export as JSON. Exclusive premium tool.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Business Workflow Automator - SPUNK.CODES Exclusive">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/workflow-automator">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0d1117;--card:rgba(22,27,34,0.8);--border:rgba(48,54,61,0.6);--gold:#ffd700;--gold-border:rgba(255,215,0,0.3);--text:#e6edf3;--text-dim:#8b949e;--blue:#58a6ff;--cyan:#39d353;--red:#f85149;--orange:#ff8c00;--purple:#bc8cff;--font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+a{color:var(--blue);text-decoration:none}
+.bg-mesh{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 80% 50% at 20% 20%,rgba(255,215,0,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(255,140,0,0.04) 0%,transparent 60%),var(--bg)}
+.bg-grid{position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,215,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,215,0,0.03) 1px,transparent 1px);background-size:60px 60px}
+.nav{position:sticky;top:0;z-index:100;background:rgba(13,17,23,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,215,0,0.15);padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}
+.nav-brand{font-weight:800;font-size:1.1rem;color:var(--gold);letter-spacing:0.08em}
+.nav-links{display:flex;gap:1.5rem;font-size:0.85rem}.nav-links a{color:var(--text-dim);font-weight:500}.nav-links a.active{color:var(--gold)}
+.lock-gate{position:fixed;inset:0;z-index:1000;background:rgba(13,17,23,0.97);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:2rem}
+.lock-gate.hidden{display:none}
+.lock-icon-big{font-size:4rem}.lock-gate h2{font-size:1.8rem;font-weight:800;text-align:center}.lock-gate h2 span{color:var(--gold)}.lock-gate p{color:var(--text-dim);text-align:center;max-width:400px}
+.code-input-wrap{display:flex;gap:0.5rem}
+.code-input{padding:0.8rem 1.5rem;background:rgba(22,27,34,0.8);border:2px solid var(--gold-border);border-radius:12px;color:var(--gold);font-size:1.2rem;font-weight:800;letter-spacing:3px;text-align:center;width:200px;outline:none;text-transform:uppercase;font-family:var(--font)}
+.code-input:focus{border-color:var(--gold);box-shadow:0 0 20px rgba(255,215,0,0.2)}
+.code-submit{padding:0.8rem 1.5rem;background:linear-gradient(135deg,#ffd700,#ff8c00);border:none;border-radius:12px;color:#000;font-size:1rem;font-weight:800;cursor:pointer}
+.code-error{color:var(--red);font-size:0.85rem;min-height:1.2em}.lock-hint{color:var(--text-dim);font-size:0.8rem}.lock-hint a{color:var(--gold)}
+.exclusive-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;background:linear-gradient(135deg,rgba(255,215,0,0.15),rgba(255,140,0,0.15));border:1px solid var(--gold-border);border-radius:100px;font-size:11px;font-weight:800;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase}
+.main{max-width:1200px;margin:0 auto;padding:2rem}
+.hero-section{text-align:center;padding:2rem 0 2rem}
+.hero-section h1{font-size:2.2rem;font-weight:800;margin:1rem 0 0.5rem}
+.hero-section h1 .gold{background:linear-gradient(135deg,#ffd700,#ff8c00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-section p{color:var(--text-dim);max-width:600px;margin:0 auto}
+.card{background:var(--card);border:1px solid var(--gold-border);border-radius:16px;padding:1.5rem;margin-bottom:1.5rem;backdrop-filter:blur(10px);position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),#ff8c00,var(--gold))}
+.card h2{font-size:1.1rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}
+.form-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:0.75rem;margin-bottom:0.75rem}
+.form-group{display:flex;flex-direction:column;gap:0.3rem}
+.form-group label{font-size:0.75rem;color:var(--text-dim);font-weight:600;text-transform:uppercase;letter-spacing:0.5px}
+.form-group input,.form-group select,.form-group textarea{padding:0.6rem 0.8rem;background:rgba(22,27,34,0.9);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.85rem;font-family:var(--font);outline:none}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--gold)}
+.form-group textarea{resize:vertical;min-height:50px}
+.btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;transition:all 0.2s}
+.btn-gold{background:linear-gradient(135deg,#ffd700,#ff8c00);color:#000}
+.btn-gold:hover{transform:translateY(-1px);box-shadow:0 4px 15px rgba(255,215,0,0.3)}
+.btn-outline{background:transparent;border:1px solid var(--gold-border);color:var(--gold)}
+.btn-outline:hover{background:rgba(255,215,0,0.1)}
+.btn-red{background:rgba(248,81,73,0.15);border:1px solid rgba(248,81,73,0.3);color:var(--red)}
+.btn-sm{padding:0.4rem 0.8rem;font-size:0.75rem}
+.btn-row{display:flex;gap:0.5rem;flex-wrap:wrap}
+/* Workflow canvas */
+.canvas-wrap{background:rgba(13,17,23,0.6);border:1px solid var(--border);border-radius:12px;min-height:400px;position:relative;overflow:auto;padding:1rem}
+.wf-node{position:absolute;background:var(--card);border:2px solid var(--border);border-radius:12px;padding:0.8rem 1rem;min-width:180px;cursor:grab;user-select:none;z-index:10;transition:box-shadow 0.2s}
+.wf-node:hover{box-shadow:0 0 20px rgba(255,215,0,0.15)}
+.wf-node.trigger{border-color:var(--cyan)}.wf-node.action{border-color:var(--blue)}.wf-node.condition{border-color:var(--orange);border-radius:12px;transform:none}
+.wf-node .node-type{font-size:0.6rem;text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:0.3rem}
+.wf-node.trigger .node-type{color:var(--cyan)}.wf-node.action .node-type{color:var(--blue)}.wf-node.condition .node-type{color:var(--orange)}
+.wf-node .node-label{font-size:0.85rem;font-weight:600}
+.wf-node .node-detail{font-size:0.7rem;color:var(--text-dim);margin-top:0.2rem}
+.wf-node .node-delete{position:absolute;top:-8px;right:-8px;width:20px;height:20px;background:var(--red);border:none;border-radius:50%;color:#fff;font-size:0.7rem;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity 0.2s}
+.wf-node:hover .node-delete{opacity:1}
+.wf-node .node-port{width:12px;height:12px;background:var(--gold);border:2px solid var(--bg);border-radius:50%;position:absolute;cursor:crosshair;z-index:11}
+.wf-node .port-out{bottom:-6px;left:50%;transform:translateX(-50%)}
+.wf-node .port-in{top:-6px;left:50%;transform:translateX(-50%)}
+.wf-node.condition .port-yes{bottom:-6px;left:30%;transform:translateX(-50%)}
+.wf-node.condition .port-no{bottom:-6px;left:70%;transform:translateX(-50%)}
+.wf-node.condition .port-yes::after,.wf-node.condition .port-no::after{content:'';position:absolute;top:14px;left:50%;transform:translateX(-50%);font-size:0.55rem;font-weight:700;white-space:nowrap}
+.wf-node.condition .port-yes::after{content:'YES';color:var(--cyan)}
+.wf-node.condition .port-no::after{content:'NO';color:var(--red)}
+svg.connections{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:5}
+.template-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0.75rem}
+.template-card{background:rgba(13,17,23,0.6);border:1px solid var(--border);border-radius:10px;padding:1rem;cursor:pointer;transition:all 0.2s}
+.template-card:hover{border-color:var(--gold);background:rgba(255,215,0,0.03)}
+.template-card h4{font-size:0.85rem;color:var(--gold);margin-bottom:0.3rem}
+.template-card p{font-size:0.7rem;color:var(--text-dim)}
+.node-palette{display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1rem}
+.palette-item{padding:0.5rem 1rem;border-radius:8px;font-size:0.75rem;font-weight:700;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--text-dim);transition:all 0.2s}
+.palette-item:hover{border-color:var(--gold);color:var(--gold)}
+.palette-item.cat-trigger{border-color:rgba(57,211,83,0.3);color:var(--cyan)}
+.palette-item.cat-action{border-color:rgba(88,166,255,0.3);color:var(--blue)}
+.palette-item.cat-condition{border-color:rgba(255,140,0,0.3);color:var(--orange)}
+.json-output{background:#161b22;border:1px solid var(--border);border-radius:8px;padding:1rem;font-family:'Courier New',monospace;font-size:0.8rem;line-height:1.5;overflow:auto;white-space:pre-wrap;max-height:400px;position:relative;color:var(--text-dim)}
+.json-output .copy-btn{position:absolute;top:0.5rem;right:0.5rem;padding:0.3rem 0.6rem;background:rgba(255,215,0,0.15);border:1px solid var(--gold-border);border-radius:6px;color:var(--gold);font-size:0.65rem;cursor:pointer;font-weight:700}
+.config-panel{background:rgba(13,17,23,0.8);border:1px solid var(--gold-border);border-radius:12px;padding:1rem;margin-top:1rem;display:none}
+.config-panel.active{display:block}
+.config-panel h3{font-size:0.9rem;color:var(--gold);margin-bottom:0.75rem}
+.share-cta{background:linear-gradient(135deg,rgba(255,215,0,0.08),rgba(255,140,0,0.05));border:1px solid var(--gold-border);border-radius:16px;padding:2rem;text-align:center;margin-top:2rem}
+.share-cta h3{color:var(--gold);margin-bottom:0.5rem}.share-cta p{color:var(--text-dim);font-size:0.9rem;margin-bottom:1rem}
+.share-btns{display:flex;gap:0.6rem;justify-content:center;flex-wrap:wrap}
+.share-btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;color:#fff}
+.share-x{background:#000;border:1px solid #333}.share-reddit{background:#ff4500}.share-email{background:#21262d;border:1px solid #30363d}
+.footer{text-align:center;padding:2rem;border-top:1px solid rgba(255,215,0,0.1);color:var(--text-dim);font-size:0.75rem;margin-top:3rem}
+.footer a{color:var(--gold)}.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-bottom:1rem}
+.watermark{position:fixed;bottom:10px;right:10px;font-size:0.6rem;color:rgba(255,215,0,0.08);font-weight:800;pointer-events:none;z-index:9999;letter-spacing:1px;text-transform:uppercase}
+.stats-bar{display:flex;gap:1rem;justify-content:center;margin-bottom:1rem;flex-wrap:wrap}
+.stat-item{background:rgba(13,17,23,0.6);border:1px solid var(--border);border-radius:8px;padding:0.5rem 1rem;text-align:center}
+.stat-item .stat-val{font-size:1.2rem;font-weight:800;color:var(--gold)}
+.stat-item .stat-label{font-size:0.6rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.5px}
+@media(max-width:768px){.main{padding:1rem}.hero-section h1{font-size:1.6rem}.nav-links{display:none}.form-row{grid-template-columns:1fr}.canvas-wrap{min-height:300px}}
+</style>
+</head>
+<body>
+<div class="bg-mesh"></div><div class="bg-grid"></div>
+<div class="lock-gate" id="lockGate"><div class="lock-icon-big">&#128274;</div><h2>Enter Code <span>SPUNK</span> to Unlock</h2><p>This exclusive premium tool requires the SPUNK referral code.</p><div class="code-input-wrap"><input type="text" class="code-input" id="codeInput" placeholder="CODE" maxlength="10" autocomplete="off"><button class="code-submit" onclick="submitCode()">Unlock</button></div><div class="code-error" id="codeError"></div><div class="lock-hint">Get the code at <a href="https://spunk.codes/exclusive-tools">spunk.codes/exclusive-tools</a></div></div>
+<nav class="nav"><a href="https://spunk.codes" class="nav-brand">SPUNK.CODES</a><div class="nav-links"><a href="/store">Tools</a><a href="/exclusive-tools" class="active">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a></div></nav>
+
+<div class="main">
+  <section class="hero-section">
+    <div class="exclusive-badge">&#128081; EXCLUSIVE TOOL</div>
+    <h1><span class="gold">Workflow</span> Automator</h1>
+    <p>Build automated business workflows visually. Chain triggers, actions, and conditions. Export as JSON for any automation platform.</p>
+  </section>
+
+  <div class="stats-bar">
+    <div class="stat-item"><div class="stat-val" id="statNodes">0</div><div class="stat-label">Nodes</div></div>
+    <div class="stat-item"><div class="stat-val" id="statConnections">0</div><div class="stat-label">Connections</div></div>
+    <div class="stat-item"><div class="stat-val" id="statTriggers">0</div><div class="stat-label">Triggers</div></div>
+    <div class="stat-item"><div class="stat-val" id="statActions">0</div><div class="stat-label">Actions</div></div>
+  </div>
+
+  <div class="card">
+    <h2>&#128640; Pre-Built Templates</h2>
+    <div class="template-grid">
+      <div class="template-card" onclick="loadTemplate('lead')"><h4>&#127919; Lead Qualification</h4><p>Form submit -> Score lead -> Route to sales or nurture</p></div>
+      <div class="template-card" onclick="loadTemplate('onboarding')"><h4>&#128075; Customer Onboarding</h4><p>New signup -> Welcome email -> Task creation -> 7-day check-in</p></div>
+      <div class="template-card" onclick="loadTemplate('invoice')"><h4>&#128176; Invoice Follow-up</h4><p>Invoice sent -> Wait 7 days -> Check payment -> Send reminder</p></div>
+      <div class="template-card" onclick="loadTemplate('content')"><h4>&#128221; Content Publishing</h4><p>Draft ready -> Review -> Schedule -> Publish -> Promote on socials</p></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>&#128295; Add Nodes</h2>
+    <div class="node-palette">
+      <button class="palette-item cat-trigger" onclick="addNode('trigger','form')">&#128203; Form Submit</button>
+      <button class="palette-item cat-trigger" onclick="addNode('trigger','schedule')">&#9200; Schedule (Cron)</button>
+      <button class="palette-item cat-trigger" onclick="addNode('trigger','webhook')">&#128279; Webhook</button>
+      <button class="palette-item cat-trigger" onclick="addNode('trigger','manual')">&#128073; Manual Trigger</button>
+      <button class="palette-item cat-action" onclick="addNode('action','email')">&#9993; Send Email</button>
+      <button class="palette-item cat-action" onclick="addNode('action','task')">&#9745; Create Task</button>
+      <button class="palette-item cat-action" onclick="addNode('action','update')">&#128190; Update Data</button>
+      <button class="palette-item cat-action" onclick="addNode('action','notify')">&#128276; Send Notification</button>
+      <button class="palette-item cat-action" onclick="addNode('action','api')">&#128268; API Call</button>
+      <button class="palette-item cat-condition" onclick="addNode('condition','ifelse')">&#128256; If/Else</button>
+      <button class="palette-item cat-condition" onclick="addNode('condition','filter')">&#128269; Value Filter</button>
+      <button class="palette-item cat-condition" onclick="addNode('condition','delay')">&#9203; Time Delay</button>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-outline btn-sm" onclick="clearCanvas()">Clear Canvas</button>
+      <button class="btn btn-outline btn-sm" onclick="autoLayout()">Auto-Layout</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>&#127912; Workflow Canvas</h2>
+    <p style="font-size:0.75rem;color:var(--text-dim);margin-bottom:0.75rem">Drag nodes to position. Click output port (bottom dot) then input port (top dot) to connect. Click a node to configure.</p>
+    <div class="canvas-wrap" id="canvas" style="height:500px">
+      <svg class="connections" id="svgConnections"></svg>
+    </div>
+    <div class="config-panel" id="configPanel">
+      <h3>&#9881; Node Configuration</h3>
+      <div id="configBody"></div>
+      <div class="btn-row" style="margin-top:0.75rem">
+        <button class="btn btn-gold btn-sm" onclick="saveNodeConfig()">Save Config</button>
+        <button class="btn btn-outline btn-sm" onclick="closeConfig()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>&#128196; Export Workflow JSON</h2>
+    <div class="btn-row" style="margin-bottom:0.75rem">
+      <button class="btn btn-gold btn-sm" onclick="generateJSON()">Generate JSON</button>
+      <button class="btn btn-outline btn-sm" onclick="copyJSON()">Copy</button>
+      <button class="btn btn-outline btn-sm" onclick="downloadJSON()">Download .json</button>
+    </div>
+    <div class="json-output" id="jsonOutput"><button class="copy-btn" onclick="copyJSON()">Copy</button>Click "Generate JSON" to export your workflow</div>
+  </div>
+
+  <div class="share-cta">
+    <h3>&#128275; Share the Code, Unlock More Tools</h3>
+    <p>Share code SPUNK to help others access 15+ exclusive premium tools.</p>
+    <div class="share-btns">
+      <button class="share-btn share-x" onclick="shareX()">&#120143; Share on X</button>
+      <button class="share-btn share-reddit" onclick="shareReddit()">&#128172; Reddit</button>
+      <button class="share-btn share-email" onclick="shareEmail()">&#9993; Email</button>
+    </div>
+  </div>
+</div>
+
+<footer class="footer"><div class="footer-links"><a href="https://spunk.codes">Home</a><a href="/store">Tools</a><a href="/exclusive-tools">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a><a href="https://twitter.com/SpunkArt13" target="_blank">@SpunkArt13</a></div><div>&copy; 2026 SPUNK.CODES EXCLUSIVE.</div></footer>
+<div class="watermark">SPUNK.CODES EXCLUSIVE</div>
+
+<script>
+document.addEventListener('contextmenu',function(e){e.preventDefault()});
+document.addEventListener('keydown',function(e){if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'||e.key==='C'))||(e.ctrlKey&&e.key==='u'))e.preventDefault()});
+function checkCode(){try{var c=localStorage.getItem('spunk_referral_code')||localStorage.getItem('spunk_ref_code')||'';if(c.toUpperCase()==='SPUNK'){document.getElementById('lockGate').classList.add('hidden');return true}}catch(e){}return false}
+function submitCode(){var v=document.getElementById('codeInput').value.trim().toUpperCase();if(v==='SPUNK'){try{localStorage.setItem('spunk_referral_code','SPUNK');localStorage.setItem('spunk_ref_code','SPUNK')}catch(e){}document.getElementById('lockGate').classList.add('hidden')}else{document.getElementById('codeError').textContent='Invalid code. Try: SPUNK';setTimeout(function(){document.getElementById('codeError').textContent=''},2000)}}
+document.getElementById('codeInput').addEventListener('keydown',function(e){if(e.key==='Enter')submitCode()});
+checkCode();
+
+/* ---- Workflow Engine ---- */
+var nodes=[];
+var connections=[];
+var nextId=1;
+var dragging=null;
+var dragOffset={x:0,y:0};
+var connecting=null; // {fromId, portType}
+var selectedNode=null;
+var canvas=document.getElementById('canvas');
+var svgEl=document.getElementById('svgConnections');
+
+var nodeDefaults={
+  trigger:{form:{label:'Form Submission',icon:'&#128203;',config:{formName:'',fields:''}},schedule:{label:'Schedule (Cron)',icon:'&#9200;',config:{cron:'0 9 * * 1',timezone:'UTC'}},webhook:{label:'Webhook Trigger',icon:'&#128279;',config:{url:'',method:'POST'}},manual:{label:'Manual Trigger',icon:'&#128073;',config:{buttonLabel:'Run Now'}}},
+  action:{email:{label:'Send Email',icon:'&#9993;',config:{to:'',subject:'',body:''}},task:{label:'Create Task',icon:'&#9745;',config:{title:'',assignee:'',dueInDays:3}},update:{label:'Update Data',icon:'&#128190;',config:{table:'',field:'',value:''}},notify:{label:'Send Notification',icon:'&#128276;',config:{channel:'',message:''}},api:{label:'API Call',icon:'&#128268;',config:{url:'',method:'GET',headers:'',body:''}}},
+  condition:{ifelse:{label:'If/Else Branch',icon:'&#128256;',config:{field:'',operator:'equals',value:''}},filter:{label:'Value Filter',icon:'&#128269;',config:{field:'',condition:'contains',value:''}},delay:{label:'Time Delay',icon:'&#9203;',config:{delayMinutes:60}}}
+};
+
+function addNode(type,subtype,x,y){
+  var def=nodeDefaults[type][subtype];
+  var id=nextId++;
+  var node={id:id,type:type,subtype:subtype,label:def.label,icon:def.icon,config:JSON.parse(JSON.stringify(def.config)),x:x||50+Math.random()*300,y:y||50+Math.random()*200};
+  nodes.push(node);
+  renderCanvas();
+  updateStats();
+  saveState();
+}
+
+function removeNode(id){
+  nodes=nodes.filter(function(n){return n.id!==id});
+  connections=connections.filter(function(c){return c.from!==id&&c.to!==id});
+  if(selectedNode&&selectedNode.id===id)closeConfig();
+  renderCanvas();
+  updateStats();
+  saveState();
+}
+
+function renderCanvas(){
+  // Clear existing nodes (not SVG)
+  var existing=canvas.querySelectorAll('.wf-node');
+  existing.forEach(function(el){el.remove()});
+
+  nodes.forEach(function(node){
+    var el=document.createElement('div');
+    el.className='wf-node '+node.type;
+    el.setAttribute('data-id',node.id);
+    el.style.left=node.x+'px';
+    el.style.top=node.y+'px';
+    el.innerHTML='<div class="node-type">'+node.type.toUpperCase()+'</div><div class="node-label">'+node.icon+' '+escHtml(node.label)+'</div><div class="node-detail">'+getNodeSummary(node)+'</div><button class="node-delete" onclick="event.stopPropagation();removeNode('+node.id+')">X</button><div class="node-port port-in" data-port="in" data-node="'+node.id+'"></div>';
+    if(node.type==='condition'){
+      el.innerHTML+='<div class="node-port port-yes" data-port="yes" data-node="'+node.id+'"></div><div class="node-port port-no" data-port="no" data-node="'+node.id+'"></div>';
+    } else {
+      el.innerHTML+='<div class="node-port port-out" data-port="out" data-node="'+node.id+'"></div>';
+    }
+    // Drag
+    el.addEventListener('mousedown',function(e){
+      if(e.target.classList.contains('node-port')||e.target.classList.contains('node-delete'))return;
+      dragging=node;
+      var rect=el.getBoundingClientRect();
+      dragOffset.x=e.clientX-rect.left;
+      dragOffset.y=e.clientY-rect.top;
+      e.preventDefault();
+    });
+    // Click to select
+    el.addEventListener('click',function(e){
+      if(e.target.classList.contains('node-port'))return;
+      selectNode(node);
+    });
+    canvas.appendChild(el);
+  });
+
+  // Port click handlers
+  canvas.querySelectorAll('.node-port').forEach(function(port){
+    port.addEventListener('mousedown',function(e){
+      e.stopPropagation();
+      var nid=parseInt(port.getAttribute('data-node'));
+      var ptype=port.getAttribute('data-port');
+      if(ptype==='in'){
+        // Completing connection
+        if(connecting){
+          connections.push({from:connecting.fromId,fromPort:connecting.portType,to:nid,toPort:'in'});
+          connecting=null;
+          renderConnections();
+          updateStats();
+          saveState();
+        }
+      } else {
+        // Starting connection
+        connecting={fromId:nid,portType:ptype};
+      }
+    });
+  });
+
+  renderConnections();
+}
+
+function renderConnections(){
+  svgEl.innerHTML='';
+  connections.forEach(function(conn){
+    var fromEl=canvas.querySelector('[data-id="'+conn.from+'"]');
+    var toEl=canvas.querySelector('[data-id="'+conn.to+'"]');
+    if(!fromEl||!toEl)return;
+    var fromPort=fromEl.querySelector('[data-port="'+conn.fromPort+'"]');
+    var toPort=toEl.querySelector('[data-port="in"]');
+    if(!fromPort||!toPort)return;
+    var canvasRect=canvas.getBoundingClientRect();
+    var fp=fromPort.getBoundingClientRect();
+    var tp=toPort.getBoundingClientRect();
+    var x1=fp.left+fp.width/2-canvasRect.left+canvas.scrollLeft;
+    var y1=fp.top+fp.height/2-canvasRect.top+canvas.scrollTop;
+    var x2=tp.left+tp.width/2-canvasRect.left+canvas.scrollLeft;
+    var y2=tp.top+tp.height/2-canvasRect.top+canvas.scrollTop;
+    var midY=(y1+y2)/2;
+    var path=document.createElementNS('http://www.w3.org/2000/svg','path');
+    path.setAttribute('d','M '+x1+' '+y1+' C '+x1+' '+midY+', '+x2+' '+midY+', '+x2+' '+y2);
+    path.setAttribute('stroke',conn.fromPort==='no'?'#f85149':'#ffd700');
+    path.setAttribute('stroke-width','2');
+    path.setAttribute('fill','none');
+    path.setAttribute('opacity','0.6');
+    // Arrow
+    var arrow=document.createElementNS('http://www.w3.org/2000/svg','circle');
+    arrow.setAttribute('cx',x2);arrow.setAttribute('cy',y2);arrow.setAttribute('r','4');
+    arrow.setAttribute('fill',conn.fromPort==='no'?'#f85149':'#ffd700');
+    svgEl.appendChild(path);
+    svgEl.appendChild(arrow);
+  });
+}
+
+function getNodeSummary(node){
+  var c=node.config;
+  if(node.subtype==='form')return c.formName||'Click to configure';
+  if(node.subtype==='schedule')return c.cron||'0 9 * * 1';
+  if(node.subtype==='webhook')return c.method+' '+(c.url?c.url.substring(0,20):'...');
+  if(node.subtype==='email')return c.to||'Set recipient';
+  if(node.subtype==='task')return c.title||'Set task title';
+  if(node.subtype==='update')return c.table?c.table+'.'+c.field:'Set data';
+  if(node.subtype==='notify')return c.channel||'Set channel';
+  if(node.subtype==='api')return c.method+' '+(c.url?c.url.substring(0,20):'...');
+  if(node.subtype==='ifelse')return c.field?c.field+' '+c.operator+' '+c.value:'Set condition';
+  if(node.subtype==='filter')return c.field?c.field+' '+c.condition+' '+c.value:'Set filter';
+  if(node.subtype==='delay')return c.delayMinutes+'min delay';
+  return 'Configure...';
+}
+
+function selectNode(node){
+  selectedNode=node;
+  var panel=document.getElementById('configPanel');
+  panel.classList.add('active');
+  var body=document.getElementById('configBody');
+  var html='<div class="form-group" style="margin-bottom:0.5rem"><label>Label</label><input type="text" id="cfgLabel" value="'+escHtml(node.label)+'"></div>';
+  var c=node.config;
+  Object.keys(c).forEach(function(k){
+    var v=c[k];
+    html+='<div class="form-group" style="margin-bottom:0.5rem"><label>'+k.replace(/([A-Z])/g,' $1').toUpperCase()+'</label>';
+    if(typeof v==='number'){
+      html+='<input type="number" data-cfg="'+k+'" value="'+v+'">';
+    } else if(k==='operator'){
+      html+='<select data-cfg="'+k+'"><option value="equals"'+(v==='equals'?' selected':'')+'>Equals</option><option value="not_equals"'+(v==='not_equals'?' selected':'')+'>Not Equals</option><option value="greater_than"'+(v==='greater_than'?' selected':'')+'>Greater Than</option><option value="less_than"'+(v==='less_than'?' selected':'')+'>Less Than</option><option value="contains"'+(v==='contains'?' selected':'')+'>Contains</option></select>';
+    } else if(k==='method'){
+      html+='<select data-cfg="'+k+'"><option value="GET"'+(v==='GET'?' selected':'')+'>GET</option><option value="POST"'+(v==='POST'?' selected':'')+'>POST</option><option value="PUT"'+(v==='PUT'?' selected':'')+'>PUT</option><option value="DELETE"'+(v==='DELETE'?' selected':'')+'>DELETE</option></select>';
+    } else if(k==='body'||k==='headers'){
+      html+='<textarea data-cfg="'+k+'" rows="3">'+escHtml(String(v))+'</textarea>';
+    } else {
+      html+='<input type="text" data-cfg="'+k+'" value="'+escHtml(String(v))+'">';
+    }
+    html+='</div>';
+  });
+  body.innerHTML=html;
+}
+
+function saveNodeConfig(){
+  if(!selectedNode)return;
+  selectedNode.label=document.getElementById('cfgLabel').value;
+  document.querySelectorAll('#configBody [data-cfg]').forEach(function(el){
+    var k=el.getAttribute('data-cfg');
+    var v=el.value;
+    if(typeof selectedNode.config[k]==='number')v=parseFloat(v)||0;
+    selectedNode.config[k]=v;
+  });
+  renderCanvas();
+  saveState();
+}
+
+function closeConfig(){
+  document.getElementById('configPanel').classList.remove('active');
+  selectedNode=null;
+}
+
+// Mouse move for dragging
+document.addEventListener('mousemove',function(e){
+  if(!dragging)return;
+  var canvasRect=canvas.getBoundingClientRect();
+  dragging.x=e.clientX-canvasRect.left-dragOffset.x+canvas.scrollLeft;
+  dragging.y=e.clientY-canvasRect.top-dragOffset.y+canvas.scrollTop;
+  if(dragging.x<0)dragging.x=0;
+  if(dragging.y<0)dragging.y=0;
+  var el=canvas.querySelector('[data-id="'+dragging.id+'"]');
+  if(el){el.style.left=dragging.x+'px';el.style.top=dragging.y+'px'}
+  renderConnections();
+});
+
+document.addEventListener('mouseup',function(){
+  if(dragging){saveState()}
+  dragging=null;
+  connecting=null;
+});
+
+function autoLayout(){
+  // Simple top-down layout
+  var triggers=nodes.filter(function(n){return n.type==='trigger'});
+  var conditions=nodes.filter(function(n){return n.type==='condition'});
+  var actions=nodes.filter(function(n){return n.type==='action'});
+  var rows=[triggers,conditions,actions];
+  var y=30;
+  rows.forEach(function(row){
+    if(row.length===0)return;
+    var totalW=row.length*220;
+    var startX=Math.max(30,(canvas.clientWidth-totalW)/2);
+    row.forEach(function(n,i){
+      n.x=startX+i*220;
+      n.y=y;
+    });
+    y+=140;
+  });
+  renderCanvas();
+  saveState();
+}
+
+function clearCanvas(){
+  if(!confirm('Clear all nodes and connections?'))return;
+  nodes=[];connections=[];nextId=1;
+  closeConfig();
+  renderCanvas();
+  updateStats();
+  saveState();
+}
+
+function updateStats(){
+  document.getElementById('statNodes').textContent=nodes.length;
+  document.getElementById('statConnections').textContent=connections.length;
+  document.getElementById('statTriggers').textContent=nodes.filter(function(n){return n.type==='trigger'}).length;
+  document.getElementById('statActions').textContent=nodes.filter(function(n){return n.type==='action'}).length;
+}
+
+function loadTemplate(name){
+  nodes=[];connections=[];nextId=1;
+  if(name==='lead'){
+    addNode('trigger','form',100,30);
+    addNode('condition','ifelse',100,180);
+    addNode('action','email',30,340);
+    addNode('action','task',250,340);
+    nodes[1].config={field:'lead_score',operator:'greater_than',value:'70'};
+    nodes[1].label='Score > 70?';
+    nodes[2].config={to:'sales@company.com',subject:'Hot Lead',body:'New qualified lead'};
+    nodes[2].label='Notify Sales';
+    nodes[3].config={title:'Nurture lead',assignee:'Marketing',dueInDays:7};
+    nodes[3].label='Create Nurture Task';
+    connections=[{from:1,fromPort:'out',to:2,toPort:'in'},{from:2,fromPort:'yes',to:3,toPort:'in'},{from:2,fromPort:'no',to:4,toPort:'in'}];
+  } else if(name==='onboarding'){
+    addNode('trigger','webhook',200,30);
+    addNode('action','email',200,170);
+    addNode('action','task',200,310);
+    addNode('condition','delay',200,450);
+    nodes[0].label='New Signup';nodes[0].config={url:'/webhooks/signup',method:'POST'};
+    nodes[1].label='Welcome Email';nodes[1].config={to:'{{user.email}}',subject:'Welcome!',body:'Getting started guide'};
+    nodes[2].label='Create Onboard Tasks';nodes[2].config={title:'Complete onboarding',assignee:'{{user.name}}',dueInDays:3};
+    nodes[3].label='Wait 7 Days';nodes[3].config={delayMinutes:10080};
+    connections=[{from:1,fromPort:'out',to:2,toPort:'in'},{from:2,fromPort:'out',to:3,toPort:'in'},{from:3,fromPort:'out',to:4,toPort:'in'}];
+  } else if(name==='invoice'){
+    addNode('trigger','manual',200,30);
+    addNode('condition','delay',200,170);
+    addNode('condition','ifelse',200,320);
+    addNode('action','email',60,470);
+    addNode('action','notify',340,470);
+    nodes[0].label='Invoice Sent';
+    nodes[1].label='Wait 7 Days';nodes[1].config={delayMinutes:10080};
+    nodes[2].label='Payment Received?';nodes[2].config={field:'invoice.status',operator:'equals',value:'paid'};
+    nodes[3].label='Send Reminder';nodes[3].config={to:'{{client.email}}',subject:'Payment Reminder',body:'Invoice overdue'};
+    nodes[4].label='Notify Accounting';nodes[4].config={channel:'#accounting',message:'Payment received'};
+    connections=[{from:1,fromPort:'out',to:2,toPort:'in'},{from:2,fromPort:'out',to:3,toPort:'in'},{from:3,fromPort:'no',to:4,toPort:'in'},{from:3,fromPort:'yes',to:5,toPort:'in'}];
+  } else if(name==='content'){
+    addNode('trigger','manual',200,30);
+    addNode('condition','ifelse',200,170);
+    addNode('action','task',200,320);
+    addNode('action','notify',200,470);
+    nodes[0].label='Draft Ready';
+    nodes[1].label='Approved?';nodes[1].config={field:'review.status',operator:'equals',value:'approved'};
+    nodes[2].label='Schedule Publish';nodes[2].config={title:'Publish content',assignee:'Editor',dueInDays:1};
+    nodes[3].label='Promote on Socials';nodes[3].config={channel:'#marketing',message:'New content published!'};
+    connections=[{from:1,fromPort:'out',to:2,toPort:'in'},{from:2,fromPort:'yes',to:3,toPort:'in'},{from:3,fromPort:'out',to:4,toPort:'in'}];
+  }
+  renderCanvas();
+  updateStats();
+  saveState();
+}
+
+function generateJSON(){
+  var workflow={
+    name:'My Workflow',
+    version:'1.0',
+    created:new Date().toISOString(),
+    nodes:nodes.map(function(n){return{id:n.id,type:n.type,subtype:n.subtype,label:n.label,config:n.config,position:{x:Math.round(n.x),y:Math.round(n.y)}}}),
+    connections:connections.map(function(c){return{from:c.from,fromPort:c.fromPort,to:c.to,toPort:c.toPort}})
+  };
+  var json=JSON.stringify(workflow,null,2);
+  document.getElementById('jsonOutput').innerHTML='<button class="copy-btn" onclick="copyJSON()">Copy</button>'+escHtml(json);
+}
+
+function copyJSON(){
+  var text=document.getElementById('jsonOutput').textContent;
+  navigator.clipboard.writeText(text).then(function(){
+    var btn=document.querySelector('#jsonOutput .copy-btn');
+    if(btn){btn.textContent='Copied!';setTimeout(function(){btn.textContent='Copy'},1500)}
+  });
+}
+
+function downloadJSON(){
+  generateJSON();
+  var text=document.getElementById('jsonOutput').textContent;
+  var blob=new Blob([text],{type:'application/json'});
+  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='workflow.json';a.click();
+}
+
+function saveState(){
+  try{localStorage.setItem('wf_auto_data',JSON.stringify({nodes:nodes,connections:connections,nextId:nextId}))}catch(e){}
+}
+function loadState(){
+  try{var d=JSON.parse(localStorage.getItem('wf_auto_data')||'{}');if(d.nodes){nodes=d.nodes;connections=d.connections||[];nextId=d.nextId||1;renderCanvas();updateStats()}}catch(e){}
+}
+
+function escHtml(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+
+loadState();
+if(nodes.length===0)updateStats();
+
+function shareX(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Building automated workflows with this visual tool. Code SPUNK @SpunkArt13')+'&url='+encodeURIComponent('https://spunk.codes/exclusive-tools'),'_blank')}
+function shareReddit(){window.open('https://www.reddit.com/submit?url='+encodeURIComponent('https://spunk.codes/exclusive-tools')+'&title='+encodeURIComponent('Visual Workflow Automator - free with code SPUNK [spunk.codes]'),'_blank')}
+function shareEmail(){window.location.href='mailto:?subject='+encodeURIComponent('Workflow Automator Tool')+'&body='+encodeURIComponent('Build automated workflows visually. Code SPUNK: https://spunk.codes/exclusive-tools')}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<script src="/auto-monetize.js"></script>
+<div id="shareXBtn" style="position:fixed;left:20px;bottom:20px;z-index:9999;">
+  <a id="shareXLink" href="#" target="_blank" rel="noopener noreferrer" title="Share on X"
+     style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;
+     background:rgba(88,166,255,0.15);border:1px solid rgba(88,166,255,0.3);
+     backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:50%;
+     text-decoration:none;transition:all 0.3s ease;cursor:pointer;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+    </svg>
+  </a>
+</div>
+<style>#shareXBtn a:hover{background:rgba(88,166,255,0.35)!important;border-color:rgba(88,166,255,0.6)!important;transform:scale(1.1);box-shadow:0 0 15px rgba(88,166,255,0.3)}</style>
+<script>
+(function(){var page=location.pathname.split("/").pop()||"index.html";var url="https://spunk.codes/"+page;var text="Just used this free tool on spunk.codes - amazing! @SpunkArt13";var href="https://x.com/intent/tweet?text="+encodeURIComponent(text)+"&url="+encodeURIComponent(url);document.getElementById("shareXLink").href=href})();
+</script>
+<script src="/usage-tracker.js"></script>
+</body>
+</html>
