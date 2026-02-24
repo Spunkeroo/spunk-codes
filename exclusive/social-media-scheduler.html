@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Social Media Post Scheduler - Weekly Content Calendar | SPUNK.CODES Exclusive</title>
+<meta name="description" content="Plan and schedule social media posts across X, LinkedIn, Instagram, and TikTok. Weekly calendar view, auto-captions, CSV/JSON export. Exclusive premium tool.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Social Media Post Scheduler - SPUNK.CODES Exclusive">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/social-media-scheduler">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0d1117;--card:rgba(22,27,34,0.8);--border:rgba(48,54,61,0.6);--gold:#ffd700;--gold-border:rgba(255,215,0,0.3);--text:#e6edf3;--text-dim:#8b949e;--blue:#58a6ff;--cyan:#39d353;--red:#f85149;--orange:#ff8c00;--font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+a{color:var(--blue);text-decoration:none}
+.bg-mesh{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 80% 50% at 20% 20%,rgba(255,215,0,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(255,140,0,0.04) 0%,transparent 60%),var(--bg)}
+.bg-grid{position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,215,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,215,0,0.03) 1px,transparent 1px);background-size:60px 60px}
+.nav{position:sticky;top:0;z-index:100;background:rgba(13,17,23,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,215,0,0.15);padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}
+.nav-brand{font-weight:800;font-size:1.1rem;color:var(--gold);letter-spacing:0.08em}
+.nav-links{display:flex;gap:1.5rem;font-size:0.85rem}.nav-links a{color:var(--text-dim);font-weight:500}.nav-links a.active{color:var(--gold)}
+.lock-gate{position:fixed;inset:0;z-index:1000;background:rgba(13,17,23,0.97);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:2rem}
+.lock-gate.hidden{display:none}
+.lock-icon-big{font-size:4rem}.lock-gate h2{font-size:1.8rem;font-weight:800;text-align:center}.lock-gate h2 span{color:var(--gold)}.lock-gate p{color:var(--text-dim);text-align:center;max-width:400px}
+.code-input-wrap{display:flex;gap:0.5rem}
+.code-input{padding:0.8rem 1.5rem;background:rgba(22,27,34,0.8);border:2px solid var(--gold-border);border-radius:12px;color:var(--gold);font-size:1.2rem;font-weight:800;letter-spacing:3px;text-align:center;width:200px;outline:none;text-transform:uppercase;font-family:var(--font)}
+.code-input:focus{border-color:var(--gold);box-shadow:0 0 20px rgba(255,215,0,0.2)}
+.code-submit{padding:0.8rem 1.5rem;background:linear-gradient(135deg,#ffd700,#ff8c00);border:none;border-radius:12px;color:#000;font-size:1rem;font-weight:800;cursor:pointer}
+.code-error{color:var(--red);font-size:0.85rem;min-height:1.2em}.lock-hint{color:var(--text-dim);font-size:0.8rem}.lock-hint a{color:var(--gold)}
+.exclusive-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;background:linear-gradient(135deg,rgba(255,215,0,0.15),rgba(255,140,0,0.15));border:1px solid var(--gold-border);border-radius:100px;font-size:11px;font-weight:800;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase}
+.main{max-width:1200px;margin:0 auto;padding:2rem}
+.hero-section{text-align:center;padding:2rem 0 2rem}
+.hero-section h1{font-size:2.2rem;font-weight:800;margin:1rem 0 0.5rem}
+.hero-section h1 .gold{background:linear-gradient(135deg,#ffd700,#ff8c00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-section p{color:var(--text-dim);max-width:600px;margin:0 auto}
+.card{background:var(--card);border:1px solid var(--gold-border);border-radius:16px;padding:1.5rem;margin-bottom:1.5rem;backdrop-filter:blur(10px);position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),#ff8c00,var(--gold))}
+.card h2{font-size:1.1rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}
+.form-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:0.75rem;margin-bottom:0.75rem}
+.form-group{display:flex;flex-direction:column;gap:0.3rem}
+.form-group label{font-size:0.75rem;color:var(--text-dim);font-weight:600;text-transform:uppercase;letter-spacing:0.5px}
+.form-group input,.form-group select,.form-group textarea{padding:0.6rem 0.8rem;background:rgba(22,27,34,0.9);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.85rem;font-family:var(--font);outline:none}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--gold)}
+.form-group textarea{resize:vertical;min-height:50px}
+.btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;transition:all 0.2s}
+.btn-gold{background:linear-gradient(135deg,#ffd700,#ff8c00);color:#000}
+.btn-gold:hover{transform:translateY(-1px);box-shadow:0 4px 15px rgba(255,215,0,0.3)}
+.btn-outline{background:transparent;border:1px solid var(--gold-border);color:var(--gold)}
+.btn-outline:hover{background:rgba(255,215,0,0.1)}
+.btn-red{background:rgba(248,81,73,0.15);border:1px solid rgba(248,81,73,0.3);color:var(--red)}
+.btn-sm{padding:0.4rem 0.8rem;font-size:0.75rem}
+.btn-row{display:flex;gap:0.5rem;flex-wrap:wrap}
+
+/* Calendar */
+.calendar-nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem}
+.calendar-nav h3{font-size:1rem;color:var(--gold)}
+.calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.calendar-header{padding:0.5rem;text-align:center;font-size:0.7rem;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:1px}
+.calendar-cell{min-height:120px;background:rgba(13,17,23,0.6);border:1px solid var(--border);border-radius:8px;padding:0.4rem;cursor:pointer;transition:border-color 0.2s}
+.calendar-cell:hover{border-color:var(--gold-border)}
+.calendar-cell.today{border-color:var(--gold)}
+.calendar-cell .day-label{font-size:0.7rem;color:var(--text-dim);margin-bottom:0.3rem;font-weight:600}
+.post-chip{font-size:0.6rem;padding:2px 6px;border-radius:4px;margin-bottom:2px;cursor:grab;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:600}
+.post-chip.dragging{opacity:0.4}
+.post-chip[data-platform="X"]{background:rgba(0,0,0,0.6);color:#fff;border:1px solid #333}
+.post-chip[data-platform="LinkedIn"]{background:rgba(10,102,194,0.2);color:#58a6ff;border:1px solid rgba(10,102,194,0.3)}
+.post-chip[data-platform="Instagram"]{background:rgba(225,48,108,0.15);color:#e1306c;border:1px solid rgba(225,48,108,0.3)}
+.post-chip[data-platform="TikTok"]{background:rgba(0,242,234,0.1);color:#00f2ea;border:1px solid rgba(0,242,234,0.3)}
+.calendar-cell.drag-over{border-color:var(--gold);background:rgba(255,215,0,0.05)}
+
+/* Platform colors */
+.plat-x{color:#fff}.plat-linkedin{color:#0a66c2}.plat-instagram{color:#e1306c}.plat-tiktok{color:#00f2ea}
+
+.char-counter{font-size:0.7rem;font-weight:600;transition:color 0.2s}
+.char-counter.warn{color:var(--orange)}
+.char-counter.over{color:var(--red)}
+.char-counter.ok{color:var(--cyan)}
+
+.best-times{display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:0.5rem}
+.time-chip{padding:3px 10px;background:rgba(255,215,0,0.08);border:1px solid var(--gold-border);border-radius:20px;font-size:0.7rem;color:var(--gold);cursor:pointer;transition:all 0.2s}
+.time-chip:hover{background:rgba(255,215,0,0.2)}
+
+.post-list-item{display:flex;align-items:center;gap:0.5rem;padding:0.5rem;background:rgba(13,17,23,0.4);border:1px solid var(--border);border-radius:8px;margin-bottom:0.4rem;font-size:0.8rem}
+.post-list-item .plat-tag{font-size:0.65rem;padding:2px 8px;border-radius:4px;font-weight:700;white-space:nowrap}
+
+.caption-output{background:rgba(13,17,23,0.6);border:1px solid var(--border);border-radius:8px;padding:0.8rem;font-size:0.85rem;margin-top:0.5rem;position:relative}
+.caption-output .copy-btn{position:absolute;top:0.4rem;right:0.4rem;padding:0.2rem 0.5rem;background:rgba(255,215,0,0.15);border:1px solid var(--gold-border);border-radius:6px;color:var(--gold);font-size:0.6rem;cursor:pointer;font-weight:700}
+
+.share-cta{background:linear-gradient(135deg,rgba(255,215,0,0.08),rgba(255,140,0,0.05));border:1px solid var(--gold-border);border-radius:16px;padding:2rem;text-align:center;margin-top:2rem}
+.share-cta h3{color:var(--gold);margin-bottom:0.5rem}.share-cta p{color:var(--text-dim);font-size:0.9rem;margin-bottom:1rem}
+.share-btns{display:flex;gap:0.6rem;justify-content:center;flex-wrap:wrap}
+.share-btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;color:#fff}
+.share-x{background:#000;border:1px solid #333}.share-reddit{background:#ff4500}.share-email{background:#21262d;border:1px solid #30363d}
+.footer{text-align:center;padding:2rem;border-top:1px solid rgba(255,215,0,0.1);color:var(--text-dim);font-size:0.75rem;margin-top:3rem}
+.footer a{color:var(--gold)}.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-bottom:1rem}
+.watermark{position:fixed;bottom:10px;right:10px;font-size:0.6rem;color:rgba(255,215,0,0.08);font-weight:800;pointer-events:none;z-index:9999;letter-spacing:1px;text-transform:uppercase}
+@media(max-width:768px){.main{padding:1rem}.hero-section h1{font-size:1.6rem}.nav-links{display:none}.form-row{grid-template-columns:1fr}.calendar-grid{grid-template-columns:repeat(3,1fr)}.calendar-header:nth-child(n+4){display:none}.calendar-cell{min-height:80px}}
+</style>
+</head>
+<body>
+<div class="bg-mesh"></div><div class="bg-grid"></div>
+<div class="lock-gate" id="lockGate"><div class="lock-icon-big">&#128274;</div><h2>Enter Code <span>SPUNK</span> to Unlock</h2><p>This exclusive premium tool requires the SPUNK referral code.</p><div class="code-input-wrap"><input type="text" class="code-input" id="codeInput" placeholder="CODE" maxlength="10" autocomplete="off"><button class="code-submit" onclick="submitCode()">Unlock</button></div><div class="code-error" id="codeError"></div><div class="lock-hint">Get the code at <a href="https://spunk.codes/exclusive-tools">spunk.codes/exclusive-tools</a></div></div>
+<nav class="nav"><a href="https://spunk.codes" class="nav-brand">SPUNK.CODES</a><div class="nav-links"><a href="/store">Tools</a><a href="/exclusive-tools" class="active">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a></div></nav>
+
+<div class="main">
+  <section class="hero-section">
+    <div class="exclusive-badge">&#128081; EXCLUSIVE TOOL</div>
+    <h1><span class="gold">Social Media</span> Scheduler</h1>
+    <p>Plan and schedule your social media content across X, LinkedIn, Instagram, and TikTok with a visual weekly calendar.</p>
+  </section>
+
+  <div class="card">
+    <h2>&#10010; Add Post</h2>
+    <div class="form-row">
+      <div class="form-group"><label>Platform</label>
+        <select id="postPlatform" onchange="updateCharLimit();suggestBestTimes()">
+          <option value="X">X (Twitter)</option>
+          <option value="LinkedIn">LinkedIn</option>
+          <option value="Instagram">Instagram</option>
+          <option value="TikTok">TikTok</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Day</label>
+        <select id="postDay">
+          <option value="0">Monday</option><option value="1">Tuesday</option><option value="2">Wednesday</option>
+          <option value="3">Thursday</option><option value="4">Friday</option><option value="5">Saturday</option><option value="6">Sunday</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Time</label>
+        <input type="time" id="postTime" value="09:00">
+      </div>
+    </div>
+    <div class="form-group" style="margin-bottom:0.5rem">
+      <label>Post Content <span class="char-counter ok" id="charCounter">0 / 280</span></label>
+      <textarea id="postText" placeholder="Write your post content..." rows="3" oninput="updateCharCount()"></textarea>
+    </div>
+    <div class="form-group" style="margin-bottom:0.75rem">
+      <label>Hashtags (comma separated)</label>
+      <input type="text" id="postHashtags" placeholder="#marketing, #growth, #socialmedia">
+    </div>
+    <div style="margin-bottom:0.75rem">
+      <label style="font-size:0.75rem;color:var(--text-dim);font-weight:600;text-transform:uppercase;letter-spacing:0.5px">Best Posting Times</label>
+      <div class="best-times" id="bestTimes"></div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-gold" onclick="addPost()">Add to Calendar</button>
+      <button class="btn btn-outline" onclick="clearForm()">Clear</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>&#128197; Auto-Generate Caption</h2>
+    <div class="form-row">
+      <div class="form-group" style="grid-column:1/-1"><label>Topic Keywords (comma separated)</label>
+        <input type="text" id="captionKeywords" placeholder="product launch, SaaS, B2B, growth hacking">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Platform</label>
+        <select id="captionPlatform">
+          <option value="X">X (Twitter)</option><option value="LinkedIn">LinkedIn</option>
+          <option value="Instagram">Instagram</option><option value="TikTok">TikTok</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Tone</label>
+        <select id="captionTone">
+          <option value="professional">Professional</option><option value="casual">Casual</option>
+          <option value="witty">Witty</option><option value="inspiring">Inspiring</option>
+          <option value="educational">Educational</option>
+        </select>
+      </div>
+    </div>
+    <button class="btn btn-gold" onclick="generateCaption()" style="margin-top:0.5rem">Generate Caption</button>
+    <div class="caption-output" id="captionOutput" style="display:none"><button class="copy-btn" onclick="copyCaptionOutput()">Copy</button><div id="captionText"></div></div>
+  </div>
+
+  <div class="card">
+    <h2>&#128197; Weekly Calendar</h2>
+    <div class="calendar-nav">
+      <button class="btn btn-outline btn-sm" onclick="changeWeek(-1)">&larr; Prev Week</button>
+      <h3 id="weekLabel">This Week</h3>
+      <button class="btn btn-outline btn-sm" onclick="changeWeek(1)">Next Week &rarr;</button>
+    </div>
+    <div class="calendar-grid" id="calendarGrid"></div>
+  </div>
+
+  <div class="card">
+    <h2>&#128203; All Scheduled Posts</h2>
+    <div class="btn-row" style="margin-bottom:0.75rem">
+      <button class="btn btn-gold btn-sm" onclick="exportCSV()">Export CSV</button>
+      <button class="btn btn-outline btn-sm" onclick="exportJSON()">Export JSON</button>
+      <button class="btn btn-red btn-sm" onclick="clearAllPosts()">Clear All</button>
+    </div>
+    <div id="postList"><p style="color:var(--text-dim);font-size:0.85rem">No posts scheduled yet.</p></div>
+  </div>
+
+  <div class="share-cta">
+    <h3>&#128275; Share the Code, Unlock More Tools</h3>
+    <p>Share code SPUNK to help others access 15+ exclusive premium tools.</p>
+    <div class="share-btns">
+      <button class="share-btn share-x" onclick="shareX()">&#120143; Share on X</button>
+      <button class="share-btn share-reddit" onclick="shareReddit()">&#128172; Reddit</button>
+      <button class="share-btn share-email" onclick="shareEmail()">&#9993; Email</button>
+    </div>
+  </div>
+</div>
+
+<footer class="footer"><div class="footer-links"><a href="https://spunk.codes">Home</a><a href="/store">Tools</a><a href="/exclusive-tools">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a><a href="https://twitter.com/SpunkArt13" target="_blank">@SpunkArt13</a></div><div>&copy; 2026 SPUNK.CODES EXCLUSIVE.</div></footer>
+<div class="watermark">SPUNK.CODES EXCLUSIVE</div>
+
+<script>
+document.addEventListener('contextmenu',function(e){e.preventDefault()});
+document.addEventListener('keydown',function(e){if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'||e.key==='C'))||(e.ctrlKey&&e.key==='u'))e.preventDefault()});
+function checkCode(){try{var c=localStorage.getItem('spunk_referral_code')||localStorage.getItem('spunk_ref_code')||'';if(c.toUpperCase()==='SPUNK'){document.getElementById('lockGate').classList.add('hidden');return true}}catch(e){}return false}
+function submitCode(){var v=document.getElementById('codeInput').value.trim().toUpperCase();if(v==='SPUNK'){try{localStorage.setItem('spunk_referral_code','SPUNK');localStorage.setItem('spunk_ref_code','SPUNK')}catch(e){}document.getElementById('lockGate').classList.add('hidden')}else{document.getElementById('codeError').textContent='Invalid code. Try: SPUNK';setTimeout(function(){document.getElementById('codeError').textContent=''},2000)}}
+document.getElementById('codeInput').addEventListener('keydown',function(e){if(e.key==='Enter')submitCode()});
+checkCode();
+
+var PLATFORMS={
+  X:{limit:280,name:'X (Twitter)',color:'#fff'},
+  LinkedIn:{limit:3000,name:'LinkedIn',color:'#0a66c2'},
+  Instagram:{limit:2200,name:'Instagram',color:'#e1306c'},
+  TikTok:{limit:2200,name:'TikTok',color:'#00f2ea'}
+};
+
+var BEST_TIMES={
+  X:['8:00 AM','12:00 PM','5:00 PM','6:00 PM','9:00 PM'],
+  LinkedIn:['7:30 AM','8:00 AM','12:00 PM','5:00 PM','6:00 PM'],
+  Instagram:['6:00 AM','9:00 AM','12:00 PM','2:00 PM','5:00 PM'],
+  TikTok:['7:00 AM','10:00 AM','12:00 PM','3:00 PM','7:00 PM']
+};
+
+var DAYS=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+var posts=[];
+var weekOffset=0;
+var dragPostId=null;
+
+function loadState(){try{posts=JSON.parse(localStorage.getItem('sm_scheduler_posts')||'[]')}catch(e){posts=[]}}
+function saveState(){try{localStorage.setItem('sm_scheduler_posts',JSON.stringify(posts))}catch(e){}}
+
+function updateCharLimit(){
+  var p=document.getElementById('postPlatform').value;
+  var limit=PLATFORMS[p].limit;
+  var len=document.getElementById('postText').value.length;
+  var el=document.getElementById('charCounter');
+  el.textContent=len+' / '+limit;
+  el.className='char-counter '+(len>limit?'over':len>limit*0.9?'warn':'ok');
+}
+
+function updateCharCount(){updateCharLimit()}
+
+function suggestBestTimes(){
+  var p=document.getElementById('postPlatform').value;
+  var times=BEST_TIMES[p]||[];
+  var html='';
+  times.forEach(function(t){
+    html+='<span class="time-chip" onclick="setTime(\''+t+'\')">'+t+'</span>';
+  });
+  document.getElementById('bestTimes').innerHTML=html;
+}
+
+function setTime(timeStr){
+  var parts=timeStr.match(/(\d+):(\d+)\s*(AM|PM)/i);
+  if(!parts)return;
+  var h=parseInt(parts[1]);var m=parseInt(parts[2]);var ampm=parts[3].toUpperCase();
+  if(ampm==='PM'&&h!==12)h+=12;
+  if(ampm==='AM'&&h===12)h=0;
+  document.getElementById('postTime').value=(h<10?'0':'')+h+':'+(m<10?'0':'')+m;
+}
+
+function addPost(){
+  var platform=document.getElementById('postPlatform').value;
+  var day=parseInt(document.getElementById('postDay').value);
+  var time=document.getElementById('postTime').value;
+  var text=document.getElementById('postText').value.trim();
+  var hashtags=document.getElementById('postHashtags').value.trim();
+  if(!text){alert('Enter post content');return}
+  if(text.length>PLATFORMS[platform].limit){alert('Content exceeds '+platform+' character limit of '+PLATFORMS[platform].limit);return}
+  posts.push({id:Date.now(),platform:platform,day:day,time:time,text:text,hashtags:hashtags,weekOffset:weekOffset});
+  saveState();renderCalendar();renderPostList();clearForm();
+}
+
+function clearForm(){
+  document.getElementById('postText').value='';
+  document.getElementById('postHashtags').value='';
+  updateCharLimit();
+}
+
+function deletePost(id){
+  posts=posts.filter(function(p){return p.id!==id});
+  saveState();renderCalendar();renderPostList();
+}
+
+function getWeekDates(){
+  var now=new Date();
+  var dayOfWeek=now.getDay();
+  var diff=dayOfWeek===0?-6:1-dayOfWeek;
+  var monday=new Date(now);
+  monday.setDate(now.getDate()+diff+weekOffset*7);
+  var dates=[];
+  for(var i=0;i<7;i++){var d=new Date(monday);d.setDate(monday.getDate()+i);dates.push(d)}
+  return dates;
+}
+
+function renderCalendar(){
+  var dates=getWeekDates();
+  var today=new Date().toDateString();
+  var startStr=dates[0].toLocaleDateString('en-US',{month:'short',day:'numeric'});
+  var endStr=dates[6].toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+  document.getElementById('weekLabel').textContent=startStr+' - '+endStr;
+
+  var html='';
+  DAYS.forEach(function(d){html+='<div class="calendar-header">'+d.substring(0,3)+'</div>'});
+
+  for(var i=0;i<7;i++){
+    var dateStr=dates[i].toDateString();
+    var isToday=dateStr===today;
+    html+='<div class="calendar-cell'+(isToday?' today':'')+'" data-day="'+i+'" data-week="'+weekOffset+'" ondragover="onDragOver(event)" ondrop="onDrop(event,'+i+')" ondragleave="onDragLeave(event)">';
+    html+='<div class="day-label">'+dates[i].getDate()+'</div>';
+    var dayPosts=posts.filter(function(p){return p.day===i&&p.weekOffset===weekOffset});
+    dayPosts.sort(function(a,b){return a.time.localeCompare(b.time)});
+    dayPosts.forEach(function(p){
+      html+='<div class="post-chip" data-platform="'+p.platform+'" draggable="true" ondragstart="onDragStart(event,'+p.id+')" ondragend="onDragEnd(event)" onclick="showPostDetail('+p.id+')" title="'+escapeHtml(p.text)+'">'+p.time+' '+p.platform+'</div>';
+    });
+    html+='</div>';
+  }
+  document.getElementById('calendarGrid').innerHTML=html;
+}
+
+function onDragStart(e,id){dragPostId=id;e.target.classList.add('dragging');e.dataTransfer.effectAllowed='move'}
+function onDragEnd(e){e.target.classList.remove('dragging');dragPostId=null}
+function onDragOver(e){e.preventDefault();e.currentTarget.classList.add('drag-over')}
+function onDragLeave(e){e.currentTarget.classList.remove('drag-over')}
+function onDrop(e,day){
+  e.preventDefault();e.currentTarget.classList.remove('drag-over');
+  if(dragPostId===null)return;
+  var post=posts.find(function(p){return p.id===dragPostId});
+  if(post){post.day=day;post.weekOffset=weekOffset;saveState();renderCalendar();renderPostList()}
+  dragPostId=null;
+}
+
+function showPostDetail(id){
+  var post=posts.find(function(p){return p.id===id});
+  if(!post)return;
+  alert(post.platform+' | '+DAYS[post.day]+' '+post.time+'\n\n'+post.text+(post.hashtags?'\n\n'+post.hashtags:''));
+}
+
+function changeWeek(dir){weekOffset+=dir;renderCalendar()}
+
+function renderPostList(){
+  if(posts.length===0){document.getElementById('postList').innerHTML='<p style="color:var(--text-dim);font-size:0.85rem">No posts scheduled yet.</p>';return}
+  var sorted=posts.slice().sort(function(a,b){
+    if(a.weekOffset!==b.weekOffset)return a.weekOffset-b.weekOffset;
+    if(a.day!==b.day)return a.day-b.day;
+    return a.time.localeCompare(b.time);
+  });
+  var html='';
+  sorted.forEach(function(p){
+    var platStyle='';
+    if(p.platform==='X')platStyle='background:rgba(0,0,0,0.6);color:#fff;border:1px solid #333';
+    else if(p.platform==='LinkedIn')platStyle='background:rgba(10,102,194,0.2);color:#58a6ff';
+    else if(p.platform==='Instagram')platStyle='background:rgba(225,48,108,0.15);color:#e1306c';
+    else platStyle='background:rgba(0,242,234,0.1);color:#00f2ea';
+    html+='<div class="post-list-item"><span class="plat-tag" style="'+platStyle+'">'+p.platform+'</span>';
+    html+='<span style="color:var(--gold);font-size:0.75rem;min-width:50px">'+DAYS[p.day].substring(0,3)+' '+p.time+'</span>';
+    html+='<span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+escapeHtml(p.text.substring(0,80))+'</span>';
+    html+='<button class="btn btn-red btn-sm" onclick="deletePost('+p.id+')">X</button></div>';
+  });
+  document.getElementById('postList').innerHTML=html;
+}
+
+function generateCaption(){
+  var keywords=document.getElementById('captionKeywords').value.trim();
+  if(!keywords){alert('Enter topic keywords');return}
+  var platform=document.getElementById('captionPlatform').value;
+  var tone=document.getElementById('captionTone').value;
+  var kws=keywords.split(',').map(function(k){return k.trim()}).filter(Boolean);
+  var limit=PLATFORMS[platform].limit;
+
+  var templates={
+    professional:{
+      X:['Insights on {k1}: The key to {k2} is consistency and strategy. What\'s your approach? #'+kws[0].replace(/\s+/g,''),'Breaking down {k1} for {k2} professionals. The data is clear: adapt or fall behind. Thread incoming.','The intersection of {k1} and {k2} is where growth happens. Here\'s what leaders are doing differently.'],
+      LinkedIn:['I\'ve been reflecting on {k1} and its impact on {k2}.\n\nHere are 3 key takeaways:\n\n1. Start with clear objectives\n2. Measure what matters\n3. Iterate based on data\n\nThe companies winning at {k1} all share one thing: they treat it as a process, not a project.\n\nWhat\'s your experience with {k2}? I\'d love to hear your perspective.\n\n#'+kws[0].replace(/\s+/g,'')+' #'+kws.slice(-1)[0].replace(/\s+/g,'')],
+      Instagram:['The future of {k1} is here. {k2} is changing the game for businesses everywhere.\n\nSave this post for later.\n\nWhat\'s your take? Drop a comment below.\n\n#'+kws.join(' #').replace(/\s+/g,'')],
+      TikTok:['POV: You just discovered the secret to {k1}. Here\'s what nobody tells you about {k2}... Watch till the end for the game-changer. #'+kws[0].replace(/\s+/g,'')+' #'+kws.slice(-1)[0].replace(/\s+/g,'')]
+    },
+    casual:{
+      X:['Ok but can we talk about {k1}?? {k2} is literally changing everything. Thoughts?','Just discovered something wild about {k1} and {k2}. Mind = blown.','Real talk: {k1} + {k2} = unstoppable combo. Who else is seeing this?'],
+      LinkedIn:['Let\'s be real about {k1} for a second.\n\nEveryone\'s talking about {k2}, but nobody mentions the messy middle.\n\nHere\'s what actually works:\n- Start before you\'re ready\n- Learn from every failure\n- Share what you know\n\nThe best time to start with {k1} was yesterday. The second best time is now.\n\n#'+kws[0].replace(/\s+/g,'')],
+      Instagram:['Okay but {k1} just hits different when you combine it with {k2}.\n\nWho else is obsessed?\n\nDrop a fire emoji if you agree.\n\n#'+kws.join(' #').replace(/\s+/g,'')],
+      TikTok:['Wait... nobody told me {k1} could be THIS easy?! Here\'s the hack for {k2} that changed everything. #'+kws[0].replace(/\s+/g,'')+' #lifehack']
+    },
+    witty:{
+      X:['If {k1} and {k2} had a baby, it would be the future of business. And yes, I\'m the proud godparent.','Me: I should focus on {k1}.\nAlso me: *deep dives into {k2} for 4 hours*\nNo regrets.','Hot take: {k1} without {k2} is like coffee without caffeine. What\'s the point?'],
+      LinkedIn:['Unpopular opinion: Most people are doing {k1} wrong.\n\nThey focus on {k2} without understanding the fundamentals.\n\nIt\'s like building a house starting with the roof.\n\nHere\'s the foundation you actually need:\n\n1. Understand your audience\n2. Test everything\n3. Double down on what works\n4. Ignore the rest\n\nYou\'re welcome.\n\n#'+kws[0].replace(/\s+/g,'')],
+      Instagram:['{k1} tip that nobody asked for but everyone needs:\n\nStop overthinking {k2} and just start.\n\nYour future self will thank you.\n\n(Save this for when you need motivation)\n\n#'+kws.join(' #').replace(/\s+/g,'')],
+      TikTok:['When someone says {k1} doesn\'t work... *proceeds to show {k2} results* Okay Karen. #'+kws[0].replace(/\s+/g,'')+' #provemewrong']
+    },
+    inspiring:{
+      X:['Every expert in {k1} started as a beginner. Your {k2} journey starts with one step. Take it today.','The world needs more people who understand {k1}. Be the one who masters {k2} and shares the knowledge.','Don\'t wait for permission to start with {k1}. The best {k2} practitioners are self-taught action-takers.'],
+      LinkedIn:['A year ago, I knew nothing about {k1}.\n\nToday, {k2} has transformed my career.\n\nHere\'s the truth nobody tells you:\n\nSuccess isn\'t about talent. It\'s about:\n- Showing up daily\n- Learning from failures\n- Helping others along the way\n\nIf you\'re starting your {k1} journey, keep going. The breakthrough is closer than you think.\n\n#'+kws[0].replace(/\s+/g,'')+' #growth'],
+      Instagram:['Your {k1} journey is unique. Don\'t compare your Chapter 1 to someone else\'s Chapter 20.\n\n{k2} takes time, patience, and persistence.\n\nYou\'ve got this.\n\nTag someone who needs to hear this today.\n\n#'+kws.join(' #').replace(/\s+/g,'')+' #motivation'],
+      TikTok:['From zero to hero in {k1}. This is your sign to start that {k2} project you\'ve been putting off. Let\'s go. #'+kws[0].replace(/\s+/g,'')+' #motivation #youvegotthis']
+    },
+    educational:{
+      X:['{k1} 101: Most people confuse {k2} with complexity. The truth? Start simple, iterate fast, measure everything.','Quick thread on {k1}:\n1. Define your goals\n2. Research {k2}\n3. Test small\n4. Scale what works\nBookmark this.','The #1 mistake in {k1}? Ignoring {k2}. Here\'s the framework that top performers use instead:'],
+      LinkedIn:['Let me break down {k1} in simple terms.\n\n{k2} doesn\'t have to be complicated.\n\nHere\'s a framework I use:\n\nStep 1: Audit your current state\nStep 2: Identify quick wins\nStep 3: Build a 90-day roadmap\nStep 4: Execute and measure weekly\nStep 5: Optimize based on data\n\nThe key insight? {k1} is a marathon, not a sprint.\n\nSave this post and come back to it when you\'re ready.\n\n#'+kws[0].replace(/\s+/g,'')+' #learning'],
+      Instagram:['SAVE THIS for later!\n\n{k1} crash course:\n\n1. Start with WHY you need {k2}\n2. Map your current process\n3. Find the bottlenecks\n4. Implement one change at a time\n5. Measure and repeat\n\nWhich step are you on? Comment below!\n\n#'+kws.join(' #').replace(/\s+/g,'')+' #tips'],
+      TikTok:['{k1} explained in 60 seconds. Here\'s everything you need to know about {k2}. Save this and share with someone who needs it. #'+kws[0].replace(/\s+/g,'')+' #learnontiktok #educational']
+    }
+  };
+
+  var toneTemplates=templates[tone]||templates.professional;
+  var platTemplates=toneTemplates[platform]||toneTemplates.X;
+  var template=platTemplates[Math.floor(Math.random()*platTemplates.length)];
+
+  var k1=kws[0]||'your topic';
+  var k2=kws.length>1?kws[1]:kws[0];
+  var caption=template.replace(/\{k1\}/g,k1).replace(/\{k2\}/g,k2);
+
+  if(caption.length>limit)caption=caption.substring(0,limit-3)+'...';
+
+  document.getElementById('captionOutput').style.display='block';
+  document.getElementById('captionText').textContent=caption;
+}
+
+function copyCaptionOutput(){
+  var text=document.getElementById('captionText').textContent;
+  navigator.clipboard.writeText(text).then(function(){
+    var btn=document.querySelector('#captionOutput .copy-btn');
+    btn.textContent='Copied!';setTimeout(function(){btn.textContent='Copy'},1500);
+  });
+}
+
+function exportCSV(){
+  if(posts.length===0){alert('No posts to export');return}
+  var csv='Platform,Day,Time,Content,Hashtags,Week\n';
+  posts.forEach(function(p){
+    csv+='"'+p.platform+'","'+DAYS[p.day]+'","'+p.time+'","'+p.text.replace(/"/g,'""')+'","'+p.hashtags.replace(/"/g,'""')+'","Week '+p.weekOffset+'"\n';
+  });
+  var blob=new Blob([csv],{type:'text/csv'});
+  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='social-media-schedule.csv';a.click();
+}
+
+function exportJSON(){
+  if(posts.length===0){alert('No posts to export');return}
+  var data=posts.map(function(p){return{platform:p.platform,day:DAYS[p.day],time:p.time,content:p.text,hashtags:p.hashtags,week:p.weekOffset}});
+  var blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='social-media-schedule.json';a.click();
+}
+
+function clearAllPosts(){if(confirm('Delete all scheduled posts?')){posts=[];saveState();renderCalendar();renderPostList()}}
+
+function escapeHtml(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+
+// Init
+loadState();
+suggestBestTimes();
+updateCharLimit();
+renderCalendar();
+renderPostList();
+
+function shareX(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Planning my social media with this scheduler tool. Code SPUNK @SpunkArt13')+'&url='+encodeURIComponent('https://spunk.codes/exclusive-tools'),'_blank')}
+function shareReddit(){window.open('https://www.reddit.com/submit?url='+encodeURIComponent('https://spunk.codes/exclusive-tools')+'&title='+encodeURIComponent('Social Media Scheduler - free with code SPUNK [spunk.codes]'),'_blank')}
+function shareEmail(){window.location.href='mailto:?subject='+encodeURIComponent('Social Media Scheduler Tool')+'&body='+encodeURIComponent('Schedule social media posts across all platforms. Code SPUNK: https://spunk.codes/exclusive-tools')}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<script src="/auto-monetize.js"></script>
+<div id="shareXBtn" style="position:fixed;left:20px;bottom:20px;z-index:9999;">
+  <a id="shareXLink" href="#" target="_blank" rel="noopener noreferrer" title="Share on X"
+     style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;
+     background:rgba(88,166,255,0.15);border:1px solid rgba(88,166,255,0.3);
+     backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:50%;
+     text-decoration:none;transition:all 0.3s ease;cursor:pointer;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+    </svg>
+  </a>
+</div>
+<style>#shareXBtn a:hover{background:rgba(88,166,255,0.35)!important;border-color:rgba(88,166,255,0.6)!important;transform:scale(1.1);box-shadow:0 0 15px rgba(88,166,255,0.3)}</style>
+<script>
+(function(){
+  var page=location.pathname.split("/").pop()||"index.html";
+  var url="https://spunk.codes/"+page;
+  var text="Just used this free tool on spunk.codes — amazing! @SpunkArt13";
+  var href="https://x.com/intent/tweet?text="+encodeURIComponent(text)+"&url="+encodeURIComponent(url);
+  document.getElementById("shareXLink").href=href;
+})();
+</script>
+<script src="/usage-tracker.js"></script>
+</body>
+</html>

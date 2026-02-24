@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Email Automation Sequence Builder - Visual Flowchart | SPUNK.CODES Exclusive</title>
+<meta name="description" content="Build email automation sequences with a visual drag-and-drop flowchart builder. Templates, merge tags, timing suggestions. Exclusive premium tool.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Email Automation Sequence Builder - SPUNK.CODES Exclusive">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/email-automation-builder">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0d1117;--card:rgba(22,27,34,0.8);--border:rgba(48,54,61,0.6);--gold:#ffd700;--gold-border:rgba(255,215,0,0.3);--text:#e6edf3;--text-dim:#8b949e;--blue:#58a6ff;--cyan:#39d353;--red:#f85149;--orange:#ff8c00;--font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+a{color:var(--blue);text-decoration:none}
+.bg-mesh{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 80% 50% at 20% 20%,rgba(255,215,0,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(255,140,0,0.04) 0%,transparent 60%),var(--bg)}
+.bg-grid{position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,215,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,215,0,0.03) 1px,transparent 1px);background-size:60px 60px}
+.nav{position:sticky;top:0;z-index:100;background:rgba(13,17,23,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,215,0,0.15);padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}
+.nav-brand{font-weight:800;font-size:1.1rem;color:var(--gold);letter-spacing:0.08em}
+.nav-links{display:flex;gap:1.5rem;font-size:0.85rem}.nav-links a{color:var(--text-dim);font-weight:500}.nav-links a.active{color:var(--gold)}
+.lock-gate{position:fixed;inset:0;z-index:1000;background:rgba(13,17,23,0.97);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:2rem}
+.lock-gate.hidden{display:none}
+.lock-icon-big{font-size:4rem}.lock-gate h2{font-size:1.8rem;font-weight:800;text-align:center}.lock-gate h2 span{color:var(--gold)}.lock-gate p{color:var(--text-dim);text-align:center;max-width:400px}
+.code-input-wrap{display:flex;gap:0.5rem}
+.code-input{padding:0.8rem 1.5rem;background:rgba(22,27,34,0.8);border:2px solid var(--gold-border);border-radius:12px;color:var(--gold);font-size:1.2rem;font-weight:800;letter-spacing:3px;text-align:center;width:200px;outline:none;text-transform:uppercase;font-family:var(--font)}
+.code-input:focus{border-color:var(--gold);box-shadow:0 0 20px rgba(255,215,0,0.2)}
+.code-submit{padding:0.8rem 1.5rem;background:linear-gradient(135deg,#ffd700,#ff8c00);border:none;border-radius:12px;color:#000;font-size:1rem;font-weight:800;cursor:pointer}
+.code-error{color:var(--red);font-size:0.85rem;min-height:1.2em}.lock-hint{color:var(--text-dim);font-size:0.8rem}.lock-hint a{color:var(--gold)}
+.exclusive-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;background:linear-gradient(135deg,rgba(255,215,0,0.15),rgba(255,140,0,0.15));border:1px solid var(--gold-border);border-radius:100px;font-size:11px;font-weight:800;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase}
+.main{max-width:1200px;margin:0 auto;padding:2rem}
+.hero-section{text-align:center;padding:2rem 0 2rem}
+.hero-section h1{font-size:2.2rem;font-weight:800;margin:1rem 0 0.5rem}
+.hero-section h1 .gold{background:linear-gradient(135deg,#ffd700,#ff8c00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-section p{color:var(--text-dim);max-width:600px;margin:0 auto}
+.card{background:var(--card);border:1px solid var(--gold-border);border-radius:16px;padding:1.5rem;margin-bottom:1.5rem;backdrop-filter:blur(10px);position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),#ff8c00,var(--gold))}
+.card h2{font-size:1.1rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}
+.form-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:0.75rem;margin-bottom:0.75rem}
+.form-group{display:flex;flex-direction:column;gap:0.3rem}
+.form-group label{font-size:0.75rem;color:var(--text-dim);font-weight:600;text-transform:uppercase;letter-spacing:0.5px}
+.form-group input,.form-group select,.form-group textarea{padding:0.6rem 0.8rem;background:rgba(22,27,34,0.9);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.85rem;font-family:var(--font);outline:none}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--gold)}
+.form-group textarea{resize:vertical;min-height:50px}
+.btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;transition:all 0.2s}
+.btn-gold{background:linear-gradient(135deg,#ffd700,#ff8c00);color:#000}
+.btn-gold:hover{transform:translateY(-1px);box-shadow:0 4px 15px rgba(255,215,0,0.3)}
+.btn-outline{background:transparent;border:1px solid var(--gold-border);color:var(--gold)}
+.btn-outline:hover{background:rgba(255,215,0,0.1)}
+.btn-red{background:rgba(248,81,73,0.15);border:1px solid rgba(248,81,73,0.3);color:var(--red)}
+.btn-sm{padding:0.4rem 0.8rem;font-size:0.75rem}
+.btn-row{display:flex;gap:0.5rem;flex-wrap:wrap}
+
+/* Node palette */
+.node-palette{display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1rem}
+.palette-node{padding:0.5rem 1rem;border-radius:8px;font-size:0.75rem;font-weight:700;cursor:grab;border:1px dashed;transition:all 0.2s;user-select:none}
+.palette-node:hover{transform:translateY(-2px)}
+.palette-node.type-email{background:rgba(88,166,255,0.1);border-color:rgba(88,166,255,0.4);color:var(--blue)}
+.palette-node.type-wait{background:rgba(255,215,0,0.1);border-color:var(--gold-border);color:var(--gold)}
+.palette-node.type-condition{background:rgba(255,140,0,0.1);border-color:rgba(255,140,0,0.3);color:var(--orange)}
+.palette-node.type-tag{background:rgba(57,211,83,0.1);border-color:rgba(57,211,83,0.3);color:var(--cyan)}
+.palette-node.type-end{background:rgba(248,81,73,0.1);border-color:rgba(248,81,73,0.3);color:var(--red)}
+
+/* Flowchart canvas */
+.flow-canvas{min-height:400px;background:rgba(13,17,23,0.5);border:1px solid var(--border);border-radius:12px;padding:1.5rem;position:relative;overflow-y:auto;max-height:600px}
+.flow-node{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:0.8rem 1rem;margin:0 auto 0.5rem;max-width:400px;position:relative;cursor:pointer;transition:all 0.2s}
+.flow-node:hover{border-color:var(--gold-border)}
+.flow-node.selected{border-color:var(--gold);box-shadow:0 0 15px rgba(255,215,0,0.15)}
+.flow-node .node-type{font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:0.3rem}
+.flow-node .node-title{font-size:0.85rem;font-weight:600}
+.flow-node .node-desc{font-size:0.75rem;color:var(--text-dim);margin-top:0.2rem}
+.flow-node .node-delete{position:absolute;top:0.4rem;right:0.4rem;width:20px;height:20px;border-radius:50%;background:rgba(248,81,73,0.2);border:none;color:var(--red);cursor:pointer;font-size:0.7rem;display:flex;align-items:center;justify-content:center}
+.flow-node.type-email .node-type{color:var(--blue)}
+.flow-node.type-wait .node-type{color:var(--gold)}
+.flow-node.type-condition .node-type{color:var(--orange)}
+.flow-node.type-tag .node-type{color:var(--cyan)}
+.flow-node.type-end .node-type{color:var(--red)}
+.flow-connector{text-align:center;color:var(--text-dim);font-size:1.2rem;margin:0.2rem 0;user-select:none}
+.flow-connector.branch-yes{color:var(--cyan)}
+.flow-connector.branch-no{color:var(--red)}
+
+/* Edit panel */
+.edit-panel{background:rgba(13,17,23,0.8);border:1px solid var(--gold-border);border-radius:12px;padding:1rem;margin-top:1rem}
+.edit-panel h3{font-size:0.9rem;color:var(--gold);margin-bottom:0.75rem}
+
+/* Templates */
+.template-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0.75rem}
+.template-card{background:rgba(13,17,23,0.6);border:1px solid var(--border);border-radius:10px;padding:1rem;cursor:pointer;transition:all 0.2s}
+.template-card:hover{border-color:var(--gold);transform:translateY(-2px)}
+.template-card h4{font-size:0.85rem;color:var(--gold);margin-bottom:0.3rem}
+.template-card p{font-size:0.75rem;color:var(--text-dim)}
+.template-card .step-count{font-size:0.65rem;color:var(--blue);margin-top:0.3rem;font-weight:600}
+
+/* Preview */
+.email-preview{background:#fff;border-radius:8px;padding:1.5rem;color:#333;max-height:400px;overflow:auto}
+.email-preview h3{color:#1a1a2e;margin-bottom:0.5rem}
+.email-preview .merge-tag{background:#e3f2fd;color:#0a66c2;padding:1px 4px;border-radius:3px;font-size:0.8rem;font-weight:600}
+.email-preview .from-line,.email-preview .subject-line{font-size:0.85rem;margin-bottom:0.3rem;color:#555}
+.email-preview .subject-line{font-weight:700;color:#1a1a2e}
+.email-preview hr{margin:0.8rem 0;border:none;border-top:1px solid #eee}
+.email-preview .body-text{font-size:0.9rem;line-height:1.7}
+
+/* Output */
+.md-output{background:#161b22;border:1px solid var(--border);border-radius:8px;padding:1rem;font-family:'Courier New',monospace;font-size:0.8rem;line-height:1.5;overflow:auto;white-space:pre-wrap;max-height:400px;position:relative}
+.md-output .copy-btn{position:absolute;top:0.5rem;right:0.5rem;padding:0.3rem 0.6rem;background:rgba(255,215,0,0.15);border:1px solid var(--gold-border);border-radius:6px;color:var(--gold);font-size:0.65rem;cursor:pointer;font-weight:700}
+
+.timing-tip{display:flex;align-items:flex-start;gap:0.5rem;padding:0.6rem;background:rgba(255,215,0,0.05);border:1px solid var(--gold-border);border-radius:8px;font-size:0.8rem;margin-bottom:0.5rem}
+.timing-tip .icon{font-size:1rem;flex-shrink:0}
+
+.share-cta{background:linear-gradient(135deg,rgba(255,215,0,0.08),rgba(255,140,0,0.05));border:1px solid var(--gold-border);border-radius:16px;padding:2rem;text-align:center;margin-top:2rem}
+.share-cta h3{color:var(--gold);margin-bottom:0.5rem}.share-cta p{color:var(--text-dim);font-size:0.9rem;margin-bottom:1rem}
+.share-btns{display:flex;gap:0.6rem;justify-content:center;flex-wrap:wrap}
+.share-btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;color:#fff}
+.share-x{background:#000;border:1px solid #333}.share-reddit{background:#ff4500}.share-email{background:#21262d;border:1px solid #30363d}
+.footer{text-align:center;padding:2rem;border-top:1px solid rgba(255,215,0,0.1);color:var(--text-dim);font-size:0.75rem;margin-top:3rem}
+.footer a{color:var(--gold)}.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-bottom:1rem}
+.watermark{position:fixed;bottom:10px;right:10px;font-size:0.6rem;color:rgba(255,215,0,0.08);font-weight:800;pointer-events:none;z-index:9999;letter-spacing:1px;text-transform:uppercase}
+@media(max-width:768px){.main{padding:1rem}.hero-section h1{font-size:1.6rem}.nav-links{display:none}.form-row{grid-template-columns:1fr}.template-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="bg-mesh"></div><div class="bg-grid"></div>
+<div class="lock-gate" id="lockGate"><div class="lock-icon-big">&#128274;</div><h2>Enter Code <span>SPUNK</span> to Unlock</h2><p>This exclusive premium tool requires the SPUNK referral code.</p><div class="code-input-wrap"><input type="text" class="code-input" id="codeInput" placeholder="CODE" maxlength="10" autocomplete="off"><button class="code-submit" onclick="submitCode()">Unlock</button></div><div class="code-error" id="codeError"></div><div class="lock-hint">Get the code at <a href="https://spunk.codes/exclusive-tools">spunk.codes/exclusive-tools</a></div></div>
+<nav class="nav"><a href="https://spunk.codes" class="nav-brand">SPUNK.CODES</a><div class="nav-links"><a href="/store">Tools</a><a href="/exclusive-tools" class="active">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a></div></nav>
+
+<div class="main">
+  <section class="hero-section">
+    <div class="exclusive-badge">&#128081; EXCLUSIVE TOOL</div>
+    <h1><span class="gold">Email Automation</span> Builder</h1>
+    <p>Build visual email automation sequences with drag-and-drop nodes. Templates, merge tags, and timing suggestions.</p>
+  </section>
+
+  <div class="card">
+    <h2>&#128230; Templates</h2>
+    <div class="template-grid" id="templateGrid"></div>
+  </div>
+
+  <div class="card">
+    <h2>&#128296; Add Nodes</h2>
+    <div class="node-palette">
+      <div class="palette-node type-email" onclick="addNode('email')">&#9993; Send Email</div>
+      <div class="palette-node type-wait" onclick="addNode('wait')">&#9202; Wait / Delay</div>
+      <div class="palette-node type-condition" onclick="addNode('condition')">&#9889; If / Else</div>
+      <div class="palette-node type-tag" onclick="addNode('tag')">&#127991; Tag Subscriber</div>
+      <div class="palette-node type-end" onclick="addNode('end')">&#9899; End Sequence</div>
+    </div>
+    <div class="timing-tip"><span class="icon">&#128161;</span><span id="timingTip">Welcome emails have 4x higher open rates. Send immediately after signup.</span></div>
+  </div>
+
+  <div class="card">
+    <h2>&#128300; Sequence Flow</h2>
+    <div class="flow-canvas" id="flowCanvas">
+      <div style="text-align:center;color:var(--text-dim);padding:3rem;font-size:0.9rem">Click nodes above or select a template to build your sequence.</div>
+    </div>
+    <div class="edit-panel" id="editPanel" style="display:none">
+      <h3 id="editTitle">Edit Node</h3>
+      <div id="editFields"></div>
+      <div class="btn-row" style="margin-top:0.75rem">
+        <button class="btn btn-gold btn-sm" onclick="saveNodeEdit()">Save Changes</button>
+        <button class="btn btn-outline btn-sm" onclick="closeEdit()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>&#128172; Email Preview</h2>
+    <div class="form-row" style="margin-bottom:0.75rem">
+      <div class="form-group"><label>Select Email Node</label>
+        <select id="previewSelect" onchange="previewEmail()"><option value="">-- Select --</option></select>
+      </div>
+    </div>
+    <div class="email-preview" id="emailPreview" style="display:none"></div>
+  </div>
+
+  <div class="card">
+    <h2>&#128196; Export Sequence</h2>
+    <div class="btn-row" style="margin-bottom:0.75rem">
+      <button class="btn btn-gold btn-sm" onclick="exportJSON()">Export JSON</button>
+      <button class="btn btn-outline btn-sm" onclick="exportMarkdown()">Export Markdown</button>
+      <button class="btn btn-outline btn-sm" onclick="copyOutput()">Copy</button>
+    </div>
+    <div class="md-output" id="mdOutput"><button class="copy-btn" onclick="copyOutput()">Copy</button>Click Export to generate output.</div>
+  </div>
+
+  <div class="share-cta">
+    <h3>&#128275; Share the Code, Unlock More Tools</h3>
+    <p>Share code SPUNK to help others access 15+ exclusive premium tools.</p>
+    <div class="share-btns">
+      <button class="share-btn share-x" onclick="shareX()">&#120143; Share on X</button>
+      <button class="share-btn share-reddit" onclick="shareReddit()">&#128172; Reddit</button>
+      <button class="share-btn share-email" onclick="shareEmail()">&#9993; Email</button>
+    </div>
+  </div>
+</div>
+
+<footer class="footer"><div class="footer-links"><a href="https://spunk.codes">Home</a><a href="/store">Tools</a><a href="/exclusive-tools">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a><a href="https://twitter.com/SpunkArt13" target="_blank">@SpunkArt13</a></div><div>&copy; 2026 SPUNK.CODES EXCLUSIVE.</div></footer>
+<div class="watermark">SPUNK.CODES EXCLUSIVE</div>
+
+<script>
+document.addEventListener('contextmenu',function(e){e.preventDefault()});
+document.addEventListener('keydown',function(e){if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'||e.key==='C'))||(e.ctrlKey&&e.key==='u'))e.preventDefault()});
+function checkCode(){try{var c=localStorage.getItem('spunk_referral_code')||localStorage.getItem('spunk_ref_code')||'';if(c.toUpperCase()==='SPUNK'){document.getElementById('lockGate').classList.add('hidden');return true}}catch(e){}return false}
+function submitCode(){var v=document.getElementById('codeInput').value.trim().toUpperCase();if(v==='SPUNK'){try{localStorage.setItem('spunk_referral_code','SPUNK');localStorage.setItem('spunk_ref_code','SPUNK')}catch(e){}document.getElementById('lockGate').classList.add('hidden')}else{document.getElementById('codeError').textContent='Invalid code. Try: SPUNK';setTimeout(function(){document.getElementById('codeError').textContent=''},2000)}}
+document.getElementById('codeInput').addEventListener('keydown',function(e){if(e.key==='Enter')submitCode()});
+checkCode();
+
+var nodes=[];
+var selectedNodeId=null;
+var nodeIdCounter=1;
+
+var TEMPLATES={
+  welcome:{
+    name:'Welcome Series',
+    desc:'Onboard new subscribers with a warm 5-email welcome sequence.',
+    steps:5,
+    nodes:[
+      {type:'email',subject:'Welcome to {{company}}!',body:'Hi {{first_name}},\n\nWelcome aboard! We\'re thrilled to have you.\n\nHere\'s what you can expect from us:\n- Weekly tips and insights\n- Exclusive content and offers\n- First access to new features\n\nLet\'s get started!\n\nBest,\n{{sender_name}}'},
+      {type:'wait',days:1},
+      {type:'email',subject:'Getting Started Guide',body:'Hi {{first_name}},\n\nReady to dive in? Here\'s your quick-start guide:\n\n1. Complete your profile\n2. Explore our top resources\n3. Join our community\n\nNeed help? Just reply to this email.\n\n{{sender_name}}'},
+      {type:'wait',days:2},
+      {type:'condition',field:'opened_email',value:'true',label:'Opened Previous Email?'},
+      {type:'email',subject:'Your personalized recommendations',body:'Hi {{first_name}},\n\nBased on your interests, here are some resources we think you\'ll love:\n\n{{recommendations}}\n\nEnjoy!\n{{sender_name}}'},
+      {type:'wait',days:3},
+      {type:'email',subject:'How can we help?',body:'Hi {{first_name}},\n\nWe noticed you\'ve been exploring. Any questions?\n\nOur team is here to help. Just hit reply.\n\nCheers,\n{{sender_name}}'},
+      {type:'tag',tag:'onboarded'}
+    ]
+  },
+  onboarding:{
+    name:'Customer Onboarding',
+    desc:'Guide new customers through product setup and first success.',
+    steps:6,
+    nodes:[
+      {type:'email',subject:'Let\'s set up your account, {{first_name}}',body:'Hi {{first_name}},\n\nCongratulations on your purchase! Let\'s get you set up:\n\nStep 1: Log in at {{login_url}}\nStep 2: Complete your profile\nStep 3: Follow our setup wizard\n\nWe\'ll check in tomorrow to make sure everything\'s going smoothly.\n\n{{sender_name}}'},
+      {type:'wait',days:1},
+      {type:'condition',field:'completed_setup',value:'true',label:'Completed Setup?'},
+      {type:'email',subject:'Need help with setup?',body:'Hi {{first_name}},\n\nWe noticed you haven\'t completed setup yet. No worries!\n\nHere\'s a step-by-step video walkthrough: {{setup_video_url}}\n\nOr book a free onboarding call: {{booking_url}}\n\n{{sender_name}}'},
+      {type:'wait',days:2},
+      {type:'email',subject:'Your first milestone!',body:'Hi {{first_name}},\n\nYou\'re making great progress! Here\'s what to tackle next:\n\n{{next_milestone}}\n\nKeep it up!\n{{sender_name}}'},
+      {type:'tag',tag:'onboarding-complete'}
+    ]
+  },
+  reengagement:{
+    name:'Re-engagement',
+    desc:'Win back inactive subscribers with a targeted campaign.',
+    steps:4,
+    nodes:[
+      {type:'email',subject:'We miss you, {{first_name}}!',body:'Hi {{first_name}},\n\nIt\'s been a while since we heard from you. Here\'s what you\'ve missed:\n\n{{recent_updates}}\n\nCome back and check it out!\n\n{{sender_name}}'},
+      {type:'wait',days:3},
+      {type:'condition',field:'opened_email',value:'true',label:'Opened Re-engagement Email?'},
+      {type:'email',subject:'Special offer just for you',body:'Hi {{first_name}},\n\nAs a valued member, we\'d like to offer you something special:\n\n{{special_offer}}\n\nThis offer expires in 48 hours.\n\n{{sender_name}}'},
+      {type:'wait',days:5},
+      {type:'email',subject:'Last chance: Should we keep in touch?',body:'Hi {{first_name}},\n\nWe respect your inbox. If you\'d like to stay subscribed, click below:\n\n{{resubscribe_link}}\n\nOtherwise, we\'ll remove you from our list in 7 days.\n\nAll the best,\n{{sender_name}}'},
+      {type:'tag',tag:'re-engagement-complete'}
+    ]
+  },
+  launch:{
+    name:'Launch Sequence',
+    desc:'Build hype and drive sales with a product launch sequence.',
+    steps:5,
+    nodes:[
+      {type:'email',subject:'Something big is coming...',body:'Hi {{first_name}},\n\nWe\'ve been working on something special, and you\'re the first to know.\n\nMark your calendar: {{launch_date}}\n\nStay tuned for more details.\n\n{{sender_name}}'},
+      {type:'wait',days:3},
+      {type:'email',subject:'Sneak peek: {{product_name}}',body:'Hi {{first_name}},\n\nHere\'s an exclusive first look at {{product_name}}:\n\n{{preview_details}}\n\nBe ready for launch day!\n\n{{sender_name}}'},
+      {type:'wait',days:2},
+      {type:'email',subject:'It\'s HERE! {{product_name}} is live',body:'Hi {{first_name}},\n\nThe wait is over! {{product_name}} is officially live.\n\nEarly bird pricing available for the next 48 hours:\n\n{{purchase_link}}\n\nDon\'t miss out!\n\n{{sender_name}}'},
+      {type:'wait',days:1},
+      {type:'condition',field:'purchased',value:'true',label:'Made Purchase?'},
+      {type:'email',subject:'Thank you for your purchase!',body:'Hi {{first_name}},\n\nThank you for purchasing {{product_name}}!\n\nHere\'s how to get started: {{getting_started_url}}\n\n{{sender_name}}'},
+      {type:'email',subject:'Last chance: 48 hours left',body:'Hi {{first_name}},\n\nEarly bird pricing for {{product_name}} ends tomorrow.\n\nDon\'t miss your chance: {{purchase_link}}\n\n{{sender_name}}'},
+      {type:'tag',tag:'launch-engaged'}
+    ]
+  }
+};
+
+var TIMING_TIPS=[
+  'Welcome emails have 4x higher open rates. Send immediately after signup.',
+  'Tuesdays and Thursdays between 10am-2pm see the highest open rates.',
+  'Wait 1-3 days between emails. Too frequent = unsubscribes, too slow = forgotten.',
+  'Re-engagement emails work best 30-60 days after last interaction.',
+  'Follow-up emails within 24 hours of an action get 3x better engagement.',
+  'Launch sequences perform best with 3-5 emails over 7-10 days.',
+  'Subject lines with personalization ({{first_name}}) increase opens by 26%.',
+  'Send time optimization: B2B emails perform best 8-10am, B2C at 8pm.',
+  'Conditional branches based on engagement can boost conversions by 50%.',
+  'Always end sequences with a clear CTA or tag for segmentation.'
+];
+
+function loadState(){try{var d=JSON.parse(localStorage.getItem('email_builder_data')||'{}');if(d.nodes)nodes=d.nodes;if(d.nodeIdCounter)nodeIdCounter=d.nodeIdCounter}catch(e){}}
+function saveState(){try{localStorage.setItem('email_builder_data',JSON.stringify({nodes:nodes,nodeIdCounter:nodeIdCounter}))}catch(e){}}
+
+function renderTemplates(){
+  var html='';
+  Object.keys(TEMPLATES).forEach(function(key){
+    var t=TEMPLATES[key];
+    html+='<div class="template-card" onclick="loadTemplate(\''+key+'\')"><h4>'+t.name+'</h4><p>'+t.desc+'</p><div class="step-count">'+t.steps+' steps</div></div>';
+  });
+  document.getElementById('templateGrid').innerHTML=html;
+}
+
+function loadTemplate(key){
+  if(nodes.length>0&&!confirm('Replace current sequence with template?'))return;
+  nodes=[];nodeIdCounter=1;
+  var t=TEMPLATES[key];
+  t.nodes.forEach(function(n){
+    var node={id:nodeIdCounter++,type:n.type};
+    if(n.type==='email'){node.subject=n.subject;node.body=n.body}
+    else if(n.type==='wait'){node.days=n.days||1}
+    else if(n.type==='condition'){node.field=n.field||'';node.value=n.value||'';node.label=n.label||'Condition'}
+    else if(n.type==='tag'){node.tag=n.tag||''}
+    else if(n.type==='end'){node.label='End Sequence'}
+    nodes.push(node);
+  });
+  saveState();renderFlow();updatePreviewSelect();rotateTip();
+}
+
+function addNode(type){
+  var node={id:nodeIdCounter++,type:type};
+  if(type==='email'){node.subject='Email Subject';node.body='Hi {{first_name}},\n\nYour content here.\n\nBest,\n{{sender_name}}'}
+  else if(type==='wait'){node.days=1}
+  else if(type==='condition'){node.field='opened_email';node.value='true';node.label='Condition Check'}
+  else if(type==='tag'){node.tag='new-tag'}
+  else if(type==='end'){node.label='End Sequence'}
+  nodes.push(node);
+  saveState();renderFlow();updatePreviewSelect();rotateTip();
+}
+
+function renderFlow(){
+  if(nodes.length===0){
+    document.getElementById('flowCanvas').innerHTML='<div style="text-align:center;color:var(--text-dim);padding:3rem;font-size:0.9rem">Click nodes above or select a template to build your sequence.</div>';
+    return;
+  }
+  var html='';
+  nodes.forEach(function(n,i){
+    var isSelected=n.id===selectedNodeId;
+    var title='',desc='';
+    if(n.type==='email'){title='Send Email: '+escapeHtml(n.subject);desc='Merge tags: {{first_name}}, {{sender_name}}, etc.'}
+    else if(n.type==='wait'){title='Wait '+n.days+' day'+(n.days>1?'s':'');desc='Pause before next action'}
+    else if(n.type==='condition'){title=n.label||'If/Else';desc='Check: '+n.field+' = '+n.value}
+    else if(n.type==='tag'){title='Tag: '+n.tag;desc='Apply tag to subscriber'}
+    else if(n.type==='end'){title='End Sequence';desc='Stop automation for subscriber'}
+
+    html+='<div class="flow-node type-'+n.type+(isSelected?' selected':'')+'" onclick="selectNode('+n.id+')">';
+    html+='<button class="node-delete" onclick="event.stopPropagation();deleteNode('+n.id+')">X</button>';
+    html+='<div class="node-type">'+getNodeIcon(n.type)+' '+n.type.toUpperCase()+'</div>';
+    html+='<div class="node-title">'+title+'</div>';
+    html+='<div class="node-desc">'+desc+'</div>';
+    html+='</div>';
+    if(i<nodes.length-1){
+      var connector='&#8595;';
+      if(n.type==='condition'){
+        html+='<div class="flow-connector branch-yes">&#8595; YES</div>';
+      } else {
+        html+='<div class="flow-connector">&#8595;</div>';
+      }
+    }
+  });
+  document.getElementById('flowCanvas').innerHTML=html;
+}
+
+function getNodeIcon(type){
+  var icons={email:'&#9993;',wait:'&#9202;',condition:'&#9889;',tag:'&#127991;',end:'&#9899;'};
+  return icons[type]||'';
+}
+
+function selectNode(id){
+  selectedNodeId=id;
+  renderFlow();showEditPanel(id);
+}
+
+function deleteNode(id){
+  nodes=nodes.filter(function(n){return n.id!==id});
+  if(selectedNodeId===id){selectedNodeId=null;document.getElementById('editPanel').style.display='none'}
+  saveState();renderFlow();updatePreviewSelect();
+}
+
+function showEditPanel(id){
+  var node=nodes.find(function(n){return n.id===id});
+  if(!node)return;
+  var panel=document.getElementById('editPanel');
+  panel.style.display='block';
+  document.getElementById('editTitle').textContent='Edit: '+node.type.charAt(0).toUpperCase()+node.type.slice(1)+' Node';
+
+  var html='';
+  if(node.type==='email'){
+    html+='<div class="form-group" style="margin-bottom:0.5rem"><label>Subject Line</label><input type="text" id="editSubject" value="'+escapeAttr(node.subject)+'"></div>';
+    html+='<div class="form-group"><label>Body (use {{merge_tags}})</label><textarea id="editBody" rows="6">'+escapeHtml(node.body)+'</textarea></div>';
+    html+='<div style="margin-top:0.5rem;font-size:0.7rem;color:var(--text-dim)">Available merge tags: {{first_name}}, {{last_name}}, {{email}}, {{company}}, {{sender_name}}, {{unsubscribe_link}}</div>';
+  } else if(node.type==='wait'){
+    html+='<div class="form-group"><label>Wait Days</label><input type="number" id="editDays" min="1" max="365" value="'+node.days+'"></div>';
+  } else if(node.type==='condition'){
+    html+='<div class="form-group" style="margin-bottom:0.5rem"><label>Label</label><input type="text" id="editLabel" value="'+escapeAttr(node.label||'')+'"></div>';
+    html+='<div class="form-row"><div class="form-group"><label>Field</label><select id="editField"><option value="opened_email"'+(node.field==='opened_email'?' selected':'')+'>Opened Email</option><option value="clicked_link"'+(node.field==='clicked_link'?' selected':'')+'>Clicked Link</option><option value="has_tag"'+(node.field==='has_tag'?' selected':'')+'>Has Tag</option><option value="custom"'+(node.field==='custom'?' selected':'')+'>Custom Field</option></select></div>';
+    html+='<div class="form-group"><label>Value</label><input type="text" id="editValue" value="'+escapeAttr(node.value)+'"></div></div>';
+  } else if(node.type==='tag'){
+    html+='<div class="form-group"><label>Tag Name</label><input type="text" id="editTag" value="'+escapeAttr(node.tag)+'"></div>';
+  }
+  document.getElementById('editFields').innerHTML=html;
+}
+
+function saveNodeEdit(){
+  var node=nodes.find(function(n){return n.id===selectedNodeId});
+  if(!node)return;
+  if(node.type==='email'){
+    node.subject=document.getElementById('editSubject').value;
+    node.body=document.getElementById('editBody').value;
+  } else if(node.type==='wait'){
+    node.days=parseInt(document.getElementById('editDays').value)||1;
+  } else if(node.type==='condition'){
+    node.label=document.getElementById('editLabel').value;
+    node.field=document.getElementById('editField').value;
+    node.value=document.getElementById('editValue').value;
+  } else if(node.type==='tag'){
+    node.tag=document.getElementById('editTag').value;
+  }
+  saveState();renderFlow();updatePreviewSelect();closeEdit();
+}
+
+function closeEdit(){document.getElementById('editPanel').style.display='none';selectedNodeId=null;renderFlow()}
+
+function updatePreviewSelect(){
+  var sel=document.getElementById('previewSelect');
+  var html='<option value="">-- Select Email --</option>';
+  nodes.forEach(function(n){if(n.type==='email'){html+='<option value="'+n.id+'">'+escapeHtml(n.subject)+'</option>'}});
+  sel.innerHTML=html;
+}
+
+function previewEmail(){
+  var id=parseInt(document.getElementById('previewSelect').value);
+  var node=nodes.find(function(n){return n.id===id});
+  if(!node){document.getElementById('emailPreview').style.display='none';return}
+
+  var sampleData={first_name:'Sarah',last_name:'Johnson',email:'sarah@example.com',company:'Acme Corp',sender_name:'The Team',login_url:'https://app.example.com',purchase_link:'https://example.com/buy',setup_video_url:'https://example.com/setup',booking_url:'https://example.com/book',unsubscribe_link:'https://example.com/unsubscribe'};
+
+  var subject=node.subject;var body=node.body;
+  Object.keys(sampleData).forEach(function(key){
+    var re=new RegExp('\\{\\{'+key+'\\}\\}','g');
+    subject=subject.replace(re,'<span class="merge-tag">'+sampleData[key]+'</span>');
+    body=body.replace(re,'<span class="merge-tag">'+sampleData[key]+'</span>');
+  });
+  // Keep remaining merge tags visible
+  subject=subject.replace(/\{\{(\w+)\}\}/g,'<span class="merge-tag">{{$1}}</span>');
+  body=body.replace(/\{\{(\w+)\}\}/g,'<span class="merge-tag">{{$1}}</span>');
+
+  var html='<div class="from-line">From: Your Company &lt;noreply@example.com&gt;</div>';
+  html+='<div class="subject-line">Subject: '+subject+'</div>';
+  html+='<hr>';
+  html+='<div class="body-text">'+body.replace(/\n/g,'<br>')+'</div>';
+
+  document.getElementById('emailPreview').innerHTML=html;
+  document.getElementById('emailPreview').style.display='block';
+}
+
+function exportJSON(){
+  var data={name:'Email Automation Sequence',created:new Date().toISOString(),nodes:nodes.map(function(n){
+    var out={id:n.id,type:n.type};
+    if(n.type==='email'){out.subject=n.subject;out.body=n.body}
+    else if(n.type==='wait'){out.wait_days=n.days}
+    else if(n.type==='condition'){out.label=n.label;out.field=n.field;out.value=n.value}
+    else if(n.type==='tag'){out.tag=n.tag}
+    return out;
+  })};
+  var json=JSON.stringify(data,null,2);
+  document.getElementById('mdOutput').innerHTML='<button class="copy-btn" onclick="copyOutput()">Copy</button>'+escapeHtml(json);
+}
+
+function exportMarkdown(){
+  var md='# Email Automation Sequence\n\n';
+  md+='Generated: '+new Date().toLocaleDateString()+'\n\n';
+  md+='## Flow\n\n';
+  var stepNum=1;
+  nodes.forEach(function(n){
+    if(n.type==='email'){
+      md+='### Step '+stepNum+': Send Email\n';
+      md+='- **Subject:** '+n.subject+'\n';
+      md+='- **Body:**\n\n```\n'+n.body+'\n```\n\n';
+    } else if(n.type==='wait'){
+      md+='### Step '+stepNum+': Wait '+n.days+' Day'+(n.days>1?'s':'')+'\n\n';
+    } else if(n.type==='condition'){
+      md+='### Step '+stepNum+': Condition - '+(n.label||'Check')+'\n';
+      md+='- **If** `'+n.field+'` = `'+n.value+'`\n';
+      md+='- **Then:** Continue to next step\n';
+      md+='- **Else:** Skip or alternate path\n\n';
+    } else if(n.type==='tag'){
+      md+='### Step '+stepNum+': Tag Subscriber\n';
+      md+='- **Tag:** `'+n.tag+'`\n\n';
+    } else if(n.type==='end'){
+      md+='### Step '+stepNum+': End Sequence\n\n';
+    }
+    stepNum++;
+  });
+  md+='---\n\n*Built with SPUNK.CODES Email Automation Builder*\n';
+  document.getElementById('mdOutput').innerHTML='<button class="copy-btn" onclick="copyOutput()">Copy</button>'+escapeHtml(md);
+}
+
+function copyOutput(){
+  var text=document.getElementById('mdOutput').textContent;
+  navigator.clipboard.writeText(text).then(function(){
+    var btn=document.querySelector('#mdOutput .copy-btn');
+    btn.textContent='Copied!';setTimeout(function(){btn.textContent='Copy'},1500);
+  });
+}
+
+function rotateTip(){
+  var tip=TIMING_TIPS[Math.floor(Math.random()*TIMING_TIPS.length)];
+  document.getElementById('timingTip').textContent=tip;
+}
+
+function escapeHtml(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+function escapeAttr(s){return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+
+// Init
+loadState();
+renderTemplates();
+renderFlow();
+updatePreviewSelect();
+setInterval(rotateTip,10000);
+
+function shareX(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Building email automations with this visual builder. Code SPUNK @SpunkArt13')+'&url='+encodeURIComponent('https://spunk.codes/exclusive-tools'),'_blank')}
+function shareReddit(){window.open('https://www.reddit.com/submit?url='+encodeURIComponent('https://spunk.codes/exclusive-tools')+'&title='+encodeURIComponent('Email Automation Builder - free with code SPUNK [spunk.codes]'),'_blank')}
+function shareEmail(){window.location.href='mailto:?subject='+encodeURIComponent('Email Automation Builder Tool')+'&body='+encodeURIComponent('Build visual email automation sequences. Code SPUNK: https://spunk.codes/exclusive-tools')}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<script src="/auto-monetize.js"></script>
+<div id="shareXBtn" style="position:fixed;left:20px;bottom:20px;z-index:9999;">
+  <a id="shareXLink" href="#" target="_blank" rel="noopener noreferrer" title="Share on X"
+     style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;
+     background:rgba(88,166,255,0.15);border:1px solid rgba(88,166,255,0.3);
+     backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:50%;
+     text-decoration:none;transition:all 0.3s ease;cursor:pointer;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+    </svg>
+  </a>
+</div>
+<style>#shareXBtn a:hover{background:rgba(88,166,255,0.35)!important;border-color:rgba(88,166,255,0.6)!important;transform:scale(1.1);box-shadow:0 0 15px rgba(88,166,255,0.3)}</style>
+<script>
+(function(){
+  var page=location.pathname.split("/").pop()||"index.html";
+  var url="https://spunk.codes/"+page;
+  var text="Just used this free tool on spunk.codes — amazing! @SpunkArt13";
+  var href="https://x.com/intent/tweet?text="+encodeURIComponent(text)+"&url="+encodeURIComponent(url);
+  document.getElementById("shareXLink").href=href;
+})();
+</script>
+<script src="/usage-tracker.js"></script>
+</body>
+</html>

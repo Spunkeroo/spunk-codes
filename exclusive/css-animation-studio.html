@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CSS Animation Studio - Visual Timeline Editor | SPUNK.CODES Exclusive</title>
+<meta name="description" content="Visual CSS animation timeline editor. Add keyframes, adjust easing curves, live preview animations, and export production-ready CSS code. Exclusive premium tool.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="CSS Animation Studio - SPUNK.CODES Exclusive">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/css-animation-studio">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0d1117;--card:rgba(22,27,34,0.8);--border:rgba(48,54,61,0.6);--gold:#ffd700;--gold-border:rgba(255,215,0,0.3);--text:#e6edf3;--text-dim:#8b949e;--blue:#58a6ff;--cyan:#39d353;--red:#f85149;--orange:#ff8c00;--font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+a{color:var(--blue);text-decoration:none}
+.bg-mesh{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 80% 50% at 20% 20%,rgba(255,215,0,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(255,140,0,0.04) 0%,transparent 60%),var(--bg)}
+.bg-grid{position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,215,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,215,0,0.03) 1px,transparent 1px);background-size:60px 60px}
+.nav{position:sticky;top:0;z-index:100;background:rgba(13,17,23,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,215,0,0.15);padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}
+.nav-brand{font-weight:800;font-size:1.1rem;color:var(--gold);letter-spacing:0.08em}
+.nav-links{display:flex;gap:1.5rem;font-size:0.85rem}.nav-links a{color:var(--text-dim);font-weight:500}.nav-links a.active{color:var(--gold)}
+.lock-gate{position:fixed;inset:0;z-index:1000;background:rgba(13,17,23,0.97);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:2rem}
+.lock-gate.hidden{display:none}
+.lock-icon-big{font-size:4rem}.lock-gate h2{font-size:1.8rem;font-weight:800;text-align:center}.lock-gate h2 span{color:var(--gold)}.lock-gate p{color:var(--text-dim);text-align:center;max-width:400px}
+.code-input-wrap{display:flex;gap:0.5rem}
+.code-input{padding:0.8rem 1.5rem;background:rgba(22,27,34,0.8);border:2px solid var(--gold-border);border-radius:12px;color:var(--gold);font-size:1.2rem;font-weight:800;letter-spacing:3px;text-align:center;width:200px;outline:none;text-transform:uppercase;font-family:var(--font)}
+.code-input:focus{border-color:var(--gold);box-shadow:0 0 20px rgba(255,215,0,0.2)}
+.code-submit{padding:0.8rem 1.5rem;background:linear-gradient(135deg,#ffd700,#ff8c00);border:none;border-radius:12px;color:#000;font-size:1rem;font-weight:800;cursor:pointer}
+.code-error{color:var(--red);font-size:0.85rem;min-height:1.2em}.lock-hint{color:var(--text-dim);font-size:0.8rem}.lock-hint a{color:var(--gold)}
+.exclusive-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;background:linear-gradient(135deg,rgba(255,215,0,0.15),rgba(255,140,0,0.15));border:1px solid var(--gold-border);border-radius:100px;font-size:11px;font-weight:800;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase}
+.main{max-width:1100px;margin:0 auto;padding:2rem}
+.hero-section{text-align:center;padding:2rem 0 2rem}
+.hero-section h1{font-size:2.2rem;font-weight:800;margin:1rem 0 0.5rem}
+.hero-section h1 .gold{background:linear-gradient(135deg,#ffd700,#ff8c00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-section p{color:var(--text-dim);max-width:600px;margin:0 auto}
+.card{background:var(--card);border:1px solid var(--gold-border);border-radius:16px;padding:1.5rem;margin-bottom:1.5rem;backdrop-filter:blur(10px);position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),#ff8c00,var(--gold))}
+.card h2{font-size:1.1rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}
+.form-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:0.75rem;margin-bottom:0.75rem}
+.form-group{display:flex;flex-direction:column;gap:0.3rem}
+.form-group label{font-size:0.75rem;color:var(--text-dim);font-weight:600;text-transform:uppercase;letter-spacing:0.5px}
+.form-group input,.form-group select,.form-group textarea{padding:0.6rem 0.8rem;background:rgba(22,27,34,0.9);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.85rem;font-family:var(--font);outline:none}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--gold)}
+.form-group input[type="color"]{height:38px;cursor:pointer;padding:2px}
+.form-group input[type="range"]{accent-color:var(--gold)}
+.btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;transition:all 0.2s}
+.btn-gold{background:linear-gradient(135deg,#ffd700,#ff8c00);color:#000}
+.btn-gold:hover{transform:translateY(-1px);box-shadow:0 4px 15px rgba(255,215,0,0.3)}
+.btn-outline{background:transparent;border:1px solid var(--gold-border);color:var(--gold)}
+.btn-outline:hover{background:rgba(255,215,0,0.1)}
+.btn-red{background:rgba(248,81,73,0.15);border:1px solid rgba(248,81,73,0.3);color:var(--red)}
+.btn-sm{padding:0.4rem 0.8rem;font-size:0.75rem}
+.btn-row{display:flex;gap:0.5rem;flex-wrap:wrap}
+
+/* Timeline */
+.timeline-wrap{position:relative;background:rgba(13,17,23,0.6);border:1px solid var(--border);border-radius:12px;padding:1rem;margin-bottom:1rem}
+.timeline-track{position:relative;height:60px;background:rgba(22,27,34,0.5);border-radius:8px;border:1px solid var(--border);cursor:pointer}
+.timeline-markers{display:flex;justify-content:space-between;padding:0 10px;margin-top:4px;font-size:0.65rem;color:var(--text-dim)}
+.kf-dot{position:absolute;top:50%;transform:translate(-50%,-50%);width:16px;height:16px;background:var(--gold);border:2px solid #fff;border-radius:50%;cursor:pointer;z-index:2;transition:transform 0.15s}
+.kf-dot:hover,.kf-dot.active{transform:translate(-50%,-50%) scale(1.3);box-shadow:0 0 10px rgba(255,215,0,0.5)}
+.kf-label{position:absolute;top:-18px;left:50%;transform:translateX(-50%);font-size:0.6rem;color:var(--gold);font-weight:700;white-space:nowrap}
+
+/* Preview */
+.preview-area{position:relative;height:200px;background:repeating-conic-gradient(rgba(255,255,255,0.03) 0% 25%,transparent 0% 50%) 50%/20px 20px;border:1px solid var(--border);border-radius:12px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.preview-el{width:80px;height:80px;background:linear-gradient(135deg,var(--gold),var(--orange));border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:0.8rem;color:#000}
+
+/* Easing Preview */
+.easing-preview{width:100%;height:80px;position:relative;background:rgba(13,17,23,0.6);border:1px solid var(--border);border-radius:8px}
+.easing-canvas{width:100%;height:100%}
+
+/* Properties */
+.prop-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.5rem}
+.prop-item{display:flex;align-items:center;gap:0.5rem;padding:0.4rem 0.6rem;background:rgba(13,17,23,0.4);border-radius:6px;font-size:0.8rem}
+.prop-item label{min-width:80px;color:var(--text-dim);font-size:0.7rem}
+.prop-item input,.prop-item select{flex:1;padding:0.3rem 0.5rem;background:rgba(22,27,34,0.9);border:1px solid var(--border);border-radius:4px;color:var(--text);font-size:0.75rem;outline:none;font-family:var(--font)}
+.prop-item input:focus{border-color:var(--gold)}
+
+.md-output{background:#161b22;border:1px solid var(--border);border-radius:8px;padding:1rem;font-family:'Courier New',monospace;font-size:0.8rem;line-height:1.5;overflow:auto;white-space:pre-wrap;max-height:400px;position:relative;color:var(--cyan)}
+.md-output .copy-btn{position:absolute;top:0.5rem;right:0.5rem;padding:0.3rem 0.6rem;background:rgba(255,215,0,0.15);border:1px solid var(--gold-border);border-radius:6px;color:var(--gold);font-size:0.65rem;cursor:pointer;font-weight:700}
+.share-cta{background:linear-gradient(135deg,rgba(255,215,0,0.08),rgba(255,140,0,0.05));border:1px solid var(--gold-border);border-radius:16px;padding:2rem;text-align:center;margin-top:2rem}
+.share-cta h3{color:var(--gold);margin-bottom:0.5rem}.share-cta p{color:var(--text-dim);font-size:0.9rem;margin-bottom:1rem}
+.share-btns{display:flex;gap:0.6rem;justify-content:center;flex-wrap:wrap}
+.share-btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;color:#fff}
+.share-x{background:#000;border:1px solid #333}.share-reddit{background:#ff4500}.share-email{background:#21262d;border:1px solid #30363d}
+.footer{text-align:center;padding:2rem;border-top:1px solid rgba(255,215,0,0.1);color:var(--text-dim);font-size:0.75rem;margin-top:3rem}
+.footer a{color:var(--gold)}.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-bottom:1rem}
+.watermark{position:fixed;bottom:10px;right:10px;font-size:0.6rem;color:rgba(255,215,0,0.08);font-weight:800;pointer-events:none;z-index:9999;letter-spacing:1px;text-transform:uppercase}
+@media(max-width:768px){.main{padding:1rem}.hero-section h1{font-size:1.6rem}.nav-links{display:none}.form-row{grid-template-columns:1fr}.prop-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="bg-mesh"></div><div class="bg-grid"></div>
+<div class="lock-gate" id="lockGate"><div class="lock-icon-big">&#128274;</div><h2>Enter Code <span>SPUNK</span> to Unlock</h2><p>This exclusive premium tool requires the SPUNK referral code.</p><div class="code-input-wrap"><input type="text" class="code-input" id="codeInput" placeholder="CODE" maxlength="10" autocomplete="off"><button class="code-submit" onclick="submitCode()">Unlock</button></div><div class="code-error" id="codeError"></div><div class="lock-hint">Get the code at <a href="https://spunk.codes/exclusive-tools">spunk.codes/exclusive-tools</a></div></div>
+<nav class="nav"><a href="https://spunk.codes" class="nav-brand">SPUNK.CODES</a><div class="nav-links"><a href="/store">Tools</a><a href="/exclusive-tools" class="active">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a></div></nav>
+
+<div class="main">
+  <section class="hero-section">
+    <div class="exclusive-badge">&#128081; EXCLUSIVE TOOL</div>
+    <h1><span class="gold">CSS Animation</span> Studio</h1>
+    <p>Visual timeline editor for CSS animations. Add keyframes, tweak easing curves, preview live, and export production-ready code.</p>
+  </section>
+
+  <!-- Animation Settings -->
+  <div class="card">
+    <h2>&#9881; Animation Settings</h2>
+    <div class="form-row">
+      <div class="form-group"><label>Animation Name</label><input type="text" id="animName" value="myAnimation" placeholder="animationName"></div>
+      <div class="form-group"><label>Duration (s)</label><input type="number" id="animDuration" value="1" min="0.1" max="20" step="0.1"></div>
+      <div class="form-group"><label>Delay (s)</label><input type="number" id="animDelay" value="0" min="0" max="10" step="0.1"></div>
+      <div class="form-group"><label>Iterations</label><input type="text" id="animIterations" value="infinite" placeholder="1, 3, infinite"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Direction</label>
+        <select id="animDirection"><option value="normal">Normal</option><option value="reverse">Reverse</option><option value="alternate" selected>Alternate</option><option value="alternate-reverse">Alternate Reverse</option></select>
+      </div>
+      <div class="form-group"><label>Fill Mode</label>
+        <select id="animFill"><option value="none">None</option><option value="forwards" selected>Forwards</option><option value="backwards">Backwards</option><option value="both">Both</option></select>
+      </div>
+      <div class="form-group"><label>Play State</label>
+        <select id="animPlay"><option value="running" selected>Running</option><option value="paused">Paused</option></select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Easing Curve -->
+  <div class="card">
+    <h2>&#128200; Easing Curve</h2>
+    <div class="form-row">
+      <div class="form-group"><label>Preset</label>
+        <select id="easingPreset" onchange="selectEasing()">
+          <option value="ease">ease</option>
+          <option value="linear">linear</option>
+          <option value="ease-in">ease-in</option>
+          <option value="ease-out">ease-out</option>
+          <option value="ease-in-out">ease-in-out</option>
+          <option value="custom">Custom cubic-bezier</option>
+        </select>
+      </div>
+      <div class="form-group" id="cbWrap" style="display:none"><label>cubic-bezier(x1, y1, x2, y2)</label><input type="text" id="cbCustom" value="0.25, 0.1, 0.25, 1.0" oninput="updateEasingPreview()"></div>
+    </div>
+    <div class="easing-preview"><canvas class="easing-canvas" id="easingCanvas"></canvas></div>
+  </div>
+
+  <!-- Timeline -->
+  <div class="card">
+    <h2>&#127916; Keyframe Timeline</h2>
+    <div class="btn-row" style="margin-bottom:0.75rem">
+      <button class="btn btn-gold btn-sm" onclick="addKeyframe()">+ Add Keyframe</button>
+      <button class="btn btn-outline btn-sm" onclick="addPresetKeyframes()">Load 5-Point Preset</button>
+      <button class="btn btn-red btn-sm" onclick="clearKeyframes()">Clear All</button>
+    </div>
+    <div class="timeline-wrap">
+      <div class="timeline-track" id="timelineTrack" onclick="timelineClick(event)"></div>
+      <div class="timeline-markers"><span>0%</span><span>25%</span><span>50%</span><span>75%</span><span>100%</span></div>
+    </div>
+    <p style="font-size:0.75rem;color:var(--text-dim)">Click the timeline to add keyframes, or click dots to select and edit them.</p>
+  </div>
+
+  <!-- Keyframe Properties -->
+  <div class="card">
+    <h2>&#127912; Keyframe Properties <span id="kfLabel" style="color:var(--gold);font-size:0.85rem;margin-left:0.5rem">-- select a keyframe --</span></h2>
+    <div id="kfEditor" style="opacity:0.4;pointer-events:none">
+      <div class="form-row">
+        <div class="form-group"><label>Percentage (%)</label><input type="number" id="kfPercent" min="0" max="100" step="1" value="0" onchange="updateKfPercent()"></div>
+        <div class="form-group"><label>Delete Keyframe</label><button class="btn btn-red btn-sm" onclick="deleteSelectedKf()" style="margin-top:2px">Delete</button></div>
+      </div>
+      <div class="prop-grid">
+        <div class="prop-item"><label>TranslateX</label><input type="text" id="kfTx" value="0px" oninput="updateKfProp()"></div>
+        <div class="prop-item"><label>TranslateY</label><input type="text" id="kfTy" value="0px" oninput="updateKfProp()"></div>
+        <div class="prop-item"><label>Rotate</label><input type="text" id="kfRotate" value="0deg" oninput="updateKfProp()"></div>
+        <div class="prop-item"><label>Scale</label><input type="number" id="kfScale" value="1" step="0.1" min="0" oninput="updateKfProp()"></div>
+        <div class="prop-item"><label>Opacity</label><input type="number" id="kfOpacity" value="1" step="0.05" min="0" max="1" oninput="updateKfProp()"></div>
+        <div class="prop-item"><label>Bg Color</label><input type="color" id="kfBg" value="#ffd700" oninput="updateKfProp()"></div>
+        <div class="prop-item"><label>Border Radius</label><input type="text" id="kfRadius" value="8px" oninput="updateKfProp()"></div>
+        <div class="prop-item"><label>Box Shadow</label><input type="text" id="kfShadow" value="none" oninput="updateKfProp()"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Live Preview -->
+  <div class="card">
+    <h2>&#9654; Live Preview</h2>
+    <div class="btn-row" style="margin-bottom:0.75rem">
+      <button class="btn btn-gold btn-sm" onclick="playPreview()">Play Animation</button>
+      <button class="btn btn-outline btn-sm" onclick="pausePreview()">Pause</button>
+      <button class="btn btn-outline btn-sm" onclick="resetPreview()">Reset</button>
+    </div>
+    <div class="preview-area" id="previewArea">
+      <div class="preview-el" id="previewEl">SPUNK</div>
+    </div>
+  </div>
+
+  <!-- CSS Output -->
+  <div class="card">
+    <h2>&#128196; Export CSS</h2>
+    <div class="btn-row" style="margin-bottom:0.75rem">
+      <button class="btn btn-gold btn-sm" onclick="generateCSS()">Generate CSS</button>
+      <button class="btn btn-outline btn-sm" onclick="copyCSS()">Copy to Clipboard</button>
+    </div>
+    <div class="md-output" id="cssOutput"><button class="copy-btn" onclick="copyCSS()">Copy</button>Click "Generate CSS" to see output</div>
+  </div>
+
+  <div class="share-cta">
+    <h3>&#128275; Share the Code, Unlock More Tools</h3>
+    <p>Share code SPUNK to help others access 15+ exclusive premium tools.</p>
+    <div class="share-btns">
+      <button class="share-btn share-x" onclick="shareX()">&#120143; Share on X</button>
+      <button class="share-btn share-reddit" onclick="shareReddit()">&#128172; Reddit</button>
+      <button class="share-btn share-email" onclick="shareEmail()">&#9993; Email</button>
+    </div>
+  </div>
+</div>
+
+<footer class="footer"><div class="footer-links"><a href="https://spunk.codes">Home</a><a href="/store">Tools</a><a href="/exclusive-tools">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a><a href="https://twitter.com/SpunkArt13" target="_blank">@SpunkArt13</a></div><div>&copy; 2026 SPUNK.CODES EXCLUSIVE.</div></footer>
+<div class="watermark">SPUNK.CODES EXCLUSIVE</div>
+
+<script>
+document.addEventListener('contextmenu',function(e){e.preventDefault()});
+document.addEventListener('keydown',function(e){if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'||e.key==='C'))||(e.ctrlKey&&e.key==='u'))e.preventDefault()});
+function checkCode(){try{var c=localStorage.getItem('spunk_referral_code')||localStorage.getItem('spunk_ref_code')||'';if(c.toUpperCase()==='SPUNK'){document.getElementById('lockGate').classList.add('hidden');return true}}catch(e){}return false}
+function submitCode(){var v=document.getElementById('codeInput').value.trim().toUpperCase();if(v==='SPUNK'){try{localStorage.setItem('spunk_referral_code','SPUNK');localStorage.setItem('spunk_ref_code','SPUNK')}catch(e){}document.getElementById('lockGate').classList.add('hidden')}else{document.getElementById('codeError').textContent='Invalid code. Try: SPUNK';setTimeout(function(){document.getElementById('codeError').textContent=''},2000)}}
+document.getElementById('codeInput').addEventListener('keydown',function(e){if(e.key==='Enter')submitCode()});
+checkCode();
+
+/* ── State ── */
+var keyframes = [];
+var selectedKfIndex = -1;
+var animStyleEl = null;
+
+function defaultKfProps(pct) {
+  return { percent: pct, translateX: '0px', translateY: '0px', rotate: '0deg', scale: 1, opacity: 1, bgColor: '#ffd700', borderRadius: '8px', boxShadow: 'none' };
+}
+
+/* ── Keyframe Management ── */
+function addKeyframe(pct) {
+  if (pct === undefined) {
+    var existing = keyframes.map(function(k){return k.percent});
+    var candidates = [0,25,50,75,100];
+    pct = null;
+    for (var i = 0; i < candidates.length; i++) {
+      if (existing.indexOf(candidates[i]) === -1) { pct = candidates[i]; break; }
+    }
+    if (pct === null) pct = Math.round(Math.random() * 100);
+  }
+  var kf = defaultKfProps(pct);
+  if (keyframes.length > 0) {
+    var last = keyframes[keyframes.length - 1];
+    kf.bgColor = last.bgColor;
+  }
+  keyframes.push(kf);
+  keyframes.sort(function(a, b) { return a.percent - b.percent; });
+  selectedKfIndex = keyframes.indexOf(kf);
+  renderTimeline();
+  loadKfEditor();
+  updatePreviewAnimation();
+}
+
+function addPresetKeyframes() {
+  keyframes = [];
+  [0, 25, 50, 75, 100].forEach(function(p) { keyframes.push(defaultKfProps(p)); });
+  keyframes[1].translateX = '50px';
+  keyframes[1].rotate = '45deg';
+  keyframes[2].scale = 1.5;
+  keyframes[2].bgColor = '#ff8c00';
+  keyframes[2].borderRadius = '50%';
+  keyframes[3].translateX = '-50px';
+  keyframes[3].rotate = '-45deg';
+  keyframes[3].opacity = 0.6;
+  keyframes[4].boxShadow = '0 0 20px rgba(255,215,0,0.5)';
+  selectedKfIndex = 0;
+  renderTimeline();
+  loadKfEditor();
+  updatePreviewAnimation();
+}
+
+function clearKeyframes() {
+  keyframes = [];
+  selectedKfIndex = -1;
+  renderTimeline();
+  loadKfEditor();
+  updatePreviewAnimation();
+}
+
+function deleteSelectedKf() {
+  if (selectedKfIndex < 0 || selectedKfIndex >= keyframes.length) return;
+  keyframes.splice(selectedKfIndex, 1);
+  selectedKfIndex = keyframes.length > 0 ? Math.min(selectedKfIndex, keyframes.length - 1) : -1;
+  renderTimeline();
+  loadKfEditor();
+  updatePreviewAnimation();
+}
+
+/* ── Timeline Rendering ── */
+function renderTimeline() {
+  var track = document.getElementById('timelineTrack');
+  track.innerHTML = '';
+  keyframes.forEach(function(kf, i) {
+    var dot = document.createElement('div');
+    dot.className = 'kf-dot' + (i === selectedKfIndex ? ' active' : '');
+    dot.style.left = kf.percent + '%';
+    var label = document.createElement('div');
+    label.className = 'kf-label';
+    label.textContent = kf.percent + '%';
+    dot.appendChild(label);
+    dot.addEventListener('click', function(e) {
+      e.stopPropagation();
+      selectedKfIndex = i;
+      renderTimeline();
+      loadKfEditor();
+    });
+    track.appendChild(dot);
+  });
+}
+
+function timelineClick(e) {
+  var track = document.getElementById('timelineTrack');
+  var rect = track.getBoundingClientRect();
+  var pct = Math.round(((e.clientX - rect.left) / rect.width) * 100);
+  pct = Math.max(0, Math.min(100, pct));
+  addKeyframe(pct);
+}
+
+/* ── Keyframe Editor ── */
+function loadKfEditor() {
+  var editor = document.getElementById('kfEditor');
+  var label = document.getElementById('kfLabel');
+  if (selectedKfIndex < 0 || selectedKfIndex >= keyframes.length) {
+    editor.style.opacity = '0.4';
+    editor.style.pointerEvents = 'none';
+    label.textContent = '-- select a keyframe --';
+    return;
+  }
+  editor.style.opacity = '1';
+  editor.style.pointerEvents = 'auto';
+  var kf = keyframes[selectedKfIndex];
+  label.textContent = kf.percent + '%';
+  document.getElementById('kfPercent').value = kf.percent;
+  document.getElementById('kfTx').value = kf.translateX;
+  document.getElementById('kfTy').value = kf.translateY;
+  document.getElementById('kfRotate').value = kf.rotate;
+  document.getElementById('kfScale').value = kf.scale;
+  document.getElementById('kfOpacity').value = kf.opacity;
+  document.getElementById('kfBg').value = kf.bgColor;
+  document.getElementById('kfRadius').value = kf.borderRadius;
+  document.getElementById('kfShadow').value = kf.boxShadow;
+}
+
+function updateKfPercent() {
+  if (selectedKfIndex < 0) return;
+  keyframes[selectedKfIndex].percent = parseInt(document.getElementById('kfPercent').value) || 0;
+  keyframes.sort(function(a, b) { return a.percent - b.percent; });
+  selectedKfIndex = keyframes.indexOf(keyframes.find(function(k) { return k.percent === parseInt(document.getElementById('kfPercent').value); }));
+  renderTimeline();
+  updatePreviewAnimation();
+}
+
+function updateKfProp() {
+  if (selectedKfIndex < 0) return;
+  var kf = keyframes[selectedKfIndex];
+  kf.translateX = document.getElementById('kfTx').value;
+  kf.translateY = document.getElementById('kfTy').value;
+  kf.rotate = document.getElementById('kfRotate').value;
+  kf.scale = parseFloat(document.getElementById('kfScale').value) || 1;
+  kf.opacity = parseFloat(document.getElementById('kfOpacity').value);
+  kf.bgColor = document.getElementById('kfBg').value;
+  kf.borderRadius = document.getElementById('kfRadius').value;
+  kf.boxShadow = document.getElementById('kfShadow').value;
+  document.getElementById('kfLabel').textContent = kf.percent + '%';
+  updatePreviewAnimation();
+}
+
+/* ── Easing ── */
+function getEasing() {
+  var preset = document.getElementById('easingPreset').value;
+  if (preset === 'custom') {
+    return 'cubic-bezier(' + document.getElementById('cbCustom').value + ')';
+  }
+  return preset;
+}
+
+function selectEasing() {
+  var preset = document.getElementById('easingPreset').value;
+  document.getElementById('cbWrap').style.display = preset === 'custom' ? '' : 'none';
+  updateEasingPreview();
+  updatePreviewAnimation();
+}
+
+function getCubicBezierValues() {
+  var preset = document.getElementById('easingPreset').value;
+  var map = {
+    'ease': [0.25, 0.1, 0.25, 1.0],
+    'linear': [0, 0, 1, 1],
+    'ease-in': [0.42, 0, 1, 1],
+    'ease-out': [0, 0, 0.58, 1],
+    'ease-in-out': [0.42, 0, 0.58, 1]
+  };
+  if (map[preset]) return map[preset];
+  var parts = document.getElementById('cbCustom').value.split(',').map(function(v) { return parseFloat(v.trim()); });
+  if (parts.length === 4 && parts.every(function(v) { return !isNaN(v); })) return parts;
+  return [0.25, 0.1, 0.25, 1.0];
+}
+
+function updateEasingPreview() {
+  var canvas = document.getElementById('easingCanvas');
+  var ctx = canvas.getContext('2d');
+  canvas.width = canvas.offsetWidth * 2;
+  canvas.height = canvas.offsetHeight * 2;
+  ctx.scale(2, 2);
+  var w = canvas.offsetWidth, h = canvas.offsetHeight;
+  var pad = 10;
+  ctx.clearRect(0, 0, w, h);
+
+  // Grid
+  ctx.strokeStyle = 'rgba(255,215,0,0.1)';
+  ctx.lineWidth = 0.5;
+  for (var i = 0; i <= 4; i++) {
+    var x = pad + (i / 4) * (w - 2 * pad);
+    ctx.beginPath(); ctx.moveTo(x, pad); ctx.lineTo(x, h - pad); ctx.stroke();
+    var y = pad + (i / 4) * (h - 2 * pad);
+    ctx.beginPath(); ctx.moveTo(pad, y); ctx.lineTo(w - pad, y); ctx.stroke();
+  }
+
+  // Curve
+  var vals = getCubicBezierValues();
+  ctx.strokeStyle = '#ffd700';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(pad, h - pad);
+  for (var t = 0; t <= 1; t += 0.01) {
+    var p = cubicBezier(t, vals[0], vals[1], vals[2], vals[3]);
+    var cx = pad + t * (w - 2 * pad);
+    var cy = (h - pad) - p * (h - 2 * pad);
+    ctx.lineTo(cx, cy);
+  }
+  ctx.stroke();
+
+  // Control points
+  ctx.fillStyle = 'rgba(255,215,0,0.5)';
+  var cp1x = pad + vals[0] * (w - 2 * pad), cp1y = (h - pad) - vals[1] * (h - 2 * pad);
+  var cp2x = pad + vals[2] * (w - 2 * pad), cp2y = (h - pad) - vals[3] * (h - 2 * pad);
+  ctx.setLineDash([3, 3]);
+  ctx.strokeStyle = 'rgba(255,215,0,0.3)';
+  ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(pad, h - pad); ctx.lineTo(cp1x, cp1y); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(w - pad, pad); ctx.lineTo(cp2x, cp2y); ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.beginPath(); ctx.arc(cp1x, cp1y, 4, 0, Math.PI * 2); ctx.fill();
+  ctx.beginPath(); ctx.arc(cp2x, cp2y, 4, 0, Math.PI * 2); ctx.fill();
+
+  updatePreviewAnimation();
+}
+
+function cubicBezier(t, x1, y1, x2, y2) {
+  var cx = 3 * x1, bx = 3 * (x2 - x1) - cx, ax = 1 - cx - bx;
+  var cy = 3 * y1, by = 3 * (y2 - y1) - cy, ay = 1 - cy - by;
+  function sampleX(t2) { return ((ax * t2 + bx) * t2 + cx) * t2; }
+  function sampleY(t2) { return ((ay * t2 + by) * t2 + cy) * t2; }
+  function solveCurveX(x) {
+    var t2 = x;
+    for (var i = 0; i < 8; i++) {
+      var xEst = sampleX(t2) - x;
+      if (Math.abs(xEst) < 0.001) return t2;
+      var d = (3 * ax * t2 + 2 * bx) * t2 + cx;
+      if (Math.abs(d) < 0.000001) break;
+      t2 -= xEst / d;
+    }
+    return t2;
+  }
+  return sampleY(solveCurveX(t));
+}
+
+/* ── Preview Animation ── */
+function buildKeyframeCSS() {
+  if (keyframes.length === 0) return '';
+  var name = document.getElementById('animName').value || 'myAnimation';
+  var css = '@keyframes ' + name + ' {\n';
+  keyframes.forEach(function(kf) {
+    css += '  ' + kf.percent + '% {\n';
+    var transform = 'translate(' + kf.translateX + ', ' + kf.translateY + ') rotate(' + kf.rotate + ') scale(' + kf.scale + ')';
+    css += '    transform: ' + transform + ';\n';
+    css += '    opacity: ' + kf.opacity + ';\n';
+    css += '    background-color: ' + kf.bgColor + ';\n';
+    css += '    border-radius: ' + kf.borderRadius + ';\n';
+    if (kf.boxShadow !== 'none') css += '    box-shadow: ' + kf.boxShadow + ';\n';
+    css += '  }\n';
+  });
+  css += '}';
+  return css;
+}
+
+function updatePreviewAnimation() {
+  if (animStyleEl) animStyleEl.remove();
+  if (keyframes.length === 0) {
+    document.getElementById('previewEl').style.animation = 'none';
+    return;
+  }
+  animStyleEl = document.createElement('style');
+  animStyleEl.textContent = buildKeyframeCSS();
+  document.head.appendChild(animStyleEl);
+
+  var name = document.getElementById('animName').value || 'myAnimation';
+  var dur = document.getElementById('animDuration').value || '1';
+  var delay = document.getElementById('animDelay').value || '0';
+  var iters = document.getElementById('animIterations').value || 'infinite';
+  var dir = document.getElementById('animDirection').value;
+  var fill = document.getElementById('animFill').value;
+  var play = document.getElementById('animPlay').value;
+  var easing = getEasing();
+
+  var el = document.getElementById('previewEl');
+  el.style.animation = 'none';
+  void el.offsetWidth; // trigger reflow
+  el.style.animation = name + ' ' + dur + 's ' + easing + ' ' + delay + 's ' + iters + ' ' + dir + ' ' + fill + ' ' + play;
+}
+
+function playPreview() {
+  document.getElementById('animPlay').value = 'running';
+  updatePreviewAnimation();
+}
+
+function pausePreview() {
+  document.getElementById('previewEl').style.animationPlayState = 'paused';
+  document.getElementById('animPlay').value = 'paused';
+}
+
+function resetPreview() {
+  var el = document.getElementById('previewEl');
+  el.style.animation = 'none';
+  void el.offsetWidth;
+  document.getElementById('animPlay').value = 'running';
+  updatePreviewAnimation();
+}
+
+/* ── Generate CSS ── */
+function generateCSS() {
+  if (keyframes.length === 0) {
+    document.getElementById('cssOutput').innerHTML = '<button class="copy-btn" onclick="copyCSS()">Copy</button>Add keyframes first to generate CSS.';
+    return;
+  }
+  var name = document.getElementById('animName').value || 'myAnimation';
+  var dur = document.getElementById('animDuration').value || '1';
+  var delay = document.getElementById('animDelay').value || '0';
+  var iters = document.getElementById('animIterations').value || 'infinite';
+  var dir = document.getElementById('animDirection').value;
+  var fill = document.getElementById('animFill').value;
+  var easing = getEasing();
+
+  var css = '/* Generated by SPUNK.CODES CSS Animation Studio */\n\n';
+  css += buildKeyframeCSS() + '\n\n';
+  css += '.animated-element {\n';
+  css += '  animation: ' + name + ' ' + dur + 's ' + easing + ' ' + delay + 's ' + iters + ' ' + dir + ' ' + fill + ';\n';
+  css += '}\n\n';
+  css += '/* Shorthand: */\n';
+  css += '/* animation: ' + name + ' ' + dur + 's ' + easing + ' ' + delay + 's ' + iters + ' ' + dir + ' ' + fill + '; */';
+
+  document.getElementById('cssOutput').innerHTML = '<button class="copy-btn" onclick="copyCSS()">Copy</button>' + escapeHtml(css);
+}
+
+function copyCSS() {
+  var text = document.getElementById('cssOutput').textContent;
+  navigator.clipboard.writeText(text).then(function() {
+    var btn = document.querySelector('#cssOutput .copy-btn');
+    btn.textContent = 'Copied!';
+    setTimeout(function() { btn.textContent = 'Copy'; }, 1500);
+  });
+}
+
+function escapeHtml(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+/* ── Auto-update on settings change ── */
+['animName','animDuration','animDelay','animIterations','animDirection','animFill','animPlay'].forEach(function(id) {
+  document.getElementById(id).addEventListener('change', updatePreviewAnimation);
+  document.getElementById(id).addEventListener('input', updatePreviewAnimation);
+});
+
+/* ── Init ── */
+updateEasingPreview();
+window.addEventListener('resize', updateEasingPreview);
+
+function shareX(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Building CSS animations visually with this tool. Code SPUNK @SpunkArt13')+'&url='+encodeURIComponent('https://spunk.codes/exclusive-tools'),'_blank')}
+function shareReddit(){window.open('https://www.reddit.com/submit?url='+encodeURIComponent('https://spunk.codes/exclusive-tools')+'&title='+encodeURIComponent('CSS Animation Studio - free with code SPUNK [spunk.codes]'),'_blank')}
+function shareEmail(){window.location.href='mailto:?subject='+encodeURIComponent('CSS Animation Studio Tool')+'&body='+encodeURIComponent('Build CSS animations visually. Code SPUNK: https://spunk.codes/exclusive-tools')}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<script src="/auto-monetize.js"></script>
+<div id="shareXBtn" style="position:fixed;left:20px;bottom:20px;z-index:9999;">
+  <a id="shareXLink" href="#" target="_blank" rel="noopener noreferrer" title="Share on X"
+     style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;
+     background:rgba(88,166,255,0.15);border:1px solid rgba(88,166,255,0.3);
+     backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:50%;
+     text-decoration:none;transition:all 0.3s ease;cursor:pointer;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+    </svg>
+  </a>
+</div>
+<style>
+  #shareXBtn a:hover {
+    background: rgba(88,166,255,0.35) !important;
+    border-color: rgba(88,166,255,0.6) !important;
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(88,166,255,0.3);
+  }
+</style>
+<script>
+(function(){
+  var page = location.pathname.split("/").pop() || "index.html";
+  var url = "https://spunk.codes/" + page;
+  var text = "Just used this free tool on spunk.codes — amazing! @SpunkArt13";
+  var href = "https://x.com/intent/tweet?text=" + encodeURIComponent(text) + "&url=" + encodeURIComponent(url);
+  document.getElementById("shareXLink").href = href;
+})();
+</script>
+<script src="/cross-promo.js"></script>
+<script src="/usage-tracker.js"></script>
+</body>
+</html>
