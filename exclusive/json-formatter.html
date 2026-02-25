@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>JSON Formatter, Validator & Transformer - Format, Compare, Convert | SPUNK.CODES Exclusive</title>
+<meta name="description" content="Format, validate, compare, and transform JSON. Tree view, path finder, syntax highlighting, diff mode, and convert to CSV/YAML/query string.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="JSON Formatter, Validator & Transformer - SPUNK.CODES Exclusive">
+<meta property="og:description" content="Format, validate, compare, and transform JSON with tree view, diff mode, and conversions.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://spunk.codes/exclusive/json-formatter">
+<meta property="og:site_name" content="Spunk Codes">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<meta name="twitter:creator" content="@SpunkArt13">
+<meta name="twitter:title" content="JSON Formatter, Validator & Transformer - SPUNK.CODES Exclusive">
+<meta name="twitter:description" content="Format, validate, compare, and transform JSON with tree view and conversions.">
+<link rel="canonical" href="https://spunk.codes/exclusive/json-formatter">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"JSON Formatter, Validator & Transformer","url":"https://spunk.codes/exclusive/json-formatter","applicationCategory":"DeveloperApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Format, validate, compare, and transform JSON. Tree view, path finder, syntax highlighting, diff mode, and convert to CSV/YAML/query string.","author":{"@type":"Organization","name":"Spunk Codes","url":"https://spunk.codes"}}</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0f;color:#e8e8f0;min-height:100vh;line-height:1.6}
+a{color:#58a6ff;text-decoration:none}a:hover{text-decoration:underline}
+.wrap{max-width:1200px;margin:0 auto;padding:1.5rem}
+h1{font-size:2rem;font-weight:800;text-align:center;margin:1.5rem 0 0.5rem}
+h1 span{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.subtitle{text-align:center;color:#8b949e;margin-bottom:2rem;max-width:650px;margin-left:auto;margin-right:auto}
+.tabs{display:flex;gap:0.5rem;margin-bottom:1.5rem;flex-wrap:wrap;justify-content:center}
+.tab{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.85rem;font-weight:700;cursor:pointer;border:1px solid rgba(255,95,31,0.2);background:transparent;color:#8b949e;transition:all 0.2s}
+.tab.active{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);color:#000;border-color:transparent}
+.tab:hover:not(.active){background:rgba(255,95,31,0.1);color:#ff9f1f}
+.card{background:rgba(18,18,28,0.85);border:1px solid rgba(255,95,31,0.2);border-radius:14px;padding:1.5rem;margin-bottom:1.5rem;position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#ff5f1f,#ff9f1f,#ff5f1f)}
+.card h2{font-size:1rem;font-weight:700;margin-bottom:1rem;color:#ff9f1f}
+.panel{display:none}.panel.active{display:block}
+textarea{width:100%;padding:1rem;background:#0a0a0f;border:1px solid rgba(255,95,31,0.15);border-radius:8px;color:#e8e8f0;font-family:'Courier New',monospace;font-size:0.85rem;resize:vertical;outline:none;min-height:200px;line-height:1.5;tab-size:2}
+textarea:focus{border-color:#ff5f1f}
+input[type="text"]{width:100%;padding:0.6rem 0.8rem;background:rgba(10,10,15,0.8);border:1px solid rgba(255,95,31,0.15);border-radius:8px;color:#e8e8f0;font-size:0.9rem;font-family:inherit;outline:none}
+input:focus{border-color:#ff5f1f}
+.btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.85rem;font-weight:700;cursor:pointer;border:none;transition:all 0.2s;display:inline-flex;align-items:center;gap:0.4rem}
+.btn-primary{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);color:#000}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 4px 15px rgba(255,95,31,0.3)}
+.btn-outline{background:transparent;border:1px solid rgba(255,95,31,0.3);color:#ff9f1f}
+.btn-outline:hover{background:rgba(255,95,31,0.1)}
+.btn-sm{padding:0.4rem 0.8rem;font-size:0.75rem}
+.actions{display:flex;gap:0.5rem;flex-wrap:wrap;margin:1rem 0}
+.error-box{padding:0.8rem 1rem;background:rgba(248,81,73,0.1);border:1px solid rgba(248,81,73,0.3);border-radius:8px;color:#f85149;font-size:0.85rem;font-family:'Courier New',monospace;display:none;margin-top:0.5rem;white-space:pre-wrap}
+.success-box{padding:0.5rem 1rem;background:rgba(57,211,83,0.1);border:1px solid rgba(57,211,83,0.2);border-radius:8px;color:#39d353;font-size:0.85rem;display:none;margin-top:0.5rem}
+.output-area{width:100%;min-height:200px;padding:1rem;background:#0a0a0f;border:1px solid rgba(255,95,31,0.15);border-radius:8px;font-family:'Courier New',monospace;font-size:0.85rem;overflow:auto;max-height:600px;line-height:1.5;white-space:pre-wrap;word-break:break-word}
+.hl-key{color:#ff9f1f}.hl-str{color:#39d353}.hl-num{color:#58a6ff}.hl-bool{color:#f0ad4e}.hl-null{color:#8b949e}.hl-bracket{color:#e8e8f0}
+/* Tree view */
+.tree{font-family:'Courier New',monospace;font-size:0.8rem;line-height:1.8}
+.tree-node{cursor:pointer;padding:1px 4px;border-radius:3px}
+.tree-node:hover{background:rgba(255,95,31,0.1)}
+.tree-toggle{display:inline-block;width:16px;text-align:center;color:#8b949e;cursor:pointer;user-select:none}
+.tree-key{color:#ff9f1f;font-weight:600}
+.tree-str{color:#39d353}.tree-num{color:#58a6ff}.tree-bool{color:#f0ad4e}.tree-null{color:#8b949e}
+.tree-bracket{color:#8b949e}
+.tree-children{padding-left:1.5rem;border-left:1px solid rgba(255,95,31,0.1)}
+.tree-hidden{display:none}
+.path-display{padding:0.5rem 0.8rem;background:rgba(255,95,31,0.08);border:1px solid rgba(255,95,31,0.2);border-radius:8px;font-family:'Courier New',monospace;font-size:0.8rem;color:#ff9f1f;cursor:pointer;display:none;margin-top:0.5rem;word-break:break-all}
+/* Compare diff */
+.diff-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+@media(max-width:768px){.diff-grid{grid-template-columns:1fr}}
+.diff-result{max-height:400px;overflow:auto}
+.diff-add{background:rgba(57,211,83,0.15);border-left:3px solid #39d353;padding:2px 8px;margin:2px 0}
+.diff-rem{background:rgba(248,81,73,0.15);border-left:3px solid #f85149;padding:2px 8px;margin:2px 0}
+.diff-same{padding:2px 8px;margin:2px 0;color:#8b949e}
+.diff-key{font-weight:700;color:#ff9f1f}
+/* Search */
+.search-wrap{position:relative;margin-bottom:1rem}
+.search-wrap input{padding-left:2.5rem}
+.search-icon{position:absolute;left:0.8rem;top:50%;transform:translateY(-50%);color:#8b949e;font-size:1rem}
+.search-count{font-size:0.78rem;color:#8b949e;margin-top:0.3rem}
+.match-highlight{background:rgba(255,159,31,0.3);border-radius:2px;padding:0 2px}
+.status-bar{display:flex;justify-content:space-between;align-items:center;font-size:0.78rem;color:#8b949e;margin-top:0.5rem}
+.copied{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(57,211,83,0.95);color:#000;padding:0.8rem 2rem;border-radius:10px;font-weight:700;font-size:1rem;z-index:9999;pointer-events:none;animation:fadeOut 1.5s ease forwards}
+@keyframes fadeOut{0%{opacity:1;transform:translate(-50%,-50%) scale(1)}70%{opacity:1}100%{opacity:0;transform:translate(-50%,-60%) scale(0.95)}}
+.network-footer{text-align:center;padding:2rem 0 1rem;border-top:1px solid rgba(255,95,31,0.1);margin-top:2rem}
+.network-footer .links{display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap;font-size:0.85rem;margin-bottom:0.5rem}
+.network-footer .copy{color:#8b949e;font-size:0.75rem}
+.cta-banner{text-align:center;margin:2rem 0 1rem;padding:1.5rem;background:linear-gradient(135deg,rgba(255,95,31,0.1),rgba(255,159,31,0.05));border:1px solid rgba(255,95,31,0.2);border-radius:14px}
+.cta-banner p{color:#8b949e;font-size:0.9rem;margin-bottom:0.8rem}
+label{display:block;font-size:0.8rem;font-weight:600;color:#8b949e;margin-bottom:0.3rem;text-transform:uppercase;letter-spacing:0.5px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1><span>JSON Formatter & Transformer</span></h1>
+<p class="subtitle">Format, validate, compare, and transform JSON. Tree view, path finder, diff mode, and conversions to CSV, YAML, and query strings.</p>
+
+<div class="tabs">
+<button class="tab active" onclick="switchTab('format')">Format / Validate</button>
+<button class="tab" onclick="switchTab('tree')">Tree View</button>
+<button class="tab" onclick="switchTab('compare')">Compare</button>
+<button class="tab" onclick="switchTab('transform')">Transform</button>
+<button class="tab" onclick="switchTab('convert')">Convert</button>
+</div>
+
+<!-- FORMAT / VALIDATE -->
+<div class="panel active" id="panel-format">
+<div class="card">
+<h2>Paste JSON</h2>
+<textarea id="jsonInput" placeholder='{"name": "example", "items": [1, 2, 3]}' oninput="autoFormat()" spellcheck="false"></textarea>
+<div class="error-box" id="formatError"></div>
+<div class="success-box" id="formatSuccess"></div>
+<div class="actions">
+<button class="btn btn-primary" onclick="prettify()">Prettify</button>
+<button class="btn btn-outline" onclick="minify()">Minify</button>
+<button class="btn btn-outline" onclick="copyFormatted()">Copy</button>
+<button class="btn btn-outline" onclick="downloadJSON()">Download .json</button>
+<button class="btn btn-outline" onclick="clearInput()">Clear</button>
+</div>
+<div class="search-wrap">
+<span class="search-icon">&#128269;</span>
+<input type="text" id="searchInput" placeholder="Search keys or values..." oninput="searchJSON()">
+<div class="search-count" id="searchCount"></div>
+</div>
+<div class="output-area" id="formatOutput"></div>
+<div class="status-bar">
+<span id="jsonSize">Size: 0 bytes</span>
+<span id="jsonDepth">Depth: 0</span>
+<span id="jsonKeys">Keys: 0</span>
+</div>
+</div>
+</div>
+
+<!-- TREE VIEW -->
+<div class="panel" id="panel-tree">
+<div class="card">
+<h2>Tree View</h2>
+<p style="font-size:0.8rem;color:#8b949e;margin-bottom:1rem">Click any value to copy its path. Use the Format tab to paste your JSON first.</p>
+<div class="actions" style="margin-top:0">
+<button class="btn btn-outline btn-sm" onclick="expandAll()">Expand All</button>
+<button class="btn btn-outline btn-sm" onclick="collapseAll()">Collapse All</button>
+</div>
+<div class="path-display" id="pathDisplay" onclick="copyPath()"></div>
+<div class="tree" id="treeView"><div style="color:#8b949e">Paste JSON in the Format tab first</div></div>
+</div>
+</div>
+
+<!-- COMPARE -->
+<div class="panel" id="panel-compare">
+<div class="card">
+<h2>Compare Two JSON Objects</h2>
+<div class="diff-grid">
+<div>
+<label>JSON A (Left)</label>
+<textarea id="diffA" rows="10" placeholder='{"name": "old"}' spellcheck="false"></textarea>
+</div>
+<div>
+<label>JSON B (Right)</label>
+<textarea id="diffB" rows="10" placeholder='{"name": "new"}' spellcheck="false"></textarea>
+</div>
+</div>
+<div class="actions">
+<button class="btn btn-primary" onclick="compareJSON()">Compare</button>
+</div>
+<div class="error-box" id="diffError"></div>
+<div class="diff-result" id="diffResult"></div>
+</div>
+</div>
+
+<!-- TRANSFORM -->
+<div class="panel" id="panel-transform">
+<div class="card">
+<h2>Transform JSON</h2>
+<p style="font-size:0.8rem;color:#8b949e;margin-bottom:1rem">Apply transformations to the JSON from the Format tab.</p>
+<div class="actions" style="margin-top:0">
+<button class="btn btn-primary" onclick="flattenJSON()">Flatten Nested</button>
+<button class="btn btn-outline" onclick="removeNulls()">Remove Nulls</button>
+<button class="btn btn-outline" onclick="sortKeys()">Sort Keys</button>
+<button class="btn btn-outline" onclick="extractPaths()">Extract All Paths</button>
+</div>
+<div class="field" style="margin-top:1rem">
+<label>Extract Specific Path (dot notation)</label>
+<div style="display:flex;gap:0.5rem">
+<input type="text" id="extractPath" placeholder="data.items[0].name" style="flex:1">
+<button class="btn btn-outline btn-sm" onclick="extractSpecific()">Extract</button>
+</div>
+</div>
+<div class="output-area" id="transformOutput" style="margin-top:1rem;min-height:100px"></div>
+<div class="actions">
+<button class="btn btn-outline btn-sm" onclick="copyTransform()">Copy Result</button>
+</div>
+</div>
+</div>
+
+<!-- CONVERT -->
+<div class="panel" id="panel-convert">
+<div class="card">
+<h2>Convert JSON</h2>
+<p style="font-size:0.8rem;color:#8b949e;margin-bottom:1rem">Convert the JSON from the Format tab to other formats.</p>
+<div class="actions" style="margin-top:0">
+<button class="btn btn-primary" onclick="toCSV()">JSON to CSV</button>
+<button class="btn btn-outline" onclick="toYAML()">JSON to YAML</button>
+<button class="btn btn-outline" onclick="toQueryString()">JSON to Query String</button>
+</div>
+<div class="output-area" id="convertOutput" style="margin-top:1rem;min-height:100px"></div>
+<div class="actions">
+<button class="btn btn-outline btn-sm" onclick="copyConvert()">Copy Result</button>
+</div>
+</div>
+</div>
+
+<!-- CTA -->
+<div class="cta-banner">
+<p>Explore more exclusive automation tools</p>
+<a href="https://spunk.codes/exclusive/" class="btn btn-primary">Browse All Tools</a>
+</div>
+
+<!-- Network Footer -->
+<div class="network-footer">
+<div class="links">
+<a href="https://spunk.codes">spunk.codes</a>
+<a href="https://spunk.bet">spunk.bet</a>
+<a href="https://spunk.work">spunk.work</a>
+<a href="https://spunk.pics">spunk.pics</a>
+</div>
+<div class="copy">&copy; 2026 Spunk Network. All rights reserved.</div>
+</div>
+</div>
+
+<script>
+let parsedJSON=null;
+
+function switchTab(tab){
+document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+document.getElementById('panel-'+tab).classList.add('active');
+const tabs=['format','tree','compare','transform','convert'];
+document.querySelectorAll('.tab')[tabs.indexOf(tab)].classList.add('active');
+if(tab==='tree')buildTree();
+}
+
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+
+function getInput(){return document.getElementById('jsonInput').value.trim()}
+
+function tryParse(str){
+try{const obj=JSON.parse(str);return{ok:true,data:obj}}
+catch(e){return{ok:false,error:e.message}}
+}
+
+function autoFormat(){
+const raw=getInput();
+const err=document.getElementById('formatError');
+const suc=document.getElementById('formatSuccess');
+if(!raw){err.style.display='none';suc.style.display='none';document.getElementById('formatOutput').innerHTML='';parsedJSON=null;updateStats(0,0,0);return}
+const r=tryParse(raw);
+if(!r.ok){
+err.style.display='block';
+err.textContent='Parse Error: '+r.error;
+suc.style.display='none';
+document.getElementById('formatOutput').innerHTML='';
+parsedJSON=null;
+}else{
+err.style.display='none';
+suc.style.display='block';
+suc.textContent='Valid JSON';
+parsedJSON=r.data;
+renderFormatted(r.data);
+}
+}
+
+function renderFormatted(data,searchTerm){
+const json=JSON.stringify(data,null,2);
+const highlighted=syntaxHighlight(json,searchTerm);
+document.getElementById('formatOutput').innerHTML=highlighted;
+// Stats
+const size=new Blob([JSON.stringify(data)]).size;
+const depth=getDepth(data);
+const keys=countKeys(data);
+updateStats(size,depth,keys);
+}
+
+function updateStats(size,depth,keys){
+document.getElementById('jsonSize').textContent='Size: '+(size>1024?(size/1024).toFixed(1)+' KB':size+' bytes');
+document.getElementById('jsonDepth').textContent='Depth: '+depth;
+document.getElementById('jsonKeys').textContent='Keys: '+keys;
+}
+
+function getDepth(obj,d){
+d=d||0;
+if(obj===null||typeof obj!=='object')return d;
+let max=d;
+if(Array.isArray(obj)){for(const v of obj){const dd=getDepth(v,d+1);if(dd>max)max=dd}}
+else{for(const k of Object.keys(obj)){const dd=getDepth(obj[k],d+1);if(dd>max)max=dd}}
+return max;
+}
+
+function countKeys(obj){
+if(obj===null||typeof obj!=='object')return 0;
+let c=0;
+if(Array.isArray(obj)){for(const v of obj)c+=countKeys(v)}
+else{const keys=Object.keys(obj);c+=keys.length;for(const k of keys)c+=countKeys(obj[k])}
+return c;
+}
+
+function syntaxHighlight(json,searchTerm){
+let result=esc(json);
+// Highlight syntax
+result=result.replace(/"([^"\\]*(\\.[^"\\]*)*)"(\s*:)?/g,function(match,p1,p2,p3){
+if(p3){return '<span class="hl-key">"'+p1+'"</span>'+p3}
+return '<span class="hl-str">"'+p1+'"</span>';
+});
+result=result.replace(/\b(-?\d+\.?\d*([eE][+-]?\d+)?)\b/g,'<span class="hl-num">$1</span>');
+result=result.replace(/\b(true|false)\b/g,'<span class="hl-bool">$1</span>');
+result=result.replace(/\bnull\b/g,'<span class="hl-null">null</span>');
+// Search highlight
+if(searchTerm){
+const escaped=searchTerm.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+const re=new RegExp('('+escaped+')','gi');
+result=result.replace(re,'<span class="match-highlight">$1</span>');
+}
+return result;
+}
+
+function prettify(){
+const raw=getInput();
+if(!raw)return;
+const r=tryParse(raw);
+if(r.ok){
+document.getElementById('jsonInput').value=JSON.stringify(r.data,null,2);
+parsedJSON=r.data;
+autoFormat();
+}
+}
+
+function minify(){
+const raw=getInput();
+if(!raw)return;
+const r=tryParse(raw);
+if(r.ok){
+document.getElementById('jsonInput').value=JSON.stringify(r.data);
+parsedJSON=r.data;
+autoFormat();
+}
+}
+
+function clearInput(){
+document.getElementById('jsonInput').value='';
+document.getElementById('formatOutput').innerHTML='';
+document.getElementById('formatError').style.display='none';
+document.getElementById('formatSuccess').style.display='none';
+document.getElementById('searchInput').value='';
+document.getElementById('searchCount').textContent='';
+parsedJSON=null;
+updateStats(0,0,0);
+}
+
+function searchJSON(){
+const term=document.getElementById('searchInput').value.trim();
+if(!parsedJSON){document.getElementById('searchCount').textContent='';return}
+if(!term){renderFormatted(parsedJSON);document.getElementById('searchCount').textContent='';return}
+renderFormatted(parsedJSON,term);
+// Count matches
+const json=JSON.stringify(parsedJSON,null,2);
+const escaped=term.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+const matches=json.match(new RegExp(escaped,'gi'));
+document.getElementById('searchCount').textContent=matches?matches.length+' match'+(matches.length!==1?'es':''):' No matches';
+}
+
+// ---- TREE VIEW ----
+function buildTree(){
+if(!parsedJSON){document.getElementById('treeView').innerHTML='<div style="color:#8b949e">Paste JSON in the Format tab first</div>';return}
+document.getElementById('treeView').innerHTML='';
+const tree=createTreeNode(parsedJSON,'root','');
+document.getElementById('treeView').appendChild(tree);
+}
+
+function createTreeNode(data,key,path){
+const wrap=document.createElement('div');
+if(data!==null&&typeof data==='object'){
+const isArr=Array.isArray(data);
+const entries=isArr?data.map((v,i)=>[i,v]):Object.entries(data);
+const node=document.createElement('div');
+node.className='tree-node';
+const toggle=document.createElement('span');
+toggle.className='tree-toggle';
+toggle.textContent='\u25BE';
+const keySpan=document.createElement('span');
+keySpan.className='tree-key';
+keySpan.textContent=key!=='root'?(isNaN(key)?'"'+key+'": ':key+': '):'';
+const bracket=document.createElement('span');
+bracket.className='tree-bracket';
+bracket.textContent=(isArr?'[':'{')+' '+entries.length+(isArr?' items':' keys');
+node.appendChild(toggle);
+node.appendChild(keySpan);
+node.appendChild(bracket);
+const children=document.createElement('div');
+children.className='tree-children';
+for(const [k,v] of entries){
+const childPath=path?(path+(isArr?'['+k+']':'.'+k)):(isArr?'['+k+']':k);
+children.appendChild(createTreeNode(v,String(k),childPath));
+}
+toggle.onclick=function(e){
+e.stopPropagation();
+if(children.classList.contains('tree-hidden')){
+children.classList.remove('tree-hidden');
+toggle.textContent='\u25BE';
+}else{
+children.classList.add('tree-hidden');
+toggle.textContent='\u25B8';
+}
+};
+wrap.appendChild(node);
+wrap.appendChild(children);
+}else{
+const node=document.createElement('div');
+node.className='tree-node';
+const keySpan=document.createElement('span');
+keySpan.className='tree-key';
+keySpan.textContent=isNaN(key)?'"'+key+'": ':key+': ';
+const valSpan=document.createElement('span');
+if(typeof data==='string'){valSpan.className='tree-str';valSpan.textContent='"'+data+'"'}
+else if(typeof data==='number'){valSpan.className='tree-num';valSpan.textContent=data}
+else if(typeof data==='boolean'){valSpan.className='tree-bool';valSpan.textContent=data}
+else{valSpan.className='tree-null';valSpan.textContent='null'}
+const sp=document.createElement('span');
+sp.className='tree-toggle';
+sp.textContent=' ';
+node.appendChild(sp);
+node.appendChild(keySpan);
+node.appendChild(valSpan);
+node.onclick=function(){
+const pd=document.getElementById('pathDisplay');
+pd.style.display='block';
+pd.textContent=path||key;
+pd.dataset.path=path||key;
+};
+wrap.appendChild(node);
+}
+return wrap;
+}
+
+function expandAll(){document.querySelectorAll('.tree-children').forEach(c=>{c.classList.remove('tree-hidden')});document.querySelectorAll('.tree-toggle').forEach(t=>{if(t.textContent==='\u25B8')t.textContent='\u25BE'})}
+function collapseAll(){document.querySelectorAll('.tree-children').forEach(c=>{c.classList.add('tree-hidden')});document.querySelectorAll('.tree-toggle').forEach(t=>{if(t.textContent==='\u25BE')t.textContent='\u25B8'})}
+function copyPath(){
+const pd=document.getElementById('pathDisplay');
+copyText(pd.dataset.path,'Path');
+}
+
+// ---- COMPARE ----
+function compareJSON(){
+const errEl=document.getElementById('diffError');
+const resEl=document.getElementById('diffResult');
+errEl.style.display='none';
+const aRaw=document.getElementById('diffA').value.trim();
+const bRaw=document.getElementById('diffB').value.trim();
+if(!aRaw||!bRaw){errEl.style.display='block';errEl.textContent='Please paste JSON in both fields.';return}
+const rA=tryParse(aRaw),rB=tryParse(bRaw);
+if(!rA.ok){errEl.style.display='block';errEl.textContent='JSON A error: '+rA.error;return}
+if(!rB.ok){errEl.style.display='block';errEl.textContent='JSON B error: '+rB.error;return}
+const diffs=deepDiff(rA.data,rB.data,'');
+if(!diffs.length){resEl.innerHTML='<div style="color:#39d353;padding:1rem">No differences found. JSON objects are identical.</div>';return}
+let html='<div style="padding:0.5rem 0;font-size:0.8rem;color:#8b949e;margin-bottom:0.5rem">'+diffs.length+' difference'+(diffs.length!==1?'s':'')+':</div>';
+for(const d of diffs){
+if(d.type==='added')html+='<div class="diff-add"><span class="diff-key">'+esc(d.path)+'</span>: <span style="color:#39d353">'+esc(JSON.stringify(d.val))+'</span> (added)</div>';
+else if(d.type==='removed')html+='<div class="diff-rem"><span class="diff-key">'+esc(d.path)+'</span>: <span style="color:#f85149">'+esc(JSON.stringify(d.val))+'</span> (removed)</div>';
+else html+='<div class="diff-rem"><span class="diff-key">'+esc(d.path)+'</span>: <span style="color:#f85149">'+esc(JSON.stringify(d.oldVal))+'</span> &rarr; <span style="color:#39d353">'+esc(JSON.stringify(d.newVal))+'</span></div>';
+}
+resEl.innerHTML=html;
+}
+
+function deepDiff(a,b,path){
+const diffs=[];
+if(a===b)return diffs;
+if(a===null||b===null||typeof a!==typeof b||typeof a!=='object'){
+diffs.push({type:'changed',path:path||'root',oldVal:a,newVal:b});
+return diffs;
+}
+if(Array.isArray(a)!==Array.isArray(b)){
+diffs.push({type:'changed',path:path||'root',oldVal:a,newVal:b});
+return diffs;
+}
+if(Array.isArray(a)){
+const maxLen=Math.max(a.length,b.length);
+for(let i=0;i<maxLen;i++){
+const p=path+'['+i+']';
+if(i>=a.length)diffs.push({type:'added',path:p,val:b[i]});
+else if(i>=b.length)diffs.push({type:'removed',path:p,val:a[i]});
+else diffs.push(...deepDiff(a[i],b[i],p));
+}
+}else{
+const allKeys=new Set([...Object.keys(a),...Object.keys(b)]);
+for(const k of allKeys){
+const p=path?path+'.'+k:k;
+if(!(k in a))diffs.push({type:'added',path:p,val:b[k]});
+else if(!(k in b))diffs.push({type:'removed',path:p,val:a[k]});
+else diffs.push(...deepDiff(a[k],b[k],p));
+}
+}
+return diffs;
+}
+
+// ---- TRANSFORM ----
+function flattenJSON(){
+if(!parsedJSON)return;
+const result={};
+function flat(obj,prefix){
+if(obj===null||typeof obj!=='object'){result[prefix]=obj;return}
+if(Array.isArray(obj)){for(let i=0;i<obj.length;i++)flat(obj[i],prefix+'['+i+']')}
+else{for(const k of Object.keys(obj))flat(obj[k],prefix?prefix+'.'+k:k)}
+}
+flat(parsedJSON,'');
+document.getElementById('transformOutput').textContent=JSON.stringify(result,null,2);
+}
+
+function removeNulls(){
+if(!parsedJSON)return;
+function clean(obj){
+if(obj===null)return undefined;
+if(typeof obj!=='object')return obj;
+if(Array.isArray(obj))return obj.map(clean).filter(v=>v!==undefined);
+const result={};
+for(const [k,v] of Object.entries(obj)){const c=clean(v);if(c!==undefined)result[k]=c}
+return result;
+}
+document.getElementById('transformOutput').textContent=JSON.stringify(clean(parsedJSON),null,2);
+}
+
+function sortKeys(){
+if(!parsedJSON)return;
+function sort(obj){
+if(obj===null||typeof obj!=='object')return obj;
+if(Array.isArray(obj))return obj.map(sort);
+const sorted={};
+Object.keys(obj).sort().forEach(k=>{sorted[k]=sort(obj[k])});
+return sorted;
+}
+document.getElementById('transformOutput').textContent=JSON.stringify(sort(parsedJSON),null,2);
+}
+
+function extractPaths(){
+if(!parsedJSON)return;
+const paths=[];
+function walk(obj,path){
+if(obj===null||typeof obj!=='object'){paths.push(path);return}
+if(Array.isArray(obj)){for(let i=0;i<obj.length;i++)walk(obj[i],path+'['+i+']')}
+else{for(const k of Object.keys(obj))walk(obj[k],path?path+'.'+k:k)}
+}
+walk(parsedJSON,'');
+document.getElementById('transformOutput').textContent=paths.join('\n');
+}
+
+function extractSpecific(){
+const path=document.getElementById('extractPath').value.trim();
+if(!parsedJSON||!path)return;
+try{
+let val=parsedJSON;
+const parts=path.replace(/\[(\d+)\]/g,'.$1').split('.');
+for(const p of parts){
+if(p==='')continue;
+val=val[isNaN(p)?p:parseInt(p)];
+if(val===undefined)break;
+}
+document.getElementById('transformOutput').textContent=typeof val==='object'?JSON.stringify(val,null,2):String(val);
+}catch(e){
+document.getElementById('transformOutput').textContent='Error: '+e.message;
+}
+}
+
+// ---- CONVERT ----
+function toCSV(){
+if(!parsedJSON)return;
+let data=parsedJSON;
+if(!Array.isArray(data)){
+if(typeof data==='object'&&data!==null)data=[data];
+else{document.getElementById('convertOutput').textContent='JSON must be an array or object for CSV conversion.';return}
+}
+if(!data.length){document.getElementById('convertOutput').textContent='Empty array.';return}
+// Collect all keys
+const allKeys=new Set();
+data.forEach(row=>{if(row&&typeof row==='object')Object.keys(row).forEach(k=>allKeys.add(k))});
+const keys=[...allKeys];
+const csvEsc=(v)=>{
+const s=v===null||v===undefined?'':typeof v==='object'?JSON.stringify(v):String(v);
+return s.includes(',')||s.includes('"')||s.includes('\n')?'"'+s.replace(/"/g,'""')+'"':s;
+};
+let csv=keys.map(csvEsc).join(',')+'\n';
+data.forEach(row=>{
+if(!row||typeof row!=='object')return;
+csv+=keys.map(k=>csvEsc(row[k])).join(',')+'\n';
+});
+document.getElementById('convertOutput').textContent=csv;
+}
+
+function toYAML(){
+if(!parsedJSON)return;
+function yamlify(obj,indent){
+indent=indent||0;
+const pad='  '.repeat(indent);
+if(obj===null)return 'null';
+if(typeof obj==='boolean')return obj?'true':'false';
+if(typeof obj==='number')return String(obj);
+if(typeof obj==='string'){
+if(obj.includes('\n')||obj.includes(':')||obj.includes('#')||obj.includes('"'))return "'"+obj.replace(/'/g,"''")+"'";
+return obj;
+}
+if(Array.isArray(obj)){
+if(!obj.length)return '[]';
+return '\n'+obj.map(v=>pad+'- '+yamlify(v,indent+1)).join('\n');
+}
+const keys=Object.keys(obj);
+if(!keys.length)return '{}';
+return '\n'+keys.map(k=>pad+k+': '+yamlify(obj[k],indent+1)).join('\n');
+}
+let result=yamlify(parsedJSON);
+if(result.startsWith('\n'))result=result.slice(1);
+document.getElementById('convertOutput').textContent=result;
+}
+
+function toQueryString(){
+if(!parsedJSON||typeof parsedJSON!=='object'||Array.isArray(parsedJSON)){
+document.getElementById('convertOutput').textContent='Input must be a flat JSON object for query string conversion.';return;
+}
+const params=new URLSearchParams();
+for(const [k,v] of Object.entries(parsedJSON)){
+if(v!==null&&typeof v!=='object')params.append(k,String(v));
+else if(v!==null)params.append(k,JSON.stringify(v));
+}
+document.getElementById('convertOutput').textContent=params.toString();
+}
+
+// ---- COPY / DOWNLOAD ----
+function copyText(text,label){
+navigator.clipboard.writeText(text).then(()=>{
+const el=document.createElement('div');
+el.className='copied';
+el.textContent=(label||'Text')+' copied!';
+document.body.appendChild(el);
+setTimeout(()=>el.remove(),1600);
+});
+}
+
+function copyFormatted(){
+const raw=getInput();
+if(!raw)return;
+const r=tryParse(raw);
+if(r.ok)copyText(JSON.stringify(r.data,null,2),'Formatted JSON');
+else copyText(raw,'JSON');
+}
+
+function downloadJSON(){
+const raw=getInput();
+if(!raw)return;
+const r=tryParse(raw);
+const content=r.ok?JSON.stringify(r.data,null,2):raw;
+const blob=new Blob([content],{type:'application/json'});
+const a=document.createElement('a');
+a.href=URL.createObjectURL(blob);
+a.download='data.json';
+a.click();
+URL.revokeObjectURL(a.href);
+}
+
+function copyTransform(){copyText(document.getElementById('transformOutput').textContent,'Transform result')}
+function copyConvert(){copyText(document.getElementById('convertOutput').textContent,'Converted output')}
+
+// Handle tab key in textarea for indentation
+document.getElementById('jsonInput').addEventListener('keydown',function(e){
+if(e.key==='Tab'){
+e.preventDefault();
+const s=this.selectionStart,end=this.selectionEnd;
+this.value=this.value.substring(0,s)+'  '+this.value.substring(end);
+this.selectionStart=this.selectionEnd=s+2;
+}
+});
+</script>
+
+<!-- Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<script src="https://spunk.codes/heartbeat.js" defer></script>
+<script src="/auto-monetize.js"></script>
+<!-- Share on X Button -->
+<div id="shareXBtn" style="position:fixed;left:20px;bottom:20px;z-index:9999;">
+  <a id="shareXLink" href="#" target="_blank" rel="noopener noreferrer" title="Share on X"
+     style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;
+     background:rgba(255,95,31,0.15);border:1px solid rgba(255,95,31,0.3);
+     backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:50%;
+     text-decoration:none;transition:all 0.3s ease;cursor:pointer;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+    </svg>
+  </a>
+</div>
+<style>
+  #shareXBtn a:hover {
+    background: rgba(255,95,31,0.35) !important;
+    border-color: rgba(255,95,31,0.6) !important;
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(255,95,31,0.3);
+  }
+</style>
+<script>
+(function(){
+  var page = "json-formatter";
+  var url = "https://spunk.codes/exclusive/" + page;
+  var text = "This JSON formatter is insanely good. Tree view, diff, conversions. Free tool @SpunkArt13";
+  var href = "https://x.com/intent/tweet?text=" + encodeURIComponent(text) + "&url=" + encodeURIComponent(url);
+  document.getElementById("shareXLink").href = href;
+})();
+</script>
+<script src="/usage-tracker.js"></script>
+</body>
+</html>
