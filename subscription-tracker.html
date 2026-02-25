@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Copyright 2026 spunk.codes. All rights reserved. Unauthorized reproduction prohibited. hello@spunk.codes -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Subscription Tracker — Find Hidden Costs, Cancel & Save Money</title>
+<meta name="description" content="Free subscription tracker. Add all your subscriptions, see total monthly/annual costs, get free alternatives, find what to cancel, and save hundreds per year. No signup required.">
+<meta property="og:title" content="Subscription Tracker & Canceler — Free Tool by SPUNK.CODES">
+<meta property="og:description" content="Track every subscription, see real monthly costs, find free alternatives, and save hundreds per year.">
+<meta property="og:url" content="https://spunk.codes/subscription-tracker.html">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Subscription Tracker — Free Tool">
+<meta name="twitter:description" content="See how much your subscriptions really cost. Find free alternatives and cancel to save. @SpunkArt13">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/subscription-tracker.html">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Subscription Tracker","description":"Track all subscriptions, see monthly/annual costs, get free alternatives, find savings opportunities.","url":"https://spunk.codes/subscription-tracker.html","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Organization","name":"SpunkArt","url":"https://spunk.codes"}}</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#0d1117;color:#e6edf3;min-height:100vh;display:flex;flex-direction:column;line-height:1.6}
+a{color:#58a6ff;text-decoration:none}a:hover{text-decoration:underline}
+nav{background:#161b22;border-bottom:1px solid #30363d;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+nav .logo{font-weight:800;font-size:1.1rem;color:#58a6ff;letter-spacing:1px}
+nav .links{display:flex;gap:20px;font-size:0.9rem}
+nav .links a{color:#8b949e}nav .links a:hover{color:#58a6ff}
+main{flex:1;display:flex;justify-content:center;padding:2rem 1rem}
+.container{max-width:750px;width:100%}
+h1{font-size:2rem;text-align:center;margin-bottom:0.3rem;background:linear-gradient(135deg,#58a6ff,#bc8cff);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.sub{text-align:center;color:#8b949e;margin-bottom:2rem;font-size:0.9rem}
+.card{background:#161b22;border:1px solid #30363d;border-radius:16px;padding:1.5rem;margin-bottom:1.5rem}
+.card h2{font-size:1.1rem;color:#58a6ff;margin-bottom:1rem}
+label{display:block;font-size:0.85rem;color:#8b949e;margin-bottom:6px}
+input,select{background:#0d1117;border:1px solid #30363d;color:#e6edf3;padding:10px 14px;border-radius:8px;font-size:0.95rem;width:100%;transition:border-color 0.2s}
+input:focus,select:focus{outline:none;border-color:#58a6ff}
+.btn{display:inline-block;padding:12px 28px;background:#58a6ff;color:#fff;border:none;border-radius:10px;font-size:1rem;font-weight:700;cursor:pointer;transition:all 0.2s}
+.btn:hover{background:#4a90e2;transform:scale(1.02)}
+.btn-green{background:#39d353}.btn-green:hover{background:#2ea043}
+.btn-red{background:#f85149;padding:6px 12px;font-size:0.8rem}.btn-red:hover{background:#da3633}
+.btn-sm{padding:8px 16px;font-size:0.85rem}
+.btn-purple{background:#bc8cff;color:#0d1117}.btn-purple:hover{background:#a371f7}
+.dashboard{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:1.5rem}
+.dash-stat{background:#0d1117;border:1px solid #30363d;border-radius:12px;padding:16px;text-align:center}
+.dash-stat .ds-val{font-size:1.5rem;font-weight:800;font-family:'Courier New',monospace}
+.dash-stat .ds-val.blue{color:#58a6ff}.dash-stat .ds-val.green{color:#39d353}.dash-stat .ds-val.red{color:#f85149}.dash-stat .ds-val.purple{color:#bc8cff}.dash-stat .ds-val.yellow{color:#d29922}
+.dash-stat .ds-lbl{font-size:0.7rem;color:#8b949e;text-transform:uppercase;letter-spacing:1px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:12px}
+.form-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.sub-list{max-height:500px;overflow-y:auto}
+.sub-item{background:#0d1117;border:1px solid #30363d;border-radius:10px;padding:14px;margin-bottom:8px;transition:border-color 0.2s}
+.sub-item:hover{border-color:#30363d}
+.sub-item.flagged{border-color:#d29922;border-width:2px}
+.sub-item .sub-header{display:flex;justify-content:space-between;align-items:center}
+.sub-item .sub-name{font-weight:700;font-size:1rem;color:#e6edf3}
+.sub-item .sub-cost{font-weight:800;font-family:'Courier New',monospace;font-size:1.1rem;color:#f85149}
+.sub-item .sub-meta{display:flex;gap:12px;font-size:0.8rem;color:#8b949e;margin-top:4px;flex-wrap:wrap}
+.sub-item .sub-tag{padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:600}
+.sub-item .sub-flag{color:#d29922;font-size:0.8rem;font-weight:600;margin-top:6px}
+.sub-item .sub-alt{color:#39d353;font-size:0.8rem;margin-top:4px;font-style:italic}
+.sub-item .sub-savings{color:#bc8cff;font-size:0.85rem;font-weight:600;margin-top:4px}
+.cat-chart{margin:1rem 0}
+.cat-row{display:flex;align-items:center;margin-bottom:8px}
+.cat-row .cat-name{width:120px;font-size:0.85rem;color:#8b949e}
+.cat-row .cat-bar-bg{flex:1;height:16px;background:#21262d;border-radius:8px;overflow:hidden;margin:0 10px}
+.cat-row .cat-bar-fill{height:100%;border-radius:8px;transition:width 0.4s}
+.cat-row .cat-amt{font-size:0.85rem;font-weight:600;font-family:'Courier New',monospace;color:#e6edf3;min-width:70px;text-align:right}
+.sort-bar{display:flex;gap:8px;margin-bottom:1rem;flex-wrap:wrap}
+.sort-btn{padding:6px 14px;background:#0d1117;border:1px solid #30363d;color:#8b949e;border-radius:6px;cursor:pointer;font-size:0.8rem;transition:all 0.2s}
+.sort-btn.active{background:#58a6ff;color:#fff;border-color:#58a6ff}
+.sort-btn:hover:not(.active){border-color:#58a6ff;color:#58a6ff}
+.alt-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:1rem 0}
+.alt-card{background:#0d1117;border:1px solid #30363d;border-radius:10px;padding:14px}
+.alt-card h4{color:#f85149;font-size:0.85rem;margin-bottom:2px}
+.alt-card .alt-free{color:#39d353;font-size:0.85rem;font-weight:600}
+.alt-card p{color:#8b949e;font-size:0.8rem;margin-top:2px}
+.cross-sell{background:linear-gradient(135deg,#161b22,#21262d);border:1px solid #30363d;border-radius:12px;padding:24px;text-align:center;margin-top:40px}
+.cross-sell h3{color:#58a6ff;margin-bottom:8px}.cross-sell p{color:#8b949e;margin-bottom:16px;font-size:0.95rem}
+.cross-sell a.cta{display:inline-block;background:#58a6ff;color:#fff;padding:12px 32px;border-radius:8px;font-weight:700;text-decoration:none}.cross-sell a.cta:hover{background:#4a90e2;text-decoration:none}
+.tool-links{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:16px}
+.tool-links a{padding:6px 14px;background:#0d1117;border:1px solid #30363d;border-radius:6px;font-size:0.8rem;color:#8b949e}.tool-links a:hover{border-color:#58a6ff;color:#58a6ff;text-decoration:none}
+.newsletter{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:24px;text-align:center;margin-top:24px}
+.newsletter h3{color:#58a6ff;margin-bottom:4px}.newsletter p{color:#8b949e;margin-bottom:12px;font-size:0.9rem}
+footer{background:#161b22;border-top:1px solid #30363d;padding:16px 24px;text-align:center;font-size:0.8rem;color:#484f58}
+@media(max-width:600px){
+  h1{font-size:1.5rem}
+  .dashboard{grid-template-columns:1fr 1fr}
+  .form-grid{grid-template-columns:1fr}
+  .alt-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="logo">SPUNK.CODES</a>
+  <div class="links">
+    <a href="/store">Store</a>
+    <a href="/store#free-tools">Free Tools</a>
+    <a href="/reseller" style="color:#39d353;font-weight:700">Resell $$</a>
+    <a href="/blog">Blog</a>
+  </div>
+</nav>
+<main>
+<div class="container">
+  <h1>Subscription Tracker</h1>
+  <div class="sub">See how much your subscriptions really cost — and what to cancel</div>
+
+  <!-- Dashboard -->
+  <div class="dashboard" id="dashboard">
+    <div class="dash-stat"><div class="ds-val red" id="monthlyTotal">$0</div><div class="ds-lbl">Monthly Cost</div></div>
+    <div class="dash-stat"><div class="ds-val purple" id="annualTotal">$0</div><div class="ds-lbl">Annual Cost</div></div>
+    <div class="dash-stat"><div class="ds-val yellow" id="dailyCost">$0</div><div class="ds-lbl">Per Day</div></div>
+    <div class="dash-stat"><div class="ds-val green" id="subCount">0</div><div class="ds-lbl">Active Subs</div></div>
+  </div>
+
+  <!-- Add Subscription -->
+  <div class="card">
+    <h2>Add Subscription</h2>
+    <div class="form-grid">
+      <div>
+        <label>Service Name</label>
+        <input type="text" id="subName" placeholder="Netflix">
+      </div>
+      <div>
+        <label>Cost ($)</label>
+        <input type="number" id="subCost" placeholder="15.99" min="0.01" step="0.01">
+      </div>
+      <div>
+        <label>Billing Cycle</label>
+        <select id="subCycle">
+          <option value="monthly">Monthly</option>
+          <option value="annual">Annual</option>
+          <option value="weekly">Weekly</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-grid-2">
+      <div>
+        <label>Category</label>
+        <select id="subCategory">
+          <option value="entertainment">Entertainment</option>
+          <option value="productivity">Productivity</option>
+          <option value="food">Food & Delivery</option>
+          <option value="fitness">Fitness & Health</option>
+          <option value="music">Music</option>
+          <option value="news">News & Media</option>
+          <option value="cloud">Cloud & Storage</option>
+          <option value="shopping">Shopping & Memberships</option>
+          <option value="education">Education</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <div>
+        <label>Next Renewal Date</label>
+        <input type="date" id="subRenewal">
+      </div>
+    </div>
+    <button class="btn" onclick="addSubscription()">Add Subscription</button>
+  </div>
+
+  <!-- Subscription List -->
+  <div class="card" id="subListCard" style="display:none">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;flex-wrap:wrap;gap:8px">
+      <h2 style="margin-bottom:0">Your Subscriptions</h2>
+      <div style="display:flex;gap:6px">
+        <button class="btn btn-sm btn-green" onclick="exportSubs()">Export</button>
+      </div>
+    </div>
+    <div class="sort-bar">
+      <span style="color:#8b949e;font-size:0.8rem;line-height:2">Sort:</span>
+      <button class="sort-btn active" onclick="sortSubs('cost')">Most Expensive</button>
+      <button class="sort-btn" onclick="sortSubs('renewal')">Upcoming Renewal</button>
+      <button class="sort-btn" onclick="sortSubs('name')">Name A-Z</button>
+      <button class="sort-btn" onclick="sortSubs('category')">Category</button>
+    </div>
+    <div class="sub-list" id="subList"></div>
+  </div>
+
+  <!-- Category Breakdown -->
+  <div class="card" id="catCard" style="display:none">
+    <h2>Spending by Category</h2>
+    <div class="cat-chart" id="catChart"></div>
+  </div>
+
+  <!-- Free Alternatives -->
+  <div class="card">
+    <h2>Free Alternatives for Popular Services</h2>
+    <div class="alt-grid">
+      <div class="alt-card">
+        <h4>Netflix / Hulu / Disney+</h4>
+        <div class="alt-free">Free: Tubi, Pluto TV, Kanopy (library card)</div>
+        <p>Save $10-$23/month. Tubi has 50,000+ titles with ads.</p>
+      </div>
+      <div class="alt-card">
+        <h4>Spotify / Apple Music</h4>
+        <div class="alt-free">Free: Spotify Free, YouTube Music Free</div>
+        <p>Save $11-$17/month. Ads-supported but full catalogs.</p>
+      </div>
+      <div class="alt-card">
+        <h4>Microsoft 365</h4>
+        <div class="alt-free">Free: Google Docs, LibreOffice</div>
+        <p>Save $7-$10/month. Google Docs works for 95% of people.</p>
+      </div>
+      <div class="alt-card">
+        <h4>Adobe Creative Suite</h4>
+        <div class="alt-free">Free: GIMP, Canva, DaVinci Resolve</div>
+        <p>Save $55/month. Canva covers most design needs.</p>
+      </div>
+      <div class="alt-card">
+        <h4>Dropbox / iCloud+</h4>
+        <div class="alt-free">Free: Google Drive (15GB), MEGA (20GB)</div>
+        <p>Save $3-$12/month. 15GB free is enough for most people.</p>
+      </div>
+      <div class="alt-card">
+        <h4>Gym Membership</h4>
+        <div class="alt-free">Free: YouTube workouts, outdoor running</div>
+        <p>Save $30-$60/month. Thousands of free workout videos online.</p>
+      </div>
+      <div class="alt-card">
+        <h4>LastPass / 1Password</h4>
+        <div class="alt-free">Free: Bitwarden (free tier is excellent)</div>
+        <p>Save $3-$5/month. Bitwarden is open-source and trusted.</p>
+      </div>
+      <div class="alt-card">
+        <h4>Headspace / Calm</h4>
+        <div class="alt-free">Free: Insight Timer, YouTube meditations</div>
+        <p>Save $13-$15/month. Insight Timer has 150K+ free sessions.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cross-sell -->
+  <div class="cross-sell">
+    <h3>More Free Money-Saving Tools</h3>
+    <div class="tool-links">
+      <a href="/grocery-budget-planner.html">Grocery Planner</a>
+      <a href="/bill-splitter.html">Bill Splitter</a>
+      <a href="/debt-payoff-calculator.html">Debt Payoff</a>
+      <a href="/coupon-code-finder.html">Coupon Finder</a>
+      <a href="/budget-tracker.html">Budget Tracker</a>
+    </div>
+    <p>All tools are 100% free. No signup required.</p>
+    <a href="/store" class="cta">See All Tools</a>
+  </div>
+
+  <div class="newsletter">
+    <h3>Stay in the Loop</h3>
+    <p>New tools, updates, and resources. No spam.</p>
+    <iframe src="https://subscribe-forms.beehiiv.com/6831d05b-f121-4e0d-951b-16f88ddd9ec3" data-test-id="beehiiv-embed" frameborder="0" scrolling="no" style="width:100%;max-width:400px;height:375px;margin:0 auto;border-radius:12px;background:transparent;box-shadow:none;display:block;"></iframe>
+  </div>
+</div>
+</main>
+<footer>&copy; 2026 SPUNK.CODES &mdash; <a href="/store" style="color:#58a6ff">Store</a> &middot; <a href="/reseller" style="color:#39d353">Reseller</a> &middot; <a href="/blog" style="color:#8b949e">Blog</a> &middot; <a href="https://twitter.com/SpunkArt13" style="color:#8b949e">@SpunkArt13</a></footer>
+
+<script>
+/* ========== Subscription Tracker Logic ========== */
+const SUBS_KEY = 'spunk_subscriptions';
+let subs = JSON.parse(localStorage.getItem(SUBS_KEY) || '[]');
+let currentSort = 'cost';
+
+const categoryColors = {
+  entertainment:'#f85149',productivity:'#58a6ff',food:'#d29922',fitness:'#39d353',
+  music:'#bc8cff',news:'#79c0ff',cloud:'#8b949e',shopping:'#f0883e',education:'#a5d6ff',other:'#484f58'
+};
+const categoryLabels = {
+  entertainment:'Entertainment',productivity:'Productivity',food:'Food & Delivery',fitness:'Fitness & Health',
+  music:'Music',news:'News & Media',cloud:'Cloud & Storage',shopping:'Shopping',education:'Education',other:'Other'
+};
+
+const freeAlternatives = {
+  'netflix':{alt:'Tubi, Pluto TV, Kanopy',save:'$15.49-$22.99/mo'},
+  'hulu':{alt:'Tubi, Pluto TV, Peacock Free',save:'$7.99-$17.99/mo'},
+  'disney+':{alt:'Tubi, YouTube (free movies)',save:'$7.99-$13.99/mo'},
+  'disney plus':{alt:'Tubi, YouTube (free movies)',save:'$7.99-$13.99/mo'},
+  'spotify':{alt:'Spotify Free, YouTube Music Free',save:'$10.99-$16.99/mo'},
+  'apple music':{alt:'Spotify Free, YouTube Music Free',save:'$10.99/mo'},
+  'youtube premium':{alt:'uBlock Origin (browser), NewPipe (Android)',save:'$13.99/mo'},
+  'hbo':{alt:'Tubi, Pluto TV',save:'$9.99-$15.99/mo'},
+  'max':{alt:'Tubi, Pluto TV',save:'$9.99-$15.99/mo'},
+  'paramount':{alt:'Pluto TV (same company, free)',save:'$5.99-$11.99/mo'},
+  'peacock':{alt:'Tubi, Pluto TV',save:'$5.99-$11.99/mo'},
+  'microsoft 365':{alt:'Google Docs/Sheets (free)',save:'$6.99-$9.99/mo'},
+  'office 365':{alt:'Google Docs, LibreOffice',save:'$6.99-$9.99/mo'},
+  'adobe':{alt:'Canva, GIMP, DaVinci Resolve',save:'$22.99-$59.99/mo'},
+  'photoshop':{alt:'GIMP, Photopea (free online)',save:'$22.99/mo'},
+  'dropbox':{alt:'Google Drive 15GB free',save:'$11.99/mo'},
+  'icloud':{alt:'Google Drive 15GB, MEGA 20GB',save:'$0.99-$9.99/mo'},
+  'lastpass':{alt:'Bitwarden (free, open-source)',save:'$3-$4/mo'},
+  '1password':{alt:'Bitwarden (free)',save:'$2.99/mo'},
+  'headspace':{alt:'Insight Timer, YouTube meditations',save:'$12.99/mo'},
+  'calm':{alt:'Insight Timer (free)',save:'$14.99/mo'},
+  'doordash':{alt:'Pick up food yourself',save:'$9.99/mo + fees'},
+  'dashpass':{alt:'Pick up food yourself',save:'$9.99/mo + fees'},
+  'uber eats':{alt:'Pick up or cook at home',save:'$9.99/mo + fees'},
+  'grubhub':{alt:'Pick up or cook at home',save:'$9.99/mo'},
+  'amazon prime':{alt:'Free shipping on $35+ orders',save:'$14.99/mo'},
+  'gym':{alt:'YouTube workouts, outdoor exercise',save:'$30-$60/mo'},
+  'planet fitness':{alt:'Home bodyweight workouts',save:'$10-$25/mo'},
+  'peloton':{alt:'YouTube cycling workouts + any bike',save:'$12.99-$44/mo'},
+};
+
+function findFreeAlt(name) {
+  const lower = name.toLowerCase();
+  for (const [key, val] of Object.entries(freeAlternatives)) {
+    if (lower.includes(key)) return val;
+  }
+  return null;
+}
+
+function toMonthly(cost, cycle) {
+  if (cycle === 'monthly') return cost;
+  if (cycle === 'annual') return cost / 12;
+  if (cycle === 'weekly') return cost * (52 / 12);
+  return cost;
+}
+
+function toAnnual(cost, cycle) {
+  if (cycle === 'annual') return cost;
+  if (cycle === 'monthly') return cost * 12;
+  if (cycle === 'weekly') return cost * 52;
+  return cost;
+}
+
+function addSubscription() {
+  const name = document.getElementById('subName').value.trim();
+  const cost = parseFloat(document.getElementById('subCost').value);
+  const cycle = document.getElementById('subCycle').value;
+  const category = document.getElementById('subCategory').value;
+  const renewal = document.getElementById('subRenewal').value;
+
+  if (!name) { alert('Please enter a service name.'); return; }
+  if (!cost || cost <= 0) { alert('Please enter a valid cost.'); return; }
+
+  const alt = findFreeAlt(name);
+  subs.push({
+    id: Date.now() + Math.random(),
+    name, cost, cycle, category, renewal,
+    alt, addedDate: new Date().toISOString()
+  });
+
+  document.getElementById('subName').value = '';
+  document.getElementById('subCost').value = '';
+  document.getElementById('subRenewal').value = '';
+  saveSubs();
+  renderAll();
+}
+
+function removeSub(id) {
+  subs = subs.filter(s => s.id !== id);
+  saveSubs();
+  renderAll();
+}
+
+function saveSubs() {
+  localStorage.setItem(SUBS_KEY, JSON.stringify(subs));
+}
+
+function sortSubs(by) {
+  currentSort = by;
+  document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector(`.sort-btn[onclick="sortSubs('${by}')"]`).classList.add('active');
+  renderAll();
+}
+
+function getSorted() {
+  const sorted = [...subs];
+  switch (currentSort) {
+    case 'cost': sorted.sort((a, b) => toMonthly(b.cost, b.cycle) - toMonthly(a.cost, a.cycle)); break;
+    case 'renewal': sorted.sort((a, b) => {
+      if (!a.renewal) return 1; if (!b.renewal) return -1;
+      return new Date(a.renewal) - new Date(b.renewal);
+    }); break;
+    case 'name': sorted.sort((a, b) => a.name.localeCompare(b.name)); break;
+    case 'category': sorted.sort((a, b) => a.category.localeCompare(b.category)); break;
+  }
+  return sorted;
+}
+
+function renderAll() {
+  // Dashboard
+  let totalMonthly = 0;
+  for (const s of subs) totalMonthly += toMonthly(s.cost, s.cycle);
+  const totalAnnual = totalMonthly * 12;
+  const dailyCost = totalMonthly / 30.44;
+
+  document.getElementById('monthlyTotal').textContent = '$' + totalMonthly.toFixed(2);
+  document.getElementById('annualTotal').textContent = '$' + totalAnnual.toFixed(0);
+  document.getElementById('dailyCost').textContent = '$' + dailyCost.toFixed(2);
+  document.getElementById('subCount').textContent = subs.length;
+
+  // Subscription list
+  const listCard = document.getElementById('subListCard');
+  const catCard = document.getElementById('catCard');
+
+  if (subs.length === 0) {
+    listCard.style.display = 'none';
+    catCard.style.display = 'none';
+    return;
+  }
+
+  listCard.style.display = 'block';
+  catCard.style.display = 'block';
+
+  const sorted = getSorted();
+  const listEl = document.getElementById('subList');
+  const today = new Date();
+
+  listEl.innerHTML = sorted.map(s => {
+    const monthly = toMonthly(s.cost, s.cycle);
+    const annual = toAnnual(s.cost, s.cycle);
+    const isFlagged = monthly > 10;
+    const renewalDate = s.renewal ? new Date(s.renewal + 'T00:00:00') : null;
+    const daysUntilRenewal = renewalDate ? Math.ceil((renewalDate - today) / (1000 * 60 * 60 * 24)) : null;
+
+    return `
+      <div class="sub-item${isFlagged ? ' flagged' : ''}">
+        <div class="sub-header">
+          <div>
+            <span class="sub-name">${escapeHtml(s.name)}</span>
+            <span class="sub-tag" style="background:${categoryColors[s.category]}22;color:${categoryColors[s.category]};margin-left:8px">${categoryLabels[s.category]}</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px">
+            <span class="sub-cost">$${s.cost.toFixed(2)}/${s.cycle === 'monthly' ? 'mo' : s.cycle === 'annual' ? 'yr' : 'wk'}</span>
+            <button class="btn-red" onclick="removeSub(${s.id})">Cancel</button>
+          </div>
+        </div>
+        <div class="sub-meta">
+          <span>$${monthly.toFixed(2)}/mo</span>
+          <span>$${annual.toFixed(0)}/yr</span>
+          ${daysUntilRenewal !== null ? `<span style="color:${daysUntilRenewal <= 7 ? '#f85149' : '#8b949e'}">Renews in ${daysUntilRenewal} days</span>` : ''}
+        </div>
+        ${isFlagged ? '<div class="sub-flag">Are you actively using this? Over $10/mo subscription.</div>' : ''}
+        ${s.alt ? `<div class="sub-alt">Free alternative: ${escapeHtml(s.alt.alt)}</div>` : ''}
+        <div class="sub-savings">If you cancel: save $${annual.toFixed(0)} per year ($${monthly.toFixed(2)}/mo)</div>
+      </div>
+    `;
+  }).join('');
+
+  // Category chart
+  const catTotals = {};
+  for (const s of subs) {
+    const monthly = toMonthly(s.cost, s.cycle);
+    catTotals[s.category] = (catTotals[s.category] || 0) + monthly;
+  }
+  const maxCat = Math.max(...Object.values(catTotals), 1);
+  document.getElementById('catChart').innerHTML = Object.entries(catTotals)
+    .sort((a, b) => b[1] - a[1])
+    .map(([cat, amt]) => `
+      <div class="cat-row">
+        <span class="cat-name">${categoryLabels[cat]}</span>
+        <div class="cat-bar-bg">
+          <div class="cat-bar-fill" style="width:${(amt/maxCat)*100}%;background:${categoryColors[cat]}"></div>
+        </div>
+        <span class="cat-amt">$${amt.toFixed(2)}/mo</span>
+      </div>
+    `).join('');
+}
+
+function exportSubs() {
+  if (subs.length === 0) { alert('No subscriptions to export.'); return; }
+  let totalMonthly = 0;
+  let text = 'SUBSCRIPTION TRACKER\n';
+  text += 'Date: ' + new Date().toLocaleDateString() + '\n';
+  text += '═══════════════════════════════════\n\n';
+  for (const s of subs) {
+    const monthly = toMonthly(s.cost, s.cycle);
+    totalMonthly += monthly;
+    text += s.name + ' — $' + s.cost.toFixed(2) + '/' + s.cycle + ' ($' + monthly.toFixed(2) + '/mo)\n';
+    text += '  Category: ' + categoryLabels[s.category] + '\n';
+    if (s.renewal) text += '  Renewal: ' + s.renewal + '\n';
+    if (s.alt) text += '  Free alt: ' + s.alt.alt + '\n';
+    text += '\n';
+  }
+  text += '═══════════════════════════════════\n';
+  text += 'TOTAL: $' + totalMonthly.toFixed(2) + '/month ($' + (totalMonthly * 12).toFixed(0) + '/year)\n';
+  text += '\nTracked with spunk.codes/subscription-tracker.html';
+
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(() => alert('Copied to clipboard!'));
+  } else {
+    const blob = new Blob([text], {type:'text/plain'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a'); a.href = url; a.download = 'subscriptions.txt'; a.click();
+    URL.revokeObjectURL(url);
+  }
+}
+
+function escapeHtml(str) {
+  const div = document.createElement('div'); div.textContent = str; return div.innerHTML;
+}
+
+// Init
+renderAll();
+</script>
+
+<script>
+(function(){
+  document.addEventListener('contextmenu',function(e){e.preventDefault();});
+  document.addEventListener('keydown',function(e){
+    if(e.key==='F12')e.preventDefault();
+    if(e.ctrlKey&&e.key==='u')e.preventDefault();
+    if(e.ctrlKey&&e.key==='s')e.preventDefault();
+    if(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='i'||e.key==='J'||e.key==='j'||e.key==='C'||e.key==='c'))e.preventDefault();
+  });
+  console.log('%c⚠ SPUNK.CODES — All rights reserved.','color:#58a6ff;font-size:16px;font-weight:bold;');
+  if(!document.querySelector('.watermark')){var w=document.createElement('div');w.style.cssText='position:fixed;bottom:10px;right:15px;font-size:0.7rem;color:rgba(88,166,255,0.15);font-weight:700;letter-spacing:2px;pointer-events:none;z-index:9999;';w.textContent='SPUNK.CODES';document.body.appendChild(w);}
+})();
+</script>
+<script src="/share-widget.js"></script>
+<script src="/email-capture.js"></script>
+<script src="/heartbeat.js"></script>
+<script src="/universal-referral.js"></script>
+<script src="/cross-promo.js"></script>
+<script src="/auto-monetize.js"></script>
+<script src="/usage-tracker.js"></script>
+
+<div id="shareXBtn" style="position:fixed;left:20px;bottom:20px;z-index:9999;">
+  <a id="shareXLink" href="#" target="_blank" rel="noopener noreferrer" title="Share on X"
+     style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;
+     background:rgba(88,166,255,0.15);border:1px solid rgba(88,166,255,0.3);
+     backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:50%;
+     text-decoration:none;transition:all 0.3s ease;cursor:pointer;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+    </svg>
+  </a>
+</div>
+<style>#shareXBtn a:hover{background:rgba(88,166,255,0.35)!important;border-color:rgba(88,166,255,0.6)!important;transform:scale(1.1);box-shadow:0 0 15px rgba(88,166,255,0.3);}</style>
+<script>
+(function(){
+  var url="https://spunk.codes/subscription-tracker.html";
+  var text="I just tracked all my subscriptions and found out I spend $__ per month! Free subscription tracker with cancel recommendations. @SpunkArt13";
+  document.getElementById("shareXLink").href="https://x.com/intent/tweet?text="+encodeURIComponent(text)+"&url="+encodeURIComponent(url);
+})();
+</script>
+</body>
+</html>

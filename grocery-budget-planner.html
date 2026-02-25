@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Copyright 2026 spunk.codes. All rights reserved. Unauthorized reproduction prohibited. hello@spunk.codes -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Grocery Budget Planner — Track Spending, Save Money on Groceries</title>
+<meta name="description" content="Free grocery budget planner. Set your weekly budget, add items by category, track spending with a live budget meter, get cheaper alternatives, and export your list. Save money every trip.">
+<meta property="og:title" content="Grocery Budget Planner — Free Tool by SPUNK.CODES">
+<meta property="og:description" content="Plan your grocery trips, track spending by category, stay under budget, and find cheaper alternatives. 100% free.">
+<meta property="og:url" content="https://spunk.codes/grocery-budget-planner.html">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Grocery Budget Planner — Free Tool">
+<meta name="twitter:description" content="Track grocery spending, stay under budget, get cheaper alternatives. Free tool by SPUNK.CODES">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/grocery-budget-planner.html">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Grocery Budget Planner","description":"Free grocery budget planner. Set your weekly budget, add items by category, track spending with a live meter, get cheaper alternatives, and export your list.","url":"https://spunk.codes/grocery-budget-planner.html","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Organization","name":"SpunkArt","url":"https://spunk.codes"}}</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#0d1117;color:#e6edf3;min-height:100vh;display:flex;flex-direction:column;line-height:1.6}
+a{color:#58a6ff;text-decoration:none}a:hover{text-decoration:underline}
+nav{background:#161b22;border-bottom:1px solid #30363d;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+nav .logo{font-weight:800;font-size:1.1rem;color:#58a6ff;letter-spacing:1px}
+nav .links{display:flex;gap:20px;font-size:0.9rem}
+nav .links a{color:#8b949e}nav .links a:hover{color:#58a6ff}
+main{flex:1;display:flex;justify-content:center;padding:2rem 1rem}
+.container{max-width:700px;width:100%}
+h1{font-size:2rem;text-align:center;margin-bottom:0.3rem;background:linear-gradient(135deg,#58a6ff,#39d353);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.sub{text-align:center;color:#8b949e;margin-bottom:2rem;font-size:0.9rem}
+.card{background:#161b22;border:1px solid #30363d;border-radius:16px;padding:1.5rem;margin-bottom:1.5rem}
+.card h2{font-size:1.1rem;color:#58a6ff;margin-bottom:1rem}
+label{display:block;font-size:0.85rem;color:#8b949e;margin-bottom:6px}
+input,select{background:#0d1117;border:1px solid #30363d;color:#e6edf3;padding:10px 14px;border-radius:8px;font-size:0.95rem;width:100%;transition:border-color 0.2s}
+input:focus,select:focus{outline:none;border-color:#58a6ff}
+.btn{display:inline-block;padding:12px 28px;background:#58a6ff;color:#fff;border:none;border-radius:10px;font-size:1rem;font-weight:700;cursor:pointer;transition:all 0.2s}
+.btn:hover{background:#4a90e2;transform:scale(1.02)}
+.btn-green{background:#39d353}.btn-green:hover{background:#2ea043}
+.btn-red{background:#f85149;padding:6px 12px;font-size:0.8rem}.btn-red:hover{background:#da3633}
+.btn-sm{padding:8px 16px;font-size:0.85rem}
+.budget-meter{margin:1rem 0}
+.meter-bar{height:24px;background:#21262d;border-radius:12px;overflow:hidden;position:relative}
+.meter-fill{height:100%;border-radius:12px;transition:width 0.4s,background 0.4s}
+.meter-fill.green{background:linear-gradient(90deg,#39d353,#2ea043)}
+.meter-fill.yellow{background:linear-gradient(90deg,#d29922,#e3b341)}
+.meter-fill.red{background:linear-gradient(90deg,#f85149,#da3633)}
+.meter-labels{display:flex;justify-content:space-between;font-size:0.8rem;color:#8b949e;margin-top:4px}
+.budget-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:1rem 0}
+.budget-stat{background:#0d1117;border:1px solid #30363d;border-radius:10px;padding:12px;text-align:center}
+.budget-stat .val{font-size:1.4rem;font-weight:800;font-family:'Courier New',monospace}
+.budget-stat .val.blue{color:#58a6ff}.budget-stat .val.green{color:#39d353}.budget-stat .val.red{color:#f85149}.budget-stat .val.purple{color:#bc8cff}
+.budget-stat .lbl{font-size:0.7rem;color:#8b949e;text-transform:uppercase;letter-spacing:1px}
+.form-row{display:grid;grid-template-columns:1fr 100px 1fr;gap:10px;margin-bottom:12px;align-items:end}
+.form-row-full{margin-bottom:12px}
+.item-list{max-height:400px;overflow-y:auto;margin:1rem 0}
+.item-row{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:#0d1117;border:1px solid #30363d;border-radius:8px;margin-bottom:6px;font-size:0.9rem}
+.item-row .item-info{flex:1}
+.item-row .item-name{color:#e6edf3;font-weight:600}
+.item-row .item-cat{color:#8b949e;font-size:0.75rem}
+.item-row .item-price{color:#39d353;font-weight:700;font-family:'Courier New',monospace;margin:0 12px}
+.item-row .item-alt{color:#d29922;font-size:0.75rem;font-style:italic;display:block;margin-top:2px}
+.category-breakdown{margin:1rem 0}
+.cat-row{display:flex;align-items:center;margin-bottom:8px}
+.cat-row .cat-name{width:100px;font-size:0.85rem;color:#8b949e}
+.cat-row .cat-bar-bg{flex:1;height:14px;background:#21262d;border-radius:7px;overflow:hidden;margin:0 10px}
+.cat-row .cat-bar-fill{height:100%;border-radius:7px;transition:width 0.4s}
+.cat-row .cat-amt{font-size:0.85rem;font-weight:600;font-family:'Courier New',monospace;color:#e6edf3;min-width:60px;text-align:right}
+.saved-lists{margin:1rem 0}
+.saved-list-item{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;background:#0d1117;border:1px solid #30363d;border-radius:8px;margin-bottom:6px;cursor:pointer;transition:border-color 0.2s}
+.saved-list-item:hover{border-color:#58a6ff}
+.saved-list-item .sl-name{font-weight:600;color:#e6edf3}
+.saved-list-item .sl-meta{font-size:0.8rem;color:#8b949e}
+.tips-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tip-card{background:#0d1117;border:1px solid #30363d;border-radius:10px;padding:14px}
+.tip-card h4{color:#39d353;font-size:0.85rem;margin-bottom:4px}
+.tip-card p{color:#8b949e;font-size:0.8rem}
+.weekly-monthly{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:1rem 0}
+.wm-card{background:#0d1117;border:1px solid #30363d;border-radius:10px;padding:16px;text-align:center}
+.wm-card .wm-val{font-size:1.6rem;font-weight:800;font-family:'Courier New',monospace;color:#58a6ff}
+.wm-card .wm-lbl{font-size:0.75rem;color:#8b949e;text-transform:uppercase}
+.cross-sell{background:linear-gradient(135deg,#161b22,#21262d);border:1px solid #30363d;border-radius:12px;padding:24px;text-align:center;margin-top:40px}
+.cross-sell h3{color:#58a6ff;margin-bottom:8px}.cross-sell p{color:#8b949e;margin-bottom:16px;font-size:0.95rem}
+.cross-sell a.cta{display:inline-block;background:#58a6ff;color:#fff;padding:12px 32px;border-radius:8px;font-weight:700;text-decoration:none}.cross-sell a.cta:hover{background:#4a90e2;text-decoration:none}
+.tool-links{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:16px}
+.tool-links a{padding:6px 14px;background:#0d1117;border:1px solid #30363d;border-radius:6px;font-size:0.8rem;color:#8b949e}.tool-links a:hover{border-color:#58a6ff;color:#58a6ff;text-decoration:none}
+.newsletter{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:24px;text-align:center;margin-top:24px}
+.newsletter h3{color:#58a6ff;margin-bottom:4px}.newsletter p{color:#8b949e;margin-bottom:12px;font-size:0.9rem}
+footer{background:#161b22;border-top:1px solid #30363d;padding:16px 24px;text-align:center;font-size:0.8rem;color:#484f58}
+.hidden{display:none}
+@media(max-width:600px){
+  h1{font-size:1.5rem}
+  .form-row{grid-template-columns:1fr}
+  .budget-summary{grid-template-columns:1fr}
+  .tips-grid{grid-template-columns:1fr}
+  .weekly-monthly{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="logo">SPUNK.CODES</a>
+  <div class="links">
+    <a href="/store">Store</a>
+    <a href="/store#free-tools">Free Tools</a>
+    <a href="/reseller" style="color:#39d353;font-weight:700">Resell $$</a>
+    <a href="/blog">Blog</a>
+  </div>
+</nav>
+<main>
+<div class="container">
+  <h1>Grocery Budget Planner</h1>
+  <div class="sub">Track every dollar, stay under budget, save money every grocery trip</div>
+
+  <!-- Budget Setup -->
+  <div class="card">
+    <h2>Set Your Weekly Budget</h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:end">
+      <div>
+        <label>Weekly Grocery Budget ($)</label>
+        <input type="number" id="weeklyBudget" placeholder="150" min="1" step="0.01" value="">
+      </div>
+      <div>
+        <button class="btn btn-green" onclick="setBudget()" style="width:100%">Set Budget</button>
+      </div>
+    </div>
+    <div class="budget-meter" id="budgetMeterWrap" style="display:none">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px">
+        <span style="font-size:0.85rem;color:#8b949e">Budget Used</span>
+        <span id="budgetPctLabel" style="font-size:0.85rem;font-weight:700">0%</span>
+      </div>
+      <div class="meter-bar">
+        <div class="meter-fill green" id="budgetMeterFill" style="width:0%"></div>
+      </div>
+      <div class="meter-labels">
+        <span>$0</span>
+        <span id="budgetMaxLabel">$150</span>
+      </div>
+    </div>
+    <div class="budget-summary" id="budgetSummary" style="display:none">
+      <div class="budget-stat"><div class="val blue" id="totalSpent">$0.00</div><div class="lbl">Total Spent</div></div>
+      <div class="budget-stat"><div class="val green" id="budgetRemaining">$0.00</div><div class="lbl">Remaining</div></div>
+      <div class="budget-stat"><div class="val purple" id="itemCount">0</div><div class="lbl">Items</div></div>
+    </div>
+  </div>
+
+  <!-- Add Item -->
+  <div class="card" id="addItemCard" style="display:none">
+    <h2>Add Grocery Item</h2>
+    <div class="form-row">
+      <div>
+        <label>Item Name</label>
+        <input type="text" id="itemName" placeholder="Organic Milk">
+      </div>
+      <div>
+        <label>Price ($)</label>
+        <input type="number" id="itemPrice" placeholder="4.99" min="0.01" step="0.01">
+      </div>
+      <div>
+        <label>Category</label>
+        <select id="itemCategory">
+          <option value="produce">Produce</option>
+          <option value="dairy">Dairy</option>
+          <option value="meat">Meat & Seafood</option>
+          <option value="pantry">Pantry</option>
+          <option value="frozen">Frozen</option>
+          <option value="snacks">Snacks & Drinks</option>
+          <option value="household">Household</option>
+        </select>
+      </div>
+    </div>
+    <div style="display:flex;gap:10px">
+      <button class="btn" onclick="addItem()">Add Item</button>
+      <button class="btn btn-green btn-sm" onclick="addItem(true)">Add & Continue</button>
+    </div>
+  </div>
+
+  <!-- Item List -->
+  <div class="card" id="itemListCard" style="display:none">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem">
+      <h2 style="margin-bottom:0">Your Grocery List</h2>
+      <div style="display:flex;gap:6px">
+        <button class="btn btn-sm" onclick="exportList()">Export</button>
+        <button class="btn btn-sm btn-green" onclick="saveList()">Save List</button>
+        <button class="btn btn-sm btn-red" onclick="clearList()">Clear All</button>
+      </div>
+    </div>
+    <div class="item-list" id="itemList"></div>
+  </div>
+
+  <!-- Category Breakdown -->
+  <div class="card" id="categoryCard" style="display:none">
+    <h2>Spending by Category</h2>
+    <div class="category-breakdown" id="categoryBreakdown"></div>
+  </div>
+
+  <!-- Weekly/Monthly Summary -->
+  <div class="card" id="summaryCard" style="display:none">
+    <h2>Spending Projection</h2>
+    <div class="weekly-monthly">
+      <div class="wm-card">
+        <div class="wm-val" id="weeklyTotal">$0.00</div>
+        <div class="wm-lbl">This Week</div>
+      </div>
+      <div class="wm-card">
+        <div class="wm-val" id="monthlyProjection">$0.00</div>
+        <div class="wm-lbl">Monthly (4.33 weeks)</div>
+      </div>
+    </div>
+    <div class="weekly-monthly">
+      <div class="wm-card">
+        <div class="wm-val" id="yearlyProjection" style="color:#bc8cff">$0.00</div>
+        <div class="wm-lbl">Yearly Projection</div>
+      </div>
+      <div class="wm-card">
+        <div class="wm-val" id="avgPerItem" style="color:#39d353">$0.00</div>
+        <div class="wm-lbl">Avg Per Item</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Saved Lists -->
+  <div class="card" id="savedListsCard" style="display:none">
+    <h2>Saved Lists</h2>
+    <div class="saved-lists" id="savedLists"></div>
+  </div>
+
+  <!-- Tips -->
+  <div class="card">
+    <h2>Money-Saving Grocery Tips</h2>
+    <div class="tips-grid">
+      <div class="tip-card">
+        <h4>Buy Store Brand</h4>
+        <p>Store brands are 20-30% cheaper than name brands and often made in the same factory.</p>
+      </div>
+      <div class="tip-card">
+        <h4>Shop Seasonal Produce</h4>
+        <p>In-season fruits and veggies cost 50% less. Check what's in season this month.</p>
+      </div>
+      <div class="tip-card">
+        <h4>Buy in Bulk (Wisely)</h4>
+        <p>Rice, beans, oats, and pasta store well. Only buy perishables in bulk if you'll use them.</p>
+      </div>
+      <div class="tip-card">
+        <h4>Never Shop Hungry</h4>
+        <p>Studies show hungry shoppers spend 64% more on average. Eat before you go.</p>
+      </div>
+      <div class="tip-card">
+        <h4>Use a List (This One!)</h4>
+        <p>Shoppers with lists spend 23% less. Stick to it and avoid impulse buys.</p>
+      </div>
+      <div class="tip-card">
+        <h4>Compare Unit Prices</h4>
+        <p>Check the price per oz/lb on shelf tags. Bigger packages aren't always cheaper per unit.</p>
+      </div>
+      <div class="tip-card">
+        <h4>Frozen is Fine</h4>
+        <p>Frozen fruits, veggies, and fish are flash-frozen at peak freshness and cost less.</p>
+      </div>
+      <div class="tip-card">
+        <h4>Plan Your Meals</h4>
+        <p>Meal planning reduces food waste by 25% and ensures you only buy what you need.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cross-sell -->
+  <div class="cross-sell">
+    <h3>More Free Money-Saving Tools</h3>
+    <div class="tool-links">
+      <a href="/bill-splitter.html">Bill Splitter</a>
+      <a href="/subscription-tracker.html">Subscription Tracker</a>
+      <a href="/debt-payoff-calculator.html">Debt Payoff Calculator</a>
+      <a href="/coupon-code-finder.html">Coupon Finder</a>
+      <a href="/tip-calculator.html">Tip Calculator</a>
+      <a href="/budget-tracker.html">Budget Tracker</a>
+    </div>
+    <p>All tools are 100% free. No signup required.</p>
+    <a href="/store" class="cta">See All Tools</a>
+  </div>
+
+  <div class="newsletter">
+    <h3>Stay in the Loop</h3>
+    <p>New tools, updates, and resources. No spam.</p>
+    <iframe src="https://subscribe-forms.beehiiv.com/6831d05b-f121-4e0d-951b-16f88ddd9ec3" data-test-id="beehiiv-embed" frameborder="0" scrolling="no" style="width:100%;max-width:400px;height:375px;margin:0 auto;border-radius:12px;background:transparent;box-shadow:none;display:block;"></iframe>
+  </div>
+</div>
+</main>
+<footer>&copy; 2026 SPUNK.CODES &mdash; <a href="/store" style="color:#58a6ff">Store</a> &middot; <a href="/reseller" style="color:#39d353">Reseller</a> &middot; <a href="/blog" style="color:#8b949e">Blog</a> &middot; <a href="https://twitter.com/SpunkArt13" style="color:#8b949e">@SpunkArt13</a></footer>
+
+<script>
+/* ========== Grocery Budget Planner Logic ========== */
+let budget = 0;
+let items = [];
+const STORAGE_KEY = 'spunk_grocery_lists';
+const CURRENT_KEY = 'spunk_grocery_current';
+
+const cheaperAlternatives = {
+  'organic milk': {alt: 'Store brand milk', save: '$2.00-$3.00'},
+  'milk': {alt: 'Store brand milk or oat milk', save: '$1.00-$2.00'},
+  'brand cereal': {alt: 'Store brand cereal (same factory)', save: '$2.00-$3.50'},
+  'cereal': {alt: 'Store brand or oats in bulk', save: '$1.50-$3.00'},
+  'name brand': {alt: 'Store brand equivalent', save: '20-30%'},
+  'steak': {alt: 'Chuck roast (braise for tenderness)', save: '$5.00-$10.00/lb'},
+  'ribeye': {alt: 'Chuck eye steak (same muscle)', save: '$6.00-$8.00/lb'},
+  'salmon': {alt: 'Frozen wild salmon fillets', save: '$3.00-$5.00/lb'},
+  'shrimp': {alt: 'Frozen shrimp (better value, same quality)', save: '$3.00-$6.00/lb'},
+  'avocado': {alt: 'Buy when on sale, freeze extras', save: '$0.50-$1.00 each'},
+  'berries': {alt: 'Frozen berries (same nutrition)', save: '$2.00-$4.00'},
+  'strawberries': {alt: 'Frozen strawberries or buy in-season', save: '$2.00-$3.00'},
+  'blueberries': {alt: 'Frozen blueberries', save: '$2.00-$3.00'},
+  'raspberries': {alt: 'Frozen raspberries', save: '$2.00-$4.00'},
+  'chicken breast': {alt: 'Bone-in chicken thighs (more flavor too)', save: '$2.00-$3.00/lb'},
+  'ground beef': {alt: 'Ground turkey or buy family pack', save: '$1.00-$2.00/lb'},
+  'cheese': {alt: 'Block cheese (shred yourself, 40% cheaper)', save: '$1.50-$2.50'},
+  'yogurt': {alt: 'Large tub vs individual cups', save: '$0.30-$0.60 per serving'},
+  'greek yogurt': {alt: 'Store brand or large tub', save: '$1.00-$2.00'},
+  'bottled water': {alt: 'Reusable bottle + filter', save: '$15-$30/month'},
+  'sparkling water': {alt: 'SodaStream or store brand', save: '$10-$20/month'},
+  'soda': {alt: 'Store brand 2-liters', save: '$3.00-$5.00/week'},
+  'coffee': {alt: 'Buy whole beans in bulk, grind at home', save: '$3.00-$5.00/bag'},
+  'k-cups': {alt: 'Reusable K-cup + bulk ground coffee', save: '$20-$40/month'},
+  'snacks': {alt: 'Buy larger bags, portion yourself', save: '30-40%'},
+  'chips': {alt: 'Store brand or family size bag', save: '$1.00-$2.00'},
+  'bread': {alt: 'Bakery day-old bread or store brand', save: '$1.00-$2.50'},
+  'pasta sauce': {alt: 'Canned crushed tomatoes + spices', save: '$2.00-$3.00'},
+  'spices': {alt: 'Buy from bulk section or ethnic aisle', save: '50-80%'},
+  'rice': {alt: 'Buy 10-25lb bag instead of 2lb', save: '40-60%'},
+  'paper towels': {alt: 'Reusable cloths + fewer paper towels', save: '$10-$15/month'},
+  'cleaning supplies': {alt: 'Vinegar + baking soda for most cleaning', save: '$15-$25/month'},
+  'detergent': {alt: 'Store brand (same active ingredients)', save: '$3.00-$6.00'},
+};
+
+function findCheaperAlternative(name) {
+  const lower = name.toLowerCase();
+  for (const [key, val] of Object.entries(cheaperAlternatives)) {
+    if (lower.includes(key)) return val;
+  }
+  return null;
+}
+
+const categoryColors = {
+  produce: '#39d353',
+  dairy: '#58a6ff',
+  meat: '#f85149',
+  pantry: '#d29922',
+  frozen: '#79c0ff',
+  snacks: '#bc8cff',
+  household: '#8b949e'
+};
+const categoryLabels = {
+  produce: 'Produce',
+  dairy: 'Dairy',
+  meat: 'Meat & Seafood',
+  pantry: 'Pantry',
+  frozen: 'Frozen',
+  snacks: 'Snacks & Drinks',
+  household: 'Household'
+};
+
+function setBudget() {
+  const val = parseFloat(document.getElementById('weeklyBudget').value);
+  if (!val || val <= 0) {
+    alert('Please enter a valid budget amount.');
+    return;
+  }
+  budget = val;
+  document.getElementById('budgetMeterWrap').style.display = 'block';
+  document.getElementById('budgetSummary').style.display = 'grid';
+  document.getElementById('addItemCard').style.display = 'block';
+  document.getElementById('budgetMaxLabel').textContent = '$' + budget.toFixed(2);
+  updateDisplay();
+  saveCurrent();
+}
+
+function addItem(continueAdding) {
+  const name = document.getElementById('itemName').value.trim();
+  const price = parseFloat(document.getElementById('itemPrice').value);
+  const category = document.getElementById('itemCategory').value;
+  if (!name) { alert('Please enter an item name.'); return; }
+  if (!price || price <= 0) { alert('Please enter a valid price.'); return; }
+  const alt = findCheaperAlternative(name);
+  items.push({ name, price, category, alt, id: Date.now() + Math.random() });
+  document.getElementById('itemName').value = '';
+  document.getElementById('itemPrice').value = '';
+  if (!continueAdding) document.getElementById('itemName').focus();
+  updateDisplay();
+  saveCurrent();
+}
+
+function removeItem(id) {
+  items = items.filter(i => i.id !== id);
+  updateDisplay();
+  saveCurrent();
+}
+
+function updateDisplay() {
+  const total = items.reduce((s, i) => s + i.price, 0);
+  const remaining = budget - total;
+  const pct = budget > 0 ? Math.min((total / budget) * 100, 100) : 0;
+
+  // Budget meter
+  const fill = document.getElementById('budgetMeterFill');
+  fill.style.width = pct + '%';
+  fill.className = 'meter-fill ' + (pct < 60 ? 'green' : pct < 85 ? 'yellow' : 'red');
+  document.getElementById('budgetPctLabel').textContent = pct.toFixed(1) + '%';
+  document.getElementById('budgetPctLabel').style.color = pct < 60 ? '#39d353' : pct < 85 ? '#d29922' : '#f85149';
+
+  // Summary stats
+  document.getElementById('totalSpent').textContent = '$' + total.toFixed(2);
+  document.getElementById('budgetRemaining').textContent = '$' + remaining.toFixed(2);
+  document.getElementById('budgetRemaining').className = 'val ' + (remaining >= 0 ? 'green' : 'red');
+  document.getElementById('itemCount').textContent = items.length;
+
+  // Item list
+  const listEl = document.getElementById('itemList');
+  if (items.length === 0) {
+    listEl.innerHTML = '<div style="text-align:center;color:#8b949e;padding:20px">No items yet. Add your first item above.</div>';
+    document.getElementById('itemListCard').style.display = 'none';
+    document.getElementById('categoryCard').style.display = 'none';
+    document.getElementById('summaryCard').style.display = 'none';
+  } else {
+    document.getElementById('itemListCard').style.display = 'block';
+    document.getElementById('categoryCard').style.display = 'block';
+    document.getElementById('summaryCard').style.display = 'block';
+    listEl.innerHTML = items.map(item => `
+      <div class="item-row">
+        <div class="item-info">
+          <span class="item-name">${escapeHtml(item.name)}</span>
+          <span class="item-cat" style="color:${categoryColors[item.category]}">${categoryLabels[item.category]}</span>
+          ${item.alt ? `<span class="item-alt">Tip: Try ${escapeHtml(item.alt.alt)} (save ${escapeHtml(item.alt.save)})</span>` : ''}
+        </div>
+        <span class="item-price">$${item.price.toFixed(2)}</span>
+        <button class="btn-red" onclick="removeItem(${item.id})">Remove</button>
+      </div>
+    `).join('');
+  }
+
+  // Category breakdown
+  const catTotals = {};
+  for (const item of items) {
+    catTotals[item.category] = (catTotals[item.category] || 0) + item.price;
+  }
+  const catEl = document.getElementById('categoryBreakdown');
+  const maxCat = Math.max(...Object.values(catTotals), 1);
+  catEl.innerHTML = Object.entries(catTotals)
+    .sort((a, b) => b[1] - a[1])
+    .map(([cat, amt]) => `
+      <div class="cat-row">
+        <span class="cat-name">${categoryLabels[cat]}</span>
+        <div class="cat-bar-bg">
+          <div class="cat-bar-fill" style="width:${(amt/maxCat)*100}%;background:${categoryColors[cat]}"></div>
+        </div>
+        <span class="cat-amt">$${amt.toFixed(2)}</span>
+      </div>
+    `).join('');
+
+  // Projections
+  document.getElementById('weeklyTotal').textContent = '$' + total.toFixed(2);
+  document.getElementById('monthlyProjection').textContent = '$' + (total * 4.33).toFixed(2);
+  document.getElementById('yearlyProjection').textContent = '$' + (total * 52).toFixed(2);
+  document.getElementById('avgPerItem').textContent = items.length > 0 ? '$' + (total / items.length).toFixed(2) : '$0.00';
+
+  // Show saved lists
+  loadSavedLists();
+}
+
+function escapeHtml(str) {
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+function clearList() {
+  if (!confirm('Clear all items from your grocery list?')) return;
+  items = [];
+  updateDisplay();
+  saveCurrent();
+}
+
+function saveList() {
+  const name = prompt('Name this list (e.g., "Week of Feb 24"):');
+  if (!name) return;
+  const lists = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+  lists.push({
+    name,
+    date: new Date().toISOString(),
+    budget,
+    items: [...items],
+    total: items.reduce((s, i) => s + i.price, 0)
+  });
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(lists));
+  loadSavedLists();
+  alert('List saved!');
+}
+
+function loadSavedLists() {
+  const lists = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+  const el = document.getElementById('savedLists');
+  const card = document.getElementById('savedListsCard');
+  if (lists.length === 0) { card.style.display = 'none'; return; }
+  card.style.display = 'block';
+  el.innerHTML = lists.map((list, idx) => `
+    <div class="saved-list-item" onclick="loadList(${idx})">
+      <div>
+        <div class="sl-name">${escapeHtml(list.name)}</div>
+        <div class="sl-meta">${list.items.length} items &middot; $${list.total.toFixed(2)} &middot; ${new Date(list.date).toLocaleDateString()}</div>
+      </div>
+      <div style="display:flex;gap:6px">
+        <button class="btn btn-sm" onclick="event.stopPropagation();loadList(${idx})">Load</button>
+        <button class="btn-red" onclick="event.stopPropagation();deleteList(${idx})">Delete</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function loadList(idx) {
+  const lists = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+  if (!lists[idx]) return;
+  budget = lists[idx].budget;
+  items = lists[idx].items;
+  document.getElementById('weeklyBudget').value = budget;
+  document.getElementById('budgetMeterWrap').style.display = 'block';
+  document.getElementById('budgetSummary').style.display = 'grid';
+  document.getElementById('addItemCard').style.display = 'block';
+  document.getElementById('budgetMaxLabel').textContent = '$' + budget.toFixed(2);
+  updateDisplay();
+}
+
+function deleteList(idx) {
+  if (!confirm('Delete this saved list?')) return;
+  const lists = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+  lists.splice(idx, 1);
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(lists));
+  loadSavedLists();
+}
+
+function exportList() {
+  if (items.length === 0) { alert('No items to export.'); return; }
+  const total = items.reduce((s, i) => s + i.price, 0);
+  let text = 'GROCERY LIST\n';
+  text += 'Budget: $' + budget.toFixed(2) + '\n';
+  text += 'Date: ' + new Date().toLocaleDateString() + '\n';
+  text += '═══════════════════════════════\n\n';
+  const grouped = {};
+  for (const item of items) {
+    if (!grouped[item.category]) grouped[item.category] = [];
+    grouped[item.category].push(item);
+  }
+  for (const [cat, catItems] of Object.entries(grouped)) {
+    text += categoryLabels[cat].toUpperCase() + '\n';
+    for (const item of catItems) {
+      text += '  • ' + item.name + ' — $' + item.price.toFixed(2) + '\n';
+    }
+    text += '\n';
+  }
+  text += '═══════════════════════════════\n';
+  text += 'TOTAL: $' + total.toFixed(2) + '\n';
+  text += 'REMAINING: $' + (budget - total).toFixed(2) + '\n';
+  text += '\nMade with spunk.codes/grocery-budget-planner.html';
+
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(() => alert('List copied to clipboard!'));
+  } else {
+    const blob = new Blob([text], {type:'text/plain'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = 'grocery-list.txt'; a.click();
+    URL.revokeObjectURL(url);
+  }
+}
+
+function saveCurrent() {
+  localStorage.setItem(CURRENT_KEY, JSON.stringify({budget, items}));
+}
+
+// Load current on page load
+(function(){
+  const current = JSON.parse(localStorage.getItem(CURRENT_KEY) || 'null');
+  if (current && current.budget) {
+    budget = current.budget;
+    items = current.items || [];
+    document.getElementById('weeklyBudget').value = budget;
+    document.getElementById('budgetMeterWrap').style.display = 'block';
+    document.getElementById('budgetSummary').style.display = 'grid';
+    document.getElementById('addItemCard').style.display = 'block';
+    document.getElementById('budgetMaxLabel').textContent = '$' + budget.toFixed(2);
+    updateDisplay();
+  }
+  loadSavedLists();
+})();
+
+// Enter key to add item
+document.getElementById('itemPrice').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') addItem();
+});
+document.getElementById('itemName').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') document.getElementById('itemPrice').focus();
+});
+</script>
+
+<script>
+/* SpunkArt Protection */
+(function(){
+  document.addEventListener('contextmenu',function(e){e.preventDefault();});
+  document.addEventListener('keydown',function(e){
+    if(e.key==='F12')e.preventDefault();
+    if(e.ctrlKey&&e.key==='u')e.preventDefault();
+    if(e.ctrlKey&&e.key==='s')e.preventDefault();
+    if(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='i'||e.key==='J'||e.key==='j'||e.key==='C'||e.key==='c'))e.preventDefault();
+  });
+  console.log('%c⚠ SPUNK.CODES — All rights reserved.','color:#58a6ff;font-size:16px;font-weight:bold;');
+  if(!document.querySelector('.watermark')){var w=document.createElement('div');w.style.cssText='position:fixed;bottom:10px;right:15px;font-size:0.7rem;color:rgba(88,166,255,0.15);font-weight:700;letter-spacing:2px;pointer-events:none;z-index:9999;';w.textContent='SPUNK.CODES';document.body.appendChild(w);}
+})();
+</script>
+<script src="/share-widget.js"></script>
+<script src="/email-capture.js"></script>
+<script src="/heartbeat.js"></script>
+<script src="/universal-referral.js"></script>
+<script src="/cross-promo.js"></script>
+<script src="/auto-monetize.js"></script>
+<script src="/usage-tracker.js"></script>
+
+<div id="shareXBtn" style="position:fixed;left:20px;bottom:20px;z-index:9999;">
+  <a id="shareXLink" href="#" target="_blank" rel="noopener noreferrer" title="Share on X"
+     style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;
+     background:rgba(88,166,255,0.15);border:1px solid rgba(88,166,255,0.3);
+     backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:50%;
+     text-decoration:none;transition:all 0.3s ease;cursor:pointer;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+    </svg>
+  </a>
+</div>
+<style>#shareXBtn a:hover{background:rgba(88,166,255,0.35)!important;border-color:rgba(88,166,255,0.6)!important;transform:scale(1.1);box-shadow:0 0 15px rgba(88,166,255,0.3);}</style>
+<script>
+(function(){
+  var url="https://spunk.codes/grocery-budget-planner.html";
+  var text="Free grocery budget planner that actually helps you save money. Track every item, stay under budget, get cheaper alternatives. @SpunkArt13";
+  document.getElementById("shareXLink").href="https://x.com/intent/tweet?text="+encodeURIComponent(text)+"&url="+encodeURIComponent(url);
+})();
+</script>
+</body>
+</html>
