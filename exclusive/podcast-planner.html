@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Podcast Episode Planner & Script Generator | SPUNK.CODES Exclusive</title>
+<meta name="description" content="Plan podcast episodes with auto-generated show notes, intro/outro scripts, segment timing, and episode calendar. Free exclusive premium tool.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Podcast Episode Planner - SPUNK.CODES Exclusive">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/podcast-planner">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Podcast Episode Planner & Script Generator","url":"https://spunk.codes/exclusive/podcast-planner","applicationCategory":"UtilityApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Plan podcast episodes with auto-generated show notes, intro/outro scripts, segment timing, and episode calendar."}</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0a0a0f;--card:rgba(18,18,28,0.85);--border:rgba(48,44,61,0.6);--accent:#ff5f1f;--accent2:#ff9f1f;--gold:#ff5f1f;--gold-border:rgba(255,95,31,0.3);--text:#e8e8f0;--text-dim:#8b8b9e;--blue:#58a6ff;--cyan:#39d353;--red:#f85149;--font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+a{color:var(--blue);text-decoration:none}
+.bg-mesh{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 80% 50% at 20% 20%,rgba(255,95,31,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(255,159,31,0.04) 0%,transparent 60%),var(--bg)}
+.bg-grid{position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,95,31,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,95,31,0.03) 1px,transparent 1px);background-size:60px 60px}
+.nav{position:sticky;top:0;z-index:100;background:rgba(10,10,15,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,95,31,0.15);padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}
+.nav-brand{font-weight:800;font-size:1.1rem;background:linear-gradient(135deg,#ff5f1f,#ff9f1f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:0.08em}
+.nav-links{display:flex;gap:1.5rem;font-size:0.85rem}.nav-links a{color:var(--text-dim);font-weight:500}.nav-links a.active{color:var(--accent)}
+.lock-gate{position:fixed;inset:0;z-index:1000;background:rgba(10,10,15,0.97);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:2rem}
+.lock-gate.hidden{display:none}
+.lock-icon-big{font-size:4rem}.lock-gate h2{font-size:1.8rem;font-weight:800;text-align:center}.lock-gate h2 span{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}.lock-gate p{color:var(--text-dim);text-align:center;max-width:400px}
+.code-input-wrap{display:flex;gap:0.5rem}
+.code-input{padding:0.8rem 1.5rem;background:rgba(18,18,28,0.8);border:2px solid var(--gold-border);border-radius:12px;color:var(--accent);font-size:1.2rem;font-weight:800;letter-spacing:3px;text-align:center;width:200px;outline:none;text-transform:uppercase;font-family:var(--font)}
+.code-input:focus{border-color:var(--accent);box-shadow:0 0 20px rgba(255,95,31,0.2)}
+.code-submit{padding:0.8rem 1.5rem;background:linear-gradient(135deg,#ff5f1f,#ff9f1f);border:none;border-radius:12px;color:#000;font-size:1rem;font-weight:800;cursor:pointer}
+.code-error{color:var(--red);font-size:0.85rem;min-height:1.2em}.lock-hint{color:var(--text-dim);font-size:0.8rem}.lock-hint a{color:var(--accent)}
+.exclusive-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;background:linear-gradient(135deg,rgba(255,95,31,0.15),rgba(255,159,31,0.15));border:1px solid var(--gold-border);border-radius:100px;font-size:11px;font-weight:800;color:var(--accent);letter-spacing:1.5px;text-transform:uppercase}
+.main{max-width:1100px;margin:0 auto;padding:2rem}
+.hero-section{text-align:center;padding:2rem 0 2rem}
+.hero-section h1{font-size:2.2rem;font-weight:800;margin:1rem 0 0.5rem}
+.hero-section h1 .gold{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-section p{color:var(--text-dim);max-width:600px;margin:0 auto}
+.card{background:var(--card);border:1px solid var(--gold-border);border-radius:16px;padding:1.5rem;margin-bottom:1.5rem;backdrop-filter:blur(10px);position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#ff5f1f,#ff9f1f,#ff5f1f)}
+.card h2{font-size:1.1rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}
+.form-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:0.75rem;margin-bottom:0.75rem}
+.form-group{display:flex;flex-direction:column;gap:0.3rem}
+.form-group label{font-size:0.75rem;color:var(--text-dim);font-weight:600;text-transform:uppercase;letter-spacing:0.5px}
+.form-group input,.form-group select,.form-group textarea{padding:0.6rem 0.8rem;background:rgba(18,18,28,0.9);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.85rem;font-family:var(--font);outline:none}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--accent)}
+.form-group textarea{resize:vertical;min-height:60px}
+.btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;transition:all 0.2s}
+.btn-gold{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);color:#000}
+.btn-gold:hover{transform:translateY(-1px);box-shadow:0 4px 15px rgba(255,95,31,0.3)}
+.btn-outline{background:transparent;border:1px solid var(--gold-border);color:var(--accent)}
+.btn-outline:hover{background:rgba(255,95,31,0.1)}
+.btn-red{background:rgba(248,81,73,0.15);border:1px solid rgba(248,81,73,0.3);color:var(--red)}
+.btn-sm{padding:0.4rem 0.8rem;font-size:0.75rem}
+.btn-row{display:flex;gap:0.5rem;flex-wrap:wrap}
+.tabs{display:flex;gap:0.5rem;margin-bottom:1rem;flex-wrap:wrap}
+.tab{padding:0.5rem 1rem;border-radius:8px;font-size:0.8rem;font-weight:600;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--text-dim);transition:all 0.2s}
+.tab.active{background:linear-gradient(135deg,rgba(255,95,31,0.2),rgba(255,159,31,0.1));border-color:var(--accent);color:var(--accent)}
+.segment-item{display:flex;align-items:center;gap:0.75rem;padding:0.6rem 0.8rem;background:rgba(10,10,15,0.5);border:1px solid var(--border);border-radius:8px;margin-bottom:0.5rem}
+.segment-item .seg-name{flex:1;font-size:0.85rem;font-weight:600}
+.segment-item .seg-dur{font-size:0.8rem;color:var(--accent);font-weight:700;min-width:60px;text-align:right}
+.segment-item .seg-actions{display:flex;gap:0.3rem}
+.total-time{font-size:1.2rem;font-weight:800;color:var(--accent);padding:0.5rem 0}
+.script-output{background:rgba(10,10,15,0.8);border:1px solid var(--border);border-radius:8px;padding:1rem;font-size:0.85rem;line-height:1.7;white-space:pre-wrap;max-height:400px;overflow:auto;position:relative}
+.script-output .copy-btn{position:absolute;top:0.5rem;right:0.5rem;padding:0.3rem 0.6rem;background:rgba(255,95,31,0.15);border:1px solid var(--gold-border);border-radius:6px;color:var(--accent);font-size:0.65rem;cursor:pointer;font-weight:700}
+.calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-top:0.75rem}
+.cal-header{font-size:0.65rem;text-align:center;color:var(--text-dim);font-weight:700;padding:0.3rem}
+.cal-day{font-size:0.7rem;text-align:center;padding:0.4rem 0.2rem;background:rgba(10,10,15,0.4);border-radius:4px;min-height:36px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:default}
+.cal-day.empty{background:transparent}
+.cal-day.has-ep{background:rgba(255,95,31,0.15);border:1px solid var(--gold-border);cursor:pointer}
+.cal-day.has-ep:hover{background:rgba(255,95,31,0.3)}
+.cal-day .day-num{font-weight:600}
+.cal-day .ep-dot{width:4px;height:4px;background:var(--accent);border-radius:50%;margin-top:2px}
+.ep-list-item{display:flex;align-items:center;gap:0.75rem;padding:0.75rem;background:rgba(10,10,15,0.5);border:1px solid var(--border);border-radius:10px;margin-bottom:0.5rem;cursor:pointer;transition:all 0.2s}
+.ep-list-item:hover{border-color:var(--accent);background:rgba(255,95,31,0.05)}
+.ep-list-item .ep-num{font-size:0.7rem;font-weight:800;color:var(--accent);background:rgba(255,95,31,0.15);padding:0.3rem 0.6rem;border-radius:6px;min-width:40px;text-align:center}
+.ep-list-item .ep-info{flex:1}
+.ep-list-item .ep-title{font-weight:700;font-size:0.9rem}
+.ep-list-item .ep-meta{font-size:0.75rem;color:var(--text-dim)}
+.format-card{padding:0.75rem;border:1px solid var(--border);border-radius:10px;cursor:pointer;transition:all 0.2s;text-align:center}
+.format-card:hover,.format-card.selected{border-color:var(--accent);background:rgba(255,95,31,0.08)}
+.format-card .fc-icon{font-size:1.5rem;margin-bottom:0.3rem}
+.format-card .fc-name{font-size:0.8rem;font-weight:700}
+.format-card .fc-desc{font-size:0.7rem;color:var(--text-dim)}
+.share-cta{background:linear-gradient(135deg,rgba(255,95,31,0.08),rgba(255,159,31,0.05));border:1px solid var(--gold-border);border-radius:16px;padding:2rem;text-align:center;margin-top:2rem}
+.share-cta h3{color:var(--accent);margin-bottom:0.5rem}.share-cta p{color:var(--text-dim);font-size:0.9rem;margin-bottom:1rem}
+.share-btns{display:flex;gap:0.6rem;justify-content:center;flex-wrap:wrap}
+.share-btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;color:#fff}
+.share-x{background:#000;border:1px solid #333}.share-reddit{background:#ff4500}.share-email{background:#21262d;border:1px solid #30363d}
+.footer{text-align:center;padding:2rem;border-top:1px solid rgba(255,95,31,0.1);color:var(--text-dim);font-size:0.75rem;margin-top:3rem}
+.footer a{color:var(--accent)}.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-bottom:1rem}
+.watermark{position:fixed;bottom:10px;right:10px;font-size:0.6rem;color:rgba(255,95,31,0.08);font-weight:800;pointer-events:none;z-index:9999;letter-spacing:1px;text-transform:uppercase}
+@media(max-width:768px){.main{padding:1rem}.hero-section h1{font-size:1.6rem}.nav-links{display:none}.form-row{grid-template-columns:1fr}.calendar-grid{font-size:0.6rem}}
+</style>
+</head>
+<body>
+<div class="bg-mesh"></div><div class="bg-grid"></div>
+<div class="lock-gate" id="lockGate"><div class="lock-icon-big">&#128274;</div><h2>Enter Code <span>SPUNK</span> to Unlock</h2><p>This exclusive premium tool requires the SPUNK referral code.</p><div class="code-input-wrap"><input type="text" class="code-input" id="codeInput" placeholder="CODE" maxlength="10" autocomplete="off"><button class="code-submit" onclick="submitCode()">Unlock</button></div><div class="code-error" id="codeError"></div><div class="lock-hint">Get the code at <a href="https://spunk.codes/exclusive-tools">spunk.codes/exclusive-tools</a></div></div>
+<nav class="nav"><a href="https://spunk.codes" class="nav-brand">SPUNK.CODES</a><div class="nav-links"><a href="/store">Tools</a><a href="/exclusive-tools" class="active">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a></div></nav>
+
+<div class="main">
+  <section class="hero-section">
+    <div class="exclusive-badge">&#128081; EXCLUSIVE TOOL</div>
+    <h1><span class="gold">Podcast Episode</span> Planner</h1>
+    <p>Plan episodes, generate show notes and scripts, manage segments, and keep your podcast calendar organized.</p>
+  </section>
+
+  <div class="card">
+    <h2>&#127897; Episode Format</h2>
+    <div class="form-row" style="grid-template-columns:repeat(4,1fr)">
+      <div class="format-card selected" onclick="selectFormat('interview')" id="fmt-interview">
+        <div class="fc-icon">&#127908;</div>
+        <div class="fc-name">Interview</div>
+        <div class="fc-desc">Host + Guest Q&A</div>
+      </div>
+      <div class="format-card" onclick="selectFormat('solo')" id="fmt-solo">
+        <div class="fc-icon">&#127911;</div>
+        <div class="fc-name">Solo</div>
+        <div class="fc-desc">One host deep dive</div>
+      </div>
+      <div class="format-card" onclick="selectFormat('roundtable')" id="fmt-roundtable">
+        <div class="fc-icon">&#128101;</div>
+        <div class="fc-name">Roundtable</div>
+        <div class="fc-desc">Panel discussion</div>
+      </div>
+      <div class="format-card" onclick="selectFormat('news')" id="fmt-news">
+        <div class="fc-icon">&#128240;</div>
+        <div class="fc-name">News</div>
+        <div class="fc-desc">Headlines + analysis</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>&#128221; Episode Details</h2>
+    <div class="form-row">
+      <div class="form-group"><label>Episode Number</label><input type="number" id="epNumber" min="1" value="1"></div>
+      <div class="form-group"><label>Episode Title</label><input type="text" id="epTitle" placeholder="e.g., The Future of AI"></div>
+      <div class="form-group"><label>Record Date</label><input type="date" id="epDate"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Podcast Name</label><input type="text" id="podName" placeholder="Your podcast name"></div>
+      <div class="form-group"><label>Host(s)</label><input type="text" id="epHosts" placeholder="Host names, comma separated"></div>
+      <div class="form-group"><label>Guest(s)</label><input type="text" id="epGuests" placeholder="Guest names (optional)"></div>
+    </div>
+    <div class="form-group"><label>Episode Description / Topic</label><textarea id="epDesc" rows="2" placeholder="Brief description of what this episode covers..."></textarea></div>
+    <div class="form-group" style="margin-top:0.5rem"><label>Key Talking Points (one per line)</label><textarea id="epTalkingPoints" rows="4" placeholder="Point 1&#10;Point 2&#10;Point 3"></textarea></div>
+  </div>
+
+  <div class="card">
+    <h2>&#9201; Segment Timing</h2>
+    <div class="form-row" style="grid-template-columns:2fr 1fr auto">
+      <div class="form-group"><label>Segment Name</label><input type="text" id="segName" placeholder="e.g., Intro, Main Topic, Q&A"></div>
+      <div class="form-group"><label>Duration (min)</label><input type="number" id="segDur" min="1" value="5"></div>
+      <div class="form-group" style="justify-content:flex-end"><button class="btn btn-gold btn-sm" onclick="addSegment()">+ Add</button></div>
+    </div>
+    <div id="segmentsList"></div>
+    <div class="total-time">Total: <span id="totalTime">0</span> min</div>
+    <div class="btn-row">
+      <button class="btn btn-outline btn-sm" onclick="loadDefaultSegments()">Load Default Segments</button>
+      <button class="btn btn-outline btn-sm" onclick="clearSegments()">Clear All</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>&#128196; Generated Content</h2>
+    <div class="tabs">
+      <div class="tab active" onclick="showScriptTab('shownotes')">Show Notes</div>
+      <div class="tab" onclick="showScriptTab('intro')">Intro Script</div>
+      <div class="tab" onclick="showScriptTab('outro')">Outro Script</div>
+      <div class="tab" onclick="showScriptTab('full')">Full Plan Export</div>
+    </div>
+    <button class="btn btn-gold btn-sm" onclick="generateContent()" style="margin-bottom:0.75rem">Generate</button>
+    <div class="script-output" id="scriptOutput"><button class="copy-btn" onclick="copyScript()">Copy</button>Click "Generate" to create your episode content.</div>
+  </div>
+
+  <div class="card">
+    <h2>&#128197; Episode Calendar</h2>
+    <div class="btn-row" style="margin-bottom:0.5rem">
+      <button class="btn btn-outline btn-sm" onclick="calPrev()">&larr; Prev</button>
+      <span id="calMonthLabel" style="font-weight:700;font-size:0.9rem;padding:0.4rem 1rem"></span>
+      <button class="btn btn-outline btn-sm" onclick="calNext()">Next &rarr;</button>
+    </div>
+    <div class="calendar-grid" id="calendarGrid"></div>
+  </div>
+
+  <div class="card">
+    <h2>&#128218; Episode Library</h2>
+    <div class="btn-row" style="margin-bottom:0.75rem">
+      <button class="btn btn-gold btn-sm" onclick="saveEpisode()">Save Current Episode</button>
+      <button class="btn btn-outline btn-sm" onclick="exportLibrary()">Export Library</button>
+      <button class="btn btn-red btn-sm" onclick="clearLibrary()">Clear Library</button>
+    </div>
+    <div id="episodeLibrary"><p style="color:var(--text-dim);font-size:0.85rem">No saved episodes yet.</p></div>
+  </div>
+
+  <div class="share-cta">
+    <h3>&#128275; Share the Code, Unlock More Tools</h3>
+    <p>Share code SPUNK to help others access 130+ exclusive premium tools.</p>
+    <div class="share-btns">
+      <button class="share-btn share-x" onclick="shareX()">&#120143; Share on X</button>
+      <button class="share-btn share-reddit" onclick="shareReddit()">&#128172; Reddit</button>
+      <button class="share-btn share-email" onclick="shareEmail()">&#9993; Email</button>
+    </div>
+  </div>
+</div>
+
+<footer class="footer"><div class="footer-links"><a href="https://spunk.codes">Home</a><a href="/store">Tools</a><a href="/exclusive-tools">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a><a href="https://twitter.com/SpunkArt13" target="_blank">@SpunkArt13</a></div><div>&copy; 2026 SPUNK.CODES EXCLUSIVE.</div></footer>
+<div class="watermark">SPUNK.CODES EXCLUSIVE</div>
+
+<script>
+document.addEventListener('contextmenu',function(e){e.preventDefault()});
+document.addEventListener('keydown',function(e){if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'||e.key==='C'))||(e.ctrlKey&&e.key==='u'))e.preventDefault()});
+function checkCode(){try{var c=localStorage.getItem('spunk_referral_code')||localStorage.getItem('spunk_ref_code')||'';if(c.toUpperCase()==='SPUNK'){document.getElementById('lockGate').classList.add('hidden');return true}}catch(e){}return false}
+function submitCode(){var v=document.getElementById('codeInput').value.trim().toUpperCase();if(v==='SPUNK'){try{localStorage.setItem('spunk_referral_code','SPUNK');localStorage.setItem('spunk_ref_code','SPUNK')}catch(e){}document.getElementById('lockGate').classList.add('hidden')}else{document.getElementById('codeError').textContent='Invalid code. Try: SPUNK';setTimeout(function(){document.getElementById('codeError').textContent=''},2000)}}
+document.getElementById('codeInput').addEventListener('keydown',function(e){if(e.key==='Enter')submitCode()});
+checkCode();
+
+var currentFormat = 'interview';
+var segments = [];
+var episodes = [];
+var calMonth = new Date().getMonth();
+var calYear = new Date().getFullYear();
+var activeScriptTab = 'shownotes';
+
+var defaultSegments = {
+  interview: [{name:'Intro & Welcome',dur:3},{name:'Guest Introduction',dur:5},{name:'Main Discussion',dur:20},{name:'Rapid-Fire Questions',dur:8},{name:'Key Takeaways',dur:5},{name:'Outro & CTA',dur:4}],
+  solo: [{name:'Intro & Hook',dur:3},{name:'Background & Context',dur:7},{name:'Main Topic Deep Dive',dur:20},{name:'Practical Tips',dur:10},{name:'Summary & CTA',dur:5}],
+  roundtable: [{name:'Intro & Panelist Intros',dur:5},{name:'Topic 1 Discussion',dur:12},{name:'Topic 2 Discussion',dur:12},{name:'Audience Questions',dur:8},{name:'Closing Thoughts',dur:5},{name:'Outro',dur:3}],
+  news: [{name:'Intro & Headlines',dur:3},{name:'Story 1 Deep Dive',dur:8},{name:'Story 2 Deep Dive',dur:8},{name:'Story 3 Deep Dive',dur:8},{name:'Analysis & Predictions',dur:7},{name:'Wrap-Up & CTA',dur:3}]
+};
+
+function loadState(){
+  try{
+    var d=JSON.parse(localStorage.getItem('podcast_planner_data')||'{}');
+    if(d.episodes) episodes=d.episodes;
+    if(d.segments) segments=d.segments;
+    if(d.currentFormat) currentFormat=d.currentFormat;
+  }catch(e){}
+}
+
+function saveState(){
+  try{localStorage.setItem('podcast_planner_data',JSON.stringify({episodes:episodes,segments:segments,currentFormat:currentFormat}))}catch(e){}
+}
+
+function selectFormat(fmt){
+  document.querySelectorAll('.format-card').forEach(function(c){c.classList.remove('selected')});
+  document.getElementById('fmt-'+fmt).classList.add('selected');
+  currentFormat=fmt;
+  saveState();
+}
+
+function addSegment(){
+  var name=document.getElementById('segName').value.trim();
+  var dur=parseInt(document.getElementById('segDur').value)||5;
+  if(!name){alert('Enter a segment name');return}
+  segments.push({name:name,dur:dur,id:Date.now()});
+  document.getElementById('segName').value='';
+  document.getElementById('segDur').value='5';
+  renderSegments();saveState();
+}
+
+function removeSegment(id){
+  segments=segments.filter(function(s){return s.id!==id});
+  renderSegments();saveState();
+}
+
+function moveSegment(id,dir){
+  var idx=segments.findIndex(function(s){return s.id===id});
+  if(idx<0)return;
+  var ni=idx+dir;
+  if(ni<0||ni>=segments.length)return;
+  var tmp=segments[idx];segments[idx]=segments[ni];segments[ni]=tmp;
+  renderSegments();saveState();
+}
+
+function renderSegments(){
+  var el=document.getElementById('segmentsList');
+  if(segments.length===0){el.innerHTML='<p style="color:var(--text-dim);font-size:0.8rem">No segments added yet.</p>';document.getElementById('totalTime').textContent='0';return}
+  var total=0;
+  var html='';
+  segments.forEach(function(s,i){
+    total+=s.dur;
+    var timestamp=formatTimestamp(segments.slice(0,i).reduce(function(a,b){return a+b.dur},0));
+    html+='<div class="segment-item"><span style="font-size:0.7rem;color:var(--text-dim);min-width:50px">'+timestamp+'</span><span class="seg-name">'+escapeHtml(s.name)+'</span><span class="seg-dur">'+s.dur+' min</span><div class="seg-actions"><button class="btn btn-outline btn-sm" onclick="moveSegment('+s.id+',-1)">&uarr;</button><button class="btn btn-outline btn-sm" onclick="moveSegment('+s.id+',1)">&darr;</button><button class="btn btn-red btn-sm" onclick="removeSegment('+s.id+')">X</button></div></div>';
+  });
+  el.innerHTML=html;
+  document.getElementById('totalTime').textContent=total;
+}
+
+function formatTimestamp(mins){
+  var h=Math.floor(mins/60);
+  var m=mins%60;
+  return (h>0?h+':':'')+(m<10?'0':'')+m+':00';
+}
+
+function loadDefaultSegments(){
+  segments=defaultSegments[currentFormat].map(function(s,i){return{name:s.name,dur:s.dur,id:Date.now()+i}});
+  renderSegments();saveState();
+}
+
+function clearSegments(){
+  if(!confirm('Clear all segments?'))return;
+  segments=[];renderSegments();saveState();
+}
+
+function showScriptTab(tab){
+  activeScriptTab=tab;
+  document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active')});
+  event.target.classList.add('active');
+  generateContent();
+}
+
+function getEpisodeData(){
+  return{
+    number:document.getElementById('epNumber').value||'1',
+    title:document.getElementById('epTitle').value.trim()||'Untitled Episode',
+    date:document.getElementById('epDate').value||new Date().toISOString().split('T')[0],
+    podName:document.getElementById('podName').value.trim()||'My Podcast',
+    hosts:document.getElementById('epHosts').value.trim()||'Host',
+    guests:document.getElementById('epGuests').value.trim(),
+    desc:document.getElementById('epDesc').value.trim()||'Episode description',
+    talkingPoints:document.getElementById('epTalkingPoints').value.trim().split('\n').filter(function(l){return l.trim()}),
+    format:currentFormat,
+    segments:segments.slice()
+  };
+}
+
+function generateContent(){
+  var ep=getEpisodeData();
+  var output='';
+
+  if(activeScriptTab==='shownotes'){
+    output=generateShowNotes(ep);
+  }else if(activeScriptTab==='intro'){
+    output=generateIntro(ep);
+  }else if(activeScriptTab==='outro'){
+    output=generateOutro(ep);
+  }else{
+    output=generateFullPlan(ep);
+  }
+
+  document.getElementById('scriptOutput').innerHTML='<button class="copy-btn" onclick="copyScript()">Copy</button>'+escapeHtml(output);
+}
+
+function generateShowNotes(ep){
+  var notes='';
+  notes+='SHOW NOTES\n';
+  notes+='==========\n\n';
+  notes+=ep.podName+' - Episode #'+ep.number+'\n';
+  notes+='"'+ep.title+'"\n\n';
+  notes+='Published: '+ep.date+'\n';
+  notes+='Format: '+ep.format.charAt(0).toUpperCase()+ep.format.slice(1)+'\n';
+  notes+='Host(s): '+ep.hosts+'\n';
+  if(ep.guests)notes+='Guest(s): '+ep.guests+'\n';
+  notes+='\n---\n\n';
+  notes+='EPISODE SUMMARY\n';
+  notes+=ep.desc+'\n\n';
+  if(ep.talkingPoints.length>0){
+    notes+='WHAT WE COVER\n';
+    ep.talkingPoints.forEach(function(p,i){notes+='  '+String.fromCharCode(8226)+' '+p+'\n'});
+    notes+='\n';
+  }
+  if(ep.segments.length>0){
+    notes+='TIMESTAMPS\n';
+    var runMin=0;
+    ep.segments.forEach(function(s){
+      notes+='  ['+formatTimestamp(runMin)+'] '+s.name+'\n';
+      runMin+=s.dur;
+    });
+    notes+='\n';
+  }
+  notes+='LINKS & RESOURCES\n';
+  notes+='  - [Link 1]\n  - [Link 2]\n  - [Link 3]\n\n';
+  notes+='CONNECT\n';
+  notes+='  - Website: [your website]\n';
+  notes+='  - Twitter: [your handle]\n';
+  notes+='  - Email: [your email]\n\n';
+  notes+='SUBSCRIBE & REVIEW\n';
+  notes+='If you enjoyed this episode, please leave a rating and review!\n';
+  return notes;
+}
+
+function generateIntro(ep){
+  var intros={
+    interview:'[MUSIC FADES IN]\n\nHello and welcome to '+ep.podName+'! I\'m your host, '+ep.hosts+', and today we have an incredible episode lined up for you.\n\n[MUSIC FADES OUT]\n\nIn Episode #'+ep.number+', we\'re diving into "'+ep.title+'" with our special guest, '+( ep.guests||'[Guest Name]' )+'.\n\n'+ep.desc+'\n\nBefore we jump in, if you haven\'t already, make sure to hit that subscribe button and leave us a review. It really helps us bring you more great content.\n\nAlright, let\'s welcome our guest! '+( ep.guests||'[Guest Name]' )+', thanks so much for joining us today.\n\n[TRANSITION SOUND]',
+    solo:'[MUSIC FADES IN]\n\nHey everyone, welcome back to '+ep.podName+'! I\'m '+ep.hosts+', and you\'re listening to Episode #'+ep.number+'.\n\n[MUSIC FADES OUT]\n\nToday I want to talk about something I\'ve been thinking about a lot lately: "'+ep.title+'"\n\n'+ep.desc+'\n\nI\'ve got a lot to unpack here, so grab your coffee, get comfortable, and let\'s dive right in.\n\nBut first, a quick reminder: if you enjoy this show, the best way to support us is to share it with one friend. That\'s it. Just one person. It makes a huge difference.\n\n[TRANSITION SOUND]',
+    roundtable:'[MUSIC FADES IN]\n\nWelcome to '+ep.podName+'! I\'m your host '+ep.hosts+', and this is Episode #'+ep.number+'.\n\n[MUSIC FADES OUT]\n\nToday we\'re doing something special - we\'ve got a full roundtable discussion on "'+ep.title+'" with '+( ep.guests||'our amazing panel' )+'.\n\n'+ep.desc+'\n\nLet me quickly introduce everyone at the table today:\n'+( ep.guests?ep.guests.split(',').map(function(g){return'  - '+g.trim()+' - [their title/background]'}).join('\n'):' - [Panelist 1]\n  - [Panelist 2]\n  - [Panelist 3]' )+'\n\nAlright, let\'s get into it. Welcome everyone!\n\n[TRANSITION SOUND]',
+    news:'[MUSIC/NEWS JINGLE]\n\nGood [morning/afternoon], and welcome to '+ep.podName+', Episode #'+ep.number+'. I\'m '+ep.hosts+', bringing you the latest on "'+ep.title+'"\n\n[JINGLE FADES]\n\nHere\'s what\'s making headlines today:\n\n'+( ep.talkingPoints.length>0?ep.talkingPoints.map(function(p,i){return'  '+(i+1)+'. '+p}).join('\n'):' 1. [Headline 1]\n  2. [Headline 2]\n  3. [Headline 3]' )+'\n\nLet\'s break these down. Stay tuned.\n\n[TRANSITION SOUND]'
+  };
+  return 'INTRO SCRIPT - Episode #'+ep.number+'\n================================\n\n'+(intros[ep.format]||intros.solo);
+}
+
+function generateOutro(ep){
+  var outros={
+    interview:'[TRANSITION SOUND]\n\nWow, what an incredible conversation. '+( ep.guests||'[Guest Name]' )+', thank you so much for sharing your insights with us today.\n\nIf you want to connect with '+( ep.guests||'our guest' )+', you can find them at [guest social/website].\n\nThat wraps up Episode #'+ep.number+' of '+ep.podName+'. Here\'s what I want you to take away from today:\n\n'+( ep.talkingPoints.length>0?'  Key Takeaway: '+ep.talkingPoints[0]:'  [Insert key takeaway]' )+'\n\nIf this episode resonated with you, please:\n  1. Leave a review on Apple Podcasts or Spotify\n  2. Share this episode with someone who needs to hear it\n  3. Follow us on social media for behind-the-scenes content\n\nI\'ll see you in the next episode. Until then, [your sign-off].\n\n[OUTRO MUSIC]',
+    solo:'[TRANSITION SOUND]\n\nAlright, that\'s a wrap on Episode #'+ep.number+' of '+ep.podName+'.\n\nLet me quickly recap what we covered today:\n\n'+( ep.talkingPoints.length>0?ep.talkingPoints.map(function(p){return'  - '+p}).join('\n'):'  - [Recap point 1]\n  - [Recap point 2]\n  - [Recap point 3]' )+'\n\nI hope you found this valuable. If you did, the best way to support the show is to subscribe and leave a review.\n\nDrop me a message on [social platform] and let me know your thoughts.\n\nUntil next time, [your sign-off].\n\n[OUTRO MUSIC]',
+    roundtable:'[TRANSITION SOUND]\n\nWhat a fantastic discussion. Thank you to all our panelists for bringing such diverse perspectives to the table.\n\nLet me do a quick round of final thoughts. [Each panelist gets 15 seconds for a closing thought.]\n\n'+( ep.guests?ep.guests.split(',').map(function(g){return'  '+g.trim()+': [Final thought]'}).join('\n'):'  [Panelist 1]: [Final thought]\n  [Panelist 2]: [Final thought]' )+'\n\nThat\'s Episode #'+ep.number+' of '+ep.podName+'. Find all our panelists\' links in the show notes.\n\nSubscribe, review, and share. See you next time!\n\n[OUTRO MUSIC]',
+    news:'[TRANSITION SOUND]\n\nThat\'s your news roundup for today, Episode #'+ep.number+' of '+ep.podName+'.\n\nQuick recap:\n'+( ep.talkingPoints.length>0?ep.talkingPoints.map(function(p,i){return'  '+(i+1)+'. '+p}).join('\n'):'  [Brief headline summaries]' )+'\n\nWe\'ll be back [next episode schedule] with more coverage. If you want to stay updated, make sure to subscribe.\n\nAll sources and links are in the show notes. I\'m '+ep.hosts+', thanks for listening.\n\n[OUTRO JINGLE]'
+  };
+  return 'OUTRO SCRIPT - Episode #'+ep.number+'\n=================================\n\n'+(outros[ep.format]||outros.solo);
+}
+
+function generateFullPlan(ep){
+  var plan='';
+  plan+='========================================\n';
+  plan+='FULL EPISODE PLAN\n';
+  plan+='========================================\n\n';
+  plan+='Podcast: '+ep.podName+'\n';
+  plan+='Episode: #'+ep.number+' - "'+ep.title+'"\n';
+  plan+='Format: '+ep.format.charAt(0).toUpperCase()+ep.format.slice(1)+'\n';
+  plan+='Date: '+ep.date+'\n';
+  plan+='Host(s): '+ep.hosts+'\n';
+  if(ep.guests)plan+='Guest(s): '+ep.guests+'\n';
+  plan+='\n--- DESCRIPTION ---\n'+ep.desc+'\n';
+  plan+='\n--- TALKING POINTS ---\n';
+  ep.talkingPoints.forEach(function(p,i){plan+='  '+(i+1)+'. '+p+'\n'});
+  plan+='\n--- SEGMENT RUNDOWN ---\n';
+  var totalMin=0;
+  ep.segments.forEach(function(s){
+    plan+='  ['+formatTimestamp(totalMin)+'] '+s.name+' ('+s.dur+' min)\n';
+    totalMin+=s.dur;
+  });
+  plan+='  Total Runtime: '+totalMin+' minutes\n';
+  plan+='\n--- SHOW NOTES ---\n';
+  plan+=generateShowNotes(ep);
+  plan+='\n--- INTRO SCRIPT ---\n';
+  plan+=generateIntro(ep).split('\n\n').slice(1).join('\n\n');
+  plan+='\n\n--- OUTRO SCRIPT ---\n';
+  plan+=generateOutro(ep).split('\n\n').slice(1).join('\n\n');
+  plan+='\n\n--- PRE-RECORDING CHECKLIST ---\n';
+  plan+='  [ ] Audio equipment tested\n';
+  plan+='  [ ] Recording software ready\n';
+  plan+='  [ ] Notes and talking points printed\n';
+  plan+='  [ ] Guest briefed on format and topics\n';
+  plan+='  [ ] Water/drinks available\n';
+  plan+='  [ ] "Do Not Disturb" mode on\n';
+  plan+='  [ ] Backup recording device ready\n';
+  plan+='\n--- POST-RECORDING ---\n';
+  plan+='  [ ] Audio edited and mastered\n';
+  plan+='  [ ] Show notes finalized\n';
+  plan+='  [ ] Episode artwork created\n';
+  plan+='  [ ] Uploaded to hosting platform\n';
+  plan+='  [ ] Social media posts scheduled\n';
+  plan+='  [ ] Email newsletter drafted\n';
+  return plan;
+}
+
+function copyScript(){
+  var text=document.getElementById('scriptOutput').textContent;
+  navigator.clipboard.writeText(text).then(function(){
+    var btn=document.querySelector('.script-output .copy-btn');
+    btn.textContent='Copied!';setTimeout(function(){btn.textContent='Copy'},1500);
+  });
+}
+
+function saveEpisode(){
+  var ep=getEpisodeData();
+  ep.id=Date.now();
+  ep.savedAt=new Date().toISOString();
+  episodes.push(ep);
+  saveState();renderLibrary();
+  updateNextEpNumber();
+}
+
+function updateNextEpNumber(){
+  if(episodes.length>0){
+    var maxNum=Math.max.apply(null,episodes.map(function(e){return parseInt(e.number)||0}));
+    document.getElementById('epNumber').value=maxNum+1;
+  }
+}
+
+function deleteEpisode(id){
+  if(!confirm('Delete this episode?'))return;
+  episodes=episodes.filter(function(e){return e.id!==id});
+  saveState();renderLibrary();renderCalendar();
+}
+
+function loadEpisode(id){
+  var ep=episodes.find(function(e){return e.id===id});
+  if(!ep)return;
+  document.getElementById('epNumber').value=ep.number;
+  document.getElementById('epTitle').value=ep.title;
+  document.getElementById('epDate').value=ep.date;
+  document.getElementById('podName').value=ep.podName;
+  document.getElementById('epHosts').value=ep.hosts;
+  document.getElementById('epGuests').value=ep.guests||'';
+  document.getElementById('epDesc').value=ep.desc;
+  document.getElementById('epTalkingPoints').value=ep.talkingPoints.join('\n');
+  selectFormat(ep.format);
+  if(ep.segments&&ep.segments.length>0){segments=ep.segments;renderSegments()}
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function renderLibrary(){
+  var el=document.getElementById('episodeLibrary');
+  if(episodes.length===0){el.innerHTML='<p style="color:var(--text-dim);font-size:0.85rem">No saved episodes yet.</p>';return}
+  var sorted=episodes.slice().sort(function(a,b){return parseInt(b.number)-parseInt(a.number)});
+  var html='';
+  sorted.forEach(function(ep){
+    var totalMin=ep.segments?ep.segments.reduce(function(a,s){return a+s.dur},0):0;
+    html+='<div class="ep-list-item" onclick="loadEpisode('+ep.id+')"><div class="ep-num">#'+ep.number+'</div><div class="ep-info"><div class="ep-title">'+escapeHtml(ep.title)+'</div><div class="ep-meta">'+ep.date+' &middot; '+ep.format+' &middot; '+totalMin+' min</div></div><button class="btn btn-red btn-sm" onclick="event.stopPropagation();deleteEpisode('+ep.id+')">X</button></div>';
+  });
+  el.innerHTML=html;
+}
+
+function exportLibrary(){
+  if(episodes.length===0){alert('No episodes to export');return}
+  var text='';
+  episodes.forEach(function(ep){
+    text+='Episode #'+ep.number+' - '+ep.title+'\n';
+    text+='Date: '+ep.date+' | Format: '+ep.format+'\n';
+    text+='Description: '+ep.desc+'\n';
+    text+='---\n\n';
+  });
+  var blob=new Blob([text],{type:'text/plain'});
+  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='podcast-episodes.txt';a.click();
+}
+
+function clearLibrary(){
+  if(!confirm('Delete all saved episodes?'))return;
+  episodes=[];saveState();renderLibrary();renderCalendar();
+}
+
+// Calendar
+function renderCalendar(){
+  var monthNames=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  document.getElementById('calMonthLabel').textContent=monthNames[calMonth]+' '+calYear;
+  var first=new Date(calYear,calMonth,1);
+  var lastDay=new Date(calYear,calMonth+1,0).getDate();
+  var startDay=first.getDay();
+  var dayNames=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  var html='';
+  dayNames.forEach(function(d){html+='<div class="cal-header">'+d+'</div>'});
+  for(var i=0;i<startDay;i++){html+='<div class="cal-day empty"></div>'}
+  for(var d=1;d<=lastDay;d++){
+    var dateStr=calYear+'-'+(calMonth+1<10?'0':'')+(calMonth+1)+'-'+(d<10?'0':'')+d;
+    var epOnDay=episodes.filter(function(e){return e.date===dateStr});
+    var cls=epOnDay.length>0?'cal-day has-ep':'cal-day';
+    var title=epOnDay.length>0?'title="'+epOnDay.map(function(e){return'#'+e.number+': '+escapeHtml(e.title)}).join(', ')+'"':'';
+    html+='<div class="'+cls+'" '+title+'><span class="day-num">'+d+'</span>'+(epOnDay.length>0?'<span class="ep-dot"></span>':'')+'</div>';
+  }
+  document.getElementById('calendarGrid').innerHTML=html;
+}
+
+function calPrev(){calMonth--;if(calMonth<0){calMonth=11;calYear--}renderCalendar()}
+function calNext(){calMonth++;if(calMonth>11){calMonth=0;calYear++}renderCalendar()}
+
+function escapeHtml(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+
+// Init
+document.getElementById('epDate').value=new Date().toISOString().split('T')[0];
+loadState();
+selectFormat(currentFormat);
+renderSegments();
+renderLibrary();
+renderCalendar();
+if(episodes.length>0)updateNextEpNumber();
+
+function shareX(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Planning my podcast episodes with this tool. Code SPUNK @SpunkArt13')+'&url='+encodeURIComponent('https://spunk.codes/exclusive-tools'),'_blank')}
+function shareReddit(){window.open('https://www.reddit.com/submit?url='+encodeURIComponent('https://spunk.codes/exclusive-tools')+'&title='+encodeURIComponent('Podcast Episode Planner - free with code SPUNK [spunk.codes]'),'_blank')}
+function shareEmail(){window.location.href='mailto:?subject='+encodeURIComponent('Podcast Episode Planner Tool')+'&body='+encodeURIComponent('Plan your podcast episodes with this free tool. Code SPUNK: https://spunk.codes/exclusive-tools')}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<script src="/auto-monetize.js"></script>
+<script src="https://spunk.codes/heartbeat.js" defer></script>
+<script src="/usage-tracker.js"></script>
+<div id="shareXBtn" style="position:fixed;left:20px;bottom:20px;z-index:9999;">
+  <a id="shareXLink" href="#" target="_blank" rel="noopener noreferrer" title="Share on X"
+     style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;
+     background:rgba(255,95,31,0.15);border:1px solid rgba(255,95,31,0.3);
+     backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:50%;
+     text-decoration:none;transition:all 0.3s ease;cursor:pointer;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+    </svg>
+  </a>
+</div>
+<style>#shareXBtn a:hover{background:rgba(255,95,31,0.35)!important;border-color:rgba(255,95,31,0.6)!important;transform:scale(1.1);box-shadow:0 0 15px rgba(255,95,31,0.3)}</style>
+<script>
+(function(){var page=location.pathname.split("/").pop()||"index.html";var url="https://spunk.codes/"+page;var text="Just used this free Podcast Planner on spunk.codes @SpunkArt13";var href="https://x.com/intent/tweet?text="+encodeURIComponent(text)+"&url="+encodeURIComponent(url);document.getElementById("shareXLink").href=href})();
+</script>
+</body>
+</html>
