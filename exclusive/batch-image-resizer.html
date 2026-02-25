@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Batch Image Resizer & Optimizer | SPUNK.CODES Exclusive</title>
+<meta name="description" content="Resize, optimize, and convert multiple images at once. Client-side processing with Canvas API. Supports PNG, JPG, WebP with social media presets.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Batch Image Resizer & Optimizer - SPUNK.CODES Exclusive">
+<meta property="og:description" content="Resize, optimize, and convert multiple images at once. Client-side batch processing with social media presets.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://spunk.codes/exclusive/batch-image-resizer">
+<meta property="og:site_name" content="Spunk Codes">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/batch-image-resizer">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Batch Image Resizer & Optimizer","applicationCategory":"MultimediaApplication","operatingSystem":"Web","description":"Resize, optimize, and convert multiple images at once. Client-side processing with Canvas API. Supports PNG, JPG, WebP with social media presets.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Organization","name":"Spunk Codes","url":"https://spunk.codes"}}</script>
+<!-- GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<!-- Clarity -->
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<script src="https://spunk.codes/heartbeat.js" defer></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0a0a0f;--card:rgba(18,18,28,0.85);--border:rgba(50,50,70,0.5);--accent:#ff5f1f;--accent2:#ff9f1f;--text:#e8e8f0;--text-dim:#8b8b9e;--green:#39d353;--red:#f85149;--blue:#58a6ff;--font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+a{color:var(--blue);text-decoration:none}a:hover{color:#fff}
+.bg-mesh{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 80% 50% at 20% 20%,rgba(255,95,31,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(255,159,31,0.04) 0%,transparent 60%),var(--bg)}
+.nav{position:sticky;top:0;z-index:100;background:rgba(10,10,15,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,95,31,0.15);padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}
+.nav-brand{font-weight:800;font-size:1.1rem;background:linear-gradient(135deg,#ff5f1f,#ff9f1f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:0.08em}
+.nav-links{display:flex;gap:1.5rem;font-size:0.85rem;list-style:none}.nav-links a{color:var(--text-dim);transition:color 0.2s;font-weight:500}.nav-links a:hover{color:#fff}.nav-links a.active{color:var(--accent)}
+.lock-gate{position:fixed;inset:0;z-index:1000;background:rgba(10,10,15,0.97);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:2rem}.lock-gate.hidden{display:none}
+.lock-icon-big{font-size:4rem;margin-bottom:0.5rem}.lock-gate h2{font-size:1.8rem;font-weight:800;text-align:center}.lock-gate h2 span{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.lock-gate p{color:var(--text-dim);text-align:center;max-width:400px}
+.code-input-wrap{display:flex;gap:0.5rem;margin-top:0.5rem}.code-input{padding:0.8rem 1.5rem;background:rgba(18,18,28,0.8);border:2px solid rgba(255,95,31,0.3);border-radius:12px;color:var(--accent);font-size:1.2rem;font-weight:800;letter-spacing:3px;text-align:center;width:200px;outline:none;text-transform:uppercase;font-family:var(--font)}.code-input:focus{border-color:var(--accent);box-shadow:0 0 20px rgba(255,95,31,0.2)}
+.code-submit{padding:0.8rem 1.5rem;background:linear-gradient(135deg,#ff5f1f,#ff9f1f);border:none;border-radius:12px;color:#000;font-size:1rem;font-weight:800;cursor:pointer;transition:all 0.3s}.code-submit:hover{transform:scale(1.05)}
+.code-error{color:#f85149;font-size:0.85rem;min-height:1.2em}
+.lock-hint{color:var(--text-dim);font-size:0.8rem;margin-top:1rem}.lock-hint a{color:var(--accent)}
+.exclusive-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;background:linear-gradient(135deg,rgba(255,95,31,0.15),rgba(255,159,31,0.15));border:1px solid rgba(255,95,31,0.3);border-radius:100px;font-size:11px;font-weight:800;color:var(--accent);letter-spacing:1.5px;text-transform:uppercase}
+.main{max-width:1000px;margin:0 auto;padding:2rem}
+.hero-section{text-align:center;padding:2rem 0 3rem}
+.hero-section h1{font-size:2.2rem;font-weight:800;margin:1rem 0 0.5rem}
+.hero-section h1 .grad{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-section p{color:var(--text-dim);max-width:600px;margin:0 auto}
+.tool-section{background:var(--card);border:1px solid rgba(255,95,31,0.2);border-radius:16px;padding:2rem;margin-bottom:1.5rem;backdrop-filter:blur(10px);position:relative;overflow:hidden}
+.tool-section::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#ff5f1f,#ff9f1f,#ff5f1f)}
+.tool-section h2{font-size:1.2rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}
+label{font-size:0.85rem;color:var(--text-dim);font-weight:600;display:block;margin-bottom:0.4rem}
+input,select,textarea{width:100%;padding:0.75rem 1rem;background:rgba(10,10,15,0.6);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:0.9rem;font-family:var(--font);outline:none;transition:border-color 0.2s}
+input:focus,select:focus{border-color:var(--accent)}
+.input-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.input-group{margin-bottom:1rem}
+.btn{padding:0.75rem 2rem;border:none;border-radius:10px;font-size:0.9rem;font-weight:700;cursor:pointer;transition:all 0.2s;font-family:var(--font)}
+.btn-primary{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);color:#000}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 4px 20px rgba(255,95,31,0.3)}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--text-dim)}
+.btn-outline:hover{border-color:var(--accent);color:var(--accent)}
+.btn-sm{padding:0.5rem 1rem;font-size:0.8rem}
+.btn-danger{background:rgba(248,81,73,0.15);border:1px solid rgba(248,81,73,0.3);color:var(--red)}
+.btn-danger:hover{background:rgba(248,81,73,0.25)}
+.btn-row{display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:1rem}
+
+/* Drop zone */
+.drop-zone{border:2px dashed rgba(255,95,31,0.3);border-radius:16px;padding:3rem 2rem;text-align:center;cursor:pointer;transition:all 0.3s;background:rgba(255,95,31,0.02)}
+.drop-zone:hover,.drop-zone.dragover{border-color:var(--accent);background:rgba(255,95,31,0.06)}
+.drop-zone .icon{font-size:3rem;margin-bottom:1rem;display:block}
+.drop-zone p{color:var(--text-dim);margin-bottom:0.5rem}
+.drop-zone .formats{font-size:0.75rem;color:var(--text-dim)}
+.drop-zone input[type="file"]{display:none}
+
+/* Settings grid */
+.settings-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem}
+.preset-btn{padding:0.5rem 0.8rem;background:rgba(255,95,31,0.08);border:1px solid rgba(255,95,31,0.2);border-radius:8px;color:var(--text);font-size:0.75rem;cursor:pointer;transition:all 0.2s;font-family:var(--font);text-align:center}
+.preset-btn:hover,.preset-btn.active{background:rgba(255,95,31,0.2);border-color:var(--accent);color:var(--accent)}
+.presets-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:0.5rem;margin-top:0.5rem}
+
+/* Slider */
+.slider-wrap{display:flex;align-items:center;gap:1rem}
+.slider-wrap input[type="range"]{flex:1;-webkit-appearance:none;height:6px;border-radius:3px;background:var(--border);outline:none;border:none;padding:0}
+.slider-wrap input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:linear-gradient(135deg,#ff5f1f,#ff9f1f);cursor:pointer}
+.slider-val{font-weight:800;color:var(--accent);min-width:45px;text-align:right}
+
+/* Image list */
+.image-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;margin-top:1rem}
+.image-card{background:rgba(10,10,15,0.5);border:1px solid var(--border);border-radius:12px;overflow:hidden;position:relative;transition:border-color 0.2s}
+.image-card:hover{border-color:rgba(255,95,31,0.3)}
+.image-card .preview{width:100%;height:140px;object-fit:contain;background:rgba(0,0,0,0.3);display:block}
+.image-card .info{padding:0.75rem;font-size:0.75rem}
+.image-card .name{font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:0.3rem}
+.image-card .dims{color:var(--text-dim)}
+.image-card .size-compare{display:flex;justify-content:space-between;margin-top:0.3rem}
+.image-card .original-size{color:var(--text-dim)}
+.image-card .new-size{color:var(--green);font-weight:700}
+.image-card .remove-btn{position:absolute;top:6px;right:6px;width:24px;height:24px;border-radius:50%;background:rgba(248,81,73,0.8);border:none;color:#fff;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1}
+.image-card .status{position:absolute;top:6px;left:6px;padding:2px 8px;border-radius:4px;font-size:0.65rem;font-weight:700}
+.image-card .status.done{background:rgba(57,211,83,0.2);color:var(--green)}
+.image-card .status.processing{background:rgba(255,95,31,0.2);color:var(--accent)}
+
+/* Progress */
+.progress-wrap{margin:1rem 0;display:none}
+.progress-bar{width:100%;height:8px;background:var(--border);border-radius:4px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,#ff5f1f,#ff9f1f);border-radius:4px;transition:width 0.3s;width:0}
+.progress-text{font-size:0.8rem;color:var(--text-dim);margin-top:0.4rem;text-align:center}
+
+/* Stats */
+.stats-bar{display:flex;gap:2rem;justify-content:center;padding:1rem;background:rgba(255,95,31,0.05);border-radius:10px;margin-top:1rem;flex-wrap:wrap}
+.stat{text-align:center}.stat .val{font-size:1.3rem;font-weight:800;color:var(--accent)}.stat .lbl{font-size:0.7rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px}
+
+.share-cta{background:linear-gradient(135deg,rgba(255,95,31,0.08),rgba(255,159,31,0.05));border:1px solid rgba(255,95,31,0.2);border-radius:16px;padding:2rem;text-align:center;margin-top:2rem}
+.share-cta h3{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:0.5rem;font-size:1.1rem}
+.share-cta p{color:var(--text-dim);font-size:0.9rem;margin-bottom:1rem}
+.footer{text-align:center;padding:2rem;border-top:1px solid rgba(255,95,31,0.1);color:var(--text-dim);font-size:0.75rem;margin-top:3rem}
+.footer a{color:var(--accent)}.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-bottom:1rem}
+@media(max-width:768px){.main{padding:1rem}.hero-section h1{font-size:1.6rem}.settings-grid{grid-template-columns:1fr}.input-grid{grid-template-columns:1fr}.image-list{grid-template-columns:1fr 1fr}.nav-links{display:none}.presets-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.image-list{grid-template-columns:1fr}.stats-bar{gap:1rem}}
+</style>
+</head>
+<body>
+<div class="bg-mesh"></div>
+<div class="lock-gate" id="lockGate">
+  <div class="lock-icon-big">&#128274;</div>
+  <h2>Enter Code <span>SPUNK</span> to Unlock</h2>
+  <p>This is an exclusive premium tool. Enter the referral code to get instant access.</p>
+  <div class="code-input-wrap">
+    <input type="text" class="code-input" id="codeInput" placeholder="CODE" maxlength="10" autocomplete="off">
+    <button class="code-submit" onclick="submitCode()">Unlock</button>
+  </div>
+  <div class="code-error" id="codeError"></div>
+  <div class="lock-hint">Get the code at <a href="https://spunk.codes/exclusive/">spunk.codes/exclusive/</a></div>
+</div>
+
+<nav class="nav">
+  <a href="https://spunk.codes" class="nav-brand">SPUNK.CODES</a>
+  <div class="nav-links">
+    <a href="/store">Tools</a>
+    <a href="/exclusive/" class="active">Exclusive</a>
+    <a href="/store#ebook">Ebooks</a>
+    <a href="/blog">Blog</a>
+  </div>
+</nav>
+
+<div class="main">
+  <section class="hero-section">
+    <div class="exclusive-badge">&#9889; EXCLUSIVE TOOL</div>
+    <h1>Batch Image <span class="grad">Resizer & Optimizer</span></h1>
+    <p>Resize, convert, and optimize multiple images at once. All processing happens in your browser -- nothing gets uploaded anywhere.</p>
+  </section>
+
+  <!-- Upload Section -->
+  <div class="tool-section">
+    <h2>&#128444;&#65039; Upload Images</h2>
+    <div class="drop-zone" id="dropZone">
+      <span class="icon">&#128206;</span>
+      <p><strong>Drag & drop images here</strong> or click to browse</p>
+      <p class="formats">Supports PNG, JPG, JPEG, WebP -- up to 50 images at once</p>
+      <input type="file" id="fileInput" multiple accept="image/png,image/jpeg,image/webp">
+    </div>
+  </div>
+
+  <!-- Settings Section -->
+  <div class="tool-section">
+    <h2>&#9881;&#65039; Resize Settings</h2>
+
+    <div class="input-group">
+      <label>Resize Mode</label>
+      <select id="resizeMode" onchange="updateResizeUI()">
+        <option value="custom">Custom Dimensions</option>
+        <option value="percentage">Percentage Scale</option>
+        <option value="preset">Social Media Preset</option>
+      </select>
+    </div>
+
+    <div id="customDims" class="input-grid">
+      <div class="input-group">
+        <label>Width (px)</label>
+        <input type="number" id="customWidth" placeholder="1920" min="1" max="10000">
+      </div>
+      <div class="input-group">
+        <label>Height (px)</label>
+        <input type="number" id="customHeight" placeholder="1080" min="1" max="10000">
+      </div>
+    </div>
+    <div class="input-group" id="customDimsExtra" style="margin-top:-0.5rem">
+      <label style="display:flex;align-items:center;gap:0.5rem;cursor:pointer">
+        <input type="checkbox" id="maintainAspect" checked style="width:auto"> Maintain aspect ratio
+      </label>
+    </div>
+
+    <div id="percentageScale" style="display:none">
+      <div class="input-group">
+        <label>Scale Percentage</label>
+        <div class="slider-wrap">
+          <input type="range" id="scalePercent" min="1" max="200" value="50">
+          <span class="slider-val" id="scaleVal">50%</span>
+        </div>
+      </div>
+    </div>
+
+    <div id="presetSelect" style="display:none">
+      <label>Social Media Presets</label>
+      <div class="presets-grid">
+        <button class="preset-btn" data-w="1080" data-h="1080" onclick="selectPreset(this)">Instagram Post<br><small>1080x1080</small></button>
+        <button class="preset-btn" data-w="1080" data-h="1920" onclick="selectPreset(this)">Instagram Story<br><small>1080x1920</small></button>
+        <button class="preset-btn" data-w="1600" data-h="900" onclick="selectPreset(this)">Twitter/X Post<br><small>1600x900</small></button>
+        <button class="preset-btn" data-w="820" data-h="312" onclick="selectPreset(this)">Facebook Cover<br><small>820x312</small></button>
+        <button class="preset-btn" data-w="1200" data-h="627" onclick="selectPreset(this)">LinkedIn Post<br><small>1200x627</small></button>
+        <button class="preset-btn" data-w="1280" data-h="720" onclick="selectPreset(this)">YouTube Thumb<br><small>1280x720</small></button>
+        <button class="preset-btn" data-w="1200" data-h="630" onclick="selectPreset(this)">OG Image<br><small>1200x630</small></button>
+        <button class="preset-btn" data-w="512" data-h="512" onclick="selectPreset(this)">App Icon<br><small>512x512</small></button>
+        <button class="preset-btn" data-w="1500" data-h="500" onclick="selectPreset(this)">Twitter Banner<br><small>1500x500</small></button>
+      </div>
+    </div>
+
+    <hr style="border:none;border-top:1px solid var(--border);margin:1.5rem 0">
+
+    <div class="input-grid">
+      <div class="input-group">
+        <label>Output Format</label>
+        <select id="outputFormat">
+          <option value="original">Keep Original</option>
+          <option value="image/jpeg">JPEG</option>
+          <option value="image/png">PNG</option>
+          <option value="image/webp">WebP</option>
+        </select>
+      </div>
+      <div class="input-group">
+        <label>Quality</label>
+        <div class="slider-wrap">
+          <input type="range" id="quality" min="1" max="100" value="85">
+          <span class="slider-val" id="qualityVal">85%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Image List & Preview -->
+  <div class="tool-section" id="previewSection" style="display:none">
+    <h2>&#128444;&#65039; Images (<span id="imageCount">0</span>)</h2>
+    <div class="btn-row" style="margin-top:0;margin-bottom:1rem">
+      <button class="btn btn-primary" onclick="processAll()">&#9889; Process All Images</button>
+      <button class="btn btn-outline" onclick="clearAll()">&#128465;&#65039; Clear All</button>
+    </div>
+    <div class="progress-wrap" id="progressWrap">
+      <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+      <div class="progress-text" id="progressText">Processing 0 / 0</div>
+    </div>
+    <div class="image-list" id="imageList"></div>
+    <div class="stats-bar" id="statsBar" style="display:none">
+      <div class="stat"><div class="val" id="statTotal">0</div><div class="lbl">Images</div></div>
+      <div class="stat"><div class="val" id="statOriginal">0</div><div class="lbl">Original Size</div></div>
+      <div class="stat"><div class="val" id="statNew">0</div><div class="lbl">New Size</div></div>
+      <div class="stat"><div class="val" id="statSaved">0</div><div class="lbl">Saved</div></div>
+    </div>
+  </div>
+
+  <!-- Download Section -->
+  <div class="tool-section" id="downloadSection" style="display:none">
+    <h2>&#128229; Download</h2>
+    <p style="color:var(--text-dim);font-size:0.9rem;margin-bottom:1rem">All images have been processed. Download individually or all at once.</p>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="downloadAll()">&#128230; Download All (Individual Files)</button>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="share-cta">
+    <h3>More Exclusive Automation Tools</h3>
+    <p>Cron schedulers, text transformers, code generators, and more -- all free with code SPUNK.</p>
+    <a href="https://spunk.codes/exclusive/" class="btn btn-primary">Browse All Exclusive Tools</a>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer-links">
+    <a href="https://spunk.codes">spunk.codes</a>
+    <a href="https://spunk.bet">spunk.bet</a>
+    <a href="https://spunk.work">spunk.work</a>
+    <a href="https://spunk.pics">spunk.pics</a>
+  </div>
+  &copy; 2026 SPUNK.CODES -- Built for builders.
+</footer>
+
+<script>
+/* Lock gate */
+function submitCode(){
+  const v=document.getElementById('codeInput').value.trim().toUpperCase();
+  if(v==='SPUNK'){document.getElementById('lockGate').classList.add('hidden');localStorage.setItem('spunk_unlocked','1');}
+  else{document.getElementById('codeError').textContent='Invalid code. Try again.';}
+}
+document.getElementById('codeInput').addEventListener('keydown',e=>{if(e.key==='Enter')submitCode();});
+if(localStorage.getItem('spunk_unlocked')==='1')document.getElementById('lockGate').classList.add('hidden');
+
+/* State */
+let images = []; // {file, img, originalSize, processedBlob, processedSize, processedUrl}
+
+/* Drop zone */
+const dropZone = document.getElementById('dropZone');
+const fileInput = document.getElementById('fileInput');
+
+dropZone.addEventListener('click', () => fileInput.click());
+dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('dragover'); });
+dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
+dropZone.addEventListener('drop', e => {
+  e.preventDefault();
+  dropZone.classList.remove('dragover');
+  handleFiles(e.dataTransfer.files);
+});
+fileInput.addEventListener('change', e => handleFiles(e.target.files));
+
+function handleFiles(files) {
+  const validTypes = ['image/png','image/jpeg','image/webp'];
+  for (const f of files) {
+    if (!validTypes.includes(f.type)) continue;
+    if (images.length >= 50) break;
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      const img = new Image();
+      img.onload = () => {
+        images.push({
+          file: f,
+          img: img,
+          name: f.name,
+          originalWidth: img.naturalWidth,
+          originalHeight: img.naturalHeight,
+          originalSize: f.size,
+          processedBlob: null,
+          processedSize: 0,
+          processedUrl: null
+        });
+        renderImages();
+      };
+      img.src = ev.target.result;
+    };
+    reader.readAsDataURL(f);
+  }
+}
+
+function renderImages() {
+  const section = document.getElementById('previewSection');
+  const list = document.getElementById('imageList');
+  if (images.length === 0) { section.style.display = 'none'; return; }
+  section.style.display = 'block';
+  document.getElementById('imageCount').textContent = images.length;
+  list.innerHTML = '';
+  images.forEach((item, i) => {
+    const card = document.createElement('div');
+    card.className = 'image-card';
+    let statusHTML = '';
+    if (item.processedBlob) statusHTML = '<div class="status done">Done</div>';
+    let sizeCompare = '';
+    if (item.processedBlob) {
+      sizeCompare = `<div class="size-compare"><span class="original-size">${formatSize(item.originalSize)}</span><span class="new-size">${formatSize(item.processedSize)}</span></div>`;
+    } else {
+      sizeCompare = `<div class="size-compare"><span class="original-size">${formatSize(item.originalSize)}</span></div>`;
+    }
+    card.innerHTML = `
+      ${statusHTML}
+      <button class="remove-btn" onclick="removeImage(${i})">&times;</button>
+      <img class="preview" src="${item.processedUrl || item.img.src}" alt="${item.name}">
+      <div class="info">
+        <div class="name" title="${item.name}">${item.name}</div>
+        <div class="dims">${item.originalWidth} x ${item.originalHeight}${item.processedBlob ? ' &rarr; resized' : ''}</div>
+        ${sizeCompare}
+      </div>
+    `;
+    list.appendChild(card);
+  });
+}
+
+function removeImage(i) {
+  if (images[i].processedUrl) URL.revokeObjectURL(images[i].processedUrl);
+  images.splice(i, 1);
+  renderImages();
+  if (images.length === 0) {
+    document.getElementById('downloadSection').style.display = 'none';
+    document.getElementById('statsBar').style.display = 'none';
+  }
+}
+
+function clearAll() {
+  images.forEach(item => { if (item.processedUrl) URL.revokeObjectURL(item.processedUrl); });
+  images = [];
+  renderImages();
+  document.getElementById('downloadSection').style.display = 'none';
+  document.getElementById('statsBar').style.display = 'none';
+  document.getElementById('progressWrap').style.display = 'none';
+}
+
+/* Resize Mode UI */
+function updateResizeUI() {
+  const mode = document.getElementById('resizeMode').value;
+  document.getElementById('customDims').style.display = mode === 'custom' ? 'grid' : 'none';
+  document.getElementById('customDimsExtra').style.display = mode === 'custom' ? 'block' : 'none';
+  document.getElementById('percentageScale').style.display = mode === 'percentage' ? 'block' : 'none';
+  document.getElementById('presetSelect').style.display = mode === 'preset' ? 'block' : 'none';
+}
+
+function selectPreset(btn) {
+  document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+/* Sliders */
+document.getElementById('scalePercent').addEventListener('input', e => {
+  document.getElementById('scaleVal').textContent = e.target.value + '%';
+});
+document.getElementById('quality').addEventListener('input', e => {
+  document.getElementById('qualityVal').textContent = e.target.value + '%';
+});
+
+/* Calculate target dimensions */
+function getTargetDimensions(origW, origH) {
+  const mode = document.getElementById('resizeMode').value;
+  if (mode === 'percentage') {
+    const scale = parseInt(document.getElementById('scalePercent').value) / 100;
+    return { w: Math.round(origW * scale), h: Math.round(origH * scale) };
+  }
+  if (mode === 'preset') {
+    const active = document.querySelector('.preset-btn.active');
+    if (!active) return { w: origW, h: origH };
+    return { w: parseInt(active.dataset.w), h: parseInt(active.dataset.h) };
+  }
+  // custom
+  let w = parseInt(document.getElementById('customWidth').value) || 0;
+  let h = parseInt(document.getElementById('customHeight').value) || 0;
+  const maintain = document.getElementById('maintainAspect').checked;
+  if (w && !h && maintain) h = Math.round((w / origW) * origH);
+  else if (h && !w && maintain) w = Math.round((h / origH) * origW);
+  else if (!w && !h) { w = origW; h = origH; }
+  else if (w && h && maintain) { h = Math.round((w / origW) * origH); }
+  return { w, h };
+}
+
+/* Process all images */
+async function processAll() {
+  if (images.length === 0) return;
+  const progressWrap = document.getElementById('progressWrap');
+  const progressFill = document.getElementById('progressFill');
+  const progressText = document.getElementById('progressText');
+  progressWrap.style.display = 'block';
+  progressFill.style.width = '0%';
+
+  const format = document.getElementById('outputFormat').value;
+  const quality = parseInt(document.getElementById('quality').value) / 100;
+
+  for (let i = 0; i < images.length; i++) {
+    const item = images[i];
+    progressText.textContent = `Processing ${i + 1} / ${images.length} -- ${item.name}`;
+    const pct = ((i) / images.length) * 100;
+    progressFill.style.width = pct + '%';
+
+    const dims = getTargetDimensions(item.originalWidth, item.originalHeight);
+    const canvas = document.createElement('canvas');
+    canvas.width = dims.w;
+    canvas.height = dims.h;
+    const ctx = canvas.getContext('2d');
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = 'high';
+    ctx.drawImage(item.img, 0, 0, dims.w, dims.h);
+
+    const outputType = format === 'original' ? item.file.type : format;
+    const blob = await new Promise(resolve => canvas.toBlob(resolve, outputType, quality));
+    if (item.processedUrl) URL.revokeObjectURL(item.processedUrl);
+    item.processedBlob = blob;
+    item.processedSize = blob.size;
+    item.processedUrl = URL.createObjectURL(blob);
+
+    // small delay for UI
+    await new Promise(r => setTimeout(r, 30));
+  }
+
+  progressFill.style.width = '100%';
+  progressText.textContent = `Done! Processed ${images.length} images.`;
+
+  renderImages();
+  showStats();
+  document.getElementById('downloadSection').style.display = 'block';
+}
+
+function showStats() {
+  const bar = document.getElementById('statsBar');
+  bar.style.display = 'flex';
+  const totalOrig = images.reduce((s, i) => s + i.originalSize, 0);
+  const totalNew = images.reduce((s, i) => s + (i.processedSize || 0), 0);
+  const saved = totalOrig - totalNew;
+  document.getElementById('statTotal').textContent = images.length;
+  document.getElementById('statOriginal').textContent = formatSize(totalOrig);
+  document.getElementById('statNew').textContent = formatSize(totalNew);
+  document.getElementById('statSaved').textContent = (saved > 0 ? '-' : '+') + formatSize(Math.abs(saved));
+}
+
+/* Download */
+function downloadAll() {
+  images.forEach((item, i) => {
+    if (!item.processedBlob) return;
+    const ext = getExtFromMime(item.processedBlob.type);
+    const baseName = item.name.replace(/\.[^.]+$/, '');
+    const link = document.createElement('a');
+    link.href = item.processedUrl;
+    link.download = `${baseName}_resized.${ext}`;
+    document.body.appendChild(link);
+    // stagger downloads to avoid browser blocking
+    setTimeout(() => { link.click(); document.body.removeChild(link); }, i * 200);
+  });
+}
+
+function getExtFromMime(mime) {
+  if (mime === 'image/png') return 'png';
+  if (mime === 'image/webp') return 'webp';
+  return 'jpg';
+}
+
+function formatSize(bytes) {
+  if (bytes < 1024) return bytes + ' B';
+  if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+  return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
+}
+</script>
+</body>
+</html>

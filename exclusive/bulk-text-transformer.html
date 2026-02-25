@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bulk Text Transformer & Formatter | SPUNK.CODES Exclusive</title>
+<meta name="description" content="Transform text in bulk with case conversion, regex find and replace, sorting, deduplication, encoding, extraction, and chainable transformations with undo/redo.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Bulk Text Transformer & Formatter - SPUNK.CODES Exclusive">
+<meta property="og:description" content="Chain multiple text transformations: case conversion, regex replace, sort, deduplicate, encode/decode, extract patterns, and more.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://spunk.codes/exclusive/bulk-text-transformer">
+<meta property="og:site_name" content="Spunk Codes">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/bulk-text-transformer">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Bulk Text Transformer & Formatter","applicationCategory":"DeveloperApplication","operatingSystem":"Web","description":"Transform text in bulk with case conversion, regex find/replace, sorting, deduplication, encoding, extraction, and chainable transformations.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Organization","name":"Spunk Codes","url":"https://spunk.codes"}}</script>
+<!-- GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<!-- Clarity -->
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<script src="https://spunk.codes/heartbeat.js" defer></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0a0a0f;--card:rgba(18,18,28,0.85);--border:rgba(50,50,70,0.5);--accent:#ff5f1f;--accent2:#ff9f1f;--text:#e8e8f0;--text-dim:#8b8b9e;--green:#39d353;--red:#f85149;--blue:#58a6ff;--font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+a{color:var(--blue);text-decoration:none}a:hover{color:#fff}
+.bg-mesh{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 80% 50% at 20% 20%,rgba(255,95,31,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(255,159,31,0.04) 0%,transparent 60%),var(--bg)}
+.nav{position:sticky;top:0;z-index:100;background:rgba(10,10,15,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,95,31,0.15);padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}
+.nav-brand{font-weight:800;font-size:1.1rem;background:linear-gradient(135deg,#ff5f1f,#ff9f1f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:0.08em}
+.nav-links{display:flex;gap:1.5rem;font-size:0.85rem;list-style:none}.nav-links a{color:var(--text-dim);transition:color 0.2s;font-weight:500}.nav-links a:hover{color:#fff}.nav-links a.active{color:var(--accent)}
+.lock-gate{position:fixed;inset:0;z-index:1000;background:rgba(10,10,15,0.97);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:2rem}.lock-gate.hidden{display:none}
+.lock-icon-big{font-size:4rem;margin-bottom:0.5rem}.lock-gate h2{font-size:1.8rem;font-weight:800;text-align:center}.lock-gate h2 span{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.lock-gate p{color:var(--text-dim);text-align:center;max-width:400px}
+.code-input-wrap{display:flex;gap:0.5rem;margin-top:0.5rem}.code-input{padding:0.8rem 1.5rem;background:rgba(18,18,28,0.8);border:2px solid rgba(255,95,31,0.3);border-radius:12px;color:var(--accent);font-size:1.2rem;font-weight:800;letter-spacing:3px;text-align:center;width:200px;outline:none;text-transform:uppercase;font-family:var(--font)}.code-input:focus{border-color:var(--accent);box-shadow:0 0 20px rgba(255,95,31,0.2)}
+.code-submit{padding:0.8rem 1.5rem;background:linear-gradient(135deg,#ff5f1f,#ff9f1f);border:none;border-radius:12px;color:#000;font-size:1rem;font-weight:800;cursor:pointer;transition:all 0.3s}.code-submit:hover{transform:scale(1.05)}
+.code-error{color:#f85149;font-size:0.85rem;min-height:1.2em}
+.lock-hint{color:var(--text-dim);font-size:0.8rem;margin-top:1rem}.lock-hint a{color:var(--accent)}
+.exclusive-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;background:linear-gradient(135deg,rgba(255,95,31,0.15),rgba(255,159,31,0.15));border:1px solid rgba(255,95,31,0.3);border-radius:100px;font-size:11px;font-weight:800;color:var(--accent);letter-spacing:1.5px;text-transform:uppercase}
+.main{max-width:1100px;margin:0 auto;padding:2rem}
+.hero-section{text-align:center;padding:2rem 0 3rem}
+.hero-section h1{font-size:2.2rem;font-weight:800;margin:1rem 0 0.5rem}
+.hero-section h1 .grad{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-section p{color:var(--text-dim);max-width:600px;margin:0 auto}
+.tool-section{background:var(--card);border:1px solid rgba(255,95,31,0.2);border-radius:16px;padding:2rem;margin-bottom:1.5rem;backdrop-filter:blur(10px);position:relative;overflow:hidden}
+.tool-section::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#ff5f1f,#ff9f1f,#ff5f1f)}
+.tool-section h2{font-size:1.2rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}
+label{font-size:0.85rem;color:var(--text-dim);font-weight:600;display:block;margin-bottom:0.4rem}
+input,select,textarea{width:100%;padding:0.75rem 1rem;background:rgba(10,10,15,0.6);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:0.9rem;font-family:var(--font);outline:none;transition:border-color 0.2s}
+input:focus,select:focus,textarea:focus{border-color:var(--accent)}
+textarea{resize:vertical;min-height:120px;font-family:'Courier New',monospace;font-size:0.85rem;line-height:1.5}
+.input-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.input-group{margin-bottom:1rem}
+.btn{padding:0.75rem 2rem;border:none;border-radius:10px;font-size:0.9rem;font-weight:700;cursor:pointer;transition:all 0.2s;font-family:var(--font)}
+.btn-primary{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);color:#000}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 4px 20px rgba(255,95,31,0.3)}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--text-dim)}
+.btn-outline:hover{border-color:var(--accent);color:var(--accent)}
+.btn-sm{padding:0.5rem 1rem;font-size:0.8rem}
+.btn-danger{background:rgba(248,81,73,0.12);border:1px solid rgba(248,81,73,0.3);color:var(--red);padding:0.5rem 1rem;font-size:0.8rem}
+.btn-danger:hover{background:rgba(248,81,73,0.25)}
+.btn-row{display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:1rem}
+
+/* Transform chips */
+.transform-options{display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:1rem}
+.t-chip{padding:0.4rem 0.8rem;background:rgba(255,95,31,0.06);border:1px solid rgba(255,95,31,0.18);border-radius:8px;color:var(--text);font-size:0.75rem;cursor:pointer;transition:all 0.2s;font-family:var(--font);white-space:nowrap}
+.t-chip:hover{background:rgba(255,95,31,0.15);border-color:var(--accent);color:var(--accent)}
+
+/* Chain */
+.chain-list{min-height:40px;border:1px solid var(--border);border-radius:10px;padding:0.5rem;margin-bottom:1rem;background:rgba(10,10,15,0.3)}
+.chain-item{display:flex;align-items:center;gap:0.5rem;padding:0.5rem 0.75rem;background:rgba(255,95,31,0.06);border:1px solid rgba(255,95,31,0.15);border-radius:8px;margin-bottom:0.3rem;font-size:0.8rem}
+.chain-item .chain-label{flex:1;font-weight:600}
+.chain-item .chain-num{color:var(--accent);font-weight:800;min-width:20px}
+.chain-item .chain-remove{background:none;border:none;color:var(--red);cursor:pointer;font-size:1rem;padding:0 4px;font-family:var(--font)}
+.chain-item .chain-up,.chain-item .chain-down{background:none;border:none;color:var(--text-dim);cursor:pointer;font-size:0.85rem;padding:0 2px;font-family:var(--font)}
+.chain-item .chain-up:hover,.chain-item .chain-down:hover{color:var(--accent)}
+.chain-empty{color:var(--text-dim);font-size:0.8rem;text-align:center;padding:0.5rem}
+
+/* Find/Replace params */
+.param-row{display:flex;gap:0.5rem;align-items:center;margin-bottom:0.5rem;flex-wrap:wrap}
+.param-row input{flex:1;min-width:120px}
+.param-row label{min-width:auto;margin-bottom:0;font-size:0.78rem;display:flex;align-items:center;gap:4px;white-space:nowrap}
+
+/* Stats bar */
+.stats-bar{display:flex;gap:1.5rem;justify-content:center;padding:0.75rem 1rem;background:rgba(255,95,31,0.05);border-radius:10px;flex-wrap:wrap;font-size:0.8rem}
+.stat{text-align:center}.stat .val{font-size:1.1rem;font-weight:800;color:var(--accent)}.stat .lbl{font-size:0.65rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px}
+
+/* Two-col layout */
+.split-layout{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+
+/* Category headers */
+.cat-label{font-size:0.7rem;color:var(--accent);font-weight:800;text-transform:uppercase;letter-spacing:1.5px;margin:0.75rem 0 0.4rem;padding-left:0.2rem}
+
+.share-cta{background:linear-gradient(135deg,rgba(255,95,31,0.08),rgba(255,159,31,0.05));border:1px solid rgba(255,95,31,0.2);border-radius:16px;padding:2rem;text-align:center;margin-top:2rem}
+.share-cta h3{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:0.5rem;font-size:1.1rem}
+.share-cta p{color:var(--text-dim);font-size:0.9rem;margin-bottom:1rem}
+.footer{text-align:center;padding:2rem;border-top:1px solid rgba(255,95,31,0.1);color:var(--text-dim);font-size:0.75rem;margin-top:3rem}
+.footer a{color:var(--accent)}.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-bottom:1rem}
+@media(max-width:768px){.main{padding:1rem}.hero-section h1{font-size:1.6rem}.input-grid{grid-template-columns:1fr}.split-layout{grid-template-columns:1fr}.nav-links{display:none}.stats-bar{gap:0.75rem}}
+</style>
+</head>
+<body>
+<div class="bg-mesh"></div>
+<div class="lock-gate" id="lockGate">
+  <div class="lock-icon-big">&#128274;</div>
+  <h2>Enter Code <span>SPUNK</span> to Unlock</h2>
+  <p>This is an exclusive premium tool. Enter the referral code to get instant access.</p>
+  <div class="code-input-wrap">
+    <input type="text" class="code-input" id="codeInput" placeholder="CODE" maxlength="10" autocomplete="off">
+    <button class="code-submit" onclick="submitCode()">Unlock</button>
+  </div>
+  <div class="code-error" id="codeError"></div>
+  <div class="lock-hint">Get the code at <a href="https://spunk.codes/exclusive/">spunk.codes/exclusive/</a></div>
+</div>
+
+<nav class="nav">
+  <a href="https://spunk.codes" class="nav-brand">SPUNK.CODES</a>
+  <div class="nav-links">
+    <a href="/store">Tools</a>
+    <a href="/exclusive/" class="active">Exclusive</a>
+    <a href="/store#ebook">Ebooks</a>
+    <a href="/blog">Blog</a>
+  </div>
+</nav>
+
+<div class="main">
+  <section class="hero-section">
+    <div class="exclusive-badge">&#9889; EXCLUSIVE TOOL</div>
+    <h1>Bulk Text <span class="grad">Transformer</span></h1>
+    <p>Chain multiple text transformations together. Case conversion, regex replace, sort, deduplicate, encode, extract, and more -- with undo/redo.</p>
+  </section>
+
+  <!-- Input -->
+  <div class="tool-section">
+    <h2>&#128221; Input Text</h2>
+    <textarea id="inputText" rows="8" placeholder="Paste your text, CSV data, or any content here..."></textarea>
+    <div class="stats-bar" style="margin-top:0.75rem">
+      <div class="stat"><div class="val" id="statChars">0</div><div class="lbl">Characters</div></div>
+      <div class="stat"><div class="val" id="statWords">0</div><div class="lbl">Words</div></div>
+      <div class="stat"><div class="val" id="statLines">0</div><div class="lbl">Lines</div></div>
+      <div class="stat"><div class="val" id="statBytes">0</div><div class="lbl">Bytes</div></div>
+    </div>
+  </div>
+
+  <!-- Transformations -->
+  <div class="tool-section">
+    <h2>&#128736;&#65039; Add Transformations</h2>
+    <p style="color:var(--text-dim);font-size:0.82rem;margin-bottom:1rem">Click a transform to add it to the chain. They run in order, top to bottom.</p>
+
+    <div class="cat-label">Case Conversion</div>
+    <div class="transform-options">
+      <button class="t-chip" onclick="addTransform('uppercase')">UPPERCASE</button>
+      <button class="t-chip" onclick="addTransform('lowercase')">lowercase</button>
+      <button class="t-chip" onclick="addTransform('titlecase')">Title Case</button>
+      <button class="t-chip" onclick="addTransform('sentencecase')">Sentence case</button>
+      <button class="t-chip" onclick="addTransform('camelcase')">camelCase</button>
+      <button class="t-chip" onclick="addTransform('snakecase')">snake_case</button>
+      <button class="t-chip" onclick="addTransform('kebabcase')">kebab-case</button>
+      <button class="t-chip" onclick="addTransform('pascalcase')">PascalCase</button>
+    </div>
+
+    <div class="cat-label">Find & Replace</div>
+    <div class="transform-options">
+      <button class="t-chip" onclick="addTransform('findreplace')">Find & Replace</button>
+      <button class="t-chip" onclick="addTransform('regexreplace')">Regex Replace</button>
+    </div>
+
+    <div class="cat-label">Line Operations</div>
+    <div class="transform-options">
+      <button class="t-chip" onclick="addTransform('dedup')">Remove Duplicates</button>
+      <button class="t-chip" onclick="addTransform('removeempty')">Remove Empty Lines</button>
+      <button class="t-chip" onclick="addTransform('sortaz')">Sort A-Z</button>
+      <button class="t-chip" onclick="addTransform('sortza')">Sort Z-A</button>
+      <button class="t-chip" onclick="addTransform('sortlength')">Sort by Length</button>
+      <button class="t-chip" onclick="addTransform('shuffle')">Random Shuffle</button>
+      <button class="t-chip" onclick="addTransform('prefix')">Add Prefix</button>
+      <button class="t-chip" onclick="addTransform('suffix')">Add Suffix</button>
+      <button class="t-chip" onclick="addTransform('numberlines')">Number Lines</button>
+      <button class="t-chip" onclick="addTransform('wrapquotes')">Wrap in Quotes</button>
+      <button class="t-chip" onclick="addTransform('trimlines')">Trim Whitespace</button>
+      <button class="t-chip" onclick="addTransform('reverse')">Reverse Lines</button>
+    </div>
+
+    <div class="cat-label">Data Conversion</div>
+    <div class="transform-options">
+      <button class="t-chip" onclick="addTransform('csv2json')">CSV to JSON</button>
+      <button class="t-chip" onclick="addTransform('json2csv')">JSON to CSV</button>
+      <button class="t-chip" onclick="addTransform('base64enc')">Base64 Encode</button>
+      <button class="t-chip" onclick="addTransform('base64dec')">Base64 Decode</button>
+      <button class="t-chip" onclick="addTransform('urlenc')">URL Encode</button>
+      <button class="t-chip" onclick="addTransform('urldec')">URL Decode</button>
+    </div>
+
+    <div class="cat-label">Extract</div>
+    <div class="transform-options">
+      <button class="t-chip" onclick="addTransform('extractemails')">Extract Emails</button>
+      <button class="t-chip" onclick="addTransform('extracturls')">Extract URLs</button>
+      <button class="t-chip" onclick="addTransform('extractnumbers')">Extract Numbers</button>
+    </div>
+  </div>
+
+  <!-- Chain -->
+  <div class="tool-section">
+    <h2>&#9939;&#65039; Transformation Chain</h2>
+    <div class="chain-list" id="chainList">
+      <div class="chain-empty" id="chainEmpty">No transforms added yet. Click a transform above to add it.</div>
+    </div>
+    <!-- Params area for find/replace, prefix, suffix -->
+    <div id="paramsArea"></div>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="runChain()">&#9889; Run All Transforms</button>
+      <button class="btn btn-outline btn-sm" onclick="undoAction()">&#8617; Undo</button>
+      <button class="btn btn-outline btn-sm" onclick="redoAction()">&#8618; Redo</button>
+      <button class="btn btn-danger" onclick="clearChain()">Clear Chain</button>
+    </div>
+  </div>
+
+  <!-- Output -->
+  <div class="tool-section">
+    <h2>&#128196; Output</h2>
+    <textarea id="outputText" rows="10" readonly placeholder="Transformed text will appear here..."></textarea>
+    <div class="stats-bar" style="margin-top:0.75rem">
+      <div class="stat"><div class="val" id="outChars">0</div><div class="lbl">Characters</div></div>
+      <div class="stat"><div class="val" id="outWords">0</div><div class="lbl">Words</div></div>
+      <div class="stat"><div class="val" id="outLines">0</div><div class="lbl">Lines</div></div>
+      <div class="stat"><div class="val" id="outBytes">0</div><div class="lbl">Bytes</div></div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-primary btn-sm" onclick="copyOutput()">&#128203; Copy Result</button>
+      <button class="btn btn-outline btn-sm" onclick="downloadOutput()">&#128229; Download .txt</button>
+      <button class="btn btn-outline btn-sm" onclick="useAsInput()">&#128260; Use as Input</button>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="share-cta">
+    <h3>More Exclusive Automation Tools</h3>
+    <p>Image resizers, cron schedulers, code generators, and more -- all free with code SPUNK.</p>
+    <a href="https://spunk.codes/exclusive/" class="btn btn-primary">Browse All Exclusive Tools</a>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer-links">
+    <a href="https://spunk.codes">spunk.codes</a>
+    <a href="https://spunk.bet">spunk.bet</a>
+    <a href="https://spunk.work">spunk.work</a>
+    <a href="https://spunk.pics">spunk.pics</a>
+  </div>
+  &copy; 2026 SPUNK.CODES -- Built for builders.
+</footer>
+
+<script>
+/* Lock gate */
+function submitCode(){
+  const v=document.getElementById('codeInput').value.trim().toUpperCase();
+  if(v==='SPUNK'){document.getElementById('lockGate').classList.add('hidden');localStorage.setItem('spunk_unlocked','1');}
+  else{document.getElementById('codeError').textContent='Invalid code. Try again.';}
+}
+document.getElementById('codeInput').addEventListener('keydown',e=>{if(e.key==='Enter')submitCode();});
+if(localStorage.getItem('spunk_unlocked')==='1')document.getElementById('lockGate').classList.add('hidden');
+
+/* State */
+let chain = []; // {type, params:{}}
+let undoStack = [];
+let redoStack = [];
+
+/* Input stats */
+const inputEl = document.getElementById('inputText');
+const outputEl = document.getElementById('outputText');
+
+inputEl.addEventListener('input', updateInputStats);
+function updateInputStats() {
+  const t = inputEl.value;
+  document.getElementById('statChars').textContent = t.length.toLocaleString();
+  document.getElementById('statWords').textContent = (t.trim() ? t.trim().split(/\s+/).length : 0).toLocaleString();
+  document.getElementById('statLines').textContent = (t ? t.split('\n').length : 0).toLocaleString();
+  document.getElementById('statBytes').textContent = new Blob([t]).size.toLocaleString();
+}
+
+function updateOutputStats() {
+  const t = outputEl.value;
+  document.getElementById('outChars').textContent = t.length.toLocaleString();
+  document.getElementById('outWords').textContent = (t.trim() ? t.trim().split(/\s+/).length : 0).toLocaleString();
+  document.getElementById('outLines').textContent = (t ? t.split('\n').length : 0).toLocaleString();
+  document.getElementById('outBytes').textContent = new Blob([t]).size.toLocaleString();
+}
+
+/* Transform names */
+const NAMES = {
+  uppercase:'UPPERCASE',lowercase:'lowercase',titlecase:'Title Case',sentencecase:'Sentence Case',
+  camelcase:'camelCase',snakecase:'snake_case',kebabcase:'kebab-case',pascalcase:'PascalCase',
+  findreplace:'Find & Replace',regexreplace:'Regex Replace',
+  dedup:'Remove Duplicates',removeempty:'Remove Empty Lines',
+  sortaz:'Sort A-Z',sortza:'Sort Z-A',sortlength:'Sort by Length',shuffle:'Random Shuffle',
+  prefix:'Add Prefix',suffix:'Add Suffix',numberlines:'Number Lines',wrapquotes:'Wrap in Quotes',
+  trimlines:'Trim Whitespace',reverse:'Reverse Lines',
+  csv2json:'CSV to JSON',json2csv:'JSON to CSV',
+  base64enc:'Base64 Encode',base64dec:'Base64 Decode',urlenc:'URL Encode',urldec:'URL Decode',
+  extractemails:'Extract Emails',extracturls:'Extract URLs',extractnumbers:'Extract Numbers'
+};
+
+function addTransform(type) {
+  const params = {};
+  if (type === 'findreplace' || type === 'regexreplace') { params.find = ''; params.replace = ''; }
+  if (type === 'prefix') params.value = '';
+  if (type === 'suffix') params.value = '';
+  chain.push({ type, params });
+  renderChain();
+}
+
+function removeTransform(i) {
+  chain.splice(i, 1);
+  renderChain();
+}
+
+function moveTransform(i, dir) {
+  const j = i + dir;
+  if (j < 0 || j >= chain.length) return;
+  [chain[i], chain[j]] = [chain[j], chain[i]];
+  renderChain();
+}
+
+function clearChain() {
+  chain = [];
+  renderChain();
+}
+
+function renderChain() {
+  const list = document.getElementById('chainList');
+  const empty = document.getElementById('chainEmpty');
+  const paramsArea = document.getElementById('paramsArea');
+
+  if (chain.length === 0) {
+    list.innerHTML = '<div class="chain-empty" id="chainEmpty">No transforms added yet. Click a transform above to add it.</div>';
+    paramsArea.innerHTML = '';
+    return;
+  }
+
+  list.innerHTML = chain.map((item, i) => `
+    <div class="chain-item">
+      <span class="chain-num">${i + 1}</span>
+      <span class="chain-label">${NAMES[item.type] || item.type}</span>
+      <button class="chain-up" onclick="moveTransform(${i},-1)" title="Move up">&#9650;</button>
+      <button class="chain-down" onclick="moveTransform(${i},1)" title="Move down">&#9660;</button>
+      <button class="chain-remove" onclick="removeTransform(${i})" title="Remove">&times;</button>
+    </div>
+  `).join('');
+
+  // Render params for transforms that need them
+  let paramsHTML = '';
+  chain.forEach((item, i) => {
+    if (item.type === 'findreplace' || item.type === 'regexreplace') {
+      paramsHTML += `
+        <div class="param-row" style="margin-top:0.5rem">
+          <span style="font-size:0.75rem;color:var(--accent);font-weight:700;min-width:20px">#${i+1}</span>
+          <input type="text" placeholder="Find${item.type==='regexreplace'?' (regex)':''}" value="${escAttr(item.params.find)}" onchange="chain[${i}].params.find=this.value" style="flex:1">
+          <input type="text" placeholder="Replace with" value="${escAttr(item.params.replace)}" onchange="chain[${i}].params.replace=this.value" style="flex:1">
+        </div>`;
+    }
+    if (item.type === 'prefix') {
+      paramsHTML += `
+        <div class="param-row" style="margin-top:0.5rem">
+          <span style="font-size:0.75rem;color:var(--accent);font-weight:700;min-width:20px">#${i+1}</span>
+          <input type="text" placeholder="Prefix text" value="${escAttr(item.params.value)}" onchange="chain[${i}].params.value=this.value" style="flex:1">
+        </div>`;
+    }
+    if (item.type === 'suffix') {
+      paramsHTML += `
+        <div class="param-row" style="margin-top:0.5rem">
+          <span style="font-size:0.75rem;color:var(--accent);font-weight:700;min-width:20px">#${i+1}</span>
+          <input type="text" placeholder="Suffix text" value="${escAttr(item.params.value)}" onchange="chain[${i}].params.value=this.value" style="flex:1">
+        </div>`;
+    }
+  });
+  paramsArea.innerHTML = paramsHTML;
+}
+
+function escAttr(s) { return (s||'').replace(/"/g,'&quot;').replace(/</g,'&lt;'); }
+
+/* Run chain */
+function runChain() {
+  if (chain.length === 0) return;
+  // Save undo state
+  undoStack.push(outputEl.value);
+  redoStack = [];
+
+  let text = inputEl.value;
+  for (const item of chain) {
+    text = applyTransform(text, item);
+  }
+  outputEl.value = text;
+  updateOutputStats();
+}
+
+function applyTransform(text, item) {
+  const lines = () => text.split('\n');
+  const joinLines = (arr) => arr.join('\n');
+
+  switch (item.type) {
+    case 'uppercase': return text.toUpperCase();
+    case 'lowercase': return text.toLowerCase();
+    case 'titlecase': return text.replace(/\w\S*/g, w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase());
+    case 'sentencecase': return text.replace(/(^\s*\w|[.!?]\s+\w)/gm, c => c.toUpperCase());
+    case 'camelcase': return toCamelCase(text);
+    case 'snakecase': return toSnakeCase(text);
+    case 'kebabcase': return toKebabCase(text);
+    case 'pascalcase': return toPascalCase(text);
+
+    case 'findreplace': {
+      const find = item.params.find;
+      if (!find) return text;
+      return text.split(find).join(item.params.replace || '');
+    }
+    case 'regexreplace': {
+      const find = item.params.find;
+      if (!find) return text;
+      try {
+        const re = new RegExp(find, 'gm');
+        return text.replace(re, item.params.replace || '');
+      } catch(e) { return text; }
+    }
+
+    case 'dedup': return joinLines([...new Set(lines())]);
+    case 'removeempty': return joinLines(lines().filter(l => l.trim() !== ''));
+    case 'sortaz': return joinLines(lines().sort((a, b) => a.localeCompare(b)));
+    case 'sortza': return joinLines(lines().sort((a, b) => b.localeCompare(a)));
+    case 'sortlength': return joinLines(lines().sort((a, b) => a.length - b.length));
+    case 'shuffle': { const arr = lines(); for (let i = arr.length - 1; i > 0; i--) { const j = Math.floor(Math.random()*(i+1)); [arr[i],arr[j]]=[arr[j],arr[i]]; } return joinLines(arr); }
+    case 'prefix': return joinLines(lines().map(l => (item.params.value || '') + l));
+    case 'suffix': return joinLines(lines().map(l => l + (item.params.value || '')));
+    case 'numberlines': return joinLines(lines().map((l, i) => (i + 1) + '. ' + l));
+    case 'wrapquotes': return joinLines(lines().map(l => '"' + l + '"'));
+    case 'trimlines': return joinLines(lines().map(l => l.trim()));
+    case 'reverse': return joinLines(lines().reverse());
+
+    case 'csv2json': return csvToJson(text);
+    case 'json2csv': return jsonToCsv(text);
+    case 'base64enc': try { return btoa(unescape(encodeURIComponent(text))); } catch(e) { return '[Base64 encode error]'; }
+    case 'base64dec': try { return decodeURIComponent(escape(atob(text.trim()))); } catch(e) { return '[Base64 decode error]'; }
+    case 'urlenc': return encodeURIComponent(text);
+    case 'urldec': try { return decodeURIComponent(text); } catch(e) { return text; }
+
+    case 'extractemails': { const m = text.match(/[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}/g); return m ? m.join('\n') : '(no emails found)'; }
+    case 'extracturls': { const m = text.match(/https?:\/\/[^\s<>"']+/g); return m ? m.join('\n') : '(no URLs found)'; }
+    case 'extractnumbers': { const m = text.match(/-?\d+\.?\d*/g); return m ? m.join('\n') : '(no numbers found)'; }
+
+    default: return text;
+  }
+}
+
+/* Case converters (line-by-line) */
+function toCamelCase(text) {
+  return text.split('\n').map(line =>
+    line.replace(/[-_ ]+(.)/g, (_, c) => c.toUpperCase()).replace(/^(.)/, (_, c) => c.toLowerCase())
+  ).join('\n');
+}
+function toSnakeCase(text) {
+  return text.split('\n').map(line =>
+    line.replace(/([a-z])([A-Z])/g, '$1_$2').replace(/[-\s]+/g, '_').toLowerCase()
+  ).join('\n');
+}
+function toKebabCase(text) {
+  return text.split('\n').map(line =>
+    line.replace(/([a-z])([A-Z])/g, '$1-$2').replace(/[_\s]+/g, '-').toLowerCase()
+  ).join('\n');
+}
+function toPascalCase(text) {
+  return text.split('\n').map(line =>
+    line.replace(/[-_ ]+(.)/g, (_, c) => c.toUpperCase()).replace(/^(.)/, (_, c) => c.toUpperCase())
+  ).join('\n');
+}
+
+/* CSV to JSON */
+function csvToJson(csv) {
+  try {
+    const lines = csv.trim().split('\n');
+    if (lines.length < 2) return '[]';
+    const headers = parseCSVLine(lines[0]);
+    const result = [];
+    for (let i = 1; i < lines.length; i++) {
+      if (!lines[i].trim()) continue;
+      const vals = parseCSVLine(lines[i]);
+      const obj = {};
+      headers.forEach((h, idx) => { obj[h.trim()] = (vals[idx] || '').trim(); });
+      result.push(obj);
+    }
+    return JSON.stringify(result, null, 2);
+  } catch(e) { return '[CSV parse error: ' + e.message + ']'; }
+}
+
+function parseCSVLine(line) {
+  const result = [];
+  let current = '';
+  let inQuotes = false;
+  for (let i = 0; i < line.length; i++) {
+    const c = line[i];
+    if (c === '"') { inQuotes = !inQuotes; }
+    else if (c === ',' && !inQuotes) { result.push(current); current = ''; }
+    else { current += c; }
+  }
+  result.push(current);
+  return result;
+}
+
+/* JSON to CSV */
+function jsonToCsv(json) {
+  try {
+    const arr = JSON.parse(json);
+    if (!Array.isArray(arr) || arr.length === 0) return '(empty or invalid JSON array)';
+    const headers = Object.keys(arr[0]);
+    const csvLines = [headers.join(',')];
+    for (const obj of arr) {
+      csvLines.push(headers.map(h => {
+        let v = String(obj[h] || '');
+        if (v.includes(',') || v.includes('"') || v.includes('\n')) v = '"' + v.replace(/"/g, '""') + '"';
+        return v;
+      }).join(','));
+    }
+    return csvLines.join('\n');
+  } catch(e) { return '[JSON parse error: ' + e.message + ']'; }
+}
+
+/* Undo / Redo */
+function undoAction() {
+  if (undoStack.length === 0) return;
+  redoStack.push(outputEl.value);
+  outputEl.value = undoStack.pop();
+  updateOutputStats();
+}
+function redoAction() {
+  if (redoStack.length === 0) return;
+  undoStack.push(outputEl.value);
+  outputEl.value = redoStack.pop();
+  updateOutputStats();
+}
+
+/* Copy / Download / Use as input */
+function copyOutput() {
+  navigator.clipboard.writeText(outputEl.value).then(() => {
+    // brief visual feedback
+    const btn = event.target;
+    const orig = btn.textContent;
+    btn.textContent = 'Copied!';
+    setTimeout(() => btn.textContent = orig, 1500);
+  });
+}
+
+function downloadOutput() {
+  const blob = new Blob([outputEl.value], { type: 'text/plain' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'transformed-text.txt';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+function useAsInput() {
+  inputEl.value = outputEl.value;
+  updateInputStats();
+  outputEl.value = '';
+  updateOutputStats();
+  inputEl.scrollIntoView({ behavior: 'smooth' });
+}
+
+/* Init */
+updateInputStats();
+</script>
+</body>
+</html>
