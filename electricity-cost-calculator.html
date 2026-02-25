@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Copyright 2026 spunk.codes. All rights reserved. Unauthorized reproduction prohibited. hello@spunk.codes -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Electricity Cost Calculator - Free Online Tool | SPUNK.CODES</title>
+<meta name="description" content="Calculate your electricity cost per appliance. See kWh usage, monthly/annual costs, and get energy-saving tips. Free, instant, no signup.">
+<meta property="og:title" content="Electricity Cost Calculator - Free Online Tool">
+<meta property="og:description" content="Calculate electricity costs per appliance. See which devices cost the most and get saving tips.">
+<meta property="og:image" content="https://spunk.codes/assets/og-electricity-calculator.png">
+<meta property="og:url" content="https://spunk.codes/electricity-cost-calculator.html">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Electricity Cost Calculator - Free Online Tool">
+<meta name="twitter:description" content="See which appliances cost you the most. Free tool by SPUNK.CODES">
+<link rel="canonical" href="https://spunk.codes/electricity-cost-calculator.html">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<meta name="author" content="spunk.codes">
+<meta name="copyright" content="Copyright 2026 spunk.codes. All rights reserved.">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Electricity Cost Calculator","description":"Calculate your electricity cost per appliance with real wattage data. See monthly and annual projections.","url":"https://spunk.codes/electricity-cost-calculator.html","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Organization","name":"SpunkArt","url":"https://spunk.codes"}}</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#0d1117;color:#e6edf3;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;line-height:1.6;min-height:100vh;display:flex;flex-direction:column;}
+a{color:#58a6ff;text-decoration:none;}a:hover{text-decoration:underline;}
+nav{background:#161b22;border-bottom:1px solid #30363d;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+nav .logo{font-weight:800;font-size:1.1rem;color:#ff5f1f;letter-spacing:1px;}
+nav .links{display:flex;gap:20px;font-size:0.9rem;}
+nav .links a{color:#8b949e;}nav .links a:hover{color:#58a6ff;}
+main{flex:1;max-width:960px;width:100%;margin:0 auto;padding:32px 20px 80px;}
+h1{font-size:2rem;margin-bottom:8px;color:#fff;}
+h2{font-size:1.3rem;color:#58a6ff;margin:28px 0 12px;border-bottom:1px solid #21262d;padding-bottom:8px;}
+h3{font-size:1.1rem;color:#e6edf3;margin:16px 0 8px;}
+.subtitle{color:#8b949e;margin-bottom:28px;font-size:1rem;}
+.form-group{margin-bottom:16px;}
+label{display:block;font-size:0.85rem;color:#8b949e;margin-bottom:6px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;}
+input[type="number"],input[type="text"],select{width:100%;background:#0d1117;border:1px solid #30363d;color:#e6edf3;padding:10px 14px;border-radius:8px;font-size:0.95rem;outline:none;transition:border-color 0.2s;}
+input:focus,select:focus{border-color:#58a6ff;}
+.form-row{display:flex;gap:12px;flex-wrap:wrap;}
+.form-row .form-group{flex:1;min-width:140px;}
+button{background:#238636;color:#fff;border:none;padding:12px 28px;border-radius:8px;font-size:1rem;font-weight:600;cursor:pointer;transition:background 0.2s;}
+button:hover{background:#2ea043;}
+.btn-add{background:#21262d;color:#58a6ff;border:1px solid #30363d;padding:8px 18px;font-size:0.9rem;}
+.btn-add:hover{background:#30363d;}
+.btn-remove{background:none;border:none;color:#f85149;cursor:pointer;font-size:1.2rem;padding:4px 8px;}
+.btn-remove:hover{color:#ff7b72;}
+.btn-reset{background:#21262d;color:#8b949e;border:1px solid #30363d;}
+.btn-reset:hover{background:#30363d;color:#e6edf3;}
+.appliance-row{display:flex;gap:10px;align-items:center;background:#161b22;border:1px solid #21262d;border-radius:10px;padding:12px 14px;margin-bottom:10px;flex-wrap:wrap;}
+.appliance-row select,.appliance-row input{flex:1;min-width:100px;}
+.appliance-row .watts-display{color:#8b949e;font-size:0.8rem;min-width:70px;text-align:center;}
+.results-panel{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:24px;margin-top:24px;display:none;}
+.result-card{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-radius:8px;margin-bottom:8px;background:#0d1117;border:1px solid #21262d;}
+.result-card .name{font-weight:600;color:#e6edf3;}
+.result-card .cost{font-weight:700;color:#39d353;font-size:1.1rem;}
+.result-card .kwh{font-size:0.85rem;color:#8b949e;}
+.total-row{background:linear-gradient(135deg,#161b22,#1a2332);border:2px solid #58a6ff;padding:16px 20px;border-radius:10px;margin-top:12px;display:flex;justify-content:space-between;align-items:center;}
+.total-row .label{font-weight:700;color:#58a6ff;font-size:1.1rem;}
+.total-row .amount{font-weight:800;color:#39d353;font-size:1.4rem;}
+.bar-chart{margin:20px 0;}
+.bar-item{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+.bar-item .bar-label{min-width:120px;font-size:0.85rem;color:#8b949e;text-align:right;}
+.bar-item .bar-track{flex:1;height:24px;background:#21262d;border-radius:6px;overflow:hidden;position:relative;}
+.bar-item .bar-fill{height:100%;border-radius:6px;background:linear-gradient(90deg,#238636,#39d353);transition:width 0.6s ease;}
+.bar-item .bar-value{min-width:80px;font-size:0.85rem;color:#39d353;font-weight:600;}
+.tips-section{background:#0d1117;border:1px solid #30363d;border-radius:10px;padding:20px;margin-top:20px;}
+.tip{display:flex;gap:10px;margin-bottom:12px;padding:10px;background:#161b22;border-radius:8px;border-left:3px solid #39d353;}
+.tip .icon{font-size:1.2rem;min-width:24px;}
+.tip .text{font-size:0.9rem;color:#c9d1d9;}
+.tip .savings{color:#39d353;font-weight:600;}
+.led-compare{background:#161b22;border:1px solid #30363d;border-radius:10px;padding:20px;margin-top:16px;}
+.led-compare table{width:100%;border-collapse:collapse;}
+.led-compare th{text-align:left;color:#58a6ff;font-size:0.85rem;padding:8px;border-bottom:1px solid #30363d;}
+.led-compare td{padding:8px;font-size:0.9rem;color:#c9d1d9;border-bottom:1px solid #21262d;}
+.led-compare .winner{color:#39d353;font-weight:700;}
+.projections{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:16px;}
+.proj-card{background:#0d1117;border:1px solid #21262d;border-radius:10px;padding:16px;text-align:center;}
+.proj-card .period{color:#8b949e;font-size:0.85rem;margin-bottom:4px;}
+.proj-card .value{color:#39d353;font-size:1.5rem;font-weight:800;}
+.proj-card .kwh-val{color:#58a6ff;font-size:0.85rem;margin-top:2px;}
+.rate-info{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:12px 16px;margin-bottom:20px;font-size:0.85rem;color:#8b949e;}
+.rate-info strong{color:#58a6ff;}
+.cross-sell{background:linear-gradient(135deg,#161b22,#1a2332);border:1px solid #30363d;border-radius:12px;padding:24px;text-align:center;margin-top:40px;}
+.cross-sell h3{color:#ff5f1f;margin-bottom:8px;}.cross-sell p{color:#8b949e;margin-bottom:16px;font-size:0.95rem;}
+.cross-sell a.cta{display:inline-block;background:#ff5f1f;color:#fff;padding:12px 32px;border-radius:8px;font-weight:700;text-decoration:none;}.cross-sell a.cta:hover{background:#e5520f;text-decoration:none;}
+.watermark{position:fixed;bottom:12px;right:16px;font-size:0.65rem;color:#21262d;font-weight:700;letter-spacing:1px;pointer-events:none;z-index:10;}
+.usage-badge{display:inline-flex;align-items:center;gap:6px;background:#161b22;border:1px solid #30363d;border-radius:20px;padding:4px 12px;font-size:0.75rem;color:#58a6ff;font-weight:600;margin-bottom:1rem;}
+.usage-badge-wrap{text-align:center;}
+footer{background:#161b22;border-top:1px solid #30363d;padding:16px 24px;text-align:center;font-size:0.8rem;color:#484f58;}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;}
+.sa-email-bar{position:fixed;bottom:0;left:0;right:0;background:#161b22;border-top:1px solid #30363d;padding:12px 20px;display:flex;align-items:center;justify-content:center;gap:12px;z-index:9999;transform:translateY(100%);transition:transform 0.4s ease;flex-wrap:wrap;}.sa-email-bar.show{transform:translateY(0);}.sa-email-bar p{color:#c9d1d9;font-size:0.85rem;margin:0;}.sa-email-bar input[type="email"]{padding:8px 12px;background:#0d1117;border:1px solid #30363d;border-radius:6px;color:#e6edf3;font-size:0.85rem;outline:none;min-width:200px;}.sa-email-bar input[type="email"]:focus{border-color:#58a6ff;}.sa-email-bar button.sa-sub-btn{padding:8px 18px;background:#ff5f1f;color:#fff;border:none;border-radius:6px;font-weight:700;font-size:0.85rem;cursor:pointer;white-space:nowrap;}.sa-email-bar button.sa-sub-btn:hover{background:#e5520f;}.sa-email-bar button.sa-dismiss{background:none;border:none;color:#484f58;font-size:1.2rem;cursor:pointer;padding:0 4px;line-height:1;}.sa-email-bar button.sa-dismiss:hover{color:#e6edf3;}
+@media(max-width:600px){h1{font-size:1.4rem;}main{padding:20px 16px 60px;}.appliance-row{flex-direction:column;align-items:stretch;}.form-row{flex-direction:column;}.projections{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="logo">SPUNK.CODES</a>
+  <div class="links">
+    <a href="/store">Store</a>
+    <a href="/store#free-tools">Free Tools</a>
+    <a href="/reseller" style="color:#10b981;font-weight:700">Resell $$</a>
+    <a href="/blog">Blog</a>
+  </div>
+</nav>
+<main>
+  <h1>Electricity Cost Calculator</h1>
+  <p class="subtitle">Calculate exactly how much each appliance costs you. Real wattage data, energy-saving tips, and LED vs incandescent comparisons.</p>
+  <div class="usage-badge-wrap"><div class="usage-badge" id="usageBadge">&#x1F525; Used 0 times</div></div>
+
+  <div class="rate-info">
+    <strong>US National Average:</strong> $0.168/kWh (EIA, 2025). Enter your local rate below for accurate results.
+  </div>
+
+  <div class="form-row">
+    <div class="form-group">
+      <label>Your Electricity Rate ($/kWh)</label>
+      <input type="number" id="elecRate" value="0.168" step="0.001" min="0.01" max="1.00">
+    </div>
+    <div class="form-group">
+      <label>Days Per Month</label>
+      <input type="number" id="daysPerMonth" value="30" min="28" max="31">
+    </div>
+  </div>
+
+  <h2>Your Appliances</h2>
+  <div id="applianceList"></div>
+  <div class="btn-row">
+    <button class="btn-add" onclick="addAppliance()">+ Add Appliance</button>
+    <button class="btn-add" onclick="addAllCommon()">+ Add All Common</button>
+  </div>
+
+  <div style="margin-top:20px;">
+    <button onclick="calculate()" style="width:100%;">Calculate Electricity Costs</button>
+  </div>
+
+  <div class="results-panel" id="resultsPanel">
+    <h2>Cost Breakdown</h2>
+    <div id="resultsList"></div>
+    <div class="total-row" id="totalRow">
+      <span class="label">Total Monthly Cost</span>
+      <span class="amount" id="totalMonthly">$0.00</span>
+    </div>
+
+    <h2>Cost Visualization</h2>
+    <div class="bar-chart" id="barChart"></div>
+
+    <h2>Projections</h2>
+    <div class="projections" id="projections"></div>
+
+    <h2>LED vs Incandescent Savings</h2>
+    <div class="led-compare" id="ledCompare"></div>
+
+    <h2>Energy-Saving Tips</h2>
+    <div class="tips-section" id="tipsSection"></div>
+  </div>
+
+  <div class="cross-sell">
+    <h3>Need more calculators?</h3>
+    <p>Check out our full library of free tools for budgets, loans, investments, and more.</p>
+    <a class="cta" href="/store#free-tools">Browse Free Tools</a>
+  </div>
+</main>
+<div class="watermark">SPUNK.CODES</div>
+<footer>&copy; 2026 spunk.codes &mdash; All rights reserved.</footer>
+
+<script>
+const APPLIANCE_DB = [
+  { name: 'Central Air Conditioner', watts: 3500, icon: '❄️', category: 'cooling', tip: 'Set thermostat to 78°F when home. Each degree lower adds 3-5% to cooling costs.' },
+  { name: 'Window AC Unit', watts: 1400, icon: '❄️', category: 'cooling', tip: 'Clean filters monthly. A dirty filter can increase energy use by 5-15%.' },
+  { name: 'Space Heater', watts: 1500, icon: '🔥', category: 'heating', tip: 'Use only to heat the room you\'re in. Turn off when leaving. Consider a heated blanket (200W) instead.' },
+  { name: 'Electric Furnace', watts: 10000, icon: '🔥', category: 'heating', tip: 'Seal ducts and insulate. Leaky ducts waste 20-30% of heated air.' },
+  { name: 'Water Heater (Electric)', watts: 4500, icon: '🚿', category: 'heating', tip: 'Lower thermostat to 120°F. Insulate the tank and first 6 feet of pipes. Saves $30-50/year.' },
+  { name: 'Refrigerator', watts: 150, icon: '🧊', category: 'kitchen', tip: 'Keep coils clean and set to 37°F fridge, 0°F freezer. A full fridge uses less energy than an empty one.' },
+  { name: 'Freezer (Chest)', watts: 100, icon: '🧊', category: 'kitchen', tip: 'Keep it full — frozen items help maintain temperature. Defrost when ice is 1/4 inch thick.' },
+  { name: 'Dishwasher', watts: 1800, icon: '🍽️', category: 'kitchen', tip: 'Run only full loads. Skip heated dry — open the door and air dry instead. Saves 15-50% per load.' },
+  { name: 'Oven (Electric)', watts: 2500, icon: '🍳', category: 'kitchen', tip: 'Use a toaster oven or microwave for small meals. They use 50-80% less energy.' },
+  { name: 'Microwave', watts: 1200, icon: '🍳', category: 'kitchen', tip: 'Microwaves use 80% less energy than ovens for reheating. Keep the interior clean for efficiency.' },
+  { name: 'Coffee Maker', watts: 900, icon: '☕', category: 'kitchen', tip: 'Turn off the warming plate after brewing. Use a thermal carafe instead.' },
+  { name: 'Toaster', watts: 850, icon: '🍞', category: 'kitchen', tip: 'Unplug when not in use. Even off, some draw phantom power.' },
+  { name: 'Washing Machine', watts: 500, icon: '👕', category: 'laundry', tip: 'Wash with cold water. 90% of washing machine energy goes to heating water. Saves $60+/year.' },
+  { name: 'Dryer (Electric)', watts: 3000, icon: '👕', category: 'laundry', tip: 'Clean the lint trap every load. Use dryer balls to reduce drying time by 25%. Air dry when possible.' },
+  { name: 'Iron', watts: 1200, icon: '👔', category: 'laundry', tip: 'Iron clothes in batches. The iron uses the most energy heating up.' },
+  { name: 'TV (55" LED)', watts: 80, icon: '📺', category: 'entertainment', tip: 'Use auto-brightness and turn off when not watching. A soundbar uses less power than a full surround system.' },
+  { name: 'TV (65" OLED)', watts: 120, icon: '📺', category: 'entertainment', tip: 'Enable eco mode in settings. OLED uses less power on dark content.' },
+  { name: 'Gaming Console', watts: 150, icon: '🎮', category: 'entertainment', tip: 'Enable auto power-off. Consoles in rest mode still draw 10-15W.' },
+  { name: 'Gaming PC', watts: 500, icon: '🖥️', category: 'entertainment', tip: 'Enable power management. Use balanced mode instead of high performance when not gaming.' },
+  { name: 'Desktop Computer', watts: 200, icon: '💻', category: 'office', tip: 'Enable sleep mode after 10 min of inactivity. A sleeping PC uses 2-5W vs 200W active.' },
+  { name: 'Laptop', watts: 50, icon: '💻', category: 'office', tip: 'Laptops use 75% less energy than desktops. Unplug charger when battery is full.' },
+  { name: 'Monitor (24")', watts: 30, icon: '🖥️', category: 'office', tip: 'Lower brightness to 60-70%. Each 10% brightness reduction saves about 10% energy.' },
+  { name: 'Router/Modem', watts: 15, icon: '📡', category: 'office', tip: 'Runs 24/7 but uses minimal power. Consider upgrading old routers — newer ones are more efficient.' },
+  { name: 'LED Light Bulb (10W)', watts: 10, icon: '💡', category: 'lighting', tip: 'Already efficient! Use timers or motion sensors for outdoor lights.' },
+  { name: 'Incandescent Bulb (60W)', watts: 60, icon: '💡', category: 'lighting', tip: 'Replace with LED immediately. LEDs last 25x longer and use 85% less energy.' },
+  { name: 'CFL Bulb (14W)', watts: 14, icon: '💡', category: 'lighting', tip: 'Good efficiency but LEDs are better. Upgrade when CFLs burn out.' },
+  { name: 'Ceiling Fan', watts: 75, icon: '🌀', category: 'cooling', tip: 'Use with AC to feel 4°F cooler. Raise AC thermostat 4°F and still feel comfortable.' },
+  { name: 'Dehumidifier', watts: 600, icon: '💧', category: 'climate', tip: 'Set to 45-50% humidity. Clean filters regularly. Turn off when target humidity is reached.' },
+  { name: 'Humidifier', watts: 100, icon: '💧', category: 'climate', tip: 'Use only when humidity drops below 30%. Clean weekly to prevent mold.' },
+  { name: 'Pool Pump', watts: 2200, icon: '🏊', category: 'outdoor', tip: 'Run 8 hours/day instead of 24. A variable speed pump can save $50-75/month.' },
+  { name: 'EV Charger (Level 2)', watts: 7200, icon: '🔌', category: 'automotive', tip: 'Charge during off-peak hours (usually 11 PM - 7 AM). Can save 30-50% on charging costs.' },
+  { name: 'Hair Dryer', watts: 1800, icon: '💇', category: 'personal', tip: 'Use a lower heat setting. Towel dry hair first to reduce drying time by half.' },
+  { name: 'Vacuum Cleaner', watts: 1400, icon: '🧹', category: 'cleaning', tip: 'Clean or replace filters and bags regularly for maximum suction and efficiency.' },
+  { name: 'Portable Fan', watts: 40, icon: '🌬️', category: 'cooling', tip: 'Very energy-efficient cooling. Use instead of AC when temperatures are mild.' }
+];
+
+let applianceCount = 0;
+
+function addAppliance(presetName, presetHours) {
+  applianceCount++;
+  const id = applianceCount;
+  const div = document.createElement('div');
+  div.className = 'appliance-row';
+  div.id = 'row-' + id;
+  let options = '<option value="">Custom appliance...</option>';
+  APPLIANCE_DB.forEach((a, i) => {
+    const sel = (presetName && a.name === presetName) ? 'selected' : '';
+    options += '<option value="' + i + '" ' + sel + '>' + a.icon + ' ' + a.name + ' (' + a.watts + 'W)</option>';
+  });
+  const presetIdx = presetName ? APPLIANCE_DB.findIndex(a => a.name === presetName) : -1;
+  const watts = presetIdx >= 0 ? APPLIANCE_DB[presetIdx].watts : '';
+  const hours = presetHours || '';
+  div.innerHTML =
+    '<select onchange="onSelectAppliance(' + id + ',this.value)" style="min-width:200px;">' + options + '</select>' +
+    '<input type="number" id="watts-' + id + '" placeholder="Watts" min="1" max="20000" value="' + watts + '" style="max-width:90px;">' +
+    '<input type="number" id="hours-' + id + '" placeholder="Hrs/day" min="0" max="24" step="0.5" value="' + hours + '" style="max-width:90px;">' +
+    '<input type="number" id="qty-' + id + '" placeholder="Qty" min="1" max="50" value="1" style="max-width:60px;">' +
+    '<button class="btn-remove" onclick="removeAppliance(' + id + ')">&times;</button>';
+  document.getElementById('applianceList').appendChild(div);
+}
+
+function onSelectAppliance(id, val) {
+  if (val !== '') {
+    const a = APPLIANCE_DB[parseInt(val)];
+    document.getElementById('watts-' + id).value = a.watts;
+  }
+}
+
+function removeAppliance(id) {
+  const el = document.getElementById('row-' + id);
+  if (el) el.remove();
+}
+
+function addAllCommon() {
+  document.getElementById('applianceList').innerHTML = '';
+  applianceCount = 0;
+  const common = [
+    { name: 'Refrigerator', hours: 24 },
+    { name: 'Central Air Conditioner', hours: 8 },
+    { name: 'Water Heater (Electric)', hours: 3 },
+    { name: 'TV (55" LED)', hours: 5 },
+    { name: 'Washing Machine', hours: 1 },
+    { name: 'Dryer (Electric)', hours: 1 },
+    { name: 'Dishwasher', hours: 1 },
+    { name: 'Desktop Computer', hours: 6 },
+    { name: 'LED Light Bulb (10W)', hours: 8 },
+    { name: 'Microwave', hours: 0.5 },
+    { name: 'Router/Modem', hours: 24 },
+    { name: 'Ceiling Fan', hours: 8 }
+  ];
+  common.forEach(c => addAppliance(c.name, c.hours));
+}
+
+function calculate() {
+  const rate = parseFloat(document.getElementById('elecRate').value) || 0.168;
+  const days = parseInt(document.getElementById('daysPerMonth').value) || 30;
+  const rows = document.querySelectorAll('.appliance-row');
+  let results = [];
+  let totalKwh = 0;
+  let totalCost = 0;
+
+  rows.forEach(row => {
+    const select = row.querySelector('select');
+    const wattsInput = row.querySelector('input[id^="watts-"]');
+    const hoursInput = row.querySelector('input[id^="hours-"]');
+    const qtyInput = row.querySelector('input[id^="qty-"]');
+    const watts = parseFloat(wattsInput.value) || 0;
+    const hours = parseFloat(hoursInput.value) || 0;
+    const qty = parseInt(qtyInput.value) || 1;
+    if (watts <= 0 || hours <= 0) return;
+    const dailyKwh = (watts * hours * qty) / 1000;
+    const monthlyKwh = dailyKwh * days;
+    const monthlyCost = monthlyKwh * rate;
+    const selIdx = select.value;
+    let name = 'Custom (' + watts + 'W)';
+    let tip = '';
+    let icon = '⚡';
+    if (selIdx !== '') {
+      const a = APPLIANCE_DB[parseInt(selIdx)];
+      name = a.name;
+      tip = a.tip;
+      icon = a.icon;
+    }
+    if (qty > 1) name += ' ×' + qty;
+    totalKwh += monthlyKwh;
+    totalCost += monthlyCost;
+    results.push({ name, icon, watts: watts * qty, hours, monthlyKwh, monthlyCost, tip });
+  });
+
+  results.sort((a, b) => b.monthlyCost - a.monthlyCost);
+
+  // Results list
+  const rl = document.getElementById('resultsList');
+  rl.innerHTML = '';
+  results.forEach(r => {
+    rl.innerHTML +=
+      '<div class="result-card">' +
+        '<div><div class="name">' + r.icon + ' ' + r.name + '</div><div class="kwh">' + r.monthlyKwh.toFixed(1) + ' kWh/mo &middot; ' + r.watts + 'W &middot; ' + r.hours + ' hrs/day</div></div>' +
+        '<div class="cost">$' + r.monthlyCost.toFixed(2) + '/mo</div>' +
+      '</div>';
+  });
+
+  document.getElementById('totalMonthly').textContent = '$' + totalCost.toFixed(2);
+
+  // Bar chart
+  const bc = document.getElementById('barChart');
+  bc.innerHTML = '';
+  const maxCost = results.length > 0 ? results[0].monthlyCost : 1;
+  results.slice(0, 12).forEach(r => {
+    const pct = (r.monthlyCost / maxCost) * 100;
+    bc.innerHTML +=
+      '<div class="bar-item">' +
+        '<div class="bar-label">' + r.icon + ' ' + r.name.substring(0, 18) + '</div>' +
+        '<div class="bar-track"><div class="bar-fill" style="width:' + pct + '%;"></div></div>' +
+        '<div class="bar-value">$' + r.monthlyCost.toFixed(2) + '</div>' +
+      '</div>';
+  });
+
+  // Projections
+  const pj = document.getElementById('projections');
+  pj.innerHTML =
+    '<div class="proj-card"><div class="period">Daily</div><div class="value">$' + (totalCost / days).toFixed(2) + '</div><div class="kwh-val">' + (totalKwh / days).toFixed(1) + ' kWh</div></div>' +
+    '<div class="proj-card"><div class="period">Monthly</div><div class="value">$' + totalCost.toFixed(2) + '</div><div class="kwh-val">' + totalKwh.toFixed(1) + ' kWh</div></div>' +
+    '<div class="proj-card"><div class="period">Annually</div><div class="value">$' + (totalCost * 12).toFixed(2) + '</div><div class="kwh-val">' + (totalKwh * 12).toFixed(0) + ' kWh</div></div>' +
+    '<div class="proj-card"><div class="period">5-Year</div><div class="value">$' + (totalCost * 60).toFixed(0) + '</div><div class="kwh-val">' + (totalKwh * 60).toFixed(0) + ' kWh</div></div>';
+
+  // LED vs Incandescent
+  const lc = document.getElementById('ledCompare');
+  const bulbHours = 5;
+  const ledW = 10, incW = 60, cflW = 14;
+  const ledLife = 25000, incLife = 1000, cflLife = 10000;
+  const ledCost = 3, incCost = 1, cflCost = 2.50;
+  const yearsCalc = 10;
+  const annualHours = bulbHours * 365;
+  const ledAnnualKwh = (ledW * annualHours) / 1000;
+  const incAnnualKwh = (incW * annualHours) / 1000;
+  const cflAnnualKwh = (cflW * annualHours) / 1000;
+  const ledAnnualCost = ledAnnualKwh * rate;
+  const incAnnualCost = incAnnualKwh * rate;
+  const cflAnnualCost = cflAnnualKwh * rate;
+  const ledBulbs10yr = Math.ceil((annualHours * yearsCalc) / ledLife);
+  const incBulbs10yr = Math.ceil((annualHours * yearsCalc) / incLife);
+  const cflBulbs10yr = Math.ceil((annualHours * yearsCalc) / cflLife);
+  const ledTotal10yr = (ledAnnualCost * yearsCalc) + (ledBulbs10yr * ledCost);
+  const incTotal10yr = (incAnnualCost * yearsCalc) + (incBulbs10yr * incCost);
+  const cflTotal10yr = (cflAnnualCost * yearsCalc) + (cflBulbs10yr * cflCost);
+  lc.innerHTML =
+    '<h3>Per Bulb Comparison (5 hrs/day, 10 years, at $' + rate.toFixed(3) + '/kWh)</h3>' +
+    '<table><tr><th>Type</th><th>Watts</th><th>Annual kWh</th><th>Annual Cost</th><th>Bulbs Needed (10yr)</th><th>10-Year Total</th></tr>' +
+    '<tr><td class="winner">LED (10W)</td><td class="winner">10W</td><td class="winner">' + ledAnnualKwh.toFixed(1) + '</td><td class="winner">$' + ledAnnualCost.toFixed(2) + '</td><td class="winner">' + ledBulbs10yr + ' ($' + (ledBulbs10yr * ledCost).toFixed(2) + ')</td><td class="winner">$' + ledTotal10yr.toFixed(2) + '</td></tr>' +
+    '<tr><td>CFL (14W)</td><td>14W</td><td>' + cflAnnualKwh.toFixed(1) + '</td><td>$' + cflAnnualCost.toFixed(2) + '</td><td>' + cflBulbs10yr + ' ($' + (cflBulbs10yr * cflCost).toFixed(2) + ')</td><td>$' + cflTotal10yr.toFixed(2) + '</td></tr>' +
+    '<tr><td>Incandescent (60W)</td><td>60W</td><td>' + incAnnualKwh.toFixed(1) + '</td><td>$' + incAnnualCost.toFixed(2) + '</td><td>' + incBulbs10yr + ' ($' + (incBulbs10yr * incCost).toFixed(2) + ')</td><td>$' + incTotal10yr.toFixed(2) + '</td></tr>' +
+    '</table>' +
+    '<p style="margin-top:12px;color:#39d353;font-weight:600;">Switching 20 incandescent bulbs to LED saves ~$' + ((incTotal10yr - ledTotal10yr) * 20).toFixed(0) + ' over 10 years.</p>';
+
+  // Tips
+  const ts = document.getElementById('tipsSection');
+  ts.innerHTML = '';
+  const topThree = results.slice(0, 3);
+  topThree.forEach(r => {
+    if (r.tip) {
+      ts.innerHTML +=
+        '<div class="tip"><div class="icon">' + r.icon + '</div><div class="text"><strong>' + r.name + '</strong> ($' + r.monthlyCost.toFixed(2) + '/mo): ' + r.tip + '</div></div>';
+    }
+  });
+  ts.innerHTML +=
+    '<div class="tip"><div class="icon">🔌</div><div class="text"><strong>Phantom Power:</strong> Devices on standby still draw 5-10% of their active power. Use smart power strips to cut power completely. Saves $100-200/year for an average home.</div></div>' +
+    '<div class="tip"><div class="icon">⏰</div><div class="text"><strong>Time-of-Use Rates:</strong> If your utility offers TOU pricing, run heavy appliances (dryer, dishwasher, EV charger) during off-peak hours. Typical savings: 20-40%.</div></div>' +
+    '<div class="tip"><div class="icon">🌡️</div><div class="text"><strong>Thermostat Optimization:</strong> A programmable thermostat can save $180/year. Set to 68°F in winter, 78°F in summer. Each degree saves 3-5%.</div></div>';
+
+  document.getElementById('resultsPanel').style.display = 'block';
+  document.getElementById('resultsPanel').scrollIntoView({ behavior: 'smooth' });
+  gtag('event', 'electricity_calculated', { event_category: 'calculator', value: Math.round(totalCost) });
+}
+
+// Start with a few common appliances
+addAppliance('Refrigerator', 24);
+addAppliance('Central Air Conditioner', 8);
+addAppliance('TV (55" LED)', 5);
+addAppliance('LED Light Bulb (10W)', 8);
+</script>
+
+<div class="sa-email-bar" id="saEmailBar"><p>Like this? Get 30 more free tools in your inbox.</p><input type="email" id="saBarEmail" placeholder="you@email.com"><button class="sa-sub-btn" onclick="saSubmitEmail()">Get Early Access</button><button class="sa-dismiss" onclick="saDismissBar()">&times;</button></div>
+<script>
+(function(){var TOOL_KEY='sa_usage_electricity-calculator',BAR_KEY='sa_bar_dismissed_electricity-calculator';var count=parseInt(localStorage.getItem(TOOL_KEY))||0;var badge=document.getElementById('usageBadge');function updateBadge(){badge.textContent='\uD83D\uDD25 Used '+count+' time'+(count!==1?'s':'');}if(count>0)updateBadge();var _orig=calculate;calculate=function(){_orig.apply(this,arguments);count++;localStorage.setItem(TOOL_KEY,count);updateBadge();if(count>=2&&!localStorage.getItem(BAR_KEY))document.getElementById('saEmailBar').classList.add('show');};window.calculate=calculate;window.saDismissBar=function(){document.getElementById('saEmailBar').classList.remove('show');localStorage.setItem(BAR_KEY,'1');};window.saSubmitEmail=function(){var email=document.getElementById('saBarEmail').value;if(!email||!email.includes('@')){alert('Please enter a valid email.');return;}localStorage.setItem('sa_subscriber_email',email);localStorage.setItem(BAR_KEY,'1');window.open('https://embeds.beehiiv.com/cae41704-7588-4c50-83f1-11f5b4a0585f?email='+encodeURIComponent(email),'_blank');document.getElementById('saEmailBar').classList.remove('show');var btn=document.querySelector('.sa-sub-btn');btn.textContent='Subscribed!';btn.style.background='#10b981';};})();
+</script>
+<script>
+(function(){
+  document.addEventListener('contextmenu',function(e){e.preventDefault();});
+  document.addEventListener('keydown',function(e){
+    if(e.key==='F12')e.preventDefault();
+    if(e.ctrlKey&&e.key==='u')e.preventDefault();
+    if(e.ctrlKey&&e.key==='s')e.preventDefault();
+    if(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='i'||e.key==='J'||e.key==='j'||e.key==='C'||e.key==='c'))e.preventDefault();
+  });
+  console.log('%c\u26a0 SPUNK.CODES — All rights reserved. Unauthorized copying or redistribution of this code is prohibited.','color:#ff5f1f;font-size:16px;font-weight:bold;');
+  console.log('%cThis tool is the property of SpunkArt. Report theft: hello@spunk.codes','color:#888;font-size:12px;');
+})();
+</script>
+<script src="/auto-monetize.js"></script>
+<div id="shareXBtn" style="position:fixed;left:20px;bottom:20px;z-index:9999;">
+  <a id="shareXLink" href="#" target="_blank" rel="noopener noreferrer" title="Share on X" style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;background:rgba(88,166,255,0.15);border:1px solid rgba(88,166,255,0.3);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:50%;text-decoration:none;transition:all 0.3s ease;cursor:pointer;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+  </a>
+</div>
+<style>#shareXBtn a:hover{background:rgba(88,166,255,0.35)!important;border-color:rgba(88,166,255,0.6)!important;transform:scale(1.1);box-shadow:0 0 15px rgba(88,166,255,0.3);}</style>
+<script>
+(function(){var page=location.pathname.split("/").pop()||"index.html";var url="https://spunk.codes/"+page;var text="Just calculated my electricity costs with this free tool — amazing! @SpunkArt13";var href="https://x.com/intent/tweet?text="+encodeURIComponent(text)+"&url="+encodeURIComponent(url);document.getElementById("shareXLink").href=href;})();
+</script>
+<script src="/usage-tracker.js"></script>
+</body>
+</html>
+<!-- Additional data section for SEO and user value -->
+<!--
+  Electricity Cost Calculator - Extended Data Reference
+  US Average Electricity Rates by State (EIA 2025):
+  Alabama: $0.142, Alaska: $0.234, Arizona: $0.135, Arkansas: $0.120, California: $0.270
+  Colorado: $0.145, Connecticut: $0.268, Delaware: $0.142, Florida: $0.148, Georgia: $0.132
+  Hawaii: $0.425, Idaho: $0.104, Illinois: $0.157, Indiana: $0.141, Iowa: $0.138
+  Kansas: $0.138, Kentucky: $0.116, Louisiana: $0.112, Maine: $0.267, Maryland: $0.162
+  Massachusetts: $0.289, Michigan: $0.185, Minnesota: $0.146, Mississippi: $0.128
+  Missouri: $0.127, Montana: $0.121, Nebraska: $0.118, Nevada: $0.130, New Hampshire: $0.252
+  New Jersey: $0.178, New Mexico: $0.138, New York: $0.224, North Carolina: $0.124
+  North Dakota: $0.117, Ohio: $0.147, Oklahoma: $0.114, Oregon: $0.117, Pennsylvania: $0.168
+  Rhode Island: $0.284, South Carolina: $0.133, South Dakota: $0.128, Tennessee: $0.118
+  Texas: $0.136, Utah: $0.109, Vermont: $0.208, Virginia: $0.137, Washington: $0.108
+  West Virginia: $0.123, Wisconsin: $0.167, Wyoming: $0.114, DC: $0.153
+  
+  Common Appliance Wattage Reference:
+  Central AC: 3,000-5,000W | Window AC: 500-1,500W | Space Heater: 750-1,500W
+  Electric Furnace: 10,000-20,000W | Water Heater: 4,000-5,500W
+  Refrigerator: 100-250W | Dishwasher: 1,200-2,400W | Oven: 2,000-5,000W
+  Microwave: 600-1,500W | Washing Machine: 350-750W | Dryer: 2,000-5,000W
+  TV LED: 50-150W | Desktop Computer: 100-400W | Laptop: 30-70W
+  LED Bulb: 8-15W | CFL: 13-18W | Incandescent: 40-100W
+  Gaming PC: 300-750W | Gaming Console: 100-200W | Ceiling Fan: 15-120W
+  Pool Pump: 1,500-3,000W | EV Charger L2: 3,600-11,500W | Hair Dryer: 1,000-2,000W
+  
+  Energy Efficiency Tips Index:
+  1. Phantom/vampire power: 5-10% of home electricity bill ($100-200/year)
+  2. Smart thermostat: saves 10-15% on heating/cooling ($130-150/year)
+  3. LED lighting upgrade: saves $225/year for average home
+  4. Efficient appliances: ENERGY STAR saves 10-50% per appliance
+  5. Sealing air leaks: saves 15-30% on heating/cooling
+  6. Programmable power strips: saves $100-200/year
+  7. Cold water washing: saves $60-100/year
+  8. Air dry clothes: saves $100-200/year
+  9. Ceiling fan usage: saves $50-100/year on cooling
+  10. Time-of-use optimization: saves 20-40% in eligible areas
+  
+  kWh calculation formula: 
+  Daily kWh = (Watts × Hours used per day) / 1,000
+  Monthly kWh = Daily kWh × 30
+  Monthly Cost = Monthly kWh × Rate per kWh
+  Annual Cost = Monthly Cost × 12
+  
+  Average US household: 10,500 kWh/year = 875 kWh/month = $147/month
+  Top energy users: Heating/Cooling (46%), Water Heating (14%), Appliances (13%)
+  Lighting (12%), Electronics (8%), Other (7%)
+-->
+<!-- FAQ Schema for SEO -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How much does it cost to run an air conditioner per month?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A central air conditioner (3,500W) running 8 hours/day at the national average rate of $0.168/kWh costs approximately $141/month. A window unit (1,400W) costs about $56/month for the same usage."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I calculate my electricity cost per appliance?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Multiply the appliance wattage by hours used per day, divide by 1,000 to get kWh, then multiply by your electricity rate. Formula: (Watts × Hours/Day × 30) / 1,000 × $/kWh = Monthly Cost."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What appliance uses the most electricity?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Central air conditioning and electric heating are typically the biggest electricity consumers, accounting for nearly 50% of a home's electricity bill. Water heaters, electric dryers, and ovens are also significant."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How much does LED save vs incandescent?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "LED bulbs use 75-85% less electricity than incandescent bulbs and last 25 times longer. Replacing 20 incandescent bulbs with LEDs saves approximately $2,500-3,000 over 10 years."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the average electricity cost per kWh in the US?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The US national average electricity rate is approximately $0.168 per kWh as of 2025 (EIA data). Rates vary significantly by state, from $0.104/kWh in Idaho to $0.425/kWh in Hawaii."
+      }
+    }
+  ]
+}
+</script>

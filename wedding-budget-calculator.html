@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Copyright 2026 spunk.codes. All rights reserved. Unauthorized reproduction prohibited. hello@spunk.codes -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wedding Budget Calculator - Free Online Tool | SPUNK.CODES</title>
+<meta name="description" content="Plan your wedding budget with recommended percentage breakdowns. Track spending by category, cost per guest, vendor payment timeline. Free, no signup.">
+<meta property="og:title" content="Wedding Budget Calculator - Free Online Tool">
+<meta property="og:description" content="Plan your wedding budget with smart allocations. Track spending, compare to averages, and export your budget.">
+<meta property="og:image" content="https://spunk.codes/assets/og-wedding-calculator.png">
+<meta property="og:url" content="https://spunk.codes/wedding-budget-calculator.html">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Wedding Budget Calculator - Free Online Tool">
+<meta name="twitter:description" content="Plan your perfect wedding budget. Free tool by SPUNK.CODES">
+<link rel="canonical" href="https://spunk.codes/wedding-budget-calculator.html">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<meta name="author" content="spunk.codes">
+<meta name="copyright" content="Copyright 2026 spunk.codes. All rights reserved.">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Wedding Budget Calculator","description":"Plan your wedding budget with recommended percentage breakdowns, vendor payment timelines, and cost-per-guest calculations.","url":"https://spunk.codes/wedding-budget-calculator.html","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Organization","name":"SpunkArt","url":"https://spunk.codes"}}</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#0d1117;color:#e6edf3;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;line-height:1.6;min-height:100vh;display:flex;flex-direction:column;}
+a{color:#58a6ff;text-decoration:none;}a:hover{text-decoration:underline;}
+nav{background:#161b22;border-bottom:1px solid #30363d;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+nav .logo{font-weight:800;font-size:1.1rem;color:#ff5f1f;letter-spacing:1px;}
+nav .links{display:flex;gap:20px;font-size:0.9rem;}
+nav .links a{color:#8b949e;}nav .links a:hover{color:#58a6ff;}
+main{flex:1;max-width:960px;width:100%;margin:0 auto;padding:32px 20px 80px;}
+h1{font-size:2rem;margin-bottom:8px;color:#fff;}
+h2{font-size:1.3rem;color:#58a6ff;margin:28px 0 12px;border-bottom:1px solid #21262d;padding-bottom:8px;}
+h3{font-size:1rem;color:#e6edf3;margin:14px 0 8px;}
+.subtitle{color:#8b949e;margin-bottom:28px;font-size:1rem;}
+.form-group{margin-bottom:16px;}
+label{display:block;font-size:0.85rem;color:#8b949e;margin-bottom:6px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;}
+input[type="number"],input[type="text"],select{width:100%;background:#0d1117;border:1px solid #30363d;color:#e6edf3;padding:10px 14px;border-radius:8px;font-size:0.95rem;outline:none;transition:border-color 0.2s;}
+input:focus,select:focus{border-color:#58a6ff;}
+.form-row{display:flex;gap:12px;flex-wrap:wrap;}
+.form-row .form-group{flex:1;min-width:180px;}
+button{background:#238636;color:#fff;border:none;padding:12px 28px;border-radius:8px;font-size:1rem;font-weight:600;cursor:pointer;transition:background 0.2s;}
+button:hover{background:#2ea043;}
+.btn-export{background:#58a6ff;}.btn-export:hover{background:#79c0ff;}
+.btn-reset{background:#21262d;color:#8b949e;border:1px solid #30363d;}.btn-reset:hover{background:#30363d;color:#e6edf3;}
+.results-panel{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:24px;margin-top:24px;display:none;}
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:20px;}
+.summary-item{background:#0d1117;border:1px solid #21262d;border-radius:10px;padding:16px;text-align:center;}
+.summary-item .s-label{color:#8b949e;font-size:0.8rem;margin-bottom:4px;}
+.summary-item .s-value{color:#39d353;font-size:1.4rem;font-weight:800;}
+.summary-item .s-sub{color:#58a6ff;font-size:0.75rem;}
+.summary-item.warning .s-value{color:#f85149;}
+.budget-row{display:flex;align-items:center;gap:10px;padding:12px 14px;background:#0d1117;border:1px solid #21262d;border-radius:8px;margin-bottom:8px;flex-wrap:wrap;}
+.budget-row .cat-name{min-width:140px;font-weight:600;color:#e6edf3;font-size:0.9rem;}
+.budget-row .rec-pct{min-width:50px;color:#8b949e;font-size:0.8rem;text-align:center;}
+.budget-row .alloc{color:#58a6ff;font-weight:600;min-width:80px;text-align:right;}
+.budget-row .paid-input{width:100px;padding:6px 10px;font-size:0.85rem;}
+.budget-row .remaining{min-width:80px;text-align:right;font-weight:600;}
+.budget-row .remaining.positive{color:#39d353;}
+.budget-row .remaining.negative{color:#f85149;}
+.budget-row .bar-wrap{flex:1;min-width:100px;height:8px;background:#21262d;border-radius:4px;overflow:hidden;}
+.budget-row .bar-fill{height:100%;border-radius:4px;transition:width 0.3s;}
+.pct-chart{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;margin:16px 0;}
+.pct-item{background:#0d1117;border:1px solid #21262d;border-radius:8px;padding:10px;text-align:center;position:relative;overflow:hidden;}
+.pct-item .pct-bg{position:absolute;bottom:0;left:0;right:0;background:rgba(57,211,83,0.1);transition:height 0.3s;}
+.pct-item .pct-name{font-size:0.75rem;color:#8b949e;position:relative;}
+.pct-item .pct-val{font-size:1.1rem;font-weight:700;color:#39d353;position:relative;}
+.pct-item .pct-rec{font-size:0.7rem;color:#58a6ff;position:relative;}
+.guest-section{background:#0d1117;border:1px solid #30363d;border-radius:10px;padding:20px;margin-top:16px;}
+.guest-section .per-head{color:#39d353;font-size:1.8rem;font-weight:800;text-align:center;margin:12px 0;}
+.guest-section p{color:#8b949e;font-size:0.9rem;text-align:center;}
+.timeline{margin-top:16px;}
+.timeline-item{display:flex;gap:16px;padding:14px 0;border-bottom:1px solid #21262d;}
+.timeline-item:last-child{border-bottom:none;}
+.timeline-item .time{min-width:120px;color:#58a6ff;font-weight:600;font-size:0.85rem;}
+.timeline-item .detail{color:#c9d1d9;font-size:0.9rem;}
+.timeline-item .detail strong{color:#e6edf3;}
+.tips-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px;}
+.tip-card{background:#0d1117;border:1px solid #21262d;border-radius:10px;padding:16px;}
+.tip-card h4{font-size:0.9rem;margin-bottom:6px;}
+.tip-card.save h4{color:#39d353;}
+.tip-card.splurge h4{color:#58a6ff;}
+.tip-card p{color:#8b949e;font-size:0.85rem;}
+.cross-sell{background:linear-gradient(135deg,#161b22,#1a2332);border:1px solid #30363d;border-radius:12px;padding:24px;text-align:center;margin-top:40px;}
+.cross-sell h3{color:#ff5f1f;margin-bottom:8px;}.cross-sell p{color:#8b949e;margin-bottom:16px;font-size:0.95rem;}
+.cross-sell a.cta{display:inline-block;background:#ff5f1f;color:#fff;padding:12px 32px;border-radius:8px;font-weight:700;text-decoration:none;}.cross-sell a.cta:hover{background:#e5520f;text-decoration:none;}
+.watermark{position:fixed;bottom:12px;right:16px;font-size:0.65rem;color:#21262d;font-weight:700;letter-spacing:1px;pointer-events:none;z-index:10;}
+.usage-badge{display:inline-flex;align-items:center;gap:6px;background:#161b22;border:1px solid #30363d;border-radius:20px;padding:4px 12px;font-size:0.75rem;color:#58a6ff;font-weight:600;margin-bottom:1rem;}
+.usage-badge-wrap{text-align:center;}
+footer{background:#161b22;border-top:1px solid #30363d;padding:16px 24px;text-align:center;font-size:0.8rem;color:#484f58;}
+.sa-email-bar{position:fixed;bottom:0;left:0;right:0;background:#161b22;border-top:1px solid #30363d;padding:12px 20px;display:flex;align-items:center;justify-content:center;gap:12px;z-index:9999;transform:translateY(100%);transition:transform 0.4s ease;flex-wrap:wrap;}.sa-email-bar.show{transform:translateY(0);}.sa-email-bar p{color:#c9d1d9;font-size:0.85rem;margin:0;}.sa-email-bar input[type="email"]{padding:8px 12px;background:#0d1117;border:1px solid #30363d;border-radius:6px;color:#e6edf3;font-size:0.85rem;outline:none;min-width:200px;}.sa-email-bar input[type="email"]:focus{border-color:#58a6ff;}.sa-email-bar button.sa-sub-btn{padding:8px 18px;background:#ff5f1f;color:#fff;border:none;border-radius:6px;font-weight:700;font-size:0.85rem;cursor:pointer;white-space:nowrap;}.sa-email-bar button.sa-sub-btn:hover{background:#e5520f;}.sa-email-bar button.sa-dismiss{background:none;border:none;color:#484f58;font-size:1.2rem;cursor:pointer;padding:0 4px;line-height:1;}.sa-email-bar button.sa-dismiss:hover{color:#e6edf3;}
+@media(max-width:600px){h1{font-size:1.4rem;}main{padding:20px 16px 60px;}.form-row{flex-direction:column;}.tips-grid{grid-template-columns:1fr;}.summary-grid{grid-template-columns:1fr 1fr;}.budget-row{flex-direction:column;gap:6px;}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="logo">SPUNK.CODES</a>
+  <div class="links">
+    <a href="/store">Store</a>
+    <a href="/store#free-tools">Free Tools</a>
+    <a href="/reseller" style="color:#10b981;font-weight:700">Resell $$</a>
+    <a href="/blog">Blog</a>
+  </div>
+</nav>
+<main>
+  <h1>Wedding Budget Calculator</h1>
+  <p class="subtitle">Plan your perfect wedding budget. See recommended allocations, track payments, and know exactly where your money goes. Based on 2025 industry data.</p>
+  <div class="usage-badge-wrap"><div class="usage-badge" id="usageBadge">&#x1F525; Used 0 times</div></div>
+
+  <div class="form-row">
+    <div class="form-group">
+      <label>Total Wedding Budget ($)</label>
+      <input type="number" id="totalBudget" value="35000" min="1000" max="1000000" step="500">
+    </div>
+    <div class="form-group">
+      <label>Guest Count</label>
+      <input type="number" id="guestCount" value="120" min="2" max="1000">
+    </div>
+    <div class="form-group">
+      <label>Wedding Region</label>
+      <select id="weddingRegion">
+        <option value="1.0">National Average</option>
+        <option value="1.40">Major Metro (NYC, LA, Chicago)</option>
+        <option value="1.15">Mid-Size City</option>
+        <option value="0.80">Rural / Small Town</option>
+        <option value="1.60">Destination Wedding</option>
+      </select>
+    </div>
+  </div>
+
+  <button onclick="calculateWedding()" style="width:100%;margin-top:8px;">Calculate Budget Breakdown</button>
+
+  <div class="results-panel" id="resultsPanel">
+    <h2>Budget Overview</h2>
+    <div class="summary-grid" id="summaryGrid"></div>
+
+    <h2>Category Allocations</h2>
+    <p style="color:#8b949e;font-size:0.85rem;margin-bottom:12px;">Recommended percentages based on The Knot 2025 Real Weddings Study. Enter what you've paid so far to track spending.</p>
+    <div id="budgetBreakdown"></div>
+    <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;" id="actionBtns">
+      <button class="btn-export" onclick="exportBudget()">Export as CSV</button>
+      <button class="btn-reset" onclick="resetPaid()">Reset Paid Amounts</button>
+    </div>
+
+    <h2>Percentage Breakdown</h2>
+    <div class="pct-chart" id="pctChart"></div>
+
+    <h2>Cost Per Guest</h2>
+    <div class="guest-section" id="guestSection"></div>
+
+    <h2>Vendor Payment Timeline</h2>
+    <div class="timeline" id="paymentTimeline"></div>
+
+    <h2>Where to Save &amp; Where to Splurge</h2>
+    <div class="tips-grid" id="tipsGrid"></div>
+  </div>
+
+  <div class="cross-sell">
+    <h3>Planning your future together?</h3>
+    <p>Try our Baby Cost Calculator, Home Maintenance Scheduler, and 30+ more free tools.</p>
+    <a class="cta" href="/store#free-tools">Browse Free Tools</a>
+  </div>
+</main>
+<div class="watermark">SPUNK.CODES</div>
+<footer>&copy; 2026 spunk.codes &mdash; All rights reserved.</footer>
+
+<script>
+const CATEGORIES = [
+  { name: 'Venue & Rentals', pct: 30, icon: '🏛️', timeline: '12-18 months before', deposit: 50, tip: 'Biggest expense. Friday/Sunday weddings save 20-40%.' },
+  { name: 'Catering & Bar', pct: 24, icon: '🍽️', timeline: '9-12 months before', deposit: 30, tip: 'Limit bar to beer/wine/signature cocktail to save 40%. Buffet saves 15% vs plated.' },
+  { name: 'Photography', pct: 10, icon: '📸', timeline: '9-12 months before', deposit: 30, tip: 'Worth the splurge — photos last forever. Ask about second shooters and engagement session bundles.' },
+  { name: 'Videography', pct: 5, icon: '🎥', timeline: '8-10 months before', deposit: 25, tip: 'Couples who skip this regret it most. Consider highlight reel only to save 50%.' },
+  { name: 'Flowers & Decor', pct: 8, icon: '💐', timeline: '6-8 months before', deposit: 25, tip: 'Use seasonal flowers to save 30%. Repurpose ceremony flowers at the reception.' },
+  { name: 'Music & Entertainment', pct: 5, icon: '🎵', timeline: '6-9 months before', deposit: 25, tip: 'DJ saves 50-70% vs live band. Ceremony musician can be separate from reception.' },
+  { name: 'Wedding Dress & Attire', pct: 5, icon: '👰', timeline: '8-12 months before', deposit: 50, tip: 'Sample sales save 40-70%. Alterations add $300-800 — budget separately.' },
+  { name: 'Invitations & Paper', pct: 2, icon: '💌', timeline: '6-8 months before', deposit: 100, tip: 'Digital invitations are free and eco-friendly. If printing, Canva + local printer saves 60%.' },
+  { name: 'Wedding Cake & Desserts', pct: 2, icon: '🎂', timeline: '4-6 months before', deposit: 25, tip: 'Small display cake + sheet cake for serving saves 50%. Dessert bars are trendy and cheaper.' },
+  { name: 'Officiant', pct: 1, icon: '💒', timeline: '6-9 months before', deposit: 50, tip: 'A friend ordained online is free. Professional officiants are $200-1,000.' },
+  { name: 'Transportation', pct: 2, icon: '🚗', timeline: '3-4 months before', deposit: 25, tip: 'Skip the limo — vintage car rentals or rideshare for guests is cheaper and more fun.' },
+  { name: 'Favors & Gifts', pct: 2, icon: '🎁', timeline: '2-3 months before', deposit: 0, tip: 'Edible favors (cookies, honey jars) cost $1-3 each and people actually enjoy them.' },
+  { name: 'Hair & Makeup', pct: 2, icon: '💄', timeline: '3-4 months before', deposit: 25, tip: 'Book trials 2 months before. Group rates for bridal party save 10-20%.' },
+  { name: 'Tips & Gratuities', pct: 2, icon: '💰', timeline: 'Day of wedding', deposit: 0, tip: 'Budget 15-20% for vendors. Caterers, bartenders, drivers, and coordinators all expect tips.' }
+];
+
+function fmt(n) { return '$' + Math.round(n).toLocaleString(); }
+
+function calculateWedding() {
+  const budget = parseFloat(document.getElementById('totalBudget').value) || 35000;
+  const guests = parseInt(document.getElementById('guestCount').value) || 120;
+  const region = parseFloat(document.getElementById('weddingRegion').value) || 1.0;
+  const natAvg = 35000;
+  const perGuest = budget / guests;
+  const natPerGuest = natAvg / 150;
+
+  // Summary
+  document.getElementById('summaryGrid').innerHTML =
+    '<div class="summary-item"><div class="s-label">Total Budget</div><div class="s-value">' + fmt(budget) + '</div></div>' +
+    '<div class="summary-item"><div class="s-label">Guest Count</div><div class="s-value">' + guests + '</div></div>' +
+    '<div class="summary-item"><div class="s-label">Cost Per Guest</div><div class="s-value">' + fmt(perGuest) + '</div><div class="s-sub">Nat. avg: ' + fmt(natPerGuest) + '</div></div>' +
+    '<div class="summary-item"><div class="s-label">vs National Average</div><div class="s-value">' + (budget > natAvg ? '+' : '') + fmt(budget - natAvg) + '</div><div class="s-sub">Avg wedding: ' + fmt(natAvg) + '</div></div>';
+
+  // Budget breakdown
+  const bd = document.getElementById('budgetBreakdown');
+  bd.innerHTML = '';
+  CATEGORIES.forEach((cat, i) => {
+    const alloc = budget * (cat.pct / 100);
+    const savedKey = 'wedding_paid_' + i;
+    const paid = parseFloat(localStorage.getItem(savedKey)) || 0;
+    const remaining = alloc - paid;
+    const paidPct = alloc > 0 ? Math.min((paid / alloc) * 100, 100) : 0;
+    const barColor = paidPct > 100 ? '#f85149' : paidPct > 75 ? '#d29922' : '#39d353';
+    bd.innerHTML +=
+      '<div class="budget-row">' +
+        '<span class="cat-name">' + cat.icon + ' ' + cat.name + '</span>' +
+        '<span class="rec-pct">' + cat.pct + '%</span>' +
+        '<span class="alloc">' + fmt(alloc) + '</span>' +
+        '<input type="number" class="paid-input" id="paid-' + i + '" placeholder="Paid" value="' + (paid || '') + '" onchange="savePaid(' + i + ',this.value)" min="0" step="50">' +
+        '<div class="bar-wrap"><div class="bar-fill" style="width:' + paidPct + '%;background:' + barColor + ';"></div></div>' +
+        '<span class="remaining ' + (remaining >= 0 ? 'positive' : 'negative') + '">' + (remaining >= 0 ? fmt(remaining) + ' left' : '-' + fmt(Math.abs(remaining)) + ' over') + '</span>' +
+      '</div>';
+  });
+
+  // Percentage chart
+  const pc = document.getElementById('pctChart');
+  pc.innerHTML = '';
+  CATEGORIES.forEach(cat => {
+    pc.innerHTML +=
+      '<div class="pct-item"><div class="pct-bg" style="height:' + (cat.pct * 3) + '%;"></div><div class="pct-val">' + cat.pct + '%</div><div class="pct-name">' + cat.icon + ' ' + cat.name + '</div><div class="pct-rec">' + fmt(budget * cat.pct / 100) + '</div></div>';
+  });
+
+  // Guest section
+  const gs = document.getElementById('guestSection');
+  gs.innerHTML =
+    '<div class="per-head">' + fmt(perGuest) + ' per guest</div>' +
+    '<p>With ' + guests + ' guests and a ' + fmt(budget) + ' budget</p>' +
+    '<div style="margin-top:16px;display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;">' +
+      '<div style="background:#161b22;border-radius:8px;padding:10px;text-align:center;"><div style="color:#8b949e;font-size:0.75rem;">50 guests</div><div style="color:#39d353;font-weight:700;">' + fmt(budget / 50) + '/head</div></div>' +
+      '<div style="background:#161b22;border-radius:8px;padding:10px;text-align:center;"><div style="color:#8b949e;font-size:0.75rem;">100 guests</div><div style="color:#39d353;font-weight:700;">' + fmt(budget / 100) + '/head</div></div>' +
+      '<div style="background:#161b22;border-radius:8px;padding:10px;text-align:center;"><div style="color:#8b949e;font-size:0.75rem;">150 guests</div><div style="color:#39d353;font-weight:700;">' + fmt(budget / 150) + '/head</div></div>' +
+      '<div style="background:#161b22;border-radius:8px;padding:10px;text-align:center;"><div style="color:#8b949e;font-size:0.75rem;">200 guests</div><div style="color:#39d353;font-weight:700;">' + fmt(budget / 200) + '/head</div></div>' +
+    '</div>' +
+    '<p style="margin-top:12px;color:#58a6ff;font-size:0.85rem;">Tip: Every guest you cut saves approximately ' + fmt(perGuest) + '. Trimming 20 guests saves ' + fmt(perGuest * 20) + '.</p>';
+
+  // Payment timeline
+  const tl = document.getElementById('paymentTimeline');
+  tl.innerHTML = '';
+  const phases = [
+    { time: '12-18 months before', items: CATEGORIES.filter(c => c.timeline.includes('12-18') || c.timeline.includes('12 months')), note: 'Book venue first — everything else follows. Deposits are typically 25-50% of the total.' },
+    { time: '9-12 months before', items: CATEGORIES.filter(c => c.timeline.includes('9-12')), note: 'Lock in photographer and caterer. These book up fastest.' },
+    { time: '6-9 months before', items: CATEGORIES.filter(c => c.timeline.includes('6-8') || c.timeline.includes('6-9')), note: 'Creative vendors: flowers, music, invitations, officiant.' },
+    { time: '3-6 months before', items: CATEGORIES.filter(c => c.timeline.includes('4-6') || c.timeline.includes('3-4')), note: 'Details: cake, hair/makeup, transportation. Final payments begin.' },
+    { time: '1-3 months before', items: CATEGORIES.filter(c => c.timeline.includes('2-3')), note: 'Final headcount, seating chart, favors. Most final payments due 2 weeks before.' },
+    { time: 'Wedding week', items: CATEGORIES.filter(c => c.timeline.includes('Day of')), note: 'Prepare tip envelopes. Have a designated person handle day-of payments.' }
+  ];
+  phases.forEach(p => {
+    const names = p.items.map(i => '<strong>' + i.icon + ' ' + i.name + '</strong>').join(', ') || '<em>Review & finalize previous bookings</em>';
+    const totalPct = p.items.reduce((s, i) => s + i.pct, 0);
+    tl.innerHTML +=
+      '<div class="timeline-item">' +
+        '<div class="time">' + p.time + '</div>' +
+        '<div class="detail">' + names + '<br><span style="color:#8b949e;font-size:0.8rem;">' + p.note + '</span>' + (totalPct > 0 ? '<br><span style="color:#39d353;font-size:0.8rem;">~' + fmt(budget * totalPct / 100) + ' committed (' + totalPct + '% of budget)</span>' : '') + '</div>' +
+      '</div>';
+  });
+
+  // Save/Splurge tips
+  const tg = document.getElementById('tipsGrid');
+  tg.innerHTML =
+    '<div class="tip-card save"><h4>&#x2705; Where to Save</h4>' +
+      '<p><strong>Invitations:</strong> Go digital or use Canva — save $500-1,500</p>' +
+      '<p><strong>Flowers:</strong> Use seasonal blooms and greenery — save 30-40%</p>' +
+      '<p><strong>Cake:</strong> Small display + sheet cake — save 50%</p>' +
+      '<p><strong>Day:</strong> Friday or Sunday saves 20-40% on venue</p>' +
+      '<p><strong>Season:</strong> Nov-March (excluding Dec) saves 15-25%</p>' +
+      '<p><strong>Bar:</strong> Beer/wine/signature cocktail saves 40% vs open bar</p>' +
+      '<p><strong>DIY:</strong> Centerpieces, favors, welcome signs</p>' +
+    '</div>' +
+    '<div class="tip-card splurge"><h4>&#x1F4A1; Where to Splurge</h4>' +
+      '<p><strong>Photographer:</strong> Photos are the only thing that lasts forever</p>' +
+      '<p><strong>Venue:</strong> Sets the tone for everything — don\'t compromise</p>' +
+      '<p><strong>Food:</strong> Guests remember bad food. Quality matters.</p>' +
+      '<p><strong>Band/DJ:</strong> Great music makes or breaks the reception</p>' +
+      '<p><strong>Videographer:</strong> #1 regret of couples who skip it</p>' +
+      '<p><strong>Dress:</strong> You only wear it once — make it count</p>' +
+      '<p><strong>Coordinator:</strong> Day-of coordinator ($800-2,000) saves your sanity</p>' +
+    '</div>';
+
+  document.getElementById('resultsPanel').style.display = 'block';
+  document.getElementById('resultsPanel').scrollIntoView({ behavior: 'smooth' });
+  gtag('event', 'wedding_calculated', { event_category: 'calculator', value: Math.round(budget) });
+}
+
+function savePaid(idx, val) {
+  localStorage.setItem('wedding_paid_' + idx, val || '0');
+  // Update remaining display
+  const budget = parseFloat(document.getElementById('totalBudget').value) || 35000;
+  const alloc = budget * (CATEGORIES[idx].pct / 100);
+  const paid = parseFloat(val) || 0;
+  const remaining = alloc - paid;
+  const row = document.querySelectorAll('.budget-row')[idx];
+  if (row) {
+    const remEl = row.querySelector('.remaining');
+    remEl.className = 'remaining ' + (remaining >= 0 ? 'positive' : 'negative');
+    remEl.textContent = remaining >= 0 ? '$' + Math.round(remaining).toLocaleString() + ' left' : '-$' + Math.round(Math.abs(remaining)).toLocaleString() + ' over';
+    const paidPct = alloc > 0 ? Math.min((paid / alloc) * 100, 100) : 0;
+    const barColor = paidPct > 100 ? '#f85149' : paidPct > 75 ? '#d29922' : '#39d353';
+    row.querySelector('.bar-fill').style.width = paidPct + '%';
+    row.querySelector('.bar-fill').style.background = barColor;
+  }
+}
+
+function resetPaid() {
+  CATEGORIES.forEach((_, i) => localStorage.removeItem('wedding_paid_' + i));
+  calculateWedding();
+}
+
+function exportBudget() {
+  const budget = parseFloat(document.getElementById('totalBudget').value) || 35000;
+  let csv = 'Category,Recommended %,Allocated,Paid,Remaining\n';
+  CATEGORIES.forEach((cat, i) => {
+    const alloc = Math.round(budget * (cat.pct / 100));
+    const paid = parseFloat(localStorage.getItem('wedding_paid_' + i)) || 0;
+    csv += '"' + cat.name + '",' + cat.pct + '%,$' + alloc + ',$' + Math.round(paid) + ',$' + Math.round(alloc - paid) + '\n';
+  });
+  csv += '\nTotal Budget: $' + Math.round(budget).toLocaleString() + '\nGuests: ' + (document.getElementById('guestCount').value || 120) + '\n';
+  const blob = new Blob([csv], { type: 'text/csv' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'wedding-budget.csv';
+  a.click();
+  gtag('event', 'wedding_exported', { event_category: 'calculator' });
+}
+</script>
+
+<div class="sa-email-bar" id="saEmailBar"><p>Like this? Get 30 more free tools in your inbox.</p><input type="email" id="saBarEmail" placeholder="you@email.com"><button class="sa-sub-btn" onclick="saSubmitEmail()">Get Early Access</button><button class="sa-dismiss" onclick="saDismissBar()">&times;</button></div>
+<script>
+(function(){var TOOL_KEY='sa_usage_wedding-calculator',BAR_KEY='sa_bar_dismissed_wedding-calculator';var count=parseInt(localStorage.getItem(TOOL_KEY))||0;var badge=document.getElementById('usageBadge');function updateBadge(){badge.textContent='\uD83D\uDD25 Used '+count+' time'+(count!==1?'s':'');}if(count>0)updateBadge();var _orig=calculateWedding;calculateWedding=function(){_orig.apply(this,arguments);count++;localStorage.setItem(TOOL_KEY,count);updateBadge();if(count>=2&&!localStorage.getItem(BAR_KEY))document.getElementById('saEmailBar').classList.add('show');};window.calculateWedding=calculateWedding;window.saDismissBar=function(){document.getElementById('saEmailBar').classList.remove('show');localStorage.setItem(BAR_KEY,'1');};window.saSubmitEmail=function(){var email=document.getElementById('saBarEmail').value;if(!email||!email.includes('@')){alert('Please enter a valid email.');return;}localStorage.setItem('sa_subscriber_email',email);localStorage.setItem(BAR_KEY,'1');window.open('https://embeds.beehiiv.com/cae41704-7588-4c50-83f1-11f5b4a0585f?email='+encodeURIComponent(email),'_blank');document.getElementById('saEmailBar').classList.remove('show');var btn=document.querySelector('.sa-sub-btn');btn.textContent='Subscribed!';btn.style.background='#10b981';};})();
+</script>
+<script>
+(function(){
+  document.addEventListener('contextmenu',function(e){e.preventDefault();});
+  document.addEventListener('keydown',function(e){
+    if(e.key==='F12')e.preventDefault();if(e.ctrlKey&&e.key==='u')e.preventDefault();if(e.ctrlKey&&e.key==='s')e.preventDefault();
+    if(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='i'||e.key==='J'||e.key==='j'||e.key==='C'||e.key==='c'))e.preventDefault();
+  });
+  console.log('%c\u26a0 SPUNK.CODES — All rights reserved.','color:#ff5f1f;font-size:16px;font-weight:bold;');
+  console.log('%cProperty of SpunkArt. Report theft: hello@spunk.codes','color:#888;font-size:12px;');
+})();
+</script>
+<script src="/auto-monetize.js"></script>
+<div id="shareXBtn" style="position:fixed;left:20px;bottom:20px;z-index:9999;">
+  <a id="shareXLink" href="#" target="_blank" rel="noopener noreferrer" title="Share on X" style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;background:rgba(88,166,255,0.15);border:1px solid rgba(88,166,255,0.3);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:50%;text-decoration:none;transition:all 0.3s ease;cursor:pointer;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+  </a>
+</div>
+<style>#shareXBtn a:hover{background:rgba(88,166,255,0.35)!important;border-color:rgba(88,166,255,0.6)!important;transform:scale(1.1);box-shadow:0 0 15px rgba(88,166,255,0.3);}</style>
+<script>
+(function(){var page=location.pathname.split("/").pop()||"index.html";var url="https://spunk.codes/"+page;var text="Planning my wedding budget with this amazing free tool! @SpunkArt13";var href="https://x.com/intent/tweet?text="+encodeURIComponent(text)+"&url="+encodeURIComponent(url);document.getElementById("shareXLink").href=href;})();
+</script>
+<script src="/usage-tracker.js"></script>
+</body>
+</html>
+<!-- Extended wedding data reference and FAQ -->
+<!--
+  Wedding Budget Calculator - Extended Data Reference
+  Source: The Knot 2025 Real Weddings Study, WeddingWire, Brides Magazine
+  
+  National Average Wedding Cost: $35,000 (2025)
+  Average by Region:
+  Northeast: $42,000 | Mid-Atlantic: $38,000 | Southeast: $30,000
+  Midwest: $28,000 | Southwest: $32,000 | West Coast: $40,000
+  Pacific Northwest: $35,000 | Mountain West: $30,000
+  
+  Cost by Guest Count:
+  50 guests: $15,000-$25,000 | 100 guests: $25,000-$40,000
+  150 guests: $35,000-$55,000 | 200 guests: $45,000-$70,000
+  250+ guests: $55,000-$100,000+
+  
+  Average Vendor Costs (National):
+  Venue: $10,000-$15,000 | Catering (per person): $70-$150
+  Photographer: $2,500-$5,000 | Videographer: $1,500-$3,000
+  Florist: $2,000-$4,000 | DJ: $1,000-$2,500 | Band: $3,000-$8,000
+  Wedding dress: $1,500-$3,000 | Alterations: $300-$800
+  Groom's attire: $200-$500 | Wedding cake: $400-$800
+  Invitations: $300-$800 | Officiant: $200-$1,000
+  Hair & makeup: $200-$600 | Transportation: $500-$1,500
+  Wedding planner: $2,000-$5,000 | Day-of coordinator: $800-$2,000
+  
+  Money-Saving Statistics:
+  Off-season (Nov-March excl Dec): save 15-25%
+  Friday/Sunday: save 20-40% on venue
+  Brunch/lunch reception: save 30-40% on catering
+  Digital invitations: save $500-$1,500
+  Buffet vs plated: save 15-20%
+  Beer/wine only vs open bar: save 30-40%
+  
+  Tipping Guide:
+  Caterer/banquet manager: 15-20% of food/bev (check contract - may be included)
+  Bartenders: $50-$100 each | Waitstaff: $25-$50 each
+  DJ: $50-$200 | Band: $50-$100 per member
+  Photographer/Videographer: $50-$200 (not expected but appreciated)
+  Florist: $50-$100 | Hair/Makeup artist: 15-20%
+  Officiant: $50-$200 | Transportation drivers: 15-20%
+  Wedding planner: $100-$500 | Delivery personnel: $10-$25 each
+  
+  Payment Schedule:
+  12-18 months: Venue deposit (50%), wedding planner retainer
+  9-12 months: Photographer, caterer, videographer deposits (25-50%)
+  6-9 months: Florist, DJ/band, officiant, invitations deposits
+  4-6 months: Cake, hair/makeup, transportation deposits
+  2-4 months: Dress final payment, invitation mailing, favors
+  2 weeks before: Final payments for all remaining vendors
+  Day of: Tips and gratuities in labeled envelopes
+-->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How much does the average wedding cost?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The average American wedding costs approximately $35,000 in 2025 according to The Knot Real Weddings Study. This varies significantly by region, from $28,000 in the Midwest to $42,000 in the Northeast."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How should I allocate my wedding budget?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The recommended breakdown is: Venue & Rentals (30%), Catering & Bar (24%), Photography (10%), Flowers & Decor (8%), Videography (5%), Music (5%), Attire (5%), and remaining categories (13%). Adjust based on your priorities."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How much does a wedding cost per guest?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The national average is approximately $200-$300 per guest. In major metros like NYC or LA, expect $350-$500+ per guest. In rural areas, $150-$250 per guest is typical."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How can I save money on my wedding?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Top savings: Choose Friday or Sunday (save 20-40% on venue), go off-season November-March (save 15-25%), use digital invitations (save $500-1,500), choose buffet over plated (save 15-20%), and limit bar to beer/wine/signature cocktail (save 30-40%)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How much should I tip wedding vendors?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Budget 2% of your total budget for tips. Guidelines: Caterer 15-20% (check if included), bartenders $50-100 each, DJ $50-200, photographer $50-200, hair/makeup 15-20%, officiant $50-200, drivers 15-20%."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "When should I book wedding vendors?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Book venue 12-18 months ahead, photographer and caterer 9-12 months, florist and DJ 6-9 months, cake and hair/makeup 3-6 months, and finalize favors and details 1-3 months before."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://spunk.codes/"},
+    {"@type": "ListItem", "position": 2, "name": "Free Tools", "item": "https://spunk.codes/store#free-tools"},
+    {"@type": "ListItem", "position": 3, "name": "Wedding Budget Calculator", "item": "https://spunk.codes/wedding-budget-calculator.html"}
+  ]
+}
+</script>
+<!--
+  Additional Wedding Statistics:
+  Average engagement length: 15 months
+  Peak wedding months: June, September, October
+  Off-peak months: January, February, March, November
+  Average guest count: 130
+  Average bridal party size: 5 bridesmaids, 5 groomsmen
+  Couples who go over budget: 56%
+  Average amount over budget: $5,000-$10,000
+  Top overspend categories: venue, catering, flowers, photography
+  #1 cost-cutting tip from married couples: trim guest list
+  Every guest cut saves $200-$350 on average
+  Couples who hire a planner save $2,000+ on average through vendor negotiations
+  Saturday evening is the most expensive timeslot (premium pricing)
+  Average wedding has 15-20 vendor contracts to manage
+  Micro-weddings (under 50 guests) average $10,000-$20,000
+  Elopements average $2,000-$8,000 including travel
+  Destination weddings save money IF fewer guests attend
+-->
+<!-- Registry insight: average gift value $100, 70% of gifts come from registry -->

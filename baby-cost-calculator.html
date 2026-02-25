@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Copyright 2026 spunk.codes. All rights reserved. Unauthorized reproduction prohibited. hello@spunk.codes -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Baby Cost Calculator - Free Online Tool | SPUNK.CODES</title>
+<meta name="description" content="Calculate the true cost of having a baby. First year expenses, monthly costs by age, childcare comparisons, and college savings plans. Free, based on USDA data.">
+<meta property="og:title" content="Baby Cost Calculator - Free Online Tool">
+<meta property="og:description" content="How much does a baby really cost? First year, monthly breakdown by age, childcare options, and college savings.">
+<meta property="og:image" content="https://spunk.codes/assets/og-baby-calculator.png">
+<meta property="og:url" content="https://spunk.codes/baby-cost-calculator.html">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Baby Cost Calculator - Free Online Tool">
+<meta name="twitter:description" content="Calculate the true cost of having a baby. Free tool by SPUNK.CODES">
+<link rel="canonical" href="https://spunk.codes/baby-cost-calculator.html">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<meta name="author" content="spunk.codes">
+<meta name="copyright" content="Copyright 2026 spunk.codes. All rights reserved.">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Baby Cost Calculator","description":"Calculate the true cost of having a baby including first year, monthly breakdown, childcare comparisons, and college savings.","url":"https://spunk.codes/baby-cost-calculator.html","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Organization","name":"SpunkArt","url":"https://spunk.codes"}}</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#0d1117;color:#e6edf3;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;line-height:1.6;min-height:100vh;display:flex;flex-direction:column;}
+a{color:#58a6ff;text-decoration:none;}a:hover{text-decoration:underline;}
+nav{background:#161b22;border-bottom:1px solid #30363d;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+nav .logo{font-weight:800;font-size:1.1rem;color:#ff5f1f;letter-spacing:1px;}
+nav .links{display:flex;gap:20px;font-size:0.9rem;}
+nav .links a{color:#8b949e;}nav .links a:hover{color:#58a6ff;}
+main{flex:1;max-width:960px;width:100%;margin:0 auto;padding:32px 20px 80px;}
+h1{font-size:2rem;margin-bottom:8px;color:#fff;}
+h2{font-size:1.3rem;color:#58a6ff;margin:28px 0 12px;border-bottom:1px solid #21262d;padding-bottom:8px;}
+h3{font-size:1rem;color:#e6edf3;margin:14px 0 8px;}
+.subtitle{color:#8b949e;margin-bottom:28px;font-size:1rem;}
+.form-group{margin-bottom:16px;}
+label{display:block;font-size:0.85rem;color:#8b949e;margin-bottom:6px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;}
+input[type="number"],select{width:100%;background:#0d1117;border:1px solid #30363d;color:#e6edf3;padding:10px 14px;border-radius:8px;font-size:0.95rem;outline:none;transition:border-color 0.2s;}
+input:focus,select:focus{border-color:#58a6ff;}
+.form-row{display:flex;gap:12px;flex-wrap:wrap;}
+.form-row .form-group{flex:1;min-width:180px;}
+button{background:#238636;color:#fff;border:none;padding:12px 28px;border-radius:8px;font-size:1rem;font-weight:600;cursor:pointer;transition:background 0.2s;}
+button:hover{background:#2ea043;}
+.results-panel{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:24px;margin-top:24px;display:none;}
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:20px;}
+.summary-item{background:#0d1117;border:1px solid #21262d;border-radius:10px;padding:16px;text-align:center;}
+.summary-item .s-label{color:#8b949e;font-size:0.8rem;margin-bottom:4px;}
+.summary-item .s-value{color:#39d353;font-size:1.4rem;font-weight:800;}
+.summary-item .s-sub{color:#58a6ff;font-size:0.75rem;}
+.cost-row{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-radius:8px;margin-bottom:6px;background:#0d1117;border:1px solid #21262d;}
+.cost-row .item{color:#c9d1d9;font-size:0.9rem;display:flex;align-items:center;gap:8px;}
+.cost-row .range{color:#8b949e;font-size:0.8rem;}
+.cost-row .amount{color:#39d353;font-weight:700;font-size:0.95rem;}
+.total-row{background:linear-gradient(135deg,#161b22,#1a2332);border:2px solid #58a6ff;border-radius:10px;padding:16px 20px;display:flex;justify-content:space-between;align-items:center;margin-top:8px;}
+.total-row .label{font-weight:700;color:#58a6ff;font-size:1rem;}
+.total-row .amount{font-weight:800;color:#39d353;font-size:1.3rem;}
+.monthly-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:16px 0;}
+.month-card{background:#0d1117;border:1px solid #21262d;border-radius:10px;padding:16px;}
+.month-card h4{color:#58a6ff;margin-bottom:8px;font-size:0.9rem;}
+.month-card .total{color:#39d353;font-size:1.2rem;font-weight:700;margin-bottom:8px;}
+.month-card .detail{color:#8b949e;font-size:0.8rem;margin-bottom:2px;}
+.childcare-compare{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:16px 0;}
+.cc-card{background:#0d1117;border:2px solid #21262d;border-radius:10px;padding:16px;text-align:center;transition:border-color 0.2s;}
+.cc-card.best{border-color:#39d353;background:#0d2818;}
+.cc-card h4{color:#58a6ff;margin-bottom:6px;}
+.cc-card .price{color:#39d353;font-size:1.5rem;font-weight:800;}
+.cc-card .sub{color:#8b949e;font-size:0.8rem;}
+.cc-card .pros{color:#c9d1d9;font-size:0.8rem;margin-top:8px;text-align:left;}
+.college-calc{background:#0d1117;border:1px solid #30363d;border-radius:10px;padding:20px;margin:16px 0;}
+.college-calc .result-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #21262d;}
+.college-calc .result-row .label{color:#c9d1d9;}.college-calc .result-row .val{color:#39d353;font-weight:600;}
+.insurance-section{background:#0d1117;border:1px solid #30363d;border-radius:10px;padding:20px;margin:16px 0;}
+.ins-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #21262d;}
+.ins-row .label{color:#c9d1d9;}.ins-row .val{color:#39d353;font-weight:600;}
+.needs-list{margin:16px 0;}
+.needs-item{display:flex;gap:10px;padding:10px 14px;border-radius:8px;margin-bottom:6px;align-items:flex-start;}
+.needs-item.need{background:#0d2818;border:1px solid #238636;}
+.needs-item.skip{background:#1a1100;border:1px solid #d29922;}
+.needs-item .icon{font-size:1.1rem;min-width:24px;}
+.needs-item .text{font-size:0.85rem;color:#c9d1d9;}
+.needs-item .text strong{color:#e6edf3;}
+.needs-item .price-tag{color:#39d353;font-weight:600;min-width:80px;text-align:right;font-size:0.85rem;}
+.cross-sell{background:linear-gradient(135deg,#161b22,#1a2332);border:1px solid #30363d;border-radius:12px;padding:24px;text-align:center;margin-top:40px;}
+.cross-sell h3{color:#ff5f1f;margin-bottom:8px;}.cross-sell p{color:#8b949e;margin-bottom:16px;font-size:0.95rem;}
+.cross-sell a.cta{display:inline-block;background:#ff5f1f;color:#fff;padding:12px 32px;border-radius:8px;font-weight:700;text-decoration:none;}.cross-sell a.cta:hover{background:#e5520f;text-decoration:none;}
+.watermark{position:fixed;bottom:12px;right:16px;font-size:0.65rem;color:#21262d;font-weight:700;letter-spacing:1px;pointer-events:none;z-index:10;}
+.usage-badge{display:inline-flex;align-items:center;gap:6px;background:#161b22;border:1px solid #30363d;border-radius:20px;padding:4px 12px;font-size:0.75rem;color:#58a6ff;font-weight:600;margin-bottom:1rem;}
+.usage-badge-wrap{text-align:center;}
+footer{background:#161b22;border-top:1px solid #30363d;padding:16px 24px;text-align:center;font-size:0.8rem;color:#484f58;}
+.sa-email-bar{position:fixed;bottom:0;left:0;right:0;background:#161b22;border-top:1px solid #30363d;padding:12px 20px;display:flex;align-items:center;justify-content:center;gap:12px;z-index:9999;transform:translateY(100%);transition:transform 0.4s ease;flex-wrap:wrap;}.sa-email-bar.show{transform:translateY(0);}.sa-email-bar p{color:#c9d1d9;font-size:0.85rem;margin:0;}.sa-email-bar input[type="email"]{padding:8px 12px;background:#0d1117;border:1px solid #30363d;border-radius:6px;color:#e6edf3;font-size:0.85rem;outline:none;min-width:200px;}.sa-email-bar input[type="email"]:focus{border-color:#58a6ff;}.sa-email-bar button.sa-sub-btn{padding:8px 18px;background:#ff5f1f;color:#fff;border:none;border-radius:6px;font-weight:700;font-size:0.85rem;cursor:pointer;white-space:nowrap;}.sa-email-bar button.sa-sub-btn:hover{background:#e5520f;}.sa-email-bar button.sa-dismiss{background:none;border:none;color:#484f58;font-size:1.2rem;cursor:pointer;padding:0 4px;line-height:1;}.sa-email-bar button.sa-dismiss:hover{color:#e6edf3;}
+@media(max-width:600px){h1{font-size:1.4rem;}main{padding:20px 16px 60px;}.form-row{flex-direction:column;}.monthly-grid{grid-template-columns:1fr;}.childcare-compare{grid-template-columns:1fr;}.summary-grid{grid-template-columns:1fr 1fr;}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="logo">SPUNK.CODES</a>
+  <div class="links">
+    <a href="/store">Store</a>
+    <a href="/store#free-tools">Free Tools</a>
+    <a href="/reseller" style="color:#10b981;font-weight:700">Resell $$</a>
+    <a href="/blog">Blog</a>
+  </div>
+</nav>
+<main>
+  <h1>Baby Cost Calculator</h1>
+  <p class="subtitle">How much does a baby really cost? Get real numbers for first year, monthly breakdowns, childcare, college savings, and what you actually need vs what they sell you. Based on USDA and BLS data.</p>
+  <div class="usage-badge-wrap"><div class="usage-badge" id="usageBadge">&#x1F525; Used 0 times</div></div>
+
+  <div class="form-row">
+    <div class="form-group">
+      <label>Feeding Method</label>
+      <select id="feedingMethod">
+        <option value="formula">Formula Fed</option>
+        <option value="breast">Breastfed (with pump/supplies)</option>
+        <option value="combo">Combination</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Childcare Plan</label>
+      <select id="childcarePlan">
+        <option value="daycare">Daycare Center</option>
+        <option value="nanny">Nanny (Full-Time)</option>
+        <option value="family">Family Member (Free/Low Cost)</option>
+        <option value="stayHome">Stay-at-Home Parent</option>
+      </select>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group">
+      <label>Your Region</label>
+      <select id="babyRegion">
+        <option value="1.0">National Average</option>
+        <option value="1.35">High-Cost City (NYC, SF, Boston)</option>
+        <option value="1.15">Mid-Size Metro</option>
+        <option value="0.80">Rural / Low-Cost Area</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Diaper Preference</label>
+      <select id="diaperType">
+        <option value="disposable">Disposable Diapers</option>
+        <option value="cloth">Cloth Diapers</option>
+        <option value="mix">Mix (Cloth + Disposable)</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Insurance Situation</label>
+      <select id="insuranceType">
+        <option value="employer">Employer-Provided</option>
+        <option value="marketplace">ACA Marketplace</option>
+        <option value="medicaid">Medicaid</option>
+      </select>
+    </div>
+  </div>
+
+  <button onclick="calculateBaby()" style="width:100%;margin-top:8px;">Calculate Baby Costs</button>
+
+  <div class="results-panel" id="resultsPanel">
+    <h2>First Year Cost Summary</h2>
+    <div class="summary-grid" id="summaryGrid"></div>
+
+    <h2>First Year Costs — Detailed Breakdown</h2>
+    <div id="firstYearBreakdown"></div>
+
+    <h2>Monthly Costs by Age</h2>
+    <p style="color:#8b949e;font-size:0.85rem;margin-bottom:8px;">Costs change as your baby grows. Here's what to expect each quarter.</p>
+    <div class="monthly-grid" id="monthlyGrid"></div>
+
+    <h2>Childcare Comparison</h2>
+    <div class="childcare-compare" id="childcareCompare"></div>
+
+    <h2>College Savings Plan (529)</h2>
+    <p style="color:#8b949e;font-size:0.85rem;margin-bottom:8px;">If you start saving now, compound interest does the heavy lifting. Based on 7% average annual return (S&P 500 historical avg minus inflation).</p>
+    <div class="college-calc" id="collegeCalc"></div>
+
+    <h2>Insurance Changes After Baby</h2>
+    <div class="insurance-section" id="insuranceSection"></div>
+
+    <h2>What You Actually Need vs What They Sell You</h2>
+    <p style="color:#8b949e;font-size:0.85rem;margin-bottom:8px;">The baby industry is $75 billion/year. Here's what's essential and what's marketing.</p>
+    <div class="needs-list" id="needsList"></div>
+  </div>
+
+  <div class="cross-sell">
+    <h3>Planning more life events?</h3>
+    <p>Check out our Wedding Budget Calculator, Pet Cost Calculator, and 30+ more free tools.</p>
+    <a class="cta" href="/store#free-tools">Browse Free Tools</a>
+  </div>
+</main>
+<div class="watermark">SPUNK.CODES</div>
+<footer>&copy; 2026 spunk.codes &mdash; All rights reserved.</footer>
+
+<script>
+function fmt(n) { return '$' + Math.round(n).toLocaleString(); }
+function fmtR(lo, hi) { return fmt(lo) + ' – ' + fmt(hi); }
+
+function calculateBaby() {
+  const feeding = document.getElementById('feedingMethod').value;
+  const childcare = document.getElementById('childcarePlan').value;
+  const mult = parseFloat(document.getElementById('babyRegion').value);
+  const diaper = document.getElementById('diaperType').value;
+  const insurance = document.getElementById('insuranceType').value;
+
+  // FIRST YEAR COST DATA (USDA/BLS adjusted ranges)
+  // Diapers: avg 8-10/day first months, ~2500-3000 in year 1
+  const diaperCost = diaper === 'disposable' ? [800, 1200] : diaper === 'cloth' ? [300, 500] : [500, 800];
+  // Formula: $150-300/month = $1800-3600/year; Breast: pump+supplies $200-600; Combo: $1000-2000
+  const feedingCost = feeding === 'formula' ? [1800, 3600] : feeding === 'breast' ? [200, 600] : [1000, 2000];
+  // Medical: birth copay, well-baby visits (6-7 in year 1), vaccines
+  const birthCost = insurance === 'employer' ? [1000, 3000] : insurance === 'marketplace' ? [2000, 6000] : [0, 500];
+  const wellBabyCost = insurance === 'medicaid' ? [0, 100] : [200, 600];
+  // Gear
+  const gearItems = [
+    { name: '🛏️ Crib + Mattress', cost: [150, 500], note: 'Essential. Skip the bassinet — go straight to convertible crib.' },
+    { name: '🚗 Car Seat (Infant)', cost: [100, 350], note: 'Essential. Do NOT buy used — safety standards change.' },
+    { name: '👶 Stroller', cost: [100, 800], note: 'Essential. Travel system (car seat + stroller combo) saves money.' },
+    { name: '🍼 Bottles & Supplies', cost: [50, 150], note: 'Essential even for breastfeeding moms (pumped milk).' },
+    { name: '👕 Clothing (Year 1)', cost: [300, 700], note: 'Buy secondhand — babies outgrow clothes in weeks.' },
+    { name: '🧷 Changing Supplies', cost: [80, 200], note: 'Pad, wipes, diaper bag. Wipes: $200-400/year.' },
+    { name: '🧸 Toys & Books', cost: [50, 200], note: 'Babies don\'t need much. Library is free.' },
+    { name: '🛁 Bath Supplies', cost: [30, 80], note: 'Baby tub, soap, towels. Simple is fine.' },
+    { name: '📡 Baby Monitor', cost: [30, 300], note: 'Audio-only is $30-50 and works great.' },
+    { name: '🪑 High Chair', cost: [50, 250], note: 'Needed at 6 months. IKEA Antilop ($20) is a pediatric fave.' }
+  ];
+  // Childcare costs (annual)
+  const childcareCosts = {
+    daycare: [12000, 24000],
+    nanny: [30000, 55000],
+    family: [0, 3000],
+    stayHome: [0, 0]
+  };
+  const ccCost = childcareCosts[childcare];
+  const wipesCost = [200, 400];
+
+  // Calculate totals
+  let firstYearItems = [];
+  const addItem = (name, range) => {
+    firstYearItems.push({ name, lo: range[0] * mult, hi: range[1] * mult });
+  };
+  addItem('🏥 Birth / Delivery', birthCost);
+  addItem('👩‍⚕️ Well-Baby Visits & Vaccines', wellBabyCost);
+  addItem('🍼 Feeding (Year 1)', feedingCost);
+  addItem('🧷 Diapers', diaperCost);
+  addItem('🧻 Wipes & Supplies', wipesCost);
+  gearItems.forEach(g => addItem(g.name, g.cost));
+  addItem('👶 Childcare (Year 1)', ccCost);
+
+  let totalLo = 0, totalHi = 0;
+  const fy = document.getElementById('firstYearBreakdown');
+  fy.innerHTML = '';
+  firstYearItems.forEach(item => {
+    totalLo += item.lo;
+    totalHi += item.hi;
+    const avg = (item.lo + item.hi) / 2;
+    fy.innerHTML +=
+      '<div class="cost-row"><div class="item">' + item.name + '</div><div class="range">' + fmt(item.lo) + ' – ' + fmt(item.hi) + '</div><div class="amount">' + fmt(avg) + '</div></div>';
+  });
+  const totalAvg = (totalLo + totalHi) / 2;
+  fy.innerHTML += '<div class="total-row"><span class="label">First Year Total</span><span class="amount">' + fmt(totalAvg) + '</span></div>';
+  fy.innerHTML += '<div style="text-align:center;color:#8b949e;font-size:0.8rem;margin-top:6px;">Range: ' + fmt(totalLo) + ' – ' + fmt(totalHi) + '</div>';
+
+  // Summary
+  const monthlyAvg = totalAvg / 12;
+  document.getElementById('summaryGrid').innerHTML =
+    '<div class="summary-item"><div class="s-label">First Year Total</div><div class="s-value">' + fmt(totalAvg) + '</div><div class="s-sub">Range: ' + fmt(totalLo) + '–' + fmt(totalHi) + '</div></div>' +
+    '<div class="summary-item"><div class="s-label">Monthly Average</div><div class="s-value">' + fmt(monthlyAvg) + '</div><div class="s-sub">' + fmt(monthlyAvg / 4.33) + '/week</div></div>' +
+    '<div class="summary-item"><div class="s-label">Birth to 18</div><div class="s-value">' + fmt(totalAvg + (totalAvg * 0.85 * 17)) + '</div><div class="s-sub">USDA avg: $310,605</div></div>' +
+    '<div class="summary-item"><div class="s-label">Daily Cost</div><div class="s-value">' + fmt(totalAvg / 365) + '</div><div class="s-sub">Per day average</div></div>';
+
+  // Monthly by age
+  const feedMonthly = feeding === 'formula' ? 250 : feeding === 'breast' ? 30 : 140;
+  const diaperMonthly = diaper === 'disposable' ? 80 : diaper === 'cloth' ? 25 : 50;
+  const ccMonthly = ((ccCost[0] + ccCost[1]) / 2 * mult) / 12;
+  const mg = document.getElementById('monthlyGrid');
+  const quarters = [
+    { title: '🍼 Newborn (0-3 mo)', diapers: 10, feedMult: 1.0, clothes: 60, medical: 100, misc: 30, note: 'Highest diaper usage. Most medical visits. Sleep deprivation peak.' },
+    { title: '👶 3-6 Months', diapers: 8, feedMult: 1.1, clothes: 50, medical: 50, misc: 40, note: 'Starting solid foods research. May need bigger car seat. More toys.' },
+    { title: '🧸 6-9 Months', diapers: 7, feedMult: 0.9, clothes: 50, medical: 50, misc: 50, note: 'Solid foods begin. High chair needed. Baby-proofing costs ($100-300).' },
+    { title: '🚶 9-12 Months', diapers: 7, feedMult: 0.8, clothes: 60, medical: 80, misc: 50, note: 'More food, less formula/milk. Walking = shoes needed. 12-month vaccines.' }
+  ];
+  mg.innerHTML = '';
+  quarters.forEach(q => {
+    const dCost = q.diapers * 30 * (diaper === 'disposable' ? 0.28 : diaper === 'cloth' ? 0.07 : 0.17) * mult;
+    const fCost = feedMonthly * q.feedMult * mult;
+    const total = dCost + fCost + q.clothes * mult + q.medical * mult + q.misc * mult + ccMonthly;
+    mg.innerHTML +=
+      '<div class="month-card">' +
+        '<h4>' + q.title + '</h4>' +
+        '<div class="total">' + fmt(total) + '/mo</div>' +
+        '<div class="detail">Diapers: ' + fmt(dCost) + '</div>' +
+        '<div class="detail">Feeding: ' + fmt(fCost) + '</div>' +
+        '<div class="detail">Clothes: ' + fmt(q.clothes * mult) + '</div>' +
+        '<div class="detail">Medical: ' + fmt(q.medical * mult) + '</div>' +
+        '<div class="detail">Childcare: ' + fmt(ccMonthly) + '</div>' +
+        '<div class="detail" style="margin-top:6px;color:#58a6ff;font-size:0.75rem;">' + q.note + '</div>' +
+      '</div>';
+  });
+
+  // Childcare comparison
+  const cc = document.getElementById('childcareCompare');
+  const ccOptions = [
+    { name: 'Daycare Center', annual: [12000, 24000], pros: ['Socialization with peers', 'Licensed & regulated', 'Structured learning curriculum', 'Backup if provider is sick'], cons: 'More illness exposure. Rigid hours.' },
+    { name: 'Full-Time Nanny', annual: [30000, 55000], pros: ['1-on-1 attention', 'Flexible schedule', 'In your home', 'Can handle sick days'], cons: 'Most expensive. Nanny taxes add 10%.' },
+    { name: 'Family Member', annual: [0, 3000], pros: ['Free or low cost', 'Trusted caregiver', 'Flexible schedule', 'Family bonding'], cons: 'Boundary issues. May not follow your rules.' },
+    { name: 'Stay-at-Home Parent', annual: [0, 0], pros: ['Best bonding', 'Total control', 'No commute logistics', 'Saves on childcare'], cons: 'Lost income ($30K-80K+). Career gap. Isolation risk.' }
+  ];
+  cc.innerHTML = '';
+  ccOptions.forEach(opt => {
+    const avg = ((opt.annual[0] + opt.annual[1]) / 2) * mult;
+    const isBest = opt.name.toLowerCase().includes(childcare === 'daycare' ? 'daycare' : childcare === 'nanny' ? 'nanny' : childcare === 'family' ? 'family' : 'stay');
+    cc.innerHTML +=
+      '<div class="cc-card ' + (isBest ? 'best' : '') + '">' +
+        '<h4>' + opt.name + '</h4>' +
+        '<div class="price">' + (avg > 0 ? fmt(avg) : 'Free') + '</div>' +
+        '<div class="sub">/year' + (avg > 0 ? ' (' + fmt(avg / 12) + '/mo)' : '') + '</div>' +
+        '<div class="pros">' + opt.pros.map(p => '&#x2705; ' + p).join('<br>') + '</div>' +
+        '<div class="sub" style="margin-top:6px;color:#d29922;">' + opt.cons + '</div>' +
+      '</div>';
+  });
+
+  // College savings (529)
+  const collegeCostToday = 25000; // avg public university annual cost 2025
+  const inflationRate = 0.05; // college inflation ~5%/year
+  const returnRate = 0.07;
+  const yearsUntilCollege = 18;
+  const futureAnnualCost = collegeCostToday * Math.pow(1 + inflationRate, yearsUntilCollege);
+  const totalCollegeCost = futureAnnualCost * 4;
+  // Monthly savings needed: FV = PMT * [(1+r)^n - 1] / r => PMT = FV * r / [(1+r)^n - 1]
+  const monthlyRate = returnRate / 12;
+  const months = yearsUntilCollege * 12;
+  const monthlySavings = totalCollegeCost * monthlyRate / (Math.pow(1 + monthlyRate, months) - 1);
+  const totalContributed = monthlySavings * months;
+  const interestEarned = totalCollegeCost - totalContributed;
+
+  document.getElementById('collegeCalc').innerHTML =
+    '<div class="result-row"><span class="label">Current Avg Annual Cost (Public University, In-State)</span><span class="val">' + fmt(collegeCostToday) + '</span></div>' +
+    '<div class="result-row"><span class="label">Projected Annual Cost in 18 Years (5% inflation)</span><span class="val">' + fmt(futureAnnualCost) + '</span></div>' +
+    '<div class="result-row"><span class="label">Projected 4-Year Total</span><span class="val">' + fmt(totalCollegeCost) + '</span></div>' +
+    '<div class="result-row"><span class="label">Monthly 529 Savings Needed (7% return)</span><span class="val" style="color:#58a6ff;font-size:1.1rem;">' + fmt(monthlySavings) + '/mo</span></div>' +
+    '<div class="result-row"><span class="label">Your Total Contributions Over 18 Years</span><span class="val">' + fmt(totalContributed) + '</span></div>' +
+    '<div class="result-row"><span class="label">Interest Earned (Tax-Free in 529)</span><span class="val">' + fmt(interestEarned) + '</span></div>' +
+    '<p style="margin-top:12px;color:#39d353;font-size:0.85rem;">Starting at birth vs age 5 means saving ' + fmt(monthlySavings) + '/mo vs ' + fmt(totalCollegeCost * monthlyRate / (Math.pow(1 + monthlyRate, 13*12) - 1)) + '/mo. Starting early saves ' + fmt(totalCollegeCost * monthlyRate / (Math.pow(1 + monthlyRate, 13*12) - 1) * 13*12 - totalContributed) + ' in contributions.</p>';
+
+  // Insurance
+  document.getElementById('insuranceSection').innerHTML =
+    '<div class="ins-row"><span class="label">Adding baby to employer plan</span><span class="val">+$200–$500/mo</span></div>' +
+    '<div class="ins-row"><span class="label">ACA Marketplace (family plan)</span><span class="val">$800–$1,800/mo</span></div>' +
+    '<div class="ins-row"><span class="label">Medicaid (if eligible)</span><span class="val">$0/mo</span></div>' +
+    '<div class="ins-row"><span class="label">Birth cost (vaginal, with insurance)</span><span class="val">$1,000–$3,000</span></div>' +
+    '<div class="ins-row"><span class="label">Birth cost (C-section, with insurance)</span><span class="val">$2,000–$6,000</span></div>' +
+    '<div class="ins-row"><span class="label">Birth cost (no insurance)</span><span class="val">$10,000–$30,000</span></div>' +
+    '<div class="ins-row"><span class="label">Life insurance (new recommendation)</span><span class="val">$20–$50/mo (term, 20yr)</span></div>' +
+    '<p style="margin-top:12px;color:#58a6ff;font-size:0.85rem;">Tip: You have 30 days after birth to add baby to your insurance (Special Enrollment Period). Don\'t miss this window.</p>';
+
+  // Need vs Skip
+  const nl = document.getElementById('needsList');
+  nl.innerHTML = '<h3 style="color:#39d353;">What You Actually Need</h3>';
+  const needs = [
+    { item: 'Car seat (rear-facing)', price: '$100–$350', why: 'Legally required. Never buy used.' },
+    { item: 'Safe sleep space (crib or pack-n-play)', price: '$50–$500', why: 'AAP: firm, flat, bare surface. That\'s it.' },
+    { item: 'Diapers + wipes', price: '$80–$120/mo', why: 'You will use 8,000+ diapers in year 1.' },
+    { item: 'Onesies (6-8)', price: '$20–$50', why: 'Buy secondhand. They outgrow them in weeks.' },
+    { item: 'Feeding supplies', price: '$50–$300', why: 'Bottles or pump. Both are tax-deductible with insurance.' },
+    { item: 'Stroller', price: '$100–$400', why: 'Skip luxury strollers. Umbrella strollers work great after 6 months.' },
+    { item: 'Pediatrician visits', price: '$200–$600/yr', why: '6-7 well-baby visits in year 1. Non-negotiable.' }
+  ];
+  const skips = [
+    { item: 'Wipe warmer', price: '$20–$40', why: 'Babies don\'t care. Room temp wipes are fine.' },
+    { item: 'Diaper pail (fancy)', price: '$40–$80', why: 'A trash can with a lid works identically.' },
+    { item: 'Baby shoes (before walking)', price: '$20–$50', why: 'Babies don\'t walk. Socks are all they need.' },
+    { item: 'Nursery decor set', price: '$200–$1,000', why: 'Babies can\'t see more than 12 inches at birth.' },
+    { item: 'Baby food maker', price: '$50–$150', why: 'A regular blender + ice cube tray does the same thing.' },
+    { item: 'Designer diaper bag', price: '$100–$300', why: 'Any backpack works. Seriously.' },
+    { item: 'Newborn-size clothes (tons)', price: '$100+', why: 'They fit for 2-4 weeks. Buy 3-4 outfits max.' },
+    { item: 'Baby bathrobe', price: '$15–$30', why: 'A towel. It\'s a towel with a hood. Use a towel.' }
+  ];
+  needs.forEach(n => {
+    nl.innerHTML += '<div class="needs-item need"><div class="icon">&#x2705;</div><div class="text"><strong>' + n.item + '</strong><br>' + n.why + '</div><div class="price-tag">' + n.price + '</div></div>';
+  });
+  nl.innerHTML += '<h3 style="color:#d29922;margin-top:20px;">Skip These (Marketing, Not Necessity)</h3>';
+  skips.forEach(s => {
+    nl.innerHTML += '<div class="needs-item skip"><div class="icon">&#x26a0;&#xfe0f;</div><div class="text"><strong>' + s.item + '</strong><br>' + s.why + '</div><div class="price-tag">' + s.price + '</div></div>';
+  });
+  const skipTotal = [545, 1650];
+  nl.innerHTML += '<div style="text-align:center;margin-top:12px;color:#d29922;font-weight:600;">Skipping these saves ' + fmtR(skipTotal[0], skipTotal[1]) + ' that you can put toward actual necessities or savings.</div>';
+
+  document.getElementById('resultsPanel').style.display = 'block';
+  document.getElementById('resultsPanel').scrollIntoView({ behavior: 'smooth' });
+  gtag('event', 'baby_cost_calculated', { event_category: 'calculator' });
+}
+</script>
+
+<div class="sa-email-bar" id="saEmailBar"><p>Like this? Get 30 more free tools in your inbox.</p><input type="email" id="saBarEmail" placeholder="you@email.com"><button class="sa-sub-btn" onclick="saSubmitEmail()">Get Early Access</button><button class="sa-dismiss" onclick="saDismissBar()">&times;</button></div>
+<script>
+(function(){var TOOL_KEY='sa_usage_baby-calculator',BAR_KEY='sa_bar_dismissed_baby-calculator';var count=parseInt(localStorage.getItem(TOOL_KEY))||0;var badge=document.getElementById('usageBadge');function updateBadge(){badge.textContent='\uD83D\uDD25 Used '+count+' time'+(count!==1?'s':'');}if(count>0)updateBadge();var _orig=calculateBaby;calculateBaby=function(){_orig.apply(this,arguments);count++;localStorage.setItem(TOOL_KEY,count);updateBadge();if(count>=2&&!localStorage.getItem(BAR_KEY))document.getElementById('saEmailBar').classList.add('show');};window.calculateBaby=calculateBaby;window.saDismissBar=function(){document.getElementById('saEmailBar').classList.remove('show');localStorage.setItem(BAR_KEY,'1');};window.saSubmitEmail=function(){var email=document.getElementById('saBarEmail').value;if(!email||!email.includes('@')){alert('Please enter a valid email.');return;}localStorage.setItem('sa_subscriber_email',email);localStorage.setItem(BAR_KEY,'1');window.open('https://embeds.beehiiv.com/cae41704-7588-4c50-83f1-11f5b4a0585f?email='+encodeURIComponent(email),'_blank');document.getElementById('saEmailBar').classList.remove('show');var btn=document.querySelector('.sa-sub-btn');btn.textContent='Subscribed!';btn.style.background='#10b981';};})();
+</script>
+<script>
+(function(){
+  document.addEventListener('contextmenu',function(e){e.preventDefault();});
+  document.addEventListener('keydown',function(e){
+    if(e.key==='F12')e.preventDefault();if(e.ctrlKey&&e.key==='u')e.preventDefault();if(e.ctrlKey&&e.key==='s')e.preventDefault();
+    if(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='i'||e.key==='J'||e.key==='j'||e.key==='C'||e.key==='c'))e.preventDefault();
+  });
+  console.log('%c\u26a0 SPUNK.CODES — All rights reserved.','color:#ff5f1f;font-size:16px;font-weight:bold;');
+  console.log('%cProperty of SpunkArt. Report theft: hello@spunk.codes','color:#888;font-size:12px;');
+})();
+</script>
+<script src="/auto-monetize.js"></script>
+<div id="shareXBtn" style="position:fixed;left:20px;bottom:20px;z-index:9999;">
+  <a id="shareXLink" href="#" target="_blank" rel="noopener noreferrer" title="Share on X" style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;background:rgba(88,166,255,0.15);border:1px solid rgba(88,166,255,0.3);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:50%;text-decoration:none;transition:all 0.3s ease;cursor:pointer;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+  </a>
+</div>
+<style>#shareXBtn a:hover{background:rgba(88,166,255,0.35)!important;border-color:rgba(88,166,255,0.6)!important;transform:scale(1.1);box-shadow:0 0 15px rgba(88,166,255,0.3);}</style>
+<script>
+(function(){var page=location.pathname.split("/").pop()||"index.html";var url="https://spunk.codes/"+page;var text="Just calculated how much a baby really costs — the numbers are wild! @SpunkArt13";var href="https://x.com/intent/tweet?text="+encodeURIComponent(text)+"&url="+encodeURIComponent(url);document.getElementById("shareXLink").href=href;})();
+</script>
+<script src="/usage-tracker.js"></script>
+</body>
+</html>
+<!-- Extended baby cost data reference and FAQ -->
+<!--
+  Baby Cost Calculator - Extended Data Reference
+  Sources: USDA Expenditures on Children by Families, BLS CPI, CDC, AAP
+  
+  USDA Average Cost to Raise a Child (Birth to 17):
+  Middle-income family: $310,605 ($17,256/year average, 2025 adjusted)
+  Low-income: $174,690 | High-income: $372,210
+  
+  Breakdown by Category (USDA, % of total):
+  Housing: 29% | Food: 18% | Childcare/Education: 16%
+  Transportation: 15% | Healthcare: 9% | Clothing: 6% | Miscellaneous: 7%
+  
+  Diaper Data:
+  Newborn (0-3 mo): 10-12 diapers/day | 3-6 months: 8-10/day
+  6-12 months: 6-8/day | 1-2 years: 6-8/day | 2-3 years: 4-6/day
+  Total diapers birth to potty training: 6,000-8,000
+  Disposable cost per diaper: $0.20-$0.35 | Cloth diaper service: $80-$120/month
+  Cloth diaper DIY (upfront): $300-$500 for full stash
+  
+  Formula Costs:
+  Standard powder formula: $150-$200/month | Organic formula: $200-$350/month
+  Specialty formula (hypoallergenic): $300-$500/month
+  Ready-to-feed: $200-$400/month | Generic vs brand: save 30-50%
+  Total formula cost birth to 12 months: $1,800-$4,800
+  
+  Breastfeeding Costs:
+  Breast pump (insurance covers basic): $0-$300
+  Premium pump: $300-$500 | Nursing bras (3-4): $60-$120
+  Nursing pads, cream, bags: $100-$200 | Lactation consultant: $100-$300/visit
+  Total first year: $200-$800 (significantly less than formula)
+  
+  Childcare Costs by State (Annual, Infant):
+  Massachusetts: $23,000 | New York: $22,000 | California: $20,000
+  DC: $24,000 | Connecticut: $21,000 | Minnesota: $18,000
+  Colorado: $17,000 | Illinois: $16,000 | Texas: $12,000
+  Mississippi: $8,000 | National average: $15,000
+  
+  College Savings (529 Plan):
+  Average annual cost public university (2025): $25,000 (tuition + room/board)
+  Average annual cost private university (2025): $58,000
+  Historical college inflation: 5-8% per year
+  529 tax advantage: tax-free growth and withdrawals for education
+  If starting at birth, $250/month at 7% return = ~$120,000 at age 18
+  If starting at age 5, $400/month needed for same result
+  If starting at age 10, $700/month needed
+  
+  Health Insurance Changes:
+  Adding baby to employer plan: $200-$600/month increase
+  Special Enrollment Period: 30 days from birth (DON'T miss this)
+  Newborn's first hospital bill: $2,000-$5,000 (with insurance)
+  Well-baby visits year 1: 6-7 visits (covered under ACA preventive care)
+  Recommended immunizations by age 2: 14 different vaccines
+  Pediatric dental coverage: mandatory under ACA marketplace plans
+  
+  What New Parents Actually Spend Most On (surprise expenses):
+  1. Childcare (if both parents work): $1,000-$2,000/month
+  2. Lost income during parental leave: $5,000-$20,000+
+  3. Larger vehicle: $5,000-$15,000 (many upgrade after baby)
+  4. Larger home/apartment: $200-$800/month increase
+  5. Convenience spending (takeout, delivery, cleaning): $200-$400/month
+-->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How much does a baby cost in the first year?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A baby costs $12,000-$25,000 in the first year depending on childcare, feeding method, and location. Without childcare (stay-at-home parent), expect $5,000-$10,000. With full-time daycare, add $12,000-$24,000."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How much should I save before having a baby?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Financial experts recommend saving $10,000-$20,000 before baby arrives. This covers birth costs ($1,000-$6,000 with insurance), gear ($1,500-$3,000), 3 months of expenses as emergency fund, and initial supplies."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How much does formula cost per month?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Standard powder formula costs $150-$200/month. Organic formula runs $200-$350/month. Specialty/hypoallergenic formula costs $300-$500/month. Generic store brands save 30-50% and are FDA-regulated to be nutritionally equivalent."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How much does childcare cost?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Daycare averages $12,000-$24,000/year nationally. Full-time nannies cost $30,000-$55,000/year. Costs vary dramatically by state — from $8,000/year in Mississippi to $24,000/year in DC."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How much should I save per month for college?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Starting at birth, save $250-$500/month in a 529 plan for public university. At 7% average return, $250/month grows to ~$120,000 by age 18. Waiting until age 5 requires $400/month for the same goal."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://spunk.codes/"},
+    {"@type": "ListItem", "position": 2, "name": "Free Tools", "item": "https://spunk.codes/store#free-tools"},
+    {"@type": "ListItem", "position": 3, "name": "Baby Cost Calculator", "item": "https://spunk.codes/baby-cost-calculator.html"}
+  ]
+}
+</script>

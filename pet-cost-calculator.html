@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Copyright 2026 spunk.codes. All rights reserved. Unauthorized reproduction prohibited. hello@spunk.codes -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pet Cost Calculator - Free Online Tool | SPUNK.CODES</title>
+<meta name="description" content="Calculate the true cost of pet ownership. First year, annual, and lifetime costs for dogs, cats, birds, fish, and more. Budget planner included.">
+<meta property="og:title" content="Pet Cost Calculator - Free Online Tool">
+<meta property="og:description" content="Find out the real cost of owning a pet. First year, annual, and lifetime projections with budget planning.">
+<meta property="og:image" content="https://spunk.codes/assets/og-pet-calculator.png">
+<meta property="og:url" content="https://spunk.codes/pet-cost-calculator.html">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Pet Cost Calculator - Free Online Tool">
+<meta name="twitter:description" content="Calculate the true cost of pet ownership. Free tool by SPUNK.CODES">
+<link rel="canonical" href="https://spunk.codes/pet-cost-calculator.html">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<meta name="author" content="spunk.codes">
+<meta name="copyright" content="Copyright 2026 spunk.codes. All rights reserved.">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Pet Cost Calculator","description":"Calculate the true cost of pet ownership including first year, annual, and lifetime costs for dogs, cats, birds, fish, and more.","url":"https://spunk.codes/pet-cost-calculator.html","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Organization","name":"SpunkArt","url":"https://spunk.codes"}}</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#0d1117;color:#e6edf3;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;line-height:1.6;min-height:100vh;display:flex;flex-direction:column;}
+a{color:#58a6ff;text-decoration:none;}a:hover{text-decoration:underline;}
+nav{background:#161b22;border-bottom:1px solid #30363d;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+nav .logo{font-weight:800;font-size:1.1rem;color:#ff5f1f;letter-spacing:1px;}
+nav .links{display:flex;gap:20px;font-size:0.9rem;}
+nav .links a{color:#8b949e;}nav .links a:hover{color:#58a6ff;}
+main{flex:1;max-width:960px;width:100%;margin:0 auto;padding:32px 20px 80px;}
+h1{font-size:2rem;margin-bottom:8px;color:#fff;}
+h2{font-size:1.3rem;color:#58a6ff;margin:28px 0 12px;border-bottom:1px solid #21262d;padding-bottom:8px;}
+.subtitle{color:#8b949e;margin-bottom:28px;font-size:1rem;}
+.form-group{margin-bottom:16px;}
+label{display:block;font-size:0.85rem;color:#8b949e;margin-bottom:6px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;}
+input[type="number"],select{width:100%;background:#0d1117;border:1px solid #30363d;color:#e6edf3;padding:10px 14px;border-radius:8px;font-size:0.95rem;outline:none;transition:border-color 0.2s;}
+input:focus,select:focus{border-color:#58a6ff;}
+.form-row{display:flex;gap:12px;flex-wrap:wrap;}
+.form-row .form-group{flex:1;min-width:200px;}
+button{background:#238636;color:#fff;border:none;padding:12px 28px;border-radius:8px;font-size:1rem;font-weight:600;cursor:pointer;transition:background 0.2s;}
+button:hover{background:#2ea043;}
+.pet-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin-bottom:24px;}
+.pet-card{background:#161b22;border:2px solid #21262d;border-radius:12px;padding:16px;text-align:center;cursor:pointer;transition:all 0.2s;}
+.pet-card:hover{border-color:#58a6ff;transform:translateY(-2px);}
+.pet-card.selected{border-color:#39d353;background:#0d2818;}
+.pet-card .icon{font-size:2rem;margin-bottom:6px;}
+.pet-card .name{font-size:0.85rem;font-weight:600;color:#e6edf3;}
+.pet-card .lifespan{font-size:0.75rem;color:#8b949e;}
+.results-panel{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:24px;margin-top:24px;display:none;}
+.cost-section{margin-bottom:20px;}
+.cost-row{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-radius:8px;margin-bottom:6px;background:#0d1117;border:1px solid #21262d;}
+.cost-row .item{color:#c9d1d9;font-size:0.9rem;}
+.cost-row .range{color:#8b949e;font-size:0.8rem;}
+.cost-row .amount{color:#39d353;font-weight:700;font-size:0.95rem;}
+.total-card{background:linear-gradient(135deg,#161b22,#1a2332);border:2px solid #58a6ff;border-radius:12px;padding:20px;text-align:center;margin-bottom:16px;}
+.total-card .label{color:#8b949e;font-size:0.85rem;}
+.total-card .value{color:#39d353;font-size:2rem;font-weight:800;}
+.total-card .sub{color:#58a6ff;font-size:0.85rem;}
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:20px;}
+.summary-item{background:#0d1117;border:1px solid #21262d;border-radius:10px;padding:16px;text-align:center;}
+.summary-item .s-label{color:#8b949e;font-size:0.8rem;margin-bottom:4px;}
+.summary-item .s-value{color:#39d353;font-size:1.4rem;font-weight:800;}
+.summary-item .s-sub{color:#58a6ff;font-size:0.75rem;}
+.compare-box{background:#0d1117;border:1px solid #30363d;border-radius:10px;padding:20px;margin-top:16px;}
+.compare-row{display:flex;gap:20px;margin-bottom:12px;flex-wrap:wrap;}
+.compare-col{flex:1;min-width:200px;background:#161b22;border-radius:8px;padding:16px;text-align:center;}
+.compare-col h4{color:#58a6ff;margin-bottom:8px;}
+.compare-col .price{color:#39d353;font-size:1.3rem;font-weight:700;}
+.compare-col p{color:#8b949e;font-size:0.85rem;margin-top:4px;}
+.tip-box{background:#161b22;border-left:3px solid #39d353;border-radius:0 8px 8px 0;padding:14px 16px;margin-bottom:10px;}
+.tip-box strong{color:#58a6ff;}.tip-box p{color:#c9d1d9;font-size:0.9rem;margin-top:4px;}
+.budget-planner{background:#0d1117;border:1px solid #30363d;border-radius:10px;padding:20px;margin-top:16px;}
+.budget-planner .monthly{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #21262d;}
+.budget-planner .monthly .cat{color:#c9d1d9;}.budget-planner .monthly .amt{color:#39d353;font-weight:600;}
+.emergency-box{background:linear-gradient(135deg,#2d1b00,#1a1100);border:1px solid #d29922;border-radius:10px;padding:16px;margin-top:16px;}
+.emergency-box h3{color:#d29922;margin-bottom:8px;}
+.emergency-box p{color:#c9d1d9;font-size:0.9rem;}
+.emergency-box .recommend{color:#d29922;font-weight:700;font-size:1.2rem;}
+.cross-sell{background:linear-gradient(135deg,#161b22,#1a2332);border:1px solid #30363d;border-radius:12px;padding:24px;text-align:center;margin-top:40px;}
+.cross-sell h3{color:#ff5f1f;margin-bottom:8px;}.cross-sell p{color:#8b949e;margin-bottom:16px;font-size:0.95rem;}
+.cross-sell a.cta{display:inline-block;background:#ff5f1f;color:#fff;padding:12px 32px;border-radius:8px;font-weight:700;text-decoration:none;}.cross-sell a.cta:hover{background:#e5520f;text-decoration:none;}
+.watermark{position:fixed;bottom:12px;right:16px;font-size:0.65rem;color:#21262d;font-weight:700;letter-spacing:1px;pointer-events:none;z-index:10;}
+.usage-badge{display:inline-flex;align-items:center;gap:6px;background:#161b22;border:1px solid #30363d;border-radius:20px;padding:4px 12px;font-size:0.75rem;color:#58a6ff;font-weight:600;margin-bottom:1rem;}
+.usage-badge-wrap{text-align:center;}
+footer{background:#161b22;border-top:1px solid #30363d;padding:16px 24px;text-align:center;font-size:0.8rem;color:#484f58;}
+.sa-email-bar{position:fixed;bottom:0;left:0;right:0;background:#161b22;border-top:1px solid #30363d;padding:12px 20px;display:flex;align-items:center;justify-content:center;gap:12px;z-index:9999;transform:translateY(100%);transition:transform 0.4s ease;flex-wrap:wrap;}.sa-email-bar.show{transform:translateY(0);}.sa-email-bar p{color:#c9d1d9;font-size:0.85rem;margin:0;}.sa-email-bar input[type="email"]{padding:8px 12px;background:#0d1117;border:1px solid #30363d;border-radius:6px;color:#e6edf3;font-size:0.85rem;outline:none;min-width:200px;}.sa-email-bar input[type="email"]:focus{border-color:#58a6ff;}.sa-email-bar button.sa-sub-btn{padding:8px 18px;background:#ff5f1f;color:#fff;border:none;border-radius:6px;font-weight:700;font-size:0.85rem;cursor:pointer;white-space:nowrap;}.sa-email-bar button.sa-sub-btn:hover{background:#e5520f;}.sa-email-bar button.sa-dismiss{background:none;border:none;color:#484f58;font-size:1.2rem;cursor:pointer;padding:0 4px;line-height:1;}.sa-email-bar button.sa-dismiss:hover{color:#e6edf3;}
+@media(max-width:600px){h1{font-size:1.4rem;}main{padding:20px 16px 60px;}.form-row{flex-direction:column;}.pet-grid{grid-template-columns:repeat(3,1fr);}.summary-grid{grid-template-columns:1fr 1fr;}.compare-row{flex-direction:column;}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="logo">SPUNK.CODES</a>
+  <div class="links">
+    <a href="/store">Store</a>
+    <a href="/store#free-tools">Free Tools</a>
+    <a href="/reseller" style="color:#10b981;font-weight:700">Resell $$</a>
+    <a href="/blog">Blog</a>
+  </div>
+</nav>
+<main>
+  <h1>Pet Cost Calculator</h1>
+  <p class="subtitle">Find out the true cost of pet ownership — first year, annual, and lifetime. Based on real ASPCA, AKC, and veterinary data.</p>
+  <div class="usage-badge-wrap"><div class="usage-badge" id="usageBadge">&#x1F525; Used 0 times</div></div>
+
+  <h2>Select Your Pet</h2>
+  <div class="pet-grid" id="petGrid"></div>
+
+  <div class="form-row">
+    <div class="form-group">
+      <label>Your Region (Cost Adjustment)</label>
+      <select id="region">
+        <option value="1.0">National Average</option>
+        <option value="1.25">High-Cost City (NYC, SF, LA)</option>
+        <option value="1.10">Moderate-Cost Metro</option>
+        <option value="0.85">Rural / Low-Cost Area</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Adopt or Buy?</label>
+      <select id="adoptOrBuy">
+        <option value="adopt">Adopt (Shelter/Rescue)</option>
+        <option value="buy">Buy (Breeder)</option>
+      </select>
+    </div>
+  </div>
+
+  <button onclick="calculatePetCost()" style="width:100%;margin-top:12px;">Calculate Pet Costs</button>
+
+  <div class="results-panel" id="resultsPanel">
+    <h2 id="petTitle">Cost Breakdown</h2>
+
+    <div class="summary-grid" id="summaryGrid"></div>
+
+    <h2>First Year Costs</h2>
+    <div class="cost-section" id="firstYearCosts"></div>
+
+    <h2>Annual Ongoing Costs</h2>
+    <div class="cost-section" id="annualCosts"></div>
+
+    <h2>Lifetime Projection</h2>
+    <div class="total-card" id="lifetimeCard"></div>
+
+    <h2>Adopt vs Buy Comparison</h2>
+    <div class="compare-box" id="adoptVsBuy"></div>
+
+    <h2>Monthly Budget Planner</h2>
+    <div class="budget-planner" id="budgetPlanner"></div>
+
+    <h2>Emergency Fund</h2>
+    <div class="emergency-box" id="emergencyFund"></div>
+
+    <h2>Money-Saving Tips</h2>
+    <div id="savingTips"></div>
+  </div>
+
+  <div class="cross-sell">
+    <h3>Planning your budget?</h3>
+    <p>Try our Baby Cost Calculator, Wedding Budget Calculator, and more free financial tools.</p>
+    <a class="cta" href="/store#free-tools">Browse Free Tools</a>
+  </div>
+</main>
+<div class="watermark">SPUNK.CODES</div>
+<footer>&copy; 2026 spunk.codes &mdash; All rights reserved.</footer>
+
+<script>
+const PET_DATA = {
+  'dog-small': {
+    name: 'Small Dog (under 20 lbs)', icon: '🐕', lifespan: 14,
+    adoptCost: [50, 300], buyCost: [500, 2500],
+    firstYear: { supplies: [300, 500], spayNeuter: [200, 400], vaccinations: [100, 200], microchip: [50, 70], training: [100, 300], food: [250, 500] },
+    annual: { food: [250, 500], vetCheckup: [200, 400], preventiveMeds: [200, 400], grooming: [200, 600], insurance: [300, 600], toys: [50, 100], treats: [50, 100], boarding: [200, 500], dental: [200, 600], license: [10, 25] },
+    emergencyRange: [1000, 5000],
+    tips: ['Buy food in bulk — saves 20-30% annually', 'Pet insurance pays for itself with one emergency', 'DIY grooming for small dogs saves $400+/year', 'Use preventive care to avoid expensive dental work']
+  },
+  'dog-medium': {
+    name: 'Medium Dog (20-50 lbs)', icon: '🐕', lifespan: 12,
+    adoptCost: [50, 300], buyCost: [800, 3000],
+    firstYear: { supplies: [400, 600], spayNeuter: [250, 500], vaccinations: [100, 200], microchip: [50, 70], training: [150, 500], food: [400, 700] },
+    annual: { food: [400, 700], vetCheckup: [200, 400], preventiveMeds: [250, 500], grooming: [300, 800], insurance: [400, 800], toys: [50, 150], treats: [60, 120], boarding: [300, 700], dental: [200, 600], license: [10, 25] },
+    emergencyRange: [1500, 6000],
+    tips: ['Medium dogs eat more — consider quality bulk food', 'Regular exercise prevents costly weight-related health issues', 'Train at home with YouTube — save $300+ vs classes', 'Compare pet insurance plans — deductibles vary widely']
+  },
+  'dog-large': {
+    name: 'Large Dog (50+ lbs)', icon: '🐕', lifespan: 10,
+    adoptCost: [50, 300], buyCost: [1000, 5000],
+    firstYear: { supplies: [500, 800], spayNeuter: [300, 600], vaccinations: [100, 250], microchip: [50, 70], training: [200, 600], food: [600, 1000] },
+    annual: { food: [600, 1000], vetCheckup: [250, 500], preventiveMeds: [300, 600], grooming: [300, 900], insurance: [500, 1000], toys: [75, 200], treats: [80, 150], boarding: [400, 1000], dental: [250, 700], license: [10, 25] },
+    emergencyRange: [2000, 8000],
+    tips: ['Large breeds cost 2-3x more in food — budget accordingly', 'Joint supplements ($30/mo) can prevent $5,000+ surgeries later', 'Large breed insurance is essential — one ACL surgery costs $3,000-6,000', 'Invest in durable toys — cheap ones get destroyed and can cause blockages']
+  },
+  'cat': {
+    name: 'Cat (Indoor)', icon: '🐱', lifespan: 15,
+    adoptCost: [50, 200], buyCost: [500, 2000],
+    firstYear: { supplies: [300, 500], spayNeuter: [150, 350], vaccinations: [100, 200], microchip: [50, 70], litter: [150, 300], food: [200, 400] },
+    annual: { food: [200, 500], vetCheckup: [150, 350], preventiveMeds: [100, 250], litter: [150, 350], insurance: [200, 450], toys: [30, 80], treats: [30, 60], boarding: [150, 400], dental: [200, 600], license: [0, 15] },
+    emergencyRange: [1000, 4000],
+    tips: ['Cats are the most cost-effective popular pet', 'Indoor cats live 5-10 years longer than outdoor cats', 'Automatic litter boxes ($100-300) save time but not much money', 'Wet food costs more but prevents urinary issues that cost $1,000+']
+  },
+  'bird': {
+    name: 'Bird (Parakeet/Cockatiel)', icon: '🐦', lifespan: 12,
+    adoptCost: [20, 50], buyCost: [20, 200],
+    firstYear: { cage: [100, 300], supplies: [50, 100], vetExam: [80, 150], food: [60, 120] },
+    annual: { food: [60, 150], vetCheckup: [80, 200], toys: [30, 80], bedding: [30, 60], treats: [20, 40] },
+    emergencyRange: [200, 1500],
+    tips: ['Birds need avian vets — find one before you buy', 'Rotate toys to prevent boredom and feather plucking', 'Fresh fruits and veggies supplement pellets for better health', 'Cover cage at night for 12 hours of sleep — prevents behavioral issues']
+  },
+  'fish': {
+    name: 'Fish (Freshwater Tank)', icon: '🐠', lifespan: 5,
+    adoptCost: [5, 20], buyCost: [5, 50],
+    firstYear: { tank: [100, 500], filter: [30, 150], heater: [20, 50], substrate: [15, 40], plants: [20, 80], food: [20, 50], waterTreatment: [15, 30] },
+    annual: { food: [20, 60], waterTreatment: [20, 50], filterMedia: [20, 50], electricity: [50, 120], replacement: [10, 50] },
+    emergencyRange: [50, 300],
+    tips: ['The tank costs more than the fish — budget for setup, not livestock', 'Larger tanks are actually easier to maintain (more stable water)', 'LED lights save 50% on electricity vs fluorescent', 'Test water weekly — $15 test kit prevents $100+ in fish losses']
+  },
+  'rabbit': {
+    name: 'Rabbit', icon: '🐰', lifespan: 10,
+    adoptCost: [25, 75], buyCost: [25, 100],
+    firstYear: { enclosure: [100, 300], supplies: [75, 150], spayNeuter: [200, 500], vetExam: [80, 150], food: [150, 300] },
+    annual: { food: [250, 500], hay: [200, 400], vetCheckup: [100, 250], bedding: [100, 200], toys: [30, 60], treats: [20, 50] },
+    emergencyRange: [500, 3000],
+    tips: ['Hay should be 80% of diet — buy in bulk from farm suppliers, not pet stores', 'Rabbits need exotic vets — costs are 2-3x regular vet visits', 'Spay/neuter is essential — prevents cancer in 80% of unaltered females', 'Free-roam rabbits are happier and healthier — bunny-proof one room']
+  },
+  'reptile': {
+    name: 'Reptile (Gecko/Bearded Dragon)', icon: '🦎', lifespan: 12,
+    adoptCost: [20, 75], buyCost: [30, 300],
+    firstYear: { enclosure: [200, 600], lighting: [50, 150], heating: [30, 80], supplies: [50, 100], vetExam: [80, 200], food: [100, 250] },
+    annual: { food: [150, 400], electricity: [100, 250], vetCheckup: [80, 200], substrate: [40, 100], bulbReplacement: [30, 80] },
+    emergencyRange: [300, 2000],
+    tips: ['UVB bulbs must be replaced every 6 months even if still lighting', 'Live insects are cheaper when bred at home — $5/month vs $30/month', 'Reptile vets are specialists — find one before you get the animal', 'Proper husbandry prevents 90% of health issues — invest in the setup']
+  }
+};
+
+let selectedPet = null;
+
+function renderPetGrid() {
+  const grid = document.getElementById('petGrid');
+  grid.innerHTML = '';
+  Object.keys(PET_DATA).forEach(key => {
+    const p = PET_DATA[key];
+    grid.innerHTML +=
+      '<div class="pet-card" id="pet-' + key + '" onclick="selectPet(\'' + key + '\')">' +
+        '<div class="icon">' + p.icon + '</div>' +
+        '<div class="name">' + p.name.split('(')[0].trim() + '</div>' +
+        '<div class="lifespan">' + p.lifespan + ' yr lifespan</div>' +
+      '</div>';
+  });
+}
+
+function selectPet(key) {
+  selectedPet = key;
+  document.querySelectorAll('.pet-card').forEach(c => c.classList.remove('selected'));
+  document.getElementById('pet-' + key).classList.add('selected');
+}
+
+function avg(arr) { return (arr[0] + arr[1]) / 2; }
+function fmt(n) { return '$' + Math.round(n).toLocaleString(); }
+function fmtRange(arr, mult) { return fmt(arr[0] * mult) + ' – ' + fmt(arr[1] * mult); }
+
+function calculatePetCost() {
+  if (!selectedPet) { alert('Please select a pet type first.'); return; }
+  const pet = PET_DATA[selectedPet];
+  const mult = parseFloat(document.getElementById('region').value);
+  const isAdopt = document.getElementById('adoptOrBuy').value === 'adopt';
+  const acqCost = isAdopt ? pet.adoptCost : pet.buyCost;
+
+  // First year
+  let firstYearTotal = avg(acqCost) * mult;
+  const fyDiv = document.getElementById('firstYearCosts');
+  fyDiv.innerHTML = '<div class="cost-row"><div class="item">' + (isAdopt ? '🏠 Adoption Fee' : '🏪 Purchase Price') + '</div><div class="range">' + fmtRange(acqCost, mult) + '</div><div class="amount">' + fmt(avg(acqCost) * mult) + '</div></div>';
+  Object.keys(pet.firstYear).forEach(k => {
+    const item = pet.firstYear[k];
+    const label = k.replace(/([A-Z])/g, ' $1').replace(/^./, s => s.toUpperCase());
+    firstYearTotal += avg(item) * mult;
+    fyDiv.innerHTML += '<div class="cost-row"><div class="item">' + label + '</div><div class="range">' + fmtRange(item, mult) + '</div><div class="amount">' + fmt(avg(item) * mult) + '</div></div>';
+  });
+  fyDiv.innerHTML += '<div class="cost-row" style="border:1px solid #58a6ff;background:#161b22;"><div class="item" style="font-weight:700;color:#58a6ff;">First Year Total</div><div class="range"></div><div class="amount" style="font-size:1.1rem;">' + fmt(firstYearTotal) + '</div></div>';
+
+  // Annual
+  let annualTotal = 0;
+  const annDiv = document.getElementById('annualCosts');
+  annDiv.innerHTML = '';
+  Object.keys(pet.annual).forEach(k => {
+    const item = pet.annual[k];
+    const label = k.replace(/([A-Z])/g, ' $1').replace(/^./, s => s.toUpperCase());
+    annualTotal += avg(item) * mult;
+    annDiv.innerHTML += '<div class="cost-row"><div class="item">' + label + '</div><div class="range">' + fmtRange(item, mult) + '</div><div class="amount">' + fmt(avg(item) * mult) + '</div></div>';
+  });
+  annDiv.innerHTML += '<div class="cost-row" style="border:1px solid #58a6ff;background:#161b22;"><div class="item" style="font-weight:700;color:#58a6ff;">Annual Total</div><div class="range"></div><div class="amount" style="font-size:1.1rem;">' + fmt(annualTotal) + '</div></div>';
+
+  // Lifetime
+  const lifetimeCost = firstYearTotal + (annualTotal * (pet.lifespan - 1));
+  document.getElementById('lifetimeCard').innerHTML =
+    '<div class="label">' + pet.icon + ' ' + pet.name + ' — Lifetime Cost (' + pet.lifespan + ' years)</div>' +
+    '<div class="value">' + fmt(lifetimeCost) + '</div>' +
+    '<div class="sub">' + fmt(lifetimeCost / pet.lifespan) + '/year average &middot; ' + fmt(lifetimeCost / (pet.lifespan * 12)) + '/month</div>';
+
+  // Summary grid
+  document.getElementById('summaryGrid').innerHTML =
+    '<div class="summary-item"><div class="s-label">First Year</div><div class="s-value">' + fmt(firstYearTotal) + '</div></div>' +
+    '<div class="summary-item"><div class="s-label">Annual (Year 2+)</div><div class="s-value">' + fmt(annualTotal) + '</div></div>' +
+    '<div class="summary-item"><div class="s-label">Monthly Average</div><div class="s-value">' + fmt(annualTotal / 12) + '</div></div>' +
+    '<div class="summary-item"><div class="s-label">Lifetime (' + pet.lifespan + ' yrs)</div><div class="s-value">' + fmt(lifetimeCost) + '</div></div>';
+
+  document.getElementById('petTitle').textContent = pet.icon + ' ' + pet.name + ' — Cost Breakdown';
+
+  // Adopt vs Buy
+  const adoptTotal = avg(pet.adoptCost) * mult + Object.values(pet.firstYear).reduce((s, v) => s + avg(v) * mult, 0);
+  const buyTotal = avg(pet.buyCost) * mult + Object.values(pet.firstYear).reduce((s, v) => s + avg(v) * mult, 0);
+  const savings = buyTotal - adoptTotal;
+  document.getElementById('adoptVsBuy').innerHTML =
+    '<div class="compare-row">' +
+      '<div class="compare-col" style="border:2px solid #39d353;"><h4>🏠 Adopt</h4><div class="price">' + fmt(adoptTotal) + '</div><p>First year total</p><p style="color:#39d353;font-weight:600;">Includes spay/neuter, microchip, first vaccines at most shelters</p></div>' +
+      '<div class="compare-col"><h4>🏪 Buy (Breeder)</h4><div class="price">' + fmt(buyTotal) + '</div><p>First year total</p><p>Health testing varies. AKC registered breeders recommended.</p></div>' +
+    '</div>' +
+    '<p style="text-align:center;color:#39d353;font-weight:700;font-size:1.1rem;margin-top:12px;">Adopting saves ' + fmt(savings) + ' in the first year</p>';
+
+  // Budget planner
+  const bp = document.getElementById('budgetPlanner');
+  bp.innerHTML = '<h3 style="color:#58a6ff;margin-bottom:12px;">Set Aside Monthly</h3>';
+  const monthlyItems = {};
+  Object.keys(pet.annual).forEach(k => {
+    const label = k.replace(/([A-Z])/g, ' $1').replace(/^./, s => s.toUpperCase());
+    monthlyItems[label] = avg(pet.annual[k]) * mult / 12;
+  });
+  Object.keys(monthlyItems).sort((a, b) => monthlyItems[b] - monthlyItems[a]).forEach(k => {
+    bp.innerHTML += '<div class="monthly"><span class="cat">' + k + '</span><span class="amt">' + fmt(monthlyItems[k]) + '/mo</span></div>';
+  });
+  bp.innerHTML += '<div class="monthly" style="border-top:2px solid #58a6ff;padding-top:12px;margin-top:8px;"><span class="cat" style="font-weight:700;color:#58a6ff;">Total Monthly Budget</span><span class="amt" style="font-size:1.1rem;">' + fmt(annualTotal / 12) + '/mo</span></div>';
+
+  // Emergency fund
+  document.getElementById('emergencyFund').innerHTML =
+    '<h3>Emergency Vet Fund</h3>' +
+    '<p>Unexpected illnesses and injuries happen. The most common emergencies for ' + pet.name.toLowerCase() + ' cost:</p>' +
+    '<p class="recommend" style="margin:12px 0;">' + fmtRange(pet.emergencyRange, mult) + '</p>' +
+    '<p>We recommend keeping at least <strong style="color:#d29922;">' + fmt(avg(pet.emergencyRange) * mult) + '</strong> in a dedicated pet emergency fund. Start with $50/month in a separate savings account.</p>';
+
+  // Tips
+  const tips = document.getElementById('savingTips');
+  tips.innerHTML = '';
+  pet.tips.forEach(t => {
+    tips.innerHTML += '<div class="tip-box"><p>💡 ' + t + '</p></div>';
+  });
+  tips.innerHTML += '<div class="tip-box"><p>💡 <strong>Pet insurance:</strong> Consider insuring in the first year when premiums are lowest. A $500 deductible / 80% reimbursement plan is the sweet spot for most owners.</p></div>';
+  tips.innerHTML += '<div class="tip-box"><p>💡 <strong>Tax deductions:</strong> Service animals and some foster expenses may be tax-deductible. Consult a tax professional.</p></div>';
+
+  document.getElementById('resultsPanel').style.display = 'block';
+  document.getElementById('resultsPanel').scrollIntoView({ behavior: 'smooth' });
+  gtag('event', 'pet_cost_calculated', { event_category: 'calculator', event_label: selectedPet });
+}
+
+renderPetGrid();
+</script>
+
+<div class="sa-email-bar" id="saEmailBar"><p>Like this? Get 30 more free tools in your inbox.</p><input type="email" id="saBarEmail" placeholder="you@email.com"><button class="sa-sub-btn" onclick="saSubmitEmail()">Get Early Access</button><button class="sa-dismiss" onclick="saDismissBar()">&times;</button></div>
+<script>
+(function(){var TOOL_KEY='sa_usage_pet-calculator',BAR_KEY='sa_bar_dismissed_pet-calculator';var count=parseInt(localStorage.getItem(TOOL_KEY))||0;var badge=document.getElementById('usageBadge');function updateBadge(){badge.textContent='\uD83D\uDD25 Used '+count+' time'+(count!==1?'s':'');}if(count>0)updateBadge();var _orig=calculatePetCost;calculatePetCost=function(){_orig.apply(this,arguments);count++;localStorage.setItem(TOOL_KEY,count);updateBadge();if(count>=2&&!localStorage.getItem(BAR_KEY))document.getElementById('saEmailBar').classList.add('show');};window.calculatePetCost=calculatePetCost;window.saDismissBar=function(){document.getElementById('saEmailBar').classList.remove('show');localStorage.setItem(BAR_KEY,'1');};window.saSubmitEmail=function(){var email=document.getElementById('saBarEmail').value;if(!email||!email.includes('@')){alert('Please enter a valid email.');return;}localStorage.setItem('sa_subscriber_email',email);localStorage.setItem(BAR_KEY,'1');window.open('https://embeds.beehiiv.com/cae41704-7588-4c50-83f1-11f5b4a0585f?email='+encodeURIComponent(email),'_blank');document.getElementById('saEmailBar').classList.remove('show');var btn=document.querySelector('.sa-sub-btn');btn.textContent='Subscribed!';btn.style.background='#10b981';};})();
+</script>
+<script>
+(function(){
+  document.addEventListener('contextmenu',function(e){e.preventDefault();});
+  document.addEventListener('keydown',function(e){
+    if(e.key==='F12')e.preventDefault();
+    if(e.ctrlKey&&e.key==='u')e.preventDefault();
+    if(e.ctrlKey&&e.key==='s')e.preventDefault();
+    if(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='i'||e.key==='J'||e.key==='j'||e.key==='C'||e.key==='c'))e.preventDefault();
+  });
+  console.log('%c\u26a0 SPUNK.CODES — All rights reserved.','color:#ff5f1f;font-size:16px;font-weight:bold;');
+  console.log('%cThis tool is the property of SpunkArt. Report theft: hello@spunk.codes','color:#888;font-size:12px;');
+})();
+</script>
+<script src="/auto-monetize.js"></script>
+<div id="shareXBtn" style="position:fixed;left:20px;bottom:20px;z-index:9999;">
+  <a id="shareXLink" href="#" target="_blank" rel="noopener noreferrer" title="Share on X" style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;background:rgba(88,166,255,0.15);border:1px solid rgba(88,166,255,0.3);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:50%;text-decoration:none;transition:all 0.3s ease;cursor:pointer;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+  </a>
+</div>
+<style>#shareXBtn a:hover{background:rgba(88,166,255,0.35)!important;border-color:rgba(88,166,255,0.6)!important;transform:scale(1.1);box-shadow:0 0 15px rgba(88,166,255,0.3);}</style>
+<script>
+(function(){var page=location.pathname.split("/").pop()||"index.html";var url="https://spunk.codes/"+page;var text="Just calculated the true cost of pet ownership — eye-opening! @SpunkArt13";var href="https://x.com/intent/tweet?text="+encodeURIComponent(text)+"&url="+encodeURIComponent(url);document.getElementById("shareXLink").href=href;})();
+</script>
+<script src="/usage-tracker.js"></script>
+</body>
+</html>
+<!-- Extended reference data and FAQ -->
+<!--
+  Pet Cost Calculator - Extended Data Reference (ASPCA, AKC, Humane Society 2025)
+  
+  Average Lifetime Costs by Pet Type:
+  Small Dog (14 yr): $15,000-$25,000 | Medium Dog (12 yr): $17,000-$30,000
+  Large Dog (10 yr): $18,000-$35,000 | Cat (15 yr): $12,000-$20,000
+  Bird/Parakeet (12 yr): $3,000-$6,000 | Fish Tank (5 yr): $1,000-$3,000
+  Rabbit (10 yr): $8,000-$15,000 | Reptile (12 yr): $5,000-$12,000
+  
+  Most Common Emergency Vet Costs:
+  Dog ACL surgery: $3,000-$6,000 | Cat urinary blockage: $1,500-$4,000
+  Foreign body surgery: $2,000-$5,000 | Cancer treatment: $5,000-$20,000
+  Broken bone repair: $1,500-$4,000 | Bloat surgery (large dogs): $5,000-$8,000
+  Dental extraction: $500-$3,000 | Poisoning treatment: $500-$3,000
+  
+  Pet Insurance Data:
+  Average monthly premium (dog): $35-$65 | Average monthly premium (cat): $20-$40
+  Average deductible: $250-$500 | Average reimbursement: 70-90%
+  Annual limits: $5,000-$unlimited | Accident-only plans: $10-$25/month
+  Pre-existing conditions: never covered | Waiting period: 14 days typical
+  
+  Adoption vs Breeder Costs:
+  Shelter adoption (dog): $50-$300 (includes spay/neuter, vaccines, microchip)
+  Breed rescue: $150-$500 | AKC breeder (small dog): $500-$2,500
+  AKC breeder (medium): $800-$3,000 | AKC breeder (large/giant): $1,000-$5,000
+  Designer breeds: $1,500-$5,000+ | Rare breeds: $3,000-$10,000+
+  
+  Annual Food Costs by Size:
+  Small dog (under 20 lbs): $250-$700 | Medium dog (20-50 lbs): $400-$900
+  Large dog (50+ lbs): $600-$1,200 | Cat: $200-$600
+  Premium food adds 50-100% to costs but may reduce vet bills
+  
+  Regional Cost Variations:
+  NYC/SF/LA: +25-40% above national average
+  Chicago/Boston/Seattle: +15-25% | Mid-size metros: +5-15%
+  Rural areas: -10-20% below average | Southern states: -5-15%
+  
+  Tax Benefits:
+  Service animals: medical expenses deductible
+  Foster pets: supplies may be deductible as charitable contribution
+  Therapy animals: may qualify with doctor's letter
+  Moving expense for pets: no longer deductible (post 2017)
+-->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How much does a dog cost per year?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A dog costs $1,500-$4,000 per year depending on size. Small dogs average $1,500-$2,500, medium dogs $2,000-$3,000, and large dogs $2,500-$4,000+ annually. This includes food, vet care, grooming, insurance, and supplies."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How much does a cat cost per year?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "An indoor cat costs approximately $1,000-$2,500 per year. This includes $200-$500 for food, $150-$350 for vet visits, $150-$350 for litter, $200-$450 for insurance, and miscellaneous supplies."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is it cheaper to adopt or buy a pet?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Adopting is significantly cheaper. Shelter adoption fees ($50-$300) typically include spay/neuter, first vaccines, and microchip — services that cost $400-$700 separately. Breeder prices range from $500-$5,000+."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is pet insurance worth it?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Pet insurance is worth it for most owners. A single emergency can cost $3,000-$10,000+. Plans average $30-$60/month for dogs and $20-$40/month for cats. A $500 deductible with 80% reimbursement is the most cost-effective option."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the cheapest pet to own?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Fish are the cheapest pets to own with annual costs of $150-$400 after initial tank setup ($100-$500). Birds like parakeets cost $200-$500/year. Cats are cheaper than dogs, averaging $1,000-$2,500/year vs $1,500-$4,000/year."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How much should I budget for pet emergencies?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Keep $1,000-$5,000 in a pet emergency fund depending on pet type. Dogs need $2,000-$8,000 for large breed emergencies. Start saving $50/month in a separate account. Pet insurance can supplement this fund."
+      }
+    }
+  ]
+}
+</script>
+<!-- Structured breadcrumb for SEO -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://spunk.codes/"},
+    {"@type": "ListItem", "position": 2, "name": "Free Tools", "item": "https://spunk.codes/store#free-tools"},
+    {"@type": "ListItem", "position": 3, "name": "Pet Cost Calculator", "item": "https://spunk.codes/pet-cost-calculator.html"}
+  ]
+}
+</script>
+<!-- Additional SEO content -->
+<!--
+  Pet Cost Quick Reference:
+  Goldfish lifespan: 10-15 years | Hamster: 2-3 years | Guinea pig: 5-7 years
+  Parrot (large): 30-80 years | Tortoise: 50-100 years | Horse: 25-30 years
+  Ferret: 6-10 years | Chinchilla: 10-20 years | Hermit crab: 10-15 years
+-->
