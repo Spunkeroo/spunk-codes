@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>A/B Headline Testing Tool - Score & Compare Headlines | SPUNK.CODES Exclusive</title>
+<meta name="description" content="Test and compare headline variations with scoring for power words, emotional appeal, clarity, and urgency. Free exclusive premium tool.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="A/B Headline Testing Tool - SPUNK.CODES Exclusive">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/ab-headline-tester">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"A/B Headline Testing Tool","url":"https://spunk.codes/exclusive/ab-headline-tester","applicationCategory":"UtilityApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Test and compare headline variations with scoring for power words, emotional appeal, clarity, and urgency."}</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0a0a0f;--card:rgba(18,18,28,0.85);--border:rgba(48,44,61,0.6);--accent:#ff5f1f;--accent2:#ff9f1f;--gold:#ff5f1f;--gold-border:rgba(255,95,31,0.3);--text:#e8e8f0;--text-dim:#8b8b9e;--blue:#58a6ff;--cyan:#39d353;--red:#f85149;--green:#39d353;--font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+a{color:var(--blue);text-decoration:none}
+.bg-mesh{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 80% 50% at 20% 20%,rgba(255,95,31,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(255,159,31,0.04) 0%,transparent 60%),var(--bg)}
+.bg-grid{position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,95,31,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,95,31,0.03) 1px,transparent 1px);background-size:60px 60px}
+.nav{position:sticky;top:0;z-index:100;background:rgba(10,10,15,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,95,31,0.15);padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}
+.nav-brand{font-weight:800;font-size:1.1rem;background:linear-gradient(135deg,#ff5f1f,#ff9f1f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:0.08em}
+.nav-links{display:flex;gap:1.5rem;font-size:0.85rem}.nav-links a{color:var(--text-dim);font-weight:500}.nav-links a.active{color:var(--accent)}
+.lock-gate{position:fixed;inset:0;z-index:1000;background:rgba(10,10,15,0.97);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:2rem}
+.lock-gate.hidden{display:none}
+.lock-icon-big{font-size:4rem}.lock-gate h2{font-size:1.8rem;font-weight:800;text-align:center}.lock-gate h2 span{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}.lock-gate p{color:var(--text-dim);text-align:center;max-width:400px}
+.code-input-wrap{display:flex;gap:0.5rem}
+.code-input{padding:0.8rem 1.5rem;background:rgba(18,18,28,0.8);border:2px solid var(--gold-border);border-radius:12px;color:var(--accent);font-size:1.2rem;font-weight:800;letter-spacing:3px;text-align:center;width:200px;outline:none;text-transform:uppercase;font-family:var(--font)}
+.code-input:focus{border-color:var(--accent);box-shadow:0 0 20px rgba(255,95,31,0.2)}
+.code-submit{padding:0.8rem 1.5rem;background:linear-gradient(135deg,#ff5f1f,#ff9f1f);border:none;border-radius:12px;color:#000;font-size:1rem;font-weight:800;cursor:pointer}
+.code-error{color:var(--red);font-size:0.85rem;min-height:1.2em}.lock-hint{color:var(--text-dim);font-size:0.8rem}.lock-hint a{color:var(--accent)}
+.exclusive-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;background:linear-gradient(135deg,rgba(255,95,31,0.15),rgba(255,159,31,0.15));border:1px solid var(--gold-border);border-radius:100px;font-size:11px;font-weight:800;color:var(--accent);letter-spacing:1.5px;text-transform:uppercase}
+.main{max-width:1100px;margin:0 auto;padding:2rem}
+.hero-section{text-align:center;padding:2rem 0 2rem}
+.hero-section h1{font-size:2.2rem;font-weight:800;margin:1rem 0 0.5rem}
+.hero-section h1 .gold{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-section p{color:var(--text-dim);max-width:600px;margin:0 auto}
+.card{background:var(--card);border:1px solid var(--gold-border);border-radius:16px;padding:1.5rem;margin-bottom:1.5rem;backdrop-filter:blur(10px);position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#ff5f1f,#ff9f1f,#ff5f1f)}
+.card h2{font-size:1.1rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}
+.form-group{display:flex;flex-direction:column;gap:0.3rem;margin-bottom:0.75rem}
+.form-group label{font-size:0.75rem;color:var(--text-dim);font-weight:600;text-transform:uppercase;letter-spacing:0.5px}
+.form-group input,.form-group select,.form-group textarea{padding:0.6rem 0.8rem;background:rgba(18,18,28,0.9);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.85rem;font-family:var(--font);outline:none}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--accent)}
+.btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;transition:all 0.2s}
+.btn-gold{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);color:#000}
+.btn-gold:hover{transform:translateY(-1px);box-shadow:0 4px 15px rgba(255,95,31,0.3)}
+.btn-outline{background:transparent;border:1px solid var(--gold-border);color:var(--accent)}
+.btn-outline:hover{background:rgba(255,95,31,0.1)}
+.btn-red{background:rgba(248,81,73,0.15);border:1px solid rgba(248,81,73,0.3);color:var(--red)}
+.btn-sm{padding:0.4rem 0.8rem;font-size:0.75rem}
+.btn-row{display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:0.75rem}
+.headline-input-row{display:flex;gap:0.5rem;margin-bottom:0.5rem;align-items:center}
+.headline-input-row input{flex:1;padding:0.6rem 0.8rem;background:rgba(18,18,28,0.9);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.9rem;font-family:var(--font);outline:none}
+.headline-input-row input:focus{border-color:var(--accent)}
+.headline-input-row .hl-label{font-size:0.75rem;font-weight:800;color:var(--accent);min-width:20px}
+.comparison-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1rem;margin-top:1rem}
+.hl-result-card{background:rgba(10,10,15,0.6);border:1px solid var(--border);border-radius:12px;padding:1rem;position:relative}
+.hl-result-card.winner{border-color:var(--green);box-shadow:0 0 20px rgba(57,211,83,0.15)}
+.hl-result-card.winner::after{content:'WINNER';position:absolute;top:8px;right:8px;background:var(--green);color:#000;font-size:0.6rem;font-weight:800;padding:2px 8px;border-radius:4px;letter-spacing:1px}
+.hl-result-card .hl-text{font-size:1rem;font-weight:700;margin-bottom:0.75rem;line-height:1.4}
+.hl-result-card .hl-variant{font-size:0.7rem;color:var(--accent);font-weight:700;margin-bottom:0.3rem}
+.score-row{display:flex;justify-content:space-between;align-items:center;padding:0.3rem 0;border-bottom:1px solid rgba(48,44,61,0.3)}
+.score-row:last-child{border:none}
+.score-label{font-size:0.75rem;color:var(--text-dim)}
+.score-bar-wrap{width:120px;height:8px;background:rgba(10,10,15,0.5);border-radius:4px;overflow:hidden;margin:0 0.5rem}
+.score-bar{height:100%;border-radius:4px;transition:width 0.5s ease}
+.score-val{font-size:0.75rem;font-weight:700;min-width:30px;text-align:right}
+.total-score{font-size:1.5rem;font-weight:800;text-align:center;margin-top:0.5rem;padding-top:0.5rem;border-top:1px solid var(--border)}
+.formula-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:0.5rem;margin-top:0.75rem}
+.formula-item{padding:0.6rem 0.8rem;background:rgba(10,10,15,0.4);border:1px solid var(--border);border-radius:8px;cursor:pointer;transition:all 0.2s;font-size:0.8rem}
+.formula-item:hover{border-color:var(--accent);background:rgba(255,95,31,0.05)}
+.formula-item .f-template{font-weight:700;color:var(--text);margin-bottom:0.2rem}
+.formula-item .f-example{color:var(--text-dim);font-size:0.75rem;font-style:italic}
+.winner-section{background:rgba(57,211,83,0.08);border:1px solid rgba(57,211,83,0.3);border-radius:12px;padding:1.2rem;margin-top:1rem;text-align:center}
+.winner-section h3{color:var(--green);font-size:1rem;margin-bottom:0.5rem}
+.winner-section .winner-text{font-size:1.1rem;font-weight:800;margin-bottom:0.5rem}
+.winner-section .winner-reason{font-size:0.85rem;color:var(--text-dim);line-height:1.5}
+.history-item{display:flex;align-items:center;gap:0.75rem;padding:0.6rem 0.8rem;background:rgba(10,10,15,0.4);border:1px solid var(--border);border-radius:8px;margin-bottom:0.5rem;font-size:0.8rem}
+.history-item .h-date{font-size:0.7rem;color:var(--text-dim);min-width:80px}
+.history-item .h-winner{flex:1;font-weight:600}
+.history-item .h-score{color:var(--accent);font-weight:700;min-width:40px;text-align:right}
+.share-cta{background:linear-gradient(135deg,rgba(255,95,31,0.08),rgba(255,159,31,0.05));border:1px solid var(--gold-border);border-radius:16px;padding:2rem;text-align:center;margin-top:2rem}
+.share-cta h3{color:var(--accent);margin-bottom:0.5rem}.share-cta p{color:var(--text-dim);font-size:0.9rem;margin-bottom:1rem}
+.share-btns{display:flex;gap:0.6rem;justify-content:center;flex-wrap:wrap}
+.share-btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;color:#fff}
+.share-x{background:#000;border:1px solid #333}.share-reddit{background:#ff4500}.share-email{background:#21262d;border:1px solid #30363d}
+.footer{text-align:center;padding:2rem;border-top:1px solid rgba(255,95,31,0.1);color:var(--text-dim);font-size:0.75rem;margin-top:3rem}
+.footer a{color:var(--accent)}.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-bottom:1rem}
+.watermark{position:fixed;bottom:10px;right:10px;font-size:0.6rem;color:rgba(255,95,31,0.08);font-weight:800;pointer-events:none;z-index:9999;letter-spacing:1px;text-transform:uppercase}
+@media(max-width:768px){.main{padding:1rem}.hero-section h1{font-size:1.6rem}.nav-links{display:none}.comparison-grid{grid-template-columns:1fr}.formula-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="bg-mesh"></div><div class="bg-grid"></div>
+<div class="lock-gate" id="lockGate"><div class="lock-icon-big">&#128274;</div><h2>Enter Code <span>SPUNK</span> to Unlock</h2><p>This exclusive premium tool requires the SPUNK referral code.</p><div class="code-input-wrap"><input type="text" class="code-input" id="codeInput" placeholder="CODE" maxlength="10" autocomplete="off"><button class="code-submit" onclick="submitCode()">Unlock</button></div><div class="code-error" id="codeError"></div><div class="lock-hint">Get the code at <a href="https://spunk.codes/exclusive-tools">spunk.codes/exclusive-tools</a></div></div>
+<nav class="nav"><a href="https://spunk.codes" class="nav-brand">SPUNK.CODES</a><div class="nav-links"><a href="/store">Tools</a><a href="/exclusive-tools" class="active">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a></div></nav>
+
+<div class="main">
+  <section class="hero-section">
+    <div class="exclusive-badge">&#128081; EXCLUSIVE TOOL</div>
+    <h1><span class="gold">A/B Headline</span> Tester</h1>
+    <p>Enter multiple headline variations, score them on key metrics, and find the winner backed by data.</p>
+  </section>
+
+  <div class="card">
+    <h2>&#9999; Enter Headlines</h2>
+    <div id="headlineInputs">
+      <div class="headline-input-row"><span class="hl-label">A</span><input type="text" placeholder="Enter headline variation A..." class="hl-input"></div>
+      <div class="headline-input-row"><span class="hl-label">B</span><input type="text" placeholder="Enter headline variation B..." class="hl-input"></div>
+    </div>
+    <div class="btn-row" style="margin-top:0.75rem">
+      <button class="btn btn-outline btn-sm" onclick="addHeadlineInput()">+ Add Variation</button>
+      <button class="btn btn-gold" onclick="analyzeHeadlines()">Analyze & Score</button>
+      <button class="btn btn-outline btn-sm" onclick="clearHeadlines()">Clear All</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>&#128202; Headline Formulas</h2>
+    <p style="color:var(--text-dim);font-size:0.8rem;margin-bottom:0.5rem">Click a formula to populate a headline input.</p>
+    <div class="formula-grid" id="formulaGrid"></div>
+  </div>
+
+  <div class="card">
+    <h2>&#127942; Results & Comparison</h2>
+    <div class="comparison-grid" id="resultsGrid">
+      <p style="color:var(--text-dim);font-size:0.85rem">Enter headlines and click "Analyze & Score" to see results.</p>
+    </div>
+    <div id="winnerSection"></div>
+  </div>
+
+  <div class="card">
+    <h2>&#128340; Test History</h2>
+    <div id="historyList"><p style="color:var(--text-dim);font-size:0.85rem">No test history yet.</p></div>
+    <div class="btn-row" style="margin-top:0.75rem">
+      <button class="btn btn-outline btn-sm" onclick="exportHistory()">Export History</button>
+      <button class="btn btn-red btn-sm" onclick="clearHistory()">Clear History</button>
+    </div>
+  </div>
+
+  <div class="share-cta">
+    <h3>&#128275; Share the Code, Unlock More Tools</h3>
+    <p>Share code SPUNK to help others access 130+ exclusive premium tools.</p>
+    <div class="share-btns">
+      <button class="share-btn share-x" onclick="shareX()">&#120143; Share on X</button>
+      <button class="share-btn share-reddit" onclick="shareReddit()">&#128172; Reddit</button>
+      <button class="share-btn share-email" onclick="shareEmail()">&#9993; Email</button>
+    </div>
+  </div>
+</div>
+
+<footer class="footer"><div class="footer-links"><a href="https://spunk.codes">Home</a><a href="/store">Tools</a><a href="/exclusive-tools">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a><a href="https://twitter.com/SpunkArt13" target="_blank">@SpunkArt13</a></div><div>&copy; 2026 SPUNK.CODES EXCLUSIVE.</div></footer>
+<div class="watermark">SPUNK.CODES EXCLUSIVE</div>
+
+<script>
+document.addEventListener('contextmenu',function(e){e.preventDefault()});
+document.addEventListener('keydown',function(e){if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'||e.key==='C'))||(e.ctrlKey&&e.key==='u'))e.preventDefault()});
+function checkCode(){try{var c=localStorage.getItem('spunk_referral_code')||localStorage.getItem('spunk_ref_code')||'';if(c.toUpperCase()==='SPUNK'){document.getElementById('lockGate').classList.add('hidden');return true}}catch(e){}return false}
+function submitCode(){var v=document.getElementById('codeInput').value.trim().toUpperCase();if(v==='SPUNK'){try{localStorage.setItem('spunk_referral_code','SPUNK');localStorage.setItem('spunk_ref_code','SPUNK')}catch(e){}document.getElementById('lockGate').classList.add('hidden')}else{document.getElementById('codeError').textContent='Invalid code. Try: SPUNK';setTimeout(function(){document.getElementById('codeError').textContent=''},2000)}}
+document.getElementById('codeInput').addEventListener('keydown',function(e){if(e.key==='Enter')submitCode()});
+checkCode();
+
+var history = [];
+var headlineCount = 2;
+var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+var powerWords = ['free','new','you','instantly','because','now','announcing','introducing','improvement','amazing','sensational','remarkable','revolutionary','startling','miracle','magic','quick','easy','hurry','bargain','last chance','guaranteed','results','proven','secret','discover','incredible','powerful','ultimate','exclusive','essential','complete','simple','fast','bonus','save','create','imagine','transform','unlock','boost','master','hack','epic','insane','critical','urgent','breaking','warning','shocking','unbelievable','scientific','limited','premium','elite','rare'];
+
+var emotionalWords = ['love','hate','fear','anxiety','joy','trust','surprise','anger','disgust','anticipation','happy','sad','worried','excited','frustrated','hopeful','grateful','jealous','proud','ashamed','guilty','confident','confused','lonely','overwhelmed','peaceful','passionate','inspired','motivated','determined','curious','nostalgic','thrilled','devastated','empowered','vulnerable','courageous','terrified','ecstatic','heartbroken'];
+
+var urgencyWords = ['now','today','immediately','hurry','fast','quick','limited','deadline','expires','last chance','don\'t miss','before','running out','act now','only','final','ends','closing','rush','urgent','critical','asap','tonight','while','remaining'];
+
+var formulas = [
+  {template:'How to [Achieve Desired Result] Without [Pain Point]',example:'How to Double Your Traffic Without Spending a Dime'},
+  {template:'[Number] Ways to [Achieve Something] in [Timeframe]',example:'7 Ways to Boost Productivity in 30 Minutes'},
+  {template:'The Ultimate Guide to [Topic]',example:'The Ultimate Guide to Email Marketing'},
+  {template:'Why [Common Belief] Is Wrong (And What to Do Instead)',example:'Why Multitasking Is Wrong (And What to Do Instead)'},
+  {template:'[Number] [Adjective] [Noun] That Will [Benefit]',example:'5 Simple Habits That Will Transform Your Morning'},
+  {template:'The Secret to [Desired Outcome] That [Experts] Don\'t Tell You',example:'The Secret to Weight Loss That Doctors Don\'t Tell You'},
+  {template:'Stop [Doing Something Wrong] - Start [Doing Something Right]',example:'Stop Guessing Your Headlines - Start Testing Them'},
+  {template:'What [Successful People] Know About [Topic] That You Don\'t',example:'What Top CEOs Know About Productivity That You Don\'t'},
+  {template:'[Number] Mistakes You\'re Making With [Topic] (And How to Fix Them)',example:'10 Mistakes You\'re Making With SEO (And How to Fix Them)'},
+  {template:'I [Did Something] and Here\'s What Happened',example:'I Quit Social Media for 30 Days and Here\'s What Happened'},
+  {template:'The [Adjective] Way to [Achieve Result] (Backed by [Evidence])',example:'The Fastest Way to Learn a Language (Backed by Science)'},
+  {template:'[Do This], Not [That]: The [Topic] Guide',example:'Invest This, Not That: The Beginner\'s Guide'}
+];
+
+function loadState(){
+  try{var d=JSON.parse(localStorage.getItem('ab_headline_data')||'{}');if(d.history)history=d.history}catch(e){}
+}
+function saveState(){
+  try{localStorage.setItem('ab_headline_data',JSON.stringify({history:history}))}catch(e){}
+}
+
+function addHeadlineInput(){
+  if(headlineCount>=10){alert('Maximum 10 variations');return}
+  var label=labels[headlineCount];
+  var div=document.createElement('div');
+  div.className='headline-input-row';
+  div.innerHTML='<span class="hl-label">'+label+'</span><input type="text" placeholder="Enter headline variation '+label+'..." class="hl-input"><button class="btn btn-red btn-sm" onclick="this.parentElement.remove();headlineCount--">X</button>';
+  document.getElementById('headlineInputs').appendChild(div);
+  headlineCount++;
+}
+
+function clearHeadlines(){
+  headlineCount=2;
+  document.getElementById('headlineInputs').innerHTML='<div class="headline-input-row"><span class="hl-label">A</span><input type="text" placeholder="Enter headline variation A..." class="hl-input"></div><div class="headline-input-row"><span class="hl-label">B</span><input type="text" placeholder="Enter headline variation B..." class="hl-input"></div>';
+  document.getElementById('resultsGrid').innerHTML='<p style="color:var(--text-dim);font-size:0.85rem">Enter headlines and click "Analyze & Score" to see results.</p>';
+  document.getElementById('winnerSection').innerHTML='';
+}
+
+function scoreHeadline(text){
+  if(!text)return null;
+  var words=text.toLowerCase().split(/\s+/);
+  var wordCount=words.length;
+  var charCount=text.length;
+
+  // Length score (ideal 6-12 words, 50-70 chars)
+  var lengthScore=0;
+  if(wordCount>=6&&wordCount<=12)lengthScore=100;
+  else if(wordCount>=4&&wordCount<=15)lengthScore=70;
+  else if(wordCount>=2&&wordCount<=20)lengthScore=40;
+  else lengthScore=20;
+  if(charCount>=40&&charCount<=70)lengthScore=Math.min(100,lengthScore+10);
+  else if(charCount>70&&charCount<=100)lengthScore=Math.max(0,lengthScore-10);
+
+  // Power words score
+  var pwCount=0;
+  words.forEach(function(w){if(powerWords.indexOf(w.replace(/[^a-z]/g,''))>=0)pwCount++});
+  var powerScore=Math.min(100,pwCount*30);
+
+  // Emotional appeal
+  var emCount=0;
+  words.forEach(function(w){if(emotionalWords.indexOf(w.replace(/[^a-z]/g,''))>=0)emCount++});
+  var emotionScore=Math.min(100,emCount*35);
+
+  // Clarity - shorter sentences, common words, no jargon
+  var clarityScore=80;
+  if(wordCount>15)clarityScore-=20;
+  if(charCount>100)clarityScore-=15;
+  if(text.indexOf('?')>=0)clarityScore+=10; // Questions engage
+  if(/^\d/.test(text)||/\d+/.test(text))clarityScore+=10; // Numbers
+  clarityScore=Math.max(0,Math.min(100,clarityScore));
+
+  // Urgency
+  var urgCount=0;
+  var textLower=text.toLowerCase();
+  urgencyWords.forEach(function(uw){if(textLower.indexOf(uw)>=0)urgCount++});
+  var urgencyScore=Math.min(100,urgCount*35);
+
+  // Bonus: starts with number
+  var hasNumber=/^\d+/.test(text)?10:0;
+  // Bonus: has brackets/parentheses
+  var hasBrackets=/[\[\(]/.test(text)?8:0;
+  // Bonus: uses "you" or "your"
+  var hasYou=/\byou(r)?\b/i.test(text)?8:0;
+  // Bonus: question format
+  var isQuestion=text.trim().endsWith('?')?5:0;
+
+  var total=Math.round((lengthScore*0.2+powerScore*0.25+emotionScore*0.2+clarityScore*0.2+urgencyScore*0.15)*1+(hasNumber+hasBrackets+hasYou+isQuestion)*0.5);
+  total=Math.min(100,total);
+
+  return{
+    text:text,
+    wordCount:wordCount,
+    charCount:charCount,
+    length:lengthScore,
+    power:powerScore,
+    emotion:emotionScore,
+    clarity:clarityScore,
+    urgency:urgencyScore,
+    total:total,
+    powerWords:pwCount,
+    emotionWords:emCount,
+    urgencyWordCount:urgCount,
+    bonuses:{number:hasNumber>0,brackets:hasBrackets>0,you:hasYou>0,question:isQuestion>0}
+  };
+}
+
+function getBarColor(score){
+  if(score>=80)return'var(--green)';
+  if(score>=60)return'var(--accent2)';
+  if(score>=40)return'var(--accent)';
+  return'var(--red)';
+}
+
+function analyzeHeadlines(){
+  var inputs=document.querySelectorAll('.hl-input');
+  var headlines=[];
+  inputs.forEach(function(inp,i){
+    var text=inp.value.trim();
+    if(text)headlines.push({label:labels[i],text:text});
+  });
+
+  if(headlines.length<2){alert('Enter at least 2 headlines to compare');return}
+
+  var results=headlines.map(function(h){
+    var score=scoreHeadline(h.text);
+    score.label=h.label;
+    return score;
+  });
+
+  // Find winner
+  var maxScore=Math.max.apply(null,results.map(function(r){return r.total}));
+  results.forEach(function(r){r.isWinner=r.total===maxScore});
+
+  // Render results
+  var html='';
+  results.forEach(function(r){
+    var cls=r.isWinner?'hl-result-card winner':'hl-result-card';
+    html+='<div class="'+cls+'">';
+    html+='<div class="hl-variant">Variation '+r.label+'</div>';
+    html+='<div class="hl-text">'+escapeHtml(r.text)+'</div>';
+    html+='<div style="font-size:0.7rem;color:var(--text-dim);margin-bottom:0.5rem">'+r.wordCount+' words &middot; '+r.charCount+' chars &middot; '+r.powerWords+' power words</div>';
+
+    var metrics=[
+      {label:'Length',score:r.length},
+      {label:'Power Words',score:r.power},
+      {label:'Emotional Appeal',score:r.emotion},
+      {label:'Clarity',score:r.clarity},
+      {label:'Urgency',score:r.urgency}
+    ];
+    metrics.forEach(function(m){
+      html+='<div class="score-row"><span class="score-label">'+m.label+'</span><div class="score-bar-wrap"><div class="score-bar" style="width:'+m.score+'%;background:'+getBarColor(m.score)+'"></div></div><span class="score-val" style="color:'+getBarColor(m.score)+'">'+m.score+'</span></div>';
+    });
+
+    var bonusTags='';
+    if(r.bonuses.number)bonusTags+='<span style="font-size:0.65rem;background:rgba(255,95,31,0.15);padding:2px 6px;border-radius:3px;margin-right:3px">Number</span>';
+    if(r.bonuses.brackets)bonusTags+='<span style="font-size:0.65rem;background:rgba(255,95,31,0.15);padding:2px 6px;border-radius:3px;margin-right:3px">Brackets</span>';
+    if(r.bonuses.you)bonusTags+='<span style="font-size:0.65rem;background:rgba(255,95,31,0.15);padding:2px 6px;border-radius:3px;margin-right:3px">Uses "You"</span>';
+    if(r.bonuses.question)bonusTags+='<span style="font-size:0.65rem;background:rgba(255,95,31,0.15);padding:2px 6px;border-radius:3px;margin-right:3px">Question</span>';
+    if(bonusTags)html+='<div style="margin-top:0.5rem">'+bonusTags+'</div>';
+
+    html+='<div class="total-score" style="color:'+getBarColor(r.total)+'">'+r.total+'/100</div>';
+    html+='</div>';
+  });
+  document.getElementById('resultsGrid').innerHTML=html;
+
+  // Winner section
+  var winner=results.find(function(r){return r.isWinner});
+  var reasons=[];
+  if(winner.length>=70)reasons.push('Optimal headline length ('+winner.wordCount+' words)');
+  if(winner.powerWords>0)reasons.push('Contains '+winner.powerWords+' power word(s) that grab attention');
+  if(winner.emotion>=50)reasons.push('Strong emotional appeal drives clicks');
+  if(winner.clarity>=70)reasons.push('Clear and easy to understand');
+  if(winner.urgency>=50)reasons.push('Creates sense of urgency');
+  if(winner.bonuses.number)reasons.push('Starts with a number (proven to increase CTR)');
+  if(winner.bonuses.question)reasons.push('Question format engages curiosity');
+  if(reasons.length===0)reasons.push('Best overall balance of headline metrics');
+
+  document.getElementById('winnerSection').innerHTML='<div class="winner-section"><h3>&#127942; Recommended Winner: Variation '+winner.label+'</h3><div class="winner-text">"'+escapeHtml(winner.text)+'"</div><div class="winner-reason"><strong>Why this wins:</strong><br>'+reasons.join('<br>')+'</div></div>';
+
+  // Save to history
+  history.unshift({
+    date:new Date().toISOString().split('T')[0],
+    time:new Date().toLocaleTimeString(),
+    headlines:results.map(function(r){return{label:r.label,text:r.text,score:r.total}}),
+    winner:{label:winner.label,text:winner.text,score:winner.total}
+  });
+  if(history.length>50)history=history.slice(0,50);
+  saveState();renderHistory();
+}
+
+function renderHistory(){
+  if(history.length===0){document.getElementById('historyList').innerHTML='<p style="color:var(--text-dim);font-size:0.85rem">No test history yet.</p>';return}
+  var html='';
+  history.forEach(function(h,i){
+    html+='<div class="history-item"><span class="h-date">'+h.date+'</span><span class="h-winner">Winner '+h.winner.label+': "'+escapeHtml(h.winner.text.substring(0,50))+(h.winner.text.length>50?'...':'')+'"</span><span class="h-score">'+h.winner.score+'/100</span><button class="btn btn-outline btn-sm" onclick="loadFromHistory('+i+')">Load</button></div>';
+  });
+  document.getElementById('historyList').innerHTML=html;
+}
+
+function loadFromHistory(idx){
+  var h=history[idx];
+  if(!h)return;
+  headlineCount=h.headlines.length;
+  var html='';
+  h.headlines.forEach(function(hl){
+    html+='<div class="headline-input-row"><span class="hl-label">'+hl.label+'</span><input type="text" value="'+escapeHtml(hl.text)+'" class="hl-input"></div>';
+  });
+  document.getElementById('headlineInputs').innerHTML=html;
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function exportHistory(){
+  if(history.length===0){alert('No history to export');return}
+  var text='A/B HEADLINE TEST HISTORY\n========================\n\n';
+  history.forEach(function(h){
+    text+='Date: '+h.date+' '+h.time+'\n';
+    h.headlines.forEach(function(hl){text+='  '+hl.label+': "'+hl.text+'" (Score: '+hl.score+')\n'});
+    text+='  Winner: '+h.winner.label+' ('+h.winner.score+'/100)\n\n';
+  });
+  var blob=new Blob([text],{type:'text/plain'});
+  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='headline-test-history.txt';a.click();
+}
+
+function clearHistory(){
+  if(!confirm('Clear all test history?'))return;
+  history=[];saveState();renderHistory();
+}
+
+function renderFormulas(){
+  var html='';
+  formulas.forEach(function(f,i){
+    html+='<div class="formula-item" onclick="useFormula('+i+')"><div class="f-template">'+escapeHtml(f.template)+'</div><div class="f-example">'+escapeHtml(f.example)+'</div></div>';
+  });
+  document.getElementById('formulaGrid').innerHTML=html;
+}
+
+function useFormula(idx){
+  var f=formulas[idx];
+  var inputs=document.querySelectorAll('.hl-input');
+  for(var i=0;i<inputs.length;i++){
+    if(!inputs[i].value.trim()){inputs[i].value=f.example;inputs[i].focus();return}
+  }
+  addHeadlineInput();
+  var newInputs=document.querySelectorAll('.hl-input');
+  newInputs[newInputs.length-1].value=f.example;
+}
+
+function escapeHtml(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+
+// Init
+loadState();
+renderFormulas();
+renderHistory();
+
+function shareX(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Testing my headlines with this A/B tool. Code SPUNK @SpunkArt13')+'&url='+encodeURIComponent('https://spunk.codes/exclusive-tools'),'_blank')}
+function shareReddit(){window.open('https://www.reddit.com/submit?url='+encodeURIComponent('https://spunk.codes/exclusive-tools')+'&title='+encodeURIComponent('A/B Headline Tester - free with code SPUNK [spunk.codes]'),'_blank')}
+function shareEmail(){window.location.href='mailto:?subject='+encodeURIComponent('A/B Headline Testing Tool')+'&body='+encodeURIComponent('Score and compare your headlines. Code SPUNK: https://spunk.codes/exclusive-tools')}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<script src="/auto-monetize.js"></script>
+<script src="https://spunk.codes/heartbeat.js" defer></script>
+<script src="/usage-tracker.js"></script>
+<div id="shareXBtn" style="position:fixed;left:20px;bottom:20px;z-index:9999;">
+  <a id="shareXLink" href="#" target="_blank" rel="noopener noreferrer" title="Share on X"
+     style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;
+     background:rgba(255,95,31,0.15);border:1px solid rgba(255,95,31,0.3);
+     backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:50%;
+     text-decoration:none;transition:all 0.3s ease;cursor:pointer;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+    </svg>
+  </a>
+</div>
+<style>#shareXBtn a:hover{background:rgba(255,95,31,0.35)!important;border-color:rgba(255,95,31,0.6)!important;transform:scale(1.1);box-shadow:0 0 15px rgba(255,95,31,0.3)}</style>
+<script>
+(function(){var page=location.pathname.split("/").pop()||"index.html";var url="https://spunk.codes/"+page;var text="Just used this free A/B Headline Tester on spunk.codes @SpunkArt13";var href="https://x.com/intent/tweet?text="+encodeURIComponent(text)+"&url="+encodeURIComponent(url);document.getElementById("shareXLink").href=href})();
+</script>
+</body>
+</html>
