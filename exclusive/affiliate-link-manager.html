@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Affiliate Link Manager & Tracker | SPUNK.CODES Exclusive</title>
+<meta name="description" content="Manage affiliate programs, generate tracking links with UTM parameters, track clicks, estimate revenue, and export your link directory. All client-side.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Affiliate Link Manager - SPUNK.CODES Exclusive">
+<meta property="og:description" content="Manage affiliate links, generate UTM tracking URLs, simulate click tracking, estimate revenue, and export.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://spunk.codes/exclusive/affiliate-link-manager">
+<meta property="og:site_name" content="SPUNK.CODES">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/affiliate-link-manager">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Affiliate Link Manager","applicationCategory":"BusinessApplication","operatingSystem":"Web","description":"Manage affiliate programs, generate tracking links with UTM parameters, track clicks, estimate revenue, and export link directories. All data stored in localStorage.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Organization","name":"SPUNK.CODES","url":"https://spunk.codes"}}</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0a0a0f;--card:rgba(18,18,28,0.85);--border:rgba(255,95,31,0.18);--accent:#ff5f1f;--accent2:#ff9f1f;--text:#e8e8f0;--text-dim:#8a8a9a;--green:#39d353;--red:#f85149;--blue:#58a6ff;--font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+a{color:var(--blue);text-decoration:none}a:hover{color:#fff}
+.bg-mesh{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 80% 50% at 20% 20%,rgba(255,95,31,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(255,159,31,0.04) 0%,transparent 60%),var(--bg)}
+.bg-grid{position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,95,31,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,95,31,0.03) 1px,transparent 1px);background-size:60px 60px}
+.nav{position:sticky;top:0;z-index:100;background:rgba(10,10,15,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,95,31,0.15);padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}
+.nav-brand{font-weight:800;font-size:1.1rem;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:0.08em}
+.nav-links{display:flex;gap:1.5rem;font-size:0.85rem;list-style:none}
+.nav-links a{color:var(--text-dim);transition:color 0.2s;font-weight:500}.nav-links a:hover{color:#fff}
+.main{max-width:1100px;margin:0 auto;padding:2rem 1.5rem}
+.hero{text-align:center;padding:1.5rem 0 2rem}
+.badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;background:linear-gradient(135deg,rgba(255,95,31,0.15),rgba(255,159,31,0.15));border:1px solid var(--border);border-radius:100px;font-size:11px;font-weight:800;color:var(--accent2);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:1rem}
+.hero h1{font-size:2.2rem;font-weight:800;margin-bottom:0.5rem}
+.hero h1 .grad{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero p{color:var(--text-dim);max-width:600px;margin:0 auto}
+.section{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:2rem;margin-bottom:1.5rem;backdrop-filter:blur(10px);position:relative;overflow:hidden}
+.section::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent2),var(--accent))}
+.section h2{font-size:1.15rem;font-weight:700;margin-bottom:1rem}
+label{font-size:0.8rem;color:var(--text-dim);font-weight:600;display:block;margin-bottom:0.3rem}
+input,select,textarea{width:100%;padding:0.65rem 0.8rem;background:rgba(10,10,15,0.6);border:1px solid rgba(255,95,31,0.12);border-radius:8px;color:var(--text);font-size:0.85rem;font-family:var(--font);outline:none;transition:border-color 0.2s}
+input:focus,select:focus{border-color:var(--accent)}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem}
+.form-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.8rem}
+.form-grid-4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:0.8rem}
+.btn{padding:0.65rem 1.5rem;border:none;border-radius:8px;font-size:0.85rem;font-weight:700;cursor:pointer;transition:all 0.2s;font-family:var(--font)}
+.btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#000}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 4px 20px rgba(255,95,31,0.3)}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--text-dim)}
+.btn-outline:hover{border-color:var(--accent);color:var(--accent)}
+.btn-sm{padding:0.4rem 0.8rem;font-size:0.78rem}
+.btn-danger{background:rgba(248,81,73,0.15);border:1px solid rgba(248,81,73,0.3);color:var(--red)}
+.btn-row{display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:0.8rem}
+
+/* Dashboard */
+.dash-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;margin-bottom:1.5rem}
+.dash-card{background:rgba(10,10,15,0.5);border:1px solid rgba(255,95,31,0.1);border-radius:12px;padding:1.2rem;text-align:center}
+.dash-card .lbl{font-size:0.7rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px;margin-bottom:0.3rem}
+.dash-card .val{font-size:1.5rem;font-weight:800}
+.dash-card .sub{font-size:0.7rem;color:var(--text-dim);margin-top:0.2rem}
+
+/* Links table */
+.link-table{width:100%;border-collapse:collapse}
+.link-table th{text-align:left;font-size:0.72rem;text-transform:uppercase;letter-spacing:1px;color:var(--text-dim);padding:0.6rem;border-bottom:1px solid var(--border);white-space:nowrap}
+.link-table td{padding:0.6rem;font-size:0.82rem;border-bottom:1px solid rgba(255,255,255,0.03);vertical-align:middle}
+.link-table tr:hover{background:rgba(255,95,31,0.04)}
+.link-name{font-weight:700}
+.link-url{color:var(--blue);font-size:0.78rem;max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:block}
+.link-cat{font-size:0.72rem;background:rgba(255,95,31,0.08);color:var(--accent2);padding:2px 8px;border-radius:4px;display:inline-block}
+.link-commission{color:var(--green);font-weight:700}
+.link-clicks{font-weight:700}
+.link-actions{display:flex;gap:0.3rem}
+.link-actions button{background:none;border:1px solid rgba(255,95,31,0.12);border-radius:4px;color:var(--text-dim);padding:3px 6px;cursor:pointer;font-size:0.75rem}
+.link-actions button:hover{color:var(--accent);border-color:var(--accent)}
+.link-actions button.del:hover{color:var(--red);border-color:var(--red)}
+
+/* Filter bar */
+.filter-bar{display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1rem;align-items:center}
+.filter-bar select{width:auto;padding:0.35rem 0.6rem;font-size:0.78rem}
+.filter-bar input{width:auto;min-width:200px;padding:0.35rem 0.6rem;font-size:0.78rem}
+
+/* UTM Builder */
+.utm-output{background:rgba(10,10,15,0.6);border:1px solid var(--border);border-radius:8px;padding:0.8rem;font-family:'Courier New',monospace;font-size:0.8rem;word-break:break-all;color:var(--accent2);margin-top:0.8rem}
+
+/* Charts */
+.chart-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+.chart-wrap{background:rgba(10,10,15,0.4);border:1px solid rgba(255,95,31,0.08);border-radius:12px;padding:1.2rem}
+.chart-wrap h3{font-size:0.9rem;font-weight:700;margin-bottom:0.8rem;color:var(--accent2);text-align:center}
+canvas{max-width:100%}
+
+/* Perf bars */
+.perf-bar{margin-bottom:1rem}
+.perf-header{display:flex;justify-content:space-between;font-size:0.82rem;font-weight:600;margin-bottom:0.3rem}
+.perf-track{height:8px;background:rgba(255,255,255,0.06);border-radius:100px;overflow:hidden}
+.perf-fill{height:100%;border-radius:100px;transition:width 0.8s}
+
+/* Revenue estimator */
+.est-result{background:rgba(255,95,31,0.06);border:1px solid var(--border);border-radius:10px;padding:1.2rem;text-align:center;margin-top:1rem}
+.est-result .big{font-size:2rem;font-weight:900;color:var(--accent2)}
+.est-result .label{font-size:0.8rem;color:var(--text-dim)}
+
+.cta-box{background:linear-gradient(135deg,rgba(255,95,31,0.08),rgba(255,159,31,0.05));border:1px solid var(--border);border-radius:16px;padding:2rem;text-align:center;margin-top:2rem}
+.cta-box h3{color:var(--accent2);margin-bottom:0.5rem}
+.cta-box p{color:var(--text-dim);font-size:0.9rem;margin-bottom:1rem}
+.footer{text-align:center;padding:2rem;border-top:1px solid rgba(255,95,31,0.1);color:var(--text-dim);font-size:0.75rem;margin-top:3rem}
+.toast{position:fixed;bottom:2rem;right:2rem;padding:0.8rem 1.5rem;background:rgba(57,211,83,0.15);border:1px solid rgba(57,211,83,0.3);color:var(--green);border-radius:10px;font-size:0.85rem;font-weight:600;transform:translateY(100px);opacity:0;transition:all 0.3s;z-index:999}
+.toast.show{transform:translateY(0);opacity:1}
+@media(max-width:700px){.main{padding:1rem}.hero h1{font-size:1.6rem}.section{padding:1.2rem}.form-grid,.form-grid-3,.form-grid-4{grid-template-columns:1fr}.dash-grid{grid-template-columns:repeat(2,1fr)}.chart-grid{grid-template-columns:1fr}.link-table{font-size:0.75rem}.link-table th:nth-child(3),.link-table td:nth-child(3),.link-table th:nth-child(5),.link-table td:nth-child(5){display:none}.nav-links{display:none}}
+</style>
+</head>
+<body>
+<div class="bg-mesh"></div>
+<div class="bg-grid"></div>
+<nav class="nav">
+<a href="https://spunk.codes" class="nav-brand">SPUNK.CODES</a>
+<ul class="nav-links">
+<li><a href="https://spunk.codes">Home</a></li>
+<li><a href="https://spunk.codes/exclusive/">Exclusive Tools</a></li>
+<li><a href="https://spunk.codes/exclusive/expense-tracker">Expense Tracker</a></li>
+<li><a href="https://spunk.codes/exclusive/lead-magnet-creator">Lead Magnets</a></li>
+</ul>
+</nav>
+<div class="main">
+<div class="hero">
+<div class="badge">Exclusive Tool</div>
+<h1><span class="grad">Affiliate Link</span> Manager</h1>
+<p>Add affiliate programs, generate tracking links with UTM parameters, track clicks, estimate revenue, and export your entire link directory.</p>
+</div>
+
+<!-- Dashboard -->
+<div class="dash-grid" id="dashGrid">
+<div class="dash-card"><div class="lbl">Programs</div><div class="val" id="dPrograms">0</div></div>
+<div class="dash-card"><div class="lbl">Total Clicks</div><div class="val" id="dClicks">0</div></div>
+<div class="dash-card"><div class="lbl">Est. Revenue</div><div class="val" id="dRevenue">$0</div></div>
+<div class="dash-card"><div class="lbl">Avg Commission</div><div class="val" id="dAvgComm">0%</div></div>
+<div class="dash-card"><div class="lbl">Top Performer</div><div class="val" id="dTopPerf" style="font-size:0.95rem">-</div></div>
+</div>
+
+<!-- Add Program -->
+<div class="section">
+<h2>Add Affiliate Program</h2>
+<div class="form-grid" style="margin-bottom:0.8rem">
+<div><label>Program Name</label><input type="text" id="progName" placeholder="e.g. Amazon Associates"></div>
+<div><label>Affiliate Link</label><input type="url" id="progLink" placeholder="https://affiliate.example.com/ref/your-id"></div>
+</div>
+<div class="form-grid-4" style="margin-bottom:0.8rem">
+<div><label>Commission Rate (%)</label><input type="number" id="progComm" placeholder="10" min="0" max="100" step="0.1"></div>
+<div><label>Commission Type</label>
+<select id="progType">
+<option value="percentage">Percentage</option>
+<option value="fixed">Fixed Amount ($)</option>
+<option value="recurring">Recurring</option>
+</select></div>
+<div><label>Category</label>
+<select id="progCategory">
+<option value="SaaS">SaaS / Software</option>
+<option value="E-commerce">E-commerce</option>
+<option value="Finance">Finance</option>
+<option value="Education">Education</option>
+<option value="Hosting">Hosting</option>
+<option value="Marketing">Marketing</option>
+<option value="Health">Health & Wellness</option>
+<option value="Crypto">Crypto</option>
+<option value="Travel">Travel</option>
+<option value="Other">Other</option>
+</select></div>
+<div><label>Cookie Duration (days)</label><input type="number" id="progCookie" placeholder="30" min="0"></div>
+</div>
+<div><label>Notes</label><input type="text" id="progNotes" placeholder="Payment terms, min payout, special conditions..."></div>
+<div class="btn-row">
+<button class="btn btn-primary" onclick="addProgram()">Add Program</button>
+<button class="btn btn-outline btn-sm" onclick="addSamplePrograms()">Load Sample Programs</button>
+</div>
+</div>
+
+<!-- UTM Builder -->
+<div class="section">
+<h2>UTM Tracking Link Builder</h2>
+<p style="font-size:0.82rem;color:var(--text-dim);margin-bottom:1rem">Generate tracking links with UTM parameters for any of your affiliate URLs.</p>
+<div class="form-grid" style="margin-bottom:0.8rem">
+<div><label>Select Program</label>
+<select id="utmProgram" onchange="buildUTM()"><option value="">-- Select --</option></select></div>
+<div><label>Campaign Source</label><input type="text" id="utmSource" placeholder="e.g. blog, newsletter, twitter" oninput="buildUTM()"></div>
+</div>
+<div class="form-grid-3">
+<div><label>Campaign Medium</label><input type="text" id="utmMedium" placeholder="e.g. email, social, cpc" oninput="buildUTM()"></div>
+<div><label>Campaign Name</label><input type="text" id="utmCampaign" placeholder="e.g. spring-sale, review-post" oninput="buildUTM()"></div>
+<div><label>Campaign Content (optional)</label><input type="text" id="utmContent" placeholder="e.g. header-link, sidebar-ad" oninput="buildUTM()"></div>
+</div>
+<div class="utm-output" id="utmOutput">Select a program and fill in UTM parameters...</div>
+<div class="btn-row">
+<button class="btn btn-primary btn-sm" onclick="copyUTM()">Copy Tracking Link</button>
+</div>
+</div>
+
+<!-- Performance Charts -->
+<div class="section">
+<h2>Performance Overview</h2>
+<div class="chart-grid">
+<div class="chart-wrap">
+<h3>Clicks by Program</h3>
+<canvas id="clicksChart" width="350" height="250"></canvas>
+</div>
+<div class="chart-wrap">
+<h3>Revenue by Category</h3>
+<canvas id="revenueChart" width="350" height="250"></canvas>
+</div>
+</div>
+<div style="margin-top:1.5rem" id="perfBars"></div>
+</div>
+
+<!-- Revenue Estimator -->
+<div class="section">
+<h2>Revenue Estimator</h2>
+<p style="font-size:0.82rem;color:var(--text-dim);margin-bottom:1rem">Estimate monthly revenue based on clicks, conversion rate, and average order value.</p>
+<div class="form-grid-4">
+<div><label>Monthly Clicks</label><input type="number" id="estClicks" placeholder="1000" min="0" oninput="calcRevenue()"></div>
+<div><label>Conversion Rate (%)</label><input type="number" id="estConv" placeholder="2" min="0" step="0.1" oninput="calcRevenue()"></div>
+<div><label>Avg Order Value ($)</label><input type="number" id="estAOV" placeholder="50" min="0" step="1" oninput="calcRevenue()"></div>
+<div><label>Commission Rate (%)</label><input type="number" id="estComm" placeholder="10" min="0" step="0.1" oninput="calcRevenue()"></div>
+</div>
+<div class="est-result" id="estResult">
+<div class="label">Estimated Monthly Revenue</div>
+<div class="big" id="estRevenue">$0.00</div>
+<div style="display:flex;justify-content:center;gap:2rem;margin-top:0.8rem">
+<div><div class="label">Conversions</div><div style="font-weight:700" id="estConversions">0</div></div>
+<div><div class="label">Revenue/Click</div><div style="font-weight:700" id="estRPC">$0.00</div></div>
+<div><div class="label">Annual Estimate</div><div style="font-weight:700" id="estAnnual">$0.00</div></div>
+</div>
+</div>
+</div>
+
+<!-- Link Directory -->
+<div class="section">
+<h2>Link Directory</h2>
+<div class="filter-bar">
+<select id="filterCat" onchange="renderLinks()"><option value="">All Categories</option></select>
+<input type="text" id="filterSearch" placeholder="Search programs..." oninput="renderLinks()">
+<select id="filterSort" onchange="renderLinks()">
+<option value="name">Sort by Name</option>
+<option value="clicks">Sort by Clicks</option>
+<option value="commission">Sort by Commission</option>
+<option value="newest">Newest First</option>
+</select>
+</div>
+<div style="overflow-x:auto">
+<table class="link-table">
+<thead><tr><th>Program</th><th>Link</th><th>Category</th><th>Commission</th><th>Clicks</th><th>Est. Revenue</th><th>Actions</th></tr></thead>
+<tbody id="linkBody"></tbody>
+</table>
+</div>
+<div class="btn-row">
+<button class="btn btn-outline btn-sm" onclick="exportCSV()">Export CSV</button>
+<button class="btn btn-outline btn-sm" onclick="exportJSON()">Export JSON</button>
+<button class="btn btn-danger btn-sm" onclick="clearAll()">Clear All Data</button>
+</div>
+</div>
+
+<div class="cta-box">
+<h3>Track Your Expenses Too</h3>
+<p>Use our Smart Expense Tracker to monitor spending alongside your affiliate revenue.</p>
+<a href="https://spunk.codes/exclusive/expense-tracker" class="btn btn-primary btn-sm">Expense Tracker</a>
+<span style="margin:0 0.5rem;color:var(--text-dim)">or</span>
+<a href="https://spunk.codes/exclusive/" class="btn btn-outline btn-sm">Browse All Tools</a>
+</div>
+</div>
+
+<footer class="footer">
+<p>&copy; 2026 <a href="https://spunk.codes">SPUNK.CODES</a> &mdash; Free developer &amp; business tools. No sign-up required.</p>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const CAT_COLORS = {'SaaS':'#ff5f1f','E-commerce':'#3b82f6','Finance':'#10b981','Education':'#8b5cf6','Hosting':'#06b6d4','Marketing':'#f59e0b','Health':'#ec4899','Crypto':'#f97316','Travel':'#14b8a6','Other':'#64748b'};
+
+let programs = JSON.parse(localStorage.getItem('affiliatePrograms')||'[]');
+
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500)}
+
+function save() { localStorage.setItem('affiliatePrograms', JSON.stringify(programs)); }
+
+function addProgram() {
+  const name = document.getElementById('progName').value.trim();
+  const link = document.getElementById('progLink').value.trim();
+  const comm = parseFloat(document.getElementById('progComm').value)||0;
+  const type = document.getElementById('progType').value;
+  const cat = document.getElementById('progCategory').value;
+  const cookie = parseInt(document.getElementById('progCookie').value)||30;
+  const notes = document.getElementById('progNotes').value.trim();
+  if (!name) { showToast('Enter a program name'); return; }
+  if (!link) { showToast('Enter an affiliate link'); return; }
+
+  programs.push({
+    id: Date.now(), name, link, commission: comm, commissionType: type,
+    category: cat, cookieDays: cookie, notes,
+    clicks: 0, clickHistory: [], created: Date.now()
+  });
+  save();
+  // Clear form
+  ['progName','progLink','progComm','progCookie','progNotes'].forEach(id => document.getElementById(id).value = '');
+  refresh();
+  showToast(`${name} added`);
+}
+
+function deleteProgram(id) {
+  if (!confirm('Delete this program?')) return;
+  programs = programs.filter(p => p.id !== id);
+  save(); refresh();
+}
+
+function simulateClick(id) {
+  const prog = programs.find(p => p.id === id);
+  if (!prog) return;
+  prog.clicks++;
+  prog.clickHistory.push({ date: new Date().toISOString(), source: 'manual' });
+  save(); refresh();
+  showToast(`Click recorded for ${prog.name}`);
+}
+
+function copyLink(id) {
+  const prog = programs.find(p => p.id === id);
+  if (!prog) return;
+  navigator.clipboard.writeText(prog.link).then(()=>showToast('Link copied'));
+}
+
+function addSamplePrograms() {
+  const samples = [
+    {name:'Amazon Associates',link:'https://amzn.to/your-ref',commission:4,commissionType:'percentage',category:'E-commerce',cookieDays:1,notes:'Up to 10% on some categories',clicks:245,clickHistory:[]},
+    {name:'Bluehost',link:'https://bluehost.com/ref/your-id',commission:65,commissionType:'fixed',category:'Hosting',cookieDays:45,notes:'$65 per sale, reliable payouts',clicks:128,clickHistory:[]},
+    {name:'ConvertKit',link:'https://convertkit.com/?lmref=your-id',commission:30,commissionType:'recurring',category:'Marketing',cookieDays:30,notes:'30% recurring for 24 months',clicks:89,clickHistory:[]},
+    {name:'Teachable',link:'https://teachable.com/ref/your-id',commission:30,commissionType:'recurring',category:'Education',cookieDays:90,notes:'30% recurring',clicks:67,clickHistory:[]},
+    {name:'NordVPN',link:'https://nordvpn.com/ref/your-id',commission:40,commissionType:'percentage',category:'SaaS',cookieDays:30,notes:'40% or 100% on 1-month plan',clicks:198,clickHistory:[]},
+    {name:'Coinbase',link:'https://coinbase.com/join/your-id',commission:10,commissionType:'fixed',category:'Crypto',cookieDays:30,notes:'$10 per referred user',clicks:312,clickHistory:[]},
+    {name:'Booking.com',link:'https://booking.com/ref/your-id',commission:25,commissionType:'percentage',category:'Travel',cookieDays:30,notes:'25% of booking commission',clicks:156,clickHistory:[]},
+    {name:'Athletic Greens',link:'https://athleticgreens.com/ref/your-id',commission:20,commissionType:'fixed',category:'Health',cookieDays:60,notes:'$20 per new subscriber',clicks:43,clickHistory:[]}
+  ];
+  samples.forEach(s => {
+    s.id = Date.now() + Math.random()*1000;
+    s.created = Date.now() - Math.random()*30*86400000;
+    // Generate random click history
+    for(let i=0;i<s.clicks;i++){
+      s.clickHistory.push({date:new Date(Date.now()-Math.random()*60*86400000).toISOString(),source:'sample'});
+    }
+  });
+  programs = programs.concat(samples);
+  save(); refresh();
+  showToast('8 sample programs loaded');
+}
+
+function getFilteredPrograms() {
+  let filtered = [...programs];
+  const cat = document.getElementById('filterCat').value;
+  const search = document.getElementById('filterSearch').value.toLowerCase();
+  const sort = document.getElementById('filterSort').value;
+
+  if (cat) filtered = filtered.filter(p => p.category === cat);
+  if (search) filtered = filtered.filter(p => p.name.toLowerCase().includes(search) || p.link.toLowerCase().includes(search));
+
+  if (sort === 'name') filtered.sort((a,b) => a.name.localeCompare(b.name));
+  else if (sort === 'clicks') filtered.sort((a,b) => b.clicks - a.clicks);
+  else if (sort === 'commission') filtered.sort((a,b) => b.commission - a.commission);
+  else if (sort === 'newest') filtered.sort((a,b) => b.created - a.created);
+
+  return filtered;
+}
+
+function estimateRevenue(prog) {
+  // Rough estimate: clicks * assumed 2% conversion * commission
+  const convRate = 0.02;
+  const avgOrder = 50;
+  if (prog.commissionType === 'fixed') return prog.clicks * convRate * prog.commission;
+  if (prog.commissionType === 'recurring') return prog.clicks * convRate * (prog.commission/100) * avgOrder * 3;
+  return prog.clicks * convRate * (prog.commission/100) * avgOrder;
+}
+
+function renderLinks() {
+  const filtered = getFilteredPrograms();
+  const body = document.getElementById('linkBody');
+  if (filtered.length === 0) {
+    body.innerHTML = '<tr><td colspan="7" style="text-align:center;color:var(--text-dim);padding:2rem">No programs yet. Add your first affiliate program above.</td></tr>';
+    return;
+  }
+  body.innerHTML = filtered.map(p => {
+    const rev = estimateRevenue(p);
+    const commLabel = p.commissionType === 'fixed' ? `$${p.commission}` : `${p.commission}%`;
+    return `<tr>
+      <td><span class="link-name">${p.name}</span></td>
+      <td><a href="${p.link}" target="_blank" class="link-url" title="${p.link}">${p.link}</a></td>
+      <td><span class="link-cat">${p.category}</span></td>
+      <td><span class="link-commission">${commLabel}</span><br><span style="font-size:0.7rem;color:var(--text-dim)">${p.commissionType}</span></td>
+      <td><span class="link-clicks">${p.clicks}</span></td>
+      <td>$${rev.toFixed(2)}</td>
+      <td><div class="link-actions">
+        <button onclick="simulateClick(${p.id})" title="Simulate click">+1</button>
+        <button onclick="copyLink(${p.id})" title="Copy link">Copy</button>
+        <button class="del" onclick="deleteProgram(${p.id})" title="Delete">&times;</button>
+      </div></td>
+    </tr>`;
+  }).join('');
+}
+
+function updateDashboard() {
+  const totalClicks = programs.reduce((s,p) => s + p.clicks, 0);
+  const totalRev = programs.reduce((s,p) => s + estimateRevenue(p), 0);
+  const avgComm = programs.length > 0 ? programs.reduce((s,p) => s + p.commission, 0) / programs.length : 0;
+  const top = programs.sort((a,b) => b.clicks - a.clicks)[0];
+
+  document.getElementById('dPrograms').textContent = programs.length;
+  document.getElementById('dClicks').textContent = totalClicks.toLocaleString();
+  document.getElementById('dRevenue').textContent = '$' + totalRev.toFixed(2);
+  document.getElementById('dAvgComm').textContent = avgComm.toFixed(1) + '%';
+  document.getElementById('dTopPerf').textContent = top ? top.name : '-';
+
+  // Update filter dropdown
+  const filterCat = document.getElementById('filterCat');
+  const currentVal = filterCat.value;
+  const cats = [...new Set(programs.map(p => p.category))].sort();
+  filterCat.innerHTML = '<option value="">All Categories</option>' + cats.map(c => `<option value="${c}"${c===currentVal?' selected':''}>${c}</option>`).join('');
+
+  // Update UTM dropdown
+  const utmSelect = document.getElementById('utmProgram');
+  const currentUTM = utmSelect.value;
+  utmSelect.innerHTML = '<option value="">-- Select --</option>' + programs.map(p => `<option value="${p.id}"${String(p.id)===currentUTM?' selected':''}>${p.name}</option>`).join('');
+}
+
+function drawClicksChart() {
+  const canvas = document.getElementById('clicksChart');
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height;
+  ctx.clearRect(0, 0, W, H);
+
+  const sorted = [...programs].sort((a,b) => b.clicks - a.clicks).slice(0, 8);
+  if (sorted.length === 0) {
+    ctx.fillStyle = '#8a8a9a'; ctx.font = '14px system-ui'; ctx.textAlign = 'center';
+    ctx.fillText('No data yet', W/2, H/2);
+    return;
+  }
+
+  const maxClicks = Math.max(...sorted.map(p => p.clicks));
+  const barH = 22;
+  const gap = 8;
+  const leftPad = 100;
+  const topPad = 10;
+
+  sorted.forEach((p, i) => {
+    const y = topPad + i * (barH + gap);
+    const barW = maxClicks > 0 ? ((p.clicks / maxClicks) * (W - leftPad - 60)) : 0;
+
+    // Label
+    ctx.fillStyle = '#8a8a9a'; ctx.font = '11px system-ui'; ctx.textAlign = 'right';
+    const name = p.name.length > 12 ? p.name.substring(0,12)+'...' : p.name;
+    ctx.fillText(name, leftPad - 8, y + barH/2 + 4);
+
+    // Bar
+    const gradient = ctx.createLinearGradient(leftPad, 0, leftPad + barW, 0);
+    gradient.addColorStop(0, CAT_COLORS[p.category] || '#ff5f1f');
+    gradient.addColorStop(1, (CAT_COLORS[p.category]||'#ff5f1f') + '88');
+    ctx.fillStyle = gradient;
+    ctx.beginPath();
+    ctx.roundRect(leftPad, y, barW, barH, 4);
+    ctx.fill();
+
+    // Value
+    ctx.fillStyle = '#e8e8f0'; ctx.font = 'bold 11px system-ui'; ctx.textAlign = 'left';
+    ctx.fillText(p.clicks, leftPad + barW + 8, y + barH/2 + 4);
+  });
+}
+
+function drawRevenueChart() {
+  const canvas = document.getElementById('revenueChart');
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height;
+  const center = {x:W/2, y:H/2};
+  const radius = Math.min(W, H) * 0.38;
+  ctx.clearRect(0, 0, W, H);
+
+  const catRev = {};
+  programs.forEach(p => { catRev[p.category] = (catRev[p.category]||0) + estimateRevenue(p); });
+  const entries = Object.entries(catRev).sort((a,b) => b[1] - a[1]);
+  const total = entries.reduce((s,[,v]) => s+v, 0);
+
+  if (total === 0) {
+    ctx.fillStyle = '#8a8a9a'; ctx.font = '14px system-ui'; ctx.textAlign = 'center';
+    ctx.fillText('No data yet', center.x, center.y);
+    return;
+  }
+
+  let startAngle = -Math.PI/2;
+  entries.forEach(([cat, rev]) => {
+    const slice = (rev/total) * Math.PI * 2;
+    ctx.beginPath();
+    ctx.moveTo(center.x, center.y);
+    ctx.arc(center.x, center.y, radius, startAngle, startAngle + slice);
+    ctx.closePath();
+    ctx.fillStyle = CAT_COLORS[cat] || '#64748b';
+    ctx.fill();
+    startAngle += slice;
+  });
+
+  ctx.beginPath();
+  ctx.arc(center.x, center.y, radius*0.55, 0, Math.PI*2);
+  ctx.fillStyle = 'rgba(10,10,15,0.9)';
+  ctx.fill();
+
+  ctx.fillStyle = '#e8e8f0'; ctx.font = 'bold 16px system-ui'; ctx.textAlign = 'center';
+  ctx.fillText('$'+total.toFixed(0), center.x, center.y);
+  ctx.font = '10px system-ui'; ctx.fillStyle = '#8a8a9a';
+  ctx.fillText('Est. Total', center.x, center.y + 16);
+}
+
+function renderPerfBars() {
+  const container = document.getElementById('perfBars');
+  if (programs.length === 0) { container.innerHTML = ''; return; }
+
+  const maxClicks = Math.max(...programs.map(p=>p.clicks), 1);
+  const sorted = [...programs].sort((a,b) => b.clicks - a.clicks).slice(0, 6);
+  container.innerHTML = '<h3 style="font-size:0.9rem;margin-bottom:0.8rem;color:var(--accent2)">Click Performance</h3>' + sorted.map(p => {
+    const pct = (p.clicks/maxClicks)*100;
+    const color = CAT_COLORS[p.category]||'#ff5f1f';
+    return `<div class="perf-bar"><div class="perf-header"><span>${p.name}</span><span style="color:${color}">${p.clicks} clicks</span></div><div class="perf-track"><div class="perf-fill" style="width:${pct}%;background:${color}"></div></div></div>`;
+  }).join('');
+}
+
+function buildUTM() {
+  const progId = document.getElementById('utmProgram').value;
+  const prog = programs.find(p => String(p.id) === progId);
+  if (!prog) {
+    document.getElementById('utmOutput').textContent = 'Select a program to generate a tracking link.';
+    return;
+  }
+  const source = document.getElementById('utmSource').value.trim();
+  const medium = document.getElementById('utmMedium').value.trim();
+  const campaign = document.getElementById('utmCampaign').value.trim();
+  const content = document.getElementById('utmContent').value.trim();
+
+  let url = prog.link;
+  const params = [];
+  if (source) params.push('utm_source='+encodeURIComponent(source));
+  if (medium) params.push('utm_medium='+encodeURIComponent(medium));
+  if (campaign) params.push('utm_campaign='+encodeURIComponent(campaign));
+  if (content) params.push('utm_content='+encodeURIComponent(content));
+
+  if (params.length > 0) {
+    const sep = url.includes('?') ? '&' : '?';
+    url += sep + params.join('&');
+  }
+  document.getElementById('utmOutput').textContent = url;
+}
+
+function copyUTM() {
+  const url = document.getElementById('utmOutput').textContent;
+  if (!url || url.startsWith('Select')) { showToast('Build a tracking link first'); return; }
+  navigator.clipboard.writeText(url).then(()=>showToast('Tracking link copied'));
+}
+
+function calcRevenue() {
+  const clicks = parseFloat(document.getElementById('estClicks').value)||0;
+  const conv = parseFloat(document.getElementById('estConv').value)||0;
+  const aov = parseFloat(document.getElementById('estAOV').value)||0;
+  const comm = parseFloat(document.getElementById('estComm').value)||0;
+
+  const conversions = Math.round(clicks * conv / 100);
+  const revenue = conversions * aov * comm / 100;
+  const rpc = clicks > 0 ? revenue / clicks : 0;
+
+  document.getElementById('estRevenue').textContent = '$' + revenue.toFixed(2);
+  document.getElementById('estConversions').textContent = conversions;
+  document.getElementById('estRPC').textContent = '$' + rpc.toFixed(2);
+  document.getElementById('estAnnual').textContent = '$' + (revenue * 12).toFixed(2);
+}
+
+function exportCSV() {
+  if (programs.length === 0) { showToast('No programs to export'); return; }
+  let csv = 'Name,Link,Category,Commission,Type,Clicks,Est Revenue,Cookie Days,Notes\n';
+  programs.forEach(p => {
+    csv += `"${p.name}","${p.link}","${p.category}",${p.commission},"${p.commissionType}",${p.clicks},${estimateRevenue(p).toFixed(2)},${p.cookieDays},"${(p.notes||'').replace(/"/g,'""')}"\n`;
+  });
+  const blob = new Blob([csv], {type:'text/csv'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `affiliate-links-${new Date().toISOString().split('T')[0]}.csv`;
+  a.click();
+  showToast('CSV exported');
+}
+
+function exportJSON() {
+  if (programs.length === 0) { showToast('No programs to export'); return; }
+  const data = programs.map(p => ({...p, estRevenue: estimateRevenue(p)}));
+  const blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `affiliate-links-${new Date().toISOString().split('T')[0]}.json`;
+  a.click();
+  showToast('JSON exported');
+}
+
+function clearAll() {
+  if (!confirm('Delete all affiliate programs? This cannot be undone.')) return;
+  programs = [];
+  save(); refresh();
+  showToast('All data cleared');
+}
+
+function refresh() {
+  updateDashboard();
+  renderLinks();
+  drawClicksChart();
+  drawRevenueChart();
+  renderPerfBars();
+}
+
+// Initialize
+refresh();
+calcRevenue();
+</script>
+<!-- GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<!-- Clarity -->
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<!-- Heartbeat -->
+<script src="https://spunk.codes/heartbeat.js" defer></script>
+</body>
+</html>
