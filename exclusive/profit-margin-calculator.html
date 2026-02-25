@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Profit Margin &amp; Pricing Calculator | SPUNK.CODES Exclusive</title>
+<meta name="description" content="Calculate profit margins, selling prices, markup percentages, and break-even points. Bulk CSV import, pricing scenario comparison, and visual pie charts.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Profit Margin &amp; Pricing Calculator - SPUNK.CODES Exclusive">
+<meta property="og:description" content="Calculate margins, compare pricing strategies, and export pricing sheets. Free, instant, no signup.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://spunk.codes/exclusive/profit-margin-calculator">
+<meta property="og:site_name" content="Spunk Codes">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/profit-margin-calculator">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Profit Margin & Pricing Calculator","applicationCategory":"FinanceApplication","operatingSystem":"Web","description":"Calculate profit margins, selling prices, markup percentages, and break-even points with visual charts and CSV export.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Organization","name":"Spunk Codes","url":"https://spunk.codes"}}</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0a0a0f;--card:rgba(18,18,28,0.85);--border:rgba(255,95,31,0.18);--accent:#ff5f1f;--accent2:#ff9f1f;--text:#e8e8f0;--text-dim:#8a8a9a;--green:#39d353;--red:#f85149;--blue:#58a6ff;--font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+a{color:var(--blue);text-decoration:none}a:hover{color:#fff}
+.bg-mesh{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 80% 50% at 20% 20%,rgba(255,95,31,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(255,159,31,0.04) 0%,transparent 60%),var(--bg)}
+.bg-grid{position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,95,31,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,95,31,0.03) 1px,transparent 1px);background-size:60px 60px}
+.nav{position:sticky;top:0;z-index:100;background:rgba(10,10,15,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,95,31,0.15);padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}
+.nav-brand{font-weight:800;font-size:1.1rem;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:0.08em}
+.nav-links{display:flex;gap:1.5rem;font-size:0.85rem;list-style:none}
+.nav-links a{color:var(--text-dim);transition:color 0.2s;font-weight:500}.nav-links a:hover{color:#fff}
+.main{max-width:1100px;margin:0 auto;padding:2rem 1.5rem}
+.hero{text-align:center;padding:1.5rem 0 2rem}
+.badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;background:linear-gradient(135deg,rgba(255,95,31,0.15),rgba(255,159,31,0.15));border:1px solid var(--border);border-radius:100px;font-size:11px;font-weight:800;color:var(--accent2);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:1rem}
+.hero h1{font-size:2.2rem;font-weight:800;margin-bottom:0.5rem}
+.hero h1 .grad{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero p{color:var(--text-dim);max-width:600px;margin:0 auto}
+.section{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:2rem;margin-bottom:1.5rem;backdrop-filter:blur(10px);position:relative;overflow:hidden}
+.section::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent2),var(--accent))}
+.section h2{font-size:1.15rem;font-weight:700;margin-bottom:1rem}
+label{font-size:0.8rem;color:var(--text-dim);font-weight:600;display:block;margin-bottom:0.3rem}
+input,select,textarea{width:100%;padding:0.65rem 0.8rem;background:rgba(10,10,15,0.6);border:1px solid rgba(255,95,31,0.12);border-radius:8px;color:var(--text);font-size:0.85rem;font-family:var(--font);outline:none;transition:border-color 0.2s}
+input:focus,select:focus,textarea:focus{border-color:var(--accent)}
+textarea{resize:vertical;min-height:100px;font-family:'Courier New',monospace;font-size:0.8rem}
+.form-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.8rem}
+.form-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem}
+.form-group{margin-bottom:0.8rem}
+.btn{padding:0.65rem 1.5rem;border:none;border-radius:8px;font-size:0.85rem;font-weight:700;cursor:pointer;transition:all 0.2s;font-family:var(--font)}
+.btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#000}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 4px 20px rgba(255,95,31,0.3)}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--text-dim)}
+.btn-outline:hover{border-color:var(--accent);color:var(--accent)}
+.btn-sm{padding:0.4rem 0.8rem;font-size:0.78rem}
+.btn-danger{background:rgba(248,81,73,0.15);border:1px solid rgba(248,81,73,0.3);color:var(--red)}
+.btn-row{display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:0.8rem}
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1rem;margin-bottom:1.5rem}
+.kpi{background:rgba(10,10,15,0.5);border:1px solid rgba(255,95,31,0.1);border-radius:12px;padding:1.2rem;text-align:center}
+.kpi .lbl{font-size:0.7rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px;margin-bottom:0.3rem}
+.kpi .val{font-size:1.5rem;font-weight:800}
+.kpi .val.green{color:var(--green)}.kpi .val.orange{color:var(--accent2)}.kpi .val.red{color:var(--red)}.kpi .val.blue{color:var(--blue)}
+.chart-area{display:flex;gap:1.5rem;align-items:center;flex-wrap:wrap;justify-content:center;margin:1rem 0}
+.chart-wrap{text-align:center}
+.chart-wrap h3{font-size:0.85rem;color:var(--accent2);margin-bottom:0.8rem}
+.legend{display:flex;flex-direction:column;gap:0.5rem;font-size:0.82rem}
+.legend-item{display:flex;align-items:center;gap:8px}
+.legend-dot{width:12px;height:12px;border-radius:3px;flex-shrink:0}
+.scenario-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem}
+.scenario-card{background:rgba(10,10,15,0.5);border:1px solid rgba(255,95,31,0.1);border-radius:12px;padding:1.2rem;text-align:center;transition:border-color 0.2s}
+.scenario-card:hover{border-color:var(--accent)}
+.scenario-card h3{font-size:0.9rem;font-weight:700;margin-bottom:0.8rem}
+.scenario-card .price{font-size:1.8rem;font-weight:800;color:var(--accent2);margin-bottom:0.5rem}
+.scenario-row{display:flex;justify-content:space-between;font-size:0.78rem;padding:4px 0;border-bottom:1px solid rgba(255,95,31,0.06)}
+.scenario-row .lbl{color:var(--text-dim)}
+.bulk-table{width:100%;border-collapse:collapse;font-size:0.82rem;margin-top:1rem}
+.bulk-table th{text-align:left;padding:8px 10px;border-bottom:2px solid rgba(255,95,31,0.15);color:var(--accent2);font-size:0.75rem;text-transform:uppercase;letter-spacing:0.5px}
+.bulk-table td{padding:8px 10px;border-bottom:1px solid rgba(255,95,31,0.06)}
+.bulk-table tr:hover td{background:rgba(255,95,31,0.03)}
+.suggestion{padding:0.8rem 1rem;background:rgba(57,211,83,0.06);border:1px solid rgba(57,211,83,0.15);border-radius:8px;font-size:0.82rem;margin-top:0.8rem;line-height:1.5}
+.suggestion strong{color:var(--green)}
+.toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:rgba(255,95,31,0.95);color:#000;padding:0.6rem 1.5rem;border-radius:100px;font-size:0.85rem;font-weight:700;z-index:9999;pointer-events:none;opacity:1;transition:opacity 0.4s}
+.network-footer{text-align:center;padding:2rem 0;font-size:0.8rem;color:var(--text-dim);border-top:1px solid rgba(255,95,31,0.1);margin-top:2rem}
+.network-footer a{color:var(--text-dim);margin:0 0.5rem;transition:color 0.2s}.network-footer a:hover{color:var(--accent2)}
+.cta-banner{background:linear-gradient(135deg,rgba(255,95,31,0.1),rgba(255,159,31,0.1));border:1px solid var(--border);border-radius:12px;padding:1.5rem;text-align:center;margin:1.5rem 0}
+.cta-banner h3{font-size:1rem;margin-bottom:0.5rem}
+.cta-banner p{color:var(--text-dim);font-size:0.85rem;margin-bottom:0.8rem}
+.tab-row{display:flex;gap:0.4rem;margin-bottom:1.2rem}
+.tab-btn{padding:0.5rem 1rem;border:1px solid rgba(255,95,31,0.12);border-radius:8px;background:transparent;color:var(--text-dim);font-size:0.8rem;font-weight:600;cursor:pointer;font-family:var(--font)}
+.tab-btn.active{background:rgba(255,95,31,0.12);border-color:var(--accent);color:var(--accent2)}
+@media(max-width:768px){
+.form-grid{grid-template-columns:1fr}.form-grid-2{grid-template-columns:1fr}.scenario-grid{grid-template-columns:1fr}.nav{padding:0.8rem 1rem}.nav-links{gap:0.8rem;font-size:0.78rem}.hero h1{font-size:1.6rem}.kpi-grid{grid-template-columns:1fr 1fr}.chart-area{flex-direction:column}
+}
+</style>
+</head>
+<body>
+<div class="bg-mesh"></div>
+<div class="bg-grid"></div>
+<nav class="nav">
+<a href="/exclusive/" class="nav-brand">SPUNK.CODES</a>
+<ul class="nav-links">
+<li><a href="/exclusive/">All Tools</a></li>
+<li><a href="/">Home</a></li>
+</ul>
+</nav>
+<div class="main">
+<div class="hero">
+<div class="badge">Exclusive Tool</div>
+<h1><span class="grad">Profit Margin</span> Calculator</h1>
+<p>Calculate selling prices, gross and net margins, markup percentages, and break-even points. Compare pricing scenarios and bulk-calculate from CSV.</p>
+</div>
+
+<!-- Mode Tabs -->
+<div class="tab-row">
+<button class="tab-btn active" onclick="showMode('single')">Single Product</button>
+<button class="tab-btn" onclick="showMode('bulk')">Bulk (CSV)</button>
+<button class="tab-btn" onclick="showMode('scenarios')">Compare Scenarios</button>
+</div>
+
+<!-- Single Product Calculator -->
+<div id="mode-single">
+<div class="section">
+<h2>Product Inputs</h2>
+<div class="form-grid">
+<div class="form-group"><label>Cost of Goods (COGS) $</label><input type="number" id="cogs" value="25" step="0.01" min="0" oninput="calcSingle()"></div>
+<div class="form-group"><label>Operating Expenses $</label><input type="number" id="opex" value="8" step="0.01" min="0" oninput="calcSingle()"></div>
+<div class="form-group"><label>Desired Profit Margin %</label><input type="number" id="targetMargin" value="40" step="0.1" min="0" max="99.9" oninput="calcSingle()"></div>
+</div>
+<div class="form-grid">
+<div class="form-group"><label>Fixed Costs (monthly) $</label><input type="number" id="fixedCosts" value="2000" step="1" min="0" oninput="calcSingle()"></div>
+<div class="form-group"><label>Units Sold (monthly)</label><input type="number" id="unitsSold" value="200" step="1" min="1" oninput="calcSingle()"></div>
+<div class="form-group"><label>Tax Rate %</label><input type="number" id="taxRate" value="0" step="0.1" min="0" max="100" oninput="calcSingle()"></div>
+</div>
+</div>
+
+<!-- Results -->
+<div class="section">
+<h2>Results</h2>
+<div class="kpi-grid" id="kpiGrid"></div>
+<div class="chart-area">
+<div class="chart-wrap"><h3>Cost vs Profit Breakdown</h3><canvas id="pieChart" width="220" height="220"></canvas></div>
+<div class="legend" id="pieLegend"></div>
+</div>
+<div id="suggestions"></div>
+</div>
+</div>
+
+<!-- Bulk Calculator -->
+<div id="mode-bulk" style="display:none">
+<div class="section">
+<h2>Bulk Product Calculator</h2>
+<p style="color:var(--text-dim);font-size:0.82rem;margin-bottom:0.8rem">Paste CSV data below. Format: <code style="color:var(--accent2)">Product Name, COGS, Operating Expense, Target Margin %</code></p>
+<textarea id="bulkInput" placeholder="Widget A, 12.50, 3.00, 40
+Widget B, 8.00, 2.50, 35
+Widget C, 45.00, 10.00, 50
+Premium Pack, 120.00, 25.00, 45">Widget A, 12.50, 3.00, 40
+Widget B, 8.00, 2.50, 35
+Widget C, 45.00, 10.00, 50
+Premium Pack, 120.00, 25.00, 45</textarea>
+<div class="btn-row">
+<button class="btn btn-primary" onclick="calcBulk()">Calculate All</button>
+<button class="btn btn-outline" onclick="exportBulk()">Export CSV</button>
+</div>
+<div id="bulkResults"></div>
+</div>
+</div>
+
+<!-- Scenario Comparison -->
+<div id="mode-scenarios" style="display:none">
+<div class="section">
+<h2>Pricing Scenario Comparison</h2>
+<p style="color:var(--text-dim);font-size:0.82rem;margin-bottom:1rem">Enter your base cost to compare Economy, Standard, and Premium pricing strategies.</p>
+<div class="form-grid">
+<div class="form-group"><label>Base COGS $</label><input type="number" id="scenCogs" value="25" step="0.01" min="0" oninput="calcScenarios()"></div>
+<div class="form-group"><label>Operating Expense $</label><input type="number" id="scenOpex" value="8" step="0.01" min="0" oninput="calcScenarios()"></div>
+<div class="form-group"><label>Monthly Units</label><input type="number" id="scenUnits" value="200" step="1" min="1" oninput="calcScenarios()"></div>
+</div>
+<div class="scenario-grid" id="scenarioGrid"></div>
+</div>
+</div>
+
+<!-- CTA -->
+<div class="cta-banner">
+<h3>Explore More Exclusive Tools</h3>
+<p>Expense trackers, social proof generators, SEO auditors, and 100+ premium tools.</p>
+<a href="/exclusive/" class="btn btn-primary">Browse All Tools</a>
+</div>
+
+<!-- Network Footer -->
+<div class="network-footer">
+<p>Part of the Spunk Network</p>
+<p style="margin-top:8px">
+<a href="https://spunk.codes">spunk.codes</a> |
+<a href="https://spunk.bet">spunk.bet</a> |
+<a href="https://spunk.work">spunk.work</a> |
+<a href="https://spunk.pics">spunk.pics</a>
+</p>
+<p style="margin-top:8px;font-size:0.7rem">&copy; 2026 Spunk Codes. All rights reserved.</p>
+</div>
+</div>
+
+<script>
+function showMode(m) {
+  ['single','bulk','scenarios'].forEach(function(id) {
+    document.getElementById('mode-'+id).style.display = id === m ? '' : 'none';
+  });
+  document.querySelectorAll('.tab-btn').forEach(function(b,i) {
+    b.classList.toggle('active', ['single','bulk','scenarios'][i] === m);
+  });
+  if (m === 'scenarios') calcScenarios();
+}
+
+function fmt(n) { return n.toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2}); }
+function fmtPct(n) { return n.toFixed(1) + '%'; }
+
+function calcSingle() {
+  var cogs = parseFloat(document.getElementById('cogs').value) || 0;
+  var opex = parseFloat(document.getElementById('opex').value) || 0;
+  var margin = parseFloat(document.getElementById('targetMargin').value) || 0;
+  var fixed = parseFloat(document.getElementById('fixedCosts').value) || 0;
+  var units = parseInt(document.getElementById('unitsSold').value) || 1;
+  var tax = parseFloat(document.getElementById('taxRate').value) || 0;
+
+  var totalCost = cogs + opex;
+  var sellingPrice = totalCost / (1 - margin / 100);
+  var grossProfit = sellingPrice - cogs;
+  var netProfit = sellingPrice - totalCost;
+  var grossMargin = (grossProfit / sellingPrice) * 100;
+  var netMargin = (netProfit / sellingPrice) * 100;
+  var markup = ((sellingPrice - totalCost) / totalCost) * 100;
+  var breakeven = Math.ceil(fixed / netProfit);
+  var monthlyRevenue = sellingPrice * units;
+  var monthlyProfit = (netProfit * units) - fixed;
+  var afterTax = monthlyProfit * (1 - tax/100);
+
+  var kpiHTML = '';
+  kpiHTML += '<div class="kpi"><div class="lbl">Selling Price</div><div class="val orange">$'+fmt(sellingPrice)+'</div></div>';
+  kpiHTML += '<div class="kpi"><div class="lbl">Gross Margin</div><div class="val '+(grossMargin>=50?'green':grossMargin>=30?'orange':'red')+'">'+fmtPct(grossMargin)+'</div></div>';
+  kpiHTML += '<div class="kpi"><div class="lbl">Net Margin</div><div class="val '+(netMargin>=30?'green':netMargin>=15?'orange':'red')+'">'+fmtPct(netMargin)+'</div></div>';
+  kpiHTML += '<div class="kpi"><div class="lbl">Markup</div><div class="val blue">'+fmtPct(markup)+'</div></div>';
+  kpiHTML += '<div class="kpi"><div class="lbl">Break-Even Units</div><div class="val">'+(netProfit>0?breakeven:'N/A')+'</div></div>';
+  kpiHTML += '<div class="kpi"><div class="lbl">Monthly Revenue</div><div class="val orange">$'+fmt(monthlyRevenue)+'</div></div>';
+  kpiHTML += '<div class="kpi"><div class="lbl">Monthly Profit</div><div class="val '+(monthlyProfit>0?'green':'red')+'">$'+fmt(monthlyProfit)+'</div></div>';
+  if (tax > 0) kpiHTML += '<div class="kpi"><div class="lbl">After Tax Profit</div><div class="val '+(afterTax>0?'green':'red')+'">$'+fmt(afterTax)+'</div></div>';
+  document.getElementById('kpiGrid').innerHTML = kpiHTML;
+
+  // Pie chart
+  drawPie(cogs, opex, netProfit);
+
+  // Suggestions
+  var sug = '';
+  if (netMargin < 10) sug += '<div class="suggestion"><strong>Warning:</strong> Net margin below 10% leaves little room for unexpected costs. Consider raising prices or reducing expenses.</div>';
+  if (netMargin >= 10 && netMargin < 20) sug += '<div class="suggestion"><strong>Tip:</strong> A 10-20% net margin is acceptable for most industries. Look for volume discounts on COGS to improve further.</div>';
+  if (netMargin >= 20 && netMargin < 40) sug += '<div class="suggestion"><strong>Healthy:</strong> 20-40% net margin indicates strong pricing power. Consider if the market supports a premium tier.</div>';
+  if (netMargin >= 40) sug += '<div class="suggestion"><strong>Excellent:</strong> 40%+ net margin. Verify this is sustainable and competitive. Consider reinvesting in growth.</div>';
+  if (markup > 200) sug += '<div class="suggestion"><strong>High Markup Alert:</strong> '+fmtPct(markup)+' markup. Ensure perceived value matches the price point to maintain sales volume.</div>';
+  document.getElementById('suggestions').innerHTML = sug;
+}
+
+function drawPie(cogs, opex, profit) {
+  var canvas = document.getElementById('pieChart');
+  var ctx = canvas.getContext('2d');
+  var w = canvas.width, h = canvas.height;
+  var cx = w/2, cy = h/2, r = 90;
+  ctx.clearRect(0,0,w,h);
+
+  var total = cogs + opex + Math.max(0, profit);
+  if (total <= 0) return;
+
+  var slices = [
+    {val: cogs, color: '#f85149', label: 'COGS'},
+    {val: opex, color: '#ff9f1f', label: 'OpEx'},
+    {val: Math.max(0, profit), color: '#39d353', label: 'Profit'}
+  ];
+
+  var startAngle = -Math.PI/2;
+  slices.forEach(function(s) {
+    var angle = (s.val / total) * Math.PI * 2;
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.arc(cx, cy, r, startAngle, startAngle + angle);
+    ctx.closePath();
+    ctx.fillStyle = s.color;
+    ctx.fill();
+    startAngle += angle;
+  });
+
+  // Center hole
+  ctx.beginPath();
+  ctx.arc(cx, cy, 50, 0, Math.PI*2);
+  ctx.fillStyle = '#0a0a0f';
+  ctx.fill();
+
+  // Center text
+  ctx.fillStyle = '#e8e8f0';
+  ctx.font = 'bold 14px system-ui';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText('$' + fmt(cogs+opex+Math.max(0,profit)), cx, cy);
+
+  // Legend
+  var legendHTML = '';
+  slices.forEach(function(s) {
+    var pct = total > 0 ? ((s.val/total)*100).toFixed(1) : '0.0';
+    legendHTML += '<div class="legend-item"><div class="legend-dot" style="background:'+s.color+'"></div>'+s.label+': $'+fmt(s.val)+' ('+pct+'%)</div>';
+  });
+  document.getElementById('pieLegend').innerHTML = legendHTML;
+}
+
+function calcBulk() {
+  var raw = document.getElementById('bulkInput').value.trim();
+  if (!raw) return;
+  var lines = raw.split('\n').filter(Boolean);
+  var products = [];
+  lines.forEach(function(line) {
+    var parts = line.split(',').map(function(s){return s.trim();});
+    if (parts.length >= 4) {
+      var name = parts[0];
+      var cogs = parseFloat(parts[1]) || 0;
+      var opex = parseFloat(parts[2]) || 0;
+      var margin = parseFloat(parts[3]) || 0;
+      var totalCost = cogs + opex;
+      var sellingPrice = margin < 100 ? totalCost / (1 - margin/100) : 0;
+      var grossProfit = sellingPrice - cogs;
+      var netProfit = sellingPrice - totalCost;
+      var grossMargin = sellingPrice > 0 ? (grossProfit/sellingPrice)*100 : 0;
+      var netMargin = sellingPrice > 0 ? (netProfit/sellingPrice)*100 : 0;
+      var markup = totalCost > 0 ? ((sellingPrice - totalCost)/totalCost)*100 : 0;
+      products.push({name:name,cogs:cogs,opex:opex,targetMargin:margin,sellingPrice:sellingPrice,grossMargin:grossMargin,netMargin:netMargin,markup:markup,netProfit:netProfit});
+    }
+  });
+
+  if (!products.length) { showToast('No valid rows found. Use: Name, COGS, OpEx, Margin%'); return; }
+
+  var html = '<table class="bulk-table"><thead><tr><th>Product</th><th>COGS</th><th>OpEx</th><th>Sell Price</th><th>Gross Margin</th><th>Net Margin</th><th>Markup</th><th>Net Profit</th></tr></thead><tbody>';
+  products.forEach(function(p) {
+    html += '<tr><td style="font-weight:700">'+esc(p.name)+'</td><td>$'+fmt(p.cogs)+'</td><td>$'+fmt(p.opex)+'</td><td style="color:var(--accent2);font-weight:700">$'+fmt(p.sellingPrice)+'</td>';
+    html += '<td style="color:'+(p.grossMargin>=50?'var(--green)':p.grossMargin>=30?'var(--accent2)':'var(--red)')+'">'+fmtPct(p.grossMargin)+'</td>';
+    html += '<td style="color:'+(p.netMargin>=30?'var(--green)':p.netMargin>=15?'var(--accent2)':'var(--red)')+'">'+fmtPct(p.netMargin)+'</td>';
+    html += '<td>'+fmtPct(p.markup)+'</td>';
+    html += '<td style="color:'+(p.netProfit>0?'var(--green)':'var(--red)')+'">$'+fmt(p.netProfit)+'</td></tr>';
+  });
+  html += '</tbody></table>';
+  document.getElementById('bulkResults').innerHTML = html;
+  window._bulkProducts = products;
+}
+
+function exportBulk() {
+  var products = window._bulkProducts;
+  if (!products || !products.length) { calcBulk(); products = window._bulkProducts; }
+  if (!products || !products.length) { showToast('No products to export'); return; }
+  var csv = 'Product,COGS,OpEx,Target Margin %,Selling Price,Gross Margin %,Net Margin %,Markup %,Net Profit\n';
+  products.forEach(function(p) {
+    csv += '"'+p.name+'",'+p.cogs.toFixed(2)+','+p.opex.toFixed(2)+','+p.targetMargin.toFixed(1)+','+p.sellingPrice.toFixed(2)+','+p.grossMargin.toFixed(1)+','+p.netMargin.toFixed(1)+','+p.markup.toFixed(1)+','+p.netProfit.toFixed(2)+'\n';
+  });
+  var blob = new Blob([csv], {type:'text/csv'});
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'pricing-sheet-'+new Date().toISOString().split('T')[0]+'.csv';
+  a.click();
+  showToast('CSV exported!');
+}
+
+function calcScenarios() {
+  var cogs = parseFloat(document.getElementById('scenCogs').value) || 0;
+  var opex = parseFloat(document.getElementById('scenOpex').value) || 0;
+  var units = parseInt(document.getElementById('scenUnits').value) || 1;
+  var totalCost = cogs + opex;
+
+  var scenarios = [
+    {name:'Economy', margin:20, desc:'Volume-focused, competitive pricing', color:'var(--blue)'},
+    {name:'Standard', margin:40, desc:'Balanced value and profitability', color:'var(--accent2)'},
+    {name:'Premium', margin:60, desc:'Premium positioning, high margins', color:'var(--green)'}
+  ];
+
+  var html = '';
+  scenarios.forEach(function(s) {
+    var price = totalCost / (1 - s.margin/100);
+    var netProfit = price - totalCost;
+    var markup = totalCost > 0 ? ((price - totalCost)/totalCost)*100 : 0;
+    var monthRev = price * units;
+    var monthProfit = netProfit * units;
+
+    html += '<div class="scenario-card" style="border-color:'+s.color+'">';
+    html += '<h3 style="color:'+s.color+'">'+s.name+'</h3>';
+    html += '<div style="font-size:0.75rem;color:var(--text-dim);margin-bottom:0.8rem">'+s.desc+'</div>';
+    html += '<div class="price">$'+fmt(price)+'</div>';
+    html += '<div class="scenario-row"><span class="lbl">Target Margin</span><span>'+s.margin+'%</span></div>';
+    html += '<div class="scenario-row"><span class="lbl">Markup</span><span>'+fmtPct(markup)+'</span></div>';
+    html += '<div class="scenario-row"><span class="lbl">Profit/Unit</span><span style="color:var(--green)">$'+fmt(netProfit)+'</span></div>';
+    html += '<div class="scenario-row"><span class="lbl">Monthly Revenue</span><span>$'+fmt(monthRev)+'</span></div>';
+    html += '<div class="scenario-row"><span class="lbl">Monthly Profit</span><span style="color:var(--green)">$'+fmt(monthProfit)+'</span></div>';
+    html += '</div>';
+  });
+  document.getElementById('scenarioGrid').innerHTML = html;
+}
+
+function esc(s) { var d = document.createElement('div'); d.appendChild(document.createTextNode(s)); return d.innerHTML; }
+
+function showToast(msg) {
+  var t = document.createElement('div');
+  t.textContent = msg;
+  t.className = 'toast';
+  document.body.appendChild(t);
+  setTimeout(function() { t.style.opacity = '0'; setTimeout(function() { t.remove(); }, 400); }, 1800);
+}
+
+// Init
+calcSingle();
+</script>
+<!-- GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<!-- Clarity -->
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<!-- Heartbeat -->
+<script src="https://spunk.codes/heartbeat.js" defer></script>
+<script src="/exclusive/pro-gate.js"></script>
+<script src="/auto-monetize.js"></script>
+<script src="/usage-tracker.js"></script>
+</body>
+</html>

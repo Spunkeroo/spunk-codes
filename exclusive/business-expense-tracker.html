@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Business Expense Tracker &amp; Tax Deduction Finder | SPUNK.CODES Exclusive</title>
+<meta name="description" content="Track business expenses, find tax deductions, view spending breakdowns by category, set budgets, and export to CSV. All data stored locally in your browser.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Business Expense Tracker &amp; Tax Deduction Finder - SPUNK.CODES Exclusive">
+<meta property="og:description" content="Track expenses, find tax deductions, visual charts, budget comparison, and CSV export. 100% client-side.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://spunk.codes/exclusive/business-expense-tracker">
+<meta property="og:site_name" content="Spunk Codes">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/business-expense-tracker">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Business Expense Tracker & Tax Deduction Finder","applicationCategory":"FinanceApplication","operatingSystem":"Web","description":"Track business expenses by category, discover tax deductions, view spending breakdowns with bar charts, compare budget vs actual, and export to CSV. LocalStorage persistence.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Organization","name":"Spunk Codes","url":"https://spunk.codes"}}</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0a0a0f;--card:rgba(18,18,28,0.85);--border:rgba(255,95,31,0.18);--accent:#ff5f1f;--accent2:#ff9f1f;--text:#e8e8f0;--text-dim:#8a8a9a;--green:#39d353;--red:#f85149;--blue:#58a6ff;--font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+a{color:var(--blue);text-decoration:none}a:hover{color:#fff}
+.bg-mesh{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 80% 50% at 20% 20%,rgba(255,95,31,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(255,159,31,0.04) 0%,transparent 60%),var(--bg)}
+.bg-grid{position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,95,31,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,95,31,0.03) 1px,transparent 1px);background-size:60px 60px}
+.nav{position:sticky;top:0;z-index:100;background:rgba(10,10,15,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,95,31,0.15);padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}
+.nav-brand{font-weight:800;font-size:1.1rem;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:0.08em}
+.nav-links{display:flex;gap:1.5rem;font-size:0.85rem;list-style:none}
+.nav-links a{color:var(--text-dim);transition:color 0.2s;font-weight:500}.nav-links a:hover{color:#fff}
+.main{max-width:1100px;margin:0 auto;padding:2rem 1.5rem}
+.hero{text-align:center;padding:1.5rem 0 2rem}
+.badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;background:linear-gradient(135deg,rgba(255,95,31,0.15),rgba(255,159,31,0.15));border:1px solid var(--border);border-radius:100px;font-size:11px;font-weight:800;color:var(--accent2);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:1rem}
+.hero h1{font-size:2.2rem;font-weight:800;margin-bottom:0.5rem}
+.hero h1 .grad{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero p{color:var(--text-dim);max-width:600px;margin:0 auto}
+.section{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:2rem;margin-bottom:1.5rem;backdrop-filter:blur(10px);position:relative;overflow:hidden}
+.section::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent2),var(--accent))}
+.section h2{font-size:1.15rem;font-weight:700;margin-bottom:1rem}
+label{font-size:0.8rem;color:var(--text-dim);font-weight:600;display:block;margin-bottom:0.3rem}
+input,select,textarea{width:100%;padding:0.65rem 0.8rem;background:rgba(10,10,15,0.6);border:1px solid rgba(255,95,31,0.12);border-radius:8px;color:var(--text);font-size:0.85rem;font-family:var(--font);outline:none;transition:border-color 0.2s}
+input:focus,select:focus{border-color:var(--accent)}
+.form-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.8rem}
+.form-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem}
+.form-grid-4{display:grid;grid-template-columns:1fr 120px 1fr 1fr auto;gap:0.8rem;align-items:end}
+.form-group{margin-bottom:0.8rem}
+.btn{padding:0.65rem 1.5rem;border:none;border-radius:8px;font-size:0.85rem;font-weight:700;cursor:pointer;transition:all 0.2s;font-family:var(--font)}
+.btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#000}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 4px 20px rgba(255,95,31,0.3)}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--text-dim)}
+.btn-outline:hover{border-color:var(--accent);color:var(--accent)}
+.btn-sm{padding:0.4rem 0.8rem;font-size:0.78rem}
+.btn-danger{background:rgba(248,81,73,0.15);border:1px solid rgba(248,81,73,0.3);color:var(--red);padding:0.65rem 1rem}
+.btn-danger:hover{background:rgba(248,81,73,0.25)}
+.btn-row{display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:0.8rem}
+.toggle-wrap{display:flex;align-items:center;gap:0.5rem;padding-bottom:0.3rem}
+.toggle{position:relative;width:40px;height:22px;cursor:pointer}
+.toggle input{opacity:0;width:0;height:0}
+.toggle-slider{position:absolute;inset:0;background:rgba(255,95,31,0.15);border-radius:22px;transition:background 0.2s}
+.toggle-slider::before{content:'';position:absolute;width:16px;height:16px;left:3px;bottom:3px;background:#8a8a9a;border-radius:50%;transition:all 0.2s}
+.toggle input:checked+.toggle-slider{background:rgba(57,211,83,0.3)}
+.toggle input:checked+.toggle-slider::before{transform:translateX(18px);background:var(--green)}
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1rem;margin-bottom:1.5rem}
+.summary-card{background:rgba(10,10,15,0.5);border:1px solid rgba(255,95,31,0.1);border-radius:12px;padding:1.2rem;text-align:center}
+.summary-card .lbl{font-size:0.7rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px;margin-bottom:0.3rem}
+.summary-card .val{font-size:1.4rem;font-weight:800}
+.summary-card .val.green{color:var(--green)}.summary-card .val.orange{color:var(--accent2)}.summary-card .val.red{color:var(--red)}.summary-card .val.blue{color:var(--blue)}
+.view-tabs{display:flex;gap:0.4rem;margin-bottom:1rem;flex-wrap:wrap}
+.view-tab{padding:0.45rem 1rem;border:1px solid rgba(255,95,31,0.12);border-radius:8px;background:transparent;color:var(--text-dim);font-size:0.8rem;font-weight:600;cursor:pointer;font-family:var(--font)}
+.view-tab.active{background:rgba(255,95,31,0.12);border-color:var(--accent);color:var(--accent2)}
+.expense-list{display:flex;flex-direction:column;gap:0.4rem;max-height:450px;overflow-y:auto;margin-top:0.5rem}
+.expense-item{display:grid;grid-template-columns:auto 90px 1fr 90px auto auto;gap:0.7rem;align-items:center;padding:0.6rem 0.8rem;background:rgba(10,10,15,0.4);border:1px solid rgba(255,95,31,0.06);border-radius:8px;font-size:0.82rem}
+.expense-item:hover{border-color:var(--border)}
+.cat-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.exp-date{font-size:0.75rem;color:var(--text-dim)}
+.exp-desc{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.exp-amount{font-weight:800;color:var(--accent2);text-align:right}
+.exp-cat{font-size:0.72rem;color:var(--text-dim);background:rgba(255,95,31,0.06);padding:2px 8px;border-radius:4px;text-align:center;white-space:nowrap}
+.exp-del{background:none;border:none;color:var(--text-dim);cursor:pointer;font-size:0.9rem;padding:2px 6px;border-radius:4px}
+.exp-del:hover{color:var(--red);background:rgba(248,81,73,0.1)}
+.tax-badge{display:inline-block;font-size:0.65rem;padding:1px 6px;border-radius:4px;background:rgba(57,211,83,0.12);color:var(--green);font-weight:700}
+.chart-wrap{margin:1rem 0}
+.chart-wrap h3{font-size:0.9rem;color:var(--accent2);margin-bottom:0.8rem}
+.budget-table{width:100%;border-collapse:collapse;font-size:0.82rem}
+.budget-table th{text-align:left;padding:8px 10px;border-bottom:2px solid rgba(255,95,31,0.15);color:var(--accent2);font-size:0.75rem;text-transform:uppercase;letter-spacing:0.5px}
+.budget-table td{padding:8px 10px;border-bottom:1px solid rgba(255,95,31,0.06)}
+.budget-bar{height:8px;background:rgba(255,95,31,0.08);border-radius:4px;overflow:hidden;width:100%}
+.budget-fill{height:100%;border-radius:4px;transition:width 0.4s}
+.deduction-card{padding:0.8rem 1rem;background:rgba(57,211,83,0.05);border:1px solid rgba(57,211,83,0.15);border-radius:8px;margin-bottom:0.6rem;font-size:0.82rem}
+.deduction-card h4{color:var(--green);font-size:0.85rem;margin-bottom:0.3rem}
+.deduction-card p{color:var(--text-dim);line-height:1.5}
+.empty-state{text-align:center;padding:2rem;color:var(--text-dim);font-size:0.85rem}
+.toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:rgba(255,95,31,0.95);color:#000;padding:0.6rem 1.5rem;border-radius:100px;font-size:0.85rem;font-weight:700;z-index:9999;pointer-events:none;opacity:1;transition:opacity 0.4s}
+.network-footer{text-align:center;padding:2rem 0;font-size:0.8rem;color:var(--text-dim);border-top:1px solid rgba(255,95,31,0.1);margin-top:2rem}
+.network-footer a{color:var(--text-dim);margin:0 0.5rem;transition:color 0.2s}.network-footer a:hover{color:var(--accent2)}
+.cta-banner{background:linear-gradient(135deg,rgba(255,95,31,0.1),rgba(255,159,31,0.1));border:1px solid var(--border);border-radius:12px;padding:1.5rem;text-align:center;margin:1.5rem 0}
+.cta-banner h3{font-size:1rem;margin-bottom:0.5rem}
+.cta-banner p{color:var(--text-dim);font-size:0.85rem;margin-bottom:0.8rem}
+@media(max-width:768px){
+.form-grid{grid-template-columns:1fr}.form-grid-2{grid-template-columns:1fr}.form-grid-4{grid-template-columns:1fr 1fr}.nav{padding:0.8rem 1rem}.nav-links{gap:0.8rem;font-size:0.78rem}.hero h1{font-size:1.6rem}.expense-item{grid-template-columns:auto 1fr auto auto;gap:0.5rem}.exp-date,.exp-cat{display:none}.summary-grid{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+<div class="bg-mesh"></div>
+<div class="bg-grid"></div>
+<nav class="nav">
+<a href="/exclusive/" class="nav-brand">SPUNK.CODES</a>
+<ul class="nav-links">
+<li><a href="/exclusive/">All Tools</a></li>
+<li><a href="/">Home</a></li>
+</ul>
+</nav>
+<div class="main">
+<div class="hero">
+<div class="badge">Exclusive Tool</div>
+<h1><span class="grad">Business Expense</span> Tracker</h1>
+<p>Track expenses by category, discover tax deductions, compare budget vs actual, and export everything to CSV. All data saved locally in your browser.</p>
+</div>
+
+<!-- Add Expense -->
+<div class="section">
+<h2>Add Expense</h2>
+<div class="form-grid-4">
+<div class="form-group"><label>Date</label><input type="date" id="expDate"></div>
+<div class="form-group"><label>Amount $</label><input type="number" id="expAmount" step="0.01" min="0" placeholder="0.00"></div>
+<div class="form-group"><label>Category</label>
+<select id="expCategory">
+<option value="Office">Office</option>
+<option value="Travel">Travel</option>
+<option value="Marketing">Marketing</option>
+<option value="Software">Software</option>
+<option value="Equipment">Equipment</option>
+<option value="Meals">Meals</option>
+<option value="Insurance">Insurance</option>
+<option value="Professional Services">Professional Services</option>
+</select>
+</div>
+<div class="form-group"><label>Description</label><input type="text" id="expDesc" placeholder="Brief description"></div>
+<div class="form-group">
+<label>&nbsp;</label>
+<div class="toggle-wrap">
+<label class="toggle"><input type="checkbox" id="expTaxDeduct" checked><span class="toggle-slider"></span></label>
+<span style="font-size:0.75rem;color:var(--text-dim)">Tax deductible</span>
+</div>
+</div>
+</div>
+<div class="btn-row">
+<button class="btn btn-primary" onclick="addExpense()">Add Expense</button>
+<button class="btn btn-outline" onclick="clearForm()">Clear</button>
+</div>
+</div>
+
+<!-- Summary -->
+<div class="section">
+<h2>Summary</h2>
+<div class="view-tabs">
+<button class="view-tab active" onclick="setView('monthly')">Monthly</button>
+<button class="view-tab" onclick="setView('quarterly')">Quarterly</button>
+<button class="view-tab" onclick="setView('yearly')">Yearly</button>
+</div>
+<div class="summary-grid" id="summaryGrid"></div>
+</div>
+
+<!-- Chart -->
+<div class="section">
+<div class="chart-wrap"><h3>Spending by Category</h3><canvas id="barChart" width="800" height="320"></canvas></div>
+</div>
+
+<!-- Budget vs Actual -->
+<div class="section">
+<h2>Budget vs Actual</h2>
+<p style="color:var(--text-dim);font-size:0.82rem;margin-bottom:1rem">Set monthly budgets per category. Leave blank to skip.</p>
+<div class="form-grid-4" style="margin-bottom:1rem">
+<div class="form-group"><label>Category</label>
+<select id="budgetCat">
+<option value="Office">Office</option>
+<option value="Travel">Travel</option>
+<option value="Marketing">Marketing</option>
+<option value="Software">Software</option>
+<option value="Equipment">Equipment</option>
+<option value="Meals">Meals</option>
+<option value="Insurance">Insurance</option>
+<option value="Professional Services">Professional Services</option>
+</select>
+</div>
+<div class="form-group"><label>Monthly Budget $</label><input type="number" id="budgetAmount" step="1" min="0" placeholder="500"></div>
+<div class="form-group"><label>&nbsp;</label><button class="btn btn-primary btn-sm" onclick="setBudget()">Set Budget</button></div>
+</div>
+<div id="budgetTable"></div>
+</div>
+
+<!-- Tax Deductions -->
+<div class="section">
+<h2>Tax Deduction Suggestions</h2>
+<div id="deductionsList"></div>
+</div>
+
+<!-- Expense List -->
+<div class="section">
+<h2>All Expenses</h2>
+<div class="btn-row" style="margin-bottom:0.8rem;margin-top:0">
+<button class="btn btn-outline btn-sm" onclick="exportCSV()">Export CSV</button>
+<button class="btn btn-danger btn-sm" onclick="clearAll()">Clear All Data</button>
+</div>
+<div class="expense-list" id="expenseList"></div>
+</div>
+
+<!-- CTA -->
+<div class="cta-banner">
+<h3>Explore More Exclusive Tools</h3>
+<p>Profit calculators, social proof generators, SEO auditors, and 100+ premium tools.</p>
+<a href="/exclusive/" class="btn btn-primary">Browse All Tools</a>
+</div>
+
+<!-- Network Footer -->
+<div class="network-footer">
+<p>Part of the Spunk Network</p>
+<p style="margin-top:8px">
+<a href="https://spunk.codes">spunk.codes</a> |
+<a href="https://spunk.bet">spunk.bet</a> |
+<a href="https://spunk.work">spunk.work</a> |
+<a href="https://spunk.pics">spunk.pics</a>
+</p>
+<p style="margin-top:8px;font-size:0.7rem">&copy; 2026 Spunk Codes. All rights reserved.</p>
+</div>
+</div>
+
+<script>
+var STORAGE_KEY = 'bet_expenses_v2';
+var BUDGET_KEY = 'bet_budgets_v2';
+var CATEGORIES = ['Office','Travel','Marketing','Software','Equipment','Meals','Insurance','Professional Services'];
+var CAT_COLORS = {'Office':'#58a6ff','Travel':'#ff5f1f','Marketing':'#ff9f1f','Software':'#a371f7','Equipment':'#39d353','Meals':'#f778ba','Insurance':'#3fb950','Professional Services':'#d2a8ff'};
+var currentView = 'monthly';
+
+var expenses = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+var budgets = JSON.parse(localStorage.getItem(BUDGET_KEY) || '{}');
+
+function save() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(expenses));
+  localStorage.setItem(BUDGET_KEY, JSON.stringify(budgets));
+}
+
+function esc(s) { var d = document.createElement('div'); d.appendChild(document.createTextNode(s)); return d.innerHTML; }
+function fmt(n) { return n.toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2}); }
+
+function addExpense() {
+  var date = document.getElementById('expDate').value;
+  var amount = parseFloat(document.getElementById('expAmount').value);
+  var category = document.getElementById('expCategory').value;
+  var desc = document.getElementById('expDesc').value.trim();
+  var taxDeduct = document.getElementById('expTaxDeduct').checked;
+
+  if (!date) { showToast('Please select a date'); return; }
+  if (!amount || amount <= 0) { showToast('Please enter a valid amount'); return; }
+
+  expenses.push({
+    id: Date.now(),
+    date: date,
+    amount: amount,
+    category: category,
+    description: desc,
+    taxDeductible: taxDeduct
+  });
+  save();
+  refresh();
+  document.getElementById('expAmount').value = '';
+  document.getElementById('expDesc').value = '';
+  showToast('Expense added: $' + fmt(amount));
+}
+
+function deleteExpense(id) {
+  expenses = expenses.filter(function(e) { return e.id !== id; });
+  save();
+  refresh();
+}
+
+function clearForm() {
+  document.getElementById('expAmount').value = '';
+  document.getElementById('expDesc').value = '';
+}
+
+function setView(v) {
+  currentView = v;
+  document.querySelectorAll('.view-tab').forEach(function(t,i) {
+    t.classList.toggle('active', ['monthly','quarterly','yearly'][i] === v);
+  });
+  refresh();
+}
+
+function getFilteredExpenses() {
+  var now = new Date();
+  var year = now.getFullYear();
+  var month = now.getMonth();
+  return expenses.filter(function(e) {
+    var d = new Date(e.date);
+    if (currentView === 'monthly') return d.getFullYear() === year && d.getMonth() === month;
+    if (currentView === 'quarterly') {
+      var q = Math.floor(month / 3);
+      var eq = Math.floor(d.getMonth() / 3);
+      return d.getFullYear() === year && eq === q;
+    }
+    return d.getFullYear() === year;
+  });
+}
+
+function updateSummary() {
+  var filtered = getFilteredExpenses();
+  var total = 0, taxDeductTotal = 0, catTotals = {};
+  CATEGORIES.forEach(function(c) { catTotals[c] = 0; });
+  filtered.forEach(function(e) {
+    total += e.amount;
+    if (e.taxDeductible) taxDeductTotal += e.amount;
+    catTotals[e.category] = (catTotals[e.category] || 0) + e.amount;
+  });
+
+  var topCat = '';
+  var topVal = 0;
+  CATEGORIES.forEach(function(c) {
+    if (catTotals[c] > topVal) { topVal = catTotals[c]; topCat = c; }
+  });
+
+  var periodLabel = currentView === 'monthly' ? 'This Month' : currentView === 'quarterly' ? 'This Quarter' : 'This Year';
+  var html = '';
+  html += '<div class="summary-card"><div class="lbl">'+periodLabel+' Total</div><div class="val orange">$'+fmt(total)+'</div></div>';
+  html += '<div class="summary-card"><div class="lbl">Tax Deductible</div><div class="val green">$'+fmt(taxDeductTotal)+'</div></div>';
+  html += '<div class="summary-card"><div class="lbl">Non-Deductible</div><div class="val red">$'+fmt(total - taxDeductTotal)+'</div></div>';
+  html += '<div class="summary-card"><div class="lbl">Transactions</div><div class="val blue">'+filtered.length+'</div></div>';
+  html += '<div class="summary-card"><div class="lbl">Top Category</div><div class="val" style="font-size:1rem">'+(topCat||'N/A')+'</div></div>';
+  html += '<div class="summary-card"><div class="lbl">Avg per Transaction</div><div class="val orange">$'+fmt(filtered.length > 0 ? total / filtered.length : 0)+'</div></div>';
+  document.getElementById('summaryGrid').innerHTML = html;
+}
+
+function renderExpenses() {
+  var filtered = getFilteredExpenses().sort(function(a,b) { return b.date.localeCompare(a.date) || b.id - a.id; });
+  if (!filtered.length) {
+    document.getElementById('expenseList').innerHTML = '<div class="empty-state">No expenses for this period. Add your first expense above.</div>';
+    return;
+  }
+  var html = '';
+  filtered.forEach(function(e) {
+    html += '<div class="expense-item">';
+    html += '<div class="cat-dot" style="background:'+CAT_COLORS[e.category]+'"></div>';
+    html += '<div class="exp-date">'+e.date+'</div>';
+    html += '<div class="exp-desc">'+esc(e.description || e.category)+(e.taxDeductible ? ' <span class="tax-badge">TAX</span>' : '')+'</div>';
+    html += '<div class="exp-cat">'+e.category+'</div>';
+    html += '<div class="exp-amount">$'+fmt(e.amount)+'</div>';
+    html += '<button class="exp-del" onclick="deleteExpense('+e.id+')" title="Delete">&times;</button>';
+    html += '</div>';
+  });
+  document.getElementById('expenseList').innerHTML = html;
+}
+
+function drawBarChart() {
+  var canvas = document.getElementById('barChart');
+  var ctx = canvas.getContext('2d');
+  var dpr = window.devicePixelRatio || 1;
+  canvas.width = canvas.offsetWidth * dpr;
+  canvas.height = 320 * dpr;
+  ctx.scale(dpr, dpr);
+  var W = canvas.offsetWidth;
+  var H = 320;
+  ctx.clearRect(0,0,W,H);
+
+  var filtered = getFilteredExpenses();
+  var catTotals = {};
+  CATEGORIES.forEach(function(c) { catTotals[c] = 0; });
+  filtered.forEach(function(e) { catTotals[e.category] = (catTotals[e.category] || 0) + e.amount; });
+
+  var activeCats = CATEGORIES.filter(function(c) { return catTotals[c] > 0; });
+  if (!activeCats.length) {
+    ctx.fillStyle = '#8a8a9a';
+    ctx.font = '14px system-ui';
+    ctx.textAlign = 'center';
+    ctx.fillText('No expenses to chart', W/2, H/2);
+    return;
+  }
+
+  var maxVal = Math.max.apply(null, activeCats.map(function(c){return catTotals[c];}));
+  var leftPad = 60;
+  var rightPad = 20;
+  var topPad = 20;
+  var botPad = 80;
+  var chartW = W - leftPad - rightPad;
+  var chartH = H - topPad - botPad;
+  var barW = Math.min(50, (chartW / activeCats.length) * 0.6);
+  var gap = (chartW - barW * activeCats.length) / (activeCats.length + 1);
+
+  // Y axis
+  ctx.strokeStyle = 'rgba(255,95,31,0.1)';
+  ctx.lineWidth = 1;
+  ctx.fillStyle = '#8a8a9a';
+  ctx.font = '11px system-ui';
+  ctx.textAlign = 'right';
+  for (var i = 0; i <= 4; i++) {
+    var y = topPad + chartH - (chartH * i / 4);
+    ctx.beginPath();
+    ctx.moveTo(leftPad, y);
+    ctx.lineTo(W - rightPad, y);
+    ctx.stroke();
+    ctx.fillText('$' + Math.round(maxVal * i / 4).toLocaleString(), leftPad - 8, y + 4);
+  }
+
+  // Bars
+  activeCats.forEach(function(cat, idx) {
+    var x = leftPad + gap + idx * (barW + gap);
+    var barH = (catTotals[cat] / maxVal) * chartH;
+    var y = topPad + chartH - barH;
+    var color = CAT_COLORS[cat] || '#ff5f1f';
+
+    // Bar
+    ctx.fillStyle = color;
+    ctx.beginPath();
+    var r = Math.min(4, barW/4);
+    ctx.moveTo(x, y + r);
+    ctx.arcTo(x, y, x + r, y, r);
+    ctx.arcTo(x + barW, y, x + barW, y + r, r);
+    ctx.lineTo(x + barW, topPad + chartH);
+    ctx.lineTo(x, topPad + chartH);
+    ctx.closePath();
+    ctx.fill();
+
+    // Value on top
+    ctx.fillStyle = '#e8e8f0';
+    ctx.font = 'bold 11px system-ui';
+    ctx.textAlign = 'center';
+    ctx.fillText('$' + Math.round(catTotals[cat]).toLocaleString(), x + barW/2, y - 6);
+
+    // Label
+    ctx.save();
+    ctx.translate(x + barW/2, topPad + chartH + 12);
+    ctx.rotate(-0.5);
+    ctx.fillStyle = '#8a8a9a';
+    ctx.font = '10px system-ui';
+    ctx.textAlign = 'left';
+    ctx.fillText(cat, 0, 0);
+    ctx.restore();
+  });
+}
+
+function setBudget() {
+  var cat = document.getElementById('budgetCat').value;
+  var amount = parseFloat(document.getElementById('budgetAmount').value);
+  if (!amount || amount <= 0) { showToast('Enter a valid budget amount'); return; }
+  budgets[cat] = amount;
+  save();
+  renderBudgetTable();
+  showToast('Budget set: ' + cat + ' = $' + fmt(amount));
+}
+
+function renderBudgetTable() {
+  var filtered = getFilteredExpenses();
+  var catTotals = {};
+  CATEGORIES.forEach(function(c) { catTotals[c] = 0; });
+  filtered.forEach(function(e) { catTotals[e.category] = (catTotals[e.category] || 0) + e.amount; });
+
+  var hasBudgets = Object.keys(budgets).length > 0;
+  if (!hasBudgets) {
+    document.getElementById('budgetTable').innerHTML = '<div class="empty-state">No budgets set yet. Set a monthly budget above.</div>';
+    return;
+  }
+
+  var multiplier = currentView === 'quarterly' ? 3 : currentView === 'yearly' ? 12 : 1;
+  var html = '<table class="budget-table"><thead><tr><th>Category</th><th>Budget</th><th>Actual</th><th>Remaining</th><th>Progress</th></tr></thead><tbody>';
+  CATEGORIES.forEach(function(cat) {
+    if (!budgets[cat]) return;
+    var budget = budgets[cat] * multiplier;
+    var actual = catTotals[cat] || 0;
+    var remaining = budget - actual;
+    var pct = Math.min(100, (actual / budget) * 100);
+    var color = pct > 100 ? 'var(--red)' : pct > 80 ? 'var(--accent2)' : 'var(--green)';
+
+    html += '<tr>';
+    html += '<td style="font-weight:600"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:'+CAT_COLORS[cat]+';margin-right:6px"></span>'+cat+'</td>';
+    html += '<td>$'+fmt(budget)+'</td>';
+    html += '<td style="font-weight:700;color:'+(actual>budget?'var(--red)':'var(--text)')+'">$'+fmt(actual)+'</td>';
+    html += '<td style="color:'+(remaining<0?'var(--red)':'var(--green)')+'">$'+fmt(remaining)+'</td>';
+    html += '<td style="width:120px"><div class="budget-bar"><div class="budget-fill" style="width:'+Math.min(100,pct)+'%;background:'+color+'"></div></div></td>';
+    html += '</tr>';
+  });
+  html += '</tbody></table>';
+  document.getElementById('budgetTable').innerHTML = html;
+}
+
+function renderDeductions() {
+  var filtered = getFilteredExpenses();
+  var catTotals = {};
+  var catDeductible = {};
+  CATEGORIES.forEach(function(c) { catTotals[c] = 0; catDeductible[c] = 0; });
+  filtered.forEach(function(e) {
+    catTotals[e.category] = (catTotals[e.category] || 0) + e.amount;
+    if (e.taxDeductible) catDeductible[e.category] = (catDeductible[e.category] || 0) + e.amount;
+  });
+
+  var tips = {
+    'Office': 'Office supplies, furniture, and rental expenses are generally 100% deductible. Consider tracking home office square footage for the home office deduction (up to $1,500/year simplified method).',
+    'Travel': 'Business travel including airfare, lodging, and ground transportation is deductible. Keep all receipts. Mileage can be deducted at the IRS standard rate ($0.70/mile for 2026). Commuting costs are NOT deductible.',
+    'Marketing': 'Advertising and marketing costs are fully deductible in the year they are incurred. This includes digital ads, print ads, business cards, website costs, and promotional materials.',
+    'Software': 'Software subscriptions and SaaS tools used for business are 100% deductible. If you purchase software outright, it may need to be amortized over 3 years (Section 167).',
+    'Equipment': 'Business equipment may qualify for Section 179 immediate expensing (up to $1,220,000 in 2026) or bonus depreciation. Keep records of business vs personal use percentage.',
+    'Meals': 'Business meals are 50% deductible when directly related to business. Document who attended, the business purpose, and keep the receipt. Client entertainment may have different rules.',
+    'Insurance': 'Business insurance premiums (liability, property, professional) are fully deductible. Health insurance premiums may be deductible for self-employed individuals on Form 1040.',
+    'Professional Services': 'Legal fees, accounting services, consulting, and professional development are fully deductible. This includes tax preparation fees for business returns.'
+  };
+
+  var html = '';
+  var totalDeductible = 0;
+  CATEGORIES.forEach(function(cat) {
+    if (catTotals[cat] > 0) {
+      totalDeductible += catDeductible[cat];
+      html += '<div class="deduction-card">';
+      html += '<h4>'+cat+' - $'+fmt(catDeductible[cat])+' deductible of $'+fmt(catTotals[cat])+' total</h4>';
+      html += '<p>'+tips[cat]+'</p>';
+      if (catTotals[cat] > catDeductible[cat]) {
+        html += '<p style="color:var(--accent2);margin-top:0.4rem;font-weight:600">$'+fmt(catTotals[cat] - catDeductible[cat])+' marked as non-deductible. Review these to see if any qualify.</p>';
+      }
+      html += '</div>';
+    }
+  });
+
+  if (!html) html = '<div class="empty-state">Add expenses to see tax deduction suggestions.</div>';
+  else html = '<div class="deduction-card" style="background:rgba(255,95,31,0.05);border-color:var(--border)"><h4 style="color:var(--accent2)">Total Estimated Deductions: $'+fmt(totalDeductible)+'</h4><p>Consult a tax professional to confirm eligibility. These are general guidelines only.</p></div>' + html;
+
+  document.getElementById('deductionsList').innerHTML = html;
+}
+
+function exportCSV() {
+  if (!expenses.length) { showToast('No expenses to export'); return; }
+  var csv = 'Date,Category,Amount,Description,Tax Deductible\n';
+  expenses.sort(function(a,b){return a.date.localeCompare(b.date);}).forEach(function(e) {
+    csv += e.date+',"'+e.category+'",'+e.amount.toFixed(2)+',"'+(e.description||'').replace(/"/g,'""')+'",'+(e.taxDeductible?'Yes':'No')+'\n';
+  });
+  var blob = new Blob([csv], {type:'text/csv'});
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'business-expenses-'+new Date().toISOString().split('T')[0]+'.csv';
+  a.click();
+  showToast('CSV exported!');
+}
+
+function clearAll() {
+  if (confirm('Delete ALL expenses and budgets? This cannot be undone.')) {
+    expenses = [];
+    budgets = {};
+    save();
+    refresh();
+    showToast('All data cleared');
+  }
+}
+
+function refresh() {
+  updateSummary();
+  renderExpenses();
+  drawBarChart();
+  renderBudgetTable();
+  renderDeductions();
+}
+
+function showToast(msg) {
+  var t = document.createElement('div');
+  t.textContent = msg;
+  t.className = 'toast';
+  document.body.appendChild(t);
+  setTimeout(function() { t.style.opacity = '0'; setTimeout(function() { t.remove(); }, 400); }, 1800);
+}
+
+// Init
+document.getElementById('expDate').value = new Date().toISOString().split('T')[0];
+refresh();
+window.addEventListener('resize', function() { drawBarChart(); });
+</script>
+<!-- GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<!-- Clarity -->
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<!-- Heartbeat -->
+<script src="https://spunk.codes/heartbeat.js" defer></script>
+<script src="/exclusive/pro-gate.js"></script>
+<script src="/auto-monetize.js"></script>
+<script src="/usage-tracker.js"></script>
+</body>
+</html>
