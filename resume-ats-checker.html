@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Copyright 2026 spunk.codes. All rights reserved. Unauthorized reproduction prohibited. hello@spunk.codes -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Resume ATS Score Checker — Free Keyword Matching & Optimization Tool</title>
+<meta name="description" content="Check your resume against any job description. Get an ATS score, find missing keywords, check formatting, and get improvement suggestions. 100% free by SPUNK.CODES">
+<meta property="og:title" content="Resume ATS Score Checker — Free Tool">
+<meta property="og:description" content="Score your resume 0-100 against any job description. Find missing keywords, format issues, and get tips.">
+<meta property="og:url" content="https://spunk.codes/resume-ats-checker.html">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Resume ATS Score Checker">
+<meta name="twitter:description" content="Free ATS resume checker. Score 0-100, find missing keywords, format tips. By SPUNK.CODES">
+<link rel="canonical" href="https://spunk.codes/resume-ats-checker.html">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Resume ATS Score Checker","description":"Check your resume against job descriptions for keyword matching, format issues, and ATS optimization.","url":"https://spunk.codes/resume-ats-checker.html","applicationCategory":"BusinessApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Organization","name":"SpunkArt","url":"https://spunk.codes"}}</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#0d1117;color:#e6edf3;min-height:100vh;display:flex;flex-direction:column;line-height:1.6}
+a{color:#58a6ff;text-decoration:none}a:hover{text-decoration:underline}
+nav{background:#161b22;border-bottom:1px solid #30363d;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+nav .logo{font-weight:800;font-size:1.1rem;color:#ff5f1f;letter-spacing:1px}
+nav .links{display:flex;gap:20px;font-size:0.9rem}
+nav .links a{color:#8b949e}nav .links a:hover{color:#58a6ff}
+main{flex:1;display:flex;justify-content:center;padding:2rem 1rem}
+.container{max-width:900px;width:100%}
+h1{font-size:2rem;text-align:center;margin-bottom:0.3rem;background:linear-gradient(135deg,#58a6ff,#39d353);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.sub{text-align:center;color:#8b949e;margin-bottom:2rem;font-size:0.95rem}
+.card{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:1.5rem;margin-bottom:1.5rem}
+.card h2{font-size:1.1rem;color:#58a6ff;margin-bottom:1rem}
+.input-cols{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+textarea{background:#0d1117;border:1px solid #30363d;color:#e6edf3;padding:14px;border-radius:8px;font-size:0.9rem;width:100%;min-height:250px;resize:vertical;font-family:inherit;line-height:1.5}
+textarea:focus{outline:none;border-color:#58a6ff}
+textarea::placeholder{color:#484f58}
+.btn{display:inline-block;padding:14px 32px;background:#58a6ff;color:#0d1117;border:none;border-radius:10px;font-size:1.1rem;font-weight:700;cursor:pointer;transition:all .2s;width:100%;text-align:center;margin-top:8px}
+.btn:hover{background:#79c0ff;transform:scale(1.02)}
+.btn.sm{padding:8px 16px;font-size:0.85rem;width:auto}
+.btn.green{background:#39d353}
+.btn.purple{background:#bc8cff}
+.btn.outline{background:transparent;color:#58a6ff;border:1px solid #58a6ff}
+.results{display:none}
+.score-circle{width:160px;height:160px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;position:relative}
+.score-circle .score-num{font-size:3rem;font-weight:800;font-family:'Courier New',monospace}
+.score-circle .score-label{font-size:0.8rem;color:#8b949e;position:absolute;bottom:-4px}
+.score-circle svg{position:absolute;top:0;left:0;width:100%;height:100%;transform:rotate(-90deg)}
+.score-circle circle{fill:none;stroke-width:8;stroke-linecap:round}
+.score-circle .bg{stroke:#21262d}
+.score-circle .fill{transition:stroke-dashoffset 1s ease}
+.grade-badge{display:inline-block;padding:4px 14px;border-radius:20px;font-weight:700;font-size:0.9rem;margin-left:8px}
+.section-scores{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin:1.5rem 0}
+.section-score{background:#0d1117;border:1px solid #30363d;border-radius:8px;padding:14px}
+.section-score .ss-name{font-size:0.8rem;color:#8b949e;margin-bottom:4px}
+.section-score .ss-bar{height:6px;background:#21262d;border-radius:3px;overflow:hidden;margin-bottom:4px}
+.section-score .ss-fill{height:100%;border-radius:3px;transition:width 0.5s}
+.section-score .ss-val{font-size:0.85rem;font-weight:700}
+.keyword-section{margin-bottom:1.5rem}
+.keyword-section h3{font-size:0.95rem;margin-bottom:8px}
+.keyword-tags{display:flex;flex-wrap:wrap;gap:6px}
+.keyword-tag{padding:4px 10px;border-radius:4px;font-size:0.8rem;font-weight:600}
+.keyword-tag.matched{background:rgba(57,211,83,0.15);color:#39d353;border:1px solid rgba(57,211,83,0.3)}
+.keyword-tag.missing{background:rgba(248,81,73,0.15);color:#f85149;border:1px solid rgba(248,81,73,0.3)}
+.suggestion{background:#0d1117;border:1px solid #30363d;border-radius:8px;padding:12px;margin-bottom:8px;display:flex;gap:10px;align-items:flex-start}
+.suggestion .icon{font-size:1.2rem;min-width:24px;text-align:center}
+.suggestion .text{font-size:0.85rem}
+.suggestion .text strong{color:#58a6ff}
+.suggestion.critical{border-color:#f85149}
+.suggestion.warning{border-color:#f0883e}
+.suggestion.good{border-color:#39d353}
+.format-check{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px;margin:1rem 0}
+.format-item{display:flex;align-items:center;gap:8px;padding:8px 12px;background:#0d1117;border:1px solid #30363d;border-radius:6px;font-size:0.85rem}
+.format-item .check{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:700}
+.format-item .check.pass{background:rgba(57,211,83,0.2);color:#39d353}
+.format-item .check.fail{background:rgba(248,81,73,0.2);color:#f85149}
+.format-item .check.warn{background:rgba(240,136,62,0.2);color:#f0883e}
+.export-box{background:#0d1117;border:1px solid #30363d;border-radius:8px;padding:14px;margin-top:1rem}
+.export-box textarea{min-height:200px;font-family:'Courier New',monospace;font-size:0.8rem}
+.stats-row{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin:1rem 0}
+.mini-stat{text-align:center;padding:10px 20px;background:#0d1117;border:1px solid #30363d;border-radius:8px}
+.mini-stat .val{font-size:1.5rem;font-weight:800;font-family:'Courier New',monospace}
+.mini-stat .val.green{color:#39d353}.mini-stat .val.red{color:#f85149}.mini-stat .val.blue{color:#58a6ff}.mini-stat .val.purple{color:#bc8cff}
+.mini-stat .lbl{font-size:0.7rem;color:#8b949e;text-transform:uppercase;letter-spacing:1px}
+footer{background:#161b22;border-top:1px solid #30363d;padding:16px 24px;text-align:center;font-size:0.8rem;color:#484f58}
+@media(max-width:700px){.input-cols{grid-template-columns:1fr}h1{font-size:1.5rem}.section-scores{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="logo">SPUNK.CODES</a>
+  <div class="links">
+    <a href="/store">Store</a>
+    <a href="/store#free-tools">Free Tools</a>
+    <a href="/reseller" style="color:#39d353;font-weight:700">Resell $$</a>
+    <a href="/blog">Blog</a>
+  </div>
+</nav>
+<main>
+<div class="container">
+  <h1>Resume ATS Score Checker</h1>
+  <div class="sub">Paste your resume & job description — get scored 0-100 with actionable improvements</div>
+
+  <div class="card">
+    <div class="input-cols">
+      <div>
+        <h2 style="color:#39d353">Your Resume</h2>
+        <textarea id="resumeText" placeholder="Paste your full resume text here...&#10;&#10;Example:&#10;John Doe&#10;Software Engineer&#10;john@email.com | (555) 123-4567&#10;&#10;SUMMARY&#10;Experienced software engineer with 5+ years...&#10;&#10;EXPERIENCE&#10;Senior Developer — Tech Corp (2021-Present)&#10;• Led team of 8 engineers...&#10;&#10;EDUCATION&#10;B.S. Computer Science — MIT (2019)&#10;&#10;SKILLS&#10;Python, JavaScript, React, AWS..."></textarea>
+      </div>
+      <div>
+        <h2 style="color:#58a6ff">Job Description</h2>
+        <textarea id="jobText" placeholder="Paste the job description here...&#10;&#10;Example:&#10;We are looking for a Senior Software Engineer to join our team...&#10;&#10;Requirements:&#10;• 5+ years of experience&#10;• Proficiency in Python and JavaScript&#10;• Experience with AWS cloud services&#10;• Strong communication skills&#10;&#10;Nice to have:&#10;• React or Vue experience&#10;• CI/CD pipeline experience"></textarea>
+      </div>
+    </div>
+    <button class="btn" onclick="analyzeResume()">Analyze My Resume</button>
+  </div>
+
+  <div class="results" id="results">
+    <div class="card" style="text-align:center">
+      <h2>Your ATS Score</h2>
+      <div class="score-circle" id="scoreCircle">
+        <svg viewBox="0 0 160 160"><circle class="bg" cx="80" cy="80" r="70"/><circle class="fill" id="scoreFill" cx="80" cy="80" r="70" stroke-dasharray="440" stroke-dashoffset="440"/></svg>
+        <div><div class="score-num" id="scoreNum">0</div></div>
+      </div>
+      <div id="scoreGrade" style="font-size:1.1rem;margin-top:8px"></div>
+    </div>
+
+    <div class="stats-row" id="statsRow"></div>
+
+    <div class="card">
+      <h2>Section Scores</h2>
+      <div class="section-scores" id="sectionScores"></div>
+    </div>
+
+    <div class="card">
+      <h2>Keyword Analysis</h2>
+      <div class="keyword-section">
+        <h3 style="color:#39d353">Matched Keywords</h3>
+        <div class="keyword-tags" id="matchedKeywords"></div>
+      </div>
+      <div class="keyword-section">
+        <h3 style="color:#f85149">Missing Keywords (Add These!)</h3>
+        <div class="keyword-tags" id="missingKeywords"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Format & Structure Check</h2>
+      <div class="format-check" id="formatCheck"></div>
+    </div>
+
+    <div class="card">
+      <h2>Improvement Suggestions</h2>
+      <div id="suggestions"></div>
+    </div>
+
+    <div class="card">
+      <h2>Export Optimized Resume Notes</h2>
+      <p style="font-size:0.85rem;color:#8b949e;margin-bottom:8px">Copy these notes to improve your resume</p>
+      <div class="export-box">
+        <textarea id="exportText" readonly></textarea>
+        <div style="margin-top:8px;text-align:center">
+          <button class="btn sm green" onclick="copyExport()">Copy to Clipboard</button>
+          <button class="btn sm" onclick="shareResults()">Share on X</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:2rem">
+    <h2 style="text-align:center">More Free Tools</h2>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:10px">
+      <a href="/meal-prep-planner.html" class="btn sm outline">Meal Prep Planner</a>
+      <a href="/gas-trip-calculator.html" class="btn sm outline">Gas Trip Calculator</a>
+      <a href="/rent-vs-buy-calculator.html" class="btn sm outline">Rent vs Buy</a>
+      <a href="/moving-cost-estimator.html" class="btn sm outline">Moving Cost Estimator</a>
+    </div>
+  </div>
+</div>
+</main>
+<footer>&copy; 2026 SPUNK.CODES &mdash; Free tools for everyone. <a href="/">Home</a> | <a href="/store">Store</a></footer>
+
+<script>
+const ACTION_VERBS = ['achieved','administered','analyzed','built','coordinated','created','decreased','delivered','designed','developed','directed','earned','eliminated','enhanced','established','exceeded','executed','expanded','generated','grew','implemented','improved','increased','initiated','launched','led','managed','mentored','negotiated','optimized','organized','pioneered','planned','produced','reduced','resolved','restored','restructured','saved','scaled','secured','simplified','solved','spearheaded','streamlined','strengthened','supervised','transformed','upgraded'];
+
+const STOP_WORDS = new Set(['a','an','the','and','or','but','in','on','at','to','for','of','with','by','from','as','is','was','are','were','be','been','being','have','has','had','do','does','did','will','would','could','should','may','might','shall','can','need','must','this','that','these','those','i','me','my','we','our','you','your','he','she','it','they','them','their','its','not','no','so','if','then','than','too','very','just','about','also','into','over','after','before','between','through','during','above','below','each','few','more','most','other','some','such','only','own','same','all','both','each','every','any','up','out','off','down','here','there','when','where','why','how','what','which','who','whom','all','many','much','several','like','including','etc','e.g.','i.e.','per','via'];
+
+function extractKeywords(text) {
+  const words = text.toLowerCase().replace(/[^a-z0-9\s\+\#\.\/\-]/g, ' ').split(/\s+/).filter(w => w.length > 2 && !STOP_WORDS.has(w));
+  // Also extract multi-word phrases (2-3 word combos)
+  const phrases = [];
+  const rawWords = text.toLowerCase().replace(/[^a-z0-9\s\+\#\.\/\-]/g, ' ').split(/\s+/);
+  for (let i = 0; i < rawWords.length - 1; i++) {
+    const two = rawWords[i] + ' ' + rawWords[i+1];
+    if (!STOP_WORDS.has(rawWords[i]) && !STOP_WORDS.has(rawWords[i+1]) && rawWords[i].length > 2 && rawWords[i+1].length > 2) {
+      phrases.push(two);
+    }
+  }
+  // Count frequency
+  const freq = {};
+  words.forEach(w => { freq[w] = (freq[w] || 0) + 1; });
+  phrases.forEach(p => { freq[p] = (freq[p] || 0) + 1; });
+  return freq;
+}
+
+function getSkillKeywords(text) {
+  const techSkills = ['python','javascript','java','c++','c#','ruby','go','rust','swift','kotlin','typescript','react','angular','vue','node.js','nodejs','express','django','flask','spring','docker','kubernetes','aws','azure','gcp','git','sql','nosql','mongodb','postgresql','mysql','redis','elasticsearch','graphql','rest','api','ci/cd','jenkins','terraform','ansible','linux','agile','scrum','jira','figma','html','css','sass','webpack','next.js','gatsby','tailwind','bootstrap','machine learning','deep learning','ai','data science','pandas','numpy','tensorflow','pytorch','nlp','computer vision','microservices','serverless','devops','blockchain','web3','solidity','cloud','saas','b2b','b2c'];
+  const softSkills = ['leadership','communication','teamwork','problem-solving','analytical','strategic','project management','time management','collaboration','mentoring','presentation','negotiation','critical thinking','adaptability','creativity','attention to detail','organization','decision-making','interpersonal','self-motivated'];
+  const found = [];
+  const lower = text.toLowerCase();
+  [...techSkills, ...softSkills].forEach(skill => {
+    if (lower.includes(skill)) found.push(skill);
+  });
+  return found;
+}
+
+function checkSections(text) {
+  const lower = text.toLowerCase();
+  const sections = {
+    'Contact Info': /(?:email|phone|linkedin|github|portfolio|@|\.com|\d{3}[\-\.\s]\d{3})/i.test(text),
+    'Summary/Objective': /(?:summary|objective|profile|about me|professional summary)/i.test(text),
+    'Experience': /(?:experience|employment|work history|professional experience)/i.test(text),
+    'Education': /(?:education|academic|degree|university|college|bachelor|master|phd)/i.test(text),
+    'Skills': /(?:skills|technologies|technical skills|competencies|proficiencies)/i.test(text)
+  };
+  return sections;
+}
+
+function checkFormat(text) {
+  const lines = text.split('\n');
+  const checks = {};
+  // Bullet points
+  const bulletLines = lines.filter(l => /^[\s]*[•\-\*\→\►]/.test(l));
+  checks['Uses Bullet Points'] = bulletLines.length >= 3;
+  // Action verbs
+  const hasActionVerbs = ACTION_VERBS.some(v => text.toLowerCase().includes(v));
+  checks['Starts with Action Verbs'] = hasActionVerbs;
+  // Quantified achievements
+  const hasNumbers = /\d+[\%\+]|\$[\d,]+|\d+ (?:years|projects|team|clients|users|customers|revenue|growth|increase|decrease|members)/i.test(text);
+  checks['Quantified Achievements'] = hasNumbers;
+  // Length check (300-1000 words is good for 1-2 pages)
+  const wordCount = text.split(/\s+/).filter(w => w.length > 0).length;
+  checks['Good Length (300-1000 words)'] = wordCount >= 300 && wordCount <= 1000;
+  // No personal pronouns (I, me, my)
+  const pronounCount = (text.match(/\b(I|me|my|myself)\b/g) || []).length;
+  checks['Minimal Personal Pronouns'] = pronounCount <= 3;
+  // No typos in common words (basic check)
+  checks['No Obvious Formatting Issues'] = !/(  {3,}|\t{2,})/.test(text);
+  // Consistent date formatting
+  const dates = text.match(/(?:19|20)\d{2}/g) || [];
+  checks['Includes Dates'] = dates.length >= 2;
+  // Email present
+  checks['Email Address Present'] = /[\w\.-]+@[\w\.-]+\.\w+/.test(text);
+  // Phone present
+  checks['Phone Number Present'] = /(?:\+?1[\s\-]?)?\(?\d{3}\)?[\s\-]?\d{3}[\s\-]?\d{4}/.test(text);
+  // Not too long
+  checks['Not Too Wordy'] = wordCount <= 1200;
+  return checks;
+}
+
+function analyzeResume() {
+  const resume = document.getElementById('resumeText').value.trim();
+  const job = document.getElementById('jobText').value.trim();
+  if (!resume) return alert('Paste your resume text');
+  if (!job) return alert('Paste the job description');
+
+  const resumeKeywords = extractKeywords(resume);
+  const jobKeywords = extractKeywords(job);
+  const resumeSkills = getSkillKeywords(resume);
+  const jobSkills = getSkillKeywords(job);
+
+  // Find important job keywords (frequency >= 1, not too common)
+  const importantJobWords = Object.entries(jobKeywords)
+    .filter(([w, c]) => c >= 1 && w.length > 3)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 50)
+    .map(([w]) => w);
+
+  const matched = [];
+  const missing = [];
+  importantJobWords.forEach(w => {
+    if (resumeKeywords[w] || resume.toLowerCase().includes(w)) {
+      matched.push(w);
+    } else {
+      missing.push(w);
+    }
+  });
+
+  // Skills matching
+  const matchedSkills = jobSkills.filter(s => resumeSkills.includes(s));
+  const missingSkills = jobSkills.filter(s => !resumeSkills.includes(s));
+  matchedSkills.forEach(s => { if (!matched.includes(s)) matched.push(s); });
+  missingSkills.forEach(s => { if (!missing.includes(s)) missing.push(s); });
+
+  // Section check
+  const sections = checkSections(resume);
+  const sectionScore = Object.values(sections).filter(Boolean).length / Object.keys(sections).length;
+
+  // Format check
+  const formatChecks = checkFormat(resume);
+  const formatScore = Object.values(formatChecks).filter(Boolean).length / Object.keys(formatChecks).length;
+
+  // Keyword match score
+  const totalRelevant = matched.length + missing.length;
+  const keywordScore = totalRelevant > 0 ? matched.length / totalRelevant : 0;
+
+  // Overall ATS score (weighted)
+  const overallScore = Math.round(
+    keywordScore * 50 +      // 50% keyword matching
+    sectionScore * 25 +       // 25% section completeness
+    formatScore * 25           // 25% formatting
+  );
+
+  // Render results
+  document.getElementById('results').style.display = 'block';
+
+  // Score circle
+  const scoreColor = overallScore >= 80 ? '#39d353' : overallScore >= 60 ? '#f0883e' : '#f85149';
+  document.getElementById('scoreNum').textContent = overallScore;
+  document.getElementById('scoreNum').style.color = scoreColor;
+  const circumference = 2 * Math.PI * 70;
+  const offset = circumference - (overallScore / 100) * circumference;
+  const fillEl = document.getElementById('scoreFill');
+  fillEl.style.stroke = scoreColor;
+  fillEl.setAttribute('stroke-dasharray', circumference);
+  setTimeout(() => { fillEl.setAttribute('stroke-dashoffset', offset); }, 100);
+
+  // Grade
+  let grade, gradeColor;
+  if (overallScore >= 90) { grade = 'A+'; gradeColor = '#39d353'; }
+  else if (overallScore >= 80) { grade = 'A'; gradeColor = '#39d353'; }
+  else if (overallScore >= 70) { grade = 'B'; gradeColor = '#58a6ff'; }
+  else if (overallScore >= 60) { grade = 'C'; gradeColor = '#f0883e'; }
+  else if (overallScore >= 50) { grade = 'D'; gradeColor = '#f0883e'; }
+  else { grade = 'F'; gradeColor = '#f85149'; }
+  document.getElementById('scoreGrade').innerHTML = 'Grade: <span class="grade-badge" style="background:' + gradeColor + '20;color:' + gradeColor + '">' + grade + '</span>';
+
+  // Stats row
+  const wordCount = resume.split(/\s+/).filter(w => w.length > 0).length;
+  document.getElementById('statsRow').innerHTML = `
+    <div class="mini-stat"><div class="val green">${matched.length}</div><div class="lbl">Keywords Matched</div></div>
+    <div class="mini-stat"><div class="val red">${missing.length}</div><div class="lbl">Keywords Missing</div></div>
+    <div class="mini-stat"><div class="val blue">${wordCount}</div><div class="lbl">Word Count</div></div>
+    <div class="mini-stat"><div class="val purple">${Math.round(keywordScore * 100)}%</div><div class="lbl">Keyword Match</div></div>
+  `;
+
+  // Section scores
+  const sectionData = [
+    { name: 'Keyword Match', score: Math.round(keywordScore * 100), color: '#58a6ff' },
+    { name: 'Section Completeness', score: Math.round(sectionScore * 100), color: '#39d353' },
+    { name: 'Formatting', score: Math.round(formatScore * 100), color: '#bc8cff' },
+    { name: 'Skills Coverage', score: totalRelevant > 0 ? Math.round((matchedSkills.length / (matchedSkills.length + missingSkills.length)) * 100) : 0, color: '#f0883e' },
+  ];
+  document.getElementById('sectionScores').innerHTML = sectionData.map(s => `
+    <div class="section-score">
+      <div class="ss-name">${s.name}</div>
+      <div class="ss-bar"><div class="ss-fill" style="width:${s.score}%;background:${s.color}"></div></div>
+      <div class="ss-val" style="color:${s.color}">${s.score}%</div>
+    </div>
+  `).join('');
+
+  // Keywords
+  document.getElementById('matchedKeywords').innerHTML = matched.map(k => '<span class="keyword-tag matched">' + k + '</span>').join('');
+  document.getElementById('missingKeywords').innerHTML = missing.map(k => '<span class="keyword-tag missing">' + k + '</span>').join('');
+
+  // Format checks
+  document.getElementById('formatCheck').innerHTML = Object.entries(formatChecks).map(([name, pass]) => `
+    <div class="format-item">
+      <div class="check ${pass ? 'pass' : 'fail'}">${pass ? '✓' : '✗'}</div>
+      <span>${name}</span>
+    </div>
+  `).join('');
+
+  // Suggestions
+  const suggestions = [];
+  if (missing.length > 0) {
+    suggestions.push({ type: 'critical', icon: '🔴', text: '<strong>Add missing keywords:</strong> Your resume is missing ' + missing.length + ' important keywords from the job description. Try to naturally incorporate: ' + missing.slice(0, 8).join(', ') + (missing.length > 8 ? '...' : '') });
+  }
+  if (!sections['Summary/Objective']) {
+    suggestions.push({ type: 'critical', icon: '🔴', text: '<strong>Add a Professional Summary:</strong> A 2-3 line summary at the top helps ATS systems and recruiters quickly understand your fit.' });
+  }
+  if (!sections['Skills']) {
+    suggestions.push({ type: 'critical', icon: '🔴', text: '<strong>Add a Skills section:</strong> ATS systems look for a dedicated Skills section. List relevant technical and soft skills.' });
+  }
+  if (!formatChecks['Uses Bullet Points']) {
+    suggestions.push({ type: 'warning', icon: '🟡', text: '<strong>Use bullet points:</strong> Start experience items with bullet points (•) for better ATS parsing and readability.' });
+  }
+  if (!formatChecks['Starts with Action Verbs']) {
+    suggestions.push({ type: 'warning', icon: '🟡', text: '<strong>Use action verbs:</strong> Start bullet points with strong action verbs like "Led", "Developed", "Increased", "Managed".' });
+  }
+  if (!formatChecks['Quantified Achievements']) {
+    suggestions.push({ type: 'warning', icon: '🟡', text: '<strong>Quantify achievements:</strong> Add numbers, percentages, and metrics. "Increased sales by 40%" is stronger than "Increased sales".' });
+  }
+  if (wordCount < 300) {
+    suggestions.push({ type: 'warning', icon: '🟡', text: '<strong>Add more content:</strong> Your resume has only ' + wordCount + ' words. Aim for 400-800 words for a thorough 1-2 page resume.' });
+  }
+  if (wordCount > 1000) {
+    suggestions.push({ type: 'warning', icon: '🟡', text: '<strong>Consider trimming:</strong> At ' + wordCount + ' words, your resume may be too long. Focus on the most relevant experience.' });
+  }
+  if (missingSkills.length > 0) {
+    suggestions.push({ type: 'warning', icon: '🟡', text: '<strong>Add skills from job description:</strong> The job mentions: ' + missingSkills.join(', ') + '. Add any that you genuinely have.' });
+  }
+  if (overallScore >= 80) {
+    suggestions.push({ type: 'good', icon: '🟢', text: '<strong>Great match!</strong> Your resume aligns well with this job description. Focus on tailoring your summary and top bullet points.' });
+  }
+  if (keywordScore > 0.7) {
+    suggestions.push({ type: 'good', icon: '🟢', text: '<strong>Strong keyword coverage:</strong> You have matched ' + Math.round(keywordScore * 100) + '% of important keywords. Keep it up!' });
+  }
+
+  document.getElementById('suggestions').innerHTML = suggestions.map(s => `
+    <div class="suggestion ${s.type}"><div class="icon">${s.icon}</div><div class="text">${s.text}</div></div>
+  `).join('');
+
+  // Export text
+  let exportText = '=== ATS RESUME ANALYSIS ===\n\n';
+  exportText += 'Score: ' + overallScore + '/100 (Grade: ' + grade + ')\n';
+  exportText += 'Keywords Matched: ' + matched.length + '/' + totalRelevant + ' (' + Math.round(keywordScore * 100) + '%)\n\n';
+  exportText += '--- MISSING KEYWORDS (Add these!) ---\n';
+  missing.forEach(k => { exportText += '  • ' + k + '\n'; });
+  exportText += '\n--- MATCHED KEYWORDS ---\n';
+  matched.forEach(k => { exportText += '  ✓ ' + k + '\n'; });
+  exportText += '\n--- SUGGESTIONS ---\n';
+  suggestions.forEach(s => { exportText += '  ' + s.text.replace(/<\/?[^>]+(>|$)/g, '') + '\n'; });
+  exportText += '\nAnalyzed at spunk.codes/resume-ats-checker\n';
+  document.getElementById('exportText').value = exportText;
+
+  document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+}
+
+function copyExport() {
+  const text = document.getElementById('exportText').value;
+  navigator.clipboard.writeText(text).then(() => alert('Copied!')).catch(() => {
+    document.getElementById('exportText').select();
+    document.execCommand('copy');
+    alert('Copied!');
+  });
+}
+
+function shareResults() {
+  const text = 'Just checked my resume ATS score for free! Great tool for job seekers @SpunkArt13';
+  window.open('https://x.com/intent/tweet?text=' + encodeURIComponent(text) + '&url=' + encodeURIComponent('https://spunk.codes/resume-ats-checker.html'), '_blank');
+}
+</script>
+<script>
+(function(){document.addEventListener('contextmenu',function(e){e.preventDefault();});document.addEventListener('keydown',function(e){if(e.key==='F12')e.preventDefault();if(e.ctrlKey&&e.key==='u')e.preventDefault();if(e.ctrlKey&&e.key==='s')e.preventDefault();if(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='i'||e.key==='J'||e.key==='j'||e.key==='C'||e.key==='c'))e.preventDefault();});
+console.log('%c⚠ SPUNK.CODES — All rights reserved.','color:#ff5f1f;font-size:16px;font-weight:bold;');
+if(!document.querySelector('.watermark')){var w=document.createElement('div');w.style.cssText='position:fixed;bottom:10px;right:15px;font-size:0.7rem;color:rgba(255,95,31,0.15);font-weight:700;letter-spacing:2px;pointer-events:none;z-index:9999;';w.textContent='SPUNK.CODES';document.body.appendChild(w);}})();
+</script>
+<script src="/auto-monetize.js"></script>
+<div id="shareXBtn" style="position:fixed;left:20px;bottom:20px;z-index:9999;">
+  <a id="shareXLink" href="#" target="_blank" rel="noopener noreferrer" title="Share on X" style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;background:rgba(88,166,255,0.15);border:1px solid rgba(88,166,255,0.3);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:50%;text-decoration:none;transition:all 0.3s ease;cursor:pointer;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+  </a>
+</div>
+<style>#shareXBtn a:hover{background:rgba(88,166,255,0.35)!important;border-color:rgba(88,166,255,0.6)!important;transform:scale(1.1);box-shadow:0 0 15px rgba(88,166,255,0.3);}</style>
+<script>(function(){var p=location.pathname.split("/").pop()||"index.html";var u="https://spunk.codes/"+p;var t="Free ATS resume checker — scored my resume against a job description instantly! @SpunkArt13";document.getElementById("shareXLink").href="https://x.com/intent/tweet?text="+encodeURIComponent(t)+"&url="+encodeURIComponent(u);})();</script>
+<script src="/usage-tracker.js"></script>
+</body>
+</html>
+<!-- Extended ATS tips and industry keyword databases -->
+<script>
+/* Industry-specific keyword databases */
+const INDUSTRY_KEYWORDS = {
+  'Software Engineering': ['agile','scrum','git','ci/cd','devops','microservices','api','rest','graphql','docker','kubernetes','aws','azure','cloud','testing','unit tests','integration tests','code review','architecture','scalability','performance','security','database','sql','nosql','frontend','backend','full-stack','mobile','web','react','angular','vue','node.js','python','java','typescript'],
+  'Data Science': ['machine learning','deep learning','statistical analysis','python','r','sql','pandas','numpy','scikit-learn','tensorflow','pytorch','data visualization','tableau','power bi','a/b testing','hypothesis testing','regression','classification','clustering','nlp','computer vision','big data','spark','hadoop','etl','data pipeline','feature engineering','model deployment'],
+  'Product Management': ['roadmap','user stories','sprint planning','stakeholder management','market research','competitive analysis','kpis','metrics','okrs','go-to-market','product lifecycle','user experience','ux','mvp','backlog','prioritization','cross-functional','agile','scrum','jira','analytics','a/b testing','customer discovery','product strategy'],
+  'Marketing': ['seo','sem','ppc','social media','content marketing','email marketing','conversion rate','cro','analytics','google analytics','hubspot','salesforce','crm','lead generation','brand strategy','copywriting','campaign management','roi','kpi','market research','audience segmentation','funnel','retention','engagement','growth'],
+  'Design': ['figma','sketch','adobe xd','photoshop','illustrator','user research','wireframing','prototyping','design system','ui design','ux design','interaction design','visual design','typography','color theory','accessibility','wcag','responsive design','mobile design','user testing','usability','information architecture'],
+  'Finance': ['financial modeling','excel','valuation','dcf','m&a','financial analysis','budgeting','forecasting','variance analysis','gaap','ifrs','audit','compliance','risk management','portfolio','bloomberg','sql','python','financial reporting','cost analysis','revenue','p&l','balance sheet','cash flow']
+};
+
+/* Resume writing tips */
+const RESUME_TIPS = [
+  {title:'Use the job title in your resume',tip:'If you are applying for "Senior Software Engineer", use that exact phrase in your summary or title. ATS often matches on job titles.'},
+  {title:'Mirror the job description language',tip:'If the job says "project management", use that phrase — not just "managed projects". ATS matches exact phrases.'},
+  {title:'Avoid tables, columns, and graphics',tip:'Most ATS systems cannot read tables, multi-column layouts, or images. Use a simple single-column format.'},
+  {title:'Save as .docx for ATS, .pdf for humans',tip:'While many ATS can read PDFs now, .docx is the safest format. When emailing directly to a person, PDF preserves formatting.'},
+  {title:'One page for < 10 years experience',tip:'If you have less than 10 years of experience, aim for a one-page resume. Quality over quantity.'},
+  {title:'Put your strongest content first',tip:'Lead with your most relevant experience and skills. Recruiters spend 6-7 seconds on initial resume review.'},
+  {title:'Use standard section headers',tip:'Use "Experience", "Education", "Skills" — not creative alternatives like "Where I Have Worked" or "My Toolkit".'},
+  {title:'Include both acronyms and full terms',tip:'Write "Search Engine Optimization (SEO)" so ATS catches both the acronym and full phrase.'},
+  {title:'Tailor for each application',tip:'Customize your resume for each job. A generic resume will always score lower than a tailored one.'},
+  {title:'Remove outdated content',tip:'Remove jobs from 10+ years ago, old technologies, and irrelevant early-career positions unless they are highly relevant.'}
+];
+
+/* Additional format analysis */
+function deepFormatAnalysis(text) {
+  const analysis = {};
+  const lines = text.split('\n').filter(l => l.trim());
+  
+  // Sentence length analysis
+  const sentences = text.split(/[.!?]+/).filter(s => s.trim().length > 10);
+  const avgSentenceLen = sentences.length > 0 ? sentences.reduce((sum, s) => sum + s.split(/\s+/).length, 0) / sentences.length : 0;
+  analysis.avgSentenceLength = Math.round(avgSentenceLen);
+  analysis.sentenceLengthGood = avgSentenceLen >= 8 && avgSentenceLen <= 25;
+  
+  // Repetition check
+  const words = text.toLowerCase().split(/\s+/).filter(w => w.length > 4 && !STOP_WORDS.has(w));
+  const wordFreq = {};
+  words.forEach(w => { wordFreq[w] = (wordFreq[w] || 0) + 1; });
+  const overused = Object.entries(wordFreq).filter(([w, c]) => c > 5).map(([w]) => w);
+  analysis.overusedWords = overused;
+  
+  // Passive voice detection (basic)
+  const passivePattern = /\b(was|were|been|being|is|are)\s+(a-z+ed|a-z+en)\b/gi;
+  const passiveCount = (text.match(passivePattern) || []).length;
+  analysis.passiveVoiceCount = passiveCount;
+  
+  // Achievement density
+  const achievementIndicators = /\d+[\%\+]|\$[\d,]+|increased|decreased|improved|reduced|saved|generated|grew|led|managed|built|created|launched|delivered/gi;
+  const achievementCount = (text.match(achievementIndicators) || []).length;
+  analysis.achievementDensity = achievementCount;
+  
+  return analysis;
+}
+
+/* Score explanation text */
+function getScoreExplanation(score) {
+  if (score >= 90) return 'Excellent! Your resume is highly optimized for this job. Minor tweaks may push it to perfect.';
+  if (score >= 80) return 'Very good match. You have covered most keywords and have strong formatting. A few additions could make it even better.';
+  if (score >= 70) return 'Good foundation but missing some key elements. Focus on adding missing keywords and strengthening quantified achievements.';
+  if (score >= 60) return 'Needs improvement. Several important keywords are missing and formatting could be enhanced. Review the suggestions carefully.';
+  if (score >= 50) return 'Below average match. Significant keyword gaps and formatting issues. Consider a major revision focused on the job requirements.';
+  return 'Poor match. Your resume needs substantial work to align with this job. Start by adding a skills section and incorporating key terms from the job description.';
+}
+</script>

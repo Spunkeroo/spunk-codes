@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Copyright 2026 spunk.codes. All rights reserved. Unauthorized reproduction prohibited. hello@spunk.codes -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Weekly Meal Prep Planner — Free Meal Planning, Grocery List & Budget Tool</title>
+<meta name="description" content="Plan your weekly meals with calorie tracking, auto-generated grocery lists, budget estimates, and leftover optimization. 100% free meal prep tool by SPUNK.CODES">
+<meta property="og:title" content="Weekly Meal Prep Planner — Free Tool">
+<meta property="og:description" content="Plan 7 days of meals, auto-generate grocery lists, track calories & budget. Free meal prep planner.">
+<meta property="og:url" content="https://spunk.codes/meal-prep-planner.html">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Weekly Meal Prep Planner">
+<meta name="twitter:description" content="Plan meals for the week, generate grocery lists, track macros & budget. Free tool by SPUNK.CODES">
+<link rel="canonical" href="https://spunk.codes/meal-prep-planner.html">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Weekly Meal Prep Planner","description":"Plan your weekly meals with calorie tracking, auto-generated grocery lists, budget estimates, and leftover optimization.","url":"https://spunk.codes/meal-prep-planner.html","applicationCategory":"LifestyleApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Organization","name":"SpunkArt","url":"https://spunk.codes"}}</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#0d1117;color:#e6edf3;min-height:100vh;display:flex;flex-direction:column;line-height:1.6}
+a{color:#58a6ff;text-decoration:none}a:hover{text-decoration:underline}
+nav{background:#161b22;border-bottom:1px solid #30363d;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+nav .logo{font-weight:800;font-size:1.1rem;color:#ff5f1f;letter-spacing:1px}
+nav .links{display:flex;gap:20px;font-size:0.9rem}
+nav .links a{color:#8b949e}nav .links a:hover{color:#58a6ff}
+main{flex:1;padding:2rem 1rem;max-width:1100px;margin:0 auto;width:100%}
+h1{font-size:2rem;text-align:center;margin-bottom:0.3rem;background:linear-gradient(135deg,#58a6ff,#39d353);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.sub{text-align:center;color:#8b949e;margin-bottom:1.5rem;font-size:0.95rem}
+.tabs{display:flex;gap:8px;justify-content:center;margin-bottom:1.5rem;flex-wrap:wrap}
+.tab{padding:10px 22px;background:#161b22;border:1px solid #30363d;border-radius:8px;cursor:pointer;font-size:0.9rem;color:#8b949e;transition:all .2s}
+.tab.active,.tab:hover{background:#21262d;border-color:#58a6ff;color:#58a6ff}
+.card{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:1.5rem;margin-bottom:1rem}
+.card h2{font-size:1.1rem;color:#58a6ff;margin-bottom:1rem}
+.day-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-bottom:1rem}
+.day-col{background:#0d1117;border:1px solid #30363d;border-radius:8px;padding:10px;min-height:260px}
+.day-col h4{font-size:0.8rem;color:#58a6ff;text-align:center;margin-bottom:8px;text-transform:uppercase;letter-spacing:1px}
+.meal-slot{background:#161b22;border:1px solid #21262d;border-radius:6px;padding:6px 8px;margin-bottom:6px;font-size:0.75rem;cursor:grab;transition:all .15s;position:relative}
+.meal-slot:hover{border-color:#58a6ff}
+.meal-slot .meal-name{font-weight:600;color:#e6edf3}
+.meal-slot .meal-meta{color:#8b949e;font-size:0.65rem;margin-top:2px}
+.meal-slot .remove-meal{position:absolute;top:2px;right:4px;cursor:pointer;color:#f85149;font-size:0.7rem;display:none}
+.meal-slot:hover .remove-meal{display:block}
+.meal-slot.dragging{opacity:0.4;border-color:#39d353}
+.add-meal-btn{width:100%;padding:4px;background:transparent;border:1px dashed #30363d;border-radius:6px;color:#8b949e;font-size:0.7rem;cursor:pointer;transition:all .2s}
+.add-meal-btn:hover{border-color:#39d353;color:#39d353}
+.presets-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
+.preset-card{background:#0d1117;border:1px solid #30363d;border-radius:8px;padding:12px;cursor:pointer;transition:all .2s}
+.preset-card:hover{border-color:#58a6ff;transform:translateY(-2px)}
+.preset-card .cat{font-size:0.7rem;color:#bc8cff;text-transform:uppercase;letter-spacing:1px}
+.preset-card .name{font-weight:700;margin:4px 0}
+.preset-card .info{font-size:0.75rem;color:#8b949e}
+.grocery-list{columns:2;column-gap:20px}
+.grocery-cat{break-inside:avoid;margin-bottom:12px}
+.grocery-cat h4{font-size:0.85rem;color:#39d353;margin-bottom:4px;border-bottom:1px solid #21262d;padding-bottom:4px}
+.grocery-item{display:flex;align-items:center;gap:6px;font-size:0.85rem;padding:3px 0}
+.grocery-item input[type="checkbox"]{accent-color:#39d353}
+.grocery-item.checked{text-decoration:line-through;color:#484f58}
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:1rem}
+.summary-stat{background:#0d1117;border:1px solid #30363d;border-radius:8px;padding:14px;text-align:center}
+.summary-stat .val{font-size:1.5rem;font-weight:800;font-family:'Courier New',monospace}
+.summary-stat .val.blue{color:#58a6ff}
+.summary-stat .val.green{color:#39d353}
+.summary-stat .val.purple{color:#bc8cff}
+.summary-stat .val.orange{color:#f0883e}
+.summary-stat .lbl{font-size:0.7rem;color:#8b949e;text-transform:uppercase;letter-spacing:1px}
+.btn{display:inline-block;padding:10px 24px;background:#58a6ff;color:#0d1117;border:none;border-radius:8px;font-size:0.9rem;font-weight:700;cursor:pointer;transition:all .2s;margin:4px}
+.btn:hover{background:#79c0ff;transform:scale(1.02)}
+.btn.green{background:#39d353;color:#0d1117}
+.btn.purple{background:#bc8cff;color:#0d1117}
+.btn.outline{background:transparent;color:#58a6ff;border:1px solid #58a6ff}
+.btn.sm{padding:6px 14px;font-size:0.8rem}
+select,input[type="text"],input[type="number"]{background:#0d1117;border:1px solid #30363d;color:#e6edf3;padding:8px 12px;border-radius:6px;font-size:0.9rem;width:100%}
+select:focus,input:focus{outline:none;border-color:#58a6ff}
+.leftover-tip{background:linear-gradient(135deg,#161b22,#1c2333);border:1px solid #bc8cff;border-radius:8px;padding:14px;margin-top:10px}
+.leftover-tip h4{color:#bc8cff;font-size:0.85rem;margin-bottom:4px}
+.leftover-tip p{font-size:0.8rem;color:#8b949e}
+.modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);z-index:1000;justify-content:center;align-items:center}
+.modal-overlay.show{display:flex}
+.modal{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:2rem;max-width:480px;width:90%;max-height:80vh;overflow-y:auto}
+.modal h3{color:#58a6ff;margin-bottom:1rem}
+.modal .close-modal{float:right;cursor:pointer;color:#8b949e;font-size:1.2rem}
+.form-group{margin-bottom:12px}
+.form-group label{display:block;font-size:0.8rem;color:#8b949e;margin-bottom:4px}
+footer{background:#161b22;border-top:1px solid #30363d;padding:16px 24px;text-align:center;font-size:0.8rem;color:#484f58}
+.actions-bar{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:1rem}
+@media(max-width:900px){.day-grid{grid-template-columns:repeat(3,1fr)}.grocery-list{columns:1}}
+@media(max-width:600px){h1{font-size:1.5rem}.day-grid{grid-template-columns:1fr 1fr}.summary-grid{grid-template-columns:1fr 1fr}main{padding:1rem 0.5rem}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="logo">SPUNK.CODES</a>
+  <div class="links">
+    <a href="/store">Store</a>
+    <a href="/store#free-tools">Free Tools</a>
+    <a href="/reseller" style="color:#39d353;font-weight:700">Resell $$</a>
+    <a href="/blog">Blog</a>
+  </div>
+</nav>
+<main>
+  <h1>Weekly Meal Prep Planner</h1>
+  <div class="sub">Plan 7 days of meals, auto-generate grocery lists, track calories & budget</div>
+  <div class="tabs">
+    <div class="tab active" onclick="showTab('planner')">Meal Planner</div>
+    <div class="tab" onclick="showTab('presets')">Meal Ideas</div>
+    <div class="tab" onclick="showTab('grocery')">Grocery List</div>
+    <div class="tab" onclick="showTab('summary')">Weekly Summary</div>
+    <div class="tab" onclick="showTab('leftovers')">Leftover Optimizer</div>
+  </div>
+  <div id="tab-planner">
+    <div class="actions-bar">
+      <button class="btn sm" onclick="clearWeek()">Clear Week</button>
+      <button class="btn sm green" onclick="savePlan()">Save Plan</button>
+      <button class="btn sm purple" onclick="loadPlan()">Load Plan</button>
+      <button class="btn sm outline" onclick="exportPlan()">Export as Text</button>
+    </div>
+    <div class="day-grid" id="dayGrid"></div>
+  </div>
+  <div id="tab-presets" style="display:none">
+    <div class="card">
+      <h2>Browse Meal Ideas</h2>
+      <div style="display:flex;gap:8px;margin-bottom:1rem;flex-wrap:wrap">
+        <button class="btn sm" onclick="filterPresets('all')">All</button>
+        <button class="btn sm outline" onclick="filterPresets('quick')">Quick (&lt;20min)</button>
+        <button class="btn sm outline" onclick="filterPresets('budget')">Budget (&lt;$3)</button>
+        <button class="btn sm outline" onclick="filterPresets('healthy')">Healthy</button>
+        <button class="btn sm outline" onclick="filterPresets('comfort')">Comfort Food</button>
+        <button class="btn sm outline" onclick="filterPresets('breakfast')">Breakfast</button>
+        <button class="btn sm outline" onclick="filterPresets('lunch')">Lunch</button>
+        <button class="btn sm outline" onclick="filterPresets('dinner')">Dinner</button>
+        <button class="btn sm outline" onclick="filterPresets('snack')">Snacks</button>
+      </div>
+      <div class="presets-grid" id="presetsGrid"></div>
+    </div>
+  </div>
+  <div id="tab-grocery" style="display:none">
+    <div class="card">
+      <h2>Auto-Generated Grocery List</h2>
+      <p style="font-size:0.85rem;color:#8b949e;margin-bottom:1rem">Based on your planned meals for the week</p>
+      <div class="grocery-list" id="groceryList"><p style="color:#484f58;text-align:center;padding:2rem">Add meals to your planner to generate a grocery list</p></div>
+      <div style="margin-top:1rem;text-align:center">
+        <button class="btn sm" onclick="copyGroceryList()">Copy List</button>
+        <button class="btn sm green" onclick="printGroceryList()">Print List</button>
+      </div>
+    </div>
+  </div>
+  <div id="tab-summary" style="display:none">
+    <div class="card">
+      <h2>Weekly Summary</h2>
+      <div class="summary-grid" id="summaryGrid"></div>
+      <div id="dailyBreakdown"></div>
+    </div>
+  </div>
+  <div id="tab-leftovers" style="display:none">
+    <div class="card">
+      <h2>Leftover Optimizer</h2>
+      <p style="font-size:0.85rem;color:#8b949e;margin-bottom:1rem">Smart suggestions to use leftover ingredients across meals</p>
+      <div id="leftoverSuggestions"></div>
+    </div>
+  </div>
+  <div class="modal-overlay" id="addMealModal">
+    <div class="modal">
+      <span class="close-modal" onclick="closeModal()">&times;</span>
+      <h3>Add a Meal</h3>
+      <div class="form-group"><label>Meal Name</label><input type="text" id="mealNameInput" placeholder="e.g., Grilled Chicken Salad"></div>
+      <div class="form-group"><label>Type</label><select id="mealTypeInput"><option value="breakfast">Breakfast</option><option value="lunch">Lunch</option><option value="dinner">Dinner</option><option value="snack">Snack</option></select></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div class="form-group"><label>Calories</label><input type="number" id="mealCalInput" placeholder="450"></div>
+        <div class="form-group"><label>Cost ($)</label><input type="number" id="mealCostInput" placeholder="3.50" step="0.01"></div>
+        <div class="form-group"><label>Protein (g)</label><input type="number" id="mealProteinInput" placeholder="30"></div>
+        <div class="form-group"><label>Carbs (g)</label><input type="number" id="mealCarbsInput" placeholder="45"></div>
+        <div class="form-group"><label>Fat (g)</label><input type="number" id="mealFatInput" placeholder="15"></div>
+        <div class="form-group"><label>Prep Time (min)</label><input type="number" id="mealPrepInput" placeholder="20"></div>
+      </div>
+      <div class="form-group"><label>Key Ingredients (comma separated)</label><input type="text" id="mealIngredientsInput" placeholder="chicken breast, lettuce, tomato, olive oil"></div>
+      <button class="btn green" onclick="addCustomMeal()" style="width:100%;margin-top:8px">Add to Plan</button>
+      <div style="margin-top:1rem"><h4 style="color:#8b949e;font-size:0.8rem;margin-bottom:8px">Or pick a preset:</h4><div id="modalPresets" style="max-height:200px;overflow-y:auto"></div></div>
+    </div>
+  </div>
+  <div class="card" style="margin-top:2rem">
+    <h2 style="text-align:center">More Free Tools</h2>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:10px">
+      <a href="/gas-trip-calculator.html" class="btn sm outline">Gas & Trip Calculator</a>
+      <a href="/rent-vs-buy-calculator.html" class="btn sm outline">Rent vs Buy</a>
+      <a href="/resume-ats-checker.html" class="btn sm outline">Resume ATS Checker</a>
+      <a href="/moving-cost-estimator.html" class="btn sm outline">Moving Cost Estimator</a>
+    </div>
+  </div>
+</main>
+<footer>&copy; 2026 SPUNK.CODES &mdash; Free tools for everyone. <a href="/">Home</a> | <a href="/store">Store</a></footer>
+<script>
+const DAYS=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+const MEAL_TYPES=['breakfast','lunch','dinner','snack'];
+let weekPlan={};
+let currentDay=null,currentSlot=null,dragSource=null;
+
+const PRESET_MEALS=[
+  {name:'Overnight Oats',type:'breakfast',cal:350,protein:12,carbs:55,fat:10,cost:1.50,prep:5,cat:['quick','budget','healthy'],ingredients:['oats','milk','chia seeds','banana','honey']},
+  {name:'Scrambled Eggs & Toast',type:'breakfast',cal:380,protein:22,carbs:30,fat:18,cost:2.00,prep:10,cat:['quick','budget','comfort'],ingredients:['eggs','bread','butter','salt','pepper']},
+  {name:'Greek Yogurt Parfait',type:'breakfast',cal:300,protein:18,carbs:40,fat:8,cost:2.50,prep:5,cat:['quick','healthy'],ingredients:['greek yogurt','granola','berries','honey']},
+  {name:'Avocado Toast',type:'breakfast',cal:320,protein:8,carbs:35,fat:18,cost:2.80,prep:8,cat:['quick','healthy'],ingredients:['bread','avocado','lemon','salt','red pepper flakes']},
+  {name:'Banana Pancakes',type:'breakfast',cal:420,protein:12,carbs:60,fat:16,cost:2.00,prep:15,cat:['comfort','budget'],ingredients:['flour','banana','eggs','milk','butter','maple syrup']},
+  {name:'Smoothie Bowl',type:'breakfast',cal:340,protein:15,carbs:50,fat:10,cost:3.50,prep:8,cat:['quick','healthy'],ingredients:['frozen berries','banana','protein powder','granola','almond milk']},
+  {name:'Veggie Omelette',type:'breakfast',cal:360,protein:24,carbs:8,fat:26,cost:2.50,prep:12,cat:['quick','healthy'],ingredients:['eggs','bell pepper','onion','spinach','cheese','olive oil']},
+  {name:'Chicken Caesar Wrap',type:'lunch',cal:480,protein:35,carbs:38,fat:20,cost:4.00,prep:10,cat:['quick'],ingredients:['chicken breast','tortilla','romaine lettuce','parmesan','caesar dressing']},
+  {name:'Rice & Beans Bowl',type:'lunch',cal:450,protein:16,carbs:70,fat:8,cost:1.80,prep:20,cat:['budget','healthy'],ingredients:['rice','black beans','salsa','corn','cilantro','lime']},
+  {name:'Turkey Sandwich',type:'lunch',cal:420,protein:28,carbs:40,fat:16,cost:3.00,prep:5,cat:['quick','budget'],ingredients:['bread','turkey slices','lettuce','tomato','mustard','cheese']},
+  {name:'Tuna Salad',type:'lunch',cal:350,protein:30,carbs:15,fat:20,cost:2.50,prep:10,cat:['quick','healthy','budget'],ingredients:['canned tuna','mayo','celery','lettuce','lemon','onion']},
+  {name:'Chicken Stir Fry',type:'lunch',cal:500,protein:38,carbs:45,fat:18,cost:4.50,prep:20,cat:['healthy'],ingredients:['chicken breast','broccoli','bell pepper','soy sauce','rice','ginger','garlic']},
+  {name:'Pasta Marinara',type:'lunch',cal:520,protein:16,carbs:80,fat:14,cost:2.00,prep:18,cat:['budget','comfort'],ingredients:['pasta','marinara sauce','garlic','olive oil','parmesan']},
+  {name:'Quesadilla',type:'lunch',cal:460,protein:22,carbs:40,fat:24,cost:2.50,prep:10,cat:['quick','comfort','budget'],ingredients:['tortilla','cheese','chicken breast','salsa','sour cream']},
+  {name:'Grilled Chicken & Veggies',type:'dinner',cal:480,protein:42,carbs:25,fat:22,cost:5.00,prep:30,cat:['healthy'],ingredients:['chicken breast','zucchini','bell pepper','olive oil','garlic','herbs']},
+  {name:'Spaghetti Bolognese',type:'dinner',cal:620,protein:32,carbs:70,fat:22,cost:4.00,prep:35,cat:['comfort'],ingredients:['ground beef','pasta','tomato sauce','onion','garlic','Italian seasoning']},
+  {name:'Salmon with Rice',type:'dinner',cal:550,protein:40,carbs:45,fat:20,cost:7.00,prep:25,cat:['healthy'],ingredients:['salmon fillet','rice','lemon','asparagus','olive oil','dill']},
+  {name:'Tacos',type:'dinner',cal:580,protein:28,carbs:50,fat:28,cost:4.50,prep:20,cat:['comfort','quick'],ingredients:['ground beef','taco shells','lettuce','tomato','cheese','sour cream','salsa']},
+  {name:'Baked Chicken Thighs',type:'dinner',cal:520,protein:38,carbs:30,fat:26,cost:3.50,prep:40,cat:['budget','comfort'],ingredients:['chicken thighs','potatoes','olive oil','paprika','garlic','onion']},
+  {name:'Veggie Fried Rice',type:'dinner',cal:450,protein:14,carbs:65,fat:16,cost:2.50,prep:15,cat:['quick','budget','healthy'],ingredients:['rice','eggs','frozen vegetables','soy sauce','sesame oil','green onion']},
+  {name:'Beef Chili',type:'dinner',cal:550,protein:35,carbs:45,fat:22,cost:3.80,prep:45,cat:['comfort','budget'],ingredients:['ground beef','kidney beans','diced tomatoes','onion','chili powder','garlic']},
+  {name:'Lemon Herb Pasta',type:'dinner',cal:480,protein:15,carbs:68,fat:18,cost:3.00,prep:20,cat:['quick','budget'],ingredients:['pasta','lemon','olive oil','garlic','herbs','parmesan']},
+  {name:'Shrimp Stir Fry',type:'dinner',cal:420,protein:32,carbs:40,fat:14,cost:6.00,prep:18,cat:['quick','healthy'],ingredients:['shrimp','broccoli','bell pepper','soy sauce','rice','garlic','ginger']},
+  {name:'Apple & Peanut Butter',type:'snack',cal:250,protein:7,carbs:30,fat:14,cost:1.00,prep:2,cat:['quick','healthy','budget'],ingredients:['apple','peanut butter']},
+  {name:'Trail Mix',type:'snack',cal:280,protein:8,carbs:30,fat:16,cost:1.50,prep:1,cat:['quick','healthy'],ingredients:['mixed nuts','raisins','chocolate chips']},
+  {name:'Hummus & Veggies',type:'snack',cal:200,protein:6,carbs:22,fat:10,cost:2.00,prep:3,cat:['quick','healthy'],ingredients:['hummus','carrots','celery','bell pepper']},
+  {name:'Cheese & Crackers',type:'snack',cal:220,protein:8,carbs:20,fat:12,cost:1.50,prep:2,cat:['quick','comfort','budget'],ingredients:['cheese','crackers']},
+  {name:'Protein Bar',type:'snack',cal:200,protein:20,carbs:22,fat:8,cost:2.00,prep:0,cat:['quick'],ingredients:['protein bar']},
+  {name:'Banana',type:'snack',cal:105,protein:1,carbs:27,fat:0,cost:0.25,prep:0,cat:['quick','budget','healthy'],ingredients:['banana']},
+  {name:'Hard Boiled Eggs',type:'snack',cal:140,protein:12,carbs:1,fat:10,cost:0.60,prep:12,cat:['healthy','budget'],ingredients:['eggs']},
+];
+
+function initPlanner(){
+  DAYS.forEach(day=>{if(!weekPlan[day])weekPlan[day]={breakfast:[],lunch:[],dinner:[],snack:[]};});
+  renderDayGrid();
+  renderPresets('all');
+  updateSummary();
+  loadSavedPlan();
+}
+
+function renderDayGrid(){
+  const grid=document.getElementById('dayGrid');grid.innerHTML='';
+  DAYS.forEach(day=>{
+    const col=document.createElement('div');col.className='day-col';
+    col.innerHTML='<h4>'+day.substring(0,3)+'</h4>';
+    MEAL_TYPES.forEach(type=>{
+      const label=document.createElement('div');
+      label.style.cssText='font-size:0.65rem;color:#8b949e;text-transform:uppercase;letter-spacing:1px;margin-top:6px;margin-bottom:3px';
+      label.textContent=type;col.appendChild(label);
+      const meals=weekPlan[day][type]||[];
+      meals.forEach((meal,idx)=>{
+        const slot=document.createElement('div');slot.className='meal-slot';slot.draggable=true;
+        slot.dataset.day=day;slot.dataset.type=type;slot.dataset.idx=idx;
+        slot.innerHTML='<div class="meal-name">'+meal.name+'</div><div class="meal-meta">'+meal.cal+' cal | $'+meal.cost.toFixed(2)+'</div><span class="remove-meal" onclick="removeMeal(\''+day+'\',\''+type+'\','+idx+')">&times;</span>';
+        slot.addEventListener('dragstart',handleDragStart);
+        slot.addEventListener('dragend',handleDragEnd);
+        slot.addEventListener('dragover',handleDragOver);
+        slot.addEventListener('drop',handleDrop);
+        col.appendChild(slot);
+      });
+      const addBtn=document.createElement('button');addBtn.className='add-meal-btn';addBtn.textContent='+ Add';
+      addBtn.addEventListener('dragover',handleDragOver);
+      addBtn.addEventListener('drop',function(e){handleDropOnSlot(e,day,type);});
+      addBtn.onclick=()=>openAddModal(day,type);
+      col.appendChild(addBtn);
+    });
+    grid.appendChild(col);
+  });
+}
+
+function handleDragStart(e){dragSource={day:e.target.dataset.day,type:e.target.dataset.type,idx:parseInt(e.target.dataset.idx)};e.target.classList.add('dragging');e.dataTransfer.effectAllowed='move';}
+function handleDragEnd(e){e.target.classList.remove('dragging');}
+function handleDragOver(e){e.preventDefault();e.dataTransfer.dropEffect='move';}
+function handleDrop(e){
+  e.preventDefault();if(!dragSource)return;
+  const t=e.target.closest('.meal-slot');if(!t)return;
+  const td=t.dataset.day,tt=t.dataset.type,ti=parseInt(t.dataset.idx);
+  const src=weekPlan[dragSource.day][dragSource.type][dragSource.idx];
+  const tgt=weekPlan[td][tt][ti];
+  weekPlan[td][tt][ti]=src;weekPlan[dragSource.day][dragSource.type][dragSource.idx]=tgt;
+  dragSource=null;renderDayGrid();updateSummary();
+}
+function handleDropOnSlot(e,day,type){
+  e.preventDefault();if(!dragSource)return;
+  const src=weekPlan[dragSource.day][dragSource.type].splice(dragSource.idx,1)[0];
+  weekPlan[day][type].push(src);dragSource=null;renderDayGrid();updateSummary();
+}
+
+function openAddModal(day,type){
+  currentDay=day;currentSlot=type;
+  document.getElementById('mealTypeInput').value=type;
+  ['mealNameInput','mealCalInput','mealCostInput','mealProteinInput','mealCarbsInput','mealFatInput','mealPrepInput','mealIngredientsInput'].forEach(id=>{document.getElementById(id).value='';});
+  const mp=document.getElementById('modalPresets');mp.innerHTML='';
+  PRESET_MEALS.filter(m=>m.type===type).forEach(m=>{
+    const d=document.createElement('div');d.className='preset-card';d.style.cssText='margin-bottom:6px;padding:8px';
+    d.innerHTML='<span style="font-weight:600">'+m.name+'</span> <span style="color:#8b949e;font-size:0.75rem">'+m.cal+'cal | $'+m.cost.toFixed(2)+'</span>';
+    d.onclick=()=>{addPresetMeal(m);closeModal();};mp.appendChild(d);
+  });
+  document.getElementById('addMealModal').classList.add('show');
+}
+function closeModal(){document.getElementById('addMealModal').classList.remove('show');}
+
+function addCustomMeal(){
+  const name=document.getElementById('mealNameInput').value.trim();
+  if(!name)return alert('Enter a meal name');
+  const meal={name,type:document.getElementById('mealTypeInput').value,
+    cal:parseInt(document.getElementById('mealCalInput').value)||0,
+    protein:parseInt(document.getElementById('mealProteinInput').value)||0,
+    carbs:parseInt(document.getElementById('mealCarbsInput').value)||0,
+    fat:parseInt(document.getElementById('mealFatInput').value)||0,
+    cost:parseFloat(document.getElementById('mealCostInput').value)||0,
+    prep:parseInt(document.getElementById('mealPrepInput').value)||0,
+    ingredients:document.getElementById('mealIngredientsInput').value.split(',').map(s=>s.trim()).filter(Boolean)
+  };
+  weekPlan[currentDay][currentSlot].push(meal);closeModal();renderDayGrid();updateSummary();generateGroceryList();generateLeftoverTips();
+}
+
+function addPresetMeal(meal){
+  const m=JSON.parse(JSON.stringify(meal));
+  weekPlan[currentDay][currentSlot].push(m);renderDayGrid();updateSummary();generateGroceryList();generateLeftoverTips();
+}
+
+function removeMeal(day,type,idx){weekPlan[day][type].splice(idx,1);renderDayGrid();updateSummary();generateGroceryList();generateLeftoverTips();}
+
+function renderPresets(filter){
+  const grid=document.getElementById('presetsGrid');grid.innerHTML='';
+  const filtered=filter==='all'?PRESET_MEALS:PRESET_MEALS.filter(m=>m.cat.includes(filter)||m.type===filter);
+  filtered.forEach(m=>{
+    const card=document.createElement('div');card.className='preset-card';
+    card.innerHTML='<div class="cat">'+m.cat.join(' | ')+'</div><div class="name">'+m.name+'</div><div class="info">'+m.cal+' cal | P:'+m.protein+'g C:'+m.carbs+'g F:'+m.fat+'g | $'+m.cost.toFixed(2)+' | '+m.prep+'min</div>';
+    card.onclick=()=>{alert('Click "+ Add" on a day slot first, then select a preset from the modal.');};
+    grid.appendChild(card);
+  });
+}
+function filterPresets(cat){renderPresets(cat);}
+
+function generateGroceryList(){
+  const allIngredients={};
+  const categories={'Produce':['lettuce','tomato','banana','apple','avocado','lemon','lime','cilantro','green onion','berries','zucchini','bell pepper','broccoli','carrots','celery','onion','asparagus','romaine lettuce','frozen vegetables','frozen berries','spinach'],'Protein':['chicken breast','ground beef','turkey slices','salmon fillet','chicken thighs','eggs','canned tuna','protein bar','protein powder','shrimp'],'Dairy':['milk','greek yogurt','cheese','butter','sour cream','parmesan','almond milk'],'Grains & Bread':['bread','oats','rice','pasta','tortilla','taco shells','crackers','flour','granola'],'Pantry':['olive oil','soy sauce','sesame oil','honey','peanut butter','hummus','mayo','mustard','marinara sauce','tomato sauce','diced tomatoes','salsa','caesar dressing','maple syrup','mixed nuts','raisins','chocolate chips','chia seeds','kidney beans','black beans','corn'],'Spices':['salt','pepper','garlic','ginger','herbs','paprika','chili powder','Italian seasoning','red pepper flakes','dill']};
+  DAYS.forEach(day=>{MEAL_TYPES.forEach(type=>{(weekPlan[day][type]||[]).forEach(meal=>{(meal.ingredients||[]).forEach(ing=>{const key=ing.toLowerCase().trim();allIngredients[key]=(allIngredients[key]||0)+1;});});});});
+  const list=document.getElementById('groceryList');
+  if(Object.keys(allIngredients).length===0){list.innerHTML='<p style="color:#484f58;text-align:center;padding:2rem">Add meals to your planner to generate a grocery list</p>';return;}
+  list.innerHTML='';const categorized={};
+  Object.keys(allIngredients).forEach(ing=>{let found=false;
+    for(const[cat,items]of Object.entries(categories)){if(items.includes(ing)){if(!categorized[cat])categorized[cat]=[];categorized[cat].push({name:ing,count:allIngredients[ing]});found=true;break;}}
+    if(!found){if(!categorized['Other'])categorized['Other']=[];categorized['Other'].push({name:ing,count:allIngredients[ing]});}
+  });
+  Object.keys(categorized).sort().forEach(cat=>{
+    const div=document.createElement('div');div.className='grocery-cat';div.innerHTML='<h4>'+cat+'</h4>';
+    categorized[cat].forEach(item=>{const row=document.createElement('div');row.className='grocery-item';
+      row.innerHTML='<input type="checkbox" onchange="this.parentElement.classList.toggle(\'checked\')"><span>'+item.name+(item.count>1?' (x'+item.count+' meals)':'')+'</span>';
+      div.appendChild(row);});
+    list.appendChild(div);
+  });
+}
+
+function updateSummary(){
+  let totalCal=0,totalCost=0,totalProtein=0,totalCarbs=0,totalFat=0,totalMeals=0,totalPrep=0;
+  const dailyData={};
+  DAYS.forEach(day=>{dailyData[day]={cal:0,cost:0,protein:0,carbs:0,fat:0,meals:0};
+    MEAL_TYPES.forEach(type=>{(weekPlan[day][type]||[]).forEach(meal=>{
+      totalCal+=meal.cal||0;totalCost+=meal.cost||0;totalProtein+=meal.protein||0;totalCarbs+=meal.carbs||0;totalFat+=meal.fat||0;totalPrep+=meal.prep||0;totalMeals++;
+      dailyData[day].cal+=meal.cal||0;dailyData[day].cost+=meal.cost||0;dailyData[day].meals++;
+    });});
+  });
+  const avgDailyCal=totalMeals>0?Math.round(totalCal/7):0;
+  document.getElementById('summaryGrid').innerHTML=
+    '<div class="summary-stat"><div class="val blue">'+totalMeals+'</div><div class="lbl">Total Meals</div></div>'+
+    '<div class="summary-stat"><div class="val green">'+totalCal.toLocaleString()+'</div><div class="lbl">Total Calories</div></div>'+
+    '<div class="summary-stat"><div class="val purple">$'+totalCost.toFixed(2)+'</div><div class="lbl">Total Cost</div></div>'+
+    '<div class="summary-stat"><div class="val orange">'+avgDailyCal+'</div><div class="lbl">Avg Daily Cal</div></div>'+
+    '<div class="summary-stat"><div class="val blue">'+totalProtein+'g</div><div class="lbl">Total Protein</div></div>'+
+    '<div class="summary-stat"><div class="val green">'+totalCarbs+'g</div><div class="lbl">Total Carbs</div></div>'+
+    '<div class="summary-stat"><div class="val purple">'+totalFat+'g</div><div class="lbl">Total Fat</div></div>'+
+    '<div class="summary-stat"><div class="val orange">'+totalPrep+'m</div><div class="lbl">Total Prep Time</div></div>';
+  let bd='<div style="margin-top:1rem"><h3 style="color:#58a6ff;margin-bottom:8px">Daily Breakdown</h3>';
+  DAYS.forEach(day=>{const d=dailyData[day];const pct=d.cal>0?Math.min(100,Math.round((d.cal/2500)*100)):0;
+    bd+='<div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;font-size:0.85rem"><span style="width:40px;color:#8b949e">'+day.substring(0,3)+'</span><div style="flex:1;height:8px;background:#21262d;border-radius:4px;overflow:hidden"><div style="height:100%;width:'+pct+'%;background:linear-gradient(90deg,#39d353,#58a6ff);border-radius:4px"></div></div><span style="width:60px;text-align:right;color:#e6edf3">'+d.cal+' cal</span><span style="width:50px;text-align:right;color:#39d353">$'+d.cost.toFixed(2)+'</span></div>';
+  });bd+='</div>';document.getElementById('dailyBreakdown').innerHTML=bd;
+}
+
+function generateLeftoverTips(){
+  const ingredientDays={};
+  DAYS.forEach(day=>{MEAL_TYPES.forEach(type=>{(weekPlan[day][type]||[]).forEach(meal=>{(meal.ingredients||[]).forEach(ing=>{const key=ing.toLowerCase().trim();if(!ingredientDays[key])ingredientDays[key]=[];ingredientDays[key].push(day);});});});});
+  const leftoverTips={'chicken breast':'Cook extra chicken on day one and shred leftovers for wraps, salads, or stir-fry later in the week.','rice':'Make a big batch on day one. Use fresh for dinner, then make fried rice with the cold leftovers.','ground beef':'Brown all your ground beef at once. Use for tacos one night, chili the next, and pasta sauce another.','pasta':'Cook extra pasta and toss with olive oil to store. Reheat for quick lunches or add to soups.','eggs':'Hard-boil a dozen eggs on Sunday. Use for breakfast, snacks, and salad toppings all week.','onion':'Dice all your onions at once during prep. Store in an airtight container for quick cooking.','garlic':'Mince all your garlic for the week in one session. Store covered in olive oil.','bell pepper':'Slice all peppers at once. Use in stir-fry, salads, and as snack sticks with hummus.','tomato':'Buy a variety. Use firm ones for sandwiches early in the week, riper ones for sauces later.','bread':'Freeze half the loaf to keep it fresh. Defrost slices as needed for sandwiches and toast.','banana':'Buy green bananas so they ripen across the week. Use overripe ones for pancakes or smoothies.','broccoli':'Steam a big batch and store. Add to stir-fries, salads, or eat as a side all week.','cheese':'Shred a block at once. Cheaper than pre-shredded and works for all meals.','tortilla':'Keep extras frozen. They thaw in seconds and work for wraps, quesadillas, and pizza bases.'};
+  const tips=[];
+  Object.keys(ingredientDays).forEach(ing=>{if(ingredientDays[ing].length>=2&&leftoverTips[ing]){tips.push({ingredient:ing,days:ingredientDays[ing],tip:leftoverTips[ing]});}});
+  const container=document.getElementById('leftoverSuggestions');
+  if(tips.length===0){container.innerHTML='<p style="color:#484f58;text-align:center;padding:2rem">Add meals with shared ingredients to see leftover optimization tips</p>';return;}
+  container.innerHTML=tips.map(t=>'<div class="leftover-tip"><h4>'+t.ingredient.charAt(0).toUpperCase()+t.ingredient.slice(1)+' (used '+t.days.length+'x: '+t.days.map(d=>d.substring(0,3)).join(', ')+')</h4><p>'+t.tip+'</p></div>').join('');
+}
+
+function savePlan(){localStorage.setItem('mealPrepPlan',JSON.stringify(weekPlan));alert('Meal plan saved!');}
+function loadPlan(){loadSavedPlan();alert('Plan loaded!');}
+function loadSavedPlan(){const saved=localStorage.getItem('mealPrepPlan');if(saved){try{weekPlan=JSON.parse(saved);DAYS.forEach(day=>{if(!weekPlan[day])weekPlan[day]={breakfast:[],lunch:[],dinner:[],snack:[]};});renderDayGrid();updateSummary();generateGroceryList();generateLeftoverTips();}catch(e){}}}
+function clearWeek(){if(!confirm('Clear all meals for the week?'))return;DAYS.forEach(day=>{weekPlan[day]={breakfast:[],lunch:[],dinner:[],snack:[]};});renderDayGrid();updateSummary();generateGroceryList();generateLeftoverTips();}
+
+function exportPlan(){
+  let text='=== WEEKLY MEAL PREP PLAN ===\n\n';let totalCost=0;
+  DAYS.forEach(day=>{text+='--- '+day.toUpperCase()+' ---\n';MEAL_TYPES.forEach(type=>{const meals=weekPlan[day][type]||[];if(meals.length>0){text+='  '+type.charAt(0).toUpperCase()+type.slice(1)+':\n';meals.forEach(m=>{text+='    - '+m.name+' ('+m.cal+' cal, $'+m.cost.toFixed(2)+')\n';totalCost+=m.cost||0;});}});text+='\n';});
+  text+='TOTAL WEEKLY COST: $'+totalCost.toFixed(2)+'\n\nGenerated by spunk.codes/meal-prep-planner\n';
+  navigator.clipboard.writeText(text).then(()=>alert('Plan copied to clipboard!')).catch(()=>{const ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);alert('Plan copied!');});
+}
+
+function copyGroceryList(){
+  const items=document.querySelectorAll('#groceryList .grocery-item span');let text='=== GROCERY LIST ===\n\n';
+  items.forEach(i=>{text+='[ ] '+i.textContent+'\n';});text+='\nGenerated by spunk.codes/meal-prep-planner\n';
+  navigator.clipboard.writeText(text).then(()=>alert('Grocery list copied!')).catch(()=>alert('Copy failed'));
+}
+function printGroceryList(){window.print();}
+
+function showTab(tab){
+  ['planner','presets','grocery','summary','leftovers'].forEach(t=>{document.getElementById('tab-'+t).style.display=t===tab?'block':'none';});
+  document.querySelectorAll('.tab').forEach((el,i)=>{el.classList.toggle('active',['planner','presets','grocery','summary','leftovers'][i]===tab);});
+  if(tab==='grocery')generateGroceryList();if(tab==='summary')updateSummary();if(tab==='leftovers')generateLeftoverTips();
+}
+
+document.addEventListener('DOMContentLoaded',initPlanner);
+</script>
+<script>
+(function(){document.addEventListener('contextmenu',function(e){e.preventDefault();});document.addEventListener('keydown',function(e){if(e.key==='F12')e.preventDefault();if(e.ctrlKey&&e.key==='u')e.preventDefault();if(e.ctrlKey&&e.key==='s')e.preventDefault();if(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='i'||e.key==='J'||e.key==='j'||e.key==='C'||e.key==='c'))e.preventDefault();});
+console.log('%c⚠ SPUNK.CODES — All rights reserved.','color:#ff5f1f;font-size:16px;font-weight:bold;');
+if(!document.querySelector('.watermark')){var w=document.createElement('div');w.style.cssText='position:fixed;bottom:10px;right:15px;font-size:0.7rem;color:rgba(255,95,31,0.15);font-weight:700;letter-spacing:2px;pointer-events:none;z-index:9999;';w.textContent='SPUNK.CODES';document.body.appendChild(w);}})();
+</script>
+<script src="/auto-monetize.js"></script>
+<div id="shareXBtn" style="position:fixed;left:20px;bottom:20px;z-index:9999;">
+  <a id="shareXLink" href="#" target="_blank" rel="noopener noreferrer" title="Share on X" style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;background:rgba(88,166,255,0.15);border:1px solid rgba(88,166,255,0.3);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:50%;text-decoration:none;transition:all 0.3s ease;cursor:pointer;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+  </a>
+</div>
+<style>#shareXBtn a:hover{background:rgba(88,166,255,0.35)!important;border-color:rgba(88,166,255,0.6)!important;transform:scale(1.1);box-shadow:0 0 15px rgba(88,166,255,0.3);}</style>
+<script>(function(){var p=location.pathname.split("/").pop()||"index.html";var u="https://spunk.codes/"+p;var t="Just used this free Weekly Meal Prep Planner on spunk.codes — plan meals, save money! @SpunkArt13";document.getElementById("shareXLink").href="https://x.com/intent/tweet?text="+encodeURIComponent(t)+"&url="+encodeURIComponent(u);})();</script>
+<script src="/usage-tracker.js"></script>
+</body>
+</html>
+<!-- Extended meal database and helper functions -->
+<script>
+/* Additional preset meals for variety */
+const EXTRA_MEALS=[
+  {name:'Breakfast Burrito',type:'breakfast',cal:450,protein:22,carbs:42,fat:22,cost:3.00,prep:15,cat:['comfort'],ingredients:['eggs','tortilla','cheese','salsa','bell pepper','onion']},
+  {name:'French Toast',type:'breakfast',cal:400,protein:10,carbs:55,fat:16,cost:2.00,prep:12,cat:['comfort','budget'],ingredients:['bread','eggs','milk','butter','maple syrup','cinnamon']},
+  {name:'Chia Pudding',type:'breakfast',cal:280,protein:8,carbs:38,fat:12,cost:2.50,prep:5,cat:['quick','healthy'],ingredients:['chia seeds','almond milk','honey','berries']},
+  {name:'BLT Sandwich',type:'lunch',cal:480,protein:18,carbs:35,fat:30,cost:3.50,prep:8,cat:['quick','comfort'],ingredients:['bread','bacon','lettuce','tomato','mayo']},
+  {name:'Greek Salad',type:'lunch',cal:350,protein:12,carbs:18,fat:26,cost:3.50,prep:10,cat:['quick','healthy'],ingredients:['cucumber','tomato','red onion','feta cheese','olives','olive oil']},
+  {name:'Egg Fried Rice',type:'lunch',cal:440,protein:16,carbs:58,fat:16,cost:2.00,prep:12,cat:['quick','budget'],ingredients:['rice','eggs','frozen vegetables','soy sauce','green onion','sesame oil']},
+  {name:'Pulled Pork Tacos',type:'dinner',cal:600,protein:34,carbs:48,fat:28,cost:5.00,prep:30,cat:['comfort'],ingredients:['pork shoulder','taco shells','coleslaw','bbq sauce','pickles']},
+  {name:'Vegetable Soup',type:'dinner',cal:280,protein:8,carbs:42,fat:8,cost:2.50,prep:35,cat:['healthy','budget'],ingredients:['carrots','celery','onion','potatoes','tomato sauce','garlic','herbs']},
+  {name:'Chicken Alfredo',type:'dinner',cal:680,protein:38,carbs:65,fat:28,cost:5.50,prep:25,cat:['comfort'],ingredients:['pasta','chicken breast','heavy cream','parmesan','garlic','butter']},
+  {name:'Black Bean Tacos',type:'dinner',cal:420,protein:18,carbs:58,fat:14,cost:2.00,prep:15,cat:['budget','healthy'],ingredients:['black beans','taco shells','lettuce','tomato','salsa','corn','cilantro']},
+  {name:'Yogurt & Granola',type:'snack',cal:220,protein:10,carbs:32,fat:6,cost:1.50,prep:2,cat:['quick','healthy'],ingredients:['greek yogurt','granola','honey']},
+  {name:'Rice Cakes with PB',type:'snack',cal:180,protein:5,carbs:25,fat:8,cost:1.00,prep:2,cat:['quick','budget'],ingredients:['rice cakes','peanut butter']},
+  {name:'Mixed Fruit',type:'snack',cal:120,protein:1,carbs:30,fat:0,cost:2.00,prep:5,cat:['quick','healthy'],ingredients:['apple','banana','berries','grapes']},
+  {name:'Edamame',type:'snack',cal:190,protein:17,carbs:14,fat:8,cost:1.50,prep:5,cat:['quick','healthy'],ingredients:['edamame','salt']},
+  {name:'Turkey Meatballs',type:'dinner',cal:460,protein:36,carbs:35,fat:20,cost:4.50,prep:30,cat:['healthy'],ingredients:['ground turkey','bread crumbs','eggs','marinara sauce','pasta','parmesan']},
+  {name:'Sheet Pan Fajitas',type:'dinner',cal:520,protein:32,carbs:42,fat:24,cost:5.00,prep:25,cat:['healthy'],ingredients:['chicken breast','bell pepper','onion','tortilla','salsa','sour cream','lime']},
+];
+PRESET_MEALS.push(...EXTRA_MEALS);
+
+/* Nutrition helper: estimate daily needs */
+function getDailyTarget(goal){
+  const targets={maintain:{cal:2000,protein:75,carbs:250,fat:65},lose:{cal:1600,protein:90,carbs:180,fat:55},gain:{cal:2500,protein:120,carbs:320,fat:80}};
+  return targets[goal]||targets.maintain;
+}
+
+/* Auto-fill a week with balanced meals */
+function autoFillWeek(){
+  if(!confirm('Auto-fill the week with balanced meals? This will replace current plan.'))return;
+  DAYS.forEach(day=>{
+    weekPlan[day]={breakfast:[],lunch:[],dinner:[],snack:[]};
+    const bf=PRESET_MEALS.filter(m=>m.type==='breakfast');
+    const ln=PRESET_MEALS.filter(m=>m.type==='lunch');
+    const dn=PRESET_MEALS.filter(m=>m.type==='dinner');
+    const sn=PRESET_MEALS.filter(m=>m.type==='snack');
+    weekPlan[day].breakfast.push(JSON.parse(JSON.stringify(bf[Math.floor(Math.random()*bf.length)])));
+    weekPlan[day].lunch.push(JSON.parse(JSON.stringify(ln[Math.floor(Math.random()*ln.length)])));
+    weekPlan[day].dinner.push(JSON.parse(JSON.stringify(dn[Math.floor(Math.random()*dn.length)])));
+    weekPlan[day].snack.push(JSON.parse(JSON.stringify(sn[Math.floor(Math.random()*sn.length)])));
+  });
+  renderDayGrid();updateSummary();generateGroceryList();generateLeftoverTips();
+}
+
+/* Budget analysis */
+function getBudgetAnalysis(){
+  let total=0,cheapest=Infinity,priciest=0,cheapName='',priceeName='';
+  DAYS.forEach(day=>{MEAL_TYPES.forEach(type=>{(weekPlan[day][type]||[]).forEach(meal=>{
+    total+=meal.cost||0;
+    if(meal.cost<cheapest&&meal.cost>0){cheapest=meal.cost;cheapName=meal.name;}
+    if(meal.cost>priciest){priciest=meal.cost;priceeName=meal.name;}
+  });});});
+  return{total:total,daily:total/7,cheapest:cheapName+' ($'+(cheapest===Infinity?0:cheapest).toFixed(2)+')',priciest:priceeName+' ($'+priciest.toFixed(2)+')'};
+}
+
+/* Print-friendly format */
+function printFullPlan(){
+  let html='<html><head><title>Meal Plan</title><style>body{font-family:Arial;max-width:800px;margin:auto;padding:20px}table{width:100%;border-collapse:collapse}th,td{border:1px solid #ccc;padding:8px;text-align:left;font-size:13px}th{background:#f0f0f0}</style></head><body>';
+  html+='<h1>Weekly Meal Prep Plan</h1><table><tr><th>Day</th><th>Breakfast</th><th>Lunch</th><th>Dinner</th><th>Snack</th><th>Total Cal</th><th>Cost</th></tr>';
+  DAYS.forEach(day=>{
+    let dc=0,dd=0;
+    html+='<tr><td><strong>'+day+'</strong></td>';
+    MEAL_TYPES.forEach(type=>{
+      const meals=weekPlan[day][type]||[];
+      html+='<td>'+meals.map(m=>{dc+=m.cal||0;dd+=m.cost||0;return m.name+' ('+m.cal+'cal)';}).join('<br>')+'</td>';
+    });
+    html+='<td>'+dc+'</td><td>$'+dd.toFixed(2)+'</td></tr>';
+  });
+  html+='</table></body></html>';
+  const w=window.open('','_blank');w.document.write(html);w.document.close();w.print();
+}
+</script>

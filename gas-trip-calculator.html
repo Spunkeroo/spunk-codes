@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Copyright 2026 spunk.codes. All rights reserved. Unauthorized reproduction prohibited. hello@spunk.codes -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Gas & Road Trip Cost Calculator — Free Fuel, Split & Drive vs Fly Tool</title>
+<meta name="description" content="Calculate road trip fuel costs, split between passengers, compare driving vs flying, estimate tolls, parking, and food stops. Free gas calculator by SPUNK.CODES">
+<meta property="og:title" content="Gas & Road Trip Cost Calculator — Free Tool">
+<meta property="og:description" content="Calculate trip fuel costs, split gas, compare drive vs fly. Free road trip calculator.">
+<meta property="og:url" content="https://spunk.codes/gas-trip-calculator.html">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Gas & Road Trip Cost Calculator">
+<meta name="twitter:description" content="Calculate fuel costs, split gas, compare drive vs fly, estimate tolls & food stops. Free by SPUNK.CODES">
+<link rel="canonical" href="https://spunk.codes/gas-trip-calculator.html">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Gas & Road Trip Cost Calculator","description":"Calculate road trip fuel costs, split between passengers, compare driving vs flying, estimate tolls, parking, and food stops.","url":"https://spunk.codes/gas-trip-calculator.html","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Organization","name":"SpunkArt","url":"https://spunk.codes"}}</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#0d1117;color:#e6edf3;min-height:100vh;display:flex;flex-direction:column;line-height:1.6}
+a{color:#58a6ff;text-decoration:none}a:hover{text-decoration:underline}
+nav{background:#161b22;border-bottom:1px solid #30363d;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+nav .logo{font-weight:800;font-size:1.1rem;color:#ff5f1f;letter-spacing:1px}
+nav .links{display:flex;gap:20px;font-size:0.9rem}
+nav .links a{color:#8b949e}nav .links a:hover{color:#58a6ff}
+main{flex:1;display:flex;justify-content:center;padding:2rem 1rem}
+.container{max-width:700px;width:100%}
+h1{font-size:2rem;text-align:center;margin-bottom:0.3rem;background:linear-gradient(135deg,#58a6ff,#39d353);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.sub{text-align:center;color:#8b949e;margin-bottom:2rem;font-size:0.95rem}
+.card{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:1.5rem;margin-bottom:1.5rem}
+.card h2{font-size:1.1rem;color:#58a6ff;margin-bottom:1rem}
+.card h3{font-size:0.95rem;color:#39d353;margin-bottom:0.5rem;margin-top:1rem}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.form-group{margin-bottom:12px}
+.form-group label{display:block;font-size:0.85rem;color:#8b949e;margin-bottom:4px}
+input,select{background:#0d1117;border:1px solid #30363d;color:#e6edf3;padding:12px 14px;border-radius:8px;font-size:1rem;width:100%}
+input:focus,select:focus{outline:none;border-color:#58a6ff}
+.btn{display:inline-block;padding:14px 32px;background:#58a6ff;color:#0d1117;border:none;border-radius:10px;font-size:1.1rem;font-weight:700;cursor:pointer;transition:all .2s;width:100%;text-align:center}
+.btn:hover{background:#79c0ff;transform:scale(1.02)}
+.btn.green{background:#39d353}
+.btn.purple{background:#bc8cff}
+.btn.sm{padding:8px 16px;font-size:0.85rem;width:auto}
+.results{display:none}
+.result-hero{text-align:center;padding:2rem;background:linear-gradient(135deg,#161b22,#1c2333);border:2px solid #58a6ff;border-radius:16px;margin-bottom:1.5rem}
+.result-big{font-size:3rem;font-weight:800;color:#39d353;line-height:1}
+.result-label{font-size:1rem;color:#8b949e;margin-top:8px}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:1.5rem}
+.stat{background:#0d1117;border:1px solid #30363d;border-radius:10px;padding:16px;text-align:center}
+.stat .val{font-size:1.4rem;font-weight:800;font-family:'Courier New',monospace}
+.stat .val.blue{color:#58a6ff}.stat .val.green{color:#39d353}.stat .val.purple{color:#bc8cff}.stat .val.orange{color:#f0883e}.stat .val.red{color:#f85149}
+.stat .lbl{font-size:0.7rem;color:#8b949e;text-transform:uppercase;letter-spacing:1px;margin-top:2px}
+.compare-box{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:1.5rem}
+.compare-side{background:#0d1117;border:1px solid #30363d;border-radius:12px;padding:20px;text-align:center}
+.compare-side.winner{border-color:#39d353;background:#0d1117}
+.compare-side h3{font-size:0.9rem;margin-bottom:8px}
+.compare-side .price{font-size:2rem;font-weight:800;font-family:'Courier New',monospace}
+.compare-side .detail{font-size:0.8rem;color:#8b949e;margin-top:6px}
+.badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:0.7rem;font-weight:700;text-transform:uppercase}
+.badge.green{background:rgba(57,211,83,0.15);color:#39d353}
+.badge.red{background:rgba(248,81,73,0.15);color:#f85149}
+.breakdown{background:#0d1117;border:1px solid #30363d;border-radius:10px;overflow:hidden;margin-bottom:1.5rem}
+.breakdown-row{display:flex;justify-content:space-between;padding:10px 16px;border-bottom:1px solid #21262d;font-size:0.9rem}
+.breakdown-row:last-child{border-bottom:none}
+.breakdown-row .label{color:#8b949e}
+.breakdown-row .value{font-weight:700}
+.breakdown-row.total{background:#161b22;font-weight:700;font-size:1rem}
+.breakdown-row.total .value{color:#39d353}
+.saved-trips{margin-top:1.5rem}
+.saved-trip{background:#0d1117;border:1px solid #30363d;border-radius:8px;padding:12px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center}
+.saved-trip .info{font-size:0.85rem}
+.saved-trip .info .route{font-weight:700}
+.saved-trip .info .meta{color:#8b949e;font-size:0.75rem}
+.saved-trip .cost{font-weight:800;color:#39d353;font-size:1.1rem}
+.vehicle-presets{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.v-preset{padding:6px 12px;background:#0d1117;border:1px solid #30363d;border-radius:6px;font-size:0.8rem;cursor:pointer;color:#8b949e;transition:all .2s}
+.v-preset:hover,.v-preset.active{border-color:#58a6ff;color:#58a6ff}
+footer{background:#161b22;border-top:1px solid #30363d;padding:16px 24px;text-align:center;font-size:0.8rem;color:#484f58}
+@media(max-width:600px){
+  h1{font-size:1.5rem}.form-row{grid-template-columns:1fr}.result-big{font-size:2.2rem}.compare-box{grid-template-columns:1fr}.stats-grid{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="logo">SPUNK.CODES</a>
+  <div class="links">
+    <a href="/store">Store</a>
+    <a href="/store#free-tools">Free Tools</a>
+    <a href="/reseller" style="color:#39d353;font-weight:700">Resell $$</a>
+    <a href="/blog">Blog</a>
+  </div>
+</nav>
+<main>
+<div class="container">
+  <h1>Gas & Road Trip Cost Calculator</h1>
+  <div class="sub">Calculate fuel costs, split between passengers, compare driving vs flying</div>
+
+  <div class="card">
+    <h2>Trip Details</h2>
+    <div class="form-row">
+      <div class="form-group"><label>Starting Location</label><input type="text" id="startLoc" placeholder="e.g., Los Angeles, CA"></div>
+      <div class="form-group"><label>Destination</label><input type="text" id="endLoc" placeholder="e.g., Las Vegas, NV"></div>
+    </div>
+    <div class="form-group"><label>Or enter distance directly (miles)</label><input type="number" id="distMiles" placeholder="270"></div>
+
+    <h3>Vehicle</h3>
+    <div class="vehicle-presets">
+      <span class="v-preset" onclick="setVehicle(25,'Sedan')">Sedan (25 MPG)</span>
+      <span class="v-preset" onclick="setVehicle(30,'Hybrid')">Hybrid (30 MPG)</span>
+      <span class="v-preset" onclick="setVehicle(20,'SUV')">SUV (20 MPG)</span>
+      <span class="v-preset" onclick="setVehicle(15,'Truck')">Truck (15 MPG)</span>
+      <span class="v-preset" onclick="setVehicle(55,'EV')">EV (55 MPGe)</span>
+      <span class="v-preset" onclick="setVehicle(35,'Compact')">Compact (35 MPG)</span>
+      <span class="v-preset" onclick="setVehicle(18,'Minivan')">Minivan (18 MPG)</span>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Vehicle MPG</label><input type="number" id="mpg" placeholder="25" step="0.1"></div>
+      <div class="form-group"><label>Gas Price ($/gal)</label><input type="number" id="gasPrice" placeholder="3.50" step="0.01"></div>
+    </div>
+
+    <h3>Passengers & Extras</h3>
+    <div class="form-row">
+      <div class="form-group"><label>Number of Passengers</label><input type="number" id="passengers" value="1" min="1" max="10"></div>
+      <div class="form-group"><label>Round Trip?</label><select id="roundTrip"><option value="yes">Yes — Round Trip</option><option value="no">One Way Only</option></select></div>
+    </div>
+
+    <h3>Additional Costs (Optional)</h3>
+    <div class="form-row">
+      <div class="form-group"><label>Tolls ($)</label><input type="number" id="tolls" placeholder="0" step="0.01"></div>
+      <div class="form-group"><label>Parking ($)</label><input type="number" id="parking" placeholder="0" step="0.01"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Food Stops ($)</label><input type="number" id="foodStops" placeholder="0" step="0.01"></div>
+      <div class="form-group"><label>Average Flight Price ($, for comparison)</label><input type="number" id="flightPrice" placeholder="150" step="0.01"></div>
+    </div>
+
+    <button class="btn" onclick="calculateTrip()">Calculate Trip Cost</button>
+  </div>
+
+  <div class="results" id="results">
+    <div class="result-hero">
+      <div class="result-big" id="totalCost">$0.00</div>
+      <div class="result-label" id="totalLabel">Total Trip Cost</div>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat"><div class="val blue" id="statGallons">0</div><div class="lbl">Gallons Used</div></div>
+      <div class="stat"><div class="val green" id="statFuelCost">$0</div><div class="lbl">Fuel Cost</div></div>
+      <div class="stat"><div class="val purple" id="statPerPerson">$0</div><div class="lbl">Per Person</div></div>
+      <div class="stat"><div class="val orange" id="statDriveTime">0h</div><div class="lbl">Drive Time</div></div>
+      <div class="stat"><div class="val blue" id="statDistance">0</div><div class="lbl">Total Miles</div></div>
+      <div class="stat"><div class="val green" id="statCostPerMile">$0</div><div class="lbl">Cost/Mile</div></div>
+    </div>
+
+    <div class="card">
+      <h2>Cost Breakdown</h2>
+      <div class="breakdown" id="breakdownList"></div>
+    </div>
+
+    <div class="card" id="compareCard" style="display:none">
+      <h2>Drive vs Fly Comparison</h2>
+      <div class="compare-box" id="compareBox"></div>
+      <div id="compareVerdict" style="text-align:center;font-size:0.95rem;color:#8b949e;margin-top:8px"></div>
+    </div>
+
+    <div style="text-align:center;margin-top:1rem">
+      <button class="btn sm green" onclick="saveTrip()">Save This Trip</button>
+      <button class="btn sm purple" onclick="shareTrip()">Share Results</button>
+      <button class="btn sm" onclick="printTrip()">Print</button>
+    </div>
+  </div>
+
+  <div class="card saved-trips" id="savedTripsCard" style="display:none">
+    <h2>Saved Trips</h2>
+    <div id="savedTripsList"></div>
+  </div>
+
+  <!-- Common route distances for quick reference -->
+  <div class="card">
+    <h2>Popular Routes (Click to Auto-Fill)</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px;margin-top:8px">
+      <div class="v-preset" onclick="fillRoute('Los Angeles','Las Vegas',270)">LA → Las Vegas (270 mi)</div>
+      <div class="v-preset" onclick="fillRoute('New York','Boston',215)">NYC → Boston (215 mi)</div>
+      <div class="v-preset" onclick="fillRoute('San Francisco','Los Angeles',382)">SF → LA (382 mi)</div>
+      <div class="v-preset" onclick="fillRoute('Chicago','Detroit',282)">Chicago → Detroit (282 mi)</div>
+      <div class="v-preset" onclick="fillRoute('Dallas','Houston',239)">Dallas → Houston (239 mi)</div>
+      <div class="v-preset" onclick="fillRoute('Miami','Orlando',235)">Miami → Orlando (235 mi)</div>
+      <div class="v-preset" onclick="fillRoute('Seattle','Portland',174)">Seattle → Portland (174 mi)</div>
+      <div class="v-preset" onclick="fillRoute('Atlanta','Nashville',249)">Atlanta → Nashville (249 mi)</div>
+      <div class="v-preset" onclick="fillRoute('Denver','Salt Lake City',525)">Denver → SLC (525 mi)</div>
+      <div class="v-preset" onclick="fillRoute('Phoenix','Tucson',113)">Phoenix → Tucson (113 mi)</div>
+      <div class="v-preset" onclick="fillRoute('New York','Washington DC',227)">NYC → DC (227 mi)</div>
+      <div class="v-preset" onclick="fillRoute('Los Angeles','San Diego',120)">LA → San Diego (120 mi)</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Gas Price Reference (National Averages, Feb 2026)</h2>
+    <div class="breakdown">
+      <div class="breakdown-row"><span class="label">Regular Unleaded</span><span class="value">$3.35/gal</span></div>
+      <div class="breakdown-row"><span class="label">Mid-Grade</span><span class="value">$3.75/gal</span></div>
+      <div class="breakdown-row"><span class="label">Premium</span><span class="value">$4.15/gal</span></div>
+      <div class="breakdown-row"><span class="label">Diesel</span><span class="value">$3.85/gal</span></div>
+      <div class="breakdown-row"><span class="label">California Average</span><span class="value">$4.65/gal</span></div>
+      <div class="breakdown-row"><span class="label">Texas Average</span><span class="value">$2.95/gal</span></div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:1rem">
+    <h2 style="text-align:center">More Free Tools</h2>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:10px">
+      <a href="/meal-prep-planner.html" class="btn sm" style="background:transparent;color:#58a6ff;border:1px solid #58a6ff">Meal Prep Planner</a>
+      <a href="/rent-vs-buy-calculator.html" class="btn sm" style="background:transparent;color:#58a6ff;border:1px solid #58a6ff">Rent vs Buy</a>
+      <a href="/resume-ats-checker.html" class="btn sm" style="background:transparent;color:#58a6ff;border:1px solid #58a6ff">Resume ATS Checker</a>
+      <a href="/moving-cost-estimator.html" class="btn sm" style="background:transparent;color:#58a6ff;border:1px solid #58a6ff">Moving Cost Estimator</a>
+    </div>
+  </div>
+</div>
+</main>
+<footer>&copy; 2026 SPUNK.CODES &mdash; Free tools for everyone. <a href="/">Home</a> | <a href="/store">Store</a></footer>
+
+<script>
+let lastCalc = null;
+
+function setVehicle(mpg, name) {
+  document.getElementById('mpg').value = mpg;
+  document.querySelectorAll('.v-preset').forEach(el => el.classList.remove('active'));
+  event.target.classList.add('active');
+}
+
+function fillRoute(from, to, miles) {
+  document.getElementById('startLoc').value = from;
+  document.getElementById('endLoc').value = to;
+  document.getElementById('distMiles').value = miles;
+}
+
+function calculateTrip() {
+  const dist = parseFloat(document.getElementById('distMiles').value);
+  const mpg = parseFloat(document.getElementById('mpg').value);
+  const gasPrice = parseFloat(document.getElementById('gasPrice').value);
+  const passengers = parseInt(document.getElementById('passengers').value) || 1;
+  const isRound = document.getElementById('roundTrip').value === 'yes';
+  const tolls = parseFloat(document.getElementById('tolls').value) || 0;
+  const parking = parseFloat(document.getElementById('parking').value) || 0;
+  const food = parseFloat(document.getElementById('foodStops').value) || 0;
+  const flightPrice = parseFloat(document.getElementById('flightPrice').value) || 0;
+
+  if (!dist || dist <= 0) return alert('Enter a valid distance in miles');
+  if (!mpg || mpg <= 0) return alert('Enter your vehicle MPG');
+  if (!gasPrice || gasPrice <= 0) return alert('Enter the gas price per gallon');
+
+  const multiplier = isRound ? 2 : 1;
+  const totalMiles = dist * multiplier;
+  const gallonsUsed = totalMiles / mpg;
+  const fuelCost = gallonsUsed * gasPrice;
+  const tollsTotal = tolls * multiplier;
+  const foodTotal = food * multiplier;
+  const totalCost = fuelCost + tollsTotal + parking + foodTotal;
+  const perPerson = totalCost / passengers;
+  const costPerMile = totalCost / totalMiles;
+
+  // Estimate drive time: average 55 mph with 15 min stop every 200 miles
+  const rawDriveHours = totalMiles / 55;
+  const numStops = Math.floor(totalMiles / 200);
+  const totalDriveHours = rawDriveHours + (numStops * 0.25);
+  const driveH = Math.floor(totalDriveHours);
+  const driveM = Math.round((totalDriveHours - driveH) * 60);
+
+  lastCalc = {
+    from: document.getElementById('startLoc').value || 'Start',
+    to: document.getElementById('endLoc').value || 'Destination',
+    dist, mpg, gasPrice, passengers, isRound, tolls: tollsTotal, parking, food: foodTotal,
+    totalMiles, gallonsUsed, fuelCost, totalCost, perPerson, costPerMile,
+    driveH, driveM, flightPrice
+  };
+
+  // Display results
+  document.getElementById('totalCost').textContent = '$' + totalCost.toFixed(2);
+  document.getElementById('totalLabel').textContent = isRound ? 'Total Round Trip Cost' : 'Total One-Way Cost';
+  document.getElementById('statGallons').textContent = gallonsUsed.toFixed(1);
+  document.getElementById('statFuelCost').textContent = '$' + fuelCost.toFixed(2);
+  document.getElementById('statPerPerson').textContent = '$' + perPerson.toFixed(2);
+  document.getElementById('statDriveTime').textContent = driveH + 'h ' + driveM + 'm';
+  document.getElementById('statDistance').textContent = totalMiles.toLocaleString() + ' mi';
+  document.getElementById('statCostPerMile').textContent = '$' + costPerMile.toFixed(3);
+
+  // Breakdown
+  let breakdown = '';
+  breakdown += '<div class="breakdown-row"><span class="label">Fuel (' + gallonsUsed.toFixed(1) + ' gal × $' + gasPrice.toFixed(2) + ')</span><span class="value">$' + fuelCost.toFixed(2) + '</span></div>';
+  if (tollsTotal > 0) breakdown += '<div class="breakdown-row"><span class="label">Tolls</span><span class="value">$' + tollsTotal.toFixed(2) + '</span></div>';
+  if (parking > 0) breakdown += '<div class="breakdown-row"><span class="label">Parking</span><span class="value">$' + parking.toFixed(2) + '</span></div>';
+  if (foodTotal > 0) breakdown += '<div class="breakdown-row"><span class="label">Food Stops</span><span class="value">$' + foodTotal.toFixed(2) + '</span></div>';
+  breakdown += '<div class="breakdown-row total"><span class="label">TOTAL' + (isRound ? ' (Round Trip)' : ' (One Way)') + '</span><span class="value">$' + totalCost.toFixed(2) + '</span></div>';
+  if (passengers > 1) {
+    breakdown += '<div class="breakdown-row"><span class="label">Split ' + passengers + ' ways</span><span class="value" style="color:#bc8cff">$' + perPerson.toFixed(2) + '/person</span></div>';
+  }
+  document.getElementById('breakdownList').innerHTML = breakdown;
+
+  // Drive vs Fly comparison
+  if (flightPrice > 0) {
+    const totalFlightCost = flightPrice * passengers;
+    const driveCostAll = totalCost;
+    const driveWins = driveCostAll <= totalFlightCost;
+    const savings = Math.abs(totalFlightCost - driveCostAll);
+    const flyTime = 1 + (dist / 500); // rough estimate: 1hr overhead + distance/500mph
+
+    document.getElementById('compareCard').style.display = 'block';
+    document.getElementById('compareBox').innerHTML = `
+      <div class="compare-side ${driveWins ? 'winner' : ''}">
+        <h3>Driving ${driveWins ? '<span class="badge green">Cheaper</span>' : ''}</h3>
+        <div class="price" style="color:${driveWins ? '#39d353' : '#f85149'}">$${driveCostAll.toFixed(2)}</div>
+        <div class="detail">${driveH}h ${driveM}m drive time</div>
+        <div class="detail">${passengers > 1 ? '$' + perPerson.toFixed(2) + '/person' : 'Solo trip'}</div>
+        <div class="detail">Flexibility to stop anywhere</div>
+      </div>
+      <div class="compare-side ${!driveWins ? 'winner' : ''}">
+        <h3>Flying ${!driveWins ? '<span class="badge green">Cheaper</span>' : ''}</h3>
+        <div class="price" style="color:${!driveWins ? '#39d353' : '#f85149'}">$${totalFlightCost.toFixed(2)}</div>
+        <div class="detail">~${flyTime.toFixed(1)}h total travel time</div>
+        <div class="detail">$${flightPrice.toFixed(2)}/person × ${passengers}</div>
+        <div class="detail">No wear on your vehicle</div>
+      </div>
+    `;
+    document.getElementById('compareVerdict').innerHTML = driveWins
+      ? '<span style="color:#39d353;font-weight:700">Driving saves you $' + savings.toFixed(2) + '!</span> But flying saves ~' + Math.max(0, (totalDriveHours - flyTime)).toFixed(1) + ' hours.'
+      : '<span style="color:#39d353;font-weight:700">Flying saves you $' + savings.toFixed(2) + '!</span> And saves ~' + Math.max(0, (totalDriveHours - flyTime)).toFixed(1) + ' hours of travel.';
+  } else {
+    document.getElementById('compareCard').style.display = 'none';
+  }
+
+  document.getElementById('results').style.display = 'block';
+  document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+  loadSavedTrips();
+}
+
+function saveTrip() {
+  if (!lastCalc) return;
+  const trips = JSON.parse(localStorage.getItem('gasTripCalcTrips') || '[]');
+  trips.unshift({
+    date: new Date().toLocaleDateString(),
+    from: lastCalc.from,
+    to: lastCalc.to,
+    miles: lastCalc.totalMiles,
+    cost: lastCalc.totalCost,
+    perPerson: lastCalc.perPerson,
+    passengers: lastCalc.passengers
+  });
+  if (trips.length > 20) trips.length = 20;
+  localStorage.setItem('gasTripCalcTrips', JSON.stringify(trips));
+  loadSavedTrips();
+  alert('Trip saved!');
+}
+
+function loadSavedTrips() {
+  const trips = JSON.parse(localStorage.getItem('gasTripCalcTrips') || '[]');
+  const card = document.getElementById('savedTripsCard');
+  const list = document.getElementById('savedTripsList');
+  if (trips.length === 0) { card.style.display = 'none'; return; }
+  card.style.display = 'block';
+  list.innerHTML = trips.map((t, i) => `
+    <div class="saved-trip">
+      <div class="info">
+        <div class="route">${t.from} → ${t.to}</div>
+        <div class="meta">${t.date} | ${t.miles} mi | ${t.passengers} passenger${t.passengers > 1 ? 's' : ''}</div>
+      </div>
+      <div class="cost">$${t.cost.toFixed(2)}</div>
+    </div>
+  `).join('');
+}
+
+function shareTrip() {
+  if (!lastCalc) return;
+  const text = 'Road trip: ' + lastCalc.from + ' → ' + lastCalc.to + ' (' + lastCalc.totalMiles + ' mi) costs $' + lastCalc.totalCost.toFixed(2) + ' in gas! Calculated free at spunk.codes @SpunkArt13';
+  const url = 'https://x.com/intent/tweet?text=' + encodeURIComponent(text);
+  window.open(url, '_blank');
+}
+
+function printTrip() {
+  window.print();
+}
+
+// Wear and tear cost estimator (IRS rate)
+function getWearAndTear(miles) {
+  // 2026 IRS standard mileage rate estimate: $0.70/mile
+  return miles * 0.70;
+}
+
+// CO2 emissions estimate
+function getCO2(gallons) {
+  // Burning 1 gallon of gas produces ~19.6 lbs of CO2
+  return (gallons * 19.6).toFixed(0);
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  // Set default gas price
+  document.getElementById('gasPrice').value = '3.50';
+  document.getElementById('mpg').value = '25';
+  loadSavedTrips();
+});
+</script>
+<script>
+(function(){document.addEventListener('contextmenu',function(e){e.preventDefault();});document.addEventListener('keydown',function(e){if(e.key==='F12')e.preventDefault();if(e.ctrlKey&&e.key==='u')e.preventDefault();if(e.ctrlKey&&e.key==='s')e.preventDefault();if(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='i'||e.key==='J'||e.key==='j'||e.key==='C'||e.key==='c'))e.preventDefault();});
+console.log('%c⚠ SPUNK.CODES — All rights reserved.','color:#ff5f1f;font-size:16px;font-weight:bold;');
+if(!document.querySelector('.watermark')){var w=document.createElement('div');w.style.cssText='position:fixed;bottom:10px;right:15px;font-size:0.7rem;color:rgba(255,95,31,0.15);font-weight:700;letter-spacing:2px;pointer-events:none;z-index:9999;';w.textContent='SPUNK.CODES';document.body.appendChild(w);}})();
+</script>
+<script src="/auto-monetize.js"></script>
+<div id="shareXBtn" style="position:fixed;left:20px;bottom:20px;z-index:9999;">
+  <a id="shareXLink" href="#" target="_blank" rel="noopener noreferrer" title="Share on X" style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;background:rgba(88,166,255,0.15);border:1px solid rgba(88,166,255,0.3);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:50%;text-decoration:none;transition:all 0.3s ease;cursor:pointer;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+  </a>
+</div>
+<style>#shareXBtn a:hover{background:rgba(88,166,255,0.35)!important;border-color:rgba(88,166,255,0.6)!important;transform:scale(1.1);box-shadow:0 0 15px rgba(88,166,255,0.3);}</style>
+<script>(function(){var p=location.pathname.split("/").pop()||"index.html";var u="https://spunk.codes/"+p;var t="Just calculated my road trip costs with this free tool — try it! @SpunkArt13";document.getElementById("shareXLink").href="https://x.com/intent/tweet?text="+encodeURIComponent(t)+"&url="+encodeURIComponent(u);})();</script>
+<script src="/usage-tracker.js"></script>
+</body>
+</html>
+<!-- Extended road trip tips and fuel efficiency guide -->
+<script>
+/* Road trip tips engine */
+function generateTripTips(totalMiles, driveHours) {
+  const tips = [];
+  if (totalMiles > 500) {
+    tips.push({icon:'⛽',title:'Plan Fuel Stops',text:'For a '+totalMiles+'-mile trip, you will need approximately '+ Math.ceil(totalMiles/350)+' fuel stops. Apps like GasBuddy can help find the cheapest gas along your route.'});
+    tips.push({icon:'🛏️',title:'Consider Overnight',text:'Driving '+driveHours+' hours straight is exhausting. Consider splitting across two days for safety.'});
+  }
+  if (totalMiles > 200) {
+    tips.push({icon:'🍽️',title:'Pack Snacks',text:'Packing your own snacks and drinks can save $15-25 per person on a long road trip vs buying at gas stations.'});
+    tips.push({icon:'🎵',title:'Entertainment Ready',text:'Download podcasts, audiobooks, or playlists before you leave. Data coverage can be spotty on highways.'});
+  }
+  tips.push({icon:'🔧',title:'Pre-Trip Check',text:'Check tire pressure, oil level, coolant, and windshield washer fluid before any road trip. Proper tire pressure alone can improve MPG by 3%.'});
+  tips.push({icon:'📱',title:'Share Your Route',text:'Share your planned route and ETA with someone. Use real-time location sharing for safety.'});
+  tips.push({icon:'💰',title:'Fuel Savings Tip',text:'Driving 55-60 mph instead of 70-80 mph can improve fuel economy by 15-30%. Cruise control helps maintain steady speed.'});
+  tips.push({icon:'🅿️',title:'Parking Strategy',text:'For popular destinations, check SpotHero or ParkWhiz for pre-booked parking at lower rates than drive-up prices.'});
+  return tips;
+}
+
+/* Vehicle depreciation estimator */
+function estimateVehicleWear(miles) {
+  // Average depreciation cost per mile for used vehicles: ~$0.08-0.12
+  const depreciation = miles * 0.10;
+  // Average maintenance cost per mile: ~$0.09
+  const maintenance = miles * 0.09;
+  // Tire wear per mile: ~$0.03
+  const tires = miles * 0.03;
+  return {
+    depreciation: depreciation.toFixed(2),
+    maintenance: maintenance.toFixed(2),
+    tires: tires.toFixed(2),
+    total: (depreciation + maintenance + tires).toFixed(2)
+  };
+}
+
+/* Fuel efficiency tips */
+const FUEL_TIPS = [
+  'Keep tires inflated to recommended PSI — underinflated tires reduce MPG by 0.2% for every 1 PSI drop.',
+  'Remove roof racks when not in use — they create drag and reduce fuel economy by 2-8%.',
+  'Use cruise control on highways to maintain a consistent speed and save up to 14% on fuel.',
+  'Avoid aggressive acceleration and braking — smooth driving can improve MPG by 15-30%.',
+  'Turn off the engine if idling more than 60 seconds — modern engines use less fuel restarting than idling.',
+  'Plan your route to avoid stop-and-go traffic — highway miles are much more fuel-efficient.',
+  'Keep windows closed at highway speeds — open windows create drag similar to having a roof rack.',
+  'Combine errands into fewer trips — a warmed-up engine is 2x more fuel-efficient than cold starts.',
+  'Use the recommended grade of motor oil — using the wrong viscosity can reduce MPG by 1-2%.',
+  'Check and replace air filters regularly — a clean filter can improve acceleration and fuel economy.'
+];
+
+/* State-by-state gas price averages for reference */
+const STATE_GAS_PRICES = {
+  'California': 4.65, 'Hawaii': 4.80, 'Washington': 4.10, 'Oregon': 3.90, 'Nevada': 3.85,
+  'Alaska': 3.95, 'Arizona': 3.45, 'Colorado': 3.30, 'Utah': 3.40, 'New Mexico': 3.25,
+  'Texas': 2.95, 'Oklahoma': 2.90, 'Louisiana': 2.95, 'Mississippi': 2.85, 'Alabama': 2.90,
+  'Georgia': 3.00, 'Florida': 3.25, 'South Carolina': 2.95, 'North Carolina': 3.10,
+  'Tennessee': 2.95, 'Kentucky': 3.05, 'Ohio': 3.15, 'Michigan': 3.25,
+  'Illinois': 3.55, 'Indiana': 3.20, 'Minnesota': 3.15, 'Wisconsin': 3.10,
+  'New York': 3.60, 'New Jersey': 3.25, 'Pennsylvania': 3.55, 'Connecticut': 3.50,
+  'Massachusetts': 3.45, 'Virginia': 3.15, 'Maryland': 3.30
+};
+
+/* Clear saved trips */
+function clearSavedTrips() {
+  if (!confirm('Clear all saved trips?')) return;
+  localStorage.removeItem('gasTripCalcTrips');
+  loadSavedTrips();
+}
+
+/* Export trip details */
+function exportTripDetails() {
+  if (!lastCalc) return;
+  let text = '=== ROAD TRIP COST ESTIMATE ===\n\n';
+  text += 'Route: ' + lastCalc.from + ' → ' + lastCalc.to + '\n';
+  text += 'Distance: ' + lastCalc.totalMiles + ' miles' + (lastCalc.isRound ? ' (round trip)' : ' (one way)') + '\n';
+  text += 'Vehicle: ' + lastCalc.mpg + ' MPG\n';
+  text += 'Gas Price: $' + lastCalc.gasPrice.toFixed(2) + '/gal\n';
+  text += 'Passengers: ' + lastCalc.passengers + '\n\n';
+  text += '--- COST BREAKDOWN ---\n';
+  text += 'Fuel: $' + lastCalc.fuelCost.toFixed(2) + ' (' + lastCalc.gallonsUsed.toFixed(1) + ' gallons)\n';
+  if (lastCalc.tolls > 0) text += 'Tolls: $' + lastCalc.tolls.toFixed(2) + '\n';
+  if (lastCalc.parking > 0) text += 'Parking: $' + lastCalc.parking.toFixed(2) + '\n';
+  if (lastCalc.food > 0) text += 'Food Stops: $' + lastCalc.food.toFixed(2) + '\n';
+  text += '\nTOTAL: $' + lastCalc.totalCost.toFixed(2) + '\n';
+  if (lastCalc.passengers > 1) text += 'Per Person: $' + lastCalc.perPerson.toFixed(2) + '\n';
+  text += 'Drive Time: ~' + lastCalc.driveH + 'h ' + lastCalc.driveM + 'm\n';
+  text += '\nCalculated at spunk.codes/gas-trip-calculator\n';
+  navigator.clipboard.writeText(text).then(() => alert('Trip details copied!')).catch(() => alert('Copy failed'));
+}
+</script>
