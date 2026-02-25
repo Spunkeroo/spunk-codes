@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Investment Portfolio Analyzer - Asset Allocation & Risk | SPUNK.CODES</title>
+<meta name="description" content="Analyze your investment portfolio with asset allocation pie chart, diversification score, risk assessment, gain/loss tracking, and rebalancing suggestions.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Investment Portfolio Analyzer - SPUNK.CODES Exclusive">
+<meta property="og:description" content="Full portfolio analysis with allocation charts, diversification scoring, risk assessment, and rebalancing recommendations. Free with code SPUNK.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://spunk.codes/exclusive/investment-portfolio-analyzer">
+<meta property="og:site_name" content="SPUNK.CODES">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/investment-portfolio-analyzer">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Investment Portfolio Analyzer","applicationCategory":"FinanceApplication","operatingSystem":"Web","description":"Analyze investment portfolio with allocation charts, diversification score, risk level, and rebalancing suggestions","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Organization","name":"SPUNK.CODES","url":"https://spunk.codes"}}</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0d1117;--card:rgba(22,27,34,0.8);--border:rgba(48,54,61,0.6);--gold:#ffd700;--gold-dim:rgba(255,215,0,0.15);--gold-border:rgba(255,215,0,0.3);--text:#e6edf3;--text-dim:#8b949e;--blue:#58a6ff;--cyan:#39d353;--red:#f85149;--orange:#ff8c00;--font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+a{color:var(--blue);text-decoration:none}a:hover{color:#fff}
+.bg-mesh{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 80% 50% at 20% 20%,rgba(255,215,0,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(255,140,0,0.04) 0%,transparent 60%),var(--bg)}
+.bg-grid{position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,215,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,215,0,0.03) 1px,transparent 1px);background-size:60px 60px}
+.nav{position:sticky;top:0;z-index:100;background:rgba(13,17,23,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,215,0,0.15);padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}.nav-brand{font-weight:800;font-size:1.1rem;color:var(--gold);letter-spacing:0.08em}.nav-links{display:flex;gap:1.5rem;font-size:0.85rem;list-style:none}.nav-links a{color:var(--text-dim);transition:color 0.2s;font-weight:500}.nav-links a:hover{color:#fff}.nav-links a.active{color:var(--gold)}
+.lock-gate{position:fixed;inset:0;z-index:1000;background:rgba(13,17,23,0.97);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:2rem}.lock-gate.hidden{display:none}.lock-icon-big{font-size:4rem;margin-bottom:0.5rem}.lock-gate h2{font-size:1.8rem;font-weight:800;text-align:center}.lock-gate h2 span{color:var(--gold)}.lock-gate p{color:var(--text-dim);text-align:center;max-width:400px}.code-input-wrap{display:flex;gap:0.5rem;margin-top:0.5rem}.code-input{padding:0.8rem 1.5rem;background:rgba(22,27,34,0.8);border:2px solid var(--gold-border);border-radius:12px;color:var(--gold);font-size:1.2rem;font-weight:800;letter-spacing:3px;text-align:center;width:200px;outline:none;text-transform:uppercase;font-family:var(--font)}.code-input:focus{border-color:var(--gold);box-shadow:0 0 20px rgba(255,215,0,0.2)}.code-submit{padding:0.8rem 1.5rem;background:linear-gradient(135deg,#ffd700,#ff8c00);border:none;border-radius:12px;color:#000;font-size:1rem;font-weight:800;cursor:pointer;transition:all 0.3s}.code-submit:hover{transform:scale(1.05)}.code-error{color:#f85149;font-size:0.85rem;min-height:1.2em}.lock-hint{color:var(--text-dim);font-size:0.8rem;margin-top:1rem}.lock-hint a{color:var(--gold)}
+.exclusive-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;background:linear-gradient(135deg,rgba(255,215,0,0.15),rgba(255,140,0,0.15));border:1px solid var(--gold-border);border-radius:100px;font-size:11px;font-weight:800;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase}
+.main{max-width:1050px;margin:0 auto;padding:2rem}
+.hero-section{text-align:center;padding:2rem 0 3rem}.hero-section h1{font-size:2.2rem;font-weight:800;margin:1rem 0 0.5rem}.hero-section h1 .gold{background:linear-gradient(135deg,#ffd700,#ff8c00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}.hero-section p{color:var(--text-dim);max-width:600px;margin:0 auto}
+.tool-section{background:var(--card);border:1px solid var(--gold-border);border-radius:16px;padding:2rem;margin-bottom:1.5rem;backdrop-filter:blur(10px);position:relative;overflow:hidden}.tool-section::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),#ff8c00,var(--gold))}.tool-section h2{font-size:1.2rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}.tool-section h2 .icon{font-size:1.4rem}
+label{font-size:0.85rem;color:var(--text-dim);font-weight:600;display:block;margin-bottom:0.4rem}
+input,select,textarea{width:100%;padding:0.75rem 1rem;background:rgba(13,17,23,0.6);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:0.9rem;font-family:var(--font);outline:none;transition:border-color 0.2s}input:focus,select:focus{border-color:var(--gold)}
+.input-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}.input-group{margin-bottom:1rem}
+.input-hint{font-size:0.72rem;color:var(--text-dim);margin-top:0.2rem}
+.btn{padding:0.75rem 2rem;border:none;border-radius:10px;font-size:0.9rem;font-weight:700;cursor:pointer;transition:all 0.2s;font-family:var(--font)}.btn-gold{background:linear-gradient(135deg,#ffd700,#ff8c00);color:#000}.btn-gold:hover{transform:translateY(-2px);box-shadow:0 4px 20px rgba(255,215,0,0.3)}.btn-outline{background:transparent;border:1px solid var(--border);color:var(--text-dim)}.btn-outline:hover{border-color:var(--gold);color:var(--gold)}.btn-sm{padding:0.5rem 1rem;font-size:0.8rem}.btn-row{display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:1rem}.btn-danger{background:rgba(248,81,73,0.15);border:1px solid rgba(248,81,73,0.3);color:var(--red)}.btn-danger:hover{background:rgba(248,81,73,0.3)}
+.metrics-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;margin:1rem 0}
+.metric-card{background:rgba(13,17,23,0.5);border:1px solid var(--border);border-radius:12px;padding:1.2rem;text-align:center;transition:border-color 0.2s}.metric-card:hover{border-color:var(--gold-border)}.metric-card .val{font-size:1.5rem;font-weight:800}.metric-card .lbl{font-size:0.72rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px;margin-bottom:0.3rem}.metric-card .sub{font-size:0.7rem;color:var(--text-dim);margin-top:0.3rem}
+.metric-card-big{background:linear-gradient(135deg,rgba(255,215,0,0.08),rgba(255,140,0,0.05));border:2px solid var(--gold-border);border-radius:16px;padding:2rem;text-align:center}.metric-card-big .val{font-size:2.8rem;font-weight:900;background:linear-gradient(135deg,#ffd700,#ff8c00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}.metric-card-big .lbl{font-size:0.9rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:2px;margin-bottom:0.5rem}
+.alert-box{padding:1rem 1.5rem;border-radius:12px;margin:1rem 0;font-size:0.9rem;font-weight:600;display:flex;align-items:flex-start;gap:0.8rem}
+.alert-danger{background:rgba(248,81,73,0.1);border:1px solid rgba(248,81,73,0.3);color:var(--red)}
+.alert-warning{background:rgba(255,215,0,0.08);border:1px solid rgba(255,215,0,0.3);color:var(--gold)}
+.alert-ok{background:rgba(57,211,83,0.08);border:1px solid rgba(57,211,83,0.3);color:var(--cyan)}
+.alert-info{background:rgba(88,166,255,0.08);border:1px solid rgba(88,166,255,0.3);color:var(--blue)}
+.bar-row{display:flex;align-items:center;gap:0.75rem;margin-bottom:5px}.bar-label{width:120px;font-size:0.75rem;color:var(--text-dim);text-align:right;flex-shrink:0}.bar-track{flex:1;height:26px;background:rgba(13,17,23,0.5);border-radius:6px;overflow:hidden}.bar-fill{height:100%;border-radius:6px;transition:width 0.5s;display:flex;align-items:center;padding-left:8px;font-size:0.72rem;font-weight:700}
+.compare-table{width:100%;border-collapse:collapse;font-size:0.85rem;margin:1rem 0}.compare-table th{background:var(--gold-dim);color:var(--gold);padding:0.6rem;text-align:left;font-size:0.75rem;text-transform:uppercase;letter-spacing:1px}.compare-table td{padding:0.6rem;border-bottom:1px solid var(--border)}.compare-table tr:hover td{background:rgba(255,215,0,0.03)}
+.insight-card{background:rgba(13,17,23,0.5);border:1px solid var(--border);border-radius:10px;padding:1rem;margin-bottom:0.5rem;font-size:0.85rem}.insight-card strong{color:var(--gold)}
+.share-cta{background:linear-gradient(135deg,rgba(255,215,0,0.08),rgba(255,140,0,0.05));border:1px solid var(--gold-border);border-radius:16px;padding:2rem;text-align:center;margin-top:2rem}.share-cta h3{color:var(--gold);margin-bottom:0.5rem;font-size:1.1rem}.share-cta p{color:var(--text-dim);font-size:0.9rem;margin-bottom:1rem}
+.footer{text-align:center;padding:2rem;border-top:1px solid rgba(255,215,0,0.1);color:var(--text-dim);font-size:0.75rem;margin-top:3rem}.footer a{color:var(--gold)}.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-bottom:1rem}
+.watermark{position:fixed;bottom:10px;right:10px;font-size:0.6rem;color:rgba(255,215,0,0.08);font-weight:800;pointer-events:none;z-index:9999;letter-spacing:1px;text-transform:uppercase}
+.holding-row{display:grid;grid-template-columns:2fr 1fr 1fr 40px;gap:0.5rem;align-items:end;margin-bottom:0.75rem}.holding-row .del-btn{width:36px;height:36px;border:1px solid rgba(248,81,73,0.3);background:rgba(248,81,73,0.1);color:var(--red);border-radius:8px;cursor:pointer;font-size:1.1rem;display:flex;align-items:center;justify-content:center;transition:all 0.2s}.holding-row .del-btn:hover{background:rgba(248,81,73,0.3)}
+.quick-add{display:flex;flex-wrap:wrap;gap:0.5rem;margin:1rem 0}.quick-chip{padding:0.4rem 0.8rem;border:1px solid var(--border);border-radius:8px;background:transparent;color:var(--text-dim);font-size:0.75rem;cursor:pointer;font-family:var(--font);font-weight:600;transition:all 0.2s}.quick-chip:hover{border-color:var(--gold);color:var(--gold);background:var(--gold-dim)}
+canvas{max-width:100%;border-radius:10px}
+.risk-meter{height:30px;border-radius:15px;background:linear-gradient(90deg,#39d353 0%,#ffd700 35%,#ff8c00 65%,#f85149 100%);position:relative;margin:1rem 0}.risk-meter .needle{position:absolute;top:-5px;width:4px;height:40px;background:#fff;border-radius:2px;transform:translateX(-50%);transition:left 0.5s}.risk-meter .labels{display:flex;justify-content:space-between;font-size:0.7rem;color:var(--text-dim);margin-top:0.5rem}
+@media(max-width:768px){.main{padding:1rem}.hero-section h1{font-size:1.6rem}.input-grid{grid-template-columns:1fr}.nav-links{display:none}.metrics-grid{grid-template-columns:1fr 1fr}.metric-card-big .val{font-size:2rem}.holding-row{grid-template-columns:1fr 1fr 1fr 36px}}
+</style>
+</head>
+<body>
+<div class="bg-mesh"></div><div class="bg-grid"></div>
+<div class="lock-gate" id="lockGate"><div class="lock-icon-big">&#128274;</div><h2>Enter Code <span>SPUNK</span> to Unlock</h2><p>This is an exclusive premium tool. Enter the referral code to get instant access.</p><div class="code-input-wrap"><input type="text" class="code-input" id="codeInput" placeholder="CODE" maxlength="10" autocomplete="off"><button class="code-submit" onclick="submitCode()">Unlock</button></div><div class="code-error" id="codeError"></div><div class="lock-hint">Get the code at <a href="https://spunk.codes/exclusive-tools">spunk.codes/exclusive-tools</a></div></div>
+<nav class="nav"><a href="https://spunk.codes" class="nav-brand">SPUNK.CODES</a><div class="nav-links"><a href="/store">Tools</a><a href="/exclusive-tools" class="active">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a></div></nav>
+
+<div class="main">
+  <section class="hero-section">
+    <div class="exclusive-badge">&#128081; EXCLUSIVE TOOL</div>
+    <h1>Investment Portfolio <span class="gold">Analyzer</span></h1>
+    <p>Add your holdings, get instant portfolio analysis with allocation charts, diversification score, risk assessment, and rebalancing recommendations.</p>
+  </section>
+
+  <div class="tool-section">
+    <h2><span class="icon">&#128188;</span> Your Holdings</h2>
+    <div id="holdingsContainer"></div>
+    <div class="btn-row">
+      <button class="btn btn-sm btn-outline" onclick="addHolding()">+ Add Holding</button>
+    </div>
+    <div style="margin-top:1rem;font-size:0.85rem;font-weight:700;color:var(--gold);margin-bottom:0.5rem">Quick Add Popular ETFs</div>
+    <div class="quick-add">
+      <button class="quick-chip" onclick="quickAdd('VOO','S&P 500',530)">VOO (S&P 500)</button>
+      <button class="quick-chip" onclick="quickAdd('QQQ','Nasdaq 100',515)">QQQ (Nasdaq)</button>
+      <button class="quick-chip" onclick="quickAdd('VTI','Total US Market',280)">VTI (Total US)</button>
+      <button class="quick-chip" onclick="quickAdd('VXUS','Intl Stocks',60)">VXUS (International)</button>
+      <button class="quick-chip" onclick="quickAdd('BND','Total Bond',72)">BND (Bonds)</button>
+      <button class="quick-chip" onclick="quickAdd('VNQ','Real Estate',85)">VNQ (REITs)</button>
+      <button class="quick-chip" onclick="quickAdd('GLD','Gold',240)">GLD (Gold)</button>
+      <button class="quick-chip" onclick="quickAdd('AAPL','Apple',230)">AAPL</button>
+      <button class="quick-chip" onclick="quickAdd('MSFT','Microsoft',430)">MSFT</button>
+      <button class="quick-chip" onclick="quickAdd('NVDA','NVIDIA',135)">NVDA</button>
+      <button class="quick-chip" onclick="quickAdd('AMZN','Amazon',225)">AMZN</button>
+      <button class="quick-chip" onclick="quickAdd('GOOGL','Google',190)">GOOGL</button>
+      <button class="quick-chip" onclick="quickAdd('TSLA','Tesla',350)">TSLA</button>
+      <button class="quick-chip" onclick="quickAdd('BRK.B','Berkshire',470)">BRK.B</button>
+      <button class="quick-chip" onclick="quickAdd('SCHD','Dividend ETF',82)">SCHD</button>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-gold" onclick="analyze()">Analyze Portfolio</button>
+      <button class="btn btn-sm btn-outline" onclick="loadExample()">Load Example Portfolio</button>
+      <button class="btn btn-sm btn-danger" onclick="clearAll()">Clear All</button>
+    </div>
+  </div>
+
+  <div id="results" style="display:none">
+    <div class="tool-section">
+      <h2><span class="icon">&#127919;</span> Portfolio Overview</h2>
+      <div id="overview"></div>
+    </div>
+
+    <div class="tool-section">
+      <h2><span class="icon">&#128202;</span> Holdings Detail</h2>
+      <div id="holdingsDetail"></div>
+    </div>
+
+    <div class="tool-section">
+      <h2><span class="icon">&#127912;</span> Asset Allocation</h2>
+      <div style="display:grid;grid-template-columns:300px 1fr;gap:2rem;align-items:center">
+        <canvas id="allocChart" width="300" height="300"></canvas>
+        <div id="allocBreakdown"></div>
+      </div>
+    </div>
+
+    <div class="tool-section">
+      <h2><span class="icon">&#128737;</span> Risk Assessment</h2>
+      <div id="riskAssessment"></div>
+    </div>
+
+    <div class="tool-section">
+      <h2><span class="icon">&#9878;</span> Diversification Score</h2>
+      <div id="diversification"></div>
+    </div>
+
+    <div class="tool-section">
+      <h2><span class="icon">&#128200;</span> Rebalancing Suggestions</h2>
+      <div id="rebalancing"></div>
+    </div>
+
+    <div class="tool-section">
+      <h2><span class="icon">&#128161;</span> Portfolio Insights</h2>
+      <div id="insights"></div>
+    </div>
+  </div>
+
+  <div class="share-cta">
+    <h3>Know your portfolio inside out?</h3>
+    <p>Share this analyzer with investors who need clarity on their holdings.</p>
+    <div class="btn-row" style="justify-content:center">
+      <button class="btn btn-sm btn-gold" onclick="shareX()">Share on X</button>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-links"><a href="/">Home</a><a href="/store">All Tools</a><a href="/exclusive-tools">Exclusive Tools</a><a href="/blog">Blog</a></div>
+    <p>&copy; 2025 SPUNK.CODES. Built for founders who ship.</p>
+  </footer>
+</div>
+
+<div class="watermark">SPUNK.CODES</div>
+
+<script>
+// === Code Gate ===
+function checkAccess(){try{var c1=localStorage.getItem('spunk_referral_code');var c2=localStorage.getItem('spunk_ref_code');if((c1&&c1.toUpperCase()==='SPUNK')||(c2&&c2.toUpperCase()==='SPUNK')){document.getElementById('lockGate').classList.add('hidden');return}}catch(e){}document.getElementById('lockGate').classList.remove('hidden')}
+function submitCode(){var v=document.getElementById('codeInput').value.trim().toUpperCase();if(v==='SPUNK'){try{localStorage.setItem('spunk_referral_code',v)}catch(e){}document.getElementById('lockGate').classList.add('hidden');if(typeof gtag==='function')gtag('event','code_unlock',{tool:'investment-portfolio-analyzer'})}else{document.getElementById('codeError').textContent='Invalid code. Try again.'}}
+document.getElementById('codeInput').addEventListener('keydown',function(e){if(e.key==='Enter')submitCode()});
+checkAccess();
+
+// Asset type classification
+var assetDB={
+  'VOO':{type:'US Large Cap',sector:'Broad Market',risk:0.6,approxPrice:530},
+  'QQQ':{type:'US Large Cap Tech',sector:'Technology',risk:0.7,approxPrice:515},
+  'VTI':{type:'US Total Market',sector:'Broad Market',risk:0.6,approxPrice:280},
+  'VXUS':{type:'International',sector:'International',risk:0.7,approxPrice:60},
+  'BND':{type:'US Bonds',sector:'Bonds',risk:0.2,approxPrice:72},
+  'VNQ':{type:'Real Estate',sector:'Real Estate',risk:0.65,approxPrice:85},
+  'GLD':{type:'Commodity',sector:'Commodities',risk:0.5,approxPrice:240},
+  'AAPL':{type:'US Large Cap',sector:'Technology',risk:0.7,approxPrice:230},
+  'MSFT':{type:'US Large Cap',sector:'Technology',risk:0.65,approxPrice:430},
+  'NVDA':{type:'US Large Cap',sector:'Technology',risk:0.85,approxPrice:135},
+  'AMZN':{type:'US Large Cap',sector:'Consumer Cyclical',risk:0.75,approxPrice:225},
+  'GOOGL':{type:'US Large Cap',sector:'Technology',risk:0.7,approxPrice:190},
+  'TSLA':{type:'US Large Cap',sector:'Consumer Cyclical',risk:0.9,approxPrice:350},
+  'BRK.B':{type:'US Large Cap',sector:'Financial',risk:0.55,approxPrice:470},
+  'SCHD':{type:'US Dividend',sector:'Broad Market',risk:0.5,approxPrice:82},
+  'SPY':{type:'US Large Cap',sector:'Broad Market',risk:0.6,approxPrice:530},
+  'IWM':{type:'US Small Cap',sector:'Small Cap',risk:0.75,approxPrice:210},
+  'EFA':{type:'International',sector:'International',risk:0.65,approxPrice:82},
+  'AGG':{type:'US Bonds',sector:'Bonds',risk:0.2,approxPrice:98},
+  'TLT':{type:'US Long Bonds',sector:'Bonds',risk:0.35,approxPrice:90},
+  'VGT':{type:'US Tech',sector:'Technology',risk:0.75,approxPrice:570},
+  'XLF':{type:'US Financials',sector:'Financial',risk:0.65,approxPrice:48},
+  'XLE':{type:'US Energy',sector:'Energy',risk:0.8,approxPrice:88},
+  'XLV':{type:'US Healthcare',sector:'Healthcare',risk:0.55,approxPrice:150},
+  'META':{type:'US Large Cap',sector:'Technology',risk:0.8,approxPrice:600},
+  'JPM':{type:'US Large Cap',sector:'Financial',risk:0.6,approxPrice:250}
+};
+
+var holdingCount=0;
+var holdings=[];
+
+function addHolding(ticker,shares,buyPrice){
+  holdingCount++;
+  var id=holdingCount;
+  var c=document.getElementById('holdingsContainer');
+  var div=document.createElement('div');
+  div.className='holding-row';
+  div.id='holding-'+id;
+  div.innerHTML='<div class="input-group" style="margin:0"><label>Ticker/Name</label><input type="text" id="ticker-'+id+'" placeholder="VOO" value="'+(ticker||'')+'" style="text-transform:uppercase"></div><div class="input-group" style="margin:0"><label>Shares</label><input type="number" id="shares-'+id+'" placeholder="10" min="0" step="0.01" value="'+(shares||'')+'"></div><div class="input-group" style="margin:0"><label>Buy Price ($)</label><input type="number" id="buyprice-'+id+'" placeholder="500" min="0" step="0.01" value="'+(buyPrice||'')+'"></div><button class="del-btn" onclick="removeHolding('+id+')">&#10005;</button>';
+  c.appendChild(div);
+}
+
+function removeHolding(id){
+  var el=document.getElementById('holding-'+id);
+  if(el)el.remove();
+}
+
+function clearAll(){
+  document.getElementById('holdingsContainer').innerHTML='';
+  holdingCount=0;
+  document.getElementById('results').style.display='none';
+}
+
+function quickAdd(ticker,name,price){
+  addHolding(ticker,'10',price.toString());
+}
+
+function loadExample(){
+  clearAll();
+  addHolding('VOO','50','480');
+  addHolding('QQQ','30','470');
+  addHolding('VXUS','100','55');
+  addHolding('BND','80','70');
+  addHolding('VNQ','40','80');
+  addHolding('AAPL','25','180');
+  addHolding('MSFT','15','380');
+  addHolding('GLD','20','210');
+}
+
+addHolding();addHolding();addHolding();
+
+function fmt(n){return'$'+n.toLocaleString('en-US',{minimumFractionDigits:0,maximumFractionDigits:0})}
+function fmtPct(n){return(n>=0?'+':'')+n.toFixed(2)+'%'}
+
+function analyze(){
+  holdings=[];
+  var rows=document.querySelectorAll('.holding-row');
+  rows.forEach(function(row){
+    var id=row.id.split('-')[1];
+    var ticker=(document.getElementById('ticker-'+id).value||'').trim().toUpperCase();
+    var shares=parseFloat(document.getElementById('shares-'+id).value)||0;
+    var buyPrice=parseFloat(document.getElementById('buyprice-'+id).value)||0;
+    if(ticker && shares>0 && buyPrice>0){
+      var info=assetDB[ticker]||{type:'Unknown',sector:'Other',risk:0.65,approxPrice:buyPrice};
+      var currentPrice=info.approxPrice||buyPrice;
+      holdings.push({
+        ticker:ticker,shares:shares,buyPrice:buyPrice,
+        currentPrice:currentPrice,
+        costBasis:shares*buyPrice,
+        currentValue:shares*currentPrice,
+        gainLoss:(currentPrice-buyPrice)*shares,
+        gainLossPct:((currentPrice-buyPrice)/buyPrice)*100,
+        type:info.type,sector:info.sector,risk:info.risk
+      });
+    }
+  });
+
+  if(holdings.length===0){alert('Add at least one holding with ticker, shares, and buy price.');return}
+
+  var totalValue=0,totalCost=0;
+  holdings.forEach(function(h){totalValue+=h.currentValue;totalCost+=h.costBasis});
+  holdings.forEach(function(h){h.allocation=(h.currentValue/totalValue)*100});
+
+  renderOverview(totalValue,totalCost);
+  renderHoldingsDetail(totalValue);
+  renderAllocation(totalValue);
+  renderRisk(totalValue);
+  renderDiversification(totalValue);
+  renderRebalancing(totalValue);
+  renderInsights(totalValue,totalCost);
+
+  document.getElementById('results').style.display='block';
+  document.getElementById('results').scrollIntoView({behavior:'smooth'});
+  if(typeof gtag==='function')gtag('event','analyze_portfolio',{tool:'investment-portfolio-analyzer',holdings:holdings.length});
+}
+
+function renderOverview(totalVal,totalCost){
+  var el=document.getElementById('overview');
+  var totalGain=totalVal-totalCost;
+  var totalGainPct=(totalGain/totalCost)*100;
+  var html='<div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1rem">';
+  html+='<div class="metric-card-big"><div class="lbl">Total Portfolio Value</div><div class="val">'+fmt(Math.round(totalVal))+'</div></div>';
+  html+='<div class="metric-card-big"><div class="lbl">Total Gain/Loss</div><div class="val" style="background:linear-gradient(135deg,'+(totalGain>=0?'#39d353,#58a6ff':'#f85149,#ff8c00')+');-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">'+fmt(Math.round(totalGain))+'</div><div style="font-size:0.9rem;color:'+(totalGain>=0?'var(--cyan)':'var(--red)')+'">'+fmtPct(totalGainPct)+'</div></div>';
+  html+='</div>';
+  html+='<div class="metrics-grid">';
+  html+='<div class="metric-card"><div class="lbl">Total Cost Basis</div><div class="val" style="color:var(--blue)">'+fmt(Math.round(totalCost))+'</div></div>';
+  html+='<div class="metric-card"><div class="lbl">Holdings</div><div class="val" style="color:var(--gold)">'+holdings.length+'</div></div>';
+  var bestH=holdings.reduce(function(a,b){return a.gainLossPct>b.gainLossPct?a:b});
+  var worstH=holdings.reduce(function(a,b){return a.gainLossPct<b.gainLossPct?a:b});
+  html+='<div class="metric-card"><div class="lbl">Best Performer</div><div class="val" style="color:var(--cyan)">'+bestH.ticker+'</div><div class="sub">'+fmtPct(bestH.gainLossPct)+'</div></div>';
+  html+='<div class="metric-card"><div class="lbl">Worst Performer</div><div class="val" style="color:var(--red)">'+worstH.ticker+'</div><div class="sub">'+fmtPct(worstH.gainLossPct)+'</div></div>';
+  html+='</div>';
+  el.innerHTML=html;
+}
+
+function renderHoldingsDetail(totalVal){
+  var el=document.getElementById('holdingsDetail');
+  var sorted=holdings.slice().sort(function(a,b){return b.currentValue-a.currentValue});
+  var html='<table class="compare-table"><thead><tr><th>Ticker</th><th>Type</th><th>Shares</th><th>Buy Price</th><th>Current</th><th>Value</th><th>Gain/Loss</th><th>% of Portfolio</th></tr></thead><tbody>';
+  sorted.forEach(function(h){
+    var glColor=h.gainLoss>=0?'var(--cyan)':'var(--red)';
+    html+='<tr><td style="font-weight:700;color:var(--gold)">'+h.ticker+'</td><td style="color:var(--text-dim);font-size:0.78rem">'+h.type+'</td><td>'+h.shares+'</td><td>'+fmt(Math.round(h.buyPrice))+'</td><td>'+fmt(Math.round(h.currentPrice))+'</td><td style="font-weight:700">'+fmt(Math.round(h.currentValue))+'</td><td style="color:'+glColor+';font-weight:700">'+fmt(Math.round(h.gainLoss))+' ('+fmtPct(h.gainLossPct)+')</td><td>'+h.allocation.toFixed(1)+'%</td></tr>';
+  });
+  html+='</tbody></table>';
+  el.innerHTML=html;
+}
+
+function renderAllocation(totalVal){
+  // Pie chart
+  var canvas=document.getElementById('allocChart');
+  var ctx=canvas.getContext('2d');
+  ctx.clearRect(0,0,300,300);
+  var colors=['#ffd700','#58a6ff','#39d353','#f85149','#ff8c00','#a855f7','#ec4899','#06b6d4','#84cc16','#f97316','#8b5cf6','#14b8a6'];
+
+  // Group by sector
+  var sectors={};
+  holdings.forEach(function(h){
+    if(!sectors[h.sector])sectors[h.sector]={value:0,holdings:[]};
+    sectors[h.sector].value+=h.currentValue;
+    sectors[h.sector].holdings.push(h.ticker);
+  });
+
+  var sectorList=Object.keys(sectors).sort(function(a,b){return sectors[b].value-sectors[a].value});
+  var startAngle=-Math.PI/2;
+  var cx=150,cy=150,r=120;
+
+  sectorList.forEach(function(s,i){
+    var pct=sectors[s].value/totalVal;
+    var sliceAngle=pct*2*Math.PI;
+    ctx.beginPath();ctx.moveTo(cx,cy);ctx.arc(cx,cy,r,startAngle,startAngle+sliceAngle);ctx.closePath();
+    ctx.fillStyle=colors[i%colors.length];ctx.fill();
+    if(pct>=0.05){
+      var midAngle=startAngle+sliceAngle/2;
+      var lx=cx+Math.cos(midAngle)*(r*0.6);
+      var ly=cy+Math.sin(midAngle)*(r*0.6);
+      ctx.fillStyle='#000';ctx.font='bold 11px system-ui';ctx.textAlign='center';ctx.textBaseline='middle';
+      ctx.fillText(Math.round(pct*100)+'%',lx,ly);
+    }
+    startAngle+=sliceAngle;
+  });
+
+  // Breakdown panel
+  var brkEl=document.getElementById('allocBreakdown');
+  var html='<div style="font-size:0.85rem;font-weight:700;color:var(--gold);margin-bottom:0.8rem">Allocation by Sector</div>';
+  sectorList.forEach(function(s,i){
+    var pct=(sectors[s].value/totalVal*100);
+    html+='<div class="bar-row"><span class="bar-label" style="width:100px">'+s+'</span><div class="bar-track"><div class="bar-fill" style="width:'+pct+'%;background:'+colors[i%colors.length]+';color:#000">'+pct.toFixed(1)+'%</div></div></div>';
+  });
+
+  // By asset type
+  var types={};
+  holdings.forEach(function(h){
+    if(!types[h.type])types[h.type]=0;
+    types[h.type]+=h.currentValue;
+  });
+  html+='<div style="font-size:0.85rem;font-weight:700;color:var(--gold);margin:1rem 0 0.5rem">Allocation by Asset Type</div>';
+  var typeList=Object.keys(types).sort(function(a,b){return types[b]-types[a]});
+  typeList.forEach(function(t,i){
+    var pct=(types[t]/totalVal*100);
+    html+='<div class="bar-row"><span class="bar-label" style="width:130px;font-size:0.7rem">'+t+'</span><div class="bar-track"><div class="bar-fill" style="width:'+pct+'%;background:'+colors[(i+3)%colors.length]+';color:#000">'+pct.toFixed(1)+'%</div></div></div>';
+  });
+
+  brkEl.innerHTML=html;
+}
+
+function renderRisk(totalVal){
+  var el=document.getElementById('riskAssessment');
+  // Weighted average risk
+  var weightedRisk=0;
+  holdings.forEach(function(h){weightedRisk+=(h.risk*(h.currentValue/totalVal))});
+
+  var riskLabel='Moderate';var riskColor='var(--gold)';
+  if(weightedRisk<0.3){riskLabel='Very Conservative';riskColor='var(--cyan)'}
+  else if(weightedRisk<0.45){riskLabel='Conservative';riskColor='var(--cyan)'}
+  else if(weightedRisk<0.6){riskLabel='Moderate';riskColor='var(--gold)'}
+  else if(weightedRisk<0.75){riskLabel='Aggressive';riskColor='var(--orange)'}
+  else{riskLabel='Very Aggressive';riskColor='var(--red)'}
+
+  var html='<div class="metrics-grid" style="margin-bottom:1.5rem">';
+  html+='<div class="metric-card"><div class="lbl">Risk Score</div><div class="val" style="color:'+riskColor+'">'+(weightedRisk*100).toFixed(0)+'/100</div></div>';
+  html+='<div class="metric-card"><div class="lbl">Risk Level</div><div class="val" style="color:'+riskColor+'">'+riskLabel+'</div></div>';
+  // Concentration risk
+  var maxAlloc=Math.max.apply(null,holdings.map(function(h){return h.allocation}));
+  var concRisk=maxAlloc>30?'High':maxAlloc>20?'Medium':'Low';
+  html+='<div class="metric-card"><div class="lbl">Concentration Risk</div><div class="val" style="color:'+(concRisk==='High'?'var(--red)':concRisk==='Medium'?'var(--orange)':'var(--cyan)')+'">'+concRisk+'</div><div class="sub">Largest: '+maxAlloc.toFixed(1)+'%</div></div>';
+  html+='</div>';
+
+  // Risk meter visualization
+  html+='<div style="font-size:0.85rem;font-weight:700;color:var(--gold);margin-bottom:0.3rem">Portfolio Risk Meter</div>';
+  html+='<div class="risk-meter"><div class="needle" style="left:'+Math.min(98,Math.max(2,weightedRisk*100))+'%"></div></div>';
+  html+='<div style="display:flex;justify-content:space-between;font-size:0.7rem;color:var(--text-dim)"><span>Conservative</span><span>Moderate</span><span>Aggressive</span></div>';
+
+  // Estimated annual volatility (simplified)
+  var estVol=(weightedRisk*25).toFixed(1); // rough estimate
+  var estMaxDrawdown=(weightedRisk*45).toFixed(1);
+  html+='<div class="alert-box '+(weightedRisk>0.7?'alert-danger':weightedRisk>0.5?'alert-warning':'alert-ok')+'" style="margin-top:1.5rem">&#128202; Your portfolio has an estimated annual volatility of ~'+estVol+'% and a max drawdown potential of ~'+estMaxDrawdown+'%. '+(weightedRisk>0.7?'Consider adding bonds or defensive assets to reduce risk.':weightedRisk>0.5?'This is a balanced risk profile suitable for long-term growth.':'Great defensive positioning for capital preservation.')+'</div>';
+
+  el.innerHTML=html;
+}
+
+function renderDiversification(totalVal){
+  var el=document.getElementById('diversification');
+  var score=0;
+  var maxScore=100;
+  var checks=[];
+
+  // Number of holdings
+  var holdingScore=Math.min(20,holdings.length*3);
+  score+=holdingScore;
+  checks.push({label:'Number of Holdings ('+holdings.length+')',score:holdingScore,max:20,tip:holdings.length>=7?'Good variety':'Add more holdings for better diversification'});
+
+  // Sector spread
+  var sectors={};
+  holdings.forEach(function(h){sectors[h.sector]=true});
+  var sectorCount=Object.keys(sectors).length;
+  var sectorScore=Math.min(25,sectorCount*5);
+  score+=sectorScore;
+  checks.push({label:'Sector Diversity ('+sectorCount+' sectors)',score:sectorScore,max:25,tip:sectorCount>=5?'Well diversified across sectors':'Spread into more sectors'});
+
+  // No single holding >25%
+  var maxAlloc=Math.max.apply(null,holdings.map(function(h){return h.allocation}));
+  var concScore=maxAlloc<=15?20:maxAlloc<=25?15:maxAlloc<=40?8:0;
+  score+=concScore;
+  checks.push({label:'Concentration (Max: '+maxAlloc.toFixed(1)+'%)',score:concScore,max:20,tip:maxAlloc<=25?'No over-concentration':'Reduce largest position to <25%'});
+
+  // International exposure
+  var intlPct=0;
+  holdings.forEach(function(h){if(h.sector==='International')intlPct+=(h.currentValue/totalVal)*100});
+  var intlScore=intlPct>=10?15:intlPct>=5?10:intlPct>0?5:0;
+  score+=intlScore;
+  checks.push({label:'International Exposure ('+intlPct.toFixed(1)+'%)',score:intlScore,max:15,tip:intlPct>=10?'Good global diversification':'Add international holdings (VXUS, EFA)'});
+
+  // Bond/defensive
+  var bondPct=0;
+  holdings.forEach(function(h){if(h.sector==='Bonds'||h.sector==='Commodities')bondPct+=(h.currentValue/totalVal)*100});
+  var bondScore=bondPct>=10?20:bondPct>=5?12:bondPct>0?5:0;
+  score+=bondScore;
+  checks.push({label:'Defensive Assets ('+bondPct.toFixed(1)+'%)',score:bondScore,max:20,tip:bondPct>=10?'Solid defensive allocation':'Add bonds or commodities for stability'});
+
+  var gradeLabel=score>=80?'Excellent':score>=60?'Good':score>=40?'Fair':'Poor';
+  var gradeColor=score>=80?'var(--cyan)':score>=60?'var(--gold)':score>=40?'var(--orange)':'var(--red)';
+
+  var html='<div style="display:grid;grid-template-columns:200px 1fr;gap:2rem;align-items:center">';
+  html+='<div class="metric-card-big"><div class="lbl">Diversification Score</div><div class="val" style="background:linear-gradient(135deg,'+gradeColor+','+gradeColor+');-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">'+score+'</div><div style="font-size:0.85rem;color:'+gradeColor+';font-weight:700;margin-top:0.3rem">'+gradeLabel+'</div></div>';
+  html+='<div>';
+  checks.forEach(function(c){
+    var pct=(c.score/c.max)*100;
+    var color=pct>=75?'var(--cyan)':pct>=50?'var(--gold)':pct>=25?'var(--orange)':'var(--red)';
+    html+='<div style="margin-bottom:0.8rem"><div style="display:flex;justify-content:space-between;font-size:0.8rem;margin-bottom:0.3rem"><span>'+c.label+'</span><span style="color:'+color+';font-weight:700">'+c.score+'/'+c.max+'</span></div>';
+    html+='<div style="height:8px;background:rgba(13,17,23,0.5);border-radius:4px;overflow:hidden"><div style="height:100%;width:'+pct+'%;background:'+color+';border-radius:4px;transition:width 0.5s"></div></div>';
+    html+='<div style="font-size:0.72rem;color:var(--text-dim);margin-top:0.2rem">'+c.tip+'</div></div>';
+  });
+  html+='</div></div>';
+  el.innerHTML=html;
+}
+
+function renderRebalancing(totalVal){
+  var el=document.getElementById('rebalancing');
+  // Target allocation based on moderate portfolio
+  var targets={
+    'US Large Cap':40,'US Large Cap Tech':0,'US Total Market':0,'US Tech':0,
+    'US Small Cap':10,'International':20,'US Bonds':20,'US Long Bonds':0,
+    'Real Estate':5,'Commodity':5,'US Dividend':0,'US Financials':0,
+    'US Energy':0,'US Healthcare':0,'Unknown':0
+  };
+
+  var types={};
+  holdings.forEach(function(h){
+    if(!types[h.type])types[h.type]=0;
+    types[h.type]+=h.currentValue;
+  });
+
+  // Map to simplified categories
+  var actual={stocks:0,bonds:0,realestate:0,commodities:0,other:0};
+  var target={stocks:60,bonds:25,realestate:10,commodities:5,other:0};
+
+  holdings.forEach(function(h){
+    var v=(h.currentValue/totalVal)*100;
+    if(h.sector==='Bonds')actual.bonds+=v;
+    else if(h.sector==='Real Estate')actual.realestate+=v;
+    else if(h.sector==='Commodities')actual.commodities+=v;
+    else actual.stocks+=v;
+  });
+
+  var cats=['stocks','bonds','realestate','commodities'];
+  var catLabels={stocks:'Stocks',bonds:'Bonds',realestate:'Real Estate',commodities:'Commodities'};
+
+  var html='<div style="font-size:0.85rem;font-weight:700;color:var(--gold);margin-bottom:0.8rem">Current vs Target Allocation (Moderate Portfolio)</div>';
+  html+='<table class="compare-table"><thead><tr><th>Category</th><th>Current %</th><th>Target %</th><th>Difference</th><th>Action</th></tr></thead><tbody>';
+  cats.forEach(function(c){
+    var diff=actual[c]-target[c];
+    var action=Math.abs(diff)<2?'On target':diff>0?'Reduce by '+diff.toFixed(1)+'%':'Increase by '+Math.abs(diff).toFixed(1)+'%';
+    var actionColor=Math.abs(diff)<2?'var(--cyan)':diff>0?'var(--red)':'var(--blue)';
+    html+='<tr><td style="font-weight:700">'+catLabels[c]+'</td><td>'+actual[c].toFixed(1)+'%</td><td>'+target[c]+'%</td><td style="color:'+(diff>2?'var(--red)':diff<-2?'var(--blue)':'var(--cyan)')+'">'+((diff>=0?'+':'')+diff.toFixed(1))+'%</td><td style="color:'+actionColor+'">'+action+'</td></tr>';
+  });
+  html+='</tbody></table>';
+
+  // Dollar amounts to rebalance
+  html+='<div style="font-size:0.85rem;font-weight:700;color:var(--gold);margin:1.5rem 0 0.5rem">Rebalancing Amounts</div>';
+  cats.forEach(function(c){
+    var diff=target[c]-actual[c];
+    var dollarDiff=(diff/100)*totalVal;
+    if(Math.abs(diff)>=2){
+      html+='<div class="alert-box '+(diff>0?'alert-info':'alert-warning')+'">'+catLabels[c]+': '+(diff>0?'Buy':'Sell')+' '+fmt(Math.round(Math.abs(dollarDiff)))+' to reach target of '+target[c]+'%</div>';
+    }
+  });
+
+  el.innerHTML=html;
+}
+
+function renderInsights(totalVal,totalCost){
+  var el=document.getElementById('insights');
+  var tips=[];
+  var techPct=0,singleStockPct=0;
+  holdings.forEach(function(h){
+    if(h.sector==='Technology')techPct+=h.allocation;
+    if(!h.type.includes('Market')&&!h.type.includes('Bond')&&!h.type.includes('Estate')&&!h.type.includes('Commodity')&&!h.type.includes('Dividend')&&!h.type.includes('International'))singleStockPct+=h.allocation;
+  });
+
+  if(techPct>40)tips.push({icon:'&#9888;',title:'Heavy Tech Concentration',text:techPct.toFixed(1)+'% in technology. While tech has delivered strong returns, this concentration means a tech correction could significantly impact your portfolio. Consider diversifying into healthcare, financials, or consumer staples.'});
+
+  if(singleStockPct>30)tips.push({icon:'&#9888;',title:'Individual Stock Risk',text:singleStockPct.toFixed(1)+'% in individual stocks. Single stocks carry company-specific risk that cannot be diversified away. Consider moving some into broad ETFs like VOO or VTI for instant diversification with similar returns.'});
+
+  var totalGain=totalVal-totalCost;
+  if(totalGain>0)tips.push({icon:'&#128176;',title:'Tax-Loss Harvesting Check',text:'Your portfolio is up '+fmt(Math.round(totalGain))+' overall. Review losing positions - you may be able to sell them to offset gains and reduce your tax bill. You can buy similar (not identical) ETFs to maintain market exposure.'});
+
+  tips.push({icon:'&#128200;',title:'Dollar-Cost Averaging',text:'Rather than timing the market, invest a fixed amount monthly. Even with a '+fmt(Math.round(totalVal))+' portfolio, adding '+fmt(Math.round(totalVal*0.02))+'/month (2%) compounds significantly over time.'});
+
+  tips.push({icon:'&#128218;',title:'Expense Ratio Check',text:'Check expense ratios on all holdings. Moving from 0.50% to 0.03% expense ratio (like Vanguard index funds) on a '+fmt(Math.round(totalVal))+' portfolio saves ~'+fmt(Math.round(totalVal*0.0047))+'/year. Over 30 years, that compounds to tens of thousands.'});
+
+  tips.push({icon:'&#127919;',title:'Annual Rebalancing',text:'Rebalance at least annually or when any position drifts more than 5% from target. This enforces "buy low, sell high" discipline automatically and has been shown to improve risk-adjusted returns by 0.3-0.5% annually.'});
+
+  var html='';
+  tips.forEach(function(t){html+='<div class="insight-card"><strong>'+t.icon+' '+t.title+'</strong><br>'+t.text+'</div>'});
+  el.innerHTML=html;
+}
+
+function shareX(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Just analyzed my investment portfolio. Free tool from @SpunkArt13 (code: SPUNK)')+'&url='+encodeURIComponent('https://spunk.codes/exclusive-tools'),'_blank')}
+
+document.addEventListener('contextmenu',function(e){e.preventDefault()});
+document.addEventListener('keydown',function(e){if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'))||(e.ctrlKey&&e.key==='u'))e.preventDefault()});
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<script src="/auto-monetize.js"></script>
+<div id="shareXBtn" style="position:fixed;left:20px;bottom:20px;z-index:9999;">
+  <a id="shareXLink" href="#" target="_blank" rel="noopener noreferrer" title="Share on X" style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;background:rgba(255,215,0,0.15);border:1px solid rgba(255,215,0,0.3);backdrop-filter:blur(10px);border-radius:50%;text-decoration:none;transition:all 0.3s ease;cursor:pointer;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+  </a>
+</div>
+<style>#shareXBtn a:hover{background:rgba(255,215,0,0.35)!important;border-color:rgba(255,215,0,0.6)!important;transform:scale(1.1);box-shadow:0 0 15px rgba(255,215,0,0.3)}</style>
+<script>(function(){var page="investment-portfolio-analyzer";var url="https://spunk.codes/exclusive/"+page;var text="Full portfolio analysis tool on spunk.codes @SpunkArt13";var href="https://x.com/intent/tweet?text="+encodeURIComponent(text)+"&url="+encodeURIComponent(url);document.getElementById("shareXLink").href=href})()</script>
+<script src="/usage-tracker.js"></script>
+</body>
+</html>
