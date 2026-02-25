@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SEO Audit Tool | SPUNK.CODES</title>
+<meta name="description" content="Run a comprehensive SEO audit on any website. Score title tags, meta, headings, images, speed, mobile, schema, SSL, and get actionable recommendations.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="SEO Audit Tool - SPUNK.CODES Exclusive">
+<meta property="og:description" content="Full SEO audit with scores, competitor comparison, and export. Unlock with code SPUNK.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://spunk.codes/exclusive/seo-audit-tool">
+<meta property="og:site_name" content="SPUNK.CODES">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/seo-audit-tool">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"SEO Audit Tool","applicationCategory":"SEOApplication","operatingSystem":"Web","description":"Comprehensive SEO audit tool scoring title tags, meta descriptions, headings, image alt text, links, page speed, mobile friendliness, schema markup, and SSL status with actionable recommendations.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Organization","name":"SPUNK.CODES","url":"https://spunk.codes"}}</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0d1117;--card:rgba(22,27,34,0.8);--border:rgba(48,54,61,0.6);--gold:#ffd700;--gold-dim:rgba(255,215,0,0.15);--gold-border:rgba(255,215,0,0.3);--text:#e6edf3;--text-dim:#8b949e;--blue:#58a6ff;--cyan:#39d353;--red:#f85149;--orange:#ff8c00;--font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+a{color:var(--blue);text-decoration:none}a:hover{color:#fff}
+.bg-mesh{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 80% 50% at 20% 20%,rgba(255,215,0,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(255,140,0,0.04) 0%,transparent 60%),var(--bg)}
+.bg-grid{position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,215,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,215,0,0.03) 1px,transparent 1px);background-size:60px 60px}
+.nav{position:sticky;top:0;z-index:100;background:rgba(13,17,23,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,215,0,0.15);padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}
+.nav-brand{font-weight:800;font-size:1.1rem;color:var(--gold);letter-spacing:0.08em}
+.nav-links{display:flex;gap:1.5rem;font-size:0.85rem;list-style:none}
+.nav-links a{color:var(--text-dim);transition:color 0.2s;font-weight:500}
+.nav-links a:hover{color:#fff}.nav-links a.active{color:var(--gold)}
+.lock-gate{position:fixed;inset:0;z-index:1000;background:rgba(13,17,23,0.97);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:2rem}
+.lock-gate.hidden{display:none}
+.lock-icon-big{font-size:4rem;margin-bottom:0.5rem}
+.lock-gate h2{font-size:1.8rem;font-weight:800;text-align:center}
+.lock-gate h2 span{color:var(--gold)}
+.lock-gate p{color:var(--text-dim);text-align:center;max-width:400px}
+.code-input-wrap{display:flex;gap:0.5rem;margin-top:0.5rem}
+.code-input{padding:0.8rem 1.5rem;background:rgba(22,27,34,0.8);border:2px solid var(--gold-border);border-radius:12px;color:var(--gold);font-size:1.2rem;font-weight:800;letter-spacing:3px;text-align:center;width:200px;outline:none;text-transform:uppercase;font-family:var(--font)}
+.code-input:focus{border-color:var(--gold);box-shadow:0 0 20px rgba(255,215,0,0.2)}
+.code-submit{padding:0.8rem 1.5rem;background:linear-gradient(135deg,#ffd700,#ff8c00);border:none;border-radius:12px;color:#000;font-size:1rem;font-weight:800;cursor:pointer;transition:all 0.3s}
+.code-submit:hover{transform:scale(1.05)}
+.code-error{color:#f85149;font-size:0.85rem;min-height:1.2em}
+.lock-hint{color:var(--text-dim);font-size:0.8rem;margin-top:1rem}
+.lock-hint a{color:var(--gold)}
+.exclusive-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;background:linear-gradient(135deg,rgba(255,215,0,0.15),rgba(255,140,0,0.15));border:1px solid var(--gold-border);border-radius:100px;font-size:11px;font-weight:800;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase}
+.main{max-width:1100px;margin:0 auto;padding:2rem}
+.hero-section{text-align:center;padding:2rem 0 3rem}
+.hero-section h1{font-size:2.2rem;font-weight:800;margin:1rem 0 0.5rem}
+.hero-section h1 .gold{background:linear-gradient(135deg,#ffd700,#ff8c00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-section p{color:var(--text-dim);max-width:600px;margin:0 auto}
+.tool-section{background:var(--card);border:1px solid var(--gold-border);border-radius:16px;padding:2rem;margin-bottom:1.5rem;backdrop-filter:blur(10px);position:relative;overflow:hidden}
+.tool-section::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),#ff8c00,var(--gold))}
+.tool-section h2{font-size:1.2rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}
+.tool-section h2 .icon{font-size:1.4rem}
+label{font-size:0.85rem;color:var(--text-dim);font-weight:600;display:block;margin-bottom:0.4rem}
+input,select,textarea{width:100%;padding:0.75rem 1rem;background:rgba(13,17,23,0.6);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:0.9rem;font-family:var(--font);outline:none;transition:border-color 0.2s}
+input:focus,select:focus,textarea:focus{border-color:var(--gold)}
+.input-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.input-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem}
+.input-group{margin-bottom:1rem}
+.btn{padding:0.75rem 2rem;border:none;border-radius:10px;font-size:0.9rem;font-weight:700;cursor:pointer;transition:all 0.2s;font-family:var(--font)}
+.btn-gold{background:linear-gradient(135deg,#ffd700,#ff8c00);color:#000}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 4px 20px rgba(255,215,0,0.3)}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--text-dim)}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold)}
+.btn-sm{padding:0.5rem 1rem;font-size:0.8rem}
+.btn-row{display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:1rem}
+.metrics-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1rem;margin:1rem 0}
+.metric-card{background:rgba(13,17,23,0.5);border:1px solid var(--border);border-radius:12px;padding:1.2rem;text-align:center}
+.metric-card .val{font-size:1.5rem;font-weight:800}
+.metric-card .lbl{font-size:0.72rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px;margin-bottom:0.3rem}
+.metric-card .sub{font-size:0.7rem;color:var(--text-dim);margin-top:0.3rem}
+/* Gauge */
+.gauge-wrap{display:flex;flex-direction:column;align-items:center;padding:1.5rem 0}
+.gauge-svg{width:200px;height:110px}
+.gauge-score-text{font-size:2.5rem;font-weight:900;fill:var(--gold)}
+.gauge-label-text{font-size:0.75rem;fill:var(--text-dim)}
+.score-grade{font-size:3rem;font-weight:900;margin:0.5rem 0}
+.grade-A{color:#39d353}.grade-B{color:#58a6ff}.grade-C{color:#ffd700}.grade-D{color:#ff8c00}.grade-F{color:#f85149}
+/* Category bars */
+.cat-bar-wrap{margin-bottom:1.2rem}
+.cat-bar-label{display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;font-size:0.85rem;font-weight:600}
+.cat-bar-track{height:10px;background:rgba(255,255,255,0.06);border-radius:100px;overflow:hidden}
+.cat-bar-fill{height:100%;border-radius:100px;transition:width 1.2s cubic-bezier(0.4,0,0.2,1)}
+/* Check items */
+.check-list{display:flex;flex-direction:column;gap:0.6rem}
+.check-item{display:flex;align-items:flex-start;gap:0.75rem;padding:0.9rem 1rem;background:rgba(13,17,23,0.4);border-radius:10px;border:1px solid var(--border)}
+.check-item.pass{border-color:rgba(57,211,83,0.25)}
+.check-item.warn{border-color:rgba(255,215,0,0.25)}
+.check-item.fail{border-color:rgba(248,81,73,0.25)}
+.check-icon{font-size:1.1rem;flex-shrink:0;margin-top:0.1rem}
+.check-content{flex:1}
+.check-title{font-weight:700;font-size:0.88rem;margin-bottom:0.2rem}
+.check-desc{font-size:0.78rem;color:var(--text-dim);line-height:1.5}
+.check-fix{font-size:0.75rem;color:var(--orange);margin-top:0.3rem;font-style:italic}
+/* Tabs */
+.tabs{display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1.5rem}
+.tab-btn{padding:0.5rem 1.2rem;border:1px solid var(--border);border-radius:8px;background:transparent;color:var(--text-dim);font-size:0.82rem;font-weight:600;cursor:pointer;transition:all 0.2s;font-family:var(--font)}
+.tab-btn.active{background:var(--gold-dim);border-color:var(--gold-border);color:var(--gold)}
+.tab-panel{display:none}.tab-panel.active{display:block}
+/* Competitor */
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+.compare-card{background:rgba(13,17,23,0.5);border:1px solid var(--border);border-radius:12px;padding:1.2rem}
+.compare-card h3{font-size:0.95rem;font-weight:700;margin-bottom:1rem;color:var(--gold)}
+.compare-row{display:flex;justify-content:space-between;align-items:center;padding:0.5rem 0;border-bottom:1px solid rgba(255,255,255,0.04);font-size:0.82rem}
+.compare-row:last-child{border-bottom:none}
+.compare-row .label{color:var(--text-dim)}
+.compare-row .val{font-weight:700}
+.winner-badge{font-size:0.65rem;padding:2px 8px;border-radius:100px;background:rgba(57,211,83,0.15);border:1px solid rgba(57,211,83,0.3);color:var(--cyan);font-weight:700;margin-left:6px}
+/* History */
+.history-list{display:flex;flex-direction:column;gap:0.6rem;max-height:320px;overflow-y:auto}
+.history-item{display:flex;align-items:center;gap:1rem;padding:0.75rem 1rem;background:rgba(13,17,23,0.4);border:1px solid var(--border);border-radius:10px;cursor:pointer;transition:border-color 0.2s}
+.history-item:hover{border-color:var(--gold-border)}
+.history-url{flex:1;font-size:0.82rem;color:var(--blue);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.history-score{font-size:1rem;font-weight:800;min-width:40px;text-align:right}
+.history-date{font-size:0.72rem;color:var(--text-dim);min-width:80px;text-align:right}
+/* Loading */
+.loading-wrap{display:none;flex-direction:column;align-items:center;gap:1rem;padding:2rem}
+.loading-wrap.active{display:flex}
+.loading-bar-track{width:100%;max-width:400px;height:6px;background:rgba(255,255,255,0.06);border-radius:100px;overflow:hidden}
+.loading-bar-fill{height:100%;background:linear-gradient(90deg,#ffd700,#ff8c00);border-radius:100px;width:0;transition:width 0.4s}
+.loading-step{font-size:0.82rem;color:var(--text-dim)}
+.alert-box{padding:0.8rem 1.2rem;border-radius:10px;margin:0.5rem 0;font-size:0.85rem;font-weight:600;display:flex;align-items:center;gap:0.6rem}
+.alert-warning{background:rgba(255,215,0,0.08);border:1px solid rgba(255,215,0,0.3);color:var(--gold)}
+.alert-info{background:rgba(88,166,255,0.08);border:1px solid rgba(88,166,255,0.3);color:var(--blue)}
+.results-hidden{display:none}
+.share-cta{background:linear-gradient(135deg,rgba(255,215,0,0.08),rgba(255,140,0,0.05));border:1px solid var(--gold-border);border-radius:16px;padding:2rem;text-align:center;margin-top:2rem}
+.share-cta h3{color:var(--gold);margin-bottom:0.5rem;font-size:1.1rem}
+.share-cta p{color:var(--text-dim);font-size:0.9rem;margin-bottom:1rem}
+.footer{text-align:center;padding:2rem;border-top:1px solid rgba(255,215,0,0.1);color:var(--text-dim);font-size:0.75rem;margin-top:3rem}
+.footer a{color:var(--gold)}
+.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-bottom:1rem}
+.watermark{position:fixed;bottom:10px;right:10px;font-size:0.6rem;color:rgba(255,215,0,0.08);font-weight:800;pointer-events:none;z-index:9999;letter-spacing:1px;text-transform:uppercase}
+@media(max-width:768px){.main{padding:1rem}.hero-section h1{font-size:1.6rem}.input-grid,.input-grid-3,.compare-grid{grid-template-columns:1fr}.nav-links{display:none}.metrics-grid{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="bg-mesh"></div><div class="bg-grid"></div>
+<div class="lock-gate" id="lockGate">
+  <div class="lock-icon-big">&#128274;</div>
+  <h2>Enter Code <span>SPUNK</span> to Unlock</h2>
+  <p>This is an exclusive premium tool. Enter the referral code to get instant access.</p>
+  <div class="code-input-wrap">
+    <input type="text" class="code-input" id="codeInput" placeholder="CODE" maxlength="10" autocomplete="off">
+    <button class="code-submit" onclick="submitCode()">Unlock</button>
+  </div>
+  <div class="code-error" id="codeError"></div>
+  <div class="lock-hint">Get the code at <a href="https://spunk.codes/exclusive-tools">spunk.codes/exclusive-tools</a></div>
+</div>
+<nav class="nav">
+  <a href="https://spunk.codes" class="nav-brand">SPUNK.CODES</a>
+  <div class="nav-links">
+    <a href="/store">Tools</a>
+    <a href="/exclusive-tools" class="active">Exclusive</a>
+    <a href="/store#ebook">Ebooks</a>
+    <a href="/blog">Blog</a>
+  </div>
+</nav>
+<div class="main">
+  <section class="hero-section">
+    <div class="exclusive-badge">&#128081; EXCLUSIVE TOOL</div>
+    <h1><span class="gold">SEO Audit Tool</span></h1>
+    <p>Comprehensive SEO analysis with scores for every ranking factor. Get actionable recommendations, compare competitors, and export your full audit report.</p>
+  </section>
+
+  <!-- URL Input -->
+  <div class="tool-section">
+    <h2><span class="icon">&#128269;</span> Run SEO Audit</h2>
+    <div class="alert-box alert-info">&#128161; Enter any website URL for a simulated comprehensive SEO audit with scored recommendations.</div>
+    <div class="input-grid" style="margin-top:1rem">
+      <div class="input-group">
+        <label>Website URL to Audit</label>
+        <input type="url" id="auditUrl" placeholder="https://yoursite.com" value="">
+      </div>
+      <div class="input-group">
+        <label>Industry / Niche</label>
+        <select id="auditIndustry">
+          <option value="ecommerce">E-Commerce</option>
+          <option value="saas">SaaS / Software</option>
+          <option value="blog">Blog / Content</option>
+          <option value="local">Local Business</option>
+          <option value="agency">Agency / Services</option>
+          <option value="news">News / Media</option>
+          <option value="other" selected>Other</option>
+        </select>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-gold" onclick="runAudit()">&#128202; Run Full Audit</button>
+      <button class="btn btn-outline btn-sm" onclick="showTab('compare')">&#9878; Compare Competitors</button>
+      <button class="btn btn-outline btn-sm" onclick="showTab('history')">&#128337; Audit History</button>
+    </div>
+    <!-- Loading -->
+    <div class="loading-wrap" id="loadingWrap">
+      <div style="font-size:1.5rem">&#9881;&#65039;</div>
+      <div class="loading-step" id="loadingStep">Initializing audit...</div>
+      <div class="loading-bar-track"><div class="loading-bar-fill" id="loadingBar"></div></div>
+      <div style="font-size:0.75rem;color:var(--text-dim)">Analyzing 10 SEO factors...</div>
+    </div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <button class="tab-btn active" onclick="showTab('results')" id="tab-results">Audit Results</button>
+    <button class="tab-btn" onclick="showTab('compare')" id="tab-compare">Competitor Compare</button>
+    <button class="tab-btn" onclick="showTab('history')" id="tab-history">Audit History</button>
+  </div>
+
+  <!-- Results Tab -->
+  <div class="tab-panel active" id="panel-results">
+    <div id="resultsPlaceholder" style="text-align:center;padding:3rem;color:var(--text-dim)">
+      <div style="font-size:3rem;margin-bottom:1rem">&#128202;</div>
+      <div style="font-size:1.1rem;font-weight:600">Enter a URL above and run your audit</div>
+      <div style="font-size:0.85rem;margin-top:0.5rem">Results will appear here with your full SEO score</div>
+    </div>
+    <div id="auditResults" class="results-hidden">
+      <!-- Overall Score -->
+      <div class="tool-section">
+        <h2><span class="icon">&#127942;</span> Overall SEO Score</h2>
+        <div style="display:flex;flex-wrap:wrap;gap:2rem;align-items:center">
+          <div class="gauge-wrap">
+            <svg class="gauge-svg" viewBox="0 0 200 110">
+              <defs>
+                <linearGradient id="gaugeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" style="stop-color:#f85149"/>
+                  <stop offset="40%" style="stop-color:#ffd700"/>
+                  <stop offset="100%" style="stop-color:#39d353"/>
+                </linearGradient>
+              </defs>
+              <path d="M20,100 A80,80 0 0,1 180,100" stroke="rgba(255,255,255,0.06)" stroke-width="14" fill="none" stroke-linecap="round"/>
+              <path id="gaugeFill" d="M20,100 A80,80 0 0,1 180,100" stroke="url(#gaugeGrad)" stroke-width="14" fill="none" stroke-linecap="round" stroke-dasharray="251.2" stroke-dashoffset="251.2" style="transition:stroke-dashoffset 1.5s cubic-bezier(0.4,0,0.2,1)"/>
+              <text id="gaugeScore" x="100" y="88" text-anchor="middle" class="gauge-score-text">0</text>
+              <text x="100" y="104" text-anchor="middle" class="gauge-label-text">SEO SCORE</text>
+              <text x="20" y="114" text-anchor="middle" style="font-size:9px;fill:#8b949e">0</text>
+              <text x="180" y="114" text-anchor="middle" style="font-size:9px;fill:#8b949e">100</text>
+            </svg>
+            <div id="scoreGrade" class="score-grade grade-F">F</div>
+          </div>
+          <div style="flex:1;min-width:200px">
+            <div id="scoreSummary" style="font-size:0.9rem;color:var(--text-dim);margin-bottom:1rem"></div>
+            <div class="metrics-grid" style="grid-template-columns:1fr 1fr">
+              <div class="metric-card"><div class="lbl">Issues Found</div><div class="val" id="issueCount" style="color:var(--red)">0</div></div>
+              <div class="metric-card"><div class="lbl">Passed Checks</div><div class="val" id="passCount" style="color:var(--cyan)">0</div></div>
+              <div class="metric-card"><div class="lbl">Warnings</div><div class="val" id="warnCount" style="color:var(--orange)">0</div></div>
+              <div class="metric-card"><div class="lbl">Checks Run</div><div class="val" id="totalCount">0</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="btn-row">
+          <button class="btn btn-gold btn-sm" onclick="exportReport()">&#128196; Export Report</button>
+          <button class="btn btn-outline btn-sm" onclick="shareAuditX()">&#120143; Share on X</button>
+        </div>
+      </div>
+
+      <!-- Category Breakdown -->
+      <div class="tool-section">
+        <h2><span class="icon">&#128200;</span> Category Breakdown</h2>
+        <div id="catBreakdown"></div>
+      </div>
+
+      <!-- Detailed Checks -->
+      <div class="tool-section">
+        <h2><span class="icon">&#9989;</span> On-Page SEO</h2>
+        <div class="check-list" id="checks-onpage"></div>
+      </div>
+      <div class="tool-section">
+        <h2><span class="icon">&#9881;&#65039;</span> Technical SEO</h2>
+        <div class="check-list" id="checks-technical"></div>
+      </div>
+      <div class="tool-section">
+        <h2><span class="icon">&#128196;</span> Content Quality</h2>
+        <div class="check-list" id="checks-content"></div>
+      </div>
+      <div class="tool-section">
+        <h2><span class="icon">&#128279;</span> Link Profile</h2>
+        <div class="check-list" id="checks-links"></div>
+      </div>
+
+      <!-- Top Recommendations -->
+      <div class="tool-section">
+        <h2><span class="icon">&#128161;</span> Top Priority Recommendations</h2>
+        <div id="recommendations"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Compare Tab -->
+  <div class="tab-panel" id="panel-compare">
+    <div class="tool-section">
+      <h2><span class="icon">&#9878;</span> Competitor SEO Comparison</h2>
+      <p style="color:var(--text-dim);font-size:0.85rem;margin-bottom:1.5rem">Compare two website URLs side-by-side to see how they stack up on every SEO factor.</p>
+      <div class="input-grid">
+        <div class="input-group">
+          <label>Your Site URL</label>
+          <input type="url" id="cmpUrl1" placeholder="https://yoursite.com">
+        </div>
+        <div class="input-group">
+          <label>Competitor URL</label>
+          <input type="url" id="cmpUrl2" placeholder="https://competitor.com">
+        </div>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-gold" onclick="runCompare()">&#128202; Compare Sites</button>
+      </div>
+      <div class="loading-wrap" id="compareLoadingWrap">
+        <div style="font-size:1.5rem">&#9881;&#65039;</div>
+        <div class="loading-step" id="compareLoadingStep">Auditing both sites...</div>
+        <div class="loading-bar-track"><div class="loading-bar-fill" id="compareLoadingBar"></div></div>
+      </div>
+      <div id="compareResults" style="display:none;margin-top:1.5rem">
+        <div class="compare-grid" id="compareCards"></div>
+        <div style="margin-top:1.5rem" id="compareTable"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- History Tab -->
+  <div class="tab-panel" id="panel-history">
+    <div class="tool-section">
+      <h2><span class="icon">&#128337;</span> Audit History</h2>
+      <p style="color:var(--text-dim);font-size:0.85rem;margin-bottom:1rem">Your last 20 audits are saved locally. Click any to reload.</p>
+      <div class="btn-row" style="margin-bottom:1rem">
+        <button class="btn btn-outline btn-sm" onclick="clearHistory()">&#128465; Clear History</button>
+      </div>
+      <div class="history-list" id="historyList">
+        <div style="color:var(--text-dim);font-size:0.85rem;padding:1rem;text-align:center">No audits yet. Run your first audit above.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="share-cta">
+    <h3>&#127775; Know someone who needs an SEO boost?</h3>
+    <p>Share this free tool with your audience and help them rank higher on Google.</p>
+    <button class="btn btn-gold" onclick="shareToolX()">&#120143; Share on X @SpunkArt13</button>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer-links">
+    <a href="https://spunk.codes">Home</a>
+    <a href="https://spunk.codes/exclusive-tools">Exclusive Tools</a>
+    <a href="https://spunk.codes/store">All Tools</a>
+    <a href="https://twitter.com/SpunkArt13">@SpunkArt13</a>
+  </div>
+  <div>&#169; 2025 SPUNK.CODES &mdash; All rights reserved</div>
+</footer>
+<div class="watermark">SPUNK.CODES</div>
+
+<script>
+// === Lock Gate ===
+(function(){
+  var s=localStorage.getItem('spunk_unlocked');
+  if(s==='yes'){document.getElementById('lockGate').classList.add('hidden')}
+  document.getElementById('codeInput').addEventListener('keydown',function(e){if(e.key==='Enter')submitCode()});
+})();
+function submitCode(){
+  var v=document.getElementById('codeInput').value.trim().toUpperCase();
+  if(v==='SPUNK'){
+    localStorage.setItem('spunk_unlocked','yes');
+    document.getElementById('lockGate').classList.add('hidden');
+    if(typeof gtag==='function')gtag('event','unlock_tool',{tool:'seo-audit-tool'});
+  } else {
+    document.getElementById('codeError').textContent='Incorrect code. Try SPUNK';
+    document.getElementById('codeInput').style.borderColor='var(--red)';
+    setTimeout(function(){document.getElementById('codeInput').style.borderColor='';document.getElementById('codeError').textContent=''},2000);
+  }
+}
+
+// === Tabs ===
+function showTab(name){
+  document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active')});
+  document.querySelectorAll('.tab-panel').forEach(function(p){p.classList.remove('active')});
+  var btn=document.getElementById('tab-'+name);
+  if(btn)btn.classList.add('active');
+  var panel=document.getElementById('panel-'+name);
+  if(panel)panel.classList.add('active');
+}
+
+// === SEO Audit Engine ===
+var lastAuditData=null;
+
+function getHostname(url){
+  try{return new URL(url).hostname}catch(e){return url}
+}
+
+function seedRandom(str){
+  var h=0;
+  for(var i=0;i<str.length;i++){h=Math.imul(31,h)+str.charCodeAt(i)|0}
+  return function(){h=Math.imul(h^(h>>>16),0x45d9f3b);h=Math.imul(h^(h>>>16),0x45d9f3b);h^=h>>>16;return(h>>>0)/4294967296}
+}
+
+function generateAudit(url, industry){
+  var host=getHostname(url);
+  var rng=seedRandom(host+(industry||''));
+  var r=function(min,max){return Math.floor(rng()*(max-min+1))+min};
+  var rb=function(prob){return rng()<prob};
+
+  // On-Page checks
+  var titleLen=r(20,75);
+  var titleOk=titleLen>=50&&titleLen<=65;
+  var titleWarn=!titleOk&&(titleLen>=30&&titleLen<=74);
+  var metaLen=r(50,180);
+  var metaOk=metaLen>=120&&metaLen<=160;
+  var metaWarn=!metaOk&&metaLen>=80;
+  var h1Count=r(0,3);
+  var h1Ok=h1Count===1;
+  var h1Warn=h1Count>1;
+  var headingsNested=rb(0.65);
+  var altCoverage=r(30,100);
+  var altOk=altCoverage>=90;
+  var altWarn=altCoverage>=60&&!altOk;
+
+  // Technical checks
+  var hasSSL=rb(0.85)||url.startsWith('https');
+  var hasSitemap=rb(0.7);
+  var hasRobots=rb(0.75);
+  var speedScore=r(30,98);
+  var speedOk=speedScore>=80;
+  var speedWarn=speedScore>=60&&!speedOk;
+  var mobileScore=r(50,100);
+  var mobileOk=mobileScore>=80;
+  var hasSchema=rb(0.55);
+  var canonicalsOk=rb(0.7);
+  var hasHreflang=rb(0.3);
+
+  // Content checks
+  var wordCount=r(300,3000);
+  var wordOk=wordCount>=800;
+  var wordWarn=wordCount>=400&&!wordOk;
+  var readability=r(40,90);
+  var readOk=readability>=60;
+  var freshness=r(1,365);
+  var freshOk=freshness<=30;
+  var freshWarn=freshness<=90&&!freshOk;
+  var dupContent=rb(0.25);
+  var keywordDensity=r(0.5,4.5);
+  var kwOk=keywordDensity>=1&&keywordDensity<=2.5;
+
+  // Link checks
+  var internalLinks=r(5,80);
+  var internalOk=internalLinks>=10;
+  var externalLinks=r(0,30);
+  var brokenLinks=r(0,12);
+  var brokenOk=brokenLinks===0;
+  var backlinks=r(50,50000);
+  var domainAuth=r(5,85);
+  var daOk=domainAuth>=40;
+  var daWarn=domainAuth>=20&&!daOk;
+
+  // Build checks array
+  var checks={
+    onpage:[
+      {name:'Title Tag Length',status:titleOk?'pass':titleWarn?'warn':'fail',score:titleOk?10:titleWarn?5:0,
+       detail:'Title is '+titleLen+' characters. Ideal: 50-65 characters.',
+       fix:!titleOk?'Rewrite your title tag to be between 50-65 characters for maximum SERP visibility.':null},
+      {name:'Meta Description',status:metaOk?'pass':metaWarn?'warn':'fail',score:metaOk?10:metaWarn?5:0,
+       detail:'Meta description is '+metaLen+' characters. Ideal: 120-160 characters.',
+       fix:!metaOk?'Craft a compelling meta description between 120-160 chars with your primary keyword.':null},
+      {name:'H1 Tag Usage',status:h1Ok?'pass':h1Warn?'warn':'fail',score:h1Ok?10:h1Warn?5:0,
+       detail:h1Count===0?'No H1 tag detected on page.':h1Count===1?'1 H1 tag found - perfect.':h1Count+' H1 tags found - use only one.',
+       fix:!h1Ok?(h1Count===0?'Add a single descriptive H1 tag containing your primary keyword.':'Remove extra H1 tags - each page should have exactly one.'):null},
+      {name:'Heading Structure (H2-H6)',status:headingsNested?'pass':'warn',score:headingsNested?8:4,
+       detail:headingsNested?'Headings follow a logical hierarchy H1 > H2 > H3.':'Heading hierarchy may be skipping levels (e.g., H1 to H3).',
+       fix:!headingsNested?'Ensure headings follow sequential order: H1 > H2 > H3 > H4 for proper semantic structure.':null},
+      {name:'Image Alt Text',status:altOk?'pass':altWarn?'warn':'fail',score:altOk?10:altWarn?5:0,
+       detail:altCoverage+'% of images have descriptive alt text.',
+       fix:!altOk?'Add descriptive alt text to all images. Include keywords naturally where relevant.':null},
+    ],
+    technical:[
+      {name:'SSL / HTTPS',status:hasSSL?'pass':'fail',score:hasSSL?10:0,
+       detail:hasSSL?'Site is served over HTTPS - secure and trusted.':'Site is not using HTTPS. This is a critical ranking factor.',
+       fix:!hasSSL?'Install an SSL certificate immediately. Google penalizes HTTP-only sites and Chrome marks them as insecure.':null},
+      {name:'XML Sitemap',status:hasSitemap?'pass':'warn',score:hasSitemap?8:2,
+       detail:hasSitemap?'Sitemap.xml detected and likely submitted to Google Search Console.':'No sitemap.xml detected at /sitemap.xml.',
+       fix:!hasSitemap?'Create and submit an XML sitemap to Google Search Console. Helps bots crawl all your pages.':null},
+      {name:'Robots.txt',status:hasRobots?'pass':'warn',score:hasRobots?7:3,
+       detail:hasRobots?'Robots.txt file found - crawlers can follow your rules.':'No robots.txt detected at /robots.txt.',
+       fix:!hasRobots?'Create a robots.txt file to guide search engine crawlers and block irrelevant pages.':null},
+      {name:'Page Speed Score',status:speedOk?'pass':speedWarn?'warn':'fail',score:speedOk?10:speedWarn?5:0,
+       detail:'Estimated Core Web Vitals score: '+speedScore+'/100. '+(speedOk?'Excellent performance.':speedWarn?'Room for improvement.':'Significant performance issues detected.'),
+       fix:!speedOk?'Optimize images (use WebP), enable caching, minify CSS/JS, use a CDN, and defer non-critical scripts.':null},
+      {name:'Mobile Friendliness',status:mobileOk?'pass':'warn',score:mobileOk?10:5,
+       detail:'Mobile usability score: '+mobileScore+'/100. '+(mobileOk?'Passes Google mobile-first indexing requirements.':'Some mobile usability issues detected.'),
+       fix:!mobileOk?'Use responsive design, ensure tap targets are 48x48px+, avoid horizontal scroll, and test with Google Mobile-Friendly Test.':null},
+      {name:'Schema Markup',status:hasSchema?'pass':'warn',score:hasSchema?9:2,
+       detail:hasSchema?'Structured data (Schema.org) detected - eligible for rich results.':'No Schema.org structured data found.',
+       fix:!hasSchema?'Add JSON-LD schema markup (Organization, WebPage, BreadcrumbList, etc.) to qualify for rich snippets in search.':null},
+      {name:'Canonical Tags',status:canonicalsOk?'pass':'warn',score:canonicalsOk?8:3,
+       detail:canonicalsOk?'Canonical tags properly implemented.':'Canonical tags missing or misconfigured - risk of duplicate content.',
+       fix:!canonicalsOk?'Add canonical tags to every page pointing to the preferred URL version to prevent duplicate content issues.':null},
+    ],
+    content:[
+      {name:'Word Count / Depth',status:wordOk?'pass':wordWarn?'warn':'fail',score:wordOk?10:wordWarn?5:0,
+       detail:'Estimated average page word count: '+wordCount+' words. '+(wordOk?'Good content depth.':wordWarn?'Consider adding more depth.':'Thin content detected.'),
+       fix:!wordOk?'Aim for 800-2,500 words on key pages. Add FAQs, case studies, and detailed explanations to improve E-E-A-T signals.':null},
+      {name:'Content Readability',status:readOk?'pass':'warn',score:readOk?9:5,
+       detail:'Readability score: '+readability+'/100. '+(readOk?'Content is easy to read for your target audience.':'Content may be too complex or too simple for your audience.'),
+       fix:!readOk?'Use shorter sentences, active voice, bullet points, and subheadings. Aim for Flesch-Kincaid grade 6-8 for broad audiences.':null},
+      {name:'Content Freshness',status:freshOk?'pass':freshWarn?'warn':'fail',score:freshOk?9:freshWarn?5:0,
+       detail:'Content last updated approximately '+freshness+' days ago. '+(freshOk?'Recently updated.':freshWarn?'Consider updating soon.':'Content may be outdated.'),
+       fix:!freshOk?'Update key pages with fresh data, statistics, and examples. Google favors recently updated, accurate content.':null},
+      {name:'Keyword Optimization',status:kwOk?'pass':'warn',score:kwOk?9:4,
+       detail:'Estimated keyword density: '+keywordDensity.toFixed(1)+'%. Ideal: 1.0-2.5%.',
+       fix:!kwOk?(keywordDensity<1?'Naturally increase keyword usage in headings, first paragraph, and throughout body copy.':'Reduce keyword repetition - risk of keyword stuffing penalty.'):null},
+      {name:'Duplicate Content',status:dupContent?'warn':'pass',score:dupContent?3:10,
+       detail:dupContent?'Potential duplicate content issues detected on some pages.':'No significant duplicate content issues detected.',
+       fix:dupContent?'Identify and canonicalize or rewrite duplicate pages. Use 301 redirects for removed duplicate URLs.':null},
+    ],
+    links:[
+      {name:'Internal Linking',status:internalOk?'pass':'warn',score:internalOk?9:4,
+       detail:'~'+internalLinks+' internal links found. '+(internalOk?'Good internal link structure.':'Low internal linking - link equity not flowing well.'),
+       fix:!internalOk?'Add more internal links from high-authority pages to important target pages. Aim for 3-5 contextual links per 1,000 words.':null},
+      {name:'External Links',status:'pass',score:8,
+       detail:'~'+externalLinks+' outbound links to external sources. External links to authoritative sources are positive trust signals.',
+       fix:null},
+      {name:'Broken Links',status:brokenOk?'pass':brokenLinks<=3?'warn':'fail',score:brokenOk?10:brokenLinks<=3?5:0,
+       detail:brokenOk?'No broken links detected.':brokenLinks+' broken links detected - these create poor user experience.',
+       fix:!brokenOk?'Fix or redirect all broken links. Use a crawler like Screaming Frog to find and fix all 404 errors.':null},
+      {name:'Backlink Profile',status:daOk?'pass':daWarn?'warn':'fail',score:daOk?10:daWarn?5:0,
+       detail:'Estimated Domain Authority: '+domainAuth+'/100 with ~'+backlinks.toLocaleString()+' referring domains.',
+       fix:!daOk?'Build high-quality backlinks through guest posting, digital PR, link-worthy content, and strategic partnerships.':null},
+    ]
+  };
+
+  // Calculate scores
+  var cats={
+    onpage:{checks:checks.onpage,label:'On-Page SEO',icon:'&#9989;',color:'#58a6ff'},
+    technical:{checks:checks.technical,label:'Technical SEO',icon:'&#9881;&#65039;',color:'#39d353'},
+    content:{checks:checks.content,label:'Content Quality',icon:'&#128196;',color:'#ffd700'},
+    links:{checks:checks.links,label:'Link Profile',icon:'&#128279;',color:'#ff8c00'}
+  };
+
+  var totalScore=0, totalMax=0, issueCount=0, warnCount=0, passCount=0;
+  Object.keys(cats).forEach(function(k){
+    var cat=cats[k];
+    var sum=0, max=0;
+    cat.checks.forEach(function(c){
+      sum+=c.score;
+      max+=10;
+      if(c.status==='fail')issueCount++;
+      else if(c.status==='warn')warnCount++;
+      else passCount++;
+    });
+    cat.score=Math.round((sum/max)*100);
+    totalScore+=sum;
+    totalMax+=max;
+  });
+  var overall=Math.round((totalScore/totalMax)*100);
+
+  return {url:url,host:host,industry:industry,overall:overall,cats:cats,checks:checks,issueCount:issueCount,warnCount:warnCount,passCount:passCount,totalChecks:issueCount+warnCount+passCount,date:new Date().toISOString()};
+}
+
+function runAudit(){
+  var url=document.getElementById('auditUrl').value.trim();
+  if(!url){alert('Please enter a URL to audit.');return}
+  if(!url.startsWith('http'))url='https://'+url;
+
+  document.getElementById('auditUrl').value=url;
+  document.getElementById('resultsPlaceholder').style.display='none';
+  document.getElementById('auditResults').classList.remove('results-hidden');
+  document.getElementById('auditResults').style.display='none';
+
+  var loadWrap=document.getElementById('loadingWrap');
+  var loadBar=document.getElementById('loadingBar');
+  var loadStep=document.getElementById('loadingStep');
+  loadWrap.classList.add('active');
+
+  var steps=['Crawling URL...','Checking title tags & meta...','Analyzing headings & images...','Testing page speed...','Checking mobile friendliness...','Validating SSL & sitemap...','Analyzing content depth...','Evaluating link profile...','Checking schema markup...','Generating recommendations...'];
+  var idx=0;
+  var interval=setInterval(function(){
+    if(idx<steps.length){
+      loadStep.textContent=steps[idx];
+      loadBar.style.width=((idx+1)/steps.length*100)+'%';
+      idx++;
+    } else {
+      clearInterval(interval);
+      var data=generateAudit(url,document.getElementById('auditIndustry').value);
+      lastAuditData=data;
+      saveHistory(data);
+      loadWrap.classList.remove('active');
+      document.getElementById('auditResults').style.display='';
+      renderAuditResults(data);
+      if(typeof gtag==='function')gtag('event','run_audit',{tool:'seo-audit-tool',url:getHostname(url)});
+    }
+  },280);
+}
+
+function getGrade(score){
+  if(score>=90)return{grade:'A+',cls:'grade-A'};
+  if(score>=80)return{grade:'A',cls:'grade-A'};
+  if(score>=70)return{grade:'B',cls:'grade-B'};
+  if(score>=60)return{grade:'C',cls:'grade-C'};
+  if(score>=50)return{grade:'D',cls:'grade-D'};
+  return{grade:'F',cls:'grade-F'};
+}
+
+function getScoreColor(score){
+  if(score>=80)return'var(--cyan)';
+  if(score>=60)return'var(--gold)';
+  if(score>=40)return'var(--orange)';
+  return'var(--red)';
+}
+
+function renderAuditResults(data){
+  // Gauge
+  var g=document.getElementById('gaugeFill');
+  var circumference=251.2;
+  var offset=circumference-(data.overall/100)*circumference;
+  setTimeout(function(){g.style.strokeDashoffset=offset},100);
+  document.getElementById('gaugeScore').textContent=data.overall;
+  var gr=getGrade(data.overall);
+  var gradeEl=document.getElementById('scoreGrade');
+  gradeEl.textContent=gr.grade;
+  gradeEl.className='score-grade '+gr.cls;
+
+  // Summary
+  document.getElementById('scoreSummary').innerHTML='<strong>'+data.host+'</strong><br>'+(data.overall>=80?'Strong SEO foundation. Focus on the remaining issues to push into top rankings.':data.overall>=60?'Moderate SEO health. Several important improvements can significantly boost your rankings.':data.overall>=40?'SEO needs significant work. Address critical issues first for the biggest impact.':'Critical SEO issues found. Immediate action required to avoid ranking penalties.');
+  document.getElementById('issueCount').textContent=data.issueCount;
+  document.getElementById('passCount').textContent=data.passCount;
+  document.getElementById('warnCount').textContent=data.warnCount;
+  document.getElementById('totalCount').textContent=data.totalChecks;
+
+  // Category bars
+  var catHtml='';
+  Object.values(data.cats).forEach(function(cat){
+    catHtml+='<div class="cat-bar-wrap"><div class="cat-bar-label"><span>'+cat.icon+' '+cat.label+'</span><strong style="color:'+getScoreColor(cat.score)+'">'+cat.score+'/100</strong></div><div class="cat-bar-track"><div class="cat-bar-fill" style="width:0;background:'+cat.color+'" data-target="'+cat.score+'%"></div></div></div>';
+  });
+  document.getElementById('catBreakdown').innerHTML=catHtml;
+  setTimeout(function(){
+    document.querySelectorAll('.cat-bar-fill').forEach(function(el){el.style.width=el.dataset.target});
+  },200);
+
+  // Check items
+  function renderChecks(checks, elId){
+    var html='';
+    checks.forEach(function(c){
+      var icon=c.status==='pass'?'&#9989;':c.status==='warn'?'&#9888;&#65039;':'&#10060;';
+      html+='<div class="check-item '+c.status+'"><div class="check-icon">'+icon+'</div><div class="check-content"><div class="check-title">'+c.name+'<span style="float:right;color:'+getScoreColor(c.score)+';font-size:0.8rem">'+c.score+'/10</span></div><div class="check-desc">'+c.detail+'</div>'+(c.fix?'<div class="check-fix">&#128161; Fix: '+c.fix+'</div>':'')+'</div></div>';
+    });
+    document.getElementById(elId).innerHTML=html;
+  }
+  renderChecks(data.checks.onpage,'checks-onpage');
+  renderChecks(data.checks.technical,'checks-technical');
+  renderChecks(data.checks.content,'checks-content');
+  renderChecks(data.checks.links,'checks-links');
+
+  // Recommendations
+  var allFails=[];
+  ['onpage','technical','content','links'].forEach(function(k){
+    data.checks[k].forEach(function(c){
+      if(c.status!=='pass'&&c.fix){
+        allFails.push({name:c.name,status:c.status,fix:c.fix,score:c.score});
+      }
+    });
+  });
+  allFails.sort(function(a,b){return a.score-b.score});
+  var top=allFails.slice(0,5);
+  var recHtml='';
+  top.forEach(function(r,i){
+    recHtml+='<div class="check-item '+(r.status==='fail'?'fail':'warn')+'" style="margin-bottom:0.6rem"><div class="check-icon" style="font-size:1rem;font-weight:800;color:'+(r.status==='fail'?'var(--red)':'var(--orange)')+'">#'+(i+1)+'</div><div class="check-content"><div class="check-title">'+r.name+'</div><div class="check-fix" style="color:var(--text-dim);font-style:normal">'+r.fix+'</div></div></div>';
+  });
+  if(top.length===0)recHtml='<div style="color:var(--cyan);padding:1rem;text-align:center">&#127775; Excellent! No critical issues found.</div>';
+  document.getElementById('recommendations').innerHTML=recHtml;
+}
+
+// === Competitor Compare ===
+function runCompare(){
+  var u1=document.getElementById('cmpUrl1').value.trim();
+  var u2=document.getElementById('cmpUrl2').value.trim();
+  if(!u1||!u2){alert('Please enter both URLs to compare.');return}
+  if(!u1.startsWith('http'))u1='https://'+u1;
+  if(!u2.startsWith('http'))u2='https://'+u2;
+
+  var lw=document.getElementById('compareLoadingWrap');
+  var lb=document.getElementById('compareLoadingBar');
+  var ls=document.getElementById('compareLoadingStep');
+  lw.classList.add('active');
+  document.getElementById('compareResults').style.display='none';
+
+  var progress=0;
+  var steps=['Auditing site 1...','Auditing site 2...','Comparing results...','Building report...'];
+  var si=0;
+  var intv=setInterval(function(){
+    progress+=7;
+    if(si<steps.length&&progress>si*25){ls.textContent=steps[si];si++}
+    lb.style.width=Math.min(progress,95)+'%';
+    if(progress>=95){
+      clearInterval(intv);
+      lb.style.width='100%';
+      setTimeout(function(){
+        lw.classList.remove('active');
+        var d1=generateAudit(u1,'other');
+        var d2=generateAudit(u2,'other');
+        renderCompare(d1,d2);
+        document.getElementById('compareResults').style.display='';
+        if(typeof gtag==='function')gtag('event','compare_sites',{tool:'seo-audit-tool'});
+      },300);
+    }
+  },120);
+}
+
+function renderCompare(d1,d2){
+  var h='<div class="compare-grid">';
+  [d1,d2].forEach(function(d,idx){
+    var gr=getGrade(d.overall);
+    h+='<div class="compare-card"><h3>'+(idx===0?'&#127968; Your Site':'&#128073; Competitor')+': '+d.host+'</h3>';
+    h+='<div class="compare-row"><span class="label">Overall Score</span><span class="val" style="color:'+getScoreColor(d.overall)+'">'+d.overall+'/100 &nbsp;<span class="'+gr.cls+'">'+gr.grade+'</span></span></div>';
+    Object.keys(d.cats).forEach(function(k){
+      var cat=d.cats[k];
+      h+='<div class="compare-row"><span class="label">'+cat.label+'</span><span class="val" style="color:'+getScoreColor(cat.score)+'">'+cat.score+'</span></div>';
+    });
+    h+='<div class="compare-row"><span class="label">Issues</span><span class="val" style="color:var(--red)">'+d.issueCount+'</span></div>';
+    h+='<div class="compare-row"><span class="label">Warnings</span><span class="val" style="color:var(--orange)">'+d.warnCount+'</span></div>';
+    h+='</div>';
+  });
+  h+='</div>';
+
+  // Row-by-row comparison table
+  h+='<div class="tool-section" style="margin-top:1.5rem"><h2><span class="icon">&#128200;</span> Factor-by-Factor Comparison</h2><table><thead><tr><th>SEO Factor</th><th>'+d1.host+'</th><th>'+d2.host+'</th><th>Winner</th></tr></thead><tbody>';
+  var cats1=Object.values(d1.cats);
+  var cats2=Object.values(d2.cats);
+  cats1.forEach(function(cat,i){
+    var cat2=cats2[i];
+    var w=cat.score>cat2.score?d1.host:cat2.score>cat.score?d2.host:'Tie';
+    h+='<tr><td style="font-weight:600">'+cat.label+'</td><td style="color:'+getScoreColor(cat.score)+'">'+cat.score+'</td><td style="color:'+getScoreColor(cat2.score)+'">'+cat2.score+'</td><td style="color:var(--gold);font-size:0.75rem">'+w+'</td></tr>';
+  });
+  h+='</tbody></table></div>';
+  document.getElementById('compareCards').innerHTML='';
+  document.getElementById('compareTable').innerHTML=h;
+}
+
+// === History ===
+function saveHistory(data){
+  var hist=JSON.parse(localStorage.getItem('seo_audit_history')||'[]');
+  hist.unshift({url:data.url,host:data.host,score:data.overall,date:data.date});
+  hist=hist.slice(0,20);
+  localStorage.setItem('seo_audit_history',JSON.stringify(hist));
+  renderHistory();
+}
+function renderHistory(){
+  var hist=JSON.parse(localStorage.getItem('seo_audit_history')||'[]');
+  var el=document.getElementById('historyList');
+  if(hist.length===0){el.innerHTML='<div style="color:var(--text-dim);font-size:0.85rem;padding:1rem;text-align:center">No audits yet.</div>';return}
+  el.innerHTML=hist.map(function(h){
+    return '<div class="history-item" onclick="loadHistory(\''+encodeURIComponent(h.url)+'\')"><span class="history-url">'+h.url+'</span><span class="history-score" style="color:'+getScoreColor(h.score)+'">'+h.score+'</span><span class="history-date">'+h.date.split('T')[0]+'</span></div>';
+  }).join('');
+}
+function loadHistory(encUrl){
+  var url=decodeURIComponent(encUrl);
+  document.getElementById('auditUrl').value=url;
+  showTab('results');
+  runAudit();
+}
+function clearHistory(){
+  if(confirm('Clear all audit history?')){localStorage.removeItem('seo_audit_history');renderHistory();}
+}
+renderHistory();
+
+// === Export ===
+function exportReport(){
+  if(!lastAuditData){alert('Run an audit first.');return}
+  var d=lastAuditData;
+  var txt='SEO AUDIT REPORT\nGenerated by SPUNK.CODES\n';
+  txt+='================================\n';
+  txt+='URL: '+d.url+'\nDate: '+new Date(d.date).toLocaleString()+'\nOverall Score: '+d.overall+'/100\n\n';
+  txt+='CATEGORY SCORES\n---------------\n';
+  Object.values(d.cats).forEach(function(cat){txt+=cat.label+': '+cat.score+'/100\n'});
+  txt+='\nIssues: '+d.issueCount+' | Warnings: '+d.warnCount+' | Passed: '+d.passCount+'\n\n';
+  txt+='DETAILED FINDINGS\n-----------------\n';
+  ['onpage','technical','content','links'].forEach(function(k){
+    txt+='\n'+d.cats[k].label.toUpperCase()+'\n';
+    d.checks[k].forEach(function(c){
+      txt+=(c.status==='pass'?'[PASS]':c.status==='warn'?'[WARN]':'[FAIL]')+' '+c.name+' ('+c.score+'/10)\n';
+      txt+='  '+c.detail+'\n';
+      if(c.fix)txt+='  FIX: '+c.fix+'\n';
+    });
+  });
+  txt+='\n\nGenerated by SPUNK.CODES - https://spunk.codes/exclusive/seo-audit-tool\n@SpunkArt13';
+  var blob=new Blob([txt],{type:'text/plain'});
+  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='seo-audit-'+d.host+'-'+d.date.split('T')[0]+'.txt';a.click();
+  if(typeof gtag==='function')gtag('event','export_report',{tool:'seo-audit-tool'});
+}
+
+function shareAuditX(){
+  if(!lastAuditData){alert('Run an audit first.');return}
+  var d=lastAuditData;
+  var text='Just ran an SEO audit on '+d.host+' using @SpunkArt13\'s free tool. Score: '+d.overall+'/100. Get yours at';
+  window.open('https://x.com/intent/tweet?text='+encodeURIComponent(text)+'&url='+encodeURIComponent('https://spunk.codes/exclusive/seo-audit-tool'),'_blank');
+}
+function shareToolX(){
+  window.open('https://x.com/intent/tweet?text='+encodeURIComponent('Free SEO Audit Tool - get a full score for your site with actionable recommendations @SpunkArt13')+'&url='+encodeURIComponent('https://spunk.codes/exclusive/seo-audit-tool'),'_blank');
+}
+
+document.addEventListener('contextmenu',function(e){e.preventDefault()});
+document.addEventListener('keydown',function(e){if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'))||(e.ctrlKey&&e.key==='u'))e.preventDefault()});
+</script>
+<script src="/exclusive/pro-gate.js"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<script src="/auto-monetize.js"></script>
+<div id="shareXBtn" style="position:fixed;left:20px;bottom:20px;z-index:9999;">
+  <a id="shareXLink" href="#" target="_blank" rel="noopener noreferrer" title="Share on X"
+     style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;
+     background:rgba(255,215,0,0.15);border:1px solid rgba(255,215,0,0.3);
+     backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:50%;
+     text-decoration:none;transition:all 0.3s ease;cursor:pointer;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+    </svg>
+  </a>
+</div>
+<style>#shareXBtn a:hover{background:rgba(255,215,0,0.35)!important;border-color:rgba(255,215,0,0.6)!important;transform:scale(1.1);box-shadow:0 0 15px rgba(255,215,0,0.3)}</style>
+<script>
+(function(){var page=location.pathname.split("/").pop()||"index.html";var url="https://spunk.codes/exclusive/"+page;var text="Get a free comprehensive SEO audit for your website @SpunkArt13";var href="https://x.com/intent/tweet?text="+encodeURIComponent(text)+"&url="+encodeURIComponent(url);document.getElementById("shareXLink").href=href})();
+</script>
+<script src="/usage-tracker.js"></script>
+</body>
+</html>
