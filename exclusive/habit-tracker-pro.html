@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Habit Tracker Pro - Visual Streaks & Analytics | SPUNK.CODES Exclusive</title>
+<meta name="description" content="Track habits with visual streak calendars, heatmaps, completion charts, and motivational quotes. All data saved locally. Free exclusive premium tool.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Habit Tracker Pro - SPUNK.CODES Exclusive">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/habit-tracker-pro">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Habit Tracker Pro","url":"https://spunk.codes/exclusive/habit-tracker-pro","applicationCategory":"LifestyleApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Track habits with visual streak calendars, heatmaps, completion charts, and motivational quotes."}</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0a0a0f;--card:rgba(18,18,28,0.85);--border:rgba(48,44,61,0.6);--accent:#ff5f1f;--accent2:#ff9f1f;--gold:#ff5f1f;--gold-border:rgba(255,95,31,0.3);--text:#e8e8f0;--text-dim:#8b8b9e;--blue:#58a6ff;--cyan:#39d353;--red:#f85149;--green:#39d353;--font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+a{color:var(--blue);text-decoration:none}
+.bg-mesh{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 80% 50% at 20% 20%,rgba(255,95,31,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(255,159,31,0.04) 0%,transparent 60%),var(--bg)}
+.bg-grid{position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,95,31,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,95,31,0.03) 1px,transparent 1px);background-size:60px 60px}
+.nav{position:sticky;top:0;z-index:100;background:rgba(10,10,15,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,95,31,0.15);padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}
+.nav-brand{font-weight:800;font-size:1.1rem;background:linear-gradient(135deg,#ff5f1f,#ff9f1f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:0.08em}
+.nav-links{display:flex;gap:1.5rem;font-size:0.85rem}.nav-links a{color:var(--text-dim);font-weight:500}.nav-links a.active{color:var(--accent)}
+.lock-gate{position:fixed;inset:0;z-index:1000;background:rgba(10,10,15,0.97);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:2rem}
+.lock-gate.hidden{display:none}
+.lock-icon-big{font-size:4rem}.lock-gate h2{font-size:1.8rem;font-weight:800;text-align:center}.lock-gate h2 span{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}.lock-gate p{color:var(--text-dim);text-align:center;max-width:400px}
+.code-input-wrap{display:flex;gap:0.5rem}
+.code-input{padding:0.8rem 1.5rem;background:rgba(18,18,28,0.8);border:2px solid var(--gold-border);border-radius:12px;color:var(--accent);font-size:1.2rem;font-weight:800;letter-spacing:3px;text-align:center;width:200px;outline:none;text-transform:uppercase;font-family:var(--font)}
+.code-input:focus{border-color:var(--accent);box-shadow:0 0 20px rgba(255,95,31,0.2)}
+.code-submit{padding:0.8rem 1.5rem;background:linear-gradient(135deg,#ff5f1f,#ff9f1f);border:none;border-radius:12px;color:#000;font-size:1rem;font-weight:800;cursor:pointer}
+.code-error{color:var(--red);font-size:0.85rem;min-height:1.2em}.lock-hint{color:var(--text-dim);font-size:0.8rem}.lock-hint a{color:var(--accent)}
+.exclusive-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;background:linear-gradient(135deg,rgba(255,95,31,0.15),rgba(255,159,31,0.15));border:1px solid var(--gold-border);border-radius:100px;font-size:11px;font-weight:800;color:var(--accent);letter-spacing:1.5px;text-transform:uppercase}
+.main{max-width:1100px;margin:0 auto;padding:2rem}
+.hero-section{text-align:center;padding:2rem 0 2rem}
+.hero-section h1{font-size:2.2rem;font-weight:800;margin:1rem 0 0.5rem}
+.hero-section h1 .gold{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-section p{color:var(--text-dim);max-width:600px;margin:0 auto}
+.card{background:var(--card);border:1px solid var(--gold-border);border-radius:16px;padding:1.5rem;margin-bottom:1.5rem;backdrop-filter:blur(10px);position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#ff5f1f,#ff9f1f,#ff5f1f)}
+.card h2{font-size:1.1rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}
+.form-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:0.75rem;margin-bottom:0.75rem}
+.form-group{display:flex;flex-direction:column;gap:0.3rem}
+.form-group label{font-size:0.75rem;color:var(--text-dim);font-weight:600;text-transform:uppercase;letter-spacing:0.5px}
+.form-group input,.form-group select{padding:0.6rem 0.8rem;background:rgba(18,18,28,0.9);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.85rem;font-family:var(--font);outline:none}
+.form-group input:focus,.form-group select:focus{border-color:var(--accent)}
+.btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;transition:all 0.2s}
+.btn-gold{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);color:#000}
+.btn-gold:hover{transform:translateY(-1px);box-shadow:0 4px 15px rgba(255,95,31,0.3)}
+.btn-outline{background:transparent;border:1px solid var(--gold-border);color:var(--accent)}
+.btn-outline:hover{background:rgba(255,95,31,0.1)}
+.btn-red{background:rgba(248,81,73,0.15);border:1px solid rgba(248,81,73,0.3);color:var(--red)}
+.btn-sm{padding:0.4rem 0.8rem;font-size:0.75rem}
+.btn-row{display:flex;gap:0.5rem;flex-wrap:wrap}
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:0.75rem;margin-bottom:1rem}
+.stat-box{background:rgba(10,10,15,0.5);border:1px solid var(--border);border-radius:10px;padding:0.75rem;text-align:center}
+.stat-box .stat-num{font-size:1.5rem;font-weight:800;color:var(--accent)}
+.stat-box .stat-label{font-size:0.7rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.5px}
+.habit-item{display:flex;align-items:center;gap:0.75rem;padding:0.75rem;background:rgba(10,10,15,0.4);border:1px solid var(--border);border-radius:10px;margin-bottom:0.5rem;transition:all 0.2s}
+.habit-item:hover{border-color:rgba(255,95,31,0.2)}
+.habit-check{width:28px;height:28px;border-radius:50%;border:2px solid var(--border);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;flex-shrink:0;font-size:0.8rem}
+.habit-check.done{background:var(--green);border-color:var(--green);color:#000}
+.habit-info{flex:1}
+.habit-name{font-weight:700;font-size:0.9rem}
+.habit-meta{font-size:0.7rem;color:var(--text-dim)}
+.habit-streak{font-size:0.75rem;font-weight:700;color:var(--accent);min-width:60px;text-align:right}
+.habit-actions{display:flex;gap:0.3rem}
+.cat-badge{display:inline-block;font-size:0.6rem;padding:1px 6px;border-radius:3px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px}
+.cat-health{background:rgba(57,211,83,0.15);color:var(--green)}
+.cat-productivity{background:rgba(88,166,255,0.15);color:var(--blue)}
+.cat-finance{background:rgba(255,159,31,0.15);color:var(--accent2)}
+.cat-learning{background:rgba(255,95,31,0.15);color:var(--accent)}
+.heatmap-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin-top:0.5rem}
+.heatmap-header{font-size:0.6rem;text-align:center;color:var(--text-dim);font-weight:600;padding:0.2rem}
+.heatmap-cell{aspect-ratio:1;border-radius:3px;cursor:default;position:relative}
+.heatmap-cell.empty{background:transparent}
+.heatmap-cell.l0{background:rgba(18,18,28,0.6)}
+.heatmap-cell.l1{background:rgba(255,95,31,0.2)}
+.heatmap-cell.l2{background:rgba(255,95,31,0.4)}
+.heatmap-cell.l3{background:rgba(255,95,31,0.6)}
+.heatmap-cell.l4{background:rgba(255,95,31,0.85)}
+.heatmap-legend{display:flex;align-items:center;gap:0.3rem;margin-top:0.5rem;font-size:0.65rem;color:var(--text-dim)}
+.heatmap-legend .swatch{width:12px;height:12px;border-radius:2px}
+.chart-container{position:relative;width:100%;height:200px;margin-top:0.5rem}
+.chart-container canvas{width:100%!important;height:100%!important}
+.quote-box{background:linear-gradient(135deg,rgba(255,95,31,0.08),rgba(255,159,31,0.05));border:1px solid var(--gold-border);border-radius:12px;padding:1.2rem;text-align:center;margin-top:0.75rem;font-style:italic;font-size:0.9rem;color:var(--text);line-height:1.5}
+.quote-box .quote-author{font-style:normal;font-size:0.75rem;color:var(--text-dim);margin-top:0.5rem}
+.tabs{display:flex;gap:0.5rem;margin-bottom:1rem;flex-wrap:wrap}
+.tab{padding:0.5rem 1rem;border-radius:8px;font-size:0.8rem;font-weight:600;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--text-dim);transition:all 0.2s}
+.tab.active{background:linear-gradient(135deg,rgba(255,95,31,0.2),rgba(255,159,31,0.1));border-color:var(--accent);color:var(--accent)}
+.report-section{background:rgba(10,10,15,0.5);border:1px solid var(--border);border-radius:10px;padding:1rem;margin-bottom:0.75rem}
+.report-section h3{font-size:0.9rem;font-weight:700;margin-bottom:0.5rem;color:var(--accent)}
+.share-cta{background:linear-gradient(135deg,rgba(255,95,31,0.08),rgba(255,159,31,0.05));border:1px solid var(--gold-border);border-radius:16px;padding:2rem;text-align:center;margin-top:2rem}
+.share-cta h3{color:var(--accent);margin-bottom:0.5rem}.share-cta p{color:var(--text-dim);font-size:0.9rem;margin-bottom:1rem}
+.share-btns{display:flex;gap:0.6rem;justify-content:center;flex-wrap:wrap}
+.share-btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;color:#fff}
+.share-x{background:#000;border:1px solid #333}.share-reddit{background:#ff4500}.share-email{background:#21262d;border:1px solid #30363d}
+.footer{text-align:center;padding:2rem;border-top:1px solid rgba(255,95,31,0.1);color:var(--text-dim);font-size:0.75rem;margin-top:3rem}
+.footer a{color:var(--accent)}.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-bottom:1rem}
+.watermark{position:fixed;bottom:10px;right:10px;font-size:0.6rem;color:rgba(255,95,31,0.08);font-weight:800;pointer-events:none;z-index:9999;letter-spacing:1px;text-transform:uppercase}
+@media(max-width:768px){.main{padding:1rem}.hero-section h1{font-size:1.6rem}.nav-links{display:none}.form-row{grid-template-columns:1fr}.stat-grid{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<div class="bg-mesh"></div><div class="bg-grid"></div>
+<div class="lock-gate" id="lockGate"><div class="lock-icon-big">&#128274;</div><h2>Enter Code <span>SPUNK</span> to Unlock</h2><p>This exclusive premium tool requires the SPUNK referral code.</p><div class="code-input-wrap"><input type="text" class="code-input" id="codeInput" placeholder="CODE" maxlength="10" autocomplete="off"><button class="code-submit" onclick="submitCode()">Unlock</button></div><div class="code-error" id="codeError"></div><div class="lock-hint">Get the code at <a href="https://spunk.codes/exclusive-tools">spunk.codes/exclusive-tools</a></div></div>
+<nav class="nav"><a href="https://spunk.codes" class="nav-brand">SPUNK.CODES</a><div class="nav-links"><a href="/store">Tools</a><a href="/exclusive-tools" class="active">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a></div></nav>
+
+<div class="main">
+  <section class="hero-section">
+    <div class="exclusive-badge">&#128081; EXCLUSIVE TOOL</div>
+    <h1><span class="gold">Habit Tracker</span> Pro</h1>
+    <p>Build streaks, track progress with heatmaps, and stay motivated with visual analytics and daily reports.</p>
+  </section>
+
+  <div class="card">
+    <h2>&#128170; Today's Habits</h2>
+    <div class="stat-grid" id="statsGrid">
+      <div class="stat-box"><div class="stat-num" id="statTotal">0</div><div class="stat-label">Total Habits</div></div>
+      <div class="stat-box"><div class="stat-num" id="statDone">0</div><div class="stat-label">Done Today</div></div>
+      <div class="stat-box"><div class="stat-num" id="statStreak">0</div><div class="stat-label">Best Streak</div></div>
+      <div class="stat-box"><div class="stat-num" id="statRate">0%</div><div class="stat-label">Completion Rate</div></div>
+    </div>
+    <div id="habitsList"><p style="color:var(--text-dim);font-size:0.85rem">No habits yet. Add one below.</p></div>
+    <div id="quoteBox"></div>
+  </div>
+
+  <div class="card">
+    <h2>&#10010; Add New Habit</h2>
+    <div class="form-row">
+      <div class="form-group"><label>Habit Name</label><input type="text" id="habitName" placeholder="e.g., Meditate 10 min"></div>
+      <div class="form-group"><label>Category</label>
+        <select id="habitCat">
+          <option value="health">Health</option>
+          <option value="productivity">Productivity</option>
+          <option value="finance">Finance</option>
+          <option value="learning">Learning</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Frequency</label>
+        <select id="habitFreq">
+          <option value="daily">Daily</option>
+          <option value="weekly">Weekly</option>
+        </select>
+      </div>
+    </div>
+    <button class="btn btn-gold" onclick="addHabit()">Add Habit</button>
+  </div>
+
+  <div class="card">
+    <h2>&#128293; Streak Heatmap</h2>
+    <div class="btn-row" style="margin-bottom:0.5rem">
+      <select id="heatmapHabit" onchange="renderHeatmap()" style="padding:0.4rem 0.8rem;background:rgba(18,18,28,0.9);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.8rem;outline:none">
+        <option value="all">All Habits</option>
+      </select>
+    </div>
+    <div class="heatmap-grid" id="heatmapGrid"></div>
+    <div class="heatmap-legend">
+      <span>Less</span>
+      <div class="swatch l0" style="background:rgba(18,18,28,0.6)"></div>
+      <div class="swatch l1" style="background:rgba(255,95,31,0.2)"></div>
+      <div class="swatch l2" style="background:rgba(255,95,31,0.4)"></div>
+      <div class="swatch l3" style="background:rgba(255,95,31,0.6)"></div>
+      <div class="swatch l4" style="background:rgba(255,95,31,0.85)"></div>
+      <span>More</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>&#128202; Completion Chart</h2>
+    <div class="tabs">
+      <div class="tab active" onclick="setChartPeriod('7')">7 Days</div>
+      <div class="tab" onclick="setChartPeriod('14')">14 Days</div>
+      <div class="tab" onclick="setChartPeriod('30')">30 Days</div>
+    </div>
+    <div class="chart-container"><canvas id="completionChart"></canvas></div>
+  </div>
+
+  <div class="card">
+    <h2>&#128203; Reports</h2>
+    <div class="tabs">
+      <div class="tab active" onclick="showReport('weekly')">Weekly</div>
+      <div class="tab" onclick="showReport('monthly')">Monthly</div>
+    </div>
+    <div id="reportContent"></div>
+  </div>
+
+  <div class="card">
+    <h2>&#128736; Manage</h2>
+    <div class="btn-row">
+      <button class="btn btn-outline btn-sm" onclick="exportData()">Export Data</button>
+      <button class="btn btn-red btn-sm" onclick="clearAllData()">Reset All Data</button>
+    </div>
+  </div>
+
+  <div class="share-cta">
+    <h3>&#128275; Share the Code, Unlock More Tools</h3>
+    <p>Share code SPUNK to help others access 130+ exclusive premium tools.</p>
+    <div class="share-btns">
+      <button class="share-btn share-x" onclick="shareX()">&#120143; Share on X</button>
+      <button class="share-btn share-reddit" onclick="shareReddit()">&#128172; Reddit</button>
+      <button class="share-btn share-email" onclick="shareEmail()">&#9993; Email</button>
+    </div>
+  </div>
+</div>
+
+<footer class="footer"><div class="footer-links"><a href="https://spunk.codes">Home</a><a href="/store">Tools</a><a href="/exclusive-tools">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a><a href="https://twitter.com/SpunkArt13" target="_blank">@SpunkArt13</a></div><div>&copy; 2026 SPUNK.CODES EXCLUSIVE.</div></footer>
+<div class="watermark">SPUNK.CODES EXCLUSIVE</div>
+
+<script>
+document.addEventListener('contextmenu',function(e){e.preventDefault()});
+document.addEventListener('keydown',function(e){if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'||e.key==='C'))||(e.ctrlKey&&e.key==='u'))e.preventDefault()});
+function checkCode(){try{var c=localStorage.getItem('spunk_referral_code')||localStorage.getItem('spunk_ref_code')||'';if(c.toUpperCase()==='SPUNK'){document.getElementById('lockGate').classList.add('hidden');return true}}catch(e){}return false}
+function submitCode(){var v=document.getElementById('codeInput').value.trim().toUpperCase();if(v==='SPUNK'){try{localStorage.setItem('spunk_referral_code','SPUNK');localStorage.setItem('spunk_ref_code','SPUNK')}catch(e){}document.getElementById('lockGate').classList.add('hidden')}else{document.getElementById('codeError').textContent='Invalid code. Try: SPUNK';setTimeout(function(){document.getElementById('codeError').textContent=''},2000)}}
+document.getElementById('codeInput').addEventListener('keydown',function(e){if(e.key==='Enter')submitCode()});
+checkCode();
+
+var habits=[];
+var completions={};
+var chartPeriod=7;
+var today=new Date().toISOString().split('T')[0];
+
+var quotes=[
+  {text:"We are what we repeatedly do. Excellence, then, is not an act, but a habit.",author:"Aristotle"},
+  {text:"Motivation is what gets you started. Habit is what keeps you going.",author:"Jim Ryun"},
+  {text:"The secret of your future is hidden in your daily routine.",author:"Mike Murdock"},
+  {text:"Success is the sum of small efforts, repeated day in and day out.",author:"Robert Collier"},
+  {text:"Habits are the compound interest of self-improvement.",author:"James Clear"},
+  {text:"You do not rise to the level of your goals. You fall to the level of your systems.",author:"James Clear"},
+  {text:"Small disciplines repeated with consistency every day lead to great achievements.",author:"John C. Maxwell"},
+  {text:"First forget inspiration. Habit is more dependable.",author:"Octavia Butler"},
+  {text:"Champions don't do extraordinary things. They do ordinary things, but they do them without thinking.",author:"Charles Duhigg"},
+  {text:"The chains of habit are too weak to be felt until they are too strong to be broken.",author:"Samuel Johnson"},
+  {text:"Your net worth to the world is usually determined by what remains after your bad habits are subtracted from your good ones.",author:"Benjamin Franklin"},
+  {text:"Depending on what they are, our habits will either make us or break us.",author:"Sean Covey"}
+];
+
+function loadState(){
+  try{
+    var d=JSON.parse(localStorage.getItem('habit_tracker_data')||'{}');
+    if(d.habits)habits=d.habits;
+    if(d.completions)completions=d.completions;
+  }catch(e){}
+}
+
+function saveState(){
+  try{localStorage.setItem('habit_tracker_data',JSON.stringify({habits:habits,completions:completions}))}catch(e){}
+}
+
+function dateKey(d){return d instanceof Date?d.toISOString().split('T')[0]:d}
+function compKey(habitId,date){return habitId+'_'+date}
+
+function addHabit(){
+  var name=document.getElementById('habitName').value.trim();
+  var cat=document.getElementById('habitCat').value;
+  var freq=document.getElementById('habitFreq').value;
+  if(!name){alert('Enter a habit name');return}
+  habits.push({id:Date.now(),name:name,category:cat,frequency:freq,createdAt:today});
+  document.getElementById('habitName').value='';
+  saveState();renderAll();
+}
+
+function deleteHabit(id){
+  if(!confirm('Delete this habit and all its data?'))return;
+  habits=habits.filter(function(h){return h.id!==id});
+  Object.keys(completions).forEach(function(k){if(k.startsWith(id+'_'))delete completions[k]});
+  saveState();renderAll();
+}
+
+function toggleCompletion(id){
+  var key=compKey(id,today);
+  if(completions[key]){delete completions[key]}else{completions[key]=true}
+  saveState();renderAll();
+}
+
+function isCompleted(id,date){return!!completions[compKey(id,date||today)]}
+
+function getStreak(id){
+  var streak=0;
+  var d=new Date();
+  while(true){
+    var key=dateKey(d);
+    if(isCompleted(id,key)){streak++;d.setDate(d.getDate()-1)}
+    else break;
+  }
+  return streak;
+}
+
+function getBestStreak(id){
+  var best=0,current=0;
+  var d=new Date(habits.find(function(h){return h.id===id}).createdAt||today);
+  var end=new Date();
+  while(d<=end){
+    if(isCompleted(id,dateKey(d))){current++;if(current>best)best=current}else{current=0}
+    d.setDate(d.getDate()+1);
+  }
+  return best;
+}
+
+function renderHabits(){
+  if(habits.length===0){document.getElementById('habitsList').innerHTML='<p style="color:var(--text-dim);font-size:0.85rem">No habits yet. Add one below.</p>';return}
+  var html='';
+  habits.forEach(function(h){
+    var done=isCompleted(h.id);
+    var streak=getStreak(h.id);
+    var catCls='cat-'+h.category;
+    html+='<div class="habit-item"><div class="habit-check'+(done?' done':'')+'" onclick="toggleCompletion('+h.id+')">'+(done?'&#10003;':'')+'</div><div class="habit-info"><div class="habit-name">'+escapeHtml(h.name)+'</div><div class="habit-meta"><span class="cat-badge '+catCls+'">'+h.category+'</span> '+h.frequency+'</div></div><div class="habit-streak">'+(streak>0?streak+' day'+(streak>1?'s':''):'-')+'</div><div class="habit-actions"><button class="btn btn-red btn-sm" onclick="deleteHabit('+h.id+')">X</button></div></div>';
+  });
+  document.getElementById('habitsList').innerHTML=html;
+}
+
+function updateStats(){
+  var totalHabits=habits.length;
+  var doneToday=habits.filter(function(h){return isCompleted(h.id)}).length;
+  var bestStreak=0;
+  habits.forEach(function(h){var s=getBestStreak(h.id);if(s>bestStreak)bestStreak=s});
+  var totalDays=0,totalCompleted=0;
+  habits.forEach(function(h){
+    var start=new Date(h.createdAt||today);
+    var end=new Date();
+    var days=Math.max(1,Math.floor((end-start)/(86400000))+1);
+    totalDays+=days;
+    var d=new Date(start);
+    while(d<=end){if(isCompleted(h.id,dateKey(d)))totalCompleted++;d.setDate(d.getDate()+1)}
+  });
+  var rate=totalDays>0?Math.round((totalCompleted/totalDays)*100):0;
+  document.getElementById('statTotal').textContent=totalHabits;
+  document.getElementById('statDone').textContent=doneToday;
+  document.getElementById('statStreak').textContent=bestStreak;
+  document.getElementById('statRate').textContent=rate+'%';
+}
+
+function updateHeatmapSelect(){
+  var sel=document.getElementById('heatmapHabit');
+  var val=sel.value;
+  sel.innerHTML='<option value="all">All Habits</option>';
+  habits.forEach(function(h){sel.innerHTML+='<option value="'+h.id+'">'+escapeHtml(h.name)+'</option>'});
+  sel.value=val;
+}
+
+function renderHeatmap(){
+  var selectedId=document.getElementById('heatmapHabit').value;
+  var grid=document.getElementById('heatmapGrid');
+  var days=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  var html='';
+  days.forEach(function(d){html+='<div class="heatmap-header">'+d+'</div>'});
+
+  var end=new Date();
+  var start=new Date();
+  start.setDate(start.getDate()-83); // 12 weeks
+  var dayOfWeek=start.getDay();
+  for(var i=0;i<dayOfWeek;i++){html+='<div class="heatmap-cell empty"></div>'}
+
+  var d=new Date(start);
+  while(d<=end){
+    var dk=dateKey(d);
+    var count=0;
+    var relevantHabits=selectedId==='all'?habits:habits.filter(function(h){return h.id==selectedId});
+    relevantHabits.forEach(function(h){if(isCompleted(h.id,dk))count++});
+    var max=Math.max(1,relevantHabits.length);
+    var ratio=count/max;
+    var level=ratio===0?'l0':ratio<=0.25?'l1':ratio<=0.5?'l2':ratio<=0.75?'l3':'l4';
+    html+='<div class="heatmap-cell '+level+'" title="'+dk+': '+count+'/'+relevantHabits.length+'"></div>';
+    d.setDate(d.getDate()+1);
+  }
+  grid.innerHTML=html;
+}
+
+function renderChart(){
+  var canvas=document.getElementById('completionChart');
+  var ctx=canvas.getContext('2d');
+  var container=canvas.parentElement;
+  canvas.width=container.offsetWidth*2;
+  canvas.height=400;
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+
+  var data=[];
+  var labels=[];
+  for(var i=chartPeriod-1;i>=0;i--){
+    var d=new Date();d.setDate(d.getDate()-i);
+    var dk=dateKey(d);
+    labels.push(dk.substring(5));
+    var count=0;
+    habits.forEach(function(h){if(isCompleted(h.id,dk))count++});
+    data.push(habits.length>0?Math.round((count/habits.length)*100):0);
+  }
+
+  var maxVal=100;
+  var chartW=canvas.width-100;
+  var chartH=canvas.height-80;
+  var startX=70;
+  var startY=20;
+  var barW=Math.max(8,Math.min(40,(chartW/data.length)*0.6));
+  var gap=(chartW-barW*data.length)/(data.length+1);
+
+  // Grid lines
+  ctx.strokeStyle='rgba(48,44,61,0.4)';ctx.lineWidth=1;
+  for(var g=0;g<=4;g++){
+    var gy=startY+chartH-(chartH*(g*25)/maxVal);
+    ctx.beginPath();ctx.moveTo(startX,gy);ctx.lineTo(startX+chartW,gy);ctx.stroke();
+    ctx.fillStyle='#8b8b9e';ctx.font='20px sans-serif';ctx.textAlign='right';
+    ctx.fillText(g*25+'%',startX-10,gy+6);
+  }
+
+  // Bars
+  data.forEach(function(val,idx){
+    var x=startX+gap+(barW+gap)*idx;
+    var barH=Math.max(2,(val/maxVal)*chartH);
+    var y=startY+chartH-barH;
+    var grad=ctx.createLinearGradient(x,y,x,y+barH);
+    grad.addColorStop(0,'#ff5f1f');grad.addColorStop(1,'#ff9f1f');
+    ctx.fillStyle=grad;
+    ctx.beginPath();ctx.roundRect(x,y,barW,barH,4);ctx.fill();
+
+    // Value on top
+    ctx.fillStyle='#e8e8f0';ctx.font='bold 18px sans-serif';ctx.textAlign='center';
+    ctx.fillText(val+'%',x+barW/2,y-8);
+
+    // Label
+    ctx.fillStyle='#8b8b9e';ctx.font='18px sans-serif';
+    ctx.fillText(labels[idx],x+barW/2,startY+chartH+30);
+  });
+}
+
+function setChartPeriod(p){
+  chartPeriod=parseInt(p);
+  document.querySelectorAll('.card:nth-child(5) .tab').forEach(function(t){t.classList.remove('active')});
+  event.target.classList.add('active');
+  renderChart();
+}
+
+function showReport(type){
+  document.querySelectorAll('.card:nth-child(6) .tab').forEach(function(t){t.classList.remove('active')});
+  event.target.classList.add('active');
+  var days=type==='weekly'?7:30;
+  var html='';
+
+  habits.forEach(function(h){
+    var completed=0;
+    for(var i=0;i<days;i++){
+      var d=new Date();d.setDate(d.getDate()-i);
+      if(isCompleted(h.id,dateKey(d)))completed++;
+    }
+    var rate=Math.round((completed/days)*100);
+    var streak=getStreak(h.id);
+    var barColor=rate>=80?'var(--green)':rate>=50?'var(--accent2)':'var(--red)';
+    html+='<div class="report-section"><h3>'+escapeHtml(h.name)+'</h3>';
+    html+='<div style="display:flex;justify-content:space-between;font-size:0.8rem;margin-bottom:0.3rem"><span>'+completed+'/'+days+' days</span><span style="color:'+barColor+'">'+rate+'%</span></div>';
+    html+='<div style="height:8px;background:rgba(18,18,28,0.6);border-radius:4px;overflow:hidden"><div style="height:100%;width:'+rate+'%;background:'+barColor+';border-radius:4px;transition:width 0.5s"></div></div>';
+    html+='<div style="font-size:0.75rem;color:var(--text-dim);margin-top:0.3rem">Current streak: '+streak+' days | Best: '+getBestStreak(h.id)+' days</div>';
+    html+='</div>';
+  });
+
+  if(habits.length===0)html='<p style="color:var(--text-dim);font-size:0.85rem">No habits to report on yet.</p>';
+  document.getElementById('reportContent').innerHTML=html;
+}
+
+function showQuote(){
+  var doneCount=habits.filter(function(h){return isCompleted(h.id)}).length;
+  if(doneCount>0&&habits.length>0){
+    var q=quotes[Math.floor(Math.random()*quotes.length)];
+    document.getElementById('quoteBox').innerHTML='<div class="quote-box">"'+escapeHtml(q.text)+'"<div class="quote-author">-- '+escapeHtml(q.author)+'</div></div>';
+  }else{
+    document.getElementById('quoteBox').innerHTML='';
+  }
+}
+
+function exportData(){
+  var text='HABIT TRACKER PRO - DATA EXPORT\n';
+  text+='Exported: '+new Date().toLocaleString()+'\n\n';
+  habits.forEach(function(h){
+    text+='Habit: '+h.name+' ('+h.category+', '+h.frequency+')\n';
+    text+='  Current streak: '+getStreak(h.id)+' days\n';
+    text+='  Best streak: '+getBestStreak(h.id)+' days\n\n';
+  });
+  var blob=new Blob([text],{type:'text/plain'});
+  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='habit-tracker-export.txt';a.click();
+}
+
+function clearAllData(){
+  if(!confirm('Delete ALL habits and completion data?'))return;
+  habits=[];completions={};saveState();renderAll();
+}
+
+function escapeHtml(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+
+function renderAll(){
+  renderHabits();
+  updateStats();
+  updateHeatmapSelect();
+  renderHeatmap();
+  renderChart();
+  showReport('weekly');
+  showQuote();
+}
+
+// Init
+loadState();
+renderAll();
+window.addEventListener('resize',function(){renderChart()});
+
+function shareX(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Tracking my habits with this visual tracker. Code SPUNK @SpunkArt13')+'&url='+encodeURIComponent('https://spunk.codes/exclusive-tools'),'_blank')}
+function shareReddit(){window.open('https://www.reddit.com/submit?url='+encodeURIComponent('https://spunk.codes/exclusive-tools')+'&title='+encodeURIComponent('Habit Tracker Pro - free with code SPUNK [spunk.codes]'),'_blank')}
+function shareEmail(){window.location.href='mailto:?subject='+encodeURIComponent('Habit Tracker Pro')+'&body='+encodeURIComponent('Track your habits with visual streaks. Code SPUNK: https://spunk.codes/exclusive-tools')}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<script src="/auto-monetize.js"></script>
+<script src="https://spunk.codes/heartbeat.js" defer></script>
+<script src="/usage-tracker.js"></script>
+<div id="shareXBtn" style="position:fixed;left:20px;bottom:20px;z-index:9999;">
+  <a id="shareXLink" href="#" target="_blank" rel="noopener noreferrer" title="Share on X"
+     style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;
+     background:rgba(255,95,31,0.15);border:1px solid rgba(255,95,31,0.3);
+     backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:50%;
+     text-decoration:none;transition:all 0.3s ease;cursor:pointer;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+    </svg>
+  </a>
+</div>
+<style>#shareXBtn a:hover{background:rgba(255,95,31,0.35)!important;border-color:rgba(255,95,31,0.6)!important;transform:scale(1.1);box-shadow:0 0 15px rgba(255,95,31,0.3)}</style>
+<script>
+(function(){var page=location.pathname.split("/").pop()||"index.html";var url="https://spunk.codes/"+page;var text="Just used this free Habit Tracker Pro on spunk.codes @SpunkArt13";var href="https://x.com/intent/tweet?text="+encodeURIComponent(text)+"&url="+encodeURIComponent(url);document.getElementById("shareXLink").href=href})();
+</script>
+</body>
+</html>
