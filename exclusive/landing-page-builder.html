@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Landing Page Builder & Preview | SPUNK.CODES Exclusive</title>
+<meta name="description" content="Visual landing page builder with real-time preview. Choose templates, edit sections, customize colors, and export clean HTML. SaaS, ebook, course, and service templates.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Landing Page Builder - SPUNK.CODES Exclusive">
+<meta property="og:description" content="Build professional landing pages visually with templates, live preview, and HTML export.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://spunk.codes/exclusive/landing-page-builder">
+<meta property="og:site_name" content="SPUNK.CODES">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/landing-page-builder">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Landing Page Builder","applicationCategory":"DesignApplication","operatingSystem":"Web","description":"Visual landing page builder with pre-built templates, real-time preview, section editor, and clean HTML export.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Organization","name":"SPUNK.CODES","url":"https://spunk.codes"}}</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0a0a0f;--card:rgba(18,18,28,0.85);--border:rgba(255,95,31,0.18);--accent:#ff5f1f;--accent2:#ff9f1f;--text:#e8e8f0;--text-dim:#8a8a9a;--green:#39d353;--red:#f85149;--blue:#58a6ff;--font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+a{color:var(--blue);text-decoration:none}a:hover{color:#fff}
+.bg-mesh{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 80% 50% at 20% 20%,rgba(255,95,31,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(255,159,31,0.04) 0%,transparent 60%),var(--bg)}
+.bg-grid{position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,95,31,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,95,31,0.03) 1px,transparent 1px);background-size:60px 60px}
+.nav{position:sticky;top:0;z-index:100;background:rgba(10,10,15,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,95,31,0.15);padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}
+.nav-brand{font-weight:800;font-size:1.1rem;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:0.08em}
+.nav-links{display:flex;gap:1.5rem;font-size:0.85rem;list-style:none}
+.nav-links a{color:var(--text-dim);transition:color 0.2s;font-weight:500}
+.nav-links a:hover{color:#fff}
+.main{max-width:1400px;margin:0 auto;padding:1.5rem}
+.hero{text-align:center;padding:1.5rem 0 2rem}
+.badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;background:linear-gradient(135deg,rgba(255,95,31,0.15),rgba(255,159,31,0.15));border:1px solid var(--border);border-radius:100px;font-size:11px;font-weight:800;color:var(--accent2);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:1rem}
+.hero h1{font-size:2rem;font-weight:800;margin-bottom:0.5rem}
+.hero h1 .grad{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero p{color:var(--text-dim);max-width:600px;margin:0 auto;font-size:0.95rem}
+
+/* Builder Layout */
+.builder-wrap{display:grid;grid-template-columns:320px 1fr;gap:1.5rem;min-height:70vh}
+.sidebar{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.5rem;overflow-y:auto;max-height:80vh;position:sticky;top:80px}
+.sidebar h3{font-size:0.95rem;font-weight:700;margin-bottom:0.8rem;display:flex;align-items:center;gap:0.4rem}
+.sidebar-section{margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:1px solid rgba(255,95,31,0.08)}
+.sidebar-section:last-child{border-bottom:none}
+label{font-size:0.8rem;color:var(--text-dim);font-weight:600;display:block;margin-bottom:0.3rem}
+input,select,textarea{width:100%;padding:0.6rem 0.8rem;background:rgba(10,10,15,0.6);border:1px solid rgba(255,95,31,0.12);border-radius:8px;color:var(--text);font-size:0.85rem;font-family:var(--font);outline:none;transition:border-color 0.2s}
+input:focus,select:focus,textarea:focus{border-color:var(--accent)}
+textarea{resize:vertical;min-height:60px}
+.color-row{display:flex;gap:0.5rem;align-items:center}
+.color-row input[type="color"]{width:40px;height:32px;padding:2px;border-radius:6px;cursor:pointer}
+.color-row input[type="text"]{flex:1}
+.btn{padding:0.6rem 1.5rem;border:none;border-radius:8px;font-size:0.85rem;font-weight:700;cursor:pointer;transition:all 0.2s;font-family:var(--font)}
+.btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#000}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 4px 20px rgba(255,95,31,0.3)}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--text-dim)}
+.btn-outline:hover{border-color:var(--accent);color:var(--accent)}
+.btn-sm{padding:0.4rem 0.8rem;font-size:0.78rem}
+.btn-row{display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:0.8rem}
+.template-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;margin-bottom:1rem}
+.template-card{padding:0.6rem;background:rgba(10,10,15,0.5);border:1px solid rgba(255,95,31,0.08);border-radius:8px;cursor:pointer;text-align:center;font-size:0.78rem;font-weight:600;transition:all 0.2s}
+.template-card:hover,.template-card.active{border-color:var(--accent);color:var(--accent2);background:rgba(255,95,31,0.06)}
+
+/* Preview */
+.preview-wrap{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;position:relative}
+.preview-bar{display:flex;align-items:center;justify-content:space-between;padding:0.6rem 1rem;background:rgba(10,10,15,0.8);border-bottom:1px solid var(--border)}
+.preview-bar .dots{display:flex;gap:6px}
+.preview-bar .dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,0.1)}
+.preview-bar .dot:nth-child(1){background:#f85149}.preview-bar .dot:nth-child(2){background:var(--accent2)}.preview-bar .dot:nth-child(3){background:var(--green)}
+.preview-toggle{display:flex;gap:0.3rem}
+.preview-toggle button{padding:0.3rem 0.8rem;background:transparent;border:1px solid rgba(255,95,31,0.12);border-radius:6px;color:var(--text-dim);font-size:0.75rem;cursor:pointer;font-weight:600;font-family:var(--font)}
+.preview-toggle button.active{background:rgba(255,95,31,0.12);color:var(--accent2);border-color:var(--accent)}
+.preview-frame{width:100%;min-height:600px;border:none;background:#fff;transition:all 0.3s}
+.preview-frame.mobile{max-width:375px;margin:0 auto;display:block}
+
+/* Sections list */
+.section-list{display:flex;flex-direction:column;gap:0.4rem}
+.section-item{display:flex;align-items:center;gap:0.5rem;padding:0.5rem 0.6rem;background:rgba(10,10,15,0.5);border:1px solid rgba(255,95,31,0.08);border-radius:8px;cursor:pointer;font-size:0.8rem}
+.section-item:hover{border-color:var(--accent)}
+.section-item .icon{font-size:1rem}
+.section-item .name{flex:1;font-weight:600}
+.section-item .toggle{width:14px;height:14px;border-radius:3px;border:1px solid var(--text-dim);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:0.6rem}
+.section-item .toggle.on{background:var(--accent);border-color:var(--accent);color:#000}
+
+/* Export modal */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:500;align-items:center;justify-content:center}
+.modal-overlay.show{display:flex}
+.modal{background:var(--bg);border:1px solid var(--border);border-radius:16px;padding:2rem;max-width:700px;width:90%;max-height:80vh;overflow-y:auto}
+.modal h2{font-size:1.2rem;margin-bottom:1rem}
+.modal pre{background:rgba(10,10,15,0.8);border:1px solid var(--border);border-radius:8px;padding:1rem;font-size:0.78rem;overflow-x:auto;white-space:pre-wrap;max-height:400px;overflow-y:auto;color:var(--text-dim);line-height:1.5}
+
+.cta-box{background:linear-gradient(135deg,rgba(255,95,31,0.08),rgba(255,159,31,0.05));border:1px solid var(--border);border-radius:16px;padding:2rem;text-align:center;margin-top:2rem}
+.cta-box h3{color:var(--accent2);margin-bottom:0.5rem}
+.cta-box p{color:var(--text-dim);font-size:0.9rem;margin-bottom:1rem}
+.footer{text-align:center;padding:2rem;border-top:1px solid rgba(255,95,31,0.1);color:var(--text-dim);font-size:0.75rem;margin-top:3rem}
+.toast{position:fixed;bottom:2rem;right:2rem;padding:0.8rem 1.5rem;background:rgba(57,211,83,0.15);border:1px solid rgba(57,211,83,0.3);color:var(--green);border-radius:10px;font-size:0.85rem;font-weight:600;transform:translateY(100px);opacity:0;transition:all 0.3s;z-index:999}
+.toast.show{transform:translateY(0);opacity:1}
+@media(max-width:900px){.builder-wrap{grid-template-columns:1fr}.sidebar{position:static;max-height:none}.nav-links{display:none}}
+</style>
+</head>
+<body>
+<div class="bg-mesh"></div>
+<div class="bg-grid"></div>
+<nav class="nav">
+<a href="https://spunk.codes" class="nav-brand">SPUNK.CODES</a>
+<ul class="nav-links">
+<li><a href="https://spunk.codes">Home</a></li>
+<li><a href="https://spunk.codes/exclusive/">Exclusive Tools</a></li>
+<li><a href="https://spunk.codes/exclusive/seo-audit-tool">SEO Audit</a></li>
+<li><a href="https://spunk.codes/exclusive/expense-tracker">Expense Tracker</a></li>
+</ul>
+</nav>
+<div class="main">
+<div class="hero">
+<div class="badge">Exclusive Tool</div>
+<h1><span class="grad">Landing Page</span> Builder</h1>
+<p>Build professional landing pages visually. Choose a template, customize every section, preview in real-time, and export clean HTML.</p>
+</div>
+
+<div class="builder-wrap">
+<div class="sidebar">
+<div class="sidebar-section">
+<h3>Template</h3>
+<div class="template-grid">
+<div class="template-card active" onclick="loadTemplate('saas')">SaaS Product</div>
+<div class="template-card" onclick="loadTemplate('ebook')">Ebook / Guide</div>
+<div class="template-card" onclick="loadTemplate('course')">Online Course</div>
+<div class="template-card" onclick="loadTemplate('service')">Service / Agency</div>
+</div>
+</div>
+
+<div class="sidebar-section">
+<h3>Sections</h3>
+<div class="section-list" id="sectionList"></div>
+<div class="btn-row"><button class="btn btn-outline btn-sm" onclick="addCustomSection()">+ Add Section</button></div>
+</div>
+
+<div class="sidebar-section">
+<h3>Colors</h3>
+<div style="display:flex;flex-direction:column;gap:0.6rem">
+<div><label>Primary Color</label><div class="color-row"><input type="color" id="colorPrimary" value="#ff5f1f" onchange="updateColors()"><input type="text" id="colorPrimaryText" value="#ff5f1f" onchange="syncColor('Primary')" style="font-size:0.78rem"></div></div>
+<div><label>Background</label><div class="color-row"><input type="color" id="colorBg" value="#ffffff" onchange="updateColors()"><input type="text" id="colorBgText" value="#ffffff" onchange="syncColor('Bg')" style="font-size:0.78rem"></div></div>
+<div><label>Text Color</label><div class="color-row"><input type="color" id="colorText" value="#1a1a2e" onchange="updateColors()"><input type="text" id="colorTextText" value="#1a1a2e" onchange="syncColor('Text')" style="font-size:0.78rem"></div></div>
+</div>
+</div>
+
+<div class="sidebar-section">
+<h3>Edit Section</h3>
+<div id="sectionEditor">
+<p style="font-size:0.8rem;color:var(--text-dim)">Click a section above to edit its content.</p>
+</div>
+</div>
+
+<div class="sidebar-section">
+<h3>Actions</h3>
+<div class="btn-row" style="margin-top:0">
+<button class="btn btn-primary" onclick="showExportModal()">Export HTML</button>
+<button class="btn btn-outline btn-sm" onclick="copyHTML()">Copy HTML</button>
+</div>
+</div>
+</div>
+
+<div class="preview-wrap">
+<div class="preview-bar">
+<div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+<div class="preview-toggle">
+<button class="active" onclick="setPreview('desktop',this)">Desktop</button>
+<button onclick="setPreview('mobile',this)">Mobile</button>
+</div>
+</div>
+<iframe id="previewFrame" class="preview-frame"></iframe>
+</div>
+</div>
+
+<div class="cta-box">
+<h3>Optimize Your Landing Page</h3>
+<p>Run your exported page through our SEO Audit Tool for a full analysis.</p>
+<a href="https://spunk.codes/exclusive/seo-audit-tool" class="btn btn-primary btn-sm">SEO Audit Tool</a>
+<span style="margin:0 0.5rem;color:var(--text-dim)">or</span>
+<a href="https://spunk.codes/exclusive/" class="btn btn-outline btn-sm">Browse All Tools</a>
+</div>
+</div>
+
+<div class="modal-overlay" id="exportModal">
+<div class="modal">
+<h2>Exported HTML</h2>
+<p style="font-size:0.85rem;color:var(--text-dim);margin-bottom:1rem">Copy the code below and save as an .html file. It's fully self-contained with inline styles.</p>
+<pre id="exportCode"></pre>
+<div class="btn-row">
+<button class="btn btn-primary btn-sm" onclick="copyExportCode()">Copy to Clipboard</button>
+<button class="btn btn-outline btn-sm" onclick="downloadHTML()">Download .html</button>
+<button class="btn btn-outline btn-sm" onclick="closeExportModal()">Close</button>
+</div>
+</div>
+</div>
+
+<footer class="footer">
+<p>&copy; 2026 <a href="https://spunk.codes">SPUNK.CODES</a> &mdash; Free developer &amp; business tools. No sign-up required.</p>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const templates = {
+  saas: {
+    name: 'SaaS Product',
+    sections: [
+      {id:'hero',name:'Hero',enabled:true,content:{headline:'Ship Faster with Our Platform',subheadline:'The all-in-one toolkit that helps startups build, launch, and scale their products 10x faster.',cta:'Start Free Trial',ctaLink:'#',ctaSecondary:'Watch Demo',ctaSecondaryLink:'#'}},
+      {id:'features',name:'Features',enabled:true,content:{title:'Everything You Need',items:[{icon:'&#9889;',title:'Lightning Fast',desc:'Deploy in seconds, not hours. Our infrastructure handles the rest.'},{icon:'&#128274;',title:'Secure by Default',desc:'Enterprise-grade security built into every layer of the stack.'},{icon:'&#128200;',title:'Analytics Built-in',desc:'Real-time dashboards and insights without any extra setup.'}]}},
+      {id:'testimonials',name:'Testimonials',enabled:true,content:{title:'Trusted by Teams Worldwide',items:[{quote:'This platform cut our development time in half. Absolutely game-changing.','author':'Sarah Chen, CTO at LaunchPad'},{quote:'The best investment we made this year. ROI was visible in the first month.','author':'Mike Torres, Founder of GrowthKit'}]}},
+      {id:'pricing',name:'Pricing',enabled:true,content:{title:'Simple, Transparent Pricing',plans:[{name:'Starter',price:'$0',period:'/month',features:['Up to 3 projects','5GB storage','Community support'],cta:'Get Started',highlight:false},{name:'Pro',price:'$29',period:'/month',features:['Unlimited projects','100GB storage','Priority support','API access'],cta:'Start Free Trial',highlight:true},{name:'Enterprise',price:'$99',period:'/month',features:['Everything in Pro','Custom integrations','Dedicated account manager','SLA guarantee'],cta:'Contact Sales',highlight:false}]}},
+      {id:'cta',name:'CTA',enabled:true,content:{headline:'Ready to Get Started?',subheadline:'Join 10,000+ teams already shipping faster.','cta':'Start Your Free Trial','ctaLink':'#'}},
+      {id:'footer',name:'Footer',enabled:true,content:{brand:'YourBrand',links:['Privacy','Terms','Contact'],copyright:'2026 YourBrand. All rights reserved.'}}
+    ]
+  },
+  ebook: {
+    name: 'Ebook / Guide',
+    sections: [
+      {id:'hero',name:'Hero',enabled:true,content:{headline:'The Ultimate Guide to Digital Marketing in 2026',subheadline:'147 pages of actionable strategies, templates, and case studies. Downloaded by 25,000+ marketers.',cta:'Download Free Guide',ctaLink:'#',ctaSecondary:'See What\'s Inside',ctaSecondaryLink:'#'}},
+      {id:'features',name:'What\'s Inside',enabled:true,content:{title:'What You\'ll Learn',items:[{icon:'&#128218;',title:'12 Proven Frameworks',desc:'Battle-tested marketing frameworks used by top agencies.'},{icon:'&#127919;',title:'50+ Templates',desc:'Ready-to-use templates for ads, emails, and social posts.'},{icon:'&#128202;',title:'Real Case Studies',desc:'Learn from real campaigns that generated millions in revenue.'}]}},
+      {id:'testimonials',name:'Testimonials',enabled:true,content:{title:'What Readers Say',items:[{quote:'This guide completely transformed our marketing strategy. A must-read.','author':'Lisa Park, Marketing Director'},{quote:'The templates alone saved me 40+ hours of work. Incredible resource.','author':'James Wu, Freelance Marketer'}]}},
+      {id:'cta',name:'CTA',enabled:true,content:{headline:'Get Your Free Copy Now','subheadline':'No credit card required. Instant download.','cta':'Download Now','ctaLink':'#'}},
+      {id:'footer',name:'Footer',enabled:true,content:{brand:'YourBrand',links:['Privacy','Terms'],copyright:'2026 YourBrand. All rights reserved.'}}
+    ]
+  },
+  course: {
+    name: 'Online Course',
+    sections: [
+      {id:'hero',name:'Hero',enabled:true,content:{headline:'Master Full-Stack Development in 12 Weeks',subheadline:'Go from beginner to job-ready developer with hands-on projects, mentorship, and career support.',cta:'Enroll Now',ctaLink:'#',ctaSecondary:'View Curriculum',ctaSecondaryLink:'#'}},
+      {id:'features',name:'Curriculum',enabled:true,content:{title:'What You\'ll Master',items:[{icon:'&#128187;',title:'Frontend Development',desc:'React, TypeScript, and modern CSS. Build responsive, accessible interfaces.'},{icon:'&#9881;',title:'Backend & APIs',desc:'Node.js, databases, authentication, and RESTful API design.'},{icon:'&#128640;',title:'DevOps & Deployment',desc:'Docker, CI/CD, cloud deployment, and production monitoring.'}]}},
+      {id:'testimonials',name:'Student Reviews',enabled:true,content:{title:'Student Success Stories',items:[{quote:'Landed my first dev job 2 weeks after completing the course. Life-changing!','author':'Alex Rivera, Junior Developer'},{quote:'The project-based approach made complex concepts click. Best course I\'ve taken.','author':'Priya Sharma, Career Switcher'}]}},
+      {id:'pricing',name:'Pricing',enabled:true,content:{title:'Investment in Your Future',plans:[{name:'Self-Paced',price:'$199',period:'one-time',features:['All 12 modules','Lifetime access','Project files','Community access'],cta:'Start Learning',highlight:false},{name:'Mentored',price:'$499',period:'one-time',features:['Everything in Self-Paced','Weekly 1-on-1 mentorship','Code reviews','Career coaching'],cta:'Get Mentored',highlight:true}]}},
+      {id:'cta',name:'CTA',enabled:true,content:{headline:'Start Your Journey Today','subheadline':'30-day money-back guarantee. No risk.','cta':'Enroll Now','ctaLink':'#'}},
+      {id:'footer',name:'Footer',enabled:true,content:{brand:'CodeAcademy',links:['Privacy','Terms','FAQ'],copyright:'2026 CodeAcademy. All rights reserved.'}}
+    ]
+  },
+  service: {
+    name: 'Service / Agency',
+    sections: [
+      {id:'hero',name:'Hero',enabled:true,content:{headline:'We Build Brands That Dominate',subheadline:'Full-service digital agency specializing in web design, SEO, and growth marketing. 200+ clients served.',cta:'Get a Free Quote',ctaLink:'#',ctaSecondary:'View Our Work',ctaSecondaryLink:'#'}},
+      {id:'features',name:'Services',enabled:true,content:{title:'Our Services',items:[{icon:'&#127912;',title:'Web Design & Development',desc:'Custom websites that convert visitors into customers.'},{icon:'&#128270;',title:'SEO & Content',desc:'Rank higher, get more traffic, and build authority.'},{icon:'&#128232;',title:'Paid Advertising',desc:'ROI-focused ad campaigns across Google, Meta, and LinkedIn.'}]}},
+      {id:'testimonials',name:'Client Reviews',enabled:true,content:{title:'What Our Clients Say',items:[{quote:'They doubled our organic traffic in 6 months. Exceptional team and results.','author':'David Kim, CEO of TechFlow'},{quote:'The website redesign increased our conversion rate by 340%. Best agency we\'ve worked with.','author':'Rachel Green, CMO at Bloom'}]}},
+      {id:'cta',name:'CTA',enabled:true,content:{headline:'Let\'s Build Something Great','subheadline':'Free consultation. No obligations.','cta':'Get Your Free Quote','ctaLink':'#'}},
+      {id:'footer',name:'Footer',enabled:true,content:{brand:'YourAgency',links:['Privacy','Terms','Careers','Blog'],copyright:'2026 YourAgency. All rights reserved.'}}
+    ]
+  }
+};
+
+let currentTemplate = 'saas';
+let sections = JSON.parse(JSON.stringify(templates.saas.sections));
+let colors = {primary:'#ff5f1f',bg:'#ffffff',text:'#1a1a2e'};
+let editingSection = null;
+
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500)}
+
+function loadTemplate(name) {
+  currentTemplate = name;
+  sections = JSON.parse(JSON.stringify(templates[name].sections));
+  document.querySelectorAll('.template-card').forEach(c=>c.classList.remove('active'));
+  event.target.classList.add('active');
+  editingSection = null;
+  renderSections();
+  renderPreview();
+  renderEditor();
+}
+
+function renderSections() {
+  const list = document.getElementById('sectionList');
+  list.innerHTML = sections.map((s,i) => `
+    <div class="section-item" onclick="editSection(${i})">
+      <span class="icon">${s.id==='hero'?'&#127968;':s.id==='features'?'&#9889;':s.id==='testimonials'?'&#128172;':s.id==='pricing'?'&#128176;':s.id==='cta'?'&#128227;':s.id==='footer'?'&#128220;':'&#9634;'}</span>
+      <span class="name">${s.name}</span>
+      <span class="toggle ${s.enabled?'on':''}" onclick="event.stopPropagation();toggleSection(${i})">${s.enabled?'&#10003;':''}</span>
+    </div>
+  `).join('');
+}
+
+function toggleSection(idx) {
+  sections[idx].enabled = !sections[idx].enabled;
+  renderSections();
+  renderPreview();
+}
+
+function editSection(idx) {
+  editingSection = idx;
+  renderEditor();
+}
+
+function renderEditor() {
+  const ed = document.getElementById('sectionEditor');
+  if (editingSection === null) {
+    ed.innerHTML = '<p style="font-size:0.8rem;color:var(--text-dim)">Click a section above to edit.</p>';
+    return;
+  }
+  const s = sections[editingSection];
+  const c = s.content;
+  let html = `<p style="font-size:0.75rem;color:var(--accent2);margin-bottom:0.6rem;font-weight:700">Editing: ${s.name}</p>`;
+
+  if (c.headline !== undefined) {
+    html += `<div style="margin-bottom:0.6rem"><label>Headline</label><input value="${esc(c.headline)}" onchange="updateField(${editingSection},'headline',this.value)"></div>`;
+  }
+  if (c.subheadline !== undefined) {
+    html += `<div style="margin-bottom:0.6rem"><label>Subheadline</label><textarea onchange="updateField(${editingSection},'subheadline',this.value)">${esc(c.subheadline)}</textarea></div>`;
+  }
+  if (c.title !== undefined) {
+    html += `<div style="margin-bottom:0.6rem"><label>Section Title</label><input value="${esc(c.title)}" onchange="updateField(${editingSection},'title',this.value)"></div>`;
+  }
+  if (c.cta !== undefined) {
+    html += `<div style="margin-bottom:0.6rem"><label>CTA Button Text</label><input value="${esc(c.cta)}" onchange="updateField(${editingSection},'cta',this.value)"></div>`;
+    html += `<div style="margin-bottom:0.6rem"><label>CTA Link</label><input value="${esc(c.ctaLink||'#')}" onchange="updateField(${editingSection},'ctaLink',this.value)"></div>`;
+  }
+  if (c.items) {
+    c.items.forEach((item, i) => {
+      html += `<div style="background:rgba(10,10,15,0.4);border:1px solid var(--border);border-radius:8px;padding:0.6rem;margin-bottom:0.5rem">`;
+      html += `<div style="font-size:0.75rem;color:var(--accent2);font-weight:700;margin-bottom:0.4rem">Item ${i+1}</div>`;
+      if (item.title !== undefined) html += `<div style="margin-bottom:0.4rem"><label>Title</label><input value="${esc(item.title)}" onchange="updateItem(${editingSection},${i},'title',this.value)"></div>`;
+      if (item.desc !== undefined) html += `<div style="margin-bottom:0.4rem"><label>Description</label><textarea onchange="updateItem(${editingSection},${i},'desc',this.value)">${esc(item.desc)}</textarea></div>`;
+      if (item.quote !== undefined) html += `<div style="margin-bottom:0.4rem"><label>Quote</label><textarea onchange="updateItem(${editingSection},${i},'quote',this.value)">${esc(item.quote)}</textarea></div>`;
+      if (item.author !== undefined) html += `<div style="margin-bottom:0.4rem"><label>Author</label><input value="${esc(item.author)}" onchange="updateItem(${editingSection},${i},'author',this.value)"></div>`;
+      html += `</div>`;
+    });
+  }
+  if (c.plans) {
+    c.plans.forEach((plan, i) => {
+      html += `<div style="background:rgba(10,10,15,0.4);border:1px solid var(--border);border-radius:8px;padding:0.6rem;margin-bottom:0.5rem">`;
+      html += `<div style="font-size:0.75rem;color:var(--accent2);font-weight:700;margin-bottom:0.4rem">${plan.name}</div>`;
+      html += `<div style="margin-bottom:0.4rem"><label>Plan Name</label><input value="${esc(plan.name)}" onchange="updatePlan(${editingSection},${i},'name',this.value)"></div>`;
+      html += `<div style="margin-bottom:0.4rem"><label>Price</label><input value="${esc(plan.price)}" onchange="updatePlan(${editingSection},${i},'price',this.value)"></div>`;
+      html += `<div style="margin-bottom:0.4rem"><label>CTA</label><input value="${esc(plan.cta)}" onchange="updatePlan(${editingSection},${i},'cta',this.value)"></div>`;
+      html += `</div>`;
+    });
+  }
+  if (c.brand !== undefined) {
+    html += `<div style="margin-bottom:0.6rem"><label>Brand Name</label><input value="${esc(c.brand)}" onchange="updateField(${editingSection},'brand',this.value)"></div>`;
+  }
+  if (c.copyright !== undefined) {
+    html += `<div style="margin-bottom:0.6rem"><label>Copyright</label><input value="${esc(c.copyright)}" onchange="updateField(${editingSection},'copyright',this.value)"></div>`;
+  }
+  ed.innerHTML = html;
+}
+
+function esc(str) { return String(str).replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+function updateField(sIdx, field, val) { sections[sIdx].content[field] = val; renderPreview(); }
+function updateItem(sIdx, iIdx, field, val) { sections[sIdx].content.items[iIdx][field] = val; renderPreview(); }
+function updatePlan(sIdx, pIdx, field, val) { sections[sIdx].content.plans[pIdx][field] = val; renderPreview(); }
+
+function syncColor(name) {
+  const text = document.getElementById('color'+name+'Text').value;
+  document.getElementById('color'+name).value = text;
+  updateColors();
+}
+
+function updateColors() {
+  colors.primary = document.getElementById('colorPrimary').value;
+  colors.bg = document.getElementById('colorBg').value;
+  colors.text = document.getElementById('colorText').value;
+  document.getElementById('colorPrimaryText').value = colors.primary;
+  document.getElementById('colorBgText').value = colors.bg;
+  document.getElementById('colorTextText').value = colors.text;
+  renderPreview();
+}
+
+function generateHTML() {
+  const p = colors.primary, bg = colors.bg, tx = colors.text;
+  const dim = tx + '99';
+  let html = `<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="UTF-8">\n<meta name="viewport" content="width=device-width,initial-scale=1">\n<title>Landing Page</title>\n<style>\n*{margin:0;padding:0;box-sizing:border-box}\nbody{font-family:system-ui,-apple-system,sans-serif;background:${bg};color:${tx};line-height:1.6}\na{color:${p};text-decoration:none}\n.container{max-width:1100px;margin:0 auto;padding:0 1.5rem}\n.btn{display:inline-block;padding:0.9rem 2rem;background:${p};color:#fff;border-radius:8px;font-weight:700;font-size:1rem;text-decoration:none;border:none;cursor:pointer}\n.btn-outline{background:transparent;border:2px solid ${p};color:${p}}\nsection{padding:4rem 0}\n.text-center{text-align:center}\n</style>\n</head>\n<body>\n`;
+
+  sections.filter(s=>s.enabled).forEach(s => {
+    const c = s.content;
+    if (s.id === 'hero') {
+      html += `<section style="padding:5rem 0;text-align:center;background:linear-gradient(135deg,${bg},${adjustColor(bg,-10)})">\n<div class="container">\n<h1 style="font-size:2.8rem;font-weight:900;margin-bottom:1rem">${c.headline}</h1>\n<p style="font-size:1.2rem;color:${dim};max-width:650px;margin:0 auto 2rem">${c.subheadline}</p>\n<a href="${c.ctaLink||'#'}" class="btn">${c.cta}</a>\n${c.ctaSecondary?`<a href="${c.ctaSecondaryLink||'#'}" class="btn btn-outline" style="margin-left:1rem">${c.ctaSecondary}</a>`:''}\n</div>\n</section>\n`;
+    } else if (s.id === 'features') {
+      html += `<section>\n<div class="container">\n<h2 style="font-size:2rem;font-weight:800;text-align:center;margin-bottom:3rem">${c.title}</h2>\n<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2rem">\n`;
+      (c.items||[]).forEach(item => {
+        html += `<div style="text-align:center;padding:2rem">\n<div style="font-size:2.5rem;margin-bottom:1rem">${item.icon||''}</div>\n<h3 style="font-size:1.2rem;font-weight:700;margin-bottom:0.5rem">${item.title}</h3>\n<p style="color:${dim}">${item.desc}</p>\n</div>\n`;
+      });
+      html += `</div>\n</div>\n</section>\n`;
+    } else if (s.id === 'testimonials') {
+      html += `<section style="background:${adjustColor(bg,-5)}">\n<div class="container">\n<h2 style="font-size:2rem;font-weight:800;text-align:center;margin-bottom:3rem">${c.title}</h2>\n<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2rem">\n`;
+      (c.items||[]).forEach(item => {
+        html += `<div style="background:${bg};padding:2rem;border-radius:12px;border:1px solid ${p}22">\n<p style="font-size:1rem;font-style:italic;margin-bottom:1rem">"${item.quote}"</p>\n<p style="font-weight:700;color:${p}">${item.author}</p>\n</div>\n`;
+      });
+      html += `</div>\n</div>\n</section>\n`;
+    } else if (s.id === 'pricing') {
+      html += `<section>\n<div class="container">\n<h2 style="font-size:2rem;font-weight:800;text-align:center;margin-bottom:3rem">${c.title}</h2>\n<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.5rem;max-width:900px;margin:0 auto">\n`;
+      (c.plans||[]).forEach(plan => {
+        const border = plan.highlight ? `border:2px solid ${p}` : `border:1px solid ${p}22`;
+        html += `<div style="${border};border-radius:12px;padding:2rem;text-align:center;${plan.highlight?`background:${p}08`:'background:'+bg}">\n<h3 style="font-size:1.1rem;font-weight:700;margin-bottom:0.5rem">${plan.name}</h3>\n<div style="font-size:2.5rem;font-weight:900;color:${p};margin-bottom:0.5rem">${plan.price}<span style="font-size:0.9rem;font-weight:400;color:${dim}">${plan.period||''}</span></div>\n<ul style="list-style:none;margin:1.5rem 0;text-align:left">\n`;
+        (plan.features||[]).forEach(f => { html += `<li style="padding:0.4rem 0;border-bottom:1px solid ${p}11">${f}</li>\n`; });
+        html += `</ul>\n<a href="#" class="btn" style="width:100%;display:block;text-align:center">${plan.cta}</a>\n</div>\n`;
+      });
+      html += `</div>\n</div>\n</section>\n`;
+    } else if (s.id === 'cta') {
+      html += `<section style="background:${p};color:#fff;padding:4rem 0;text-align:center">\n<div class="container">\n<h2 style="font-size:2rem;font-weight:800;margin-bottom:1rem">${c.headline}</h2>\n<p style="font-size:1.1rem;opacity:0.9;margin-bottom:2rem">${c.subheadline}</p>\n<a href="${c.ctaLink||'#'}" class="btn" style="background:#fff;color:${p}">${c.cta}</a>\n</div>\n</section>\n`;
+    } else if (s.id === 'footer') {
+      html += `<footer style="padding:2rem 0;text-align:center;border-top:1px solid ${p}22">\n<div class="container">\n<p style="font-weight:700;margin-bottom:0.5rem">${c.brand}</p>\n<p style="color:${dim};font-size:0.85rem">${c.copyright}</p>\n</div>\n</footer>\n`;
+    }
+  });
+  html += `</body>\n</html>`;
+  return html;
+}
+
+function adjustColor(hex, amount) {
+  hex = hex.replace('#','');
+  let r = Math.max(0,Math.min(255,parseInt(hex.substring(0,2),16)+amount));
+  let g = Math.max(0,Math.min(255,parseInt(hex.substring(2,4),16)+amount));
+  let b = Math.max(0,Math.min(255,parseInt(hex.substring(4,6),16)+amount));
+  return '#'+[r,g,b].map(c=>c.toString(16).padStart(2,'0')).join('');
+}
+
+function renderPreview() {
+  const frame = document.getElementById('previewFrame');
+  const html = generateHTML();
+  frame.srcdoc = html;
+}
+
+function setPreview(mode, btn) {
+  const frame = document.getElementById('previewFrame');
+  document.querySelectorAll('.preview-toggle button').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  if (mode === 'mobile') frame.classList.add('mobile');
+  else frame.classList.remove('mobile');
+}
+
+function showExportModal() {
+  const html = generateHTML();
+  document.getElementById('exportCode').textContent = html;
+  document.getElementById('exportModal').classList.add('show');
+}
+
+function closeExportModal() { document.getElementById('exportModal').classList.remove('show'); }
+
+function copyExportCode() {
+  navigator.clipboard.writeText(generateHTML()).then(()=>showToast('HTML copied to clipboard'));
+}
+
+function copyHTML() {
+  navigator.clipboard.writeText(generateHTML()).then(()=>showToast('HTML copied to clipboard'));
+}
+
+function downloadHTML() {
+  const blob = new Blob([generateHTML()], {type:'text/html'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'landing-page.html';
+  a.click();
+  showToast('HTML file downloaded');
+}
+
+function addCustomSection() {
+  sections.push({id:'custom-'+Date.now(),name:'Custom Section',enabled:true,content:{headline:'Your Headline Here',subheadline:'Your description goes here.'}});
+  renderSections();
+  renderPreview();
+  editSection(sections.length-1);
+}
+
+// Init
+renderSections();
+renderPreview();
+</script>
+<!-- GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<!-- Clarity -->
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<!-- Heartbeat -->
+<script src="https://spunk.codes/heartbeat.js" defer></script>
+</body>
+</html>
