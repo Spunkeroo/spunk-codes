@@ -632,6 +632,22 @@ document.querySelectorAll('.toc a').forEach(function(link) {
   window.handleLdEmail=function(e){e.preventDefault();var email=document.getElementById('ldEmailInput').value;var leads=JSON.parse(localStorage.getItem('ebook_leads')||'[]');leads.push({email:email,ts:Date.now(),page:location.pathname});localStorage.setItem('ebook_leads',JSON.stringify(leads));document.getElementById('ldEmailInput').style.display='none';document.getElementById('ldEmailForm').querySelector('button').style.display='none';document.getElementById('ldEmailSuccess').style.display='block';if(typeof gtag==='function')gtag('event','email_capture',{page:location.pathname});return false};
   var p=new URLSearchParams(location.search);var ref=p.get('ref');if(ref&&/^[a-zA-Z0-9_-]{1,64}$/.test(ref))localStorage.setItem('spunkart_ref',ref);
 })();
+function unlockEbook(){
+  const email=document.getElementById('gateEmail').value;
+  if(!email||!email.includes('@')){alert('Please enter a valid email');return}
+  const bookTitle=document.title.split('|')[0].trim();
+  fetch('https://predict-network-ec767-default-rtdb.firebaseio.com/emails/ebook-signups.json',{
+    method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({email,book:bookTitle,timestamp:new Date().toISOString()})
+  });
+  if(typeof gtag==='function')gtag('event','ebook_unlock',{book_title:bookTitle});
+  document.getElementById('ebookGate').style.display='none';
+  document.getElementById('gateSuccess').style.display='block';
+  setTimeout(()=>{
+    const locked=document.getElementById('lockedContent');
+    if(locked){locked.style.filter='none';locked.style.pointerEvents='auto';locked.style.userSelect='auto';locked.style.maxHeight='none'}
+  },2000);
+}
 </script>
 </body>
 </html>
