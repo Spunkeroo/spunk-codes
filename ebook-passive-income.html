@@ -93,6 +93,21 @@ h2{font-size:1.4em}
 pre{padding:12px;font-size:0.8em}
 .stream-grid{grid-template-columns:1fr}
 }
+/* Email Gate Styles */
+.email-gate-cta{background:linear-gradient(135deg,#1a0a00,#0a1a10);border:2px solid transparent;border-image:linear-gradient(135deg,#ff5f1f,#10b981,#ff5f1f) 1;padding:40px 32px;text-align:center;margin:40px 0 0;position:relative;z-index:10}
+.email-gate-cta h3{color:#ff5f1f;font-size:1.6em;margin:0 0 8px;font-weight:800}
+.email-gate-cta .gate-sub{color:#999;font-size:1.05em;margin-bottom:20px}
+.email-gate-cta .gate-form{display:flex;gap:12px;justify-content:center;align-items:center;flex-wrap:wrap;margin:20px 0 12px}
+.email-gate-cta .gate-form input[type="email"]{padding:14px 20px;border:1px solid #333;border-radius:8px;background:#111;color:#e8e8e8;font-size:1em;width:300px;max-width:100%;outline:none;transition:border-color 0.3s}
+.email-gate-cta .gate-form input[type="email"]:focus{border-color:#ff5f1f}
+.email-gate-cta .gate-form button{padding:14px 28px;background:#ff5f1f;color:#fff;border:none;border-radius:8px;font-size:1em;font-weight:700;cursor:pointer;transition:all 0.3s;white-space:nowrap}
+.email-gate-cta .gate-form button:hover{background:#e5540f;transform:translateY(-2px)}
+.email-gate-cta .gate-trust{color:#666;font-size:0.85em;margin-top:8px}
+.email-gate-cta .gate-success{display:none;padding:20px 0}
+.email-gate-cta .gate-success h3{color:#10b981;font-size:1.4em}
+.email-gate-cta .gate-success p{color:#999;margin-top:8px}
+.locked-content{filter:blur(5px);pointer-events:none;user-select:none;max-height:400px;overflow:hidden;position:relative}
+.locked-content::after{content:'';position:absolute;bottom:0;left:0;right:0;height:200px;background:linear-gradient(to bottom,transparent,#0a0a0a);pointer-events:none}
 </style>
 </head>
 <body>
@@ -381,6 +396,22 @@ Monitoring:  UptimeRobot (free for 50 monitors)
 </div>
 </section>
 
+<!-- EMAIL GATE CTA -->
+<div class="email-gate-cta" id="emailGate">
+  <h3>You're Reading the Preview</h3>
+  <p class="gate-sub">Get the complete <strong>The Passive Income Machine</strong> with all 10 chapters — free.</p>
+  <div class="gate-form" id="gateForm">
+    <input type="email" id="gateEmail" placeholder="your@email.com" required>
+    <button onclick="submitEmailGate()">Get Free Access</button>
+  </div>
+  <p class="gate-trust">Free. No spam. Instant access.</p>
+  <div class="gate-success" id="gateSuccess">
+    <h3>Check your inbox!</h3>
+    <p>Full ebook unlocking now...</p>
+  </div>
+</div>
+
+<div class="locked-content">
 <!-- CHAPTER 4 -->
 <section id="ch4">
 <h2><span class="chapter-num">4</span> Affiliate Marketing on Autopilot</h2>
@@ -1272,6 +1303,8 @@ Cash Reserve:        10% in stablecoins (emergency + opportunities)
 <a href="https://spunk.codes/store" class="cta-btn">100+ Free Tools &rarr; spunk.codes/store</a>
 </div>
 
+</div><!-- end .locked-content -->
+
 <footer>
 <p>&copy; 2026 <a href="https://spunk.codes">spunk.codes</a>. All rights reserved.</p>
 <p>Follow <a href="https://x.com/SpunkArt13" target="_blank">@SpunkArt13</a> on X for daily passive income strategies.</p>
@@ -1305,5 +1338,17 @@ document.addEventListener('keydown',e=>{if(e.key==='F12'||(e.ctrlKey&&e.shiftKey
 
 <script>(function(){var yr=new Date().getFullYear();document.querySelectorAll('#ld-year,#ld-dyn-year').forEach(function(el){el.textContent=yr});var upd=document.getElementById('ld-last-updated');if(upd)upd.textContent=new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});document.querySelectorAll('.ld-wn-date').forEach(function(el,i){var d=new Date();d.setDate(d.getDate()-i);el.textContent=d.toLocaleDateString('en-US',{month:'short',day:'numeric'})+' '});var bc=10000+Math.floor((Date.now()-new Date('2025-01-01').getTime())/86400000)*3;document.querySelectorAll('#ld-builder-count,#ld-email-builders').forEach(function(el){el.textContent=bc.toLocaleString()+'+'});fetch('/tools-directory.json').then(function(r){return r.json()}).then(function(tools){var tc=document.getElementById('ld-tool-count');if(tc)tc.textContent=tools.length+'+';var grid=document.getElementById('ld-related-grid');if(grid){grid.innerHTML='';tools.sort(function(){return 0.5-Math.random()}).slice(0,8).forEach(function(t){var a=document.createElement('a');a.href='/'+t.slug+'.html';a.className='related-tool';a.innerHTML='<div class="related-tool-icon">'+(t.icon||'')+'</div><div>'+t.name+'</div>';grid.appendChild(a)})}}).catch(function(){});window.handleLdEmail=function(e){e.preventDefault();var email=document.getElementById('ldEmailInput').value;var leads=JSON.parse(localStorage.getItem('ebook_leads')||'[]');leads.push({email:email,ts:Date.now(),page:location.pathname});localStorage.setItem('ebook_leads',JSON.stringify(leads));document.getElementById('ldEmailInput').style.display='none';document.getElementById('ldEmailForm').querySelector('button').style.display='none';document.getElementById('ldEmailSuccess').style.display='block';if(typeof gtag==='function')gtag('event','email_capture',{page:location.pathname});return false};var p=new URLSearchParams(location.search);var ref=p.get('ref');if(ref&&/^[a-zA-Z0-9_-]{1,64}$/.test(ref))localStorage.setItem('spunkart_ref',ref)})();</script>
 
+<script>
+function submitEmailGate(){
+  var emailInput=document.getElementById('gateEmail');var email=emailInput.value.trim();
+  if(!email||!email.includes('@')||!email.includes('.')){emailInput.style.borderColor='#ef4444';emailInput.setAttribute('placeholder','Please enter a valid email');return;}
+  var btn=document.querySelector('.gate-form button');btn.textContent='Saving...';btn.disabled=true;
+  fetch('https://predict-network-ec767-default-rtdb.firebaseio.com/emails/ebook-signups.json',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:email,book:'passive-income',timestamp:new Date().toISOString(),source:window.location.href})}).then(function(){
+    document.getElementById('gateForm').style.display='none';document.querySelector('.gate-trust').style.display='none';document.getElementById('gateSuccess').style.display='block';
+    if(typeof gtag==='function'){gtag('event','ebook_unlock',{book_title:'The Passive Income Machine'});}
+    setTimeout(function(){var l=document.querySelector('.locked-content');if(l){l.style.filter='none';l.style.pointerEvents='auto';l.style.userSelect='auto';l.style.maxHeight='none';l.style.overflow='visible';l.classList.remove('locked-content');}},3000);
+  }).catch(function(){document.getElementById('gateForm').style.display='none';document.querySelector('.gate-trust').style.display='none';document.getElementById('gateSuccess').style.display='block';setTimeout(function(){var l=document.querySelector('.locked-content');if(l){l.classList.remove('locked-content');}},3000);});
+}
+</script>
 </body>
 </html>

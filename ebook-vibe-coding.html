@@ -160,6 +160,21 @@ footer .social a{color:var(--muted);margin:0 8px;font-size:0.9rem}
   .prompt-box{font-size:0.8rem;padding:0.75rem 1rem}
   nav{padding:10px 16px}
 }
+/* Email Gate Styles */
+.email-gate-cta{background:linear-gradient(135deg,#1a0a00,#0a1a10);border:2px solid transparent;border-image:linear-gradient(135deg,#ff5f1f,#10b981,#ff5f1f) 1;padding:40px 32px;text-align:center;margin:40px 0 0;position:relative;z-index:10}
+.email-gate-cta h3{color:#ff5f1f;font-size:1.6em;margin:0 0 8px;font-weight:800}
+.email-gate-cta .gate-sub{color:#999;font-size:1.05em;margin-bottom:20px}
+.email-gate-cta .gate-form{display:flex;gap:12px;justify-content:center;align-items:center;flex-wrap:wrap;margin:20px 0 12px}
+.email-gate-cta .gate-form input[type="email"]{padding:14px 20px;border:1px solid #333;border-radius:8px;background:#111;color:#e8e8e8;font-size:1em;width:300px;max-width:100%;outline:none;transition:border-color 0.3s}
+.email-gate-cta .gate-form input[type="email"]:focus{border-color:#ff5f1f}
+.email-gate-cta .gate-form button{padding:14px 28px;background:#ff5f1f;color:#fff;border:none;border-radius:8px;font-size:1em;font-weight:700;cursor:pointer;transition:all 0.3s;white-space:nowrap}
+.email-gate-cta .gate-form button:hover{background:#e5540f;transform:translateY(-2px)}
+.email-gate-cta .gate-trust{color:#666;font-size:0.85em;margin-top:8px}
+.email-gate-cta .gate-success{display:none;padding:20px 0}
+.email-gate-cta .gate-success h3{color:#10b981;font-size:1.4em}
+.email-gate-cta .gate-success p{color:#999;margin-top:8px}
+.locked-content{filter:blur(5px);pointer-events:none;user-select:none;max-height:400px;overflow:hidden;position:relative}
+.locked-content::after{content:'';position:absolute;bottom:0;left:0;right:0;height:200px;background:linear-gradient(to bottom,transparent,#0a0a0a);pointer-events:none}
 </style>
 <!-- Google Analytics GA4 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
@@ -404,6 +419,22 @@ footer .social a{color:var(--muted);margin:0 8px;font-size:0.9rem}
 </section>
 
 
+<!-- EMAIL GATE CTA -->
+<div class="email-gate-cta" id="emailGate">
+  <h3>You're Reading the Preview</h3>
+  <p class="gate-sub">Get the complete <strong>Vibe Coding Mastery</strong> with all 10 chapters — free.</p>
+  <div class="gate-form" id="gateForm">
+    <input type="email" id="gateEmail" placeholder="your@email.com" required>
+    <button onclick="submitEmailGate()">Get Free Access</button>
+  </div>
+  <p class="gate-trust">Free. No spam. Instant access.</p>
+  <div class="gate-success" id="gateSuccess">
+    <h3>Check your inbox!</h3>
+    <p>Full ebook unlocking now...</p>
+  </div>
+</div>
+
+<div class="locked-content">
 <!-- ==================== CHAPTER 4 ==================== -->
 <section class="chapter" id="ch4">
   <div class="chapter-header">
@@ -1075,6 +1106,8 @@ Tool 5: Diff Checker (diff-checker.html)
   </div>
 </section>
 
+</div><!-- end .locked-content -->
+
 <!-- ==================== FINAL CTA ==================== -->
 <div class="cta-banner" style="margin-top:1rem">
   <h3>Want More?</h3>
@@ -1293,6 +1326,37 @@ document.querySelectorAll('.toc a').forEach(function(link) {
   window.handleLdEmail=function(e){e.preventDefault();var email=document.getElementById('ldEmailInput').value;var leads=JSON.parse(localStorage.getItem('ebook_leads')||'[]');leads.push({email:email,ts:Date.now(),page:location.pathname});localStorage.setItem('ebook_leads',JSON.stringify(leads));document.getElementById('ldEmailInput').style.display='none';document.getElementById('ldEmailForm').querySelector('button').style.display='none';document.getElementById('ldEmailSuccess').style.display='block';if(typeof gtag==='function')gtag('event','email_capture',{page:location.pathname});return false};
   var p=new URLSearchParams(location.search);var ref=p.get('ref');if(ref&&/^[a-zA-Z0-9_-]{1,64}$/.test(ref))localStorage.setItem('spunkart_ref',ref);
 })();
+</script>
+<script>
+function submitEmailGate(){
+  var emailInput=document.getElementById('gateEmail');
+  var email=emailInput.value.trim();
+  if(!email||!email.includes('@')||!email.includes('.')){
+    emailInput.style.borderColor='#ef4444';
+    emailInput.setAttribute('placeholder','Please enter a valid email');
+    return;
+  }
+  var btn=document.querySelector('.gate-form button');
+  btn.textContent='Saving...';
+  btn.disabled=true;
+  var data={email:email,book:'vibe-coding',timestamp:new Date().toISOString(),source:window.location.href};
+  fetch('https://predict-network-ec767-default-rtdb.firebaseio.com/emails/ebook-signups.json',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify(data)
+  }).then(function(){
+    document.getElementById('gateForm').style.display='none';
+    document.querySelector('.gate-trust').style.display='none';
+    document.getElementById('gateSuccess').style.display='block';
+    if(typeof gtag==='function'){gtag('event','ebook_unlock',{book_title:'Vibe Coding Mastery'});}
+    setTimeout(function(){var locked=document.querySelector('.locked-content');if(locked){locked.style.filter='none';locked.style.pointerEvents='auto';locked.style.userSelect='auto';locked.style.maxHeight='none';locked.style.overflow='visible';locked.classList.remove('locked-content');}},3000);
+  }).catch(function(){
+    document.getElementById('gateForm').style.display='none';
+    document.querySelector('.gate-trust').style.display='none';
+    document.getElementById('gateSuccess').style.display='block';
+    setTimeout(function(){var locked=document.querySelector('.locked-content');if(locked){locked.classList.remove('locked-content');}},3000);
+  });
+}
 </script>
 </body>
 </html>

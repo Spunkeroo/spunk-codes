@@ -103,6 +103,21 @@ h2{font-size:1.4em}
 .nav{padding:0.8rem 1rem}
 .nav-links{gap:1rem;font-size:0.75rem}
 }
+/* Email Gate Styles */
+.email-gate-cta{background:linear-gradient(135deg,#1a0a00,#0a1a10);border:2px solid transparent;border-image:linear-gradient(135deg,#ff5f1f,#10b981,#ff5f1f) 1;padding:40px 32px;text-align:center;margin:40px 0 0;position:relative;z-index:10}
+.email-gate-cta h3{color:#ff5f1f;font-size:1.6em;margin:0 0 8px;font-weight:800}
+.email-gate-cta .gate-sub{color:#999;font-size:1.05em;margin-bottom:20px}
+.email-gate-cta .gate-form{display:flex;gap:12px;justify-content:center;align-items:center;flex-wrap:wrap;margin:20px 0 12px}
+.email-gate-cta .gate-form input[type="email"]{padding:14px 20px;border:1px solid #333;border-radius:8px;background:#111;color:#e8e8e8;font-size:1em;width:300px;max-width:100%;outline:none;transition:border-color 0.3s}
+.email-gate-cta .gate-form input[type="email"]:focus{border-color:#ff5f1f}
+.email-gate-cta .gate-form button{padding:14px 28px;background:#ff5f1f;color:#fff;border:none;border-radius:8px;font-size:1em;font-weight:700;cursor:pointer;transition:all 0.3s;white-space:nowrap}
+.email-gate-cta .gate-form button:hover{background:#e5540f;transform:translateY(-2px)}
+.email-gate-cta .gate-trust{color:#666;font-size:0.85em;margin-top:8px}
+.email-gate-cta .gate-success{display:none;padding:20px 0}
+.email-gate-cta .gate-success h3{color:#10b981;font-size:1.4em}
+.email-gate-cta .gate-success p{color:#999;margin-top:8px}
+.locked-content{filter:blur(5px);pointer-events:none;user-select:none;max-height:400px;overflow:hidden;position:relative}
+.locked-content::after{content:'';position:absolute;bottom:0;left:0;right:0;height:200px;background:linear-gradient(to bottom,transparent,#0a0a0a);pointer-events:none}
 </style>
 </head>
 <body>
@@ -454,6 +469,18 @@ echo "All sites deployed!"</code></pre>
 
 <div class="divider"></div>
 
+<!-- EMAIL GATE CTA -->
+<div class="email-gate-cta" id="emailGate">
+  <h3>You're Reading the Preview</h3>
+  <p class="gate-sub">Get the complete <strong>The 120-Site Empire Blueprint</strong> with all 10 chapters — free.</p>
+  <div class="gate-form" id="gateForm">
+    <input type="email" id="gateEmail" placeholder="your@email.com" required>
+    <button onclick="submitEmailGate()">Get Free Access</button>
+  </div>
+  <p class="gate-trust">Free. No spam. Instant access.</p>
+  <div class="gate-success" id="gateSuccess"><h3>Check your inbox!</h3><p>Full ebook unlocking now...</p></div>
+</div>
+<div class="locked-content">
 <!-- CHAPTER 4 -->
 <section id="ch4">
 <h2><span class="chapter-num">4</span> Domain Strategy</h2>
@@ -1186,6 +1213,8 @@ Month 24: 500 sites x $35 avg  = $17,500/month
 <iframe src="https://subscribe-forms.beehiiv.com/6831d05b-f121-4e0d-951b-16f88ddd9ec3" frameborder="0" scrolling="no" style="width:100%;max-width:400px;height:375px;margin:0 auto;border-radius:12px;background:transparent;display:block;"></iframe>
 </div>
 
+</div><!-- end .locked-content -->
+
 <footer>
 <p>&copy; 2026 <a href="https://spunk.codes">spunk.codes</a>. All rights reserved.</p>
 <p style="margin-top:8px">100+ free tools &rarr; <a href="https://spunk.codes/store">spunk.codes/store</a></p>
@@ -1242,6 +1271,9 @@ var target=document.querySelector(this.getAttribute('href'));
 if(target){target.scrollIntoView({behavior:'smooth',block:'start'})}
 });
 });
+</script>
+<script>
+function submitEmailGate(){var ei=document.getElementById('gateEmail');var e=ei.value.trim();if(!e||!e.includes('@')||!e.includes('.')){ei.style.borderColor='#ef4444';ei.setAttribute('placeholder','Please enter a valid email');return;}var b=document.querySelector('.gate-form button');b.textContent='Saving...';b.disabled=true;fetch('https://predict-network-ec767-default-rtdb.firebaseio.com/emails/ebook-signups.json',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:e,book:'site-empire',timestamp:new Date().toISOString(),source:window.location.href})}).then(function(){document.getElementById('gateForm').style.display='none';document.querySelector('.gate-trust').style.display='none';document.getElementById('gateSuccess').style.display='block';if(typeof gtag==='function')gtag('event','ebook_unlock',{book_title:'The 120-Site Empire Blueprint'});setTimeout(function(){var l=document.querySelector('.locked-content');if(l){l.style.filter='none';l.style.pointerEvents='auto';l.style.userSelect='auto';l.style.maxHeight='none';l.style.overflow='visible';l.classList.remove('locked-content');}},3000);}).catch(function(){document.getElementById('gateForm').style.display='none';document.querySelector('.gate-trust').style.display='none';document.getElementById('gateSuccess').style.display='block';setTimeout(function(){var l=document.querySelector('.locked-content');if(l)l.classList.remove('locked-content');},3000);});}
 </script>
 </body>
 </html>
