@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>README.md Generator - GitHub README Builder with Live Preview | SPUNK.CODES Exclusive</title>
+<meta name="description" content="Generate professional GitHub README.md files instantly. Add badges, installation, usage, API docs, license, and contributors with live markdown preview.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="README.md Generator - SPUNK.CODES Exclusive">
+<meta property="og:description" content="Generate professional GitHub README.md files with badges, installation, API docs, and live preview.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://spunk.codes/exclusive/readme-generator">
+<meta property="og:site_name" content="Spunk Codes">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<meta name="twitter:creator" content="@SpunkArt13">
+<meta name="twitter:title" content="README.md Generator - SPUNK.CODES Exclusive">
+<meta name="twitter:description" content="Generate professional GitHub README.md files with live markdown preview.">
+<link rel="canonical" href="https://spunk.codes/exclusive/readme-generator">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"README.md Generator","url":"https://spunk.codes/exclusive/readme-generator","applicationCategory":"DeveloperApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Generate professional GitHub README.md files instantly with badges, installation, usage, API docs, license, and contributors.","author":{"@type":"Organization","name":"Spunk Codes","url":"https://spunk.codes"}}</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0f;color:#e8e8f0;min-height:100vh;line-height:1.6}
+a{color:#58a6ff;text-decoration:none}a:hover{text-decoration:underline}
+.wrap{max-width:1200px;margin:0 auto;padding:1.5rem}
+h1{font-size:2rem;font-weight:800;text-align:center;margin:1.5rem 0 0.5rem}
+h1 span{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.subtitle{text-align:center;color:#8b949e;margin-bottom:2rem;max-width:650px;margin-left:auto;margin-right:auto}
+.card{background:rgba(18,18,28,0.85);border:1px solid rgba(255,95,31,0.2);border-radius:14px;padding:1.5rem;margin-bottom:1.5rem;position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#ff5f1f,#ff9f1f,#ff5f1f)}
+.card h2{font-size:1rem;font-weight:700;margin-bottom:1rem;color:#ff9f1f}
+.btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.85rem;font-weight:700;cursor:pointer;border:none;transition:all 0.2s;display:inline-flex;align-items:center;gap:0.4rem}
+.btn-primary{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);color:#000}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 4px 15px rgba(255,95,31,0.3)}
+.btn-outline{background:transparent;border:1px solid rgba(255,95,31,0.3);color:#ff9f1f}
+.btn-outline:hover{background:rgba(255,95,31,0.1)}
+.btn-sm{padding:0.4rem 0.8rem;font-size:0.75rem}
+.actions{display:flex;gap:0.5rem;flex-wrap:wrap;margin:1rem 0}
+label{display:block;font-size:0.8rem;font-weight:600;color:#8b949e;margin-bottom:0.3rem;text-transform:uppercase;letter-spacing:0.5px}
+input[type="text"],select,textarea{width:100%;padding:0.6rem 0.8rem;background:rgba(10,10,15,0.8);border:1px solid rgba(255,95,31,0.15);border-radius:8px;color:#e8e8f0;font-size:0.9rem;font-family:inherit;outline:none}
+textarea{font-family:'Courier New',monospace;font-size:0.85rem;resize:vertical;min-height:100px;line-height:1.5}
+input:focus,select:focus,textarea:focus{border-color:#ff5f1f}
+.output-area{width:100%;min-height:200px;padding:1rem;background:#0a0a0f;border:1px solid rgba(255,95,31,0.15);border-radius:8px;font-family:'Courier New',monospace;font-size:0.85rem;overflow:auto;max-height:600px;line-height:1.5;white-space:pre-wrap;word-break:break-word;color:#e8e8f0}
+.copied{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(57,211,83,0.95);color:#000;padding:0.8rem 2rem;border-radius:10px;font-weight:700;font-size:1rem;z-index:9999;pointer-events:none;animation:fadeOut 1.5s ease forwards}
+@keyframes fadeOut{0%{opacity:1;transform:translate(-50%,-50%) scale(1)}70%{opacity:1}100%{opacity:0;transform:translate(-50%,-60%) scale(0.95)}}
+.network-footer{text-align:center;padding:2rem 0 1rem;border-top:1px solid rgba(255,95,31,0.1);margin-top:2rem}
+.network-footer .links{display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap;font-size:0.85rem;margin-bottom:0.5rem}
+.network-footer .copy{color:#8b949e;font-size:0.75rem}
+.cta-banner{text-align:center;margin:2rem 0 1rem;padding:1.5rem;background:linear-gradient(135deg,rgba(255,95,31,0.1),rgba(255,159,31,0.05));border:1px solid rgba(255,95,31,0.2);border-radius:14px}
+.cta-banner p{color:#8b949e;font-size:0.9rem;margin-bottom:0.8rem}
+
+/* Tool-specific */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+@media(max-width:768px){.form-grid{grid-template-columns:1fr}}
+.field{margin-bottom:1rem}
+.badges-row{display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:0.3rem}
+.badge-btn{padding:0.3rem 0.7rem;font-size:0.7rem;border-radius:6px;cursor:pointer;border:1px solid rgba(255,95,31,0.2);background:transparent;color:#8b949e;transition:all 0.2s}
+.badge-btn.active{background:rgba(255,95,31,0.2);color:#ff9f1f;border-color:#ff9f1f}
+.badge-btn:hover{background:rgba(255,95,31,0.1);color:#ff9f1f}
+.preview-md{padding:1.5rem;background:#0d1117;border:1px solid rgba(255,95,31,0.15);border-radius:8px;overflow:auto;max-height:600px;line-height:1.8;color:#c9d1d9}
+.preview-md h1,.preview-md h2,.preview-md h3{color:#e8e8f0;border-bottom:1px solid #21262d;padding-bottom:0.3rem;margin:1rem 0 0.5rem}
+.preview-md h1{font-size:1.5rem}.preview-md h2{font-size:1.2rem}.preview-md h3{font-size:1rem}
+.preview-md code{background:#161b22;padding:0.15rem 0.4rem;border-radius:4px;font-size:0.85rem;color:#ff9f1f}
+.preview-md pre{background:#161b22;padding:1rem;border-radius:8px;overflow-x:auto;margin:0.5rem 0}
+.preview-md pre code{background:none;padding:0}
+.preview-md ul,.preview-md ol{padding-left:1.5rem;margin:0.5rem 0}
+.preview-md li{margin:0.2rem 0}
+.preview-md a{color:#58a6ff}
+.preview-md img{max-width:100%}
+.preview-md blockquote{border-left:3px solid #ff9f1f;padding-left:1rem;color:#8b949e;margin:0.5rem 0}
+.preview-md table{border-collapse:collapse;width:100%;margin:0.5rem 0}
+.preview-md th,.preview-md td{border:1px solid #21262d;padding:0.4rem 0.8rem;text-align:left}
+.preview-md th{background:#161b22}
+.tab-toggle{display:flex;gap:0;margin-bottom:1rem}
+.tab-toggle button{flex:1;padding:0.6rem;border:1px solid rgba(255,95,31,0.2);background:transparent;color:#8b949e;font-weight:700;font-size:0.85rem;cursor:pointer;transition:all 0.2s}
+.tab-toggle button:first-child{border-radius:10px 0 0 10px}
+.tab-toggle button:last-child{border-radius:0 10px 10px 0}
+.tab-toggle button.active{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);color:#000;border-color:transparent}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1><span>README.md Generator</span></h1>
+<p class="subtitle">Build professional GitHub README files with badges, installation steps, API docs, license info, and a live rendered preview.</p>
+
+<!-- FORM -->
+<div class="card">
+<h2>Project Details</h2>
+<div class="form-grid">
+<div class="field">
+<label>Project Name</label>
+<input type="text" id="projName" value="my-awesome-project" oninput="generate()">
+</div>
+<div class="field">
+<label>One-line Description</label>
+<input type="text" id="projDesc" value="A blazing fast tool for developers" oninput="generate()">
+</div>
+<div class="field">
+<label>GitHub Username</label>
+<input type="text" id="ghUser" value="username" oninput="generate()">
+</div>
+<div class="field">
+<label>GitHub Repo Name</label>
+<input type="text" id="ghRepo" value="my-awesome-project" oninput="generate()">
+</div>
+</div>
+</div>
+
+<div class="card">
+<h2>Badges</h2>
+<div class="badges-row" id="badgesRow"></div>
+</div>
+
+<div class="card">
+<h2>Sections</h2>
+<div class="field">
+<label>Features (one per line)</label>
+<textarea id="features" rows="4" oninput="generate()">Lightning fast performance
+Easy to configure
+Beautiful UI out of the box
+Fully tested and documented</textarea>
+</div>
+<div class="form-grid">
+<div class="field">
+<label>Installation Command</label>
+<input type="text" id="installCmd" value="npm install my-awesome-project" oninput="generate()">
+</div>
+<div class="field">
+<label>Package Manager</label>
+<select id="pkgMgr" onchange="generate()">
+<option value="npm">npm</option>
+<option value="yarn">yarn</option>
+<option value="pnpm">pnpm</option>
+<option value="pip">pip</option>
+<option value="cargo">cargo</option>
+<option value="go">go</option>
+</select>
+</div>
+</div>
+<div class="field">
+<label>Usage Example (code)</label>
+<textarea id="usageCode" rows="5" oninput="generate()">import { awesome } from 'my-awesome-project';
+
+const result = awesome({ fast: true });
+console.log(result);</textarea>
+</div>
+<div class="field">
+<label>API Documentation (optional, markdown)</label>
+<textarea id="apiDocs" rows="4" oninput="generate()">| Method | Description |
+|--------|-------------|
+| `awesome(options)` | Run the main function |
+| `configure(config)` | Set configuration |</textarea>
+</div>
+<div class="form-grid">
+<div class="field">
+<label>License</label>
+<select id="license" onchange="generate()">
+<option value="MIT">MIT</option>
+<option value="Apache-2.0">Apache 2.0</option>
+<option value="GPL-3.0">GPL 3.0</option>
+<option value="BSD-3-Clause">BSD 3-Clause</option>
+<option value="ISC">ISC</option>
+<option value="Unlicense">Unlicense</option>
+<option value="none">None</option>
+</select>
+</div>
+<div class="field">
+<label>Author Name</label>
+<input type="text" id="authorName" value="Your Name" oninput="generate()">
+</div>
+</div>
+<div class="field">
+<label>Contributors (comma-separated GitHub usernames)</label>
+<input type="text" id="contributors" placeholder="user1, user2, user3" oninput="generate()">
+</div>
+<div class="field">
+<label>Additional Sections</label>
+<div class="badges-row">
+<button class="badge-btn active" data-section="features" onclick="toggleSection(this)">Features</button>
+<button class="badge-btn active" data-section="install" onclick="toggleSection(this)">Installation</button>
+<button class="badge-btn active" data-section="usage" onclick="toggleSection(this)">Usage</button>
+<button class="badge-btn" data-section="api" onclick="toggleSection(this)">API Docs</button>
+<button class="badge-btn active" data-section="contributing" onclick="toggleSection(this)">Contributing</button>
+<button class="badge-btn active" data-section="license" onclick="toggleSection(this)">License</button>
+<button class="badge-btn" data-section="roadmap" onclick="toggleSection(this)">Roadmap</button>
+<button class="badge-btn" data-section="faq" onclick="toggleSection(this)">FAQ</button>
+<button class="badge-btn" data-section="acknowledgments" onclick="toggleSection(this)">Acknowledgments</button>
+</div>
+</div>
+</div>
+
+<!-- OUTPUT -->
+<div class="card">
+<h2>Output</h2>
+<div class="tab-toggle">
+<button class="active" onclick="showOutput('raw',this)">Raw Markdown</button>
+<button onclick="showOutput('preview',this)">Rendered Preview</button>
+</div>
+<div id="rawOutput" class="output-area" style="max-height:600px;overflow:auto"></div>
+<div id="previewOutput" class="preview-md" style="display:none"></div>
+<div class="actions">
+<button class="btn btn-primary" onclick="copyMD()">Copy Markdown</button>
+<button class="btn btn-outline" onclick="downloadMD()">Download .md</button>
+</div>
+</div>
+
+<!-- CTA -->
+<div class="cta-banner">
+<p>Explore more exclusive automation tools</p>
+<a href="https://spunk.codes/exclusive/" class="btn btn-primary">Browse All Tools</a>
+</div>
+
+<!-- Network Footer -->
+<div class="network-footer">
+<div class="links">
+<a href="https://spunk.codes">spunk.codes</a>
+<a href="https://spunk.bet">spunk.bet</a>
+<a href="https://spunk.work">spunk.work</a>
+<a href="https://spunk.pics">spunk.pics</a>
+</div>
+<div class="copy">&copy; 2026 Spunk Network. All rights reserved.</div>
+</div>
+</div>
+
+<script>
+const BADGES=[
+{id:'build',label:'Build',active:true},
+{id:'npm',label:'npm Version',active:true},
+{id:'license',label:'License',active:true},
+{id:'stars',label:'Stars',active:false},
+{id:'forks',label:'Forks',active:false},
+{id:'issues',label:'Issues',active:false},
+{id:'downloads',label:'Downloads',active:false},
+{id:'coverage',label:'Coverage',active:false},
+{id:'prs',label:'PRs Welcome',active:false}
+];
+
+let activeSections=new Set(['features','install','usage','contributing','license']);
+
+function initBadges(){
+const row=document.getElementById('badgesRow');
+BADGES.forEach(b=>{
+const btn=document.createElement('button');
+btn.className='badge-btn'+(b.active?' active':'');
+btn.textContent=b.label;
+btn.dataset.id=b.id;
+btn.onclick=()=>{b.active=!b.active;btn.classList.toggle('active');generate()};
+row.appendChild(btn);
+});
+}
+
+function toggleSection(el){
+const sec=el.dataset.section;
+el.classList.toggle('active');
+if(activeSections.has(sec))activeSections.delete(sec);
+else activeSections.add(sec);
+generate();
+}
+
+function generate(){
+const name=document.getElementById('projName').value||'my-project';
+const desc=document.getElementById('projDesc').value||'';
+const user=document.getElementById('ghUser').value||'username';
+const repo=document.getElementById('ghRepo').value||name;
+const features=(document.getElementById('features').value||'').split('\n').filter(l=>l.trim());
+const installCmd=document.getElementById('installCmd').value||'npm install '+name;
+const usageCode=document.getElementById('usageCode').value||'';
+const apiDocs=document.getElementById('apiDocs').value||'';
+const license=document.getElementById('license').value;
+const author=document.getElementById('authorName').value||'';
+const contribs=(document.getElementById('contributors').value||'').split(',').map(s=>s.trim()).filter(Boolean);
+
+let md=`# ${name}\n\n`;
+if(desc) md+=`> ${desc}\n\n`;
+
+// Badges
+const activeBadges=BADGES.filter(b=>b.active);
+if(activeBadges.length){
+activeBadges.forEach(b=>{
+switch(b.id){
+case 'build':md+=`[![Build Status](https://img.shields.io/github/actions/workflow/status/${user}/${repo}/ci.yml?branch=main&style=flat-square)](https://github.com/${user}/${repo}/actions)\n`;break;
+case 'npm':md+=`[![npm version](https://img.shields.io/npm/v/${name}?style=flat-square)](https://www.npmjs.com/package/${name})\n`;break;
+case 'license':md+=`[![License](https://img.shields.io/badge/license-${license}-blue?style=flat-square)](LICENSE)\n`;break;
+case 'stars':md+=`[![GitHub stars](https://img.shields.io/github/stars/${user}/${repo}?style=flat-square)](https://github.com/${user}/${repo}/stargazers)\n`;break;
+case 'forks':md+=`[![GitHub forks](https://img.shields.io/github/forks/${user}/${repo}?style=flat-square)](https://github.com/${user}/${repo}/network)\n`;break;
+case 'issues':md+=`[![GitHub issues](https://img.shields.io/github/issues/${user}/${repo}?style=flat-square)](https://github.com/${user}/${repo}/issues)\n`;break;
+case 'downloads':md+=`[![npm downloads](https://img.shields.io/npm/dm/${name}?style=flat-square)](https://www.npmjs.com/package/${name})\n`;break;
+case 'coverage':md+=`[![Coverage](https://img.shields.io/codecov/c/github/${user}/${repo}?style=flat-square)](https://codecov.io/gh/${user}/${repo})\n`;break;
+case 'prs':md+=`[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen?style=flat-square)](https://github.com/${user}/${repo}/pulls)\n`;break;
+}
+});
+md+='\n';
+}
+
+// Features
+if(activeSections.has('features')&&features.length){
+md+=`## Features\n\n`;
+features.forEach(f=>md+=`- ${f}\n`);
+md+='\n';
+}
+
+// Installation
+if(activeSections.has('install')){
+md+=`## Installation\n\n\`\`\`bash\n${installCmd}\n\`\`\`\n\n`;
+}
+
+// Usage
+if(activeSections.has('usage')&&usageCode){
+md+=`## Usage\n\n\`\`\`javascript\n${usageCode}\n\`\`\`\n\n`;
+}
+
+// API
+if(activeSections.has('api')&&apiDocs){
+md+=`## API Documentation\n\n${apiDocs}\n\n`;
+}
+
+// Roadmap
+if(activeSections.has('roadmap')){
+md+=`## Roadmap\n\n- [ ] Feature 1\n- [ ] Feature 2\n- [ ] Feature 3\n\nSee the [open issues](https://github.com/${user}/${repo}/issues) for a full list of proposed features.\n\n`;
+}
+
+// FAQ
+if(activeSections.has('faq')){
+md+=`## FAQ\n\n**Q: How do I get started?**\nA: Follow the installation steps above.\n\n**Q: Is this free?**\nA: Yes, this is open source and free to use.\n\n`;
+}
+
+// Contributing
+if(activeSections.has('contributing')){
+md+=`## Contributing\n\nContributions are welcome! Please follow these steps:\n\n1. Fork the repository\n2. Create your feature branch (\`git checkout -b feature/amazing-feature\`)\n3. Commit your changes (\`git commit -m 'Add amazing feature'\`)\n4. Push to the branch (\`git push origin feature/amazing-feature\`)\n5. Open a Pull Request\n\n`;
+if(contribs.length){
+md+=`### Contributors\n\n`;
+contribs.forEach(c=>md+=`- [@${c}](https://github.com/${c})\n`);
+md+='\n';
+}
+}
+
+// Acknowledgments
+if(activeSections.has('acknowledgments')){
+md+=`## Acknowledgments\n\n- Thanks to all contributors\n- Built with love\n\n`;
+}
+
+// License
+if(activeSections.has('license')&&license!=='none'){
+md+=`## License\n\nDistributed under the ${license} License. See \`LICENSE\` for more information.\n\n`;
+}
+
+// Footer
+md+=`---\n\nMade with love by [${author||user}](https://github.com/${user})\n`;
+
+document.getElementById('rawOutput').textContent=md;
+renderPreview(md);
+}
+
+function renderPreview(md){
+let html=md;
+// Very basic markdown to HTML renderer
+html=html.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+// Headers
+html=html.replace(/^### (.+)$/gm,'<h3>$1</h3>');
+html=html.replace(/^## (.+)$/gm,'<h2>$1</h2>');
+html=html.replace(/^# (.+)$/gm,'<h1>$1</h1>');
+// Blockquote
+html=html.replace(/^&gt; (.+)$/gm,'<blockquote>$1</blockquote>');
+// Code blocks
+html=html.replace(/```(\w*)\n([\s\S]*?)```/g,'<pre><code>$2</code></pre>');
+// Inline code
+html=html.replace(/`([^`]+)`/g,'<code>$1</code>');
+// Bold
+html=html.replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>');
+// Images (badges)
+html=html.replace(/\[!\[([^\]]*)\]\(([^)]+)\)\]\(([^)]+)\)/g,'<a href="$3"><img src="$2" alt="$1"></a>');
+html=html.replace(/!\[([^\]]*)\]\(([^)]+)\)/g,'<img src="$2" alt="$1">');
+// Links
+html=html.replace(/\[([^\]]+)\]\(([^)]+)\)/g,'<a href="$2">$1</a>');
+// Lists with checkboxes
+html=html.replace(/^- \[ \] (.+)$/gm,'<li style="list-style:none">&#9744; $1</li>');
+html=html.replace(/^- \[x\] (.+)$/gm,'<li style="list-style:none">&#9745; $1</li>');
+// Unordered lists
+html=html.replace(/^- (.+)$/gm,'<li>$1</li>');
+// Ordered lists
+html=html.replace(/^\d+\. (.+)$/gm,'<li>$1</li>');
+// Tables
+html=html.replace(/^\|(.+)\|$/gm,function(match,content){
+const cells=content.split('|').map(c=>c.trim());
+if(cells.every(c=>/^[-:]+$/.test(c)))return '';
+const tag=cells.some(c=>c.startsWith('**'))?'th':'td';
+return '<tr>'+cells.map(c=>'<'+tag+'>'+c+'</'+tag+'>').join('')+'</tr>';
+});
+html=html.replace(/(<tr>[\s\S]*?<\/tr>)/g,'<table>$1</table>');
+// Horizontal rule
+html=html.replace(/^---$/gm,'<hr>');
+// Line breaks
+html=html.replace(/\n\n/g,'<br><br>');
+html=html.replace(/\n/g,'<br>');
+document.getElementById('previewOutput').innerHTML=html;
+}
+
+function showOutput(mode,btn){
+document.querySelectorAll('.tab-toggle button').forEach(b=>b.classList.remove('active'));
+btn.classList.add('active');
+if(mode==='raw'){
+document.getElementById('rawOutput').style.display='block';
+document.getElementById('previewOutput').style.display='none';
+}else{
+document.getElementById('rawOutput').style.display='none';
+document.getElementById('previewOutput').style.display='block';
+}
+}
+
+function copyMD(){
+copyText(document.getElementById('rawOutput').textContent,'README.md');
+}
+
+function downloadMD(){
+const blob=new Blob([document.getElementById('rawOutput').textContent],{type:'text/markdown'});
+const a=document.createElement('a');
+a.href=URL.createObjectURL(blob);
+a.download='README.md';
+a.click();
+URL.revokeObjectURL(a.href);
+}
+
+function copyText(text,label){
+navigator.clipboard.writeText(text).then(()=>{
+const el=document.createElement('div');
+el.className='copied';
+el.textContent=(label||'Text')+' copied!';
+document.body.appendChild(el);
+setTimeout(()=>el.remove(),1600);
+});
+}
+
+initBadges();
+generate();
+</script>
+
+<!-- Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<script src="https://spunk.codes/heartbeat.js" defer></script>
+<script src="/auto-monetize.js"></script>
+<!-- Share on X Button -->
+<div id="shareXBtn" style="position:fixed;left:20px;bottom:20px;z-index:9999;">
+  <a id="shareXLink" href="#" target="_blank" rel="noopener noreferrer" title="Share on X"
+     style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;
+     background:rgba(255,95,31,0.15);border:1px solid rgba(255,95,31,0.3);
+     backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:50%;
+     text-decoration:none;transition:all 0.3s ease;cursor:pointer;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+    </svg>
+  </a>
+</div>
+<style>
+  #shareXBtn a:hover {
+    background: rgba(255,95,31,0.35) !important;
+    border-color: rgba(255,95,31,0.6) !important;
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(255,95,31,0.3);
+  }
+</style>
+<script>
+(function(){
+  var page = "readme-generator";
+  var url = "https://spunk.codes/exclusive/" + page;
+  var text = "Built a perfect README.md in 30 seconds. Badges, install, API docs, live preview. Free tool @SpunkArt13";
+  var href = "https://x.com/intent/tweet?text=" + encodeURIComponent(text) + "&url=" + encodeURIComponent(url);
+  document.getElementById("shareXLink").href = href;
+})();
+</script>
+<script src="/usage-tracker.js"></script>
+</body>
+</html>
