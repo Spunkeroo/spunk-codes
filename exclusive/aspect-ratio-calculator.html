@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Aspect Ratio Calculator | SPUNK.CODES Exclusive</title>
+<meta name="description" content="Calculate aspect ratios, resize dimensions proportionally. Presets for 16:9, 4:3, 1:1, 9:16. Pixel lookup and custom ratio support. Free online tool.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Aspect Ratio Calculator - SPUNK.CODES Exclusive">
+<meta property="og:description" content="Calculate aspect ratios, resize dimensions proportionally. Presets for 16:9, 4:3, 1:1, 9:16 and more.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://spunk.codes/exclusive/aspect-ratio-calculator">
+<meta property="og:site_name" content="Spunk Codes">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/aspect-ratio-calculator">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Aspect Ratio Calculator","applicationCategory":"UtilityApplication","operatingSystem":"Web","description":"Calculate aspect ratios, resize dimensions proportionally with presets for 16:9, 4:3, 1:1, 9:16 and custom ratios.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Organization","name":"Spunk Codes","url":"https://spunk.codes"}}</script>
+<!-- GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<!-- Clarity -->
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<script src="https://spunk.codes/heartbeat.js" defer></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0a0a0f;--card:rgba(18,18,28,0.85);--border:rgba(50,50,70,0.5);--accent:#ff5f1f;--accent2:#ff9f1f;--text:#e8e8f0;--text-dim:#8b8b9e;--green:#39d353;--red:#f85149;--blue:#58a6ff;--purple:#a855f7;--font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+a{color:var(--blue);text-decoration:none}a:hover{color:#fff}
+.bg-mesh{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 80% 50% at 20% 20%,rgba(255,95,31,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(255,159,31,0.04) 0%,transparent 60%),var(--bg)}
+.nav{position:sticky;top:0;z-index:100;background:rgba(10,10,15,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,95,31,0.15);padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}
+.nav-brand{font-weight:800;font-size:1.1rem;background:linear-gradient(135deg,#ff5f1f,#ff9f1f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:0.08em}
+.nav-links{display:flex;gap:1.5rem;font-size:0.85rem;list-style:none}.nav-links a{color:var(--text-dim);transition:color 0.2s;font-weight:500}.nav-links a:hover{color:#fff}.nav-links a.active{color:var(--accent)}
+.lock-gate{position:fixed;inset:0;z-index:1000;background:rgba(10,10,15,0.97);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:2rem}.lock-gate.hidden{display:none}
+.lock-icon-big{font-size:4rem;margin-bottom:0.5rem}.lock-gate h2{font-size:1.8rem;font-weight:800;text-align:center}.lock-gate h2 span{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.lock-gate p{color:var(--text-dim);text-align:center;max-width:400px}
+.code-input-wrap{display:flex;gap:0.5rem;margin-top:0.5rem}.code-input{padding:0.8rem 1.5rem;background:rgba(18,18,28,0.8);border:2px solid rgba(255,95,31,0.3);border-radius:12px;color:var(--accent);font-size:1.2rem;font-weight:800;letter-spacing:3px;text-align:center;width:200px;outline:none;text-transform:uppercase;font-family:var(--font)}.code-input:focus{border-color:var(--accent);box-shadow:0 0 20px rgba(255,95,31,0.2)}
+.code-submit{padding:0.8rem 1.5rem;background:linear-gradient(135deg,#ff5f1f,#ff9f1f);border:none;border-radius:12px;color:#000;font-size:1rem;font-weight:800;cursor:pointer;transition:all 0.3s}.code-submit:hover{transform:scale(1.05)}
+.code-error{color:#f85149;font-size:0.85rem;min-height:1.2em}
+.lock-hint{color:var(--text-dim);font-size:0.8rem;margin-top:1rem}.lock-hint a{color:var(--accent)}
+.exclusive-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;background:linear-gradient(135deg,rgba(255,95,31,0.15),rgba(255,159,31,0.15));border:1px solid rgba(255,95,31,0.3);border-radius:100px;font-size:11px;font-weight:800;color:var(--accent);letter-spacing:1.5px;text-transform:uppercase}
+.main{max-width:1000px;margin:0 auto;padding:2rem}
+.hero-section{text-align:center;padding:2rem 0 2rem}
+.hero-section h1{font-size:2.2rem;font-weight:800;margin:1rem 0 0.5rem}
+.hero-section h1 .grad{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-section p{color:var(--text-dim);max-width:600px;margin:0 auto}
+.tool-section{background:var(--card);border:1px solid rgba(255,95,31,0.2);border-radius:16px;padding:2rem;margin-bottom:1.5rem;backdrop-filter:blur(10px);position:relative;overflow:hidden}
+.tool-section::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#ff5f1f,#ff9f1f,#ff5f1f)}
+.tool-section h2{font-size:1.2rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}
+label{font-size:0.85rem;color:var(--text-dim);font-weight:600;display:block;margin-bottom:0.4rem}
+input[type="text"],input[type="number"],select,textarea{width:100%;padding:0.75rem 1rem;background:rgba(10,10,15,0.6);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:0.9rem;font-family:var(--font);outline:none;transition:border-color 0.2s}
+input:focus,select:focus,textarea:focus{border-color:var(--accent)}
+.btn{padding:0.75rem 2rem;border:none;border-radius:10px;font-size:0.9rem;font-weight:700;cursor:pointer;transition:all 0.2s;font-family:var(--font)}
+.btn-primary{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);color:#000}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 4px 20px rgba(255,95,31,0.3)}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--text-dim)}
+.btn-outline:hover{border-color:var(--accent);color:var(--accent)}
+.btn-sm{padding:0.5rem 1rem;font-size:0.8rem}
+.toast{position:fixed;bottom:2rem;right:2rem;padding:0.75rem 1.5rem;background:rgba(57,211,83,0.95);color:#000;font-weight:700;font-size:0.85rem;border-radius:10px;z-index:2000;transform:translateY(100px);opacity:0;transition:all 0.3s;pointer-events:none}
+.toast.show{transform:translateY(0);opacity:1}
+.share-cta{background:linear-gradient(135deg,rgba(255,95,31,0.08),rgba(255,159,31,0.05));border:1px solid rgba(255,95,31,0.2);border-radius:16px;padding:2rem;text-align:center;margin-top:2rem}
+.share-cta h3{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:0.5rem;font-size:1.1rem}
+.share-cta p{color:var(--text-dim);font-size:0.9rem;margin-bottom:1rem}
+.footer{text-align:center;padding:2rem;border-top:1px solid rgba(255,95,31,0.1);color:var(--text-dim);font-size:0.75rem;margin-top:3rem}
+.footer a{color:var(--accent)}.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-bottom:1rem}
+
+/* Aspect Ratio specific */
+.calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+.input-group{margin-bottom:1rem}
+.input-row{display:flex;gap:0.75rem;align-items:end}
+.input-row .input-group{flex:1;margin-bottom:0}
+.presets-grid{display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:1rem}
+.preset-btn{padding:0.5rem 1rem;background:rgba(10,10,15,0.6);border:1px solid var(--border);border-radius:8px;color:var(--text-dim);font-size:0.8rem;font-weight:600;cursor:pointer;transition:all 0.2s;font-family:var(--font)}
+.preset-btn:hover,.preset-btn.active{border-color:var(--accent);color:var(--accent);background:rgba(255,95,31,0.1)}
+.result-box{padding:1rem;background:rgba(10,10,15,0.6);border:1px solid var(--border);border-radius:10px;margin-top:1rem}
+.result-box .label{color:var(--text-dim);font-size:0.8rem;font-weight:600}
+.result-box .value{font-size:1.3rem;font-weight:800;color:var(--accent);font-family:'SF Mono',Monaco,Consolas,monospace}
+.ratio-visual{width:100%;max-width:300px;margin:1rem auto;aspect-ratio:16/9;border:2px solid var(--accent);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--text-dim);font-size:0.85rem;transition:aspect-ratio 0.3s;position:relative;background:rgba(255,95,31,0.05)}
+.common-table{width:100%;border-collapse:collapse;margin-top:1rem}
+.common-table th,.common-table td{padding:0.5rem 0.75rem;text-align:left;border-bottom:1px solid var(--border);font-size:0.85rem}
+.common-table th{color:var(--accent);font-weight:700;font-size:0.8rem;text-transform:uppercase;letter-spacing:0.5px}
+.common-table td{color:var(--text-dim)}
+.common-table tr:hover td{color:var(--text)}
+.common-table .clickable{cursor:pointer;transition:all 0.2s}.common-table .clickable:hover{background:rgba(255,95,31,0.05)}
+
+@media(max-width:768px){.main{padding:1rem}.hero-section h1{font-size:1.6rem}.calc-grid{grid-template-columns:1fr}.input-row{flex-direction:column}.nav-links{display:none}}
+</style>
+</head>
+<body>
+<div class="bg-mesh"></div>
+<div class="lock-gate" id="lockGate">
+  <div class="lock-icon-big">&#128274;</div>
+  <h2>Enter Code <span>SPUNK</span> to Unlock</h2>
+  <p>This is an exclusive premium tool. Enter the referral code to get instant access.</p>
+  <div class="code-input-wrap">
+    <input type="text" class="code-input" id="codeInput" placeholder="CODE" maxlength="10" autocomplete="off">
+    <button class="code-submit" onclick="submitCode()">Unlock</button>
+  </div>
+  <div class="code-error" id="codeError"></div>
+  <div class="lock-hint">Get the code at <a href="https://spunk.codes/exclusive/">spunk.codes/exclusive/</a></div>
+</div>
+
+<nav class="nav">
+  <a href="https://spunk.codes" class="nav-brand">SPUNK.CODES</a>
+  <div class="nav-links">
+    <a href="/store">Tools</a>
+    <a href="/exclusive/" class="active">Exclusive</a>
+    <a href="/store#ebook">Ebooks</a>
+    <a href="/blog">Blog</a>
+  </div>
+</nav>
+
+<div class="main">
+  <section class="hero-section">
+    <div class="exclusive-badge">&#9889; EXCLUSIVE TOOL</div>
+    <h1>Aspect Ratio <span class="grad">Calculator</span></h1>
+    <p>Calculate and convert aspect ratios, resize dimensions proportionally. Presets for every standard ratio with pixel lookup table.</p>
+  </section>
+
+  <div class="tool-section">
+    <h2>&#128208; Ratio Presets</h2>
+    <div class="presets-grid">
+      <button class="preset-btn active" onclick="setPreset(16,9,this)">16:9 Widescreen</button>
+      <button class="preset-btn" onclick="setPreset(4,3,this)">4:3 Standard</button>
+      <button class="preset-btn" onclick="setPreset(1,1,this)">1:1 Square</button>
+      <button class="preset-btn" onclick="setPreset(9,16,this)">9:16 Portrait</button>
+      <button class="preset-btn" onclick="setPreset(21,9,this)">21:9 Ultrawide</button>
+      <button class="preset-btn" onclick="setPreset(3,2,this)">3:2 Photo</button>
+      <button class="preset-btn" onclick="setPreset(5,4,this)">5:4 Monitor</button>
+      <button class="preset-btn" onclick="setPreset(2,1,this)">2:1 Univisium</button>
+      <button class="preset-btn" onclick="setPreset(4,5,this)">4:5 Instagram</button>
+      <button class="preset-btn" onclick="setPreset(2,3,this)">2:3 Poster</button>
+    </div>
+  </div>
+
+  <div class="tool-section">
+    <h2>&#128290; Calculate Dimensions</h2>
+    <div class="calc-grid">
+      <div>
+        <div class="input-group">
+          <label>Ratio Width (W)</label>
+          <input type="number" id="ratioW" value="16" min="1" oninput="calculate()">
+        </div>
+        <div class="input-group">
+          <label>Ratio Height (H)</label>
+          <input type="number" id="ratioH" value="9" min="1" oninput="calculate()">
+        </div>
+        <div class="result-box">
+          <div class="label">Simplified Ratio</div>
+          <div class="value" id="simplifiedRatio">16:9</div>
+        </div>
+        <div class="result-box" style="margin-top:0.5rem">
+          <div class="label">Decimal Value</div>
+          <div class="value" id="decimalValue">1.7778</div>
+        </div>
+      </div>
+      <div>
+        <p style="color:var(--text-dim);font-size:0.85rem;margin-bottom:1rem">Enter a known width or height to calculate the other dimension proportionally.</p>
+        <div class="input-group">
+          <label>Known Width (px)</label>
+          <input type="number" id="knownWidth" value="1920" min="1" oninput="calcFromWidth()">
+        </div>
+        <div class="result-box">
+          <div class="label">Calculated Height</div>
+          <div class="value" id="calcHeight">1080 px</div>
+        </div>
+        <div class="input-group" style="margin-top:1rem">
+          <label>Known Height (px)</label>
+          <input type="number" id="knownHeight" value="1080" min="1" oninput="calcFromHeight()">
+        </div>
+        <div class="result-box">
+          <div class="label">Calculated Width</div>
+          <div class="value" id="calcWidth">1920 px</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tool-section">
+    <h2>&#128065; Visual Preview</h2>
+    <div class="ratio-visual" id="ratioVisual">
+      <span id="ratioVisualText">16:9</span>
+    </div>
+    <p style="text-align:center;color:var(--text-dim);font-size:0.8rem;margin-top:0.5rem">Visual representation of the current aspect ratio (not to pixel scale)</p>
+  </div>
+
+  <div class="tool-section">
+    <h2>&#128196; Detect Ratio from Pixels</h2>
+    <p style="color:var(--text-dim);font-size:0.85rem;margin-bottom:1rem">Enter pixel dimensions to find the closest standard aspect ratio.</p>
+    <div class="input-row">
+      <div class="input-group">
+        <label>Width (px)</label>
+        <input type="number" id="detectW" value="1920" min="1" oninput="detectRatio()">
+      </div>
+      <div class="input-group">
+        <label>Height (px)</label>
+        <input type="number" id="detectH" value="1080" min="1" oninput="detectRatio()">
+      </div>
+    </div>
+    <div class="result-box" style="margin-top:1rem">
+      <div class="label">Detected Ratio</div>
+      <div class="value" id="detectedRatio">16:9</div>
+    </div>
+    <div class="result-box" style="margin-top:0.5rem">
+      <div class="label">Total Pixels</div>
+      <div class="value" id="totalPixels">2,073,600</div>
+    </div>
+  </div>
+
+  <div class="tool-section">
+    <h2>&#128202; Common Resolution Lookup</h2>
+    <table class="common-table">
+      <thead>
+        <tr><th>Name</th><th>Resolution</th><th>Ratio</th><th>Megapixels</th></tr>
+      </thead>
+      <tbody id="resolutionTable"></tbody>
+    </table>
+  </div>
+
+  <div class="share-cta">
+    <h3>More Exclusive Tools</h3>
+    <p>Color pickers, diff checkers, timestamp tools, and more -- all free with code SPUNK.</p>
+    <a href="https://spunk.codes/exclusive/" class="btn btn-primary">Browse All Exclusive Tools</a>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<footer class="footer">
+  <div class="footer-links">
+    <a href="https://spunk.codes">spunk.codes</a>
+    <a href="https://spunk.bet">spunk.bet</a>
+    <a href="https://spunk.work">spunk.work</a>
+    <a href="https://spunk.pics">spunk.pics</a>
+  </div>
+  &copy; 2026 SPUNK.CODES -- Built for builders.
+</footer>
+
+<script>
+/* Lock gate */
+function submitCode(){
+  const v=document.getElementById('codeInput').value.trim().toUpperCase();
+  if(v==='SPUNK'){document.getElementById('lockGate').classList.add('hidden');localStorage.setItem('spunk_unlocked','1');}
+  else{document.getElementById('codeError').textContent='Invalid code. Try again.';}
+}
+document.getElementById('codeInput').addEventListener('keydown',e=>{if(e.key==='Enter')submitCode();});
+if(localStorage.getItem('spunk_unlocked')==='1')document.getElementById('lockGate').classList.add('hidden');
+
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2000);}
+
+/* GCD helper */
+function gcd(a,b){a=Math.abs(a);b=Math.abs(b);while(b){[a,b]=[b,a%b];}return a;}
+
+/* Presets */
+function setPreset(w,h,btn){
+  document.querySelectorAll('.preset-btn').forEach(b=>b.classList.remove('active'));
+  if(btn)btn.classList.add('active');
+  document.getElementById('ratioW').value=w;
+  document.getElementById('ratioH').value=h;
+  calculate();
+}
+
+/* Main calculate */
+function calculate(){
+  const w=parseInt(document.getElementById('ratioW').value)||1;
+  const h=parseInt(document.getElementById('ratioH').value)||1;
+  const g=gcd(w,h);
+  const sw=w/g, sh=h/g;
+  document.getElementById('simplifiedRatio').textContent=sw+':'+sh;
+  document.getElementById('decimalValue').textContent=(w/h).toFixed(4);
+
+  // Update visual
+  const vis=document.getElementById('ratioVisual');
+  vis.style.aspectRatio=w+'/'+h;
+  document.getElementById('ratioVisualText').textContent=sw+':'+sh;
+
+  calcFromWidth();
+  calcFromHeight();
+}
+
+function calcFromWidth(){
+  const rw=parseInt(document.getElementById('ratioW').value)||1;
+  const rh=parseInt(document.getElementById('ratioH').value)||1;
+  const kw=parseInt(document.getElementById('knownWidth').value)||0;
+  const ch=Math.round(kw*(rh/rw));
+  document.getElementById('calcHeight').textContent=ch.toLocaleString()+' px';
+}
+
+function calcFromHeight(){
+  const rw=parseInt(document.getElementById('ratioW').value)||1;
+  const rh=parseInt(document.getElementById('ratioH').value)||1;
+  const kh=parseInt(document.getElementById('knownHeight').value)||0;
+  const cw=Math.round(kh*(rw/rh));
+  document.getElementById('calcWidth').textContent=cw.toLocaleString()+' px';
+}
+
+/* Detect ratio */
+const standardRatios=[
+  [1,1,'1:1'],[4,3,'4:3'],[3,2,'3:2'],[5,4,'5:4'],[16,9,'16:9'],[16,10,'16:10'],
+  [21,9,'21:9'],[2,1,'2:1'],[9,16,'9:16'],[3,4,'3:4'],[2,3,'2:3'],[4,5,'4:5'],
+  [5,3,'5:3'],[32,9,'32:9'],[18,9,'18:9']
+];
+
+function detectRatio(){
+  const w=parseInt(document.getElementById('detectW').value)||1;
+  const h=parseInt(document.getElementById('detectH').value)||1;
+  const g=gcd(w,h);
+  const exactW=w/g, exactH=h/g;
+  const decimal=w/h;
+
+  // Find closest standard ratio
+  let closest='', minDiff=Infinity;
+  for(const [rw,rh,name] of standardRatios){
+    const diff=Math.abs(decimal-(rw/rh));
+    if(diff<minDiff){minDiff=diff;closest=name;}
+  }
+
+  const exactStr=exactW+':'+exactH;
+  const display=minDiff<0.02? closest+' (exact: '+exactStr+')' : exactStr;
+  document.getElementById('detectedRatio').textContent=display;
+  document.getElementById('totalPixels').textContent=(w*h).toLocaleString();
+}
+
+/* Resolution table */
+const resolutions=[
+  ['SD (480p)','640 x 480','4:3',0.31],
+  ['HD (720p)','1280 x 720','16:9',0.92],
+  ['Full HD (1080p)','1920 x 1080','16:9',2.07],
+  ['2K (QHD)','2560 x 1440','16:9',3.69],
+  ['4K (UHD)','3840 x 2160','16:9',8.29],
+  ['8K (UHD)','7680 x 4320','16:9',33.18],
+  ['Instagram Post','1080 x 1080','1:1',1.17],
+  ['Instagram Story','1080 x 1920','9:16',2.07],
+  ['Twitter Header','1500 x 500','3:1',0.75],
+  ['Facebook Cover','820 x 312','~2.63:1',0.26],
+  ['YouTube Thumbnail','1280 x 720','16:9',0.92],
+  ['iPhone 15 Pro','1179 x 2556','~9:19.5',3.01],
+  ['MacBook Pro 16"','3456 x 2234','~3:2',7.72],
+  ['A4 Paper (300dpi)','2480 x 3508','~1:1.41',8.70]
+];
+
+function buildTable(){
+  const tbody=document.getElementById('resolutionTable');
+  tbody.innerHTML=resolutions.map(([name,res,ratio,mp])=>
+    `<tr class="clickable" onclick="applyResolution('${res}')"><td>${name}</td><td style="font-family:'SF Mono',Monaco,Consolas,monospace;color:var(--text)">${res}</td><td>${ratio}</td><td>${mp.toFixed(2)} MP</td></tr>`
+  ).join('');
+}
+
+function applyResolution(res){
+  const [w,h]=res.split(' x ').map(Number);
+  document.getElementById('detectW').value=w;
+  document.getElementById('detectH').value=h;
+  detectRatio();
+  showToast('Applied: '+res);
+}
+
+/* Init */
+buildTable();
+calculate();
+detectRatio();
+</script>
+</body>
+</html>
