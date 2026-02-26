@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Color Picker | SPUNK.CODES Exclusive</title>
+<meta name="description" content="Advanced color picker with HEX, RGB, HSL, CMYK conversion. Eyedropper tool, color history, copy any format instantly. Free online tool.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Color Picker - SPUNK.CODES Exclusive">
+<meta property="og:description" content="Advanced color picker with HEX, RGB, HSL, CMYK. Eyedropper, color history, copy any format.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://spunk.codes/exclusive/color-picker">
+<meta property="og:site_name" content="Spunk Codes">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/color-picker">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Color Picker","applicationCategory":"DesignApplication","operatingSystem":"Web","description":"Advanced color picker with HEX, RGB, HSL, CMYK conversion. Eyedropper tool, color history, copy any format.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Organization","name":"Spunk Codes","url":"https://spunk.codes"}}</script>
+<!-- GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<!-- Clarity -->
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<script src="https://spunk.codes/heartbeat.js" defer></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0a0a0f;--card:rgba(18,18,28,0.85);--border:rgba(50,50,70,0.5);--accent:#ff5f1f;--accent2:#ff9f1f;--text:#e8e8f0;--text-dim:#8b8b9e;--green:#39d353;--red:#f85149;--blue:#58a6ff;--purple:#a855f7;--font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+a{color:var(--blue);text-decoration:none}a:hover{color:#fff}
+.bg-mesh{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 80% 50% at 20% 20%,rgba(255,95,31,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(255,159,31,0.04) 0%,transparent 60%),var(--bg)}
+.nav{position:sticky;top:0;z-index:100;background:rgba(10,10,15,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,95,31,0.15);padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}
+.nav-brand{font-weight:800;font-size:1.1rem;background:linear-gradient(135deg,#ff5f1f,#ff9f1f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:0.08em}
+.nav-links{display:flex;gap:1.5rem;font-size:0.85rem;list-style:none}.nav-links a{color:var(--text-dim);transition:color 0.2s;font-weight:500}.nav-links a:hover{color:#fff}.nav-links a.active{color:var(--accent)}
+.lock-gate{position:fixed;inset:0;z-index:1000;background:rgba(10,10,15,0.97);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:2rem}.lock-gate.hidden{display:none}
+.lock-icon-big{font-size:4rem;margin-bottom:0.5rem}.lock-gate h2{font-size:1.8rem;font-weight:800;text-align:center}.lock-gate h2 span{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.lock-gate p{color:var(--text-dim);text-align:center;max-width:400px}
+.code-input-wrap{display:flex;gap:0.5rem;margin-top:0.5rem}.code-input{padding:0.8rem 1.5rem;background:rgba(18,18,28,0.8);border:2px solid rgba(255,95,31,0.3);border-radius:12px;color:var(--accent);font-size:1.2rem;font-weight:800;letter-spacing:3px;text-align:center;width:200px;outline:none;text-transform:uppercase;font-family:var(--font)}.code-input:focus{border-color:var(--accent);box-shadow:0 0 20px rgba(255,95,31,0.2)}
+.code-submit{padding:0.8rem 1.5rem;background:linear-gradient(135deg,#ff5f1f,#ff9f1f);border:none;border-radius:12px;color:#000;font-size:1rem;font-weight:800;cursor:pointer;transition:all 0.3s}.code-submit:hover{transform:scale(1.05)}
+.code-error{color:#f85149;font-size:0.85rem;min-height:1.2em}
+.lock-hint{color:var(--text-dim);font-size:0.8rem;margin-top:1rem}.lock-hint a{color:var(--accent)}
+.exclusive-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;background:linear-gradient(135deg,rgba(255,95,31,0.15),rgba(255,159,31,0.15));border:1px solid rgba(255,95,31,0.3);border-radius:100px;font-size:11px;font-weight:800;color:var(--accent);letter-spacing:1.5px;text-transform:uppercase}
+.main{max-width:1000px;margin:0 auto;padding:2rem}
+.hero-section{text-align:center;padding:2rem 0 2rem}
+.hero-section h1{font-size:2.2rem;font-weight:800;margin:1rem 0 0.5rem}
+.hero-section h1 .grad{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-section p{color:var(--text-dim);max-width:600px;margin:0 auto}
+.tool-section{background:var(--card);border:1px solid rgba(255,95,31,0.2);border-radius:16px;padding:2rem;margin-bottom:1.5rem;backdrop-filter:blur(10px);position:relative;overflow:hidden}
+.tool-section::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#ff5f1f,#ff9f1f,#ff5f1f)}
+.tool-section h2{font-size:1.2rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}
+label{font-size:0.85rem;color:var(--text-dim);font-weight:600;display:block;margin-bottom:0.4rem}
+input[type="text"],input[type="number"],select,textarea{width:100%;padding:0.75rem 1rem;background:rgba(10,10,15,0.6);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:0.9rem;font-family:var(--font);outline:none;transition:border-color 0.2s}
+input:focus,select:focus,textarea:focus{border-color:var(--accent)}
+.btn{padding:0.75rem 2rem;border:none;border-radius:10px;font-size:0.9rem;font-weight:700;cursor:pointer;transition:all 0.2s;font-family:var(--font)}
+.btn-primary{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);color:#000}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 4px 20px rgba(255,95,31,0.3)}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--text-dim)}
+.btn-outline:hover{border-color:var(--accent);color:var(--accent)}
+.btn-sm{padding:0.5rem 1rem;font-size:0.8rem}
+.toast{position:fixed;bottom:2rem;right:2rem;padding:0.75rem 1.5rem;background:rgba(57,211,83,0.95);color:#000;font-weight:700;font-size:0.85rem;border-radius:10px;z-index:2000;transform:translateY(100px);opacity:0;transition:all 0.3s;pointer-events:none}
+.toast.show{transform:translateY(0);opacity:1}
+.share-cta{background:linear-gradient(135deg,rgba(255,95,31,0.08),rgba(255,159,31,0.05));border:1px solid rgba(255,95,31,0.2);border-radius:16px;padding:2rem;text-align:center;margin-top:2rem}
+.share-cta h3{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:0.5rem;font-size:1.1rem}
+.share-cta p{color:var(--text-dim);font-size:0.9rem;margin-bottom:1rem}
+.footer{text-align:center;padding:2rem;border-top:1px solid rgba(255,95,31,0.1);color:var(--text-dim);font-size:0.75rem;margin-top:3rem}
+.footer a{color:var(--accent)}.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-bottom:1rem}
+
+/* Color Picker specific */
+.picker-layout{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+.color-preview{width:100%;aspect-ratio:1;border-radius:16px;border:2px solid var(--border);cursor:crosshair;position:relative;overflow:hidden}
+.color-preview-inner{width:100%;height:100%;transition:background 0.15s}
+.format-row{display:flex;gap:0.5rem;align-items:center;margin-bottom:0.75rem}
+.format-row label{min-width:50px;margin-bottom:0;font-weight:700;font-size:0.8rem;color:var(--accent)}
+.format-row input{flex:1;font-family:'SF Mono',Monaco,Consolas,monospace;font-size:0.85rem}
+.format-row .btn-sm{white-space:nowrap;flex-shrink:0}
+.slider-group{margin-bottom:1rem}
+.slider-group label{margin-bottom:0.3rem}
+.slider-group input[type="range"]{width:100%;height:8px;-webkit-appearance:none;appearance:none;border-radius:4px;outline:none;cursor:pointer;border:none;padding:0}
+.slider-group input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:18px;height:18px;border-radius:50%;background:#fff;border:2px solid var(--accent);cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,0.4)}
+.hue-slider{background:linear-gradient(to right,#f00,#ff0,#0f0,#0ff,#00f,#f0f,#f00)!important}
+.sat-slider{background:linear-gradient(to right,#888,var(--accent))!important}
+.light-slider{background:linear-gradient(to right,#000,#888,#fff)!important}
+.history-grid{display:flex;flex-wrap:wrap;gap:6px;margin-top:0.75rem}
+.history-swatch{width:36px;height:36px;border-radius:8px;border:2px solid var(--border);cursor:pointer;transition:all 0.2s}
+.history-swatch:hover{transform:scale(1.15);border-color:var(--accent)}
+.eyedropper-btn{display:inline-flex;align-items:center;gap:6px;margin-bottom:1rem}
+
+@media(max-width:768px){.main{padding:1rem}.hero-section h1{font-size:1.6rem}.picker-layout{grid-template-columns:1fr}.nav-links{display:none}}
+</style>
+</head>
+<body>
+<div class="bg-mesh"></div>
+<div class="lock-gate" id="lockGate">
+  <div class="lock-icon-big">&#128274;</div>
+  <h2>Enter Code <span>SPUNK</span> to Unlock</h2>
+  <p>This is an exclusive premium tool. Enter the referral code to get instant access.</p>
+  <div class="code-input-wrap">
+    <input type="text" class="code-input" id="codeInput" placeholder="CODE" maxlength="10" autocomplete="off">
+    <button class="code-submit" onclick="submitCode()">Unlock</button>
+  </div>
+  <div class="code-error" id="codeError"></div>
+  <div class="lock-hint">Get the code at <a href="https://spunk.codes/exclusive/">spunk.codes/exclusive/</a></div>
+</div>
+
+<nav class="nav">
+  <a href="https://spunk.codes" class="nav-brand">SPUNK.CODES</a>
+  <div class="nav-links">
+    <a href="/store">Tools</a>
+    <a href="/exclusive/" class="active">Exclusive</a>
+    <a href="/store#ebook">Ebooks</a>
+    <a href="/blog">Blog</a>
+  </div>
+</nav>
+
+<div class="main">
+  <section class="hero-section">
+    <div class="exclusive-badge">&#9889; EXCLUSIVE TOOL</div>
+    <h1>Color <span class="grad">Picker</span></h1>
+    <p>Advanced color picker with HEX, RGB, HSL, and CMYK conversion. Eyedropper tool, color history, and one-click copy in any format.</p>
+  </section>
+
+  <div class="tool-section">
+    <h2>&#127912; Pick Your Color</h2>
+    <button class="btn btn-outline btn-sm eyedropper-btn" id="eyedropperBtn" onclick="useEyedropper()">&#128065; Eyedropper (pick from screen)</button>
+    <div class="picker-layout">
+      <div>
+        <div class="color-preview" id="colorPreview">
+          <div class="color-preview-inner" id="colorPreviewInner"></div>
+        </div>
+        <div style="margin-top:1rem">
+          <label>Quick HEX Input</label>
+          <input type="text" id="hexDirectInput" placeholder="#ff5f1f" value="#ff5f1f" oninput="fromHexInput(this.value)" style="font-family:'SF Mono',Monaco,Consolas,monospace;text-align:center;font-size:1.1rem;font-weight:700">
+        </div>
+      </div>
+      <div>
+        <div class="slider-group">
+          <label>Hue: <span id="hueVal">15</span>&deg;</label>
+          <input type="range" class="hue-slider" id="hueSlider" min="0" max="360" value="15" oninput="fromSliders()">
+        </div>
+        <div class="slider-group">
+          <label>Saturation: <span id="satVal">100</span>%</label>
+          <input type="range" class="sat-slider" id="satSlider" min="0" max="100" value="100" oninput="fromSliders()">
+        </div>
+        <div class="slider-group">
+          <label>Lightness: <span id="lightVal">56</span>%</label>
+          <input type="range" class="light-slider" id="lightSlider" min="0" max="100" value="56" oninput="fromSliders()">
+        </div>
+        <div class="slider-group">
+          <label>Alpha: <span id="alphaVal">100</span>%</label>
+          <input type="range" id="alphaSlider" min="0" max="100" value="100" oninput="fromSliders()" style="background:linear-gradient(to right,transparent,var(--accent))">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tool-section">
+    <h2>&#128196; Color Formats</h2>
+    <div class="format-row"><label>HEX</label><input type="text" id="fmtHex" readonly><button class="btn btn-primary btn-sm" onclick="copyFmt('fmtHex')">Copy</button></div>
+    <div class="format-row"><label>RGB</label><input type="text" id="fmtRgb" readonly><button class="btn btn-primary btn-sm" onclick="copyFmt('fmtRgb')">Copy</button></div>
+    <div class="format-row"><label>RGBA</label><input type="text" id="fmtRgba" readonly><button class="btn btn-primary btn-sm" onclick="copyFmt('fmtRgba')">Copy</button></div>
+    <div class="format-row"><label>HSL</label><input type="text" id="fmtHsl" readonly><button class="btn btn-primary btn-sm" onclick="copyFmt('fmtHsl')">Copy</button></div>
+    <div class="format-row"><label>HSLA</label><input type="text" id="fmtHsla" readonly><button class="btn btn-primary btn-sm" onclick="copyFmt('fmtHsla')">Copy</button></div>
+    <div class="format-row"><label>CMYK</label><input type="text" id="fmtCmyk" readonly><button class="btn btn-primary btn-sm" onclick="copyFmt('fmtCmyk')">Copy</button></div>
+  </div>
+
+  <div class="tool-section">
+    <h2>&#128340; Color History</h2>
+    <p style="color:var(--text-dim);font-size:0.85rem;margin-bottom:0.5rem">Click a swatch to reuse it. History persists in your browser.</p>
+    <div class="history-grid" id="historyGrid"></div>
+    <button class="btn btn-outline btn-sm" onclick="clearHistory()" style="margin-top:0.75rem">Clear History</button>
+  </div>
+
+  <div class="share-cta">
+    <h3>More Exclusive Tools</h3>
+    <p>Unit converters, diff checkers, timestamp tools, and more -- all free with code SPUNK.</p>
+    <a href="https://spunk.codes/exclusive/" class="btn btn-primary">Browse All Exclusive Tools</a>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<footer class="footer">
+  <div class="footer-links">
+    <a href="https://spunk.codes">spunk.codes</a>
+    <a href="https://spunk.bet">spunk.bet</a>
+    <a href="https://spunk.work">spunk.work</a>
+    <a href="https://spunk.pics">spunk.pics</a>
+  </div>
+  &copy; 2026 SPUNK.CODES -- Built for builders.
+</footer>
+
+<script>
+/* Lock gate */
+function submitCode(){
+  const v=document.getElementById('codeInput').value.trim().toUpperCase();
+  if(v==='SPUNK'){document.getElementById('lockGate').classList.add('hidden');localStorage.setItem('spunk_unlocked','1');}
+  else{document.getElementById('codeError').textContent='Invalid code. Try again.';}
+}
+document.getElementById('codeInput').addEventListener('keydown',e=>{if(e.key==='Enter')submitCode();});
+if(localStorage.getItem('spunk_unlocked')==='1')document.getElementById('lockGate').classList.add('hidden');
+
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2000);}
+function copyFmt(id){const v=document.getElementById(id).value;navigator.clipboard.writeText(v);showToast('Copied: '+v);}
+
+/* Color state */
+let hue=15,sat=100,light=56,alpha=100;
+let history=JSON.parse(localStorage.getItem('spunk_color_history')||'[]');
+
+function hslToRgb(h,s,l){
+  s/=100;l/=100;
+  const a=s*Math.min(l,1-l);
+  const f=n=>{const k=(n+h/30)%12;return l-a*Math.max(Math.min(k-3,9-k,1),-1);};
+  return [Math.round(f(0)*255),Math.round(f(8)*255),Math.round(f(4)*255)];
+}
+
+function rgbToHsl(r,g,b){
+  r/=255;g/=255;b/=255;
+  const max=Math.max(r,g,b),min=Math.min(r,g,b);
+  let h,s,l=(max+min)/2;
+  if(max===min){h=s=0;}
+  else{
+    const d=max-min;
+    s=l>0.5?d/(2-max-min):d/(max+min);
+    switch(max){
+      case r:h=((g-b)/d+(g<b?6:0))/6;break;
+      case g:h=((b-r)/d+2)/6;break;
+      case b:h=((r-g)/d+4)/6;break;
+    }
+    h*=360;
+  }
+  return [Math.round(h),Math.round(s*100),Math.round(l*100)];
+}
+
+function rgbToCmyk(r,g,b){
+  if(r===0&&g===0&&b===0)return[0,0,0,100];
+  const c1=1-r/255,m1=1-g/255,y1=1-b/255;
+  const k=Math.min(c1,m1,y1);
+  return [Math.round((c1-k)/(1-k)*100),Math.round((m1-k)/(1-k)*100),Math.round((y1-k)/(1-k)*100),Math.round(k*100)];
+}
+
+function rgbToHex(r,g,b){return '#'+[r,g,b].map(x=>x.toString(16).padStart(2,'0')).join('');}
+
+function hexToRgb(hex){
+  hex=hex.replace('#','');
+  if(hex.length===3)hex=hex.split('').map(c=>c+c).join('');
+  if(hex.length!==6)return null;
+  const n=parseInt(hex,16);
+  return [(n>>16)&255,(n>>8)&255,n&255];
+}
+
+function updateAll(){
+  const [r,g,b]=hslToRgb(hue,sat,light);
+  const a=alpha/100;
+  const hex=rgbToHex(r,g,b);
+  const [c,m,y,k]=rgbToCmyk(r,g,b);
+
+  document.getElementById('colorPreviewInner').style.background=`hsla(${hue},${sat}%,${light}%,${a})`;
+  document.getElementById('hexDirectInput').value=hex;
+
+  document.getElementById('fmtHex').value=hex;
+  document.getElementById('fmtRgb').value=`rgb(${r}, ${g}, ${b})`;
+  document.getElementById('fmtRgba').value=`rgba(${r}, ${g}, ${b}, ${a})`;
+  document.getElementById('fmtHsl').value=`hsl(${hue}, ${sat}%, ${light}%)`;
+  document.getElementById('fmtHsla').value=`hsla(${hue}, ${sat}%, ${light}%, ${a})`;
+  document.getElementById('fmtCmyk').value=`cmyk(${c}%, ${m}%, ${y}%, ${k}%)`;
+
+  document.getElementById('hueVal').textContent=hue;
+  document.getElementById('satVal').textContent=sat;
+  document.getElementById('lightVal').textContent=light;
+  document.getElementById('alphaVal').textContent=alpha;
+
+  // Add to history
+  if(!history.includes(hex)){
+    history.unshift(hex);
+    if(history.length>30)history.pop();
+    localStorage.setItem('spunk_color_history',JSON.stringify(history));
+    renderHistory();
+  }
+}
+
+function fromSliders(){
+  hue=parseInt(document.getElementById('hueSlider').value);
+  sat=parseInt(document.getElementById('satSlider').value);
+  light=parseInt(document.getElementById('lightSlider').value);
+  alpha=parseInt(document.getElementById('alphaSlider').value);
+  updateAll();
+}
+
+function fromHexInput(val){
+  const rgb=hexToRgb(val);
+  if(!rgb)return;
+  const [h,s,l]=rgbToHsl(rgb[0],rgb[1],rgb[2]);
+  hue=h;sat=s;light=l;
+  document.getElementById('hueSlider').value=hue;
+  document.getElementById('satSlider').value=sat;
+  document.getElementById('lightSlider').value=light;
+  updateAll();
+}
+
+function setFromHex(hex){
+  fromHexInput(hex);
+  document.getElementById('hexDirectInput').value=hex;
+}
+
+function renderHistory(){
+  const grid=document.getElementById('historyGrid');
+  grid.innerHTML=history.map(c=>`<div class="history-swatch" style="background:${c}" title="${c}" onclick="setFromHex('${c}')"></div>`).join('');
+}
+
+function clearHistory(){history=[];localStorage.removeItem('spunk_color_history');renderHistory();showToast('History cleared');}
+
+async function useEyedropper(){
+  if(!window.EyeDropper){showToast('Eyedropper not supported in this browser');return;}
+  try{
+    const dropper=new EyeDropper();
+    const result=await dropper.open();
+    setFromHex(result.sRGBHex);
+    showToast('Color picked: '+result.sRGBHex);
+  }catch(e){}
+}
+
+// Check eyedropper support
+if(!window.EyeDropper)document.getElementById('eyedropperBtn').style.display='none';
+
+// Init
+renderHistory();
+updateAll();
+</script>
+</body>
+</html>
