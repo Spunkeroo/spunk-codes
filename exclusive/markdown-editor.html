@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Markdown Editor | SPUNK.CODES Exclusive</title>
+<meta name="description" content="Split-pane Markdown editor with live preview, GFM support, toolbar shortcuts, and export to HTML or Markdown. Free online tool.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Markdown Editor - SPUNK.CODES Exclusive">
+<meta property="og:description" content="Split-pane Markdown editor with live preview, GFM support, toolbar, and export to HTML/MD.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://spunk.codes/exclusive/markdown-editor">
+<meta property="og:site_name" content="Spunk Codes">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/markdown-editor">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Markdown Editor","applicationCategory":"UtilitiesApplication","operatingSystem":"Web","description":"Split-pane Markdown editor with live preview, GFM support, toolbar shortcuts, and export to HTML or Markdown.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Organization","name":"Spunk Codes","url":"https://spunk.codes"}}</script>
+<!-- GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<!-- Clarity -->
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<script src="https://spunk.codes/heartbeat.js" defer></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0a0a0f;--card:rgba(18,18,28,0.85);--border:rgba(50,50,70,0.5);--accent:#ff5f1f;--accent2:#ff9f1f;--text:#e8e8f0;--text-dim:#8b8b9e;--green:#39d353;--red:#f85149;--blue:#58a6ff;--purple:#a855f7;--font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+a{color:var(--blue);text-decoration:none}a:hover{color:#fff}
+.bg-mesh{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 80% 50% at 20% 20%,rgba(255,95,31,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(255,159,31,0.04) 0%,transparent 60%),var(--bg)}
+.nav{position:sticky;top:0;z-index:100;background:rgba(10,10,15,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,95,31,0.15);padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}
+.nav-brand{font-weight:800;font-size:1.1rem;background:linear-gradient(135deg,#ff5f1f,#ff9f1f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:0.08em}
+.nav-links{display:flex;gap:1.5rem;font-size:0.85rem;list-style:none}.nav-links a{color:var(--text-dim);transition:color 0.2s;font-weight:500}.nav-links a:hover{color:#fff}.nav-links a.active{color:var(--accent)}
+.lock-gate{position:fixed;inset:0;z-index:1000;background:rgba(10,10,15,0.97);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:2rem}.lock-gate.hidden{display:none}
+.lock-icon-big{font-size:4rem;margin-bottom:0.5rem}.lock-gate h2{font-size:1.8rem;font-weight:800;text-align:center}.lock-gate h2 span{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.lock-gate p{color:var(--text-dim);text-align:center;max-width:400px}
+.code-input-wrap{display:flex;gap:0.5rem;margin-top:0.5rem}.code-input{padding:0.8rem 1.5rem;background:rgba(18,18,28,0.8);border:2px solid rgba(255,95,31,0.3);border-radius:12px;color:var(--accent);font-size:1.2rem;font-weight:800;letter-spacing:3px;text-align:center;width:200px;outline:none;text-transform:uppercase;font-family:var(--font)}.code-input:focus{border-color:var(--accent);box-shadow:0 0 20px rgba(255,95,31,0.2)}
+.code-submit{padding:0.8rem 1.5rem;background:linear-gradient(135deg,#ff5f1f,#ff9f1f);border:none;border-radius:12px;color:#000;font-size:1rem;font-weight:800;cursor:pointer;transition:all 0.3s}.code-submit:hover{transform:scale(1.05)}
+.code-error{color:#f85149;font-size:0.85rem;min-height:1.2em}
+.lock-hint{color:var(--text-dim);font-size:0.8rem;margin-top:1rem}.lock-hint a{color:var(--accent)}
+.exclusive-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;background:linear-gradient(135deg,rgba(255,95,31,0.15),rgba(255,159,31,0.15));border:1px solid rgba(255,95,31,0.3);border-radius:100px;font-size:11px;font-weight:800;color:var(--accent);letter-spacing:1.5px;text-transform:uppercase}
+.main{max-width:1200px;margin:0 auto;padding:2rem}
+.hero-section{text-align:center;padding:2rem 0 2rem}
+.hero-section h1{font-size:2.2rem;font-weight:800;margin:1rem 0 0.5rem}
+.hero-section h1 .grad{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-section p{color:var(--text-dim);max-width:600px;margin:0 auto}
+.tool-section{background:var(--card);border:1px solid rgba(255,95,31,0.2);border-radius:16px;padding:1.5rem;margin-bottom:1.5rem;backdrop-filter:blur(10px);position:relative;overflow:hidden}
+.tool-section::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#ff5f1f,#ff9f1f,#ff5f1f)}
+.btn{padding:0.6rem 1.2rem;border:none;border-radius:10px;font-size:0.85rem;font-weight:700;cursor:pointer;transition:all 0.2s;font-family:var(--font)}
+.btn-primary{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);color:#000}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 4px 20px rgba(255,95,31,0.3)}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--text-dim)}
+.btn-outline:hover{border-color:var(--accent);color:var(--accent)}
+.btn-sm{padding:0.45rem 0.9rem;font-size:0.78rem}
+.toolbar{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:0.75rem}
+.toolbar button{width:36px;height:36px;border-radius:8px;border:1px solid var(--border);background:rgba(10,10,15,0.6);color:var(--text-dim);cursor:pointer;font-size:0.9rem;display:flex;align-items:center;justify-content:center;transition:all 0.2s;font-weight:700}
+.toolbar button:hover{border-color:var(--accent);color:var(--accent);background:rgba(255,95,31,0.1)}
+.toolbar .sep{width:1px;background:var(--border);margin:0 4px}
+.editor-wrap{display:grid;grid-template-columns:1fr 1fr;gap:1rem;min-height:500px}
+.editor-pane,.preview-pane{display:flex;flex-direction:column}
+.pane-label{font-size:0.75rem;font-weight:700;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px;margin-bottom:0.5rem;display:flex;justify-content:space-between;align-items:center}
+#mdInput{flex:1;width:100%;background:rgba(10,10,15,0.6);border:1px solid var(--border);border-radius:10px;color:var(--text);font-family:'SF Mono',Monaco,Consolas,monospace;font-size:0.85rem;padding:1rem;resize:none;outline:none;line-height:1.7;tab-size:2}
+#mdInput:focus{border-color:var(--accent)}
+#mdPreview{flex:1;background:rgba(10,10,15,0.6);border:1px solid var(--border);border-radius:10px;padding:1rem;overflow-y:auto;line-height:1.7;font-size:0.9rem}
+#mdPreview h1{font-size:1.6rem;margin:0.5rem 0;border-bottom:1px solid var(--border);padding-bottom:0.3rem}
+#mdPreview h2{font-size:1.3rem;margin:0.5rem 0;border-bottom:1px solid var(--border);padding-bottom:0.3rem}
+#mdPreview h3{font-size:1.1rem;margin:0.5rem 0}
+#mdPreview h4,#mdPreview h5,#mdPreview h6{font-size:0.95rem;margin:0.4rem 0}
+#mdPreview p{margin:0.5rem 0}
+#mdPreview code{background:rgba(255,95,31,0.1);padding:2px 6px;border-radius:4px;font-family:'SF Mono',Monaco,Consolas,monospace;font-size:0.82rem;color:var(--accent2)}
+#mdPreview pre{background:rgba(0,0,0,0.4);border:1px solid var(--border);border-radius:8px;padding:1rem;overflow-x:auto;margin:0.75rem 0}
+#mdPreview pre code{background:none;padding:0;color:var(--text)}
+#mdPreview blockquote{border-left:3px solid var(--accent);padding-left:1rem;color:var(--text-dim);margin:0.75rem 0}
+#mdPreview ul,#mdPreview ol{padding-left:1.5rem;margin:0.5rem 0}
+#mdPreview li{margin:0.2rem 0}
+#mdPreview a{color:var(--blue)}
+#mdPreview img{max-width:100%;border-radius:8px}
+#mdPreview table{width:100%;border-collapse:collapse;margin:0.75rem 0}
+#mdPreview th,#mdPreview td{border:1px solid var(--border);padding:0.5rem 0.75rem;text-align:left}
+#mdPreview th{background:rgba(255,95,31,0.08);font-weight:700}
+#mdPreview hr{border:none;border-top:1px solid var(--border);margin:1rem 0}
+#mdPreview input[type="checkbox"]{margin-right:0.5rem}
+.btn-row{display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:1rem}
+.stats-info{font-size:0.75rem;color:var(--text-dim)}
+.toast{position:fixed;bottom:2rem;right:2rem;padding:0.75rem 1.5rem;background:rgba(57,211,83,0.95);color:#000;font-weight:700;font-size:0.85rem;border-radius:10px;z-index:2000;transform:translateY(100px);opacity:0;transition:all 0.3s;pointer-events:none}
+.toast.show{transform:translateY(0);opacity:1}
+.share-cta{background:linear-gradient(135deg,rgba(255,95,31,0.08),rgba(255,159,31,0.05));border:1px solid rgba(255,95,31,0.2);border-radius:16px;padding:2rem;text-align:center;margin-top:2rem}
+.share-cta h3{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:0.5rem;font-size:1.1rem}
+.share-cta p{color:var(--text-dim);font-size:0.9rem;margin-bottom:1rem}
+.footer{text-align:center;padding:2rem;border-top:1px solid rgba(255,95,31,0.1);color:var(--text-dim);font-size:0.75rem;margin-top:3rem}
+.footer a{color:var(--accent)}.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-bottom:1rem}
+@media(max-width:768px){.main{padding:1rem}.hero-section h1{font-size:1.6rem}.editor-wrap{grid-template-columns:1fr;min-height:auto}.editor-pane,.preview-pane{min-height:300px}.nav-links{display:none}.toolbar button{width:32px;height:32px;font-size:0.8rem}}
+</style>
+</head>
+<body>
+<div class="bg-mesh"></div>
+<div class="lock-gate" id="lockGate">
+  <div class="lock-icon-big">&#128274;</div>
+  <h2>Enter Code <span>SPUNK</span> to Unlock</h2>
+  <p>This is an exclusive premium tool. Enter the referral code to get instant access.</p>
+  <div class="code-input-wrap">
+    <input type="text" class="code-input" id="codeInput" placeholder="CODE" maxlength="10" autocomplete="off">
+    <button class="code-submit" onclick="submitCode()">Unlock</button>
+  </div>
+  <div class="code-error" id="codeError"></div>
+  <div class="lock-hint">Get the code at <a href="https://spunk.codes/exclusive/">spunk.codes/exclusive/</a></div>
+</div>
+
+<nav class="nav">
+  <a href="https://spunk.codes" class="nav-brand">SPUNK.CODES</a>
+  <div class="nav-links">
+    <a href="/store">Tools</a>
+    <a href="/exclusive/" class="active">Exclusive</a>
+    <a href="/store#ebook">Ebooks</a>
+    <a href="/blog">Blog</a>
+  </div>
+</nav>
+
+<div class="main">
+  <section class="hero-section">
+    <div class="exclusive-badge">&#9889; EXCLUSIVE TOOL</div>
+    <h1>Markdown <span class="grad">Editor</span></h1>
+    <p>Split-pane editor with live preview, GitHub Flavored Markdown support, formatting toolbar, and one-click export to HTML or Markdown.</p>
+  </section>
+
+  <div class="tool-section">
+    <div class="toolbar" id="toolbar">
+      <button onclick="wrap('**','**')" title="Bold"><b>B</b></button>
+      <button onclick="wrap('*','*')" title="Italic"><i>I</i></button>
+      <button onclick="wrap('~~','~~')" title="Strikethrough"><s>S</s></button>
+      <button onclick="wrap('`','`')" title="Inline code">&lt;/&gt;</button>
+      <div class="sep"></div>
+      <button onclick="insertLine('# ')" title="Heading 1">H1</button>
+      <button onclick="insertLine('## ')" title="Heading 2">H2</button>
+      <button onclick="insertLine('### ')" title="Heading 3">H3</button>
+      <div class="sep"></div>
+      <button onclick="insertLine('- ')" title="Unordered list">&#8226;</button>
+      <button onclick="insertLine('1. ')" title="Ordered list">1.</button>
+      <button onclick="insertLine('- [ ] ')" title="Task list">&#9744;</button>
+      <div class="sep"></div>
+      <button onclick="insertLine('> ')" title="Blockquote">&#10077;</button>
+      <button onclick="insertLine('---')" title="Horizontal rule">&#8212;</button>
+      <button onclick="insertText('\n```\n\n```\n')" title="Code block">{ }</button>
+      <button onclick="insertText('[text](url)')" title="Link">&#128279;</button>
+      <button onclick="insertText('![alt](url)')" title="Image">&#128247;</button>
+      <button onclick="insertTable()" title="Table">&#9638;</button>
+    </div>
+    <div class="editor-wrap">
+      <div class="editor-pane">
+        <div class="pane-label"><span>MARKDOWN</span><span class="stats-info" id="statsInfo">0 words | 0 chars</span></div>
+        <textarea id="mdInput" placeholder="# Hello World
+
+Write your **Markdown** here...
+
+- Item 1
+- Item 2
+
+> Blockquote example
+
+```js
+console.log('Hello');
+```"></textarea>
+      </div>
+      <div class="preview-pane">
+        <div class="pane-label"><span>PREVIEW</span></div>
+        <div id="mdPreview"></div>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="exportHTML()">&#128229; Export HTML</button>
+      <button class="btn btn-outline" onclick="exportMD()">&#128196; Export .md</button>
+      <button class="btn btn-outline" onclick="copyHTML()">&#128203; Copy HTML</button>
+      <button class="btn btn-outline" onclick="copyMD()">&#128203; Copy Markdown</button>
+      <button class="btn btn-outline" onclick="clearEditor()">&#128465; Clear</button>
+    </div>
+  </div>
+
+  <div class="share-cta">
+    <h3>More Exclusive Automation Tools</h3>
+    <p>Sitemap generators, .htaccess builders, Base64 converters, and more -- all free with code SPUNK.</p>
+    <a href="https://spunk.codes/exclusive/" class="btn btn-primary">Browse All Exclusive Tools</a>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<footer class="footer">
+  <div class="footer-links">
+    <a href="https://spunk.codes">spunk.codes</a>
+    <a href="https://spunk.bet">spunk.bet</a>
+    <a href="https://spunk.work">spunk.work</a>
+    <a href="https://spunk.pics">spunk.pics</a>
+  </div>
+  &copy; 2026 SPUNK.CODES -- Built for builders.
+</footer>
+
+<script>
+/* Lock gate */
+function submitCode(){
+  const v=document.getElementById('codeInput').value.trim().toUpperCase();
+  if(v==='SPUNK'){document.getElementById('lockGate').classList.add('hidden');localStorage.setItem('spunk_unlocked','1');}
+  else{document.getElementById('codeError').textContent='Invalid code. Try again.';}
+}
+document.getElementById('codeInput').addEventListener('keydown',e=>{if(e.key==='Enter')submitCode();});
+if(localStorage.getItem('spunk_unlocked')==='1')document.getElementById('lockGate').classList.add('hidden');
+
+function showToast(msg){
+  const toast=document.getElementById('toast');
+  toast.textContent=msg;toast.classList.add('show');
+  setTimeout(()=>toast.classList.remove('show'),2000);
+}
+
+/* Markdown Parser - GFM support */
+function parseMD(md){
+  let html=md;
+  // Code blocks
+  html=html.replace(/```(\w*)\n([\s\S]*?)```/g,(m,lang,code)=>`<pre><code class="lang-${lang}">${esc(code.trim())}</code></pre>`);
+  // Inline code
+  html=html.replace(/`([^`]+)`/g,'<code>$1</code>');
+  // Images
+  html=html.replace(/!\[([^\]]*)\]\(([^)]+)\)/g,'<img src="$2" alt="$1">');
+  // Links
+  html=html.replace(/\[([^\]]+)\]\(([^)]+)\)/g,'<a href="$2" target="_blank">$1</a>');
+  // Headings
+  html=html.replace(/^######\s+(.+)$/gm,'<h6>$1</h6>');
+  html=html.replace(/^#####\s+(.+)$/gm,'<h5>$1</h5>');
+  html=html.replace(/^####\s+(.+)$/gm,'<h4>$1</h4>');
+  html=html.replace(/^###\s+(.+)$/gm,'<h3>$1</h3>');
+  html=html.replace(/^##\s+(.+)$/gm,'<h2>$1</h2>');
+  html=html.replace(/^#\s+(.+)$/gm,'<h1>$1</h1>');
+  // Horizontal rules
+  html=html.replace(/^---+$/gm,'<hr>');
+  // Bold + Italic
+  html=html.replace(/\*\*\*(.+?)\*\*\*/g,'<strong><em>$1</em></strong>');
+  html=html.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
+  html=html.replace(/\*(.+?)\*/g,'<em>$1</em>');
+  // Strikethrough
+  html=html.replace(/~~(.+?)~~/g,'<del>$1</del>');
+  // Blockquotes
+  html=html.replace(/^>\s+(.+)$/gm,'<blockquote>$1</blockquote>');
+  // Task lists
+  html=html.replace(/^- \[x\]\s+(.+)$/gm,'<li><input type="checkbox" checked disabled> $1</li>');
+  html=html.replace(/^- \[ \]\s+(.+)$/gm,'<li><input type="checkbox" disabled> $1</li>');
+  // Unordered lists
+  html=html.replace(/^[-*]\s+(.+)$/gm,'<li>$1</li>');
+  // Ordered lists
+  html=html.replace(/^\d+\.\s+(.+)$/gm,'<li>$1</li>');
+  // Wrap adjacent li in ul
+  html=html.replace(/((<li>.*<\/li>\n?)+)/g,'<ul>$1</ul>');
+  // Tables
+  html=html.replace(/^(\|.+\|)\n\|[\s\-:|]+\|\n((?:\|.+\|\n?)*)/gm,(m,header,body)=>{
+    const th=header.split('|').filter(c=>c.trim()).map(c=>`<th>${c.trim()}</th>`).join('');
+    const rows=body.trim().split('\n').map(r=>{
+      const cells=r.split('|').filter(c=>c.trim()).map(c=>`<td>${c.trim()}</td>`).join('');
+      return `<tr>${cells}</tr>`;
+    }).join('');
+    return `<table><thead><tr>${th}</tr></thead><tbody>${rows}</tbody></table>`;
+  });
+  // Paragraphs
+  html=html.replace(/^(?!<[a-z])((?!<\/)[^\n]+)$/gm,'<p>$1</p>');
+  // Clean empty paragraphs
+  html=html.replace(/<p><\/p>/g,'');
+  return html;
+}
+
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+/* Editor */
+const mdInput=document.getElementById('mdInput');
+const mdPreview=document.getElementById('mdPreview');
+const statsInfo=document.getElementById('statsInfo');
+
+function updatePreview(){
+  const md=mdInput.value;
+  mdPreview.innerHTML=parseMD(md);
+  const words=md.trim()?md.trim().split(/\s+/).length:0;
+  statsInfo.textContent=`${words} words | ${md.length} chars`;
+  localStorage.setItem('spunk_md_draft',md);
+}
+
+mdInput.addEventListener('input',updatePreview);
+
+// Tab support in textarea
+mdInput.addEventListener('keydown',e=>{
+  if(e.key==='Tab'){
+    e.preventDefault();
+    const s=mdInput.selectionStart,end=mdInput.selectionEnd;
+    mdInput.value=mdInput.value.substring(0,s)+'  '+mdInput.value.substring(end);
+    mdInput.selectionStart=mdInput.selectionEnd=s+2;
+    updatePreview();
+  }
+});
+
+/* Toolbar helpers */
+function wrap(before,after){
+  const s=mdInput.selectionStart,e=mdInput.selectionEnd;
+  const sel=mdInput.value.substring(s,e)||'text';
+  mdInput.value=mdInput.value.substring(0,s)+before+sel+after+mdInput.value.substring(e);
+  mdInput.selectionStart=s+before.length;
+  mdInput.selectionEnd=s+before.length+sel.length;
+  mdInput.focus();
+  updatePreview();
+}
+
+function insertLine(prefix){
+  const s=mdInput.selectionStart;
+  const before=mdInput.value.substring(0,s);
+  const after=mdInput.value.substring(s);
+  const needNewline=before.length>0&&!before.endsWith('\n')?'\n':'';
+  mdInput.value=before+needNewline+prefix+after;
+  mdInput.selectionStart=mdInput.selectionEnd=s+needNewline.length+prefix.length;
+  mdInput.focus();
+  updatePreview();
+}
+
+function insertText(text){
+  const s=mdInput.selectionStart;
+  mdInput.value=mdInput.value.substring(0,s)+text+mdInput.value.substring(mdInput.selectionEnd);
+  mdInput.selectionStart=mdInput.selectionEnd=s+text.length;
+  mdInput.focus();
+  updatePreview();
+}
+
+function insertTable(){
+  insertText('\n| Header 1 | Header 2 | Header 3 |\n|----------|----------|----------|\n| Cell 1   | Cell 2   | Cell 3   |\n| Cell 4   | Cell 5   | Cell 6   |\n');
+}
+
+/* Export */
+function exportHTML(){
+  const html=`<!DOCTYPE html>\n<html>\n<head><meta charset="UTF-8"><title>Markdown Export</title></head>\n<body>\n${mdPreview.innerHTML}\n</body>\n</html>`;
+  download(html,'markdown-export.html','text/html');
+  showToast('Exported as HTML');
+}
+
+function exportMD(){
+  download(mdInput.value,'document.md','text/markdown');
+  showToast('Exported as Markdown');
+}
+
+function copyHTML(){
+  navigator.clipboard.writeText(mdPreview.innerHTML).then(()=>showToast('HTML copied!'));
+}
+
+function copyMD(){
+  navigator.clipboard.writeText(mdInput.value).then(()=>showToast('Markdown copied!'));
+}
+
+function download(content,filename,type){
+  const blob=new Blob([content],{type});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download=filename;
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+function clearEditor(){
+  if(!confirm('Clear the editor?'))return;
+  mdInput.value='';
+  updatePreview();
+  localStorage.removeItem('spunk_md_draft');
+  showToast('Editor cleared');
+}
+
+/* Restore draft */
+const draft=localStorage.getItem('spunk_md_draft');
+if(draft){mdInput.value=draft;}
+updatePreview();
+</script>
+</body>
+</html>

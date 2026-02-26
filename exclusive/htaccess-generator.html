@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>.htaccess Generator | SPUNK.CODES Exclusive</title>
+<meta name="description" content="Visual .htaccess builder for Apache. Generate redirects, security headers, caching rules, HTTPS enforcement, and more with presets and live preview.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content=".htaccess Generator - SPUNK.CODES Exclusive">
+<meta property="og:description" content="Visual .htaccess builder: redirects, security headers, caching, HTTPS enforcement, and presets.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://spunk.codes/exclusive/htaccess-generator">
+<meta property="og:site_name" content="Spunk Codes">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/htaccess-generator">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":".htaccess Generator","applicationCategory":"UtilitiesApplication","operatingSystem":"Web","description":"Visual .htaccess builder for Apache servers. Generate redirects, security headers, caching rules, and more.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Organization","name":"Spunk Codes","url":"https://spunk.codes"}}</script>
+<!-- GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<!-- Clarity -->
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<script src="https://spunk.codes/heartbeat.js" defer></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0a0a0f;--card:rgba(18,18,28,0.85);--border:rgba(50,50,70,0.5);--accent:#ff5f1f;--accent2:#ff9f1f;--text:#e8e8f0;--text-dim:#8b8b9e;--green:#39d353;--red:#f85149;--blue:#58a6ff;--purple:#a855f7;--font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+a{color:var(--blue);text-decoration:none}a:hover{color:#fff}
+.bg-mesh{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 80% 50% at 20% 20%,rgba(255,95,31,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(255,159,31,0.04) 0%,transparent 60%),var(--bg)}
+.nav{position:sticky;top:0;z-index:100;background:rgba(10,10,15,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,95,31,0.15);padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}
+.nav-brand{font-weight:800;font-size:1.1rem;background:linear-gradient(135deg,#ff5f1f,#ff9f1f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:0.08em}
+.nav-links{display:flex;gap:1.5rem;font-size:0.85rem;list-style:none}.nav-links a{color:var(--text-dim);transition:color 0.2s;font-weight:500}.nav-links a:hover{color:#fff}.nav-links a.active{color:var(--accent)}
+.lock-gate{position:fixed;inset:0;z-index:1000;background:rgba(10,10,15,0.97);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:2rem}.lock-gate.hidden{display:none}
+.lock-icon-big{font-size:4rem;margin-bottom:0.5rem}.lock-gate h2{font-size:1.8rem;font-weight:800;text-align:center}.lock-gate h2 span{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.lock-gate p{color:var(--text-dim);text-align:center;max-width:400px}
+.code-input-wrap{display:flex;gap:0.5rem;margin-top:0.5rem}.code-input{padding:0.8rem 1.5rem;background:rgba(18,18,28,0.8);border:2px solid rgba(255,95,31,0.3);border-radius:12px;color:var(--accent);font-size:1.2rem;font-weight:800;letter-spacing:3px;text-align:center;width:200px;outline:none;text-transform:uppercase;font-family:var(--font)}.code-input:focus{border-color:var(--accent);box-shadow:0 0 20px rgba(255,95,31,0.2)}
+.code-submit{padding:0.8rem 1.5rem;background:linear-gradient(135deg,#ff5f1f,#ff9f1f);border:none;border-radius:12px;color:#000;font-size:1rem;font-weight:800;cursor:pointer;transition:all 0.3s}.code-submit:hover{transform:scale(1.05)}
+.code-error{color:#f85149;font-size:0.85rem;min-height:1.2em}
+.lock-hint{color:var(--text-dim);font-size:0.8rem;margin-top:1rem}.lock-hint a{color:var(--accent)}
+.exclusive-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;background:linear-gradient(135deg,rgba(255,95,31,0.15),rgba(255,159,31,0.15));border:1px solid rgba(255,95,31,0.3);border-radius:100px;font-size:11px;font-weight:800;color:var(--accent);letter-spacing:1.5px;text-transform:uppercase}
+.main{max-width:1000px;margin:0 auto;padding:2rem}
+.hero-section{text-align:center;padding:2rem 0 2rem}
+.hero-section h1{font-size:2.2rem;font-weight:800;margin:1rem 0 0.5rem}
+.hero-section h1 .grad{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-section p{color:var(--text-dim);max-width:600px;margin:0 auto}
+.tool-section{background:var(--card);border:1px solid rgba(255,95,31,0.2);border-radius:16px;padding:2rem;margin-bottom:1.5rem;backdrop-filter:blur(10px);position:relative;overflow:hidden}
+.tool-section::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#ff5f1f,#ff9f1f,#ff5f1f)}
+.tool-section h2{font-size:1.2rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}
+label{font-size:0.85rem;color:var(--text-dim);font-weight:600;display:block;margin-bottom:0.4rem}
+input,select,textarea{width:100%;padding:0.75rem 1rem;background:rgba(10,10,15,0.6);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:0.9rem;font-family:var(--font);outline:none;transition:border-color 0.2s}
+input:focus,select:focus,textarea:focus{border-color:var(--accent)}
+textarea{resize:vertical;font-family:'SF Mono',Monaco,Consolas,monospace;font-size:0.82rem}
+.input-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.input-group{margin-bottom:1rem}
+.btn{padding:0.75rem 2rem;border:none;border-radius:10px;font-size:0.9rem;font-weight:700;cursor:pointer;transition:all 0.2s;font-family:var(--font)}
+.btn-primary{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);color:#000}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 4px 20px rgba(255,95,31,0.3)}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--text-dim)}
+.btn-outline:hover{border-color:var(--accent);color:var(--accent)}
+.btn-sm{padding:0.5rem 1rem;font-size:0.8rem}
+.btn-row{display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:1rem}
+.toggle-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.75rem}
+.toggle-item{display:flex;align-items:center;gap:0.75rem;padding:0.75rem 1rem;background:rgba(10,10,15,0.5);border:1px solid var(--border);border-radius:10px;cursor:pointer;transition:all 0.2s;user-select:none}
+.toggle-item:hover{border-color:rgba(255,95,31,0.3)}
+.toggle-item.active{border-color:var(--accent);background:rgba(255,95,31,0.08)}
+.toggle-switch{width:40px;height:22px;background:rgba(50,50,70,0.8);border-radius:11px;position:relative;transition:background 0.2s;flex-shrink:0}
+.toggle-switch::after{content:'';width:18px;height:18px;background:#fff;border-radius:50%;position:absolute;top:2px;left:2px;transition:transform 0.2s}
+.toggle-item.active .toggle-switch{background:var(--accent)}
+.toggle-item.active .toggle-switch::after{transform:translateX(18px)}
+.toggle-label{font-size:0.85rem;font-weight:600}
+.toggle-desc{font-size:0.72rem;color:var(--text-dim)}
+.redirect-row{display:grid;grid-template-columns:auto 1fr 1fr auto;gap:0.75rem;align-items:center;margin-bottom:0.5rem}
+.redirect-row select{width:auto;min-width:80px}
+.redirect-row button{width:30px;height:30px;border-radius:8px;border:none;cursor:pointer;background:rgba(248,81,73,0.15);color:var(--red);font-size:0.9rem;display:flex;align-items:center;justify-content:center}
+.redirect-row button:hover{background:rgba(248,81,73,0.3)}
+.preset-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:0.75rem}
+.preset-card{padding:1rem;background:rgba(10,10,15,0.5);border:1px solid var(--border);border-radius:10px;cursor:pointer;transition:all 0.2s;text-align:center}
+.preset-card:hover{border-color:var(--accent);background:rgba(255,95,31,0.05)}
+.preset-card .preset-icon{font-size:1.5rem;margin-bottom:0.4rem}
+.preset-card .preset-name{font-weight:700;font-size:0.85rem}
+.preset-card .preset-desc{font-size:0.72rem;color:var(--text-dim);margin-top:0.3rem}
+.code-preview{background:rgba(0,0,0,0.4);border:1px solid var(--border);border-radius:10px;padding:1rem;font-family:'SF Mono',Monaco,Consolas,monospace;font-size:0.8rem;color:var(--green);overflow-x:auto;max-height:500px;overflow-y:auto;white-space:pre;line-height:1.6}
+.toast{position:fixed;bottom:2rem;right:2rem;padding:0.75rem 1.5rem;background:rgba(57,211,83,0.95);color:#000;font-weight:700;font-size:0.85rem;border-radius:10px;z-index:2000;transform:translateY(100px);opacity:0;transition:all 0.3s;pointer-events:none}
+.toast.show{transform:translateY(0);opacity:1}
+.share-cta{background:linear-gradient(135deg,rgba(255,95,31,0.08),rgba(255,159,31,0.05));border:1px solid rgba(255,95,31,0.2);border-radius:16px;padding:2rem;text-align:center;margin-top:2rem}
+.share-cta h3{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:0.5rem;font-size:1.1rem}
+.share-cta p{color:var(--text-dim);font-size:0.9rem;margin-bottom:1rem}
+.footer{text-align:center;padding:2rem;border-top:1px solid rgba(255,95,31,0.1);color:var(--text-dim);font-size:0.75rem;margin-top:3rem}
+.footer a{color:var(--accent)}.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-bottom:1rem}
+@media(max-width:768px){.main{padding:1rem}.hero-section h1{font-size:1.6rem}.input-grid,.toggle-grid{grid-template-columns:1fr}.nav-links{display:none}.redirect-row{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="bg-mesh"></div>
+<div class="lock-gate" id="lockGate">
+  <div class="lock-icon-big">&#128274;</div>
+  <h2>Enter Code <span>SPUNK</span> to Unlock</h2>
+  <p>This is an exclusive premium tool. Enter the referral code to get instant access.</p>
+  <div class="code-input-wrap">
+    <input type="text" class="code-input" id="codeInput" placeholder="CODE" maxlength="10" autocomplete="off">
+    <button class="code-submit" onclick="submitCode()">Unlock</button>
+  </div>
+  <div class="code-error" id="codeError"></div>
+  <div class="lock-hint">Get the code at <a href="https://spunk.codes/exclusive/">spunk.codes/exclusive/</a></div>
+</div>
+
+<nav class="nav">
+  <a href="https://spunk.codes" class="nav-brand">SPUNK.CODES</a>
+  <div class="nav-links">
+    <a href="/store">Tools</a>
+    <a href="/exclusive/" class="active">Exclusive</a>
+    <a href="/store#ebook">Ebooks</a>
+    <a href="/blog">Blog</a>
+  </div>
+</nav>
+
+<div class="main">
+  <section class="hero-section">
+    <div class="exclusive-badge">&#9889; EXCLUSIVE TOOL</div>
+    <h1>.htaccess <span class="grad">Generator</span></h1>
+    <p>Visual builder for Apache .htaccess files. Configure redirects, security headers, browser caching, HTTPS enforcement, and more with one-click presets.</p>
+  </section>
+
+  <!-- Presets -->
+  <div class="tool-section">
+    <h2>&#9889; Quick Presets</h2>
+    <div class="preset-grid">
+      <div class="preset-card" onclick="applyPreset('wordpress')">
+        <div class="preset-icon">&#128240;</div>
+        <div class="preset-name">WordPress</div>
+        <div class="preset-desc">Permalinks + security + caching</div>
+      </div>
+      <div class="preset-card" onclick="applyPreset('spa')">
+        <div class="preset-icon">&#9881;</div>
+        <div class="preset-name">SPA / React</div>
+        <div class="preset-desc">Fallback to index.html</div>
+      </div>
+      <div class="preset-card" onclick="applyPreset('security')">
+        <div class="preset-icon">&#128737;</div>
+        <div class="preset-name">Security Hardened</div>
+        <div class="preset-desc">All security headers + protections</div>
+      </div>
+      <div class="preset-card" onclick="applyPreset('performance')">
+        <div class="preset-icon">&#128640;</div>
+        <div class="preset-name">Performance</div>
+        <div class="preset-desc">Compression + caching + ETags</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toggles -->
+  <div class="tool-section">
+    <h2>&#128736; Configuration Options</h2>
+    <div class="toggle-grid">
+      <div class="toggle-item" id="t-https" onclick="toggle(this)">
+        <div class="toggle-switch"></div>
+        <div><div class="toggle-label">Force HTTPS</div><div class="toggle-desc">Redirect all HTTP to HTTPS</div></div>
+      </div>
+      <div class="toggle-item" id="t-www" onclick="toggle(this)">
+        <div class="toggle-switch"></div>
+        <div><div class="toggle-label">Force www</div><div class="toggle-desc">Redirect non-www to www</div></div>
+      </div>
+      <div class="toggle-item" id="t-nowww" onclick="toggle(this)">
+        <div class="toggle-switch"></div>
+        <div><div class="toggle-label">Remove www</div><div class="toggle-desc">Redirect www to non-www</div></div>
+      </div>
+      <div class="toggle-item" id="t-gzip" onclick="toggle(this)">
+        <div class="toggle-switch"></div>
+        <div><div class="toggle-label">GZIP Compression</div><div class="toggle-desc">Compress text, HTML, CSS, JS</div></div>
+      </div>
+      <div class="toggle-item" id="t-cache" onclick="toggle(this)">
+        <div class="toggle-switch"></div>
+        <div><div class="toggle-label">Browser Caching</div><div class="toggle-desc">Cache static assets (images, CSS, JS)</div></div>
+      </div>
+      <div class="toggle-item" id="t-etag" onclick="toggle(this)">
+        <div class="toggle-switch"></div>
+        <div><div class="toggle-label">Remove ETags</div><div class="toggle-desc">Disable ETag headers for performance</div></div>
+      </div>
+      <div class="toggle-item" id="t-hotlink" onclick="toggle(this)">
+        <div class="toggle-switch"></div>
+        <div><div class="toggle-label">Hotlink Protection</div><div class="toggle-desc">Block image hotlinking from other domains</div></div>
+      </div>
+      <div class="toggle-item" id="t-xss" onclick="toggle(this)">
+        <div class="toggle-switch"></div>
+        <div><div class="toggle-label">XSS Protection</div><div class="toggle-desc">X-XSS-Protection header</div></div>
+      </div>
+      <div class="toggle-item" id="t-nosniff" onclick="toggle(this)">
+        <div class="toggle-switch"></div>
+        <div><div class="toggle-label">MIME Sniffing Protection</div><div class="toggle-desc">X-Content-Type-Options: nosniff</div></div>
+      </div>
+      <div class="toggle-item" id="t-clickjack" onclick="toggle(this)">
+        <div class="toggle-switch"></div>
+        <div><div class="toggle-label">Clickjacking Protection</div><div class="toggle-desc">X-Frame-Options: SAMEORIGIN</div></div>
+      </div>
+      <div class="toggle-item" id="t-hsts" onclick="toggle(this)">
+        <div class="toggle-switch"></div>
+        <div><div class="toggle-label">HSTS Header</div><div class="toggle-desc">Strict-Transport-Security</div></div>
+      </div>
+      <div class="toggle-item" id="t-dirlist" onclick="toggle(this)">
+        <div class="toggle-switch"></div>
+        <div><div class="toggle-label">Disable Directory Listing</div><div class="toggle-desc">Prevent browsing folder contents</div></div>
+      </div>
+      <div class="toggle-item" id="t-hiddenfiles" onclick="toggle(this)">
+        <div class="toggle-switch"></div>
+        <div><div class="toggle-label">Block Hidden Files</div><div class="toggle-desc">Block access to .git, .env, etc.</div></div>
+      </div>
+      <div class="toggle-item" id="t-trailingslash" onclick="toggle(this)">
+        <div class="toggle-switch"></div>
+        <div><div class="toggle-label">Remove Trailing Slash</div><div class="toggle-desc">Remove trailing slashes from URLs</div></div>
+      </div>
+      <div class="toggle-item" id="t-customError" onclick="toggle(this)">
+        <div class="toggle-switch"></div>
+        <div><div class="toggle-label">Custom Error Pages</div><div class="toggle-desc">404, 403, 500 error pages</div></div>
+      </div>
+      <div class="toggle-item" id="t-referrer" onclick="toggle(this)">
+        <div class="toggle-switch"></div>
+        <div><div class="toggle-label">Referrer Policy</div><div class="toggle-desc">strict-origin-when-cross-origin</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Redirects -->
+  <div class="tool-section">
+    <h2>&#128260; Custom Redirects</h2>
+    <div id="redirectList"></div>
+    <button class="btn btn-outline btn-sm" onclick="addRedirect()" style="margin-top:0.75rem">&#10133; Add Redirect</button>
+  </div>
+
+  <!-- Domain for hotlink -->
+  <div class="tool-section" id="domainSection" style="display:none">
+    <h2>&#127760; Your Domain</h2>
+    <div class="input-group" style="margin-bottom:0">
+      <label>Domain (for hotlink protection)</label>
+      <input type="text" id="domainInput" placeholder="example.com" oninput="generate()">
+    </div>
+  </div>
+
+  <!-- Output -->
+  <div class="tool-section">
+    <h2>&#128196; Generated .htaccess</h2>
+    <div class="code-preview" id="codePreview"># Enable your options above to generate .htaccess rules</div>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="downloadFile()">&#128229; Download .htaccess</button>
+      <button class="btn btn-outline" onclick="copyCode()">&#128203; Copy to Clipboard</button>
+      <button class="btn btn-outline" onclick="resetAll()">&#128260; Reset All</button>
+    </div>
+  </div>
+
+  <div class="share-cta">
+    <h3>More Exclusive Automation Tools</h3>
+    <p>Sitemap generators, Markdown editors, unit converters, and more -- all free with code SPUNK.</p>
+    <a href="https://spunk.codes/exclusive/" class="btn btn-primary">Browse All Exclusive Tools</a>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<footer class="footer">
+  <div class="footer-links">
+    <a href="https://spunk.codes">spunk.codes</a>
+    <a href="https://spunk.bet">spunk.bet</a>
+    <a href="https://spunk.work">spunk.work</a>
+    <a href="https://spunk.pics">spunk.pics</a>
+  </div>
+  &copy; 2026 SPUNK.CODES -- Built for builders.
+</footer>
+
+<script>
+/* Lock gate */
+function submitCode(){
+  const v=document.getElementById('codeInput').value.trim().toUpperCase();
+  if(v==='SPUNK'){document.getElementById('lockGate').classList.add('hidden');localStorage.setItem('spunk_unlocked','1');}
+  else{document.getElementById('codeError').textContent='Invalid code. Try again.';}
+}
+document.getElementById('codeInput').addEventListener('keydown',e=>{if(e.key==='Enter')submitCode();});
+if(localStorage.getItem('spunk_unlocked')==='1')document.getElementById('lockGate').classList.add('hidden');
+
+function showToast(msg){
+  const toast=document.getElementById('toast');
+  toast.textContent=msg;toast.classList.add('show');
+  setTimeout(()=>toast.classList.remove('show'),2000);
+}
+
+/* Toggles */
+function toggle(el){
+  el.classList.toggle('active');
+  // www and nowww are mutually exclusive
+  if(el.id==='t-www'&&el.classList.contains('active'))document.getElementById('t-nowww').classList.remove('active');
+  if(el.id==='t-nowww'&&el.classList.contains('active'))document.getElementById('t-www').classList.remove('active');
+  document.getElementById('domainSection').style.display=document.getElementById('t-hotlink').classList.contains('active')?'block':'none';
+  generate();
+}
+
+function isOn(id){return document.getElementById(id).classList.contains('active');}
+
+/* Redirects */
+let redirects=[];
+function addRedirect(){
+  redirects.push({type:'301',from:'/old-page',to:'/new-page'});
+  renderRedirects();
+  generate();
+}
+function removeRedirect(i){redirects.splice(i,1);renderRedirects();generate();}
+function updateRedirect(i,field,val){redirects[i][field]=val;generate();}
+function renderRedirects(){
+  const el=document.getElementById('redirectList');
+  el.innerHTML=redirects.map((r,i)=>`<div class="redirect-row">
+    <select onchange="updateRedirect(${i},'type',this.value)">
+      <option value="301"${r.type==='301'?' selected':''}>301</option>
+      <option value="302"${r.type==='302'?' selected':''}>302</option>
+    </select>
+    <input type="text" value="${r.from}" placeholder="/old-page" oninput="updateRedirect(${i},'from',this.value)">
+    <input type="text" value="${r.to}" placeholder="/new-page" oninput="updateRedirect(${i},'to',this.value)">
+    <button onclick="removeRedirect(${i})">&times;</button>
+  </div>`).join('');
+}
+
+/* Presets */
+function applyPreset(name){
+  // Reset all
+  document.querySelectorAll('.toggle-item').forEach(t=>t.classList.remove('active'));
+  redirects=[];
+  renderRedirects();
+
+  if(name==='wordpress'){
+    ['t-https','t-gzip','t-cache','t-xss','t-nosniff','t-clickjack','t-dirlist','t-hiddenfiles'].forEach(id=>document.getElementById(id).classList.add('active'));
+  }else if(name==='spa'){
+    ['t-https','t-gzip','t-cache','t-nosniff'].forEach(id=>document.getElementById(id).classList.add('active'));
+  }else if(name==='security'){
+    ['t-https','t-hsts','t-xss','t-nosniff','t-clickjack','t-dirlist','t-hiddenfiles','t-referrer','t-hotlink'].forEach(id=>document.getElementById(id).classList.add('active'));
+  }else if(name==='performance'){
+    ['t-gzip','t-cache','t-etag'].forEach(id=>document.getElementById(id).classList.add('active'));
+  }
+  document.getElementById('domainSection').style.display=isOn('t-hotlink')?'block':'none';
+  generate();
+  showToast(`Applied ${name} preset`);
+}
+
+/* Generate */
+function generate(){
+  let lines=['# Generated by SPUNK.CODES .htaccess Generator','# https://spunk.codes/exclusive/htaccess-generator',''];
+
+  if(isOn('t-https')){
+    lines.push('# Force HTTPS','RewriteEngine On','RewriteCond %{HTTPS} off','RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]','');
+  }
+  if(isOn('t-www')){
+    lines.push('# Force www','RewriteEngine On','RewriteCond %{HTTP_HOST} !^www\\. [NC]','RewriteRule ^(.*)$ https://www.%{HTTP_HOST}/$1 [R=301,L]','');
+  }
+  if(isOn('t-nowww')){
+    lines.push('# Remove www','RewriteEngine On','RewriteCond %{HTTP_HOST} ^www\\.(.+)$ [NC]','RewriteRule ^(.*)$ https://%1/$1 [R=301,L]','');
+  }
+  if(isOn('t-trailingslash')){
+    lines.push('# Remove trailing slash','RewriteEngine On','RewriteCond %{REQUEST_FILENAME} !-d','RewriteRule ^(.*)/$ /$1 [L,R=301]','');
+  }
+  if(isOn('t-gzip')){
+    lines.push('# GZIP Compression','<IfModule mod_deflate.c>','  AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css','  AddOutputFilterByType DEFLATE text/javascript application/javascript application/json','  AddOutputFilterByType DEFLATE application/xml application/xhtml+xml','  AddOutputFilterByType DEFLATE image/svg+xml','</IfModule>','');
+  }
+  if(isOn('t-cache')){
+    lines.push('# Browser Caching','<IfModule mod_expires.c>','  ExpiresActive On','  ExpiresByType image/jpg "access plus 1 year"','  ExpiresByType image/jpeg "access plus 1 year"','  ExpiresByType image/png "access plus 1 year"','  ExpiresByType image/gif "access plus 1 year"','  ExpiresByType image/svg+xml "access plus 1 year"','  ExpiresByType image/webp "access plus 1 year"','  ExpiresByType text/css "access plus 1 month"','  ExpiresByType text/javascript "access plus 1 month"','  ExpiresByType application/javascript "access plus 1 month"','  ExpiresByType application/pdf "access plus 1 month"','  ExpiresByType font/woff2 "access plus 1 year"','  ExpiresByType font/woff "access plus 1 year"','</IfModule>','');
+  }
+  if(isOn('t-etag')){
+    lines.push('# Remove ETags','<IfModule mod_headers.c>','  Header unset ETag','</IfModule>','FileETag None','');
+  }
+  if(isOn('t-xss')){
+    lines.push('# XSS Protection','<IfModule mod_headers.c>','  Header set X-XSS-Protection "1; mode=block"','</IfModule>','');
+  }
+  if(isOn('t-nosniff')){
+    lines.push('# MIME Sniffing Protection','<IfModule mod_headers.c>','  Header set X-Content-Type-Options "nosniff"','</IfModule>','');
+  }
+  if(isOn('t-clickjack')){
+    lines.push('# Clickjacking Protection','<IfModule mod_headers.c>','  Header always set X-Frame-Options "SAMEORIGIN"','</IfModule>','');
+  }
+  if(isOn('t-hsts')){
+    lines.push('# HSTS','<IfModule mod_headers.c>','  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"','</IfModule>','');
+  }
+  if(isOn('t-referrer')){
+    lines.push('# Referrer Policy','<IfModule mod_headers.c>','  Header always set Referrer-Policy "strict-origin-when-cross-origin"','</IfModule>','');
+  }
+  if(isOn('t-dirlist')){
+    lines.push('# Disable Directory Listing','Options -Indexes','');
+  }
+  if(isOn('t-hiddenfiles')){
+    lines.push('# Block Hidden Files (.git, .env, etc.)','<FilesMatch "^\\.">','  Order allow,deny','  Deny from all','</FilesMatch>','');
+  }
+  if(isOn('t-hotlink')){
+    const domain=document.getElementById('domainInput').value.trim()||'example.com';
+    lines.push('# Hotlink Protection','RewriteEngine On','RewriteCond %{HTTP_REFERER} !^$',`RewriteCond %{HTTP_REFERER} !^https?://(www\\.)?${domain.replace(/\./g,'\\.')} [NC]`,'RewriteRule \\.(jpg|jpeg|png|gif|webp|svg)$ - [F,NC,L]','');
+  }
+  if(isOn('t-customError')){
+    lines.push('# Custom Error Pages','ErrorDocument 404 /404.html','ErrorDocument 403 /403.html','ErrorDocument 500 /500.html','');
+  }
+  if(redirects.length>0){
+    lines.push('# Custom Redirects');
+    redirects.forEach(r=>{
+      lines.push(`Redirect ${r.type} ${r.from} ${r.to}`);
+    });
+    lines.push('');
+  }
+
+  document.getElementById('codePreview').textContent=lines.join('\n');
+}
+
+function downloadFile(){
+  const code=document.getElementById('codePreview').textContent;
+  const blob=new Blob([code],{type:'text/plain'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='.htaccess';
+  a.click();
+  URL.revokeObjectURL(a.href);
+  showToast('Downloaded .htaccess');
+}
+
+function copyCode(){
+  navigator.clipboard.writeText(document.getElementById('codePreview').textContent).then(()=>showToast('Copied!'));
+}
+
+function resetAll(){
+  document.querySelectorAll('.toggle-item').forEach(t=>t.classList.remove('active'));
+  redirects=[];
+  renderRedirects();
+  document.getElementById('domainSection').style.display='none';
+  generate();
+  showToast('Reset all options');
+}
+
+renderRedirects();
+generate();
+</script>
+</body>
+</html>
