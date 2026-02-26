@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Weekly Planner | SPUNK.CODES Exclusive</title>
+<meta name="description" content="Drag-and-drop weekly schedule builder with time blocks, color categories, export as image or markdown. Free online weekly planner tool.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Weekly Planner - SPUNK.CODES Exclusive">
+<meta property="og:description" content="Drag-and-drop weekly schedule builder with time blocks, color categories, and export options.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://spunk.codes/exclusive/weekly-planner">
+<meta property="og:site_name" content="Spunk Codes">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/weekly-planner">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Weekly Planner","applicationCategory":"UtilitiesApplication","operatingSystem":"Web","description":"Drag-and-drop weekly schedule builder with time blocks, color categories, and export options.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Organization","name":"Spunk Codes","url":"https://spunk.codes"}}</script>
+<!-- GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<!-- Clarity -->
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<script src="https://spunk.codes/heartbeat.js" defer></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0a0a0f;--card:rgba(18,18,28,0.85);--border:rgba(50,50,70,0.5);--accent:#ff5f1f;--accent2:#ff9f1f;--text:#e8e8f0;--text-dim:#8b8b9e;--green:#39d353;--red:#f85149;--blue:#58a6ff;--purple:#a855f7;--font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+a{color:var(--blue);text-decoration:none}a:hover{color:#fff}
+.bg-mesh{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 80% 50% at 20% 20%,rgba(255,95,31,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(255,159,31,0.04) 0%,transparent 60%),var(--bg)}
+.nav{position:sticky;top:0;z-index:100;background:rgba(10,10,15,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,95,31,0.15);padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}
+.nav-brand{font-weight:800;font-size:1.1rem;background:linear-gradient(135deg,#ff5f1f,#ff9f1f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:0.08em}
+.nav-links{display:flex;gap:1.5rem;font-size:0.85rem;list-style:none}.nav-links a{color:var(--text-dim);transition:color 0.2s;font-weight:500}.nav-links a:hover{color:#fff}.nav-links a.active{color:var(--accent)}
+.lock-gate{position:fixed;inset:0;z-index:1000;background:rgba(10,10,15,0.97);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:2rem}.lock-gate.hidden{display:none}
+.lock-icon-big{font-size:4rem;margin-bottom:0.5rem}.lock-gate h2{font-size:1.8rem;font-weight:800;text-align:center}.lock-gate h2 span{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.lock-gate p{color:var(--text-dim);text-align:center;max-width:400px}
+.code-input-wrap{display:flex;gap:0.5rem;margin-top:0.5rem}.code-input{padding:0.8rem 1.5rem;background:rgba(18,18,28,0.8);border:2px solid rgba(255,95,31,0.3);border-radius:12px;color:var(--accent);font-size:1.2rem;font-weight:800;letter-spacing:3px;text-align:center;width:200px;outline:none;text-transform:uppercase;font-family:var(--font)}.code-input:focus{border-color:var(--accent);box-shadow:0 0 20px rgba(255,95,31,0.2)}
+.code-submit{padding:0.8rem 1.5rem;background:linear-gradient(135deg,#ff5f1f,#ff9f1f);border:none;border-radius:12px;color:#000;font-size:1rem;font-weight:800;cursor:pointer;transition:all 0.3s}.code-submit:hover{transform:scale(1.05)}
+.code-error{color:#f85149;font-size:0.85rem;min-height:1.2em}
+.lock-hint{color:var(--text-dim);font-size:0.8rem;margin-top:1rem}.lock-hint a{color:var(--accent)}
+.exclusive-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;background:linear-gradient(135deg,rgba(255,95,31,0.15),rgba(255,159,31,0.15));border:1px solid rgba(255,95,31,0.3);border-radius:100px;font-size:11px;font-weight:800;color:var(--accent);letter-spacing:1.5px;text-transform:uppercase}
+.main{max-width:1200px;margin:0 auto;padding:2rem}
+.hero-section{text-align:center;padding:2rem 0 1.5rem}
+.hero-section h1{font-size:2.2rem;font-weight:800;margin:1rem 0 0.5rem}
+.hero-section h1 .grad{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-section p{color:var(--text-dim);max-width:600px;margin:0 auto}
+.tool-section{background:var(--card);border:1px solid rgba(255,95,31,0.2);border-radius:16px;padding:1.5rem;margin-bottom:1.5rem;backdrop-filter:blur(10px);position:relative;overflow:hidden}
+.tool-section::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#ff5f1f,#ff9f1f,#ff5f1f)}
+.tool-section h2{font-size:1.2rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}
+.btn{padding:0.75rem 2rem;border:none;border-radius:10px;font-size:0.9rem;font-weight:700;cursor:pointer;transition:all 0.2s;font-family:var(--font)}
+.btn-primary{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);color:#000}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 4px 20px rgba(255,95,31,0.3)}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--text-dim)}
+.btn-outline:hover{border-color:var(--accent);color:var(--accent)}
+.btn-sm{padding:0.5rem 1rem;font-size:0.8rem}
+.btn-danger{background:transparent;border:1px solid var(--red);color:var(--red)}
+.btn-danger:hover{background:rgba(248,81,73,0.1)}
+.btn-row{display:flex;gap:0.5rem;flex-wrap:wrap;margin:1rem 0}
+input[type="text"],input[type="time"],select{padding:0.5rem 0.75rem;background:rgba(10,10,15,0.6);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.85rem;font-family:var(--font);outline:none}
+input:focus,select:focus{border-color:var(--accent)}
+label{font-size:0.8rem;color:var(--text-dim);font-weight:600;display:block;margin-bottom:0.3rem}
+
+/* Add event form */
+.add-form{display:grid;grid-template-columns:1fr 100px 100px 120px auto;gap:0.5rem;align-items:end;margin-bottom:1.5rem}
+
+/* Categories */
+.cat-chips{display:flex;gap:0.4rem;flex-wrap:wrap;margin-bottom:1rem}
+.cat-chip{padding:4px 12px;border-radius:20px;font-size:0.75rem;font-weight:700;cursor:pointer;border:2px solid transparent;transition:all 0.2s;opacity:0.6}
+.cat-chip.active{opacity:1;border-color:rgba(255,255,255,0.3)}
+.cat-chip:hover{opacity:0.9}
+
+/* Grid */
+.planner-grid{display:grid;grid-template-columns:70px repeat(7,1fr);gap:1px;background:rgba(50,50,70,0.2);border-radius:12px;overflow:hidden;font-size:0.75rem}
+.grid-header{background:rgba(255,95,31,0.1);color:var(--accent);font-weight:800;text-align:center;padding:0.6rem 0.3rem;font-size:0.78rem}
+.time-label{background:rgba(10,10,15,0.5);color:var(--text-dim);padding:0.4rem;text-align:right;font-size:0.72rem;display:flex;align-items:center;justify-content:flex-end;min-height:44px}
+.grid-cell{background:rgba(10,10,15,0.3);min-height:44px;padding:2px;position:relative;cursor:pointer;transition:background 0.15s}
+.grid-cell:hover{background:rgba(255,95,31,0.05)}
+.grid-cell.dragover{background:rgba(255,95,31,0.1);outline:2px dashed var(--accent)}
+
+/* Event blocks */
+.event-block{padding:3px 6px;border-radius:6px;font-size:0.7rem;font-weight:600;cursor:grab;margin-bottom:1px;position:relative;line-height:1.3;word-break:break-word}
+.event-block:active{cursor:grabbing;opacity:0.8}
+.event-block .ev-del{position:absolute;top:1px;right:3px;cursor:pointer;font-size:0.65rem;opacity:0;transition:opacity 0.2s;background:rgba(0,0,0,0.5);border-radius:50%;width:14px;height:14px;display:flex;align-items:center;justify-content:center}
+.event-block:hover .ev-del{opacity:1}
+
+.toast{position:fixed;bottom:2rem;right:2rem;padding:0.75rem 1.5rem;background:rgba(57,211,83,0.95);color:#000;font-weight:700;font-size:0.85rem;border-radius:10px;z-index:2000;transform:translateY(100px);opacity:0;transition:all 0.3s;pointer-events:none}
+.toast.show{transform:translateY(0);opacity:1}
+.share-cta{background:linear-gradient(135deg,rgba(255,95,31,0.08),rgba(255,159,31,0.05));border:1px solid rgba(255,95,31,0.2);border-radius:16px;padding:2rem;text-align:center;margin-top:2rem}
+.share-cta h3{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:0.5rem;font-size:1.1rem}
+.share-cta p{color:var(--text-dim);font-size:0.9rem;margin-bottom:1rem}
+.footer{text-align:center;padding:2rem;border-top:1px solid rgba(255,95,31,0.1);color:var(--text-dim);font-size:0.75rem;margin-top:3rem}
+.footer a{color:var(--accent)}.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-bottom:1rem}
+@media(max-width:768px){
+  .main{padding:0.75rem}
+  .hero-section h1{font-size:1.6rem}
+  .nav-links{display:none}
+  .add-form{grid-template-columns:1fr 1fr;gap:0.4rem}
+  .add-form .btn{grid-column:1/-1}
+  .planner-grid{font-size:0.65rem;grid-template-columns:50px repeat(7,1fr)}
+  .grid-header{font-size:0.65rem;padding:0.4rem 0.2rem}
+  .time-label{font-size:0.6rem;padding:0.2rem}
+}
+</style>
+</head>
+<body>
+<div class="bg-mesh"></div>
+<div class="lock-gate" id="lockGate">
+  <div class="lock-icon-big">&#128274;</div>
+  <h2>Enter Code <span>SPUNK</span> to Unlock</h2>
+  <p>This is an exclusive premium tool. Enter the referral code to get instant access.</p>
+  <div class="code-input-wrap">
+    <input type="text" class="code-input" id="codeInput" placeholder="CODE" maxlength="10" autocomplete="off">
+    <button class="code-submit" onclick="submitCode()">Unlock</button>
+  </div>
+  <div class="code-error" id="codeError"></div>
+  <div class="lock-hint">Get the code at <a href="https://spunk.codes/exclusive/">spunk.codes/exclusive/</a></div>
+</div>
+
+<nav class="nav">
+  <a href="https://spunk.codes" class="nav-brand">SPUNK.CODES</a>
+  <div class="nav-links">
+    <a href="/store">Tools</a>
+    <a href="/exclusive/" class="active">Exclusive</a>
+    <a href="/store#ebook">Ebooks</a>
+    <a href="/blog">Blog</a>
+  </div>
+</nav>
+
+<div class="main">
+  <section class="hero-section">
+    <div class="exclusive-badge">&#9889; EXCLUSIVE TOOL</div>
+    <h1>Weekly <span class="grad">Planner</span></h1>
+    <p>Drag-and-drop weekly schedule builder with time blocks, color categories, and export as image or markdown. Saves automatically.</p>
+  </section>
+
+  <div class="tool-section">
+    <h2>&#10133; Add Event</h2>
+    <div class="cat-chips" id="catChips"></div>
+    <div class="add-form">
+      <div><label>Event Name</label><input type="text" id="eventName" placeholder="Team standup" style="width:100%"></div>
+      <div><label>Start</label><input type="time" id="eventStart" value="09:00" style="width:100%"></div>
+      <div><label>End</label><input type="time" id="eventEnd" value="10:00" style="width:100%"></div>
+      <div><label>Day</label>
+        <select id="eventDay" style="width:100%">
+          <option value="0">Monday</option><option value="1">Tuesday</option><option value="2">Wednesday</option>
+          <option value="3">Thursday</option><option value="4">Friday</option><option value="5">Saturday</option><option value="6">Sunday</option>
+        </select>
+      </div>
+      <button class="btn btn-primary btn-sm" onclick="addEvent()" style="align-self:end">Add</button>
+    </div>
+  </div>
+
+  <div class="tool-section" id="plannerSection">
+    <h2>&#128197; Schedule</h2>
+    <div class="planner-grid" id="plannerGrid"></div>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn btn-primary btn-sm" onclick="exportImage()">Export as Image</button>
+    <button class="btn btn-outline btn-sm" onclick="exportMarkdown()">Export Markdown</button>
+    <button class="btn btn-outline btn-sm" onclick="exportJSON()">Export JSON</button>
+    <button class="btn btn-outline btn-sm" onclick="importJSON()">Import JSON</button>
+    <button class="btn btn-danger btn-sm" onclick="clearPlanner()">Clear All</button>
+  </div>
+
+  <div class="share-cta">
+    <h3>More Exclusive Developer Tools</h3>
+    <p>URL shortener, JSON/CSV converters, CSS minifier, and more -- all free with code SPUNK.</p>
+    <a href="https://spunk.codes/exclusive/" class="btn btn-primary">Browse All Exclusive Tools</a>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<input type="file" id="importFile" accept=".json" style="display:none">
+
+<footer class="footer">
+  <div class="footer-links">
+    <a href="https://spunk.codes">spunk.codes</a>
+    <a href="https://spunk.bet">spunk.bet</a>
+    <a href="https://spunk.work">spunk.work</a>
+    <a href="https://spunk.pics">spunk.pics</a>
+  </div>
+  &copy; 2026 SPUNK.CODES -- Built for builders.
+</footer>
+
+<script>
+/* Lock gate */
+function submitCode(){
+  const v=document.getElementById('codeInput').value.trim().toUpperCase();
+  if(v==='SPUNK'){document.getElementById('lockGate').classList.add('hidden');localStorage.setItem('spunk_unlocked','1');}
+  else{document.getElementById('codeError').textContent='Invalid code. Try again.';}
+}
+document.getElementById('codeInput').addEventListener('keydown',e=>{if(e.key==='Enter')submitCode();});
+if(localStorage.getItem('spunk_unlocked')==='1')document.getElementById('lockGate').classList.add('hidden');
+
+function showToast(msg){
+  const toast=document.getElementById('toast');
+  toast.textContent=msg;toast.classList.add('show');
+  setTimeout(()=>toast.classList.remove('show'),2000);
+}
+
+/* Categories */
+const categories=[
+  {name:'Work',color:'#ff5f1f',bg:'rgba(255,95,31,0.2)'},
+  {name:'Meeting',color:'#58a6ff',bg:'rgba(88,166,255,0.2)'},
+  {name:'Personal',color:'#39d353',bg:'rgba(57,211,83,0.2)'},
+  {name:'Health',color:'#f85149',bg:'rgba(248,81,73,0.2)'},
+  {name:'Learning',color:'#a855f7',bg:'rgba(168,85,247,0.2)'},
+  {name:'Break',color:'#ff9f1f',bg:'rgba(255,159,31,0.2)'},
+  {name:'Other',color:'#8b8b9e',bg:'rgba(139,139,158,0.2)'}
+];
+let selectedCat=0;
+
+function renderCatChips(){
+  document.getElementById('catChips').innerHTML=categories.map((c,i)=>
+    `<div class="cat-chip${i===selectedCat?' active':''}" style="background:${c.bg};color:${c.color}" onclick="selectedCat=${i};renderCatChips()">${c.name}</div>`
+  ).join('');
+}
+renderCatChips();
+
+/* Data */
+const STORAGE_KEY='spunk_weekly_planner';
+const DAYS=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+const HOURS=[];
+for(let h=6;h<=22;h++)HOURS.push(h);
+
+function getEvents(){try{return JSON.parse(localStorage.getItem(STORAGE_KEY))||[];}catch(e){return [];}}
+function saveEvents(ev){localStorage.setItem(STORAGE_KEY,JSON.stringify(ev));}
+
+let dragEvent=null;
+
+function buildGrid(){
+  const grid=document.getElementById('plannerGrid');
+  let html='<div class="grid-header" style="background:transparent"></div>';
+  DAYS.forEach(d=>{html+='<div class="grid-header">'+d+'</div>';});
+
+  HOURS.forEach(h=>{
+    const t=String(h).padStart(2,'0')+':00';
+    html+='<div class="time-label">'+t+'</div>';
+    for(let d=0;d<7;d++){
+      html+=`<div class="grid-cell" data-day="${d}" data-hour="${h}" ondragover="onDragOver(event)" ondrop="onDrop(event,${d},${h})" onclick="quickAdd(${d},${h})"></div>`;
+    }
+  });
+  grid.innerHTML=html;
+  renderEvents();
+}
+
+function renderEvents(){
+  // Clear existing events from cells
+  document.querySelectorAll('.grid-cell').forEach(cell=>cell.innerHTML='');
+
+  const events=getEvents();
+  events.forEach((ev,idx)=>{
+    const startH=parseInt(ev.start.split(':')[0]);
+    const cat=categories[ev.cat]||categories[6];
+    const cell=document.querySelector(`.grid-cell[data-day="${ev.day}"][data-hour="${startH}"]`);
+    if(cell){
+      const block=document.createElement('div');
+      block.className='event-block';
+      block.style.background=cat.bg;
+      block.style.color=cat.color;
+      block.style.borderLeft='3px solid '+cat.color;
+      block.draggable=true;
+      block.dataset.idx=idx;
+      block.innerHTML=`${ev.name}<br><span style="font-size:0.6rem;opacity:0.7">${ev.start}-${ev.end}</span><span class="ev-del" onclick="event.stopPropagation();deleteEvent(${idx})">x</span>`;
+      block.addEventListener('dragstart',e=>{
+        dragEvent=idx;
+        e.dataTransfer.effectAllowed='move';
+        block.style.opacity='0.4';
+      });
+      block.addEventListener('dragend',()=>{block.style.opacity='1';dragEvent=null;});
+      cell.appendChild(block);
+    }
+  });
+}
+
+function onDragOver(e){e.preventDefault();e.currentTarget.classList.add('dragover');}
+document.addEventListener('dragover',()=>{document.querySelectorAll('.dragover').forEach(c=>c.classList.remove('dragover'));});
+
+function onDrop(e,day,hour){
+  e.preventDefault();
+  e.currentTarget.classList.remove('dragover');
+  if(dragEvent===null)return;
+  const events=getEvents();
+  const ev=events[dragEvent];
+  if(!ev)return;
+
+  // Calculate duration
+  const oldStartH=parseInt(ev.start.split(':')[0]);
+  const oldStartM=parseInt(ev.start.split(':')[1]);
+  const oldEndH=parseInt(ev.end.split(':')[0]);
+  const oldEndM=parseInt(ev.end.split(':')[1]);
+  const durationM=(oldEndH*60+oldEndM)-(oldStartH*60+oldStartM);
+
+  ev.day=day;
+  ev.start=String(hour).padStart(2,'0')+':'+String(oldStartM).padStart(2,'0');
+  const newEndTotal=hour*60+oldStartM+durationM;
+  ev.end=String(Math.floor(newEndTotal/60)).padStart(2,'0')+':'+String(newEndTotal%60).padStart(2,'0');
+
+  saveEvents(events);
+  renderEvents();
+  showToast('Event moved!');
+}
+
+function addEvent(){
+  const name=document.getElementById('eventName').value.trim();
+  if(!name){showToast('Enter event name');return;}
+  const start=document.getElementById('eventStart').value;
+  const end=document.getElementById('eventEnd').value;
+  const day=parseInt(document.getElementById('eventDay').value);
+
+  if(start>=end){showToast('End time must be after start time');return;}
+
+  const events=getEvents();
+  events.push({name,start,end,day,cat:selectedCat,id:Date.now()});
+  saveEvents(events);
+  document.getElementById('eventName').value='';
+  renderEvents();
+  showToast('Event added!');
+}
+
+function quickAdd(day,hour){
+  const name=prompt('Quick add event at '+DAYS[day]+' '+String(hour).padStart(2,'0')+':00');
+  if(!name)return;
+  const events=getEvents();
+  events.push({
+    name,
+    start:String(hour).padStart(2,'0')+':00',
+    end:String(hour+1).padStart(2,'0')+':00',
+    day,cat:selectedCat,id:Date.now()
+  });
+  saveEvents(events);
+  renderEvents();
+  showToast('Event added!');
+}
+
+function deleteEvent(idx){
+  const events=getEvents();
+  events.splice(idx,1);
+  saveEvents(events);
+  renderEvents();
+  showToast('Deleted');
+}
+
+function exportMarkdown(){
+  const events=getEvents();
+  if(!events.length){showToast('No events to export');return;}
+  let md='# Weekly Planner\n\n';
+  DAYS.forEach((day,di)=>{
+    const dayEvents=events.filter(e=>e.day===di).sort((a,b)=>a.start.localeCompare(b.start));
+    if(dayEvents.length){
+      md+=`## ${day}\n\n`;
+      dayEvents.forEach(e=>{
+        const cat=categories[e.cat]||categories[6];
+        md+=`- **${e.start} - ${e.end}** | ${e.name} [${cat.name}]\n`;
+      });
+      md+='\n';
+    }
+  });
+  navigator.clipboard.writeText(md);
+  showToast('Markdown copied to clipboard!');
+}
+
+function exportImage(){
+  const el=document.getElementById('plannerSection');
+  // Use html2canvas-like approach with canvas
+  showToast('Generating image...');
+  const events=getEvents();
+  const canvas=document.createElement('canvas');
+  const W=1200,cellW=150,cellH=50,headerH=40,timeW=70;
+  canvas.width=W;
+  canvas.height=headerH+HOURS.length*cellH+20;
+  const ctx=canvas.getContext('2d');
+
+  // Background
+  ctx.fillStyle='#0a0a0f';ctx.fillRect(0,0,canvas.width,canvas.height);
+
+  // Header
+  ctx.fillStyle='#ff5f1f';ctx.font='bold 14px sans-serif';
+  DAYS.forEach((d,i)=>{
+    ctx.fillText(d,timeW+i*cellW+cellW/2-15,25);
+  });
+
+  // Grid lines & time labels
+  ctx.strokeStyle='rgba(50,50,70,0.5)';ctx.lineWidth=0.5;
+  HOURS.forEach((h,hi)=>{
+    const y=headerH+hi*cellH;
+    ctx.fillStyle='#8b8b9e';ctx.font='11px sans-serif';
+    ctx.fillText(String(h).padStart(2,'0')+':00',5,y+cellH/2+4);
+    ctx.beginPath();ctx.moveTo(timeW,y);ctx.lineTo(W,y);ctx.stroke();
+  });
+  for(let d=0;d<=7;d++){
+    const x=timeW+d*cellW;
+    ctx.beginPath();ctx.moveTo(x,headerH);ctx.lineTo(x,canvas.height);ctx.stroke();
+  }
+
+  // Events
+  events.forEach(ev=>{
+    const startH=parseInt(ev.start.split(':')[0]);
+    const startM=parseInt(ev.start.split(':')[1]);
+    const endH=parseInt(ev.end.split(':')[0]);
+    const endM=parseInt(ev.end.split(':')[1]);
+    const hi=HOURS.indexOf(startH);
+    if(hi===-1)return;
+    const cat=categories[ev.cat]||categories[6];
+    const y=headerH+hi*cellH+(startM/60)*cellH;
+    const h=((endH*60+endM)-(startH*60+startM))/60*cellH;
+    const x=timeW+ev.day*cellW+2;
+
+    ctx.fillStyle=cat.bg.replace('0.2','0.6');
+    ctx.beginPath();ctx.roundRect(x,y,cellW-4,Math.max(h,18),4);ctx.fill();
+    ctx.fillStyle=cat.color;ctx.font='bold 11px sans-serif';
+    ctx.fillText(ev.name.substring(0,18),x+4,y+14);
+    ctx.font='9px sans-serif';
+    ctx.fillText(ev.start+'-'+ev.end,x+4,y+26);
+  });
+
+  // Download
+  canvas.toBlob(blob=>{
+    const a=document.createElement('a');
+    a.href=URL.createObjectURL(blob);
+    a.download='weekly-planner.png';
+    a.click();
+    URL.revokeObjectURL(a.href);
+    showToast('Image downloaded!');
+  });
+}
+
+function exportJSON(){
+  const data=JSON.stringify(getEvents(),null,2);
+  const blob=new Blob([data],{type:'application/json'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='weekly-planner.json';
+  a.click();
+  URL.revokeObjectURL(a.href);
+  showToast('JSON exported!');
+}
+
+function importJSON(){
+  const input=document.getElementById('importFile');
+  input.onchange=function(){
+    const f=input.files[0];
+    if(!f)return;
+    const reader=new FileReader();
+    reader.onload=function(e){
+      try{
+        const data=JSON.parse(e.target.result);
+        if(Array.isArray(data)){
+          saveEvents(data);
+          renderEvents();
+          showToast('Imported '+data.length+' events!');
+        }else{showToast('Invalid format');}
+      }catch(err){showToast('Invalid JSON');}
+    };
+    reader.readAsText(f);
+  };
+  input.click();
+}
+
+function clearPlanner(){
+  if(!confirm('Clear all events? This cannot be undone.'))return;
+  saveEvents([]);
+  renderEvents();
+  showToast('Planner cleared');
+}
+
+buildGrid();
+</script>
+</body>
+</html>

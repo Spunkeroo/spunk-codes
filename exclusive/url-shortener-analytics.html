@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>URL Shortener & Analytics | SPUNK.CODES Exclusive</title>
+<meta name="description" content="Create trackable short URLs with click counters, QR codes, and share links. All data stored locally. Free URL shortener with analytics.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="URL Shortener & Analytics - SPUNK.CODES Exclusive">
+<meta property="og:description" content="Create trackable short URLs with click counters, QR codes, and share links.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://spunk.codes/exclusive/url-shortener-analytics">
+<meta property="og:site_name" content="Spunk Codes">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/url-shortener-analytics">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"URL Shortener & Analytics","applicationCategory":"UtilitiesApplication","operatingSystem":"Web","description":"Create trackable short URLs with click counters, QR codes, and share links.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Organization","name":"Spunk Codes","url":"https://spunk.codes"}}</script>
+<!-- GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<!-- Clarity -->
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<script src="https://spunk.codes/heartbeat.js" defer></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0a0a0f;--card:rgba(18,18,28,0.85);--border:rgba(50,50,70,0.5);--accent:#ff5f1f;--accent2:#ff9f1f;--text:#e8e8f0;--text-dim:#8b8b9e;--green:#39d353;--red:#f85149;--blue:#58a6ff;--purple:#a855f7;--font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+a{color:var(--blue);text-decoration:none}a:hover{color:#fff}
+.bg-mesh{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 80% 50% at 20% 20%,rgba(255,95,31,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(255,159,31,0.04) 0%,transparent 60%),var(--bg)}
+.nav{position:sticky;top:0;z-index:100;background:rgba(10,10,15,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,95,31,0.15);padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}
+.nav-brand{font-weight:800;font-size:1.1rem;background:linear-gradient(135deg,#ff5f1f,#ff9f1f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:0.08em}
+.nav-links{display:flex;gap:1.5rem;font-size:0.85rem;list-style:none}.nav-links a{color:var(--text-dim);transition:color 0.2s;font-weight:500}.nav-links a:hover{color:#fff}.nav-links a.active{color:var(--accent)}
+.lock-gate{position:fixed;inset:0;z-index:1000;background:rgba(10,10,15,0.97);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:2rem}.lock-gate.hidden{display:none}
+.lock-icon-big{font-size:4rem;margin-bottom:0.5rem}.lock-gate h2{font-size:1.8rem;font-weight:800;text-align:center}.lock-gate h2 span{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.lock-gate p{color:var(--text-dim);text-align:center;max-width:400px}
+.code-input-wrap{display:flex;gap:0.5rem;margin-top:0.5rem}.code-input{padding:0.8rem 1.5rem;background:rgba(18,18,28,0.8);border:2px solid rgba(255,95,31,0.3);border-radius:12px;color:var(--accent);font-size:1.2rem;font-weight:800;letter-spacing:3px;text-align:center;width:200px;outline:none;text-transform:uppercase;font-family:var(--font)}.code-input:focus{border-color:var(--accent);box-shadow:0 0 20px rgba(255,95,31,0.2)}
+.code-submit{padding:0.8rem 1.5rem;background:linear-gradient(135deg,#ff5f1f,#ff9f1f);border:none;border-radius:12px;color:#000;font-size:1rem;font-weight:800;cursor:pointer;transition:all 0.3s}.code-submit:hover{transform:scale(1.05)}
+.code-error{color:#f85149;font-size:0.85rem;min-height:1.2em}
+.lock-hint{color:var(--text-dim);font-size:0.8rem;margin-top:1rem}.lock-hint a{color:var(--accent)}
+.exclusive-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;background:linear-gradient(135deg,rgba(255,95,31,0.15),rgba(255,159,31,0.15));border:1px solid rgba(255,95,31,0.3);border-radius:100px;font-size:11px;font-weight:800;color:var(--accent);letter-spacing:1.5px;text-transform:uppercase}
+.main{max-width:1000px;margin:0 auto;padding:2rem}
+.hero-section{text-align:center;padding:2rem 0 2rem}
+.hero-section h1{font-size:2.2rem;font-weight:800;margin:1rem 0 0.5rem}
+.hero-section h1 .grad{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-section p{color:var(--text-dim);max-width:600px;margin:0 auto}
+.tool-section{background:var(--card);border:1px solid rgba(255,95,31,0.2);border-radius:16px;padding:2rem;margin-bottom:1.5rem;backdrop-filter:blur(10px);position:relative;overflow:hidden}
+.tool-section::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#ff5f1f,#ff9f1f,#ff5f1f)}
+.tool-section h2{font-size:1.2rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}
+input[type="text"],input[type="url"]{width:100%;padding:0.75rem 1rem;background:rgba(10,10,15,0.6);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:0.9rem;font-family:var(--font);outline:none;transition:border-color 0.2s}
+input:focus{border-color:var(--accent)}
+label{font-size:0.85rem;color:var(--text-dim);font-weight:600;display:block;margin-bottom:0.4rem}
+.btn{padding:0.75rem 2rem;border:none;border-radius:10px;font-size:0.9rem;font-weight:700;cursor:pointer;transition:all 0.2s;font-family:var(--font)}
+.btn-primary{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);color:#000}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 4px 20px rgba(255,95,31,0.3)}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--text-dim)}
+.btn-outline:hover{border-color:var(--accent);color:var(--accent)}
+.btn-sm{padding:0.5rem 1rem;font-size:0.8rem}
+.btn-danger{background:transparent;border:1px solid var(--red);color:var(--red)}
+.btn-danger:hover{background:rgba(248,81,73,0.1)}
+.btn-row{display:flex;gap:0.5rem;flex-wrap:wrap;margin:1rem 0}
+.input-row{display:grid;grid-template-columns:1fr auto;gap:0.75rem;align-items:end}
+.url-card{background:rgba(10,10,15,0.4);border:1px solid var(--border);border-radius:12px;padding:1.25rem;margin-bottom:0.75rem;transition:border-color 0.2s}
+.url-card:hover{border-color:rgba(255,95,31,0.3)}
+.url-card-header{display:flex;justify-content:space-between;align-items:start;gap:1rem;margin-bottom:0.75rem;flex-wrap:wrap}
+.url-card-title{font-weight:700;font-size:0.95rem;color:var(--accent);word-break:break-all}
+.url-card-dest{font-size:0.8rem;color:var(--text-dim);word-break:break-all;margin-bottom:0.5rem}
+.url-card-stats{display:flex;gap:1.5rem;flex-wrap:wrap;font-size:0.8rem;color:var(--text-dim)}
+.url-card-stats strong{color:var(--green)}
+.url-card-actions{display:flex;gap:0.4rem;flex-wrap:wrap;margin-top:0.75rem}
+.qr-wrap{text-align:center;margin-top:0.75rem;display:none}
+.qr-wrap canvas{border-radius:8px;background:#fff;padding:8px}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1rem;margin:1rem 0}
+.stat-card{background:rgba(10,10,15,0.5);border:1px solid var(--border);border-radius:12px;padding:1rem;text-align:center}
+.stat-value{font-size:1.5rem;font-weight:800;color:var(--accent)}
+.stat-label{font-size:0.75rem;color:var(--text-dim);margin-top:0.25rem}
+.empty-state{text-align:center;padding:3rem;color:var(--text-dim)}
+.empty-state h3{font-size:1.1rem;margin-bottom:0.5rem;color:var(--text)}
+.toast{position:fixed;bottom:2rem;right:2rem;padding:0.75rem 1.5rem;background:rgba(57,211,83,0.95);color:#000;font-weight:700;font-size:0.85rem;border-radius:10px;z-index:2000;transform:translateY(100px);opacity:0;transition:all 0.3s;pointer-events:none}
+.toast.show{transform:translateY(0);opacity:1}
+.share-cta{background:linear-gradient(135deg,rgba(255,95,31,0.08),rgba(255,159,31,0.05));border:1px solid rgba(255,95,31,0.2);border-radius:16px;padding:2rem;text-align:center;margin-top:2rem}
+.share-cta h3{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:0.5rem;font-size:1.1rem}
+.share-cta p{color:var(--text-dim);font-size:0.9rem;margin-bottom:1rem}
+.footer{text-align:center;padding:2rem;border-top:1px solid rgba(255,95,31,0.1);color:var(--text-dim);font-size:0.75rem;margin-top:3rem}
+.footer a{color:var(--accent)}.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-bottom:1rem}
+@media(max-width:768px){.main{padding:1rem}.hero-section h1{font-size:1.6rem}.nav-links{display:none}.input-row{grid-template-columns:1fr}.stats-grid{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<div class="bg-mesh"></div>
+<div class="lock-gate" id="lockGate">
+  <div class="lock-icon-big">&#128274;</div>
+  <h2>Enter Code <span>SPUNK</span> to Unlock</h2>
+  <p>This is an exclusive premium tool. Enter the referral code to get instant access.</p>
+  <div class="code-input-wrap">
+    <input type="text" class="code-input" id="codeInput" placeholder="CODE" maxlength="10" autocomplete="off">
+    <button class="code-submit" onclick="submitCode()">Unlock</button>
+  </div>
+  <div class="code-error" id="codeError"></div>
+  <div class="lock-hint">Get the code at <a href="https://spunk.codes/exclusive/">spunk.codes/exclusive/</a></div>
+</div>
+
+<nav class="nav">
+  <a href="https://spunk.codes" class="nav-brand">SPUNK.CODES</a>
+  <div class="nav-links">
+    <a href="/store">Tools</a>
+    <a href="/exclusive/" class="active">Exclusive</a>
+    <a href="/store#ebook">Ebooks</a>
+    <a href="/blog">Blog</a>
+  </div>
+</nav>
+
+<div class="main">
+  <section class="hero-section">
+    <div class="exclusive-badge">&#9889; EXCLUSIVE TOOL</div>
+    <h1>URL <span class="grad">Shortener</span> & Analytics</h1>
+    <p>Create trackable short URLs with click counters, QR codes for each link, and easy copy/share. All data saved locally in your browser.</p>
+  </section>
+
+  <div class="tool-section">
+    <h2>&#128279; Create Short URL</h2>
+    <div style="margin-bottom:0.75rem">
+      <label>Destination URL</label>
+      <input type="url" id="destURL" placeholder="https://example.com/your-long-url-here">
+    </div>
+    <div class="input-row">
+      <div>
+        <label>Custom Alias (optional)</label>
+        <input type="text" id="aliasInput" placeholder="my-link (auto-generated if empty)">
+      </div>
+      <button class="btn btn-primary" onclick="createLink()" style="margin-bottom:0">Shorten</button>
+    </div>
+  </div>
+
+  <div class="stats-grid" id="summaryStats">
+    <div class="stat-card"><div class="stat-value" id="totalLinks">0</div><div class="stat-label">Total Links</div></div>
+    <div class="stat-card"><div class="stat-value" id="totalClicks">0</div><div class="stat-label">Total Clicks</div></div>
+    <div class="stat-card"><div class="stat-value" id="topLink">-</div><div class="stat-label">Top Performer</div></div>
+  </div>
+
+  <div class="tool-section">
+    <h2>&#128202; Your Links</h2>
+    <div id="linksContainer">
+      <div class="empty-state" id="emptyState">
+        <h3>No links yet</h3>
+        <p>Create your first short URL above to get started.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="btn-row" id="bulkActions" style="display:none">
+    <button class="btn btn-outline btn-sm" onclick="exportLinks()">Export All (JSON)</button>
+    <button class="btn btn-danger btn-sm" onclick="clearAllLinks()">Delete All Links</button>
+  </div>
+
+  <div class="share-cta">
+    <h3>More Exclusive Developer Tools</h3>
+    <p>Weekly planner, JSON/CSV converters, CSS minifier, and more -- all free with code SPUNK.</p>
+    <a href="https://spunk.codes/exclusive/" class="btn btn-primary">Browse All Exclusive Tools</a>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<footer class="footer">
+  <div class="footer-links">
+    <a href="https://spunk.codes">spunk.codes</a>
+    <a href="https://spunk.bet">spunk.bet</a>
+    <a href="https://spunk.work">spunk.work</a>
+    <a href="https://spunk.pics">spunk.pics</a>
+  </div>
+  &copy; 2026 SPUNK.CODES -- Built for builders.
+</footer>
+
+<script>
+/* Lock gate */
+function submitCode(){
+  const v=document.getElementById('codeInput').value.trim().toUpperCase();
+  if(v==='SPUNK'){document.getElementById('lockGate').classList.add('hidden');localStorage.setItem('spunk_unlocked','1');}
+  else{document.getElementById('codeError').textContent='Invalid code. Try again.';}
+}
+document.getElementById('codeInput').addEventListener('keydown',e=>{if(e.key==='Enter')submitCode();});
+if(localStorage.getItem('spunk_unlocked')==='1')document.getElementById('lockGate').classList.add('hidden');
+
+function showToast(msg){
+  const toast=document.getElementById('toast');
+  toast.textContent=msg;toast.classList.add('show');
+  setTimeout(()=>toast.classList.remove('show'),2000);
+}
+
+/* QR Code generator (simple canvas-based) */
+function generateQR(text,canvas,size){
+  // Using a simple QR-like visual via Google Charts API image
+  const img=new Image();
+  img.crossOrigin='anonymous';
+  img.onload=function(){
+    canvas.width=size;canvas.height=size;
+    const ctx=canvas.getContext('2d');
+    ctx.fillStyle='#fff';ctx.fillRect(0,0,size,size);
+    ctx.drawImage(img,0,0,size,size);
+  };
+  img.src='https://api.qrserver.com/v1/create-qr-code/?size='+size+'x'+size+'&data='+encodeURIComponent(text);
+}
+
+/* Data store */
+const STORAGE_KEY='spunk_url_shortener';
+function getLinks(){
+  try{return JSON.parse(localStorage.getItem(STORAGE_KEY))||[];}
+  catch(e){return [];}
+}
+function saveLinks(links){localStorage.setItem(STORAGE_KEY,JSON.stringify(links));}
+
+function genId(len){
+  const chars='abcdefghijklmnopqrstuvwxyz0123456789';
+  let r='';for(let i=0;i<(len||6);i++)r+=chars[Math.floor(Math.random()*chars.length)];
+  return r;
+}
+
+function createLink(){
+  const dest=document.getElementById('destURL').value.trim();
+  if(!dest){showToast('Enter a destination URL');return;}
+
+  try{new URL(dest);}catch(e){showToast('Enter a valid URL');return;}
+
+  let alias=document.getElementById('aliasInput').value.trim().replace(/[^a-zA-Z0-9_-]/g,'');
+  if(!alias)alias=genId(6);
+
+  const links=getLinks();
+  if(links.find(l=>l.alias===alias)){showToast('Alias already exists, try another');return;}
+
+  const link={
+    id:genId(10),
+    alias:alias,
+    dest:dest,
+    clicks:0,
+    created:new Date().toISOString(),
+    clickLog:[]
+  };
+
+  links.unshift(link);
+  saveLinks(links);
+
+  document.getElementById('destURL').value='';
+  document.getElementById('aliasInput').value='';
+
+  renderLinks();
+  showToast('Link created!');
+}
+
+function trackClick(id){
+  const links=getLinks();
+  const link=links.find(l=>l.id===id);
+  if(link){
+    link.clicks++;
+    link.clickLog.push({time:new Date().toISOString(),ua:navigator.userAgent});
+    saveLinks(links);
+    window.open(link.dest,'_blank');
+    renderLinks();
+  }
+}
+
+function deleteLink(id){
+  let links=getLinks();
+  links=links.filter(l=>l.id!==id);
+  saveLinks(links);
+  renderLinks();
+  showToast('Link deleted');
+}
+
+function getShortURL(alias){
+  return window.location.origin+'/s/'+alias;
+}
+
+function copyLink(alias){
+  // Since this is localStorage-based, we copy a trackable link that goes through this page
+  const url=window.location.href.split('?')[0]+'?go='+alias;
+  navigator.clipboard.writeText(url);
+  showToast('Link copied!');
+}
+
+function showQR(id){
+  const el=document.getElementById('qr-'+id);
+  if(el.style.display==='block'){el.style.display='none';return;}
+  el.style.display='block';
+  const canvas=el.querySelector('canvas');
+  const links=getLinks();
+  const link=links.find(l=>l.id===id);
+  if(link){
+    const url=window.location.href.split('?')[0]+'?go='+link.alias;
+    generateQR(url,canvas,200);
+  }
+}
+
+function renderLinks(){
+  const links=getLinks();
+  const container=document.getElementById('linksContainer');
+  const empty=document.getElementById('emptyState');
+
+  // Summary stats
+  document.getElementById('totalLinks').textContent=links.length;
+  const totalClicks=links.reduce((s,l)=>s+l.clicks,0);
+  document.getElementById('totalClicks').textContent=totalClicks;
+  const top=links.reduce((best,l)=>l.clicks>best.clicks?l:best,{clicks:0,alias:'-'});
+  document.getElementById('topLink').textContent=top.alias==='-'?'-':top.alias;
+
+  document.getElementById('bulkActions').style.display=links.length?'flex':'none';
+
+  if(!links.length){
+    container.innerHTML='';
+    container.appendChild(empty);
+    return;
+  }
+
+  container.innerHTML=links.map(link=>{
+    const shortURL=window.location.href.split('?')[0]+'?go='+link.alias;
+    const created=new Date(link.created).toLocaleDateString();
+    return `<div class="url-card">
+      <div class="url-card-header">
+        <div>
+          <div class="url-card-title">${link.alias}</div>
+          <div class="url-card-dest">${link.dest}</div>
+        </div>
+      </div>
+      <div class="url-card-stats">
+        <span>Clicks: <strong>${link.clicks}</strong></span>
+        <span>Created: ${created}</span>
+        <span>Last click: ${link.clickLog.length?new Date(link.clickLog[link.clickLog.length-1].time).toLocaleString():'Never'}</span>
+      </div>
+      <div class="url-card-actions">
+        <button class="btn btn-primary btn-sm" onclick="copyLink('${link.alias}')">Copy Link</button>
+        <button class="btn btn-outline btn-sm" onclick="trackClick('${link.id}')">Test Click</button>
+        <button class="btn btn-outline btn-sm" onclick="showQR('${link.id}')">QR Code</button>
+        <button class="btn btn-danger btn-sm" onclick="deleteLink('${link.id}')">Delete</button>
+      </div>
+      <div class="qr-wrap" id="qr-${link.id}"><canvas></canvas><p style="font-size:0.75rem;color:var(--text-dim);margin-top:0.5rem">Scan or right-click to save</p></div>
+    </div>`;
+  }).join('');
+}
+
+function exportLinks(){
+  const data=JSON.stringify(getLinks(),null,2);
+  const blob=new Blob([data],{type:'application/json'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='url-analytics-export.json';
+  a.click();
+  URL.revokeObjectURL(a.href);
+  showToast('Exported!');
+}
+
+function clearAllLinks(){
+  if(!confirm('Delete all links? This cannot be undone.'))return;
+  saveLinks([]);
+  renderLinks();
+  showToast('All links deleted');
+}
+
+/* Handle redirect if ?go= param */
+(function(){
+  const params=new URLSearchParams(window.location.search);
+  const goAlias=params.get('go');
+  if(goAlias){
+    const links=getLinks();
+    const link=links.find(l=>l.alias===goAlias);
+    if(link){
+      link.clicks++;
+      link.clickLog.push({time:new Date().toISOString(),ua:navigator.userAgent,ref:document.referrer});
+      saveLinks(links);
+      window.location.href=link.dest;
+      return;
+    }
+  }
+})();
+
+renderLinks();
+</script>
+</body>
+</html>
