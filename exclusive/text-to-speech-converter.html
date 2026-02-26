@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Text to Speech Converter | SPUNK.CODES Exclusive</title>
+<meta name="description" content="Convert text to speech using the Web Speech API. Choose voices, adjust rate and pitch, play/pause/stop controls, and highlight text as it reads.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Text to Speech Converter - SPUNK.CODES Exclusive">
+<meta property="og:description" content="Convert text to speech with voice selection, rate/pitch controls, and real-time text highlighting.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://spunk.codes/exclusive/text-to-speech-converter">
+<meta property="og:site_name" content="Spunk Codes">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/text-to-speech-converter">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Text to Speech Converter","applicationCategory":"MultimediaApplication","operatingSystem":"Web","description":"Convert text to speech using the Web Speech API. Voice selection, rate and pitch controls, play/pause/stop, and real-time text highlighting.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Organization","name":"Spunk Codes","url":"https://spunk.codes"}}</script>
+<!-- GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<!-- Clarity -->
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<script src="https://spunk.codes/heartbeat.js" defer></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0a0a0f;--card:rgba(18,18,28,0.85);--border:rgba(50,50,70,0.5);--accent:#ff5f1f;--accent2:#ff9f1f;--text:#e8e8f0;--text-dim:#8b8b9e;--green:#39d353;--red:#f85149;--blue:#58a6ff;--font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+a{color:var(--blue);text-decoration:none}a:hover{color:#fff}
+.bg-mesh{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 80% 50% at 20% 20%,rgba(255,95,31,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(255,159,31,0.04) 0%,transparent 60%),var(--bg)}
+.nav{position:sticky;top:0;z-index:100;background:rgba(10,10,15,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,95,31,0.15);padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}
+.nav-brand{font-weight:800;font-size:1.1rem;background:linear-gradient(135deg,#ff5f1f,#ff9f1f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:0.08em}
+.nav-links{display:flex;gap:1.5rem;font-size:0.85rem;list-style:none}.nav-links a{color:var(--text-dim);transition:color 0.2s;font-weight:500}.nav-links a:hover{color:#fff}.nav-links a.active{color:var(--accent)}
+.lock-gate{position:fixed;inset:0;z-index:1000;background:rgba(10,10,15,0.97);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:2rem}.lock-gate.hidden{display:none}
+.lock-icon-big{font-size:4rem;margin-bottom:0.5rem}.lock-gate h2{font-size:1.8rem;font-weight:800;text-align:center}.lock-gate h2 span{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.lock-gate p{color:var(--text-dim);text-align:center;max-width:400px}
+.code-input-wrap{display:flex;gap:0.5rem;margin-top:0.5rem}.code-input{padding:0.8rem 1.5rem;background:rgba(18,18,28,0.8);border:2px solid rgba(255,95,31,0.3);border-radius:12px;color:var(--accent);font-size:1.2rem;font-weight:800;letter-spacing:3px;text-align:center;width:200px;outline:none;text-transform:uppercase;font-family:var(--font)}.code-input:focus{border-color:var(--accent);box-shadow:0 0 20px rgba(255,95,31,0.2)}
+.code-submit{padding:0.8rem 1.5rem;background:linear-gradient(135deg,#ff5f1f,#ff9f1f);border:none;border-radius:12px;color:#000;font-size:1rem;font-weight:800;cursor:pointer;transition:all 0.3s}.code-submit:hover{transform:scale(1.05)}
+.code-error{color:#f85149;font-size:0.85rem;min-height:1.2em}
+.lock-hint{color:var(--text-dim);font-size:0.8rem;margin-top:1rem}.lock-hint a{color:var(--accent)}
+.exclusive-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;background:linear-gradient(135deg,rgba(255,95,31,0.15),rgba(255,159,31,0.15));border:1px solid rgba(255,95,31,0.3);border-radius:100px;font-size:11px;font-weight:800;color:var(--accent);letter-spacing:1.5px;text-transform:uppercase}
+.main{max-width:1000px;margin:0 auto;padding:2rem}
+.hero-section{text-align:center;padding:2rem 0 3rem}
+.hero-section h1{font-size:2.2rem;font-weight:800;margin:1rem 0 0.5rem}
+.hero-section h1 .grad{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-section p{color:var(--text-dim);max-width:600px;margin:0 auto}
+.tool-section{background:var(--card);border:1px solid rgba(255,95,31,0.2);border-radius:16px;padding:2rem;margin-bottom:1.5rem;backdrop-filter:blur(10px);position:relative;overflow:hidden}
+.tool-section::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#ff5f1f,#ff9f1f,#ff5f1f)}
+.tool-section h2{font-size:1.2rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}
+label{font-size:0.85rem;color:var(--text-dim);font-weight:600;display:block;margin-bottom:0.4rem}
+input,select,textarea{width:100%;padding:0.75rem 1rem;background:rgba(10,10,15,0.6);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:0.9rem;font-family:var(--font);outline:none;transition:border-color 0.2s}
+input:focus,select:focus,textarea:focus{border-color:var(--accent)}
+.input-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.input-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem}
+.input-group{margin-bottom:1rem}
+.btn{padding:0.75rem 2rem;border:none;border-radius:10px;font-size:0.9rem;font-weight:700;cursor:pointer;transition:all 0.2s;font-family:var(--font)}
+.btn-primary{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);color:#000}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 4px 20px rgba(255,95,31,0.3)}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--text-dim)}
+.btn-outline:hover{border-color:var(--accent);color:var(--accent)}
+.btn-sm{padding:0.5rem 1rem;font-size:0.8rem}
+.btn-row{display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:1rem}
+.btn-lg{padding:1rem 2.5rem;font-size:1.1rem;border-radius:14px}
+textarea{resize:vertical;font-family:var(--font)}
+/* Slider */
+.slider-wrap{display:flex;align-items:center;gap:1rem}
+.slider-wrap input[type="range"]{flex:1;-webkit-appearance:none;height:6px;border-radius:3px;background:var(--border);outline:none;border:none;padding:0}
+.slider-wrap input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:linear-gradient(135deg,#ff5f1f,#ff9f1f);cursor:pointer}
+.slider-val{font-weight:800;color:var(--accent);min-width:45px;text-align:right}
+/* Player controls */
+.player-controls{display:flex;gap:1rem;justify-content:center;align-items:center;padding:1.5rem;flex-wrap:wrap}
+.play-btn{width:70px;height:70px;border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.8rem;transition:all 0.2s;background:linear-gradient(135deg,#ff5f1f,#ff9f1f);color:#000}
+.play-btn:hover{transform:scale(1.1);box-shadow:0 0 30px rgba(255,95,31,0.4)}
+.play-btn.playing{background:linear-gradient(135deg,var(--green),#2ebd44)}
+.ctrl-btn{width:50px;height:50px;border-radius:50%;border:1px solid var(--border);background:rgba(10,10,15,0.6);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.2rem;color:var(--text);transition:all 0.2s}
+.ctrl-btn:hover{border-color:var(--accent);color:var(--accent);background:rgba(255,95,31,0.1)}
+/* Status */
+.status-bar{display:flex;justify-content:space-between;align-items:center;padding:0.75rem 1rem;background:rgba(10,10,15,0.5);border-radius:10px;margin-top:1rem;font-size:0.82rem}
+.status-indicator{display:flex;align-items:center;gap:0.5rem}
+.status-dot{width:8px;height:8px;border-radius:50%;background:var(--text-dim)}
+.status-dot.idle{background:var(--text-dim)}
+.status-dot.speaking{background:var(--green);animation:pulse 1s ease-in-out infinite}
+.status-dot.paused{background:var(--accent)}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+/* Text display with highlighting */
+.text-display{padding:1.5rem;background:rgba(10,10,15,0.5);border:1px solid var(--border);border-radius:12px;font-size:1rem;line-height:1.8;min-height:120px;max-height:400px;overflow-y:auto}
+.text-display .word{transition:background-color 0.15s,color 0.15s;padding:1px 2px;border-radius:3px}
+.text-display .word.active{background:rgba(255,95,31,0.3);color:#fff}
+.text-display .word.spoken{color:var(--text-dim)}
+/* Presets */
+.preset-chips{display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1rem}
+.preset-chip{padding:0.4rem 1rem;border:1px solid var(--border);border-radius:20px;background:transparent;color:var(--text-dim);font-size:0.78rem;font-weight:600;cursor:pointer;transition:all 0.2s;font-family:var(--font)}
+.preset-chip:hover,.preset-chip.active{border-color:var(--accent);color:var(--accent);background:rgba(255,95,31,0.1)}
+.char-count{text-align:right;font-size:0.78rem;color:var(--text-dim);margin-top:0.3rem}
+.share-cta{background:linear-gradient(135deg,rgba(255,95,31,0.08),rgba(255,159,31,0.05));border:1px solid rgba(255,95,31,0.2);border-radius:16px;padding:2rem;text-align:center;margin-top:2rem}
+.share-cta h3{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:0.5rem;font-size:1.1rem}
+.share-cta p{color:var(--text-dim);font-size:0.9rem;margin-bottom:1rem}
+.footer{text-align:center;padding:2rem;border-top:1px solid rgba(255,95,31,0.1);color:var(--text-dim);font-size:0.75rem;margin-top:3rem}
+.footer a{color:var(--accent)}.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-bottom:1rem}
+.no-support{background:rgba(248,81,73,0.1);border:1px solid rgba(248,81,73,0.3);border-radius:12px;padding:1.5rem;text-align:center;color:var(--red);display:none}
+@media(max-width:768px){.main{padding:1rem}.hero-section h1{font-size:1.6rem}.input-grid,.input-grid-3{grid-template-columns:1fr}.nav-links{display:none}.play-btn{width:60px;height:60px;font-size:1.5rem}.ctrl-btn{width:44px;height:44px;font-size:1rem}}
+</style>
+</head>
+<body>
+<div class="bg-mesh"></div>
+<div class="lock-gate" id="lockGate">
+  <div class="lock-icon-big">&#128274;</div>
+  <h2>Enter Code <span>SPUNK</span> to Unlock</h2>
+  <p>This is an exclusive premium tool. Enter the referral code to get instant access.</p>
+  <div class="code-input-wrap">
+    <input type="text" class="code-input" id="codeInput" placeholder="CODE" maxlength="10" autocomplete="off">
+    <button class="code-submit" onclick="submitCode()">Unlock</button>
+  </div>
+  <div class="code-error" id="codeError"></div>
+  <div class="lock-hint">Get the code at <a href="https://spunk.codes/exclusive/">spunk.codes/exclusive/</a></div>
+</div>
+
+<nav class="nav">
+  <a href="https://spunk.codes" class="nav-brand">SPUNK.CODES</a>
+  <div class="nav-links">
+    <a href="/store">Tools</a>
+    <a href="/exclusive/" class="active">Exclusive</a>
+    <a href="/store#ebook">Ebooks</a>
+    <a href="/blog">Blog</a>
+  </div>
+</nav>
+
+<div class="main">
+  <section class="hero-section">
+    <div class="exclusive-badge">&#9889; EXCLUSIVE TOOL</div>
+    <h1>Text to <span class="grad">Speech</span> Converter</h1>
+    <p>Convert any text to speech using your browser's built-in speech engine. Choose voices, adjust speed and pitch, and watch text highlight as it reads aloud.</p>
+  </section>
+
+  <div class="no-support" id="noSupport">
+    Your browser does not support the Web Speech API. Please try Chrome, Edge, or Safari.
+  </div>
+
+  <!-- Text Input -->
+  <div class="tool-section">
+    <h2>&#128221; Enter Text</h2>
+    <div class="preset-chips">
+      <button class="preset-chip" onclick="loadSample('news')">News Article</button>
+      <button class="preset-chip" onclick="loadSample('story')">Short Story</button>
+      <button class="preset-chip" onclick="loadSample('tech')">Tech Blog</button>
+      <button class="preset-chip" onclick="loadSample('poem')">Poem</button>
+    </div>
+    <div class="input-group" style="margin-bottom:0">
+      <textarea id="textInput" rows="8" placeholder="Paste or type the text you want to convert to speech..."></textarea>
+      <div class="char-count"><span id="charCount">0</span> characters | <span id="wordCount">0</span> words | ~<span id="readTime">0</span> min read</div>
+    </div>
+  </div>
+
+  <!-- Voice Settings -->
+  <div class="tool-section">
+    <h2>&#127908; Voice Settings</h2>
+    <div class="input-grid">
+      <div class="input-group">
+        <label>Voice</label>
+        <select id="voiceSelect"></select>
+      </div>
+      <div class="input-group">
+        <label>Language Filter</label>
+        <select id="langFilter" onchange="filterVoices()">
+          <option value="all">All Languages</option>
+          <option value="en">English</option>
+          <option value="es">Spanish</option>
+          <option value="fr">French</option>
+          <option value="de">German</option>
+          <option value="it">Italian</option>
+          <option value="pt">Portuguese</option>
+          <option value="ja">Japanese</option>
+          <option value="ko">Korean</option>
+          <option value="zh">Chinese</option>
+        </select>
+      </div>
+    </div>
+    <div class="input-grid">
+      <div class="input-group">
+        <label>Speed (Rate)</label>
+        <div class="slider-wrap">
+          <input type="range" id="rateSlider" min="0.1" max="3" step="0.1" value="1">
+          <span class="slider-val" id="rateVal">1.0x</span>
+        </div>
+      </div>
+      <div class="input-group">
+        <label>Pitch</label>
+        <div class="slider-wrap">
+          <input type="range" id="pitchSlider" min="0" max="2" step="0.1" value="1">
+          <span class="slider-val" id="pitchVal">1.0</span>
+        </div>
+      </div>
+    </div>
+    <div class="input-group">
+      <label>Volume</label>
+      <div class="slider-wrap">
+        <input type="range" id="volumeSlider" min="0" max="1" step="0.1" value="1">
+        <span class="slider-val" id="volumeVal">100%</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Player -->
+  <div class="tool-section">
+    <h2>&#127911; Player</h2>
+    <div class="player-controls">
+      <button class="ctrl-btn" onclick="skipBack()" title="Skip back">&#9198;</button>
+      <button class="play-btn" id="playBtn" onclick="togglePlay()" title="Play/Pause">&#9654;</button>
+      <button class="ctrl-btn" onclick="stopSpeech()" title="Stop">&#9724;</button>
+      <button class="ctrl-btn" onclick="skipForward()" title="Skip forward">&#9197;</button>
+    </div>
+    <div class="status-bar">
+      <div class="status-indicator">
+        <span class="status-dot" id="statusDot"></span>
+        <span id="statusText">Ready</span>
+      </div>
+      <div><span id="progressText">0 / 0 words</span></div>
+    </div>
+  </div>
+
+  <!-- Text Display with Highlighting -->
+  <div class="tool-section">
+    <h2>&#128064; Reading View</h2>
+    <p style="color:var(--text-dim);font-size:0.85rem;margin-bottom:1rem">Words highlight as they are spoken. Click any word to jump there.</p>
+    <div class="text-display" id="textDisplay">
+      <span style="color:var(--text-dim)">Your text will appear here with word-by-word highlighting...</span>
+    </div>
+  </div>
+
+  <div class="share-cta">
+    <h3>More Exclusive Automation Tools</h3>
+    <p>File renamers, email builders, invoice generators, and more -- all free with code SPUNK.</p>
+    <a href="https://spunk.codes/exclusive/" class="btn btn-primary">Browse All Exclusive Tools</a>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer-links">
+    <a href="https://spunk.codes">spunk.codes</a>
+    <a href="https://spunk.bet">spunk.bet</a>
+    <a href="https://spunk.work">spunk.work</a>
+    <a href="https://spunk.pics">spunk.pics</a>
+  </div>
+  &copy; 2026 SPUNK.CODES -- Built for builders.
+</footer>
+
+<script>
+/* Lock gate */
+function submitCode(){
+  const v=document.getElementById('codeInput').value.trim().toUpperCase();
+  if(v==='SPUNK'){document.getElementById('lockGate').classList.add('hidden');localStorage.setItem('spunk_unlocked','1');}
+  else{document.getElementById('codeError').textContent='Invalid code. Try again.';}
+}
+document.getElementById('codeInput').addEventListener('keydown',e=>{if(e.key==='Enter')submitCode();});
+if(localStorage.getItem('spunk_unlocked')==='1')document.getElementById('lockGate').classList.add('hidden');
+
+/* Check support */
+const synth = window.speechSynthesis;
+if(!synth){document.getElementById('noSupport').style.display='block';}
+
+/* Voices */
+let voices = [];
+let allVoices = [];
+
+function loadVoices(){
+  allVoices = synth.getVoices();
+  filterVoices();
+}
+
+function filterVoices(){
+  const lang = document.getElementById('langFilter').value;
+  const select = document.getElementById('voiceSelect');
+  voices = lang==='all' ? allVoices : allVoices.filter(v=>v.lang.startsWith(lang));
+  select.innerHTML = '';
+  voices.forEach((v,i)=>{
+    const opt = document.createElement('option');
+    opt.value = i;
+    opt.textContent = `${v.name} (${v.lang})${v.default?' [default]':''}`;
+    select.appendChild(opt);
+  });
+}
+
+if(synth){
+  loadVoices();
+  if(synth.onvoiceschanged !== undefined) synth.onvoiceschanged = loadVoices;
+}
+
+/* Sliders */
+document.getElementById('rateSlider').addEventListener('input',e=>{document.getElementById('rateVal').textContent=parseFloat(e.target.value).toFixed(1)+'x';});
+document.getElementById('pitchSlider').addEventListener('input',e=>{document.getElementById('pitchVal').textContent=parseFloat(e.target.value).toFixed(1);});
+document.getElementById('volumeSlider').addEventListener('input',e=>{document.getElementById('volumeVal').textContent=Math.round(e.target.value*100)+'%';});
+
+/* Character / word count */
+const textInput = document.getElementById('textInput');
+textInput.addEventListener('input',updateCounts);
+
+function updateCounts(){
+  const text = textInput.value;
+  document.getElementById('charCount').textContent = text.length;
+  const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+  document.getElementById('wordCount').textContent = words;
+  document.getElementById('readTime').textContent = Math.max(1,Math.ceil(words/200));
+}
+
+/* Speech State */
+let currentWordIndex = -1;
+let words = [];
+let wordElements = [];
+let utterance = null;
+let isSpeaking = false;
+let isPaused = false;
+let sentenceChunks = [];
+let currentChunkIndex = 0;
+
+function prepareText(){
+  const text = textInput.value.trim();
+  if(!text) return false;
+
+  // Split into words and prepare display
+  words = text.split(/(\s+)/);
+  const display = document.getElementById('textDisplay');
+  display.innerHTML = '';
+  wordElements = [];
+  let wordIdx = 0;
+
+  words.forEach((w,i)=>{
+    if(/^\s+$/.test(w)){
+      display.appendChild(document.createTextNode(w));
+    } else {
+      const span = document.createElement('span');
+      span.className = 'word';
+      span.textContent = w;
+      span.dataset.index = wordIdx;
+      span.addEventListener('click',()=>jumpToWord(parseInt(span.dataset.index)));
+      display.appendChild(span);
+      wordElements.push(span);
+      wordIdx++;
+    }
+  });
+
+  // Split into sentences for chunked reading (for boundary events)
+  sentenceChunks = text.match(/[^.!?]+[.!?]+|[^.!?]+$/g) || [text];
+  currentChunkIndex = 0;
+  currentWordIndex = -1;
+  return true;
+}
+
+function speakChunk(index){
+  if(index >= sentenceChunks.length){
+    finishSpeaking();
+    return;
+  }
+
+  const text = sentenceChunks[index].trim();
+  if(!text){
+    currentChunkIndex++;
+    speakChunk(currentChunkIndex);
+    return;
+  }
+
+  utterance = new SpeechSynthesisUtterance(text);
+  const voiceIdx = parseInt(document.getElementById('voiceSelect').value);
+  if(voices[voiceIdx]) utterance.voice = voices[voiceIdx];
+  utterance.rate = parseFloat(document.getElementById('rateSlider').value);
+  utterance.pitch = parseFloat(document.getElementById('pitchSlider').value);
+  utterance.volume = parseFloat(document.getElementById('volumeSlider').value);
+
+  // Word boundary highlighting
+  utterance.onboundary = function(event){
+    if(event.name === 'word'){
+      currentWordIndex++;
+      highlightWord(currentWordIndex);
+    }
+  };
+
+  utterance.onend = function(){
+    currentChunkIndex++;
+    speakChunk(currentChunkIndex);
+  };
+
+  utterance.onerror = function(e){
+    if(e.error !== 'canceled'){
+      console.error('Speech error:', e.error);
+      finishSpeaking();
+    }
+  };
+
+  synth.speak(utterance);
+}
+
+function togglePlay(){
+  if(!synth) return;
+
+  if(isSpeaking && !isPaused){
+    // Pause
+    synth.pause();
+    isPaused = true;
+    updateStatus('paused','Paused');
+    document.getElementById('playBtn').innerHTML = '&#9654;';
+    document.getElementById('playBtn').classList.remove('playing');
+    return;
+  }
+
+  if(isPaused){
+    // Resume
+    synth.resume();
+    isPaused = false;
+    updateStatus('speaking','Speaking...');
+    document.getElementById('playBtn').innerHTML = '&#9208;';
+    document.getElementById('playBtn').classList.add('playing');
+    return;
+  }
+
+  // Start fresh
+  if(!prepareText()){
+    alert('Please enter some text first.');
+    return;
+  }
+
+  synth.cancel();
+  isSpeaking = true;
+  isPaused = false;
+  currentChunkIndex = 0;
+  currentWordIndex = -1;
+
+  updateStatus('speaking','Speaking...');
+  document.getElementById('playBtn').innerHTML = '&#9208;';
+  document.getElementById('playBtn').classList.add('playing');
+
+  speakChunk(0);
+}
+
+function stopSpeech(){
+  synth.cancel();
+  finishSpeaking();
+  // Reset highlighting
+  wordElements.forEach(el=>{el.classList.remove('active','spoken');});
+  currentWordIndex = -1;
+}
+
+function finishSpeaking(){
+  isSpeaking = false;
+  isPaused = false;
+  updateStatus('idle','Ready');
+  document.getElementById('playBtn').innerHTML = '&#9654;';
+  document.getElementById('playBtn').classList.remove('playing');
+}
+
+function highlightWord(idx){
+  wordElements.forEach((el,i)=>{
+    el.classList.remove('active');
+    if(i < idx) el.classList.add('spoken');
+    else el.classList.remove('spoken');
+  });
+  if(wordElements[idx]){
+    wordElements[idx].classList.add('active');
+    wordElements[idx].scrollIntoView({behavior:'smooth',block:'center'});
+  }
+  const total = wordElements.length;
+  document.getElementById('progressText').textContent = `${Math.min(idx+1,total)} / ${total} words`;
+}
+
+function jumpToWord(idx){
+  // Stop current speech and restart from this word
+  synth.cancel();
+
+  // Calculate which sentence chunk and rebuild from that point
+  const allWords = wordElements.map(el=>el.textContent);
+  const remainingText = allWords.slice(idx).join(' ');
+
+  // Mark previous words as spoken
+  wordElements.forEach((el,i)=>{
+    el.classList.remove('active','spoken');
+    if(i < idx) el.classList.add('spoken');
+  });
+
+  currentWordIndex = idx - 1;
+  sentenceChunks = [remainingText];
+  currentChunkIndex = 0;
+  isSpeaking = true;
+  isPaused = false;
+
+  updateStatus('speaking','Speaking...');
+  document.getElementById('playBtn').innerHTML = '&#9208;';
+  document.getElementById('playBtn').classList.add('playing');
+
+  speakChunk(0);
+}
+
+function skipBack(){
+  if(!isSpeaking) return;
+  const newIdx = Math.max(0, currentWordIndex - 10);
+  jumpToWord(newIdx);
+}
+
+function skipForward(){
+  if(!isSpeaking) return;
+  const newIdx = Math.min(wordElements.length - 1, currentWordIndex + 10);
+  jumpToWord(newIdx);
+}
+
+function updateStatus(state, text){
+  const dot = document.getElementById('statusDot');
+  dot.className = 'status-dot ' + state;
+  document.getElementById('statusText').textContent = text;
+}
+
+/* Samples */
+function loadSample(type){
+  const samples = {
+    news: "Breaking news from the tech world today. A major artificial intelligence company announced a groundbreaking new model that can understand and generate human language with unprecedented accuracy. The new system, which has been in development for over two years, demonstrates remarkable capabilities in reasoning, creative writing, and code generation. Industry experts say this could transform how businesses operate and how people interact with technology in their daily lives.",
+    story: "The old lighthouse keeper watched the storm roll in from the east. Dark clouds swallowed the horizon like a hungry beast, and the wind began to howl through the cracks in the ancient stone walls. He climbed the spiral staircase one final time, his weathered hands gripping the cold iron railing. At the top, he lit the great lamp and watched its beam cut through the darkness. Somewhere out there, a ship was fighting the waves, and his light would guide them home.",
+    tech: "Modern web development has evolved dramatically over the past decade. Single page applications built with frameworks like React and Vue have become the standard for interactive user interfaces. Server-side rendering has made a comeback with tools like Next.js, offering the best of both worlds: fast initial page loads and rich client-side interactivity. Meanwhile, the rise of edge computing and serverless functions has changed how developers think about backend architecture, pushing computation closer to users for lower latency.",
+    poem: "Do not go gentle into that good night. Old age should burn and rave at close of day. Rage, rage against the dying of the light. Though wise men at their end know dark is right, because their words had forked no lightning they do not go gentle into that good night. Good men, the last wave by, crying how bright their frail deeds might have danced in a green bay, rage, rage against the dying of the light."
+  };
+  textInput.value = samples[type] || '';
+  updateCounts();
+  document.querySelectorAll('.preset-chip').forEach(c=>c.classList.remove('active'));
+  event.target.classList.add('active');
+}
+</script>
+</body>
+</html>

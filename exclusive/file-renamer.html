@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bulk File Renamer & Planner | SPUNK.CODES Exclusive</title>
+<meta name="description" content="Plan and preview bulk file renames with prefix, suffix, find-replace, numbering, date stamps, and case changes. Export rename scripts for Bash or PowerShell.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Bulk File Renamer & Planner - SPUNK.CODES Exclusive">
+<meta property="og:description" content="Plan and preview bulk file renames with powerful rules. Export rename scripts for Bash or PowerShell.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://spunk.codes/exclusive/file-renamer">
+<meta property="og:site_name" content="Spunk Codes">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/file-renamer">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Bulk File Renamer & Planner","applicationCategory":"UtilitiesApplication","operatingSystem":"Web","description":"Plan and preview bulk file renames with prefix, suffix, find-replace, numbering, date stamps, and case changes. Export rename scripts.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Organization","name":"Spunk Codes","url":"https://spunk.codes"}}</script>
+<!-- GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<!-- Clarity -->
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<script src="https://spunk.codes/heartbeat.js" defer></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0a0a0f;--card:rgba(18,18,28,0.85);--border:rgba(50,50,70,0.5);--accent:#ff5f1f;--accent2:#ff9f1f;--text:#e8e8f0;--text-dim:#8b8b9e;--green:#39d353;--red:#f85149;--blue:#58a6ff;--font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+a{color:var(--blue);text-decoration:none}a:hover{color:#fff}
+.bg-mesh{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 80% 50% at 20% 20%,rgba(255,95,31,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(255,159,31,0.04) 0%,transparent 60%),var(--bg)}
+.nav{position:sticky;top:0;z-index:100;background:rgba(10,10,15,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,95,31,0.15);padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}
+.nav-brand{font-weight:800;font-size:1.1rem;background:linear-gradient(135deg,#ff5f1f,#ff9f1f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:0.08em}
+.nav-links{display:flex;gap:1.5rem;font-size:0.85rem;list-style:none}.nav-links a{color:var(--text-dim);transition:color 0.2s;font-weight:500}.nav-links a:hover{color:#fff}.nav-links a.active{color:var(--accent)}
+.lock-gate{position:fixed;inset:0;z-index:1000;background:rgba(10,10,15,0.97);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:2rem}.lock-gate.hidden{display:none}
+.lock-icon-big{font-size:4rem;margin-bottom:0.5rem}.lock-gate h2{font-size:1.8rem;font-weight:800;text-align:center}.lock-gate h2 span{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.lock-gate p{color:var(--text-dim);text-align:center;max-width:400px}
+.code-input-wrap{display:flex;gap:0.5rem;margin-top:0.5rem}.code-input{padding:0.8rem 1.5rem;background:rgba(18,18,28,0.8);border:2px solid rgba(255,95,31,0.3);border-radius:12px;color:var(--accent);font-size:1.2rem;font-weight:800;letter-spacing:3px;text-align:center;width:200px;outline:none;text-transform:uppercase;font-family:var(--font)}.code-input:focus{border-color:var(--accent);box-shadow:0 0 20px rgba(255,95,31,0.2)}
+.code-submit{padding:0.8rem 1.5rem;background:linear-gradient(135deg,#ff5f1f,#ff9f1f);border:none;border-radius:12px;color:#000;font-size:1rem;font-weight:800;cursor:pointer;transition:all 0.3s}.code-submit:hover{transform:scale(1.05)}
+.code-error{color:#f85149;font-size:0.85rem;min-height:1.2em}
+.lock-hint{color:var(--text-dim);font-size:0.8rem;margin-top:1rem}.lock-hint a{color:var(--accent)}
+.exclusive-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;background:linear-gradient(135deg,rgba(255,95,31,0.15),rgba(255,159,31,0.15));border:1px solid rgba(255,95,31,0.3);border-radius:100px;font-size:11px;font-weight:800;color:var(--accent);letter-spacing:1.5px;text-transform:uppercase}
+.main{max-width:1000px;margin:0 auto;padding:2rem}
+.hero-section{text-align:center;padding:2rem 0 3rem}
+.hero-section h1{font-size:2.2rem;font-weight:800;margin:1rem 0 0.5rem}
+.hero-section h1 .grad{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-section p{color:var(--text-dim);max-width:600px;margin:0 auto}
+.tool-section{background:var(--card);border:1px solid rgba(255,95,31,0.2);border-radius:16px;padding:2rem;margin-bottom:1.5rem;backdrop-filter:blur(10px);position:relative;overflow:hidden}
+.tool-section::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#ff5f1f,#ff9f1f,#ff5f1f)}
+.tool-section h2{font-size:1.2rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}
+label{font-size:0.85rem;color:var(--text-dim);font-weight:600;display:block;margin-bottom:0.4rem}
+input,select,textarea{width:100%;padding:0.75rem 1rem;background:rgba(10,10,15,0.6);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:0.9rem;font-family:var(--font);outline:none;transition:border-color 0.2s}
+input:focus,select:focus,textarea:focus{border-color:var(--accent)}
+.input-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.input-group{margin-bottom:1rem}
+.btn{padding:0.75rem 2rem;border:none;border-radius:10px;font-size:0.9rem;font-weight:700;cursor:pointer;transition:all 0.2s;font-family:var(--font)}
+.btn-primary{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);color:#000}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 4px 20px rgba(255,95,31,0.3)}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--text-dim)}
+.btn-outline:hover{border-color:var(--accent);color:var(--accent)}
+.btn-sm{padding:0.5rem 1rem;font-size:0.8rem}
+.btn-danger{background:rgba(248,81,73,0.15);border:1px solid rgba(248,81,73,0.3);color:var(--red)}
+.btn-danger:hover{background:rgba(248,81,73,0.25)}
+.btn-row{display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:1rem}
+textarea{resize:vertical;min-height:100px;font-family:'SF Mono',Monaco,Consolas,monospace;font-size:0.82rem}
+.rule-card{background:rgba(10,10,15,0.5);border:1px solid var(--border);border-radius:12px;padding:1.2rem;margin-bottom:0.75rem;position:relative}
+.rule-card .rule-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem}
+.rule-card .rule-title{font-weight:700;font-size:0.9rem;display:flex;align-items:center;gap:0.5rem}
+.rule-num{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);color:#000;width:22px;height:22px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:800}
+.remove-rule{background:none;border:none;color:var(--red);cursor:pointer;font-size:1.2rem;padding:4px 8px;border-radius:6px;transition:background 0.2s}.remove-rule:hover{background:rgba(248,81,73,0.15)}
+.preview-table{width:100%;border-collapse:collapse;margin-top:1rem;font-size:0.82rem}
+.preview-table th{text-align:left;padding:0.6rem 0.8rem;color:var(--text-dim);border-bottom:1px solid var(--border);font-size:0.75rem;text-transform:uppercase;letter-spacing:1px}
+.preview-table td{padding:0.5rem 0.8rem;border-bottom:1px solid rgba(50,50,70,0.3)}
+.preview-table .old-name{color:var(--text-dim)}
+.preview-table .new-name{color:var(--green);font-weight:600}
+.preview-table .arrow{color:var(--accent);text-align:center;padding:0 0.3rem}
+.preview-table .conflict{color:var(--red)}
+.script-output{background:rgba(0,0,0,0.4);border:1px solid var(--border);border-radius:10px;padding:1rem;font-family:'SF Mono',Monaco,Consolas,monospace;font-size:0.78rem;color:var(--green);white-space:pre-wrap;word-break:break-all;max-height:400px;overflow-y:auto;margin-top:1rem}
+.tag{display:inline-block;padding:2px 10px;border-radius:6px;font-size:0.72rem;font-weight:700}
+.tag-green{background:rgba(57,211,83,0.15);color:var(--green)}
+.tag-red{background:rgba(248,81,73,0.15);color:var(--red)}
+.stats-bar{display:flex;gap:2rem;justify-content:center;padding:1rem;background:rgba(255,95,31,0.05);border-radius:10px;margin-top:1rem;flex-wrap:wrap}
+.stat{text-align:center}.stat .val{font-size:1.3rem;font-weight:800;color:var(--accent)}.stat .lbl{font-size:0.7rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px}
+.share-cta{background:linear-gradient(135deg,rgba(255,95,31,0.08),rgba(255,159,31,0.05));border:1px solid rgba(255,95,31,0.2);border-radius:16px;padding:2rem;text-align:center;margin-top:2rem}
+.share-cta h3{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:0.5rem;font-size:1.1rem}
+.share-cta p{color:var(--text-dim);font-size:0.9rem;margin-bottom:1rem}
+.footer{text-align:center;padding:2rem;border-top:1px solid rgba(255,95,31,0.1);color:var(--text-dim);font-size:0.75rem;margin-top:3rem}
+.footer a{color:var(--accent)}.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-bottom:1rem}
+@media(max-width:768px){.main{padding:1rem}.hero-section h1{font-size:1.6rem}.input-grid{grid-template-columns:1fr}.nav-links{display:none}.preview-table{font-size:0.72rem}}
+</style>
+</head>
+<body>
+<div class="bg-mesh"></div>
+<div class="lock-gate" id="lockGate">
+  <div class="lock-icon-big">&#128274;</div>
+  <h2>Enter Code <span>SPUNK</span> to Unlock</h2>
+  <p>This is an exclusive premium tool. Enter the referral code to get instant access.</p>
+  <div class="code-input-wrap">
+    <input type="text" class="code-input" id="codeInput" placeholder="CODE" maxlength="10" autocomplete="off">
+    <button class="code-submit" onclick="submitCode()">Unlock</button>
+  </div>
+  <div class="code-error" id="codeError"></div>
+  <div class="lock-hint">Get the code at <a href="https://spunk.codes/exclusive/">spunk.codes/exclusive/</a></div>
+</div>
+
+<nav class="nav">
+  <a href="https://spunk.codes" class="nav-brand">SPUNK.CODES</a>
+  <div class="nav-links">
+    <a href="/store">Tools</a>
+    <a href="/exclusive/" class="active">Exclusive</a>
+    <a href="/store#ebook">Ebooks</a>
+    <a href="/blog">Blog</a>
+  </div>
+</nav>
+
+<div class="main">
+  <section class="hero-section">
+    <div class="exclusive-badge">&#9889; EXCLUSIVE TOOL</div>
+    <h1>Bulk File <span class="grad">Renamer & Planner</span></h1>
+    <p>Add filenames, chain rename rules, preview before/after, and export ready-to-run Bash or PowerShell scripts. Nothing leaves your browser.</p>
+  </section>
+
+  <!-- Filenames Input -->
+  <div class="tool-section">
+    <h2>&#128193; Add Filenames</h2>
+    <div class="input-group">
+      <label>Enter filenames (one per line)</label>
+      <textarea id="filenameInput" rows="6" placeholder="photo_001.jpg&#10;IMG_20260225_142030.png&#10;report final (2).docx&#10;my-video.mp4&#10;screenshot 2026-02-25.png"></textarea>
+    </div>
+    <div class="btn-row" style="margin-top:0">
+      <button class="btn btn-primary btn-sm" onclick="loadFilenames()">Load Filenames</button>
+      <button class="btn btn-outline btn-sm" onclick="loadSamples()">Load Samples</button>
+      <button class="btn btn-outline btn-sm" onclick="clearFilenames()">Clear All</button>
+    </div>
+    <div id="filenameStats" style="margin-top:0.75rem;font-size:0.82rem;color:var(--text-dim)"></div>
+  </div>
+
+  <!-- Rename Rules -->
+  <div class="tool-section">
+    <h2>&#9881;&#65039; Rename Rules</h2>
+    <p style="color:var(--text-dim);font-size:0.85rem;margin-bottom:1rem">Chain multiple rules -- they apply in order from top to bottom.</p>
+    <div id="rulesContainer"></div>
+    <div class="btn-row" style="margin-top:0.5rem">
+      <button class="btn btn-primary btn-sm" onclick="addRule('prefix')">+ Prefix</button>
+      <button class="btn btn-primary btn-sm" onclick="addRule('suffix')">+ Suffix</button>
+      <button class="btn btn-primary btn-sm" onclick="addRule('replace')">+ Find/Replace</button>
+      <button class="btn btn-primary btn-sm" onclick="addRule('number')">+ Numbering</button>
+      <button class="btn btn-primary btn-sm" onclick="addRule('date')">+ Date Stamp</button>
+      <button class="btn btn-primary btn-sm" onclick="addRule('case')">+ Case Change</button>
+      <button class="btn btn-primary btn-sm" onclick="addRule('extension')">+ Change Extension</button>
+      <button class="btn btn-primary btn-sm" onclick="addRule('remove')">+ Remove Characters</button>
+    </div>
+  </div>
+
+  <!-- Preview -->
+  <div class="tool-section" id="previewSection" style="display:none">
+    <h2>&#128064; Preview</h2>
+    <div class="btn-row" style="margin-top:0;margin-bottom:1rem">
+      <button class="btn btn-primary" onclick="applyRules()">&#9889; Apply Rules & Preview</button>
+    </div>
+    <div class="stats-bar" id="previewStats" style="display:none">
+      <div class="stat"><div class="val" id="statFiles">0</div><div class="lbl">Files</div></div>
+      <div class="stat"><div class="val" id="statRenamed">0</div><div class="lbl">Renamed</div></div>
+      <div class="stat"><div class="val" id="statConflicts">0</div><div class="lbl">Conflicts</div></div>
+    </div>
+    <div style="overflow-x:auto">
+      <table class="preview-table" id="previewTable">
+        <thead><tr><th>#</th><th>Original</th><th></th><th>New Name</th><th>Status</th></tr></thead>
+        <tbody id="previewBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Export -->
+  <div class="tool-section" id="exportSection" style="display:none">
+    <h2>&#128229; Export Rename Script</h2>
+    <div class="input-group">
+      <label>Script Format</label>
+      <select id="scriptFormat" onchange="generateScript()">
+        <option value="bash">Bash (Linux/Mac)</option>
+        <option value="powershell">PowerShell (Windows)</option>
+        <option value="cmd">CMD Batch (Windows)</option>
+      </select>
+    </div>
+    <div class="script-output" id="scriptOutput"></div>
+    <div class="btn-row">
+      <button class="btn btn-primary btn-sm" onclick="copyScript()">&#128203; Copy Script</button>
+      <button class="btn btn-outline btn-sm" onclick="downloadScript()">&#128229; Download Script</button>
+    </div>
+  </div>
+
+  <div class="share-cta">
+    <h3>More Exclusive Automation Tools</h3>
+    <p>Email builders, invoice generators, task automators, and more -- all free with code SPUNK.</p>
+    <a href="https://spunk.codes/exclusive/" class="btn btn-primary">Browse All Exclusive Tools</a>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer-links">
+    <a href="https://spunk.codes">spunk.codes</a>
+    <a href="https://spunk.bet">spunk.bet</a>
+    <a href="https://spunk.work">spunk.work</a>
+    <a href="https://spunk.pics">spunk.pics</a>
+  </div>
+  &copy; 2026 SPUNK.CODES -- Built for builders.
+</footer>
+
+<script>
+/* Lock gate */
+function submitCode(){
+  const v=document.getElementById('codeInput').value.trim().toUpperCase();
+  if(v==='SPUNK'){document.getElementById('lockGate').classList.add('hidden');localStorage.setItem('spunk_unlocked','1');}
+  else{document.getElementById('codeError').textContent='Invalid code. Try again.';}
+}
+document.getElementById('codeInput').addEventListener('keydown',e=>{if(e.key==='Enter')submitCode();});
+if(localStorage.getItem('spunk_unlocked')==='1')document.getElementById('lockGate').classList.add('hidden');
+
+/* State */
+let filenames = [];
+let rules = [];
+let results = []; // {original, renamed}
+let ruleIdCounter = 0;
+
+function loadSamples(){
+  document.getElementById('filenameInput').value = `photo_001.jpg\nIMG_20260225_142030.png\nreport final (2).docx\nmy-video.mp4\nscreenshot 2026-02-25.png\nDSC_4872.CR2\nbudget_v3_FINAL.xlsx\nmeeting notes jan.txt\nlogo-dark@2x.svg\nbackup_2026-02-20.zip`;
+  loadFilenames();
+}
+
+function loadFilenames(){
+  const raw = document.getElementById('filenameInput').value.trim();
+  if(!raw){return;}
+  filenames = raw.split('\n').map(f=>f.trim()).filter(f=>f.length>0);
+  document.getElementById('filenameStats').textContent = `Loaded ${filenames.length} filename${filenames.length!==1?'s':''}`;
+  document.getElementById('previewSection').style.display = 'block';
+  applyRules();
+}
+
+function clearFilenames(){
+  filenames = [];
+  results = [];
+  document.getElementById('filenameInput').value = '';
+  document.getElementById('filenameStats').textContent = '';
+  document.getElementById('previewSection').style.display = 'none';
+  document.getElementById('exportSection').style.display = 'none';
+}
+
+/* Rules */
+function addRule(type){
+  const id = ++ruleIdCounter;
+  rules.push({id, type});
+  renderRules();
+}
+
+function removeRule(id){
+  rules = rules.filter(r=>r.id!==id);
+  renderRules();
+  if(filenames.length) applyRules();
+}
+
+function renderRules(){
+  const container = document.getElementById('rulesContainer');
+  container.innerHTML = '';
+  rules.forEach((rule,i)=>{
+    const card = document.createElement('div');
+    card.className = 'rule-card';
+    let fieldsHTML = '';
+    switch(rule.type){
+      case 'prefix':
+        fieldsHTML = `<div class="input-group" style="margin-bottom:0"><label>Prefix Text</label><input type="text" data-rule="${rule.id}" data-field="text" placeholder="project_" value="${rule.text||''}"></div>`;
+        break;
+      case 'suffix':
+        fieldsHTML = `<div class="input-group" style="margin-bottom:0"><label>Suffix Text (before extension)</label><input type="text" data-rule="${rule.id}" data-field="text" placeholder="_final" value="${rule.text||''}"></div>`;
+        break;
+      case 'replace':
+        fieldsHTML = `<div class="input-grid"><div class="input-group" style="margin-bottom:0"><label>Find</label><input type="text" data-rule="${rule.id}" data-field="find" placeholder="old text" value="${rule.find||''}"></div><div class="input-group" style="margin-bottom:0"><label>Replace With</label><input type="text" data-rule="${rule.id}" data-field="replaceWith" placeholder="new text" value="${rule.replaceWith||''}"></div></div><div style="margin-top:0.5rem"><label style="display:flex;align-items:center;gap:0.5rem;cursor:pointer;margin:0"><input type="checkbox" data-rule="${rule.id}" data-field="useRegex" style="width:auto" ${rule.useRegex?'checked':''}> Use RegExp</label></div>`;
+        break;
+      case 'number':
+        fieldsHTML = `<div class="input-grid"><div class="input-group" style="margin-bottom:0"><label>Start Number</label><input type="number" data-rule="${rule.id}" data-field="start" placeholder="1" value="${rule.start||'1'}" min="0"></div><div class="input-group" style="margin-bottom:0"><label>Padding (digits)</label><input type="number" data-rule="${rule.id}" data-field="padding" placeholder="3" value="${rule.padding||'3'}" min="1" max="10"></div></div><div class="input-group" style="margin-top:0.75rem;margin-bottom:0"><label>Position</label><select data-rule="${rule.id}" data-field="position"><option value="prefix" ${rule.position==='prefix'?'selected':''}>Before filename</option><option value="suffix" ${rule.position!=='prefix'?'selected':''}>After filename</option></select></div><div class="input-group" style="margin-top:0.75rem;margin-bottom:0"><label>Separator</label><input type="text" data-rule="${rule.id}" data-field="separator" placeholder="_" value="${rule.separator||'_'}"></div>`;
+        break;
+      case 'date':
+        fieldsHTML = `<div class="input-grid"><div class="input-group" style="margin-bottom:0"><label>Date Format</label><select data-rule="${rule.id}" data-field="format"><option value="YYYY-MM-DD" ${rule.format==='YYYY-MM-DD'?'selected':''}>YYYY-MM-DD</option><option value="YYYYMMDD" ${rule.format==='YYYYMMDD'?'selected':''}>YYYYMMDD</option><option value="DD-MM-YYYY" ${rule.format==='DD-MM-YYYY'?'selected':''}>DD-MM-YYYY</option><option value="MM-DD-YYYY" ${rule.format==='MM-DD-YYYY'?'selected':''}>MM-DD-YYYY</option></select></div><div class="input-group" style="margin-bottom:0"><label>Position</label><select data-rule="${rule.id}" data-field="position"><option value="prefix" ${rule.position==='prefix'?'selected':''}>Before filename</option><option value="suffix" ${rule.position!=='prefix'?'selected':''}>After filename</option></select></div></div><div class="input-group" style="margin-top:0.75rem;margin-bottom:0"><label>Separator</label><input type="text" data-rule="${rule.id}" data-field="separator" placeholder="_" value="${rule.separator||'_'}"></div>`;
+        break;
+      case 'case':
+        fieldsHTML = `<div class="input-group" style="margin-bottom:0"><label>Case Transformation</label><select data-rule="${rule.id}" data-field="caseType"><option value="lower" ${rule.caseType==='lower'?'selected':''}>lowercase</option><option value="upper" ${rule.caseType==='upper'?'selected':''}>UPPERCASE</option><option value="title" ${rule.caseType==='title'?'selected':''}>Title Case</option><option value="camel" ${rule.caseType==='camel'?'selected':''}>camelCase</option><option value="snake" ${rule.caseType==='snake'?'selected':''}>snake_case</option><option value="kebab" ${rule.caseType==='kebab'?'selected':''}>kebab-case</option></select></div>`;
+        break;
+      case 'extension':
+        fieldsHTML = `<div class="input-group" style="margin-bottom:0"><label>New Extension (without dot)</label><input type="text" data-rule="${rule.id}" data-field="ext" placeholder="png" value="${rule.ext||''}"></div>`;
+        break;
+      case 'remove':
+        fieldsHTML = `<div class="input-group" style="margin-bottom:0"><label>Remove Pattern</label><select data-rule="${rule.id}" data-field="removeType"><option value="spaces" ${rule.removeType==='spaces'?'selected':''}>Spaces</option><option value="special" ${rule.removeType==='special'?'selected':''}>Special Characters (!@#$%^&)</option><option value="numbers" ${rule.removeType==='numbers'?'selected':''}>Numbers</option><option value="parens" ${rule.removeType==='parens'?'selected':''}>Parentheses & Contents</option><option value="brackets" ${rule.removeType==='brackets'?'selected':''}>Brackets & Contents</option><option value="custom" ${rule.removeType==='custom'?'selected':''}>Custom Pattern</option></select></div><div class="input-group" style="margin-top:0.75rem;margin-bottom:0;display:${rule.removeType==='custom'?'block':'none'}" data-rule="${rule.id}" data-show="customPattern"><label>Custom RegExp Pattern</label><input type="text" data-rule="${rule.id}" data-field="customPattern" placeholder="\\s+" value="${rule.customPattern||''}"></div>`;
+        break;
+    }
+    const typeLabels = {prefix:'Add Prefix',suffix:'Add Suffix',replace:'Find & Replace',number:'Sequential Numbering',date:'Date Stamp',case:'Case Change',extension:'Change Extension',remove:'Remove Characters'};
+    card.innerHTML = `<div class="rule-header"><div class="rule-title"><span class="rule-num">${i+1}</span> ${typeLabels[rule.type]}</div><button class="remove-rule" onclick="removeRule(${rule.id})">&times;</button></div>${fieldsHTML}`;
+    container.appendChild(card);
+  });
+  // Add event listeners for rule inputs
+  container.querySelectorAll('input,select').forEach(el=>{
+    el.addEventListener('input', ()=>{
+      const rId = parseInt(el.dataset.rule);
+      const field = el.dataset.field;
+      if(!field) return;
+      const rule = rules.find(r=>r.id===rId);
+      if(!rule) return;
+      if(el.type==='checkbox') rule[field] = el.checked;
+      else rule[field] = el.value;
+      // Toggle custom pattern visibility
+      if(field==='removeType'){
+        const customDiv = container.querySelector(`[data-rule="${rId}"][data-show="customPattern"]`);
+        if(customDiv) customDiv.style.display = el.value==='custom'?'block':'none';
+      }
+    });
+    // Also trigger on change for selects
+    el.addEventListener('change', ()=>{
+      const rId = parseInt(el.dataset.rule);
+      const field = el.dataset.field;
+      if(!field) return;
+      const rule = rules.find(r=>r.id===rId);
+      if(!rule) return;
+      if(el.type==='checkbox') rule[field] = el.checked;
+      else rule[field] = el.value;
+      if(field==='removeType'){
+        const customDiv = container.querySelector(`[data-rule="${rId}"][data-show="customPattern"]`);
+        if(customDiv) customDiv.style.display = el.value==='custom'?'block':'none';
+      }
+    });
+  });
+}
+
+/* Apply Rules */
+function applyRules(){
+  if(filenames.length===0) return;
+  // Read latest values from DOM
+  document.querySelectorAll('#rulesContainer input, #rulesContainer select').forEach(el=>{
+    const rId = parseInt(el.dataset.rule);
+    const field = el.dataset.field;
+    if(!field||isNaN(rId)) return;
+    const rule = rules.find(r=>r.id===rId);
+    if(!rule) return;
+    if(el.type==='checkbox') rule[field] = el.checked;
+    else rule[field] = el.value;
+  });
+
+  results = filenames.map((orig,idx)=>{
+    let name = orig;
+    let ext = '';
+    const dotIdx = name.lastIndexOf('.');
+    if(dotIdx > 0){ ext = name.substring(dotIdx); name = name.substring(0, dotIdx); }
+
+    rules.forEach(rule=>{
+      switch(rule.type){
+        case 'prefix':
+          if(rule.text) name = rule.text + name;
+          break;
+        case 'suffix':
+          if(rule.text) name = name + rule.text;
+          break;
+        case 'replace':
+          if(rule.find){
+            if(rule.useRegex){
+              try{ name = name.replace(new RegExp(rule.find,'g'), rule.replaceWith||''); }catch(e){}
+            } else {
+              name = name.split(rule.find).join(rule.replaceWith||'');
+            }
+          }
+          break;
+        case 'number': {
+          const start = parseInt(rule.start)||1;
+          const padding = parseInt(rule.padding)||3;
+          const num = String(start + idx).padStart(padding,'0');
+          const sep = rule.separator||'_';
+          if(rule.position==='prefix') name = num + sep + name;
+          else name = name + sep + num;
+          break;
+        }
+        case 'date': {
+          const now = new Date();
+          const y = now.getFullYear();
+          const m = String(now.getMonth()+1).padStart(2,'0');
+          const d = String(now.getDate()).padStart(2,'0');
+          let ds = '';
+          switch(rule.format||'YYYY-MM-DD'){
+            case 'YYYY-MM-DD': ds=`${y}-${m}-${d}`; break;
+            case 'YYYYMMDD': ds=`${y}${m}${d}`; break;
+            case 'DD-MM-YYYY': ds=`${d}-${m}-${y}`; break;
+            case 'MM-DD-YYYY': ds=`${m}-${d}-${y}`; break;
+          }
+          const sep = rule.separator||'_';
+          if(rule.position==='prefix') name = ds + sep + name;
+          else name = name + sep + ds;
+          break;
+        }
+        case 'case':
+          switch(rule.caseType||'lower'){
+            case 'lower': name=name.toLowerCase(); break;
+            case 'upper': name=name.toUpperCase(); break;
+            case 'title': name=name.replace(/\b\w/g,c=>c.toUpperCase()); break;
+            case 'camel': {
+              const words=name.replace(/[^a-zA-Z0-9]+/g,' ').trim().split(/\s+/);
+              name=words.map((w,i)=>i===0?w.toLowerCase():w.charAt(0).toUpperCase()+w.slice(1).toLowerCase()).join('');
+              break;
+            }
+            case 'snake': name=name.replace(/[^a-zA-Z0-9]+/g,'_').replace(/([A-Z])/g,'_$1').toLowerCase().replace(/^_|_$/g,'').replace(/_+/g,'_'); break;
+            case 'kebab': name=name.replace(/[^a-zA-Z0-9]+/g,'-').replace(/([A-Z])/g,'-$1').toLowerCase().replace(/^-|-$/g,'').replace(/-+/g,'-'); break;
+          }
+          break;
+        case 'extension':
+          if(rule.ext) ext = '.' + rule.ext.replace(/^\./,'');
+          break;
+        case 'remove':
+          switch(rule.removeType||'spaces'){
+            case 'spaces': name=name.replace(/\s+/g,''); break;
+            case 'special': name=name.replace(/[!@#$%^&*()\[\]{}|\\;:'",<>?\/`~]/g,''); break;
+            case 'numbers': name=name.replace(/[0-9]/g,''); break;
+            case 'parens': name=name.replace(/\([^)]*\)/g,'').replace(/\s+/g,' ').trim(); break;
+            case 'brackets': name=name.replace(/\[[^\]]*\]/g,'').replace(/\s+/g,' ').trim(); break;
+            case 'custom':
+              if(rule.customPattern){try{name=name.replace(new RegExp(rule.customPattern,'g'),'');}catch(e){}}
+              break;
+          }
+          break;
+      }
+    });
+
+    return {original: orig, renamed: name + ext};
+  });
+
+  renderPreview();
+}
+
+function renderPreview(){
+  const tbody = document.getElementById('previewBody');
+  tbody.innerHTML = '';
+  document.getElementById('previewSection').style.display = 'block';
+  document.getElementById('previewStats').style.display = 'flex';
+
+  const newNames = results.map(r=>r.renamed);
+  const dupes = new Set();
+  const seen = {};
+  newNames.forEach(n=>{
+    if(seen[n]) dupes.add(n);
+    seen[n] = true;
+  });
+
+  let renamed = 0, conflicts = 0;
+  results.forEach((r,i)=>{
+    const changed = r.original !== r.renamed;
+    if(changed) renamed++;
+    const isDupe = dupes.has(r.renamed);
+    if(isDupe) conflicts++;
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td style="color:var(--text-dim)">${i+1}</td><td class="old-name">${escH(r.original)}</td><td class="arrow">&rarr;</td><td class="${isDupe?'conflict':'new-name'}">${escH(r.renamed)}</td><td>${isDupe?'<span class="tag tag-red">Conflict</span>':changed?'<span class="tag tag-green">Renamed</span>':''}</td>`;
+    tbody.appendChild(tr);
+  });
+
+  document.getElementById('statFiles').textContent = results.length;
+  document.getElementById('statRenamed').textContent = renamed;
+  document.getElementById('statConflicts').textContent = conflicts;
+
+  if(results.length > 0){
+    document.getElementById('exportSection').style.display = 'block';
+    generateScript();
+  }
+}
+
+function escH(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+/* Script Generation */
+function generateScript(){
+  const format = document.getElementById('scriptFormat').value;
+  const output = document.getElementById('scriptOutput');
+  let script = '';
+
+  if(format==='bash'){
+    script = '#!/bin/bash\n# Bulk rename script generated by SPUNK.CODES\n# Review carefully before running!\n\n';
+    results.forEach(r=>{
+      if(r.original!==r.renamed){
+        script += `mv "${r.original.replace(/"/g,'\\"')}" "${r.renamed.replace(/"/g,'\\"')}"\n`;
+      }
+    });
+  } else if(format==='powershell'){
+    script = '# Bulk rename script generated by SPUNK.CODES\n# Review carefully before running!\n\n';
+    results.forEach(r=>{
+      if(r.original!==r.renamed){
+        script += `Rename-Item -Path "${r.original.replace(/"/g,'`"')}" -NewName "${r.renamed.replace(/"/g,'`"')}"\n`;
+      }
+    });
+  } else {
+    script = '@echo off\nREM Bulk rename script generated by SPUNK.CODES\nREM Review carefully before running!\n\n';
+    results.forEach(r=>{
+      if(r.original!==r.renamed){
+        script += `ren "${r.original}" "${r.renamed}"\n`;
+      }
+    });
+  }
+
+  output.textContent = script || '# No renames needed -- all filenames are unchanged.';
+}
+
+function copyScript(){
+  const text = document.getElementById('scriptOutput').textContent;
+  navigator.clipboard.writeText(text).then(()=>{
+    const btn = event.target;
+    btn.textContent = 'Copied!';
+    setTimeout(()=>btn.innerHTML='&#128203; Copy Script',1500);
+  });
+}
+
+function downloadScript(){
+  const text = document.getElementById('scriptOutput').textContent;
+  const format = document.getElementById('scriptFormat').value;
+  const exts = {bash:'sh',powershell:'ps1',cmd:'bat'};
+  const blob = new Blob([text],{type:'text/plain'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `rename_script.${exts[format]}`;
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+</script>
+</body>
+</html>

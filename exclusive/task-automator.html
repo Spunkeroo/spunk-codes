@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Task Automator & Workflow Builder | SPUNK.CODES Exclusive</title>
+<meta name="description" content="Build automation workflows visually with IF/THEN logic. Templates for daily standups, weekly reports, social media schedules. Export as markdown or JSON.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Task Automator & Workflow Builder - SPUNK.CODES Exclusive">
+<meta property="og:description" content="Build automation workflows visually with IF/THEN logic, templates, and recurring schedules. Export as markdown or JSON.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://spunk.codes/exclusive/task-automator">
+<meta property="og:site_name" content="Spunk Codes">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/task-automator">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Task Automator & Workflow Builder","applicationCategory":"BusinessApplication","operatingSystem":"Web","description":"Build automation workflows visually with IF/THEN logic, templates for daily standups, weekly reports, and social media schedules. Export as markdown or JSON.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Organization","name":"Spunk Codes","url":"https://spunk.codes"}}</script>
+<!-- GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<!-- Clarity -->
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<script src="https://spunk.codes/heartbeat.js" defer></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0a0a0f;--card:rgba(18,18,28,0.85);--border:rgba(50,50,70,0.5);--accent:#ff5f1f;--accent2:#ff9f1f;--text:#e8e8f0;--text-dim:#8b8b9e;--green:#39d353;--red:#f85149;--blue:#58a6ff;--purple:#a855f7;--font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+a{color:var(--blue);text-decoration:none}a:hover{color:#fff}
+.bg-mesh{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 80% 50% at 20% 20%,rgba(255,95,31,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(255,159,31,0.04) 0%,transparent 60%),var(--bg)}
+.nav{position:sticky;top:0;z-index:100;background:rgba(10,10,15,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,95,31,0.15);padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}
+.nav-brand{font-weight:800;font-size:1.1rem;background:linear-gradient(135deg,#ff5f1f,#ff9f1f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:0.08em}
+.nav-links{display:flex;gap:1.5rem;font-size:0.85rem;list-style:none}.nav-links a{color:var(--text-dim);transition:color 0.2s;font-weight:500}.nav-links a:hover{color:#fff}.nav-links a.active{color:var(--accent)}
+.lock-gate{position:fixed;inset:0;z-index:1000;background:rgba(10,10,15,0.97);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:2rem}.lock-gate.hidden{display:none}
+.lock-icon-big{font-size:4rem;margin-bottom:0.5rem}.lock-gate h2{font-size:1.8rem;font-weight:800;text-align:center}.lock-gate h2 span{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.lock-gate p{color:var(--text-dim);text-align:center;max-width:400px}
+.code-input-wrap{display:flex;gap:0.5rem;margin-top:0.5rem}.code-input{padding:0.8rem 1.5rem;background:rgba(18,18,28,0.8);border:2px solid rgba(255,95,31,0.3);border-radius:12px;color:var(--accent);font-size:1.2rem;font-weight:800;letter-spacing:3px;text-align:center;width:200px;outline:none;text-transform:uppercase;font-family:var(--font)}.code-input:focus{border-color:var(--accent);box-shadow:0 0 20px rgba(255,95,31,0.2)}
+.code-submit{padding:0.8rem 1.5rem;background:linear-gradient(135deg,#ff5f1f,#ff9f1f);border:none;border-radius:12px;color:#000;font-size:1rem;font-weight:800;cursor:pointer;transition:all 0.3s}.code-submit:hover{transform:scale(1.05)}
+.code-error{color:#f85149;font-size:0.85rem;min-height:1.2em}
+.lock-hint{color:var(--text-dim);font-size:0.8rem;margin-top:1rem}.lock-hint a{color:var(--accent)}
+.exclusive-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;background:linear-gradient(135deg,rgba(255,95,31,0.15),rgba(255,159,31,0.15));border:1px solid rgba(255,95,31,0.3);border-radius:100px;font-size:11px;font-weight:800;color:var(--accent);letter-spacing:1.5px;text-transform:uppercase}
+.main{max-width:1000px;margin:0 auto;padding:2rem}
+.hero-section{text-align:center;padding:2rem 0 3rem}
+.hero-section h1{font-size:2.2rem;font-weight:800;margin:1rem 0 0.5rem}
+.hero-section h1 .grad{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-section p{color:var(--text-dim);max-width:600px;margin:0 auto}
+.tool-section{background:var(--card);border:1px solid rgba(255,95,31,0.2);border-radius:16px;padding:2rem;margin-bottom:1.5rem;backdrop-filter:blur(10px);position:relative;overflow:hidden}
+.tool-section::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#ff5f1f,#ff9f1f,#ff5f1f)}
+.tool-section h2{font-size:1.2rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}
+label{font-size:0.85rem;color:var(--text-dim);font-weight:600;display:block;margin-bottom:0.4rem}
+input,select,textarea{width:100%;padding:0.75rem 1rem;background:rgba(10,10,15,0.6);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:0.9rem;font-family:var(--font);outline:none;transition:border-color 0.2s}
+input:focus,select:focus,textarea:focus{border-color:var(--accent)}
+.input-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.input-group{margin-bottom:1rem}
+.btn{padding:0.75rem 2rem;border:none;border-radius:10px;font-size:0.9rem;font-weight:700;cursor:pointer;transition:all 0.2s;font-family:var(--font)}
+.btn-primary{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);color:#000}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 4px 20px rgba(255,95,31,0.3)}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--text-dim)}
+.btn-outline:hover{border-color:var(--accent);color:var(--accent)}
+.btn-sm{padding:0.5rem 1rem;font-size:0.8rem}
+.btn-row{display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:1rem}
+/* Templates grid */
+.templates-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:0.75rem;margin-bottom:1rem}
+.template-card{padding:1rem;background:rgba(255,95,31,0.04);border:1px solid rgba(255,95,31,0.15);border-radius:12px;cursor:pointer;transition:all 0.2s;text-align:center}
+.template-card:hover{border-color:var(--accent);background:rgba(255,95,31,0.1);transform:translateY(-2px)}
+.template-card .icon{font-size:1.8rem;margin-bottom:0.4rem}
+.template-card .name{font-weight:700;font-size:0.9rem;margin-bottom:0.2rem}
+.template-card .desc{font-size:0.75rem;color:var(--text-dim)}
+/* Workflow steps */
+.workflow-canvas{min-height:100px;position:relative}
+.step-card{background:rgba(10,10,15,0.5);border:1px solid var(--border);border-radius:12px;padding:1.2rem;margin-bottom:0.5rem;position:relative;transition:border-color 0.2s}
+.step-card:hover{border-color:rgba(255,95,31,0.4)}
+.step-card.trigger{border-left:3px solid var(--green)}
+.step-card.action{border-left:3px solid var(--blue)}
+.step-card.condition{border-left:3px solid var(--purple)}
+.step-card.delay{border-left:3px solid var(--accent)}
+.step-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem}
+.step-type{font-size:0.7rem;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;padding:3px 10px;border-radius:6px}
+.step-type.trigger{background:rgba(57,211,83,0.15);color:var(--green)}
+.step-type.action{background:rgba(88,166,255,0.15);color:var(--blue)}
+.step-type.condition{background:rgba(168,85,247,0.15);color:var(--purple)}
+.step-type.delay{background:rgba(255,95,31,0.15);color:var(--accent)}
+.step-controls{display:flex;gap:4px}
+.step-control-btn{width:28px;height:28px;border-radius:6px;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:0.75rem;background:rgba(50,50,70,0.5);color:var(--text-dim);transition:all 0.2s}
+.step-control-btn:hover{background:rgba(255,95,31,0.2);color:var(--accent)}
+.step-control-btn.delete:hover{background:rgba(248,81,73,0.2);color:var(--red)}
+.step-fields{display:grid;gap:0.75rem}
+.step-connector{text-align:center;padding:0.25rem 0;color:var(--text-dim);font-size:0.8rem;position:relative}
+.step-connector::before{content:'';position:absolute;left:50%;top:0;bottom:0;width:2px;background:var(--border);z-index:-1}
+/* Schedule */
+.schedule-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-top:0.5rem}
+.day-btn{padding:0.5rem;border:1px solid var(--border);border-radius:8px;background:transparent;color:var(--text-dim);font-size:0.75rem;font-weight:600;cursor:pointer;text-align:center;transition:all 0.2s;font-family:var(--font)}
+.day-btn.active{background:rgba(255,95,31,0.2);border-color:var(--accent);color:var(--accent)}
+.day-btn:hover{border-color:var(--accent)}
+/* Output */
+.output-area{background:rgba(0,0,0,0.4);border:1px solid var(--border);border-radius:10px;padding:1rem;font-family:'SF Mono',Monaco,Consolas,monospace;font-size:0.8rem;color:var(--green);white-space:pre-wrap;word-break:break-all;max-height:400px;overflow-y:auto;margin-top:1rem}
+.output-tabs{display:flex;gap:0.5rem;margin-top:1rem}
+.output-tab{padding:0.5rem 1rem;border-radius:8px 8px 0 0;border:1px solid var(--border);border-bottom:none;background:transparent;color:var(--text-dim);font-size:0.8rem;font-weight:600;cursor:pointer;font-family:var(--font);transition:all 0.2s}
+.output-tab.active{background:rgba(255,95,31,0.1);border-color:var(--accent);color:var(--accent)}
+.share-cta{background:linear-gradient(135deg,rgba(255,95,31,0.08),rgba(255,159,31,0.05));border:1px solid rgba(255,95,31,0.2);border-radius:16px;padding:2rem;text-align:center;margin-top:2rem}
+.share-cta h3{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:0.5rem;font-size:1.1rem}
+.share-cta p{color:var(--text-dim);font-size:0.9rem;margin-bottom:1rem}
+.footer{text-align:center;padding:2rem;border-top:1px solid rgba(255,95,31,0.1);color:var(--text-dim);font-size:0.75rem;margin-top:3rem}
+.footer a{color:var(--accent)}.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-bottom:1rem}
+@media(max-width:768px){.main{padding:1rem}.hero-section h1{font-size:1.6rem}.input-grid{grid-template-columns:1fr}.nav-links{display:none}.templates-grid{grid-template-columns:1fr 1fr}.schedule-grid{grid-template-columns:repeat(4,1fr)}}
+</style>
+</head>
+<body>
+<div class="bg-mesh"></div>
+<div class="lock-gate" id="lockGate">
+  <div class="lock-icon-big">&#128274;</div>
+  <h2>Enter Code <span>SPUNK</span> to Unlock</h2>
+  <p>This is an exclusive premium tool. Enter the referral code to get instant access.</p>
+  <div class="code-input-wrap">
+    <input type="text" class="code-input" id="codeInput" placeholder="CODE" maxlength="10" autocomplete="off">
+    <button class="code-submit" onclick="submitCode()">Unlock</button>
+  </div>
+  <div class="code-error" id="codeError"></div>
+  <div class="lock-hint">Get the code at <a href="https://spunk.codes/exclusive/">spunk.codes/exclusive/</a></div>
+</div>
+
+<nav class="nav">
+  <a href="https://spunk.codes" class="nav-brand">SPUNK.CODES</a>
+  <div class="nav-links">
+    <a href="/store">Tools</a>
+    <a href="/exclusive/" class="active">Exclusive</a>
+    <a href="/store#ebook">Ebooks</a>
+    <a href="/blog">Blog</a>
+  </div>
+</nav>
+
+<div class="main">
+  <section class="hero-section">
+    <div class="exclusive-badge">&#9889; EXCLUSIVE TOOL</div>
+    <h1>Task <span class="grad">Automator</span></h1>
+    <p>Build automation workflows visually with IF/THEN logic, recurring schedules, and workflow templates. Export as markdown checklists or JSON workflows.</p>
+  </section>
+
+  <!-- Templates -->
+  <div class="tool-section">
+    <h2>&#128218; Quick Templates</h2>
+    <div class="templates-grid">
+      <div class="template-card" onclick="loadTemplate('standup')"><div class="icon">&#9728;&#65039;</div><div class="name">Daily Standup</div><div class="desc">Yesterday, today, blockers</div></div>
+      <div class="template-card" onclick="loadTemplate('weekly')"><div class="icon">&#128202;</div><div class="name">Weekly Report</div><div class="desc">KPIs, wins, next week</div></div>
+      <div class="template-card" onclick="loadTemplate('social')"><div class="icon">&#128241;</div><div class="name">Social Media</div><div class="desc">Content schedule & posts</div></div>
+      <div class="template-card" onclick="loadTemplate('deploy')"><div class="icon">&#128640;</div><div class="name">Deploy Checklist</div><div class="desc">Pre/post deploy steps</div></div>
+      <div class="template-card" onclick="loadTemplate('onboard')"><div class="icon">&#127919;</div><div class="name">Onboarding</div><div class="desc">New hire workflow</div></div>
+      <div class="template-card" onclick="loadTemplate('content')"><div class="icon">&#9997;&#65039;</div><div class="name">Content Pipeline</div><div class="desc">Idea to publish flow</div></div>
+    </div>
+  </div>
+
+  <!-- Workflow Builder -->
+  <div class="tool-section">
+    <h2>&#9881;&#65039; Workflow Builder</h2>
+    <div class="input-group">
+      <label>Workflow Name</label>
+      <input type="text" id="workflowName" placeholder="My Automation Workflow">
+    </div>
+    <div class="input-group">
+      <label>Description</label>
+      <input type="text" id="workflowDesc" placeholder="What this workflow automates">
+    </div>
+
+    <div class="workflow-canvas" id="workflowCanvas"></div>
+
+    <div class="btn-row" style="margin-top:0.75rem">
+      <button class="btn btn-primary btn-sm" onclick="addStep('trigger')">+ Trigger</button>
+      <button class="btn btn-primary btn-sm" onclick="addStep('action')">+ Action</button>
+      <button class="btn btn-primary btn-sm" onclick="addStep('condition')">+ IF/THEN</button>
+      <button class="btn btn-primary btn-sm" onclick="addStep('delay')">+ Delay/Wait</button>
+    </div>
+  </div>
+
+  <!-- Schedule -->
+  <div class="tool-section">
+    <h2>&#128337; Recurring Schedule</h2>
+    <div class="input-grid">
+      <div class="input-group">
+        <label>Frequency</label>
+        <select id="scheduleFreq" onchange="updateScheduleUI()">
+          <option value="none">No schedule (one-time)</option>
+          <option value="daily">Daily</option>
+          <option value="weekly">Weekly</option>
+          <option value="biweekly">Bi-weekly</option>
+          <option value="monthly">Monthly</option>
+        </select>
+      </div>
+      <div class="input-group">
+        <label>Time</label>
+        <input type="time" id="scheduleTime" value="09:00">
+      </div>
+    </div>
+    <div id="weekDays" style="display:none">
+      <label>Active Days</label>
+      <div class="schedule-grid">
+        <button class="day-btn active" data-day="mon" onclick="toggleDay(this)">Mon</button>
+        <button class="day-btn active" data-day="tue" onclick="toggleDay(this)">Tue</button>
+        <button class="day-btn active" data-day="wed" onclick="toggleDay(this)">Wed</button>
+        <button class="day-btn active" data-day="thu" onclick="toggleDay(this)">Thu</button>
+        <button class="day-btn active" data-day="fri" onclick="toggleDay(this)">Fri</button>
+        <button class="day-btn" data-day="sat" onclick="toggleDay(this)">Sat</button>
+        <button class="day-btn" data-day="sun" onclick="toggleDay(this)">Sun</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Export -->
+  <div class="tool-section">
+    <h2>&#128229; Export Workflow</h2>
+    <div class="output-tabs">
+      <button class="output-tab active" onclick="setOutputTab('markdown',this)">Markdown</button>
+      <button class="output-tab" onclick="setOutputTab('json',this)">JSON</button>
+      <button class="output-tab" onclick="setOutputTab('checklist',this)">Checklist</button>
+    </div>
+    <div class="output-area" id="outputArea">Build a workflow above, then it will appear here.</div>
+    <div class="btn-row">
+      <button class="btn btn-primary btn-sm" onclick="generateOutput()">&#9889; Generate</button>
+      <button class="btn btn-outline btn-sm" onclick="copyOutput()">&#128203; Copy</button>
+      <button class="btn btn-outline btn-sm" onclick="downloadOutput()">&#128229; Download</button>
+      <button class="btn btn-outline btn-sm" onclick="saveWorkflow()">&#128190; Save</button>
+      <button class="btn btn-outline btn-sm" onclick="loadWorkflow()">&#128194; Load</button>
+    </div>
+  </div>
+
+  <div class="share-cta">
+    <h3>More Exclusive Automation Tools</h3>
+    <p>Email builders, invoice generators, file renamers, and more -- all free with code SPUNK.</p>
+    <a href="https://spunk.codes/exclusive/" class="btn btn-primary">Browse All Exclusive Tools</a>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer-links">
+    <a href="https://spunk.codes">spunk.codes</a>
+    <a href="https://spunk.bet">spunk.bet</a>
+    <a href="https://spunk.work">spunk.work</a>
+    <a href="https://spunk.pics">spunk.pics</a>
+  </div>
+  &copy; 2026 SPUNK.CODES -- Built for builders.
+</footer>
+
+<script>
+/* Lock gate */
+function submitCode(){
+  const v=document.getElementById('codeInput').value.trim().toUpperCase();
+  if(v==='SPUNK'){document.getElementById('lockGate').classList.add('hidden');localStorage.setItem('spunk_unlocked','1');}
+  else{document.getElementById('codeError').textContent='Invalid code. Try again.';}
+}
+document.getElementById('codeInput').addEventListener('keydown',e=>{if(e.key==='Enter')submitCode();});
+if(localStorage.getItem('spunk_unlocked')==='1')document.getElementById('lockGate').classList.add('hidden');
+
+/* State */
+let steps = [];
+let stepIdCounter = 0;
+let outputMode = 'markdown';
+
+function addStep(type){
+  const id = ++stepIdCounter;
+  const defaults = {
+    trigger: {id,type:'trigger',title:'',triggerType:'manual',description:''},
+    action: {id,type:'action',title:'',description:'',assignee:'',dueOffset:''},
+    condition: {id,type:'condition',field:'',operator:'equals',value:'',thenAction:'Proceed to next step',elseAction:'Skip to end'},
+    delay: {id,type:'delay',duration:'1',unit:'hours',description:''}
+  };
+  steps.push(defaults[type]);
+  renderSteps();
+}
+
+function removeStep(id){
+  steps = steps.filter(s=>s.id!==id);
+  renderSteps();
+}
+
+function moveStep(id,dir){
+  const idx = steps.findIndex(s=>s.id===id);
+  if(idx<0) return;
+  const newIdx = idx+dir;
+  if(newIdx<0||newIdx>=steps.length) return;
+  [steps[idx],steps[newIdx]] = [steps[newIdx],steps[idx]];
+  renderSteps();
+}
+
+function renderSteps(){
+  const canvas = document.getElementById('workflowCanvas');
+  canvas.innerHTML = '';
+  steps.forEach((step,i)=>{
+    if(i>0){
+      const conn = document.createElement('div');
+      conn.className = 'step-connector';
+      conn.innerHTML = '&#9660;';
+      canvas.appendChild(conn);
+    }
+    const card = document.createElement('div');
+    card.className = `step-card ${step.type}`;
+    let fieldsHTML = '';
+    switch(step.type){
+      case 'trigger':
+        fieldsHTML = `<div class="step-fields">
+          <div><label>Trigger Type</label><select data-id="${step.id}" data-field="triggerType"><option value="manual" ${step.triggerType==='manual'?'selected':''}>Manual Start</option><option value="schedule" ${step.triggerType==='schedule'?'selected':''}>On Schedule</option><option value="webhook" ${step.triggerType==='webhook'?'selected':''}>Webhook/API Call</option><option value="email" ${step.triggerType==='email'?'selected':''}>Email Received</option><option value="form" ${step.triggerType==='form'?'selected':''}>Form Submitted</option></select></div>
+          <div><label>Trigger Name</label><input type="text" data-id="${step.id}" data-field="title" value="${esc(step.title)}" placeholder="e.g., Start of day"></div>
+          <div><label>Description</label><input type="text" data-id="${step.id}" data-field="description" value="${esc(step.description)}" placeholder="When this trigger fires..."></div>
+        </div>`;
+        break;
+      case 'action':
+        fieldsHTML = `<div class="step-fields">
+          <div><label>Action Name</label><input type="text" data-id="${step.id}" data-field="title" value="${esc(step.title)}" placeholder="e.g., Send weekly report"></div>
+          <div><label>Description / Details</label><textarea data-id="${step.id}" data-field="description" rows="2" placeholder="What to do in this step..." style="font-family:var(--font)">${esc(step.description)}</textarea></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem"><div><label>Assignee</label><input type="text" data-id="${step.id}" data-field="assignee" value="${esc(step.assignee)}" placeholder="Who does this?"></div><div><label>Due (offset)</label><input type="text" data-id="${step.id}" data-field="dueOffset" value="${esc(step.dueOffset)}" placeholder="e.g., +2 hours, +1 day"></div></div>
+        </div>`;
+        break;
+      case 'condition':
+        fieldsHTML = `<div class="step-fields">
+          <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:0.5rem;align-items:end">
+            <div><label>IF Field</label><input type="text" data-id="${step.id}" data-field="field" value="${esc(step.field)}" placeholder="e.g., status, priority"></div>
+            <div><label>Operator</label><select data-id="${step.id}" data-field="operator"><option value="equals" ${step.operator==='equals'?'selected':''}>equals</option><option value="not_equals" ${step.operator==='not_equals'?'selected':''}>not equals</option><option value="contains" ${step.operator==='contains'?'selected':''}>contains</option><option value="greater" ${step.operator==='greater'?'selected':''}>greater than</option><option value="less" ${step.operator==='less'?'selected':''}>less than</option><option value="is_empty" ${step.operator==='is_empty'?'selected':''}>is empty</option></select></div>
+            <div><label>Value</label><input type="text" data-id="${step.id}" data-field="value" value="${esc(step.value)}" placeholder="e.g., done, high"></div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem">
+            <div><label>THEN</label><input type="text" data-id="${step.id}" data-field="thenAction" value="${esc(step.thenAction)}" placeholder="Action if true"></div>
+            <div><label>ELSE</label><input type="text" data-id="${step.id}" data-field="elseAction" value="${esc(step.elseAction)}" placeholder="Action if false"></div>
+          </div>
+        </div>`;
+        break;
+      case 'delay':
+        fieldsHTML = `<div class="step-fields">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem">
+            <div><label>Wait Duration</label><input type="number" data-id="${step.id}" data-field="duration" value="${step.duration}" min="1"></div>
+            <div><label>Unit</label><select data-id="${step.id}" data-field="unit"><option value="minutes" ${step.unit==='minutes'?'selected':''}>Minutes</option><option value="hours" ${step.unit==='hours'?'selected':''}>Hours</option><option value="days" ${step.unit==='days'?'selected':''}>Days</option><option value="weeks" ${step.unit==='weeks'?'selected':''}>Weeks</option></select></div>
+          </div>
+          <div><label>Note</label><input type="text" data-id="${step.id}" data-field="description" value="${esc(step.description)}" placeholder="Why wait?"></div>
+        </div>`;
+        break;
+    }
+    const typeLabels = {trigger:'Trigger',action:'Action',condition:'Condition',delay:'Delay'};
+    card.innerHTML = `<div class="step-header"><span class="step-type ${step.type}">${typeLabels[step.type]} #${i+1}</span><div class="step-controls"><button class="step-control-btn" onclick="moveStep(${step.id},-1)" title="Move up">&#9650;</button><button class="step-control-btn" onclick="moveStep(${step.id},1)" title="Move down">&#9660;</button><button class="step-control-btn delete" onclick="removeStep(${step.id})" title="Delete">&times;</button></div></div>${fieldsHTML}`;
+    canvas.appendChild(card);
+    card.querySelectorAll('input,select,textarea').forEach(inp=>{
+      inp.addEventListener('input',()=>{
+        const sid = parseInt(inp.dataset.id);
+        const field = inp.dataset.field;
+        if(!field||isNaN(sid)) return;
+        const s = steps.find(x=>x.id===sid);
+        if(s) s[field] = inp.value;
+      });
+    });
+  });
+}
+
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+function toggleDay(btn){btn.classList.toggle('active');}
+function updateScheduleUI(){
+  const freq = document.getElementById('scheduleFreq').value;
+  document.getElementById('weekDays').style.display = (freq==='weekly'||freq==='biweekly')?'block':'none';
+}
+
+function setOutputTab(mode,btn){
+  outputMode = mode;
+  document.querySelectorAll('.output-tab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  generateOutput();
+}
+
+/* Generate output */
+function generateOutput(){
+  // Sync latest values
+  document.querySelectorAll('#workflowCanvas input,#workflowCanvas select,#workflowCanvas textarea').forEach(inp=>{
+    const sid = parseInt(inp.dataset.id);
+    const field = inp.dataset.field;
+    if(!field||isNaN(sid)) return;
+    const s = steps.find(x=>x.id===sid);
+    if(s) s[field] = inp.value;
+  });
+
+  const name = document.getElementById('workflowName').value || 'Untitled Workflow';
+  const desc = document.getElementById('workflowDesc').value || '';
+  const freq = document.getElementById('scheduleFreq').value;
+  const time = document.getElementById('scheduleTime').value;
+  const days = [...document.querySelectorAll('.day-btn.active')].map(b=>b.dataset.day);
+
+  let output = '';
+  if(outputMode==='markdown'){
+    output = `# ${name}\n`;
+    if(desc) output += `\n> ${desc}\n`;
+    if(freq!=='none') output += `\n**Schedule:** ${freq} at ${time}${days.length?` (${days.join(', ')})`:''}\n`;
+    output += '\n---\n\n';
+    steps.forEach((s,i)=>{
+      switch(s.type){
+        case 'trigger':
+          output += `## Step ${i+1}: TRIGGER - ${s.title||'Untitled'}\n- **Type:** ${s.triggerType}\n${s.description?`- **Details:** ${s.description}\n`:''}\n`;
+          break;
+        case 'action':
+          output += `## Step ${i+1}: ACTION - ${s.title||'Untitled'}\n${s.description?`- ${s.description}\n`:''}${s.assignee?`- **Assignee:** ${s.assignee}\n`:''}${s.dueOffset?`- **Due:** ${s.dueOffset}\n`:''}\n`;
+          break;
+        case 'condition':
+          output += `## Step ${i+1}: CONDITION\n- **IF** \`${s.field}\` ${s.operator} \`${s.value}\`\n  - **THEN:** ${s.thenAction}\n  - **ELSE:** ${s.elseAction}\n\n`;
+          break;
+        case 'delay':
+          output += `## Step ${i+1}: WAIT ${s.duration} ${s.unit}\n${s.description?`- ${s.description}\n`:''}\n`;
+          break;
+      }
+    });
+  } else if(outputMode==='json'){
+    const data = {
+      name, description:desc,
+      schedule: freq!=='none' ? {frequency:freq, time, days} : null,
+      steps: steps.map((s,i)=>({step:i+1,...s,id:undefined}))
+    };
+    output = JSON.stringify(data, null, 2);
+  } else {
+    output = `# ${name} - Checklist\n\n`;
+    if(freq!=='none') output += `Schedule: ${freq} at ${time}\n\n`;
+    steps.forEach((s,i)=>{
+      switch(s.type){
+        case 'trigger': output += `- [ ] **TRIGGER:** ${s.title||'Start'} (${s.triggerType})\n`; break;
+        case 'action': output += `- [ ] ${s.title||'Action'}${s.assignee?' @'+s.assignee:''}${s.dueOffset?' (due '+s.dueOffset+')':''}\n${s.description?'  - '+s.description+'\n':''}`; break;
+        case 'condition': output += `- [ ] **CHECK:** ${s.field} ${s.operator} ${s.value}\n  - Yes: ${s.thenAction}\n  - No: ${s.elseAction}\n`; break;
+        case 'delay': output += `- [ ] **WAIT** ${s.duration} ${s.unit}\n`; break;
+      }
+    });
+  }
+
+  document.getElementById('outputArea').textContent = output || 'Add steps to your workflow above.';
+}
+
+function copyOutput(){
+  const text = document.getElementById('outputArea').textContent;
+  navigator.clipboard.writeText(text).then(()=>{
+    const btn = event.target;
+    btn.textContent = 'Copied!';
+    setTimeout(()=>btn.innerHTML='&#128203; Copy',1500);
+  });
+}
+
+function downloadOutput(){
+  generateOutput();
+  const text = document.getElementById('outputArea').textContent;
+  const exts = {markdown:'md',json:'json',checklist:'md'};
+  const blob = new Blob([text],{type:'text/plain'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `workflow.${exts[outputMode]}`;
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+function saveWorkflow(){
+  document.querySelectorAll('#workflowCanvas input,#workflowCanvas select,#workflowCanvas textarea').forEach(inp=>{
+    const sid=parseInt(inp.dataset.id),field=inp.dataset.field;
+    if(!field||isNaN(sid))return;
+    const s=steps.find(x=>x.id===sid);
+    if(s) s[field]=inp.value;
+  });
+  const data = {
+    name:document.getElementById('workflowName').value,
+    desc:document.getElementById('workflowDesc').value,
+    freq:document.getElementById('scheduleFreq').value,
+    time:document.getElementById('scheduleTime').value,
+    days:[...document.querySelectorAll('.day-btn.active')].map(b=>b.dataset.day),
+    steps
+  };
+  localStorage.setItem('spunk_workflow',JSON.stringify(data));
+  alert('Workflow saved!');
+}
+
+function loadWorkflow(){
+  const raw = localStorage.getItem('spunk_workflow');
+  if(!raw){alert('No saved workflow found.');return;}
+  const data = JSON.parse(raw);
+  document.getElementById('workflowName').value = data.name||'';
+  document.getElementById('workflowDesc').value = data.desc||'';
+  document.getElementById('scheduleFreq').value = data.freq||'none';
+  document.getElementById('scheduleTime').value = data.time||'09:00';
+  updateScheduleUI();
+  document.querySelectorAll('.day-btn').forEach(b=>{
+    b.classList.toggle('active',(data.days||[]).includes(b.dataset.day));
+  });
+  steps = data.steps||[];
+  stepIdCounter = Math.max(...steps.map(s=>s.id),0);
+  renderSteps();
+  alert('Workflow loaded!');
+}
+
+/* Templates */
+function loadTemplate(name){
+  steps = [];
+  stepIdCounter = 0;
+  switch(name){
+    case 'standup':
+      document.getElementById('workflowName').value = 'Daily Standup';
+      document.getElementById('workflowDesc').value = 'Quick daily sync: what you did, what you will do, blockers';
+      document.getElementById('scheduleFreq').value = 'daily';
+      document.getElementById('scheduleTime').value = '09:00';
+      addStep('trigger'); steps[0].title='Morning start'; steps[0].triggerType='schedule';
+      addStep('action'); steps[1].title='Review yesterday tasks'; steps[1].description='List what you completed yesterday';
+      addStep('action'); steps[2].title='Plan today'; steps[2].description='List your top 3 priorities for today';
+      addStep('condition'); steps[3].field='blockers'; steps[3].operator='is_empty'; steps[3].value=''; steps[3].thenAction='Continue with work'; steps[3].elseAction='Flag blockers in team channel';
+      addStep('action'); steps[4].title='Post standup update'; steps[4].description='Share update in #standup channel';
+      break;
+    case 'weekly':
+      document.getElementById('workflowName').value = 'Weekly Report';
+      document.getElementById('workflowDesc').value = 'End-of-week summary with KPIs, wins, and next week planning';
+      document.getElementById('scheduleFreq').value = 'weekly';
+      document.getElementById('scheduleTime').value = '16:00';
+      addStep('trigger'); steps[0].title='Friday afternoon'; steps[0].triggerType='schedule';
+      addStep('action'); steps[1].title='Gather KPI data'; steps[1].description='Pull metrics from analytics dashboard';
+      addStep('action'); steps[2].title='Document wins'; steps[2].description='List top 3-5 accomplishments this week';
+      addStep('action'); steps[3].title='Note challenges'; steps[3].description='What went wrong or could be improved?';
+      addStep('action'); steps[4].title='Plan next week'; steps[4].description='Set top priorities for next week';
+      addStep('action'); steps[5].title='Send report'; steps[5].description='Email report to stakeholders'; steps[5].assignee='Team Lead';
+      break;
+    case 'social':
+      document.getElementById('workflowName').value = 'Social Media Schedule';
+      document.getElementById('workflowDesc').value = 'Daily social media content creation and posting workflow';
+      document.getElementById('scheduleFreq').value = 'daily';
+      document.getElementById('scheduleTime').value = '08:00';
+      addStep('trigger'); steps[0].title='Content day starts'; steps[0].triggerType='schedule';
+      addStep('action'); steps[1].title='Check trending topics'; steps[1].description='Review trending hashtags and news in your niche';
+      addStep('action'); steps[2].title='Create content'; steps[2].description='Write post copy, create graphics or video';
+      addStep('condition'); steps[3].field='content_type'; steps[3].operator='equals'; steps[3].value='video'; steps[3].thenAction='Upload to YouTube + create clips'; steps[3].elseAction='Post image/text content';
+      addStep('action'); steps[4].title='Schedule posts'; steps[4].description='Queue content: Twitter 10am, LinkedIn 12pm, Instagram 6pm';
+      addStep('delay'); steps[5].duration='4'; steps[5].unit='hours'; steps[5].description='Wait for engagement';
+      addStep('action'); steps[6].title='Engage with responses'; steps[6].description='Reply to comments, retweet mentions, respond to DMs';
+      break;
+    case 'deploy':
+      document.getElementById('workflowName').value = 'Deployment Checklist';
+      document.getElementById('workflowDesc').value = 'Pre and post deployment verification steps';
+      addStep('trigger'); steps[0].title='Deploy initiated'; steps[0].triggerType='manual';
+      addStep('action'); steps[1].title='Run test suite'; steps[1].description='All unit and integration tests must pass';
+      addStep('condition'); steps[2].field='tests'; steps[2].operator='equals'; steps[2].value='passing'; steps[2].thenAction='Continue deploy'; steps[2].elseAction='ABORT - fix failing tests';
+      addStep('action'); steps[3].title='Create database backup'; steps[3].description='Snapshot current DB state';
+      addStep('action'); steps[4].title='Deploy to staging'; steps[4].description='Push to staging environment and verify';
+      addStep('delay'); steps[5].duration='15'; steps[5].unit='minutes'; steps[5].description='Monitor staging for errors';
+      addStep('action'); steps[6].title='Deploy to production'; steps[6].description='Push to production, monitor error rates';
+      addStep('action'); steps[7].title='Post-deploy verification'; steps[7].description='Smoke tests, check logs, verify key flows';
+      break;
+    case 'onboard':
+      document.getElementById('workflowName').value = 'New Hire Onboarding';
+      document.getElementById('workflowDesc').value = 'Complete onboarding workflow for new team members';
+      addStep('trigger'); steps[0].title='New hire start date'; steps[0].triggerType='manual';
+      addStep('action'); steps[1].title='Setup accounts'; steps[1].description='Email, Slack, GitHub, project tools'; steps[1].assignee='IT Admin';
+      addStep('action'); steps[2].title='Welcome meeting'; steps[2].description='Introduction, team overview, company culture'; steps[2].assignee='Manager';
+      addStep('delay'); steps[3].duration='1'; steps[3].unit='days';
+      addStep('action'); steps[4].title='Dev environment setup'; steps[4].description='Clone repos, install tools, run local build'; steps[4].assignee='Tech Lead';
+      addStep('action'); steps[5].title='First task assignment'; steps[5].description='Small starter task to get familiar with codebase'; steps[5].assignee='Manager'; steps[5].dueOffset='+3 days';
+      break;
+    case 'content':
+      document.getElementById('workflowName').value = 'Content Pipeline';
+      document.getElementById('workflowDesc').value = 'From idea to published content';
+      addStep('trigger'); steps[0].title='New content idea'; steps[0].triggerType='form';
+      addStep('action'); steps[1].title='Research & outline'; steps[1].description='Keyword research, competitor analysis, create outline'; steps[1].dueOffset='+1 day';
+      addStep('action'); steps[2].title='Write first draft'; steps[2].description='Complete draft based on outline'; steps[2].dueOffset='+3 days';
+      addStep('action'); steps[3].title='Review & edit'; steps[3].description='Proofread, fact-check, optimize for SEO'; steps[3].assignee='Editor'; steps[3].dueOffset='+1 day';
+      addStep('condition'); steps[4].field='approval'; steps[4].operator='equals'; steps[4].value='approved'; steps[4].thenAction='Schedule for publishing'; steps[4].elseAction='Return for revisions';
+      addStep('action'); steps[5].title='Publish & promote'; steps[5].description='Publish on blog, share on social media, email newsletter';
+      break;
+  }
+  updateScheduleUI();
+  renderSteps();
+  generateOutput();
+}
+</script>
+</body>
+</html>

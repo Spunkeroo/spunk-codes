@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Clipboard Manager | SPUNK.CODES Exclusive</title>
+<meta name="description" content="Save multiple clipboard items in your browser with categories, tags, and search. Quick one-click copy, import/export JSON backup. All data stays local.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Clipboard Manager - SPUNK.CODES Exclusive">
+<meta property="og:description" content="Save multiple clipboard snippets with categories, tags, search, and JSON backup. All local, all private.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://spunk.codes/exclusive/clipboard-manager">
+<meta property="og:site_name" content="Spunk Codes">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/clipboard-manager">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Clipboard Manager","applicationCategory":"UtilitiesApplication","operatingSystem":"Web","description":"Save multiple clipboard items in your browser with categories, tags, and search. Quick one-click copy, import/export JSON backup.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Organization","name":"Spunk Codes","url":"https://spunk.codes"}}</script>
+<!-- GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<!-- Clarity -->
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<script src="https://spunk.codes/heartbeat.js" defer></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0a0a0f;--card:rgba(18,18,28,0.85);--border:rgba(50,50,70,0.5);--accent:#ff5f1f;--accent2:#ff9f1f;--text:#e8e8f0;--text-dim:#8b8b9e;--green:#39d353;--red:#f85149;--blue:#58a6ff;--purple:#a855f7;--font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+a{color:var(--blue);text-decoration:none}a:hover{color:#fff}
+.bg-mesh{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 80% 50% at 20% 20%,rgba(255,95,31,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(255,159,31,0.04) 0%,transparent 60%),var(--bg)}
+.nav{position:sticky;top:0;z-index:100;background:rgba(10,10,15,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,95,31,0.15);padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}
+.nav-brand{font-weight:800;font-size:1.1rem;background:linear-gradient(135deg,#ff5f1f,#ff9f1f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:0.08em}
+.nav-links{display:flex;gap:1.5rem;font-size:0.85rem;list-style:none}.nav-links a{color:var(--text-dim);transition:color 0.2s;font-weight:500}.nav-links a:hover{color:#fff}.nav-links a.active{color:var(--accent)}
+.lock-gate{position:fixed;inset:0;z-index:1000;background:rgba(10,10,15,0.97);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:2rem}.lock-gate.hidden{display:none}
+.lock-icon-big{font-size:4rem;margin-bottom:0.5rem}.lock-gate h2{font-size:1.8rem;font-weight:800;text-align:center}.lock-gate h2 span{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.lock-gate p{color:var(--text-dim);text-align:center;max-width:400px}
+.code-input-wrap{display:flex;gap:0.5rem;margin-top:0.5rem}.code-input{padding:0.8rem 1.5rem;background:rgba(18,18,28,0.8);border:2px solid rgba(255,95,31,0.3);border-radius:12px;color:var(--accent);font-size:1.2rem;font-weight:800;letter-spacing:3px;text-align:center;width:200px;outline:none;text-transform:uppercase;font-family:var(--font)}.code-input:focus{border-color:var(--accent);box-shadow:0 0 20px rgba(255,95,31,0.2)}
+.code-submit{padding:0.8rem 1.5rem;background:linear-gradient(135deg,#ff5f1f,#ff9f1f);border:none;border-radius:12px;color:#000;font-size:1rem;font-weight:800;cursor:pointer;transition:all 0.3s}.code-submit:hover{transform:scale(1.05)}
+.code-error{color:#f85149;font-size:0.85rem;min-height:1.2em}
+.lock-hint{color:var(--text-dim);font-size:0.8rem;margin-top:1rem}.lock-hint a{color:var(--accent)}
+.exclusive-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;background:linear-gradient(135deg,rgba(255,95,31,0.15),rgba(255,159,31,0.15));border:1px solid rgba(255,95,31,0.3);border-radius:100px;font-size:11px;font-weight:800;color:var(--accent);letter-spacing:1.5px;text-transform:uppercase}
+.main{max-width:1000px;margin:0 auto;padding:2rem}
+.hero-section{text-align:center;padding:2rem 0 3rem}
+.hero-section h1{font-size:2.2rem;font-weight:800;margin:1rem 0 0.5rem}
+.hero-section h1 .grad{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-section p{color:var(--text-dim);max-width:600px;margin:0 auto}
+.tool-section{background:var(--card);border:1px solid rgba(255,95,31,0.2);border-radius:16px;padding:2rem;margin-bottom:1.5rem;backdrop-filter:blur(10px);position:relative;overflow:hidden}
+.tool-section::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#ff5f1f,#ff9f1f,#ff5f1f)}
+.tool-section h2{font-size:1.2rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}
+label{font-size:0.85rem;color:var(--text-dim);font-weight:600;display:block;margin-bottom:0.4rem}
+input,select,textarea{width:100%;padding:0.75rem 1rem;background:rgba(10,10,15,0.6);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:0.9rem;font-family:var(--font);outline:none;transition:border-color 0.2s}
+input:focus,select:focus,textarea:focus{border-color:var(--accent)}
+.input-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.input-group{margin-bottom:1rem}
+.btn{padding:0.75rem 2rem;border:none;border-radius:10px;font-size:0.9rem;font-weight:700;cursor:pointer;transition:all 0.2s;font-family:var(--font)}
+.btn-primary{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);color:#000}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 4px 20px rgba(255,95,31,0.3)}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--text-dim)}
+.btn-outline:hover{border-color:var(--accent);color:var(--accent)}
+.btn-sm{padding:0.5rem 1rem;font-size:0.8rem}
+.btn-danger{background:rgba(248,81,73,0.15);border:1px solid rgba(248,81,73,0.3);color:var(--red)}
+.btn-danger:hover{background:rgba(248,81,73,0.25)}
+.btn-row{display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:1rem}
+textarea{resize:vertical;font-family:'SF Mono',Monaco,Consolas,monospace;font-size:0.85rem}
+/* Search & filter bar */
+.search-bar{display:flex;gap:0.75rem;margin-bottom:1.5rem;flex-wrap:wrap}
+.search-bar input{flex:1;min-width:200px}
+.search-bar select{width:auto;min-width:140px}
+/* Category tags */
+.cat-tags{display:flex;gap:0.4rem;flex-wrap:wrap;margin-bottom:1rem}
+.cat-tag{padding:4px 12px;border-radius:20px;font-size:0.72rem;font-weight:700;cursor:pointer;border:1px solid transparent;transition:all 0.2s;font-family:var(--font)}
+.cat-tag:hover{opacity:0.8}
+.cat-tag.active{border-color:#fff;box-shadow:0 0 10px rgba(255,255,255,0.1)}
+.cat-general{background:rgba(88,166,255,0.15);color:var(--blue)}
+.cat-code{background:rgba(57,211,83,0.15);color:var(--green)}
+.cat-url{background:rgba(168,85,247,0.15);color:var(--purple)}
+.cat-text{background:rgba(255,95,31,0.15);color:var(--accent)}
+.cat-email{background:rgba(255,159,31,0.15);color:var(--accent2)}
+.cat-password{background:rgba(248,81,73,0.15);color:var(--red)}
+/* Clip cards */
+.clips-grid{display:grid;grid-template-columns:1fr;gap:0.75rem}
+.clip-card{background:rgba(10,10,15,0.5);border:1px solid var(--border);border-radius:12px;padding:1rem;position:relative;transition:border-color 0.2s}
+.clip-card:hover{border-color:rgba(255,95,31,0.3)}
+.clip-card .clip-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.5rem}
+.clip-card .clip-title{font-weight:700;font-size:0.9rem;flex:1;margin-right:0.5rem}
+.clip-card .clip-actions{display:flex;gap:4px;flex-shrink:0}
+.clip-action{width:30px;height:30px;border-radius:8px;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:0.8rem;transition:all 0.2s;background:rgba(50,50,70,0.5);color:var(--text-dim)}
+.clip-action:hover{background:rgba(255,95,31,0.2);color:var(--accent)}
+.clip-action.delete:hover{background:rgba(248,81,73,0.2);color:var(--red)}
+.clip-action.copied{background:rgba(57,211,83,0.2);color:var(--green)}
+.clip-content{font-family:'SF Mono',Monaco,Consolas,monospace;font-size:0.8rem;color:var(--text-dim);background:rgba(0,0,0,0.3);padding:0.75rem;border-radius:8px;max-height:120px;overflow-y:auto;white-space:pre-wrap;word-break:break-all;cursor:pointer;transition:border-color 0.2s;border:1px solid transparent}
+.clip-content:hover{border-color:rgba(255,95,31,0.2)}
+.clip-meta{display:flex;justify-content:space-between;align-items:center;margin-top:0.5rem;font-size:0.72rem;color:var(--text-dim)}
+.clip-tags{display:flex;gap:0.3rem;flex-wrap:wrap}
+.clip-tag{padding:2px 8px;border-radius:4px;font-size:0.68rem;font-weight:600}
+/* Stats */
+.stats-bar{display:flex;gap:2rem;justify-content:center;padding:1rem;background:rgba(255,95,31,0.05);border-radius:10px;margin-bottom:1.5rem;flex-wrap:wrap}
+.stat{text-align:center}.stat .val{font-size:1.3rem;font-weight:800;color:var(--accent)}.stat .lbl{font-size:0.7rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px}
+/* Empty state */
+.empty-state{text-align:center;padding:3rem 1rem;color:var(--text-dim)}
+.empty-state .icon{font-size:3rem;margin-bottom:1rem;display:block}
+.toast{position:fixed;bottom:2rem;right:2rem;padding:0.75rem 1.5rem;background:rgba(57,211,83,0.95);color:#000;font-weight:700;font-size:0.85rem;border-radius:10px;z-index:2000;transform:translateY(100px);opacity:0;transition:all 0.3s;pointer-events:none}
+.toast.show{transform:translateY(0);opacity:1}
+.share-cta{background:linear-gradient(135deg,rgba(255,95,31,0.08),rgba(255,159,31,0.05));border:1px solid rgba(255,95,31,0.2);border-radius:16px;padding:2rem;text-align:center;margin-top:2rem}
+.share-cta h3{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:0.5rem;font-size:1.1rem}
+.share-cta p{color:var(--text-dim);font-size:0.9rem;margin-bottom:1rem}
+.footer{text-align:center;padding:2rem;border-top:1px solid rgba(255,95,31,0.1);color:var(--text-dim);font-size:0.75rem;margin-top:3rem}
+.footer a{color:var(--accent)}.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-bottom:1rem}
+@media(max-width:768px){.main{padding:1rem}.hero-section h1{font-size:1.6rem}.input-grid{grid-template-columns:1fr}.nav-links{display:none}.search-bar{flex-direction:column}.search-bar select{width:100%}}
+</style>
+</head>
+<body>
+<div class="bg-mesh"></div>
+<div class="lock-gate" id="lockGate">
+  <div class="lock-icon-big">&#128274;</div>
+  <h2>Enter Code <span>SPUNK</span> to Unlock</h2>
+  <p>This is an exclusive premium tool. Enter the referral code to get instant access.</p>
+  <div class="code-input-wrap">
+    <input type="text" class="code-input" id="codeInput" placeholder="CODE" maxlength="10" autocomplete="off">
+    <button class="code-submit" onclick="submitCode()">Unlock</button>
+  </div>
+  <div class="code-error" id="codeError"></div>
+  <div class="lock-hint">Get the code at <a href="https://spunk.codes/exclusive/">spunk.codes/exclusive/</a></div>
+</div>
+
+<nav class="nav">
+  <a href="https://spunk.codes" class="nav-brand">SPUNK.CODES</a>
+  <div class="nav-links">
+    <a href="/store">Tools</a>
+    <a href="/exclusive/" class="active">Exclusive</a>
+    <a href="/store#ebook">Ebooks</a>
+    <a href="/blog">Blog</a>
+  </div>
+</nav>
+
+<div class="main">
+  <section class="hero-section">
+    <div class="exclusive-badge">&#9889; EXCLUSIVE TOOL</div>
+    <h1>Clipboard <span class="grad">Manager</span></h1>
+    <p>Save multiple clipboard snippets right in your browser. Organize with categories and tags, search instantly, copy with one click. All data stays local in localStorage.</p>
+  </section>
+
+  <!-- Add New Clip -->
+  <div class="tool-section">
+    <h2>&#10133; Add New Clip</h2>
+    <div class="input-grid">
+      <div class="input-group"><label>Title</label><input type="text" id="clipTitle" placeholder="My code snippet"></div>
+      <div class="input-group"><label>Category</label><select id="clipCategory">
+        <option value="general">General</option>
+        <option value="code">Code</option>
+        <option value="url">URL / Link</option>
+        <option value="text">Text / Note</option>
+        <option value="email">Email Template</option>
+        <option value="password">Password / Key</option>
+      </select></div>
+    </div>
+    <div class="input-group">
+      <label>Content</label>
+      <textarea id="clipContent" rows="4" placeholder="Paste your text, code, URL, or anything you want to save..."></textarea>
+    </div>
+    <div class="input-group">
+      <label>Tags (comma separated)</label>
+      <input type="text" id="clipTags" placeholder="javascript, react, snippet">
+    </div>
+    <div class="btn-row" style="margin-top:0">
+      <button class="btn btn-primary" onclick="addClip()">&#10133; Save Clip</button>
+      <button class="btn btn-outline" onclick="pasteFromClipboard()">&#128203; Paste from Clipboard</button>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-bar">
+    <div class="stat"><div class="val" id="statTotal">0</div><div class="lbl">Total Clips</div></div>
+    <div class="stat"><div class="val" id="statCategories">0</div><div class="lbl">Categories</div></div>
+    <div class="stat"><div class="val" id="statSize">0 KB</div><div class="lbl">Storage Used</div></div>
+  </div>
+
+  <!-- Search & Filter -->
+  <div class="tool-section">
+    <h2>&#128269; Your Clips</h2>
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="Search clips..." oninput="renderClips()">
+      <select id="filterCategory" onchange="renderClips()">
+        <option value="all">All Categories</option>
+        <option value="general">General</option>
+        <option value="code">Code</option>
+        <option value="url">URL / Link</option>
+        <option value="text">Text / Note</option>
+        <option value="email">Email Template</option>
+        <option value="password">Password / Key</option>
+      </select>
+      <select id="sortOrder" onchange="renderClips()">
+        <option value="newest">Newest First</option>
+        <option value="oldest">Oldest First</option>
+        <option value="alpha">A-Z</option>
+        <option value="most_used">Most Used</option>
+      </select>
+    </div>
+
+    <div class="cat-tags" id="categoryTags"></div>
+    <div class="clips-grid" id="clipsGrid"></div>
+  </div>
+
+  <!-- Import/Export -->
+  <div class="tool-section">
+    <h2>&#128229; Import / Export</h2>
+    <div class="btn-row" style="margin-top:0">
+      <button class="btn btn-primary btn-sm" onclick="exportClips()">&#128229; Export JSON</button>
+      <button class="btn btn-outline btn-sm" onclick="document.getElementById('importFile').click()">&#128194; Import JSON</button>
+      <button class="btn btn-danger btn-sm" onclick="clearAllClips()">&#128465; Clear All Clips</button>
+      <input type="file" id="importFile" accept=".json" style="display:none" onchange="importClips(event)">
+    </div>
+  </div>
+
+  <div class="share-cta">
+    <h3>More Exclusive Automation Tools</h3>
+    <p>File renamers, email builders, invoice generators, and more -- all free with code SPUNK.</p>
+    <a href="https://spunk.codes/exclusive/" class="btn btn-primary">Browse All Exclusive Tools</a>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<footer class="footer">
+  <div class="footer-links">
+    <a href="https://spunk.codes">spunk.codes</a>
+    <a href="https://spunk.bet">spunk.bet</a>
+    <a href="https://spunk.work">spunk.work</a>
+    <a href="https://spunk.pics">spunk.pics</a>
+  </div>
+  &copy; 2026 SPUNK.CODES -- Built for builders.
+</footer>
+
+<script>
+/* Lock gate */
+function submitCode(){
+  const v=document.getElementById('codeInput').value.trim().toUpperCase();
+  if(v==='SPUNK'){document.getElementById('lockGate').classList.add('hidden');localStorage.setItem('spunk_unlocked','1');}
+  else{document.getElementById('codeError').textContent='Invalid code. Try again.';}
+}
+document.getElementById('codeInput').addEventListener('keydown',e=>{if(e.key==='Enter')submitCode();});
+if(localStorage.getItem('spunk_unlocked')==='1')document.getElementById('lockGate').classList.add('hidden');
+
+/* State */
+const STORAGE_KEY = 'spunk_clipboard_clips';
+
+function getClips(){
+  try{return JSON.parse(localStorage.getItem(STORAGE_KEY))||[];}catch(e){return[];}
+}
+
+function saveClips(clips){
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(clips));
+  updateStats();
+}
+
+function showToast(msg){
+  const toast = document.getElementById('toast');
+  toast.textContent = msg;
+  toast.classList.add('show');
+  setTimeout(()=>toast.classList.remove('show'),2000);
+}
+
+/* Add clip */
+function addClip(){
+  const title = document.getElementById('clipTitle').value.trim();
+  const content = document.getElementById('clipContent').value.trim();
+  const category = document.getElementById('clipCategory').value;
+  const tags = document.getElementById('clipTags').value.split(',').map(t=>t.trim()).filter(t=>t);
+
+  if(!content){showToast('Please enter some content');return;}
+
+  const clips = getClips();
+  clips.unshift({
+    id: Date.now().toString(36) + Math.random().toString(36).substr(2,5),
+    title: title || `Clip ${clips.length+1}`,
+    content,
+    category,
+    tags,
+    created: new Date().toISOString(),
+    useCount: 0,
+    pinned: false
+  });
+  saveClips(clips);
+
+  // Clear form
+  document.getElementById('clipTitle').value = '';
+  document.getElementById('clipContent').value = '';
+  document.getElementById('clipTags').value = '';
+
+  showToast('Clip saved!');
+  renderClips();
+}
+
+async function pasteFromClipboard(){
+  try{
+    const text = await navigator.clipboard.readText();
+    document.getElementById('clipContent').value = text;
+    showToast('Pasted from clipboard');
+  }catch(e){
+    showToast('Cannot access clipboard - paste manually');
+  }
+}
+
+/* Copy clip */
+function copyClip(id){
+  const clips = getClips();
+  const clip = clips.find(c=>c.id===id);
+  if(!clip) return;
+
+  navigator.clipboard.writeText(clip.content).then(()=>{
+    clip.useCount = (clip.useCount||0) + 1;
+    saveClips(clips);
+    showToast('Copied to clipboard!');
+
+    // Visual feedback
+    const btn = document.querySelector(`[data-copy="${id}"]`);
+    if(btn){
+      btn.classList.add('copied');
+      btn.innerHTML = '&#10003;';
+      setTimeout(()=>{btn.classList.remove('copied');btn.innerHTML='&#128203;';},1000);
+    }
+    renderClips();
+  });
+}
+
+/* Delete clip */
+function deleteClip(id){
+  let clips = getClips();
+  clips = clips.filter(c=>c.id!==id);
+  saveClips(clips);
+  showToast('Clip deleted');
+  renderClips();
+}
+
+/* Pin clip */
+function pinClip(id){
+  const clips = getClips();
+  const clip = clips.find(c=>c.id===id);
+  if(clip){
+    clip.pinned = !clip.pinned;
+    saveClips(clips);
+    renderClips();
+  }
+}
+
+/* Edit clip */
+function editClip(id){
+  const clips = getClips();
+  const clip = clips.find(c=>c.id===id);
+  if(!clip) return;
+
+  document.getElementById('clipTitle').value = clip.title;
+  document.getElementById('clipContent').value = clip.content;
+  document.getElementById('clipCategory').value = clip.category;
+  document.getElementById('clipTags').value = (clip.tags||[]).join(', ');
+
+  // Remove old clip
+  const idx = clips.indexOf(clip);
+  clips.splice(idx,1);
+  saveClips(clips);
+  renderClips();
+
+  // Scroll to top
+  window.scrollTo({top:0,behavior:'smooth'});
+  showToast('Editing clip - make changes and save');
+}
+
+/* Render */
+function renderClips(){
+  let clips = getClips();
+  const search = document.getElementById('searchInput').value.toLowerCase();
+  const filter = document.getElementById('filterCategory').value;
+  const sort = document.getElementById('sortOrder').value;
+
+  // Filter
+  if(filter!=='all') clips = clips.filter(c=>c.category===filter);
+  if(search) clips = clips.filter(c=>
+    c.title.toLowerCase().includes(search) ||
+    c.content.toLowerCase().includes(search) ||
+    (c.tags||[]).some(t=>t.toLowerCase().includes(search))
+  );
+
+  // Sort (pinned always first)
+  const pinned = clips.filter(c=>c.pinned);
+  const unpinned = clips.filter(c=>!c.pinned);
+
+  switch(sort){
+    case 'oldest': unpinned.sort((a,b)=>new Date(a.created)-new Date(b.created)); break;
+    case 'alpha': unpinned.sort((a,b)=>a.title.localeCompare(b.title)); break;
+    case 'most_used': unpinned.sort((a,b)=>(b.useCount||0)-(a.useCount||0)); break;
+    default: unpinned.sort((a,b)=>new Date(b.created)-new Date(a.created));
+  }
+
+  clips = [...pinned,...unpinned];
+
+  const grid = document.getElementById('clipsGrid');
+
+  if(clips.length===0){
+    grid.innerHTML = `<div class="empty-state"><span class="icon">&#128203;</span><p>No clips yet. Add your first snippet above!</p></div>`;
+    renderCategoryTags([]);
+    return;
+  }
+
+  const catColors = {general:'cat-general',code:'cat-code',url:'cat-url',text:'cat-text',email:'cat-email',password:'cat-password'};
+
+  grid.innerHTML = clips.map(clip=>{
+    const ago = timeAgo(new Date(clip.created));
+    const preview = clip.category==='password' ? '********' : escH(clip.content);
+    return `<div class="clip-card">
+      <div class="clip-header">
+        <div class="clip-title">${clip.pinned?'&#128204; ':''}${escH(clip.title)}</div>
+        <div class="clip-actions">
+          <button class="clip-action" data-copy="${clip.id}" onclick="copyClip('${clip.id}')" title="Copy">&#128203;</button>
+          <button class="clip-action" onclick="pinClip('${clip.id}')" title="${clip.pinned?'Unpin':'Pin'}">${clip.pinned?'&#128204;':'&#128392;'}</button>
+          <button class="clip-action" onclick="editClip('${clip.id}')" title="Edit">&#9998;</button>
+          <button class="clip-action delete" onclick="deleteClip('${clip.id}')" title="Delete">&times;</button>
+        </div>
+      </div>
+      <div class="clip-content" onclick="copyClip('${clip.id}')">${preview}</div>
+      <div class="clip-meta">
+        <div class="clip-tags">
+          <span class="clip-tag ${catColors[clip.category]||'cat-general'}">${clip.category}</span>
+          ${(clip.tags||[]).map(t=>`<span class="clip-tag" style="background:rgba(255,255,255,0.05);color:var(--text-dim)">${escH(t)}</span>`).join('')}
+        </div>
+        <div>${ago}${clip.useCount?` &middot; used ${clip.useCount}x`:''}</div>
+      </div>
+    </div>`;
+  }).join('');
+
+  renderCategoryTags(getClips());
+}
+
+function renderCategoryTags(allClips){
+  const counts = {};
+  allClips.forEach(c=>{counts[c.category]=(counts[c.category]||0)+1;});
+  const el = document.getElementById('categoryTags');
+  const catColors = {general:'cat-general',code:'cat-code',url:'cat-url',text:'cat-text',email:'cat-email',password:'cat-password'};
+  const currentFilter = document.getElementById('filterCategory').value;
+  el.innerHTML = Object.entries(counts).map(([cat,count])=>
+    `<span class="cat-tag ${catColors[cat]||'cat-general'}${currentFilter===cat?' active':''}" onclick="filterByCat('${cat}')">${cat} (${count})</span>`
+  ).join('');
+}
+
+function filterByCat(cat){
+  const sel = document.getElementById('filterCategory');
+  sel.value = sel.value===cat ? 'all' : cat;
+  renderClips();
+}
+
+function escH(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+function timeAgo(date){
+  const seconds = Math.floor((new Date()-date)/1000);
+  if(seconds<60) return 'just now';
+  if(seconds<3600) return Math.floor(seconds/60)+'m ago';
+  if(seconds<86400) return Math.floor(seconds/3600)+'h ago';
+  if(seconds<604800) return Math.floor(seconds/86400)+'d ago';
+  return date.toLocaleDateString();
+}
+
+function updateStats(){
+  const clips = getClips();
+  document.getElementById('statTotal').textContent = clips.length;
+  const cats = new Set(clips.map(c=>c.category));
+  document.getElementById('statCategories').textContent = cats.size;
+  const bytes = new Blob([JSON.stringify(clips)]).size;
+  document.getElementById('statSize').textContent = bytes<1024 ? bytes+' B' : (bytes/1024).toFixed(1)+' KB';
+}
+
+/* Import/Export */
+function exportClips(){
+  const clips = getClips();
+  const blob = new Blob([JSON.stringify(clips,null,2)],{type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `clipboard-backup-${new Date().toISOString().split('T')[0]}.json`;
+  a.click();
+  URL.revokeObjectURL(a.href);
+  showToast(`Exported ${clips.length} clips`);
+}
+
+function importClips(event){
+  const file = event.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = (e)=>{
+    try{
+      const imported = JSON.parse(e.target.result);
+      if(!Array.isArray(imported)){showToast('Invalid file format');return;}
+      const existing = getClips();
+      const existingIds = new Set(existing.map(c=>c.id));
+      let added = 0;
+      imported.forEach(clip=>{
+        if(!existingIds.has(clip.id)){
+          existing.push(clip);
+          added++;
+        }
+      });
+      saveClips(existing);
+      renderClips();
+      showToast(`Imported ${added} new clips (${imported.length-added} duplicates skipped)`);
+    }catch(err){
+      showToast('Error reading file');
+    }
+  };
+  reader.readAsText(file);
+  event.target.value = '';
+}
+
+function clearAllClips(){
+  if(!confirm('Delete ALL clips? This cannot be undone.')) return;
+  saveClips([]);
+  renderClips();
+  showToast('All clips deleted');
+}
+
+/* Init */
+updateStats();
+renderClips();
+</script>
+</body>
+</html>
