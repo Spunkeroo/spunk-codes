@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Insurance Comparison Calculator — Find Your Best Plan | SPUNK.CODES Exclusive</title>
+<meta name="description" content="Compare up to 4 insurance quotes side by side. See yearly costs, best/worst case scenarios, and get AI negotiation prompts. Free premium tool.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Insurance Comparison Calculator — SPUNK.CODES Exclusive">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/insurance-comparison-calculator">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0a0a0f;--card:rgba(18,18,28,0.85);--border:rgba(255,95,31,0.18);--accent:#ff5f1f;--accent-glow:rgba(255,95,31,0.3);--text:#e6edf3;--text-dim:#8b949e;--green:#39d353;--red:#f85149;--yellow:#ffd700;--blue:#58a6ff;--font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+a{color:var(--blue);text-decoration:none}
+.bg-mesh{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 80% 50% at 20% 20%,rgba(255,95,31,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(255,95,31,0.04) 0%,transparent 60%),var(--bg)}
+.bg-grid{position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,95,31,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,95,31,0.03) 1px,transparent 1px);background-size:60px 60px}
+.nav{position:sticky;top:0;z-index:100;background:rgba(10,10,15,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,95,31,0.15);padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}
+.nav-brand{font-weight:800;font-size:1.1rem;color:var(--accent);letter-spacing:0.08em}
+.nav-links{display:flex;gap:1.5rem;font-size:0.85rem}.nav-links a{color:var(--text-dim);font-weight:500}.nav-links a.active{color:var(--accent)}
+.lock-gate{position:fixed;inset:0;z-index:1000;background:rgba(10,10,15,0.97);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:2rem}
+.lock-gate.hidden{display:none}
+.lock-icon-big{font-size:4rem}.lock-gate h2{font-size:1.8rem;font-weight:800;text-align:center}.lock-gate h2 span{color:var(--accent)}.lock-gate p{color:var(--text-dim);text-align:center;max-width:400px}
+.code-input-wrap{display:flex;gap:0.5rem}
+.code-input{padding:0.8rem 1.5rem;background:rgba(18,18,28,0.8);border:2px solid var(--accent-glow);border-radius:12px;color:var(--accent);font-size:1.2rem;font-weight:800;letter-spacing:3px;text-align:center;width:200px;outline:none;text-transform:uppercase;font-family:var(--font)}
+.code-input:focus{border-color:var(--accent);box-shadow:0 0 20px rgba(255,95,31,0.2)}
+.code-submit{padding:0.8rem 1.5rem;background:linear-gradient(135deg,#ff5f1f,#ff8c00);border:none;border-radius:12px;color:#000;font-size:1rem;font-weight:800;cursor:pointer}
+.code-error{color:var(--red);font-size:0.85rem;min-height:1.2em}.lock-hint{color:var(--text-dim);font-size:0.8rem}.lock-hint a{color:var(--accent)}
+.exclusive-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;background:linear-gradient(135deg,rgba(255,95,31,0.15),rgba(255,140,0,0.15));border:1px solid var(--accent-glow);border-radius:100px;font-size:11px;font-weight:800;color:var(--accent);letter-spacing:1.5px;text-transform:uppercase}
+.main{max-width:1200px;margin:0 auto;padding:2rem}
+.hero-section{text-align:center;padding:2rem 0 2rem}
+.hero-section h1{font-size:2.2rem;font-weight:800;margin:1rem 0 0.5rem}
+.hero-section h1 .accent{background:linear-gradient(135deg,#ff5f1f,#ff8c00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-section p{color:var(--text-dim);max-width:600px;margin:0 auto}
+.card{background:var(--card);border:1px solid var(--accent-glow);border-radius:16px;padding:1.5rem;margin-bottom:1.5rem;backdrop-filter:blur(10px);position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),#ff8c00,var(--accent))}
+.card h2{font-size:1.1rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}
+.form-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:0.75rem;margin-bottom:0.75rem}
+.form-group{display:flex;flex-direction:column;gap:0.3rem}
+.form-group label{font-size:0.75rem;color:var(--text-dim);font-weight:600;text-transform:uppercase;letter-spacing:0.5px}
+.form-group input,.form-group select{padding:0.6rem 0.8rem;background:rgba(18,18,28,0.9);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.85rem;font-family:var(--font);outline:none}
+.form-group input:focus,.form-group select:focus{border-color:var(--accent)}
+.btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;transition:all 0.2s}
+.btn-accent{background:linear-gradient(135deg,#ff5f1f,#ff8c00);color:#000}
+.btn-accent:hover{transform:translateY(-1px);box-shadow:0 4px 15px rgba(255,95,31,0.3)}
+.btn-outline{background:transparent;border:1px solid var(--accent-glow);color:var(--accent)}
+.btn-outline:hover{background:rgba(255,95,31,0.1)}
+.btn-sm{padding:0.4rem 0.8rem;font-size:0.75rem}
+.btn-red{background:rgba(248,81,73,0.15);border:1px solid rgba(248,81,73,0.3);color:var(--red)}
+.btn-row{display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:0.75rem}
+.result-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1rem;margin:1rem 0}
+.result-box{background:rgba(10,10,15,0.6);border:1px solid var(--border);border-radius:12px;padding:1rem;text-align:center}
+.result-box .value{font-size:1.3rem;font-weight:800;color:var(--accent)}
+.result-box .label{font-size:0.7rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.5px;margin-top:0.3rem}
+.result-box.good .value{color:var(--green)}
+.result-box.bad .value{color:var(--red)}
+.result-box.warn .value{color:var(--yellow)}
+.result-box.best{border-color:rgba(57,211,83,0.4);background:rgba(57,211,83,0.05)}
+.quote-card{background:rgba(10,10,15,0.5);border:2px solid var(--border);border-radius:12px;padding:1.25rem;position:relative}
+.quote-card.winner{border-color:var(--green)}
+.quote-card .winner-badge{position:absolute;top:-10px;right:12px;background:var(--green);color:#000;padding:2px 12px;border-radius:20px;font-size:0.65rem;font-weight:800;text-transform:uppercase;letter-spacing:1px}
+.quotes-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;margin:1rem 0}
+.quote-card h3{font-size:0.95rem;font-weight:700;margin-bottom:0.75rem;color:var(--accent)}
+.quote-stat{display:flex;justify-content:space-between;padding:0.35rem 0;border-bottom:1px solid var(--border);font-size:0.8rem}
+.quote-stat:last-child{border-bottom:none}
+.quote-stat .qs-label{color:var(--text-dim)}
+.quote-stat .qs-value{font-weight:700}
+.comparison-table{width:100%;border-collapse:collapse;font-size:0.8rem;margin:1rem 0}
+.comparison-table th{text-align:left;padding:0.6rem;border-bottom:2px solid var(--accent-glow);color:var(--accent);font-weight:700;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.5px}
+.comparison-table td{padding:0.6rem;border-bottom:1px solid var(--border)}
+.comparison-table tr:hover td{background:rgba(255,95,31,0.03)}
+.comparison-table .best-cell{color:var(--green);font-weight:700}
+.comparison-table .worst-cell{color:var(--red)}
+.risk-selector{display:flex;gap:0.5rem;margin:1rem 0}
+.risk-btn{padding:0.5rem 1.2rem;border-radius:8px;font-size:0.8rem;font-weight:700;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--text-dim);transition:all 0.2s}
+.risk-btn.active{border-color:var(--accent);color:var(--accent);background:rgba(255,95,31,0.1)}
+.prompt-box{background:rgba(10,10,15,0.7);border:1px solid var(--border);border-radius:8px;padding:1rem;font-size:0.82rem;line-height:1.6;white-space:pre-wrap;word-wrap:break-word;margin-bottom:0.75rem;cursor:pointer}
+.prompt-box:hover{border-color:var(--accent)}
+.copy-toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--accent);color:#000;padding:0.5rem 1.5rem;border-radius:8px;font-weight:700;font-size:0.85rem;z-index:9999;opacity:0;transition:opacity 0.3s}
+.copy-toast.show{opacity:1}
+.share-cta{background:linear-gradient(135deg,rgba(255,95,31,0.08),rgba(255,140,0,0.05));border:1px solid var(--accent-glow);border-radius:16px;padding:2rem;text-align:center;margin-top:2rem}
+.share-cta h3{color:var(--accent);margin-bottom:0.5rem}.share-cta p{color:var(--text-dim);font-size:0.9rem;margin-bottom:1rem}
+.share-btns{display:flex;gap:0.6rem;justify-content:center;flex-wrap:wrap}
+.share-btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;color:#fff}
+.share-x{background:#000;border:1px solid #333}.share-reddit{background:#ff4500}.share-email{background:#21262d;border:1px solid #30363d}
+.footer{text-align:center;padding:2rem;border-top:1px solid rgba(255,95,31,0.1);color:var(--text-dim);font-size:0.75rem;margin-top:3rem}
+.footer a{color:var(--accent)}.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-bottom:1rem}
+.watermark{position:fixed;bottom:10px;right:10px;font-size:0.6rem;color:rgba(255,95,31,0.08);font-weight:800;pointer-events:none;z-index:9999;letter-spacing:1px;text-transform:uppercase}
+@media(max-width:700px){.main{padding:1rem}.hero-section h1{font-size:1.5rem}.nav-links{display:none}.quotes-grid{grid-template-columns:1fr}.result-grid{grid-template-columns:1fr 1fr}.comparison-table{font-size:0.7rem}.comparison-table th,.comparison-table td{padding:0.4rem 0.3rem}.risk-selector{flex-wrap:wrap}}
+</style>
+</head>
+<body>
+<div class="bg-mesh"></div><div class="bg-grid"></div>
+<div class="lock-gate" id="lockGate"><div class="lock-icon-big">&#128274;</div><h2>Enter Code <span>SPUNK</span> to Unlock</h2><p>This exclusive premium tool requires the SPUNK referral code.</p><div class="code-input-wrap"><input type="text" class="code-input" id="codeInput" placeholder="CODE" maxlength="10" autocomplete="off"><button class="code-submit" onclick="submitCode()">Unlock</button></div><div class="code-error" id="codeError"></div><div class="lock-hint">Get the code at <a href="https://spunk.codes/exclusive-tools">spunk.codes/exclusive-tools</a></div></div>
+<nav class="nav"><a href="https://spunk.codes" class="nav-brand">SPUNK.CODES</a><div class="nav-links"><a href="/store">Tools</a><a href="/exclusive-tools" class="active">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a></div></nav>
+
+<div class="main">
+  <section class="hero-section">
+    <div class="exclusive-badge">&#128081; EXCLUSIVE TOOL</div>
+    <h1><span class="accent">Insurance</span> Comparison Calculator</h1>
+    <p>Compare up to 4 insurance quotes side by side. See real costs, best and worst case scenarios, and get AI prompts to negotiate better rates.</p>
+  </section>
+
+  <div id="quoteForms"></div>
+
+  <div class="btn-row" style="margin-bottom:1.5rem">
+    <button class="btn btn-accent" onclick="addQuote()">+ Add Quote</button>
+    <button class="btn btn-accent" onclick="compareQuotes()">Compare All Quotes</button>
+    <button class="btn btn-outline" onclick="clearQuotes()">Clear All</button>
+  </div>
+
+  <div id="resultsSection" style="display:none">
+    <div class="card">
+      <h2>&#128200; Side-by-Side Comparison</h2>
+      <div style="overflow-x:auto"><table class="comparison-table" id="comparisonTable"></table></div>
+    </div>
+
+    <div class="card">
+      <h2>&#127919; Scenario Analysis</h2>
+      <div class="quotes-grid" id="scenarioCards"></div>
+    </div>
+
+    <div class="card">
+      <h2>&#128161; Recommendation</h2>
+      <p style="color:var(--text-dim);font-size:0.8rem;margin-bottom:0.75rem">Select your risk tolerance to get a personalized recommendation:</p>
+      <div class="risk-selector">
+        <button class="risk-btn active" onclick="setRisk('conservative')">Conservative</button>
+        <button class="risk-btn" onclick="setRisk('moderate')">Moderate</button>
+        <button class="risk-btn" onclick="setRisk('aggressive')">Aggressive</button>
+      </div>
+      <div id="recommendation"></div>
+    </div>
+
+    <div class="card">
+      <h2>&#129302; AI Negotiation Prompts</h2>
+      <p style="color:var(--text-dim);font-size:0.8rem;margin-bottom:0.75rem">Copy these prompts to prepare for calls with insurance agents. Click to copy.</p>
+      <div id="negotiationPrompts"></div>
+    </div>
+  </div>
+
+  <div class="share-cta">
+    <h3>&#128275; Share the Code, Unlock More Tools</h3>
+    <p>Share code SPUNK to help others access 15+ exclusive premium tools.</p>
+    <div class="share-btns">
+      <button class="share-btn share-x" onclick="shareX()">&#120143; Share on X</button>
+      <button class="share-btn share-reddit" onclick="shareReddit()">&#128172; Reddit</button>
+      <button class="share-btn share-email" onclick="shareEmail()">&#9993; Email</button>
+    </div>
+  </div>
+</div>
+
+<div class="copy-toast" id="copyToast">Copied to clipboard!</div>
+
+<footer class="footer"><div class="footer-links"><a href="https://spunk.codes">spunk.codes</a><a href="https://spunk.bet">spunk.bet</a><a href="https://spunk.pics">spunk.pics</a><a href="https://spunk.work">spunk.work</a><a href="https://spunkart.com">spunkart.com</a></div><div>&copy; 2026 SPUNK.CODES EXCLUSIVE.</div></footer>
+<div class="watermark">SPUNK.CODES EXCLUSIVE</div>
+
+<script>
+document.addEventListener('contextmenu',function(e){e.preventDefault()});
+document.addEventListener('keydown',function(e){if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'||e.key==='C'))||(e.ctrlKey&&e.key==='u'))e.preventDefault()});
+
+function esc(s){var d=document.createElement('div');d.appendChild(document.createTextNode(s));return d.innerHTML}
+
+function checkCode(){try{var c=localStorage.getItem('spunk_referral_code')||localStorage.getItem('spunk_ref_code')||'';if(c.toUpperCase()==='SPUNK'){document.getElementById('lockGate').classList.add('hidden');return true}}catch(e){}return false}
+function submitCode(){var v=document.getElementById('codeInput').value.trim().toUpperCase();if(v==='SPUNK'){try{localStorage.setItem('spunk_referral_code','SPUNK');localStorage.setItem('spunk_ref_code','SPUNK')}catch(e){}document.getElementById('lockGate').classList.add('hidden')}else{document.getElementById('codeError').textContent='Invalid code. Try: SPUNK';setTimeout(function(){document.getElementById('codeError').textContent=''},2000)}}
+document.getElementById('codeInput').addEventListener('keydown',function(e){if(e.key==='Enter')submitCode()});
+checkCode();
+
+var STORAGE_KEY='spunkcodes_insurance_compare';
+var quotes=[];
+var currentRisk='conservative';
+
+function loadData(){try{var d=JSON.parse(localStorage.getItem(STORAGE_KEY));if(d&&d.quotes)quotes=d.quotes}catch(e){}}
+function saveData(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify({quotes:quotes}))}catch(e){}}
+
+function fmt(n){return '$'+Math.abs(n).toLocaleString('en-US',{minimumFractionDigits:0,maximumFractionDigits:0})}
+
+function addQuote(){
+  if(quotes.length>=4){alert('Maximum 4 quotes allowed.');return}
+  quotes.push({id:Date.now(),provider:'',premium:0,deductible:0,coverage:0,oopMax:0});
+  renderForms();
+  saveData();
+}
+
+function removeQuote(id){
+  quotes=quotes.filter(function(q){return q.id!==id});
+  renderForms();
+  saveData();
+}
+
+function updateQuote(idx,field,val){
+  if(quotes[idx]){
+    if(field==='provider')quotes[idx][field]=val;
+    else quotes[idx][field]=parseFloat(val)||0;
+    saveData();
+  }
+}
+
+function renderForms(){
+  var html='';
+  var colors=['var(--accent)','var(--blue)','var(--green)','var(--yellow)'];
+  quotes.forEach(function(q,i){
+    html+='<div class="card"><h2 style="color:'+colors[i%4]+'">&#128196; Quote '+(i+1)+': '+(q.provider?esc(q.provider):'New Quote')+'<button class="btn btn-red btn-sm" style="margin-left:auto" onclick="removeQuote('+q.id+')">Remove</button></h2>';
+    html+='<div class="form-row">';
+    html+='<div class="form-group"><label>Provider Name</label><input type="text" value="'+esc(q.provider)+'" placeholder="e.g. Blue Cross" onchange="updateQuote('+i+',\'provider\',this.value)"></div>';
+    html+='<div class="form-group"><label>Monthly Premium ($)</label><input type="number" value="'+(q.premium||'')+'" placeholder="350" min="0" onchange="updateQuote('+i+',\'premium\',this.value)"></div>';
+    html+='<div class="form-group"><label>Deductible ($)</label><input type="number" value="'+(q.deductible||'')+'" placeholder="2000" min="0" onchange="updateQuote('+i+',\'deductible\',this.value)"></div>';
+    html+='</div><div class="form-row">';
+    html+='<div class="form-group"><label>Coverage Amount ($)</label><input type="number" value="'+(q.coverage||'')+'" placeholder="500000" min="0" onchange="updateQuote('+i+',\'coverage\',this.value)"></div>';
+    html+='<div class="form-group"><label>Out-of-Pocket Maximum ($)</label><input type="number" value="'+(q.oopMax||'')+'" placeholder="6000" min="0" onchange="updateQuote('+i+',\'oopMax\',this.value)"></div>';
+    html+='</div></div>';
+  });
+  if(quotes.length===0){
+    html='<div class="card"><h2>&#128203; No Quotes Yet</h2><p style="color:var(--text-dim);font-size:0.85rem">Click "Add Quote" to start comparing insurance plans. You can add up to 4 quotes.</p></div>';
+  }
+  document.getElementById('quoteForms').innerHTML=html;
+}
+
+function compareQuotes(){
+  // Sync from DOM
+  syncQuotesFromDOM();
+
+  var valid=quotes.filter(function(q){return q.provider&&q.premium>0});
+  if(valid.length<2){alert('Add at least 2 complete quotes to compare.');return}
+
+  // Comparison table
+  var metrics=['Monthly Premium','Annual Premium','Deductible','Coverage Amount','Out-of-Pocket Max','Best Case (annual)','Worst Case (annual)','True Cost Score'];
+  var tableHtml='<tr><th>Metric</th>';
+  valid.forEach(function(q){tableHtml+='<th>'+esc(q.provider)+'</th>'});
+  tableHtml+='</tr>';
+
+  // Calculate scenarios
+  var analysis=valid.map(function(q){
+    var annual=q.premium*12;
+    var bestCase=annual; // No claims
+    var worstCase=annual+q.oopMax; // Max claims
+    var midCase=annual+q.deductible; // Moderate claims
+    var trueCost=annual*0.5+midCase*0.3+worstCase*0.2; // Weighted
+    return {quote:q,annual:annual,bestCase:bestCase,worstCase:worstCase,midCase:midCase,trueCost:trueCost};
+  });
+
+  var vals=[
+    valid.map(function(q){return q.premium}),
+    analysis.map(function(a){return a.annual}),
+    valid.map(function(q){return q.deductible}),
+    valid.map(function(q){return q.coverage}),
+    valid.map(function(q){return q.oopMax}),
+    analysis.map(function(a){return a.bestCase}),
+    analysis.map(function(a){return a.worstCase}),
+    analysis.map(function(a){return a.trueCost})
+  ];
+
+  // For each metric, determine best (lower is better for costs, higher for coverage)
+  var lowerBetter=[true,true,true,false,true,true,true,true];
+  metrics.forEach(function(metric,mi){
+    tableHtml+='<tr><td style="font-weight:600">'+metric+'</td>';
+    var row=vals[mi];
+    var best=lowerBetter[mi]?Math.min.apply(null,row):Math.max.apply(null,row);
+    var worst=lowerBetter[mi]?Math.max.apply(null,row):Math.min.apply(null,row);
+    row.forEach(function(v){
+      var cls='';
+      if(v===best)cls='best-cell';
+      else if(v===worst)cls='worst-cell';
+      tableHtml+='<td class="'+cls+'">'+fmt(v)+'</td>';
+    });
+    tableHtml+='</tr>';
+  });
+  document.getElementById('comparisonTable').innerHTML=tableHtml;
+
+  // Scenario cards
+  var lowestTrue=Math.min.apply(null,analysis.map(function(a){return a.trueCost}));
+  var scenHtml='';
+  analysis.forEach(function(a){
+    var isWinner=a.trueCost===lowestTrue;
+    scenHtml+='<div class="quote-card'+(isWinner?' winner':'')+'">';
+    if(isWinner)scenHtml+='<span class="winner-badge">Best Overall</span>';
+    scenHtml+='<h3>'+esc(a.quote.provider)+'</h3>';
+    scenHtml+='<div class="quote-stat"><span class="qs-label">Best Case (no claims)</span><span class="qs-value" style="color:var(--green)">'+fmt(a.bestCase)+'/yr</span></div>';
+    scenHtml+='<div class="quote-stat"><span class="qs-label">Moderate (hit deductible)</span><span class="qs-value" style="color:var(--yellow)">'+fmt(a.midCase)+'/yr</span></div>';
+    scenHtml+='<div class="quote-stat"><span class="qs-label">Worst Case (hit OOP max)</span><span class="qs-value" style="color:var(--red)">'+fmt(a.worstCase)+'/yr</span></div>';
+    scenHtml+='<div class="quote-stat"><span class="qs-label">True Cost Score</span><span class="qs-value" style="color:var(--accent)">'+fmt(a.trueCost)+'</span></div>';
+    scenHtml+='<div class="quote-stat"><span class="qs-label">Coverage per $ spent</span><span class="qs-value">'+fmt(a.quote.coverage/a.annual)+'/yr$</span></div>';
+    scenHtml+='</div>';
+  });
+  document.getElementById('scenarioCards').innerHTML=scenHtml;
+
+  // Recommendation
+  generateRecommendation(analysis);
+
+  // Negotiation prompts
+  var negHtml='';
+  var cheapest=analysis.reduce(function(a,b){return a.annual<b.annual?a:b});
+  analysis.forEach(function(a){
+    if(a===cheapest)return;
+    var diff=a.annual-cheapest.annual;
+    var prompt='I\'m comparing insurance plans and I have a quote from '+cheapest.quote.provider+' for '+fmt(cheapest.quote.premium)+'/month ('+fmt(cheapest.annual)+'/year) with a '+fmt(cheapest.quote.deductible)+' deductible.\n\nYour plan with '+a.quote.provider+' is '+fmt(a.quote.premium)+'/month ('+fmt(a.annual)+'/year) — that\'s '+fmt(diff)+' more per year.\n\nCan you:\n1. Match or beat the '+fmt(cheapest.quote.premium)+'/mo rate?\n2. Offer a lower deductible at the same premium?\n3. Bundle with other insurance (auto, home) for a discount?\n4. Apply any loyalty, profession, or alumni discounts?\n\nI need to make a decision this week.';
+    negHtml+='<div class="prompt-box" onclick="copyText(this)" title="Click to copy"><strong>Negotiate with '+esc(a.quote.provider)+':</strong>\n\n'+esc(prompt)+'</div>';
+  });
+  if(!negHtml)negHtml='<p style="color:var(--text-dim);font-size:0.85rem">Add quotes from multiple providers to generate negotiation prompts.</p>';
+  document.getElementById('negotiationPrompts').innerHTML=negHtml;
+
+  document.getElementById('resultsSection').style.display='block';
+  document.getElementById('resultsSection').scrollIntoView({behavior:'smooth'});
+}
+
+function syncQuotesFromDOM(){
+  var cards=document.querySelectorAll('#quoteForms .card');
+  cards.forEach(function(card,i){
+    if(!quotes[i])return;
+    var inputs=card.querySelectorAll('input');
+    quotes[i].provider=inputs[0].value;
+    quotes[i].premium=parseFloat(inputs[1].value)||0;
+    quotes[i].deductible=parseFloat(inputs[2].value)||0;
+    quotes[i].coverage=parseFloat(inputs[3].value)||0;
+    quotes[i].oopMax=parseFloat(inputs[4].value)||0;
+  });
+  saveData();
+}
+
+function setRisk(level){
+  currentRisk=level;
+  document.querySelectorAll('.risk-btn').forEach(function(b){b.classList.remove('active')});
+  event.target.classList.add('active');
+  // Re-analyze
+  syncQuotesFromDOM();
+  var valid=quotes.filter(function(q){return q.provider&&q.premium>0});
+  if(valid.length<2)return;
+  var analysis=valid.map(function(q){
+    var annual=q.premium*12;
+    var bestCase=annual;
+    var worstCase=annual+q.oopMax;
+    var midCase=annual+q.deductible;
+    var trueCost=annual*0.5+midCase*0.3+worstCase*0.2;
+    return {quote:q,annual:annual,bestCase:bestCase,worstCase:worstCase,midCase:midCase,trueCost:trueCost};
+  });
+  generateRecommendation(analysis);
+}
+
+function generateRecommendation(analysis){
+  var rec='';
+  var pick;
+  if(currentRisk==='conservative'){
+    // Minimize worst case
+    pick=analysis.reduce(function(a,b){return a.worstCase<b.worstCase?a:b});
+    rec+='<div style="background:rgba(57,211,83,0.08);border:1px solid rgba(57,211,83,0.2);border-radius:8px;padding:1rem;margin-top:0.5rem">';
+    rec+='<strong style="color:var(--green)">Conservative Pick: '+esc(pick.quote.provider)+'</strong><br>';
+    rec+='<span style="font-size:0.85rem;color:var(--text-dim)">Lowest worst-case cost at '+fmt(pick.worstCase)+'/year. Best for people who want maximum protection and predictable costs. The higher premium buys peace of mind — you\'ll never pay more than '+fmt(pick.quote.oopMax)+' out of pocket.</span>';
+    rec+='</div>';
+  }else if(currentRisk==='moderate'){
+    // Minimize true cost (weighted average)
+    pick=analysis.reduce(function(a,b){return a.trueCost<b.trueCost?a:b});
+    rec+='<div style="background:rgba(255,215,0,0.08);border:1px solid rgba(255,215,0,0.2);border-radius:8px;padding:1rem;margin-top:0.5rem">';
+    rec+='<strong style="color:var(--yellow)">Balanced Pick: '+esc(pick.quote.provider)+'</strong><br>';
+    rec+='<span style="font-size:0.85rem;color:var(--text-dim)">Best weighted true cost at '+fmt(pick.trueCost)+'. This plan balances premium costs with out-of-pocket risk. Good for most people — reasonable protection without overpaying.</span>';
+    rec+='</div>';
+  }else{
+    // Minimize best case (lowest premium)
+    pick=analysis.reduce(function(a,b){return a.bestCase<b.bestCase?a:b});
+    rec+='<div style="background:rgba(255,95,31,0.08);border:1px solid rgba(255,95,31,0.2);border-radius:8px;padding:1rem;margin-top:0.5rem">';
+    rec+='<strong style="color:var(--accent)">Aggressive Pick: '+esc(pick.quote.provider)+'</strong><br>';
+    rec+='<span style="font-size:0.85rem;color:var(--text-dim)">Lowest premium at '+fmt(pick.quote.premium)+'/month ('+fmt(pick.bestCase)+'/year). Best for healthy individuals with emergency savings. You save '+fmt((analysis.reduce(function(a,b){return a.annual>b.annual?a:b}).annual)-pick.annual)+'/year on premiums, but carry more risk if you need care.</span>';
+    rec+='</div>';
+  }
+
+  // Annual savings comparison
+  var maxAnnual=Math.max.apply(null,analysis.map(function(a){return a.annual}));
+  var minAnnual=Math.min.apply(null,analysis.map(function(a){return a.annual}));
+  if(maxAnnual>minAnnual){
+    rec+='<div style="background:rgba(88,166,255,0.08);border:1px solid rgba(88,166,255,0.2);border-radius:8px;padding:0.75rem;margin-top:0.75rem;font-size:0.85rem"><strong style="color:var(--blue)">Premium spread:</strong> The cheapest plan saves you '+fmt(maxAnnual-minAnnual)+'/year vs the most expensive. Over 5 years, that\'s '+fmt((maxAnnual-minAnnual)*5)+'.</div>';
+  }
+  document.getElementById('recommendation').innerHTML=rec;
+}
+
+function copyText(el){
+  var text=el.textContent;
+  navigator.clipboard.writeText(text).then(function(){
+    var toast=document.getElementById('copyToast');toast.classList.add('show');
+    setTimeout(function(){toast.classList.remove('show')},1500);
+  }).catch(function(){
+    var ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);
+    var toast=document.getElementById('copyToast');toast.classList.add('show');
+    setTimeout(function(){toast.classList.remove('show')},1500);
+  });
+}
+
+function clearQuotes(){
+  if(!confirm('Clear all quotes?'))return;
+  quotes=[];saveData();renderForms();
+  document.getElementById('resultsSection').style.display='none';
+}
+
+function shareX(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Compared my insurance quotes side by side with this free tool. Saved me hours. Code SPUNK @SpunkArt13')+'&url='+encodeURIComponent('https://spunk.codes/exclusive-tools'),'_blank')}
+function shareReddit(){window.open('https://www.reddit.com/submit?url='+encodeURIComponent('https://spunk.codes/exclusive-tools')+'&title='+encodeURIComponent('Insurance Comparison Calculator - compare plans side by side [spunk.codes]'),'_blank')}
+function shareEmail(){window.location.href='mailto:?subject='+encodeURIComponent('Insurance Comparison Calculator')+'&body='+encodeURIComponent('Compare insurance quotes side by side. Code SPUNK: https://spunk.codes/exclusive-tools')}
+
+loadData();
+if(quotes.length===0){addQuote();addQuote()}
+renderForms();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>
