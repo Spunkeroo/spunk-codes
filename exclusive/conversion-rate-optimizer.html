@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Conversion Rate Optimizer — Free CRO Calculator & Projections | SPUNK.CODES</title>
+<meta name="description" content="Calculate conversion rate improvements, revenue projections, required traffic, and A/B test durations. Visualize CRO impact with charts. Free browser-based tool.">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP')</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w")</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e8e8f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+header{background:#111118;border-bottom:2px solid #ff5f1f;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+header h1{font-size:1.4rem;color:#ff5f1f}
+header .back{color:#e8e8f0;font-size:.9rem}
+main{flex:1;max-width:1100px;width:100%;margin:0 auto;padding:24px 16px}
+button{background:#ff5f1f;color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:.9rem;font-weight:600;transition:background .2s}
+button:hover{background:#e8520e}
+button.secondary{background:#2a2a3a;color:#e8e8f0}button.secondary:hover{background:#3a3a4a}
+button.danger{background:#cc2233}button.danger:hover{background:#aa1122}
+.panel{background:#111118;border:1px solid #2a2a3a;border-radius:10px;padding:20px;margin-bottom:20px}
+.panel h2{font-size:1.1rem;color:#ff5f1f;margin-bottom:14px}
+input,select{background:#16161e;border:1px solid #2a2a3a;color:#e8e8f0;padding:8px 12px;border-radius:6px;font-size:.9rem}
+.scenarios-list{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.scenarios-list .s-btn{padding:6px 14px;border-radius:20px;font-size:.85rem;cursor:pointer;border:1px solid #2a2a3a;background:#16161e;color:#e8e8f0;transition:all .2s}
+.scenarios-list .s-btn.active{background:#ff5f1f;color:#fff;border-color:#ff5f1f}
+.form-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:14px}
+.form-grid label{display:flex;flex-direction:column;gap:4px;font-size:.85rem;color:#888}
+.form-grid label input{width:100%}
+.metrics-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+.metric-card{background:#16161e;border:1px solid #2a2a3a;border-radius:8px;padding:16px;text-align:center}
+.metric-card .val{font-size:1.4rem;color:#ff5f1f;font-weight:700}
+.metric-card .lbl{font-size:.8rem;color:#888;margin-top:4px}
+.metric-card .change{font-size:.85rem;margin-top:4px;font-weight:600}
+.metric-card .change.up{color:#4caf50}
+.metric-card .change.down{color:#ef5350}
+.improvement-table{width:100%;border-collapse:collapse;margin:14px 0}
+.improvement-table th,.improvement-table td{padding:10px 12px;text-align:left;border-bottom:1px solid #1a1a2a;font-size:.9rem}
+.improvement-table th{color:#ff5f1f;font-weight:600;font-size:.8rem;text-transform:uppercase;letter-spacing:.5px}
+.improvement-table tr:hover{background:#16161e}
+.improvement-table .highlight{color:#4caf50;font-weight:600}
+.chart-container{margin:20px 0}
+.chart-title{font-size:.9rem;color:#888;margin-bottom:10px;text-align:center}
+.bar-chart{display:flex;align-items:flex-end;gap:8px;height:200px;padding:0 10px;border-bottom:1px solid #2a2a3a}
+.bar-chart .bar-group{flex:1;display:flex;flex-direction:column;align-items:center;height:100%;justify-content:flex-end}
+.bar-chart .bar{width:100%;max-width:60px;border-radius:4px 4px 0 0;transition:height .5s;position:relative;min-height:2px}
+.bar-chart .bar.current{background:linear-gradient(to top,#ff5f1f,#ff8f5f)}
+.bar-chart .bar.projected{background:linear-gradient(to top,#4caf50,#81c784)}
+.bar-chart .bar-label{font-size:.7rem;color:#888;margin-top:6px;text-align:center;word-break:break-word}
+.bar-chart .bar-value{font-size:.7rem;color:#e8e8f0;margin-bottom:4px;text-align:center;font-weight:600}
+.dual-bars{display:flex;gap:4px;align-items:flex-end;height:100%;justify-content:center;width:100%}
+.dual-bars .bar{max-width:28px}
+.chart-legend{display:flex;gap:16px;justify-content:center;margin-top:10px}
+.chart-legend .legend-item{display:flex;align-items:center;gap:6px;font-size:.8rem;color:#888}
+.chart-legend .legend-dot{width:10px;height:10px;border-radius:2px}
+.chart-legend .legend-dot.current{background:#ff5f1f}
+.chart-legend .legend-dot.projected{background:#4caf50}
+.projection-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:14px}
+.projection-card{background:#16161e;border:1px solid #2a2a3a;border-radius:8px;padding:16px}
+.projection-card h4{font-size:.9rem;color:#ff5f1f;margin-bottom:10px}
+.projection-card .row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #1a1a2a;font-size:.85rem}
+.projection-card .row:last-child{border-bottom:none}
+.projection-card .row .label{color:#888}
+.projection-card .row .value{color:#e8e8f0;font-weight:600}
+.export-area{background:#0a0a0f;border:1px solid #2a2a3a;border-radius:6px;padding:12px;font-family:monospace;font-size:.85rem;color:#e8e8f0;white-space:pre-wrap;max-height:300px;overflow:auto;margin-top:10px}
+.empty{text-align:center;color:#555;padding:40px 20px;font-size:.95rem}
+footer{text-align:center;padding:20px;color:#555;font-size:.8rem;border-top:1px solid #1a1a2a;margin-top:auto}
+footer a{color:#ff5f1f;margin:0 4px}
+@media(max-width:700px){
+.form-grid{grid-template-columns:1fr}
+.metrics-grid{grid-template-columns:1fr 1fr}
+.projection-grid{grid-template-columns:1fr}
+header h1{font-size:1.1rem}
+.bar-chart{height:160px}
+}
+</style>
+</head>
+<body>
+<header>
+<h1>Conversion Rate Optimizer</h1>
+<a href="https://spunk.codes" class="back">spunk.codes</a>
+</header>
+<main>
+<div class="panel">
+<h2>Saved Scenarios</h2>
+<div class="scenarios-list" id="scenariosList"></div>
+<div style="display:flex;gap:8px;flex-wrap:wrap">
+<input type="text" id="newScenarioName" placeholder="New scenario name..." style="flex:1;min-width:160px">
+<button onclick="createScenario()">+ New Scenario</button>
+<button class="danger" onclick="deleteScenario()">Delete Current</button>
+</div>
+</div>
+
+<div class="panel">
+<h2>Current Metrics</h2>
+<div class="form-grid">
+<label>Monthly Traffic (visitors)<input type="number" id="monthlyTraffic" placeholder="e.g. 50000" min="0"></label>
+<label>Current Conversion Rate (%)<input type="number" id="currentCR" placeholder="e.g. 2.5" min="0" max="100" step="0.01"></label>
+<label>Average Order Value ($)<input type="number" id="avgOrderValue" placeholder="e.g. 75" min="0" step="0.01"></label>
+</div>
+<div class="form-grid">
+<label>Revenue Goal ($/month)<input type="number" id="revenueGoal" placeholder="e.g. 100000" min="0"></label>
+<label>Target Conversion Rate (%)<input type="number" id="targetCR" placeholder="e.g. 3.5" min="0" max="100" step="0.01"></label>
+<label>Daily Traffic for A/B Tests<input type="number" id="dailyTestTraffic" placeholder="e.g. 2000" min="0"></label>
+</div>
+<button onclick="calculate()">Calculate & Optimize</button>
+</div>
+
+<div id="resultsArea"></div>
+
+<div class="panel">
+<h2>Export</h2>
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px">
+<button onclick="exportJSON()">Export JSON</button>
+<button onclick="exportText()">Export Text</button>
+<button class="secondary" onclick="copyExport()">Copy to Clipboard</button>
+</div>
+<div class="export-area" id="exportArea">Click export to see output here.</div>
+</div>
+</main>
+
+<footer>
+<a href="https://spunk.codes">spunk.codes</a> &middot;
+<a href="https://spunk.bet">spunk.bet</a> &middot;
+<a href="https://spunk.pics">spunk.pics</a> &middot;
+<a href="https://spunk.work">spunk.work</a> &middot;
+<a href="https://spunkart.com">SpunkArt.com</a>
+</footer>
+
+<script>
+const LS_KEY='spunkcodes_conversionoptimizer';
+let scenarios=[];
+let activeIdx=0;
+let lastCalc=null;
+
+function load(){try{scenarios=JSON.parse(localStorage.getItem(LS_KEY))||[]}catch(e){scenarios=[]}if(!scenarios.length){scenarios=[{name:'My Scenario',traffic:50000,cr:2.5,aov:75,goal:100000,targetCR:3.5,dailyTest:2000}];save()}}
+function save(){localStorage.setItem(LS_KEY,JSON.stringify(scenarios))}
+function getScn(){return scenarios[activeIdx]||{name:'',traffic:0,cr:0,aov:0,goal:0,targetCR:0,dailyTest:0}}
+
+function renderList(){
+const el=document.getElementById('scenariosList');
+el.innerHTML='';
+scenarios.forEach((s,i)=>{
+const b=document.createElement('button');
+b.className='s-btn'+(i===activeIdx?' active':'');
+b.textContent=s.name;
+b.onclick=()=>{activeIdx=i;render()};
+el.appendChild(b);
+});
+}
+
+function createScenario(){
+const name=document.getElementById('newScenarioName').value.trim();
+if(!name)return;
+scenarios.push({name,traffic:50000,cr:2.5,aov:75,goal:100000,targetCR:3.5,dailyTest:2000});
+activeIdx=scenarios.length-1;
+document.getElementById('newScenarioName').value='';
+save();render();
+}
+
+function deleteScenario(){
+if(scenarios.length<=1){alert('Cannot delete the only scenario.');return}
+if(!confirm('Delete "'+getScn().name+'"?'))return;
+scenarios.splice(activeIdx,1);
+activeIdx=Math.min(activeIdx,scenarios.length-1);
+save();render();
+}
+
+function loadForm(){
+const s=getScn();
+document.getElementById('monthlyTraffic').value=s.traffic||'';
+document.getElementById('currentCR').value=s.cr||'';
+document.getElementById('avgOrderValue').value=s.aov||'';
+document.getElementById('revenueGoal').value=s.goal||'';
+document.getElementById('targetCR').value=s.targetCR||'';
+document.getElementById('dailyTestTraffic').value=s.dailyTest||'';
+}
+
+function saveInputs(){
+const s=getScn();
+s.traffic=parseFloat(document.getElementById('monthlyTraffic').value)||0;
+s.cr=parseFloat(document.getElementById('currentCR').value)||0;
+s.aov=parseFloat(document.getElementById('avgOrderValue').value)||0;
+s.goal=parseFloat(document.getElementById('revenueGoal').value)||0;
+s.targetCR=parseFloat(document.getElementById('targetCR').value)||0;
+s.dailyTest=parseFloat(document.getElementById('dailyTestTraffic').value)||0;
+save();
+}
+
+function calculate(){
+saveInputs();
+const s=getScn();
+const traffic=s.traffic;
+const cr=s.cr/100;
+const aov=s.aov;
+const goal=s.goal;
+const targetCR=s.targetCR/100;
+const dailyTest=s.dailyTest;
+
+if(!traffic||!cr||!aov){alert('Please fill in traffic, conversion rate, and AOV.');return}
+
+const currentConversions=Math.round(traffic*cr);
+const currentRevenue=currentConversions*aov;
+const targetConversions=Math.round(traffic*targetCR);
+const targetRevenue=targetConversions*aov;
+const revenueLift=targetRevenue-currentRevenue;
+const liftPct=currentRevenue>0?((revenueLift/currentRevenue)*100).toFixed(1):0;
+
+const trafficForGoal=goal>0&&cr>0&&aov>0?Math.ceil(goal/(cr*aov)):0;
+const crForGoal=traffic>0&&aov>0?((goal/(traffic*aov))*100).toFixed(2):0;
+
+const improvements=[
+{label:'+0.25%',cr:s.cr+0.25},
+{label:'+0.5%',cr:s.cr+0.5},
+{label:'+1.0%',cr:s.cr+1.0},
+{label:'+1.5%',cr:s.cr+1.5},
+{label:'+2.0%',cr:s.cr+2.0},
+{label:'x1.5',cr:s.cr*1.5},
+{label:'x2.0',cr:s.cr*2.0}
+];
+
+const zMap={90:1.645,95:1.96,99:2.576};
+function testDuration(baseCR,newCR){
+if(!dailyTest||dailyTest<=0)return'N/A';
+const p1=baseCR/100;
+const p2=newCR/100;
+const z=1.96;const zb=0.842;
+const pooled=(p1+p2)/2;
+const n=Math.ceil(((z*Math.sqrt(2*pooled*(1-pooled))+zb*Math.sqrt(p1*(1-p1)+p2*(1-p2)))**2)/((p2-p1)**2));
+const total=n*2;
+return Math.ceil(total/dailyTest);
+}
+
+lastCalc={traffic,cr:s.cr,aov,goal,currentRevenue,targetRevenue,revenueLift,liftPct,trafficForGoal,crForGoal,improvements,currentConversions,targetConversions,targetCR:s.targetCR};
+
+let html='<div class="panel"><h2>Key Metrics</h2>';
+html+='<div class="metrics-grid">';
+html+='<div class="metric-card"><div class="val">$'+currentRevenue.toLocaleString()+'</div><div class="lbl">Current Monthly Revenue</div></div>';
+html+='<div class="metric-card"><div class="val">$'+targetRevenue.toLocaleString()+'</div><div class="lbl">Projected Revenue</div><div class="change up">+$'+revenueLift.toLocaleString()+' (+'+liftPct+'%)</div></div>';
+html+='<div class="metric-card"><div class="val">'+currentConversions.toLocaleString()+'</div><div class="lbl">Current Conversions</div></div>';
+html+='<div class="metric-card"><div class="val">'+targetConversions.toLocaleString()+'</div><div class="lbl">Projected Conversions</div><div class="change up">+'+(targetConversions-currentConversions).toLocaleString()+'</div></div>';
+html+='</div></div>';
+
+html+='<div class="panel"><h2>Revenue Goal Analysis</h2>';
+html+='<div class="projection-grid">';
+html+='<div class="projection-card"><h4>Traffic Needed for Goal</h4>';
+html+='<div class="row"><span class="label">Revenue Goal</span><span class="value">$'+goal.toLocaleString()+'/mo</span></div>';
+html+='<div class="row"><span class="label">At Current CR ('+s.cr+'%)</span><span class="value">'+trafficForGoal.toLocaleString()+' visitors</span></div>';
+html+='<div class="row"><span class="label">Extra Traffic Needed</span><span class="value">'+(Math.max(0,trafficForGoal-traffic)).toLocaleString()+'</span></div>';
+html+='</div>';
+html+='<div class="projection-card"><h4>CR Needed for Goal</h4>';
+html+='<div class="row"><span class="label">At Current Traffic</span><span class="value">'+crForGoal+'%</span></div>';
+html+='<div class="row"><span class="label">Current CR</span><span class="value">'+s.cr+'%</span></div>';
+html+='<div class="row"><span class="label">CR Improvement Needed</span><span class="value">'+(Math.max(0,crForGoal-s.cr)).toFixed(2)+'% points</span></div>';
+html+='</div></div></div>';
+
+html+='<div class="panel"><h2>Conversion Rate Improvement Impact</h2>';
+html+='<table class="improvement-table"><thead><tr><th>Improvement</th><th>New CR</th><th>Conversions</th><th>Monthly Revenue</th><th>Revenue Lift</th><th>A/B Test Days</th></tr></thead><tbody>';
+improvements.forEach(imp=>{
+const newConv=Math.round(traffic*(imp.cr/100));
+const newRev=newConv*aov;
+const lift=newRev-currentRevenue;
+const days=testDuration(s.cr,imp.cr);
+html+='<tr><td>'+esc(imp.label)+'</td><td>'+imp.cr.toFixed(2)+'%</td><td>'+newConv.toLocaleString()+'</td><td class="highlight">$'+newRev.toLocaleString()+'</td><td class="highlight">+$'+lift.toLocaleString()+'</td><td>'+(typeof days==='number'?days+' days':days)+'</td></tr>';
+});
+html+='</tbody></table></div>';
+
+html+='<div class="panel"><h2>Revenue Visualization</h2>';
+html+='<div class="chart-container"><div class="chart-title">Current vs Projected Revenue by CR Improvement</div>';
+const allRevs=[currentRevenue,...improvements.map(imp=>Math.round(traffic*(imp.cr/100))*aov)];
+const maxRev=Math.max(...allRevs);
+html+='<div class="bar-chart">';
+html+='<div class="bar-group"><div class="bar-value">$'+(currentRevenue/1000).toFixed(0)+'k</div><div class="bar current" style="height:'+Math.round(currentRevenue/maxRev*100)+'%"></div><div class="bar-label">Current</div></div>';
+improvements.forEach(imp=>{
+const rev=Math.round(traffic*(imp.cr/100))*aov;
+html+='<div class="bar-group"><div class="bar-value">$'+(rev/1000).toFixed(0)+'k</div><div class="bar projected" style="height:'+Math.round(rev/maxRev*100)+'%"></div><div class="bar-label">'+esc(imp.label)+'</div></div>';
+});
+html+='</div>';
+html+='<div class="chart-legend"><div class="legend-item"><div class="legend-dot current"></div>Current</div><div class="legend-item"><div class="legend-dot projected"></div>Projected</div></div>';
+html+='</div></div>';
+
+html+='<div class="panel"><h2>Monthly Revenue Projections</h2>';
+html+='<div class="chart-container"><div class="chart-title">12-Month Revenue Projection (Current vs Target)</div>';
+const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const monthlyProjections=[];
+for(let i=0;i<12;i++){
+const blendedCR=cr+(targetCR-cr)*Math.min(1,(i+1)/6);
+const projRev=Math.round(traffic*blendedCR*aov);
+monthlyProjections.push(projRev);
+}
+const maxMonthRev=Math.max(currentRevenue,...monthlyProjections);
+html+='<div class="bar-chart">';
+months.forEach((m,i)=>{
+html+='<div class="bar-group"><div class="dual-bars">'+
+'<div class="bar current" style="height:'+Math.round(currentRevenue/maxMonthRev*100)+'%"></div>'+
+'<div class="bar projected" style="height:'+Math.round(monthlyProjections[i]/maxMonthRev*100)+'%"></div>'+
+'</div><div class="bar-label">'+m+'</div></div>';
+});
+html+='</div>';
+html+='<div class="chart-legend"><div class="legend-item"><div class="legend-dot current"></div>No Change</div><div class="legend-item"><div class="legend-dot projected"></div>With Optimization</div></div>';
+html+='</div>';
+const totalCurrent=currentRevenue*12;
+const totalOptimized=monthlyProjections.reduce((a,b)=>a+b,0);
+html+='<div class="metrics-grid" style="margin-top:14px">';
+html+='<div class="metric-card"><div class="val">$'+totalCurrent.toLocaleString()+'</div><div class="lbl">12-Mo Revenue (No Change)</div></div>';
+html+='<div class="metric-card"><div class="val">$'+totalOptimized.toLocaleString()+'</div><div class="lbl">12-Mo Revenue (Optimized)</div></div>';
+html+='<div class="metric-card"><div class="val">$'+(totalOptimized-totalCurrent).toLocaleString()+'</div><div class="lbl">Additional Revenue</div></div>';
+html+='<div class="metric-card"><div class="val">'+((totalOptimized-totalCurrent)/totalCurrent*100).toFixed(1)+'%</div><div class="lbl">Revenue Increase</div></div>';
+html+='</div></div>';
+
+document.getElementById('resultsArea').innerHTML=html;
+}
+
+function exportJSON(){
+saveInputs();
+document.getElementById('exportArea').textContent=JSON.stringify(getScn(),null,2);
+}
+
+function exportText(){
+if(!lastCalc){alert('Run the calculator first.');return}
+const c=lastCalc;
+let t='CONVERSION RATE OPTIMIZATION REPORT\n'+'='.repeat(50)+'\n\n';
+t+='CURRENT METRICS\n';
+t+='  Monthly Traffic: '+c.traffic.toLocaleString()+'\n';
+t+='  Conversion Rate: '+c.cr+'%\n';
+t+='  Avg Order Value: $'+c.aov+'\n';
+t+='  Monthly Revenue: $'+c.currentRevenue.toLocaleString()+'\n\n';
+t+='TARGET METRICS\n';
+t+='  Target CR: '+c.targetCR+'%\n';
+t+='  Projected Revenue: $'+c.targetRevenue.toLocaleString()+'\n';
+t+='  Revenue Lift: +$'+c.revenueLift.toLocaleString()+' (+'+c.liftPct+'%)\n\n';
+t+='GOAL ANALYSIS\n';
+t+='  Revenue Goal: $'+c.goal.toLocaleString()+'/mo\n';
+t+='  Traffic Needed: '+c.trafficForGoal.toLocaleString()+'\n';
+t+='  CR Needed: '+c.crForGoal+'%\n\n';
+t+='IMPROVEMENT SCENARIOS\n';
+t+='-'.repeat(50)+'\n';
+c.improvements.forEach(imp=>{
+const conv=Math.round(c.traffic*(imp.cr/100));
+const rev=conv*c.aov;
+const lift=rev-c.currentRevenue;
+t+='  '+imp.label+': CR '+imp.cr.toFixed(2)+'% -> $'+rev.toLocaleString()+'/mo (+$'+lift.toLocaleString()+')\n';
+});
+document.getElementById('exportArea').textContent=t;
+}
+
+function copyExport(){
+const text=document.getElementById('exportArea').textContent;
+navigator.clipboard.writeText(text).then(()=>alert('Copied!')).catch(()=>{});
+}
+
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+
+function render(){renderList();loadForm();document.getElementById('resultsArea').innerHTML=''}
+load();render();
+</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>

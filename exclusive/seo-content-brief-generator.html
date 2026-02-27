@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SEO Content Brief Generator — Free Content Planning Tool | SPUNK.CODES</title>
+<meta name="description" content="Generate structured SEO content briefs with title suggestions, meta descriptions, heading outlines, related keywords, and content checklists. Export as markdown.">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP')</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w")</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e8e8f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+header{background:#111118;border-bottom:2px solid #ff5f1f;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+header h1{font-size:1.4rem;color:#ff5f1f}
+header .back{color:#e8e8f0;font-size:.9rem}
+main{flex:1;max-width:1100px;width:100%;margin:0 auto;padding:24px 16px}
+button{background:#ff5f1f;color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:.9rem;font-weight:600;transition:background .2s}
+button:hover{background:#e8520e}
+button.secondary{background:#2a2a3a;color:#e8e8f0}button.secondary:hover{background:#3a3a4a}
+button.danger{background:#cc2233}button.danger:hover{background:#aa1122}
+.panel{background:#111118;border:1px solid #2a2a3a;border-radius:10px;padding:20px;margin-bottom:20px}
+.panel h2{font-size:1.1rem;color:#ff5f1f;margin-bottom:14px}
+input,select,textarea{background:#16161e;border:1px solid #2a2a3a;color:#e8e8f0;padding:8px 12px;border-radius:6px;font-size:.9rem;font-family:inherit}
+textarea{resize:vertical;min-height:60px;width:100%}
+.briefs-list{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.briefs-list .b-btn{padding:6px 14px;border-radius:20px;font-size:.85rem;cursor:pointer;border:1px solid #2a2a3a;background:#16161e;color:#e8e8f0;transition:all .2s}
+.briefs-list .b-btn.active{background:#ff5f1f;color:#fff;border-color:#ff5f1f}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
+.form-grid label{display:flex;flex-direction:column;gap:4px;font-size:.85rem;color:#888}
+.form-grid label input,.form-grid label select,.form-grid label textarea{width:100%}
+.form-grid .full{grid-column:1/-1}
+.tag-input{display:flex;gap:6px;flex-wrap:wrap;align-items:center;padding:6px;background:#16161e;border:1px solid #2a2a3a;border-radius:6px;min-height:40px}
+.tag-input .tag{background:#2a2a3a;color:#e8e8f0;padding:3px 10px;border-radius:12px;font-size:.8rem;display:flex;align-items:center;gap:4px}
+.tag-input .tag .remove{cursor:pointer;color:#ff5f1f;font-weight:700}
+.tag-input input{border:none;background:transparent;color:#e8e8f0;flex:1;min-width:100px;padding:4px;font-size:.85rem;outline:none}
+.outline-section{background:#16161e;border:1px solid #2a2a3a;border-radius:8px;padding:14px;margin-bottom:10px}
+.outline-section h4{font-size:.9rem;color:#ff5f1f;margin-bottom:8px}
+.outline-item{display:flex;gap:8px;align-items:center;margin-bottom:6px}
+.outline-item select{width:80px}
+.outline-item input{flex:1}
+.outline-item button{padding:4px 8px;font-size:.8rem}
+.brief-preview{background:#0a0a0f;border:1px solid #2a2a3a;border-radius:6px;padding:16px;margin-top:14px;font-size:.9rem;line-height:1.6}
+.brief-preview h3{color:#ff5f1f;margin:12px 0 6px;font-size:1rem}
+.brief-preview h3:first-child{margin-top:0}
+.brief-preview ul{padding-left:20px;margin:6px 0}
+.brief-preview li{margin-bottom:4px}
+.brief-preview .meta-box{background:#16161e;border:1px solid #2a2a3a;border-radius:6px;padding:10px;margin:8px 0}
+.brief-preview .meta-box .label{font-size:.75rem;text-transform:uppercase;color:#888;letter-spacing:.5px}
+.checklist-item{display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid #1a1a2a}
+.checklist-item input[type="checkbox"]{accent-color:#ff5f1f;width:16px;height:16px}
+.checklist-item.checked{color:#555;text-decoration:line-through}
+.export-area{background:#0a0a0f;border:1px solid #2a2a3a;border-radius:6px;padding:12px;font-family:monospace;font-size:.85rem;color:#e8e8f0;white-space:pre-wrap;max-height:400px;overflow:auto;margin-top:10px}
+.empty{text-align:center;color:#555;padding:40px 20px;font-size:.95rem}
+footer{text-align:center;padding:20px;color:#555;font-size:.8rem;border-top:1px solid #1a1a2a;margin-top:auto}
+footer a{color:#ff5f1f;margin:0 4px}
+@media(max-width:700px){
+.form-grid{grid-template-columns:1fr}
+header h1{font-size:1.1rem}
+}
+</style>
+</head>
+<body>
+<header>
+<h1>SEO Content Brief Generator</h1>
+<a href="https://spunk.codes" class="back">spunk.codes</a>
+</header>
+<main>
+<div class="panel">
+<h2>Saved Briefs</h2>
+<div class="briefs-list" id="briefsList"></div>
+<div style="display:flex;gap:8px;flex-wrap:wrap">
+<input type="text" id="newBriefName" placeholder="New brief name..." style="flex:1;min-width:160px">
+<button onclick="createBrief()">+ New Brief</button>
+<button class="danger" onclick="deleteBrief()">Delete Current</button>
+</div>
+</div>
+
+<div class="panel">
+<h2>Target Content</h2>
+<div class="form-grid">
+<label>Target Keyword<input type="text" id="targetKeyword" placeholder="e.g. best project management tools"></label>
+<label>Search Intent<select id="searchIntent">
+<option value="informational">Informational</option>
+<option value="commercial">Commercial Investigation</option>
+<option value="transactional">Transactional</option>
+<option value="navigational">Navigational</option>
+</select></label>
+<label>Word Count Target<input type="number" id="wordCount" placeholder="e.g. 2000" min="100"></label>
+<label>Content Type<select id="contentType">
+<option value="blog-post">Blog Post</option>
+<option value="landing-page">Landing Page</option>
+<option value="product-review">Product Review</option>
+<option value="how-to-guide">How-To Guide</option>
+<option value="listicle">Listicle</option>
+<option value="comparison">Comparison</option>
+<option value="pillar-page">Pillar Page</option>
+</select></label>
+<label class="full">Competitor URLs (one per line)<textarea id="competitorURLs" placeholder="https://competitor1.com/article&#10;https://competitor2.com/post"></textarea></label>
+</div>
+<div style="margin-bottom:14px">
+<label style="font-size:.85rem;color:#888;display:block;margin-bottom:6px">Related Keywords (press Enter to add)</label>
+<div class="tag-input" id="relatedKeywordsBox">
+<input type="text" id="relatedKeywordInput" placeholder="Add keyword...">
+</div>
+</div>
+<div style="margin-bottom:14px">
+<label style="font-size:.85rem;color:#888;display:block;margin-bottom:6px">Internal Linking URLs (press Enter to add)</label>
+<div class="tag-input" id="internalLinksBox">
+<input type="text" id="internalLinkInput" placeholder="Add URL...">
+</div>
+</div>
+<button onclick="saveBriefData()">Save Brief</button>
+</div>
+
+<div class="panel">
+<h2>Content Outline</h2>
+<div id="outlineArea"></div>
+<div style="display:flex;gap:8px;margin-top:10px">
+<select id="newHeadingLevel" style="width:80px">
+<option value="H2">H2</option>
+<option value="H3">H3</option>
+</select>
+<input type="text" id="newHeadingText" placeholder="Heading text..." style="flex:1">
+<button onclick="addHeading()">Add Heading</button>
+</div>
+</div>
+
+<div class="panel">
+<h2>Generated Brief Preview</h2>
+<button onclick="generateBrief()">Generate Brief</button>
+<div class="brief-preview" id="briefPreview">
+<div class="empty">Click "Generate Brief" to create your content brief.</div>
+</div>
+</div>
+
+<div class="panel">
+<h2>Content Checklist</h2>
+<div id="checklistArea"></div>
+</div>
+
+<div class="panel">
+<h2>Export</h2>
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px">
+<button onclick="exportMarkdown()">Export Markdown</button>
+<button onclick="exportJSON()">Export JSON</button>
+<button class="secondary" onclick="copyExport()">Copy to Clipboard</button>
+</div>
+<div class="export-area" id="exportArea">Click export to see output here.</div>
+</div>
+</main>
+
+<footer>
+<a href="https://spunk.codes">spunk.codes</a> &middot;
+<a href="https://spunk.bet">spunk.bet</a> &middot;
+<a href="https://spunk.pics">spunk.pics</a> &middot;
+<a href="https://spunk.work">spunk.work</a> &middot;
+<a href="https://spunkart.com">SpunkArt.com</a>
+</footer>
+
+<script>
+const LS_KEY='spunkcodes_seocontentbrief';
+let briefs=[];
+let activeIdx=0;
+
+function load(){try{briefs=JSON.parse(localStorage.getItem(LS_KEY))||[]}catch(e){briefs=[]}if(!briefs.length){briefs=[{name:'My Content Brief',keyword:'',intent:'informational',wordCount:2000,contentType:'blog-post',competitors:[],relatedKeywords:[],internalLinks:[],outline:[],checklist:{}}];save()}}
+function save(){localStorage.setItem(LS_KEY,JSON.stringify(briefs))}
+function getBrief(){return briefs[activeIdx]||{name:'',keyword:'',outline:[],relatedKeywords:[],internalLinks:[],checklist:{}}}
+
+function renderList(){
+const el=document.getElementById('briefsList');
+el.innerHTML='';
+briefs.forEach((b,i)=>{
+const btn=document.createElement('button');
+btn.className='b-btn'+(i===activeIdx?' active':'');
+btn.textContent=b.name;
+btn.onclick=()=>{activeIdx=i;render()};
+el.appendChild(btn);
+});
+}
+
+function createBrief(){
+const name=document.getElementById('newBriefName').value.trim();
+if(!name)return;
+briefs.push({name,keyword:'',intent:'informational',wordCount:2000,contentType:'blog-post',competitors:[],relatedKeywords:[],internalLinks:[],outline:[],checklist:{}});
+activeIdx=briefs.length-1;
+document.getElementById('newBriefName').value='';
+save();render();
+}
+
+function deleteBrief(){
+if(briefs.length<=1){alert('Cannot delete the only brief.');return}
+if(!confirm('Delete "'+getBrief().name+'"?'))return;
+briefs.splice(activeIdx,1);
+activeIdx=Math.min(activeIdx,briefs.length-1);
+save();render();
+}
+
+function loadForm(){
+const b=getBrief();
+document.getElementById('targetKeyword').value=b.keyword||'';
+document.getElementById('searchIntent').value=b.intent||'informational';
+document.getElementById('wordCount').value=b.wordCount||'';
+document.getElementById('contentType').value=b.contentType||'blog-post';
+document.getElementById('competitorURLs').value=(b.competitors||[]).join('\n');
+renderTags('relatedKeywordsBox','relatedKeywordInput',b.relatedKeywords||[]);
+renderTags('internalLinksBox','internalLinkInput',b.internalLinks||[]);
+renderOutline();
+renderChecklist();
+}
+
+function renderTags(boxId,inputId,tags){
+const box=document.getElementById(boxId);
+const inp=document.getElementById(inputId);
+box.innerHTML='';
+tags.forEach((t,i)=>{
+const span=document.createElement('span');
+span.className='tag';
+span.innerHTML=esc(t)+'<span class="remove" data-box="'+boxId+'" data-idx="'+i+'">&times;</span>';
+box.appendChild(span);
+});
+box.appendChild(inp);
+}
+
+document.addEventListener('click',function(e){
+if(e.target.classList.contains('remove')){
+const boxId=e.target.dataset.box;
+const idx=parseInt(e.target.dataset.idx);
+const b=getBrief();
+const field=boxId==='relatedKeywordsBox'?'relatedKeywords':'internalLinks';
+b[field].splice(idx,1);
+save();renderTags(boxId,boxId==='relatedKeywordsBox'?'relatedKeywordInput':'internalLinkInput',b[field]);
+}
+});
+
+document.getElementById('relatedKeywordInput').addEventListener('keydown',function(e){
+if(e.key==='Enter'){e.preventDefault();const v=this.value.trim();if(!v)return;getBrief().relatedKeywords=getBrief().relatedKeywords||[];getBrief().relatedKeywords.push(v);this.value='';save();renderTags('relatedKeywordsBox','relatedKeywordInput',getBrief().relatedKeywords)}
+});
+
+document.getElementById('internalLinkInput').addEventListener('keydown',function(e){
+if(e.key==='Enter'){e.preventDefault();const v=this.value.trim();if(!v)return;getBrief().internalLinks=getBrief().internalLinks||[];getBrief().internalLinks.push(v);this.value='';save();renderTags('internalLinksBox','internalLinkInput',getBrief().internalLinks)}
+});
+
+function saveBriefData(){
+const b=getBrief();
+b.keyword=document.getElementById('targetKeyword').value.trim();
+b.intent=document.getElementById('searchIntent').value;
+b.wordCount=parseInt(document.getElementById('wordCount').value)||2000;
+b.contentType=document.getElementById('contentType').value;
+b.competitors=document.getElementById('competitorURLs').value.split('\n').map(s=>s.trim()).filter(Boolean);
+save();renderList();
+alert('Brief saved!');
+}
+
+function renderOutline(){
+const area=document.getElementById('outlineArea');
+const outline=getBrief().outline||[];
+if(!outline.length){area.innerHTML='<div class="empty" style="padding:20px">No headings yet. Add headings below.</div>';return}
+let html='';
+outline.forEach((h,i)=>{
+html+='<div class="outline-item">'+
+'<select onchange="updateHeadingLevel('+i+',this.value)" style="width:80px">'+
+'<option value="H2"'+(h.level==='H2'?' selected':'')+'>H2</option>'+
+'<option value="H3"'+(h.level==='H3'?' selected':'')+'>H3</option>'+
+'</select>'+
+'<input type="text" value="'+esc(h.text).replace(/"/g,'&quot;')+'" onchange="updateHeadingText('+i+',this.value)">'+
+'<button class="secondary" onclick="moveHeading('+i+',-1)" style="padding:4px 8px;font-size:.8rem">&uarr;</button>'+
+'<button class="secondary" onclick="moveHeading('+i+',1)" style="padding:4px 8px;font-size:.8rem">&darr;</button>'+
+'<button class="danger" onclick="removeHeading('+i+')" style="padding:4px 8px;font-size:.8rem">&times;</button>'+
+'</div>';
+});
+area.innerHTML=html;
+}
+
+function addHeading(){
+const level=document.getElementById('newHeadingLevel').value;
+const text=document.getElementById('newHeadingText').value.trim();
+if(!text){alert('Heading text is required.');return}
+getBrief().outline=getBrief().outline||[];
+getBrief().outline.push({level,text});
+document.getElementById('newHeadingText').value='';
+save();renderOutline();
+}
+
+function updateHeadingLevel(idx,val){getBrief().outline[idx].level=val;save()}
+function updateHeadingText(idx,val){getBrief().outline[idx].text=val;save()}
+function moveHeading(idx,dir){
+const o=getBrief().outline;const ni=idx+dir;
+if(ni<0||ni>=o.length)return;
+[o[idx],o[ni]]=[o[ni],o[idx]];save();renderOutline();
+}
+function removeHeading(idx){getBrief().outline.splice(idx,1);save();renderOutline()}
+
+function generateBrief(){
+const b=getBrief();
+if(!b.keyword){alert('Please enter a target keyword first.');return}
+const kw=b.keyword;
+const preview=document.getElementById('briefPreview');
+const titles=generateTitles(kw,b.contentType);
+const metaDesc=generateMeta(kw,b.contentType);
+
+let html='<h3>Title Suggestions</h3><ul>';
+titles.forEach(t=>{html+='<li>'+esc(t)+'</li>'});
+html+='</ul>';
+
+html+='<h3>Meta Description</h3>';
+html+='<div class="meta-box"><div class="label">Suggested Meta Description ('+metaDesc.length+' chars)</div>'+esc(metaDesc)+'</div>';
+
+html+='<h3>Content Outline</h3>';
+if(b.outline&&b.outline.length){
+html+='<ul>';
+b.outline.forEach(h=>{
+html+='<li><strong>'+esc(h.level)+':</strong> '+esc(h.text)+'</li>';
+});
+html+='</ul>';
+}else{
+html+='<p style="color:#888">No outline defined yet.</p>';
+}
+
+html+='<h3>Target Specs</h3><ul>';
+html+='<li>Keyword: <strong>'+esc(kw)+'</strong></li>';
+html+='<li>Search Intent: <strong>'+esc(b.intent)+'</strong></li>';
+html+='<li>Content Type: <strong>'+esc(b.contentType)+'</strong></li>';
+html+='<li>Word Count: <strong>'+(b.wordCount||2000)+'</strong></li>';
+html+='</ul>';
+
+if(b.relatedKeywords&&b.relatedKeywords.length){
+html+='<h3>Related Keywords</h3><ul>';
+b.relatedKeywords.forEach(k=>{html+='<li>'+esc(k)+'</li>'});
+html+='</ul>';
+}
+
+if(b.internalLinks&&b.internalLinks.length){
+html+='<h3>Internal Linking Suggestions</h3><ul>';
+b.internalLinks.forEach(l=>{html+='<li>'+esc(l)+'</li>'});
+html+='</ul>';
+}
+
+if(b.competitors&&b.competitors.length){
+html+='<h3>Competitor References</h3><ul>';
+b.competitors.forEach(c=>{html+='<li>'+esc(c)+'</li>'});
+html+='</ul>';
+}
+
+preview.innerHTML=html;
+renderChecklist();
+}
+
+function generateTitles(kw,type){
+const cap=kw.split(' ').map(w=>w.charAt(0).toUpperCase()+w.slice(1)).join(' ');
+const titles=[];
+if(type==='listicle')titles.push('Top 10 '+cap+' in 2026','The Ultimate List of '+cap,''+cap+': Everything You Need to Know');
+else if(type==='how-to-guide')titles.push('How to '+cap+': A Complete Guide',''+cap+' Step by Step (2026)','The Beginner\'s Guide to '+cap);
+else if(type==='comparison')titles.push(cap+': Which Is Best? (2026 Comparison)',''+cap+' Compared: Pros, Cons & Pricing',''+cap+' Head-to-Head Review');
+else if(type==='product-review')titles.push(cap+' Review: Is It Worth It in 2026?','Honest '+cap+' Review (Features, Pricing, Verdict)',''+cap+': Our Full Review');
+else titles.push(''+cap+': The Complete Guide (2026)','Everything You Need to Know About '+cap,''+cap+' — Tips, Strategies & Best Practices','Why '+cap+' Matters in 2026');
+return titles;
+}
+
+function generateMeta(kw,type){
+const cap=kw.split(' ').map(w=>w.charAt(0).toUpperCase()+w.slice(1)).join(' ');
+if(type==='how-to-guide')return 'Learn how to '+kw+' with our step-by-step guide. Practical tips, examples, and expert advice to get you started.';
+if(type==='listicle')return 'Discover the best '+kw+' for 2026. Curated list with pros, cons, and our top recommendations.';
+if(type==='comparison')return 'Compare '+kw+' side by side. See features, pricing, and which option is best for your needs.';
+return 'Your complete guide to '+kw+'. Learn strategies, tips, and best practices to get the most out of '+kw+'.';
+}
+
+function renderChecklist(){
+const b=getBrief();
+b.checklist=b.checklist||{};
+const items=[
+'Target keyword in title tag',
+'Target keyword in H1',
+'Target keyword in first 100 words',
+'Meta description under 160 characters',
+'All images have alt text with keyword',
+'Internal links added (2-5 minimum)',
+'External authoritative links (1-3)',
+'Content exceeds '+(b.wordCount||2000)+' words',
+'All H2/H3 headings properly structured',
+'Related keywords naturally incorporated',
+'CTA included in content',
+'Mobile-friendly formatting',
+'URL slug contains target keyword',
+'Schema markup considered',
+'Proofread for grammar and spelling'
+];
+const area=document.getElementById('checklistArea');
+let html='';
+items.forEach((item,i)=>{
+const checked=b.checklist[i]||false;
+html+='<div class="checklist-item'+(checked?' checked':'')+'">'+
+'<input type="checkbox" '+(checked?'checked':'')+' onchange="toggleCheck('+i+',this.checked)">'+
+'<span>'+esc(item)+'</span></div>';
+});
+area.innerHTML=html;
+}
+
+function toggleCheck(idx,val){
+getBrief().checklist=getBrief().checklist||{};
+getBrief().checklist[idx]=val;
+save();renderChecklist();
+}
+
+function exportMarkdown(){
+const b=getBrief();
+let md='# SEO Content Brief: '+b.keyword+'\n\n';
+md+='## Target Specs\n';
+md+='- **Keyword:** '+b.keyword+'\n';
+md+='- **Search Intent:** '+b.intent+'\n';
+md+='- **Content Type:** '+b.contentType+'\n';
+md+='- **Word Count:** '+(b.wordCount||2000)+'\n\n';
+
+const titles=generateTitles(b.keyword,b.contentType);
+md+='## Title Suggestions\n';
+titles.forEach(t=>{md+='- '+t+'\n'});
+md+='\n';
+
+md+='## Meta Description\n';
+md+='> '+generateMeta(b.keyword,b.contentType)+'\n\n';
+
+if(b.outline&&b.outline.length){
+md+='## Content Outline\n';
+b.outline.forEach(h=>{
+md+=(h.level==='H3'?'   ':'')+''+(h.level==='H2'?'## ':'### ')+h.text+'\n';
+});
+md+='\n';
+}
+
+if(b.relatedKeywords&&b.relatedKeywords.length){
+md+='## Related Keywords\n';
+b.relatedKeywords.forEach(k=>{md+='- '+k+'\n'});
+md+='\n';
+}
+
+if(b.internalLinks&&b.internalLinks.length){
+md+='## Internal Links\n';
+b.internalLinks.forEach(l=>{md+='- '+l+'\n'});
+md+='\n';
+}
+
+if(b.competitors&&b.competitors.length){
+md+='## Competitor References\n';
+b.competitors.forEach(c=>{md+='- '+c+'\n'});
+md+='\n';
+}
+
+md+='## Content Checklist\n';
+const checkItems=['Target keyword in title tag','Target keyword in H1','Target keyword in first 100 words','Meta description under 160 characters','All images have alt text','Internal links added','External authoritative links','Content meets word count','Headings properly structured','Related keywords incorporated','CTA included','Mobile-friendly','URL slug optimized','Schema markup','Proofread'];
+checkItems.forEach((item,i)=>{
+md+='- ['+(b.checklist&&b.checklist[i]?'x':' ')+'] '+item+'\n';
+});
+
+document.getElementById('exportArea').textContent=md;
+}
+
+function exportJSON(){
+document.getElementById('exportArea').textContent=JSON.stringify(getBrief(),null,2);
+}
+
+function copyExport(){
+const text=document.getElementById('exportArea').textContent;
+navigator.clipboard.writeText(text).then(()=>alert('Copied!')).catch(()=>{});
+}
+
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+
+function render(){renderList();loadForm();document.getElementById('briefPreview').innerHTML='<div class="empty">Click "Generate Brief" to create your content brief.</div>'}
+load();render();
+</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>

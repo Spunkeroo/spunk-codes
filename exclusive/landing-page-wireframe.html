@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Landing Page Wireframe Builder — Free Visual Wireframe Tool | SPUNK.CODES</title>
+<meta name="description" content="Build landing page wireframes with drag-and-drop sections. Hero, Features, Testimonials, Pricing, CTA, FAQ, Footer. Preview in light/dark mode. Export as HTML.">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP')</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w")</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e8e8f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+header{background:#111118;border-bottom:2px solid #ff5f1f;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+header h1{font-size:1.4rem;color:#ff5f1f}
+header .back{color:#e8e8f0;font-size:.9rem}
+main{flex:1;max-width:1200px;width:100%;margin:0 auto;padding:24px 16px}
+button{background:#ff5f1f;color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:.9rem;font-weight:600;transition:background .2s}
+button:hover{background:#e8520e}
+button.secondary{background:#2a2a3a;color:#e8e8f0}button.secondary:hover{background:#3a3a4a}
+button.danger{background:#cc2233}button.danger:hover{background:#aa1122}
+.panel{background:#111118;border:1px solid #2a2a3a;border-radius:10px;padding:20px;margin-bottom:20px}
+.panel h2{font-size:1.1rem;color:#ff5f1f;margin-bottom:14px}
+input,select,textarea{background:#16161e;border:1px solid #2a2a3a;color:#e8e8f0;padding:8px 12px;border-radius:6px;font-size:.9rem;font-family:inherit}
+textarea{resize:vertical;min-height:50px;width:100%}
+.wireframes-list{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.wireframes-list .w-btn{padding:6px 14px;border-radius:20px;font-size:.85rem;cursor:pointer;border:1px solid #2a2a3a;background:#16161e;color:#e8e8f0;transition:all .2s}
+.wireframes-list .w-btn.active{background:#ff5f1f;color:#fff;border-color:#ff5f1f}
+.section-palette{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.section-palette .add-btn{padding:8px 14px;border-radius:6px;font-size:.85rem;cursor:pointer;border:1px solid #2a2a3a;background:#16161e;color:#e8e8f0;transition:all .2s}
+.section-palette .add-btn:hover{border-color:#ff5f1f;color:#ff5f1f}
+.builder-area{min-height:200px}
+.wire-section{background:#16161e;border:2px solid #2a2a3a;border-radius:8px;margin-bottom:8px;cursor:grab;transition:all .2s}
+.wire-section:hover{border-color:#ff5f1f}
+.wire-section.dragging{opacity:.4}
+.wire-section.drag-over{border-color:#4caf50;box-shadow:0 0 10px rgba(76,175,80,.3)}
+.wire-header{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid #2a2a3a}
+.wire-header .type-label{font-size:.75rem;text-transform:uppercase;letter-spacing:.5px;color:#ff5f1f;font-weight:600}
+.wire-header .actions{display:flex;gap:4px}
+.wire-header .actions button{padding:3px 8px;font-size:.75rem}
+.wire-body{padding:14px}
+.wire-body .field{margin-bottom:8px}
+.wire-body .field label{font-size:.8rem;color:#888;display:block;margin-bottom:3px}
+.wire-body .field input,.wire-body .field textarea{width:100%}
+.preview-toggle{display:flex;gap:8px;margin-bottom:14px;align-items:center}
+.preview-toggle label{font-size:.85rem;color:#888}
+.preview-frame{border:1px solid #2a2a3a;border-radius:8px;overflow:hidden}
+.preview-content{padding:0;min-height:400px}
+.preview-content.light{background:#ffffff;color:#222}
+.preview-content.dark{background:#111118;color:#e8e8f0}
+.preview-section{padding:40px 24px;text-align:center;border-bottom:1px solid rgba(128,128,128,.2)}
+.preview-section:last-child{border-bottom:none}
+.preview-section h2{font-size:1.4rem;margin-bottom:8px}
+.preview-section h3{font-size:1.1rem;margin-bottom:6px}
+.preview-section p{font-size:.95rem;opacity:.8;max-width:600px;margin:0 auto;line-height:1.5}
+.preview-section .btn-mock{display:inline-block;padding:10px 24px;border-radius:6px;font-weight:600;margin-top:12px}
+.light .preview-section .btn-mock{background:#ff5f1f;color:#fff}
+.dark .preview-section .btn-mock{background:#ff5f1f;color:#fff}
+.preview-section .feature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:16px;text-align:center}
+.preview-section .feature-item{padding:16px;border-radius:8px}
+.light .preview-section .feature-item{background:#f5f5f5}
+.dark .preview-section .feature-item{background:#1a1a2a}
+.preview-section .pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:16px}
+.preview-section .pricing-card{padding:20px;border-radius:8px;border:1px solid rgba(128,128,128,.3)}
+.preview-section .pricing-card .price{font-size:1.8rem;font-weight:700;color:#ff5f1f;margin:8px 0}
+.preview-section .testimonial{font-style:italic;padding:16px;border-radius:8px;margin-top:12px}
+.light .preview-section .testimonial{background:#f5f5f5}
+.dark .preview-section .testimonial{background:#1a1a2a}
+.preview-section .faq-item{text-align:left;padding:12px 0;border-bottom:1px solid rgba(128,128,128,.2)}
+.preview-section .faq-item strong{color:#ff5f1f}
+.export-area{background:#0a0a0f;border:1px solid #2a2a3a;border-radius:6px;padding:12px;font-family:monospace;font-size:.85rem;color:#e8e8f0;white-space:pre-wrap;max-height:400px;overflow:auto;margin-top:10px}
+.empty{text-align:center;color:#555;padding:40px 20px;font-size:.95rem}
+footer{text-align:center;padding:20px;color:#555;font-size:.8rem;border-top:1px solid #1a1a2a;margin-top:auto}
+footer a{color:#ff5f1f;margin:0 4px}
+@media(max-width:700px){
+.section-palette{gap:6px}
+.section-palette .add-btn{padding:6px 10px;font-size:.8rem}
+header h1{font-size:1.1rem}
+.preview-section .feature-grid,.preview-section .pricing-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<header>
+<h1>Landing Page Wireframe Builder</h1>
+<a href="https://spunk.codes" class="back">spunk.codes</a>
+</header>
+<main>
+<div class="panel">
+<h2>Saved Wireframes</h2>
+<div class="wireframes-list" id="wireframesList"></div>
+<div style="display:flex;gap:8px;flex-wrap:wrap">
+<input type="text" id="newWireName" placeholder="New wireframe name..." style="flex:1;min-width:160px">
+<button onclick="createWireframe()">+ New Wireframe</button>
+<button class="danger" onclick="deleteWireframe()">Delete Current</button>
+</div>
+</div>
+
+<div class="panel">
+<h2>Add Sections</h2>
+<div class="section-palette">
+<button class="add-btn" onclick="addSection('hero')">+ Hero</button>
+<button class="add-btn" onclick="addSection('features')">+ Features</button>
+<button class="add-btn" onclick="addSection('testimonials')">+ Testimonials</button>
+<button class="add-btn" onclick="addSection('pricing')">+ Pricing</button>
+<button class="add-btn" onclick="addSection('cta')">+ CTA</button>
+<button class="add-btn" onclick="addSection('faq')">+ FAQ</button>
+<button class="add-btn" onclick="addSection('footer')">+ Footer</button>
+</div>
+<div class="builder-area" id="builderArea">
+<div class="empty">Click buttons above to add sections to your wireframe.</div>
+</div>
+</div>
+
+<div class="panel">
+<h2>Preview</h2>
+<div class="preview-toggle">
+<label>Theme:</label>
+<button class="secondary" id="themeToggle" onclick="toggleTheme()">Switch to Light Mode</button>
+</div>
+<div class="preview-frame">
+<div class="preview-content dark" id="previewContent">
+<div class="empty">Add sections and fill in content to see a preview.</div>
+</div>
+</div>
+</div>
+
+<div class="panel">
+<h2>Export</h2>
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px">
+<button onclick="exportHTML()">Export HTML Template</button>
+<button onclick="exportJSON()">Export JSON</button>
+<button class="secondary" onclick="copyExport()">Copy to Clipboard</button>
+</div>
+<div class="export-area" id="exportArea">Click export to see output here.</div>
+</div>
+</main>
+
+<footer>
+<a href="https://spunk.codes">spunk.codes</a> &middot;
+<a href="https://spunk.bet">spunk.bet</a> &middot;
+<a href="https://spunk.pics">spunk.pics</a> &middot;
+<a href="https://spunk.work">spunk.work</a> &middot;
+<a href="https://spunkart.com">SpunkArt.com</a>
+</footer>
+
+<script>
+const LS_KEY='spunkcodes_landingwireframe';
+let wireframes=[];
+let activeIdx=0;
+let previewTheme='dark';
+let dragIdx=null;
+
+const DEFAULTS={
+hero:{heading:'Your Amazing Product',subheading:'The best solution for your needs. Start today and see results.',buttonText:'Get Started'},
+features:{heading:'Features',feature1:'Fast Performance',feature2:'Easy to Use',feature3:'Reliable Support',desc1:'Lightning fast speeds.', desc2:'Intuitive interface.',desc3:'24/7 expert help.'},
+testimonials:{heading:'What People Say',quote:'"This product changed everything for us. Highly recommended."',author:'- Jane D., CEO'},
+pricing:{heading:'Pricing',plan1:'Starter',price1:'$9/mo',plan2:'Pro',price2:'$29/mo',plan3:'Enterprise',price3:'$99/mo'},
+cta:{heading:'Ready to Get Started?',subheading:'Join thousands of happy customers today.',buttonText:'Start Free Trial'},
+faq:{heading:'FAQ',q1:'How does it work?',a1:'Simply sign up and follow the setup wizard.',q2:'Is there a free trial?',a2:'Yes, we offer a 14-day free trial with full access.'},
+footer:{text:'Copyright 2026. All rights reserved.',links:'Privacy Policy | Terms of Service | Contact'}
+};
+
+function load(){try{wireframes=JSON.parse(localStorage.getItem(LS_KEY))||[]}catch(e){wireframes=[]}if(!wireframes.length){wireframes=[{name:'My Landing Page',sections:[]}];save()}}
+function save(){localStorage.setItem(LS_KEY,JSON.stringify(wireframes))}
+function getWf(){return wireframes[activeIdx]||{name:'',sections:[]}}
+
+function renderList(){
+const el=document.getElementById('wireframesList');
+el.innerHTML='';
+wireframes.forEach((w,i)=>{
+const b=document.createElement('button');
+b.className='w-btn'+(i===activeIdx?' active':'');
+b.textContent=w.name;
+b.onclick=()=>{activeIdx=i;render()};
+el.appendChild(b);
+});
+}
+
+function createWireframe(){
+const name=document.getElementById('newWireName').value.trim();
+if(!name)return;
+wireframes.push({name,sections:[]});
+activeIdx=wireframes.length-1;
+document.getElementById('newWireName').value='';
+save();render();
+}
+
+function deleteWireframe(){
+if(wireframes.length<=1){alert('Cannot delete the only wireframe.');return}
+if(!confirm('Delete "'+getWf().name+'"?'))return;
+wireframes.splice(activeIdx,1);
+activeIdx=Math.min(activeIdx,wireframes.length-1);
+save();render();
+}
+
+function addSection(type){
+const data=JSON.parse(JSON.stringify(DEFAULTS[type]||{}));
+getWf().sections.push({type,data});
+save();renderBuilder();renderPreview();
+}
+
+function removeSection(idx){
+getWf().sections.splice(idx,1);
+save();renderBuilder();renderPreview();
+}
+
+function moveSection(idx,dir){
+const s=getWf().sections;const ni=idx+dir;
+if(ni<0||ni>=s.length)return;
+[s[idx],s[ni]]=[s[ni],s[idx]];
+save();renderBuilder();renderPreview();
+}
+
+function updateField(idx,field,value){
+getWf().sections[idx].data[field]=value;
+save();renderPreview();
+}
+
+function renderBuilder(){
+const area=document.getElementById('builderArea');
+const sections=getWf().sections;
+if(!sections.length){area.innerHTML='<div class="empty">Click buttons above to add sections to your wireframe.</div>';return}
+let html='';
+sections.forEach((s,i)=>{
+html+='<div class="wire-section" draggable="true" data-idx="'+i+'" ondragstart="onDragStart(event,'+i+')" ondragover="onDragOver(event)" ondragenter="onDragEnter(event,this)" ondragleave="onDragLeave(this)" ondrop="onDrop(event,'+i+')" ondragend="onDragEnd()">'+
+'<div class="wire-header"><span class="type-label">'+esc(s.type)+'</span>'+
+'<div class="actions">'+
+'<button class="secondary" onclick="moveSection('+i+',-1)">&uarr;</button>'+
+'<button class="secondary" onclick="moveSection('+i+',1)">&darr;</button>'+
+'<button class="danger" onclick="removeSection('+i+')">&times;</button>'+
+'</div></div><div class="wire-body">';
+html+=buildFields(s,i);
+html+='</div></div>';
+});
+area.innerHTML=html;
+}
+
+function buildFields(section,idx){
+const d=section.data;
+const t=section.type;
+let f='';
+if(t==='hero'){
+f+=field(idx,'heading',d.heading,'Heading');
+f+=field(idx,'subheading',d.subheading,'Subheading','textarea');
+f+=field(idx,'buttonText',d.buttonText,'Button Text');
+}else if(t==='features'){
+f+=field(idx,'heading',d.heading,'Section Heading');
+f+=field(idx,'feature1',d.feature1,'Feature 1 Title');
+f+=field(idx,'desc1',d.desc1,'Feature 1 Desc');
+f+=field(idx,'feature2',d.feature2,'Feature 2 Title');
+f+=field(idx,'desc2',d.desc2,'Feature 2 Desc');
+f+=field(idx,'feature3',d.feature3,'Feature 3 Title');
+f+=field(idx,'desc3',d.desc3,'Feature 3 Desc');
+}else if(t==='testimonials'){
+f+=field(idx,'heading',d.heading,'Section Heading');
+f+=field(idx,'quote',d.quote,'Quote','textarea');
+f+=field(idx,'author',d.author,'Author');
+}else if(t==='pricing'){
+f+=field(idx,'heading',d.heading,'Section Heading');
+f+=field(idx,'plan1',d.plan1,'Plan 1 Name');
+f+=field(idx,'price1',d.price1,'Plan 1 Price');
+f+=field(idx,'plan2',d.plan2,'Plan 2 Name');
+f+=field(idx,'price2',d.price2,'Plan 2 Price');
+f+=field(idx,'plan3',d.plan3,'Plan 3 Name');
+f+=field(idx,'price3',d.price3,'Plan 3 Price');
+}else if(t==='cta'){
+f+=field(idx,'heading',d.heading,'Heading');
+f+=field(idx,'subheading',d.subheading,'Subheading');
+f+=field(idx,'buttonText',d.buttonText,'Button Text');
+}else if(t==='faq'){
+f+=field(idx,'heading',d.heading,'Section Heading');
+f+=field(idx,'q1',d.q1,'Question 1');
+f+=field(idx,'a1',d.a1,'Answer 1');
+f+=field(idx,'q2',d.q2,'Question 2');
+f+=field(idx,'a2',d.a2,'Answer 2');
+}else if(t==='footer'){
+f+=field(idx,'text',d.text,'Footer Text');
+f+=field(idx,'links',d.links,'Footer Links');
+}
+return f;
+}
+
+function field(idx,key,val,label,type){
+const v=esc(String(val||'')).replace(/"/g,'&quot;');
+if(type==='textarea')return '<div class="field"><label>'+esc(label)+'</label><textarea onchange="updateField('+idx+',\''+key+'\',this.value)">'+v+'</textarea></div>';
+return '<div class="field"><label>'+esc(label)+'</label><input type="text" value="'+v+'" onchange="updateField('+idx+',\''+key+'\',this.value)"></div>';
+}
+
+function toggleTheme(){
+previewTheme=previewTheme==='dark'?'light':'dark';
+document.getElementById('themeToggle').textContent='Switch to '+(previewTheme==='dark'?'Light':'Dark')+' Mode';
+renderPreview();
+}
+
+function renderPreview(){
+const pc=document.getElementById('previewContent');
+pc.className='preview-content '+previewTheme;
+const sections=getWf().sections;
+if(!sections.length){pc.innerHTML='<div class="empty">Add sections and fill in content to see a preview.</div>';return}
+let html='';
+sections.forEach(s=>{
+const d=s.data;
+if(s.type==='hero'){
+html+='<div class="preview-section"><h2>'+esc(d.heading)+'</h2><p>'+esc(d.subheading)+'</p><div class="btn-mock">'+esc(d.buttonText)+'</div></div>';
+}else if(s.type==='features'){
+html+='<div class="preview-section"><h2>'+esc(d.heading)+'</h2><div class="feature-grid">'+
+'<div class="feature-item"><h3>'+esc(d.feature1)+'</h3><p>'+esc(d.desc1)+'</p></div>'+
+'<div class="feature-item"><h3>'+esc(d.feature2)+'</h3><p>'+esc(d.desc2)+'</p></div>'+
+'<div class="feature-item"><h3>'+esc(d.feature3)+'</h3><p>'+esc(d.desc3)+'</p></div>'+
+'</div></div>';
+}else if(s.type==='testimonials'){
+html+='<div class="preview-section"><h2>'+esc(d.heading)+'</h2><div class="testimonial"><p>'+esc(d.quote)+'</p><p style="margin-top:8px;font-weight:600">'+esc(d.author)+'</p></div></div>';
+}else if(s.type==='pricing'){
+html+='<div class="preview-section"><h2>'+esc(d.heading)+'</h2><div class="pricing-grid">'+
+'<div class="pricing-card"><h3>'+esc(d.plan1)+'</h3><div class="price">'+esc(d.price1)+'</div><div class="btn-mock" style="font-size:.85rem">Choose Plan</div></div>'+
+'<div class="pricing-card"><h3>'+esc(d.plan2)+'</h3><div class="price">'+esc(d.price2)+'</div><div class="btn-mock" style="font-size:.85rem">Choose Plan</div></div>'+
+'<div class="pricing-card"><h3>'+esc(d.plan3)+'</h3><div class="price">'+esc(d.price3)+'</div><div class="btn-mock" style="font-size:.85rem">Choose Plan</div></div>'+
+'</div></div>';
+}else if(s.type==='cta'){
+html+='<div class="preview-section" style="background:rgba(255,95,31,.1)"><h2>'+esc(d.heading)+'</h2><p>'+esc(d.subheading)+'</p><div class="btn-mock">'+esc(d.buttonText)+'</div></div>';
+}else if(s.type==='faq'){
+html+='<div class="preview-section"><h2>'+esc(d.heading)+'</h2>'+
+'<div class="faq-item"><strong>'+esc(d.q1)+'</strong><p>'+esc(d.a1)+'</p></div>'+
+'<div class="faq-item"><strong>'+esc(d.q2)+'</strong><p>'+esc(d.a2)+'</p></div>'+
+'</div>';
+}else if(s.type==='footer'){
+html+='<div class="preview-section" style="opacity:.7;font-size:.85rem"><p>'+esc(d.text)+'</p><p style="margin-top:6px">'+esc(d.links)+'</p></div>';
+}
+});
+pc.innerHTML=html;
+}
+
+function onDragStart(e,idx){dragIdx=idx;e.target.classList.add('dragging')}
+function onDragOver(e){e.preventDefault()}
+function onDragEnter(e,el){e.preventDefault();el.classList.add('drag-over')}
+function onDragLeave(el){el.classList.remove('drag-over')}
+function onDragEnd(){dragIdx=null;document.querySelectorAll('.wire-section').forEach(s=>{s.classList.remove('dragging','drag-over')})}
+function onDrop(e,targetIdx){
+e.preventDefault();
+if(dragIdx===null||dragIdx===targetIdx)return;
+const sections=getWf().sections;
+const [moved]=sections.splice(dragIdx,1);
+sections.splice(targetIdx,0,moved);
+dragIdx=null;
+save();renderBuilder();renderPreview();
+}
+
+function exportHTML(){
+const sections=getWf().sections;
+const theme=previewTheme;
+let html='<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="UTF-8">\n<meta name="viewport" content="width=device-width,initial-scale=1">\n<title>Landing Page</title>\n<style>\n';
+html+='*{margin:0;padding:0;box-sizing:border-box}\n';
+html+='body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;'+(theme==='dark'?'background:#111;color:#eee':'background:#fff;color:#222')+'}\n';
+html+='section{padding:60px 24px;text-align:center;max-width:960px;margin:0 auto}\n';
+html+='h2{font-size:2rem;margin-bottom:12px}\nh3{font-size:1.2rem;margin-bottom:8px}\np{line-height:1.6;opacity:.85}\n';
+html+='.btn{display:inline-block;padding:12px 28px;background:#ff5f1f;color:#fff;border-radius:6px;text-decoration:none;font-weight:600;margin-top:16px}\n';
+html+='.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:20px}\n';
+html+='.card{padding:24px;border-radius:8px;'+(theme==='dark'?'background:#1a1a2a':'background:#f5f5f5')+'}\n';
+html+='@media(max-width:700px){.grid3{grid-template-columns:1fr}}\n';
+html+='</style>\n</head>\n<body>\n';
+sections.forEach(s=>{
+const d=s.data;
+if(s.type==='hero')html+='<section>\n  <h2>'+esc(d.heading)+'</h2>\n  <p>'+esc(d.subheading)+'</p>\n  <a href="#" class="btn">'+esc(d.buttonText)+'</a>\n</section>\n';
+else if(s.type==='features')html+='<section>\n  <h2>'+esc(d.heading)+'</h2>\n  <div class="grid3">\n    <div class="card"><h3>'+esc(d.feature1)+'</h3><p>'+esc(d.desc1)+'</p></div>\n    <div class="card"><h3>'+esc(d.feature2)+'</h3><p>'+esc(d.desc2)+'</p></div>\n    <div class="card"><h3>'+esc(d.feature3)+'</h3><p>'+esc(d.desc3)+'</p></div>\n  </div>\n</section>\n';
+else if(s.type==='testimonials')html+='<section>\n  <h2>'+esc(d.heading)+'</h2>\n  <div class="card" style="max-width:600px;margin:20px auto"><p><em>'+esc(d.quote)+'</em></p><p style="margin-top:8px;font-weight:600">'+esc(d.author)+'</p></div>\n</section>\n';
+else if(s.type==='pricing')html+='<section>\n  <h2>'+esc(d.heading)+'</h2>\n  <div class="grid3">\n    <div class="card"><h3>'+esc(d.plan1)+'</h3><p style="font-size:2rem;font-weight:700;color:#ff5f1f">'+esc(d.price1)+'</p><a href="#" class="btn">Choose</a></div>\n    <div class="card"><h3>'+esc(d.plan2)+'</h3><p style="font-size:2rem;font-weight:700;color:#ff5f1f">'+esc(d.price2)+'</p><a href="#" class="btn">Choose</a></div>\n    <div class="card"><h3>'+esc(d.plan3)+'</h3><p style="font-size:2rem;font-weight:700;color:#ff5f1f">'+esc(d.price3)+'</p><a href="#" class="btn">Choose</a></div>\n  </div>\n</section>\n';
+else if(s.type==='cta')html+='<section style="background:rgba(255,95,31,.1);border-radius:12px;margin:20px auto;max-width:960px">\n  <h2>'+esc(d.heading)+'</h2>\n  <p>'+esc(d.subheading)+'</p>\n  <a href="#" class="btn">'+esc(d.buttonText)+'</a>\n</section>\n';
+else if(s.type==='faq')html+='<section style="text-align:left">\n  <h2 style="text-align:center">'+esc(d.heading)+'</h2>\n  <div style="max-width:700px;margin:20px auto">\n    <p><strong>'+esc(d.q1)+'</strong></p><p>'+esc(d.a1)+'</p><br>\n    <p><strong>'+esc(d.q2)+'</strong></p><p>'+esc(d.a2)+'</p>\n  </div>\n</section>\n';
+else if(s.type==='footer')html+='<footer style="text-align:center;padding:30px;opacity:.6;font-size:.85rem">\n  <p>'+esc(d.text)+'</p>\n  <p>'+esc(d.links)+'</p>\n</footer>\n';
+});
+html+='</body>\n</html>';
+document.getElementById('exportArea').textContent=html;
+}
+
+function exportJSON(){
+document.getElementById('exportArea').textContent=JSON.stringify(getWf(),null,2);
+}
+
+function copyExport(){
+const text=document.getElementById('exportArea').textContent;
+navigator.clipboard.writeText(text).then(()=>alert('Copied!')).catch(()=>{});
+}
+
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+
+function render(){renderList();renderBuilder();renderPreview()}
+load();render();
+</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>
