@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bill Negotiation Script Generator — Lower Any Bill with Word-for-Word Scripts | SPUNK.CODES</title>
+<meta name="description" content="Generate word-for-word negotiation scripts to lower your internet, phone, insurance, cable, gym and credit card bills. Includes escalation steps and retention tips.">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP')</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w")</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e8e8f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+header{background:#111118;border-bottom:2px solid #ff5f1f;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+header h1{font-size:1.4rem;color:#ff5f1f}
+header .back{color:#e8e8f0;font-size:.9rem}
+main{flex:1;max-width:1100px;width:100%;margin:0 auto;padding:24px 16px}
+button{background:#ff5f1f;color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:.9rem;font-weight:600;transition:background .2s}
+button:hover{background:#e8520e}
+button.secondary{background:#2a2a3a;color:#e8e8f0}button.secondary:hover{background:#3a3a4a}
+button.danger{background:#cc2233}button.danger:hover{background:#aa1122}
+button.success{background:#1a8a3a}button.success:hover{background:#157a30}
+input,select{background:#16161e;border:1px solid #2a2a3a;color:#e8e8f0;padding:8px 12px;border-radius:6px;font-size:.9rem}
+.panel{background:#111118;border:1px solid #2a2a3a;border-radius:10px;padding:20px;margin-bottom:20px}
+.panel h2{font-size:1.1rem;color:#ff5f1f;margin-bottom:14px}
+.dash-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-bottom:20px}
+.dash-card{background:#111118;border:1px solid #2a2a3a;border-radius:10px;padding:18px;text-align:center}
+.dash-card .val{font-size:1.8rem;font-weight:700;margin-bottom:4px}
+.dash-card .lbl{font-size:.8rem;color:#888}
+.bill-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-bottom:20px}
+.bill-btn{padding:18px 10px;border-radius:10px;font-size:.9rem;cursor:pointer;border:2px solid #2a2a3a;background:#16161e;color:#e8e8f0;transition:all .2s;text-align:center}
+.bill-btn:hover{border-color:#ff5f1f}
+.bill-btn.active{background:#ff5f1f;color:#fff;border-color:#ff5f1f}
+.bill-btn .icon{font-size:1.6rem;display:block;margin-bottom:6px}
+.bill-form{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px}
+.bill-form label{font-size:.8rem;color:#888;display:block;margin-bottom:4px}
+.script-section{background:#16161e;border:1px solid #2a2a3a;border-radius:8px;padding:16px;margin-bottom:12px}
+.script-section h3{font-size:.95rem;color:#ff5f1f;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.script-section .step-num{background:#ff5f1f;color:#fff;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;flex-shrink:0}
+.script-box{background:#0a0a0f;border:1px solid #2a2a3a;border-radius:6px;padding:14px;font-size:.88rem;line-height:1.7;color:#ddd;white-space:pre-wrap;margin-bottom:10px}
+.script-box .say{color:#2ecc40;font-weight:600}
+.script-box .note{color:#888;font-style:italic;font-size:.82rem}
+.script-box .warn{color:#ffc107;font-weight:600}
+.script-box .key{color:#ff5f1f;font-weight:600}
+.tip-box{background:#1a1a0f;border:1px solid #3a3a1a;border-radius:6px;padding:12px;font-size:.85rem;color:#ffc107;margin-bottom:10px}
+.bill-log{margin-top:10px}
+.bill-log-item{background:#16161e;border:1px solid #2a2a3a;border-radius:8px;padding:14px;margin-bottom:8px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.bill-log-item .bill-info{flex:1;min-width:0}
+.bill-log-item .bill-name{font-weight:600;font-size:.95rem}
+.bill-log-item .bill-detail{font-size:.8rem;color:#888;margin-top:2px}
+.bill-log-item .bill-savings{color:#2ecc40;font-weight:700;font-size:1.1rem}
+.copy-all-btn{margin-top:10px}
+.empty{text-align:center;color:#555;padding:40px 20px;font-size:.95rem}
+footer{text-align:center;padding:20px;color:#555;font-size:.8rem;border-top:1px solid #1a1a2a;margin-top:auto}
+footer a{color:#ff5f1f;margin:0 4px}
+@media(max-width:700px){
+header h1{font-size:1.1rem}
+.bill-grid{grid-template-columns:repeat(auto-fill,minmax(120px,1fr))}
+.bill-form{grid-template-columns:1fr}
+.dash-grid{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+<header>
+<h1>Bill Negotiation Script Generator</h1>
+<a href="https://spunk.codes" class="back">spunk.codes</a>
+</header>
+<main>
+
+<div class="dash-grid">
+<div class="dash-card"><div class="val" style="color:#ff5f1f" id="billsTracked">0</div><div class="lbl">Bills Tracked</div></div>
+<div class="dash-card"><div class="val" style="color:#e74c3c" id="totalBills">$0</div><div class="lbl">Total Monthly Bills</div></div>
+<div class="dash-card"><div class="val" style="color:#2ecc40" id="totalSaved">$0</div><div class="lbl">Monthly Savings Achieved</div></div>
+<div class="dash-card"><div class="val" style="color:#ffc107" id="yearlySaved">$0</div><div class="lbl">Annual Savings</div></div>
+</div>
+
+<div class="panel">
+<h2>Select Bill Type</h2>
+<div class="bill-grid" id="billGrid"></div>
+</div>
+
+<div class="panel" id="formPanel" style="display:none">
+<h2 id="formTitle">Bill Details</h2>
+<div class="bill-form" id="billForm">
+<div><label>Provider</label><input type="text" id="provider" placeholder="e.g., Comcast" style="width:100%"></div>
+<div><label>Current Monthly Cost ($)</label><input type="number" id="currentCost" placeholder="89.99" step="0.01" min="0" style="width:100%"></div>
+<div><label>How Long a Customer?</label><select id="tenure" style="width:100%">
+<option value="less1">Less than 1 year</option>
+<option value="1-3">1-3 years</option>
+<option value="3-5" selected>3-5 years</option>
+<option value="5+">5+ years</option>
+</select></div>
+</div>
+<button onclick="generateScript()">Generate Negotiation Script</button>
+</div>
+
+<div id="scriptArea"></div>
+
+<div class="panel">
+<h2>Your Bill Tracker</h2>
+<p style="font-size:.85rem;color:#888;margin-bottom:14px">Track bills you have negotiated and your savings.</p>
+<div style="margin-bottom:14px;display:grid;grid-template-columns:2fr 1fr 1fr 1fr auto;gap:8px;align-items:end" id="logForm">
+<div><label style="font-size:.8rem;color:#888;display:block;margin-bottom:4px">Bill Name</label><input type="text" id="logName" placeholder="Comcast Internet" style="width:100%"></div>
+<div><label style="font-size:.8rem;color:#888;display:block;margin-bottom:4px">Was ($)</label><input type="number" id="logOld" placeholder="89.99" step="0.01" style="width:100%"></div>
+<div><label style="font-size:.8rem;color:#888;display:block;margin-bottom:4px">Now ($)</label><input type="number" id="logNew" placeholder="59.99" step="0.01" style="width:100%"></div>
+<div><label style="font-size:.8rem;color:#888;display:block;margin-bottom:4px">Status</label><select id="logStatus" style="width:100%"><option value="saved">Saved!</option><option value="pending">Pending</option><option value="denied">Denied</option></select></div>
+<div style="padding-top:20px"><button onclick="addLog()">+ Log</button></div>
+</div>
+<div class="bill-log" id="billLog"></div>
+<div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+<button class="secondary" onclick="exportLog()">Export Summary</button>
+<button class="danger" onclick="clearLog()">Clear Log</button>
+</div>
+</div>
+
+</main>
+
+<footer>
+<a href="https://spunk.codes">spunk.codes</a> &middot;
+<a href="https://spunk.bet">spunk.bet</a> &middot;
+<a href="https://spunk.pics">spunk.pics</a> &middot;
+<a href="https://spunk.work">spunk.work</a> &middot;
+<a href="https://spunkart.com">SpunkArt.com</a>
+</footer>
+
+<script>
+const LS_KEY='spunkcodes_bill_scripts';
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+
+const BILL_TYPES=[
+{id:'internet',name:'Internet',icon:'\u{1F4F6}'},
+{id:'phone',name:'Phone',icon:'\u{1F4F1}'},
+{id:'insurance',name:'Insurance',icon:'\u{1F6E1}'},
+{id:'cable',name:'Cable/TV',icon:'\u{1F4FA}'},
+{id:'gym',name:'Gym',icon:'\u{1F4AA}'},
+{id:'creditcard',name:'Credit Card',icon:'\u{1F4B3}'}
+];
+
+const SCRIPTS={
+internet:{
+opening:'Hi, I have been a loyal customer for [TENURE] and I am reviewing my monthly expenses. I am currently paying $[COST] per month for internet service, and I have found comparable plans from competitors for significantly less. I would like to see what you can do to lower my bill.',
+keyPhrases:[
+'I have been with [PROVIDER] for [TENURE] and I would hate to leave over price.',
+'I have a written quote from [competitor - use: AT&T, T-Mobile Home Internet, or local fiber] for $[lower price] per month for similar speeds.',
+'I am not looking for a promotional rate that expires. I need a permanent reduction.',
+'I understand there may be loyalty discounts or retention offers available. Can you check what is in the system for me?',
+'My budget has changed and I genuinely cannot afford this rate anymore.'
+],
+whenNo:[
+'I understand. Can you please transfer me to your retention or cancellation department? They may have offers available.',
+'I appreciate you checking. Before I make any decisions, is there a supervisor I could speak with who might have additional authorization?',
+'OK. I would like to proceed with canceling my service then. (Pause - this often triggers a retention offer.)',
+'Is there a different plan with lower speeds at a reduced price? I am willing to adjust my service level.'
+],
+escalation:[
+'Step 1: Ask for retention/cancellation department - they have the best offers',
+'Step 2: Mention a specific competitor offer with a real price',
+'Step 3: Ask if there are any unadvertised loyalty discounts in the system',
+'Step 4: Say you want to cancel - this triggers the strongest retention offers',
+'Step 5: If first call fails, hang up and call back - different reps have different authorization levels',
+'Step 6: Try the online chat - sometimes better deals are available there',
+'Step 7: File an FCC complaint at consumercomplaints.fcc.gov if overcharged (companies respond fast to these)'
+],
+retentionTips:[
+'Best time to call: Tuesday-Thursday, 9-11am (shorter hold times, reps are not rushed)',
+'Internet providers would rather give you a discount than lose you - it costs them $300-500 to acquire a new customer',
+'Your target: 20-30% reduction. Ask for $[TARGET] (30% below current)',
+'If they offer a promo rate, ask: "What happens when the promo expires?" Get the post-promo price in writing',
+'Always be polite but firm. Reps respond better to calm, friendly negotiation',
+'Write down the rep name, call reference number, and any promises made'
+]},
+phone:{
+opening:'Hi, I am calling to review my phone plan. I have been a customer for [TENURE] and I am currently paying $[COST] per month. I have been looking at plans from other carriers and I am seeing much lower rates for comparable service. What can you do to help me lower my bill?',
+keyPhrases:[
+'I have been a loyal [PROVIDER] customer for [TENURE] and my bill keeps going up.',
+'Mint Mobile offers unlimited for $30/month and T-Mobile has plans starting at $50. I need to stay competitive.',
+'I do not use all my data - can you move me to a lower tier without losing my line?',
+'Are there any loyalty discounts, autopay discounts, or military/senior/student discounts I qualify for?',
+'I would rather stay with [PROVIDER] but the price difference is hard to ignore.'
+],
+whenNo:[
+'Can you transfer me to your loyalty or retention department?',
+'Is there an autopay discount I can enable right now to lower my bill?',
+'What if I remove insurance or premium features I do not use?',
+'Can you tell me about your prepaid plans? Sometimes they are cheaper for the same coverage.'
+],
+escalation:[
+'Step 1: Review your bill online first - identify charges you can remove (insurance, premium voicemail, etc.)',
+'Step 2: Call and ask about autopay + paperless billing discounts (usually $5-10/line)',
+'Step 3: Request loyalty/retention department',
+'Step 4: Mention specific competitor prices (Mint Mobile, Cricket, Visible)',
+'Step 5: Ask about switching to prepaid on the same network (often 40% cheaper, same coverage)',
+'Step 6: Consider MVNO carriers that use the same towers: Mint, Visible, Cricket, Metro'
+],
+retentionTips:[
+'Phone companies spend $400+ to acquire each customer - they want to keep you',
+'Your target: $15-30 savings per line per month',
+'Check your data usage first: if you use under 5GB, a cheaper plan exists',
+'Autopay + paperless = automatic $5-10/line discount at most carriers',
+'Bundling lines on a family plan (even with friends) can save 40%+',
+'Ask about "winback" offers if you have actually left before'
+]},
+insurance:{
+opening:'Hi, I am calling to review my [TYPE] insurance policy. I have been a customer for [TENURE] and I am currently paying $[COST] per month. I recently got quotes from other companies that are significantly lower, and I would like to see if [PROVIDER] can match or beat those rates before I switch.',
+keyPhrases:[
+'I have been a loyal customer for [TENURE] with a clean [driving/claims] record.',
+'I received a quote from [competitor] for $[lower amount] per month for the same coverage.',
+'Are there any discounts I am not currently receiving? Bundling, safe driver, loyalty, good credit, professional organization?',
+'My situation has changed - can we review my coverage to make sure I am not over-insured?',
+'I would like to increase my deductible to lower my premium. What would my rate be with a $1,000 deductible?'
+],
+whenNo:[
+'I understand. Can you connect me with someone who reviews long-term customer accounts?',
+'Before I make a decision, can we at least review my coverage to remove anything unnecessary?',
+'What would my rate be if I bundled my [home/auto/renters] policies?',
+'Can you re-run my credit score? My credit has improved since I first signed up.'
+],
+escalation:[
+'Step 1: Get 3+ quotes online before calling (GEICO, Progressive, State Farm, USAA, Liberty Mutual)',
+'Step 2: Call your current provider with the lowest competing quote in hand',
+'Step 3: Ask about every possible discount: multi-policy, safe driver, good student, low mileage, defensive driving, professional affiliation',
+'Step 4: Request a policy review to adjust coverage and deductibles',
+'Step 5: Ask about usage-based or telematics programs (can save 15-30%)',
+'Step 6: If they will not budge, actually switch - then come back later for a "new customer" rate'
+],
+retentionTips:[
+'Insurance is the easiest bill to lower - there is always a cheaper quote somewhere',
+'Your target: 15-30% reduction ($200-600/year savings)',
+'Raising your deductible from $500 to $1,000 typically saves 15-25% on premiums',
+'Bundle home + auto for 10-25% discount',
+'Ask about pay-in-full discounts (paying 6 or 12 months upfront saves 5-10%)',
+'Review coverage annually - you may be paying for coverage you no longer need',
+'Good credit = lower rates. If your credit has improved, ask for a re-rate.'
+]},
+cable:{
+opening:'Hi, I am calling about my cable/TV subscription. I have been a customer for [TENURE] and my bill is now $[COST] per month. With so many streaming options available for a fraction of the cost, I am seriously considering cutting cable entirely unless we can work out a better rate.',
+keyPhrases:[
+'I can get most of the content I watch through streaming services for under $30/month total.',
+'My promotional rate expired and my bill jumped significantly. I need it back to a reasonable level.',
+'I have been a loyal customer for [TENURE] - that should count for something.',
+'I do not watch half the channels in my package. Can we move to a slimmer package?',
+'YouTube TV is $73/month with no contract and no equipment fees. What can [PROVIDER] offer me?'
+],
+whenNo:[
+'OK, I would like to cancel my TV service and keep internet only. What would that cost?',
+'Can I speak with the cancellation or retention department? I want to explore all options before I cancel.',
+'What is the most basic TV package you offer? Sometimes downgrading is better than canceling entirely.',
+'Can you waive my equipment rental fees? I am paying $[X] per month just for the cable box.'
+],
+escalation:[
+'Step 1: Know exactly what you watch - many shows are on free or cheap streaming',
+'Step 2: Calculate streaming alternative cost (Tubi free + Netflix $7 + antenna = under $10/mo)',
+'Step 3: Call and request retention/cancellation department',
+'Step 4: Say you want to "cut the cord" - this triggers best offers',
+'Step 5: If keeping cable, negotiate: remove equipment fees, get a package downgrade, request loyalty pricing',
+'Step 6: Ask about streaming bundles through your provider (often cheaper than traditional cable)'
+],
+retentionTips:[
+'Cable companies are losing customers fast - they are very motivated to keep you',
+'Your target: 30-50% reduction or switch to streaming entirely',
+'Equipment fees ($10-15/box/month) are pure profit for them - negotiate these first',
+'Contracts are leverage: if you are out of contract, you have full power to leave',
+'Many areas now have YouTube TV, Hulu Live, or Sling as direct replacements',
+'Free alternatives: antenna for local channels, Tubi, Pluto TV, Kanopy (library)'
+]},
+gym:{
+opening:'Hi, I am reviewing my gym membership. I have been a member for [TENURE] and I am currently paying $[COST] per month. I am considering other options and was wondering if there are any promotions or loyalty discounts available.',
+keyPhrases:[
+'I have noticed that new members are getting rates of $[lower price]. As a loyal member, I should at least get the same deal.',
+'I am considering Planet Fitness at $10/month or working out at home. Can you match a more competitive rate?',
+'I am not using all the premium features I am paying for. Can we switch to a basic membership?',
+'My financial situation has changed and I need to reduce expenses. Can you offer a hardship rate?',
+'I would like to discuss pausing or downgrading my membership rather than canceling.'
+],
+whenNo:[
+'Can I switch to a lower tier membership without the premium features?',
+'Is there a prepaid annual option that would lower my per-month cost?',
+'Can I freeze my membership for a few months while I reconsider?',
+'I would like to proceed with canceling. Can you process that today?'
+],
+escalation:[
+'Step 1: Check your contract - many gym contracts have escape clauses or end dates',
+'Step 2: Visit in person (easier to negotiate face-to-face than by phone)',
+'Step 3: Ask about corporate rates - many employers have gym partnerships',
+'Step 4: Request a "hardship" or "financial difficulty" rate - most gyms have these',
+'Step 5: Threaten to join Planet Fitness ($10/mo) or a budget competitor',
+'Step 6: If canceling, send a certified letter if required by contract'
+],
+retentionTips:[
+'January and September are worst times to negotiate (high demand). Try May-August.',
+'Your target: 20-40% reduction or switch to budget gym',
+'Many premium gym features (pool, classes, sauna) have free alternatives',
+'Free alternatives: YouTube workouts, running, bodyweight exercises, community rec centers',
+'Check if your health insurance offers gym reimbursement (Silver Sneakers, Active&Fit)',
+'Corporate/employer gym discounts can save 20-50% - ask HR'
+]},
+creditcard:{
+opening:'Hi, I am calling about my [PROVIDER] credit card account. I have been a cardholder for [TENURE] and I am currently paying [RATE]% APR. I have received several offers from other companies for much lower rates, and I would like to discuss lowering my interest rate before I transfer my balance.',
+keyPhrases:[
+'I have been a reliable customer for [TENURE] and I always make my payments on time.',
+'I have a pre-approved offer from [competitor] for [lower rate]% APR with a balance transfer.',
+'My credit score has improved significantly since I opened this card. Can you re-evaluate my rate?',
+'I would like to either lower my APR or I will need to transfer my balance to a lower-rate card.',
+'Is there a hardship program available? I want to keep paying but the interest is making it difficult.'
+],
+whenNo:[
+'Can you transfer me to a supervisor or someone with more authorization to adjust rates?',
+'If you cannot lower the APR permanently, can you offer a temporary rate reduction for 6-12 months?',
+'What about waiving my annual fee? That is another option I would consider.',
+'I would like to close this account and transfer my balance. Can you process a balance transfer to [other card]?'
+],
+escalation:[
+'Step 1: Know your credit score before calling - higher score = more leverage',
+'Step 2: Get a competing balance transfer offer in hand (0% intro APR cards)',
+'Step 3: Call the number on the back of your card and ask for APR reduction',
+'Step 4: If denied, ask for the retention department',
+'Step 5: Ask about temporary rate reduction (even 6 months helps)',
+'Step 6: Request annual fee waiver as an alternative',
+'Step 7: Actually transfer the balance if they will not budge - then call back in 3 months'
+],
+retentionTips:[
+'Credit card companies make most of their money from interest - but they would rather reduce your rate than lose you',
+'Your target: 3-8 percentage point APR reduction, or annual fee waived',
+'Best leverage: good payment history + competing 0% APR offer',
+'If carrying a balance, a 5% APR reduction on $5,000 saves $250/year',
+'Ask to waive the annual fee every year - success rate is over 50%',
+'If you have good credit, ask for a credit limit increase (lowers utilization ratio, improves score)',
+'Call every 6 months to request a rate review - persistence pays off'
+]}
+};
+
+let state={activeBill:null,logs:[]};
+function loadState(){try{const s=JSON.parse(localStorage.getItem(LS_KEY));if(s){state.logs=s.logs||[]}}catch(e){}}
+function saveState(){localStorage.setItem(LS_KEY,JSON.stringify({logs:state.logs}))}
+
+function renderBillGrid(){
+const grid=document.getElementById('billGrid');
+grid.innerHTML='';
+BILL_TYPES.forEach(b=>{
+const d=document.createElement('div');
+d.className='bill-btn'+(state.activeBill===b.id?' active':'');
+d.innerHTML='<span class="icon">'+b.icon+'</span>'+esc(b.name);
+d.onclick=()=>{state.activeBill=b.id;render()};
+grid.appendChild(d);
+});
+}
+
+function renderForm(){
+const panel=document.getElementById('formPanel');
+if(!state.activeBill){panel.style.display='none';return}
+panel.style.display='block';
+const bt=BILL_TYPES.find(b=>b.id===state.activeBill);
+document.getElementById('formTitle').textContent=bt.icon+' '+bt.name+' Details';
+}
+
+function generateScript(){
+const provider=document.getElementById('provider').value.trim()||'your provider';
+const cost=document.getElementById('currentCost').value||'XX';
+const tenure=document.getElementById('tenure').value;
+const tenureText={less1:'less than a year','1-3':'1-3 years','3-5':'3-5 years','5+':'over 5 years'}[tenure];
+const costNum=parseFloat(cost)||0;
+const target=(costNum*0.7).toFixed(2);
+const script=SCRIPTS[state.activeBill];
+if(!script){alert('Select a bill type first.');return}
+
+function fill(text){
+return text.replace(/\[PROVIDER\]/g,esc(provider)).replace(/\[COST\]/g,esc(cost)).replace(/\[TENURE\]/g,esc(tenureText)).replace(/\[TARGET\]/g,esc(target)).replace(/\[TYPE\]/g,esc(BILL_TYPES.find(b=>b.id===state.activeBill).name)).replace(/\[RATE\]/g,esc(cost));
+}
+
+const area=document.getElementById('scriptArea');
+let html='';
+
+// Opening
+html+='<div class="script-section"><h3><span class="step-num">1</span>Opening Line</h3>';
+html+='<div class="script-box"><span class="say">SAY:</span> "'+fill(script.opening)+'"</div>';
+html+='<button class="secondary" style="font-size:.8rem;padding:5px 12px" onclick="copySection(this)">Copy</button></div>';
+
+// Key Phrases
+html+='<div class="script-section"><h3><span class="step-num">2</span>Key Phrases to Use</h3>';
+html+='<div class="script-box">';
+script.keyPhrases.forEach(p=>{
+html+='<span class="say">SAY:</span> "'+fill(p)+'"\n\n';
+});
+html+='</div><button class="secondary" style="font-size:.8rem;padding:5px 12px" onclick="copySection(this)">Copy</button></div>';
+
+// When They Say No
+html+='<div class="script-section"><h3><span class="step-num">3</span>When They Say No</h3>';
+html+='<div class="tip-box">Do not accept the first "no." Most reps need to be asked 2-3 times before accessing retention offers.</div>';
+html+='<div class="script-box">';
+script.whenNo.forEach(p=>{
+html+='<span class="say">SAY:</span> "'+fill(p)+'"\n\n';
+});
+html+='</div><button class="secondary" style="font-size:.8rem;padding:5px 12px" onclick="copySection(this)">Copy</button></div>';
+
+// Escalation Steps
+html+='<div class="script-section"><h3><span class="step-num">4</span>Escalation Steps</h3>';
+html+='<div class="script-box">';
+script.escalation.forEach(s=>{
+html+='<span class="key">'+esc(s)+'</span>\n\n';
+});
+html+='</div><button class="secondary" style="font-size:.8rem;padding:5px 12px" onclick="copySection(this)">Copy</button></div>';
+
+// Retention Tips
+html+='<div class="script-section"><h3><span class="step-num">5</span>Retention Department Tips</h3>';
+html+='<div class="script-box">';
+script.retentionTips.forEach(t=>{
+html+='<span class="warn">'+fill(t)+'</span>\n\n';
+});
+html+='</div><button class="secondary" style="font-size:.8rem;padding:5px 12px" onclick="copySection(this)">Copy</button></div>';
+
+// Copy All
+html+='<button class="copy-all-btn" onclick="copyAll()">Copy Entire Script</button>';
+
+area.innerHTML=html;
+area.scrollIntoView({behavior:'smooth'});
+}
+
+function copySection(btn){
+const box=btn.previousElementSibling;
+const text=box.textContent;
+navigator.clipboard.writeText(text).then(()=>{btn.textContent='Copied!';setTimeout(()=>btn.textContent='Copy',1500)});
+}
+
+function copyAll(){
+const area=document.getElementById('scriptArea');
+const boxes=area.querySelectorAll('.script-box');
+let text='BILL NEGOTIATION SCRIPT\n'+'='.repeat(40)+'\n\n';
+const titles=['OPENING LINE','KEY PHRASES','WHEN THEY SAY NO','ESCALATION STEPS','RETENTION TIPS'];
+boxes.forEach((box,i)=>{
+text+=titles[i]+'\n'+'-'.repeat(30)+'\n'+box.textContent+'\n\n';
+});
+text+='Generated by spunk.codes/exclusive/bill-negotiation-script-generator';
+navigator.clipboard.writeText(text).then(()=>alert('Full script copied to clipboard!'));
+}
+
+function addLog(){
+const name=document.getElementById('logName').value.trim();
+const old=parseFloat(document.getElementById('logOld').value);
+const now=parseFloat(document.getElementById('logNew').value);
+const status=document.getElementById('logStatus').value;
+if(!name){alert('Enter a bill name.');return}
+if(isNaN(old)||old<=0){alert('Enter the original cost.');return}
+state.logs.push({name,oldCost:old,newCost:isNaN(now)?old:now,status,date:new Date().toISOString().slice(0,10)});
+document.getElementById('logName').value='';
+document.getElementById('logOld').value='';
+document.getElementById('logNew').value='';
+saveState();renderDashboard();renderLog();
+}
+
+function removeLog(idx){state.logs.splice(idx,1);saveState();renderDashboard();renderLog()}
+
+function renderDashboard(){
+const totalMonthly=state.logs.reduce((s,l)=>s+l.oldCost,0);
+const totalSaved=state.logs.filter(l=>l.status==='saved').reduce((s,l)=>s+(l.oldCost-l.newCost),0);
+document.getElementById('billsTracked').textContent=state.logs.length;
+document.getElementById('totalBills').textContent='$'+totalMonthly.toFixed(2);
+document.getElementById('totalSaved').textContent='$'+totalSaved.toFixed(2);
+document.getElementById('yearlySaved').textContent='$'+(totalSaved*12).toFixed(2);
+}
+
+function renderLog(){
+const el=document.getElementById('billLog');
+if(!state.logs.length){el.innerHTML='<div class="empty">No bills logged yet. Track your negotiation results above.</div>';return}
+el.innerHTML='';
+state.logs.forEach((l,i)=>{
+const saved=l.oldCost-l.newCost;
+const statusColors={saved:'#2ecc40',pending:'#ffc107',denied:'#e74c3c'};
+const d=document.createElement('div');
+d.className='bill-log-item';
+d.innerHTML='<div class="bill-info"><div class="bill-name">'+esc(l.name)+'</div><div class="bill-detail">Was $'+l.oldCost.toFixed(2)+'/mo'+(l.status==='saved'?' &rarr; Now $'+l.newCost.toFixed(2)+'/mo':'')+' | '+esc(l.date)+'</div></div><span style="color:'+statusColors[l.status]+';font-weight:600;font-size:.85rem;text-transform:uppercase">'+esc(l.status)+'</span>'+(l.status==='saved'?'<span class="bill-savings">-$'+saved.toFixed(2)+'/mo</span>':'')+'<button class="danger" style="padding:4px 10px;font-size:.8rem" onclick="removeLog('+i+')">&times;</button>';
+el.appendChild(d);
+});
+}
+
+function exportLog(){
+let t='BILL NEGOTIATION TRACKER\n'+'='.repeat(40)+'\n';
+const totalSaved=state.logs.filter(l=>l.status==='saved').reduce((s,l)=>s+(l.oldCost-l.newCost),0);
+t+='Total Monthly Savings: $'+totalSaved.toFixed(2)+'\n';
+t+='Annual Savings: $'+(totalSaved*12).toFixed(2)+'\n\n';
+state.logs.forEach((l,i)=>{
+t+=(i+1)+'. '+l.name+' - Was $'+l.oldCost.toFixed(2);
+if(l.status==='saved')t+=' > Now $'+l.newCost.toFixed(2)+' (SAVED $'+(l.oldCost-l.newCost).toFixed(2)+'/mo)';
+else t+=' ['+l.status.toUpperCase()+']';
+t+='\n';
+});
+navigator.clipboard.writeText(t).then(()=>alert('Summary copied to clipboard!'));
+}
+
+function clearLog(){
+if(!confirm('Delete all logged bills?'))return;
+state.logs=[];saveState();renderDashboard();renderLog();
+}
+
+function render(){renderBillGrid();renderForm();renderDashboard();renderLog()}
+loadState();render();
+</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>

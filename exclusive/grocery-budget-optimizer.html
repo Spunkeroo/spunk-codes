@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Grocery Budget Optimizer — Eat Better, Spend Less | SPUNK.CODES</title>
+<meta name="description" content="Track your grocery budget by category, get cheaper alternatives, calculate cost per meal, and generate AI prompts for meal planning on any budget.">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP')</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w")</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e8e8f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+header{background:#111118;border-bottom:2px solid #ff5f1f;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+header h1{font-size:1.4rem;color:#ff5f1f}
+header .back{color:#e8e8f0;font-size:.9rem}
+main{flex:1;max-width:1100px;width:100%;margin:0 auto;padding:24px 16px}
+button{background:#ff5f1f;color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:.9rem;font-weight:600;transition:background .2s}
+button:hover{background:#e8520e}
+button.secondary{background:#2a2a3a;color:#e8e8f0}button.secondary:hover{background:#3a3a4a}
+button.danger{background:#cc2233}button.danger:hover{background:#aa1122}
+input,select{background:#16161e;border:1px solid #2a2a3a;color:#e8e8f0;padding:8px 12px;border-radius:6px;font-size:.9rem}
+.panel{background:#111118;border:1px solid #2a2a3a;border-radius:10px;padding:20px;margin-bottom:20px}
+.panel h2{font-size:1.1rem;color:#ff5f1f;margin-bottom:14px}
+.dash-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;margin-bottom:20px}
+.dash-card{background:#111118;border:1px solid #2a2a3a;border-radius:10px;padding:16px;text-align:center}
+.dash-card .val{font-size:1.6rem;font-weight:700;margin-bottom:4px}
+.dash-card .lbl{font-size:.78rem;color:#888}
+.setup-form{display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:10px;align-items:end;margin-bottom:16px}
+.setup-form label{font-size:.8rem;color:#888;display:block;margin-bottom:4px}
+.add-form{display:grid;grid-template-columns:2fr 1fr 1fr auto;gap:10px;align-items:end;margin-bottom:16px}
+.add-form label{font-size:.8rem;color:#888;display:block;margin-bottom:4px}
+.cat-bar{display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
+.cat-row{display:flex;align-items:center;gap:10px}
+.cat-row .cat-name{width:80px;font-size:.85rem;font-weight:600;flex-shrink:0}
+.cat-row .bar-wrap{flex:1;background:#2a2a3a;border-radius:6px;height:24px;overflow:hidden;position:relative}
+.cat-row .bar-fill{height:100%;border-radius:6px;transition:width .4s;display:flex;align-items:center;padding-left:8px;font-size:.75rem;font-weight:600;color:#fff;min-width:fit-content}
+.cat-row .bar-amt{width:70px;text-align:right;font-size:.85rem;flex-shrink:0}
+.bar-produce{background:#4caf50}.bar-protein{background:#e74c3c}.bar-dairy{background:#42a5f5}.bar-pantry{background:#ff9800}.bar-snacks{background:#ab47bc}.bar-frozen{background:#26c6da}.bar-beverages{background:#ffc107}.bar-other{background:#78909c}
+.item-list{max-height:400px;overflow-y:auto}
+.item-row{display:flex;align-items:center;gap:10px;padding:8px 12px;border-bottom:1px solid #1a1a2a;font-size:.9rem}
+.item-row:hover{background:#16161e}
+.item-row .item-name{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.item-row .item-cat{font-size:.7rem;padding:2px 8px;border-radius:10px;font-weight:600;flex-shrink:0}
+.item-row .item-price{font-weight:600;color:#ff5f1f;flex-shrink:0;width:60px;text-align:right}
+.item-row .item-del{padding:2px 8px;font-size:.75rem}
+.budget-status{padding:14px 20px;border-radius:8px;margin-bottom:16px;font-size:.95rem;font-weight:600;text-align:center}
+.under-budget{background:#0f1a14;border:1px solid #1a8a3a;color:#2ecc40}
+.over-budget{background:#1a0f0f;border:1px solid #cc2233;color:#e74c3c}
+.at-budget{background:#1a1a0f;border:1px solid #ffc107;color:#ffc107}
+.alt-card{background:#16161e;border:1px solid #2a2a3a;border-radius:8px;padding:12px;margin-bottom:8px}
+.alt-card .orig{color:#e74c3c;text-decoration:line-through;font-size:.85rem}
+.alt-card .alt-name{color:#2ecc40;font-weight:600;font-size:.9rem}
+.alt-card .alt-save{font-size:.8rem;color:#888;margin-top:4px}
+.prompt-box{background:#0a0a0f;border:1px solid #2a2a3a;border-radius:6px;padding:12px;font-size:.85rem;color:#ccc;white-space:pre-wrap;margin-bottom:10px;max-height:200px;overflow:auto}
+.week-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.week-tab{padding:6px 14px;border-radius:20px;font-size:.85rem;cursor:pointer;border:1px solid #2a2a3a;background:#16161e;color:#e8e8f0}
+.week-tab.active{background:#ff5f1f;color:#fff;border-color:#ff5f1f}
+.empty{text-align:center;color:#555;padding:40px 20px;font-size:.95rem}
+footer{text-align:center;padding:20px;color:#555;font-size:.8rem;border-top:1px solid #1a1a2a;margin-top:auto}
+footer a{color:#ff5f1f;margin:0 4px}
+@media(max-width:700px){
+header h1{font-size:1.1rem}
+.setup-form,.add-form{grid-template-columns:1fr 1fr}
+.setup-form div:last-child,.add-form div:last-child{grid-column:1/-1}
+.dash-grid{grid-template-columns:1fr 1fr}
+.cat-row .cat-name{width:60px;font-size:.75rem}
+}
+</style>
+</head>
+<body>
+<header>
+<h1>Grocery Budget Optimizer</h1>
+<a href="https://spunk.codes" class="back">spunk.codes</a>
+</header>
+<main>
+
+<div class="dash-grid" id="dashGrid">
+<div class="dash-card"><div class="val" style="color:#ff5f1f" id="weekBudget">$0</div><div class="lbl">Weekly Budget</div></div>
+<div class="dash-card"><div class="val" style="color:#e74c3c" id="weekSpent">$0</div><div class="lbl">Spent This Week</div></div>
+<div class="dash-card"><div class="val" style="color:#2ecc40" id="weekRemain">$0</div><div class="lbl">Remaining</div></div>
+<div class="dash-card"><div class="val" style="color:#42a5f5" id="costPerMeal">$0</div><div class="lbl">Cost Per Meal</div></div>
+<div class="dash-card"><div class="val" style="color:#ffc107" id="monthlyTotal">$0</div><div class="lbl">Monthly Projected</div></div>
+</div>
+
+<div class="panel">
+<h2>Budget Setup</h2>
+<div class="setup-form">
+<div><label>Weekly Budget ($)</label><input type="number" id="budgetInput" placeholder="150" min="0" step="1" style="width:100%"></div>
+<div><label>Family Size</label><input type="number" id="familyInput" placeholder="4" min="1" max="20" step="1" style="width:100%"></div>
+<div><label>Meals Per Day</label><input type="number" id="mealsInput" placeholder="3" min="1" max="6" step="1" style="width:100%"></div>
+<div style="padding-top:20px"><button onclick="saveSetup()">Save</button></div>
+</div>
+</div>
+
+<div id="budgetStatus"></div>
+
+<div class="panel">
+<h2>Week Tracker</h2>
+<div class="week-tabs" id="weekTabs"></div>
+<button class="secondary" onclick="newWeek()" style="margin-bottom:16px">+ New Week</button>
+</div>
+
+<div class="panel">
+<h2>Add Item</h2>
+<div class="add-form">
+<div><label>Item Name</label><input type="text" id="itemName" placeholder="e.g., Chicken breast" style="width:100%"></div>
+<div><label>Price ($)</label><input type="number" id="itemPrice" placeholder="5.99" step="0.01" min="0" style="width:100%"></div>
+<div><label>Category</label><select id="itemCat" style="width:100%">
+<option value="produce">Produce</option>
+<option value="protein">Protein</option>
+<option value="dairy">Dairy</option>
+<option value="pantry">Pantry</option>
+<option value="snacks">Snacks</option>
+<option value="frozen">Frozen</option>
+<option value="beverages">Beverages</option>
+<option value="other">Other</option>
+</select></div>
+<div style="padding-top:20px"><button onclick="addItem()">+ Add</button></div>
+</div>
+</div>
+
+<div class="panel">
+<h2>Budget Breakdown by Category</h2>
+<div class="cat-bar" id="catBar"></div>
+</div>
+
+<div class="panel">
+<h2>Shopping List</h2>
+<div style="margin-bottom:12px;display:flex;gap:8px;flex-wrap:wrap">
+<button class="secondary" onclick="sortItems('name')">Sort by Name</button>
+<button class="secondary" onclick="sortItems('price')">Sort by Price</button>
+<button class="secondary" onclick="sortItems('category')">Sort by Category</button>
+</div>
+<div class="item-list" id="itemList">
+<div class="empty">No items yet. Add grocery items above.</div>
+</div>
+</div>
+
+<div class="panel">
+<h2>Cheaper Alternatives</h2>
+<p style="font-size:.85rem;color:#888;margin-bottom:14px">Suggested swaps to save money without sacrificing nutrition.</p>
+<div id="altList"></div>
+</div>
+
+<div class="panel">
+<h2>AI Meal Planning Prompts</h2>
+<p style="font-size:.85rem;color:#888;margin-bottom:14px">Copy these into ChatGPT or Claude for budget-friendly meal plans.</p>
+<div id="promptArea"></div>
+</div>
+
+<div class="panel">
+<h2>Weekly History</h2>
+<div id="historyList"></div>
+<div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+<button class="secondary" onclick="exportData()">Export Summary</button>
+<button class="danger" onclick="clearAll()">Clear All Data</button>
+</div>
+</div>
+
+</main>
+
+<footer>
+<a href="https://spunk.codes">spunk.codes</a> &middot;
+<a href="https://spunk.bet">spunk.bet</a> &middot;
+<a href="https://spunk.pics">spunk.pics</a> &middot;
+<a href="https://spunk.work">spunk.work</a> &middot;
+<a href="https://spunkart.com">SpunkArt.com</a>
+</footer>
+
+<script>
+const LS_KEY='spunkcodes_grocery_budget';
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+
+const ALTERNATIVES={
+'chicken breast':{alt:'Chicken thighs (bone-in)',save:'40%',note:'More flavor, same protein, much cheaper per lb'},
+'beef steak':{alt:'Chuck roast or ground beef',save:'50%',note:'Slow cook chuck for tender results at half the price'},
+'ground beef':{alt:'Ground turkey or lentils',save:'30%',note:'Turkey is leaner; lentils add fiber and protein'},
+'salmon':{alt:'Canned salmon or frozen tilapia',save:'60%',note:'Canned salmon works great in patties and salads'},
+'shrimp':{alt:'Frozen shrimp (bag)',save:'45%',note:'Frozen-at-sea is often fresher than "fresh" counter shrimp'},
+'bacon':{alt:'Turkey bacon or ends/pieces',save:'35%',note:'Bacon ends are the same meat, just irregular cuts'},
+'name brand cereal':{alt:'Store brand or oatmeal',save:'50%',note:'Store brand is often made in the same factory'},
+'cereal':{alt:'Store brand cereal or bulk oats',save:'50%',note:'Oatmeal is cheaper and far more nutritious'},
+'yogurt':{alt:'Large tub plain yogurt + fruit',save:'45%',note:'Individual cups cost 3-4x more per ounce'},
+'greek yogurt':{alt:'Large tub store brand greek yogurt',save:'40%',note:'Divide into containers yourself, add your own toppings'},
+'cheese':{alt:'Block cheese (shred yourself)',save:'30%',note:'Pre-shredded costs 30% more for the convenience'},
+'milk':{alt:'Store brand milk or powdered milk for baking',save:'25%',note:'Store brand milk comes from the same dairy'},
+'almond milk':{alt:'Store brand or make your own',save:'50%',note:'Homemade: blend 1 cup almonds + 4 cups water + strain'},
+'bread':{alt:'Store brand or bakery outlet',save:'40%',note:'Day-old bakery bread is just as good, half the price'},
+'rice':{alt:'Buy 20-25lb bag at Asian grocery',save:'55%',note:'Bulk rice lasts months and costs a fraction per serving'},
+'pasta':{alt:'Store brand pasta',save:'50%',note:'Identical ingredients at half the price'},
+'olive oil':{alt:'Buy larger bottle or store brand',save:'30%',note:'Larger bottles have much lower per-ounce cost'},
+'snack bars':{alt:'Make your own granola bars',save:'65%',note:'Oats + honey + peanut butter = easy homemade bars'},
+'chips':{alt:'Bulk popcorn kernels',save:'70%',note:'Air-popped popcorn costs pennies and is healthier'},
+'soda':{alt:'Sparkling water + fruit',save:'50%',note:'SodaStream pays for itself in 2 months'},
+'juice':{alt:'Whole fruit + water',save:'60%',note:'More nutrients, more fiber, way less sugar'},
+'coffee pods':{alt:'Ground coffee + reusable pod',save:'70%',note:'Reusable pods save $500+/year for daily coffee drinkers'},
+'bottled water':{alt:'Water filter pitcher',save:'90%',note:'Brita filter costs $0.08/gallon vs $1+/bottle'},
+'baby formula':{alt:'Store brand formula (same FDA requirements)',save:'50%',note:'Store brand meets identical FDA nutrition standards'},
+'diapers':{alt:'Store brand diapers or subscribe & save',save:'35%',note:'Costco Kirkland diapers rate as well as name brands'},
+'paper towels':{alt:'Reusable cloths + bulk paper towels',save:'40%',note:'Swedish dishcloths replace 15 rolls of paper towels'},
+'cleaning supplies':{alt:'DIY vinegar + baking soda solutions',save:'80%',note:'Works on most surfaces, costs pennies per bottle'},
+'frozen meals':{alt:'Batch cook and freeze your own',save:'65%',note:'Homemade frozen meals cost $2-3 vs $5-8 store bought'},
+'berries':{alt:'Frozen berries',save:'50%',note:'Frozen at peak ripeness, same nutrition, lasts months'},
+'avocado':{alt:'Buy in bulk when on sale, freeze halves',save:'35%',note:'Ripe avocados freeze well for smoothies and guac'},
+'organic produce':{alt:'Buy organic only for Dirty Dozen items',save:'30%',note:'Clean 15 produce is fine conventional, save organic for high-pesticide items'}
+};
+
+const CAT_COLORS={produce:'#4caf50',protein:'#e74c3c',dairy:'#42a5f5',pantry:'#ff9800',snacks:'#ab47bc',frozen:'#26c6da',beverages:'#ffc107',other:'#78909c'};
+
+let data={budget:0,family:1,meals:3,weeks:[],activeWeek:0,sortMode:'category'};
+
+function load(){try{const d=JSON.parse(localStorage.getItem(LS_KEY));if(d){data=Object.assign(data,d)}}catch(e){}if(!data.weeks.length)data.weeks=[{label:'Week 1',items:[],date:new Date().toISOString().slice(0,10)}]}
+function save(){localStorage.setItem(LS_KEY,JSON.stringify(data))}
+
+function getWeek(){return data.weeks[data.activeWeek]||{items:[],label:'Week 1'}}
+
+function saveSetup(){
+const b=parseFloat(document.getElementById('budgetInput').value);
+const f=parseInt(document.getElementById('familyInput').value);
+const m=parseInt(document.getElementById('mealsInput').value);
+if(isNaN(b)||b<=0){alert('Enter a valid weekly budget.');return}
+data.budget=b;
+data.family=f||1;
+data.meals=m||3;
+save();render();
+}
+
+function addItem(){
+const name=document.getElementById('itemName').value.trim();
+const price=parseFloat(document.getElementById('itemPrice').value);
+const cat=document.getElementById('itemCat').value;
+if(!name){alert('Enter an item name.');return}
+if(isNaN(price)||price<=0){alert('Enter a valid price.');return}
+getWeek().items.push({name,price,category:cat});
+document.getElementById('itemName').value='';
+document.getElementById('itemPrice').value='';
+save();render();
+}
+
+function removeItem(idx){getWeek().items.splice(idx,1);save();render()}
+
+function sortItems(mode){data.sortMode=mode;save();render()}
+
+function newWeek(){
+const num=data.weeks.length+1;
+data.weeks.push({label:'Week '+num,items:[],date:new Date().toISOString().slice(0,10)});
+data.activeWeek=data.weeks.length-1;
+save();render();
+}
+
+function switchWeek(idx){data.activeWeek=idx;render()}
+
+function renderDashboard(){
+const items=getWeek().items;
+const spent=items.reduce((s,x)=>s+x.price,0);
+const remain=data.budget-spent;
+const totalMeals=data.family*data.meals*7;
+const cpm=totalMeals>0?spent/totalMeals:0;
+document.getElementById('weekBudget').textContent='$'+data.budget.toFixed(2);
+document.getElementById('weekSpent').textContent='$'+spent.toFixed(2);
+document.getElementById('weekRemain').textContent='$'+remain.toFixed(2);
+document.getElementById('costPerMeal').textContent='$'+cpm.toFixed(2);
+document.getElementById('monthlyTotal').textContent='$'+(spent*4.33).toFixed(2);
+
+document.getElementById('budgetInput').value=data.budget||'';
+document.getElementById('familyInput').value=data.family||'';
+document.getElementById('mealsInput').value=data.meals||'';
+
+const statusEl=document.getElementById('budgetStatus');
+if(!data.budget){statusEl.innerHTML='';return}
+if(remain>data.budget*0.2){
+statusEl.innerHTML='<div class="budget-status under-budget">Under budget by $'+remain.toFixed(2)+' - great job!</div>';
+}else if(remain>0){
+statusEl.innerHTML='<div class="budget-status at-budget">Getting close! $'+remain.toFixed(2)+' remaining this week.</div>';
+}else if(remain===0){
+statusEl.innerHTML='<div class="budget-status at-budget">Exactly at budget. Watch any additional purchases.</div>';
+}else{
+statusEl.innerHTML='<div class="budget-status over-budget">Over budget by $'+Math.abs(remain).toFixed(2)+'! Check alternatives below to save.</div>';
+}
+}
+
+function renderWeekTabs(){
+const tabs=document.getElementById('weekTabs');
+tabs.innerHTML='';
+data.weeks.forEach((w,i)=>{
+const d=document.createElement('div');
+d.className='week-tab'+(i===data.activeWeek?' active':'');
+d.textContent=w.label;
+d.onclick=()=>switchWeek(i);
+tabs.appendChild(d);
+});
+}
+
+function renderCatBar(){
+const el=document.getElementById('catBar');
+const items=getWeek().items;
+const totals={};
+items.forEach(item=>{totals[item.category]=(totals[item.category]||0)+item.price});
+const maxVal=Math.max(...Object.values(totals),1);
+const totalSpent=items.reduce((s,x)=>s+x.price,0);
+el.innerHTML='';
+Object.keys(CAT_COLORS).forEach(cat=>{
+const amt=totals[cat]||0;
+if(amt===0)return;
+const pct=totalSpent>0?(amt/totalSpent*100):0;
+const row=document.createElement('div');
+row.className='cat-row';
+row.innerHTML='<span class="cat-name">'+cat.charAt(0).toUpperCase()+cat.slice(1)+'</span><div class="bar-wrap"><div class="bar-fill bar-'+cat+'" style="width:'+Math.max(pct,8)+'%">'+pct.toFixed(0)+'%</div></div><span class="bar-amt">$'+amt.toFixed(2)+'</span>';
+el.appendChild(row);
+});
+if(!el.children.length)el.innerHTML='<div class="empty" style="padding:20px">Add items to see budget breakdown.</div>';
+}
+
+function renderItems(){
+const list=document.getElementById('itemList');
+let items=getWeek().items;
+if(!items.length){list.innerHTML='<div class="empty">No items yet. Add grocery items above.</div>';return}
+let sorted=[...items.map((it,i)=>({...it,origIdx:i}))];
+if(data.sortMode==='name')sorted.sort((a,b)=>a.name.localeCompare(b.name));
+else if(data.sortMode==='price')sorted.sort((a,b)=>b.price-a.price);
+else sorted.sort((a,b)=>a.category.localeCompare(b.category));
+list.innerHTML='';
+sorted.forEach(item=>{
+const row=document.createElement('div');
+row.className='item-row';
+row.innerHTML='<span class="item-cat" style="background:'+CAT_COLORS[item.category]+'22;color:'+CAT_COLORS[item.category]+'">'+esc(item.category)+'</span><span class="item-name">'+esc(item.name)+'</span><span class="item-price">$'+item.price.toFixed(2)+'</span><button class="danger item-del" onclick="removeItem('+item.origIdx+')">&times;</button>';
+list.appendChild(row);
+});
+}
+
+function renderAlternatives(){
+const el=document.getElementById('altList');
+const items=getWeek().items;
+if(!items.length){el.innerHTML='<div class="empty">Add items to see cheaper alternatives.</div>';return}
+el.innerHTML='';
+let found=false;
+items.forEach(item=>{
+const key=item.name.toLowerCase().trim();
+let alt=null;
+for(const k in ALTERNATIVES){
+if(key.includes(k)||k.includes(key)){alt=ALTERNATIVES[k];break}
+}
+if(!alt)return;
+found=true;
+const d=document.createElement('div');
+d.className='alt-card';
+d.innerHTML='<span class="orig">'+esc(item.name)+' - $'+item.price.toFixed(2)+'</span><div class="alt-name">Try: '+esc(alt.alt)+' (save ~'+esc(alt.save)+')</div><div class="alt-save">'+esc(alt.note)+'</div>';
+el.appendChild(d);
+});
+if(!found)el.innerHTML='<div class="empty" style="padding:20px">No specific alternatives found for your current items. Try adding common items like chicken, beef, milk, cereal, etc.</div>';
+}
+
+function renderPrompts(){
+const el=document.getElementById('promptArea');
+const items=getWeek().items;
+const itemNames=items.map(i=>i.name).join(', ');
+const prompts=[
+{title:'Weekly Meal Plan on Budget',text:'I have a family of '+data.family+' and a weekly grocery budget of $'+data.budget+'. I bought these groceries: '+(itemNames||'[your items]')+'. Create a 7-day meal plan ('+data.meals+' meals per day) using these ingredients with minimal waste. Include recipes and prep instructions.'},
+{title:'Stretch This Budget Further',text:'I spent $'+getWeek().items.reduce((s,x)=>s+x.price,0).toFixed(2)+' on groceries for a family of '+data.family+' this week. My items: '+(itemNames||'[your items]')+'. How can I make these ingredients last the full week? Suggest creative recipes that use overlapping ingredients.'},
+{title:'Cheaper Grocery Strategy',text:'My weekly grocery budget is $'+data.budget+' for '+data.family+' people. Analyze my current shopping list: '+(itemNames||'[your items]')+'. For each item, suggest a cheaper alternative that maintains nutrition. Calculate my total potential savings.'}
+];
+el.innerHTML='';
+prompts.forEach(p=>{
+const d=document.createElement('div');
+d.style.marginBottom='14px';
+d.innerHTML='<h4 style="font-size:.9rem;color:#ff5f1f;margin-bottom:6px">'+esc(p.title)+'</h4><div class="prompt-box" id="pb_'+esc(p.title.replace(/\s/g,''))+'">'+esc(p.text)+'</div><button class="secondary" style="font-size:.8rem;padding:5px 12px" onclick="copyPrompt(\''+esc(p.title.replace(/\s/g,''))+'\')">Copy Prompt</button>';
+el.appendChild(d);
+});
+}
+
+function copyPrompt(id){
+const el=document.getElementById('pb_'+id);
+navigator.clipboard.writeText(el.textContent).then(()=>alert('Prompt copied!'));
+}
+
+function renderHistory(){
+const el=document.getElementById('historyList');
+if(data.weeks.length<=1&&!getWeek().items.length){el.innerHTML='<div class="empty">Complete your first week to see history.</div>';return}
+el.innerHTML='';
+data.weeks.forEach((w,i)=>{
+const total=w.items.reduce((s,x)=>s+x.price,0);
+const d=document.createElement('div');
+d.style.cssText='display:flex;justify-content:space-between;padding:8px 12px;border-bottom:1px solid #1a1a2a;font-size:.9rem';
+d.innerHTML='<span>'+esc(w.label)+(w.date?' ('+esc(w.date)+')':'')+'</span><span>'+w.items.length+' items</span><span style="color:#ff5f1f;font-weight:600">$'+total.toFixed(2)+'</span>';
+el.appendChild(d);
+});
+const allSpent=data.weeks.reduce((s,w)=>s+w.items.reduce((s2,x)=>s2+x.price,0),0);
+const avg=data.weeks.length?allSpent/data.weeks.length:0;
+const d=document.createElement('div');
+d.style.cssText='padding:12px;font-size:.9rem;color:#888;text-align:center';
+d.textContent='Average: $'+avg.toFixed(2)+'/week | Total tracked: $'+allSpent.toFixed(2);
+el.appendChild(d);
+}
+
+function exportData(){
+let t='GROCERY BUDGET REPORT\n'+'='.repeat(40)+'\n';
+t+='Budget: $'+data.budget+'/week | Family: '+data.family+' | Meals/day: '+data.meals+'\n\n';
+data.weeks.forEach(w=>{
+const total=w.items.reduce((s,x)=>s+x.price,0);
+t+=w.label+' ('+w.date+') - $'+total.toFixed(2)+'\n';
+w.items.forEach(item=>{t+='  '+item.name+' ['+item.category+'] $'+item.price.toFixed(2)+'\n'});
+t+='\n';
+});
+navigator.clipboard.writeText(t).then(()=>alert('Summary copied to clipboard!'));
+}
+
+function clearAll(){
+if(!confirm('Delete all grocery data?'))return;
+data={budget:0,family:1,meals:3,weeks:[{label:'Week 1',items:[],date:new Date().toISOString().slice(0,10)}],activeWeek:0,sortMode:'category'};
+save();render();
+}
+
+function render(){renderDashboard();renderWeekTabs();renderCatBar();renderItems();renderAlternatives();renderPrompts();renderHistory()}
+load();render();
+</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>
