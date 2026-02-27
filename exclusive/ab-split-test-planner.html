@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>A/B Split Test Planner — Free Test Planning & Analysis Tool | SPUNK.CODES</title>
+<meta name="description" content="Plan, document and analyze A/B split tests. Define hypotheses, calculate sample sizes, estimate test duration, and track results with statistical significance.">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP')</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w")</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e8e8f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+header{background:#111118;border-bottom:2px solid #ff5f1f;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+header h1{font-size:1.4rem;color:#ff5f1f}
+header .back{color:#e8e8f0;font-size:.9rem}
+main{flex:1;max-width:1100px;width:100%;margin:0 auto;padding:24px 16px}
+button{background:#ff5f1f;color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:.9rem;font-weight:600;transition:background .2s}
+button:hover{background:#e8520e}
+button.secondary{background:#2a2a3a;color:#e8e8f0}button.secondary:hover{background:#3a3a4a}
+button.danger{background:#cc2233}button.danger:hover{background:#aa1122}
+button.success{background:#2e7d32}button.success:hover{background:#1b5e20}
+.panel{background:#111118;border:1px solid #2a2a3a;border-radius:10px;padding:20px;margin-bottom:20px}
+.panel h2{font-size:1.1rem;color:#ff5f1f;margin-bottom:14px}
+input,select,textarea{background:#16161e;border:1px solid #2a2a3a;color:#e8e8f0;padding:8px 12px;border-radius:6px;font-size:.9rem;font-family:inherit}
+textarea{resize:vertical;min-height:60px;width:100%}
+.tests-list{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.tests-list .t-btn{padding:6px 14px;border-radius:20px;font-size:.85rem;cursor:pointer;border:1px solid #2a2a3a;background:#16161e;color:#e8e8f0;transition:all .2s}
+.tests-list .t-btn.active{background:#ff5f1f;color:#fff;border-color:#ff5f1f}
+.tests-list .t-btn .status{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px}
+.status-planning{background:#ffc107}
+.status-running{background:#42a5f5}
+.status-complete{background:#4caf50}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
+.form-grid label{display:flex;flex-direction:column;gap:4px;font-size:.85rem;color:#888}
+.form-grid label input,.form-grid label select,.form-grid label textarea{width:100%}
+.form-grid .full{grid-column:1/-1}
+.calc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:14px}
+.calc-card{background:#16161e;border:1px solid #2a2a3a;border-radius:8px;padding:14px;text-align:center}
+.calc-card .val{font-size:1.3rem;color:#ff5f1f;font-weight:700}
+.calc-card .lbl{font-size:.8rem;color:#888;margin-top:4px}
+.results-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:14px}
+.variant-card{background:#16161e;border:1px solid #2a2a3a;border-radius:8px;padding:16px}
+.variant-card h4{color:#ff5f1f;margin-bottom:10px}
+.variant-card .field{margin-bottom:8px}
+.variant-card .field label{font-size:.8rem;color:#888;display:block;margin-bottom:3px}
+.variant-card .field input{width:100%}
+.significance-bar{height:8px;background:#2a2a3a;border-radius:4px;margin-top:8px;overflow:hidden}
+.significance-bar .fill{height:100%;border-radius:4px;transition:width .5s}
+.sig-result{margin-top:10px;padding:12px;border-radius:8px;text-align:center;font-weight:600}
+.sig-win{background:#1a3a1a;color:#4caf50;border:1px solid #2e7d32}
+.sig-lose{background:#3a1a1a;color:#ef5350;border:1px solid #c62828}
+.sig-inconclusive{background:#2a2a1a;color:#ffc107;border:1px solid #f9a825}
+.test-card{background:#16161e;border:1px solid #2a2a3a;border-radius:8px;padding:14px;margin-bottom:10px}
+.test-card h4{font-size:.95rem;color:#e8e8f0;margin-bottom:6px}
+.test-card p{font-size:.8rem;color:#888;margin-bottom:4px}
+.tag{display:inline-block;padding:2px 8px;border-radius:10px;font-size:.75rem;font-weight:600}
+.tag-planning{background:#3a3a1a;color:#ffc107}
+.tag-running{background:#1a2a4a;color:#42a5f5}
+.tag-complete{background:#1a3a1a;color:#4caf50}
+.empty{text-align:center;color:#555;padding:40px 20px;font-size:.95rem}
+footer{text-align:center;padding:20px;color:#555;font-size:.8rem;border-top:1px solid #1a1a2a;margin-top:auto}
+footer a{color:#ff5f1f;margin:0 4px}
+@media(max-width:700px){
+.form-grid{grid-template-columns:1fr}
+.calc-grid{grid-template-columns:1fr}
+.results-grid{grid-template-columns:1fr}
+header h1{font-size:1.1rem}
+}
+</style>
+</head>
+<body>
+<header>
+<h1>A/B Split Test Planner</h1>
+<a href="https://spunk.codes" class="back">spunk.codes</a>
+</header>
+<main>
+<div class="panel">
+<h2>Saved Tests</h2>
+<div class="tests-list" id="testsList"></div>
+<div style="display:flex;gap:8px;flex-wrap:wrap">
+<input type="text" id="newTestName" placeholder="New test name..." style="flex:1;min-width:160px">
+<button onclick="createTest()">+ New Test</button>
+<button class="danger" onclick="deleteTest()">Delete Current</button>
+</div>
+</div>
+
+<div class="panel">
+<h2>Test Definition</h2>
+<div class="form-grid">
+<label>Test Name<input type="text" id="testName" placeholder="e.g. Homepage CTA Color"></label>
+<label>Status<select id="testStatus">
+<option value="planning">Planning</option>
+<option value="running">Running</option>
+<option value="complete">Complete</option>
+</select></label>
+<label class="full">Hypothesis<textarea id="testHypothesis" placeholder="e.g. Changing the CTA button from blue to orange will increase clicks by 15%..."></textarea></label>
+<label>Primary Metric<input type="text" id="testMetric" placeholder="e.g. Click-through rate"></label>
+<label>Secondary Metric<input type="text" id="testMetric2" placeholder="e.g. Bounce rate"></label>
+<label class="full">Control Description<textarea id="controlDesc" placeholder="Describe the control (A) variant..."></textarea></label>
+<label class="full">Variant Description<textarea id="variantDesc" placeholder="Describe the variant (B) change..."></textarea></label>
+</div>
+<button onclick="saveDefinition()">Save Definition</button>
+</div>
+
+<div class="panel">
+<h2>Sample Size Calculator</h2>
+<div class="form-grid">
+<label>Baseline Conversion Rate (%)<input type="number" id="baseRate" placeholder="e.g. 5" min="0.1" max="100" step="0.1"></label>
+<label>Minimum Detectable Effect (%)<input type="number" id="mde" placeholder="e.g. 20" min="1" max="100" step="1"></label>
+<label>Statistical Significance (%)<select id="sigLevel">
+<option value="90">90%</option>
+<option value="95" selected>95%</option>
+<option value="99">99%</option>
+</select></label>
+<label>Daily Traffic (visitors)<input type="number" id="dailyTraffic" placeholder="e.g. 1000" min="1"></label>
+</div>
+<button onclick="calculateSample()">Calculate</button>
+<div class="calc-grid" id="calcResults" style="margin-top:14px"></div>
+</div>
+
+<div class="panel">
+<h2>Results Tracker</h2>
+<div class="results-grid">
+<div class="variant-card">
+<h4>Control (A)</h4>
+<div class="field"><label>Visitors</label><input type="number" id="controlVisitors" placeholder="0" min="0"></div>
+<div class="field"><label>Conversions</label><input type="number" id="controlConversions" placeholder="0" min="0"></div>
+<div class="field"><label>Conversion Rate</label><input type="text" id="controlRate" readonly style="color:#ff5f1f;font-weight:600"></div>
+</div>
+<div class="variant-card">
+<h4>Variant (B)</h4>
+<div class="field"><label>Visitors</label><input type="number" id="variantVisitors" placeholder="0" min="0"></div>
+<div class="field"><label>Conversions</label><input type="number" id="variantConversions" placeholder="0" min="0"></div>
+<div class="field"><label>Conversion Rate</label><input type="text" id="variantRate" readonly style="color:#ff5f1f;font-weight:600"></div>
+</div>
+</div>
+<div style="margin-top:14px;display:flex;gap:8px">
+<button onclick="analyzeResults()">Analyze Results</button>
+<button class="secondary" onclick="saveResults()">Save Results</button>
+</div>
+<div id="significanceResult"></div>
+</div>
+
+<div class="panel">
+<h2>Export</h2>
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px">
+<button onclick="exportJSON()">Export JSON</button>
+<button onclick="exportText()">Export Text</button>
+<button class="secondary" onclick="copyExport()">Copy to Clipboard</button>
+</div>
+<div class="export-area" id="exportArea">Click export to see output here.</div>
+</div>
+</main>
+
+<footer>
+<a href="https://spunk.codes">spunk.codes</a> &middot;
+<a href="https://spunk.bet">spunk.bet</a> &middot;
+<a href="https://spunk.pics">spunk.pics</a> &middot;
+<a href="https://spunk.work">spunk.work</a> &middot;
+<a href="https://spunkart.com">SpunkArt.com</a>
+</footer>
+
+<script>
+const LS_KEY='spunkcodes_absplittest';
+let tests=[];
+let activeIdx=0;
+
+function load(){try{tests=JSON.parse(localStorage.getItem(LS_KEY))||[]}catch(e){tests=[]}if(!tests.length){tests=[{name:'My A/B Test',status:'planning',hypothesis:'',metric:'',metric2:'',controlDesc:'',variantDesc:'',baseRate:5,mde:20,sigLevel:95,dailyTraffic:1000,sampleSize:0,duration:0,results:{controlVisitors:0,controlConversions:0,variantVisitors:0,variantConversions:0}}];save()}}
+function save(){localStorage.setItem(LS_KEY,JSON.stringify(tests))}
+function getTest(){return tests[activeIdx]||{name:'',status:'planning',hypothesis:'',metric:'',metric2:'',controlDesc:'',variantDesc:'',results:{}}}
+
+function renderList(){
+const el=document.getElementById('testsList');
+el.innerHTML='';
+tests.forEach((t,i)=>{
+const b=document.createElement('button');
+b.className='t-btn'+(i===activeIdx?' active':'');
+b.innerHTML='<span class="status status-'+t.status+'"></span>'+esc(t.name);
+b.onclick=()=>{activeIdx=i;render()};
+el.appendChild(b);
+});
+}
+
+function createTest(){
+const name=document.getElementById('newTestName').value.trim();
+if(!name)return;
+tests.push({name,status:'planning',hypothesis:'',metric:'',metric2:'',controlDesc:'',variantDesc:'',baseRate:5,mde:20,sigLevel:95,dailyTraffic:1000,sampleSize:0,duration:0,results:{controlVisitors:0,controlConversions:0,variantVisitors:0,variantConversions:0}});
+activeIdx=tests.length-1;
+document.getElementById('newTestName').value='';
+save();render();
+}
+
+function deleteTest(){
+if(tests.length<=1){alert('Cannot delete the only test.');return}
+if(!confirm('Delete "'+getTest().name+'"?'))return;
+tests.splice(activeIdx,1);
+activeIdx=Math.min(activeIdx,tests.length-1);
+save();render();
+}
+
+function loadDefinition(){
+const t=getTest();
+document.getElementById('testName').value=t.name||'';
+document.getElementById('testStatus').value=t.status||'planning';
+document.getElementById('testHypothesis').value=t.hypothesis||'';
+document.getElementById('testMetric').value=t.metric||'';
+document.getElementById('testMetric2').value=t.metric2||'';
+document.getElementById('controlDesc').value=t.controlDesc||'';
+document.getElementById('variantDesc').value=t.variantDesc||'';
+document.getElementById('baseRate').value=t.baseRate||'';
+document.getElementById('mde').value=t.mde||'';
+document.getElementById('sigLevel').value=t.sigLevel||95;
+document.getElementById('dailyTraffic').value=t.dailyTraffic||'';
+const r=t.results||{};
+document.getElementById('controlVisitors').value=r.controlVisitors||'';
+document.getElementById('controlConversions').value=r.controlConversions||'';
+document.getElementById('variantVisitors').value=r.variantVisitors||'';
+document.getElementById('variantConversions').value=r.variantConversions||'';
+updateRates();
+}
+
+function saveDefinition(){
+const t=getTest();
+t.name=document.getElementById('testName').value.trim()||t.name;
+t.status=document.getElementById('testStatus').value;
+t.hypothesis=document.getElementById('testHypothesis').value.trim();
+t.metric=document.getElementById('testMetric').value.trim();
+t.metric2=document.getElementById('testMetric2').value.trim();
+t.controlDesc=document.getElementById('controlDesc').value.trim();
+t.variantDesc=document.getElementById('variantDesc').value.trim();
+save();renderList();
+alert('Definition saved!');
+}
+
+function calculateSample(){
+const baseRate=parseFloat(document.getElementById('baseRate').value)/100;
+const mde=parseFloat(document.getElementById('mde').value)/100;
+const sigLevel=parseInt(document.getElementById('sigLevel').value);
+const dailyTraffic=parseInt(document.getElementById('dailyTraffic').value);
+
+if(!baseRate||!mde||!dailyTraffic){alert('Please fill in all calculator fields.');return}
+
+const zMap={90:1.645,95:1.96,99:2.576};
+const zAlpha=zMap[sigLevel]||1.96;
+const zBeta=0.842;
+const p1=baseRate;
+const p2=baseRate*(1+mde);
+const pooledP=(p1+p2)/2;
+const n=Math.ceil(((zAlpha*Math.sqrt(2*pooledP*(1-pooledP))+zBeta*Math.sqrt(p1*(1-p1)+p2*(1-p2)))**2)/((p2-p1)**2));
+const totalSample=n*2;
+const duration=Math.ceil(totalSample/dailyTraffic);
+
+const t=getTest();
+t.baseRate=parseFloat(document.getElementById('baseRate').value);
+t.mde=parseFloat(document.getElementById('mde').value);
+t.sigLevel=sigLevel;
+t.dailyTraffic=dailyTraffic;
+t.sampleSize=totalSample;
+t.duration=duration;
+save();
+
+document.getElementById('calcResults').innerHTML=
+'<div class="calc-card"><div class="val">'+n.toLocaleString()+'</div><div class="lbl">Per Variant</div></div>'+
+'<div class="calc-card"><div class="val">'+totalSample.toLocaleString()+'</div><div class="lbl">Total Sample</div></div>'+
+'<div class="calc-card"><div class="val">'+duration+' days</div><div class="lbl">Est. Duration</div></div>';
+}
+
+function updateRates(){
+const cv=parseInt(document.getElementById('controlVisitors').value)||0;
+const cc=parseInt(document.getElementById('controlConversions').value)||0;
+const vv=parseInt(document.getElementById('variantVisitors').value)||0;
+const vc=parseInt(document.getElementById('variantConversions').value)||0;
+document.getElementById('controlRate').value=cv>0?(cc/cv*100).toFixed(2)+'%':'--';
+document.getElementById('variantRate').value=vv>0?(vc/vv*100).toFixed(2)+'%':'--';
+}
+
+['controlVisitors','controlConversions','variantVisitors','variantConversions'].forEach(id=>{
+document.getElementById(id).addEventListener('input',updateRates);
+});
+
+function saveResults(){
+const t=getTest();
+t.results={
+controlVisitors:parseInt(document.getElementById('controlVisitors').value)||0,
+controlConversions:parseInt(document.getElementById('controlConversions').value)||0,
+variantVisitors:parseInt(document.getElementById('variantVisitors').value)||0,
+variantConversions:parseInt(document.getElementById('variantConversions').value)||0
+};
+save();
+alert('Results saved!');
+}
+
+function analyzeResults(){
+const cv=parseInt(document.getElementById('controlVisitors').value)||0;
+const cc=parseInt(document.getElementById('controlConversions').value)||0;
+const vv=parseInt(document.getElementById('variantVisitors').value)||0;
+const vc=parseInt(document.getElementById('variantConversions').value)||0;
+
+if(cv<1||vv<1){alert('Enter visitor counts for both variants.');return}
+
+const p1=cc/cv;
+const p2=vc/vv;
+const pPool=(cc+vc)/(cv+vv);
+const se=Math.sqrt(pPool*(1-pPool)*(1/cv+1/vv));
+const z=se>0?Math.abs(p2-p1)/se:0;
+
+let confidence=0;
+if(z>=2.576)confidence=99;
+else if(z>=1.96)confidence=95;
+else if(z>=1.645)confidence=90;
+else if(z>=1.28)confidence=80;
+else confidence=Math.round(z/1.645*80);
+
+const lift=p1>0?((p2-p1)/p1*100).toFixed(2):0;
+const winner=p2>p1?'Variant (B)':'Control (A)';
+const isSignificant=confidence>=95;
+
+let cls=isSignificant?(p2>p1?'sig-win':'sig-lose'):'sig-inconclusive';
+let msg=isSignificant
+?winner+' wins with '+confidence+'% confidence! Lift: '+lift+'%'
+:'Not yet significant ('+confidence+'% confidence). Lift: '+lift+'%. Need more data.';
+
+document.getElementById('significanceResult').innerHTML=
+'<div class="sig-result '+cls+'">'+esc(msg)+'</div>'+
+'<div style="margin-top:8px"><div style="font-size:.8rem;color:#888;margin-bottom:4px">Confidence: '+confidence+'%</div>'+
+'<div class="significance-bar"><div class="fill" style="width:'+confidence+'%;background:'+(isSignificant?'#4caf50':'#ffc107')+'"></div></div></div>';
+
+saveResults();
+}
+
+function exportJSON(){
+document.getElementById('exportArea').textContent=JSON.stringify(getTest(),null,2);
+}
+
+function exportText(){
+const t=getTest();
+const r=t.results||{};
+let txt='A/B TEST: '+t.name+'\n'+'='.repeat(50)+'\n';
+txt+='Status: '+t.status.toUpperCase()+'\n\n';
+txt+='HYPOTHESIS:\n'+t.hypothesis+'\n\n';
+txt+='VARIANTS:\n';
+txt+='  Control (A): '+t.controlDesc+'\n';
+txt+='  Variant (B): '+t.variantDesc+'\n\n';
+txt+='METRICS:\n';
+txt+='  Primary: '+t.metric+'\n';
+if(t.metric2)txt+='  Secondary: '+t.metric2+'\n';
+txt+='\nSAMPLE SIZE:\n';
+txt+='  Baseline Rate: '+(t.baseRate||0)+'%\n';
+txt+='  MDE: '+(t.mde||0)+'%\n';
+txt+='  Total Sample: '+(t.sampleSize||0).toLocaleString()+'\n';
+txt+='  Est. Duration: '+(t.duration||0)+' days\n';
+txt+='\nRESULTS:\n';
+txt+='  Control: '+(r.controlConversions||0)+'/'+( r.controlVisitors||0);
+if(r.controlVisitors>0)txt+=' ('+(r.controlConversions/r.controlVisitors*100).toFixed(2)+'%)';
+txt+='\n  Variant: '+(r.variantConversions||0)+'/'+(r.variantVisitors||0);
+if(r.variantVisitors>0)txt+=' ('+(r.variantConversions/r.variantVisitors*100).toFixed(2)+'%)';
+txt+='\n';
+document.getElementById('exportArea').textContent=txt;
+}
+
+function copyExport(){
+const text=document.getElementById('exportArea').textContent;
+navigator.clipboard.writeText(text).then(()=>alert('Copied!')).catch(()=>{});
+}
+
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+
+function render(){renderList();loadDefinition();document.getElementById('calcResults').innerHTML='';document.getElementById('significanceResult').innerHTML=''}
+load();render();
+</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>

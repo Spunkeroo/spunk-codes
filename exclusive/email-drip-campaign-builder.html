@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Email Drip Campaign Builder — Design Multi-Step Email Sequences | SPUNK.CODES</title>
+<meta name="description" content="Design multi-step email drip campaigns visually. Define triggers, set delays, write subject lines, preview the flow as a timeline. Export as JSON. Free browser-based tool.">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP')</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w")</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e8e8f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+header{background:#111118;border-bottom:2px solid #ff5f1f;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+header h1{font-size:1.4rem;color:#ff5f1f}
+header .back{color:#e8e8f0;font-size:.9rem}
+main{flex:1;max-width:900px;width:100%;margin:0 auto;padding:24px 16px}
+.panel{background:#111118;border:1px solid #2a2a3a;border-radius:10px;padding:20px;margin-bottom:20px}
+.panel h2{font-size:1.1rem;color:#ff5f1f;margin-bottom:14px}
+button{background:#ff5f1f;color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:.9rem;font-weight:600;transition:background .2s}
+button:hover{background:#e8520e}
+button.secondary{background:#2a2a3a;color:#e8e8f0}button.secondary:hover{background:#3a3a4a}
+button.danger{background:#cc2233}button.danger:hover{background:#aa1a28}
+select,input,textarea{background:#16161e;border:1px solid #2a2a3a;color:#e8e8f0;padding:8px 12px;border-radius:6px;font-size:.9rem;font-family:inherit}
+textarea{resize:vertical;width:100%}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+.form-row.full{grid-template-columns:1fr}
+.form-row label{font-size:.8rem;color:#888;margin-bottom:4px;display:block}
+.form-row .field{display:flex;flex-direction:column}
+.campaign-header{display:flex;gap:10px;margin-bottom:16px;align-items:end;flex-wrap:wrap}
+.campaign-header .field{flex:1;min-width:200px}
+.campaign-header .field label{font-size:.8rem;color:#888;margin-bottom:4px;display:block}
+.campaign-header .field input,.campaign-header .field select{width:100%}
+.timeline{position:relative;padding-left:40px;margin:20px 0}
+.timeline::before{content:'';position:absolute;left:18px;top:0;bottom:0;width:2px;background:#2a2a3a}
+.timeline-item{position:relative;margin-bottom:20px;background:#16161e;border:1px solid #2a2a3a;border-radius:8px;padding:16px}
+.timeline-item::before{content:'';position:absolute;left:-30px;top:20px;width:14px;height:14px;border-radius:50%;background:#ff5f1f;border:2px solid #0a0a0f}
+.timeline-item .step-num{position:absolute;left:-34px;top:40px;font-size:.7rem;color:#888;width:22px;text-align:center}
+.timeline-item .email-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.timeline-item .email-header h3{font-size:.95rem;color:#ff5f1f}
+.timeline-item .meta{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:8px}
+.timeline-item .meta span{font-size:.8rem;color:#888}
+.timeline-item .meta span strong{color:#e8e8f0}
+.timeline-item .subject{font-size:.9rem;color:#e8e8f0;margin-bottom:4px}
+.timeline-item .preview-text{font-size:.8rem;color:#888;font-style:italic}
+.delay-badge{display:inline-block;background:#1a1a2e;border:1px solid #ff5f1f;border-radius:12px;padding:2px 10px;font-size:.75rem;color:#ff5f1f;margin-left:-40px;margin-bottom:6px;position:relative;z-index:1}
+.btn-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.empty{color:#555;text-align:center;padding:30px}
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-bottom:16px}
+.stat-card{background:#16161e;border:1px solid #2a2a3a;border-radius:8px;padding:12px;text-align:center}
+.stat-card .num{font-size:1.5rem;color:#ff5f1f;font-weight:700}
+.stat-card .lbl{font-size:.75rem;color:#888;margin-top:4px}
+.saved-list{display:flex;flex-direction:column;gap:6px}
+.saved-item{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:#16161e;border-radius:6px;font-size:.85rem}
+.saved-item .name{color:#e8e8f0}
+.saved-item .info{color:#555;font-size:.75rem}
+footer{text-align:center;padding:20px;color:#555;font-size:.8rem;border-top:1px solid #1a1a2a;margin-top:auto}
+footer a{color:#ff5f1f;margin:0 4px}
+@media(max-width:700px){
+.form-row{grid-template-columns:1fr}
+.campaign-header{flex-direction:column}
+.campaign-header .field{min-width:100%}
+header h1{font-size:1.1rem}
+.stats-row{grid-template-columns:1fr 1fr}
+.timeline{padding-left:30px}
+.timeline::before{left:12px}
+.timeline-item::before{left:-24px}
+.timeline-item .step-num{left:-28px}
+.delay-badge{margin-left:-30px}
+}
+</style>
+</head>
+<body>
+<header>
+<h1>Email Drip Campaign Builder</h1>
+<a href="https://spunk.codes" class="back">spunk.codes</a>
+</header>
+<main>
+<div class="panel">
+<h2>Campaign Settings</h2>
+<div class="campaign-header">
+<div class="field"><label>Campaign Name</label><input type="text" id="campName" placeholder="e.g. Welcome Series"></div>
+<div class="field"><label>Trigger</label>
+<select id="campTrigger">
+<option value="signup">New Signup</option>
+<option value="purchase">Purchase</option>
+<option value="abandoned_cart">Abandoned Cart</option>
+<option value="inactivity">User Inactivity</option>
+<option value="trial_expiring">Trial Expiring</option>
+<option value="custom">Custom Event</option>
+</select>
+</div>
+</div>
+<div class="campaign-header">
+<div class="field"><label>From Name</label><input type="text" id="campFrom" placeholder="e.g. Your Brand"></div>
+<div class="field"><label>From Email</label><input type="email" id="campEmail" placeholder="e.g. hello@example.com"></div>
+</div>
+</div>
+
+<div class="panel">
+<h2>Campaign Overview</h2>
+<div class="stats-row">
+<div class="stat-card"><div class="num" id="statEmails">0</div><div class="lbl">Emails</div></div>
+<div class="stat-card"><div class="num" id="statDuration">0d</div><div class="lbl">Total Duration</div></div>
+<div class="stat-card"><div class="num" id="statTrigger">signup</div><div class="lbl">Trigger</div></div>
+</div>
+</div>
+
+<div class="panel">
+<h2>Add Email Step</h2>
+<div class="form-row">
+<div class="field"><label>Delay After Previous</label><input type="number" id="delayNum" value="1" min="0"></div>
+<div class="field"><label>Delay Unit</label>
+<select id="delayUnit">
+<option value="minutes">Minutes</option>
+<option value="hours">Hours</option>
+<option value="days" selected>Days</option>
+<option value="weeks">Weeks</option>
+</select>
+</div>
+</div>
+<div class="form-row">
+<div class="field"><label>Subject Line</label><input type="text" id="emailSubject" placeholder="e.g. Welcome to {{brand}}!"></div>
+<div class="field"><label>Preview Text</label><input type="text" id="emailPreview" placeholder="e.g. Here's what to expect..."></div>
+</div>
+<div class="form-row full">
+<div class="field"><label>Email Body (Plain Text / Notes)</label><textarea id="emailBody" rows="4" placeholder="Write your email content or notes here..."></textarea></div>
+</div>
+<div class="btn-row">
+<button onclick="addStep()">Add Email Step</button>
+</div>
+</div>
+
+<div class="panel">
+<h2>Campaign Timeline</h2>
+<div id="timeline"></div>
+</div>
+
+<div class="panel">
+<h2>Actions</h2>
+<div class="btn-row">
+<button onclick="exportJSON()">Export as JSON</button>
+<button class="secondary" onclick="saveCampaign()">Save Campaign</button>
+<button class="secondary" onclick="clearCampaign()">Clear All Steps</button>
+</div>
+</div>
+
+<div class="panel">
+<h2>Saved Campaigns</h2>
+<div id="savedList"></div>
+</div>
+</main>
+
+<footer>
+<a href="https://spunk.codes">spunk.codes</a> &middot;
+<a href="https://spunk.bet">spunk.bet</a> &middot;
+<a href="https://spunk.pics">spunk.pics</a> &middot;
+<a href="https://spunk.work">spunk.work</a> &middot;
+<a href="https://spunkart.com">SpunkArt.com</a>
+</footer>
+
+<script>
+const LS_KEY='spunkcodes_email_drip';
+let steps=[];
+let savedCampaigns=[];
+
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+
+function addStep(){
+const delayNum=parseInt(document.getElementById('delayNum').value)||0;
+const delayUnit=document.getElementById('delayUnit').value;
+const subject=document.getElementById('emailSubject').value.trim();
+const preview=document.getElementById('emailPreview').value.trim();
+const body=document.getElementById('emailBody').value.trim();
+if(!subject){alert('Subject line is required.');return}
+steps.push({delayNum,delayUnit,subject,preview,body});
+document.getElementById('emailSubject').value='';
+document.getElementById('emailPreview').value='';
+document.getElementById('emailBody').value='';
+document.getElementById('delayNum').value='1';
+renderTimeline();
+updateStats();
+}
+
+function removeStep(i){steps.splice(i,1);renderTimeline();updateStats()}
+
+function moveStep(i,dir){
+const ni=i+dir;
+if(ni<0||ni>=steps.length)return;
+[steps[i],steps[ni]]=[steps[ni],steps[i]];
+renderTimeline();
+}
+
+function renderTimeline(){
+const el=document.getElementById('timeline');
+if(!steps.length){el.innerHTML='<div class="empty">No email steps yet. Add your first email above.</div>';return}
+let html='<div class="timeline">';
+steps.forEach((s,i)=>{
+const delayText=i===0&&s.delayNum===0?'Immediately':s.delayNum+' '+s.delayUnit+' after '+(i===0?'trigger':'previous');
+html+=`<div class="delay-badge">${esc(delayText)}</div>`;
+html+=`<div class="timeline-item">`;
+html+=`<div class="step-num">#${i+1}</div>`;
+html+=`<div class="email-header"><h3>Email ${i+1}</h3><div class="btn-row">`;
+if(i>0)html+=`<button class="secondary" onclick="moveStep(${i},-1)" style="padding:4px 8px;font-size:.75rem">&#9650;</button>`;
+if(i<steps.length-1)html+=`<button class="secondary" onclick="moveStep(${i},1)" style="padding:4px 8px;font-size:.75rem">&#9660;</button>`;
+html+=`<button class="danger" onclick="removeStep(${i})" style="padding:4px 8px;font-size:.75rem">&times;</button>`;
+html+=`</div></div>`;
+html+=`<div class="meta"><span>Delay: <strong>${esc(s.delayNum)} ${esc(s.delayUnit)}</strong></span></div>`;
+html+=`<div class="subject">${esc(s.subject)}</div>`;
+if(s.preview)html+=`<div class="preview-text">${esc(s.preview)}</div>`;
+if(s.body)html+=`<div style="margin-top:8px;font-size:.8rem;color:#aaa;white-space:pre-wrap;max-height:80px;overflow:auto">${esc(s.body)}</div>`;
+html+=`</div>`;
+});
+html+='</div>';
+el.innerHTML=html;
+}
+
+function updateStats(){
+document.getElementById('statEmails').textContent=steps.length;
+document.getElementById('statTrigger').textContent=document.getElementById('campTrigger').value.replace('_',' ');
+let totalMinutes=0;
+steps.forEach(s=>{
+const n=s.delayNum;
+switch(s.delayUnit){
+case'minutes':totalMinutes+=n;break;
+case'hours':totalMinutes+=n*60;break;
+case'days':totalMinutes+=n*1440;break;
+case'weeks':totalMinutes+=n*10080;break;
+}
+});
+const days=Math.floor(totalMinutes/1440);
+const hrs=Math.floor((totalMinutes%1440)/60);
+document.getElementById('statDuration').textContent=days>0?days+'d '+(hrs>0?hrs+'h':''):hrs>0?hrs+'h':totalMinutes+'m';
+}
+
+function getCampaignData(){
+return{
+name:document.getElementById('campName').value.trim()||'Untitled Campaign',
+trigger:document.getElementById('campTrigger').value,
+fromName:document.getElementById('campFrom').value.trim(),
+fromEmail:document.getElementById('campEmail').value.trim(),
+steps:steps,
+createdAt:new Date().toISOString()
+};
+}
+
+function exportJSON(){
+const data=getCampaignData();
+const json=JSON.stringify(data,null,2);
+const blob=new Blob([json],{type:'application/json'});
+const url=URL.createObjectURL(blob);
+const a=document.createElement('a');
+a.href=url;a.download=(data.name.replace(/\s+/g,'-').toLowerCase()||'campaign')+'.json';
+a.click();URL.revokeObjectURL(url);
+}
+
+function saveCampaign(){
+const data=getCampaignData();
+if(!data.name||data.name==='Untitled Campaign'){
+const n=prompt('Campaign name:','My Campaign');
+if(!n)return;
+data.name=n;
+document.getElementById('campName').value=n;
+}
+const idx=savedCampaigns.findIndex(c=>c.name===data.name);
+if(idx>=0)savedCampaigns[idx]=data;
+else savedCampaigns.unshift(data);
+if(savedCampaigns.length>20)savedCampaigns.pop();
+localStorage.setItem(LS_KEY,JSON.stringify(savedCampaigns));
+renderSaved();
+alert('Campaign saved!');
+}
+
+function loadCampaign(i){
+const c=savedCampaigns[i];
+if(!c)return;
+document.getElementById('campName').value=c.name||'';
+document.getElementById('campTrigger').value=c.trigger||'signup';
+document.getElementById('campFrom').value=c.fromName||'';
+document.getElementById('campEmail').value=c.fromEmail||'';
+steps=c.steps?JSON.parse(JSON.stringify(c.steps)):[];
+renderTimeline();
+updateStats();
+}
+
+function deleteSaved(i){
+savedCampaigns.splice(i,1);
+localStorage.setItem(LS_KEY,JSON.stringify(savedCampaigns));
+renderSaved();
+}
+
+function renderSaved(){
+const el=document.getElementById('savedList');
+if(!savedCampaigns.length){el.innerHTML='<div class="empty">No saved campaigns yet.</div>';return}
+el.innerHTML='<div class="saved-list">'+savedCampaigns.map((c,i)=>
+`<div class="saved-item"><div><span class="name">${esc(c.name)}</span> <span class="info">(${c.steps?c.steps.length:0} emails, trigger: ${esc(c.trigger||'signup')})</span></div><div class="btn-row"><button onclick="loadCampaign(${i})" style="padding:4px 10px;font-size:.75rem">Load</button><button class="danger" onclick="deleteSaved(${i})" style="padding:4px 10px;font-size:.75rem">&times;</button></div></div>`
+).join('')+'</div>';
+}
+
+function clearCampaign(){
+if(steps.length&&!confirm('Clear all email steps?'))return;
+steps=[];
+renderTimeline();
+updateStats();
+}
+
+function init(){
+try{savedCampaigns=JSON.parse(localStorage.getItem(LS_KEY))||[]}catch(e){savedCampaigns=[]}
+renderTimeline();
+renderSaved();
+updateStats();
+document.getElementById('campTrigger').addEventListener('change',updateStats);
+}
+
+init();
+</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>

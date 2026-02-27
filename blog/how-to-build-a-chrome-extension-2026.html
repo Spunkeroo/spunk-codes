@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How to Build a Chrome Extension in 2026 (Beginner Guide) | SPUNK.CODES</title>
+<meta name="description" content="Step-by-step guide to building a Chrome extension in 2026. Learn manifest.json, popups, content scripts, background scripts, and how to publish to the Chrome Web Store.">
+<meta name="keywords" content="build chrome extension 2026, chrome extension tutorial, manifest v3, chrome extension beginner guide, content scripts, popup chrome extension, publish chrome web store, chrome extension development">
+<meta name="author" content="SPUNK.CODES">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://spunk.codes/blog/how-to-build-a-chrome-extension-2026">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="How to Build a Chrome Extension in 2026 (Beginner Guide)">
+<meta property="og:description" content="Complete beginner guide to building a Chrome extension. Manifest V3, popups, content scripts, background service workers, and publishing.">
+<meta property="og:url" content="https://spunk.codes/blog/how-to-build-a-chrome-extension-2026">
+<meta property="og:site_name" content="SPUNK.CODES">
+<meta property="og:image" content="https://spunk.codes/images/chrome-extension-guide-og.png">
+<meta property="article:published_time" content="2026-02-27T00:00:00Z">
+<meta property="article:author" content="SPUNK.CODES">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<meta name="twitter:creator" content="@SpunkArt13">
+<meta name="twitter:title" content="How to Build a Chrome Extension in 2026 (Beginner Guide)">
+<meta name="twitter:description" content="Step-by-step Chrome extension tutorial for beginners. Manifest V3, popups, content scripts, and publishing to the Chrome Web Store.">
+<meta name="twitter:image" content="https://spunk.codes/images/chrome-extension-guide-og.png">
+
+<!-- JSON-LD BlogPosting -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "How to Build a Chrome Extension in 2026 (Beginner Guide)",
+  "description": "Step-by-step guide to building a Chrome extension in 2026. Learn manifest.json, popups, content scripts, background scripts, and how to publish to the Chrome Web Store.",
+  "datePublished": "2026-02-27",
+  "dateModified": "2026-02-27",
+  "author": {
+    "@type": "Organization",
+    "name": "SPUNK.CODES",
+    "url": "https://spunk.codes"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "SPUNK.CODES",
+    "url": "https://spunk.codes"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://spunk.codes/blog/how-to-build-a-chrome-extension-2026"
+  },
+  "keywords": ["chrome extension", "manifest v3", "chrome web store", "content scripts", "popup", "extension development"],
+  "wordCount": 3500
+}
+</script>
+
+<!-- Google Analytics GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+
+<!-- Microsoft Clarity -->
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e8e8e8;font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;line-height:1.7}
+a{color:#ff5f1f;text-decoration:none}
+a:hover{text-decoration:underline;color:#ff9f1f}
+.container{max-width:800px;margin:0 auto;padding:40px 20px}
+.breadcrumb{font-size:.85rem;color:#888;margin-bottom:20px}
+.breadcrumb a{color:#ff5f1f;text-decoration:none}
+.breadcrumb a:hover{text-decoration:underline}
+h1{font-size:2.2rem;line-height:1.2;margin-bottom:10px;background:linear-gradient(135deg,#ff5f1f,#ff9f1f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+h2{font-size:1.6rem;color:#fff;margin-top:40px;margin-bottom:15px;padding-bottom:8px;border-bottom:1px solid #1a1a2e}
+h3{font-size:1.2rem;color:#ff5f1f;margin-top:25px;margin-bottom:8px}
+p{margin-bottom:16px;color:#ccc}
+.date{color:#666;font-size:.85rem;margin-bottom:25px}
+ul,ol{padding-left:20px;margin-bottom:16px}
+li{margin-bottom:6px;color:#ccc}
+code{background:#1a1a2e;color:#ff9f1f;padding:2px 6px;border-radius:4px;font-size:.9rem}
+pre{background:#111;border:1px solid #1a1a2e;border-radius:10px;padding:16px 20px;margin:16px 0;overflow-x:auto;font-size:.85rem;line-height:1.5;color:#ccc}
+.toc{background:#111;border:1px solid #1a1a2e;border-radius:10px;padding:20px 24px;margin:25px 0}
+.toc h3{color:#fff;margin:0 0 12px;font-size:1rem}
+.toc ol{padding-left:20px}
+.toc li{margin-bottom:6px}
+.toc a{color:#ccc;font-size:.9rem}
+.toc a:hover{color:#ff5f1f}
+.step-box{background:#111;border-left:4px solid #ff5f1f;border-radius:0 10px 10px 0;padding:20px 24px;margin:18px 0}
+.step-box h3{color:#ff5f1f;margin-top:0}
+.cta-box{background:linear-gradient(135deg,#0a0a0f,#1a1020);border:2px solid #ff5f1f;border-radius:12px;padding:30px;margin:30px 0;text-align:center}
+.cta-box h3{color:#ff5f1f;font-size:1.4rem;margin:0 0 10px}
+.cta-box p{color:#ccc;margin-bottom:15px}
+.cta-box .btn{display:inline-block;background:linear-gradient(135deg,#ff5f1f,#ff9f1f);color:#fff;padding:12px 30px;border-radius:8px;font-weight:700;font-size:1rem;text-decoration:none;margin:5px}
+.cta-box .btn:hover{opacity:.9;text-decoration:none}
+table{width:100%;border-collapse:collapse;margin:20px 0;font-size:.9rem}
+table th{background:#1a1a2e;color:#ff5f1f;padding:10px 12px;text-align:left;font-weight:700}
+table td{padding:10px 12px;border-bottom:1px solid #1a1a2e;color:#ccc}
+table tr:hover td{background:#111}
+.faq{background:#111;border:1px solid #1a1a2e;border-radius:10px;padding:20px 24px;margin:20px 0}
+.faq h3{color:#ff5f1f;margin-top:0;margin-bottom:12px}
+.faq p{margin-bottom:10px;font-size:.95rem}
+.share-btn{display:inline-block;background:#000;border:1px solid #333;color:#fff;padding:10px 24px;border-radius:8px;font-weight:600;font-size:.95rem;text-decoration:none;margin:10px 0;transition:border-color .2s}
+.share-btn:hover{border-color:#ff5f1f;text-decoration:none}
+footer{text-align:center;padding:30px 20px;color:#555;font-size:.8rem;border-top:1px solid #1a1a2e;margin-top:40px}
+footer a{color:#888;text-decoration:none;margin:0 6px}
+footer a:hover{color:#ff5f1f}
+@media(max-width:600px){h1{font-size:1.6rem}h2{font-size:1.3rem}.container{padding:20px 15px}table{font-size:.8rem}pre{font-size:.75rem}}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<nav class="breadcrumb">
+  <a href="https://spunk.codes">spunk.codes</a> &rarr; <a href="/blog">Blog</a> &rarr; How to Build a Chrome Extension in 2026
+</nav>
+
+<p class="date">Published February 27, 2026 &middot; 16 min read</p>
+<h1>How to Build a Chrome Extension in 2026 (Beginner Guide)</h1>
+
+<p>Chrome extensions are one of the most accessible entry points into software development. With basic HTML, CSS, and JavaScript knowledge, you can build a functional extension in an afternoon. Chrome has over 3 billion users, so even a niche extension can reach a meaningful audience.</p>
+
+<p>This guide walks you through every step: project structure, manifest.json configuration (Manifest V3), building a popup, writing content scripts, adding background service workers, and publishing to the Chrome Web Store. No prior extension experience required.</p>
+
+<div class="toc">
+<h3>Table of Contents</h3>
+<ol>
+<li><a href="#anatomy">Anatomy of a Chrome Extension</a></li>
+<li><a href="#manifest">Step 1: Create manifest.json (Manifest V3)</a></li>
+<li><a href="#popup">Step 2: Build the Popup UI</a></li>
+<li><a href="#content">Step 3: Write Content Scripts</a></li>
+<li><a href="#background">Step 4: Add Background Service Workers</a></li>
+<li><a href="#testing">Step 5: Test and Debug Locally</a></li>
+<li><a href="#publish">Step 6: Publish to the Chrome Web Store</a></li>
+<li><a href="#comparison">Manifest V2 vs V3 Comparison</a></li>
+<li><a href="#faq">FAQ</a></li>
+</ol>
+</div>
+
+<h2 id="anatomy">Anatomy of a Chrome Extension</h2>
+
+<p>Every Chrome extension is a folder containing a few specific files. At minimum, you need a <code>manifest.json</code> file that tells Chrome what your extension does and what permissions it needs. From there, you can add a popup (the small window that appears when you click the extension icon), content scripts (JavaScript that runs on web pages), and background service workers (scripts that handle events and long-running logic).</p>
+
+<table>
+<tr><th>File</th><th>Purpose</th><th>Required</th></tr>
+<tr><td><code>manifest.json</code></td><td>Extension metadata, permissions, file references</td><td>Yes</td></tr>
+<tr><td><code>popup.html</code></td><td>UI shown when clicking the extension icon</td><td>No</td></tr>
+<tr><td><code>popup.js</code></td><td>JavaScript for popup interactivity</td><td>No</td></tr>
+<tr><td><code>content.js</code></td><td>Runs on web pages, can read/modify page DOM</td><td>No</td></tr>
+<tr><td><code>background.js</code></td><td>Service worker for events, alarms, messaging</td><td>No</td></tr>
+<tr><td><code>styles.css</code></td><td>Styles for popup or injected content</td><td>No</td></tr>
+<tr><td><code>icons/</code></td><td>Extension icons (16px, 48px, 128px)</td><td>Recommended</td></tr>
+</table>
+
+<h2 id="manifest">Step 1: Create manifest.json (Manifest V3)</h2>
+
+<p>The manifest file is the heart of every Chrome extension. It declares the extension name, version, permissions, and which files to load. Chrome now requires Manifest V3 for all new extensions. Here is a complete starter manifest:</p>
+
+<pre>{
+  "manifest_version": 3,
+  "name": "My First Extension",
+  "version": "1.0.0",
+  "description": "A simple Chrome extension built from scratch.",
+  "permissions": ["activeTab", "storage"],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": ["&lt;all_urls&gt;"],
+      "js": ["content.js"]
+    }
+  ],
+  "background": {
+    "service_worker": "background.js"
+  }
+}</pre>
+
+<div class="step-box">
+<h3>Key Fields Explained</h3>
+<p><strong>manifest_version: 3</strong> &mdash; Required. Chrome no longer accepts Manifest V2 for new submissions.<br>
+<strong>permissions</strong> &mdash; Declare what APIs your extension needs. <code>activeTab</code> gives access to the current tab when the user clicks your icon. <code>storage</code> lets you save data locally.<br>
+<strong>action</strong> &mdash; Defines the popup that appears when the user clicks the extension icon in the toolbar.<br>
+<strong>content_scripts</strong> &mdash; Scripts injected into web pages. The <code>matches</code> pattern controls which pages they run on.<br>
+<strong>background.service_worker</strong> &mdash; A service worker that runs in the background and responds to events.</p>
+</div>
+
+<h2 id="popup">Step 2: Build the Popup UI</h2>
+
+<p>The popup is a small HTML page that appears when users click your extension icon. It is a regular HTML file with CSS and JavaScript. The only difference from a normal web page is the size constraint (typically 300-400px wide) and the fact that inline scripts are blocked by Chrome's Content Security Policy.</p>
+
+<div class="step-box">
+<h3>Create popup.html</h3>
+<p>Build a simple popup with a heading, a button, and a result area. Keep the design minimal. The popup should load instantly and provide a clear action for the user. Link your CSS and JS as external files (no inline scripts in Manifest V3).</p>
+</div>
+
+<pre>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;style&gt;
+    body { width: 320px; padding: 16px; font-family: sans-serif; }
+    h1 { font-size: 18px; margin-bottom: 12px; }
+    button { background: #ff5f1f; color: #fff; border: none;
+             padding: 10px 20px; border-radius: 6px; cursor: pointer; }
+    #result { margin-top: 12px; color: #333; }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;My Extension&lt;/h1&gt;
+  &lt;button id="btn"&gt;Count Words on Page&lt;/button&gt;
+  &lt;p id="result"&gt;&lt;/p&gt;
+  &lt;script src="popup.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+
+<div class="step-box">
+<h3>Create popup.js</h3>
+<p>The popup script communicates with content scripts via Chrome's messaging API. When the user clicks the button, send a message to the content script running on the active tab and display the response.</p>
+</div>
+
+<pre>document.getElementById('btn').addEventListener('click', async () => {
+  const [tab] = await chrome.tabs.query({
+    active: true, currentWindow: true
+  });
+  const response = await chrome.tabs.sendMessage(
+    tab.id, { action: 'countWords' }
+  );
+  document.getElementById('result').textContent =
+    `Word count: ${response.count}`;
+});</pre>
+
+<h2 id="content">Step 3: Write Content Scripts</h2>
+
+<p>Content scripts run in the context of web pages. They can read and modify the DOM, extract data, inject UI elements, and communicate with the popup and background scripts. They run in an isolated world, meaning they share the page DOM but not the page's JavaScript variables.</p>
+
+<div class="step-box">
+<h3>Create content.js</h3>
+<p>This content script listens for messages from the popup and responds with the word count of the current page's visible text.</p>
+</div>
+
+<pre>chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  if (request.action === 'countWords') {
+    const text = document.body.innerText || '';
+    const count = text.split(/\s+/).filter(w => w.length > 0).length;
+    sendResponse({ count });
+  }
+});</pre>
+
+<h3>Content Script Permissions</h3>
+<p>Content scripts can access the DOM but cannot use most Chrome APIs directly. They communicate with background scripts and popups via <code>chrome.runtime.sendMessage()</code> and <code>chrome.runtime.onMessage</code>. For sensitive operations (storage, network requests, alarms), route messages through the background service worker.</p>
+
+<h2 id="background">Step 4: Add Background Service Workers</h2>
+
+<p>In Manifest V3, background pages are replaced by service workers. Service workers are event-driven: they start when an event occurs and terminate when idle. They do not have access to the DOM but can use all Chrome extension APIs.</p>
+
+<div class="step-box">
+<h3>Create background.js</h3>
+<p>A background service worker that runs when the extension is installed, listens for tab updates, and manages extension state.</p>
+</div>
+
+<pre>chrome.runtime.onInstalled.addListener(() => {
+  console.log('Extension installed');
+  chrome.storage.local.set({ totalCounts: 0 });
+});
+
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  if (request.action === 'saveCount') {
+    chrome.storage.local.get(['totalCounts'], (result) => {
+      const updated = (result.totalCounts || 0) + request.count;
+      chrome.storage.local.set({ totalCounts: updated });
+      sendResponse({ totalCounts: updated });
+    });
+    return true; // Keep message channel open for async response
+  }
+});</pre>
+
+<h3>Service Worker Lifecycle</h3>
+<p>Service workers in Manifest V3 do not run persistently. They wake up for events and go back to sleep. This means you cannot rely on global variables staying in memory. Use <code>chrome.storage</code> for any data that needs to persist between service worker activations. This is the biggest change from Manifest V2 background pages.</p>
+
+<h2 id="testing">Step 5: Test and Debug Locally</h2>
+
+<div class="step-box">
+<h3>Load Your Extension</h3>
+<p>Open Chrome and navigate to <code>chrome://extensions/</code>. Enable "Developer mode" in the top right. Click "Load unpacked" and select your extension folder. Your extension icon should appear in the toolbar immediately.</p>
+</div>
+
+<div class="step-box">
+<h3>Debug the Popup</h3>
+<p>Right-click the extension icon and select "Inspect popup" to open DevTools for the popup. You can see console logs, set breakpoints, and debug JavaScript just like a normal web page.</p>
+</div>
+
+<div class="step-box">
+<h3>Debug Content Scripts</h3>
+<p>Open DevTools on any web page (F12), go to the Sources tab, and find your content script under the "Content scripts" section. You can set breakpoints and step through the code.</p>
+</div>
+
+<div class="step-box">
+<h3>Debug the Service Worker</h3>
+<p>On the <code>chrome://extensions/</code> page, find your extension and click "Inspect views: service worker." This opens DevTools for the background service worker where you can see logs and debug events.</p>
+</div>
+
+<h2 id="publish">Step 6: Publish to the Chrome Web Store</h2>
+
+<p>Once your extension works correctly in developer mode, you can publish it to the Chrome Web Store for anyone to install.</p>
+
+<table>
+<tr><th>Step</th><th>Details</th><th>Cost</th></tr>
+<tr><td>Create Developer Account</td><td>Sign up at the Chrome Web Store Developer Dashboard</td><td>$5 one-time fee</td></tr>
+<tr><td>Prepare Store Assets</td><td>Icon (128px), screenshots (1280x800), description, category</td><td>Free</td></tr>
+<tr><td>Package Extension</td><td>Zip your extension folder (exclude .git and node_modules)</td><td>Free</td></tr>
+<tr><td>Upload and Submit</td><td>Upload zip, fill in listing details, submit for review</td><td>Free</td></tr>
+<tr><td>Review Process</td><td>Google reviews for policy compliance. Takes 1-7 business days</td><td>Free</td></tr>
+</table>
+
+<div class="step-box">
+<h3>Publishing Checklist</h3>
+<p>Before submitting: (1) Remove all console.log statements. (2) Request only the minimum permissions your extension actually uses. (3) Write a clear, honest description. (4) Include at least two screenshots showing the extension in action. (5) Set up a support email or website. (6) Test on Chrome Stable, Beta, and Dev channels if possible.</p>
+</div>
+
+<h2 id="comparison">Manifest V2 vs V3 Comparison</h2>
+
+<p>If you find older tutorials online, they likely use Manifest V2. Here are the key differences to be aware of.</p>
+
+<table>
+<tr><th>Feature</th><th>Manifest V2</th><th>Manifest V3</th></tr>
+<tr><td>Background</td><td>Persistent background pages</td><td>Event-driven service workers</td></tr>
+<tr><td>Content Security Policy</td><td>Relaxed (inline scripts allowed)</td><td>Strict (no inline scripts)</td></tr>
+<tr><td>Network Requests</td><td>webRequest (blocking)</td><td>declarativeNetRequest (rules-based)</td></tr>
+<tr><td>Remote Code</td><td>Allowed (eval, remote scripts)</td><td>Not allowed</td></tr>
+<tr><td>Permissions</td><td>Broad permissions on install</td><td>Granular, runtime permissions encouraged</td></tr>
+<tr><td>Store Acceptance</td><td>No longer accepted for new submissions</td><td>Required for all new extensions</td></tr>
+</table>
+
+<div class="cta-box">
+<h3>Format Your Code Faster</h3>
+<p>Use our free Code Formatter to clean up your HTML, CSS, and JavaScript before publishing your extension.</p>
+<a href="https://spunk.codes/exclusive/code-formatter" class="btn">Get the Free Code Formatter</a>
+</div>
+
+<h2 id="faq">Frequently Asked Questions</h2>
+
+<div class="faq">
+<h3>Do I need to know JavaScript to build a Chrome extension?</h3>
+<p>Basic JavaScript is required for anything interactive. If your extension is purely a popup with static information, you only need HTML and CSS. But most useful extensions involve content scripts or background logic, which require JavaScript. You do not need to be an expert. If you can write event listeners, manipulate the DOM, and handle async functions, you have enough JavaScript knowledge to build a solid extension.</p>
+</div>
+
+<div class="faq">
+<h3>How long does Chrome Web Store review take?</h3>
+<p>New submissions typically take 1 to 7 business days for review. Updates to existing extensions are usually faster, often within 1-3 days. Extensions requesting sensitive permissions (like access to all URLs or browsing history) may take longer due to additional scrutiny. Keep your permissions minimal to speed up the review process.</p>
+</div>
+
+<div class="faq">
+<h3>Can I monetize a Chrome extension?</h3>
+<p>Yes. Common monetization strategies include: freemium models (basic features free, premium features paid), one-time purchase via the Chrome Web Store payments API, subscription via your own payment system (Stripe, Gumroad), and affiliate links within the extension popup. The Chrome Web Store no longer supports its built-in payments, so most developers use external payment providers like Stripe or LemonSqueezy.</p>
+</div>
+
+<a href="https://twitter.com/intent/tweet?text=How%20to%20Build%20a%20Chrome%20Extension%20in%202026%20%E2%80%94%20complete%20beginner%20guide%20with%20Manifest%20V3%20%40SpunkArt13&url=https://spunk.codes/blog/how-to-build-a-chrome-extension-2026" target="_blank" rel="noopener" class="share-btn">Share on X</a>
+
+</div>
+
+<footer>
+  <div style="margin-bottom:10px">
+    <a href="https://spunk.codes">spunk.codes</a> &middot;
+    <a href="https://spunk.bet">spunk.bet</a> &middot;
+    <a href="https://spunk.pics">spunk.pics</a> &middot;
+    <a href="https://spunk.work">spunk.work</a> &middot;
+    <a href="https://spunkart.com">SpunkArt.com</a>
+  </div>
+  <p>&copy; 2026 <a href="https://spunk.codes" style="color:#ff5f1f">SPUNK.CODES</a>. All rights reserved.</p>
+  <p style="margin-top:8px"><a href="https://x.com/SpunkArt13" target="_blank" rel="noopener">Follow @SpunkArt13</a></p>
+</footer>
+
+<script src="/cross-promo.js"></script>
+</body>
+</html>

@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sales Funnel Builder — Free Visual Funnel Creator | SPUNK.CODES</title>
+<meta name="description" content="Design visual sales funnels with drag-and-drop stages, conversion rates, traffic sources, and revenue projections. Free browser-based funnel builder with JSON export.">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP')</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w")</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e8e8f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+header{background:#111118;border-bottom:2px solid #ff5f1f;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+header h1{font-size:1.4rem;color:#ff5f1f}
+header .back{color:#e8e8f0;font-size:.9rem}
+main{flex:1;max-width:1100px;width:100%;margin:0 auto;padding:24px 16px}
+button{background:#ff5f1f;color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:.9rem;font-weight:600;transition:background .2s}
+button:hover{background:#e8520e}
+button.secondary{background:#2a2a3a;color:#e8e8f0}button.secondary:hover{background:#3a3a4a}
+button.danger{background:#cc2233}button.danger:hover{background:#aa1122}
+.panel{background:#111118;border:1px solid #2a2a3a;border-radius:10px;padding:20px;margin-bottom:20px}
+.panel h2{font-size:1.1rem;color:#ff5f1f;margin-bottom:14px}
+input,select{background:#16161e;border:1px solid #2a2a3a;color:#e8e8f0;padding:8px 12px;border-radius:6px;font-size:.9rem}
+.funnels-list{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.funnels-list .fn-btn{padding:6px 14px;border-radius:20px;font-size:.85rem;cursor:pointer;border:1px solid #2a2a3a;background:#16161e;color:#e8e8f0;transition:all .2s}
+.funnels-list .fn-btn.active{background:#ff5f1f;color:#fff;border-color:#ff5f1f}
+.form-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:12px}
+.form-row.two{grid-template-columns:1fr 1fr}
+.form-row label{display:flex;flex-direction:column;gap:4px;font-size:.85rem;color:#888}
+.form-row label input,.form-row label select{width:100%}
+.funnel-visual{display:flex;flex-direction:column;align-items:center;gap:0;margin:20px 0}
+.funnel-stage{text-align:center;padding:14px 10px;border-radius:6px;transition:all .3s;position:relative;cursor:grab;border:2px solid transparent}
+.funnel-stage:hover{border-color:#ff5f1f}
+.funnel-stage.dragging{opacity:.5;border-color:#ff5f1f}
+.funnel-stage.drag-over{border-color:#4caf50;background:rgba(76,175,80,.1)!important}
+.funnel-stage h4{font-size:.95rem;color:#fff;margin-bottom:4px}
+.funnel-stage .stats{font-size:.8rem;color:#ccc}
+.funnel-stage .revenue{font-size:.85rem;color:#4caf50;font-weight:600;margin-top:4px}
+.funnel-stage .actions-row{margin-top:8px;display:flex;gap:6px;justify-content:center}
+.funnel-stage .actions-row button{padding:3px 8px;font-size:.75rem}
+.funnel-arrow{color:#ff5f1f;font-size:1.4rem;line-height:1}
+.funnel-stage.awareness{background:linear-gradient(135deg,#1a3a5a,#1a2a4a)}
+.funnel-stage.interest{background:linear-gradient(135deg,#2a3a1a,#1a3a2a)}
+.funnel-stage.decision{background:linear-gradient(135deg,#3a3a1a,#3a2a1a)}
+.funnel-stage.action{background:linear-gradient(135deg,#3a1a2a,#2a1a3a)}
+.funnel-stage.custom{background:linear-gradient(135deg,#2a1a3a,#1a2a3a)}
+.source-tag{display:inline-block;background:#2a2a3a;color:#e8e8f0;padding:2px 8px;border-radius:10px;font-size:.75rem;margin:2px}
+.summary-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+.summary-card{background:#16161e;border:1px solid #2a2a3a;border-radius:8px;padding:14px;text-align:center}
+.summary-card .val{font-size:1.4rem;color:#ff5f1f;font-weight:700}
+.summary-card .lbl{font-size:.8rem;color:#888;margin-top:4px}
+.export-area{background:#0a0a0f;border:1px solid #2a2a3a;border-radius:6px;padding:12px;font-family:monospace;font-size:.85rem;color:#e8e8f0;white-space:pre-wrap;max-height:300px;overflow:auto;margin-top:10px}
+.empty{text-align:center;color:#555;padding:40px 20px;font-size:.95rem}
+footer{text-align:center;padding:20px;color:#555;font-size:.8rem;border-top:1px solid #1a1a2a;margin-top:auto}
+footer a{color:#ff5f1f;margin:0 4px}
+@media(max-width:700px){
+.form-row{grid-template-columns:1fr}
+.form-row.two{grid-template-columns:1fr}
+.summary-grid{grid-template-columns:1fr 1fr}
+header h1{font-size:1.1rem}
+}
+</style>
+</head>
+<body>
+<header>
+<h1>Sales Funnel Builder</h1>
+<a href="https://spunk.codes" class="back">spunk.codes</a>
+</header>
+<main>
+<div class="panel">
+<h2>Saved Funnels</h2>
+<div class="funnels-list" id="funnelsList"></div>
+<div style="display:flex;gap:8px;flex-wrap:wrap">
+<input type="text" id="newFunnelName" placeholder="New funnel name..." style="flex:1;min-width:160px">
+<button onclick="createFunnel()">+ New Funnel</button>
+<button class="danger" onclick="deleteFunnel()">Delete Current</button>
+</div>
+</div>
+
+<div class="panel">
+<h2>Add Stage</h2>
+<div class="form-row">
+<label>Stage Name<input type="text" id="stageName" placeholder="e.g. Awareness"></label>
+<label>Stage Type<select id="stageType">
+<option value="awareness">Awareness</option>
+<option value="interest">Interest</option>
+<option value="decision">Decision</option>
+<option value="action">Action</option>
+<option value="custom">Custom</option>
+</select></label>
+<label>Traffic / Leads<input type="number" id="stageTraffic" placeholder="e.g. 10000" min="0"></label>
+</div>
+<div class="form-row">
+<label>Conversion Rate (%)<input type="number" id="stageConversion" placeholder="e.g. 25" min="0" max="100" step="0.1"></label>
+<label>Avg Order Value ($)<input type="number" id="stageAOV" placeholder="e.g. 50" min="0" step="0.01"></label>
+<label>Traffic Source<input type="text" id="stageSource" placeholder="e.g. Google Ads, Organic"></label>
+</div>
+<button onclick="addStage()">Add Stage</button>
+</div>
+
+<div class="panel">
+<h2 id="funnelTitle">Funnel Visualization</h2>
+<div id="summaryArea"></div>
+<div class="funnel-visual" id="funnelArea">
+<div class="empty">No stages yet. Add stages above to build your funnel.</div>
+</div>
+</div>
+
+<div class="panel">
+<h2>Export</h2>
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px">
+<button onclick="exportJSON()">Export JSON</button>
+<button onclick="exportText()">Export Text</button>
+<button class="secondary" onclick="copyExport()">Copy to Clipboard</button>
+</div>
+<div class="export-area" id="exportArea">Click export to see output here.</div>
+</div>
+</main>
+
+<footer>
+<a href="https://spunk.codes">spunk.codes</a> &middot;
+<a href="https://spunk.bet">spunk.bet</a> &middot;
+<a href="https://spunk.pics">spunk.pics</a> &middot;
+<a href="https://spunk.work">spunk.work</a> &middot;
+<a href="https://spunkart.com">SpunkArt.com</a>
+</footer>
+
+<script>
+const LS_KEY='spunkcodes_salesfunnel';
+let funnels=[];
+let activeIdx=0;
+let dragIdx=null;
+
+function load(){try{funnels=JSON.parse(localStorage.getItem(LS_KEY))||[]}catch(e){funnels=[]}if(!funnels.length){funnels=[{name:'My Sales Funnel',stages:[]}];save()}}
+function save(){localStorage.setItem(LS_KEY,JSON.stringify(funnels))}
+function getFn(){return funnels[activeIdx]||{name:'',stages:[]}}
+
+function renderList(){
+const el=document.getElementById('funnelsList');
+el.innerHTML='';
+funnels.forEach((f,i)=>{
+const b=document.createElement('button');
+b.className='fn-btn'+(i===activeIdx?' active':'');
+b.textContent=f.name;
+b.onclick=()=>{activeIdx=i;render()};
+el.appendChild(b);
+});
+}
+
+function createFunnel(){
+const name=document.getElementById('newFunnelName').value.trim();
+if(!name)return;
+funnels.push({name,stages:[]});
+activeIdx=funnels.length-1;
+document.getElementById('newFunnelName').value='';
+save();render();
+}
+
+function deleteFunnel(){
+if(funnels.length<=1){alert('Cannot delete the only funnel.');return}
+if(!confirm('Delete "'+getFn().name+'"?'))return;
+funnels.splice(activeIdx,1);
+activeIdx=Math.min(activeIdx,funnels.length-1);
+save();render();
+}
+
+function addStage(){
+const name=document.getElementById('stageName').value.trim();
+const type=document.getElementById('stageType').value;
+const traffic=parseFloat(document.getElementById('stageTraffic').value)||0;
+const conversion=parseFloat(document.getElementById('stageConversion').value)||0;
+const aov=parseFloat(document.getElementById('stageAOV').value)||0;
+const source=document.getElementById('stageSource').value.trim();
+if(!name){alert('Stage name is required.');return}
+getFn().stages.push({name,type,traffic,conversion,aov,source});
+document.getElementById('stageName').value='';
+document.getElementById('stageTraffic').value='';
+document.getElementById('stageConversion').value='';
+document.getElementById('stageAOV').value='';
+document.getElementById('stageSource').value='';
+save();renderFunnel();
+}
+
+function removeStage(idx){
+getFn().stages.splice(idx,1);
+save();renderFunnel();
+}
+
+function moveStage(idx,dir){
+const stages=getFn().stages;
+const ni=idx+dir;
+if(ni<0||ni>=stages.length)return;
+[stages[idx],stages[ni]]=[stages[ni],stages[idx]];
+save();renderFunnel();
+}
+
+function calcRevenue(stages){
+let results=[];
+let currentLeads=0;
+stages.forEach((s,i)=>{
+let leads=i===0?s.traffic:currentLeads;
+if(i===0)leads=s.traffic;
+let converted=Math.round(leads*(s.conversion/100));
+let revenue=s.aov>0?converted*s.aov:0;
+results.push({leads,converted,revenue});
+currentLeads=converted;
+});
+return results;
+}
+
+function renderFunnel(){
+const area=document.getElementById('funnelArea');
+const sumArea=document.getElementById('summaryArea');
+const stages=getFn().stages;
+const title=document.getElementById('funnelTitle');
+title.textContent=getFn().name+' — '+stages.length+' stage'+(stages.length!==1?'s':'');
+
+if(!stages.length){
+area.innerHTML='<div class="empty">No stages yet. Add stages above to build your funnel.</div>';
+sumArea.innerHTML='';
+return;
+}
+
+const results=calcRevenue(stages);
+const totalRevenue=results.reduce((a,r)=>a+r.revenue,0);
+const finalConversion=stages.length>1&&results[0].leads>0?((results[results.length-1].converted/results[0].leads)*100).toFixed(2):stages[0].conversion;
+const topTraffic=results[0].leads;
+const bottomConverted=results[results.length-1].converted;
+
+sumArea.innerHTML='<div class="summary-grid">'+
+'<div class="summary-card"><div class="val">'+topTraffic.toLocaleString()+'</div><div class="lbl">Top of Funnel</div></div>'+
+'<div class="summary-card"><div class="val">'+bottomConverted.toLocaleString()+'</div><div class="lbl">Conversions</div></div>'+
+'<div class="summary-card"><div class="val">'+finalConversion+'%</div><div class="lbl">Overall Conv. Rate</div></div>'+
+'<div class="summary-card"><div class="val">$'+totalRevenue.toLocaleString()+'</div><div class="lbl">Projected Revenue</div></div>'+
+'</div>';
+
+const maxLeads=Math.max(...results.map(r=>r.leads),1);
+let html='';
+stages.forEach((s,i)=>{
+const r=results[i];
+const widthPct=Math.max(30,Math.round((r.leads/maxLeads)*100));
+if(i>0)html+='<div class="funnel-arrow">&#9660;</div>';
+html+='<div class="funnel-stage '+esc(s.type)+'" draggable="true" data-idx="'+i+'" style="width:'+widthPct+'%" '+
+'ondragstart="onDragStart(event,'+i+')" ondragover="onDragOver(event)" ondragenter="onDragEnter(event,this)" ondragleave="onDragLeave(event,this)" ondrop="onDrop(event,'+i+')" ondragend="onDragEnd()">'+
+'<h4>'+esc(s.name)+'</h4>'+
+'<div class="stats">'+r.leads.toLocaleString()+' leads &rarr; '+r.converted.toLocaleString()+' converted ('+s.conversion+'%)</div>'+
+(r.revenue>0?'<div class="revenue">$'+r.revenue.toLocaleString()+' revenue</div>':'')+
+(s.source?'<div style="margin-top:6px"><span class="source-tag">'+esc(s.source)+'</span></div>':'')+
+'<div class="actions-row">'+
+'<button class="secondary" onclick="moveStage('+i+',-1)">&uarr;</button>'+
+'<button class="secondary" onclick="moveStage('+i+',1)">&darr;</button>'+
+'<button class="danger" onclick="removeStage('+i+')">&times;</button>'+
+'</div></div>';
+});
+area.innerHTML=html;
+}
+
+function onDragStart(e,idx){dragIdx=idx;e.target.classList.add('dragging')}
+function onDragOver(e){e.preventDefault()}
+function onDragEnter(e,el){e.preventDefault();el.classList.add('drag-over')}
+function onDragLeave(e,el){el.classList.remove('drag-over')}
+function onDragEnd(){dragIdx=null;document.querySelectorAll('.funnel-stage').forEach(s=>{s.classList.remove('dragging','drag-over')})}
+function onDrop(e,targetIdx){
+e.preventDefault();
+if(dragIdx===null||dragIdx===targetIdx)return;
+const stages=getFn().stages;
+const [moved]=stages.splice(dragIdx,1);
+stages.splice(targetIdx,0,moved);
+dragIdx=null;
+save();renderFunnel();
+}
+
+function exportJSON(){
+document.getElementById('exportArea').textContent=JSON.stringify(getFn(),null,2);
+}
+
+function exportText(){
+const fn=getFn();
+const results=calcRevenue(fn.stages);
+let t='SALES FUNNEL: '+fn.name+'\n'+'='.repeat(50)+'\n\n';
+fn.stages.forEach((s,i)=>{
+const r=results[i];
+t+='Stage '+(i+1)+': '+s.name+' ['+s.type.toUpperCase()+']\n';
+t+='  Traffic/Leads: '+r.leads.toLocaleString()+'\n';
+t+='  Conversion Rate: '+s.conversion+'%\n';
+t+='  Converted: '+r.converted.toLocaleString()+'\n';
+if(s.aov>0)t+='  AOV: $'+s.aov+' | Revenue: $'+r.revenue.toLocaleString()+'\n';
+if(s.source)t+='  Source: '+s.source+'\n';
+if(i<fn.stages.length-1)t+='       |\n       v\n';
+t+='\n';
+});
+const totalRev=results.reduce((a,r)=>a+r.revenue,0);
+t+='TOTAL PROJECTED REVENUE: $'+totalRev.toLocaleString()+'\n';
+t+='Total stages: '+fn.stages.length;
+document.getElementById('exportArea').textContent=t;
+}
+
+function copyExport(){
+const text=document.getElementById('exportArea').textContent;
+navigator.clipboard.writeText(text).then(()=>alert('Copied!')).catch(()=>{});
+}
+
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+
+function render(){renderList();renderFunnel()}
+load();render();
+</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>
