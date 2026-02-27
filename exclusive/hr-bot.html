@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Automatic HR Bot - Employee Management & Automation | SPUNK.CODES Exclusive</title>
+<meta name="description" content="Fully automatic HR bot for small businesses. Employee database, leave management, onboarding checklists, performance tracking, automated reminders, and team analytics.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Automatic HR Bot - SPUNK.CODES Exclusive">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/hr-bot">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Automatic HR Bot","url":"https://spunk.codes/exclusive/hr-bot","applicationCategory":"BusinessApplication","operatingSystem":"Web","description":"Fully automatic HR bot for employee management, leave tracking, onboarding, performance reviews, and team analytics.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Organization","name":"SPUNK.CODES","url":"https://spunk.codes"}}</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0a0a0f;--card:rgba(18,18,28,0.85);--border:rgba(255,95,31,0.18);--accent:#ff5f1f;--accent2:#ff9f1f;--text:#e8e8f0;--text-dim:#8b8b9e;--green:#39d353;--red:#f85149;--blue:#58a6ff;--font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+a{color:var(--blue);text-decoration:none}
+.bg-mesh{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 80% 50% at 20% 20%,rgba(255,95,31,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(255,159,31,0.04) 0%,transparent 60%),var(--bg)}
+.bg-grid{position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,95,31,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,95,31,0.03) 1px,transparent 1px);background-size:60px 60px}
+.nav{position:sticky;top:0;z-index:100;background:rgba(10,10,15,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,95,31,0.15);padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}
+.nav-brand{font-weight:800;font-size:1.1rem;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:0.08em}
+.nav-links{display:flex;gap:1.5rem;font-size:0.85rem}.nav-links a{color:var(--text-dim);font-weight:500}.nav-links a.active{color:var(--accent)}
+.lock-gate{position:fixed;inset:0;z-index:1000;background:rgba(10,10,15,0.97);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:2rem}
+.lock-gate.hidden{display:none}
+.lock-icon-big{font-size:4rem}.lock-gate h2{font-size:1.8rem;font-weight:800;text-align:center}.lock-gate h2 span{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}.lock-gate p{color:var(--text-dim);text-align:center;max-width:400px}
+.code-input-wrap{display:flex;gap:0.5rem}
+.code-input{padding:0.8rem 1.5rem;background:rgba(18,18,28,0.8);border:2px solid var(--border);border-radius:12px;color:var(--accent);font-size:1.2rem;font-weight:800;letter-spacing:3px;text-align:center;width:200px;outline:none;text-transform:uppercase;font-family:var(--font)}
+.code-input:focus{border-color:var(--accent);box-shadow:0 0 20px rgba(255,95,31,0.2)}
+.code-submit{padding:0.8rem 1.5rem;background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;border-radius:12px;color:#000;font-size:1rem;font-weight:800;cursor:pointer}
+.code-error{color:var(--red);font-size:0.85rem;min-height:1.2em}.lock-hint{color:var(--text-dim);font-size:0.8rem}.lock-hint a{color:var(--accent)}
+.exclusive-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;background:linear-gradient(135deg,rgba(255,95,31,0.15),rgba(255,159,31,0.15));border:1px solid var(--border);border-radius:100px;font-size:11px;font-weight:800;color:var(--accent);letter-spacing:1.5px;text-transform:uppercase}
+.main{max-width:1100px;margin:0 auto;padding:2rem}
+.hero-section{text-align:center;padding:1.5rem 0}
+.hero-section h1{font-size:2.2rem;font-weight:800;margin:1rem 0 0.5rem}
+.hero-section h1 .gold{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-section p{color:var(--text-dim);max-width:600px;margin:0 auto}
+.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.5rem;margin-bottom:1.5rem;backdrop-filter:blur(10px);position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent2),var(--accent))}
+.card h2{font-size:1.1rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}
+.tabs{display:flex;gap:0.5rem;margin-bottom:1.5rem;flex-wrap:wrap}
+.tab{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.85rem;font-weight:600;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--text-dim);transition:all 0.2s}
+.tab.active{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#000;border-color:transparent}
+.tab:hover:not(.active){background:rgba(255,95,31,0.1);color:var(--text)}
+.tab-panel{display:none}.tab-panel.active{display:block}
+.form-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:0.75rem;margin-bottom:0.75rem}
+.form-group{display:flex;flex-direction:column;gap:0.3rem}
+.form-group label{font-size:0.75rem;color:var(--text-dim);font-weight:600;text-transform:uppercase;letter-spacing:0.5px}
+.form-group input,.form-group select,.form-group textarea{padding:0.6rem 0.8rem;background:rgba(18,18,28,0.9);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.85rem;font-family:var(--font);outline:none}
+.form-group input:focus,.form-group select:focus{border-color:var(--accent)}
+.btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;transition:all 0.2s}
+.btn-gold{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#000}
+.btn-gold:hover{transform:translateY(-1px);box-shadow:0 4px 15px rgba(255,95,31,0.3)}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--accent)}
+.btn-outline:hover{background:rgba(255,95,31,0.1)}
+.btn-red{background:rgba(248,81,73,0.15);border:1px solid rgba(248,81,73,0.3);color:var(--red)}
+.btn-green{background:rgba(57,211,83,0.15);border:1px solid rgba(57,211,83,0.3);color:var(--green)}
+.btn-sm{padding:0.4rem 0.8rem;font-size:0.75rem}
+.btn-row{display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:0.75rem}
+/* Stats Grid */
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1rem;margin-bottom:1.5rem}
+.stat-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.2rem;text-align:center}
+.stat-card .num{font-size:2rem;font-weight:800;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.stat-card .label{font-size:0.75rem;color:var(--text-dim);margin-top:0.3rem}
+/* Employee Table */
+.emp-table{width:100%;border-collapse:collapse;margin:1rem 0}
+.emp-table th{text-align:left;font-size:0.7rem;color:var(--text-dim);text-transform:uppercase;padding:0.6rem;border-bottom:1px solid var(--border);letter-spacing:0.5px}
+.emp-table td{padding:0.6rem;border-bottom:1px solid rgba(255,95,31,0.06);font-size:0.85rem}
+.emp-table tr:hover{background:rgba(255,95,31,0.03)}
+.badge{display:inline-block;padding:2px 10px;border-radius:20px;font-size:0.7rem;font-weight:700}
+.badge-active{background:rgba(57,211,83,0.15);color:var(--green)}
+.badge-leave{background:rgba(255,159,31,0.15);color:var(--accent2)}
+.badge-terminated{background:rgba(248,81,73,0.15);color:var(--red)}
+.badge-pending{background:rgba(88,166,255,0.15);color:var(--blue)}
+.badge-approved{background:rgba(57,211,83,0.15);color:var(--green)}
+.badge-denied{background:rgba(248,81,73,0.15);color:var(--red)}
+/* Chatbot */
+.chat-container{max-height:400px;overflow-y:auto;margin:1rem 0;padding:1rem;background:rgba(10,10,15,0.5);border-radius:12px;border:1px solid var(--border)}
+.chat-msg{margin-bottom:0.75rem;display:flex;gap:0.5rem}
+.chat-msg.bot .chat-bubble{background:rgba(255,95,31,0.1);border:1px solid rgba(255,95,31,0.2);border-radius:12px 12px 12px 4px}
+.chat-msg.user .chat-bubble{background:rgba(88,166,255,0.1);border:1px solid rgba(88,166,255,0.2);border-radius:12px 12px 4px 12px;margin-left:auto}
+.chat-bubble{padding:0.6rem 1rem;max-width:80%;font-size:0.85rem;line-height:1.6}
+.chat-avatar{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.8rem;flex-shrink:0}
+.chat-msg.bot .chat-avatar{background:rgba(255,95,31,0.2)}
+.chat-input-wrap{display:flex;gap:0.5rem;margin-top:0.75rem}
+.chat-input{flex:1;padding:0.6rem 1rem;background:rgba(18,18,28,0.9);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:0.85rem;font-family:var(--font);outline:none}
+.chat-input:focus{border-color:var(--accent)}
+/* Leave Calendar */
+.calendar{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin:1rem 0}
+.cal-header{font-size:0.65rem;color:var(--text-dim);text-align:center;padding:0.4rem;font-weight:700}
+.cal-day{background:rgba(18,18,28,0.5);border:1px solid rgba(255,95,31,0.05);border-radius:4px;padding:0.3rem;min-height:40px;font-size:0.7rem;text-align:center;position:relative}
+.cal-day.today{border-color:var(--accent);background:rgba(255,95,31,0.08)}
+.cal-day .leave-dot{width:6px;height:6px;border-radius:50%;background:var(--accent2);margin:2px auto 0}
+/* Performance */
+.perf-bar{height:8px;background:rgba(255,95,31,0.1);border-radius:4px;overflow:hidden;margin-top:0.3rem}
+.perf-fill{height:100%;border-radius:4px;transition:width 0.5s}
+.perf-fill.high{background:var(--green)}.perf-fill.mid{background:var(--accent2)}.perf-fill.low{background:var(--red)}
+/* Onboarding */
+.checklist-item{display:flex;align-items:center;gap:0.75rem;padding:0.6rem 0;border-bottom:1px solid rgba(255,95,31,0.06)}
+.checklist-item input[type="checkbox"]{accent-color:var(--accent);width:18px;height:18px;cursor:pointer}
+.checklist-item.done{opacity:0.5;text-decoration:line-through}
+/* Alerts */
+.alert-item{display:flex;align-items:center;gap:0.75rem;padding:0.75rem;background:rgba(255,95,31,0.05);border:1px solid var(--border);border-radius:8px;margin-bottom:0.5rem;font-size:0.85rem}
+.alert-icon{font-size:1.2rem;flex-shrink:0}
+.alert-item.urgent{border-color:rgba(248,81,73,0.3);background:rgba(248,81,73,0.05)}
+/* Modal */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:500;display:flex;align-items:center;justify-content:center;padding:2rem}
+.modal-overlay.hidden{display:none}
+.modal{background:#12121c;border:1px solid var(--border);border-radius:16px;padding:2rem;max-width:600px;width:100%;max-height:80vh;overflow-y:auto}
+.modal h3{font-size:1.2rem;font-weight:700;margin-bottom:1rem}
+@media(max-width:768px){.form-row{grid-template-columns:1fr}.stats-grid{grid-template-columns:repeat(2,1fr)}.main{padding:1rem}}
+</style>
+</head>
+<body>
+<div class="bg-mesh"></div>
+<div class="bg-grid"></div>
+
+<!-- Lock Gate -->
+<div class="lock-gate" id="lockGate">
+<div class="lock-icon-big">🤖</div>
+<h2>Access <span>HR Bot</span></h2>
+<p>Enter the exclusive access code to unlock this premium automation tool.</p>
+<div class="code-input-wrap">
+<input type="text" class="code-input" id="codeInput" placeholder="CODE" maxlength="10" autocomplete="off">
+<button class="code-submit" onclick="checkCode()">Unlock</button>
+</div>
+<div class="code-error" id="codeError"></div>
+<p class="lock-hint">Hint: Visit <a href="https://spunk.codes">spunk.codes</a> to find the code</p>
+</div>
+
+<!-- Nav -->
+<nav class="nav">
+<a href="https://spunk.codes" class="nav-brand">SPUNK.CODES</a>
+<div class="nav-links">
+<a href="https://spunk.codes">Tools</a>
+<a href="https://spunk.codes/exclusive/" class="active">Exclusive</a>
+<a href="https://spunk.bet">Spunk Bet</a>
+</div>
+</nav>
+
+<!-- Main App -->
+<div class="main" id="mainApp" style="display:none">
+<div class="hero-section">
+<span class="exclusive-badge">⚡ EXCLUSIVE TOOL</span>
+<h1>🤖 Automatic <span class="gold">HR Bot</span></h1>
+<p>Complete HR automation. Employee database, leave management, onboarding, performance tracking, and an AI assistant — all in one tool.</p>
+</div>
+
+<!-- Stats -->
+<div class="stats-grid" id="statsGrid">
+<div class="stat-card"><div class="num" id="statTotal">0</div><div class="label">Total Employees</div></div>
+<div class="stat-card"><div class="num" id="statActive">0</div><div class="label">Active</div></div>
+<div class="stat-card"><div class="num" id="statOnLeave">0</div><div class="label">On Leave</div></div>
+<div class="stat-card"><div class="num" id="statPending">0</div><div class="label">Pending Requests</div></div>
+<div class="stat-card"><div class="num" id="statOnboarding">0</div><div class="label">Onboarding</div></div>
+<div class="stat-card"><div class="num" id="statAlerts">0</div><div class="label">Alerts</div></div>
+</div>
+
+<!-- Tabs -->
+<div class="tabs">
+<button class="tab active" onclick="switchTab('employees')">👥 Employees</button>
+<button class="tab" onclick="switchTab('leave')">📅 Leave</button>
+<button class="tab" onclick="switchTab('onboarding')">📋 Onboarding</button>
+<button class="tab" onclick="switchTab('performance')">📊 Performance</button>
+<button class="tab" onclick="switchTab('alerts')">🔔 Alerts</button>
+<button class="tab" onclick="switchTab('chatbot')">🤖 HR Bot Chat</button>
+</div>
+
+<!-- Employees Tab -->
+<div class="tab-panel active" id="panel-employees">
+<div class="card">
+<h2>👥 Employee Directory</h2>
+<div class="form-row" style="margin-bottom:1rem">
+<div class="form-group"><input type="text" id="empSearch" placeholder="Search employees..." oninput="renderEmployees()"></div>
+<div class="form-group"><select id="empFilter" onchange="renderEmployees()"><option value="all">All Status</option><option value="active">Active</option><option value="leave">On Leave</option><option value="terminated">Terminated</option></select></div>
+<div class="form-group"><select id="empDeptFilter" onchange="renderEmployees()"><option value="all">All Departments</option></select></div>
+</div>
+<div class="btn-row" style="margin-bottom:1rem">
+<button class="btn btn-gold" onclick="openAddEmployee()">+ Add Employee</button>
+<button class="btn btn-outline" onclick="exportEmployeesCSV()">📥 Export CSV</button>
+</div>
+<div style="overflow-x:auto">
+<table class="emp-table" id="empTable">
+<thead><tr><th>Name</th><th>Department</th><th>Role</th><th>Email</th><th>Start Date</th><th>Status</th><th>Actions</th></tr></thead>
+<tbody id="empBody"></tbody>
+</table>
+</div>
+</div>
+</div>
+
+<!-- Leave Tab -->
+<div class="tab-panel" id="panel-leave">
+<div class="card">
+<h2>📅 Leave Management</h2>
+<div class="btn-row" style="margin-bottom:1rem">
+<button class="btn btn-gold" onclick="openLeaveRequest()">+ New Leave Request</button>
+</div>
+<div style="overflow-x:auto">
+<table class="emp-table" id="leaveTable">
+<thead><tr><th>Employee</th><th>Type</th><th>From</th><th>To</th><th>Days</th><th>Reason</th><th>Status</th><th>Actions</th></tr></thead>
+<tbody id="leaveBody"></tbody>
+</table>
+</div>
+</div>
+<div class="card">
+<h2>📆 Leave Calendar</h2>
+<div style="display:flex;align-items:center;gap:1rem;margin-bottom:0.5rem">
+<button class="btn btn-sm btn-outline" onclick="changeCalMonth(-1)">◀</button>
+<strong id="calMonthLabel"></strong>
+<button class="btn btn-sm btn-outline" onclick="changeCalMonth(1)">▶</button>
+</div>
+<div class="calendar" id="leaveCalendar"></div>
+</div>
+</div>
+
+<!-- Onboarding Tab -->
+<div class="tab-panel" id="panel-onboarding">
+<div class="card">
+<h2>📋 Onboarding Checklists</h2>
+<div class="form-row" style="margin-bottom:1rem">
+<div class="form-group"><select id="onboardEmp" onchange="renderOnboarding()"><option value="">Select employee...</option></select></div>
+<div class="form-group"><select id="onboardTrack" onchange="renderOnboarding()"><option value="general">General</option><option value="engineering">Engineering</option><option value="sales">Sales</option><option value="marketing">Marketing</option></select></div>
+</div>
+<div id="onboardChecklist"></div>
+</div>
+</div>
+
+<!-- Performance Tab -->
+<div class="tab-panel" id="panel-performance">
+<div class="card">
+<h2>📊 Performance Reviews</h2>
+<div class="form-row" style="margin-bottom:1rem">
+<div class="form-group"><select id="perfEmp" onchange="renderPerformance()"><option value="">Select employee...</option></select></div>
+</div>
+<div id="perfContent"></div>
+<div class="btn-row">
+<button class="btn btn-gold" onclick="openAddReview()">+ Add Review</button>
+</div>
+</div>
+</div>
+
+<!-- Alerts Tab -->
+<div class="tab-panel" id="panel-alerts">
+<div class="card">
+<h2>🔔 Automated Alerts & Reminders</h2>
+<div id="alertsList"></div>
+</div>
+</div>
+
+<!-- Chatbot Tab -->
+<div class="tab-panel" id="panel-chatbot">
+<div class="card">
+<h2>🤖 HR Bot Assistant</h2>
+<p style="font-size:0.85rem;color:var(--text-dim);margin-bottom:0.5rem">Ask the HR Bot about employees, policies, leave balances, or common HR questions.</p>
+<div class="chat-container" id="chatContainer">
+<div class="chat-msg bot"><div class="chat-avatar">🤖</div><div class="chat-bubble">Hi! I'm your HR Bot. I can help you with employee info, leave management, onboarding, and HR policies. Try asking:<br>• "How many employees do we have?"<br>• "Who is on leave?"<br>• "What's our leave policy?"<br>• "Show onboarding progress"<br>• "Generate headcount report"</div></div>
+</div>
+<div class="chat-input-wrap">
+<input type="text" class="chat-input" id="chatInput" placeholder="Ask the HR Bot..." onkeydown="if(event.key==='Enter')sendChat()">
+<button class="btn btn-gold" onclick="sendChat()">Send</button>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Modal -->
+<div class="modal-overlay hidden" id="modal">
+<div class="modal" id="modalContent"></div>
+</div>
+
+<script>
+/* ===== DATA STORE ===== */
+const STORE_KEY = 'spunk-hr-bot';
+let data = { employees: [], leaveRequests: [], reviews: [], onboarding: {} };
+let calMonth = new Date().getMonth();
+let calYear = new Date().getFullYear();
+
+function save() { localStorage.setItem(STORE_KEY, JSON.stringify(data)); }
+function load() {
+  const s = localStorage.getItem(STORE_KEY);
+  if (s) { try { data = JSON.parse(s); } catch(e) {} }
+  if (!data.employees) data.employees = [];
+  if (!data.leaveRequests) data.leaveRequests = [];
+  if (!data.reviews) data.reviews = [];
+  if (!data.onboarding) data.onboarding = {};
+}
+
+/* ===== LOCK GATE ===== */
+function checkCode() {
+  const v = document.getElementById('codeInput').value.trim().toUpperCase();
+  if (v === 'SPUNK') {
+    document.getElementById('lockGate').classList.add('hidden');
+    document.getElementById('mainApp').style.display = 'block';
+    sessionStorage.setItem('spunk-hr-unlocked', '1');
+    init();
+  } else {
+    document.getElementById('codeError').textContent = 'Invalid code. Try again.';
+  }
+}
+document.addEventListener('DOMContentLoaded', function() {
+  if (sessionStorage.getItem('spunk-hr-unlocked')) {
+    document.getElementById('lockGate').classList.add('hidden');
+    document.getElementById('mainApp').style.display = 'block';
+    init();
+  }
+  document.getElementById('codeInput').addEventListener('keydown', function(e) { if (e.key === 'Enter') checkCode(); });
+});
+
+/* ===== INIT ===== */
+function init() {
+  load();
+  updateStats();
+  renderEmployees();
+  renderLeaveCalendar();
+  populateSelects();
+  generateAlerts();
+}
+
+/* ===== TABS ===== */
+function switchTab(name) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('panel-' + name).classList.add('active');
+  event.target.classList.add('active');
+  if (name === 'leave') renderLeaveCalendar();
+  if (name === 'alerts') generateAlerts();
+}
+
+/* ===== STATS ===== */
+function updateStats() {
+  const active = data.employees.filter(e => e.status === 'active').length;
+  const onLeave = data.employees.filter(e => e.status === 'leave').length;
+  const pending = data.leaveRequests.filter(r => r.status === 'pending').length;
+  const onboarding = data.employees.filter(e => {
+    const d = data.onboarding[e.id];
+    return d && d.some(i => !i.done);
+  }).length;
+  document.getElementById('statTotal').textContent = data.employees.length;
+  document.getElementById('statActive').textContent = active;
+  document.getElementById('statOnLeave').textContent = onLeave;
+  document.getElementById('statPending').textContent = pending;
+  document.getElementById('statOnboarding').textContent = onboarding;
+  document.getElementById('statAlerts').textContent = getAlerts().length;
+}
+
+/* ===== EMPLOYEES ===== */
+function renderEmployees() {
+  const search = (document.getElementById('empSearch').value || '').toLowerCase();
+  const filter = document.getElementById('empFilter').value;
+  const dept = document.getElementById('empDeptFilter').value;
+  let list = data.employees.filter(e => {
+    if (filter !== 'all' && e.status !== filter) return false;
+    if (dept !== 'all' && e.department !== dept) return false;
+    if (search && !e.name.toLowerCase().includes(search) && !e.email.toLowerCase().includes(search) && !e.role.toLowerCase().includes(search)) return false;
+    return true;
+  });
+  const body = document.getElementById('empBody');
+  if (!list.length) { body.innerHTML = '<tr><td colspan="7" style="text-align:center;color:var(--text-dim)">No employees found. Click "+ Add Employee" to get started.</td></tr>'; return; }
+  body.innerHTML = list.map(e => `<tr>
+    <td><strong>${esc(e.name)}</strong></td>
+    <td>${esc(e.department)}</td>
+    <td>${esc(e.role)}</td>
+    <td>${esc(e.email)}</td>
+    <td>${e.startDate}</td>
+    <td><span class="badge badge-${e.status}">${e.status}</span></td>
+    <td><button class="btn btn-sm btn-outline" onclick="editEmployee('${e.id}')">Edit</button> <button class="btn btn-sm btn-red" onclick="deleteEmployee('${e.id}')">X</button></td>
+  </tr>`).join('');
+}
+
+function openAddEmployee() {
+  showModal(`<h3>Add Employee</h3>
+    <div class="form-row"><div class="form-group"><label>Full Name</label><input id="mName"></div><div class="form-group"><label>Email</label><input id="mEmail" type="email"></div></div>
+    <div class="form-row"><div class="form-group"><label>Department</label><input id="mDept" list="deptList"><datalist id="deptList"><option value="Engineering"><option value="Sales"><option value="Marketing"><option value="Design"><option value="Finance"><option value="HR"><option value="Operations"><option value="Support"></datalist></div><div class="form-group"><label>Role</label><input id="mRole"></div></div>
+    <div class="form-row"><div class="form-group"><label>Start Date</label><input id="mStart" type="date"></div><div class="form-group"><label>Phone</label><input id="mPhone"></div></div>
+    <div class="form-row"><div class="form-group"><label>Salary</label><input id="mSalary" type="number"></div><div class="form-group"><label>Status</label><select id="mStatus"><option value="active">Active</option><option value="leave">On Leave</option></select></div></div>
+    <div class="btn-row"><button class="btn btn-gold" onclick="saveNewEmployee()">Save Employee</button><button class="btn btn-outline" onclick="closeModal()">Cancel</button></div>`);
+}
+
+function saveNewEmployee() {
+  const emp = {
+    id: 'emp-' + Date.now(),
+    name: document.getElementById('mName').value.trim(),
+    email: document.getElementById('mEmail').value.trim(),
+    department: document.getElementById('mDept').value.trim(),
+    role: document.getElementById('mRole').value.trim(),
+    startDate: document.getElementById('mStart').value,
+    phone: document.getElementById('mPhone').value.trim(),
+    salary: parseFloat(document.getElementById('mSalary').value) || 0,
+    status: document.getElementById('mStatus').value,
+    leaveBalance: 20
+  };
+  if (!emp.name) { alert('Name is required'); return; }
+  data.employees.push(emp);
+  initOnboarding(emp.id);
+  save(); closeModal(); updateStats(); renderEmployees(); populateSelects();
+}
+
+function editEmployee(id) {
+  const e = data.employees.find(x => x.id === id);
+  if (!e) return;
+  showModal(`<h3>Edit Employee</h3>
+    <div class="form-row"><div class="form-group"><label>Full Name</label><input id="mName" value="${esc(e.name)}"></div><div class="form-group"><label>Email</label><input id="mEmail" value="${esc(e.email)}"></div></div>
+    <div class="form-row"><div class="form-group"><label>Department</label><input id="mDept" value="${esc(e.department)}"></div><div class="form-group"><label>Role</label><input id="mRole" value="${esc(e.role)}"></div></div>
+    <div class="form-row"><div class="form-group"><label>Start Date</label><input id="mStart" type="date" value="${e.startDate}"></div><div class="form-group"><label>Phone</label><input id="mPhone" value="${esc(e.phone||'')}"></div></div>
+    <div class="form-row"><div class="form-group"><label>Salary</label><input id="mSalary" type="number" value="${e.salary||0}"></div><div class="form-group"><label>Status</label><select id="mStatus"><option value="active" ${e.status==='active'?'selected':''}>Active</option><option value="leave" ${e.status==='leave'?'selected':''}>On Leave</option><option value="terminated" ${e.status==='terminated'?'selected':''}>Terminated</option></select></div></div>
+    <div class="form-row"><div class="form-group"><label>Leave Balance (days)</label><input id="mLeave" type="number" value="${e.leaveBalance||20}"></div></div>
+    <div class="btn-row"><button class="btn btn-gold" onclick="saveEditEmployee('${id}')">Save Changes</button><button class="btn btn-outline" onclick="closeModal()">Cancel</button></div>`);
+}
+
+function saveEditEmployee(id) {
+  const e = data.employees.find(x => x.id === id);
+  if (!e) return;
+  e.name = document.getElementById('mName').value.trim();
+  e.email = document.getElementById('mEmail').value.trim();
+  e.department = document.getElementById('mDept').value.trim();
+  e.role = document.getElementById('mRole').value.trim();
+  e.startDate = document.getElementById('mStart').value;
+  e.phone = document.getElementById('mPhone').value.trim();
+  e.salary = parseFloat(document.getElementById('mSalary').value) || 0;
+  e.status = document.getElementById('mStatus').value;
+  e.leaveBalance = parseInt(document.getElementById('mLeave').value) || 20;
+  save(); closeModal(); updateStats(); renderEmployees(); populateSelects();
+}
+
+function deleteEmployee(id) {
+  if (!confirm('Delete this employee?')) return;
+  data.employees = data.employees.filter(e => e.id !== id);
+  delete data.onboarding[id];
+  save(); updateStats(); renderEmployees(); populateSelects();
+}
+
+function exportEmployeesCSV() {
+  let csv = 'Name,Email,Department,Role,Start Date,Phone,Salary,Status,Leave Balance\n';
+  data.employees.forEach(e => {
+    csv += `"${e.name}","${e.email}","${e.department}","${e.role}","${e.startDate}","${e.phone||''}","${e.salary}","${e.status}","${e.leaveBalance||20}"\n`;
+  });
+  downloadCSV(csv, 'employees.csv');
+}
+
+/* ===== LEAVE MANAGEMENT ===== */
+function openLeaveRequest() {
+  let opts = data.employees.filter(e => e.status !== 'terminated').map(e => `<option value="${e.id}">${esc(e.name)}</option>`).join('');
+  showModal(`<h3>New Leave Request</h3>
+    <div class="form-row"><div class="form-group"><label>Employee</label><select id="mLeaveEmp">${opts}</select></div><div class="form-group"><label>Type</label><select id="mLeaveType"><option>Annual</option><option>Sick</option><option>Personal</option><option>Maternity/Paternity</option><option>Unpaid</option></select></div></div>
+    <div class="form-row"><div class="form-group"><label>From</label><input id="mLeaveFrom" type="date"></div><div class="form-group"><label>To</label><input id="mLeaveTo" type="date"></div></div>
+    <div class="form-group"><label>Reason</label><input id="mLeaveReason"></div>
+    <div class="btn-row"><button class="btn btn-gold" onclick="submitLeave()">Submit Request</button><button class="btn btn-outline" onclick="closeModal()">Cancel</button></div>`);
+}
+
+function submitLeave() {
+  const from = document.getElementById('mLeaveFrom').value;
+  const to = document.getElementById('mLeaveTo').value;
+  if (!from || !to) { alert('Dates required'); return; }
+  const days = Math.ceil((new Date(to) - new Date(from)) / 86400000) + 1;
+  data.leaveRequests.push({
+    id: 'leave-' + Date.now(),
+    empId: document.getElementById('mLeaveEmp').value,
+    type: document.getElementById('mLeaveType').value,
+    from, to, days,
+    reason: document.getElementById('mLeaveReason').value.trim(),
+    status: 'pending',
+    created: new Date().toISOString()
+  });
+  save(); closeModal(); renderLeave(); updateStats();
+}
+
+function renderLeave() {
+  const body = document.getElementById('leaveBody');
+  if (!data.leaveRequests.length) { body.innerHTML = '<tr><td colspan="8" style="text-align:center;color:var(--text-dim)">No leave requests.</td></tr>'; return; }
+  body.innerHTML = data.leaveRequests.map(r => {
+    const emp = data.employees.find(e => e.id === r.empId);
+    return `<tr>
+      <td>${emp ? esc(emp.name) : 'Unknown'}</td>
+      <td>${r.type}</td><td>${r.from}</td><td>${r.to}</td><td>${r.days}</td>
+      <td>${esc(r.reason)}</td>
+      <td><span class="badge badge-${r.status}">${r.status}</span></td>
+      <td>${r.status === 'pending' ? `<button class="btn btn-sm btn-green" onclick="approveLeave('${r.id}')">Approve</button> <button class="btn btn-sm btn-red" onclick="denyLeave('${r.id}')">Deny</button>` : ''}</td>
+    </tr>`;
+  }).join('');
+}
+
+function approveLeave(id) {
+  const r = data.leaveRequests.find(x => x.id === id);
+  if (r) { r.status = 'approved'; const emp = data.employees.find(e => e.id === r.empId); if (emp) emp.leaveBalance = (emp.leaveBalance || 20) - r.days; }
+  save(); renderLeave(); updateStats(); renderLeaveCalendar();
+}
+function denyLeave(id) {
+  const r = data.leaveRequests.find(x => x.id === id);
+  if (r) r.status = 'denied';
+  save(); renderLeave(); updateStats();
+}
+
+/* ===== LEAVE CALENDAR ===== */
+function renderLeaveCalendar() {
+  const cal = document.getElementById('leaveCalendar');
+  if (!cal) return;
+  document.getElementById('calMonthLabel').textContent = new Date(calYear, calMonth).toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+  const firstDay = new Date(calYear, calMonth, 1).getDay();
+  const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
+  const today = new Date();
+  let html = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].map(d => `<div class="cal-header">${d}</div>`).join('');
+  for (let i = 0; i < firstDay; i++) html += '<div class="cal-day"></div>';
+  for (let d = 1; d <= daysInMonth; d++) {
+    const dateStr = `${calYear}-${String(calMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const isToday = today.getDate() === d && today.getMonth() === calMonth && today.getFullYear() === calYear;
+    const hasLeave = data.leaveRequests.some(r => r.status === 'approved' && r.from <= dateStr && r.to >= dateStr);
+    html += `<div class="cal-day${isToday ? ' today' : ''}">${d}${hasLeave ? '<div class="leave-dot"></div>' : ''}</div>`;
+  }
+  cal.innerHTML = html;
+}
+function changeCalMonth(dir) { calMonth += dir; if (calMonth > 11) { calMonth = 0; calYear++; } if (calMonth < 0) { calMonth = 11; calYear--; } renderLeaveCalendar(); }
+
+/* ===== ONBOARDING ===== */
+const ONBOARD_TEMPLATES = {
+  general: [
+    { phase: 'Pre-arrival', tasks: ['Send welcome email', 'Prepare workstation', 'Create email account', 'Set up system access', 'Assign buddy/mentor'] },
+    { phase: 'Day 1', tasks: ['Office tour', 'Team introductions', 'IT setup & equipment', 'Review handbook & policies', 'Complete tax & payroll forms'] },
+    { phase: 'Week 1', tasks: ['1-on-1 with manager', 'Review role expectations', 'Shadow team members', 'Complete compliance training', 'Set 30-day goals'] },
+    { phase: 'Month 1', tasks: ['30-day check-in with manager', 'Complete all required trainings', 'Deliver first small project', 'Feedback session'] }
+  ],
+  engineering: [
+    { phase: 'Pre-arrival', tasks: ['Send welcome email', 'Order equipment (laptop, monitors)', 'Create GitHub/GitLab access', 'Create dev environment docs', 'Assign onboarding buddy'] },
+    { phase: 'Day 1', tasks: ['Dev environment setup', 'Clone repos & build project', 'Architecture overview', 'Code style guide review', 'Meet the team'] },
+    { phase: 'Week 1', tasks: ['Fix a starter bug', 'Code review walkthrough', 'Deploy process training', 'CI/CD pipeline overview', 'Security practices review'] },
+    { phase: 'Month 1', tasks: ['Ship first feature', 'Lead a code review', 'On-call rotation intro', '30-day tech lead check-in'] }
+  ],
+  sales: [
+    { phase: 'Pre-arrival', tasks: ['Send welcome email', 'CRM access setup', 'Prepare sales playbook', 'Assign sales mentor'] },
+    { phase: 'Day 1', tasks: ['CRM training', 'Product demo walkthrough', 'Review ICP & buyer personas', 'Meet the team'] },
+    { phase: 'Week 1', tasks: ['Shadow 5 sales calls', 'Practice pitch delivery', 'Learn objection handling', 'Study competitor analysis'] },
+    { phase: 'Month 1', tasks: ['Make first 20 outbound calls', 'Close first deal (or pipeline)', 'Complete product certification', '30-day manager review'] }
+  ],
+  marketing: [
+    { phase: 'Pre-arrival', tasks: ['Send welcome email', 'Create tool access (analytics, CMS)', 'Share brand guidelines', 'Assign marketing buddy'] },
+    { phase: 'Day 1', tasks: ['Brand & voice guide review', 'Analytics tools walkthrough', 'Content calendar review', 'Meet the team'] },
+    { phase: 'Week 1', tasks: ['Audit current campaigns', 'Write first content piece', 'Social media access & training', 'SEO tools overview'] },
+    { phase: 'Month 1', tasks: ['Launch first campaign', 'Performance report delivery', 'Brand consistency audit', '30-day manager check-in'] }
+  ]
+};
+
+function initOnboarding(empId) {
+  const track = 'general';
+  data.onboarding[empId] = [];
+  ONBOARD_TEMPLATES[track].forEach(phase => {
+    phase.tasks.forEach(task => {
+      data.onboarding[empId].push({ phase: phase.phase, task, done: false });
+    });
+  });
+  save();
+}
+
+function renderOnboarding() {
+  const empId = document.getElementById('onboardEmp').value;
+  const track = document.getElementById('onboardTrack').value;
+  const container = document.getElementById('onboardChecklist');
+  if (!empId) { container.innerHTML = '<p style="color:var(--text-dim)">Select an employee to view their onboarding checklist.</p>'; return; }
+  if (!data.onboarding[empId]) {
+    data.onboarding[empId] = [];
+    ONBOARD_TEMPLATES[track].forEach(phase => {
+      phase.tasks.forEach(task => {
+        data.onboarding[empId].push({ phase: phase.phase, task, done: false });
+      });
+    });
+    save();
+  }
+  const items = data.onboarding[empId];
+  const doneCount = items.filter(i => i.done).length;
+  const pct = items.length ? Math.round(doneCount / items.length * 100) : 0;
+  let html = `<div style="margin-bottom:1rem"><strong>Progress: ${pct}%</strong> (${doneCount}/${items.length})<div class="perf-bar" style="margin-top:0.5rem"><div class="perf-fill ${pct>=75?'high':pct>=40?'mid':'low'}" style="width:${pct}%"></div></div></div>`;
+  let currentPhase = '';
+  items.forEach((item, idx) => {
+    if (item.phase !== currentPhase) { currentPhase = item.phase; html += `<h3 style="margin:1rem 0 0.5rem;color:var(--accent)">${currentPhase}</h3>`; }
+    html += `<div class="checklist-item ${item.done?'done':''}"><input type="checkbox" ${item.done?'checked':''} onchange="toggleOnboard('${empId}',${idx})"><span>${esc(item.task)}</span></div>`;
+  });
+  html += `<div class="btn-row" style="margin-top:1rem"><button class="btn btn-outline btn-sm" onclick="resetOnboarding('${empId}','${track}')">Reset Checklist</button></div>`;
+  container.innerHTML = html;
+}
+
+function toggleOnboard(empId, idx) {
+  data.onboarding[empId][idx].done = !data.onboarding[empId][idx].done;
+  save(); renderOnboarding(); updateStats();
+}
+
+function resetOnboarding(empId, track) {
+  data.onboarding[empId] = [];
+  ONBOARD_TEMPLATES[track].forEach(phase => {
+    phase.tasks.forEach(task => {
+      data.onboarding[empId].push({ phase: phase.phase, task, done: false });
+    });
+  });
+  save(); renderOnboarding(); updateStats();
+}
+
+/* ===== PERFORMANCE ===== */
+function renderPerformance() {
+  const empId = document.getElementById('perfEmp').value;
+  const container = document.getElementById('perfContent');
+  if (!empId) { container.innerHTML = '<p style="color:var(--text-dim)">Select an employee to view their performance reviews.</p>'; return; }
+  const reviews = data.reviews.filter(r => r.empId === empId).sort((a,b) => b.date.localeCompare(a.date));
+  if (!reviews.length) { container.innerHTML = '<p style="color:var(--text-dim)">No reviews yet for this employee.</p>'; return; }
+  container.innerHTML = reviews.map(r => {
+    const pct = r.score * 20;
+    return `<div style="background:rgba(10,10,15,0.5);border:1px solid var(--border);border-radius:8px;padding:1rem;margin-bottom:0.75rem">
+      <div style="display:flex;justify-content:space-between;align-items:center"><strong>${r.date}</strong><span style="font-size:1.2rem;font-weight:800;color:var(--accent)">${r.score}/5</span></div>
+      <div class="perf-bar"><div class="perf-fill ${pct>=75?'high':pct>=40?'mid':'low'}" style="width:${pct}%"></div></div>
+      <p style="margin-top:0.5rem;font-size:0.85rem">${esc(r.notes)}</p>
+      <div style="margin-top:0.5rem;font-size:0.75rem;color:var(--text-dim)">Strengths: ${esc(r.strengths)} | Areas to improve: ${esc(r.improvements)}</div>
+    </div>`;
+  }).join('');
+}
+
+function openAddReview() {
+  const empId = document.getElementById('perfEmp').value;
+  if (!empId) { alert('Select an employee first'); return; }
+  const emp = data.employees.find(e => e.id === empId);
+  showModal(`<h3>Add Performance Review for ${esc(emp ? emp.name : '')}</h3>
+    <div class="form-row"><div class="form-group"><label>Date</label><input id="mRevDate" type="date" value="${new Date().toISOString().slice(0,10)}"></div><div class="form-group"><label>Score (1-5)</label><select id="mRevScore"><option value="5">5 - Exceptional</option><option value="4">4 - Exceeds Expectations</option><option value="3" selected>3 - Meets Expectations</option><option value="2">2 - Needs Improvement</option><option value="1">1 - Unsatisfactory</option></select></div></div>
+    <div class="form-group"><label>Strengths</label><input id="mRevStrengths"></div>
+    <div class="form-group"><label>Areas to Improve</label><input id="mRevImprove"></div>
+    <div class="form-group"><label>Notes</label><input id="mRevNotes"></div>
+    <div class="btn-row"><button class="btn btn-gold" onclick="saveReview('${empId}')">Save Review</button><button class="btn btn-outline" onclick="closeModal()">Cancel</button></div>`);
+}
+
+function saveReview(empId) {
+  data.reviews.push({
+    id: 'rev-' + Date.now(), empId,
+    date: document.getElementById('mRevDate').value,
+    score: parseInt(document.getElementById('mRevScore').value),
+    strengths: document.getElementById('mRevStrengths').value.trim(),
+    improvements: document.getElementById('mRevImprove').value.trim(),
+    notes: document.getElementById('mRevNotes').value.trim()
+  });
+  save(); closeModal(); renderPerformance();
+}
+
+/* ===== ALERTS ===== */
+function getAlerts() {
+  const alerts = [];
+  const today = new Date();
+  // Pending leave requests
+  data.leaveRequests.filter(r => r.status === 'pending').forEach(r => {
+    const emp = data.employees.find(e => e.id === r.empId);
+    alerts.push({ icon: '📅', text: `${emp ? emp.name : 'Employee'} has a pending leave request (${r.from} to ${r.to})`, urgent: true });
+  });
+  // Work anniversaries this month
+  data.employees.filter(e => e.status === 'active' && e.startDate).forEach(e => {
+    const start = new Date(e.startDate);
+    if (start.getMonth() === today.getMonth() && start.getDate() >= today.getDate() && start.getDate() <= today.getDate() + 7) {
+      const years = today.getFullYear() - start.getFullYear();
+      if (years > 0) alerts.push({ icon: '🎂', text: `${e.name}'s ${years}-year work anniversary is coming up!`, urgent: false });
+    }
+  });
+  // Low leave balance
+  data.employees.filter(e => e.status === 'active' && (e.leaveBalance || 20) <= 3).forEach(e => {
+    alerts.push({ icon: '⚠️', text: `${e.name} has only ${e.leaveBalance} leave days remaining`, urgent: true });
+  });
+  // Incomplete onboarding
+  data.employees.forEach(e => {
+    const ob = data.onboarding[e.id];
+    if (ob && ob.length > 0) {
+      const done = ob.filter(i => i.done).length;
+      const pct = Math.round(done / ob.length * 100);
+      if (pct < 100 && pct > 0) alerts.push({ icon: '📋', text: `${e.name}'s onboarding is ${pct}% complete`, urgent: pct < 50 });
+    }
+  });
+  // Missing reviews (active employees with no review in 90 days)
+  data.employees.filter(e => e.status === 'active').forEach(e => {
+    const revs = data.reviews.filter(r => r.empId === e.id);
+    if (!revs.length) {
+      alerts.push({ icon: '📊', text: `${e.name} has no performance reviews on file`, urgent: false });
+    } else {
+      const latest = revs.sort((a,b) => b.date.localeCompare(a.date))[0];
+      const daysSince = Math.floor((today - new Date(latest.date)) / 86400000);
+      if (daysSince > 90) alerts.push({ icon: '📊', text: `${e.name}'s last review was ${daysSince} days ago`, urgent: daysSince > 180 });
+    }
+  });
+  return alerts;
+}
+
+function generateAlerts() {
+  const alerts = getAlerts();
+  const container = document.getElementById('alertsList');
+  if (!alerts.length) { container.innerHTML = '<p style="color:var(--text-dim)">No alerts. Everything looks good!</p>'; return; }
+  container.innerHTML = alerts.map(a => `<div class="alert-item ${a.urgent ? 'urgent' : ''}"><span class="alert-icon">${a.icon}</span><span>${a.text}</span></div>`).join('');
+  document.getElementById('statAlerts').textContent = alerts.length;
+}
+
+/* ===== CHATBOT ===== */
+function sendChat() {
+  const input = document.getElementById('chatInput');
+  const msg = input.value.trim();
+  if (!msg) return;
+  input.value = '';
+  addChatMsg('user', msg);
+  const response = processChat(msg.toLowerCase());
+  setTimeout(() => addChatMsg('bot', response), 300);
+}
+
+function addChatMsg(role, text) {
+  const container = document.getElementById('chatContainer');
+  const div = document.createElement('div');
+  div.className = 'chat-msg ' + role;
+  div.innerHTML = `<div class="chat-avatar">${role === 'bot' ? '🤖' : '👤'}</div><div class="chat-bubble">${text}</div>`;
+  container.appendChild(div);
+  container.scrollTop = container.scrollHeight;
+}
+
+function processChat(msg) {
+  const active = data.employees.filter(e => e.status === 'active');
+  const onLeave = data.employees.filter(e => e.status === 'leave');
+  const pending = data.leaveRequests.filter(r => r.status === 'pending');
+
+  if (msg.includes('how many') && msg.includes('employee')) return `We currently have <strong>${data.employees.length}</strong> employees total. ${active.length} active, ${onLeave.length} on leave.`;
+  if (msg.includes('who') && msg.includes('leave')) {
+    if (!onLeave.length) return 'No employees are currently on leave.';
+    return `Employees on leave: <strong>${onLeave.map(e => e.name).join(', ')}</strong>`;
+  }
+  if (msg.includes('pending') && (msg.includes('request') || msg.includes('leave'))) {
+    if (!pending.length) return 'No pending leave requests. All caught up!';
+    return `There are <strong>${pending.length}</strong> pending leave requests waiting for approval. Go to the Leave tab to review them.`;
+  }
+  if (msg.includes('leave policy') || msg.includes('time off policy')) return 'Standard leave policy: <strong>20 days annual leave</strong> per year. Sick leave, personal days, and parental leave are handled on a case-by-case basis. All requests go through the Leave Management tab.';
+  if (msg.includes('onboarding') && msg.includes('progress')) {
+    const inProgress = data.employees.filter(e => { const ob = data.onboarding[e.id]; return ob && ob.length > 0 && ob.some(i => !i.done); });
+    if (!inProgress.length) return 'No active onboarding processes. All employees are fully onboarded!';
+    return `<strong>${inProgress.length}</strong> employees are still being onboarded: ${inProgress.map(e => { const ob = data.onboarding[e.id]; const pct = Math.round(ob.filter(i=>i.done).length/ob.length*100); return `${e.name} (${pct}%)`; }).join(', ')}`;
+  }
+  if (msg.includes('headcount') || msg.includes('report')) {
+    const depts = {};
+    data.employees.filter(e => e.status === 'active').forEach(e => { depts[e.department] = (depts[e.department] || 0) + 1; });
+    let report = `<strong>Headcount Report</strong><br>Total active: ${active.length}<br>`;
+    Object.entries(depts).sort((a,b) => b[1] - a[1]).forEach(([dept, count]) => { report += `${dept}: ${count}<br>`; });
+    return report;
+  }
+  if (msg.includes('salary') || msg.includes('payroll')) {
+    const totalSalary = data.employees.filter(e => e.status === 'active').reduce((sum, e) => sum + (e.salary || 0), 0);
+    return `Total active payroll: <strong>$${totalSalary.toLocaleString()}</strong> across ${active.length} employees.`;
+  }
+  if (msg.includes('department')) {
+    const depts = {};
+    data.employees.forEach(e => { depts[e.department] = (depts[e.department] || 0) + 1; });
+    return 'Department breakdown:<br>' + Object.entries(depts).map(([d,c]) => `<strong>${d}</strong>: ${c}`).join('<br>');
+  }
+  if (msg.includes('help') || msg.includes('what can')) return 'I can help with:<br>• Employee counts & headcount reports<br>• Who is on leave<br>• Pending leave requests<br>• Leave policy info<br>• Onboarding progress<br>• Salary/payroll totals<br>• Department breakdowns<br><br>Just ask me in plain English!';
+
+  return 'I am not sure about that. Try asking about employees, leave, onboarding, headcount, salary, or departments. Type "help" for a full list of what I can do.';
+}
+
+/* ===== UTILITIES ===== */
+function populateSelects() {
+  const depts = [...new Set(data.employees.map(e => e.department).filter(Boolean))];
+  const deptFilter = document.getElementById('empDeptFilter');
+  deptFilter.innerHTML = '<option value="all">All Departments</option>' + depts.map(d => `<option value="${d}">${d}</option>`).join('');
+  const empSelects = ['onboardEmp', 'perfEmp'];
+  empSelects.forEach(id => {
+    const sel = document.getElementById(id);
+    if (sel) sel.innerHTML = '<option value="">Select employee...</option>' + data.employees.map(e => `<option value="${e.id}">${esc(e.name)}</option>`).join('');
+  });
+}
+
+function showModal(html) { document.getElementById('modalContent').innerHTML = html; document.getElementById('modal').classList.remove('hidden'); }
+function closeModal() { document.getElementById('modal').classList.add('hidden'); }
+document.getElementById('modal').addEventListener('click', function(e) { if (e.target === this) closeModal(); });
+
+function esc(s) { const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; }
+function downloadCSV(csv, filename) {
+  const blob = new Blob([csv], { type: 'text/csv' });
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = filename; a.click();
+}
+</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>
