@@ -176,6 +176,25 @@ a{color:var(--blue);text-decoration:none}
 </div>
 </div>
 
+<!-- Connected Tools -->
+<div class="chart-card" style="margin-bottom:2rem">
+<h3>🔗 Connected Tools <button class="btn btn-sm btn-outline" onclick="refreshConnectedTools()" style="margin-left:auto">🔄 Refresh</button></h3>
+<div id="connectedToolsGrid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;margin-top:1rem"></div>
+</div>
+
+<!-- Tool Integration Settings -->
+<div class="chart-card" style="margin-bottom:2rem">
+<h3>⚙️ Tool Integration Settings</h3>
+<div id="toolSettingsPanel" style="margin-top:1rem">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1rem" id="toolToggles"></div>
+<div style="margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border)">
+<button class="btn btn-gold btn-sm" onclick="syncAllTools()">⚡ Sync All Tools Now</button>
+<button class="btn btn-outline btn-sm" onclick="exportIntegrationReport()">📥 Export Integration Report</button>
+<span id="lastSyncTime" style="font-size:0.75rem;color:var(--text-dim);margin-left:1rem"></span>
+</div>
+</div>
+</div>
+
 <!-- Custom KPIs -->
 <div class="chart-card">
 <h3>🎯 Custom KPIs</h3>
@@ -232,6 +251,8 @@ function refreshDashboard() {
   renderToolsChart();
   renderMetricsTable();
   renderKPIs();
+  refreshConnectedTools();
+  renderToolToggles();
 }
 
 /* ===== STATS ROW ===== */
@@ -488,6 +509,98 @@ function formatDate(dateStr, days) {
 }
 
 function esc(s) { const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; }
+
+/* ===== CONNECTED TOOLS ===== */
+const TOOL_REGISTRY = [
+  { key: 'spunk-crm', name: 'Client CRM', icon: '👥', link: '/exclusive/client-crm', getStats: d => { const clients = d.clients || []; const projects = d.projects || []; return [{ label: 'Total Clients', value: clients.length }, { label: 'Active Projects', value: projects.filter(p => p.status === 'active' || p.status === 'Active').length }, { label: 'Total Projects', value: projects.length }]; }},
+  { key: 'spunk-pipeline', name: 'Sales Pipeline', icon: '💰', link: '/exclusive/sales-pipeline', getStats: d => { const deals = d.deals || []; const won = deals.filter(x => x.stage === 'Closed Won'); const total = deals.reduce((s, x) => s + (parseFloat(x.value) || 0), 0); const wonRev = won.reduce((s, x) => s + (parseFloat(x.value) || 0), 0); return [{ label: 'Total Deals', value: deals.length }, { label: 'Pipeline Value', value: '$' + total.toLocaleString() }, { label: 'Won Revenue', value: '$' + wonRev.toLocaleString() }]; }},
+  { key: 'spunk-hr-bot', name: 'HR Bot', icon: '🤖', link: '/exclusive/hr-bot', getStats: d => { const emp = d.employees || []; const active = emp.filter(e => e.status === 'Active'); const leave = d.leaveRequests || []; const pending = leave.filter(l => l.status === 'Pending'); return [{ label: 'Employees', value: active.length }, { label: 'Total Staff', value: emp.length }, { label: 'Pending Leave', value: pending.length }]; }},
+  { key: 'spunk-expense-tracker', name: 'Expense Tracker', icon: '📊', link: '/exclusive/expense-tracker', getStats: d => { const items = d.expenses || d.items || []; const total = items.reduce((s, x) => s + (parseFloat(x.amount) || 0), 0); return [{ label: 'Expenses', value: items.length }, { label: 'Total Spent', value: '$' + total.toLocaleString() }]; }},
+  { key: 'spunk-invoice-generator', name: 'Invoice Generator', icon: '🧾', link: '/exclusive/invoice-generator', getStats: d => { const inv = d.invoices || []; const total = inv.reduce((s, x) => s + (parseFloat(x.total) || parseFloat(x.amount) || 0), 0); return [{ label: 'Invoices', value: inv.length }, { label: 'Total Billed', value: '$' + total.toLocaleString() }]; }},
+  { key: 'spunk-content-calendar', name: 'Content Calendar', icon: '📅', link: '/exclusive/content-calendar-planner', getStats: d => { const items = d.posts || d.items || d.events || []; const scheduled = items.filter(i => i.status === 'Scheduled' || i.status === 'scheduled'); return [{ label: 'Total Posts', value: items.length }, { label: 'Scheduled', value: scheduled.length }]; }},
+  { key: 'spunk-email-sequences', name: 'Email Sequences', icon: '📧', link: '/exclusive/email-sequence-builder', getStats: d => { const seq = d.sequences || []; const emails = seq.reduce((s, x) => s + ((x.emails || x.steps || []).length), 0); return [{ label: 'Sequences', value: seq.length }, { label: 'Total Emails', value: emails }]; }},
+  { key: 'spunk-habit-tracker', name: 'Habit Tracker', icon: '✅', link: '/exclusive/habit-tracker-pro', getStats: d => { const habits = d.habits || []; return [{ label: 'Habits', value: habits.length }]; }},
+  { key: 'spunk-weekly-planner', name: 'Weekly Planner', icon: '📋', link: '/exclusive/weekly-planner', getStats: d => { const tasks = d.tasks || []; const done = tasks.filter(t => t.done || t.completed); return [{ label: 'Tasks', value: tasks.length }, { label: 'Completed', value: done.length }]; }},
+  { key: 'spunk-social-media-scheduler', name: 'Social Scheduler', icon: '📱', link: '/exclusive/social-media-scheduler', getStats: d => { const posts = d.posts || []; return [{ label: 'Posts', value: posts.length }]; }}
+];
+
+let toolSettings = {};
+function loadToolSettings() {
+  try { toolSettings = JSON.parse(localStorage.getItem('spunk-analytics-tool-settings') || '{}'); } catch(e) { toolSettings = {}; }
+  TOOL_REGISTRY.forEach(t => { if (toolSettings[t.key] === undefined) toolSettings[t.key] = true; });
+}
+function saveToolSettings() { localStorage.setItem('spunk-analytics-tool-settings', JSON.stringify(toolSettings)); }
+
+function renderToolToggles() {
+  loadToolSettings();
+  document.getElementById('toolToggles').innerHTML = TOOL_REGISTRY.map(t => {
+    const raw = localStorage.getItem(t.key);
+    const connected = !!raw;
+    const checked = toolSettings[t.key] ? 'checked' : '';
+    return `<label style="display:flex;align-items:center;gap:0.75rem;padding:0.75rem;background:rgba(10,10,15,0.5);border:1px solid ${connected ? 'var(--green)' : 'var(--border)'};border-radius:10px;cursor:pointer">
+      <input type="checkbox" ${checked} onchange="toggleTool('${t.key}',this.checked)" style="accent-color:var(--accent);width:18px;height:18px">
+      <span>${t.icon} ${t.name}</span>
+      <span style="margin-left:auto;font-size:0.7rem;padding:2px 8px;border-radius:10px;background:${connected ? 'rgba(57,211,83,0.15)' : 'rgba(139,139,158,0.15)'};color:${connected ? 'var(--green)' : 'var(--text-dim)'}">${connected ? 'Connected' : 'No Data'}</span>
+    </label>`;
+  }).join('');
+}
+
+function toggleTool(key, enabled) { toolSettings[key] = enabled; saveToolSettings(); refreshConnectedTools(); }
+
+function refreshConnectedTools() {
+  loadToolSettings();
+  const grid = document.getElementById('connectedToolsGrid');
+  const connected = [];
+  TOOL_REGISTRY.forEach(t => {
+    if (!toolSettings[t.key]) return;
+    const raw = localStorage.getItem(t.key);
+    if (!raw) return;
+    try {
+      const d = JSON.parse(raw);
+      const stats = t.getStats(d);
+      connected.push({ ...t, stats, hasData: true });
+    } catch(e) { connected.push({ ...t, stats: [{ label: 'Error', value: 'Parse failed' }], hasData: false }); }
+  });
+
+  if (!connected.length) {
+    grid.innerHTML = '<p style="color:var(--text-dim);grid-column:1/-1">No tools connected yet. Use the tools below to create data, then come back here to see everything in one place. <a href="/exclusive/">Browse all tools &rarr;</a></p>';
+    return;
+  }
+
+  grid.innerHTML = connected.map(t => `
+    <div style="background:rgba(10,10,15,0.5);border:1px solid var(--border);border-radius:12px;padding:1.2rem;transition:border-color 0.2s" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
+      <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.8rem">
+        <span style="font-size:1.5rem">${t.icon}</span>
+        <strong style="flex:1">${t.name}</strong>
+        <a href="${t.link}" style="font-size:0.75rem;color:var(--accent)">Open &rarr;</a>
+      </div>
+      ${t.stats.map(s => `<div style="display:flex;justify-content:space-between;padding:0.3rem 0;border-bottom:1px solid rgba(255,95,31,0.06)"><span style="font-size:0.8rem;color:var(--text-dim)">${s.label}</span><span style="font-size:0.85rem;font-weight:700">${s.value}</span></div>`).join('')}
+    </div>
+  `).join('');
+
+  document.getElementById('lastSyncTime').textContent = 'Last sync: ' + new Date().toLocaleTimeString();
+  renderToolToggles();
+}
+
+function syncAllTools() {
+  refreshConnectedTools();
+  const count = TOOL_REGISTRY.filter(t => toolSettings[t.key] && localStorage.getItem(t.key)).length;
+  alert('Synced ' + count + ' connected tools successfully!');
+}
+
+function exportIntegrationReport() {
+  loadToolSettings();
+  let csv = 'Tool,Status,Enabled,Stats\n';
+  TOOL_REGISTRY.forEach(t => {
+    const raw = localStorage.getItem(t.key);
+    const connected = !!raw;
+    let statsStr = '';
+    if (connected) { try { const d = JSON.parse(raw); statsStr = t.getStats(d).map(s => s.label + ': ' + s.value).join(' | '); } catch(e) {} }
+    csv += `"${t.name}","${connected ? 'Connected' : 'No Data'}","${toolSettings[t.key] ? 'Yes' : 'No'}","${statsStr}"\n`;
+  });
+  const blob = new Blob([csv], { type: 'text/csv' });
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'tool-integration-report.csv'; a.click();
+}
 </script>
 <script src="https://spunk.codes/cross-promo.js" defer></script>
 </body>

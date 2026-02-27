@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Time Tracking Dashboard - Track Hours & Productivity | SPUNK.CODES Exclusive</title>
+<meta name="description" content="Free time tracking dashboard. Track work hours, projects, billable time, and productivity. Timer, manual entry, reports, and CSV export. No signup.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Time Tracking Dashboard - SPUNK.CODES Exclusive">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/time-tracking-dashboard">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Time Tracking Dashboard","url":"https://spunk.codes/exclusive/time-tracking-dashboard","applicationCategory":"BusinessApplication","operatingSystem":"Web","description":"Free time tracking with timer, project tracking, billable hours, and reports.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Organization","name":"SPUNK.CODES","url":"https://spunk.codes"}}</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0a0a0f;--card:rgba(18,18,28,0.85);--border:rgba(255,95,31,0.18);--accent:#ff5f1f;--accent2:#ff9f1f;--text:#e8e8f0;--text-dim:#8b8b9e;--green:#39d353;--red:#f85149;--blue:#58a6ff;--purple:#a371f7;--font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}a{color:var(--blue);text-decoration:none}
+.bg-mesh{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 80% 50% at 20% 20%,rgba(255,95,31,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(255,159,31,0.04) 0%,transparent 60%),var(--bg)}
+.bg-grid{position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,95,31,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,95,31,0.03) 1px,transparent 1px);background-size:60px 60px}
+.nav{position:sticky;top:0;z-index:100;background:rgba(10,10,15,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,95,31,0.15);padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}
+.nav-brand{font-weight:800;font-size:1.1rem;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:0.08em}
+.nav-links{display:flex;gap:1.5rem;font-size:0.85rem}.nav-links a{color:var(--text-dim);font-weight:500}.nav-links a.active{color:var(--accent)}
+.lock-gate{position:fixed;inset:0;z-index:1000;background:rgba(10,10,15,0.97);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:2rem}
+.lock-gate.hidden{display:none}
+.lock-icon-big{font-size:4rem}.lock-gate h2{font-size:1.8rem;font-weight:800;text-align:center}.lock-gate h2 span{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}.lock-gate p{color:var(--text-dim);text-align:center;max-width:400px}
+.code-input-wrap{display:flex;gap:0.5rem}
+.code-input{padding:0.8rem 1.5rem;background:rgba(18,18,28,0.8);border:2px solid var(--border);border-radius:12px;color:var(--accent);font-size:1.2rem;font-weight:800;letter-spacing:3px;text-align:center;width:200px;outline:none;text-transform:uppercase;font-family:var(--font)}
+.code-input:focus{border-color:var(--accent)}
+.code-submit{padding:0.8rem 1.5rem;background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;border-radius:12px;color:#000;font-size:1rem;font-weight:800;cursor:pointer}
+.code-error{color:var(--red);font-size:0.85rem;min-height:1.2em}.lock-hint{color:var(--text-dim);font-size:0.8rem}.lock-hint a{color:var(--accent)}
+.exclusive-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;background:linear-gradient(135deg,rgba(255,95,31,0.15),rgba(255,159,31,0.15));border:1px solid var(--border);border-radius:100px;font-size:11px;font-weight:800;color:var(--accent);letter-spacing:1.5px;text-transform:uppercase}
+.main{max-width:1200px;margin:0 auto;padding:2rem}
+.hero-section{text-align:center;padding:1.5rem 0}.hero-section h1{font-size:2.2rem;font-weight:800;margin:1rem 0 0.5rem}.hero-section h1 .gold{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}.hero-section p{color:var(--text-dim);max-width:600px;margin:0 auto}
+.btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;transition:all 0.2s}
+.btn-gold{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#000}.btn-gold:hover{transform:translateY(-1px)}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--accent)}.btn-sm{padding:0.4rem 0.8rem;font-size:0.75rem}
+.btn-red{background:var(--red);color:#fff}
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;margin-bottom:1.5rem}
+.stat{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1rem;text-align:center;position:relative;overflow:hidden}
+.stat::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent2))}
+.stat .val{font-size:1.8rem;font-weight:800}.stat .lbl{font-size:0.7rem;color:var(--text-dim);margin-top:0.2rem}
+.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.5rem;position:relative;overflow:hidden;margin-bottom:1.5rem}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent2))}
+.card h3{font-size:1rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}
+/* Timer */
+.timer-section{text-align:center;margin-bottom:2rem}
+.timer-display{font-size:4rem;font-weight:800;font-variant-numeric:tabular-nums;margin:1rem 0;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.timer-controls{display:flex;gap:0.75rem;justify-content:center;align-items:center;flex-wrap:wrap;margin-bottom:1rem}
+.timer-controls input,.timer-controls select{padding:0.5rem 0.8rem;background:rgba(18,18,28,0.9);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.85rem;font-family:var(--font);outline:none}
+table{width:100%;border-collapse:collapse}
+th{text-align:left;font-size:0.7rem;color:var(--text-dim);text-transform:uppercase;padding:0.6rem;border-bottom:1px solid var(--border)}
+td{padding:0.6rem;border-bottom:1px solid rgba(255,95,31,0.06);font-size:0.85rem}
+tr:hover{background:rgba(255,95,31,0.03)}
+.badge{display:inline-block;padding:2px 10px;border-radius:20px;font-size:0.7rem;font-weight:700}
+.badge-green{background:rgba(57,211,83,0.15);color:var(--green)}.badge-blue{background:rgba(88,166,255,0.15);color:var(--blue)}
+/* Project bars */
+.proj-bar{display:flex;align-items:center;gap:0.5rem;margin:0.4rem 0}
+.proj-bar-fill{height:20px;border-radius:4px;display:flex;align-items:center;padding:0 8px;font-size:0.65rem;font-weight:700;color:#000;min-width:30px}
+.proj-bar-label{font-size:0.8rem;width:120px;flex-shrink:0;text-align:right}
+@media(max-width:768px){.stats-row{grid-template-columns:repeat(2,1fr)}.main{padding:1rem}.timer-display{font-size:2.5rem}}
+</style>
+</head>
+<body>
+<div class="bg-mesh"></div>
+<div class="bg-grid"></div>
+<div class="lock-gate" id="lockGate"><div class="lock-icon-big">⏱️</div><h2>Access <span>Time Tracking</span></h2><p>Enter the exclusive access code to unlock this premium time tracking tool.</p><div class="code-input-wrap"><input type="text" class="code-input" id="codeInput" placeholder="CODE" maxlength="10" autocomplete="off"><button class="code-submit" onclick="checkCode()">Unlock</button></div><div class="code-error" id="codeError"></div><p class="lock-hint">Hint: Visit <a href="https://spunk.codes">spunk.codes</a> to find the code</p></div>
+
+<nav class="nav"><a href="https://spunk.codes" class="nav-brand">SPUNK.CODES</a><div class="nav-links"><a href="https://spunk.codes">Tools</a><a href="https://spunk.codes/exclusive/" class="active">Exclusive</a><a href="https://spunk.bet">Spunk Bet</a></div></nav>
+
+<div class="main" id="mainApp" style="display:none">
+<div class="hero-section"><span class="exclusive-badge">⚡ EXCLUSIVE TOOL</span><h1>⏱️ Time <span class="gold">Tracking Dashboard</span></h1><p>Track work hours with a live timer or manual entry. Monitor billable time, project hours, and weekly productivity.</p></div>
+
+<div class="card timer-section">
+<h3 style="justify-content:center">⏱️ Timer</h3>
+<div class="timer-display" id="timerDisplay">00:00:00</div>
+<div class="timer-controls">
+<input type="text" id="timerTask" placeholder="What are you working on?" style="flex:1;min-width:200px">
+<select id="timerProject"><option value="">No Project</option></select>
+<label style="font-size:0.8rem;display:flex;align-items:center;gap:4px"><input type="checkbox" id="timerBillable" checked style="accent-color:var(--accent)"> Billable</label>
+</div>
+<div style="display:flex;gap:0.5rem;justify-content:center">
+<button class="btn btn-gold" id="startBtn" onclick="toggleTimer()">▶ Start</button>
+<button class="btn btn-outline" onclick="manualEntry()">+ Manual Entry</button>
+<button class="btn btn-outline" onclick="manageProjects()">📁 Projects</button>
+<button class="btn btn-outline" onclick="exportCSV()">📥 Export</button>
+<button class="btn btn-outline" onclick="loadDemo()">🔄 Demo</button>
+</div>
+</div>
+
+<div class="stats-row" id="statsRow"></div>
+
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(350px,1fr));gap:1.5rem;margin-bottom:1.5rem">
+<div class="card">
+<h3>📊 Hours by Project</h3>
+<div id="projectBars"></div>
+</div>
+<div class="card">
+<h3>📅 This Week</h3>
+<div id="weekChart" style="display:flex;align-items:flex-end;gap:6px;height:150px;padding-bottom:25px"></div>
+</div>
+</div>
+
+<div class="card">
+<h3>📋 Time Entries</h3>
+<div style="overflow-x:auto"><table><thead><tr><th>Date</th><th>Task</th><th>Project</th><th>Duration</th><th>Billable</th><th>Actions</th></tr></thead><tbody id="entryBody"></tbody></table></div>
+</div>
+</div>
+
+<script>
+const STORE='spunk-time-tracking';
+let data={entries:[],projects:['General','Client Work','Internal','Admin'],rate:50};
+let timerRunning=false,timerStart=null,timerInterval=null;
+
+function save(){localStorage.setItem(STORE,JSON.stringify(data))}
+function load(){try{const s=localStorage.getItem(STORE);if(s){const p=JSON.parse(s);data={...data,...p}}}catch(e){}if(!data.entries)data.entries=[];if(!data.projects)data.projects=['General','Client Work','Internal','Admin']}
+
+function checkCode(){const v=document.getElementById('codeInput').value.trim().toUpperCase();if(v==='SPUNK'){document.getElementById('lockGate').classList.add('hidden');document.getElementById('mainApp').style.display='block';sessionStorage.setItem('spunk-timetrack-unlocked','1');init()}else{document.getElementById('codeError').textContent='Invalid code.'}}
+document.addEventListener('DOMContentLoaded',function(){if(sessionStorage.getItem('spunk-timetrack-unlocked')){document.getElementById('lockGate').classList.add('hidden');document.getElementById('mainApp').style.display='block';init()}document.getElementById('codeInput').addEventListener('keydown',function(e){if(e.key==='Enter')checkCode()})});
+
+function init(){load();updateProjectSelect();render()}
+
+function updateProjectSelect(){
+  const sel=document.getElementById('timerProject');
+  sel.innerHTML='<option value="">No Project</option>'+data.projects.map(p=>`<option>${esc(p)}</option>`).join('');
+}
+
+function render(){renderStats();renderEntries();renderProjectBars();renderWeekChart()}
+
+function toggleTimer(){
+  if(timerRunning){
+    clearInterval(timerInterval);
+    const elapsed=Math.floor((Date.now()-timerStart)/1000);
+    const hours=elapsed/3600;
+    const task=document.getElementById('timerTask').value.trim()||'Untitled';
+    const project=document.getElementById('timerProject').value||'General';
+    const billable=document.getElementById('timerBillable').checked;
+    data.entries.push({date:new Date().toISOString().slice(0,10),task:task,project:project,hours:Math.round(hours*100)/100,billable:billable});
+    save();
+    timerRunning=false;timerStart=null;
+    document.getElementById('startBtn').innerHTML='▶ Start';
+    document.getElementById('startBtn').classList.remove('btn-red');
+    document.getElementById('startBtn').classList.add('btn-gold');
+    document.getElementById('timerDisplay').textContent='00:00:00';
+    document.getElementById('timerTask').value='';
+    render();
+  }else{
+    timerStart=Date.now();timerRunning=true;
+    document.getElementById('startBtn').innerHTML='⏹ Stop';
+    document.getElementById('startBtn').classList.remove('btn-gold');
+    document.getElementById('startBtn').classList.add('btn-red');
+    timerInterval=setInterval(()=>{
+      const e=Math.floor((Date.now()-timerStart)/1000);
+      const h=String(Math.floor(e/3600)).padStart(2,'0');
+      const m=String(Math.floor((e%3600)/60)).padStart(2,'0');
+      const s=String(e%60).padStart(2,'0');
+      document.getElementById('timerDisplay').textContent=`${h}:${m}:${s}`;
+    },1000);
+  }
+}
+
+function manualEntry(){
+  const task=prompt('Task description:');if(!task)return;
+  const project=prompt('Project ('+data.projects.join(', ')+'):',data.projects[0])||'General';
+  const hours=parseFloat(prompt('Hours:','1'));if(isNaN(hours)||hours<=0)return;
+  const date=prompt('Date (YYYY-MM-DD):',new Date().toISOString().slice(0,10));
+  const billable=confirm('Is this billable?');
+  data.entries.push({date,task,project,hours:Math.round(hours*100)/100,billable});
+  save();render();
+}
+
+function manageProjects(){
+  const action=prompt('1) Add project\n2) Set hourly rate ($'+data.rate+')\n\nEnter 1 or 2:');
+  if(action==='1'){const name=prompt('New project name:');if(name&&!data.projects.includes(name)){data.projects.push(name);save();updateProjectSelect()}}
+  else if(action==='2'){const rate=parseFloat(prompt('Hourly rate:',data.rate));if(!isNaN(rate)){data.rate=rate;save();render()}}
+}
+
+function renderStats(){
+  const today=new Date().toISOString().slice(0,10);
+  const thisWeek=getWeekDates();
+  const todayHrs=data.entries.filter(e=>e.date===today).reduce((s,e)=>s+e.hours,0);
+  const weekHrs=data.entries.filter(e=>thisWeek.includes(e.date)).reduce((s,e)=>s+e.hours,0);
+  const totalHrs=data.entries.reduce((s,e)=>s+e.hours,0);
+  const billableHrs=data.entries.filter(e=>e.billable).reduce((s,e)=>s+e.hours,0);
+  const earnings=billableHrs*data.rate;
+  const billPct=totalHrs?Math.round(billableHrs/totalHrs*100):0;
+  document.getElementById('statsRow').innerHTML=`
+    <div class="stat"><div class="val" style="background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent">${todayHrs.toFixed(1)}h</div><div class="lbl">Today</div></div>
+    <div class="stat"><div class="val" style="color:var(--blue)">${weekHrs.toFixed(1)}h</div><div class="lbl">This Week</div></div>
+    <div class="stat"><div class="val" style="color:var(--green)">${totalHrs.toFixed(1)}h</div><div class="lbl">All Time</div></div>
+    <div class="stat"><div class="val" style="color:var(--accent2)">${billableHrs.toFixed(1)}h</div><div class="lbl">Billable Hours</div></div>
+    <div class="stat"><div class="val" style="color:var(--green)">$${earnings.toLocaleString()}</div><div class="lbl">Earnings ($${data.rate}/hr)</div></div>
+    <div class="stat"><div class="val" style="color:var(--purple)">${billPct}%</div><div class="lbl">Billable Rate</div></div>`;
+}
+
+function renderEntries(){
+  const body=document.getElementById('entryBody');
+  const sorted=[...data.entries].sort((a,b)=>b.date.localeCompare(a.date)||0).slice(0,50);
+  if(!sorted.length){body.innerHTML='<tr><td colspan="6" style="text-align:center;padding:2rem;color:var(--text-dim)">No entries yet. Start the timer or add a manual entry.</td></tr>';return}
+  body.innerHTML=sorted.map((e,i)=>{
+    const realIdx=data.entries.indexOf(e);
+    const hrs=Math.floor(e.hours);const mins=Math.round((e.hours%1)*60);
+    return `<tr>
+      <td style="color:var(--text-dim);font-size:0.8rem">${e.date}</td>
+      <td style="font-weight:600">${esc(e.task)}</td>
+      <td><span class="badge badge-blue">${esc(e.project)}</span></td>
+      <td style="font-weight:700">${hrs}h ${mins}m</td>
+      <td>${e.billable?'<span class="badge badge-green">Billable</span>':'<span style="color:var(--text-dim);font-size:0.8rem">—</span>'}</td>
+      <td><button class="btn btn-sm" style="background:var(--red);color:#fff" onclick="deleteEntry(${realIdx})">X</button></td>
+    </tr>`;
+  }).join('');
+}
+
+function renderProjectBars(){
+  const container=document.getElementById('projectBars');
+  const projHrs={};
+  data.entries.forEach(e=>{projHrs[e.project]=(projHrs[e.project]||0)+e.hours});
+  const entries=Object.entries(projHrs).sort((a,b)=>b[1]-a[1]);
+  if(!entries.length){container.innerHTML='<p style="color:var(--text-dim);text-align:center">No data yet.</p>';return}
+  const max=Math.max(...entries.map(e=>e[1]),1);
+  const colors=['#ff5f1f','#ff9f1f','#39d353','#58a6ff','#a371f7','#f85149'];
+  container.innerHTML=entries.map(([name,hrs],i)=>`
+    <div class="proj-bar"><div class="proj-bar-label">${esc(name)}</div><div class="proj-bar-fill" style="width:${hrs/max*100}%;background:${colors[i%colors.length]}">${hrs.toFixed(1)}h</div></div>
+  `).join('');
+}
+
+function renderWeekChart(){
+  const container=document.getElementById('weekChart');
+  const days=getWeekDates();
+  const dayNames=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+  const values=days.map(d=>data.entries.filter(e=>e.date===d).reduce((s,e)=>s+e.hours,0));
+  const max=Math.max(...values,1);
+  container.innerHTML=days.map((d,i)=>{
+    const h=Math.round(values[i]/max*120);
+    const today=d===new Date().toISOString().slice(0,10);
+    return `<div style="display:flex;flex-direction:column;align-items:center;flex:1;height:100%;justify-content:flex-end">
+      <div style="font-size:0.65rem;font-weight:700;margin-bottom:4px">${values[i].toFixed(1)}h</div>
+      <div style="width:100%;min-width:20px;height:${h}px;border-radius:6px 6px 0 0;background:${today?'linear-gradient(180deg,var(--accent),var(--accent2))':'rgba(255,95,31,0.3)'}"></div>
+      <div style="font-size:0.65rem;color:${today?'var(--accent)':'var(--text-dim)'};margin-top:6px;font-weight:${today?'700':'400'}">${dayNames[i]}</div>
+    </div>`;
+  }).join('');
+}
+
+function getWeekDates(){
+  const today=new Date();const day=today.getDay();const diff=today.getDate()-day+(day===0?-6:1);
+  const dates=[];for(let i=0;i<7;i++){const d=new Date(today);d.setDate(diff+i);dates.push(d.toISOString().slice(0,10))}return dates;
+}
+
+function deleteEntry(idx){data.entries.splice(idx,1);save();render()}
+
+function exportCSV(){
+  let csv='Date,Task,Project,Hours,Billable,Earnings\n';
+  data.entries.sort((a,b)=>b.date.localeCompare(a.date)).forEach(e=>{csv+=`"${e.date}","${e.task}","${e.project}",${e.hours},"${e.billable?'Yes':'No'}","$${e.billable?(e.hours*data.rate).toFixed(2):'0'}"\n`});
+  const blob=new Blob([csv],{type:'text/csv'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='time-tracking-export.csv';a.click();
+}
+
+function loadDemo(){
+  if(data.entries.length&&!confirm('Replace with demo data?'))return;
+  const today=new Date();
+  data.entries=[];data.projects=['Client Work','Internal','Marketing','Admin','Development'];
+  const tasks=['Design review','API development','Client call','Email responses','Content writing','Bug fixing','Sprint planning','Documentation','Social media','Research'];
+  for(let i=20;i>=0;i--){
+    const d=new Date(today);d.setDate(d.getDate()-i);
+    const dateStr=d.toISOString().slice(0,10);
+    const numEntries=2+Math.floor(Math.random()*3);
+    for(let j=0;j<numEntries;j++){
+      data.entries.push({date:dateStr,task:tasks[Math.floor(Math.random()*tasks.length)],project:data.projects[Math.floor(Math.random()*data.projects.length)],hours:Math.round((0.5+Math.random()*3)*100)/100,billable:Math.random()>0.3});
+    }
+  }
+  save();updateProjectSelect();render();
+}
+
+function esc(s){const d=document.createElement('div');d.textContent=s||'';return d.innerHTML}
+</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>

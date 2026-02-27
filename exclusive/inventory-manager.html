@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Inventory Manager - Stock Tracking & Alerts | SPUNK.CODES Exclusive</title>
+<meta name="description" content="Free inventory management tool. Track stock levels, set reorder alerts, manage suppliers, and export reports. No signup required.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Inventory Manager - SPUNK.CODES Exclusive">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/inventory-manager">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Inventory Manager","url":"https://spunk.codes/exclusive/inventory-manager","applicationCategory":"BusinessApplication","operatingSystem":"Web","description":"Free inventory management with stock tracking, reorder alerts, and supplier management.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Organization","name":"SPUNK.CODES","url":"https://spunk.codes"}}</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0a0a0f;--card:rgba(18,18,28,0.85);--border:rgba(255,95,31,0.18);--accent:#ff5f1f;--accent2:#ff9f1f;--text:#e8e8f0;--text-dim:#8b8b9e;--green:#39d353;--red:#f85149;--blue:#58a6ff;--purple:#a371f7;--font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}a{color:var(--blue);text-decoration:none}
+.bg-mesh{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 80% 50% at 20% 20%,rgba(255,95,31,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(255,159,31,0.04) 0%,transparent 60%),var(--bg)}
+.bg-grid{position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,95,31,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,95,31,0.03) 1px,transparent 1px);background-size:60px 60px}
+.nav{position:sticky;top:0;z-index:100;background:rgba(10,10,15,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,95,31,0.15);padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}
+.nav-brand{font-weight:800;font-size:1.1rem;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:0.08em}
+.nav-links{display:flex;gap:1.5rem;font-size:0.85rem}.nav-links a{color:var(--text-dim);font-weight:500}.nav-links a.active{color:var(--accent)}
+.lock-gate{position:fixed;inset:0;z-index:1000;background:rgba(10,10,15,0.97);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:2rem}
+.lock-gate.hidden{display:none}
+.lock-icon-big{font-size:4rem}.lock-gate h2{font-size:1.8rem;font-weight:800;text-align:center}.lock-gate h2 span{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}.lock-gate p{color:var(--text-dim);text-align:center;max-width:400px}
+.code-input-wrap{display:flex;gap:0.5rem}
+.code-input{padding:0.8rem 1.5rem;background:rgba(18,18,28,0.8);border:2px solid var(--border);border-radius:12px;color:var(--accent);font-size:1.2rem;font-weight:800;letter-spacing:3px;text-align:center;width:200px;outline:none;text-transform:uppercase;font-family:var(--font)}
+.code-input:focus{border-color:var(--accent);box-shadow:0 0 20px rgba(255,95,31,0.2)}
+.code-submit{padding:0.8rem 1.5rem;background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;border-radius:12px;color:#000;font-size:1rem;font-weight:800;cursor:pointer}
+.code-error{color:var(--red);font-size:0.85rem;min-height:1.2em}.lock-hint{color:var(--text-dim);font-size:0.8rem}.lock-hint a{color:var(--accent)}
+.exclusive-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;background:linear-gradient(135deg,rgba(255,95,31,0.15),rgba(255,159,31,0.15));border:1px solid var(--border);border-radius:100px;font-size:11px;font-weight:800;color:var(--accent);letter-spacing:1.5px;text-transform:uppercase}
+.main{max-width:1200px;margin:0 auto;padding:2rem}
+.hero-section{text-align:center;padding:1.5rem 0}.hero-section h1{font-size:2.2rem;font-weight:800;margin:1rem 0 0.5rem}.hero-section h1 .gold{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}.hero-section p{color:var(--text-dim);max-width:600px;margin:0 auto}
+.controls{display:flex;gap:0.75rem;flex-wrap:wrap;margin-bottom:1.5rem;align-items:center}
+.controls select,.controls input{padding:0.5rem 0.8rem;background:rgba(18,18,28,0.9);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.85rem;font-family:var(--font);outline:none}
+.btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;transition:all 0.2s}
+.btn-gold{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#000}.btn-gold:hover{transform:translateY(-1px);box-shadow:0 4px 15px rgba(255,95,31,0.3)}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--accent)}.btn-sm{padding:0.4rem 0.8rem;font-size:0.75rem}
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;margin-bottom:1.5rem}
+.stat{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1rem;text-align:center;position:relative;overflow:hidden}
+.stat::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent2))}
+.stat .val{font-size:1.8rem;font-weight:800}.stat .lbl{font-size:0.7rem;color:var(--text-dim);margin-top:0.2rem}
+.stat .val.green{color:var(--green)}.stat .val.red{color:var(--red)}.stat .val.orange{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.5rem;position:relative;overflow:hidden;margin-bottom:1.5rem}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent2))}
+.card h3{font-size:1rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}
+table{width:100%;border-collapse:collapse}
+th{text-align:left;font-size:0.7rem;color:var(--text-dim);text-transform:uppercase;padding:0.6rem;border-bottom:1px solid var(--border)}
+td{padding:0.6rem;border-bottom:1px solid rgba(255,95,31,0.06);font-size:0.85rem}
+tr:hover{background:rgba(255,95,31,0.03)}
+.badge{display:inline-block;padding:2px 10px;border-radius:20px;font-size:0.7rem;font-weight:700}
+.badge-green{background:rgba(57,211,83,0.15);color:var(--green)}
+.badge-red{background:rgba(248,81,73,0.15);color:var(--red)}
+.badge-orange{background:rgba(255,95,31,0.15);color:var(--accent)}
+.modal-overlay{position:fixed;inset:0;z-index:500;background:rgba(0,0,0,0.7);display:flex;align-items:center;justify-content:center;padding:1rem}
+.modal-overlay.hidden{display:none}
+.modal{background:var(--bg);border:1px solid var(--border);border-radius:16px;padding:2rem;max-width:500px;width:100%;max-height:80vh;overflow-y:auto}
+.modal h3{font-size:1.2rem;margin-bottom:1rem;display:flex;justify-content:space-between}
+.modal label{display:block;font-size:0.8rem;color:var(--text-dim);margin-top:0.8rem;margin-bottom:0.3rem}
+.modal input,.modal select,.modal textarea{width:100%;padding:0.6rem;background:rgba(18,18,28,0.9);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.85rem;font-family:var(--font);outline:none}
+.modal-actions{display:flex;gap:0.5rem;margin-top:1.5rem;justify-content:flex-end}
+.alert-banner{background:rgba(248,81,73,0.1);border:1px solid var(--red);border-radius:10px;padding:1rem;margin-bottom:1rem;font-size:0.85rem;color:var(--red)}
+@media(max-width:768px){.stats-row{grid-template-columns:repeat(2,1fr)}.main{padding:1rem}}
+</style>
+</head>
+<body>
+<div class="bg-mesh"></div>
+<div class="bg-grid"></div>
+<div class="lock-gate" id="lockGate"><div class="lock-icon-big">📦</div><h2>Access <span>Inventory Manager</span></h2><p>Enter the exclusive access code to unlock this premium inventory tool.</p><div class="code-input-wrap"><input type="text" class="code-input" id="codeInput" placeholder="CODE" maxlength="10" autocomplete="off"><button class="code-submit" onclick="checkCode()">Unlock</button></div><div class="code-error" id="codeError"></div><p class="lock-hint">Hint: Visit <a href="https://spunk.codes">spunk.codes</a> to find the code</p></div>
+
+<nav class="nav"><a href="https://spunk.codes" class="nav-brand">SPUNK.CODES</a><div class="nav-links"><a href="https://spunk.codes">Tools</a><a href="https://spunk.codes/exclusive/" class="active">Exclusive</a><a href="https://spunk.bet">Spunk Bet</a></div></nav>
+
+<div class="main" id="mainApp" style="display:none">
+<div class="hero-section"><span class="exclusive-badge">⚡ EXCLUSIVE TOOL</span><h1>📦 <span class="gold">Inventory Manager</span></h1><p>Track stock levels, set reorder alerts, manage suppliers, and monitor your inventory value in real time.</p></div>
+
+<div id="alertArea"></div>
+
+<div class="controls">
+<input type="text" id="searchInput" placeholder="Search items..." oninput="render()" style="flex:1;min-width:200px">
+<select id="categoryFilter" onchange="render()"><option value="">All Categories</option></select>
+<button class="btn btn-gold" onclick="openModal()">+ Add Item</button>
+<button class="btn btn-outline" onclick="adjustStock()">📊 Adjust Stock</button>
+<button class="btn btn-outline" onclick="exportCSV()">📥 Export CSV</button>
+<button class="btn btn-outline" onclick="loadDemo()">🔄 Demo Data</button>
+</div>
+
+<div class="stats-row" id="statsRow"></div>
+
+<div class="card">
+<h3>📋 Inventory Items</h3>
+<div style="overflow-x:auto"><table><thead><tr><th>Item</th><th>SKU</th><th>Category</th><th>In Stock</th><th>Reorder At</th><th>Unit Cost</th><th>Total Value</th><th>Supplier</th><th>Status</th><th>Actions</th></tr></thead><tbody id="itemBody"></tbody></table></div>
+</div>
+
+<div class="card">
+<h3>📊 Stock History</h3>
+<div style="overflow-x:auto;max-height:300px;overflow-y:auto"><table><thead><tr><th>Date</th><th>Item</th><th>Type</th><th>Qty</th><th>Notes</th></tr></thead><tbody id="historyBody"></tbody></table></div>
+</div>
+</div>
+
+<div class="modal-overlay hidden" id="modalOverlay" onclick="if(event.target===this)closeModal()">
+<div class="modal" id="modal"></div>
+</div>
+
+<script>
+const STORE='spunk-inventory-manager';
+let data={items:[],history:[]};
+
+function save(){localStorage.setItem(STORE,JSON.stringify(data))}
+function load(){try{const s=localStorage.getItem(STORE);if(s)data=JSON.parse(s)}catch(e){}if(!data.items)data.items=[];if(!data.history)data.history=[]}
+
+function checkCode(){const v=document.getElementById('codeInput').value.trim().toUpperCase();if(v==='SPUNK'){document.getElementById('lockGate').classList.add('hidden');document.getElementById('mainApp').style.display='block';sessionStorage.setItem('spunk-inventory-unlocked','1');init()}else{document.getElementById('codeError').textContent='Invalid code. Try again.'}}
+document.addEventListener('DOMContentLoaded',function(){if(sessionStorage.getItem('spunk-inventory-unlocked')){document.getElementById('lockGate').classList.add('hidden');document.getElementById('mainApp').style.display='block';init()}document.getElementById('codeInput').addEventListener('keydown',function(e){if(e.key==='Enter')checkCode()})});
+
+function init(){load();updateCategories();render()}
+
+function updateCategories(){
+  const cats=[...new Set(data.items.map(i=>i.category).filter(Boolean))].sort();
+  const sel=document.getElementById('categoryFilter');
+  const cur=sel.value;
+  sel.innerHTML='<option value="">All Categories</option>'+cats.map(c=>`<option${c===cur?' selected':''}>${esc(c)}</option>`).join('');
+}
+
+function render(){renderStats();renderItems();renderHistory();renderAlerts()}
+
+function getFiltered(){
+  const search=document.getElementById('searchInput').value.toLowerCase();
+  const cat=document.getElementById('categoryFilter').value;
+  return data.items.filter(i=>{
+    if(search&&!i.name.toLowerCase().includes(search)&&!(i.sku||'').toLowerCase().includes(search))return false;
+    if(cat&&i.category!==cat)return false;
+    return true;
+  });
+}
+
+function renderStats(){
+  const items=data.items;
+  const totalItems=items.length;
+  const totalStock=items.reduce((s,i)=>s+i.qty,0);
+  const totalValue=items.reduce((s,i)=>s+i.qty*i.cost,0);
+  const lowStock=items.filter(i=>i.qty<=i.reorderAt&&i.qty>0).length;
+  const outOfStock=items.filter(i=>i.qty===0).length;
+  const categories=[...new Set(items.map(i=>i.category))].length;
+  document.getElementById('statsRow').innerHTML=`
+    <div class="stat"><div class="val orange">${totalItems}</div><div class="lbl">Total Items</div></div>
+    <div class="stat"><div class="val green">${totalStock.toLocaleString()}</div><div class="lbl">Units In Stock</div></div>
+    <div class="stat"><div class="val orange">$${totalValue.toLocaleString()}</div><div class="lbl">Inventory Value</div></div>
+    <div class="stat"><div class="val" style="color:var(--accent2)">${lowStock}</div><div class="lbl">Low Stock</div></div>
+    <div class="stat"><div class="val red">${outOfStock}</div><div class="lbl">Out of Stock</div></div>
+    <div class="stat"><div class="val" style="color:var(--purple)">${categories}</div><div class="lbl">Categories</div></div>`;
+}
+
+function renderAlerts(){
+  const low=data.items.filter(i=>i.qty<=i.reorderAt&&i.qty>0);
+  const out=data.items.filter(i=>i.qty===0);
+  let html='';
+  if(out.length)html+=`<div class="alert-banner">⚠️ <strong>${out.length} item${out.length>1?'s':''} out of stock:</strong> ${out.map(i=>esc(i.name)).join(', ')}</div>`;
+  if(low.length)html+=`<div class="alert-banner" style="border-color:var(--accent);color:var(--accent);background:rgba(255,95,31,0.1)">⚡ <strong>${low.length} item${low.length>1?'s':''} below reorder level:</strong> ${low.map(i=>esc(i.name)+' ('+i.qty+')').join(', ')}</div>`;
+  document.getElementById('alertArea').innerHTML=html;
+}
+
+function renderItems(){
+  const items=getFiltered();
+  const body=document.getElementById('itemBody');
+  if(!items.length){body.innerHTML='<tr><td colspan="10" style="text-align:center;padding:2rem;color:var(--text-dim)">No items found. Click "Add Item" to start.</td></tr>';return}
+  body.innerHTML=items.map((item,i)=>{
+    const realIdx=data.items.indexOf(item);
+    const status=item.qty===0?'<span class="badge badge-red">Out of Stock</span>':item.qty<=item.reorderAt?'<span class="badge badge-orange">Low Stock</span>':'<span class="badge badge-green">In Stock</span>';
+    return `<tr>
+      <td style="font-weight:600;cursor:pointer" onclick="openModal(${realIdx})">${esc(item.name)}</td>
+      <td style="color:var(--text-dim);font-size:0.8rem">${esc(item.sku||'-')}</td>
+      <td>${esc(item.category||'-')}</td>
+      <td style="font-weight:700;color:${item.qty===0?'var(--red)':item.qty<=item.reorderAt?'var(--accent)':'var(--green)'}">${item.qty}</td>
+      <td style="color:var(--text-dim)">${item.reorderAt}</td>
+      <td>$${item.cost.toFixed(2)}</td>
+      <td style="font-weight:700">$${(item.qty*item.cost).toLocaleString()}</td>
+      <td style="font-size:0.8rem">${esc(item.supplier||'-')}</td>
+      <td>${status}</td>
+      <td><button class="btn btn-sm btn-outline" onclick="quickAdjust(${realIdx},1)">+</button> <button class="btn btn-sm btn-outline" onclick="quickAdjust(${realIdx},-1)">-</button> <button class="btn btn-sm" style="background:var(--red);color:#fff" onclick="deleteItem(${realIdx})">X</button></td>
+    </tr>`;
+  }).join('');
+}
+
+function renderHistory(){
+  const body=document.getElementById('historyBody');
+  const recent=data.history.slice(-50).reverse();
+  if(!recent.length){body.innerHTML='<tr><td colspan="5" style="text-align:center;padding:1rem;color:var(--text-dim)">No history yet.</td></tr>';return}
+  body.innerHTML=recent.map(h=>{
+    const color=h.type==='IN'?'var(--green)':h.type==='OUT'?'var(--red)':'var(--blue)';
+    return `<tr><td style="font-size:0.8rem;color:var(--text-dim)">${h.date}</td><td>${esc(h.item)}</td><td style="color:${color};font-weight:700">${h.type}</td><td style="font-weight:700;color:${color}">${h.type==='IN'?'+':''}${h.qty}</td><td style="font-size:0.8rem;color:var(--text-dim)">${esc(h.notes||'')}</td></tr>`;
+  }).join('');
+}
+
+function openModal(idx){
+  const overlay=document.getElementById('modalOverlay');
+  const modal=document.getElementById('modal');
+  overlay.classList.remove('hidden');
+  const item=idx!==undefined&&idx!==null?data.items[idx]:null;
+  modal.innerHTML=`<h3>${item?'Edit':'Add'} Item<button class="btn btn-sm btn-outline" onclick="closeModal()">X</button></h3>
+    <label>Item Name *</label><input id="iName" value="${item?esc(item.name):''}">
+    <label>SKU</label><input id="iSku" value="${item?esc(item.sku||''):''}">
+    <label>Category</label><input id="iCat" value="${item?esc(item.category||''):''}" list="catList"><datalist id="catList">${[...new Set(data.items.map(i=>i.category).filter(Boolean))].map(c=>`<option value="${esc(c)}">`).join('')}</datalist>
+    <label>Quantity In Stock *</label><input type="number" id="iQty" min="0" value="${item?item.qty:0}">
+    <label>Reorder Level</label><input type="number" id="iReorder" min="0" value="${item?item.reorderAt:10}">
+    <label>Unit Cost ($) *</label><input type="number" id="iCost" min="0" step="0.01" value="${item?item.cost:0}">
+    <label>Supplier</label><input id="iSupplier" value="${item?esc(item.supplier||''):''}">
+    <label>Notes</label><input id="iNotes" value="${item?esc(item.notes||''):''}">
+    <div class="modal-actions"><button class="btn btn-gold" onclick="saveItem(${idx!==undefined&&idx!==null?idx:'null'})">${item?'Update':'Add'}</button></div>`;
+}
+
+function closeModal(){document.getElementById('modalOverlay').classList.add('hidden')}
+
+function saveItem(idx){
+  const item={name:document.getElementById('iName').value.trim(),sku:document.getElementById('iSku').value.trim(),category:document.getElementById('iCat').value.trim(),qty:parseInt(document.getElementById('iQty').value)||0,reorderAt:parseInt(document.getElementById('iReorder').value)||0,cost:parseFloat(document.getElementById('iCost').value)||0,supplier:document.getElementById('iSupplier').value.trim(),notes:document.getElementById('iNotes').value.trim()};
+  if(!item.name){alert('Item name is required');return}
+  if(idx!==null&&idx!==undefined){
+    const oldQty=data.items[idx].qty;
+    data.items[idx]=item;
+    if(item.qty!==oldQty){data.history.push({date:new Date().toISOString().slice(0,10),item:item.name,type:item.qty>oldQty?'IN':'OUT',qty:item.qty-oldQty,notes:'Manual edit'})}
+  }else{
+    data.items.push(item);
+    if(item.qty>0)data.history.push({date:new Date().toISOString().slice(0,10),item:item.name,type:'IN',qty:item.qty,notes:'Initial stock'});
+  }
+  save();closeModal();updateCategories();render();
+}
+
+function deleteItem(idx){if(confirm('Delete '+data.items[idx].name+'?')){data.items.splice(idx,1);save();updateCategories();render()}}
+
+function quickAdjust(idx,delta){
+  const item=data.items[idx];
+  item.qty=Math.max(0,item.qty+delta);
+  data.history.push({date:new Date().toISOString().slice(0,10),item:item.name,type:delta>0?'IN':'OUT',qty:delta,notes:'Quick adjust'});
+  save();render();
+}
+
+function adjustStock(){
+  const name=prompt('Item name to adjust:');if(!name)return;
+  const item=data.items.find(i=>i.name.toLowerCase()===name.toLowerCase());
+  if(!item){alert('Item not found');return}
+  const qty=parseInt(prompt('Quantity change (+/- number):','0'));if(isNaN(qty)||qty===0)return;
+  const notes=prompt('Notes:','')||'';
+  item.qty=Math.max(0,item.qty+qty);
+  data.history.push({date:new Date().toISOString().slice(0,10),item:item.name,type:qty>0?'IN':'OUT',qty:qty,notes:notes});
+  save();render();
+}
+
+function exportCSV(){
+  let csv='Name,SKU,Category,Qty,Reorder Level,Unit Cost,Total Value,Supplier,Status,Notes\n';
+  data.items.forEach(i=>{const status=i.qty===0?'Out of Stock':i.qty<=i.reorderAt?'Low Stock':'In Stock';csv+=`"${i.name}","${i.sku||''}","${i.category||''}",${i.qty},${i.reorderAt},${i.cost.toFixed(2)},${(i.qty*i.cost).toFixed(2)},"${i.supplier||''}","${status}","${i.notes||''}"\n`});
+  const blob=new Blob([csv],{type:'text/csv'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='inventory-export.csv';a.click();
+}
+
+function loadDemo(){
+  if(data.items.length&&!confirm('Replace current data with demo?'))return;
+  data.items=[
+    {name:'Wireless Mouse',sku:'WM-001',category:'Electronics',qty:45,reorderAt:20,cost:12.99,supplier:'TechDist Inc',notes:'Best seller'},
+    {name:'USB-C Cable',sku:'UC-002',category:'Electronics',qty:8,reorderAt:25,cost:4.50,supplier:'TechDist Inc',notes:'Running low'},
+    {name:'Notebook A5',sku:'NB-010',category:'Office',qty:120,reorderAt:50,cost:2.25,supplier:'Office Supply Co',notes:''},
+    {name:'Standing Desk Mat',sku:'SD-005',category:'Furniture',qty:0,reorderAt:5,cost:34.99,supplier:'ErgoGear',notes:'Reorder placed'},
+    {name:'Webcam HD',sku:'WC-003',category:'Electronics',qty:15,reorderAt:10,cost:29.99,supplier:'TechDist Inc',notes:''},
+    {name:'Whiteboard Markers',sku:'WM-020',category:'Office',qty:200,reorderAt:100,cost:1.10,supplier:'Office Supply Co',notes:'Bulk order'},
+    {name:'Monitor Stand',sku:'MS-007',category:'Furniture',qty:3,reorderAt:5,cost:45.00,supplier:'ErgoGear',notes:'Low stock'},
+    {name:'Desk Lamp LED',sku:'DL-009',category:'Furniture',qty:22,reorderAt:10,cost:18.50,supplier:'LightCo',notes:''},
+    {name:'Keyboard Wireless',sku:'KW-004',category:'Electronics',qty:30,reorderAt:15,cost:24.99,supplier:'TechDist Inc',notes:''},
+    {name:'Paper A4 Ream',sku:'PA-015',category:'Office',qty:75,reorderAt:30,cost:5.99,supplier:'Office Supply Co',notes:''}
+  ];
+  data.history=[
+    {date:'2026-02-25',item:'USB-C Cable',type:'OUT',qty:-15,notes:'Shipped to warehouse B'},
+    {date:'2026-02-26',item:'Standing Desk Mat',type:'OUT',qty:-5,notes:'Last units shipped'},
+    {date:'2026-02-26',item:'Wireless Mouse',type:'IN',qty:20,notes:'Restock delivery'},
+    {date:'2026-02-27',item:'Monitor Stand',type:'OUT',qty:-2,notes:'Customer order'}
+  ];
+  save();updateCategories();render();
+}
+
+function esc(s){const d=document.createElement('div');d.textContent=s||'';return d.innerHTML}
+</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>
