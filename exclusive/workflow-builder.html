@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Workflow Builder — Free Process Automation Designer | SPUNK.CODES</title>
+<meta name="description" content="Design multi-step automation workflows with triggers, actions, conditions and delays. Free browser-based workflow builder with JSON export.">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP')</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w")</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e8e8f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+header{background:#111118;border-bottom:2px solid #ff5f1f;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+header h1{font-size:1.4rem;color:#ff5f1f}
+header .back{color:#e8e8f0;font-size:.9rem}
+main{flex:1;max-width:1100px;width:100%;margin:0 auto;padding:24px 16px}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px}
+.toolbar select,.toolbar input{background:#16161e;border:1px solid #2a2a3a;color:#e8e8f0;padding:8px 12px;border-radius:6px;font-size:.9rem}
+.toolbar select{min-width:180px}
+button{background:#ff5f1f;color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:.9rem;font-weight:600;transition:background .2s}
+button:hover{background:#e8520e}
+button.secondary{background:#2a2a3a;color:#e8e8f0}button.secondary:hover{background:#3a3a4a}
+button.danger{background:#cc2233}button.danger:hover{background:#aa1122}
+.panel{background:#111118;border:1px solid #2a2a3a;border-radius:10px;padding:20px;margin-bottom:20px}
+.panel h2{font-size:1.1rem;color:#ff5f1f;margin-bottom:14px}
+.workflows-list{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.workflows-list .wf-btn{padding:6px 14px;border-radius:20px;font-size:.85rem;cursor:pointer;border:1px solid #2a2a3a;background:#16161e;color:#e8e8f0;transition:all .2s}
+.workflows-list .wf-btn.active{background:#ff5f1f;color:#fff;border-color:#ff5f1f}
+.add-step-form{display:grid;grid-template-columns:1fr 150px 1fr;gap:10px;margin-bottom:16px}
+.add-step-form input,.add-step-form select,.add-step-form textarea{background:#16161e;border:1px solid #2a2a3a;color:#e8e8f0;padding:8px 12px;border-radius:6px;font-size:.9rem}
+.add-step-form textarea{grid-column:1/-1;resize:vertical;min-height:60px}
+.flow{margin-top:16px}
+.step-card{background:#16161e;border:1px solid #2a2a3a;border-radius:8px;padding:14px;margin-bottom:4px;display:flex;align-items:center;gap:12px;transition:border-color .2s}
+.step-card:hover{border-color:#ff5f1f}
+.step-num{background:#ff5f1f;color:#fff;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.85rem;flex-shrink:0}
+.step-type{font-size:.75rem;text-transform:uppercase;letter-spacing:.5px;padding:2px 8px;border-radius:4px;font-weight:600;flex-shrink:0}
+.step-type.trigger{background:#1a3a1a;color:#4caf50}
+.step-type.action{background:#1a2a4a;color:#42a5f5}
+.step-type.condition{background:#3a3a1a;color:#ffc107}
+.step-type.delay{background:#2a1a3a;color:#ab47bc}
+.step-info{flex:1;min-width:0}
+.step-info h4{font-size:.95rem;color:#e8e8f0;margin-bottom:2px}
+.step-info p{font-size:.8rem;color:#888;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.step-actions{display:flex;gap:6px;flex-shrink:0}
+.step-actions button{padding:4px 8px;font-size:.8rem}
+.arrow{text-align:center;color:#ff5f1f;font-size:1.2rem;margin:2px 0;padding-left:15px}
+.export-area{background:#0a0a0f;border:1px solid #2a2a3a;border-radius:6px;padding:12px;font-family:monospace;font-size:.85rem;color:#e8e8f0;white-space:pre-wrap;max-height:300px;overflow:auto;margin-top:10px}
+.empty{text-align:center;color:#555;padding:40px 20px;font-size:.95rem}
+footer{text-align:center;padding:20px;color:#555;font-size:.8rem;border-top:1px solid #1a1a2a;margin-top:auto}
+footer a{color:#ff5f1f;margin:0 4px}
+@media(max-width:700px){
+.add-step-form{grid-template-columns:1fr}
+header h1{font-size:1.1rem}
+.step-card{flex-wrap:wrap}
+}
+</style>
+</head>
+<body>
+<header>
+<h1>Workflow Builder</h1>
+<a href="https://spunk.codes" class="back">spunk.codes</a>
+</header>
+<main>
+<div class="panel">
+<h2>Saved Workflows</h2>
+<div class="workflows-list" id="workflowsList"></div>
+<div style="display:flex;gap:8px;flex-wrap:wrap">
+<input type="text" id="newWfName" placeholder="New workflow name..." style="background:#16161e;border:1px solid #2a2a3a;color:#e8e8f0;padding:8px 12px;border-radius:6px;flex:1;min-width:160px">
+<button onclick="createWorkflow()">+ New Workflow</button>
+<button class="danger" onclick="deleteWorkflow()">Delete Current</button>
+</div>
+</div>
+
+<div class="panel">
+<h2>Add Step</h2>
+<div class="add-step-form">
+<input type="text" id="stepName" placeholder="Step name...">
+<select id="stepType">
+<option value="trigger">Trigger</option>
+<option value="action">Action</option>
+<option value="condition">Condition</option>
+<option value="delay">Delay</option>
+</select>
+<textarea id="stepDesc" placeholder="Description (optional)..."></textarea>
+</div>
+<button onclick="addStep()">Add Step</button>
+</div>
+
+<div class="panel">
+<h2 id="flowTitle">Workflow Flow</h2>
+<div class="flow" id="flowArea">
+<div class="empty">No steps yet. Add steps above to build your workflow.</div>
+</div>
+</div>
+
+<div class="panel">
+<h2>Export</h2>
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px">
+<button onclick="exportJSON()">Export JSON</button>
+<button onclick="exportText()">Export Text</button>
+<button class="secondary" onclick="copyExport()">Copy to Clipboard</button>
+</div>
+<div class="export-area" id="exportArea">Click export to see output here.</div>
+</div>
+</main>
+
+<footer>
+<a href="https://spunk.codes">spunk.codes</a> &middot;
+<a href="https://spunk.bet">spunk.bet</a> &middot;
+<a href="https://spunk.pics">spunk.pics</a> &middot;
+<a href="https://spunk.work">spunk.work</a> &middot;
+<a href="https://spunkart.com">SpunkArt.com</a>
+</footer>
+
+<script>
+const LS_KEY='spunkcodes_workflows';
+let workflows=[];
+let activeIdx=0;
+
+function load(){try{workflows=JSON.parse(localStorage.getItem(LS_KEY))||[]}catch(e){workflows=[]}if(!workflows.length){workflows=[{name:'My Workflow',steps:[]}];save()}}
+function save(){localStorage.setItem(LS_KEY,JSON.stringify(workflows))}
+function getWf(){return workflows[activeIdx]||{name:'',steps:[]}}
+
+function renderList(){
+const el=document.getElementById('workflowsList');
+el.innerHTML='';
+workflows.forEach((w,i)=>{
+const b=document.createElement('button');
+b.className='wf-btn'+(i===activeIdx?' active':'');
+b.textContent=w.name;
+b.onclick=()=>{activeIdx=i;render()};
+el.appendChild(b);
+});
+}
+
+function createWorkflow(){
+const name=document.getElementById('newWfName').value.trim();
+if(!name)return;
+workflows.push({name,steps:[]});
+activeIdx=workflows.length-1;
+document.getElementById('newWfName').value='';
+save();render();
+}
+
+function deleteWorkflow(){
+if(workflows.length<=1){alert('Cannot delete the only workflow.');return}
+if(!confirm('Delete "'+getWf().name+'"?'))return;
+workflows.splice(activeIdx,1);
+activeIdx=Math.min(activeIdx,workflows.length-1);
+save();render();
+}
+
+function addStep(){
+const name=document.getElementById('stepName').value.trim();
+const type=document.getElementById('stepType').value;
+const desc=document.getElementById('stepDesc').value.trim();
+if(!name){alert('Step name is required.');return}
+getWf().steps.push({name,type,desc});
+document.getElementById('stepName').value='';
+document.getElementById('stepDesc').value='';
+save();renderFlow();
+}
+
+function moveStep(idx,dir){
+const steps=getWf().steps;
+const ni=idx+dir;
+if(ni<0||ni>=steps.length)return;
+[steps[idx],steps[ni]]=[steps[ni],steps[idx]];
+save();renderFlow();
+}
+
+function removeStep(idx){
+getWf().steps.splice(idx,1);
+save();renderFlow();
+}
+
+function renderFlow(){
+const area=document.getElementById('flowArea');
+const steps=getWf().steps;
+document.getElementById('flowTitle').textContent=getWf().name+' — '+steps.length+' step'+(steps.length!==1?'s':'');
+if(!steps.length){area.innerHTML='<div class="empty">No steps yet. Add steps above to build your workflow.</div>';return}
+let html='';
+steps.forEach((s,i)=>{
+if(i>0)html+='<div class="arrow">&#9660;</div>';
+html+=`<div class="step-card">
+<div class="step-num">${i+1}</div>
+<span class="step-type ${s.type}">${s.type}</span>
+<div class="step-info"><h4>${esc(s.name)}</h4><p>${esc(s.desc||'No description')}</p></div>
+<div class="step-actions">
+<button class="secondary" onclick="moveStep(${i},-1)" title="Move up">&uarr;</button>
+<button class="secondary" onclick="moveStep(${i},1)" title="Move down">&darr;</button>
+<button class="danger" onclick="removeStep(${i})" title="Remove">&times;</button>
+</div></div>`;
+});
+area.innerHTML=html;
+}
+
+function exportJSON(){
+document.getElementById('exportArea').textContent=JSON.stringify(getWf(),null,2);
+}
+
+function exportText(){
+const wf=getWf();
+let t='WORKFLOW: '+wf.name+'\n'+'='.repeat(40)+'\n\n';
+wf.steps.forEach((s,i)=>{
+t+=(i+1)+'. ['+s.type.toUpperCase()+'] '+s.name+'\n';
+if(s.desc)t+='   '+s.desc+'\n';
+if(i<wf.steps.length-1)t+='   |\n   v\n';
+t+='\n';
+});
+t+='Total steps: '+wf.steps.length;
+document.getElementById('exportArea').textContent=t;
+}
+
+function copyExport(){
+const text=document.getElementById('exportArea').textContent;
+navigator.clipboard.writeText(text).then(()=>alert('Copied!')).catch(()=>{});
+}
+
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+
+function render(){renderList();renderFlow()}
+load();render();
+</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>

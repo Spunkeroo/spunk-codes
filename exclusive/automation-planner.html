@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Automation Planner — Free Business Automation Roadmap | SPUNK.CODES</title>
+<meta name="description" content="Plan which tasks to automate first with ROI calculations, priority scoring, time savings charts, and CSV export. Free browser-based automation planner.">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP')</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w")</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e8e8f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+header{background:#111118;border-bottom:2px solid #ff5f1f;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+header h1{font-size:1.4rem;color:#ff5f1f}
+header .back{color:#e8e8f0;font-size:.9rem}
+main{flex:1;max-width:1000px;width:100%;margin:0 auto;padding:24px 16px}
+.panel{background:#111118;border:1px solid #2a2a3a;border-radius:10px;padding:20px;margin-bottom:20px}
+.panel h2{font-size:1.1rem;color:#ff5f1f;margin-bottom:14px}
+button{background:#ff5f1f;color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:.9rem;font-weight:600;transition:background .2s}
+button:hover{background:#e8520e}
+button.secondary{background:#2a2a3a;color:#e8e8f0}button.secondary:hover{background:#3a3a4a}
+button.danger{background:#cc2233}button.danger:hover{background:#aa1122}
+input,select{background:#16161e;border:1px solid #2a2a3a;color:#e8e8f0;padding:8px 12px;border-radius:6px;font-size:.9rem}
+.form-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:10px;margin-bottom:14px;align-items:end}
+.form-grid label{font-size:.8rem;color:#888;margin-bottom:4px;display:block}
+.form-grid input,.form-grid select{width:100%}
+.summary-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:20px}
+.summary-card{background:#16161e;border:1px solid #2a2a3a;border-radius:8px;padding:16px;text-align:center}
+.summary-card .value{font-size:1.8rem;color:#ff5f1f;font-weight:700}
+.summary-card .label{font-size:.8rem;color:#888;margin-top:4px}
+.task-list{margin-top:10px}
+.task-row{background:#16161e;border:1px solid #2a2a3a;border-radius:8px;padding:14px;margin-bottom:8px;display:grid;grid-template-columns:2fr repeat(5,1fr) auto;gap:10px;align-items:center}
+.task-row.header{background:transparent;border:none;font-size:.8rem;color:#888;font-weight:600;padding:8px 14px}
+.task-name{font-weight:600;font-size:.95rem}
+.task-val{font-size:.9rem;text-align:center}
+.difficulty{font-size:.75rem;text-transform:uppercase;letter-spacing:.5px;padding:3px 8px;border-radius:4px;font-weight:600;text-align:center}
+.difficulty.easy{background:#1a3a1a;color:#4caf50}
+.difficulty.medium{background:#3a3a1a;color:#ffc107}
+.difficulty.hard{background:#3a1a1a;color:#ef5350}
+.roi-bar{height:8px;border-radius:4px;background:#2a2a3a;overflow:hidden;margin-top:4px}
+.roi-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,#ff5f1f,#ff8f5f);transition:width .3s}
+.chart-container{position:relative;margin-top:10px}
+.chart-canvas{width:100%;background:#0a0a0f;border:1px solid #2a2a3a;border-radius:8px}
+.empty{text-align:center;color:#555;padding:30px;font-size:.95rem}
+footer{text-align:center;padding:20px;color:#555;font-size:.8rem;border-top:1px solid #1a1a2a;margin-top:auto}
+footer a{color:#ff5f1f;margin:0 4px}
+@media(max-width:700px){
+.form-grid{grid-template-columns:1fr 1fr}
+.task-row{grid-template-columns:1fr 1fr;gap:6px}
+.task-row.header{display:none}
+.task-val::before{content:attr(data-label);font-size:.7rem;color:#888;display:block}
+header h1{font-size:1.1rem}
+}
+</style>
+</head>
+<body>
+<header>
+<h1>Automation Planner</h1>
+<a href="https://spunk.codes" class="back">spunk.codes</a>
+</header>
+<main>
+<div class="panel">
+<h2>Add Task to Automate</h2>
+<div class="form-grid">
+<div><label>Task Name</label><input type="text" id="taskName" placeholder="e.g. Weekly reports"></div>
+<div><label>Time Spent (hrs/week)</label><input type="number" id="taskTime" min="0.1" step="0.1" placeholder="2.5"></div>
+<div><label>Difficulty</label><select id="taskDiff"><option value="easy">Easy</option><option value="medium" selected>Medium</option><option value="hard">Hard</option></select></div>
+<div><label>Setup Time (hrs)</label><input type="number" id="taskSetup" min="0.5" step="0.5" placeholder="4"></div>
+</div>
+<button onclick="addTask()">Add Task</button>
+</div>
+
+<div class="panel">
+<h2>Summary</h2>
+<div class="summary-cards" id="summaryCards">
+<div class="summary-card"><div class="value" id="totalTasks">0</div><div class="label">Tasks to Automate</div></div>
+<div class="summary-card"><div class="value" id="totalWeekly">0</div><div class="label">Hours/Week Manual</div></div>
+<div class="summary-card"><div class="value" id="totalMonthly">0</div><div class="label">Hours Saved/Month</div></div>
+<div class="summary-card"><div class="value" id="totalSetup">0</div><div class="label">Total Setup Hours</div></div>
+<div class="summary-card"><div class="value" id="paybackWeeks">0</div><div class="label">Payback (Weeks)</div></div>
+</div>
+</div>
+
+<div class="panel">
+<h2>Time Savings Chart</h2>
+<div class="chart-container">
+<canvas class="chart-canvas" id="chart" height="250"></canvas>
+</div>
+</div>
+
+<div class="panel">
+<h2>Prioritized Tasks <span style="font-size:.85rem;color:#888">(sorted by ROI)</span></h2>
+<div class="task-row header">
+<div>Task</div><div style="text-align:center">Hrs/Week</div><div style="text-align:center">Difficulty</div><div style="text-align:center">Setup (hrs)</div><div style="text-align:center">Saved/Month</div><div style="text-align:center">ROI Score</div><div></div>
+</div>
+<div class="task-list" id="taskList">
+<div class="empty">No tasks added yet. Add tasks above to build your automation roadmap.</div>
+</div>
+<div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap">
+<button class="secondary" onclick="exportCSV()">Export CSV</button>
+<button class="danger" onclick="clearAll()">Clear All</button>
+</div>
+</div>
+</main>
+
+<footer>
+<a href="https://spunk.codes">spunk.codes</a> &middot;
+<a href="https://spunk.bet">spunk.bet</a> &middot;
+<a href="https://spunk.pics">spunk.pics</a> &middot;
+<a href="https://spunk.work">spunk.work</a> &middot;
+<a href="https://spunkart.com">SpunkArt.com</a>
+</footer>
+
+<script>
+const LS_KEY='spunkcodes_automation_planner';
+let tasks=[];
+
+function load(){try{tasks=JSON.parse(localStorage.getItem(LS_KEY))||[]}catch(e){tasks=[]}}
+function save(){localStorage.setItem(LS_KEY,JSON.stringify(tasks))}
+
+function calcROI(t){
+const monthlySaved=t.timePerWeek*4.33;
+const diffMultiplier=t.difficulty==='easy'?1:t.difficulty==='medium'?0.7:0.4;
+if(t.setupTime<=0)return monthlySaved*100;
+return(monthlySaved/t.setupTime)*diffMultiplier*100;
+}
+
+function addTask(){
+const name=document.getElementById('taskName').value.trim();
+const time=parseFloat(document.getElementById('taskTime').value);
+const diff=document.getElementById('taskDiff').value;
+const setup=parseFloat(document.getElementById('taskSetup').value);
+if(!name){alert('Enter a task name.');return}
+if(isNaN(time)||time<=0){alert('Enter valid hours per week.');return}
+if(isNaN(setup)||setup<=0){alert('Enter valid setup time.');return}
+tasks.push({id:Date.now()+'_'+Math.random().toString(36).slice(2,6),name,timePerWeek:time,difficulty:diff,setupTime:setup});
+document.getElementById('taskName').value='';
+document.getElementById('taskTime').value='';
+document.getElementById('taskSetup').value='';
+save();render();
+}
+
+function removeTask(id){
+tasks=tasks.filter(t=>t.id!==id);
+save();render();
+}
+
+function clearAll(){
+if(!confirm('Remove all tasks?'))return;
+tasks=[];save();render();
+}
+
+function getSorted(){return[...tasks].sort((a,b)=>calcROI(b)-calcROI(a))}
+
+function render(){
+const sorted=getSorted();
+const totalWeekly=tasks.reduce((s,t)=>s+t.timePerWeek,0);
+const totalMonthly=totalWeekly*4.33;
+const totalSetup=tasks.reduce((s,t)=>s+t.setupTime,0);
+const payback=totalWeekly>0?totalSetup/totalWeekly:0;
+
+document.getElementById('totalTasks').textContent=tasks.length;
+document.getElementById('totalWeekly').textContent=totalWeekly.toFixed(1);
+document.getElementById('totalMonthly').textContent=totalMonthly.toFixed(1);
+document.getElementById('totalSetup').textContent=totalSetup.toFixed(1);
+document.getElementById('paybackWeeks').textContent=payback.toFixed(1);
+
+const list=document.getElementById('taskList');
+if(!sorted.length){list.innerHTML='<div class="empty">No tasks added yet. Add tasks above to build your automation roadmap.</div>';drawChart([]);return}
+
+const maxROI=Math.max(...sorted.map(t=>calcROI(t)),1);
+list.innerHTML=sorted.map(t=>{
+const monthlySaved=(t.timePerWeek*4.33).toFixed(1);
+const roi=calcROI(t);
+const roiPct=Math.min((roi/maxROI)*100,100);
+return`<div class="task-row">
+<div class="task-name">${esc(t.name)}</div>
+<div class="task-val" data-label="Hrs/Week">${t.timePerWeek}</div>
+<div class="task-val" data-label="Difficulty"><span class="difficulty ${t.difficulty}">${t.difficulty}</span></div>
+<div class="task-val" data-label="Setup">${t.setupTime}h</div>
+<div class="task-val" data-label="Saved/Month">${monthlySaved}h</div>
+<div class="task-val" data-label="ROI Score"><strong style="color:#ff5f1f">${roi.toFixed(0)}</strong><div class="roi-bar"><div class="roi-fill" style="width:${roiPct}%"></div></div></div>
+<div><button class="danger" onclick="removeTask('${t.id}')" style="font-size:.8rem;padding:4px 10px">&times;</button></div>
+</div>`;
+}).join('');
+
+drawChart(sorted);
+}
+
+function drawChart(sorted){
+const canvas=document.getElementById('chart');
+const ctx=canvas.getContext('2d');
+const dpr=window.devicePixelRatio||1;
+const rect=canvas.parentElement.getBoundingClientRect();
+canvas.width=rect.width*dpr;
+canvas.height=250*dpr;
+canvas.style.width=rect.width+'px';
+canvas.style.height='250px';
+ctx.scale(dpr,dpr);
+const W=rect.width;
+const H=250;
+
+ctx.fillStyle='#0a0a0f';
+ctx.fillRect(0,0,W,H);
+
+if(!sorted.length){
+ctx.fillStyle='#555';
+ctx.font='14px sans-serif';
+ctx.textAlign='center';
+ctx.fillText('Add tasks to see the chart',W/2,H/2);
+return;
+}
+
+const padding={top:30,right:20,bottom:60,left:60};
+const chartW=W-padding.left-padding.right;
+const chartH=H-padding.top-padding.bottom;
+const barWidth=Math.min(50,chartW/sorted.length-10);
+const gap=(chartW-barWidth*sorted.length)/(sorted.length+1);
+const maxVal=Math.max(...sorted.map(t=>t.timePerWeek*4.33),1);
+
+// Title
+ctx.fillStyle='#888';
+ctx.font='12px sans-serif';
+ctx.textAlign='center';
+ctx.fillText('Monthly Hours Saved Per Task',W/2,16);
+
+// Y-axis
+ctx.strokeStyle='#2a2a3a';
+ctx.lineWidth=1;
+const ySteps=5;
+for(let i=0;i<=ySteps;i++){
+const y=padding.top+chartH-(chartH/ySteps)*i;
+ctx.beginPath();ctx.moveTo(padding.left,y);ctx.lineTo(W-padding.right,y);ctx.stroke();
+ctx.fillStyle='#666';ctx.font='11px sans-serif';ctx.textAlign='right';
+ctx.fillText((maxVal/ySteps*i).toFixed(1)+'h',padding.left-8,y+4);
+}
+
+// Bars
+sorted.forEach((t,i)=>{
+const x=padding.left+gap+(barWidth+gap)*i;
+const barH=(t.timePerWeek*4.33/maxVal)*chartH;
+const y=padding.top+chartH-barH;
+
+const grad=ctx.createLinearGradient(x,y,x,padding.top+chartH);
+grad.addColorStop(0,'#ff5f1f');
+grad.addColorStop(1,'#cc3300');
+ctx.fillStyle=grad;
+ctx.beginPath();
+ctx.roundRect(x,y,barWidth,barH,3);
+ctx.fill();
+
+// Value on top
+ctx.fillStyle='#ff5f1f';ctx.font='bold 11px sans-serif';ctx.textAlign='center';
+ctx.fillText((t.timePerWeek*4.33).toFixed(1)+'h',x+barWidth/2,y-6);
+
+// Label
+ctx.fillStyle='#e8e8f0';ctx.font='10px sans-serif';
+ctx.save();ctx.translate(x+barWidth/2,padding.top+chartH+8);ctx.rotate(Math.PI/6);
+const label=t.name.length>12?t.name.slice(0,11)+'...':t.name;
+ctx.textAlign='left';ctx.fillText(label,0,0);ctx.restore();
+});
+}
+
+function exportCSV(){
+if(!tasks.length){alert('No tasks to export.');return}
+const sorted=getSorted();
+let csv='Task,Hours/Week,Difficulty,Setup Hours,Hours Saved/Month,ROI Score\n';
+sorted.forEach(t=>{
+csv+=`"${t.name}",${t.timePerWeek},${t.difficulty},${t.setupTime},${(t.timePerWeek*4.33).toFixed(1)},${calcROI(t).toFixed(0)}\n`;
+});
+const blob=new Blob([csv],{type:'text/csv'});
+const url=URL.createObjectURL(blob);
+const a=document.createElement('a');
+a.href=url;a.download='automation-plan.csv';a.click();
+URL.revokeObjectURL(url);
+}
+
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+
+window.addEventListener('resize',()=>{if(tasks.length)drawChart(getSorted())});
+
+load();render();
+</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>

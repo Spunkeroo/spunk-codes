@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cron Job Generator — Free Cron Expression Builder | SPUNK.CODES</title>
+<meta name="description" content="Build cron expressions visually with presets, live preview of next execution times, and a cron parser. Free browser-based cron generator.">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP')</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w")</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e8e8f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+header{background:#111118;border-bottom:2px solid #ff5f1f;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+header h1{font-size:1.4rem;color:#ff5f1f}
+header .back{color:#e8e8f0;font-size:.9rem}
+main{flex:1;max-width:900px;width:100%;margin:0 auto;padding:24px 16px}
+.panel{background:#111118;border:1px solid #2a2a3a;border-radius:10px;padding:20px;margin-bottom:20px}
+.panel h2{font-size:1.1rem;color:#ff5f1f;margin-bottom:14px}
+button{background:#ff5f1f;color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:.9rem;font-weight:600;transition:background .2s}
+button:hover{background:#e8520e}
+button.secondary{background:#2a2a3a;color:#e8e8f0}button.secondary:hover{background:#3a3a4a}
+button.danger{background:#cc2233}
+select,input{background:#16161e;border:1px solid #2a2a3a;color:#e8e8f0;padding:8px 12px;border-radius:6px;font-size:.9rem}
+.cron-display{background:#0a0a0f;border:2px solid #ff5f1f;border-radius:8px;padding:20px;text-align:center;font-family:monospace;font-size:2rem;color:#ff5f1f;margin:16px 0;letter-spacing:4px;word-break:break-all}
+.builder-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:16px}
+.builder-grid label{font-size:.8rem;color:#888;margin-bottom:4px;display:block}
+.builder-grid select{width:100%}
+.presets{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.presets button{font-size:.8rem;padding:6px 12px}
+.human{background:#16161e;border:1px solid #2a2a3a;border-radius:6px;padding:12px;margin:10px 0;font-size:.95rem;color:#e8e8f0}
+.next-runs{margin-top:10px}
+.next-runs li{padding:6px 0;border-bottom:1px solid #1a1a2a;font-family:monospace;font-size:.9rem;color:#ccc}
+.next-runs li:last-child{border:none}
+.history-item{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:#16161e;border-radius:6px;margin-bottom:6px;font-family:monospace;font-size:.85rem}
+.history-item button{font-size:.75rem;padding:4px 10px}
+.parse-input{display:flex;gap:10px;margin-bottom:10px}
+.parse-input input{flex:1}
+footer{text-align:center;padding:20px;color:#555;font-size:.8rem;border-top:1px solid #1a1a2a;margin-top:auto}
+footer a{color:#ff5f1f;margin:0 4px}
+@media(max-width:600px){
+.builder-grid{grid-template-columns:repeat(2,1fr)}
+.cron-display{font-size:1.3rem;letter-spacing:2px}
+header h1{font-size:1.1rem}
+}
+</style>
+</head>
+<body>
+<header>
+<h1>Cron Job Generator</h1>
+<a href="https://spunk.codes" class="back">spunk.codes</a>
+</header>
+<main>
+<div class="panel">
+<h2>Presets</h2>
+<div class="presets">
+<button onclick="setPreset('* * * * *')">Every Minute</button>
+<button onclick="setPreset('0 * * * *')">Every Hour</button>
+<button onclick="setPreset('0 0 * * *')">Daily (Midnight)</button>
+<button onclick="setPreset('0 9 * * 1-5')">Weekdays 9 AM</button>
+<button onclick="setPreset('0 0 * * 0')">Weekly (Sunday)</button>
+<button onclick="setPreset('0 0 1 * *')">Monthly (1st)</button>
+<button onclick="setPreset('0 0 1 1 *')">Yearly (Jan 1)</button>
+<button onclick="setPreset('*/5 * * * *')">Every 5 Min</button>
+<button onclick="setPreset('*/15 * * * *')">Every 15 Min</button>
+<button onclick="setPreset('0 */6 * * *')">Every 6 Hours</button>
+</div>
+</div>
+
+<div class="panel">
+<h2>Build Expression</h2>
+<div class="builder-grid">
+<div><label>Minute (0-59)</label><select id="bMin"></select></div>
+<div><label>Hour (0-23)</label><select id="bHour"></select></div>
+<div><label>Day of Month (1-31)</label><select id="bDom"></select></div>
+<div><label>Month (1-12)</label><select id="bMonth"></select></div>
+<div><label>Day of Week (0-6)</label><select id="bDow"></select></div>
+</div>
+<div class="cron-display" id="cronOutput">* * * * *</div>
+<div style="display:flex;gap:8px;flex-wrap:wrap">
+<button onclick="copyCron()">Copy to Clipboard</button>
+<button class="secondary" onclick="saveToHistory()">Save to History</button>
+</div>
+<div class="human" id="humanText">Runs every minute</div>
+</div>
+
+<div class="panel">
+<h2>Next 5 Execution Times</h2>
+<ul class="next-runs" id="nextRuns"></ul>
+</div>
+
+<div class="panel">
+<h2>Parse Cron Expression</h2>
+<div class="parse-input">
+<input type="text" id="parseInput" placeholder="Paste cron expression, e.g. 0 9 * * 1-5">
+<button onclick="parseCron()">Parse</button>
+</div>
+<div class="human" id="parseOutput">Enter an expression above to see its description.</div>
+</div>
+
+<div class="panel">
+<h2>History</h2>
+<div id="historyList"></div>
+</div>
+</main>
+
+<footer>
+<a href="https://spunk.codes">spunk.codes</a> &middot;
+<a href="https://spunk.bet">spunk.bet</a> &middot;
+<a href="https://spunk.pics">spunk.pics</a> &middot;
+<a href="https://spunk.work">spunk.work</a> &middot;
+<a href="https://spunkart.com">SpunkArt.com</a>
+</footer>
+
+<script>
+const LS_KEY='spunkcodes_cron_history';
+let history=[];
+const MONTHS=['','January','February','March','April','May','June','July','August','September','October','November','December'];
+const DAYS=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+
+function initSelects(){
+const mins=document.getElementById('bMin');
+const hrs=document.getElementById('bHour');
+const dom=document.getElementById('bDom');
+const mon=document.getElementById('bMonth');
+const dow=document.getElementById('bDow');
+
+function addOpt(sel,val,txt){const o=document.createElement('option');o.value=val;o.textContent=txt;sel.appendChild(o)}
+
+addOpt(mins,'*','Every minute (*)');
+for(let i=0;i<60;i++)addOpt(mins,String(i),String(i));
+addOpt(mins,'*/5','Every 5 min (*/5)');addOpt(mins,'*/10','Every 10 min (*/10)');addOpt(mins,'*/15','Every 15 min (*/15)');addOpt(mins,'*/30','Every 30 min (*/30)');
+
+addOpt(hrs,'*','Every hour (*)');
+for(let i=0;i<24;i++)addOpt(hrs,String(i),i+':00');
+addOpt(hrs,'*/2','Every 2 hrs (*/2)');addOpt(hrs,'*/6','Every 6 hrs (*/6)');addOpt(hrs,'*/12','Every 12 hrs (*/12)');
+
+addOpt(dom,'*','Every day (*)');
+for(let i=1;i<=31;i++)addOpt(dom,String(i),String(i));
+addOpt(dom,'1,15','1st & 15th');
+
+addOpt(mon,'*','Every month (*)');
+for(let i=1;i<=12;i++)addOpt(mon,String(i),MONTHS[i]);
+
+addOpt(dow,'*','Every day (*)');
+for(let i=0;i<7;i++)addOpt(dow,String(i),DAYS[i]);
+addOpt(dow,'1-5','Weekdays (1-5)');addOpt(dow,'0,6','Weekends (0,6)');
+
+[mins,hrs,dom,mon,dow].forEach(s=>s.addEventListener('change',updateCron));
+}
+
+function updateCron(){
+const expr=[
+document.getElementById('bMin').value,
+document.getElementById('bHour').value,
+document.getElementById('bDom').value,
+document.getElementById('bMonth').value,
+document.getElementById('bDow').value
+].join(' ');
+document.getElementById('cronOutput').textContent=expr;
+document.getElementById('humanText').textContent=describeCron(expr);
+showNextRuns(expr);
+}
+
+function setPreset(expr){
+const parts=expr.split(' ');
+const ids=['bMin','bHour','bDom','bMonth','bDow'];
+parts.forEach((p,i)=>{
+const sel=document.getElementById(ids[i]);
+for(let o of sel.options){if(o.value===p){sel.value=p;return}}
+sel.value=p;
+});
+updateCron();
+}
+
+function describeCron(expr){
+const p=expr.split(' ');
+if(p.length!==5)return'Invalid cron expression';
+const[min,hr,dom,mon,dow]=p;
+let parts=[];
+
+if(min==='*'&&hr==='*'&&dom==='*'&&mon==='*'&&dow==='*')return'Runs every minute';
+if(min.startsWith('*/')&&hr==='*'&&dom==='*'&&mon==='*'&&dow==='*')return'Runs every '+min.slice(2)+' minutes';
+if(hr.startsWith('*/')&&dom==='*'&&mon==='*'&&dow==='*'){
+const m=min==='0'?'':' at minute '+min;
+return'Runs every '+hr.slice(2)+' hours'+m;
+}
+
+if(min!=='*'){
+if(min.startsWith('*/'))parts.push('every '+min.slice(2)+' minutes');
+else parts.push('at minute '+min);
+}
+if(hr!=='*'){
+if(hr.startsWith('*/'))parts.push('every '+hr.slice(2)+' hours');
+else parts.push('at '+hr+':00');
+}
+if(dom!=='*')parts.push('on day '+dom+' of the month');
+if(mon!=='*'){
+const mNum=parseInt(mon);
+parts.push('in '+(MONTHS[mNum]||'month '+mon));
+}
+if(dow!=='*'){
+if(dow==='1-5')parts.push('on weekdays');
+else if(dow==='0,6')parts.push('on weekends');
+else{const d=parseInt(dow);parts.push('on '+(DAYS[d]||'day '+dow))}
+}
+return'Runs '+parts.join(', ')||'Custom schedule';
+}
+
+function showNextRuns(expr){
+const ul=document.getElementById('nextRuns');
+const times=getNextRuns(expr,5);
+ul.innerHTML=times.map(t=>'<li>'+t.toLocaleString()+'</li>').join('');
+}
+
+function getNextRuns(expr,count){
+const p=expr.split(' ');
+if(p.length!==5)return[];
+const results=[];
+const now=new Date();
+let d=new Date(now.getFullYear(),now.getMonth(),now.getDate(),now.getHours(),now.getMinutes()+1,0,0);
+let safety=0;
+while(results.length<count&&safety<525600){
+if(matchesCron(d,p))results.push(new Date(d));
+d=new Date(d.getTime()+60000);
+safety++;
+}
+return results;
+}
+
+function matchesCron(date,parts){
+const checks=[
+{val:date.getMinutes(),field:parts[0],max:59},
+{val:date.getHours(),field:parts[1],max:23},
+{val:date.getDate(),field:parts[2],max:31,min:1},
+{val:date.getMonth()+1,field:parts[3],max:12,min:1},
+{val:date.getDay(),field:parts[4],max:6}
+];
+return checks.every(c=>fieldMatches(c.val,c.field));
+}
+
+function fieldMatches(val,field){
+if(field==='*')return true;
+const parts=field.split(',');
+return parts.some(p=>{
+if(p.includes('/')){
+const[range,step]=p.split('/');
+const s=parseInt(step);
+if(range==='*')return val%s===0;
+const start=parseInt(range);
+return val>=start&&(val-start)%s===0;
+}
+if(p.includes('-')){
+const[a,b]=p.split('-').map(Number);
+return val>=a&&val<=b;
+}
+return parseInt(p)===val;
+});
+}
+
+function copyCron(){
+const t=document.getElementById('cronOutput').textContent;
+navigator.clipboard.writeText(t).then(()=>alert('Copied: '+t));
+}
+
+function saveToHistory(){
+const expr=document.getElementById('cronOutput').textContent;
+const desc=document.getElementById('humanText').textContent;
+history.unshift({expr,desc,date:new Date().toISOString()});
+if(history.length>20)history.pop();
+localStorage.setItem(LS_KEY,JSON.stringify(history));
+renderHistory();
+}
+
+function loadHistory(){try{history=JSON.parse(localStorage.getItem(LS_KEY))||[]}catch(e){history=[]}}
+
+function renderHistory(){
+const el=document.getElementById('historyList');
+if(!history.length){el.innerHTML='<div style="color:#555;text-align:center;padding:20px">No saved expressions yet.</div>';return}
+el.innerHTML=history.map((h,i)=>`<div class="history-item"><span>${esc(h.expr)} &mdash; ${esc(h.desc)}</span><div style="display:flex;gap:6px"><button onclick="setPreset('${esc(h.expr)}')">Use</button><button class="danger" onclick="removeHistory(${i})">&times;</button></div></div>`).join('');
+}
+
+function removeHistory(i){history.splice(i,1);localStorage.setItem(LS_KEY,JSON.stringify(history));renderHistory()}
+
+function parseCron(){
+const v=document.getElementById('parseInput').value.trim();
+if(!v){document.getElementById('parseOutput').textContent='Enter an expression above.';return}
+const desc=describeCron(v);
+document.getElementById('parseOutput').textContent=desc;
+setPreset(v);
+}
+
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+
+initSelects();
+loadHistory();
+renderHistory();
+updateCron();
+</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>
