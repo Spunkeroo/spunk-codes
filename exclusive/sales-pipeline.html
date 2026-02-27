@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sales Pipeline Manager - Kanban Deal Tracker | SPUNK.CODES Exclusive</title>
+<meta name="description" content="Sales pipeline manager with Kanban board. Track deals through stages, calculate weighted value, win rates, and conversion stats. Free business tool.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Sales Pipeline Manager - SPUNK.CODES Exclusive">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/sales-pipeline">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0a0a0f;--card:rgba(18,18,28,0.85);--border:rgba(255,95,31,0.18);--accent:#ff5f1f;--accent2:#ff9f1f;--text:#e8e8f0;--text-dim:#8b8b9e;--green:#39d353;--red:#f85149;--blue:#58a6ff;--font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+a{color:var(--blue);text-decoration:none}
+.bg-mesh{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 80% 50% at 20% 20%,rgba(255,95,31,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(255,159,31,0.04) 0%,transparent 60%),var(--bg)}
+.nav{position:sticky;top:0;z-index:100;background:rgba(10,10,15,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,95,31,0.15);padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}
+.nav-brand{font-weight:800;font-size:1.1rem;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:0.08em}
+.nav-links{display:flex;gap:1.5rem;font-size:0.85rem}.nav-links a{color:var(--text-dim);font-weight:500}.nav-links a.active{color:var(--accent)}
+.lock-gate{position:fixed;inset:0;z-index:1000;background:rgba(10,10,15,0.97);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:2rem}
+.lock-gate.hidden{display:none}
+.lock-icon-big{font-size:4rem}.lock-gate h2{font-size:1.8rem;font-weight:800;text-align:center}.lock-gate h2 span{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}.lock-gate p{color:var(--text-dim);text-align:center;max-width:400px}
+.code-input-wrap{display:flex;gap:0.5rem}
+.code-input{padding:0.8rem 1.5rem;background:rgba(18,18,28,0.8);border:2px solid var(--border);border-radius:12px;color:var(--accent);font-size:1.2rem;font-weight:800;letter-spacing:3px;text-align:center;width:200px;outline:none;text-transform:uppercase;font-family:var(--font)}
+.code-input:focus{border-color:var(--accent);box-shadow:0 0 20px rgba(255,95,31,0.2)}
+.code-submit{padding:0.8rem 1.5rem;background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;border-radius:12px;color:#000;font-size:1rem;font-weight:800;cursor:pointer}
+.code-error{color:var(--red);font-size:0.85rem;min-height:1.2em}.lock-hint{color:var(--text-dim);font-size:0.8rem}.lock-hint a{color:var(--accent)}
+.exclusive-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;background:linear-gradient(135deg,rgba(255,95,31,0.15),rgba(255,159,31,0.15));border:1px solid var(--border);border-radius:100px;font-size:11px;font-weight:800;color:var(--accent);letter-spacing:1.5px;text-transform:uppercase}
+.main{max-width:1400px;margin:0 auto;padding:1.5rem}
+.hero-section{text-align:center;padding:1rem 0}
+.hero-section h1{font-size:2rem;font-weight:800;margin:0.5rem 0}
+.hero-section h1 .gold{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-section p{color:var(--text-dim);max-width:500px;margin:0 auto;font-size:0.9rem}
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:0.75rem;margin:1.5rem 0}
+.stat-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1rem;text-align:center}
+.stat-card .num{font-size:1.5rem;font-weight:800;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.stat-card .label{font-size:0.65rem;color:var(--text-dim);margin-top:0.2rem}
+.controls{display:flex;gap:0.5rem;margin-bottom:1rem;flex-wrap:wrap}
+.btn{padding:0.5rem 1rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;transition:all 0.2s}
+.btn-gold{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#000}
+.btn-gold:hover{transform:translateY(-1px);box-shadow:0 4px 15px rgba(255,95,31,0.3)}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--accent)}
+.btn-red{background:rgba(248,81,73,0.15);border:1px solid rgba(248,81,73,0.3);color:var(--red)}
+.btn-sm{padding:0.3rem 0.7rem;font-size:0.7rem}
+/* Kanban */
+.kanban{display:grid;grid-template-columns:repeat(6,1fr);gap:0.75rem;overflow-x:auto;min-height:400px}
+.kanban-col{background:rgba(18,18,28,0.5);border:1px solid var(--border);border-radius:12px;padding:0.75rem;min-width:180px}
+.kanban-col h3{font-size:0.75rem;text-transform:uppercase;letter-spacing:1px;color:var(--text-dim);margin-bottom:0.5rem;display:flex;justify-content:space-between;align-items:center}
+.kanban-col h3 .count{background:var(--accent);color:#000;font-size:0.6rem;padding:2px 6px;border-radius:10px;font-weight:800}
+.col-value{font-size:0.7rem;color:var(--accent);margin-bottom:0.5rem;font-weight:700}
+.deal-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:0.75rem;margin-bottom:0.5rem;cursor:grab;transition:transform 0.15s,box-shadow 0.15s}
+.deal-card:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(255,95,31,0.15)}
+.deal-card.dragging{opacity:0.5;transform:rotate(2deg)}
+.deal-card .name{font-weight:700;font-size:0.85rem;margin-bottom:0.3rem}
+.deal-card .value{color:var(--accent);font-weight:800;font-size:0.9rem}
+.deal-card .meta{font-size:0.7rem;color:var(--text-dim);margin-top:0.3rem}
+.deal-card .actions{margin-top:0.5rem;display:flex;gap:0.3rem}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-bottom:0.75rem}
+.form-group{display:flex;flex-direction:column;gap:0.3rem}
+.form-group label{font-size:0.7rem;color:var(--text-dim);font-weight:600;text-transform:uppercase}
+.form-group input,.form-group select{padding:0.5rem 0.7rem;background:rgba(18,18,28,0.9);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.85rem;font-family:var(--font);outline:none}
+.form-group input:focus,.form-group select:focus{border-color:var(--accent)}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:500;display:flex;align-items:center;justify-content:center;padding:2rem}
+.modal-overlay.hidden{display:none}
+.modal{background:#12121c;border:1px solid var(--border);border-radius:16px;padding:2rem;max-width:500px;width:100%;max-height:80vh;overflow-y:auto}
+.modal h3{font-size:1.1rem;font-weight:700;margin-bottom:1rem}
+@media(max-width:900px){.kanban{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:600px){.kanban{grid-template-columns:1fr 1fr}.stats-row{grid-template-columns:repeat(3,1fr)}}
+</style>
+</head>
+<body>
+<div class="bg-mesh"></div>
+<div class="lock-gate" id="lockGate">
+<div class="lock-icon-big">🎯</div>
+<h2>Access <span>Sales Pipeline</span></h2>
+<p>Enter the exclusive access code to unlock this premium sales tool.</p>
+<div class="code-input-wrap"><input type="text" class="code-input" id="codeInput" placeholder="CODE" maxlength="10" autocomplete="off"><button class="code-submit" onclick="checkCode()">Unlock</button></div>
+<div class="code-error" id="codeError"></div>
+<p class="lock-hint">Hint: Visit <a href="https://spunk.codes">spunk.codes</a> to find the code</p>
+</div>
+<nav class="nav"><a href="https://spunk.codes" class="nav-brand">SPUNK.CODES</a><div class="nav-links"><a href="https://spunk.codes">Tools</a><a href="https://spunk.codes/exclusive/" class="active">Exclusive</a><a href="https://spunk.bet">Spunk Bet</a></div></nav>
+<div class="main" id="mainApp" style="display:none">
+<div class="hero-section">
+<span class="exclusive-badge">⚡ EXCLUSIVE TOOL</span>
+<h1>🎯 Sales <span class="gold">Pipeline Manager</span></h1>
+<p>Track deals through every stage. Drag and drop between columns. See your pipeline value at a glance.</p>
+</div>
+<div class="stats-row" id="statsRow"></div>
+<div class="controls">
+<button class="btn btn-gold" onclick="openAddDeal()">+ New Deal</button>
+<button class="btn btn-outline" onclick="exportCSV()">📥 Export CSV</button>
+<button class="btn btn-outline" onclick="loadDemo()">🔄 Demo Data</button>
+</div>
+<div class="kanban" id="kanban"></div>
+</div>
+<div class="modal-overlay hidden" id="modal"><div class="modal" id="modalContent"></div></div>
+<script>
+const SK='spunk-pipeline',STAGES=['Lead','Qualified','Proposal','Negotiation','Closed Won','Closed Lost'];
+let D={deals:[]};
+function save(){localStorage.setItem(SK,JSON.stringify(D))}
+function load(){const s=localStorage.getItem(SK);if(s)try{D=JSON.parse(s)}catch(e){};if(!D.deals)D.deals=[]}
+function checkCode(){const v=document.getElementById('codeInput').value.trim().toUpperCase();if(v==='SPUNK'){document.getElementById('lockGate').classList.add('hidden');document.getElementById('mainApp').style.display='block';sessionStorage.setItem('spunk-pipe-unlocked','1');init()}else{document.getElementById('codeError').textContent='Invalid code.'}}
+document.addEventListener('DOMContentLoaded',function(){if(sessionStorage.getItem('spunk-pipe-unlocked')){document.getElementById('lockGate').classList.add('hidden');document.getElementById('mainApp').style.display='block';init()}document.getElementById('codeInput').addEventListener('keydown',function(e){if(e.key==='Enter')checkCode()})});
+function init(){load();renderStats();renderKanban()}
+function renderStats(){const deals=D.deals;const won=deals.filter(d=>d.stage==='Closed Won');const lost=deals.filter(d=>d.stage==='Closed Lost');const active=deals.filter(d=>d.stage!=='Closed Won'&&d.stage!=='Closed Lost');const totalVal=active.reduce((s,d)=>s+d.value,0);const weightedVal=active.reduce((s,d)=>s+d.value*(d.probability/100),0);const winRate=won.length+lost.length>0?Math.round(won.length/(won.length+lost.length)*100):0;const avgDeal=deals.length?Math.round(deals.reduce((s,d)=>s+d.value,0)/deals.length):0;
+document.getElementById('statsRow').innerHTML=[
+{n:deals.length,l:'Total Deals'},{n:'$'+totalVal.toLocaleString(),l:'Pipeline Value'},{n:'$'+Math.round(weightedVal).toLocaleString(),l:'Weighted Value'},
+{n:winRate+'%',l:'Win Rate'},{n:'$'+avgDeal.toLocaleString(),l:'Avg Deal'},{n:won.reduce((s,d)=>s+d.value,0).toLocaleString(),l:'Won Revenue'}
+].map(s=>`<div class="stat-card"><div class="num">${s.n}</div><div class="label">${s.l}</div></div>`).join('')}
+function renderKanban(){const kb=document.getElementById('kanban');
+kb.innerHTML=STAGES.map(stage=>{const deals=D.deals.filter(d=>d.stage===stage);const val=deals.reduce((s,d)=>s+d.value,0);
+return`<div class="kanban-col" ondragover="event.preventDefault()" ondrop="dropDeal(event,'${stage}')">
+<h3>${stage} <span class="count">${deals.length}</span></h3>
+<div class="col-value">$${val.toLocaleString()}</div>
+${deals.map(d=>`<div class="deal-card" draggable="true" ondragstart="dragDeal(event,'${d.id}')" id="deal-${d.id}">
+<div class="name">${esc(d.company)}</div>
+<div class="value">$${d.value.toLocaleString()}</div>
+<div class="meta">${esc(d.contact)} · ${d.probability}% · ${d.closeDate||'No date'}</div>
+<div class="actions"><button class="btn btn-sm btn-outline" onclick="editDeal('${d.id}')">Edit</button><button class="btn btn-sm btn-red" onclick="delDeal('${d.id}')">X</button></div>
+</div>`).join('')}
+</div>`}).join('')}
+let dragId=null;
+function dragDeal(e,id){dragId=id;e.target.classList.add('dragging')}
+function dropDeal(e,stage){e.preventDefault();if(!dragId)return;const d=D.deals.find(x=>x.id===dragId);if(d){d.stage=stage;if(stage==='Closed Won')d.probability=100;if(stage==='Closed Lost')d.probability=0;save();init()}dragId=null}
+function openAddDeal(){const stageOpts=STAGES.map(s=>`<option>${s}</option>`).join('');
+showModal(`<h3>New Deal</h3>
+<div class="form-row"><div class="form-group"><label>Company</label><input id="dC"></div><div class="form-group"><label>Contact</label><input id="dN"></div></div>
+<div class="form-row"><div class="form-group"><label>Deal Value ($)</label><input id="dV" type="number" value="0"></div><div class="form-group"><label>Probability (%)</label><input id="dP" type="number" value="20" min="0" max="100"></div></div>
+<div class="form-row"><div class="form-group"><label>Stage</label><select id="dS">${stageOpts}</select></div><div class="form-group"><label>Close Date</label><input id="dD" type="date"></div></div>
+<div style="display:flex;gap:0.5rem;margin-top:1rem"><button class="btn btn-gold" onclick="saveDeal()">Save Deal</button><button class="btn btn-outline" onclick="closeModal()">Cancel</button></div>`)}
+function saveDeal(){const d={id:'d-'+Date.now(),company:document.getElementById('dC').value.trim(),contact:document.getElementById('dN').value.trim(),value:parseFloat(document.getElementById('dV').value)||0,probability:parseInt(document.getElementById('dP').value)||20,stage:document.getElementById('dS').value,closeDate:document.getElementById('dD').value,created:new Date().toISOString()};if(!d.company){alert('Company required');return}D.deals.push(d);save();closeModal();init()}
+function editDeal(id){const d=D.deals.find(x=>x.id===id);if(!d)return;const stageOpts=STAGES.map(s=>`<option ${s===d.stage?'selected':''}>${s}</option>`).join('');
+showModal(`<h3>Edit Deal</h3>
+<div class="form-row"><div class="form-group"><label>Company</label><input id="dC" value="${esc(d.company)}"></div><div class="form-group"><label>Contact</label><input id="dN" value="${esc(d.contact)}"></div></div>
+<div class="form-row"><div class="form-group"><label>Value ($)</label><input id="dV" type="number" value="${d.value}"></div><div class="form-group"><label>Probability (%)</label><input id="dP" type="number" value="${d.probability}"></div></div>
+<div class="form-row"><div class="form-group"><label>Stage</label><select id="dS">${stageOpts}</select></div><div class="form-group"><label>Close Date</label><input id="dD" type="date" value="${d.closeDate||''}"></div></div>
+<div style="display:flex;gap:0.5rem;margin-top:1rem"><button class="btn btn-gold" onclick="updateDeal('${id}')">Save</button><button class="btn btn-outline" onclick="closeModal()">Cancel</button></div>`)}
+function updateDeal(id){const d=D.deals.find(x=>x.id===id);if(!d)return;d.company=document.getElementById('dC').value.trim();d.contact=document.getElementById('dN').value.trim();d.value=parseFloat(document.getElementById('dV').value)||0;d.probability=parseInt(document.getElementById('dP').value)||0;d.stage=document.getElementById('dS').value;d.closeDate=document.getElementById('dD').value;save();closeModal();init()}
+function delDeal(id){if(!confirm('Delete deal?'))return;D.deals=D.deals.filter(d=>d.id!==id);save();init()}
+function exportCSV(){let csv='Company,Contact,Value,Probability,Stage,Close Date\n';D.deals.forEach(d=>{csv+=`"${d.company}","${d.contact}","${d.value}","${d.probability}%","${d.stage}","${d.closeDate||''}"\n`});const blob=new Blob([csv],{type:'text/csv'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='pipeline.csv';a.click()}
+function loadDemo(){if(D.deals.length&&!confirm('Replace current data with demo?'))return;
+D.deals=[
+{id:'d1',company:'Acme Corp',contact:'John Smith',value:25000,probability:80,stage:'Negotiation',closeDate:'2026-03-15',created:new Date().toISOString()},
+{id:'d2',company:'TechStart Inc',contact:'Sarah Lee',value:15000,probability:60,stage:'Proposal',closeDate:'2026-03-20',created:new Date().toISOString()},
+{id:'d3',company:'Global Media',contact:'Mike Chen',value:50000,probability:30,stage:'Qualified',closeDate:'2026-04-01',created:new Date().toISOString()},
+{id:'d4',company:'FinanceHub',contact:'Lisa Wang',value:35000,probability:90,stage:'Negotiation',closeDate:'2026-03-10',created:new Date().toISOString()},
+{id:'d5',company:'RetailMax',contact:'Tom Brown',value:8000,probability:100,stage:'Closed Won',closeDate:'2026-02-20',created:new Date().toISOString()},
+{id:'d6',company:'CloudNine',contact:'Amy Park',value:12000,probability:0,stage:'Closed Lost',closeDate:'2026-02-15',created:new Date().toISOString()},
+{id:'d7',company:'DataFlow',contact:'James Hill',value:20000,probability:10,stage:'Lead',closeDate:'2026-05-01',created:new Date().toISOString()},
+{id:'d8',company:'GreenEnergy',contact:'Pat Kelly',value:45000,probability:40,stage:'Qualified',closeDate:'2026-04-15',created:new Date().toISOString()}
+];save();init()}
+function showModal(h){document.getElementById('modalContent').innerHTML=h;document.getElementById('modal').classList.remove('hidden')}
+function closeModal(){document.getElementById('modal').classList.add('hidden')}
+document.getElementById('modal').addEventListener('click',function(e){if(e.target===this)closeModal()});
+function esc(s){const d=document.createElement('div');d.textContent=s||'';return d.innerHTML}
+</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>

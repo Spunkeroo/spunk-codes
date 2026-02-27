@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Client CRM Dashboard - Manage Clients & Projects | SPUNK.CODES Exclusive</title>
+<meta name="description" content="Simple client CRM dashboard. Track clients, projects, contact history, notes, and revenue. Export to CSV. Free business automation tool.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Client CRM Dashboard - SPUNK.CODES Exclusive">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/client-crm">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Client CRM Dashboard","url":"https://spunk.codes/exclusive/client-crm","applicationCategory":"BusinessApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Organization","name":"SPUNK.CODES","url":"https://spunk.codes"}}</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0a0a0f;--card:rgba(18,18,28,0.85);--border:rgba(255,95,31,0.18);--accent:#ff5f1f;--accent2:#ff9f1f;--text:#e8e8f0;--text-dim:#8b8b9e;--green:#39d353;--red:#f85149;--blue:#58a6ff;--font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+a{color:var(--blue);text-decoration:none}
+.bg-mesh{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 80% 50% at 20% 20%,rgba(255,95,31,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(255,159,31,0.04) 0%,transparent 60%),var(--bg)}
+.nav{position:sticky;top:0;z-index:100;background:rgba(10,10,15,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,95,31,0.15);padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}
+.nav-brand{font-weight:800;font-size:1.1rem;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:0.08em}
+.nav-links{display:flex;gap:1.5rem;font-size:0.85rem}.nav-links a{color:var(--text-dim);font-weight:500}.nav-links a.active{color:var(--accent)}
+.lock-gate{position:fixed;inset:0;z-index:1000;background:rgba(10,10,15,0.97);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:2rem}
+.lock-gate.hidden{display:none}
+.lock-icon-big{font-size:4rem}.lock-gate h2{font-size:1.8rem;font-weight:800;text-align:center}.lock-gate h2 span{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}.lock-gate p{color:var(--text-dim);text-align:center;max-width:400px}
+.code-input-wrap{display:flex;gap:0.5rem}
+.code-input{padding:0.8rem 1.5rem;background:rgba(18,18,28,0.8);border:2px solid var(--border);border-radius:12px;color:var(--accent);font-size:1.2rem;font-weight:800;letter-spacing:3px;text-align:center;width:200px;outline:none;text-transform:uppercase;font-family:var(--font)}
+.code-input:focus{border-color:var(--accent);box-shadow:0 0 20px rgba(255,95,31,0.2)}
+.code-submit{padding:0.8rem 1.5rem;background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;border-radius:12px;color:#000;font-size:1rem;font-weight:800;cursor:pointer}
+.code-error{color:var(--red);font-size:0.85rem;min-height:1.2em}.lock-hint{color:var(--text-dim);font-size:0.8rem}.lock-hint a{color:var(--accent)}
+.exclusive-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;background:linear-gradient(135deg,rgba(255,95,31,0.15),rgba(255,159,31,0.15));border:1px solid var(--border);border-radius:100px;font-size:11px;font-weight:800;color:var(--accent);letter-spacing:1.5px;text-transform:uppercase}
+.main{max-width:1100px;margin:0 auto;padding:2rem}
+.hero-section{text-align:center;padding:1.5rem 0}
+.hero-section h1{font-size:2.2rem;font-weight:800;margin:1rem 0 0.5rem}
+.hero-section h1 .gold{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-section p{color:var(--text-dim);max-width:600px;margin:0 auto}
+.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.5rem;margin-bottom:1.5rem;position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent2),var(--accent))}
+.card h2{font-size:1.1rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1rem;margin-bottom:1.5rem}
+.stat-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1rem;text-align:center}
+.stat-card .num{font-size:1.8rem;font-weight:800;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.stat-card .label{font-size:0.7rem;color:var(--text-dim);margin-top:0.2rem}
+.form-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:0.75rem;margin-bottom:0.75rem}
+.form-group{display:flex;flex-direction:column;gap:0.3rem}
+.form-group label{font-size:0.75rem;color:var(--text-dim);font-weight:600;text-transform:uppercase;letter-spacing:0.5px}
+.form-group input,.form-group select,.form-group textarea{padding:0.6rem 0.8rem;background:rgba(18,18,28,0.9);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.85rem;font-family:var(--font);outline:none}
+.form-group input:focus,.form-group select:focus{border-color:var(--accent)}
+.form-group textarea{resize:vertical;min-height:60px}
+.btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;transition:all 0.2s}
+.btn-gold{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#000}
+.btn-gold:hover{transform:translateY(-1px);box-shadow:0 4px 15px rgba(255,95,31,0.3)}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--accent)}
+.btn-red{background:rgba(248,81,73,0.15);border:1px solid rgba(248,81,73,0.3);color:var(--red)}
+.btn-sm{padding:0.4rem 0.8rem;font-size:0.75rem}
+.btn-row{display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:0.75rem}
+.tbl{width:100%;border-collapse:collapse;margin:1rem 0}
+.tbl th{text-align:left;font-size:0.7rem;color:var(--text-dim);text-transform:uppercase;padding:0.6rem;border-bottom:1px solid var(--border)}
+.tbl td{padding:0.6rem;border-bottom:1px solid rgba(255,95,31,0.06);font-size:0.85rem}
+.tbl tr:hover{background:rgba(255,95,31,0.03)}
+.badge{display:inline-block;padding:2px 10px;border-radius:20px;font-size:0.7rem;font-weight:700}
+.badge-active{background:rgba(57,211,83,0.15);color:var(--green)}
+.badge-lead{background:rgba(88,166,255,0.15);color:var(--blue)}
+.badge-inactive{background:rgba(139,139,158,0.15);color:var(--text-dim)}
+.tabs{display:flex;gap:0.5rem;margin-bottom:1.5rem;flex-wrap:wrap}
+.tab{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.85rem;font-weight:600;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--text-dim);transition:all 0.2s}
+.tab.active{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#000;border-color:transparent}
+.tab:hover:not(.active){background:rgba(255,95,31,0.1)}
+.tab-panel{display:none}.tab-panel.active{display:block}
+.timeline-item{border-left:3px solid var(--accent);padding:0.75rem 1rem;margin:0.5rem 0;background:rgba(10,10,15,0.5);border-radius:0 8px 8px 0;font-size:0.85rem}
+.timeline-item .time{font-size:0.7rem;color:var(--text-dim)}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:500;display:flex;align-items:center;justify-content:center;padding:2rem}
+.modal-overlay.hidden{display:none}
+.modal{background:#12121c;border:1px solid var(--border);border-radius:16px;padding:2rem;max-width:600px;width:100%;max-height:80vh;overflow-y:auto}
+.modal h3{font-size:1.2rem;font-weight:700;margin-bottom:1rem}
+.tag{display:inline-block;padding:2px 8px;border-radius:12px;font-size:0.65rem;font-weight:700;background:rgba(255,95,31,0.15);color:var(--accent);margin:2px}
+@media(max-width:768px){.form-row{grid-template-columns:1fr}.stats-grid{grid-template-columns:repeat(2,1fr)}.main{padding:1rem}}
+</style>
+</head>
+<body>
+<div class="bg-mesh"></div>
+<div class="lock-gate" id="lockGate">
+<div class="lock-icon-big">💼</div>
+<h2>Access <span>Client CRM</span></h2>
+<p>Enter the exclusive access code to unlock this premium CRM tool.</p>
+<div class="code-input-wrap"><input type="text" class="code-input" id="codeInput" placeholder="CODE" maxlength="10" autocomplete="off"><button class="code-submit" onclick="checkCode()">Unlock</button></div>
+<div class="code-error" id="codeError"></div>
+<p class="lock-hint">Hint: Visit <a href="https://spunk.codes">spunk.codes</a> to find the code</p>
+</div>
+<nav class="nav"><a href="https://spunk.codes" class="nav-brand">SPUNK.CODES</a><div class="nav-links"><a href="https://spunk.codes">Tools</a><a href="https://spunk.codes/exclusive/" class="active">Exclusive</a><a href="https://spunk.bet">Spunk Bet</a></div></nav>
+<div class="main" id="mainApp" style="display:none">
+<div class="hero-section">
+<span class="exclusive-badge">⚡ EXCLUSIVE TOOL</span>
+<h1>💼 Client <span class="gold">CRM Dashboard</span></h1>
+<p>Track clients, projects, contact history, and revenue. Everything you need to manage client relationships in one place.</p>
+</div>
+<div class="stats-grid">
+<div class="stat-card"><div class="num" id="sTotal">0</div><div class="label">Total Clients</div></div>
+<div class="stat-card"><div class="num" id="sActive">0</div><div class="label">Active</div></div>
+<div class="stat-card"><div class="num" id="sProjects">0</div><div class="label">Projects</div></div>
+<div class="stat-card"><div class="num" id="sRevenue">$0</div><div class="label">Total Revenue</div></div>
+<div class="stat-card"><div class="num" id="sNotes">0</div><div class="label">Notes</div></div>
+</div>
+<div class="tabs">
+<button class="tab active" onclick="switchTab('clients',this)">👥 Clients</button>
+<button class="tab" onclick="switchTab('projects',this)">📁 Projects</button>
+<button class="tab" onclick="switchTab('activity',this)">📝 Activity</button>
+</div>
+<div class="tab-panel active" id="panel-clients">
+<div class="card">
+<h2>👥 Client Directory</h2>
+<div class="form-row" style="margin-bottom:1rem">
+<div class="form-group"><input type="text" id="searchBox" placeholder="Search clients..." oninput="renderClients()"></div>
+<div class="form-group"><select id="statusFilter" onchange="renderClients()"><option value="all">All Status</option><option value="active">Active</option><option value="lead">Lead</option><option value="inactive">Inactive</option></select></div>
+</div>
+<div class="btn-row" style="margin-bottom:1rem">
+<button class="btn btn-gold" onclick="openAdd()">+ Add Client</button>
+<button class="btn btn-outline" onclick="exportCSV()">📥 Export CSV</button>
+</div>
+<div style="overflow-x:auto"><table class="tbl"><thead><tr><th>Name</th><th>Company</th><th>Email</th><th>Phone</th><th>Tags</th><th>Status</th><th>Revenue</th><th>Actions</th></tr></thead><tbody id="clientBody"></tbody></table></div>
+</div>
+</div>
+<div class="tab-panel" id="panel-projects">
+<div class="card">
+<h2>📁 Projects</h2>
+<button class="btn btn-gold btn-sm" onclick="openAddProject()" style="margin-bottom:1rem">+ Add Project</button>
+<div style="overflow-x:auto"><table class="tbl"><thead><tr><th>Project</th><th>Client</th><th>Status</th><th>Budget</th><th>Deadline</th><th>Actions</th></tr></thead><tbody id="projectBody"></tbody></table></div>
+</div>
+</div>
+<div class="tab-panel" id="panel-activity">
+<div class="card">
+<h2>📝 Recent Activity</h2>
+<div id="activityList"></div>
+</div>
+</div>
+</div>
+<div class="modal-overlay hidden" id="modal"><div class="modal" id="modalContent"></div></div>
+<script>
+const SK='spunk-crm';let D={clients:[],projects:[],notes:[]};
+function save(){localStorage.setItem(SK,JSON.stringify(D))}
+function load(){const s=localStorage.getItem(SK);if(s)try{D=JSON.parse(s)}catch(e){};if(!D.clients)D.clients=[];if(!D.projects)D.projects=[];if(!D.notes)D.notes=[]}
+function checkCode(){const v=document.getElementById('codeInput').value.trim().toUpperCase();if(v==='SPUNK'){document.getElementById('lockGate').classList.add('hidden');document.getElementById('mainApp').style.display='block';sessionStorage.setItem('spunk-crm-unlocked','1');init()}else{document.getElementById('codeError').textContent='Invalid code.'}}
+document.addEventListener('DOMContentLoaded',function(){if(sessionStorage.getItem('spunk-crm-unlocked')){document.getElementById('lockGate').classList.add('hidden');document.getElementById('mainApp').style.display='block';init()}document.getElementById('codeInput').addEventListener('keydown',function(e){if(e.key==='Enter')checkCode()})});
+function init(){load();updateStats();renderClients();renderProjects();renderActivity()}
+function switchTab(name,el){document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));document.getElementById('panel-'+name).classList.add('active');el.classList.add('active')}
+function updateStats(){const ac=D.clients.filter(c=>c.status==='active').length;const rev=D.clients.reduce((s,c)=>s+(c.revenue||0),0);document.getElementById('sTotal').textContent=D.clients.length;document.getElementById('sActive').textContent=ac;document.getElementById('sProjects').textContent=D.projects.length;document.getElementById('sRevenue').textContent='$'+rev.toLocaleString();document.getElementById('sNotes').textContent=D.notes.length}
+function renderClients(){const q=(document.getElementById('searchBox').value||'').toLowerCase();const f=document.getElementById('statusFilter').value;let list=D.clients.filter(c=>{if(f!=='all'&&c.status!==f)return false;if(q&&!c.name.toLowerCase().includes(q)&&!(c.company||'').toLowerCase().includes(q)&&!(c.email||'').toLowerCase().includes(q))return false;return true});const b=document.getElementById('clientBody');if(!list.length){b.innerHTML='<tr><td colspan="8" style="text-align:center;color:var(--text-dim)">No clients found. Add your first client!</td></tr>';return}
+b.innerHTML=list.map(c=>`<tr><td><strong>${esc(c.name)}</strong></td><td>${esc(c.company||'')}</td><td>${esc(c.email||'')}</td><td>${esc(c.phone||'')}</td><td>${(c.tags||[]).map(t=>'<span class="tag">'+esc(t)+'</span>').join('')}</td><td><span class="badge badge-${c.status}">${c.status}</span></td><td>$${(c.revenue||0).toLocaleString()}</td><td><button class="btn btn-sm btn-outline" onclick="viewClient('${c.id}')">View</button> <button class="btn btn-sm btn-outline" onclick="openEdit('${c.id}')">Edit</button> <button class="btn btn-sm btn-red" onclick="delClient('${c.id}')">X</button></td></tr>`).join('')}
+function openAdd(){showModal(`<h3>Add Client</h3>
+<div class="form-row"><div class="form-group"><label>Name</label><input id="mN"></div><div class="form-group"><label>Company</label><input id="mC"></div></div>
+<div class="form-row"><div class="form-group"><label>Email</label><input id="mE" type="email"></div><div class="form-group"><label>Phone</label><input id="mP"></div></div>
+<div class="form-row"><div class="form-group"><label>Status</label><select id="mS"><option value="lead">Lead</option><option value="active">Active</option><option value="inactive">Inactive</option></select></div><div class="form-group"><label>Revenue</label><input id="mR" type="number" value="0"></div></div>
+<div class="form-group"><label>Tags (comma separated)</label><input id="mT"></div>
+<div class="form-group"><label>Notes</label><textarea id="mNotes"></textarea></div>
+<div class="btn-row"><button class="btn btn-gold" onclick="saveAdd()">Save Client</button><button class="btn btn-outline" onclick="closeModal()">Cancel</button></div>`)}
+function saveAdd(){const c={id:'c-'+Date.now(),name:document.getElementById('mN').value.trim(),company:document.getElementById('mC').value.trim(),email:document.getElementById('mE').value.trim(),phone:document.getElementById('mP').value.trim(),status:document.getElementById('mS').value,revenue:parseFloat(document.getElementById('mR').value)||0,tags:document.getElementById('mT').value.split(',').map(t=>t.trim()).filter(Boolean),created:new Date().toISOString()};if(!c.name){alert('Name required');return}D.clients.push(c);const notes=document.getElementById('mNotes').value.trim();if(notes)D.notes.push({id:'n-'+Date.now(),clientId:c.id,text:notes,date:new Date().toISOString(),type:'note'});save();closeModal();init()}
+function openEdit(id){const c=D.clients.find(x=>x.id===id);if(!c)return;showModal(`<h3>Edit Client</h3>
+<div class="form-row"><div class="form-group"><label>Name</label><input id="mN" value="${esc(c.name)}"></div><div class="form-group"><label>Company</label><input id="mC" value="${esc(c.company||'')}"></div></div>
+<div class="form-row"><div class="form-group"><label>Email</label><input id="mE" value="${esc(c.email||'')}"></div><div class="form-group"><label>Phone</label><input id="mP" value="${esc(c.phone||'')}"></div></div>
+<div class="form-row"><div class="form-group"><label>Status</label><select id="mS"><option value="lead" ${c.status==='lead'?'selected':''}>Lead</option><option value="active" ${c.status==='active'?'selected':''}>Active</option><option value="inactive" ${c.status==='inactive'?'selected':''}>Inactive</option></select></div><div class="form-group"><label>Revenue</label><input id="mR" type="number" value="${c.revenue||0}"></div></div>
+<div class="form-group"><label>Tags</label><input id="mT" value="${(c.tags||[]).join(', ')}"></div>
+<div class="btn-row"><button class="btn btn-gold" onclick="saveEdit('${id}')">Save</button><button class="btn btn-outline" onclick="closeModal()">Cancel</button></div>`)}
+function saveEdit(id){const c=D.clients.find(x=>x.id===id);if(!c)return;c.name=document.getElementById('mN').value.trim();c.company=document.getElementById('mC').value.trim();c.email=document.getElementById('mE').value.trim();c.phone=document.getElementById('mP').value.trim();c.status=document.getElementById('mS').value;c.revenue=parseFloat(document.getElementById('mR').value)||0;c.tags=document.getElementById('mT').value.split(',').map(t=>t.trim()).filter(Boolean);save();closeModal();init()}
+function delClient(id){if(!confirm('Delete this client?'))return;D.clients=D.clients.filter(c=>c.id!==id);D.projects=D.projects.filter(p=>p.clientId!==id);D.notes=D.notes.filter(n=>n.clientId!==id);save();init()}
+function viewClient(id){const c=D.clients.find(x=>x.id===id);if(!c)return;const notes=D.notes.filter(n=>n.clientId===id).sort((a,b)=>b.date.localeCompare(a.date));const projs=D.projects.filter(p=>p.clientId===id);showModal(`<h3>${esc(c.name)} ${c.company?'- '+esc(c.company):''}</h3>
+<p style="color:var(--text-dim)">${esc(c.email||'')} | ${esc(c.phone||'')} | <span class="badge badge-${c.status}">${c.status}</span> | Revenue: $${(c.revenue||0).toLocaleString()}</p>
+<p>${(c.tags||[]).map(t=>'<span class="tag">'+esc(t)+'</span>').join(' ')}</p>
+<h3 style="margin-top:1rem">Projects (${projs.length})</h3>
+${projs.length?projs.map(p=>`<div style="padding:0.5rem 0;border-bottom:1px solid var(--border)"><strong>${esc(p.name)}</strong> — ${p.status} — $${(p.budget||0).toLocaleString()}</div>`).join(''):'<p style="color:var(--text-dim)">No projects yet.</p>'}
+<h3 style="margin-top:1rem">Notes & Activity</h3>
+<div class="form-group" style="margin:0.5rem 0"><textarea id="newNote" placeholder="Add a note..."></textarea></div>
+<button class="btn btn-sm btn-gold" onclick="addNote('${id}')">Add Note</button>
+${notes.map(n=>`<div class="timeline-item"><div class="time">${new Date(n.date).toLocaleDateString()} — ${n.type||'note'}</div>${esc(n.text)}</div>`).join('')}
+<div class="btn-row" style="margin-top:1rem"><button class="btn btn-outline" onclick="closeModal()">Close</button></div>`)}
+function addNote(clientId){const text=document.getElementById('newNote').value.trim();if(!text)return;D.notes.push({id:'n-'+Date.now(),clientId,text,date:new Date().toISOString(),type:'note'});save();viewClient(clientId);updateStats()}
+/* Projects */
+function renderProjects(){const b=document.getElementById('projectBody');if(!D.projects.length){b.innerHTML='<tr><td colspan="6" style="text-align:center;color:var(--text-dim)">No projects yet.</td></tr>';return}
+b.innerHTML=D.projects.map(p=>{const c=D.clients.find(x=>x.id===p.clientId);return`<tr><td><strong>${esc(p.name)}</strong></td><td>${c?esc(c.name):'—'}</td><td><span class="badge badge-${p.status==='completed'?'active':p.status==='active'?'active':'lead'}">${p.status}</span></td><td>$${(p.budget||0).toLocaleString()}</td><td>${p.deadline||'—'}</td><td><button class="btn btn-sm btn-outline" onclick="editProject('${p.id}')">Edit</button> <button class="btn btn-sm btn-red" onclick="delProject('${p.id}')">X</button></td></tr>`}).join('')}
+function openAddProject(){const opts=D.clients.map(c=>`<option value="${c.id}">${esc(c.name)}</option>`).join('');showModal(`<h3>Add Project</h3>
+<div class="form-row"><div class="form-group"><label>Project Name</label><input id="pN"></div><div class="form-group"><label>Client</label><select id="pC">${opts}</select></div></div>
+<div class="form-row"><div class="form-group"><label>Status</label><select id="pS"><option>planning</option><option>active</option><option>completed</option><option>on hold</option></select></div><div class="form-group"><label>Budget</label><input id="pB" type="number" value="0"></div></div>
+<div class="form-group"><label>Deadline</label><input id="pD" type="date"></div>
+<div class="btn-row"><button class="btn btn-gold" onclick="saveProject()">Save</button><button class="btn btn-outline" onclick="closeModal()">Cancel</button></div>`)}
+function saveProject(){D.projects.push({id:'p-'+Date.now(),name:document.getElementById('pN').value.trim(),clientId:document.getElementById('pC').value,status:document.getElementById('pS').value,budget:parseFloat(document.getElementById('pB').value)||0,deadline:document.getElementById('pD').value});save();closeModal();init()}
+function editProject(id){const p=D.projects.find(x=>x.id===id);if(!p)return;const opts=D.clients.map(c=>`<option value="${c.id}" ${c.id===p.clientId?'selected':''}>${esc(c.name)}</option>`).join('');showModal(`<h3>Edit Project</h3>
+<div class="form-row"><div class="form-group"><label>Name</label><input id="pN" value="${esc(p.name)}"></div><div class="form-group"><label>Client</label><select id="pC">${opts}</select></div></div>
+<div class="form-row"><div class="form-group"><label>Status</label><select id="pS"><option ${p.status==='planning'?'selected':''}>planning</option><option ${p.status==='active'?'selected':''}>active</option><option ${p.status==='completed'?'selected':''}>completed</option><option ${p.status==='on hold'?'selected':''}>on hold</option></select></div><div class="form-group"><label>Budget</label><input id="pB" type="number" value="${p.budget||0}"></div></div>
+<div class="form-group"><label>Deadline</label><input id="pD" type="date" value="${p.deadline||''}"></div>
+<div class="btn-row"><button class="btn btn-gold" onclick="D.projects.find(x=>x.id==='${id}').name=document.getElementById('pN').value;D.projects.find(x=>x.id==='${id}').clientId=document.getElementById('pC').value;D.projects.find(x=>x.id==='${id}').status=document.getElementById('pS').value;D.projects.find(x=>x.id==='${id}').budget=parseFloat(document.getElementById('pB').value)||0;D.projects.find(x=>x.id==='${id}').deadline=document.getElementById('pD').value;save();closeModal();init()">Save</button><button class="btn btn-outline" onclick="closeModal()">Cancel</button></div>`)}
+function delProject(id){if(!confirm('Delete?'))return;D.projects=D.projects.filter(p=>p.id!==id);save();init()}
+/* Activity */
+function renderActivity(){const all=D.notes.sort((a,b)=>b.date.localeCompare(a.date)).slice(0,30);const el=document.getElementById('activityList');if(!all.length){el.innerHTML='<p style="color:var(--text-dim)">No activity yet. Add clients and notes to see history here.</p>';return}
+el.innerHTML=all.map(n=>{const c=D.clients.find(x=>x.id===n.clientId);return`<div class="timeline-item"><div class="time">${new Date(n.date).toLocaleDateString()} — ${c?esc(c.name):'Unknown'} — ${n.type||'note'}</div>${esc(n.text)}</div>`}).join('')}
+/* Export */
+function exportCSV(){let csv='Name,Company,Email,Phone,Status,Revenue,Tags\n';D.clients.forEach(c=>{csv+=`"${c.name}","${c.company||''}","${c.email||''}","${c.phone||''}","${c.status}","${c.revenue||0}","${(c.tags||[]).join(';')}"\n`});const blob=new Blob([csv],{type:'text/csv'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='clients.csv';a.click()}
+/* Utils */
+function showModal(h){document.getElementById('modalContent').innerHTML=h;document.getElementById('modal').classList.remove('hidden')}
+function closeModal(){document.getElementById('modal').classList.add('hidden')}
+document.getElementById('modal').addEventListener('click',function(e){if(e.target===this)closeModal()});
+function esc(s){const d=document.createElement('div');d.textContent=s||'';return d.innerHTML}
+</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>
