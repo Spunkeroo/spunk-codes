@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SWOT Analysis — Free SWOT Generator | SPUNK.CODES</title>
+<meta name="description" content="Create professional SWOT analyses with a free interactive generator. Add items to Strengths, Weaknesses, Opportunities, and Threats with priority levels. Export as text or CSV.">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP')</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w")</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e8e8f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+.header{text-align:center;padding:2rem 1rem 1rem}
+.header h1{font-size:1.8rem;color:#ff5f1f;margin-bottom:.3rem}
+.header p{color:#888;font-size:.95rem}
+.container{max-width:1100px;margin:0 auto;padding:1rem;flex:1;width:100%}
+.card{background:#111118;border:1px solid #1e1e2e;border-radius:12px;padding:1.5rem;margin-bottom:1.5rem}
+.card h2{color:#ff5f1f;font-size:1.2rem;margin-bottom:1rem}
+label{display:block;color:#aaa;font-size:.85rem;margin-bottom:.3rem}
+input,select,textarea{width:100%;padding:.6rem .8rem;background:#0a0a0f;border:1px solid #2a2a3a;border-radius:8px;color:#e8e8f0;font-size:.9rem;font-family:inherit}
+input:focus,select:focus,textarea:focus{outline:none;border-color:#ff5f1f}
+textarea{resize:vertical;min-height:60px}
+.btn{padding:.6rem 1.2rem;background:#ff5f1f;color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:.9rem;font-weight:600;transition:all .2s}
+.btn:hover{background:#e8520f;transform:translateY(-1px)}
+.btn-outline{background:transparent;border:1px solid #ff5f1f;color:#ff5f1f}
+.btn-outline:hover{background:#ff5f1f22}
+.btn-danger{background:#dc3545}.btn-danger:hover{background:#c82333}
+.btn-sm{padding:.35rem .7rem;font-size:.8rem}
+.btn-row{display:flex;gap:.5rem;flex-wrap:wrap}
+.analysis-selector{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap;margin-bottom:1.5rem}
+.analysis-selector select{max-width:300px}
+.swot-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+@media(max-width:650px){.swot-grid{grid-template-columns:1fr}}
+.quad{border-radius:12px;padding:1rem;min-height:200px;display:flex;flex-direction:column}
+.quad-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:.8rem}
+.quad-header h3{font-size:1rem;display:flex;align-items:center;gap:.4rem}
+.quad-header button{background:rgba(255,255,255,.1);border:none;color:#fff;width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:1.1rem;display:flex;align-items:center;justify-content:center}
+.quad-header button:hover{background:rgba(255,255,255,.2)}
+.quad-items{flex:1}
+.quad-item{display:flex;align-items:flex-start;gap:.5rem;padding:.5rem;background:rgba(0,0,0,.2);border-radius:6px;margin-bottom:.4rem}
+.quad-item .text{flex:1;font-size:.85rem;line-height:1.3}
+.quad-item .actions{display:flex;gap:.2rem;flex-shrink:0}
+.quad-item .actions button{background:none;border:none;color:rgba(255,255,255,.4);cursor:pointer;font-size:.8rem;padding:2px}
+.quad-item .actions button:hover{color:#fff}
+.priority-badge{display:inline-block;padding:.1rem .4rem;border-radius:10px;font-size:.65rem;font-weight:700;text-transform:uppercase;flex-shrink:0}
+.priority-high{background:#dc354533;color:#f87171;border:1px solid #dc354555}
+.priority-medium{background:#fbbf2433;color:#fbbf24;border:1px solid #fbbf2455}
+.priority-low{background:#10b98133;color:#34d399;border:1px solid #10b98155}
+.quad-s{background:#0d2818;border:1px solid #1a5a2a}
+.quad-s h3{color:#4ade80}
+.quad-w{background:#2a0d0d;border:1px solid #5a1a1a}
+.quad-w h3{color:#f87171}
+.quad-o{background:#0d1a2a;border:1px solid #1a2a5a}
+.quad-o h3{color:#60a5fa}
+.quad-t{background:#2a1a0d;border:1px solid #5a3a1a}
+.quad-t h3{color:#fbbf24}
+.empty-quad{color:rgba(255,255,255,.3);font-size:.8rem;text-align:center;padding:1.5rem}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:100;display:none;align-items:center;justify-content:center;padding:1rem}
+.modal-overlay.open{display:flex}
+.modal{background:#111118;border:1px solid #2a2a3a;border-radius:12px;padding:1.5rem;width:100%;max-width:450px}
+.modal h3{color:#ff5f1f;margin-bottom:1rem}
+.form-group{margin-bottom:1rem}
+.saved-list{display:grid;gap:.5rem;margin-top:1rem}
+.saved-item{background:#0e0e16;border:1px solid #1a1a2a;border-radius:8px;padding:.8rem 1rem;display:flex;justify-content:space-between;align-items:center;gap:.5rem;cursor:pointer;transition:border-color .2s}
+.saved-item:hover{border-color:#ff5f1f}
+.saved-item.active{border-color:#ff5f1f;background:#ff5f1f08}
+.saved-item .name{font-weight:600;font-size:.9rem}
+.saved-item .date{font-size:.75rem;color:#555}
+.saved-item .actions{display:flex;gap:.3rem}
+.toast{position:fixed;bottom:2rem;right:2rem;background:#1e1e2e;border:1px solid #ff5f1f;color:#e8e8f0;padding:.8rem 1.2rem;border-radius:8px;font-size:.9rem;z-index:999;opacity:0;transform:translateY(10px);transition:all .3s}
+.toast.show{opacity:1;transform:translateY(0)}
+footer{text-align:center;padding:2rem 1rem;color:#555;font-size:.8rem;border-top:1px solid #1a1a2a;margin-top:2rem}
+footer a{color:#ff5f1f;margin:0 .3rem}
+</style>
+</head>
+<body>
+<div class="header">
+<h1>SWOT Analysis</h1>
+<p>Build professional SWOT analyses with priority-ranked items</p>
+</div>
+<div class="container">
+<div class="card">
+<div class="analysis-selector">
+<select id="analysisPicker" onchange="loadAnalysis()"></select>
+<button class="btn btn-sm" onclick="openNewModal()">+ New Analysis</button>
+<button class="btn btn-sm btn-outline" onclick="renameAnalysis()">Rename</button>
+<button class="btn btn-sm btn-outline" onclick="exportText()">Export Text</button>
+<button class="btn btn-sm btn-outline" onclick="exportCSV()">Export CSV</button>
+<button class="btn btn-sm btn-danger" onclick="deleteAnalysis()">Delete</button>
+</div>
+</div>
+
+<div class="swot-grid" id="swotGrid">
+<div class="quad quad-s" id="quad-strengths">
+<div class="quad-header"><h3>Strengths</h3><button onclick="openAddModal('strengths')" title="Add item">+</button></div>
+<div class="quad-items" id="items-strengths"></div>
+</div>
+<div class="quad quad-w" id="quad-weaknesses">
+<div class="quad-header"><h3>Weaknesses</h3><button onclick="openAddModal('weaknesses')" title="Add item">+</button></div>
+<div class="quad-items" id="items-weaknesses"></div>
+</div>
+<div class="quad quad-o" id="quad-opportunities">
+<div class="quad-header"><h3>Opportunities</h3><button onclick="openAddModal('opportunities')" title="Add item">+</button></div>
+<div class="quad-items" id="items-opportunities"></div>
+</div>
+<div class="quad quad-t" id="quad-threats">
+<div class="quad-header"><h3>Threats</h3><button onclick="openAddModal('threats')" title="Add item">+</button></div>
+<div class="quad-items" id="items-threats"></div>
+</div>
+</div>
+</div>
+
+<div class="modal-overlay" id="newModal" onclick="if(event.target===this)this.classList.remove('open')">
+<div class="modal">
+<h3>New SWOT Analysis</h3>
+<div class="form-group"><label for="newName">Analysis Name *</label><input type="text" id="newName" placeholder="e.g. Q1 Product Strategy"></div>
+<div class="btn-row"><button class="btn" onclick="createAnalysis()">Create</button><button class="btn btn-outline" onclick="document.getElementById('newModal').classList.remove('open')">Cancel</button></div>
+</div>
+</div>
+
+<div class="modal-overlay" id="addModal" onclick="if(event.target===this)this.classList.remove('open')">
+<div class="modal">
+<h3 id="addModalTitle">Add Item</h3>
+<input type="hidden" id="addQuadrant">
+<input type="hidden" id="editItemId">
+<div class="form-group"><label for="itemDesc">Description *</label><textarea id="itemDesc" rows="3" placeholder="Describe this item..."></textarea></div>
+<div class="form-group"><label for="itemPriority">Priority</label>
+<select id="itemPriority"><option value="high">High</option><option value="medium" selected>Medium</option><option value="low">Low</option></select></div>
+<div class="btn-row"><button class="btn" onclick="saveItem()">Save</button><button class="btn btn-outline" onclick="document.getElementById('addModal').classList.remove('open')">Cancel</button></div>
+</div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<footer>
+<a href="https://spunk.codes">spunk.codes</a> · <a href="https://spunk.bet">spunk.bet</a> · <a href="https://spunk.pics">spunk.pics</a> · <a href="https://spunk.work">spunk.work</a> · <a href="https://spunkart.com">SpunkArt.com</a>
+</footer>
+
+<script>
+const STORAGE_KEY='spunk_swot_analyses';
+let analyses=JSON.parse(localStorage.getItem(STORAGE_KEY)||'[]');
+let currentId=null;
+
+function persist(){localStorage.setItem(STORAGE_KEY,JSON.stringify(analyses))}
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500)}
+function esc(s){const d=document.createElement('div');d.textContent=s;return d.innerHTML}
+function getCurrent(){return analyses.find(a=>a.id===currentId)}
+
+function populatePicker(){
+const sel=document.getElementById('analysisPicker');
+sel.innerHTML=analyses.map(a=>`<option value="${a.id}">${esc(a.name)}</option>`).join('');
+if(!analyses.length){sel.innerHTML='<option>No analyses — create one</option>';currentId=null;}
+else if(!currentId||!analyses.find(a=>a.id===currentId)){currentId=analyses[0].id;sel.value=currentId;}
+else{sel.value=currentId;}
+}
+
+function loadAnalysis(){
+const sel=document.getElementById('analysisPicker');
+currentId=sel.value;
+renderGrid();
+}
+
+function renderGrid(){
+const a=getCurrent();
+['strengths','weaknesses','opportunities','threats'].forEach(q=>{
+const el=document.getElementById('items-'+q);
+if(!a||!a[q]||!a[q].length){el.innerHTML='<div class="empty-quad">Click + to add items</div>';return;}
+const sorted=[...a[q]].sort((x,y)=>{const order={high:0,medium:1,low:2};return(order[x.priority]||1)-(order[y.priority]||1);});
+el.innerHTML=sorted.map(item=>`
+<div class="quad-item">
+<span class="priority-badge priority-${item.priority}">${item.priority}</span>
+<div class="text">${esc(item.desc)}</div>
+<div class="actions">
+<button title="Edit" onclick="editItem('${q}','${item.id}')">&#9998;</button>
+<button title="Delete" onclick="deleteItem('${q}','${item.id}')">&#10005;</button>
+</div>
+</div>`).join('');
+});
+}
+
+function openNewModal(){
+document.getElementById('newName').value='';
+document.getElementById('newModal').classList.add('open');
+document.getElementById('newName').focus();
+}
+
+function createAnalysis(){
+const name=document.getElementById('newName').value.trim();
+if(!name){toast('Enter a name');return;}
+const analysis={id:Date.now().toString(36)+Math.random().toString(36).slice(2,5),name,strengths:[],weaknesses:[],opportunities:[],threats:[],created:new Date().toISOString()};
+analyses.push(analysis);
+currentId=analysis.id;
+persist();populatePicker();renderGrid();
+document.getElementById('newModal').classList.remove('open');
+toast('Analysis created');
+}
+
+function renameAnalysis(){
+const a=getCurrent();if(!a)return;
+const name=prompt('Rename analysis:',a.name);
+if(!name||!name.trim())return;
+a.name=name.trim();persist();populatePicker();toast('Renamed');
+}
+
+function deleteAnalysis(){
+if(!getCurrent())return;
+if(!confirm('Delete this SWOT analysis?'))return;
+analyses=analyses.filter(a=>a.id!==currentId);
+currentId=analyses.length?analyses[0].id:null;
+persist();populatePicker();renderGrid();toast('Deleted');
+}
+
+function openAddModal(quadrant){
+if(!getCurrent()){toast('Create an analysis first');return;}
+document.getElementById('addQuadrant').value=quadrant;
+document.getElementById('editItemId').value='';
+document.getElementById('itemDesc').value='';
+document.getElementById('itemPriority').value='medium';
+const labels={strengths:'Strength',weaknesses:'Weakness',opportunities:'Opportunity',threats:'Threat'};
+document.getElementById('addModalTitle').textContent='Add '+labels[quadrant];
+document.getElementById('addModal').classList.add('open');
+document.getElementById('itemDesc').focus();
+}
+
+function editItem(quadrant,itemId){
+const a=getCurrent();if(!a)return;
+const item=a[quadrant].find(i=>i.id===itemId);if(!item)return;
+document.getElementById('addQuadrant').value=quadrant;
+document.getElementById('editItemId').value=itemId;
+document.getElementById('itemDesc').value=item.desc;
+document.getElementById('itemPriority').value=item.priority;
+const labels={strengths:'Strength',weaknesses:'Weakness',opportunities:'Opportunity',threats:'Threat'};
+document.getElementById('addModalTitle').textContent='Edit '+labels[quadrant];
+document.getElementById('addModal').classList.add('open');
+}
+
+function saveItem(){
+const a=getCurrent();if(!a)return;
+const quadrant=document.getElementById('addQuadrant').value;
+const editId=document.getElementById('editItemId').value;
+const desc=document.getElementById('itemDesc').value.trim();
+const priority=document.getElementById('itemPriority').value;
+if(!desc){toast('Enter a description');return;}
+if(editId){
+const item=a[quadrant].find(i=>i.id===editId);
+if(item){item.desc=desc;item.priority=priority;}
+}else{
+a[quadrant].push({id:Date.now().toString(36)+Math.random().toString(36).slice(2,5),desc,priority});
+}
+persist();renderGrid();
+document.getElementById('addModal').classList.remove('open');
+toast(editId?'Item updated':'Item added');
+}
+
+function deleteItem(quadrant,itemId){
+const a=getCurrent();if(!a)return;
+a[quadrant]=a[quadrant].filter(i=>i.id!==itemId);
+persist();renderGrid();
+}
+
+function exportText(){
+const a=getCurrent();if(!a){toast('No analysis selected');return;}
+const sections=['strengths','weaknesses','opportunities','threats'];
+const labels={strengths:'STRENGTHS',weaknesses:'WEAKNESSES',opportunities:'OPPORTUNITIES',threats:'THREATS'};
+let text=`SWOT Analysis: ${a.name}\n${'='.repeat(40)}\n\n`;
+sections.forEach(s=>{
+text+=`${labels[s]}\n${'-'.repeat(20)}\n`;
+if(!a[s].length)text+='  (none)\n';
+else a[s].forEach(i=>{text+=`  [${i.priority.toUpperCase()}] ${i.desc}\n`;});
+text+='\n';
+});
+const blob=new Blob([text],{type:'text/plain'});
+const link=document.createElement('a');link.href=URL.createObjectURL(blob);link.download=`swot-${a.name.replace(/\s+/g,'-').toLowerCase()}.txt`;link.click();
+toast('Exported as text');
+}
+
+function exportCSV(){
+const a=getCurrent();if(!a){toast('No analysis selected');return;}
+const headers=['Quadrant','Description','Priority'];
+const rows=[];
+['strengths','weaknesses','opportunities','threats'].forEach(q=>{
+(a[q]||[]).forEach(item=>{
+rows.push([q.charAt(0).toUpperCase()+q.slice(1),item.desc,item.priority].map(v=>'"'+(v||'').replace(/"/g,'""')+'"'));
+});
+});
+const csv=[headers.join(','),...rows.map(r=>r.join(','))].join('\n');
+const blob=new Blob([csv],{type:'text/csv'});
+const link=document.createElement('a');link.href=URL.createObjectURL(blob);link.download=`swot-${a.name.replace(/\s+/g,'-').toLowerCase()}.csv`;link.click();
+toast('Exported as CSV');
+}
+
+// Init
+if(!analyses.length){
+analyses.push({id:'default',name:'My First SWOT',strengths:[],weaknesses:[],opportunities:[],threats:[],created:new Date().toISOString()});
+currentId='default';persist();
+}else{currentId=analyses[0].id;}
+populatePicker();renderGrid();
+</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Headline Analyzer — Free Headline Score Tool | SPUNK.CODES</title>
+<meta name="description" content="Score your headlines 0-100 based on word count, power words, emotional triggers, numbers, and more. Get actionable suggestions to improve your headlines.">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP')</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w")</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e8e8f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+.header{text-align:center;padding:2rem 1rem 1rem}
+.header h1{font-size:1.8rem;color:#ff5f1f;margin-bottom:.3rem}
+.header p{color:#888;font-size:.95rem}
+.container{max-width:900px;margin:0 auto;padding:1rem;flex:1;width:100%}
+.card{background:#111118;border:1px solid #1e1e2e;border-radius:12px;padding:1.5rem;margin-bottom:1.5rem}
+.card h2{color:#ff5f1f;font-size:1.2rem;margin-bottom:1rem}
+.input-group{display:flex;gap:.5rem;margin-bottom:1rem}
+.input-group input{flex:1;padding:.8rem 1rem;background:#0a0a0f;border:1px solid #2a2a3a;border-radius:8px;color:#e8e8f0;font-size:1.1rem}
+.input-group input:focus{outline:none;border-color:#ff5f1f}
+.btn{padding:.7rem 1.5rem;background:#ff5f1f;color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:.95rem;font-weight:600;transition:all .2s}
+.btn:hover{background:#e8520f;transform:translateY(-1px)}
+.btn-outline{background:transparent;border:1px solid #ff5f1f;color:#ff5f1f}
+.btn-outline:hover{background:#ff5f1f22}
+.btn-sm{padding:.4rem .8rem;font-size:.8rem}
+.btn-danger{background:#dc3545}.btn-danger:hover{background:#c82333}
+.score-display{text-align:center;padding:2rem}
+.score-ring{width:160px;height:160px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;margin-bottom:1rem;position:relative}
+.score-ring svg{position:absolute;top:0;left:0;width:100%;height:100%;transform:rotate(-90deg)}
+.score-ring circle{fill:none;stroke-width:8}
+.score-ring .bg{stroke:#1e1e2e}
+.score-ring .fg{stroke-linecap:round;transition:stroke-dashoffset .8s ease}
+.score-num{font-size:3rem;font-weight:700;line-height:1}
+.score-label{font-size:.9rem;color:#888;margin-top:.3rem}
+.score-grade{font-size:1.1rem;font-weight:600;margin-top:.5rem}
+.breakdown{display:grid;gap:.8rem;margin-top:1rem}
+.factor{background:#0e0e16;border:1px solid #1a1a2a;border-radius:8px;padding:.8rem 1rem}
+.factor-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:.4rem}
+.factor-name{font-size:.85rem;color:#aaa}
+.factor-score{font-size:.85rem;font-weight:600}
+.factor-bar{height:6px;background:#1e1e2e;border-radius:3px;overflow:hidden}
+.factor-bar-fill{height:100%;border-radius:3px;transition:width .5s ease}
+.factor-detail{font-size:.75rem;color:#666;margin-top:.3rem}
+.suggestions{margin-top:1.5rem}
+.suggestions h3{color:#ff5f1f;font-size:1rem;margin-bottom:.8rem}
+.suggestion-item{display:flex;gap:.5rem;align-items:flex-start;padding:.5rem 0;border-bottom:1px solid #1a1a2a;font-size:.85rem}
+.suggestion-icon{color:#fbbf24;font-size:.9rem;flex-shrink:0;margin-top:1px}
+.history-table{width:100%;border-collapse:collapse}
+.history-table th{text-align:left;padding:.6rem;font-size:.8rem;color:#888;border-bottom:1px solid #2a2a3a}
+.history-table td{padding:.6rem;font-size:.85rem;border-bottom:1px solid #1a1a2a}
+.history-table tr:hover td{background:#151520}
+.history-score{font-weight:700;width:50px}
+.toast{position:fixed;bottom:2rem;right:2rem;background:#1e1e2e;border:1px solid #ff5f1f;color:#e8e8f0;padding:.8rem 1.2rem;border-radius:8px;font-size:.9rem;z-index:999;opacity:0;transform:translateY(10px);transition:all .3s}
+.toast.show{opacity:1;transform:translateY(0)}
+footer{text-align:center;padding:2rem 1rem;color:#555;font-size:.8rem;border-top:1px solid #1a1a2a;margin-top:2rem}
+footer a{color:#ff5f1f;margin:0 .3rem}
+@media(max-width:600px){.input-group{flex-direction:column}.score-ring{width:130px;height:130px}.score-num{font-size:2.5rem}}
+</style>
+</head>
+<body>
+<div class="header">
+<h1>Headline Analyzer</h1>
+<p>Score your headlines and get actionable improvement tips</p>
+</div>
+<div class="container">
+<div class="card">
+<div class="input-group">
+<input type="text" id="headlineInput" placeholder="Enter your headline here..." onkeydown="if(event.key==='Enter')analyze()">
+<button class="btn" onclick="analyze()">Analyze</button>
+</div>
+</div>
+
+<div id="results" style="display:none">
+<div class="card">
+<div class="score-display">
+<div class="score-ring" id="scoreRing">
+<svg viewBox="0 0 160 160"><circle class="bg" cx="80" cy="80" r="70"/><circle class="fg" id="scoreFg" cx="80" cy="80" r="70" stroke-dasharray="440" stroke-dashoffset="440"/></svg>
+<div><div class="score-num" id="scoreNum">0</div><div class="score-label">out of 100</div></div>
+</div>
+<div class="score-grade" id="scoreGrade"></div>
+</div>
+<h2>Score Breakdown</h2>
+<div class="breakdown" id="breakdown"></div>
+<div class="suggestions" id="suggestions"></div>
+</div>
+</div>
+
+<div class="card">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem">
+<h2 style="margin:0">History</h2>
+<button class="btn btn-sm btn-danger" onclick="clearHistory()">Clear</button>
+</div>
+<div id="historyContainer"></div>
+</div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<footer>
+<a href="https://spunk.codes">spunk.codes</a> · <a href="https://spunk.bet">spunk.bet</a> · <a href="https://spunk.pics">spunk.pics</a> · <a href="https://spunk.work">spunk.work</a> · <a href="https://spunkart.com">SpunkArt.com</a>
+</footer>
+
+<script>
+const STORAGE_KEY='spunk_headline_history';
+let history=JSON.parse(localStorage.getItem(STORAGE_KEY)||'[]');
+
+const POWER_WORDS=['amazing','proven','secret','ultimate','exclusive','guaranteed','instant','powerful','remarkable','revolutionary','breakthrough','critical','essential','extraordinary','incredible','stunning','unbelievable','urgent','massive','epic','dangerous','shocking','devastating','terrifying','brilliant','genius','hack','trick','strategy','formula','blueprint','system','method','mistake','warning','alert','banned','controversial','hidden','limited','rare','surprising','unexpected','weird','bizarre','insane','crazy','mind-blowing','game-changing','life-changing','free','new','now','best','top','first','last','only','simple','easy','fast','quick'];
+const EMOTIONAL_WORDS=['love','hate','fear','joy','anger','happy','sad','excited','worried','anxious','thrilled','devastated','heartbreaking','inspiring','motivating','frustrating','annoying','delightful','wonderful','terrible','horrible','beautiful','ugly','painful','pleasure','passion','obsessed','addicted','jealous','grateful','blessed','cursed','magical','nightmare','dream','hope','despair','triumph','defeat','struggle','overcome','conquer','survive','thrive','fail','succeed','win','lose','cry','laugh','smile','scream'];
+
+function save(){localStorage.setItem(STORAGE_KEY,JSON.stringify(history))}
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500)}
+
+function analyze(){
+const headline=document.getElementById('headlineInput').value.trim();
+if(!headline){toast('Enter a headline first');return;}
+
+const words=headline.split(/\s+/);
+const wordCount=words.length;
+const charCount=headline.length;
+const lowerWords=words.map(w=>w.toLowerCase().replace(/[^a-z]/g,''));
+
+// Factor 1: Word count (ideal 6-12)
+let wordScore=0;
+if(wordCount>=6&&wordCount<=12)wordScore=100;
+else if(wordCount>=4&&wordCount<=14)wordScore=70;
+else if(wordCount>=3&&wordCount<=16)wordScore=40;
+else wordScore=15;
+
+// Factor 2: Character length (ideal 50-70)
+let charScore=0;
+if(charCount>=50&&charCount<=70)charScore=100;
+else if(charCount>=40&&charCount<=80)charScore=75;
+else if(charCount>=30&&charCount<=100)charScore=50;
+else charScore=20;
+
+// Factor 3: Power words
+const foundPower=lowerWords.filter(w=>POWER_WORDS.includes(w));
+let powerScore=Math.min(100,foundPower.length*35);
+
+// Factor 4: Emotional words
+const foundEmotional=lowerWords.filter(w=>EMOTIONAL_WORDS.includes(w));
+let emotionalScore=Math.min(100,foundEmotional.length*40);
+
+// Factor 5: Numbers
+const hasNumbers=/\d/.test(headline);
+let numberScore=hasNumbers?100:0;
+
+// Factor 6: Question format
+const isQuestion=headline.trim().endsWith('?');
+let questionScore=isQuestion?80:0;
+const startsWithHow=/^how\b/i.test(headline);
+const startsWithWhy=/^why\b/i.test(headline);
+const startsWithWhat=/^what\b/i.test(headline);
+if(startsWithHow||startsWithWhy||startsWithWhat)questionScore=100;
+
+// Factor 7: Capitalization (title case or first word cap)
+const hasTitleCase=words.filter(w=>w[0]===w[0].toUpperCase()).length>=wordCount*0.6;
+let capScore=hasTitleCase?80:40;
+
+// Weighted total
+const total=Math.round(
+wordScore*0.20+
+charScore*0.10+
+powerScore*0.20+
+emotionalScore*0.15+
+numberScore*0.15+
+questionScore*0.10+
+capScore*0.10
+);
+
+const factors=[
+{name:'Word Count',score:wordScore,detail:`${wordCount} words (ideal: 6-12)`,color:getBarColor(wordScore)},
+{name:'Character Length',score:charScore,detail:`${charCount} chars (ideal: 50-70)`,color:getBarColor(charScore)},
+{name:'Power Words',score:powerScore,detail:foundPower.length?`Found: ${foundPower.join(', ')}`:'No power words detected',color:getBarColor(powerScore)},
+{name:'Emotional Words',score:emotionalScore,detail:foundEmotional.length?`Found: ${foundEmotional.join(', ')}`:'No emotional words detected',color:getBarColor(emotionalScore)},
+{name:'Numbers',score:numberScore,detail:hasNumbers?'Contains numbers — great for specificity':'No numbers found',color:getBarColor(numberScore)},
+{name:'Question Format',score:questionScore,detail:isQuestion||startsWithHow||startsWithWhy||startsWithWhat?'Question headlines drive curiosity':'Not a question format',color:getBarColor(questionScore)},
+{name:'Capitalization',score:capScore,detail:hasTitleCase?'Good title case usage':'Consider using title case',color:getBarColor(capScore)}
+];
+
+// Render score
+document.getElementById('results').style.display='block';
+const circ=document.getElementById('scoreFg');
+const circumference=2*Math.PI*70;
+circ.style.stroke=getBarColor(total);
+circ.style.strokeDashoffset=circumference-(total/100)*circumference;
+document.getElementById('scoreNum').textContent=total;
+document.getElementById('scoreNum').style.color=getBarColor(total);
+
+let grade='';
+if(total>=80)grade='Excellent headline!';
+else if(total>=60)grade='Good — room for improvement';
+else if(total>=40)grade='Average — needs work';
+else grade='Weak — significant improvements needed';
+document.getElementById('scoreGrade').textContent=grade;
+document.getElementById('scoreGrade').style.color=getBarColor(total);
+
+// Render breakdown
+document.getElementById('breakdown').innerHTML=factors.map(f=>`
+<div class="factor">
+<div class="factor-header"><span class="factor-name">${f.name}</span><span class="factor-score" style="color:${f.color}">${f.score}/100</span></div>
+<div class="factor-bar"><div class="factor-bar-fill" style="width:${f.score}%;background:${f.color}"></div></div>
+<div class="factor-detail">${f.detail}</div>
+</div>`).join('');
+
+// Suggestions
+const suggestions=[];
+if(wordCount<6)suggestions.push('Add more words to reach the ideal 6-12 word range for better engagement.');
+if(wordCount>12)suggestions.push('Consider shortening your headline. 6-12 words tend to perform best.');
+if(charCount>70)suggestions.push('Trim to under 70 characters to avoid truncation in search results.');
+if(charCount<40)suggestions.push('Your headline is short. Adding more context can improve click-through rates.');
+if(!foundPower.length)suggestions.push('Add a power word like "proven", "ultimate", "secret", or "essential" to create urgency.');
+if(!foundEmotional.length)suggestions.push('Include emotional words like "inspiring", "surprising", or "thrilling" to connect with readers.');
+if(!hasNumbers)suggestions.push('Add a number (e.g., "7 Ways...", "10 Tips...") for specificity and higher CTR.');
+if(!isQuestion&&!startsWithHow)suggestions.push('Try rephrasing as a question ("How to...", "Why...?") to spark curiosity.');
+if(!hasTitleCase)suggestions.push('Use Title Case for better readability and a more professional appearance.');
+if(suggestions.length===0)suggestions.push('Your headline scores well across all factors. Great job!');
+
+document.getElementById('suggestions').innerHTML=`<h3>Suggestions</h3>`+
+suggestions.map(s=>`<div class="suggestion-item"><span class="suggestion-icon">&#9670;</span><span>${s}</span></div>`).join('');
+
+// Save to history
+history.unshift({headline,score:total,date:new Date().toISOString()});
+if(history.length>50)history=history.slice(0,50);
+save();renderHistory();
+
+document.getElementById('headlineInput').select();
+}
+
+function getBarColor(score){
+if(score>=80)return'#10b981';
+if(score>=60)return'#3b82f6';
+if(score>=40)return'#fbbf24';
+return'#ef4444';
+}
+
+function renderHistory(){
+const el=document.getElementById('historyContainer');
+if(!history.length){el.innerHTML='<div style="text-align:center;color:#555;padding:1rem">No headlines analyzed yet.</div>';return;}
+el.innerHTML=`<table class="history-table"><thead><tr><th>Score</th><th>Headline</th><th>Date</th></tr></thead><tbody>`+
+history.map(h=>`<tr><td class="history-score" style="color:${getBarColor(h.score)}">${h.score}</td><td>${esc(h.headline)}</td><td style="color:#666;font-size:.8rem;white-space:nowrap">${new Date(h.date).toLocaleDateString()}</td></tr>`).join('')+
+'</tbody></table>';
+}
+
+function clearHistory(){
+if(!confirm('Clear all headline history?'))return;
+history=[];save();renderHistory();toast('History cleared');
+}
+
+function esc(s){const d=document.createElement('div');d.textContent=s;return d.innerHTML}
+
+renderHistory();
+</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>

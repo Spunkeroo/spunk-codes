@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Competitor Analyzer — Free Competitive Analysis Tool | SPUNK.CODES</title>
+<meta name="description" content="Analyze your competitors side-by-side. Compare strengths, weaknesses, pricing, and target markets. Free competitive analysis with SWOT matrix and CSV export.">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP')</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w")</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e8e8f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+.header{text-align:center;padding:2rem 1rem 1rem}
+.header h1{font-size:1.8rem;color:#ff5f1f;margin-bottom:.3rem}
+.header p{color:#888;font-size:.95rem}
+.container{max-width:1200px;margin:0 auto;padding:1rem;flex:1;width:100%}
+.tabs{display:flex;gap:.5rem;margin-bottom:1.5rem;flex-wrap:wrap}
+.tab{padding:.6rem 1.2rem;background:#151520;border:1px solid #2a2a3a;border-radius:8px;cursor:pointer;color:#888;font-size:.9rem;transition:all .2s}
+.tab:hover{border-color:#ff5f1f;color:#e8e8f0}
+.tab.active{background:#ff5f1f22;border-color:#ff5f1f;color:#ff5f1f}
+.card{background:#111118;border:1px solid #1e1e2e;border-radius:12px;padding:1.5rem;margin-bottom:1.5rem}
+.card h2{color:#ff5f1f;font-size:1.2rem;margin-bottom:1rem}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+@media(max-width:768px){.form-grid{grid-template-columns:1fr}}
+label{display:block;color:#aaa;font-size:.85rem;margin-bottom:.3rem}
+input,textarea,select{width:100%;padding:.6rem .8rem;background:#0a0a0f;border:1px solid #2a2a3a;border-radius:8px;color:#e8e8f0;font-size:.9rem;font-family:inherit}
+input:focus,textarea:focus,select:focus{outline:none;border-color:#ff5f1f}
+textarea{resize:vertical;min-height:60px}
+.btn{padding:.6rem 1.2rem;background:#ff5f1f;color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:.9rem;font-weight:600;transition:all .2s}
+.btn:hover{background:#e8520f;transform:translateY(-1px)}
+.btn-outline{background:transparent;border:1px solid #ff5f1f;color:#ff5f1f}
+.btn-outline:hover{background:#ff5f1f22}
+.btn-danger{background:#dc3545}
+.btn-danger:hover{background:#c82333}
+.btn-row{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1rem}
+.competitor-list{display:grid;gap:1rem}
+.competitor-card{background:#0e0e16;border:1px solid #1e1e2e;border-radius:10px;padding:1.2rem;position:relative}
+.competitor-card h3{color:#ff5f1f;margin-bottom:.5rem;font-size:1.05rem}
+.competitor-card .url{color:#888;font-size:.8rem;margin-bottom:.8rem;word-break:break-all}
+.competitor-card .detail{margin-bottom:.5rem}
+.competitor-card .detail strong{color:#aaa;font-size:.8rem;display:block;margin-bottom:.2rem}
+.competitor-card .detail span{font-size:.9rem}
+.competitor-card .actions{position:absolute;top:1rem;right:1rem;display:flex;gap:.4rem}
+.competitor-card .actions button{background:none;border:none;color:#888;cursor:pointer;font-size:1rem;padding:.2rem}
+.competitor-card .actions button:hover{color:#ff5f1f}
+.compare-grid{display:grid;gap:1rem;overflow-x:auto}
+.compare-table{width:100%;border-collapse:collapse;min-width:600px}
+.compare-table th{background:#151520;color:#ff5f1f;padding:.8rem;text-align:left;font-size:.85rem;border-bottom:2px solid #2a2a3a;position:sticky;top:0}
+.compare-table td{padding:.8rem;border-bottom:1px solid #1a1a2a;font-size:.9rem;vertical-align:top}
+.compare-table tr:hover td{background:#151520}
+.swot-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1rem}
+@media(max-width:600px){.swot-grid{grid-template-columns:1fr}}
+.swot-quad{border-radius:10px;padding:1rem;min-height:120px}
+.swot-quad h4{font-size:.95rem;margin-bottom:.6rem;display:flex;align-items:center;gap:.4rem}
+.swot-quad ul{list-style:none;padding:0}
+.swot-quad li{padding:.3rem 0;font-size:.85rem;border-bottom:1px solid rgba(255,255,255,.05)}
+.swot-s{background:#1a3a1a;border:1px solid #2a5a2a}.swot-s h4{color:#4ade80}
+.swot-w{background:#3a1a1a;border:1px solid #5a2a2a}.swot-w h4{color:#f87171}
+.swot-o{background:#1a2a3a;border:1px solid #2a3a5a}.swot-o h4{color:#60a5fa}
+.swot-t{background:#3a2a1a;border:1px solid #5a3a2a}.swot-t h4{color:#fbbf24}
+.swot-selector{margin-bottom:1rem}
+.swot-selector select{max-width:300px}
+.empty{text-align:center;padding:3rem;color:#555}
+.toast{position:fixed;bottom:2rem;right:2rem;background:#1e1e2e;border:1px solid #ff5f1f;color:#e8e8f0;padding:.8rem 1.2rem;border-radius:8px;font-size:.9rem;z-index:999;opacity:0;transform:translateY(10px);transition:all .3s}
+.toast.show{opacity:1;transform:translateY(0)}
+footer{text-align:center;padding:2rem 1rem;color:#555;font-size:.8rem;border-top:1px solid #1a1a2a;margin-top:2rem}
+footer a{color:#ff5f1f;margin:0 .3rem}
+</style>
+</head>
+<body>
+<div class="header">
+<h1>Competitor Analyzer</h1>
+<p>Analyze and compare your competitors side-by-side</p>
+</div>
+<div class="container">
+<div class="tabs">
+<div class="tab active" data-tab="add" onclick="switchTab('add')">Add Competitor</div>
+<div class="tab" data-tab="list" onclick="switchTab('list')">All Competitors <span id="countBadge"></span></div>
+<div class="tab" data-tab="compare" onclick="switchTab('compare')">Side-by-Side</div>
+<div class="tab" data-tab="swot" onclick="switchTab('swot')">SWOT Matrix</div>
+</div>
+
+<div id="tab-add" class="tab-content">
+<div class="card">
+<h2 id="formTitle">Add Competitor</h2>
+<form id="competitorForm" onsubmit="saveCompetitor(event)">
+<input type="hidden" id="editId">
+<div class="form-grid">
+<div><label for="cName">Company Name *</label><input type="text" id="cName" required placeholder="e.g. Acme Corp"></div>
+<div><label for="cUrl">Website URL</label><input type="url" id="cUrl" placeholder="https://example.com"></div>
+<div><label for="cPricing">Pricing</label><input type="text" id="cPricing" placeholder="e.g. $29/mo - $199/mo"></div>
+<div><label for="cMarket">Target Market</label><input type="text" id="cMarket" placeholder="e.g. Small businesses, enterprises"></div>
+<div><label for="cStrengths">Strengths</label><textarea id="cStrengths" placeholder="One per line"></textarea></div>
+<div><label for="cWeaknesses">Weaknesses</label><textarea id="cWeaknesses" placeholder="One per line"></textarea></div>
+<div><label for="cOpportunities">Opportunities</label><textarea id="cOpportunities" placeholder="One per line"></textarea></div>
+<div><label for="cThreats">Threats</label><textarea id="cThreats" placeholder="One per line"></textarea></div>
+</div>
+<div class="btn-row">
+<button type="submit" class="btn">Save Competitor</button>
+<button type="button" class="btn btn-outline" onclick="resetForm()">Clear</button>
+</div>
+</form>
+</div>
+</div>
+
+<div id="tab-list" class="tab-content" style="display:none">
+<div class="btn-row" style="margin-bottom:1rem">
+<button class="btn btn-outline" onclick="exportCSV()">Export CSV</button>
+<button class="btn btn-danger" onclick="clearAll()">Clear All</button>
+</div>
+<div id="competitorList" class="competitor-list"></div>
+</div>
+
+<div id="tab-compare" class="tab-content" style="display:none">
+<div class="card">
+<h2>Side-by-Side Comparison</h2>
+<div style="overflow-x:auto" id="compareContainer"></div>
+</div>
+</div>
+
+<div id="tab-swot" class="tab-content" style="display:none">
+<div class="card">
+<h2>SWOT Matrix</h2>
+<div class="swot-selector">
+<label for="swotSelect">Select Competitor</label>
+<select id="swotSelect" onchange="renderSwot()"></select>
+</div>
+<div id="swotContainer"></div>
+</div>
+</div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<footer>
+<a href="https://spunk.codes">spunk.codes</a> · <a href="https://spunk.bet">spunk.bet</a> · <a href="https://spunk.pics">spunk.pics</a> · <a href="https://spunk.work">spunk.work</a> · <a href="https://spunkart.com">SpunkArt.com</a>
+</footer>
+
+<script>
+const STORAGE_KEY='spunk_competitors';
+let competitors=JSON.parse(localStorage.getItem(STORAGE_KEY)||'[]');
+
+function save(){localStorage.setItem(STORAGE_KEY,JSON.stringify(competitors))}
+
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500)}
+
+function switchTab(name){
+document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t.dataset.tab===name));
+document.querySelectorAll('.tab-content').forEach(c=>c.style.display='none');
+document.getElementById('tab-'+name).style.display='block';
+if(name==='list')renderList();
+if(name==='compare')renderCompare();
+if(name==='swot'){populateSwotSelect();renderSwot();}
+}
+
+function saveCompetitor(e){
+e.preventDefault();
+const id=document.getElementById('editId').value;
+const comp={
+id:id||Date.now().toString(36)+Math.random().toString(36).slice(2,6),
+name:document.getElementById('cName').value.trim(),
+url:document.getElementById('cUrl').value.trim(),
+pricing:document.getElementById('cPricing').value.trim(),
+market:document.getElementById('cMarket').value.trim(),
+strengths:document.getElementById('cStrengths').value.trim(),
+weaknesses:document.getElementById('cWeaknesses').value.trim(),
+opportunities:document.getElementById('cOpportunities').value.trim(),
+threats:document.getElementById('cThreats').value.trim(),
+created:id?competitors.find(c=>c.id===id)?.created||new Date().toISOString():new Date().toISOString(),
+updated:new Date().toISOString()
+};
+if(id){const idx=competitors.findIndex(c=>c.id===id);if(idx>=0)competitors[idx]=comp;}
+else competitors.push(comp);
+save();resetForm();
+toast(id?'Competitor updated':'Competitor added');
+updateBadge();
+}
+
+function resetForm(){
+document.getElementById('competitorForm').reset();
+document.getElementById('editId').value='';
+document.getElementById('formTitle').textContent='Add Competitor';
+}
+
+function editCompetitor(id){
+const c=competitors.find(x=>x.id===id);if(!c)return;
+document.getElementById('editId').value=c.id;
+document.getElementById('cName').value=c.name;
+document.getElementById('cUrl').value=c.url;
+document.getElementById('cPricing').value=c.pricing;
+document.getElementById('cMarket').value=c.market;
+document.getElementById('cStrengths').value=c.strengths;
+document.getElementById('cWeaknesses').value=c.weaknesses;
+document.getElementById('cOpportunities').value=c.opportunities;
+document.getElementById('cThreats').value=c.threats;
+document.getElementById('formTitle').textContent='Edit: '+c.name;
+switchTab('add');
+}
+
+function deleteCompetitor(id){
+if(!confirm('Delete this competitor?'))return;
+competitors=competitors.filter(c=>c.id!==id);
+save();renderList();updateBadge();toast('Competitor deleted');
+}
+
+function renderList(){
+const el=document.getElementById('competitorList');
+if(!competitors.length){el.innerHTML='<div class="empty">No competitors added yet. Add one to get started.</div>';return;}
+el.innerHTML=competitors.map(c=>`
+<div class="competitor-card">
+<div class="actions">
+<button title="Edit" onclick="editCompetitor('${c.id}')">&#9998;</button>
+<button title="Delete" onclick="deleteCompetitor('${c.id}')">&#10005;</button>
+</div>
+<h3>${esc(c.name)}</h3>
+${c.url?`<div class="url">${esc(c.url)}</div>`:''}
+<div class="form-grid">
+<div class="detail"><strong>Pricing</strong><span>${esc(c.pricing||'—')}</span></div>
+<div class="detail"><strong>Target Market</strong><span>${esc(c.market||'—')}</span></div>
+<div class="detail"><strong>Strengths</strong><span>${esc(c.strengths||'—')}</span></div>
+<div class="detail"><strong>Weaknesses</strong><span>${esc(c.weaknesses||'—')}</span></div>
+</div>
+</div>`).join('');
+}
+
+function renderCompare(){
+const el=document.getElementById('compareContainer');
+if(competitors.length<2){el.innerHTML='<div class="empty">Add at least 2 competitors to compare.</div>';return;}
+const fields=[{key:'pricing',label:'Pricing'},{key:'market',label:'Target Market'},{key:'strengths',label:'Strengths'},{key:'weaknesses',label:'Weaknesses'},{key:'opportunities',label:'Opportunities'},{key:'threats',label:'Threats'}];
+let html='<table class="compare-table"><thead><tr><th>Attribute</th>';
+competitors.forEach(c=>{html+=`<th>${esc(c.name)}</th>`;});
+html+='</tr></thead><tbody>';
+fields.forEach(f=>{
+html+=`<tr><td style="color:#ff5f1f;font-weight:600">${f.label}</td>`;
+competitors.forEach(c=>{html+=`<td>${esc(c[f.key]||'—').replace(/\n/g,'<br>')}</td>`;});
+html+='</tr>';
+});
+html+='</tbody></table>';
+el.innerHTML=html;
+}
+
+function populateSwotSelect(){
+const sel=document.getElementById('swotSelect');
+const prev=sel.value;
+sel.innerHTML=competitors.map(c=>`<option value="${c.id}">${esc(c.name)}</option>`).join('');
+if(!competitors.length)sel.innerHTML='<option>No competitors</option>';
+if(prev&&competitors.find(c=>c.id===prev))sel.value=prev;
+}
+
+function renderSwot(){
+const el=document.getElementById('swotContainer');
+const id=document.getElementById('swotSelect').value;
+const c=competitors.find(x=>x.id===id);
+if(!c){el.innerHTML='<div class="empty">Select a competitor above.</div>';return;}
+const toList=str=>(str||'').split('\n').filter(Boolean).map(s=>`<li>${esc(s.trim())}</li>`).join('')||'<li style="color:#555">None listed</li>';
+el.innerHTML=`
+<div class="swot-grid">
+<div class="swot-quad swot-s"><h4>&#9989; Strengths</h4><ul>${toList(c.strengths)}</ul></div>
+<div class="swot-quad swot-w"><h4>&#9888; Weaknesses</h4><ul>${toList(c.weaknesses)}</ul></div>
+<div class="swot-quad swot-o"><h4>&#128161; Opportunities</h4><ul>${toList(c.opportunities)}</ul></div>
+<div class="swot-quad swot-t"><h4>&#9888; Threats</h4><ul>${toList(c.threats)}</ul></div>
+</div>`;
+}
+
+function exportCSV(){
+if(!competitors.length){toast('Nothing to export');return;}
+const headers=['Name','URL','Pricing','Target Market','Strengths','Weaknesses','Opportunities','Threats'];
+const rows=competitors.map(c=>[c.name,c.url,c.pricing,c.market,c.strengths,c.weaknesses,c.opportunities,c.threats].map(v=>'"'+(v||'').replace(/"/g,'""')+'"'));
+const csv=[headers.join(','),...rows.map(r=>r.join(','))].join('\n');
+const blob=new Blob([csv],{type:'text/csv'});
+const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='competitors-'+new Date().toISOString().slice(0,10)+'.csv';a.click();
+toast('CSV exported');
+}
+
+function clearAll(){
+if(!confirm('Delete ALL competitors? This cannot be undone.'))return;
+competitors=[];save();renderList();updateBadge();toast('All competitors cleared');
+}
+
+function updateBadge(){document.getElementById('countBadge').textContent=competitors.length?`(${competitors.length})`:'';}
+
+function esc(s){const d=document.createElement('div');d.textContent=s;return d.innerHTML;}
+
+updateBadge();
+</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Content Calendar — Free Editorial Calendar | SPUNK.CODES</title>
+<meta name="description" content="Plan your content with a free editorial calendar. Schedule blog posts, social media, emails, and videos. Color-coded by platform with CSV export.">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP')</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w")</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e8e8f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+.header{text-align:center;padding:2rem 1rem 1rem}
+.header h1{font-size:1.8rem;color:#ff5f1f;margin-bottom:.3rem}
+.header p{color:#888;font-size:.95rem}
+.container{max-width:1200px;margin:0 auto;padding:1rem;flex:1;width:100%}
+.toolbar{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center;margin-bottom:1rem}
+.btn{padding:.5rem 1rem;background:#ff5f1f;color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:.85rem;font-weight:600;transition:all .2s}
+.btn:hover{background:#e8520f;transform:translateY(-1px)}
+.btn-outline{background:transparent;border:1px solid #ff5f1f;color:#ff5f1f}
+.btn-outline:hover{background:#ff5f1f22}
+.btn-sm{padding:.35rem .7rem;font-size:.8rem}
+.btn-danger{background:#dc3545}.btn-danger:hover{background:#c82333}
+select,input{padding:.5rem .7rem;background:#0a0a0f;border:1px solid #2a2a3a;border-radius:8px;color:#e8e8f0;font-size:.85rem}
+select:focus,input:focus{outline:none;border-color:#ff5f1f}
+label{color:#aaa;font-size:.8rem;margin-bottom:.2rem;display:block}
+textarea{width:100%;padding:.5rem .7rem;background:#0a0a0f;border:1px solid #2a2a3a;border-radius:8px;color:#e8e8f0;font-size:.85rem;font-family:inherit;resize:vertical}
+textarea:focus{outline:none;border-color:#ff5f1f}
+.month-nav{display:flex;align-items:center;gap:1rem;margin-bottom:1rem}
+.month-nav h2{font-size:1.3rem;color:#ff5f1f;min-width:200px;text-align:center}
+.month-nav button{background:#151520;border:1px solid #2a2a3a;color:#e8e8f0;padding:.4rem .8rem;border-radius:6px;cursor:pointer;font-size:1rem}
+.month-nav button:hover{border-color:#ff5f1f;color:#ff5f1f}
+.filters{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem}
+.filter-chip{padding:.3rem .7rem;border-radius:20px;font-size:.75rem;cursor:pointer;border:1px solid #2a2a3a;background:#151520;color:#888;transition:all .2s}
+.filter-chip:hover,.filter-chip.active{border-color:#ff5f1f;color:#ff5f1f;background:#ff5f1f11}
+.calendar{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;background:#1a1a2a;border-radius:10px;overflow:hidden}
+.cal-head{background:#151520;padding:.5rem;text-align:center;font-size:.75rem;color:#888;font-weight:600}
+.cal-day{background:#111118;min-height:100px;padding:.4rem;position:relative;vertical-align:top}
+.cal-day.other-month{background:#0c0c12;opacity:.4}
+.cal-day .day-num{font-size:.75rem;color:#555;margin-bottom:.3rem}
+.cal-day.today .day-num{color:#ff5f1f;font-weight:700}
+.cal-item{font-size:.7rem;padding:.2rem .4rem;border-radius:4px;margin-bottom:2px;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#fff}
+.cal-item:hover{opacity:.8}
+.platform-blog{background:#8b5cf6}.platform-social{background:#3b82f6}.platform-email{background:#10b981}.platform-video{background:#ef4444}
+.status-badge{display:inline-block;padding:.15rem .4rem;border-radius:10px;font-size:.65rem;font-weight:600}
+.status-draft{background:#555;color:#ccc}.status-scheduled{background:#3b82f6;color:#fff}.status-published{background:#10b981;color:#fff}
+.legend{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:1rem}
+.legend-item{display:flex;align-items:center;gap:.3rem;font-size:.75rem;color:#888}
+.legend-dot{width:10px;height:10px;border-radius:3px}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:100;display:none;align-items:center;justify-content:center;padding:1rem}
+.modal-overlay.open{display:flex}
+.modal{background:#111118;border:1px solid #2a2a3a;border-radius:12px;padding:1.5rem;width:100%;max-width:500px;max-height:90vh;overflow-y:auto}
+.modal h3{color:#ff5f1f;margin-bottom:1rem}
+.form-group{margin-bottom:1rem}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+@media(max-width:600px){.form-row{grid-template-columns:1fr}.calendar{font-size:.7rem}.cal-day{min-height:70px}}
+.empty{text-align:center;padding:3rem;color:#555}
+.toast{position:fixed;bottom:2rem;right:2rem;background:#1e1e2e;border:1px solid #ff5f1f;color:#e8e8f0;padding:.8rem 1.2rem;border-radius:8px;font-size:.9rem;z-index:999;opacity:0;transform:translateY(10px);transition:all .3s}
+.toast.show{opacity:1;transform:translateY(0)}
+footer{text-align:center;padding:2rem 1rem;color:#555;font-size:.8rem;border-top:1px solid #1a1a2a;margin-top:2rem}
+footer a{color:#ff5f1f;margin:0 .3rem}
+</style>
+</head>
+<body>
+<div class="header">
+<h1>Content Calendar</h1>
+<p>Plan, schedule, and track all your content in one place</p>
+</div>
+<div class="container">
+<div class="toolbar">
+<button class="btn" onclick="openModal()">+ Add Content</button>
+<button class="btn btn-outline" onclick="exportCSV()">Export CSV</button>
+</div>
+<div class="legend">
+<div class="legend-item"><div class="legend-dot" style="background:#8b5cf6"></div>Blog</div>
+<div class="legend-item"><div class="legend-dot" style="background:#3b82f6"></div>Social</div>
+<div class="legend-item"><div class="legend-dot" style="background:#10b981"></div>Email</div>
+<div class="legend-item"><div class="legend-dot" style="background:#ef4444"></div>Video</div>
+</div>
+<div class="filters" id="filters"></div>
+<div class="month-nav">
+<button onclick="changeMonth(-1)">&larr;</button>
+<h2 id="monthLabel"></h2>
+<button onclick="changeMonth(1)">&rarr;</button>
+<button class="btn btn-sm btn-outline" onclick="goToday()">Today</button>
+</div>
+<div class="calendar" id="calendar"></div>
+</div>
+
+<div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this)closeModal()">
+<div class="modal">
+<h3 id="modalTitle">Add Content</h3>
+<form id="contentForm" onsubmit="saveContent(event)">
+<input type="hidden" id="editId">
+<div class="form-group"><label for="iTitle">Title *</label><input id="iTitle" required placeholder="Content title"></div>
+<div class="form-row">
+<div class="form-group"><label for="iPlatform">Platform *</label>
+<select id="iPlatform" required><option value="blog">Blog</option><option value="social">Social</option><option value="email">Email</option><option value="video">Video</option></select></div>
+<div class="form-group"><label for="iType">Content Type</label><input id="iType" placeholder="e.g. How-to, Thread"></div>
+</div>
+<div class="form-row">
+<div class="form-group"><label for="iDate">Date *</label><input type="date" id="iDate" required></div>
+<div class="form-group"><label for="iStatus">Status</label>
+<select id="iStatus"><option value="draft">Draft</option><option value="scheduled">Scheduled</option><option value="published">Published</option></select></div>
+</div>
+<div class="form-group"><label for="iNotes">Notes</label><textarea id="iNotes" rows="3" placeholder="Additional notes..."></textarea></div>
+<div style="display:flex;gap:.5rem;flex-wrap:wrap">
+<button type="submit" class="btn">Save</button>
+<button type="button" class="btn btn-outline" onclick="closeModal()">Cancel</button>
+<button type="button" class="btn btn-danger" id="deleteBtn" style="display:none" onclick="deleteContent()">Delete</button>
+</div>
+</form>
+</div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<footer>
+<a href="https://spunk.codes">spunk.codes</a> · <a href="https://spunk.bet">spunk.bet</a> · <a href="https://spunk.pics">spunk.pics</a> · <a href="https://spunk.work">spunk.work</a> · <a href="https://spunkart.com">SpunkArt.com</a>
+</footer>
+
+<script>
+const STORAGE_KEY='spunk_content_calendar';
+let items=JSON.parse(localStorage.getItem(STORAGE_KEY)||'[]');
+let currentDate=new Date();
+let filterPlatform='all';
+let filterStatus='all';
+
+function save(){localStorage.setItem(STORAGE_KEY,JSON.stringify(items))}
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500)}
+function esc(s){const d=document.createElement('div');d.textContent=s;return d.innerHTML}
+
+function renderFilters(){
+const el=document.getElementById('filters');
+const platforms=['all','blog','social','email','video'];
+const statuses=['all','draft','scheduled','published'];
+el.innerHTML='<span style="color:#888;font-size:.75rem;margin-right:.3rem">Platform:</span>'+
+platforms.map(p=>`<div class="filter-chip ${filterPlatform===p?'active':''}" onclick="filterPlatform='${p}';renderFilters();renderCalendar()">${p==='all'?'All':p.charAt(0).toUpperCase()+p.slice(1)}</div>`).join('')+
+'<span style="color:#888;font-size:.75rem;margin-left:.5rem;margin-right:.3rem">Status:</span>'+
+statuses.map(s=>`<div class="filter-chip ${filterStatus===s?'active':''}" onclick="filterStatus='${s}';renderFilters();renderCalendar()">${s==='all'?'All':s.charAt(0).toUpperCase()+s.slice(1)}</div>`).join('');
+}
+
+function renderCalendar(){
+const year=currentDate.getFullYear();
+const month=currentDate.getMonth();
+const monthNames=['January','February','March','April','May','June','July','August','September','October','November','December'];
+document.getElementById('monthLabel').textContent=`${monthNames[month]} ${year}`;
+
+const firstDay=new Date(year,month,1).getDay();
+const daysInMonth=new Date(year,month+1,0).getDate();
+const daysInPrev=new Date(year,month,0).getDate();
+const today=new Date();
+const todayStr=today.toISOString().slice(0,10);
+
+let html='';
+['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].forEach(d=>{html+=`<div class="cal-head">${d}</div>`;});
+
+const totalCells=Math.ceil((firstDay+daysInMonth)/7)*7;
+const filtered=items.filter(i=>(filterPlatform==='all'||i.platform===filterPlatform)&&(filterStatus==='all'||i.status===filterStatus));
+
+for(let i=0;i<totalCells;i++){
+let day,dateStr,isOther=false;
+if(i<firstDay){day=daysInPrev-firstDay+i+1;const m=month===0?11:month-1;const y=month===0?year-1:year;dateStr=`${y}-${String(m+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;isOther=true;}
+else if(i-firstDay>=daysInMonth){day=i-firstDay-daysInMonth+1;const m=month===11?0:month+1;const y=month===11?year+1:year;dateStr=`${y}-${String(m+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;isOther=true;}
+else{day=i-firstDay+1;dateStr=`${year}-${String(month+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;}
+
+const isToday=dateStr===todayStr;
+const dayItems=filtered.filter(x=>x.date===dateStr);
+html+=`<div class="cal-day${isOther?' other-month':''}${isToday?' today':''}" ondblclick="openModal(null,'${dateStr}')">`;
+html+=`<div class="day-num">${day}</div>`;
+dayItems.forEach(item=>{html+=`<div class="cal-item platform-${item.platform}" onclick="openModal('${item.id}')" title="${esc(item.title)} (${item.status})">${esc(item.title)}</div>`;});
+html+='</div>';
+}
+document.getElementById('calendar').innerHTML=html;
+}
+
+function openModal(id,dateStr){
+const form=document.getElementById('contentForm');
+form.reset();
+document.getElementById('editId').value='';
+document.getElementById('deleteBtn').style.display='none';
+document.getElementById('modalTitle').textContent='Add Content';
+if(dateStr)document.getElementById('iDate').value=dateStr;
+if(id){
+const item=items.find(x=>x.id===id);if(!item)return;
+document.getElementById('editId').value=item.id;
+document.getElementById('iTitle').value=item.title;
+document.getElementById('iPlatform').value=item.platform;
+document.getElementById('iType').value=item.type||'';
+document.getElementById('iDate').value=item.date;
+document.getElementById('iStatus').value=item.status;
+document.getElementById('iNotes').value=item.notes||'';
+document.getElementById('deleteBtn').style.display='inline-block';
+document.getElementById('modalTitle').textContent='Edit Content';
+}
+document.getElementById('modalOverlay').classList.add('open');
+}
+
+function closeModal(){document.getElementById('modalOverlay').classList.remove('open')}
+
+function saveContent(e){
+e.preventDefault();
+const id=document.getElementById('editId').value;
+const item={
+id:id||Date.now().toString(36)+Math.random().toString(36).slice(2,6),
+title:document.getElementById('iTitle').value.trim(),
+platform:document.getElementById('iPlatform').value,
+type:document.getElementById('iType').value.trim(),
+date:document.getElementById('iDate').value,
+status:document.getElementById('iStatus').value,
+notes:document.getElementById('iNotes').value.trim()
+};
+if(id){const idx=items.findIndex(x=>x.id===id);if(idx>=0)items[idx]=item;}
+else items.push(item);
+save();closeModal();renderCalendar();toast(id?'Content updated':'Content added');
+}
+
+function deleteContent(){
+const id=document.getElementById('editId').value;
+if(!id||!confirm('Delete this content item?'))return;
+items=items.filter(x=>x.id!==id);
+save();closeModal();renderCalendar();toast('Content deleted');
+}
+
+function changeMonth(d){currentDate.setMonth(currentDate.getMonth()+d);renderCalendar()}
+function goToday(){currentDate=new Date();renderCalendar()}
+
+function exportCSV(){
+if(!items.length){toast('Nothing to export');return;}
+const headers=['Title','Platform','Type','Date','Status','Notes'];
+const rows=items.map(i=>[i.title,i.platform,i.type,i.date,i.status,i.notes].map(v=>'"'+(v||'').replace(/"/g,'""')+'"'));
+const csv=[headers.join(','),...rows.map(r=>r.join(','))].join('\n');
+const blob=new Blob([csv],{type:'text/csv'});
+const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='content-calendar-'+new Date().toISOString().slice(0,10)+'.csv';a.click();
+toast('CSV exported');
+}
+
+renderFilters();renderCalendar();
+</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>
