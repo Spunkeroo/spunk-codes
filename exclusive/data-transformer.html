@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Data Transformer — Free JSON/CSV/XML Converter | SPUNK.CODES</title>
+<meta name="description" content="Convert between JSON, CSV, and XML formats instantly. Auto-detect input, pretty-print, minify, copy and download. Free browser tool.">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP')</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w")</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e8e8f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+header{background:#111118;border-bottom:2px solid #ff5f1f;padding:1rem 2rem;text-align:center}
+header h1{font-size:1.6rem;color:#ff5f1f}
+header p{color:#999;font-size:.9rem;margin-top:.3rem}
+.container{max-width:1200px;margin:0 auto;padding:1.5rem;flex:1;width:100%}
+.panels{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+.panel{background:#111118;border:1px solid #1e1e2e;border-radius:10px;padding:1.5rem;display:flex;flex-direction:column}
+.panel h2{color:#ff5f1f;font-size:1.1rem;margin-bottom:.8rem;display:flex;align-items:center;justify-content:space-between}
+.panel textarea{flex:1;width:100%;background:#0a0a0f;color:#e8e8f0;border:1px solid #2a2a3a;border-radius:6px;padding:.8rem;font-family:monospace;font-size:.85rem;resize:none;min-height:350px}
+.panel textarea:focus{outline:none;border-color:#ff5f1f}
+.controls{background:#111118;border:1px solid #1e1e2e;border-radius:10px;padding:1.2rem;margin-bottom:1.5rem;display:flex;flex-wrap:wrap;gap:.8rem;align-items:center}
+.format-badge{display:inline-block;padding:.25rem .6rem;border-radius:5px;font-size:.8rem;font-weight:600;background:#1e1e2e;color:#999}
+.format-badge.json{background:#1a2a1a;color:#4ecdc4}
+.format-badge.csv{background:#2a2a1a;color:#f1c40f}
+.format-badge.xml{background:#2a1a2a;color:#e74c3c}
+.btn{background:#ff5f1f;color:#fff;border:none;padding:.5rem 1rem;border-radius:6px;cursor:pointer;font-size:.85rem;font-weight:600;transition:background .2s}
+.btn:hover{background:#e54e10}
+.btn-sm{padding:.35rem .7rem;font-size:.8rem}
+.btn-outline{background:transparent;border:1px solid #ff5f1f;color:#ff5f1f}
+.btn-outline:hover{background:#ff5f1f;color:#fff}
+select{background:#0a0a0f;color:#e8e8f0;border:1px solid #2a2a3a;border-radius:6px;padding:.5rem .7rem;font-size:.85rem}
+select:focus{outline:none;border-color:#ff5f1f}
+.error-msg{color:#e74c3c;font-size:.85rem;margin-top:.5rem;min-height:1.2rem}
+.success-msg{color:#4ecdc4;font-size:.85rem}
+.arrow-btn{background:#ff5f1f;color:#fff;border:none;width:40px;height:40px;border-radius:50%;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s}
+.arrow-btn:hover{background:#e54e10}
+.toggle-group{display:flex;border:1px solid #2a2a3a;border-radius:6px;overflow:hidden}
+.toggle-group button{background:#0a0a0f;color:#999;border:none;padding:.4rem .8rem;font-size:.8rem;cursor:pointer;transition:all .2s}
+.toggle-group button.active{background:#ff5f1f;color:#fff}
+footer{background:#111118;border-top:1px solid #1e1e2e;text-align:center;padding:1.2rem;color:#666;font-size:.8rem}
+footer a{color:#ff5f1f;margin:0 .3rem}
+@media(max-width:768px){
+  header h1{font-size:1.2rem}
+  .container{padding:1rem}
+  .panels{grid-template-columns:1fr}
+  .controls{flex-direction:column;align-items:stretch}
+  .panel textarea{min-height:200px}
+}
+</style>
+</head>
+<body>
+<header>
+<h1>Data Transformer</h1>
+<p>Convert between JSON, CSV, and XML instantly. Auto-detect, pretty-print, download.</p>
+</header>
+<div class="container">
+  <div class="controls">
+    <span style="color:#999;font-size:.85rem">Detected:</span>
+    <span class="format-badge" id="detectedFormat">--</span>
+    <span style="color:#555">|</span>
+    <span style="color:#999;font-size:.85rem">Convert to:</span>
+    <select id="outputFormat">
+      <option value="json">JSON</option>
+      <option value="csv">CSV</option>
+      <option value="xml">XML</option>
+    </select>
+    <button class="btn" onclick="convert()">Convert</button>
+    <span style="color:#555">|</span>
+    <div class="toggle-group">
+      <button id="btnPretty" class="active" onclick="setJsonMode('pretty')">Pretty</button>
+      <button id="btnMinify" onclick="setJsonMode('minify')">Minify</button>
+    </div>
+    <span style="flex:1"></span>
+    <button class="btn btn-outline btn-sm" onclick="swapPanels()">&#8646; Swap</button>
+    <button class="btn btn-outline btn-sm" onclick="clearAll()">Clear</button>
+  </div>
+  <div class="panels">
+    <div class="panel">
+      <h2>Input <button class="btn btn-sm btn-outline" onclick="pasteFromClipboard()">Paste</button></h2>
+      <textarea id="inputArea" placeholder="Paste your JSON, CSV, or XML data here..." oninput="detectFormat()"></textarea>
+      <div class="error-msg" id="inputError"></div>
+    </div>
+    <div class="panel">
+      <h2>Output <span style="display:flex;gap:.4rem"><button class="btn btn-sm" onclick="copyOutput()">Copy</button><button class="btn btn-sm btn-outline" onclick="downloadOutput()">Download</button></span></h2>
+      <textarea id="outputArea" readonly placeholder="Converted output will appear here..."></textarea>
+      <div class="error-msg" id="outputError"></div>
+    </div>
+  </div>
+</div>
+<footer>
+  <a href="https://spunk.codes">spunk.codes</a> · <a href="https://spunk.bet">spunk.bet</a> · <a href="https://spunk.pics">spunk.pics</a> · <a href="https://spunk.work">spunk.work</a> · <a href="https://spunkart.com">SpunkArt.com</a>
+</footer>
+<script>
+let jsonMode='pretty';
+
+function setJsonMode(mode){
+  jsonMode=mode;
+  document.getElementById('btnPretty').classList.toggle('active',mode==='pretty');
+  document.getElementById('btnMinify').classList.toggle('active',mode==='minify');
+  const out=document.getElementById('outputArea').value;
+  if(out){try{
+    const parsed=JSON.parse(out);
+    document.getElementById('outputArea').value=mode==='pretty'?JSON.stringify(parsed,null,2):JSON.stringify(parsed);
+  }catch(e){}}
+}
+
+function detectFormat(){
+  const input=document.getElementById('inputArea').value.trim();
+  const badge=document.getElementById('detectedFormat');
+  document.getElementById('inputError').textContent='';
+  if(!input){badge.textContent='--';badge.className='format-badge';return null;}
+  if(input.startsWith('{')|| input.startsWith('[')){
+    try{JSON.parse(input);badge.textContent='JSON';badge.className='format-badge json';return'json';}catch(e){}
+  }
+  if(input.startsWith('<?xml')||input.startsWith('<')){
+    try{new DOMParser().parseFromString(input,'text/xml');
+      const err=input.startsWith('<?xml')||input.match(/^<[a-zA-Z]/);
+      if(err){badge.textContent='XML';badge.className='format-badge xml';return'xml';}
+    }catch(e){}
+  }
+  if(input.includes(',')||input.includes('\t')){
+    const lines=input.split('\n').filter(l=>l.trim());
+    if(lines.length>=1){badge.textContent='CSV';badge.className='format-badge csv';return'csv';}
+  }
+  badge.textContent='Unknown';badge.className='format-badge';return null;
+}
+
+function parseCSV(text){
+  const lines=text.split('\n').filter(l=>l.trim());
+  if(!lines.length)return[];
+  const sep=text.includes('\t')?'\t':',';
+  const result=[];
+  for(const line of lines){
+    const row=[];let field='';let inQuote=false;
+    for(let i=0;i<line.length;i++){
+      const ch=line[i];
+      if(inQuote){
+        if(ch==='"'&&line[i+1]==='"'){field+='"';i++;}
+        else if(ch==='"'){inQuote=false;}
+        else{field+=ch;}
+      }else{
+        if(ch==='"'){inQuote=true;}
+        else if(ch===sep){row.push(field);field='';}
+        else{field+=ch;}
+      }
+    }
+    row.push(field);result.push(row);
+  }
+  return result;
+}
+
+function csvToJSON(text){
+  const rows=parseCSV(text);
+  if(rows.length<2)throw new Error('CSV needs at least a header row and one data row');
+  const headers=rows[0];
+  return rows.slice(1).map(row=>{
+    const obj={};
+    headers.forEach((h,i)=>{obj[h.trim()]=row[i]!==undefined?row[i].trim():''});
+    return obj;
+  });
+}
+
+function jsonToCSV(data){
+  if(!Array.isArray(data)){
+    if(typeof data==='object')data=[data];
+    else throw new Error('JSON must be an array or object');
+  }
+  if(!data.length)return'';
+  const headers=[...new Set(data.flatMap(obj=>Object.keys(obj)))];
+  const escCSV=v=>{const s=String(v??'');return s.includes(',')||s.includes('"')||s.includes('\n')?'"'+s.replace(/"/g,'""')+'"':s;};
+  const lines=[headers.map(escCSV).join(',')];
+  data.forEach(obj=>{lines.push(headers.map(h=>escCSV(obj[h]??'')).join(','));});
+  return lines.join('\n');
+}
+
+function jsonToXML(data,rootName='root',itemName='item'){
+  const esc=s=>String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  function toXML(obj,tag){
+    if(obj===null||obj===undefined)return`<${tag}/>`;
+    if(typeof obj!=='object')return`<${tag}>${esc(obj)}</${tag}>`;
+    if(Array.isArray(obj))return obj.map(item=>toXML(item,itemName)).join('\n');
+    let xml=`<${tag}>`;
+    for(const[k,v]of Object.entries(obj)){
+      const safe=k.replace(/[^a-zA-Z0-9_-]/g,'_');
+      if(Array.isArray(v)){xml+=`\n  <${safe}>${v.map(i=>'\n    '+toXML(i,'item')).join('')}\n  </${safe}>`;}
+      else if(typeof v==='object'&&v!==null){xml+='\n  '+toXML(v,safe);}
+      else{xml+=`\n  <${safe}>${esc(v)}</${safe}>`;}
+    }
+    xml+=`\n</${tag}>`;return xml;
+  }
+  if(Array.isArray(data)){return`<?xml version="1.0" encoding="UTF-8"?>\n<${rootName}>\n${data.map(item=>'  '+toXML(item,itemName).split('\n').join('\n  ')).join('\n')}\n</${rootName}>`;}
+  return`<?xml version="1.0" encoding="UTF-8"?>\n${toXML(data,rootName)}`;
+}
+
+function xmlToJSON(text){
+  const parser=new DOMParser();
+  const doc=parser.parseFromString(text,'text/xml');
+  const errNode=doc.querySelector('parsererror');
+  if(errNode)throw new Error('Invalid XML: '+errNode.textContent.slice(0,100));
+  function nodeToObj(node){
+    if(node.nodeType===3)return node.textContent.trim()||null;
+    if(node.nodeType!==1)return null;
+    const obj={};
+    let hasChildren=false;
+    const childElements=Array.from(node.childNodes).filter(n=>n.nodeType===1);
+    if(!childElements.length){return node.textContent.trim();}
+    for(const child of childElements){
+      hasChildren=true;
+      const key=child.tagName;
+      const val=nodeToObj(child);
+      if(obj[key]!==undefined){
+        if(!Array.isArray(obj[key]))obj[key]=[obj[key]];
+        obj[key].push(val);
+      }else{obj[key]=val;}
+    }
+    return hasChildren?obj:node.textContent.trim();
+  }
+  const root=doc.documentElement;
+  const result=nodeToObj(root);
+  return result;
+}
+
+function csvToXML(text){
+  const json=csvToJSON(text);
+  return jsonToXML(json,'data','record');
+}
+
+function xmlToCSV(text){
+  const json=xmlToJSON(text);
+  const arr=Array.isArray(json)?json:typeof json==='object'?flattenXMLObj(json):[];
+  return jsonToCSV(arr);
+}
+
+function flattenXMLObj(obj){
+  const keys=Object.keys(obj);
+  for(const k of keys){if(Array.isArray(obj[k]))return obj[k];}
+  return[obj];
+}
+
+function convert(){
+  const input=document.getElementById('inputArea').value.trim();
+  const outFmt=document.getElementById('outputFormat').value;
+  const oErr=document.getElementById('outputError');
+  const iErr=document.getElementById('inputError');
+  oErr.textContent='';iErr.textContent='';
+  if(!input){oErr.textContent='Enter some data first';return;}
+  const inFmt=detectFormat();
+  if(!inFmt){iErr.textContent='Could not detect input format';return;}
+  try{
+    let result='';
+    if(inFmt===outFmt){
+      if(inFmt==='json'){
+        const parsed=JSON.parse(input);
+        result=jsonMode==='pretty'?JSON.stringify(parsed,null,2):JSON.stringify(parsed);
+      }else{result=input;}
+    }else if(inFmt==='json'&&outFmt==='csv'){
+      result=jsonToCSV(JSON.parse(input));
+    }else if(inFmt==='json'&&outFmt==='xml'){
+      result=jsonToXML(JSON.parse(input));
+    }else if(inFmt==='csv'&&outFmt==='json'){
+      const d=csvToJSON(input);
+      result=jsonMode==='pretty'?JSON.stringify(d,null,2):JSON.stringify(d);
+    }else if(inFmt==='csv'&&outFmt==='xml'){
+      result=csvToXML(input);
+    }else if(inFmt==='xml'&&outFmt==='json'){
+      const d=xmlToJSON(input);
+      result=jsonMode==='pretty'?JSON.stringify(d,null,2):JSON.stringify(d);
+    }else if(inFmt==='xml'&&outFmt==='csv'){
+      result=xmlToCSV(input);
+    }
+    document.getElementById('outputArea').value=result;
+  }catch(e){oErr.textContent='Error: '+e.message;}
+}
+
+function copyOutput(){
+  const out=document.getElementById('outputArea').value;
+  if(!out){flash('Nothing to copy');return;}
+  navigator.clipboard.writeText(out).then(()=>flash('Copied to clipboard!'));
+}
+
+function downloadOutput(){
+  const out=document.getElementById('outputArea').value;
+  if(!out){flash('Nothing to download');return;}
+  const fmt=document.getElementById('outputFormat').value;
+  const exts={json:'.json',csv:'.csv',xml:'.xml'};
+  const types={json:'application/json',csv:'text/csv',xml:'application/xml'};
+  const blob=new Blob([out],{type:types[fmt]||'text/plain'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');a.href=url;a.download='output'+exts[fmt];a.click();
+  URL.revokeObjectURL(url);
+  flash('File downloaded!');
+}
+
+function swapPanels(){
+  const inp=document.getElementById('inputArea');
+  const out=document.getElementById('outputArea');
+  const tmp=out.value;out.value='';inp.value=tmp;
+  detectFormat();
+}
+
+function clearAll(){
+  document.getElementById('inputArea').value='';
+  document.getElementById('outputArea').value='';
+  document.getElementById('inputError').textContent='';
+  document.getElementById('outputError').textContent='';
+  detectFormat();
+}
+
+async function pasteFromClipboard(){
+  try{
+    const text=await navigator.clipboard.readText();
+    document.getElementById('inputArea').value=text;
+    detectFormat();
+    flash('Pasted from clipboard');
+  }catch(e){flash('Cannot read clipboard');}
+}
+
+function flash(msg){
+  const d=document.createElement('div');
+  d.style.cssText='position:fixed;top:20px;right:20px;background:#ff5f1f;color:#fff;padding:.8rem 1.5rem;border-radius:8px;font-weight:600;z-index:9999;animation:fadeOut 2s forwards';
+  d.textContent=msg;document.body.appendChild(d);
+  setTimeout(()=>d.remove(),2200);
+}
+
+const style=document.createElement('style');
+style.textContent='@keyframes fadeOut{0%{opacity:1}70%{opacity:1}100%{opacity:0}}';
+document.head.appendChild(style);
+</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>

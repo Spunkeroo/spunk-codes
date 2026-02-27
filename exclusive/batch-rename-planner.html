@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Batch Rename Planner — Free File Rename Preview Tool | SPUNK.CODES</title>
+<meta name="description" content="Plan and preview batch file renames with find/replace, prefix, suffix, numbering, case changes. Free browser-based tool, no upload needed.">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP')</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w")</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e8e8f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+header{background:#111118;border-bottom:2px solid #ff5f1f;padding:1rem 2rem;text-align:center}
+header h1{font-size:1.6rem;color:#ff5f1f}
+header p{color:#999;font-size:.9rem;margin-top:.3rem}
+.container{max-width:1200px;margin:0 auto;padding:1.5rem;flex:1;width:100%}
+.section{background:#111118;border:1px solid #1e1e2e;border-radius:10px;padding:1.5rem;margin-bottom:1.5rem}
+.section h2{color:#ff5f1f;font-size:1.2rem;margin-bottom:1rem}
+textarea{width:100%;background:#0a0a0f;color:#e8e8f0;border:1px solid #2a2a3a;border-radius:6px;padding:.8rem;font-family:monospace;font-size:.9rem;resize:vertical;min-height:120px}
+textarea:focus{outline:none;border-color:#ff5f1f}
+label{display:block;color:#bbb;font-size:.85rem;margin-bottom:.4rem}
+input,select{background:#0a0a0f;color:#e8e8f0;border:1px solid #2a2a3a;border-radius:6px;padding:.5rem .7rem;font-size:.9rem;width:100%}
+input:focus,select:focus{outline:none;border-color:#ff5f1f}
+.btn{background:#ff5f1f;color:#fff;border:none;padding:.6rem 1.2rem;border-radius:6px;cursor:pointer;font-size:.9rem;font-weight:600;transition:background .2s}
+.btn:hover{background:#e54e10}
+.btn-sm{padding:.4rem .8rem;font-size:.8rem}
+.btn-outline{background:transparent;border:1px solid #ff5f1f;color:#ff5f1f}
+.btn-outline:hover{background:#ff5f1f;color:#fff}
+.btn-danger{background:#c0392b}
+.btn-danger:hover{background:#a93226}
+.rules-list{display:flex;flex-direction:column;gap:.8rem;margin-bottom:1rem}
+.rule-card{background:#0d0d14;border:1px solid #2a2a3a;border-radius:8px;padding:1rem;display:flex;flex-wrap:wrap;gap:.8rem;align-items:center;position:relative}
+.rule-card .rule-num{background:#ff5f1f;color:#fff;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;flex-shrink:0}
+.rule-card select,.rule-card input{width:auto;flex:1;min-width:100px}
+.rule-actions{display:flex;gap:.4rem;margin-left:auto}
+.add-rule-row{display:flex;gap:.8rem;flex-wrap:wrap;align-items:center}
+.preview-table{width:100%;border-collapse:collapse;margin-top:1rem}
+.preview-table th{text-align:left;color:#ff5f1f;padding:.6rem;border-bottom:2px solid #2a2a3a;font-size:.85rem}
+.preview-table td{padding:.6rem;border-bottom:1px solid #1a1a2a;font-family:monospace;font-size:.85rem;word-break:break-all}
+.preview-table tr:hover{background:#15151f}
+.old-name{color:#999}.new-name{color:#4ecdc4}
+.changed{color:#ff5f1f;font-weight:600}
+.arrow{color:#555;text-align:center}
+.top-bar{display:flex;gap:.8rem;flex-wrap:wrap;margin-bottom:1rem}
+.saved-sets{margin-top:1rem}
+.saved-set{display:flex;justify-content:space-between;align-items:center;background:#0d0d14;border:1px solid #2a2a3a;border-radius:6px;padding:.6rem .8rem;margin-bottom:.5rem}
+.stats{color:#999;font-size:.85rem;margin-top:.5rem}
+footer{background:#111118;border-top:1px solid #1e1e2e;text-align:center;padding:1.2rem;color:#666;font-size:.8rem}
+footer a{color:#ff5f1f;margin:0 .3rem}
+@media(max-width:768px){
+  header h1{font-size:1.2rem}
+  .container{padding:1rem}
+  .section{padding:1rem}
+  .rule-card{flex-direction:column;align-items:stretch}
+  .rule-card select,.rule-card input{width:100%}
+  .rule-actions{margin-left:0;justify-content:flex-end}
+  .preview-table{font-size:.75rem}
+}
+</style>
+</head>
+<body>
+<header>
+<h1>Batch Rename Planner</h1>
+<p>Preview file renames before you execute them. Free, browser-based, no uploads.</p>
+</header>
+<div class="container">
+  <div class="section">
+    <h2>Filenames</h2>
+    <label for="filenames">Paste filenames (one per line)</label>
+    <textarea id="filenames" placeholder="photo_001.jpg&#10;photo_002.jpg&#10;report-final-v2.docx&#10;my document (copy).pdf"></textarea>
+    <div class="stats" id="fileStats"></div>
+  </div>
+  <div class="section">
+    <h2>Rename Rules</h2>
+    <div class="rules-list" id="rulesList"></div>
+    <div class="add-rule-row">
+      <select id="newRuleType">
+        <option value="findReplace">Find & Replace</option>
+        <option value="prefix">Add Prefix</option>
+        <option value="suffix">Add Suffix</option>
+        <option value="numbering">Add Numbering</option>
+        <option value="lowercase">Lowercase</option>
+        <option value="uppercase">Uppercase</option>
+        <option value="titlecase">Title Case</option>
+        <option value="removeChars">Remove Characters</option>
+      </select>
+      <button class="btn" onclick="addRule()">+ Add Rule</button>
+    </div>
+    <div class="top-bar" style="margin-top:1rem">
+      <input type="text" id="ruleSetName" placeholder="Rule set name..." style="flex:1">
+      <button class="btn btn-outline" onclick="saveRuleSet()">Save Rules</button>
+      <button class="btn btn-danger btn-sm" onclick="clearRules()">Clear All</button>
+    </div>
+    <div class="saved-sets" id="savedSets"></div>
+  </div>
+  <div class="section">
+    <h2>Preview</h2>
+    <div class="top-bar">
+      <button class="btn" onclick="copyRenamed()">Copy Renamed List</button>
+      <button class="btn btn-outline" onclick="copyMapping()">Copy Mapping</button>
+    </div>
+    <div style="overflow-x:auto">
+      <table class="preview-table" id="previewTable">
+        <thead><tr><th>#</th><th>Original</th><th></th><th>Renamed</th></tr></thead>
+        <tbody id="previewBody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<footer>
+  <a href="https://spunk.codes">spunk.codes</a> · <a href="https://spunk.bet">spunk.bet</a> · <a href="https://spunk.pics">spunk.pics</a> · <a href="https://spunk.work">spunk.work</a> · <a href="https://spunkart.com">SpunkArt.com</a>
+</footer>
+<script>
+let rules=[];
+const LS_KEY='brp_ruleSets';
+
+function getFilenames(){
+  return document.getElementById('filenames').value.split('\n').filter(l=>l.trim());
+}
+
+function addRule(type,params){
+  type=type||document.getElementById('newRuleType').value;
+  params=params||{};
+  rules.push({type,params});
+  renderRules();
+  updatePreview();
+}
+
+function removeRule(i){rules.splice(i,1);renderRules();updatePreview();}
+function moveRule(i,dir){
+  const j=i+dir;
+  if(j<0||j>=rules.length)return;
+  [rules[i],rules[j]]=[rules[j],rules[i]];
+  renderRules();updatePreview();
+}
+
+function renderRules(){
+  const c=document.getElementById('rulesList');
+  c.innerHTML='';
+  rules.forEach((r,i)=>{
+    const card=document.createElement('div');
+    card.className='rule-card';
+    let html=`<span class="rule-num">${i+1}</span>`;
+    switch(r.type){
+      case'findReplace':
+        html+=`<input type="text" placeholder="Find..." value="${esc(r.params.find||'')}" oninput="rules[${i}].params.find=this.value;updatePreview()">`;
+        html+=`<span style="color:#666">→</span>`;
+        html+=`<input type="text" placeholder="Replace with..." value="${esc(r.params.replace||'')}" oninput="rules[${i}].params.replace=this.value;updatePreview()">`;
+        html+=`<label style="display:flex;align-items:center;gap:.3rem;width:auto;margin:0"><input type="checkbox" ${r.params.regex?'checked':''} onchange="rules[${i}].params.regex=this.checked;updatePreview()"> Regex</label>`;
+        break;
+      case'prefix':
+        html+=`<span style="color:#999;font-size:.85rem">Prefix:</span>`;
+        html+=`<input type="text" placeholder="prefix_" value="${esc(r.params.value||'')}" oninput="rules[${i}].params.value=this.value;updatePreview()">`;
+        break;
+      case'suffix':
+        html+=`<span style="color:#999;font-size:.85rem">Suffix (before ext):</span>`;
+        html+=`<input type="text" placeholder="_backup" value="${esc(r.params.value||'')}" oninput="rules[${i}].params.value=this.value;updatePreview()">`;
+        break;
+      case'numbering':
+        html+=`<span style="color:#999;font-size:.85rem">Start:</span>`;
+        html+=`<input type="number" style="width:70px;min-width:70px;flex:0" value="${r.params.start||1}" oninput="rules[${i}].params.start=+this.value;updatePreview()">`;
+        html+=`<span style="color:#999;font-size:.85rem">Pad:</span>`;
+        html+=`<input type="number" style="width:60px;min-width:60px;flex:0" value="${r.params.pad||3}" min="1" max="10" oninput="rules[${i}].params.pad=+this.value;updatePreview()">`;
+        html+=`<select style="width:auto;min-width:80px;flex:0" onchange="rules[${i}].params.pos=this.value;updatePreview()">
+          <option value="prefix" ${r.params.pos==='prefix'?'selected':''}>Prefix</option>
+          <option value="suffix" ${r.params.pos!=='prefix'?'selected':''}>Suffix</option></select>`;
+        html+=`<input type="text" placeholder="Separator" value="${esc(r.params.sep||'_')}" style="width:60px;min-width:60px;flex:0" oninput="rules[${i}].params.sep=this.value;updatePreview()">`;
+        break;
+      case'lowercase':html+=`<span style="color:#999">Convert to lowercase</span>`;break;
+      case'uppercase':html+=`<span style="color:#999">Convert to UPPERCASE</span>`;break;
+      case'titlecase':html+=`<span style="color:#999">Convert to Title Case</span>`;break;
+      case'removeChars':
+        html+=`<span style="color:#999;font-size:.85rem">Remove:</span>`;
+        html+=`<input type="text" placeholder="Characters to remove..." value="${esc(r.params.chars||'')}" oninput="rules[${i}].params.chars=this.value;updatePreview()">`;
+        break;
+    }
+    html+=`<div class="rule-actions">
+      <button class="btn btn-sm btn-outline" onclick="moveRule(${i},-1)" title="Move up">&#9650;</button>
+      <button class="btn btn-sm btn-outline" onclick="moveRule(${i},1)" title="Move down">&#9660;</button>
+      <button class="btn btn-sm btn-danger" onclick="removeRule(${i})" title="Remove">&#10005;</button>
+    </div>`;
+    card.innerHTML=html;
+    c.appendChild(card);
+  });
+}
+
+function esc(s){return s.replace(/"/g,'&quot;').replace(/</g,'&lt;');}
+
+function applyRules(names){
+  return names.map((name,idx)=>{
+    let n=name;
+    rules.forEach(r=>{
+      const dot=n.lastIndexOf('.');
+      const ext=dot>0?n.slice(dot):'';
+      const base=dot>0?n.slice(0,dot):n;
+      switch(r.type){
+        case'findReplace':{
+          if(!r.params.find)break;
+          if(r.params.regex){try{n=n.replace(new RegExp(r.params.find,'g'),r.params.replace||'');}catch(e){}}
+          else{n=n.split(r.params.find).join(r.params.replace||'');}
+          break;
+        }
+        case'prefix':n=(r.params.value||'')+n;break;
+        case'suffix':{
+          const d2=n.lastIndexOf('.');const e2=d2>0?n.slice(d2):'';const b2=d2>0?n.slice(0,d2):n;
+          n=b2+(r.params.value||'')+e2;break;
+        }
+        case'numbering':{
+          const num=String((r.params.start||1)+idx).padStart(r.params.pad||3,'0');
+          const sep=r.params.sep||'_';
+          const d3=n.lastIndexOf('.');const e3=d3>0?n.slice(d3):'';const b3=d3>0?n.slice(0,d3):n;
+          n=r.params.pos==='prefix'?num+sep+b3+e3:b3+sep+num+e3;
+          break;
+        }
+        case'lowercase':n=n.toLowerCase();break;
+        case'uppercase':n=n.toUpperCase();break;
+        case'titlecase':n=n.replace(/\w\S*/g,t=>t.charAt(0).toUpperCase()+t.slice(1).toLowerCase());break;
+        case'removeChars':{
+          if(!r.params.chars)break;
+          const chars=r.params.chars;
+          for(const ch of chars){n=n.split(ch).join('');}
+          break;
+        }
+      }
+    });
+    return n;
+  });
+}
+
+function updatePreview(){
+  const names=getFilenames();
+  const stats=document.getElementById('fileStats');
+  stats.textContent=names.length?`${names.length} file(s)`:'';
+  const renamed=applyRules(names);
+  const body=document.getElementById('previewBody');
+  body.innerHTML='';
+  names.forEach((orig,i)=>{
+    const tr=document.createElement('tr');
+    const changed=orig!==renamed[i];
+    tr.innerHTML=`<td style="color:#555">${i+1}</td>
+      <td class="old-name">${escH(orig)}</td>
+      <td class="arrow">→</td>
+      <td class="${changed?'changed':'new-name'}">${escH(renamed[i])}</td>`;
+    body.appendChild(tr);
+  });
+}
+
+function escH(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+function copyRenamed(){
+  const names=getFilenames();
+  const renamed=applyRules(names);
+  navigator.clipboard.writeText(renamed.join('\n')).then(()=>flash('Renamed list copied!'));
+}
+
+function copyMapping(){
+  const names=getFilenames();
+  const renamed=applyRules(names);
+  const mapping=names.map((n,i)=>`${n} → ${renamed[i]}`).join('\n');
+  navigator.clipboard.writeText(mapping).then(()=>flash('Mapping copied!'));
+}
+
+function flash(msg){
+  const d=document.createElement('div');
+  d.style.cssText='position:fixed;top:20px;right:20px;background:#ff5f1f;color:#fff;padding:.8rem 1.5rem;border-radius:8px;font-weight:600;z-index:9999;animation:fadeOut 2s forwards';
+  d.textContent=msg;document.body.appendChild(d);
+  setTimeout(()=>d.remove(),2200);
+}
+
+function saveRuleSet(){
+  const name=document.getElementById('ruleSetName').value.trim();
+  if(!name){flash('Enter a name first');return;}
+  if(!rules.length){flash('Add rules first');return;}
+  const sets=JSON.parse(localStorage.getItem(LS_KEY)||'{}');
+  sets[name]=JSON.parse(JSON.stringify(rules));
+  localStorage.setItem(LS_KEY,JSON.stringify(sets));
+  document.getElementById('ruleSetName').value='';
+  renderSavedSets();
+  flash('Rule set saved!');
+}
+
+function loadRuleSet(name){
+  const sets=JSON.parse(localStorage.getItem(LS_KEY)||'{}');
+  if(!sets[name])return;
+  rules=JSON.parse(JSON.stringify(sets[name]));
+  renderRules();updatePreview();
+  flash('Loaded: '+name);
+}
+
+function deleteRuleSet(name){
+  const sets=JSON.parse(localStorage.getItem(LS_KEY)||'{}');
+  delete sets[name];
+  localStorage.setItem(LS_KEY,JSON.stringify(sets));
+  renderSavedSets();
+}
+
+function renderSavedSets(){
+  const sets=JSON.parse(localStorage.getItem(LS_KEY)||'{}');
+  const c=document.getElementById('savedSets');
+  const keys=Object.keys(sets);
+  if(!keys.length){c.innerHTML='';return;}
+  c.innerHTML='<h3 style="color:#999;font-size:.9rem;margin-bottom:.5rem">Saved Rule Sets</h3>';
+  keys.forEach(k=>{
+    const d=document.createElement('div');d.className='saved-set';
+    d.innerHTML=`<span>${escH(k)} <span style="color:#666">(${sets[k].length} rules)</span></span>
+      <div style="display:flex;gap:.4rem">
+        <button class="btn btn-sm btn-outline" onclick="loadRuleSet('${k.replace(/'/g,"\\'")}')">Load</button>
+        <button class="btn btn-sm btn-danger" onclick="deleteRuleSet('${k.replace(/'/g,"\\'")}')">Delete</button>
+      </div>`;
+    c.appendChild(d);
+  });
+}
+
+function clearRules(){rules=[];renderRules();updatePreview();}
+
+document.getElementById('filenames').addEventListener('input',updatePreview);
+renderSavedSets();
+
+const style=document.createElement('style');
+style.textContent='@keyframes fadeOut{0%{opacity:1}70%{opacity:1}100%{opacity:0}}';
+document.head.appendChild(style);
+</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>

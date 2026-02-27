@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>API Key Manager — Free Secure API Key Vault | SPUNK.CODES</title>
+<meta name="description" content="Securely store and manage API keys in your browser. Masked keys, search, filter by environment, copy with one click. Never leaves your browser.">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP')</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w")</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e8e8f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+header{background:#111118;border-bottom:2px solid #ff5f1f;padding:1rem 2rem;text-align:center}
+header h1{font-size:1.6rem;color:#ff5f1f}
+header p{color:#999;font-size:.9rem;margin-top:.3rem}
+.container{max-width:1100px;margin:0 auto;padding:1.5rem;flex:1;width:100%}
+.section{background:#111118;border:1px solid #1e1e2e;border-radius:10px;padding:1.5rem;margin-bottom:1.5rem}
+.section h2{color:#ff5f1f;font-size:1.2rem;margin-bottom:1rem}
+label{display:block;color:#bbb;font-size:.85rem;margin-bottom:.3rem}
+input,select,textarea{background:#0a0a0f;color:#e8e8f0;border:1px solid #2a2a3a;border-radius:6px;padding:.5rem .7rem;font-size:.9rem;width:100%}
+input:focus,select:focus,textarea:focus{outline:none;border-color:#ff5f1f}
+textarea{font-family:monospace;resize:vertical;min-height:60px}
+.btn{background:#ff5f1f;color:#fff;border:none;padding:.6rem 1.2rem;border-radius:6px;cursor:pointer;font-size:.9rem;font-weight:600;transition:background .2s}
+.btn:hover{background:#e54e10}
+.btn-sm{padding:.35rem .7rem;font-size:.8rem}
+.btn-outline{background:transparent;border:1px solid #ff5f1f;color:#ff5f1f}
+.btn-outline:hover{background:#ff5f1f;color:#fff}
+.btn-danger{background:#c0392b}.btn-danger:hover{background:#a93226}
+.btn-green{background:#27ae60}.btn-green:hover{background:#219a52}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.form-grid .full{grid-column:1/-1}
+.top-bar{display:flex;gap:.8rem;flex-wrap:wrap;align-items:center;margin-bottom:1rem}
+.top-bar input,.top-bar select{width:auto;flex:1;min-width:150px}
+.key-card{background:#0d0d14;border:1px solid #2a2a3a;border-radius:10px;padding:1.2rem;margin-bottom:1rem;position:relative}
+.key-card .service-name{font-size:1.1rem;font-weight:700;color:#ff5f1f;margin-bottom:.4rem}
+.key-card .env-badge{display:inline-block;padding:.15rem .5rem;border-radius:4px;font-size:.75rem;font-weight:600;text-transform:uppercase;margin-left:.5rem}
+.env-dev{background:#2c3e50;color:#3498db}
+.env-staging{background:#4a3520;color:#f39c12}
+.env-prod{background:#3a1a1a;color:#e74c3c}
+.key-row{display:flex;align-items:center;gap:.5rem;margin:.6rem 0;background:#0a0a0f;border:1px solid #1e1e2e;border-radius:6px;padding:.5rem .7rem}
+.key-value{flex:1;font-family:monospace;font-size:.85rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#999;user-select:none}
+.key-value.revealed{color:#4ecdc4;user-select:text}
+.key-notes{color:#888;font-size:.85rem;margin-top:.4rem}
+.key-date{color:#555;font-size:.8rem;margin-top:.3rem}
+.key-actions{display:flex;gap:.4rem;margin-top:.8rem;flex-wrap:wrap}
+.empty{text-align:center;color:#555;padding:3rem;font-size:1.1rem}
+.security-notice{background:#1a1520;border:1px solid #4a2a5a;border-radius:8px;padding:1rem;margin-bottom:1.5rem;display:flex;align-items:center;gap:.8rem}
+.security-notice .icon{font-size:1.5rem}
+.security-notice p{color:#bbb;font-size:.85rem}
+.modal-bg{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.7);z-index:999;display:none;align-items:center;justify-content:center}
+.modal-bg.active{display:flex}
+.modal{background:#111118;border:1px solid #2a2a3a;border-radius:12px;padding:2rem;width:90%;max-width:500px}
+.modal h3{color:#ff5f1f;margin-bottom:1rem}
+.count-badge{background:#ff5f1f;color:#fff;padding:.2rem .6rem;border-radius:12px;font-size:.8rem;font-weight:700}
+footer{background:#111118;border-top:1px solid #1e1e2e;text-align:center;padding:1.2rem;color:#666;font-size:.8rem}
+footer a{color:#ff5f1f;margin:0 .3rem}
+@media(max-width:768px){
+  header h1{font-size:1.2rem}
+  .container{padding:1rem}
+  .form-grid{grid-template-columns:1fr}
+  .top-bar{flex-direction:column}
+  .top-bar input,.top-bar select{width:100%}
+}
+</style>
+</head>
+<body>
+<header>
+<h1>API Key Manager</h1>
+<p>Secure, browser-only API key vault. Your keys never leave your device.</p>
+</header>
+<div class="container">
+  <div class="security-notice">
+    <span class="icon">&#128274;</span>
+    <p>All keys are stored in your browser's localStorage only. Nothing is transmitted to any server. Clear browser data to remove all keys.</p>
+  </div>
+
+  <div class="section">
+    <h2>Add New Key</h2>
+    <div class="form-grid">
+      <div><label for="serviceName">Service Name *</label><input type="text" id="serviceName" placeholder="e.g. OpenAI, Stripe, AWS"></div>
+      <div><label for="envSelect">Environment</label><select id="envSelect"><option value="dev">Development</option><option value="staging">Staging</option><option value="prod">Production</option></select></div>
+      <div class="full"><label for="keyValue">API Key *</label><input type="password" id="keyValue" placeholder="sk-abc123..."></div>
+      <div class="full"><label for="keyNotes">Notes</label><textarea id="keyNotes" placeholder="Optional notes about this key..."></textarea></div>
+    </div>
+    <button class="btn" style="margin-top:1rem" onclick="addKey()">Add Key</button>
+  </div>
+
+  <div class="section">
+    <h2>Your Keys <span class="count-badge" id="keyCount">0</span></h2>
+    <div class="top-bar">
+      <input type="text" id="searchInput" placeholder="Search by service name..." oninput="renderKeys()">
+      <select id="filterEnv" onchange="renderKeys()">
+        <option value="">All Environments</option>
+        <option value="dev">Development</option>
+        <option value="staging">Staging</option>
+        <option value="prod">Production</option>
+      </select>
+      <button class="btn btn-outline btn-sm" onclick="exportKeys()">Export Encrypted</button>
+      <button class="btn btn-outline btn-sm" onclick="document.getElementById('importFile').click()">Import</button>
+      <input type="file" id="importFile" style="display:none" accept=".json" onchange="importKeys(event)">
+    </div>
+    <div id="keysList"></div>
+  </div>
+</div>
+
+<div class="modal-bg" id="exportModal">
+  <div class="modal">
+    <h3>Export Encrypted Keys</h3>
+    <label for="exportPass">Encryption Password</label>
+    <input type="password" id="exportPass" placeholder="Enter a strong password" style="margin-bottom:1rem">
+    <div style="display:flex;gap:.5rem">
+      <button class="btn" onclick="doExport()">Export</button>
+      <button class="btn btn-outline" onclick="document.getElementById('exportModal').classList.remove('active')">Cancel</button>
+    </div>
+  </div>
+</div>
+<div class="modal-bg" id="importModal">
+  <div class="modal">
+    <h3>Import Encrypted Keys</h3>
+    <label for="importPass">Decryption Password</label>
+    <input type="password" id="importPass" placeholder="Enter the export password" style="margin-bottom:1rem">
+    <div style="display:flex;gap:.5rem">
+      <button class="btn" onclick="doImport()">Import</button>
+      <button class="btn btn-outline" onclick="document.getElementById('importModal').classList.remove('active')">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <a href="https://spunk.codes">spunk.codes</a> · <a href="https://spunk.bet">spunk.bet</a> · <a href="https://spunk.pics">spunk.pics</a> · <a href="https://spunk.work">spunk.work</a> · <a href="https://spunkart.com">SpunkArt.com</a>
+</footer>
+
+<script>
+const LS_KEY='akm_keys';
+let revealedKeys=new Set();
+let pendingImportData=null;
+
+function getKeys(){return JSON.parse(localStorage.getItem(LS_KEY)||'[]');}
+function saveKeys(keys){localStorage.setItem(LS_KEY,JSON.stringify(keys));}
+
+function addKey(){
+  const service=document.getElementById('serviceName').value.trim();
+  const key=document.getElementById('keyValue').value.trim();
+  const env=document.getElementById('envSelect').value;
+  const notes=document.getElementById('keyNotes').value.trim();
+  if(!service||!key){flash('Service name and key are required');return;}
+  const keys=getKeys();
+  keys.push({id:Date.now().toString(36)+Math.random().toString(36).slice(2,6),service,key,env,notes,created:new Date().toISOString()});
+  saveKeys(keys);
+  document.getElementById('serviceName').value='';
+  document.getElementById('keyValue').value='';
+  document.getElementById('keyNotes').value='';
+  renderKeys();
+  flash('Key added!');
+}
+
+function deleteKey(id){
+  if(!confirm('Delete this API key?'))return;
+  const keys=getKeys().filter(k=>k.id!==id);
+  saveKeys(keys);revealedKeys.delete(id);
+  renderKeys();flash('Key deleted');
+}
+
+function toggleReveal(id){
+  if(revealedKeys.has(id))revealedKeys.delete(id);
+  else revealedKeys.add(id);
+  renderKeys();
+}
+
+function copyKey(key){
+  navigator.clipboard.writeText(key).then(()=>flash('Key copied to clipboard!'));
+}
+
+function maskKey(key){
+  if(key.length<=8)return '*'.repeat(key.length);
+  return key.slice(0,4)+'*'.repeat(Math.min(key.length-8,30))+key.slice(-4);
+}
+
+function renderKeys(){
+  const keys=getKeys();
+  const search=document.getElementById('searchInput').value.toLowerCase();
+  const envFilter=document.getElementById('filterEnv').value;
+  const filtered=keys.filter(k=>{
+    if(search&&!k.service.toLowerCase().includes(search))return false;
+    if(envFilter&&k.env!==envFilter)return false;
+    return true;
+  });
+  document.getElementById('keyCount').textContent=keys.length;
+  const c=document.getElementById('keysList');
+  if(!filtered.length){c.innerHTML=`<div class="empty">${keys.length?'No keys match your search':'No API keys stored yet'}</div>`;return;}
+  c.innerHTML='';
+  filtered.forEach(k=>{
+    const isRevealed=revealedKeys.has(k.id);
+    const envLabels={dev:'Development',staging:'Staging',prod:'Production'};
+    const card=document.createElement('div');card.className='key-card';
+    card.innerHTML=`
+      <div class="service-name">${escH(k.service)}<span class="env-badge env-${k.env}">${envLabels[k.env]||k.env}</span></div>
+      <div class="key-row">
+        <span class="key-value ${isRevealed?'revealed':''}">${isRevealed?escH(k.key):maskKey(k.key)}</span>
+      </div>
+      ${k.notes?`<div class="key-notes">${escH(k.notes)}</div>`:''}
+      <div class="key-date">Added: ${new Date(k.created).toLocaleDateString()}</div>
+      <div class="key-actions">
+        <button class="btn btn-sm ${isRevealed?'btn-outline':''}" onclick="toggleReveal('${k.id}')">${isRevealed?'Hide':'Reveal'}</button>
+        <button class="btn btn-sm btn-green" onclick="copyKey(${JSON.stringify(JSON.stringify(k.key))})">Copy</button>
+        <button class="btn btn-sm btn-danger" onclick="deleteKey('${k.id}')">Delete</button>
+      </div>`;
+    c.appendChild(card);
+  });
+}
+
+function escH(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+async function deriveKey(password,salt){
+  const enc=new TextEncoder();
+  const keyMaterial=await crypto.subtle.importKey('raw',enc.encode(password),{name:'PBKDF2'},false,['deriveKey']);
+  return crypto.subtle.deriveKey({name:'PBKDF2',salt,iterations:100000,hash:'SHA-256'},keyMaterial,{name:'AES-GCM',length:256},false,['encrypt','decrypt']);
+}
+
+function exportKeys(){
+  const keys=getKeys();
+  if(!keys.length){flash('No keys to export');return;}
+  document.getElementById('exportModal').classList.add('active');
+  document.getElementById('exportPass').value='';
+  document.getElementById('exportPass').focus();
+}
+
+async function doExport(){
+  const pass=document.getElementById('exportPass').value;
+  if(!pass){flash('Password required');return;}
+  const keys=getKeys();
+  const salt=crypto.getRandomValues(new Uint8Array(16));
+  const iv=crypto.getRandomValues(new Uint8Array(12));
+  const key=await deriveKey(pass,salt);
+  const enc=new TextEncoder();
+  const encrypted=await crypto.subtle.encrypt({name:'AES-GCM',iv},key,enc.encode(JSON.stringify(keys)));
+  const data={salt:Array.from(salt),iv:Array.from(iv),data:Array.from(new Uint8Array(encrypted)),v:1};
+  const blob=new Blob([JSON.stringify(data)],{type:'application/json'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');a.href=url;a.download='api-keys-encrypted.json';a.click();
+  URL.revokeObjectURL(url);
+  document.getElementById('exportModal').classList.remove('active');
+  flash('Encrypted export downloaded!');
+}
+
+function importKeys(e){
+  const file=e.target.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=function(ev){
+    try{
+      pendingImportData=JSON.parse(ev.target.result);
+      if(!pendingImportData.v||!pendingImportData.salt){
+        const plain=pendingImportData;
+        if(Array.isArray(plain)){
+          const keys=getKeys();
+          keys.push(...plain);
+          saveKeys(keys);renderKeys();
+          flash('Imported '+plain.length+' keys');
+        }else{flash('Invalid file format');}
+        return;
+      }
+      document.getElementById('importModal').classList.add('active');
+      document.getElementById('importPass').value='';
+      document.getElementById('importPass').focus();
+    }catch(err){flash('Invalid file');}
+  };
+  reader.readAsText(file);
+  e.target.value='';
+}
+
+async function doImport(){
+  const pass=document.getElementById('importPass').value;
+  if(!pass){flash('Password required');return;}
+  try{
+    const d=pendingImportData;
+    const salt=new Uint8Array(d.salt);
+    const iv=new Uint8Array(d.iv);
+    const encrypted=new Uint8Array(d.data);
+    const key=await deriveKey(pass,salt);
+    const decrypted=await crypto.subtle.decrypt({name:'AES-GCM',iv},key,encrypted);
+    const dec=new TextDecoder();
+    const imported=JSON.parse(dec.decode(decrypted));
+    const keys=getKeys();
+    keys.push(...imported);
+    saveKeys(keys);renderKeys();
+    document.getElementById('importModal').classList.remove('active');
+    flash('Imported '+imported.length+' keys!');
+  }catch(err){flash('Wrong password or corrupt file');}
+}
+
+function flash(msg){
+  const d=document.createElement('div');
+  d.style.cssText='position:fixed;top:20px;right:20px;background:#ff5f1f;color:#fff;padding:.8rem 1.5rem;border-radius:8px;font-weight:600;z-index:9999;animation:fadeOut 2s forwards';
+  d.textContent=msg;document.body.appendChild(d);
+  setTimeout(()=>d.remove(),2200);
+}
+
+const style=document.createElement('style');
+style.textContent='@keyframes fadeOut{0%{opacity:1}70%{opacity:1}100%{opacity:0}}';
+document.head.appendChild(style);
+
+renderKeys();
+</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>

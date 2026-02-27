@@ -3,398 +3,376 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Changelog Generator - Keep a Changelog Standard | SPUNK.CODES Exclusive</title>
-<meta name="description" content="Generate beautiful changelogs following Keep a Changelog standard. Semantic versioning helper, markdown output. Exclusive premium tool.">
-<meta name="robots" content="noindex, nofollow">
-<meta property="og:title" content="Changelog Generator - SPUNK.CODES Exclusive">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:site" content="@SpunkArt13">
-<link rel="canonical" href="https://spunk.codes/exclusive/changelog-generator">
+<title>Changelog Generator — Free Release Notes Builder | SPUNK.CODES</title>
+<meta name="description" content="Generate changelogs following Keep a Changelog format. Add entries, auto-group by version and type, export as Markdown. Free browser tool.">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP')</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w")</script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--bg:#0d1117;--card:rgba(22,27,34,0.8);--border:rgba(48,54,61,0.6);--gold:#ffd700;--gold-border:rgba(255,215,0,0.3);--text:#e6edf3;--text-dim:#8b949e;--blue:#58a6ff;--cyan:#39d353;--red:#f85149;--orange:#ff8c00;--font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
-body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
-a{color:var(--blue);text-decoration:none}
-.bg-mesh{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 80% 50% at 20% 20%,rgba(255,215,0,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(255,140,0,0.04) 0%,transparent 60%),var(--bg)}
-.bg-grid{position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,215,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,215,0,0.03) 1px,transparent 1px);background-size:60px 60px}
-.nav{position:sticky;top:0;z-index:100;background:rgba(13,17,23,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,215,0,0.15);padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}
-.nav-brand{font-weight:800;font-size:1.1rem;color:var(--gold);letter-spacing:0.08em}
-.nav-links{display:flex;gap:1.5rem;font-size:0.85rem}.nav-links a{color:var(--text-dim);font-weight:500}.nav-links a.active{color:var(--gold)}
-.lock-gate{position:fixed;inset:0;z-index:1000;background:rgba(13,17,23,0.97);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:2rem}
-.lock-gate.hidden{display:none}
-.lock-icon-big{font-size:4rem}.lock-gate h2{font-size:1.8rem;font-weight:800;text-align:center}.lock-gate h2 span{color:var(--gold)}.lock-gate p{color:var(--text-dim);text-align:center;max-width:400px}
-.code-input-wrap{display:flex;gap:0.5rem}
-.code-input{padding:0.8rem 1.5rem;background:rgba(22,27,34,0.8);border:2px solid var(--gold-border);border-radius:12px;color:var(--gold);font-size:1.2rem;font-weight:800;letter-spacing:3px;text-align:center;width:200px;outline:none;text-transform:uppercase;font-family:var(--font)}
-.code-input:focus{border-color:var(--gold);box-shadow:0 0 20px rgba(255,215,0,0.2)}
-.code-submit{padding:0.8rem 1.5rem;background:linear-gradient(135deg,#ffd700,#ff8c00);border:none;border-radius:12px;color:#000;font-size:1rem;font-weight:800;cursor:pointer}
-.code-error{color:var(--red);font-size:0.85rem;min-height:1.2em}.lock-hint{color:var(--text-dim);font-size:0.8rem}.lock-hint a{color:var(--gold)}
-.exclusive-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;background:linear-gradient(135deg,rgba(255,215,0,0.15),rgba(255,140,0,0.15));border:1px solid var(--gold-border);border-radius:100px;font-size:11px;font-weight:800;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase}
-.main{max-width:1000px;margin:0 auto;padding:2rem}
-.hero-section{text-align:center;padding:2rem 0 2rem}
-.hero-section h1{font-size:2.2rem;font-weight:800;margin:1rem 0 0.5rem}
-.hero-section h1 .gold{background:linear-gradient(135deg,#ffd700,#ff8c00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.hero-section p{color:var(--text-dim);max-width:600px;margin:0 auto}
-.card{background:var(--card);border:1px solid var(--gold-border);border-radius:16px;padding:1.5rem;margin-bottom:1.5rem;backdrop-filter:blur(10px);position:relative;overflow:hidden}
-.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),#ff8c00,var(--gold))}
-.card h2{font-size:1.1rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}
-.form-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:0.75rem;margin-bottom:0.75rem}
-.form-group{display:flex;flex-direction:column;gap:0.3rem}
-.form-group label{font-size:0.75rem;color:var(--text-dim);font-weight:600;text-transform:uppercase;letter-spacing:0.5px}
-.form-group input,.form-group select,.form-group textarea{padding:0.6rem 0.8rem;background:rgba(22,27,34,0.9);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.85rem;font-family:var(--font);outline:none}
-.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--gold)}
-.form-group textarea{resize:vertical;min-height:50px}
-.btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;transition:all 0.2s}
-.btn-gold{background:linear-gradient(135deg,#ffd700,#ff8c00);color:#000}
-.btn-gold:hover{transform:translateY(-1px);box-shadow:0 4px 15px rgba(255,215,0,0.3)}
-.btn-outline{background:transparent;border:1px solid var(--gold-border);color:var(--gold)}
-.btn-outline:hover{background:rgba(255,215,0,0.1)}
-.btn-red{background:rgba(248,81,73,0.15);border:1px solid rgba(248,81,73,0.3);color:var(--red)}
-.btn-sm{padding:0.4rem 0.8rem;font-size:0.75rem}
-.btn-row{display:flex;gap:0.5rem;flex-wrap:wrap}
-.semver-display{display:flex;align-items:center;gap:0.3rem;margin-bottom:1rem}
-.semver-part{padding:0.5rem 1rem;background:rgba(13,17,23,0.6);border:1px solid var(--border);border-radius:8px;text-align:center;min-width:60px}
-.semver-part .num{font-size:1.5rem;font-weight:800;color:var(--gold)}
-.semver-part .label{font-size:0.6rem;color:var(--text-dim);text-transform:uppercase}
-.semver-dot{font-size:1.5rem;color:var(--text-dim);font-weight:800}
-.bump-btns{display:flex;gap:0.5rem;margin-bottom:1rem}
-.bump-btn{padding:0.5rem 1rem;border-radius:8px;font-size:0.75rem;font-weight:700;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--text-dim)}
-.bump-btn:hover{border-color:var(--gold);color:var(--gold);background:rgba(255,215,0,0.05)}
-.type-badge{display:inline-block;padding:2px 10px;border-radius:4px;font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.5px}
-.type-Added{background:rgba(57,211,83,0.15);color:var(--cyan)}
-.type-Changed{background:rgba(255,215,0,0.15);color:var(--gold)}
-.type-Deprecated{background:rgba(255,140,0,0.15);color:var(--orange)}
-.type-Removed{background:rgba(248,81,73,0.15);color:var(--red)}
-.type-Fixed{background:rgba(88,166,255,0.15);color:var(--blue)}
-.type-Security{background:rgba(248,81,73,0.2);color:#ff6b6b}
-.version-section{background:rgba(13,17,23,0.6);border:1px solid var(--border);border-radius:12px;padding:1rem;margin-bottom:0.75rem}
-.version-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem;cursor:pointer}
-.version-header h3{font-size:1rem;color:var(--gold)}
-.version-header .date{font-size:0.8rem;color:var(--text-dim)}
-.entry-item{display:flex;align-items:flex-start;gap:0.5rem;padding:0.4rem 0;font-size:0.85rem}
-.entry-item .bullet{color:var(--gold);font-weight:700}
-.entry-actions{display:flex;gap:0.3rem;margin-left:auto;flex-shrink:0}
-.md-output{background:#161b22;border:1px solid var(--border);border-radius:8px;padding:1rem;font-family:'Courier New',monospace;font-size:0.8rem;line-height:1.5;overflow:auto;white-space:pre-wrap;max-height:400px;position:relative}
-.md-output .copy-btn{position:absolute;top:0.5rem;right:0.5rem;padding:0.3rem 0.6rem;background:rgba(255,215,0,0.15);border:1px solid var(--gold-border);border-radius:6px;color:var(--gold);font-size:0.65rem;cursor:pointer;font-weight:700}
-.preview-section{background:#fff;border-radius:8px;padding:1.5rem;color:#1a1a2e;max-height:500px;overflow:auto}
-.preview-section h1{font-size:1.6rem;color:#1a1a2e;margin-bottom:1rem}
-.preview-section h2{font-size:1.2rem;color:#333;margin:1rem 0 0.5rem;padding-bottom:0.3rem;border-bottom:2px solid #eee}
-.preview-section h3{font-size:0.95rem;color:#555;margin:0.5rem 0 0.3rem}
-.preview-section ul{padding-left:1.5rem;margin-bottom:0.5rem}
-.preview-section li{font-size:0.85rem;color:#444;margin-bottom:0.2rem}
-.share-cta{background:linear-gradient(135deg,rgba(255,215,0,0.08),rgba(255,140,0,0.05));border:1px solid var(--gold-border);border-radius:16px;padding:2rem;text-align:center;margin-top:2rem}
-.share-cta h3{color:var(--gold);margin-bottom:0.5rem}.share-cta p{color:var(--text-dim);font-size:0.9rem;margin-bottom:1rem}
-.share-btns{display:flex;gap:0.6rem;justify-content:center;flex-wrap:wrap}
-.share-btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;color:#fff}
-.share-x{background:#000;border:1px solid #333}.share-reddit{background:#ff4500}.share-email{background:#21262d;border:1px solid #30363d}
-.footer{text-align:center;padding:2rem;border-top:1px solid rgba(255,215,0,0.1);color:var(--text-dim);font-size:0.75rem;margin-top:3rem}
-.footer a{color:var(--gold)}.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-bottom:1rem}
-.watermark{position:fixed;bottom:10px;right:10px;font-size:0.6rem;color:rgba(255,215,0,0.08);font-weight:800;pointer-events:none;z-index:9999;letter-spacing:1px;text-transform:uppercase}
-@media(max-width:768px){.main{padding:1rem}.hero-section h1{font-size:1.6rem}.nav-links{display:none}.form-row{grid-template-columns:1fr}}
+body{background:#0a0a0f;color:#e8e8f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+header{background:#111118;border-bottom:2px solid #ff5f1f;padding:1rem 2rem;text-align:center}
+header h1{font-size:1.6rem;color:#ff5f1f}
+header p{color:#999;font-size:.9rem;margin-top:.3rem}
+.container{max-width:1100px;margin:0 auto;padding:1.5rem;flex:1;width:100%}
+.section{background:#111118;border:1px solid #1e1e2e;border-radius:10px;padding:1.5rem;margin-bottom:1.5rem}
+.section h2{color:#ff5f1f;font-size:1.2rem;margin-bottom:1rem;display:flex;align-items:center;justify-content:space-between}
+label{display:block;color:#bbb;font-size:.85rem;margin-bottom:.3rem}
+input,select,textarea{background:#0a0a0f;color:#e8e8f0;border:1px solid #2a2a3a;border-radius:6px;padding:.5rem .7rem;font-size:.9rem;width:100%}
+input:focus,select:focus,textarea:focus{outline:none;border-color:#ff5f1f}
+textarea{font-family:monospace;resize:vertical;min-height:100px}
+.btn{background:#ff5f1f;color:#fff;border:none;padding:.55rem 1.1rem;border-radius:6px;cursor:pointer;font-size:.9rem;font-weight:600;transition:background .2s}
+.btn:hover{background:#e54e10}
+.btn-sm{padding:.35rem .7rem;font-size:.8rem}
+.btn-outline{background:transparent;border:1px solid #ff5f1f;color:#ff5f1f}
+.btn-outline:hover{background:#ff5f1f;color:#fff}
+.btn-danger{background:#c0392b}.btn-danger:hover{background:#a93226}
+.form-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;margin-bottom:1rem}
+.form-grid .full{grid-column:1/-1}
+.type-badge{display:inline-block;padding:.2rem .6rem;border-radius:4px;font-size:.75rem;font-weight:700;text-transform:uppercase}
+.type-Added{background:#1a3a1a;color:#2ecc71}
+.type-Changed{background:#2a2a1a;color:#f1c40f}
+.type-Fixed{background:#1a2a3a;color:#3498db}
+.type-Removed{background:#3a1a1a;color:#e74c3c}
+.type-Security{background:#3a2a1a;color:#e67e22}
+.type-Deprecated{background:#2a1a2a;color:#9b59b6}
+.version-block{margin-bottom:1.5rem}
+.version-header{font-size:1.2rem;font-weight:700;color:#ff5f1f;padding-bottom:.5rem;border-bottom:1px solid #2a2a3a;margin-bottom:.8rem;display:flex;align-items:center;justify-content:space-between}
+.version-date{color:#666;font-size:.85rem;font-weight:400}
+.type-group{margin-bottom:.8rem}
+.type-group-header{color:#bbb;font-weight:600;font-size:.95rem;margin-bottom:.4rem}
+.entry-item{display:flex;align-items:flex-start;gap:.5rem;padding:.4rem 0;border-bottom:1px solid #1a1a2a}
+.entry-item:last-child{border-bottom:none}
+.entry-text{flex:1;color:#ccc;font-size:.9rem}
+.entry-actions{display:flex;gap:.3rem;flex-shrink:0}
+.panels{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+.panel{display:flex;flex-direction:column}
+.md-output{background:#0a0a0f;border:1px solid #2a2a3a;border-radius:6px;padding:1rem;font-family:monospace;font-size:.85rem;white-space:pre-wrap;word-break:break-word;flex:1;min-height:300px;overflow-y:auto;color:#ccc;line-height:1.6}
+.top-actions{display:flex;gap:.5rem;margin-bottom:1rem;flex-wrap:wrap}
+.empty{text-align:center;color:#555;padding:2rem;font-size:1rem}
+.count-badge{background:#ff5f1f;color:#fff;padding:.2rem .6rem;border-radius:12px;font-size:.8rem;font-weight:700}
+.project-bar{display:flex;gap:.8rem;align-items:center;margin-bottom:1rem;flex-wrap:wrap}
+.project-bar input{max-width:300px}
+footer{background:#111118;border-top:1px solid #1e1e2e;text-align:center;padding:1.2rem;color:#666;font-size:.8rem}
+footer a{color:#ff5f1f;margin:0 .3rem}
+@media(max-width:768px){
+  header h1{font-size:1.2rem}
+  .container{padding:1rem}
+  .form-grid{grid-template-columns:1fr}
+  .panels{grid-template-columns:1fr}
+  .project-bar{flex-direction:column}
+  .project-bar input{max-width:100%}
+}
 </style>
 </head>
 <body>
-<div class="bg-mesh"></div><div class="bg-grid"></div>
-<div class="lock-gate" id="lockGate"><div class="lock-icon-big">&#128274;</div><h2>Enter Code <span>SPUNK</span> to Unlock</h2><p>This exclusive premium tool requires the SPUNK referral code.</p><div class="code-input-wrap"><input type="text" class="code-input" id="codeInput" placeholder="CODE" maxlength="10" autocomplete="off"><button class="code-submit" onclick="submitCode()">Unlock</button></div><div class="code-error" id="codeError"></div><div class="lock-hint">Get the code at <a href="https://spunk.codes/exclusive-tools">spunk.codes/exclusive-tools</a></div></div>
-<nav class="nav"><a href="https://spunk.codes" class="nav-brand">SPUNK.CODES</a><div class="nav-links"><a href="/store">Tools</a><a href="/exclusive-tools" class="active">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a></div></nav>
-
-<div class="main">
-  <section class="hero-section">
-    <div class="exclusive-badge">&#128081; EXCLUSIVE TOOL</div>
-    <h1><span class="gold">Changelog</span> Generator</h1>
-    <p>Generate professional changelogs following the Keep a Changelog standard with semantic versioning support.</p>
-  </section>
-
-  <div class="card">
-    <h2>&#128200; Semantic Version</h2>
-    <div class="semver-display">
-      <div class="semver-part"><div class="num" id="svMajor">1</div><div class="label">Major</div></div>
-      <span class="semver-dot">.</span>
-      <div class="semver-part"><div class="num" id="svMinor">0</div><div class="label">Minor</div></div>
-      <span class="semver-dot">.</span>
-      <div class="semver-part"><div class="num" id="svPatch">0</div><div class="label">Patch</div></div>
-    </div>
-    <div class="bump-btns">
-      <button class="bump-btn" onclick="bumpVersion('major')">Bump Major (breaking changes)</button>
-      <button class="bump-btn" onclick="bumpVersion('minor')">Bump Minor (new features)</button>
-      <button class="bump-btn" onclick="bumpVersion('patch')">Bump Patch (bug fixes)</button>
-    </div>
-    <div class="form-row">
-      <div class="form-group"><label>Custom Version</label><input type="text" id="customVersion" placeholder="1.2.3"></div>
-      <div class="form-group" style="justify-content:flex-end"><button class="btn btn-outline btn-sm" onclick="setCustomVersion()">Set Version</button></div>
+<header>
+<h1>Changelog Generator</h1>
+<p>Build release notes following Keep a Changelog format. Free, browser-based, instant Markdown.</p>
+</header>
+<div class="container">
+  <div class="section">
+    <h2>Project Info</h2>
+    <div class="project-bar">
+      <input type="text" id="projectName" placeholder="Project name (optional)" value="">
+      <input type="text" id="repoUrl" placeholder="Repository URL (optional)" value="">
     </div>
   </div>
 
-  <div class="card">
-    <h2>&#10010; Add Entry</h2>
-    <div class="form-row">
-      <div class="form-group"><label>Type</label>
+  <div class="section">
+    <h2>Add Entry</h2>
+    <div class="form-grid">
+      <div>
+        <label for="entryVersion">Version</label>
+        <input type="text" id="entryVersion" placeholder="e.g. 1.2.0" list="versionSuggestions">
+        <datalist id="versionSuggestions"></datalist>
+      </div>
+      <div>
+        <label for="entryDate">Date</label>
+        <input type="date" id="entryDate">
+      </div>
+      <div>
+        <label for="entryType">Type</label>
         <select id="entryType">
-          <option value="Added">Added</option><option value="Changed">Changed</option><option value="Fixed">Fixed</option>
-          <option value="Removed">Removed</option><option value="Deprecated">Deprecated</option><option value="Security">Security</option>
+          <option value="Added">Added</option>
+          <option value="Changed">Changed</option>
+          <option value="Fixed">Fixed</option>
+          <option value="Removed">Removed</option>
+          <option value="Security">Security</option>
+          <option value="Deprecated">Deprecated</option>
         </select>
       </div>
-      <div class="form-group"><label>Version</label><input type="text" id="entryVersion" placeholder="auto" readonly></div>
-      <div class="form-group"><label>Date</label><input type="date" id="entryDate"></div>
+      <div class="full">
+        <label for="entryDesc">Description</label>
+        <input type="text" id="entryDesc" placeholder="What changed? Be specific.">
+      </div>
     </div>
-    <div class="form-group"><label>Description</label><textarea id="entryDesc" placeholder="What changed?" rows="2"></textarea></div>
-    <div class="btn-row" style="margin-top:0.75rem">
-      <button class="btn btn-gold" onclick="addEntry()">Add Entry</button>
-      <button class="btn btn-outline" onclick="addEntry();bumpVersion('patch')">Add & Bump Patch</button>
+    <button class="btn" onclick="addEntry()">Add Entry</button>
+  </div>
+
+  <div class="section">
+    <h2>Changelog <span class="count-badge" id="entryCount">0</span></h2>
+    <div class="panels">
+      <div class="panel">
+        <h3 style="color:#bbb;font-size:.95rem;margin-bottom:.8rem">Visual Preview</h3>
+        <div id="visualPreview"></div>
+      </div>
+      <div class="panel">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.8rem">
+          <h3 style="color:#bbb;font-size:.95rem">Markdown Output</h3>
+          <div style="display:flex;gap:.4rem">
+            <button class="btn btn-sm" onclick="copyMarkdown()">Copy</button>
+            <button class="btn btn-sm btn-outline" onclick="downloadMarkdown()">Download</button>
+          </div>
+        </div>
+        <div class="md-output" id="markdownOutput"></div>
+      </div>
     </div>
   </div>
 
-  <div class="card">
-    <h2>&#128203; Changelog History</h2>
-    <div id="changelogView">
-      <p style="color:var(--text-dim);font-size:0.85rem">No entries yet. Add your first changelog entry above.</p>
-    </div>
-  </div>
-
-  <div class="card">
-    <h2>&#128196; Markdown Output</h2>
-    <div class="btn-row" style="margin-bottom:0.75rem;margin-top:0">
-      <button class="btn btn-gold btn-sm" onclick="generateMarkdown()">Generate</button>
-      <button class="btn btn-outline btn-sm" onclick="copyMarkdown()">Copy</button>
-      <button class="btn btn-outline btn-sm" onclick="downloadMarkdown()">Download CHANGELOG.md</button>
-    </div>
-    <div class="md-output" id="mdOutput"><button class="copy-btn" onclick="copyMarkdown()">Copy</button>Click "Generate" to see markdown output</div>
-  </div>
-
-  <div class="card">
-    <h2>&#127912; Preview</h2>
-    <button class="btn btn-gold btn-sm" onclick="generatePreview()" style="margin-bottom:0.75rem">Generate Preview</button>
-    <div class="preview-section" id="previewSection" style="display:none"></div>
-  </div>
-
-  <div class="share-cta">
-    <h3>&#128275; Share the Code, Unlock More Tools</h3>
-    <p>Share code SPUNK to help others access 15+ exclusive premium tools.</p>
-    <div class="share-btns">
-      <button class="share-btn share-x" onclick="shareX()">&#120143; Share on X</button>
-      <button class="share-btn share-reddit" onclick="shareReddit()">&#128172; Reddit</button>
-      <button class="share-btn share-email" onclick="shareEmail()">&#9993; Email</button>
-    </div>
+  <div class="section">
+    <h2>Manage <span style="display:flex;gap:.4rem"><button class="btn btn-sm btn-outline" onclick="exportData()">Export</button><button class="btn btn-sm btn-outline" onclick="document.getElementById('importFile').click()">Import</button><button class="btn btn-sm btn-danger" onclick="clearAll()">Clear All</button></span></h2>
+    <input type="file" id="importFile" style="display:none" accept=".json" onchange="importData(event)">
+    <p style="color:#666;font-size:.85rem">Your changelog is auto-saved to localStorage.</p>
   </div>
 </div>
-
-<footer class="footer"><div class="footer-links"><a href="https://spunk.codes">Home</a><a href="/store">Tools</a><a href="/exclusive-tools">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a><a href="https://twitter.com/SpunkArt13" target="_blank">@SpunkArt13</a></div><div>&copy; 2026 SPUNK.CODES EXCLUSIVE.</div></footer>
-<div class="watermark">SPUNK.CODES EXCLUSIVE</div>
-
+<footer>
+  <a href="https://spunk.codes">spunk.codes</a> · <a href="https://spunk.bet">spunk.bet</a> · <a href="https://spunk.pics">spunk.pics</a> · <a href="https://spunk.work">spunk.work</a> · <a href="https://spunkart.com">SpunkArt.com</a>
+</footer>
 <script>
-document.addEventListener('contextmenu',function(e){e.preventDefault()});
-document.addEventListener('keydown',function(e){if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'||e.key==='C'))||(e.ctrlKey&&e.key==='u'))e.preventDefault()});
-function checkCode(){try{var c=localStorage.getItem('spunk_referral_code')||localStorage.getItem('spunk_ref_code')||'';if(c.toUpperCase()==='SPUNK'){document.getElementById('lockGate').classList.add('hidden');return true}}catch(e){}return false}
-function submitCode(){var v=document.getElementById('codeInput').value.trim().toUpperCase();if(v==='SPUNK'){try{localStorage.setItem('spunk_referral_code','SPUNK');localStorage.setItem('spunk_ref_code','SPUNK')}catch(e){}document.getElementById('lockGate').classList.add('hidden')}else{document.getElementById('codeError').textContent='Invalid code. Try: SPUNK';setTimeout(function(){document.getElementById('codeError').textContent=''},2000)}}
-document.getElementById('codeInput').addEventListener('keydown',function(e){if(e.key==='Enter')submitCode()});
-checkCode();
+const LS_KEY='clg_entries';
+const LS_PROJECT='clg_project';
+const typeOrder=['Added','Changed','Deprecated','Removed','Fixed','Security'];
 
-var version = {major:1,minor:0,patch:0};
-var entries = [];
-var projectName = 'My Project';
+function getEntries(){return JSON.parse(localStorage.getItem(LS_KEY)||'[]');}
+function saveEntries(e){localStorage.setItem(LS_KEY,JSON.stringify(e));}
 
-function loadState(){
-  try{
-    var d=JSON.parse(localStorage.getItem('changelog_data')||'{}');
-    if(d.version) version=d.version;
-    if(d.entries) entries=d.entries;
-    if(d.projectName) projectName=d.projectName;
-  }catch(e){}
+function loadProject(){
+  const p=JSON.parse(localStorage.getItem(LS_PROJECT)||'{}');
+  if(p.name)document.getElementById('projectName').value=p.name;
+  if(p.repo)document.getElementById('repoUrl').value=p.repo;
 }
 
-function saveState(){
-  try{localStorage.setItem('changelog_data',JSON.stringify({version:version,entries:entries,projectName:projectName}))}catch(e){}
+function saveProject(){
+  localStorage.setItem(LS_PROJECT,JSON.stringify({
+    name:document.getElementById('projectName').value.trim(),
+    repo:document.getElementById('repoUrl').value.trim()
+  }));
 }
 
-function updateVersionDisplay(){
-  document.getElementById('svMajor').textContent=version.major;
-  document.getElementById('svMinor').textContent=version.minor;
-  document.getElementById('svPatch').textContent=version.patch;
-  document.getElementById('entryVersion').value=version.major+'.'+version.minor+'.'+version.patch;
-}
+document.getElementById('projectName').addEventListener('input',saveProject);
+document.getElementById('repoUrl').addEventListener('input',saveProject);
 
-function bumpVersion(type){
-  if(type==='major'){version.major++;version.minor=0;version.patch=0}
-  else if(type==='minor'){version.minor++;version.patch=0}
-  else{version.patch++}
-  updateVersionDisplay();saveState();
-}
-
-function setCustomVersion(){
-  var v=document.getElementById('customVersion').value.trim();
-  var parts=v.split('.');
-  if(parts.length===3){
-    version.major=parseInt(parts[0])||0;
-    version.minor=parseInt(parts[1])||0;
-    version.patch=parseInt(parts[2])||0;
-    updateVersionDisplay();saveState();
-  } else {alert('Enter version as major.minor.patch (e.g., 1.2.3)')}
-}
-
-function getVersionString(){return version.major+'.'+version.minor+'.'+version.patch}
+// Set today as default date
+document.getElementById('entryDate').value=new Date().toISOString().split('T')[0];
 
 function addEntry(){
-  var type=document.getElementById('entryType').value;
-  var desc=document.getElementById('entryDesc').value.trim();
-  var date=document.getElementById('entryDate').value||new Date().toISOString().split('T')[0];
-  if(!desc){alert('Enter a description');return}
-  entries.push({version:getVersionString(),type:type,desc:desc,date:date,id:Date.now()});
+  const version=document.getElementById('entryVersion').value.trim();
+  const date=document.getElementById('entryDate').value;
+  const type=document.getElementById('entryType').value;
+  const desc=document.getElementById('entryDesc').value.trim();
+  if(!version){flash('Version is required');return;}
+  if(!desc){flash('Description is required');return;}
+  const entries=getEntries();
+  entries.push({id:Date.now().toString(36)+Math.random().toString(36).slice(2,5),version,date:date||new Date().toISOString().split('T')[0],type,desc});
+  saveEntries(entries);
   document.getElementById('entryDesc').value='';
-  saveState();renderChangelog();
+  render();
+  flash('Entry added!');
 }
 
 function deleteEntry(id){
-  entries=entries.filter(function(e){return e.id!==id});
-  saveState();renderChangelog();
+  const entries=getEntries().filter(e=>e.id!==id);
+  saveEntries(entries);render();
 }
 
-function renderChangelog(){
-  if(entries.length===0){
-    document.getElementById('changelogView').innerHTML='<p style="color:var(--text-dim);font-size:0.85rem">No entries yet.</p>';
-    return;
-  }
-  // Group by version
-  var versions={};
-  entries.forEach(function(e){
-    if(!versions[e.version]) versions[e.version]={date:e.date,entries:[]};
-    versions[e.version].entries.push(e);
-    if(e.date>versions[e.version].date) versions[e.version].date=e.date;
-  });
+function editEntry(id){
+  const entries=getEntries();
+  const entry=entries.find(e=>e.id===id);
+  if(!entry)return;
+  const newDesc=prompt('Edit description:',entry.desc);
+  if(newDesc===null)return;
+  entry.desc=newDesc.trim();
+  saveEntries(entries);render();
+}
 
-  // Sort versions (newest first)
-  var sortedVersions=Object.keys(versions).sort(function(a,b){
-    var pa=a.split('.').map(Number),pb=b.split('.').map(Number);
-    for(var i=0;i<3;i++){if(pa[i]!==pb[i])return pb[i]-pa[i]}return 0;
+function groupEntries(entries){
+  const versions={};
+  entries.forEach(e=>{
+    if(!versions[e.version])versions[e.version]={date:e.date,types:{}};
+    if(e.date>versions[e.version].date)versions[e.version].date=e.date;
+    if(!versions[e.version].types[e.type])versions[e.version].types[e.type]=[];
+    versions[e.version].types[e.type].push(e);
   });
+  return Object.entries(versions).sort((a,b)=>{
+    const va=a[0].split('.').map(Number);
+    const vb=b[0].split('.').map(Number);
+    for(let i=0;i<3;i++){
+      if((vb[i]||0)!==(va[i]||0))return(vb[i]||0)-(va[i]||0);
+    }
+    return b[1].date.localeCompare(a[1].date);
+  });
+}
 
-  var html='';
-  sortedVersions.forEach(function(v){
-    var vd=versions[v];
-    html+='<div class="version-section"><div class="version-header"><h3>['+v+']</h3><span class="date">'+vd.date+'</span></div>';
-    // Group by type
-    var types={};
-    var typeOrder=['Added','Changed','Deprecated','Removed','Fixed','Security'];
-    vd.entries.forEach(function(e){
-      if(!types[e.type]) types[e.type]=[];
-      types[e.type].push(e);
-    });
-    typeOrder.forEach(function(t){
-      if(!types[t]) return;
-      html+='<div style="margin-bottom:0.5rem"><span class="type-badge type-'+t+'">'+t+'</span></div>';
-      types[t].forEach(function(e){
-        html+='<div class="entry-item"><span class="bullet">-</span><span>'+escapeHtml(e.desc)+'</span><div class="entry-actions"><button class="btn btn-red btn-sm" onclick="deleteEntry('+e.id+')">X</button></div></div>';
+function render(){
+  const entries=getEntries();
+  document.getElementById('entryCount').textContent=entries.length;
+  updateSuggestions(entries);
+  renderVisual(entries);
+  renderMarkdown(entries);
+}
+
+function updateSuggestions(entries){
+  const versions=[...new Set(entries.map(e=>e.version))];
+  const dl=document.getElementById('versionSuggestions');
+  dl.innerHTML='';
+  versions.forEach(v=>{const o=document.createElement('option');o.value=v;dl.appendChild(o);});
+}
+
+function renderVisual(entries){
+  const c=document.getElementById('visualPreview');
+  if(!entries.length){c.innerHTML='<div class="empty">No entries yet. Add your first changelog entry above.</div>';return;}
+  const grouped=groupEntries(entries);
+  c.innerHTML='';
+  grouped.forEach(([version,data])=>{
+    const block=document.createElement('div');
+    block.className='version-block';
+    let html=`<div class="version-header"><span>v${escH(version)}</span><span class="version-date">${data.date}</span></div>`;
+    typeOrder.forEach(type=>{
+      if(!data.types[type])return;
+      html+=`<div class="type-group"><div class="type-group-header"><span class="type-badge type-${type}">${type}</span></div>`;
+      data.types[type].forEach(e=>{
+        html+=`<div class="entry-item">
+          <span class="entry-text">${escH(e.desc)}</span>
+          <div class="entry-actions">
+            <button class="btn btn-sm btn-outline" onclick="editEntry('${e.id}')" title="Edit">&#9998;</button>
+            <button class="btn btn-sm btn-danger" onclick="deleteEntry('${e.id}')" title="Delete">&#10005;</button>
+          </div>
+        </div>`;
       });
+      html+=`</div>`;
     });
-    html+='</div>';
+    // Handle types not in standard order
+    Object.keys(data.types).forEach(type=>{
+      if(typeOrder.includes(type))return;
+      html+=`<div class="type-group"><div class="type-group-header"><span class="type-badge">${escH(type)}</span></div>`;
+      data.types[type].forEach(e=>{
+        html+=`<div class="entry-item"><span class="entry-text">${escH(e.desc)}</span>
+          <div class="entry-actions"><button class="btn btn-sm btn-outline" onclick="editEntry('${e.id}')">&#9998;</button><button class="btn btn-sm btn-danger" onclick="deleteEntry('${e.id}')">&#10005;</button></div></div>`;
+      });
+      html+=`</div>`;
+    });
+    block.innerHTML=html;
+    c.appendChild(block);
   });
-  document.getElementById('changelogView').innerHTML=html;
 }
 
-function generateMarkdown(){
-  if(entries.length===0){document.getElementById('mdOutput').innerHTML='<button class="copy-btn" onclick="copyMarkdown()">Copy</button>No entries to generate.';return}
-  var versions={};
-  entries.forEach(function(e){
-    if(!versions[e.version]) versions[e.version]={date:e.date,entries:[]};
-    versions[e.version].entries.push(e);
-    if(e.date>versions[e.version].date) versions[e.version].date=e.date;
-  });
-  var sortedVersions=Object.keys(versions).sort(function(a,b){
-    var pa=a.split('.').map(Number),pb=b.split('.').map(Number);
-    for(var i=0;i<3;i++){if(pa[i]!==pb[i])return pb[i]-pa[i]}return 0;
-  });
-
-  var md='# Changelog\n\nAll notable changes to this project will be documented in this file.\n\nThe format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),\nand this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).\n\n';
-
-  sortedVersions.forEach(function(v){
-    var vd=versions[v];
-    md+='## ['+v+'] - '+vd.date+'\n\n';
-    var types={};
-    var typeOrder=['Added','Changed','Deprecated','Removed','Fixed','Security'];
-    vd.entries.forEach(function(e){if(!types[e.type])types[e.type]=[];types[e.type].push(e)});
-    typeOrder.forEach(function(t){
-      if(!types[t])return;
-      md+='### '+t+'\n\n';
-      types[t].forEach(function(e){md+='- '+e.desc+'\n'});
-      md+='\n';
+function renderMarkdown(entries){
+  const c=document.getElementById('markdownOutput');
+  if(!entries.length){c.textContent='No entries yet.';return;}
+  const projectName=document.getElementById('projectName').value.trim();
+  const repoUrl=document.getElementById('repoUrl').value.trim();
+  let md=`# Changelog\n\n`;
+  if(projectName)md+=`## ${projectName}\n\n`;
+  md+=`All notable changes to this project will be documented in this file.\n\n`;
+  md+=`The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),\nand this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).\n\n`;
+  const grouped=groupEntries(entries);
+  grouped.forEach(([version,data])=>{
+    if(repoUrl){
+      md+=`## [${version}](${repoUrl}) - ${data.date}\n\n`;
+    }else{
+      md+=`## [${version}] - ${data.date}\n\n`;
+    }
+    typeOrder.forEach(type=>{
+      if(!data.types[type])return;
+      md+=`### ${type}\n\n`;
+      data.types[type].forEach(e=>{md+=`- ${e.desc}\n`;});
+      md+=`\n`;
+    });
+    Object.keys(data.types).forEach(type=>{
+      if(typeOrder.includes(type))return;
+      md+=`### ${type}\n\n`;
+      data.types[type].forEach(e=>{md+=`- ${e.desc}\n`;});
+      md+=`\n`;
     });
   });
+  c.textContent=md;
+}
 
-  document.getElementById('mdOutput').innerHTML='<button class="copy-btn" onclick="copyMarkdown()">Copy</button>'+escapeHtml(md);
+function getMarkdown(){
+  return document.getElementById('markdownOutput').textContent;
 }
 
 function copyMarkdown(){
-  var text=document.getElementById('mdOutput').textContent;
-  navigator.clipboard.writeText(text).then(function(){alert('Copied!')});
+  const md=getMarkdown();
+  if(!md||md==='No entries yet.'){flash('Nothing to copy');return;}
+  navigator.clipboard.writeText(md).then(()=>flash('Markdown copied!'));
 }
 
 function downloadMarkdown(){
-  generateMarkdown();
-  var text=document.getElementById('mdOutput').textContent;
-  var blob=new Blob([text],{type:'text/markdown'});
-  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='CHANGELOG.md';a.click();
+  const md=getMarkdown();
+  if(!md||md==='No entries yet.'){flash('Nothing to download');return;}
+  const blob=new Blob([md],{type:'text/markdown'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');a.href=url;a.download='CHANGELOG.md';a.click();
+  URL.revokeObjectURL(url);
+  flash('Downloaded CHANGELOG.md');
 }
 
-function generatePreview(){
-  generateMarkdown();
-  var md=document.getElementById('mdOutput').textContent;
-  // Simple markdown to HTML
-  var html=md.replace(/^### (.+)$/gm,'<h3>$1</h3>')
-    .replace(/^## (.+)$/gm,'<h2>$1</h2>')
-    .replace(/^# (.+)$/gm,'<h1>$1</h1>')
-    .replace(/\[([^\]]+)\]\(([^)]+)\)/g,'<a href="$2" style="color:#007bff">$1</a>')
-    .replace(/^- (.+)$/gm,'<li>$1</li>')
-    .replace(/(<li>[\s\S]*?<\/li>)/g,'<ul>$1</ul>')
-    .replace(/<\/ul>\s*<ul>/g,'')
-    .replace(/\n\n/g,'<br>');
-  document.getElementById('previewSection').innerHTML=html;
-  document.getElementById('previewSection').style.display='block';
+function exportData(){
+  const data={entries:getEntries(),project:JSON.parse(localStorage.getItem(LS_PROJECT)||'{}')};
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');a.href=url;a.download='changelog-data.json';a.click();
+  URL.revokeObjectURL(url);
+  flash('Data exported!');
 }
 
-function escapeHtml(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+function importData(e){
+  const file=e.target.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=function(ev){
+    try{
+      const data=JSON.parse(ev.target.result);
+      if(data.entries&&Array.isArray(data.entries)){
+        const existing=getEntries();
+        const merged=[...existing,...data.entries];
+        saveEntries(merged);
+        if(data.project){
+          localStorage.setItem(LS_PROJECT,JSON.stringify(data.project));
+          loadProject();
+        }
+        render();
+        flash('Imported '+data.entries.length+' entries!');
+      }else{flash('Invalid file format');}
+    }catch(err){flash('Failed to parse file');}
+  };
+  reader.readAsText(file);
+  e.target.value='';
+}
 
-// Init
-document.getElementById('entryDate').value=new Date().toISOString().split('T')[0];
-loadState();
-updateVersionDisplay();
-renderChangelog();
+function clearAll(){
+  if(!confirm('Delete all changelog entries?'))return;
+  saveEntries([]);render();flash('All entries cleared');
+}
 
-function shareX(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Generating changelogs with this tool. Keep a Changelog standard. Code SPUNK @SpunkArt13')+'&url='+encodeURIComponent('https://spunk.codes/exclusive-tools'),'_blank')}
-function shareReddit(){window.open('https://www.reddit.com/submit?url='+encodeURIComponent('https://spunk.codes/exclusive-tools')+'&title='+encodeURIComponent('Changelog Generator - free with code SPUNK [spunk.codes]'),'_blank')}
-function shareEmail(){window.location.href='mailto:?subject='+encodeURIComponent('Changelog Generator Tool')+'&body='+encodeURIComponent('Generate changelogs with semantic versioning. Code SPUNK: https://spunk.codes/exclusive-tools')}
+function escH(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+function flash(msg){
+  const d=document.createElement('div');
+  d.style.cssText='position:fixed;top:20px;right:20px;background:#ff5f1f;color:#fff;padding:.8rem 1.5rem;border-radius:8px;font-weight:600;z-index:9999;animation:fadeOut 2s forwards';
+  d.textContent=msg;document.body.appendChild(d);
+  setTimeout(()=>d.remove(),2200);
+}
+
+const style=document.createElement('style');
+style.textContent='@keyframes fadeOut{0%{opacity:1}70%{opacity:1}100%{opacity:0}}';
+document.head.appendChild(style);
+
+loadProject();
+render();
 </script>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
-<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
-<script src="/auto-monetize.js"></script>
-<!-- Share on X Button -->
-<div id="shareXBtn" style="position:fixed;left:20px;bottom:20px;z-index:9999;">
-  <a id="shareXLink" href="#" target="_blank" rel="noopener noreferrer" title="Share on X"
-     style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;
-     background:rgba(88,166,255,0.15);border:1px solid rgba(88,166,255,0.3);
-     backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:50%;
-     text-decoration:none;transition:all 0.3s ease;cursor:pointer;">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
-      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-    </svg>
-  </a>
-</div>
-<style>
-  #shareXBtn a:hover {
-    background: rgba(88,166,255,0.35) !important;
-    border-color: rgba(88,166,255,0.6) !important;
-    transform: scale(1.1);
-    box-shadow: 0 0 15px rgba(88,166,255,0.3);
-  }
-</style>
-<script>
-(function(){
-  var page = location.pathname.split("/").pop() || "index.html";
-  var url = "https://spunk.codes/" + page;
-  var text = "Just used this free tool on spunk.codes — amazing! @SpunkArt13";
-  var href = "https://x.com/intent/tweet?text=" + encodeURIComponent(text) + "&url=" + encodeURIComponent(url);
-  document.getElementById("shareXLink").href = href;
-})();
-</script>
-
-<script src="/usage-tracker.js"></script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
 </body>
 </html>
