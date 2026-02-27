@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KPI Dashboard Builder — Free KPI Tracker | SPUNK.CODES</title>
+<meta name="description" content="Free KPI dashboard builder and tracker. Add KPIs with targets, track progress with visual bars, group by category, log history, and export CSV reports.">
+<meta name="keywords" content="KPI dashboard, KPI tracker, key performance indicators, business metrics, KPI template">
+<link rel="canonical" href="https://spunk.codes/exclusive/kpi-dashboard-builder.html">
+<!-- GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<!-- Clarity -->
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e8e8f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;line-height:1.6;min-height:100vh;display:flex;flex-direction:column}
+a{color:#ff5f1f;text-decoration:none}
+a:hover{text-decoration:underline}
+.container{max-width:1040px;margin:0 auto;padding:20px;flex:1}
+h1{font-size:1.8rem;text-align:center;margin-bottom:8px;color:#ff5f1f}
+.subtitle{text-align:center;color:#888;margin-bottom:28px;font-size:0.95rem}
+.toolbar{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
+.btn{background:#ff5f1f;color:#fff;border:none;border-radius:8px;padding:8px 16px;font-size:0.9rem;font-weight:600;cursor:pointer;transition:all 0.2s;white-space:nowrap}
+.btn:hover{background:#e5520f;transform:translateY(-1px)}
+.btn:active{transform:translateY(0)}
+.btn-secondary{background:#1a1a2e;color:#e8e8f0}
+.btn-secondary:hover{background:#252540}
+.btn-danger{background:#3a1515;color:#ef4444}
+.btn-danger:hover{background:#4a2020}
+.btn-sm{padding:6px 12px;font-size:0.8rem}
+.summary-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:24px}
+.summary-card{background:#12121a;border:1px solid #1a1a2e;border-radius:12px;padding:16px;text-align:center}
+.summary-val{font-size:1.6rem;font-weight:700}
+.summary-label{font-size:0.8rem;color:#888;margin-top:4px}
+.val-green{color:#22c55e}
+.val-yellow{color:#eab308}
+.val-red{color:#ef4444}
+.filter-bar{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
+.filter-btn{padding:6px 14px;border-radius:20px;border:1px solid #2a2a3e;background:transparent;color:#888;cursor:pointer;font-size:0.8rem;transition:all 0.2s}
+.filter-btn.active{border-color:#ff5f1f;color:#ff5f1f;background:rgba(255,95,31,0.1)}
+.filter-btn:hover{border-color:#ff5f1f;color:#ff5f1f}
+.kpi-grid{display:grid;grid-template-columns:1fr;gap:12px;margin-bottom:24px}
+.kpi-card{background:#12121a;border:1px solid #1a1a2e;border-radius:12px;padding:20px;transition:border-color 0.2s}
+.kpi-card:hover{border-color:#2a2a3e}
+.kpi-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;gap:8px}
+.kpi-name{font-size:1rem;font-weight:600;word-break:break-word}
+.kpi-category{font-size:0.7rem;padding:3px 8px;border-radius:10px;background:#1a1a2e;color:#888}
+.kpi-values{display:flex;gap:24px;margin-bottom:12px;flex-wrap:wrap}
+.kpi-val-block{display:flex;flex-direction:column}
+.kpi-val-label{font-size:0.75rem;color:#666}
+.kpi-val-num{font-size:1.2rem;font-weight:700}
+.kpi-bar-wrap{background:#1a1a2e;border-radius:8px;height:24px;overflow:hidden;position:relative;margin-bottom:10px}
+.kpi-bar-fill{height:100%;border-radius:8px;transition:width 0.5s ease;min-width:2px}
+.kpi-bar-fill.green{background:linear-gradient(90deg,#16a34a,#22c55e)}
+.kpi-bar-fill.yellow{background:linear-gradient(90deg,#ca8a04,#eab308)}
+.kpi-bar-fill.red{background:linear-gradient(90deg,#dc2626,#ef4444)}
+.kpi-bar-pct{position:absolute;right:8px;top:0;bottom:0;display:flex;align-items:center;font-size:0.75rem;font-weight:600}
+.kpi-actions{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.kpi-actions input{background:#0a0a0f;border:1px solid #2a2a3e;border-radius:6px;padding:5px 8px;color:#e8e8f0;font-size:0.8rem;width:90px}
+.kpi-actions input:focus{outline:none;border-color:#ff5f1f}
+.icon-btn{background:none;border:none;color:#555;cursor:pointer;padding:4px 6px;font-size:0.85rem}
+.icon-btn:hover{color:#ff5f1f}
+.history-toggle{font-size:0.8rem;color:#ff5f1f;cursor:pointer;background:none;border:none;text-decoration:underline}
+.history-panel{display:none;margin-top:8px;padding:10px;background:#0a0a0f;border-radius:8px;max-height:150px;overflow-y:auto}
+.history-panel.open{display:block}
+.history-entry{display:flex;justify-content:space-between;font-size:0.8rem;padding:3px 0;border-bottom:1px solid #1a1a2e;color:#aaa}
+.modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.7);display:none;align-items:center;justify-content:center;z-index:1000}
+.modal-overlay.active{display:flex}
+.modal{background:#12121a;border:1px solid #2a2a3e;border-radius:12px;padding:24px;max-width:480px;width:90%}
+.modal h3{margin-bottom:16px;color:#ff5f1f}
+.form-group{margin-bottom:12px}
+.form-group label{display:block;font-size:0.85rem;color:#aaa;margin-bottom:4px}
+.form-group input,.form-group select{width:100%;background:#0a0a0f;border:1px solid #2a2a3e;border-radius:8px;padding:10px;color:#e8e8f0;font-size:0.95rem}
+.form-group input:focus,.form-group select:focus{outline:none;border-color:#ff5f1f}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.modal-btns{display:flex;gap:8px;justify-content:flex-end;margin-top:16px}
+.empty-state{text-align:center;color:#555;padding:60px 20px;font-size:0.95rem}
+footer{text-align:center;padding:24px;color:#555;font-size:0.8rem;border-top:1px solid #1a1a2e}
+footer a{color:#888}
+footer a:hover{color:#ff5f1f}
+@media(max-width:600px){
+  h1{font-size:1.4rem}
+  .container{padding:12px}
+  .kpi-card{padding:14px}
+  .kpi-values{gap:16px}
+  .form-row{grid-template-columns:1fr}
+  .summary-cards{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>KPI Dashboard Builder</h1>
+  <p class="subtitle">Track your key performance indicators with visual progress</p>
+
+  <div class="toolbar">
+    <button class="btn" onclick="showAddKPIModal()">+ Add KPI</button>
+    <button class="btn btn-secondary" onclick="exportCSV()">Export CSV</button>
+    <button class="btn btn-secondary" onclick="loadSampleData()">Load Sample Data</button>
+    <button class="btn btn-danger" onclick="clearAll()">Clear All</button>
+  </div>
+
+  <div class="summary-cards" id="summary-cards"></div>
+
+  <div class="filter-bar" id="filter-bar"></div>
+
+  <div class="kpi-grid" id="kpi-grid">
+    <div class="empty-state">No KPIs yet. Click "+ Add KPI" to get started, or load sample data.</div>
+  </div>
+</div>
+
+<!-- Add/Edit KPI Modal -->
+<div class="modal-overlay" id="kpi-modal">
+  <div class="modal">
+    <h3 id="modal-title">Add KPI</h3>
+    <input type="hidden" id="edit-kpi-id">
+    <div class="form-group">
+      <label>KPI Name</label>
+      <input type="text" id="kpi-name" placeholder="e.g. Monthly Recurring Revenue">
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Current Value</label>
+        <input type="number" id="kpi-current" placeholder="0" step="any">
+      </div>
+      <div class="form-group">
+        <label>Target Value</label>
+        <input type="number" id="kpi-target" placeholder="100" step="any">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Unit</label>
+        <select id="kpi-unit">
+          <option value="#"># (Number)</option>
+          <option value="$">$ (Currency)</option>
+          <option value="%">% (Percentage)</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Category</label>
+        <select id="kpi-category">
+          <option value="Revenue">Revenue</option>
+          <option value="Growth">Growth</option>
+          <option value="Operations">Operations</option>
+          <option value="Customer">Customer</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-btns">
+      <button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+      <button class="btn" id="modal-save-btn" onclick="saveKPI()">Add KPI</button>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <a href="https://spunk.codes">spunk.codes</a> · <a href="https://spunk.bet">spunk.bet</a> · <a href="https://spunk.pics">spunk.pics</a> · <a href="https://spunk.work">spunk.work</a> · <a href="https://spunkart.com">SpunkArt.com</a>
+</footer>
+
+<script>
+(function(){
+  var STORAGE_KEY = 'spunk_kpi_dashboard';
+  var activeFilter = 'All';
+
+  function getData() {
+    return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{"kpis":[]}');
+  }
+  function saveData(data) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  }
+  function generateId() {
+    return Date.now().toString(36) + Math.random().toString(36).substr(2, 5);
+  }
+
+  function getStatusColor(current, target) {
+    if (target <= 0) return 'green';
+    var pct = (current / target) * 100;
+    if (pct >= 90) return 'green';
+    if (pct >= 70) return 'yellow';
+    return 'red';
+  }
+
+  function formatValue(val, unit) {
+    if (unit === '$') return '$' + Number(val).toLocaleString(undefined, {minimumFractionDigits:0, maximumFractionDigits:2});
+    if (unit === '%') return Number(val).toFixed(1) + '%';
+    return Number(val).toLocaleString();
+  }
+
+  window.showAddKPIModal = function() {
+    document.getElementById('modal-title').textContent = 'Add KPI';
+    document.getElementById('modal-save-btn').textContent = 'Add KPI';
+    document.getElementById('edit-kpi-id').value = '';
+    document.getElementById('kpi-name').value = '';
+    document.getElementById('kpi-current').value = '';
+    document.getElementById('kpi-target').value = '';
+    document.getElementById('kpi-unit').value = '#';
+    document.getElementById('kpi-category').value = 'Revenue';
+    document.getElementById('kpi-modal').classList.add('active');
+    document.getElementById('kpi-name').focus();
+  };
+
+  window.editKPI = function(id) {
+    var data = getData();
+    var kpi = data.kpis.find(function(k){ return k.id === id; });
+    if (!kpi) return;
+    document.getElementById('modal-title').textContent = 'Edit KPI';
+    document.getElementById('modal-save-btn').textContent = 'Save Changes';
+    document.getElementById('edit-kpi-id').value = id;
+    document.getElementById('kpi-name').value = kpi.name;
+    document.getElementById('kpi-current').value = kpi.current;
+    document.getElementById('kpi-target').value = kpi.target;
+    document.getElementById('kpi-unit').value = kpi.unit;
+    document.getElementById('kpi-category').value = kpi.category;
+    document.getElementById('kpi-modal').classList.add('active');
+    document.getElementById('kpi-name').focus();
+  };
+
+  window.closeModal = function() {
+    document.getElementById('kpi-modal').classList.remove('active');
+  };
+
+  window.saveKPI = function() {
+    var name = document.getElementById('kpi-name').value.trim();
+    var current = parseFloat(document.getElementById('kpi-current').value);
+    var target = parseFloat(document.getElementById('kpi-target').value);
+    var unit = document.getElementById('kpi-unit').value;
+    var category = document.getElementById('kpi-category').value;
+    var editId = document.getElementById('edit-kpi-id').value;
+
+    if (!name) { alert('Please enter a KPI name.'); return; }
+    if (isNaN(current)) { alert('Please enter a valid current value.'); return; }
+    if (isNaN(target) || target <= 0) { alert('Please enter a valid target value greater than 0.'); return; }
+
+    var data = getData();
+
+    if (editId) {
+      var kpi = data.kpis.find(function(k){ return k.id === editId; });
+      if (kpi) {
+        // Log history if value changed
+        if (kpi.current !== current) {
+          if (!kpi.history) kpi.history = [];
+          kpi.history.push({ value: current, date: new Date().toISOString() });
+        }
+        kpi.name = name;
+        kpi.current = current;
+        kpi.target = target;
+        kpi.unit = unit;
+        kpi.category = category;
+      }
+    } else {
+      data.kpis.push({
+        id: generateId(),
+        name: name,
+        current: current,
+        target: target,
+        unit: unit,
+        category: category,
+        history: [{ value: current, date: new Date().toISOString() }],
+        created: new Date().toISOString()
+      });
+    }
+
+    saveData(data);
+    closeModal();
+    render();
+  };
+
+  window.logValue = function(id) {
+    var input = document.getElementById('log-input-' + id);
+    var val = parseFloat(input.value);
+    if (isNaN(val)) { alert('Enter a valid number.'); return; }
+
+    var data = getData();
+    var kpi = data.kpis.find(function(k){ return k.id === id; });
+    if (!kpi) return;
+
+    kpi.current = val;
+    if (!kpi.history) kpi.history = [];
+    kpi.history.push({ value: val, date: new Date().toISOString() });
+    input.value = '';
+
+    saveData(data);
+    render();
+  };
+
+  window.deleteKPI = function(id) {
+    if (!confirm('Delete this KPI?')) return;
+    var data = getData();
+    data.kpis = data.kpis.filter(function(k){ return k.id !== id; });
+    saveData(data);
+    render();
+  };
+
+  window.toggleHistory = function(id) {
+    var panel = document.getElementById('hist-' + id);
+    panel.classList.toggle('open');
+  };
+
+  window.setFilter = function(cat) {
+    activeFilter = cat;
+    document.querySelectorAll('.filter-btn').forEach(function(b){ b.classList.remove('active'); });
+    document.querySelector('.filter-btn[data-cat="' + cat + '"]').classList.add('active');
+    render();
+  };
+
+  window.exportCSV = function() {
+    var data = getData();
+    if (data.kpis.length === 0) { alert('No KPIs to export.'); return; }
+
+    var rows = [['KPI Name', 'Category', 'Unit', 'Current Value', 'Target Value', '% of Target', 'Status', 'Last Updated']];
+    data.kpis.forEach(function(kpi) {
+      var pct = kpi.target > 0 ? ((kpi.current / kpi.target) * 100).toFixed(1) : '0';
+      var color = getStatusColor(kpi.current, kpi.target);
+      var status = color === 'green' ? 'On Track' : (color === 'yellow' ? 'At Risk' : 'Off Track');
+      var lastUpdate = kpi.history && kpi.history.length > 0 ? new Date(kpi.history[kpi.history.length-1].date).toLocaleDateString() : '';
+      rows.push([
+        '"' + kpi.name.replace(/"/g, '""') + '"',
+        kpi.category,
+        kpi.unit,
+        kpi.current,
+        kpi.target,
+        pct + '%',
+        status,
+        lastUpdate
+      ]);
+    });
+
+    var csv = rows.map(function(r){ return r.join(','); }).join('\n');
+    var blob = new Blob([csv], { type: 'text/csv' });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'kpi-report-' + new Date().toISOString().split('T')[0] + '.csv';
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
+  window.loadSampleData = function() {
+    var data = getData();
+    if (data.kpis.length > 0) {
+      if (!confirm('This will add sample KPIs to your existing dashboard. Continue?')) return;
+    }
+    var samples = [
+      { name: 'Monthly Recurring Revenue', current: 47500, target: 50000, unit: '$', category: 'Revenue' },
+      { name: 'Annual Revenue', current: 520000, target: 600000, unit: '$', category: 'Revenue' },
+      { name: 'Average Deal Size', current: 3200, target: 4000, unit: '$', category: 'Revenue' },
+      { name: 'New Customers This Month', current: 42, target: 50, unit: '#', category: 'Growth' },
+      { name: 'Website Traffic (Monthly)', current: 125000, target: 150000, unit: '#', category: 'Growth' },
+      { name: 'Email List Growth Rate', current: 4.2, target: 5, unit: '%', category: 'Growth' },
+      { name: 'Customer Satisfaction Score', current: 88, target: 90, unit: '%', category: 'Customer' },
+      { name: 'Net Promoter Score', current: 52, target: 60, unit: '#', category: 'Customer' },
+      { name: 'Customer Churn Rate', current: 3.8, target: 3, unit: '%', category: 'Customer' },
+      { name: 'Server Uptime', current: 99.8, target: 99.9, unit: '%', category: 'Operations' },
+      { name: 'Average Response Time (ms)', current: 180, target: 200, unit: '#', category: 'Operations' },
+      { name: 'Sprint Velocity', current: 42, target: 45, unit: '#', category: 'Operations' }
+    ];
+
+    samples.forEach(function(s) {
+      data.kpis.push({
+        id: generateId(),
+        name: s.name,
+        current: s.current,
+        target: s.target,
+        unit: s.unit,
+        category: s.category,
+        history: [{ value: s.current, date: new Date().toISOString() }],
+        created: new Date().toISOString()
+      });
+    });
+
+    saveData(data);
+    render();
+  };
+
+  window.clearAll = function() {
+    if (!confirm('Delete all KPIs? This cannot be undone.')) return;
+    saveData({ kpis: [] });
+    render();
+  };
+
+  function escHtml(s) {
+    var d = document.createElement('div');
+    d.textContent = s;
+    return d.innerHTML;
+  }
+
+  function render() {
+    var data = getData();
+    var kpis = data.kpis;
+
+    // Categories
+    var cats = ['All'];
+    kpis.forEach(function(k) {
+      if (cats.indexOf(k.category) === -1) cats.push(k.category);
+    });
+
+    // Ensure standard cats are present
+    ['Revenue', 'Growth', 'Operations', 'Customer'].forEach(function(c) {
+      if (cats.indexOf(c) === -1) cats.push(c);
+    });
+
+    var filterBar = document.getElementById('filter-bar');
+    filterBar.innerHTML = cats.map(function(c) {
+      return '<button class="filter-btn' + (activeFilter === c ? ' active' : '') + '" data-cat="' + c + '" onclick="setFilter(\'' + c + '\')">' + c + '</button>';
+    }).join('');
+
+    // Filter
+    var filtered = activeFilter === 'All' ? kpis : kpis.filter(function(k){ return k.category === activeFilter; });
+
+    // Summary
+    var totalKPIs = kpis.length;
+    var onTrack = 0, atRisk = 0, offTrack = 0;
+    kpis.forEach(function(k) {
+      var c = getStatusColor(k.current, k.target);
+      if (c === 'green') onTrack++;
+      else if (c === 'yellow') atRisk++;
+      else offTrack++;
+    });
+
+    var summaryHTML = '';
+    summaryHTML += '<div class="summary-card"><div class="summary-val">' + totalKPIs + '</div><div class="summary-label">Total KPIs</div></div>';
+    summaryHTML += '<div class="summary-card"><div class="summary-val val-green">' + onTrack + '</div><div class="summary-label">On Track</div></div>';
+    summaryHTML += '<div class="summary-card"><div class="summary-val val-yellow">' + atRisk + '</div><div class="summary-label">At Risk</div></div>';
+    summaryHTML += '<div class="summary-card"><div class="summary-val val-red">' + offTrack + '</div><div class="summary-label">Off Track</div></div>';
+    document.getElementById('summary-cards').innerHTML = summaryHTML;
+
+    // KPI Grid
+    var grid = document.getElementById('kpi-grid');
+    if (filtered.length === 0) {
+      grid.innerHTML = '<div class="empty-state">' + (kpis.length === 0 ? 'No KPIs yet. Click "+ Add KPI" to get started, or load sample data.' : 'No KPIs in this category.') + '</div>';
+      return;
+    }
+
+    var html = '';
+    filtered.forEach(function(kpi) {
+      var pct = kpi.target > 0 ? Math.min((kpi.current / kpi.target) * 100, 150) : 0;
+      var displayPct = kpi.target > 0 ? ((kpi.current / kpi.target) * 100).toFixed(1) : '0';
+      var barWidth = Math.min(pct, 100);
+      var color = getStatusColor(kpi.current, kpi.target);
+      var statusLabel = color === 'green' ? 'On Track' : (color === 'yellow' ? 'At Risk' : 'Off Track');
+
+      html += '<div class="kpi-card">';
+      html += '<div class="kpi-header">';
+      html += '<div class="kpi-name">' + escHtml(kpi.name) + '</div>';
+      html += '<div style="display:flex;gap:6px;align-items:center">';
+      html += '<span class="kpi-category">' + escHtml(kpi.category) + '</span>';
+      html += '<button class="icon-btn" onclick="editKPI(\'' + kpi.id + '\')" title="Edit">&#9998;</button>';
+      html += '<button class="icon-btn" onclick="deleteKPI(\'' + kpi.id + '\')" title="Delete">&#10005;</button>';
+      html += '</div></div>';
+
+      html += '<div class="kpi-values">';
+      html += '<div class="kpi-val-block"><span class="kpi-val-label">Current</span><span class="kpi-val-num" style="color:' + (color==='green'?'#22c55e':color==='yellow'?'#eab308':'#ef4444') + '">' + formatValue(kpi.current, kpi.unit) + '</span></div>';
+      html += '<div class="kpi-val-block"><span class="kpi-val-label">Target</span><span class="kpi-val-num">' + formatValue(kpi.target, kpi.unit) + '</span></div>';
+      html += '<div class="kpi-val-block"><span class="kpi-val-label">Status</span><span class="kpi-val-num" style="font-size:0.85rem;color:' + (color==='green'?'#22c55e':color==='yellow'?'#eab308':'#ef4444') + '">' + statusLabel + '</span></div>';
+      html += '</div>';
+
+      html += '<div class="kpi-bar-wrap"><div class="kpi-bar-fill ' + color + '" style="width:' + barWidth.toFixed(1) + '%"></div><span class="kpi-bar-pct">' + displayPct + '%</span></div>';
+
+      html += '<div class="kpi-actions">';
+      html += '<input type="number" id="log-input-' + kpi.id + '" placeholder="New value" step="any">';
+      html += '<button class="btn btn-sm btn-secondary" onclick="logValue(\'' + kpi.id + '\')">Log Value</button>';
+
+      if (kpi.history && kpi.history.length > 1) {
+        html += '<button class="history-toggle" onclick="toggleHistory(\'' + kpi.id + '\')">History (' + kpi.history.length + ')</button>';
+      }
+      html += '</div>';
+
+      // History panel
+      if (kpi.history && kpi.history.length > 1) {
+        html += '<div class="history-panel" id="hist-' + kpi.id + '">';
+        var hist = kpi.history.slice().reverse();
+        hist.forEach(function(h) {
+          var d = new Date(h.date);
+          html += '<div class="history-entry"><span>' + formatValue(h.value, kpi.unit) + '</span><span>' + d.toLocaleDateString() + ' ' + d.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}) + '</span></div>';
+        });
+        html += '</div>';
+      }
+
+      html += '</div>';
+    });
+
+    grid.innerHTML = html;
+  }
+
+  // Handle enter key in modal
+  document.getElementById('kpi-name').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') saveKPI();
+  });
+
+  // Close modal on overlay click
+  document.getElementById('kpi-modal').addEventListener('click', function(e) {
+    if (e.target === this) closeModal();
+  });
+
+  // Handle enter key on log inputs (delegated)
+  document.getElementById('kpi-grid').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' && e.target.id && e.target.id.startsWith('log-input-')) {
+      var id = e.target.id.replace('log-input-', '');
+      logValue(id);
+    }
+  });
+
+  // Init
+  render();
+})();
+</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>

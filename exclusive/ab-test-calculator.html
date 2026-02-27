@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A/B Test Calculator — Free Statistical Significance Calculator | SPUNK.CODES</title>
+<meta name="description" content="Free A/B test calculator with statistical significance testing. Calculate conversion rates, relative improvement, confidence levels, and required sample sizes.">
+<meta name="keywords" content="ab test calculator, statistical significance, conversion rate, split test, sample size calculator">
+<link rel="canonical" href="https://spunk.codes/exclusive/ab-test-calculator.html">
+<!-- GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<!-- Clarity -->
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e8e8f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;line-height:1.6;min-height:100vh;display:flex;flex-direction:column}
+a{color:#ff5f1f;text-decoration:none}
+a:hover{text-decoration:underline}
+.container{max-width:960px;margin:0 auto;padding:20px;flex:1}
+h1{font-size:1.8rem;text-align:center;margin-bottom:8px;color:#ff5f1f}
+.subtitle{text-align:center;color:#888;margin-bottom:32px;font-size:0.95rem}
+.tabs{display:flex;gap:4px;margin-bottom:24px;border-bottom:2px solid #1a1a2e}
+.tab{padding:10px 20px;background:transparent;border:none;color:#888;cursor:pointer;font-size:0.95rem;border-bottom:2px solid transparent;margin-bottom:-2px;transition:all 0.2s}
+.tab.active{color:#ff5f1f;border-bottom-color:#ff5f1f}
+.tab:hover{color:#e8e8f0}
+.panel{display:none}
+.panel.active{display:block}
+.card{background:#12121a;border:1px solid #1a1a2e;border-radius:12px;padding:24px;margin-bottom:20px}
+.card-title{font-size:1.1rem;font-weight:600;margin-bottom:16px;color:#e8e8f0}
+.input-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.input-group{display:flex;flex-direction:column;gap:6px}
+.input-group label{font-size:0.85rem;color:#aaa;font-weight:500}
+.input-group input{background:#0a0a0f;border:1px solid #2a2a3e;border-radius:8px;padding:10px 14px;color:#e8e8f0;font-size:1rem;transition:border-color 0.2s}
+.input-group input:focus{outline:none;border-color:#ff5f1f}
+.btn{background:#ff5f1f;color:#fff;border:none;border-radius:8px;padding:12px 24px;font-size:1rem;font-weight:600;cursor:pointer;transition:all 0.2s;width:100%;margin-top:16px}
+.btn:hover{background:#e5520f;transform:translateY(-1px)}
+.btn:active{transform:translateY(0)}
+.btn-secondary{background:#1a1a2e;color:#e8e8f0}
+.btn-secondary:hover{background:#252540}
+.results{margin-top:24px}
+.result-row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid #1a1a2e}
+.result-row:last-child{border-bottom:none}
+.result-label{color:#aaa;font-size:0.9rem}
+.result-value{font-size:1.1rem;font-weight:600}
+.sig-badge{display:inline-block;padding:4px 12px;border-radius:20px;font-size:0.85rem;font-weight:600}
+.sig-yes{background:rgba(34,197,94,0.15);color:#22c55e}
+.sig-no{background:rgba(234,179,8,0.15);color:#eab308}
+.chart-container{margin-top:24px}
+.chart-bar-wrap{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.chart-label{width:80px;font-size:0.85rem;color:#aaa;text-align:right;flex-shrink:0}
+.chart-track{flex:1;height:36px;background:#1a1a2e;border-radius:8px;overflow:hidden;position:relative}
+.chart-fill{height:100%;border-radius:8px;transition:width 0.6s ease;display:flex;align-items:center;justify-content:flex-end;padding-right:10px;font-size:0.8rem;font-weight:600;min-width:40px}
+.chart-fill.control{background:linear-gradient(90deg,#3b82f6,#60a5fa)}
+.chart-fill.variant{background:linear-gradient(90deg,#ff5f1f,#ff8c57)}
+.confidence-selector{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.conf-btn{padding:6px 16px;border-radius:20px;border:1px solid #2a2a3e;background:transparent;color:#aaa;cursor:pointer;font-size:0.85rem;transition:all 0.2s}
+.conf-btn.active{border-color:#ff5f1f;color:#ff5f1f;background:rgba(255,95,31,0.1)}
+.conf-btn:hover{border-color:#ff5f1f;color:#ff5f1f}
+.history-list{max-height:300px;overflow-y:auto}
+.history-item{display:flex;justify-content:space-between;align-items:center;padding:10px;border-bottom:1px solid #1a1a2e;font-size:0.85rem}
+.history-item:hover{background:#1a1a2e}
+.history-date{color:#666;font-size:0.8rem}
+.empty-state{text-align:center;color:#555;padding:40px 20px;font-size:0.9rem}
+footer{text-align:center;padding:24px;color:#555;font-size:0.8rem;border-top:1px solid #1a1a2e}
+footer a{color:#888}
+footer a:hover{color:#ff5f1f}
+@media(max-width:600px){
+  .input-grid{grid-template-columns:1fr}
+  h1{font-size:1.4rem}
+  .container{padding:12px}
+  .card{padding:16px}
+  .tabs{overflow-x:auto}
+  .tab{padding:8px 14px;font-size:0.85rem;white-space:nowrap}
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>A/B Test Calculator</h1>
+  <p class="subtitle">Calculate statistical significance for your split tests</p>
+
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('calculator')">Calculator</button>
+    <button class="tab" onclick="switchTab('samplesize')">Sample Size</button>
+    <button class="tab" onclick="switchTab('history')">History</button>
+  </div>
+
+  <!-- Calculator Panel -->
+  <div id="panel-calculator" class="panel active">
+    <div class="card">
+      <div class="card-title">Confidence Level</div>
+      <div class="confidence-selector">
+        <button class="conf-btn" data-conf="0.90" onclick="setConfidence(this)">90%</button>
+        <button class="conf-btn active" data-conf="0.95" onclick="setConfidence(this)">95%</button>
+        <button class="conf-btn" data-conf="0.99" onclick="setConfidence(this)">99%</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Control (A)</div>
+      <div class="input-grid">
+        <div class="input-group">
+          <label>Visitors</label>
+          <input type="number" id="a-visitors" placeholder="e.g. 5000" min="0">
+        </div>
+        <div class="input-group">
+          <label>Conversions</label>
+          <input type="number" id="a-conversions" placeholder="e.g. 150" min="0">
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Variant (B)</div>
+      <div class="input-grid">
+        <div class="input-group">
+          <label>Visitors</label>
+          <input type="number" id="b-visitors" placeholder="e.g. 5000" min="0">
+        </div>
+        <div class="input-group">
+          <label>Conversions</label>
+          <input type="number" id="b-conversions" placeholder="e.g. 185" min="0">
+        </div>
+      </div>
+    </div>
+
+    <button class="btn" onclick="calculateTest()">Calculate Significance</button>
+
+    <div id="results" class="results" style="display:none">
+      <div class="card">
+        <div class="card-title">Results</div>
+        <div class="result-row">
+          <span class="result-label">Control (A) Conversion Rate</span>
+          <span class="result-value" id="res-a-rate">—</span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Variant (B) Conversion Rate</span>
+          <span class="result-value" id="res-b-rate">—</span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Relative Improvement</span>
+          <span class="result-value" id="res-improvement">—</span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Z-Score</span>
+          <span class="result-value" id="res-zscore">—</span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">P-Value</span>
+          <span class="result-value" id="res-pvalue">—</span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Statistical Significance</span>
+          <span class="result-value" id="res-significant">—</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Visual Comparison</div>
+        <div class="chart-container" id="chart-container"></div>
+      </div>
+
+      <div class="card" id="recommendation-card">
+        <div class="card-title">Recommendation</div>
+        <p id="recommendation-text" style="color:#aaa;font-size:0.95rem;line-height:1.7"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sample Size Panel -->
+  <div id="panel-samplesize" class="panel">
+    <div class="card">
+      <div class="card-title">Sample Size Calculator</div>
+      <p style="color:#888;font-size:0.85rem;margin-bottom:16px">Calculate the minimum number of visitors per variation needed for your test.</p>
+      <div class="input-grid">
+        <div class="input-group">
+          <label>Baseline Conversion Rate (%)</label>
+          <input type="number" id="ss-baseline" placeholder="e.g. 3.5" min="0.01" max="100" step="0.01">
+        </div>
+        <div class="input-group">
+          <label>Minimum Detectable Effect (%)</label>
+          <input type="number" id="ss-mde" placeholder="e.g. 10" min="0.1" step="0.1">
+        </div>
+      </div>
+      <div class="confidence-selector" style="margin-top:16px">
+        <button class="conf-btn" data-ssconf="0.90" onclick="setSSConf(this)">90% Confidence</button>
+        <button class="conf-btn active" data-ssconf="0.95" onclick="setSSConf(this)">95% Confidence</button>
+        <button class="conf-btn" data-ssconf="0.99" onclick="setSSConf(this)">99% Confidence</button>
+      </div>
+      <div class="confidence-selector">
+        <button class="conf-btn active" data-sspower="0.80" onclick="setSSPower(this)">80% Power</button>
+        <button class="conf-btn" data-sspower="0.90" onclick="setSSPower(this)">90% Power</button>
+      </div>
+      <button class="btn" onclick="calculateSampleSize()">Calculate Sample Size</button>
+      <div id="ss-results" style="display:none;margin-top:20px">
+        <div class="result-row">
+          <span class="result-label">Required Sample Size (per variation)</span>
+          <span class="result-value" id="ss-result-size">—</span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Total Visitors Needed</span>
+          <span class="result-value" id="ss-result-total">—</span>
+        </div>
+        <div class="result-row">
+          <span class="result-label">Detectable Effect (absolute)</span>
+          <span class="result-value" id="ss-result-abs">—</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- History Panel -->
+  <div id="panel-history" class="panel">
+    <div class="card">
+      <div class="card-title" style="display:flex;justify-content:space-between;align-items:center">
+        <span>Test History</span>
+        <button class="btn-secondary btn" style="width:auto;margin:0;padding:6px 14px;font-size:0.8rem" onclick="clearHistory()">Clear All</button>
+      </div>
+      <div id="history-list" class="history-list">
+        <div class="empty-state">No tests calculated yet. Run your first test above.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <a href="https://spunk.codes">spunk.codes</a> · <a href="https://spunk.bet">spunk.bet</a> · <a href="https://spunk.pics">spunk.pics</a> · <a href="https://spunk.work">spunk.work</a> · <a href="https://spunkart.com">SpunkArt.com</a>
+</footer>
+
+<script>
+(function(){
+  let confidenceLevel = 0.95;
+  let ssConfidence = 0.95;
+  let ssPower = 0.80;
+  const STORAGE_KEY = 'spunk_abtest_history';
+
+  window.switchTab = function(tab) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    document.querySelector('.tab[onclick*="'+tab+'"]').classList.add('active');
+    document.getElementById('panel-'+tab).classList.add('active');
+  };
+
+  window.setConfidence = function(btn) {
+    document.querySelectorAll('.confidence-selector .conf-btn[data-conf]').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    confidenceLevel = parseFloat(btn.dataset.conf);
+  };
+
+  window.setSSConf = function(btn) {
+    document.querySelectorAll('.conf-btn[data-ssconf]').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    ssConfidence = parseFloat(btn.dataset.ssconf);
+  };
+
+  window.setSSPower = function(btn) {
+    document.querySelectorAll('.conf-btn[data-sspower]').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    ssPower = parseFloat(btn.dataset.sspower);
+  };
+
+  // Normal distribution CDF approximation (Abramowitz and Stegun)
+  function normalCDF(x) {
+    var a1 =  0.254829592;
+    var a2 = -0.284496736;
+    var a3 =  1.421413741;
+    var a4 = -1.453152027;
+    var a5 =  1.061405429;
+    var p  =  0.3275911;
+    var sign = 1;
+    if (x < 0) { sign = -1; }
+    x = Math.abs(x) / Math.sqrt(2);
+    var t = 1.0 / (1.0 + p * x);
+    var y = 1.0 - (((((a5 * t + a4) * t) + a3) * t + a2) * t + a1) * t * Math.exp(-x * x);
+    return 0.5 * (1.0 + sign * y);
+  }
+
+  // Inverse normal (approximation using rational approximation)
+  function normalInv(p) {
+    if (p <= 0) return -Infinity;
+    if (p >= 1) return Infinity;
+    if (p === 0.5) return 0;
+    var t;
+    if (p < 0.5) {
+      t = Math.sqrt(-2 * Math.log(p));
+      return -(2.515517 + t * (0.802853 + t * 0.010328)) / (1 + t * (1.432788 + t * (0.189269 + t * 0.001308)));
+    } else {
+      t = Math.sqrt(-2 * Math.log(1 - p));
+      return (2.515517 + t * (0.802853 + t * 0.010328)) / (1 + t * (1.432788 + t * (0.189269 + t * 0.001308)));
+    }
+  }
+
+  window.calculateTest = function() {
+    var aVis = parseInt(document.getElementById('a-visitors').value) || 0;
+    var aConv = parseInt(document.getElementById('a-conversions').value) || 0;
+    var bVis = parseInt(document.getElementById('b-visitors').value) || 0;
+    var bConv = parseInt(document.getElementById('b-conversions').value) || 0;
+
+    if (aVis <= 0 || bVis <= 0) { alert('Please enter visitor counts for both variations.'); return; }
+    if (aConv > aVis || bConv > bVis) { alert('Conversions cannot exceed visitors.'); return; }
+    if (aConv < 0 || bConv < 0) { alert('Conversions cannot be negative.'); return; }
+
+    var pA = aConv / aVis;
+    var pB = bConv / bVis;
+    var pPool = (aConv + bConv) / (aVis + bVis);
+    var se = Math.sqrt(pPool * (1 - pPool) * (1/aVis + 1/bVis));
+
+    var zScore = 0;
+    if (se > 0) { zScore = (pB - pA) / se; }
+
+    var pValue = 2 * (1 - normalCDF(Math.abs(zScore))); // two-tailed
+
+    var zCritical = { 0.90: 1.645, 0.95: 1.96, 0.99: 2.576 };
+    var isSignificant = Math.abs(zScore) >= (zCritical[confidenceLevel] || 1.96);
+
+    var improvement = pA > 0 ? ((pB - pA) / pA) * 100 : 0;
+
+    // Display results
+    document.getElementById('results').style.display = 'block';
+    document.getElementById('res-a-rate').textContent = (pA * 100).toFixed(2) + '%';
+    document.getElementById('res-b-rate').textContent = (pB * 100).toFixed(2) + '%';
+
+    var impEl = document.getElementById('res-improvement');
+    impEl.textContent = (improvement >= 0 ? '+' : '') + improvement.toFixed(2) + '%';
+    impEl.style.color = improvement >= 0 ? '#22c55e' : '#ef4444';
+
+    document.getElementById('res-zscore').textContent = zScore.toFixed(4);
+    document.getElementById('res-pvalue').textContent = pValue.toFixed(6);
+
+    var sigEl = document.getElementById('res-significant');
+    if (isSignificant) {
+      sigEl.innerHTML = '<span class="sig-badge sig-yes">Yes — Significant at ' + (confidenceLevel*100) + '%</span>';
+    } else {
+      sigEl.innerHTML = '<span class="sig-badge sig-no">Not Yet — Below ' + (confidenceLevel*100) + '% confidence</span>';
+    }
+
+    // Chart
+    var maxRate = Math.max(pA, pB, 0.001);
+    var chartHTML = '';
+    chartHTML += '<div class="chart-bar-wrap"><span class="chart-label">Control (A)</span><div class="chart-track"><div class="chart-fill control" style="width:' + ((pA/maxRate)*100).toFixed(1) + '%">' + (pA*100).toFixed(2) + '%</div></div></div>';
+    chartHTML += '<div class="chart-bar-wrap"><span class="chart-label">Variant (B)</span><div class="chart-track"><div class="chart-fill variant" style="width:' + ((pB/maxRate)*100).toFixed(1) + '%">' + (pB*100).toFixed(2) + '%</div></div></div>';
+    document.getElementById('chart-container').innerHTML = chartHTML;
+
+    // Recommendation
+    var recText = '';
+    if (isSignificant) {
+      if (pB > pA) {
+        recText = 'Variant B outperforms Control A with a <strong>' + improvement.toFixed(1) + '% improvement</strong>. The result is statistically significant at the ' + (confidenceLevel*100) + '% confidence level (p=' + pValue.toFixed(4) + '). You can confidently deploy Variant B.';
+      } else {
+        recText = 'Control A outperforms Variant B. The variant performed <strong>' + Math.abs(improvement).toFixed(1) + '% worse</strong>. The result is statistically significant at the ' + (confidenceLevel*100) + '% confidence level. Keep the original (Control A).';
+      }
+    } else {
+      recText = 'The difference between variants is <strong>not statistically significant</strong> at the ' + (confidenceLevel*100) + '% confidence level (p=' + pValue.toFixed(4) + '). Continue running the test to gather more data before making a decision.';
+    }
+    document.getElementById('recommendation-text').innerHTML = recText;
+
+    // Save to history
+    saveToHistory({
+      date: new Date().toISOString(),
+      aVis: aVis, aConv: aConv, bVis: bVis, bConv: bConv,
+      pA: pA, pB: pB, improvement: improvement,
+      significant: isSignificant, confidence: confidenceLevel,
+      pValue: pValue
+    });
+  };
+
+  window.calculateSampleSize = function() {
+    var baseline = parseFloat(document.getElementById('ss-baseline').value);
+    var mde = parseFloat(document.getElementById('ss-mde').value);
+
+    if (!baseline || baseline <= 0 || baseline >= 100) { alert('Enter a valid baseline conversion rate (0-100%).'); return; }
+    if (!mde || mde <= 0) { alert('Enter a valid minimum detectable effect (> 0%).'); return; }
+
+    var p1 = baseline / 100;
+    var p2 = p1 * (1 + mde / 100);
+
+    if (p2 >= 1) { alert('The combination of baseline rate and MDE results in a conversion rate >= 100%. Please adjust your inputs.'); return; }
+
+    var alpha = 1 - ssConfidence;
+    var zAlpha = normalInv(1 - alpha / 2);
+    var zBeta = normalInv(ssPower);
+
+    // Sample size formula for two-proportion z-test
+    var num = Math.pow(zAlpha * Math.sqrt(2 * p1 * (1 - p1)) + zBeta * Math.sqrt(p1 * (1 - p1) + p2 * (1 - p2)), 2);
+    var den = Math.pow(p2 - p1, 2);
+    var n = Math.ceil(num / den);
+
+    document.getElementById('ss-results').style.display = 'block';
+    document.getElementById('ss-result-size').textContent = n.toLocaleString();
+    document.getElementById('ss-result-total').textContent = (n * 2).toLocaleString();
+    document.getElementById('ss-result-abs').textContent = (Math.abs(p2 - p1) * 100).toFixed(2) + ' percentage points';
+  };
+
+  function saveToHistory(entry) {
+    var history = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+    history.unshift(entry);
+    if (history.length > 50) history = history.slice(0, 50);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(history));
+    renderHistory();
+  }
+
+  function renderHistory() {
+    var history = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+    var container = document.getElementById('history-list');
+    if (history.length === 0) {
+      container.innerHTML = '<div class="empty-state">No tests calculated yet. Run your first test above.</div>';
+      return;
+    }
+    var html = '';
+    history.forEach(function(h, i) {
+      var d = new Date(h.date);
+      var dateStr = d.toLocaleDateString() + ' ' + d.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
+      var sigClass = h.significant ? 'sig-yes' : 'sig-no';
+      var sigText = h.significant ? 'Significant' : 'Not Significant';
+      html += '<div class="history-item">';
+      html += '<div><strong>A:</strong> ' + (h.pA*100).toFixed(2) + '% vs <strong>B:</strong> ' + (h.pB*100).toFixed(2) + '% (' + (h.improvement>=0?'+':'') + h.improvement.toFixed(1) + '%)</div>';
+      html += '<div style="text-align:right"><span class="sig-badge ' + sigClass + '">' + sigText + '</span><div class="history-date">' + dateStr + '</div></div>';
+      html += '</div>';
+    });
+    container.innerHTML = html;
+  }
+
+  window.clearHistory = function() {
+    if (confirm('Clear all test history?')) {
+      localStorage.removeItem(STORAGE_KEY);
+      renderHistory();
+    }
+  };
+
+  renderHistory();
+})();
+</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>
