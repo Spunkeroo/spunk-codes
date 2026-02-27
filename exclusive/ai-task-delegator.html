@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI Task Delegator — Automate Your Life & Save Hours | SPUNK.CODES</title>
+<meta name="description" content="List your daily tasks and find out which to automate with AI, delegate, eliminate, or keep. Get specific free AI tools for each task and track hours saved per week.">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP')</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w")</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e8e8f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+header{background:#111118;border-bottom:2px solid #ff5f1f;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+header h1{font-size:1.4rem;color:#ff5f1f}
+header .back{color:#e8e8f0;font-size:.9rem}
+main{flex:1;max-width:960px;width:100%;margin:0 auto;padding:24px 16px}
+.panel{background:#111118;border:1px solid #2a2a3a;border-radius:10px;padding:20px;margin-bottom:20px}
+.panel h2{font-size:1.1rem;color:#ff5f1f;margin-bottom:14px}
+button{background:#ff5f1f;color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:.9rem;font-weight:600;transition:background .2s}
+button:hover{background:#e8520e}
+button.secondary{background:#2a2a3a;color:#e8e8f0}button.secondary:hover{background:#3a3a4a}
+button.danger{background:#cc2233}button.danger:hover{background:#aa1a28}
+select,input{background:#16161e;border:1px solid #2a2a3a;color:#e8e8f0;padding:8px 12px;border-radius:6px;font-size:.9rem}
+label{display:block;font-size:.85rem;color:#888;margin-bottom:4px;margin-top:12px}
+label:first-child{margin-top:0}
+.add-row{display:grid;grid-template-columns:1fr 100px 140px auto;gap:10px;align-items:end;margin-bottom:12px}
+.add-row input,.add-row select{width:100%}
+.stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+.stat-box{background:#16161e;border:1px solid #2a2a3a;border-radius:8px;padding:14px;text-align:center}
+.stat-box .num{font-size:1.6rem;color:#ff5f1f;font-weight:700}
+.stat-box .lbl{font-size:.75rem;color:#888;margin-top:4px}
+.stat-box.green .num{color:#22cc66}
+.cat-header{display:flex;align-items:center;gap:10px;margin-bottom:10px;margin-top:20px;padding-bottom:6px;border-bottom:1px solid #2a2a3a}
+.cat-header:first-child{margin-top:0}
+.cat-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:700;color:#fff;flex-shrink:0}
+.cat-automate .cat-icon{background:#22cc66}
+.cat-delegate .cat-icon{background:#3399ff}
+.cat-eliminate .cat-icon{background:#cc2233}
+.cat-keep .cat-icon{background:#888}
+.cat-label{font-size:1rem;font-weight:600}
+.cat-automate .cat-label{color:#22cc66}
+.cat-delegate .cat-label{color:#3399ff}
+.cat-eliminate .cat-label{color:#cc2233}
+.cat-keep .cat-label{color:#888}
+.cat-count{font-size:.8rem;color:#888}
+.task-card{background:#16161e;border:1px solid #2a2a3a;border-radius:8px;padding:14px;margin-bottom:8px;transition:border-color .2s}
+.task-card:hover{border-color:#ff5f1f}
+.task-top{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px}
+.task-name{font-weight:600;font-size:.95rem;color:#e8e8f0}
+.task-time{color:#ff5f1f;font-weight:700;font-size:.85rem;white-space:nowrap}
+.task-freq{color:#888;font-size:.8rem}
+.task-tools{margin-top:8px;padding-top:8px;border-top:1px solid #222}
+.task-tools h4{font-size:.8rem;color:#ff5f1f;margin-bottom:4px}
+.tool-item{font-size:.8rem;color:#ccc;padding:2px 0}
+.setup-steps{margin-top:6px}
+.setup-steps .step{font-size:.78rem;color:#999;padding:2px 0 2px 14px;position:relative}
+.setup-steps .step:before{content:'';position:absolute;left:3px;top:8px;width:5px;height:5px;border-radius:50%;background:#ff5f1f}
+.task-actions{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.task-actions button{font-size:.75rem;padding:4px 10px}
+.progress-bar{background:#0a0a0f;border-radius:4px;height:8px;overflow:hidden;margin-top:6px}
+.progress-fill{height:100%;border-radius:4px;background:#22cc66;transition:width .3s}
+.impl-badge{display:inline-block;font-size:.7rem;padding:2px 8px;border-radius:10px;font-weight:600;margin-left:6px}
+.impl-badge.done{background:#22cc66;color:#000}
+.impl-badge.pending{background:#2a2a3a;color:#888}
+.impl-badge.progress{background:#ffaa22;color:#000}
+.report-box{background:#0a0a0f;border:1px solid #2a2a3a;border-radius:8px;padding:16px;margin:12px 0;font-size:.85rem;line-height:1.6;white-space:pre-wrap}
+.bar-row{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.bar-label{width:80px;font-size:.78rem;color:#888;text-align:right;flex-shrink:0}
+.bar-track{flex:1;background:#0a0a0f;border-radius:4px;height:20px;overflow:hidden}
+.bar-fill{height:100%;border-radius:4px;display:flex;align-items:center;padding-left:6px;font-size:.7rem;font-weight:600;color:#fff;min-width:20px}
+.bar-val{width:50px;font-size:.78rem;color:#ccc;text-align:right;flex-shrink:0}
+footer{text-align:center;padding:20px;color:#555;font-size:.8rem;border-top:1px solid #1a1a2a;margin-top:auto}
+footer a{color:#ff5f1f;margin:0 4px}
+@media(max-width:700px){
+.add-row{grid-template-columns:1fr 1fr}
+.stat-row{grid-template-columns:repeat(2,1fr)}
+header h1{font-size:1.1rem}
+}
+</style>
+</head>
+<body>
+<header>
+<h1>AI Task Delegator</h1>
+<a href="https://spunk.codes" class="back">spunk.codes</a>
+</header>
+<main>
+<div class="panel">
+<h2>Time Savings Dashboard</h2>
+<div class="stat-row">
+<div class="stat-box green"><div class="num" id="statWeekly">0h</div><div class="lbl">Saved / Week</div></div>
+<div class="stat-box green"><div class="num" id="statMonthly">0h</div><div class="lbl">Saved / Month</div></div>
+<div class="stat-box green"><div class="num" id="statYearly">0h</div><div class="lbl">Saved / Year</div></div>
+<div class="stat-box"><div class="num" id="statTasks">0</div><div class="lbl">Tasks Analyzed</div></div>
+</div>
+<div style="margin-bottom:6px;font-size:.85rem;color:#888">Implementation Progress</div>
+<div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+<div style="font-size:.75rem;color:#666;margin-top:4px;text-align:right"><span id="progressPct">0</span>% implemented</div>
+</div>
+
+<div class="panel">
+<h2>Add Your Tasks</h2>
+<div class="add-row">
+<div><label>Task Description</label><input type="text" id="taskName" placeholder="e.g. Reply to emails, Schedule meetings"></div>
+<div><label>Time (min/day)</label><input type="number" id="taskTime" min="1" max="480" value="30" placeholder="30"></div>
+<div><label>Frequency</label><select id="taskFreq"><option value="daily">Daily</option><option value="weekly">Weekly</option><option value="monthly">Monthly</option></select></div>
+<div><label>&nbsp;</label><button onclick="addTask()">Add</button></div>
+</div>
+<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:6px">
+<button class="secondary" onclick="addSample('Email management',45,'daily')">+ Email</button>
+<button class="secondary" onclick="addSample('Social media posting',30,'daily')">+ Social Media</button>
+<button class="secondary" onclick="addSample('Data entry',60,'daily')">+ Data Entry</button>
+<button class="secondary" onclick="addSample('Meeting scheduling',20,'daily')">+ Scheduling</button>
+<button class="secondary" onclick="addSample('Report generation',90,'weekly')">+ Reports</button>
+<button class="secondary" onclick="addSample('Invoice processing',45,'weekly')">+ Invoicing</button>
+<button class="secondary" onclick="addSample('Research',60,'daily')">+ Research</button>
+<button class="secondary" onclick="addSample('Customer follow-ups',30,'daily')">+ Follow-ups</button>
+</div>
+</div>
+
+<div class="panel">
+<h2>Task Analysis & Recommendations</h2>
+<div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap">
+<button onclick="analyzeAll()">Analyze All Tasks</button>
+<button class="secondary" onclick="generateReport()">Generate Report</button>
+<button class="secondary" onclick="exportTasks()">Export CSV</button>
+<button class="danger" onclick="clearAll()">Clear All</button>
+</div>
+<div id="taskResults"></div>
+</div>
+
+<div class="panel">
+<h2>Time Distribution</h2>
+<div id="distChart"></div>
+</div>
+
+<div class="panel">
+<h2>Weekly Time-Savings Report</h2>
+<div class="report-box" id="reportBox">Add tasks and click "Generate Report" to see your personalized time-savings analysis.</div>
+</div>
+</main>
+
+<footer>
+<a href="https://spunk.codes">spunk.codes</a> &middot;
+<a href="https://spunk.bet">spunk.bet</a> &middot;
+<a href="https://spunk.pics">spunk.pics</a> &middot;
+<a href="https://spunk.work">spunk.work</a> &middot;
+<a href="https://spunkart.com">SpunkArt.com</a>
+</footer>
+
+<script>
+const LS_KEY='spunkcodes_task_delegator';
+let data={tasks:[],analyzed:false};
+
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+
+const AI_TOOL_DB={
+'email':{cat:'automate',tools:['ChatGPT - Draft replies in seconds','Gmail Smart Compose - Auto-complete emails','Zapier - Auto-sort and label emails','TextExpander - Canned response snippets'],steps:['Set up Gmail filters for auto-categorization','Create email templates for common responses','Use ChatGPT to draft complex replies','Set up Zapier rules for routine emails']},
+'social media':{cat:'automate',tools:['Buffer - Schedule posts for free (3 channels)','Canva AI - Generate post graphics','ChatGPT - Write captions and hashtags','Later - Visual content calendar'],steps:['Batch-create a week of content in 1 hour','Use Canva AI to generate matching graphics','Schedule everything with Buffer','Set up analytics to track what works']},
+'data entry':{cat:'automate',tools:['Zapier - Connect apps and auto-transfer data','Google Sheets AI - Auto-fill patterns','OCR tools (Google Lens) - Scan documents','ChatGPT - Format and clean data'],steps:['Identify repetitive data flows','Set up Zapier connections between tools','Use Google Sheets formulas for validation','Create templates for common entry formats']},
+'scheduling':{cat:'automate',tools:['Calendly - Free scheduling link','Google Calendar - Smart suggestions','Reclaim.ai - AI calendar management','ChatGPT - Draft scheduling emails'],steps:['Set up Calendly with your availability','Share booking link instead of back-and-forth','Use Reclaim.ai for smart time blocking','Set up auto-reminders']},
+'report':{cat:'automate',tools:['Google Sheets + Charts - Auto-generate','ChatGPT - Summarize data into insights','Notion AI - Auto-format reports','Google Data Studio - Dashboard builder'],steps:['Create report templates with formulas','Connect data sources for auto-refresh','Use ChatGPT to generate executive summaries','Set up scheduled report generation']},
+'invoice':{cat:'automate',tools:['Wave - Free invoicing software','Zapier - Auto-send invoices','QuickBooks - Auto-generate from time tracking','ChatGPT - Draft payment follow-ups'],steps:['Set up Wave with your business info','Create invoice templates for each client','Automate recurring invoices','Set up payment reminders']},
+'research':{cat:'automate',tools:['Perplexity AI - AI-powered research','ChatGPT - Summarize articles and papers','Feedly - Curate and auto-deliver content','Notion Web Clipper - Save and organize'],steps:['Set up Perplexity for common queries','Create research templates in Notion','Use Feedly for ongoing topic monitoring','Batch research sessions weekly']},
+'follow-up':{cat:'automate',tools:['HubSpot CRM (free) - Auto-sequence emails','Boomerang - Schedule follow-ups','ChatGPT - Personalize follow-up messages','Zapier - Trigger follow-ups from events'],steps:['Set up HubSpot CRM with contacts','Create follow-up email sequences','Use ChatGPT to personalize at scale','Track open and response rates']},
+'meeting':{cat:'delegate',tools:['Otter.ai - Auto-transcribe meetings','Fireflies.ai - Meeting notes and summaries','Notion AI - Generate action items','Loom - Replace meetings with async video'],steps:['Use Otter.ai to auto-transcribe every meeting','Review summaries instead of full recordings','Replace status meetings with Loom videos','Set 25-min defaults instead of 30-min']},
+'cleaning':{cat:'delegate',tools:['TaskRabbit - Find local help','Thumbtack - Compare service pros','Google Calendar - Schedule recurring tasks'],steps:['List all cleaning tasks and frequency','Get quotes from 2-3 services','Schedule recurring service','Redirect saved time to higher-value work']},
+'design':{cat:'automate',tools:['Canva AI - Generate designs from text','Midjourney - AI image generation','Remove.bg - Auto background removal','Figma AI - Smart layout suggestions'],steps:['Create brand templates in Canva','Use AI to generate first drafts','Refine and customize AI outputs','Build a library of reusable assets']},
+'writing':{cat:'automate',tools:['ChatGPT - Draft any type of content','Grammarly - Auto-proofread everything','Jasper - Marketing copy at scale','Hemingway - Simplify complex writing'],steps:['Use ChatGPT for first drafts','Run through Grammarly for polish','Create prompt templates for common content','Batch writing sessions for efficiency']},
+'bookkeeping':{cat:'automate',tools:['Wave - Free accounting software','QuickBooks - Auto-categorize transactions','Plaid - Auto-sync bank feeds','ChatGPT - Explain financial terms'],steps:['Connect bank accounts to Wave/QuickBooks','Set up auto-categorization rules','Reconcile weekly instead of monthly','Use auto-generated reports']},
+'shopping':{cat:'eliminate',tools:['Honey - Auto-find coupon codes','Camelcamelcamel - Price tracking','Google Shopping - Price comparison'],steps:['Set up price alerts for regular purchases','Use auto-reorder for staples','Batch shopping to once per week','Use Honey browser extension for auto-savings']},
+'default_automate':{cat:'automate',tools:['ChatGPT - General AI assistant for any task','Zapier - Connect and automate any workflow','IFTTT - Simple automation triggers','Notion AI - Organize and generate content'],steps:['Describe the task to ChatGPT for solutions','Look for Zapier integrations','Create a standard operating procedure','Batch similar tasks together']},
+'default_delegate':{cat:'delegate',tools:['Fiverr - Outsource for $5-50','Upwork - Find skilled freelancers','TaskRabbit - Local task help','Virtual Assistant services'],steps:['Document the exact process needed','Create a clear brief or SOP','Post on Fiverr or Upwork','Review results and iterate on instructions']},
+'default_eliminate':{cat:'eliminate',tools:['RescueTime - Track where time goes','Freedom - Block distracting sites','Focus@Will - Concentration music'],steps:['Ask: Does this actually need to happen?','Track if anyone notices when you skip it','Reduce frequency if you cannot fully eliminate','Replace with a faster alternative']}
+};
+
+function categorizeTask(name){
+const n=name.toLowerCase();
+const keywords={
+email:['email','inbox','mail','reply','respond'],
+'social media':['social media','post','tweet','instagram','facebook','linkedin','tiktok'],
+'data entry':['data entry','data input','spreadsheet','log','record','enter data'],
+scheduling:['schedul','calendar','appointment','book','meeting time'],
+report:['report','analysis','summary','dashboard','metrics','analytics'],
+invoice:['invoice','billing','payment','receipt'],
+research:['research','study','find','investigate','look up','google'],
+'follow-up':['follow up','follow-up','check in','reach out','ping'],
+meeting:['meeting','call','standup','sync','huddle'],
+cleaning:['clean','tidy','organize','declutter','laundry','dishes'],
+design:['design','graphic','logo','image','visual','banner','thumbnail'],
+writing:['write','blog','article','content','copy','draft','document'],
+bookkeeping:['bookkeep','accounting','finance','expense','budget','tax'],
+shopping:['shop','buy','purchase','order','grocery','errand']
+};
+for(const[key,words] of Object.entries(keywords)){
+if(words.some(w=>n.includes(w)))return key;
+}
+return null;
+}
+
+function getToolInfo(taskName){
+const cat=categorizeTask(taskName);
+if(cat&&AI_TOOL_DB[cat])return AI_TOOL_DB[cat];
+const n=taskName.toLowerCase();
+if(n.includes('manual')||n.includes('physical')||n.includes('hands-on'))return{cat:'keep',tools:['This task requires hands-on effort'],steps:['Optimize your process for speed','Batch with similar tasks']};
+const timeEst=30;
+if(timeEst<=15)return{cat:'keep',...AI_TOOL_DB['default_automate']};
+return AI_TOOL_DB['default_automate'];
+}
+
+function getWeeklyMinutes(task){
+if(task.freq==='daily')return task.time*7;
+if(task.freq==='weekly')return task.time;
+if(task.freq==='monthly')return task.time/4.33;
+return task.time;
+}
+
+function addTask(){
+const name=document.getElementById('taskName').value.trim();
+const time=parseInt(document.getElementById('taskTime').value);
+const freq=document.getElementById('taskFreq').value;
+if(!name){alert('Please enter a task description.');return}
+if(isNaN(time)||time<=0){alert('Please enter valid time in minutes.');return}
+data.tasks.push({id:Date.now(),name,time,freq,status:'pending',category:null});
+document.getElementById('taskName').value='';
+saveData();
+renderTasks();
+updateStats();
+}
+
+function addSample(name,time,freq){
+data.tasks.push({id:Date.now()+Math.random()*1000,name,time,freq,status:'pending',category:null});
+saveData();
+renderTasks();
+updateStats();
+}
+
+function analyzeAll(){
+data.tasks.forEach(t=>{
+const info=getToolInfo(t.name);
+t.category=info.cat;
+t.tools=info.tools;
+t.steps=info.steps;
+});
+data.analyzed=true;
+saveData();
+renderTasks();
+updateStats();
+}
+
+function removeTask(id){data.tasks=data.tasks.filter(t=>t.id!==id);saveData();renderTasks();updateStats()}
+
+function toggleStatus(id){
+const task=data.tasks.find(t=>t.id===id);
+if(!task)return;
+const states=['pending','progress','done'];
+const idx=states.indexOf(task.status);
+task.status=states[(idx+1)%states.length];
+saveData();
+renderTasks();
+updateStats();
+}
+
+function renderTasks(){
+const el=document.getElementById('taskResults');
+if(!data.tasks.length){el.innerHTML='<div style="color:#555;text-align:center;padding:30px">Add your daily and weekly tasks above to get started.</div>';return}
+
+if(!data.analyzed){
+el.innerHTML=data.tasks.map(t=>`<div class="task-card"><div class="task-top"><span class="task-name">${esc(t.name)}</span><div><span class="task-time">${t.time} min/${t.freq}</span> <button class="danger" onclick="removeTask(${t.id})" style="font-size:.7rem;padding:3px 8px">&times;</button></div></div></div>`).join('');
+return;
+}
+
+const groups={automate:[],delegate:[],eliminate:[],keep:[]};
+data.tasks.forEach(t=>{
+const cat=t.category||'keep';
+if(!groups[cat])groups[cat]=[];
+groups[cat].push(t);
+});
+
+const catInfo={
+automate:{icon:'&#9889;',label:'Automate with AI',color:'#22cc66',desc:'These tasks can be handled by free AI tools'},
+delegate:{icon:'&#128101;',label:'Delegate',color:'#3399ff',desc:'Outsource these for better use of your time'},
+eliminate:{icon:'&#128465;',label:'Eliminate or Reduce',color:'#cc2233',desc:'These tasks may not be necessary'},
+keep:{icon:'&#9998;',label:'Keep Doing Manually',color:'#888',desc:'These require your personal touch'}
+};
+
+let html='';
+for(const[cat,tasks] of Object.entries(groups)){
+if(!tasks.length)continue;
+const info=catInfo[cat];
+const totalMin=tasks.reduce((s,t)=>s+getWeeklyMinutes(t),0);
+html+=`<div class="cat-${cat}"><div class="cat-header"><div class="cat-icon">${info.icon}</div><div><div class="cat-label">${info.label}</div><div class="cat-count">${tasks.length} task${tasks.length>1?'s':''} &middot; ${Math.round(totalMin)} min/week &middot; ${info.desc}</div></div></div>`;
+html+=tasks.map(t=>{
+const weekMin=Math.round(getWeeklyMinutes(t));
+const savedMin=cat==='automate'?Math.round(weekMin*0.8):(cat==='delegate'?Math.round(weekMin*0.9):(cat==='eliminate'?weekMin:0));
+const statusBadge=`<span class="impl-badge ${t.status}">${t.status==='done'?'Implemented':(t.status==='progress'?'In Progress':'Pending')}</span>`;
+return `<div class="task-card"><div class="task-top"><span class="task-name">${esc(t.name)}${statusBadge}</span><div><span class="task-time">${t.time} min/${t.freq} (${weekMin} min/wk)</span></div></div>
+${savedMin>0?`<div style="font-size:.8rem;color:#22cc66;margin-bottom:4px">Potential savings: ${savedMin} min/week (${Math.round(savedMin*4.33)} min/month)</div>`:''}
+${t.tools?`<div class="task-tools"><h4>Recommended Tools</h4>${t.tools.map(tool=>'<div class="tool-item">&#8226; '+esc(tool)+'</div>').join('')}</div>`:''}
+${t.steps?`<div class="setup-steps"><h4 style="font-size:.8rem;color:#ff5f1f;margin-bottom:4px;margin-top:6px">Setup Steps</h4>${t.steps.map(s=>'<div class="step">'+esc(s)+'</div>').join('')}</div>`:''}
+<div class="task-actions"><button onclick="toggleStatus(${t.id})" style="font-size:.75rem;padding:4px 10px">${t.status==='done'?'Reset':(t.status==='progress'?'Mark Done':'Start')}</button><button class="danger" onclick="removeTask(${t.id})" style="font-size:.7rem;padding:3px 8px">&times;</button></div></div>`;
+}).join('');
+html+='</div>';
+}
+el.innerHTML=html;
+renderDistChart();
+}
+
+function renderDistChart(){
+const el=document.getElementById('distChart');
+if(!data.analyzed||!data.tasks.length){el.innerHTML='<div style="color:#555;text-align:center;padding:20px">Analyze tasks to see time distribution.</div>';return}
+const cats={automate:0,delegate:0,eliminate:0,keep:0};
+const colors={automate:'#22cc66',delegate:'#3399ff',eliminate:'#cc2233',keep:'#888'};
+const labels={automate:'Automate',delegate:'Delegate',eliminate:'Eliminate',keep:'Keep'};
+data.tasks.forEach(t=>{
+const cat=t.category||'keep';
+cats[cat]+=getWeeklyMinutes(t);
+});
+const maxVal=Math.max(...Object.values(cats),1);
+el.innerHTML=Object.keys(cats).map(c=>{
+const pct=(cats[c]/maxVal)*100;
+return `<div class="bar-row"><div class="bar-label">${labels[c]}</div><div class="bar-track"><div class="bar-fill" style="width:${pct}%;background:${colors[c]}">${Math.round(cats[c])}m</div></div><div class="bar-val">${(cats[c]/60).toFixed(1)}h</div></div>`;
+}).join('');
+}
+
+function updateStats(){
+if(!data.tasks.length){
+document.getElementById('statWeekly').textContent='0h';
+document.getElementById('statMonthly').textContent='0h';
+document.getElementById('statYearly').textContent='0h';
+document.getElementById('statTasks').textContent='0';
+document.getElementById('progressFill').style.width='0%';
+document.getElementById('progressPct').textContent='0';
+return;
+}
+let savedMin=0;
+data.tasks.forEach(t=>{
+const wm=getWeeklyMinutes(t);
+if(t.category==='automate')savedMin+=wm*0.8;
+else if(t.category==='delegate')savedMin+=wm*0.9;
+else if(t.category==='eliminate')savedMin+=wm;
+});
+const implemented=data.tasks.filter(t=>t.status==='done').length;
+const analyzedCount=data.tasks.filter(t=>t.category).length;
+const pct=analyzedCount>0?Math.round((implemented/analyzedCount)*100):0;
+
+const actualSaved=savedMin*(pct/100);
+document.getElementById('statWeekly').textContent=(actualSaved/60).toFixed(1)+'h';
+document.getElementById('statMonthly').textContent=((actualSaved*4.33)/60).toFixed(1)+'h';
+document.getElementById('statYearly').textContent=((actualSaved*52)/60).toFixed(0)+'h';
+document.getElementById('statTasks').textContent=data.tasks.length;
+document.getElementById('progressFill').style.width=pct+'%';
+document.getElementById('progressPct').textContent=pct;
+}
+
+function generateReport(){
+if(!data.tasks.length){alert('Add tasks first.');return}
+if(!data.analyzed)analyzeAll();
+
+const cats={automate:[],delegate:[],eliminate:[],keep:[]};
+data.tasks.forEach(t=>{const c=t.category||'keep';cats[c].push(t)});
+
+let totalWeekly=0;
+let saveable=0;
+data.tasks.forEach(t=>{
+const wm=getWeeklyMinutes(t);
+totalWeekly+=wm;
+if(t.category==='automate')saveable+=wm*0.8;
+else if(t.category==='delegate')saveable+=wm*0.9;
+else if(t.category==='eliminate')saveable+=wm;
+});
+
+const implemented=data.tasks.filter(t=>t.status==='done').length;
+const total=data.tasks.length;
+
+let report=`WEEKLY TIME-SAVINGS REPORT\n`;
+report+=`Generated: ${new Date().toLocaleDateString()}\n`;
+report+=`${'='.repeat(40)}\n\n`;
+report+=`SUMMARY\n`;
+report+=`Total tasks analyzed: ${total}\n`;
+report+=`Current weekly time: ${(totalWeekly/60).toFixed(1)} hours\n`;
+report+=`Potential weekly savings: ${(saveable/60).toFixed(1)} hours\n`;
+report+=`Potential monthly savings: ${(saveable*4.33/60).toFixed(1)} hours\n`;
+report+=`Potential yearly savings: ${(saveable*52/60).toFixed(0)} hours\n`;
+report+=`Implementation progress: ${implemented}/${total} (${total>0?Math.round(implemented/total*100):0}%)\n\n`;
+
+if(cats.automate.length){
+report+=`AUTOMATE (${cats.automate.length} tasks)\n`;
+cats.automate.forEach(t=>{report+=`  - ${t.name}: ${t.time} min/${t.freq}\n`;if(t.tools)report+=`    Tools: ${t.tools[0]}\n`});
+report+='\n';
+}
+if(cats.delegate.length){
+report+=`DELEGATE (${cats.delegate.length} tasks)\n`;
+cats.delegate.forEach(t=>report+=`  - ${t.name}: ${t.time} min/${t.freq}\n`);
+report+='\n';
+}
+if(cats.eliminate.length){
+report+=`ELIMINATE (${cats.eliminate.length} tasks)\n`;
+cats.eliminate.forEach(t=>report+=`  - ${t.name}: ${t.time} min/${t.freq}\n`);
+report+='\n';
+}
+if(cats.keep.length){
+report+=`KEEP MANUAL (${cats.keep.length} tasks)\n`;
+cats.keep.forEach(t=>report+=`  - ${t.name}: ${t.time} min/${t.freq}\n`);
+report+='\n';
+}
+
+report+=`NEXT STEPS\n`;
+report+=`1. Start with the highest-time automate tasks\n`;
+report+=`2. Set up one AI tool this week\n`;
+report+=`3. Track actual time saved\n`;
+report+=`4. Re-analyze monthly as workflows change`;
+
+document.getElementById('reportBox').textContent=report;
+}
+
+function exportTasks(){
+if(!data.tasks.length){alert('No tasks to export.');return}
+let csv='Task,Time (min),Frequency,Category,Status,Weekly Minutes\n';
+data.tasks.forEach(t=>{
+csv+=`"${(t.name||'').replace(/"/g,'""')}",${t.time},${t.freq},${t.category||'unanalyzed'},${t.status},${Math.round(getWeeklyMinutes(t))}\n`;
+});
+const blob=new Blob([csv],{type:'text/csv'});
+const a=document.createElement('a');
+a.href=URL.createObjectURL(blob);
+a.download='task-delegator-export.csv';
+a.click();
+URL.revokeObjectURL(a.href);
+}
+
+function clearAll(){
+if(!confirm('Delete all tasks?'))return;
+data={tasks:[],analyzed:false};
+saveData();
+renderTasks();
+updateStats();
+renderDistChart();
+document.getElementById('reportBox').textContent='Add tasks and click "Generate Report" to see your personalized time-savings analysis.';
+}
+
+function saveData(){localStorage.setItem(LS_KEY,JSON.stringify(data))}
+function loadData(){try{const d=JSON.parse(localStorage.getItem(LS_KEY));if(d)data={...data,...d}}catch(e){}}
+
+loadData();
+renderTasks();
+updateStats();
+renderDistChart();
+</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>

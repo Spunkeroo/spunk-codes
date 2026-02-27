@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Coupon & Savings Tracker — Track Every Dollar Saved | SPUNK.CODES</title>
+<meta name="description" content="Log coupons, cashback, price matches, and deals. Track daily, weekly, monthly, and yearly savings with streak tracking and AI deal-finding prompts. Free tool.">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP')</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w")</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e8e8f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+header{background:#111118;border-bottom:2px solid #ff5f1f;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+header h1{font-size:1.4rem;color:#ff5f1f}
+header .back{color:#e8e8f0;font-size:.9rem}
+main{flex:1;max-width:1000px;width:100%;margin:0 auto;padding:24px 16px}
+.panel{background:#111118;border:1px solid #2a2a3a;border-radius:10px;padding:20px;margin-bottom:20px}
+.panel h2{font-size:1.1rem;color:#ff5f1f;margin-bottom:14px}
+button{background:#ff5f1f;color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:.9rem;font-weight:600;transition:background .2s}
+button:hover{background:#e8520e}
+button.secondary{background:#2a2a3a;color:#e8e8f0}button.secondary:hover{background:#3a3a4a}
+button.danger{background:#cc2233}button.danger:hover{background:#aa1122}
+input,select,textarea{background:#16161e;border:1px solid #2a2a3a;color:#e8e8f0;padding:8px 12px;border-radius:6px;font-size:.9rem}
+textarea{font-family:inherit;resize:vertical}
+.form-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:10px;margin-bottom:14px;align-items:end}
+.form-grid label{font-size:.8rem;color:#888;margin-bottom:4px;display:block}
+.form-grid input,.form-grid select{width:100%}
+.summary-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:20px}
+.summary-card{background:#16161e;border:1px solid #2a2a3a;border-radius:8px;padding:16px;text-align:center}
+.summary-card .value{font-size:1.8rem;color:#ff5f1f;font-weight:700}
+.summary-card .label{font-size:.8rem;color:#888;margin-top:4px}
+.entry-row{background:#16161e;border:1px solid #2a2a3a;border-radius:8px;padding:12px 14px;margin-bottom:8px;display:grid;grid-template-columns:auto 2fr 1fr 1fr 1fr auto;gap:10px;align-items:center}
+.entry-row.header{background:transparent;border:none;font-size:.8rem;color:#888;font-weight:600;padding:8px 14px}
+.entry-val{font-size:.9rem;text-align:center}
+.cat-badge{font-size:.75rem;text-transform:uppercase;letter-spacing:.5px;padding:3px 8px;border-radius:4px;font-weight:600;display:inline-block}
+.cat-groceries{background:#1a3a1a;color:#4caf50}
+.cat-online{background:#1a2a3a;color:#42a5f5}
+.cat-restaurants{background:#3a2a1a;color:#ffa726}
+.cat-gas{background:#3a1a2a;color:#ef5350}
+.cat-subscriptions{background:#2a1a3a;color:#ab47bc}
+.streak-box{display:flex;align-items:center;gap:12px;background:#16161e;border:1px solid #2a2a3a;border-radius:8px;padding:16px;margin-bottom:16px}
+.streak-fire{font-size:2rem}
+.streak-num{font-size:2.2rem;color:#ff5f1f;font-weight:700}
+.streak-label{font-size:.85rem;color:#888}
+.cat-chart{display:grid;grid-template-columns:1fr;gap:6px;margin-top:10px}
+.cat-row{display:flex;align-items:center;gap:10px}
+.cat-row .bar-bg{flex:1;height:18px;background:#1a1a2a;border-radius:4px;overflow:hidden}
+.cat-row .bar-fill{height:100%;border-radius:4px;transition:width .3s}
+.cat-row .cat-name{width:110px;font-size:.85rem;color:#888;text-align:right}
+.cat-row .cat-amt{width:80px;font-size:.85rem;color:#ff5f1f;font-weight:600}
+.ai-prompt{background:#16161e;border:1px solid #2a2a3a;border-radius:8px;padding:14px;margin-bottom:10px}
+.ai-prompt h4{font-size:.9rem;color:#ff5f1f;margin-bottom:6px}
+.ai-prompt .prompt-text{background:#0a0a0f;border:1px solid #2a2a3a;border-radius:6px;padding:10px;font-size:.85rem;color:#ccc;cursor:pointer;position:relative}
+.ai-prompt .prompt-text:hover{border-color:#ff5f1f}
+.copied{position:absolute;top:50%;right:10px;transform:translateY(-50%);background:#ff5f1f;color:#fff;padding:2px 8px;border-radius:4px;font-size:.75rem}
+.filter-row{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+.filter-row button{padding:6px 14px;font-size:.8rem;border-radius:6px}
+.filter-row button.active{background:#ff5f1f}
+.filter-row button:not(.active){background:#2a2a3a;color:#e8e8f0}
+.empty{text-align:center;color:#555;padding:30px;font-size:.95rem}
+footer{text-align:center;padding:20px;color:#555;font-size:.8rem;border-top:1px solid #1a1a2a;margin-top:auto}
+footer a{color:#ff5f1f;margin:0 4px}
+@media(max-width:700px){
+.form-grid{grid-template-columns:1fr 1fr}
+.entry-row{grid-template-columns:1fr 1fr;gap:6px}
+.entry-row.header{display:none}
+.entry-val::before{content:attr(data-label);font-size:.7rem;color:#888;display:block}
+header h1{font-size:1.1rem}
+.summary-cards{grid-template-columns:repeat(auto-fit,minmax(130px,1fr))}
+}
+</style>
+</head>
+<body>
+<header>
+<h1>Coupon & Savings Tracker</h1>
+<a href="https://spunk.codes" class="back">spunk.codes</a>
+</header>
+<main>
+<div class="panel">
+<h2>Log a Saving</h2>
+<div class="form-grid">
+<div><label>Description</label><input type="text" id="savDesc" placeholder="e.g. 20% off groceries coupon"></div>
+<div><label>Amount Saved ($)</label><input type="number" id="savAmt" min="0.01" step="0.01" placeholder="12.50"></div>
+<div><label>Category</label><select id="savCat"><option value="groceries">Groceries</option><option value="online">Online Shopping</option><option value="restaurants">Restaurants</option><option value="gas">Gas</option><option value="subscriptions">Subscriptions</option></select></div>
+<div><label>Type</label><select id="savType"><option value="coupon">Coupon</option><option value="cashback">Cashback</option><option value="price-match">Price Match</option><option value="deal">Deal/Sale</option></select></div>
+</div>
+<button onclick="addEntry()">Log Saving</button>
+</div>
+
+<div class="panel">
+<h2>Savings Streak</h2>
+<div class="streak-box">
+<div class="streak-fire">&#128293;</div>
+<div><div class="streak-num" id="streakNum">0</div><div class="streak-label">consecutive days saving</div></div>
+<div style="margin-left:auto;text-align:right"><div style="font-size:.85rem;color:#888">Best streak</div><div style="font-size:1.2rem;color:#ff5f1f;font-weight:600" id="bestStreak">0</div></div>
+</div>
+</div>
+
+<div class="panel">
+<h2>Dashboard</h2>
+<div class="summary-cards" id="summaryCards">
+<div class="summary-card"><div class="value" id="todaySav">$0</div><div class="label">Today</div></div>
+<div class="summary-card"><div class="value" id="weekSav">$0</div><div class="label">This Week</div></div>
+<div class="summary-card"><div class="value" id="monthSav">$0</div><div class="label">This Month</div></div>
+<div class="summary-card"><div class="value" id="yearSav">$0</div><div class="label">This Year</div></div>
+<div class="summary-card"><div class="value" id="totalSav">$0</div><div class="label">All Time</div></div>
+<div class="summary-card"><div class="value" id="projSav">$0</div><div class="label">Annual Projection</div></div>
+</div>
+</div>
+
+<div class="panel">
+<h2>Savings by Category</h2>
+<div class="cat-chart" id="catChart"></div>
+</div>
+
+<div class="panel">
+<h2>AI Prompts for Finding Deals</h2>
+<div class="ai-prompt">
+<h4>Find Best Coupons</h4>
+<div class="prompt-text" onclick="copyPrompt(this)">I'm shopping at [store name] this week. Find me the best current coupons, promo codes, cashback offers, and stacking strategies. Include browser extensions I should install and apps for automatic savings.<span class="copied" style="display:none">Copied!</span></div>
+</div>
+<div class="ai-prompt">
+<h4>Price Match Helper</h4>
+<div class="prompt-text" onclick="copyPrompt(this)">I want to buy [product name] for [price]. Help me find: 1) Lower prices at competitors, 2) Stores with price match policies, 3) Whether this item goes on sale seasonally, 4) Cashback or coupon stacking options.<span class="copied" style="display:none">Copied!</span></div>
+</div>
+<div class="ai-prompt">
+<h4>Subscription Audit</h4>
+<div class="prompt-text" onclick="copyPrompt(this)">I pay for these subscriptions: [list them]. For each one, tell me: 1) Is there a free alternative? 2) Can I get a discount by calling to cancel? 3) Are there family/student plans? 4) When do they typically offer retention deals?<span class="copied" style="display:none">Copied!</span></div>
+</div>
+<div class="ai-prompt">
+<h4>Grocery Savings Plan</h4>
+<div class="prompt-text" onclick="copyPrompt(this)">My weekly grocery budget is $[amount] for [number] people. Give me a complete savings strategy: which stores to shop, best days to buy produce/meat, apps for rebates (Ibotta, Fetch, etc.), how to meal plan around sales, and how to stack store coupons with manufacturer coupons.<span class="copied" style="display:none">Copied!</span></div>
+</div>
+</div>
+
+<div class="panel">
+<h2>Savings Log</h2>
+<div class="filter-row" id="filterRow">
+<button class="active" onclick="setFilter('all')">All</button>
+<button onclick="setFilter('groceries')">Groceries</button>
+<button onclick="setFilter('online')">Online</button>
+<button onclick="setFilter('restaurants')">Restaurants</button>
+<button onclick="setFilter('gas')">Gas</button>
+<button onclick="setFilter('subscriptions')">Subscriptions</button>
+</div>
+<div class="entry-row header">
+<div>Date</div><div>Description</div><div style="text-align:center">Category</div><div style="text-align:center">Type</div><div style="text-align:center">Saved</div><div></div>
+</div>
+<div id="entryList">
+<div class="empty">No savings logged yet. Start tracking your savings above!</div>
+</div>
+<div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap">
+<button class="secondary" onclick="exportCSV()">Export CSV</button>
+<button class="danger" onclick="clearAll()">Clear All</button>
+</div>
+</div>
+</main>
+
+<footer>
+<a href="https://spunk.codes">spunk.codes</a> &middot;
+<a href="https://spunk.bet">spunk.bet</a> &middot;
+<a href="https://spunk.pics">spunk.pics</a> &middot;
+<a href="https://spunk.work">spunk.work</a> &middot;
+<a href="https://spunkart.com">SpunkArt.com</a>
+</footer>
+
+<script>
+const LS_KEY='spunkcodes_coupon_tracker';
+let entries=[];
+let filter='all';
+
+function load(){try{entries=JSON.parse(localStorage.getItem(LS_KEY))||[]}catch(e){entries=[]}}
+function save(){localStorage.setItem(LS_KEY,JSON.stringify(entries))}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function fmt(n){return'$'+Number(n).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}
+
+function todayStr(){return new Date().toISOString().slice(0,10)}
+function getWeekStart(){const d=new Date();d.setDate(d.getDate()-d.getDay());return d.toISOString().slice(0,10)}
+function getMonthStart(){const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-01'}
+function getYearStart(){return new Date().getFullYear()+'-01-01'}
+
+function addEntry(){
+const desc=document.getElementById('savDesc').value.trim();
+const amt=parseFloat(document.getElementById('savAmt').value);
+const cat=document.getElementById('savCat').value;
+const type=document.getElementById('savType').value;
+if(!desc){alert('Enter a description.');return}
+if(isNaN(amt)||amt<=0){alert('Enter a valid amount.');return}
+entries.unshift({id:Date.now()+'_'+Math.random().toString(36).slice(2,6),desc,amount:amt,category:cat,type,date:todayStr()});
+document.getElementById('savDesc').value='';
+document.getElementById('savAmt').value='';
+save();render();
+}
+
+function removeEntry(id){entries=entries.filter(e=>e.id!==id);save();render()}
+function clearAll(){if(!confirm('Remove all entries?'))return;entries=[];save();render()}
+
+function setFilter(f){
+filter=f;
+document.querySelectorAll('.filter-row button').forEach(b=>b.classList.remove('active'));
+event.target.classList.add('active');
+render();
+}
+
+function calcStreak(){
+const dates=[...new Set(entries.map(e=>e.date))].sort().reverse();
+if(!dates.length)return{current:0,best:0};
+let streak=0;
+const today=new Date(todayStr());
+let check=new Date(today);
+for(let i=0;i<400;i++){
+const ds=check.toISOString().slice(0,10);
+if(dates.includes(ds)){streak++;check.setDate(check.getDate()-1)}
+else if(i===0){check.setDate(check.getDate()-1);continue}
+else break;
+}
+// Best streak
+let best=0,cur=0;
+const allDates=dates.sort();
+for(let i=0;i<allDates.length;i++){
+if(i===0){cur=1}
+else{
+const prev=new Date(allDates[i-1]);prev.setDate(prev.getDate()+1);
+if(prev.toISOString().slice(0,10)===allDates[i])cur++;
+else cur=1;
+}
+if(cur>best)best=cur;
+}
+return{current:streak,best:Math.max(best,streak)};
+}
+
+function render(){
+const today=todayStr(),weekStart=getWeekStart(),monthStart=getMonthStart(),yearStart=getYearStart();
+const todayTotal=entries.filter(e=>e.date===today).reduce((s,e)=>s+e.amount,0);
+const weekTotal=entries.filter(e=>e.date>=weekStart).reduce((s,e)=>s+e.amount,0);
+const monthTotal=entries.filter(e=>e.date>=monthStart).reduce((s,e)=>s+e.amount,0);
+const yearTotal=entries.filter(e=>e.date>=yearStart).reduce((s,e)=>s+e.amount,0);
+const allTotal=entries.reduce((s,e)=>s+e.amount,0);
+
+// Annual projection based on daily average
+const daysSoFar=Math.max(1,Math.floor((new Date()-new Date(yearStart))/(1000*60*60*24)));
+const dailyAvg=yearTotal/daysSoFar;
+const projection=dailyAvg*365;
+
+document.getElementById('todaySav').textContent=fmt(todayTotal);
+document.getElementById('weekSav').textContent=fmt(weekTotal);
+document.getElementById('monthSav').textContent=fmt(monthTotal);
+document.getElementById('yearSav').textContent=fmt(yearTotal);
+document.getElementById('totalSav').textContent=fmt(allTotal);
+document.getElementById('projSav').textContent=fmt(projection);
+
+// Streak
+const{current,best}=calcStreak();
+document.getElementById('streakNum').textContent=current;
+document.getElementById('bestStreak').textContent=best;
+
+// Category chart
+const cats={groceries:0,online:0,restaurants:0,gas:0,subscriptions:0};
+entries.forEach(e=>{if(cats[e.category]!==undefined)cats[e.category]+=e.amount});
+const maxCat=Math.max(...Object.values(cats),1);
+const catLabels={groceries:'Groceries',online:'Online Shopping',restaurants:'Restaurants',gas:'Gas',subscriptions:'Subscriptions'};
+const catColors={groceries:'#4caf50',online:'#42a5f5',restaurants:'#ffa726',gas:'#ef5350',subscriptions:'#ab47bc'};
+document.getElementById('catChart').innerHTML=Object.keys(cats).map(k=>`
+<div class="cat-row">
+<div class="cat-name">${catLabels[k]}</div>
+<div class="bar-bg"><div class="bar-fill" style="width:${(cats[k]/maxCat)*100}%;background:${catColors[k]}"></div></div>
+<div class="cat-amt">${fmt(cats[k])}</div>
+</div>`).join('');
+
+// Entry list
+const filtered=filter==='all'?entries:entries.filter(e=>e.category===filter);
+const list=document.getElementById('entryList');
+if(!filtered.length){list.innerHTML='<div class="empty">'+(entries.length?'No entries in this category.':'No savings logged yet. Start tracking above!')+'</div>';return}
+list.innerHTML=filtered.slice(0,100).map(e=>`<div class="entry-row">
+<div class="entry-val" data-label="Date" style="font-size:.8rem;color:#888">${e.date}</div>
+<div style="font-weight:600;font-size:.9rem">${esc(e.desc)}</div>
+<div class="entry-val" data-label="Category"><span class="cat-badge cat-${e.category}">${e.category}</span></div>
+<div class="entry-val" data-label="Type" style="font-size:.85rem;color:#aaa">${e.type}</div>
+<div class="entry-val" data-label="Saved" style="color:#ff5f1f;font-weight:700">${fmt(e.amount)}</div>
+<div><button class="danger" onclick="removeEntry('${e.id}')" style="font-size:.8rem;padding:4px 10px">&times;</button></div>
+</div>`).join('');
+}
+
+function copyPrompt(el){
+const text=el.textContent.replace('Copied!','').trim();
+navigator.clipboard.writeText(text).then(()=>{
+const badge=el.querySelector('.copied');
+badge.style.display='inline';
+setTimeout(()=>badge.style.display='none',1500);
+});
+}
+
+function exportCSV(){
+if(!entries.length){alert('No entries to export.');return}
+let csv='Date,Description,Amount,Category,Type\n';
+entries.forEach(e=>{csv+=`${e.date},"${e.desc}",${e.amount},${e.category},${e.type}\n`});
+const blob=new Blob([csv],{type:'text/csv'});
+const url=URL.createObjectURL(blob);
+const a=document.createElement('a');a.href=url;a.download='savings-tracker.csv';a.click();
+URL.revokeObjectURL(url);
+}
+
+load();render();
+</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>

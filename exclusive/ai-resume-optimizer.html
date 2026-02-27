@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI Resume Optimizer — Match Any Job Description | SPUNK.CODES Exclusive</title>
+<meta name="description" content="Paste a job description, enter your experience, and get keyword match scores, missing skills, AI rewrite prompts, and ATS tips. Free premium tool.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="AI Resume Optimizer — SPUNK.CODES Exclusive">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/ai-resume-optimizer">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0a0a0f;--card:rgba(18,18,28,0.85);--border:rgba(255,95,31,0.18);--accent:#ff5f1f;--accent-glow:rgba(255,95,31,0.3);--text:#e6edf3;--text-dim:#8b949e;--green:#39d353;--red:#f85149;--yellow:#ffd700;--blue:#58a6ff;--font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+a{color:var(--blue);text-decoration:none}
+.bg-mesh{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 80% 50% at 20% 20%,rgba(255,95,31,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(255,95,31,0.04) 0%,transparent 60%),var(--bg)}
+.bg-grid{position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,95,31,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,95,31,0.03) 1px,transparent 1px);background-size:60px 60px}
+.nav{position:sticky;top:0;z-index:100;background:rgba(10,10,15,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,95,31,0.15);padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}
+.nav-brand{font-weight:800;font-size:1.1rem;color:var(--accent);letter-spacing:0.08em}
+.nav-links{display:flex;gap:1.5rem;font-size:0.85rem}.nav-links a{color:var(--text-dim);font-weight:500}.nav-links a.active{color:var(--accent)}
+.lock-gate{position:fixed;inset:0;z-index:1000;background:rgba(10,10,15,0.97);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:2rem}
+.lock-gate.hidden{display:none}
+.lock-icon-big{font-size:4rem}.lock-gate h2{font-size:1.8rem;font-weight:800;text-align:center}.lock-gate h2 span{color:var(--accent)}.lock-gate p{color:var(--text-dim);text-align:center;max-width:400px}
+.code-input-wrap{display:flex;gap:0.5rem}
+.code-input{padding:0.8rem 1.5rem;background:rgba(18,18,28,0.8);border:2px solid var(--accent-glow);border-radius:12px;color:var(--accent);font-size:1.2rem;font-weight:800;letter-spacing:3px;text-align:center;width:200px;outline:none;text-transform:uppercase;font-family:var(--font)}
+.code-input:focus{border-color:var(--accent);box-shadow:0 0 20px rgba(255,95,31,0.2)}
+.code-submit{padding:0.8rem 1.5rem;background:linear-gradient(135deg,#ff5f1f,#ff8c00);border:none;border-radius:12px;color:#000;font-size:1rem;font-weight:800;cursor:pointer}
+.code-error{color:var(--red);font-size:0.85rem;min-height:1.2em}.lock-hint{color:var(--text-dim);font-size:0.8rem}.lock-hint a{color:var(--accent)}
+.exclusive-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;background:linear-gradient(135deg,rgba(255,95,31,0.15),rgba(255,140,0,0.15));border:1px solid var(--accent-glow);border-radius:100px;font-size:11px;font-weight:800;color:var(--accent);letter-spacing:1.5px;text-transform:uppercase}
+.main{max-width:1100px;margin:0 auto;padding:2rem}
+.hero-section{text-align:center;padding:2rem 0 2rem}
+.hero-section h1{font-size:2.2rem;font-weight:800;margin:1rem 0 0.5rem}
+.hero-section h1 .accent{background:linear-gradient(135deg,#ff5f1f,#ff8c00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-section p{color:var(--text-dim);max-width:600px;margin:0 auto}
+.card{background:var(--card);border:1px solid var(--accent-glow);border-radius:16px;padding:1.5rem;margin-bottom:1.5rem;backdrop-filter:blur(10px);position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),#ff8c00,var(--accent))}
+.card h2{font-size:1.1rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}
+.form-group{display:flex;flex-direction:column;gap:0.3rem;margin-bottom:0.75rem}
+.form-group label{font-size:0.75rem;color:var(--text-dim);font-weight:600;text-transform:uppercase;letter-spacing:0.5px}
+.form-group input,.form-group select,.form-group textarea{padding:0.6rem 0.8rem;background:rgba(18,18,28,0.9);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.85rem;font-family:var(--font);outline:none;resize:vertical}
+.form-group input:focus,.form-group textarea:focus{border-color:var(--accent)}
+.form-group textarea{min-height:120px;line-height:1.5}
+.btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;transition:all 0.2s}
+.btn-accent{background:linear-gradient(135deg,#ff5f1f,#ff8c00);color:#000}
+.btn-accent:hover{transform:translateY(-1px);box-shadow:0 4px 15px rgba(255,95,31,0.3)}
+.btn-outline{background:transparent;border:1px solid var(--accent-glow);color:var(--accent)}
+.btn-outline:hover{background:rgba(255,95,31,0.1)}
+.btn-sm{padding:0.4rem 0.8rem;font-size:0.75rem}
+.btn-red{background:rgba(248,81,73,0.15);border:1px solid rgba(248,81,73,0.3);color:var(--red)}
+.btn-row{display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:0.75rem}
+.result-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1rem;margin:1rem 0}
+.result-box{background:rgba(10,10,15,0.6);border:1px solid var(--border);border-radius:12px;padding:1rem;text-align:center}
+.result-box .value{font-size:1.5rem;font-weight:800;color:var(--accent)}
+.result-box .label{font-size:0.7rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.5px;margin-top:0.3rem}
+.result-box.good .value{color:var(--green)}
+.result-box.bad .value{color:var(--red)}
+.result-box.warn .value{color:var(--yellow)}
+.keyword-tag{display:inline-block;padding:3px 10px;border-radius:20px;font-size:0.75rem;font-weight:600;margin:3px 2px}
+.keyword-tag.match{background:rgba(57,211,83,0.15);color:var(--green);border:1px solid rgba(57,211,83,0.3)}
+.keyword-tag.missing{background:rgba(248,81,73,0.15);color:var(--red);border:1px solid rgba(248,81,73,0.3)}
+.prompt-box{background:rgba(10,10,15,0.7);border:1px solid var(--border);border-radius:8px;padding:1rem;font-size:0.82rem;line-height:1.6;white-space:pre-wrap;word-wrap:break-word;margin-bottom:0.75rem;position:relative;cursor:pointer}
+.prompt-box:hover{border-color:var(--accent)}
+.copy-toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--accent);color:#000;padding:0.5rem 1.5rem;border-radius:8px;font-weight:700;font-size:0.85rem;z-index:9999;opacity:0;transition:opacity 0.3s}
+.copy-toast.show{opacity:1}
+.ats-tip{background:rgba(88,166,255,0.08);border:1px solid rgba(88,166,255,0.2);border-radius:8px;padding:0.75rem;margin-bottom:0.5rem;font-size:0.85rem}
+.ats-tip strong{color:var(--blue)}
+.saved-app{display:flex;justify-content:space-between;align-items:center;padding:0.6rem 0.8rem;background:rgba(10,10,15,0.5);border:1px solid var(--border);border-radius:8px;margin-bottom:0.4rem;font-size:0.85rem;cursor:pointer}
+.saved-app:hover{border-color:var(--accent)}
+.saved-app .app-name{font-weight:600;flex:1}
+.saved-app .app-score{font-weight:800;margin:0 1rem}
+.saved-app .app-date{color:var(--text-dim);font-size:0.75rem}
+.del-btn{background:none;border:none;color:var(--red);cursor:pointer;font-size:1rem;padding:0 6px}
+.share-cta{background:linear-gradient(135deg,rgba(255,95,31,0.08),rgba(255,140,0,0.05));border:1px solid var(--accent-glow);border-radius:16px;padding:2rem;text-align:center;margin-top:2rem}
+.share-cta h3{color:var(--accent);margin-bottom:0.5rem}.share-cta p{color:var(--text-dim);font-size:0.9rem;margin-bottom:1rem}
+.share-btns{display:flex;gap:0.6rem;justify-content:center;flex-wrap:wrap}
+.share-btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;color:#fff}
+.share-x{background:#000;border:1px solid #333}.share-reddit{background:#ff4500}.share-email{background:#21262d;border:1px solid #30363d}
+.footer{text-align:center;padding:2rem;border-top:1px solid rgba(255,95,31,0.1);color:var(--text-dim);font-size:0.75rem;margin-top:3rem}
+.footer a{color:var(--accent)}.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-bottom:1rem}
+.watermark{position:fixed;bottom:10px;right:10px;font-size:0.6rem;color:rgba(255,95,31,0.08);font-weight:800;pointer-events:none;z-index:9999;letter-spacing:1px;text-transform:uppercase}
+@media(max-width:700px){.main{padding:1rem}.hero-section h1{font-size:1.5rem}.nav-links{display:none}.result-grid{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="bg-mesh"></div><div class="bg-grid"></div>
+<div class="lock-gate" id="lockGate"><div class="lock-icon-big">&#128274;</div><h2>Enter Code <span>SPUNK</span> to Unlock</h2><p>This exclusive premium tool requires the SPUNK referral code.</p><div class="code-input-wrap"><input type="text" class="code-input" id="codeInput" placeholder="CODE" maxlength="10" autocomplete="off"><button class="code-submit" onclick="submitCode()">Unlock</button></div><div class="code-error" id="codeError"></div><div class="lock-hint">Get the code at <a href="https://spunk.codes/exclusive-tools">spunk.codes/exclusive-tools</a></div></div>
+<nav class="nav"><a href="https://spunk.codes" class="nav-brand">SPUNK.CODES</a><div class="nav-links"><a href="/store">Tools</a><a href="/exclusive-tools" class="active">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a></div></nav>
+
+<div class="main">
+  <section class="hero-section">
+    <div class="exclusive-badge">&#128081; EXCLUSIVE TOOL</div>
+    <h1><span class="accent">AI Resume</span> Optimizer</h1>
+    <p>Paste a job description and your experience. Get keyword match scores, missing skills, AI rewrite prompts, and ATS-friendly tips instantly.</p>
+  </section>
+
+  <div class="card">
+    <h2>&#128203; Job Description</h2>
+    <div class="form-group"><label>Paste the full job posting</label><textarea id="jobDesc" placeholder="Paste the entire job description here..."></textarea></div>
+    <div class="form-group"><label>Job Title (for saving)</label><input type="text" id="jobTitle" placeholder="e.g. Senior Product Manager at Acme Corp"></div>
+  </div>
+
+  <div class="card">
+    <h2>&#128221; Your Experience</h2>
+    <div class="form-group"><label>Paste your resume bullets / experience section</label><textarea id="resumeText" placeholder="- Led cross-functional team of 8 engineers&#10;- Increased conversion rate by 35%&#10;- Managed $2M annual budget&#10;- Built data pipeline processing 10M events/day"></textarea></div>
+  </div>
+
+  <div class="btn-row" style="margin-bottom:1.5rem">
+    <button class="btn btn-accent" onclick="analyzeMatch()">Analyze Match</button>
+    <button class="btn btn-outline" onclick="saveApplication()">Save Application</button>
+    <button class="btn btn-outline" onclick="clearInputs()">Clear</button>
+  </div>
+
+  <div id="resultsSection" style="display:none">
+    <div class="card">
+      <h2>&#127919; Keyword Match Score</h2>
+      <div class="result-grid">
+        <div class="result-box" id="scoreBox"><div class="value" id="matchScore">-</div><div class="label">Match Score</div></div>
+        <div class="result-box good"><div class="value" id="matchedCount">-</div><div class="label">Keywords Matched</div></div>
+        <div class="result-box bad"><div class="value" id="missingCount">-</div><div class="label">Keywords Missing</div></div>
+        <div class="result-box"><div class="value" id="totalKeywords">-</div><div class="label">Total Keywords</div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>&#128273; Matched Keywords</h2>
+      <p style="color:var(--text-dim);font-size:0.8rem;margin-bottom:0.75rem">These keywords from the job description appear in your resume.</p>
+      <div id="matchedKeywords"></div>
+    </div>
+
+    <div class="card">
+      <h2>&#9888; Missing Keywords</h2>
+      <p style="color:var(--text-dim);font-size:0.8rem;margin-bottom:0.75rem">Consider adding these keywords to your resume if they apply to your experience.</p>
+      <div id="missingKeywords"></div>
+    </div>
+
+    <div class="card">
+      <h2>&#129302; AI Rewrite Prompts</h2>
+      <p style="color:var(--text-dim);font-size:0.8rem;margin-bottom:0.75rem">Copy these prompts into ChatGPT or Claude to rewrite your bullets with metrics and impact. Click any box to copy.</p>
+      <div id="rewritePrompts"></div>
+    </div>
+
+    <div class="card">
+      <h2>&#128232; Cover Letter Prompt</h2>
+      <p style="color:var(--text-dim);font-size:0.8rem;margin-bottom:0.75rem">Copy this prompt into any AI to generate a tailored cover letter. Click to copy.</p>
+      <div id="coverLetterPrompt"></div>
+    </div>
+
+    <div class="card">
+      <h2>&#128736; ATS-Friendly Tips</h2>
+      <div id="atsTips"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>&#128190; Saved Applications</h2>
+    <div id="savedApps"><p style="color:var(--text-dim);font-size:0.85rem">No saved applications yet.</p></div>
+  </div>
+
+  <div class="share-cta">
+    <h3>&#128275; Share the Code, Unlock More Tools</h3>
+    <p>Share code SPUNK to help others access 15+ exclusive premium tools.</p>
+    <div class="share-btns">
+      <button class="share-btn share-x" onclick="shareX()">&#120143; Share on X</button>
+      <button class="share-btn share-reddit" onclick="shareReddit()">&#128172; Reddit</button>
+      <button class="share-btn share-email" onclick="shareEmail()">&#9993; Email</button>
+    </div>
+  </div>
+</div>
+
+<div class="copy-toast" id="copyToast">Copied to clipboard!</div>
+
+<footer class="footer"><div class="footer-links"><a href="https://spunk.codes">spunk.codes</a><a href="https://spunk.bet">spunk.bet</a><a href="https://spunk.pics">spunk.pics</a><a href="https://spunk.work">spunk.work</a><a href="https://spunkart.com">spunkart.com</a></div><div>&copy; 2026 SPUNK.CODES EXCLUSIVE.</div></footer>
+<div class="watermark">SPUNK.CODES EXCLUSIVE</div>
+
+<script>
+document.addEventListener('contextmenu',function(e){e.preventDefault()});
+document.addEventListener('keydown',function(e){if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'||e.key==='C'))||(e.ctrlKey&&e.key==='u'))e.preventDefault()});
+
+function esc(s){var d=document.createElement('div');d.appendChild(document.createTextNode(s));return d.innerHTML}
+
+function checkCode(){try{var c=localStorage.getItem('spunk_referral_code')||localStorage.getItem('spunk_ref_code')||'';if(c.toUpperCase()==='SPUNK'){document.getElementById('lockGate').classList.add('hidden');return true}}catch(e){}return false}
+function submitCode(){var v=document.getElementById('codeInput').value.trim().toUpperCase();if(v==='SPUNK'){try{localStorage.setItem('spunk_referral_code','SPUNK');localStorage.setItem('spunk_ref_code','SPUNK')}catch(e){}document.getElementById('lockGate').classList.add('hidden')}else{document.getElementById('codeError').textContent='Invalid code. Try: SPUNK';setTimeout(function(){document.getElementById('codeError').textContent=''},2000)}}
+document.getElementById('codeInput').addEventListener('keydown',function(e){if(e.key==='Enter')submitCode()});
+checkCode();
+
+var STORAGE_KEY='spunkcodes_resume_optimizer';
+var savedApps=[];
+
+function loadData(){try{var d=JSON.parse(localStorage.getItem(STORAGE_KEY));if(d&&d.apps)savedApps=d.apps}catch(e){}}
+function saveData(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify({apps:savedApps}))}catch(e){}}
+
+// Stop words to exclude from keyword extraction
+var STOP_WORDS=['the','be','to','of','and','a','in','that','have','i','it','for','not','on','with','he','as','you','do','at','this','but','his','by','from','they','we','her','she','or','an','will','my','one','all','would','there','their','what','so','up','out','if','about','who','get','which','go','me','when','make','can','like','time','no','just','him','know','take','people','into','year','your','good','some','could','them','see','other','than','then','now','look','only','come','its','over','think','also','back','after','use','two','how','our','work','first','well','way','even','new','want','because','any','these','give','day','most','us','are','is','was','were','been','being','has','had','does','did','may','might','shall','should','must','need','can','could','would','able','unable','per','via','etc','such','each','every','both','few','more','many','much','own','same','other','another','here','where','why','job','role','team','company','experience','strong','ability','working','including','using','within','across','join','help','ensure','required','preferred','must','plus','bonus','description','requirements','qualifications','responsibilities','benefits','salary','apply','candidate','position','opportunity','looking','seeking'];
+
+function extractKeywords(text){
+  var words=text.toLowerCase().replace(/[^a-z0-9\s\-\/\+\#\.]/g,' ').split(/\s+/);
+  var freq={};
+  // Also extract multi-word phrases (bigrams)
+  var phrases=[];
+  for(var i=0;i<words.length-1;i++){
+    if(words[i].length>2&&words[i+1].length>2){
+      phrases.push(words[i]+' '+words[i+1]);
+    }
+  }
+  words.concat(phrases).forEach(function(w){
+    w=w.replace(/^[\-\.]+|[\-\.]+$/g,'');
+    if(w.length<3)return;
+    if(STOP_WORDS.indexOf(w)>=0)return;
+    if(/^\d+$/.test(w))return;
+    freq[w]=(freq[w]||0)+1;
+  });
+  // Sort by frequency, take top keywords
+  return Object.keys(freq).sort(function(a,b){return freq[b]-freq[a]});
+}
+
+function extractSkillKeywords(text){
+  // Focus on technical/professional terms
+  var skillPatterns=[
+    /\b(?:python|javascript|typescript|java|c\+\+|c#|ruby|go|rust|swift|kotlin|php|sql|html|css|react|angular|vue|node\.?js|express|django|flask|spring|\.net|aws|azure|gcp|docker|kubernetes|terraform|jenkins|git|agile|scrum|kanban|jira|confluence|figma|sketch|photoshop|illustrator|tableau|power\s?bi|excel|salesforce|hubspot|sap|oracle|mongodb|postgresql|mysql|redis|elasticsearch|kafka|rabbitmq|graphql|rest\s?api|microservices|ci\/cd|devops|machine\s?learning|deep\s?learning|nlp|computer\s?vision|data\s?science|analytics|a\/b\s?test|seo|sem|ppc|crm|erp|blockchain|crypto|web3|solidity|smart\s?contracts)\b/gi,
+    /\b(?:leadership|management|communication|problem[\s-]solving|critical\s?thinking|teamwork|collaboration|presentation|negotiation|budgeting|forecasting|strategy|project\s?management|product\s?management|business\s?development|account\s?management|customer\s?success|operations|marketing|sales|finance|hr|legal|compliance|audit|risk\s?management)\b/gi
+  ];
+  var skills=[];
+  skillPatterns.forEach(function(pattern){
+    var matches=text.match(pattern);
+    if(matches)skills=skills.concat(matches.map(function(m){return m.toLowerCase().trim()}));
+  });
+  // Deduplicate
+  return skills.filter(function(s,i){return skills.indexOf(s)===i});
+}
+
+function analyzeMatch(){
+  var jobText=document.getElementById('jobDesc').value.trim();
+  var resumeText=document.getElementById('resumeText').value.trim();
+  if(!jobText){alert('Please paste a job description.');return}
+  if(!resumeText){alert('Please enter your experience.');return}
+
+  var jobKeywords=extractKeywords(jobText);
+  var jobSkills=extractSkillKeywords(jobText);
+  var resumeLower=resumeText.toLowerCase();
+
+  // Combine and deduplicate important keywords (skills weighted higher)
+  var allKeywords=jobSkills.slice();
+  jobKeywords.slice(0,40).forEach(function(k){if(allKeywords.indexOf(k)<0)allKeywords.push(k)});
+
+  var matched=[];
+  var missing=[];
+  allKeywords.forEach(function(kw){
+    if(resumeLower.indexOf(kw)>=0){matched.push(kw)}
+    else{missing.push(kw)}
+  });
+
+  var score=allKeywords.length>0?Math.round((matched.length/allKeywords.length)*100):0;
+
+  // Score display
+  document.getElementById('matchScore').textContent=score+'%';
+  var sb=document.getElementById('scoreBox');
+  sb.className='result-box '+(score>=70?'good':(score>=40?'warn':'bad'));
+  document.getElementById('matchedCount').textContent=matched.length;
+  document.getElementById('missingCount').textContent=missing.length;
+  document.getElementById('totalKeywords').textContent=allKeywords.length;
+
+  // Matched keywords
+  var mhtml='';
+  matched.forEach(function(k){mhtml+='<span class="keyword-tag match">'+esc(k)+'</span>'});
+  document.getElementById('matchedKeywords').innerHTML=mhtml||'<p style="color:var(--text-dim);font-size:0.85rem">No matching keywords found.</p>';
+
+  // Missing keywords
+  var mihtml='';
+  missing.slice(0,30).forEach(function(k){mihtml+='<span class="keyword-tag missing">'+esc(k)+'</span>'});
+  document.getElementById('missingKeywords').innerHTML=mihtml||'<p style="color:var(--green);font-size:0.85rem">Amazing! You matched every keyword.</p>';
+
+  // AI rewrite prompts
+  var bullets=resumeText.split('\n').filter(function(l){return l.trim().length>5});
+  var missingStr=missing.slice(0,15).join(', ');
+  var rphtml='';
+  bullets.slice(0,8).forEach(function(bullet,i){
+    var prompt='Rewrite this resume bullet point to be more impactful with specific metrics and numbers. Include these keywords where natural: '+missingStr+'\n\nOriginal bullet: '+bullet.trim()+'\n\nMake it follow this format: "[Action verb] [what you did] [measurable result/impact]". Keep it to 1-2 lines.';
+    rphtml+='<div class="prompt-box" onclick="copyText(this)" title="Click to copy">'+esc(prompt)+'</div>';
+  });
+  document.getElementById('rewritePrompts').innerHTML=rphtml||'<p style="color:var(--text-dim)">Add experience bullets to generate rewrite prompts.</p>';
+
+  // Cover letter prompt
+  var jobTitle=document.getElementById('jobTitle').value.trim()||'the position';
+  var clPrompt='Write a professional, concise cover letter for the position of "'+jobTitle+'". Here is the job description:\n\n'+jobText.substring(0,800)+'...\n\nHere is my relevant experience:\n\n'+resumeText.substring(0,600)+'\n\nRequirements:\n- Keep it under 300 words\n- Open with a compelling hook (not "I am writing to apply")\n- Highlight 2-3 specific achievements that match the job requirements\n- Include keywords: '+missing.slice(0,8).join(', ')+'\n- Close with enthusiasm and a call to action\n- Professional but personable tone';
+  document.getElementById('coverLetterPrompt').innerHTML='<div class="prompt-box" onclick="copyText(this)" title="Click to copy">'+esc(clPrompt)+'</div>';
+
+  // ATS Tips
+  var tips='';
+  tips+='<div class="ats-tip"><strong>Use standard section headers:</strong> "Work Experience", "Education", "Skills" — not creative alternatives. ATS software looks for these exact headings.</div>';
+  tips+='<div class="ats-tip"><strong>Avoid tables, columns, and graphics:</strong> Most ATS systems cannot parse multi-column layouts or images. Use a single-column format.</div>';
+  tips+='<div class="ats-tip"><strong>Include exact keywords:</strong> ATS matches exact phrases. If the job says "project management", use that exact phrase — not just "managed projects".</div>';
+  if(score<50){
+    tips+='<div class="ats-tip"><strong>Your match score is low ('+score+'%).</strong> Rewrite your bullets to naturally include more keywords from the job description. Focus on the missing keywords highlighted above.</div>';
+  }
+  tips+='<div class="ats-tip"><strong>Use a .docx or .pdf format:</strong> These are the most ATS-friendly file formats. Avoid .pages, .odt, or image-based PDFs.</div>';
+  tips+='<div class="ats-tip"><strong>Quantify everything:</strong> "Increased revenue by 25%" beats "Helped increase revenue." Numbers get noticed by both ATS and human reviewers.</div>';
+  if(missing.length>5){
+    tips+='<div class="ats-tip"><strong>Add a "Skills" section:</strong> List missing keywords like '+missing.slice(0,5).map(function(m){return '"'+esc(m)+'"'}).join(', ')+' in a dedicated skills section if you have that experience.</div>';
+  }
+  document.getElementById('atsTips').innerHTML=tips;
+
+  document.getElementById('resultsSection').style.display='block';
+  document.getElementById('resultsSection').scrollIntoView({behavior:'smooth'});
+}
+
+function copyText(el){
+  var text=el.textContent;
+  navigator.clipboard.writeText(text).then(function(){
+    var toast=document.getElementById('copyToast');
+    toast.classList.add('show');
+    setTimeout(function(){toast.classList.remove('show')},1500);
+  }).catch(function(){
+    // Fallback
+    var ta=document.createElement('textarea');
+    ta.value=text;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);
+    var toast=document.getElementById('copyToast');
+    toast.classList.add('show');
+    setTimeout(function(){toast.classList.remove('show')},1500);
+  });
+}
+
+function saveApplication(){
+  var title=document.getElementById('jobTitle').value.trim();
+  var jobText=document.getElementById('jobDesc').value.trim();
+  var resumeText=document.getElementById('resumeText').value.trim();
+  if(!title){alert('Enter a job title to save.');return}
+  if(!jobText){alert('Paste a job description first.');return}
+
+  // Calculate score
+  var jobKeywords=extractKeywords(jobText);
+  var jobSkills=extractSkillKeywords(jobText);
+  var resumeLower=resumeText.toLowerCase();
+  var allKeywords=jobSkills.slice();
+  jobKeywords.slice(0,40).forEach(function(k){if(allKeywords.indexOf(k)<0)allKeywords.push(k)});
+  var matched=allKeywords.filter(function(kw){return resumeLower.indexOf(kw)>=0});
+  var score=allKeywords.length>0?Math.round((matched.length/allKeywords.length)*100):0;
+
+  savedApps.push({
+    id:Date.now(),
+    title:title,
+    score:score,
+    date:new Date().toLocaleDateString(),
+    jobText:jobText.substring(0,500),
+    resumeText:resumeText.substring(0,500)
+  });
+  saveData();
+  renderSavedApps();
+  alert('Application saved: '+title);
+}
+
+function loadApp(id){
+  var app=savedApps.find(function(a){return a.id===id});
+  if(!app)return;
+  document.getElementById('jobTitle').value=app.title;
+  document.getElementById('jobDesc').value=app.jobText;
+  document.getElementById('resumeText').value=app.resumeText;
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function deleteApp(id){
+  savedApps=savedApps.filter(function(a){return a.id!==id});
+  saveData();
+  renderSavedApps();
+}
+
+function renderSavedApps(){
+  if(savedApps.length===0){document.getElementById('savedApps').innerHTML='<p style="color:var(--text-dim);font-size:0.85rem">No saved applications yet.</p>';return}
+  var html='';
+  savedApps.forEach(function(app){
+    var color=app.score>=70?'var(--green)':(app.score>=40?'var(--yellow)':'var(--red)');
+    html+='<div class="saved-app" onclick="loadApp('+app.id+')"><span class="app-name">'+esc(app.title)+'</span><span class="app-score" style="color:'+color+'">'+app.score+'%</span><span class="app-date">'+esc(app.date)+'</span><button class="del-btn" onclick="event.stopPropagation();deleteApp('+app.id+')" title="Delete">&#10005;</button></div>';
+  });
+  document.getElementById('savedApps').innerHTML=html;
+}
+
+function clearInputs(){
+  document.getElementById('jobDesc').value='';
+  document.getElementById('jobTitle').value='';
+  document.getElementById('resumeText').value='';
+  document.getElementById('resultsSection').style.display='none';
+}
+
+function shareX(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Just optimized my resume with keyword matching and AI prompts. Free tool, code SPUNK @SpunkArt13')+'&url='+encodeURIComponent('https://spunk.codes/exclusive-tools'),'_blank')}
+function shareReddit(){window.open('https://www.reddit.com/submit?url='+encodeURIComponent('https://spunk.codes/exclusive-tools')+'&title='+encodeURIComponent('AI Resume Optimizer - keyword matching, ATS tips, AI rewrite prompts [spunk.codes]'),'_blank')}
+function shareEmail(){window.location.href='mailto:?subject='+encodeURIComponent('AI Resume Optimizer Tool')+'&body='+encodeURIComponent('Optimize your resume for any job with keyword matching and AI prompts. Code SPUNK: https://spunk.codes/exclusive-tools')}
+
+loadData();
+renderSavedApps();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>

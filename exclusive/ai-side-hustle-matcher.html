@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI Side Hustle Matcher — Find Your Perfect Side Income | SPUNK.CODES</title>
+<meta name="description" content="Answer a few questions about your skills, time, and goals. Get matched to 20+ side hustles with income estimates, startup costs, and AI tools to help you succeed.">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP')</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w")</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e8e8f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+header{background:#111118;border-bottom:2px solid #ff5f1f;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+header h1{font-size:1.4rem;color:#ff5f1f}
+header .back{color:#e8e8f0;font-size:.9rem}
+main{flex:1;max-width:960px;width:100%;margin:0 auto;padding:24px 16px}
+.panel{background:#111118;border:1px solid #2a2a3a;border-radius:10px;padding:20px;margin-bottom:20px}
+.panel h2{font-size:1.1rem;color:#ff5f1f;margin-bottom:14px}
+button{background:#ff5f1f;color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:.9rem;font-weight:600;transition:background .2s}
+button:hover{background:#e8520e}
+button.secondary{background:#2a2a3a;color:#e8e8f0}button.secondary:hover{background:#3a3a4a}
+select,input{background:#16161e;border:1px solid #2a2a3a;color:#e8e8f0;padding:8px 12px;border-radius:6px;font-size:.9rem}
+label{display:block;font-size:.85rem;color:#888;margin-bottom:6px;margin-top:14px}
+label:first-child{margin-top:0}
+.chip-group{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.chip{background:#16161e;border:1px solid #2a2a3a;padding:6px 14px;border-radius:20px;font-size:.8rem;cursor:pointer;color:#e8e8f0;transition:all .2s;user-select:none}
+.chip:hover,.chip.active{border-color:#ff5f1f;color:#ff5f1f;background:#1a1520}
+.range-display{display:flex;align-items:center;gap:12px;margin-top:6px}
+.range-display input[type=range]{flex:1;accent-color:#ff5f1f}
+.range-display .val{color:#ff5f1f;font-weight:700;min-width:60px;text-align:center}
+.results-header{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:14px}
+.sort-row{display:flex;gap:8px;flex-wrap:wrap}
+.sort-btn{background:#16161e;border:1px solid #2a2a3a;padding:4px 10px;border-radius:6px;font-size:.75rem;cursor:pointer;color:#e8e8f0}
+.sort-btn:hover,.sort-btn.active{border-color:#ff5f1f;color:#ff5f1f}
+.hustle-card{background:#16161e;border:1px solid #2a2a3a;border-radius:10px;padding:18px;margin-bottom:12px;transition:border-color .2s}
+.hustle-card:hover{border-color:#ff5f1f}
+.hustle-card .title{font-size:1.05rem;font-weight:700;color:#ff5f1f;margin-bottom:6px}
+.hustle-card .desc{font-size:.85rem;color:#bbb;margin-bottom:10px;line-height:1.4}
+.hustle-meta{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:10px}
+.meta-item{text-align:center;background:#0a0a0f;border-radius:6px;padding:8px 4px}
+.meta-item .meta-val{font-size:.95rem;font-weight:700;color:#ff5f1f}
+.meta-item .meta-lbl{font-size:.65rem;color:#888;margin-top:2px}
+.match-score{display:inline-block;background:#ff5f1f;color:#fff;font-size:.75rem;font-weight:700;padding:3px 10px;border-radius:10px;margin-bottom:8px}
+.ai-tools{margin-top:10px;padding-top:10px;border-top:1px solid #2a2a3a}
+.ai-tools h4{font-size:.8rem;color:#ff5f1f;margin-bottom:6px}
+.ai-tool-item{font-size:.8rem;color:#ccc;padding:3px 0}
+.steps{margin-top:10px;padding-top:10px;border-top:1px solid #2a2a3a}
+.steps h4{font-size:.8rem;color:#ff5f1f;margin-bottom:6px}
+.step-item{font-size:.8rem;color:#ccc;padding:2px 0;padding-left:16px;position:relative}
+.step-item:before{content:'';position:absolute;left:4px;top:9px;width:6px;height:6px;border-radius:50%;background:#ff5f1f}
+.expand-btn{background:none;border:1px solid #2a2a3a;color:#888;padding:4px 10px;font-size:.75rem;margin-top:8px;cursor:pointer}
+.expand-btn:hover{border-color:#ff5f1f;color:#ff5f1f}
+.hidden{display:none}
+.no-results{text-align:center;padding:40px;color:#555}
+footer{text-align:center;padding:20px;color:#555;font-size:.8rem;border-top:1px solid #1a1a2a;margin-top:auto}
+footer a{color:#ff5f1f;margin:0 4px}
+@media(max-width:700px){
+header h1{font-size:1.1rem}
+.hustle-meta{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+<header>
+<h1>AI Side Hustle Matcher</h1>
+<a href="https://spunk.codes" class="back">spunk.codes</a>
+</header>
+<main>
+<div class="panel">
+<h2>Tell Us About Yourself</h2>
+<label>Available Hours per Week</label>
+<div class="range-display">
+<input type="range" id="hoursRange" min="1" max="40" value="10" oninput="document.getElementById('hoursVal').textContent=this.value+'h/week'">
+<span class="val" id="hoursVal">10h/week</span>
+</div>
+
+<label>Your Skills (select all that apply)</label>
+<div class="chip-group" id="skillChips"></div>
+
+<label>Equipment You Have</label>
+<div class="chip-group" id="equipChips"></div>
+
+<label>Monthly Income Goal</label>
+<div class="range-display">
+<input type="range" id="incomeRange" min="100" max="10000" step="100" value="1000" oninput="document.getElementById('incomeVal').textContent='$'+this.value+'/mo'">
+<span class="val" id="incomeVal">$1000/mo</span>
+</div>
+
+<label>Risk Tolerance</label>
+<div class="chip-group" id="riskChips"></div>
+
+<div style="margin-top:18px">
+<button onclick="findMatches()">Find My Side Hustles</button>
+<button class="secondary" onclick="resetForm()" style="margin-left:8px">Reset</button>
+</div>
+</div>
+
+<div class="panel" id="resultsPanel" style="display:none">
+<div class="results-header">
+<h2 style="margin:0">Your Matches <span id="matchCount" style="font-size:.8rem;color:#888"></span></h2>
+<div class="sort-row">
+<div class="sort-btn active" data-sort="score" onclick="sortResults('score')">Best Match</div>
+<div class="sort-btn" data-sort="income" onclick="sortResults('income')">Highest Income</div>
+<div class="sort-btn" data-sort="startup" onclick="sortResults('startup')">Lowest Startup</div>
+<div class="sort-btn" data-sort="speed" onclick="sortResults('speed')">Fastest Start</div>
+</div>
+</div>
+<div id="resultsList"></div>
+</div>
+</main>
+
+<footer>
+<a href="https://spunk.codes">spunk.codes</a> &middot;
+<a href="https://spunk.bet">spunk.bet</a> &middot;
+<a href="https://spunk.pics">spunk.pics</a> &middot;
+<a href="https://spunk.work">spunk.work</a> &middot;
+<a href="https://spunkart.com">SpunkArt.com</a>
+</footer>
+
+<script>
+const LS_KEY='spunkcodes_side_hustle';
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+
+const SKILLS=['writing','design','coding','teaching','driving','crafts','photography','video','marketing','sales','data-entry','customer-service','music','cooking','fitness','social-media'];
+const EQUIPMENT=['computer','smartphone','car','camera','microphone','printer','tools','kitchen'];
+const RISKS=['low','medium','high'];
+
+const HUSTLES=[
+{id:'freelance-writing',name:'Freelance Writing',desc:'Write articles, blog posts, copywriting for businesses and publications.',income:[500,5000],startup:0,speed:'1-2 weeks',skills:['writing','marketing'],equip:['computer'],risk:'low',
+aiTools:['ChatGPT for drafts & outlines','Grammarly for proofreading','Jasper for marketing copy'],
+steps:['Create writing samples on Medium or a free blog','Set up profiles on Upwork, Fiverr, Contently','Pitch 5 potential clients per day','Start with lower rates, build portfolio, raise prices']},
+{id:'graphic-design',name:'Graphic Design Services',desc:'Create logos, social media graphics, marketing materials for small businesses.',income:[500,4000],startup:0,speed:'1-2 weeks',skills:['design'],equip:['computer'],risk:'low',
+aiTools:['Canva AI for quick designs','Midjourney for concept art','Remove.bg for background removal'],
+steps:['Build portfolio with 10 sample projects','List services on Fiverr and 99designs','Join design communities on Discord','Offer package deals to local businesses']},
+{id:'web-dev',name:'Web Development',desc:'Build websites and web apps for clients using modern frameworks.',income:[1000,10000],startup:0,speed:'1-3 weeks',skills:['coding'],equip:['computer'],risk:'low',
+aiTools:['GitHub Copilot for faster coding','ChatGPT for debugging','V0 by Vercel for UI generation'],
+steps:['Build 3 portfolio projects','Create profiles on Upwork and Toptal','Network in developer communities','Start with WordPress sites, scale to custom builds']},
+{id:'online-tutoring',name:'Online Tutoring',desc:'Teach students subjects you know well via video calls.',income:[300,3000],startup:0,speed:'1 week',skills:['teaching'],equip:['computer'],risk:'low',
+aiTools:['ChatGPT for lesson planning','Canva for worksheets','Notion AI for curriculum organization'],
+steps:['Choose your subject and age group','Sign up on Wyzant, Tutor.com, Preply','Set competitive hourly rates','Get reviews from first students to build credibility']},
+{id:'rideshare',name:'Rideshare / Delivery Driver',desc:'Drive for Uber, Lyft, DoorDash, or Instacart on your own schedule.',income:[400,3000],startup:50,speed:'1-2 weeks',skills:['driving'],equip:['car','smartphone'],risk:'low',
+aiTools:['Gridwise for earnings optimization','Everlance for mileage tracking','Para for multi-app management'],
+steps:['Sign up for 2-3 delivery/rideshare apps','Get required insurance and inspections','Learn peak hours in your area','Track all expenses for tax deductions']},
+{id:'etsy-shop',name:'Etsy / Handmade Shop',desc:'Sell handmade crafts, jewelry, art, or digital products on Etsy.',income:[200,5000],startup:50,speed:'2-4 weeks',skills:['crafts','design'],equip:['computer'],risk:'medium',
+aiTools:['ChatGPT for product descriptions','Canva for listing images','EtsyHunt for keyword research'],
+steps:['Research trending products in your niche','Create 10-20 initial listings','Optimize titles and tags for Etsy SEO','Promote on Pinterest and Instagram']},
+{id:'photography',name:'Photography Services',desc:'Shoot events, portraits, products, or stock photos.',income:[500,5000],startup:200,speed:'2-4 weeks',skills:['photography'],equip:['camera','computer'],risk:'medium',
+aiTools:['Lightroom AI for editing','Remove.bg for background removal','Topaz AI for image enhancement'],
+steps:['Build portfolio with free or discounted shoots','Create Google Business profile','List on Thumbtack and local directories','Specialize in a niche (weddings, products, headshots)']},
+{id:'video-editing',name:'Video Editing',desc:'Edit YouTube videos, social media content, and promotional videos.',income:[500,6000],startup:0,speed:'1-2 weeks',skills:['video'],equip:['computer'],risk:'low',
+aiTools:['CapCut for quick edits','Descript for AI-powered editing','Runway ML for effects'],
+steps:['Edit 3-5 sample videos for portfolio','Reach out to YouTubers who need editors','List on Fiverr with package pricing','Learn trending editing styles']},
+{id:'social-media-mgmt',name:'Social Media Management',desc:'Manage social media accounts for small businesses.',income:[500,4000],startup:0,speed:'1-2 weeks',skills:['social-media','marketing','writing'],equip:['computer','smartphone'],risk:'low',
+aiTools:['ChatGPT for caption writing','Canva AI for post graphics','Buffer for scheduling'],
+steps:['Manage your own accounts as portfolio','Offer free trial to 2 local businesses','Create content calendars and posting schedules','Scale by hiring VAs for execution']},
+{id:'virtual-assistant',name:'Virtual Assistant',desc:'Handle admin tasks, email management, scheduling for entrepreneurs.',income:[400,3000],startup:0,speed:'1 week',skills:['data-entry','customer-service'],equip:['computer'],risk:'low',
+aiTools:['ChatGPT for email drafting','Notion AI for organization','Zapier for workflow automation'],
+steps:['List specific services you can offer','Create profile on Belay, Time Etc, Upwork','Start with 1-2 clients','Expand services as you learn their business']},
+{id:'data-entry',name:'Data Entry / Transcription',desc:'Enter data, transcribe audio, or process documents remotely.',income:[200,1500],startup:0,speed:'1 week',skills:['data-entry'],equip:['computer'],risk:'low',
+aiTools:['Otter.ai for auto-transcription','ChatGPT for data formatting','Excel AI for spreadsheet help'],
+steps:['Practice typing speed (aim for 60+ WPM)','Sign up on Rev, TranscribeMe, Clickworker','Start with easier tasks to build ratings','Move to higher-paying specialized work']},
+{id:'online-courses',name:'Create Online Courses',desc:'Package your knowledge into courses on Udemy, Skillshare, or self-hosted.',income:[200,8000],startup:50,speed:'4-8 weeks',skills:['teaching','video'],equip:['computer','microphone'],risk:'medium',
+aiTools:['ChatGPT for curriculum planning','Descript for video editing','Canva for slide design'],
+steps:['Identify a topic you can teach authoritatively','Outline 10-20 lessons','Record and edit course content','Publish on Udemy/Skillshare and promote']},
+{id:'affiliate-marketing',name:'Affiliate Marketing',desc:'Earn commissions promoting products through blogs, YouTube, or social media.',income:[100,5000],startup:20,speed:'4-12 weeks',skills:['writing','marketing','social-media'],equip:['computer'],risk:'medium',
+aiTools:['ChatGPT for content creation','Surfer SEO for optimization','Canva for promo graphics'],
+steps:['Choose a niche you are passionate about','Build a blog or YouTube channel','Join affiliate programs (Amazon, ShareASale)','Create honest, helpful review content']},
+{id:'podcast',name:'Start a Podcast',desc:'Create a podcast and monetize through sponsorships and affiliate deals.',income:[100,5000],startup:100,speed:'4-8 weeks',skills:['writing','music'],equip:['microphone','computer'],risk:'medium',
+aiTools:['Descript for editing & transcription','ChatGPT for show notes','Canva for cover art'],
+steps:['Choose niche and format','Record 5 episodes before launching','Publish on Spotify, Apple, YouTube','Pitch sponsors once you hit 1000 downloads/episode']},
+{id:'print-on-demand',name:'Print on Demand',desc:'Design t-shirts, mugs, and merchandise sold through Redbubble, Merch by Amazon.',income:[100,3000],startup:0,speed:'2-4 weeks',skills:['design'],equip:['computer'],risk:'low',
+aiTools:['Midjourney for design concepts','Canva for final designs','ChatGPT for product descriptions'],
+steps:['Research trending designs and niches','Create 50+ designs','Upload to multiple platforms','Promote best sellers on social media']},
+{id:'bookkeeping',name:'Bookkeeping Services',desc:'Manage finances and bookkeeping for small businesses remotely.',income:[500,4000],startup:50,speed:'2-4 weeks',skills:['data-entry'],equip:['computer'],risk:'low',
+aiTools:['QuickBooks AI features','ChatGPT for financial summaries','Excel AI for formulas'],
+steps:['Learn QuickBooks or Xero basics','Get bookkeeping certification (free online)','Offer services to 2-3 local businesses','Scale with standardized processes']},
+{id:'fitness-coaching',name:'Online Fitness Coaching',desc:'Create workout plans and coach clients remotely via video.',income:[300,5000],startup:0,speed:'1-2 weeks',skills:['fitness','teaching'],equip:['smartphone'],risk:'low',
+aiTools:['ChatGPT for workout programming','Canva for plan templates','Trainerize for client management'],
+steps:['Get certified (ACE, NASM offer online certs)','Create sample workout programs','Build Instagram following with tips','Offer 1-on-1 and group coaching packages']},
+{id:'meal-prep',name:'Meal Prep / Baking',desc:'Prepare and sell meals, baked goods, or specialty foods locally.',income:[300,4000],startup:100,speed:'2-4 weeks',skills:['cooking'],equip:['kitchen'],risk:'medium',
+aiTools:['ChatGPT for recipe scaling','Canva for menu design','Square for payment processing'],
+steps:['Check local cottage food laws','Create a menu of 5-10 items','Start selling to friends and neighbors','Expand through social media and local markets']},
+{id:'reselling',name:'Reselling / Flipping',desc:'Buy items at thrift stores, garage sales, clearance and resell for profit.',income:[300,5000],startup:100,speed:'1-2 weeks',skills:['sales'],equip:['smartphone'],risk:'medium',
+aiTools:['ChatGPT for listing descriptions','eBay Terapeak for pricing research','ScoutIQ for book scanning'],
+steps:['Learn what sells well (electronics, brands, vintage)','Start at thrift stores and garage sales','List on eBay, Poshmark, Mercari, Facebook Marketplace','Track profits and double down on best categories']},
+{id:'consulting',name:'Freelance Consulting',desc:'Offer expert advice in your field to businesses and individuals.',income:[1000,10000],startup:0,speed:'2-4 weeks',skills:['marketing','sales','coding','teaching'],equip:['computer'],risk:'low',
+aiTools:['ChatGPT for proposal writing','Notion AI for client reports','Loom for async video presentations'],
+steps:['Define your niche expertise clearly','Create a one-page consulting offer','Network on LinkedIn and in industry groups','Start with discovery calls, convert to retainers']},
+{id:'voice-over',name:'Voice Over Work',desc:'Record voice overs for ads, audiobooks, explainer videos, and podcasts.',income:[200,4000],startup:100,speed:'2-4 weeks',skills:['music'],equip:['microphone','computer'],risk:'low',
+aiTools:['Descript for audio editing','Audacity for recording','ChatGPT for script interpretation'],
+steps:['Set up a quiet recording space','Create demo reel with various styles','List on Voices.com, Fiverr, ACX','Practice diction and pacing daily']},
+{id:'translation',name:'Translation Services',desc:'Translate documents, websites, or content between languages.',income:[300,4000],startup:0,speed:'1 week',skills:['writing'],equip:['computer'],risk:'low',
+aiTools:['DeepL for draft translations','ChatGPT for context and nuance','Grammarly for polishing'],
+steps:['Identify your language pairs','Get certified (ATA certification helps)','List on ProZ, TranslatorsCafe, Upwork','Specialize in a field (legal, medical, tech)']},
+{id:'customer-support',name:'Remote Customer Support',desc:'Handle customer inquiries for companies from home.',income:[400,2500],startup:0,speed:'1-2 weeks',skills:['customer-service'],equip:['computer'],risk:'low',
+aiTools:['ChatGPT for drafting responses','TextExpander for canned replies','Notion for knowledge base'],
+steps:['Update resume with communication skills','Apply on Indeed, FlexJobs, Remote.co','Practice common customer scenarios','Start part-time, scale up as available']}
+];
+
+let selectedSkills=[];
+let selectedEquip=[];
+let selectedRisk='medium';
+let currentResults=[];
+let currentSort='score';
+
+function initChips(){
+document.getElementById('skillChips').innerHTML=SKILLS.map(s=>`<div class="chip" data-val="${s}" onclick="toggleChip(this,'skill')">${esc(s.replace('-',' '))}</div>`).join('');
+document.getElementById('equipChips').innerHTML=EQUIPMENT.map(e=>`<div class="chip" data-val="${e}" onclick="toggleChip(this,'equip')">${esc(e)}</div>`).join('');
+document.getElementById('riskChips').innerHTML=RISKS.map(r=>`<div class="chip${r===selectedRisk?' active':''}" data-val="${r}" onclick="toggleRisk(this)">${esc(r)} risk</div>`).join('');
+}
+
+function toggleChip(el,type){
+el.classList.toggle('active');
+const val=el.dataset.val;
+if(type==='skill'){
+if(selectedSkills.includes(val))selectedSkills=selectedSkills.filter(s=>s!==val);
+else selectedSkills.push(val);
+}else{
+if(selectedEquip.includes(val))selectedEquip=selectedEquip.filter(e=>e!==val);
+else selectedEquip.push(val);
+}
+}
+
+function toggleRisk(el){
+document.querySelectorAll('#riskChips .chip').forEach(c=>c.classList.remove('active'));
+el.classList.add('active');
+selectedRisk=el.dataset.val;
+}
+
+function findMatches(){
+const hours=parseInt(document.getElementById('hoursRange').value);
+const incomeGoal=parseInt(document.getElementById('incomeRange').value);
+
+currentResults=HUSTLES.map(h=>{
+let score=0;
+const skillMatch=h.skills.filter(s=>selectedSkills.includes(s)).length;
+const skillTotal=h.skills.length;
+score+=skillTotal>0?(skillMatch/skillTotal)*40:20;
+
+const equipMatch=h.equip.filter(e=>selectedEquip.includes(e)).length;
+const equipTotal=h.equip.length;
+score+=equipTotal>0?(equipMatch/equipTotal)*20:10;
+
+const avgIncome=(h.income[0]+h.income[1])/2;
+if(avgIncome>=incomeGoal)score+=20;
+else score+=(avgIncome/incomeGoal)*20;
+
+const riskMap={low:0,medium:1,high:2};
+const hustleRisk=riskMap[h.risk]||1;
+const userRisk=riskMap[selectedRisk]||1;
+if(hustleRisk<=userRisk)score+=10;
+else score+=5;
+
+if(hours>=20)score+=10;
+else if(hours>=10)score+=7;
+else score+=4;
+
+return{...h,score:Math.round(Math.min(score,100))};
+}).filter(h=>h.score>25);
+
+currentSort='score';
+sortAndRender();
+saveState();
+
+document.getElementById('resultsPanel').style.display='block';
+document.getElementById('resultsPanel').scrollIntoView({behavior:'smooth'});
+}
+
+function sortResults(by){
+currentSort=by;
+document.querySelectorAll('.sort-btn').forEach(b=>b.classList.toggle('active',b.dataset.sort===by));
+sortAndRender();
+}
+
+function sortAndRender(){
+const sorted=[...currentResults];
+if(currentSort==='score')sorted.sort((a,b)=>b.score-a.score);
+else if(currentSort==='income')sorted.sort((a,b)=>b.income[1]-a.income[1]);
+else if(currentSort==='startup')sorted.sort((a,b)=>a.startup-b.startup);
+else if(currentSort==='speed')sorted.sort((a,b)=>a.speed.localeCompare(b.speed));
+
+document.getElementById('matchCount').textContent='('+sorted.length+' matches)';
+const el=document.getElementById('resultsList');
+if(!sorted.length){el.innerHTML='<div class="no-results">No matches found. Try adjusting your skills or income goal.</div>';return}
+
+el.innerHTML=sorted.map(h=>`<div class="hustle-card">
+<div class="match-score">${h.score}% Match</div>
+<div class="title">${esc(h.name)}</div>
+<div class="desc">${esc(h.desc)}</div>
+<div class="hustle-meta">
+<div class="meta-item"><div class="meta-val">$${h.income[0]}-$${h.income[1]}</div><div class="meta-lbl">Monthly Income</div></div>
+<div class="meta-item"><div class="meta-val">${h.startup===0?'Free':'$'+h.startup}</div><div class="meta-lbl">Startup Cost</div></div>
+<div class="meta-item"><div class="meta-val">${esc(h.speed)}</div><div class="meta-lbl">Time to First $</div></div>
+<div class="meta-item"><div class="meta-val">${esc(h.risk)}</div><div class="meta-lbl">Risk Level</div></div>
+</div>
+<div class="ai-tools">
+<h4>AI Tools That Help</h4>
+${h.aiTools.map(t=>`<div class="ai-tool-item">&#8226; ${esc(t)}</div>`).join('')}
+</div>
+<div class="steps hidden" id="steps-${h.id}">
+<h4>Step-by-Step Start Guide</h4>
+${h.steps.map(s=>`<div class="step-item">${esc(s)}</div>`).join('')}
+</div>
+<button class="expand-btn" onclick="toggleSteps('${h.id}',this)">Show Start Guide</button>
+</div>`).join('');
+}
+
+function toggleSteps(id,btn){
+const el=document.getElementById('steps-'+id);
+if(el.classList.contains('hidden')){el.classList.remove('hidden');btn.textContent='Hide Start Guide'}
+else{el.classList.add('hidden');btn.textContent='Show Start Guide'}
+}
+
+function resetForm(){
+selectedSkills=[];selectedEquip=[];selectedRisk='medium';
+document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
+document.getElementById('hoursRange').value=10;
+document.getElementById('hoursVal').textContent='10h/week';
+document.getElementById('incomeRange').value=1000;
+document.getElementById('incomeVal').textContent='$1000/mo';
+document.getElementById('resultsPanel').style.display='none';
+initChips();
+}
+
+function saveState(){localStorage.setItem(LS_KEY,JSON.stringify({skills:selectedSkills,equip:selectedEquip,risk:selectedRisk,hours:document.getElementById('hoursRange').value,income:document.getElementById('incomeRange').value}))}
+function loadState(){try{const d=JSON.parse(localStorage.getItem(LS_KEY));if(d){selectedSkills=d.skills||[];selectedEquip=d.equip||[];selectedRisk=d.risk||'medium';if(d.hours){document.getElementById('hoursRange').value=d.hours;document.getElementById('hoursVal').textContent=d.hours+'h/week'}if(d.income){document.getElementById('incomeRange').value=d.income;document.getElementById('incomeVal').textContent='$'+d.income+'/mo'}}}catch(e){}}
+
+loadState();
+initChips();
+if(selectedSkills.length||selectedEquip.length){
+document.querySelectorAll('#skillChips .chip').forEach(c=>{if(selectedSkills.includes(c.dataset.val))c.classList.add('active')});
+document.querySelectorAll('#equipChips .chip').forEach(c=>{if(selectedEquip.includes(c.dataset.val))c.classList.add('active')});
+document.querySelectorAll('#riskChips .chip').forEach(c=>{c.classList.toggle('active',c.dataset.val===selectedRisk)});
+}
+</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>

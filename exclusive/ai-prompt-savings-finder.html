@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI Prompt Savings Finder — Generate Money-Saving AI Prompts | SPUNK.CODES</title>
+<meta name="description" content="Get copy-paste AI prompts for ChatGPT and Claude that find real savings on groceries, insurance, subscriptions, utilities, travel and shopping.">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP')</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w")</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e8e8f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+header{background:#111118;border-bottom:2px solid #ff5f1f;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+header h1{font-size:1.4rem;color:#ff5f1f}
+header .back{color:#e8e8f0;font-size:.9rem}
+main{flex:1;max-width:1100px;width:100%;margin:0 auto;padding:24px 16px}
+button{background:#ff5f1f;color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:.9rem;font-weight:600;transition:background .2s}
+button:hover{background:#e8520e}
+button.secondary{background:#2a2a3a;color:#e8e8f0}button.secondary:hover{background:#3a3a4a}
+button.danger{background:#cc2233}button.danger:hover{background:#aa1122}
+.panel{background:#111118;border:1px solid #2a2a3a;border-radius:10px;padding:20px;margin-bottom:20px}
+.panel h2{font-size:1.1rem;color:#ff5f1f;margin-bottom:14px}
+.cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-bottom:20px}
+.cat-btn{padding:14px 10px;border-radius:10px;font-size:.9rem;cursor:pointer;border:2px solid #2a2a3a;background:#16161e;color:#e8e8f0;transition:all .2s;text-align:center}
+.cat-btn:hover{border-color:#ff5f1f;background:#1a1a24}
+.cat-btn.active{background:#ff5f1f;color:#fff;border-color:#ff5f1f}
+.cat-btn .icon{font-size:1.6rem;display:block;margin-bottom:6px}
+.cat-btn .est{font-size:.7rem;color:#aaa;margin-top:4px;display:block}
+.cat-btn.active .est{color:#ffd}
+.prompt-card{background:#16161e;border:1px solid #2a2a3a;border-radius:8px;padding:16px;margin-bottom:10px;position:relative}
+.prompt-card h4{font-size:.95rem;color:#ff5f1f;margin-bottom:8px}
+.prompt-card .prompt-text{background:#0a0a0f;border:1px solid #2a2a3a;border-radius:6px;padding:12px;font-size:.85rem;line-height:1.5;color:#ccc;white-space:pre-wrap;margin-bottom:10px}
+.prompt-card .customize{margin-bottom:10px}
+.prompt-card .customize input{background:#0a0a0f;border:1px solid #2a2a3a;color:#e8e8f0;padding:6px 10px;border-radius:4px;font-size:.85rem;width:100%;margin-top:4px}
+.prompt-card .customize label{font-size:.8rem;color:#888}
+.copy-btn{font-size:.8rem;padding:6px 14px}
+.copied{background:#2ecc40 !important}
+.savings-bar{background:#111118;border:1px solid #2a2a3a;border-radius:10px;padding:20px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.savings-bar .total{font-size:1.8rem;font-weight:700;color:#2ecc40}
+.savings-bar .label{font-size:.85rem;color:#888}
+.saved-prompts{margin-top:10px}
+.saved-prompts .saved-item{background:#16161e;border:1px solid #2a2a3a;border-radius:6px;padding:10px 14px;margin-bottom:6px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.saved-prompts .saved-item span{font-size:.85rem;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tag{font-size:.7rem;padding:2px 8px;border-radius:10px;background:#1a2a1a;color:#4caf50;font-weight:600}
+.empty{text-align:center;color:#555;padding:40px 20px;font-size:.95rem}
+footer{text-align:center;padding:20px;color:#555;font-size:.8rem;border-top:1px solid #1a1a2a;margin-top:auto}
+footer a{color:#ff5f1f;margin:0 4px}
+@media(max-width:700px){
+header h1{font-size:1.1rem}
+.cat-grid{grid-template-columns:repeat(auto-fill,minmax(130px,1fr))}
+.savings-bar{flex-direction:column;text-align:center}
+.savings-bar .total{font-size:1.4rem}
+}
+</style>
+</head>
+<body>
+<header>
+<h1>AI Prompt Savings Finder</h1>
+<a href="https://spunk.codes" class="back">spunk.codes</a>
+</header>
+<main>
+
+<div class="savings-bar">
+<div>
+<div class="label">Estimated Annual Savings Potential</div>
+<div class="total" id="totalSavings">$0</div>
+</div>
+<div>
+<div class="label">Categories Explored</div>
+<div class="total" id="catCount" style="color:#ff5f1f;font-size:1.4rem">0 / 6</div>
+</div>
+<div>
+<div class="label">Prompts Saved</div>
+<div class="total" id="savedCount" style="color:#42a5f5;font-size:1.4rem">0</div>
+</div>
+</div>
+
+<div class="panel">
+<h2>Choose a Spending Category</h2>
+<div class="cat-grid" id="catGrid"></div>
+</div>
+
+<div class="panel" id="promptsPanel" style="display:none">
+<h2 id="promptsTitle">Prompts</h2>
+<p style="font-size:.85rem;color:#888;margin-bottom:16px">Customize the fields below, then copy the prompt into ChatGPT or Claude to find real savings.</p>
+<div id="promptsList"></div>
+</div>
+
+<div class="panel">
+<h2>Saved Prompts</h2>
+<div class="saved-prompts" id="savedList">
+<div class="empty">No saved prompts yet. Click the star on any prompt to save it.</div>
+</div>
+<div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+<button class="secondary" onclick="exportSaved()">Export All Saved</button>
+<button class="danger" onclick="clearSaved()">Clear Saved</button>
+</div>
+</div>
+
+</main>
+
+<footer>
+<a href="https://spunk.codes">spunk.codes</a> &middot;
+<a href="https://spunk.bet">spunk.bet</a> &middot;
+<a href="https://spunk.pics">spunk.pics</a> &middot;
+<a href="https://spunk.work">spunk.work</a> &middot;
+<a href="https://spunkart.com">SpunkArt.com</a>
+</footer>
+
+<script>
+const LS_KEY='spunkcodes_prompt_savings';
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+
+const CATEGORIES=[
+{id:'groceries',name:'Groceries',icon:'\u{1F6D2}',est:'$1,200 - $3,000/yr',prompts:[
+{title:'Weekly Meal Plan on Budget',prompt:'I spend about $[WEEKLY_BUDGET] per week on groceries for a family of [FAMILY_SIZE]. Create a detailed 7-day meal plan that cuts my grocery bill by 30% while keeping meals nutritious and varied. Include a complete shopping list organized by store section with estimated prices.',fields:[{key:'WEEKLY_BUDGET',label:'Weekly grocery budget ($)',def:'150'},{key:'FAMILY_SIZE',label:'Family size',def:'4'}]},
+{title:'Store Comparison Analyzer',prompt:'I usually shop at [STORE_NAME] and spend about $[MONTHLY] per month on groceries. List the top 20 items where I could save money by buying at Aldi, Costco, Walmart, or store brands instead. Show price comparisons and calculate my total monthly savings.',fields:[{key:'STORE_NAME',label:'Your primary store',def:'Kroger'},{key:'MONTHLY',label:'Monthly spend ($)',def:'600'}]},
+{title:'Bulk Buying Calculator',prompt:'For a household of [SIZE] people, analyze which grocery items are worth buying in bulk vs. regular quantities. Consider spoilage rates, storage needs, and per-unit savings. I have [STORAGE] storage space. Focus on the top 15 items with the highest savings potential.',fields:[{key:'SIZE',label:'Household size',def:'3'},{key:'STORAGE',label:'Storage level (minimal/moderate/lots)',def:'moderate'}]},
+{title:'Seasonal Produce Guide',prompt:'It is currently [MONTH]. List all fruits and vegetables that are in season right now in [LOCATION]. For each item, show the typical in-season price vs. out-of-season price, and suggest 3 recipes using each ingredient. Calculate how much I save buying only seasonal produce.',fields:[{key:'MONTH',label:'Current month',def:'February'},{key:'LOCATION',label:'Your region/state',def:'Midwest US'}]},
+{title:'Food Waste Reducer',prompt:'My family of [SIZE] throws away approximately $[WASTE] worth of food per month. Analyze common causes of food waste and give me a detailed system to reduce waste by 80%. Include storage tips, freezing guides, leftover transformation recipes, and a weekly inventory check routine.',fields:[{key:'SIZE',label:'Family size',def:'4'},{key:'WASTE',label:'Estimated monthly food waste ($)',def:'75'}]},
+{title:'Coupon & Cashback Strategy',prompt:'I spend $[MONTHLY] monthly on groceries at [STORES]. Create a detailed strategy for maximizing coupons, cashback apps (Ibotta, Fetch, etc.), and store loyalty programs. Estimate how much I can realistically save per month using each method and which apps work best for my stores.',fields:[{key:'MONTHLY',label:'Monthly grocery spend ($)',def:'500'},{key:'STORES',label:'Stores you shop at',def:'Walmart, Kroger, Aldi'}]}
+]},
+{id:'insurance',name:'Insurance',icon:'\u{1F6E1}',est:'$800 - $2,500/yr',prompts:[
+{title:'Auto Insurance Rate Reducer',prompt:'I currently pay $[MONTHLY]/month for auto insurance with [PROVIDER] for [VEHICLES] vehicle(s). My driving record is [RECORD]. I am [AGE] years old. Generate a complete script I can use to call my insurance company and negotiate a lower rate. Also list all discounts I should ask about and 5 competing companies to get quotes from.',fields:[{key:'MONTHLY',label:'Monthly premium ($)',def:'180'},{key:'PROVIDER',label:'Current provider',def:'State Farm'},{key:'VEHICLES',label:'Number of vehicles',def:'2'},{key:'RECORD',label:'Driving record (clean/minor/etc)',def:'clean'},{key:'AGE',label:'Your age',def:'35'}]},
+{title:'Home Insurance Audit',prompt:'I pay $[ANNUAL] per year for homeowners insurance with [PROVIDER]. My home is worth approximately $[VALUE] and was built in [YEAR]. Review my coverage and identify: areas where I may be over-insured, discounts I should request, deductible optimization strategies, and bundling opportunities that could reduce my premium by 20-30%.',fields:[{key:'ANNUAL',label:'Annual premium ($)',def:'1800'},{key:'PROVIDER',label:'Provider',def:'Allstate'},{key:'VALUE',label:'Home value ($)',def:'350000'},{key:'YEAR',label:'Year built',def:'1998'}]},
+{title:'Health Insurance Plan Optimizer',prompt:'I currently have a [PLAN_TYPE] health insurance plan costing $[MONTHLY]/month. My annual medical expenses are roughly $[EXPENSES]. I take [MEDS] prescription medications. Compare whether I would save more with an HDHP+HSA vs. my current plan. Calculate the break-even point and total annual out-of-pocket costs for each scenario.',fields:[{key:'PLAN_TYPE',label:'Plan type (PPO/HMO/HDHP)',def:'PPO'},{key:'MONTHLY',label:'Monthly premium ($)',def:'450'},{key:'EXPENSES',label:'Annual medical costs ($)',def:'3000'},{key:'MEDS',label:'Number of prescriptions',def:'2'}]},
+{title:'Life Insurance Needs Analysis',prompt:'I am [AGE], [STATUS], with [DEPENDENTS] dependents. My annual income is $[INCOME] and I have $[DEBT] in total debt. Currently paying $[PREMIUM]/month for life insurance. Calculate exactly how much coverage I actually need using the DIME method, and determine if I am overpaying. Suggest term vs. whole life optimization.',fields:[{key:'AGE',label:'Age',def:'40'},{key:'STATUS',label:'Marital status',def:'married'},{key:'DEPENDENTS',label:'Number of dependents',def:'2'},{key:'INCOME',label:'Annual income ($)',def:'85000'},{key:'DEBT',label:'Total debt ($)',def:'250000'},{key:'PREMIUM',label:'Monthly premium ($)',def:'65'}]},
+{title:'Insurance Bundle Optimizer',prompt:'I have the following insurance policies: Auto ($[AUTO]/mo with [AUTO_CO]), Home ($[HOME]/mo with [HOME_CO]), Life ($[LIFE]/mo with [LIFE_CO]). Analyze the savings potential of bundling all policies with one provider. List the top 5 insurance companies for bundling and calculate estimated savings for each.',fields:[{key:'AUTO',label:'Auto monthly ($)',def:'160'},{key:'AUTO_CO',label:'Auto provider',def:'Geico'},{key:'HOME',label:'Home monthly ($)',def:'140'},{key:'HOME_CO',label:'Home provider',def:'State Farm'},{key:'LIFE',label:'Life monthly ($)',def:'50'},{key:'LIFE_CO',label:'Life provider',def:'MetLife'}]}
+]},
+{id:'subscriptions',name:'Subscriptions',icon:'\u{1F4F1}',est:'$600 - $1,800/yr',prompts:[
+{title:'Subscription Stack Audit',prompt:'Here are all my current subscriptions: [SUB_LIST]. For each subscription, tell me: (1) if there is a free or cheaper alternative, (2) if I can negotiate a lower rate, (3) if annual billing would save money, (4) if there are student/military/family plan discounts I might qualify for. Calculate total monthly and annual cost, and show how much I could save by optimizing.',fields:[{key:'SUB_LIST',label:'List all subscriptions + prices',def:'Netflix $15, Spotify $11, YouTube Premium $14, Adobe CC $55, iCloud $3, gym $40'}]},
+{title:'Streaming Service Optimizer',prompt:'I subscribe to these streaming services: [SERVICES]. I mainly watch [GENRES] content. Analyze which services have the most overlap in content I care about. Recommend which ones to keep, which to rotate monthly, and which free alternatives (Tubi, Pluto TV, Kanopy, etc.) cover what I would lose. Calculate annual savings.',fields:[{key:'SERVICES',label:'Your streaming services',def:'Netflix, Hulu, Disney+, HBO Max, Paramount+'},{key:'GENRES',label:'Genres you watch most',def:'sci-fi, documentaries, comedy'}]},
+{title:'App Subscription Replacer',prompt:'I pay for these apps/software: [APPS]. For each paid app, find the best free open-source or freemium alternative that offers similar functionality. Rate each alternative 1-10 on how well it replaces the paid version. Calculate my potential monthly savings if I switch.',fields:[{key:'APPS',label:'Paid apps + monthly cost',def:'Notion $10, Canva Pro $13, Grammarly $12, 1Password $5, Todoist $5'}]},
+{title:'Subscription Rotation Strategy',prompt:'I have [COUNT] streaming and entertainment subscriptions totaling $[TOTAL]/month. Create a 12-month rotation calendar where I only keep 2-3 services at a time, cycling through them based on release schedules of shows I want to watch. Include which months are best for each service and calculate annual savings vs. keeping all year.',fields:[{key:'COUNT',label:'Number of subscriptions',def:'5'},{key:'TOTAL',label:'Total monthly cost ($)',def:'65'}]},
+{title:'Family Plan Consolidator',prompt:'My household has [MEMBERS] members. We currently have these individual subscriptions: [SUBS]. Identify every service that offers a family or household plan. Calculate the cost difference between individual vs. family plans. Also identify services where we have duplicate subscriptions (e.g., two Spotify accounts).',fields:[{key:'MEMBERS',label:'Household members',def:'4'},{key:'SUBS',label:'All individual subs in household',def:'2x Spotify $11 each, 2x iCloud $3 each, Netflix $15, YouTube Premium $14'}]},
+{title:'Annual vs Monthly Calculator',prompt:'Here are my monthly subscriptions: [SUBS]. For each one, look up whether they offer an annual billing option. Calculate the per-month savings for annual billing, the upfront cost, and the break-even point. Rank them by which annual plans offer the biggest percentage discount. Tell me which ones are worth switching to annual.',fields:[{key:'SUBS',label:'Monthly subscriptions + prices',def:'Spotify $11, Netflix $15, Adobe CC $55, Microsoft 365 $10, Headspace $13'}]}
+]},
+{id:'utilities',name:'Utilities',icon:'\u{26A1}',est:'$500 - $1,500/yr',prompts:[
+{title:'Electricity Bill Reducer',prompt:'My average monthly electricity bill is $[BILL] in [LOCATION]. My home is [SQFT] sq ft, built in [YEAR]. I currently set my thermostat to [TEMP_SUMMER]F in summer and [TEMP_WINTER]F in winter. Give me a prioritized list of 15 specific actions to reduce my electric bill by 25-40%, with estimated savings for each action and the cost to implement.',fields:[{key:'BILL',label:'Monthly electric bill ($)',def:'180'},{key:'LOCATION',label:'State/region',def:'Texas'},{key:'SQFT',label:'Home sq ft',def:'2000'},{key:'YEAR',label:'Year built',def:'2005'},{key:'TEMP_SUMMER',label:'Summer thermostat (F)',def:'72'},{key:'TEMP_WINTER',label:'Winter thermostat (F)',def:'70'}]},
+{title:'Water Bill Optimizer',prompt:'My monthly water bill is $[BILL]. I have [PEOPLE] people in my household, [BATHROOMS] bathrooms, and [YARD] yard. List every way to reduce water usage with estimated monthly savings. Include fixture upgrades, behavioral changes, irrigation optimization, and any utility rebate programs available in [LOCATION].',fields:[{key:'BILL',label:'Monthly water bill ($)',def:'80'},{key:'PEOPLE',label:'People in household',def:'4'},{key:'BATHROOMS',label:'Number of bathrooms',def:'2'},{key:'YARD',label:'Yard size (small/medium/large)',def:'medium'},{key:'LOCATION',label:'City/state',def:'Phoenix, AZ'}]},
+{title:'Internet Plan Optimizer',prompt:'I currently pay $[BILL]/month for internet from [PROVIDER] at [SPEED] Mbps. I have [DEVICES] devices connected. We use internet for [USAGE]. Analyze whether I am overpaying for speed I do not need. List all available providers in my area ([ZIPCODE]), their prices, and any current promotions. Create a script for calling my provider to negotiate.',fields:[{key:'BILL',label:'Monthly internet bill ($)',def:'85'},{key:'PROVIDER',label:'Current provider',def:'Comcast'},{key:'SPEED',label:'Speed (Mbps)',def:'300'},{key:'DEVICES',label:'Connected devices',def:'12'},{key:'USAGE',label:'Primary usage',def:'streaming, gaming, work from home'},{key:'ZIPCODE',label:'ZIP code',def:'90210'}]},
+{title:'Phone Plan Cost Cutter',prompt:'I currently pay $[BILL]/month for [CARRIER] with [LINES] line(s). I use approximately [DATA]GB of data per month. Analyze whether switching to an MVNO (Mint Mobile, Visible, Cricket, etc.) would save me money. Compare the top 5 affordable alternatives with similar coverage and calculate my annual savings.',fields:[{key:'BILL',label:'Monthly phone bill ($)',def:'85'},{key:'CARRIER',label:'Current carrier',def:'Verizon'},{key:'LINES',label:'Number of lines',def:'1'},{key:'DATA',label:'Monthly data usage (GB)',def:'8'}]},
+{title:'Smart Home Energy Audit',prompt:'I want to use smart home devices to reduce my utility bills. My monthly electric is $[ELECTRIC], gas is $[GAS]. I have [ROOMS] rooms. Recommend specific smart devices (thermostats, plugs, bulbs, sensors) with exact product names, costs, and estimated monthly savings for each. Calculate total investment, break-even point, and 3-year ROI.',fields:[{key:'ELECTRIC',label:'Monthly electric ($)',def:'180'},{key:'GAS',label:'Monthly gas ($)',def:'60'},{key:'ROOMS',label:'Number of rooms',def:'8'}]}
+]},
+{id:'travel',name:'Travel',icon:'\u{2708}',est:'$400 - $2,000/yr',prompts:[
+{title:'Flight Price Hacker',prompt:'I need to fly from [ORIGIN] to [DESTINATION] around [DATES] for [TRAVELERS] traveler(s). Give me a complete strategy to find the cheapest flights including: best booking window, day-of-week savings, nearby airport alternatives, budget airline options, credit card point strategies, fare alert tools, and hidden city ticketing risks. Estimate savings vs. booking at face value.',fields:[{key:'ORIGIN',label:'Departure city/airport',def:'Chicago ORD'},{key:'DESTINATION',label:'Destination',def:'Los Angeles LAX'},{key:'DATES',label:'Travel dates (approximate)',def:'June 15-22'},{key:'TRAVELERS',label:'Number of travelers',def:'2'}]},
+{title:'Hotel Rate Negotiator',prompt:'I am booking a hotel in [CITY] for [NIGHTS] nights around [DATES]. My budget is $[BUDGET] per night. List 10 specific strategies to get the lowest rate including: direct booking tricks, loyalty program hacks, OTA price matching, corporate/AAA/AARP rates, last-minute deals, and apps to use. Include a script for calling the hotel to negotiate.',fields:[{key:'CITY',label:'Destination city',def:'New York'},{key:'NIGHTS',label:'Number of nights',def:'5'},{key:'DATES',label:'Travel dates',def:'July 2025'},{key:'BUDGET',label:'Max per night ($)',def:'150'}]},
+{title:'Road Trip Fuel Optimizer',prompt:'I am driving from [START] to [END] (approximately [MILES] miles). My car gets [MPG] MPG and I will be driving a [VEHICLE]. Plan the most fuel-efficient route with the cheapest gas stops. Include: optimal driving speed, best gas station chains, fuel apps to use, and driving techniques to improve MPG. Calculate total fuel cost and how much I save with optimization.',fields:[{key:'START',label:'Starting city',def:'Dallas, TX'},{key:'END',label:'Ending city',def:'Denver, CO'},{key:'MILES',label:'Estimated miles',def:'800'},{key:'MPG',label:'Car MPG',def:'28'},{key:'VEHICLE',label:'Vehicle type',def:'Honda Civic 2020'}]},
+{title:'Travel Rewards Maximizer',prompt:'I spend approximately $[MONTHLY] per month on credit cards. I currently have [CARDS]. I travel [TRIPS] times per year, mainly to [DESTINATIONS]. Design a credit card rewards strategy to maximize free travel. Include: which cards to get (with signup bonuses), optimal spending category allocation, points transfer partners, and estimated value of points earned annually.',fields:[{key:'MONTHLY',label:'Monthly credit card spend ($)',def:'3000'},{key:'CARDS',label:'Current credit cards',def:'Chase Sapphire, Amex Gold'},{key:'TRIPS',label:'Trips per year',def:'3'},{key:'DESTINATIONS',label:'Where you travel',def:'domestic US, Caribbean'}]},
+{title:'Vacation Budget Planner',prompt:'I want to take a [DURATION]-day vacation to [DESTINATION] with [GROUP]. My total budget is $[BUDGET]. Break down the optimal allocation between flights, accommodation, food, activities, and transportation. For each category, give me 3 money-saving strategies. Find the cheapest time to visit and estimate total savings vs. booking without planning.',fields:[{key:'DURATION',label:'Trip duration (days)',def:'7'},{key:'DESTINATION',label:'Destination',def:'Paris, France'},{key:'GROUP',label:'Who is going',def:'couple'},{key:'BUDGET',label:'Total budget ($)',def:'3000'}]}
+]},
+{id:'shopping',name:'Shopping',icon:'\u{1F6CD}',est:'$500 - $2,000/yr',prompts:[
+{title:'Price Drop Tracker Setup',prompt:'I am planning to buy these items in the next [TIMEFRAME]: [ITEMS]. For each item, tell me: the typical price cycle (when prices drop), the best time of year to buy, which price tracking tools to use (CamelCamelCamel, Honey, etc.), and the expected discount if I wait. Create a buying calendar for maximum savings.',fields:[{key:'TIMEFRAME',label:'Buying timeframe',def:'3 months'},{key:'ITEMS',label:'Items you want to buy',def:'laptop, running shoes, winter jacket, headphones'}]},
+{title:'Refurbished vs New Analyzer',prompt:'I want to buy a [ITEM] and my budget is $[BUDGET]. Compare buying new vs. certified refurbished vs. used. For each option, list the best places to buy, expected price, warranty coverage, and risk level. Calculate the total savings of refurbished vs. new and whether the savings justify any trade-offs.',fields:[{key:'ITEM',label:'Item to buy',def:'MacBook Pro'},{key:'BUDGET',label:'Budget ($)',def:'1500'}]},
+{title:'Cashback & Coupon Stacker',prompt:'I am about to spend $[AMOUNT] at [STORE]. Walk me through every way to stack savings: browser extensions (Honey, Rakuten, Capital One Shopping), cashback apps, store coupons, credit card category bonuses, gift card discounts, price matching policies, and any current promo codes. Calculate maximum possible savings.',fields:[{key:'AMOUNT',label:'Purchase amount ($)',def:'200'},{key:'STORE',label:'Store/retailer',def:'Amazon'}]},
+{title:'Buy vs Subscribe Analysis',prompt:'I regularly buy these consumable products: [PRODUCTS]. For each, compare the cost of buying individually vs. subscription (Subscribe & Save, auto-delivery, etc.) vs. buying in bulk. Factor in storage, expiration, and flexibility. Calculate annual savings for the optimal buying strategy for each item.',fields:[{key:'PRODUCTS',label:'Products you regularly buy',def:'coffee, paper towels, diapers, dog food, vitamins, laundry detergent'}]},
+{title:'Impulse Purchase Defender',prompt:'I tend to impulse buy in these categories: [CATEGORIES] and spend about $[MONTHLY] per month on unplanned purchases. Create a decision framework with specific questions to ask before every purchase. Include: the 48-hour rule, cost-per-use calculation, 10-10-10 test, and a monthly budget tracking system. Estimate annual savings if I reduce impulse buying by 60%.',fields:[{key:'CATEGORIES',label:'Impulse categories',def:'electronics, clothing, Amazon gadgets'},{key:'MONTHLY',label:'Monthly impulse spend ($)',def:'200'}]},
+{title:'Secondhand Sourcing Guide',prompt:'I want to furnish/equip my [SPACE] and need: [ITEMS]. For each item, list the best places to find quality secondhand options (Facebook Marketplace, OfferUp, estate sales, Habitat ReStore, thrift stores). Include what to inspect, fair prices to offer, and negotiation tips. Calculate total savings vs. buying everything new.',fields:[{key:'SPACE',label:'Space type',def:'apartment'},{key:'ITEMS',label:'Items needed',def:'couch, dining table, bookshelf, desk, dresser'}]}
+]}
+];
+
+let state={activeCat:null,savedPrompts:[],customValues:{}};
+function loadState(){try{const s=JSON.parse(localStorage.getItem(LS_KEY));if(s){state.savedPrompts=s.savedPrompts||[];state.customValues=s.customValues||{}}}catch(e){}}
+function saveState(){localStorage.setItem(LS_KEY,JSON.stringify({savedPrompts:state.savedPrompts,customValues:state.customValues}))}
+
+function renderCategories(){
+const grid=document.getElementById('catGrid');
+grid.innerHTML='';
+CATEGORIES.forEach(c=>{
+const d=document.createElement('div');
+d.className='cat-btn'+(state.activeCat===c.id?' active':'');
+d.innerHTML='<span class="icon">'+c.icon+'</span>'+esc(c.name)+'<span class="est">'+esc(c.est)+'</span>';
+d.onclick=()=>{state.activeCat=c.id;render()};
+grid.appendChild(d);
+});
+}
+
+function buildPromptText(prompt,fields){
+let text=prompt;
+fields.forEach(f=>{
+const val=state.customValues[f.key]||f.def;
+text=text.replace('['+f.key+']',val);
+});
+return text;
+}
+
+function renderPrompts(){
+const panel=document.getElementById('promptsPanel');
+const list=document.getElementById('promptsList');
+const title=document.getElementById('promptsTitle');
+if(!state.activeCat){panel.style.display='none';return}
+panel.style.display='block';
+const cat=CATEGORIES.find(c=>c.id===state.activeCat);
+title.textContent=cat.icon+' '+cat.name+' Savings Prompts';
+list.innerHTML='';
+cat.prompts.forEach((p,pi)=>{
+const isSaved=state.savedPrompts.some(s=>s.cat===state.activeCat&&s.idx===pi);
+const card=document.createElement('div');
+card.className='prompt-card';
+let fieldsHTML='';
+p.fields.forEach(f=>{
+const val=state.customValues[f.key]||f.def;
+fieldsHTML+='<div class="customize"><label>'+esc(f.label)+'</label><input type="text" data-key="'+esc(f.key)+'" data-def="'+esc(f.def)+'" value="'+esc(val)+'"></div>';
+});
+const promptText=buildPromptText(p.prompt,p.fields);
+card.innerHTML='<h4>'+(isSaved?'\u2B50 ':'')+esc(p.title)+'</h4>'+fieldsHTML+'<div class="prompt-text" id="pt_'+state.activeCat+'_'+pi+'">'+esc(promptText)+'</div><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="copy-btn" onclick="copyPrompt(\''+state.activeCat+'\','+pi+')">Copy Prompt</button><button class="secondary copy-btn" onclick="toggleSave(\''+state.activeCat+'\','+pi+')">'+(isSaved?'Unsave':'Save')+'</button></div>';
+card.querySelectorAll('input[data-key]').forEach(inp=>{
+inp.addEventListener('input',function(){
+state.customValues[this.dataset.key]=this.value;
+saveState();
+const txt=buildPromptText(p.prompt,p.fields);
+document.getElementById('pt_'+state.activeCat+'_'+pi).textContent=txt;
+});
+});
+list.appendChild(card);
+});
+}
+
+function copyPrompt(catId,idx){
+const el=document.getElementById('pt_'+catId+'_'+idx);
+navigator.clipboard.writeText(el.textContent).then(()=>{
+const btns=el.parentNode.querySelectorAll('.copy-btn');
+btns[0].textContent='Copied!';btns[0].classList.add('copied');
+setTimeout(()=>{btns[0].textContent='Copy Prompt';btns[0].classList.remove('copied')},1500);
+});
+}
+
+function toggleSave(catId,idx){
+const exists=state.savedPrompts.findIndex(s=>s.cat===catId&&s.idx===idx);
+const cat=CATEGORIES.find(c=>c.id===catId);
+if(exists>=0){state.savedPrompts.splice(exists,1)}
+else{state.savedPrompts.push({cat:catId,idx:idx,title:cat.prompts[idx].title,catName:cat.name})}
+saveState();render();
+}
+
+function renderSaved(){
+const el=document.getElementById('savedList');
+document.getElementById('savedCount').textContent=state.savedPrompts.length;
+if(!state.savedPrompts.length){el.innerHTML='<div class="empty">No saved prompts yet. Click Save on any prompt to keep it here.</div>';return}
+el.innerHTML='';
+state.savedPrompts.forEach((s,i)=>{
+const d=document.createElement('div');d.className='saved-item';
+d.innerHTML='<span class="tag">'+esc(s.catName)+'</span><span>'+esc(s.title)+'</span><button class="danger copy-btn" onclick="state.savedPrompts.splice('+i+',1);saveState();render()">Remove</button>';
+el.appendChild(d);
+});
+}
+
+function renderTotals(){
+const explored=new Set(state.savedPrompts.map(s=>s.cat));
+if(state.activeCat)explored.add(state.activeCat);
+document.getElementById('catCount').textContent=explored.size+' / 6';
+const savingsMap={groceries:2100,insurance:1650,subscriptions:1200,utilities:1000,travel:1200,shopping:1250};
+let total=0;explored.forEach(c=>{total+=savingsMap[c]||0});
+document.getElementById('totalSavings').textContent='$'+total.toLocaleString();
+}
+
+function exportSaved(){
+let text='AI PROMPT SAVINGS FINDER - SAVED PROMPTS\n'+'='.repeat(45)+'\n\n';
+state.savedPrompts.forEach((s,i)=>{
+const cat=CATEGORIES.find(c=>c.id===s.cat);
+if(!cat)return;
+const p=cat.prompts[s.idx];
+if(!p)return;
+text+=(i+1)+'. ['+s.catName.toUpperCase()+'] '+s.title+'\n';
+text+=buildPromptText(p.prompt,p.fields)+'\n\n';
+});
+navigator.clipboard.writeText(text).then(()=>alert('All saved prompts copied to clipboard!'));
+}
+
+function clearSaved(){
+if(!confirm('Remove all saved prompts?'))return;
+state.savedPrompts=[];saveState();render();
+}
+
+function render(){renderCategories();renderPrompts();renderSaved();renderTotals()}
+loadState();render();
+</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>

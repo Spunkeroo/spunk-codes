@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI Meal Planner — Weekly Meal Plans on a Budget | SPUNK.CODES</title>
+<meta name="description" content="Generate 7-day meal plans with budget tracking, grocery lists, and AI prompts for detailed recipes. Set dietary preferences, family size, and cooking level. Free tool.">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP')</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w")</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e8e8f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+header{background:#111118;border-bottom:2px solid #ff5f1f;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+header h1{font-size:1.4rem;color:#ff5f1f}
+header .back{color:#e8e8f0;font-size:.9rem}
+main{flex:1;max-width:1000px;width:100%;margin:0 auto;padding:24px 16px}
+.panel{background:#111118;border:1px solid #2a2a3a;border-radius:10px;padding:20px;margin-bottom:20px}
+.panel h2{font-size:1.1rem;color:#ff5f1f;margin-bottom:14px}
+button{background:#ff5f1f;color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:.9rem;font-weight:600;transition:background .2s}
+button:hover{background:#e8520e}
+button.secondary{background:#2a2a3a;color:#e8e8f0}button.secondary:hover{background:#3a3a4a}
+button.danger{background:#cc2233}button.danger:hover{background:#aa1122}
+button.sm{font-size:.8rem;padding:4px 10px}
+input,select{background:#16161e;border:1px solid #2a2a3a;color:#e8e8f0;padding:8px 12px;border-radius:6px;font-size:.9rem}
+.form-grid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px;margin-bottom:14px;align-items:end}
+.form-grid label{font-size:.8rem;color:#888;margin-bottom:4px;display:block}
+.form-grid input,.form-grid select{width:100%}
+.summary-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:20px}
+.summary-card{background:#16161e;border:1px solid #2a2a3a;border-radius:8px;padding:16px;text-align:center}
+.summary-card .value{font-size:1.8rem;color:#ff5f1f;font-weight:700}
+.summary-card .label{font-size:.8rem;color:#888;margin-top:4px}
+.day-card{background:#16161e;border:1px solid #2a2a3a;border-radius:8px;padding:16px;margin-bottom:12px}
+.day-card h3{font-size:1rem;color:#ff5f1f;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center}
+.meal-slot{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #1a1a2a;gap:8px}
+.meal-slot:last-child{border:none}
+.meal-label{font-size:.75rem;color:#888;text-transform:uppercase;letter-spacing:.5px;min-width:70px}
+.meal-name{flex:1;font-size:.9rem}
+.meal-cost{color:#ff5f1f;font-weight:600;font-size:.85rem;min-width:50px;text-align:right}
+.grocery-list{columns:2;column-gap:20px;margin-top:10px}
+.grocery-item{break-inside:avoid;padding:6px 0;border-bottom:1px solid #1a1a2a;font-size:.9rem;display:flex;justify-content:space-between}
+.ai-prompt{background:#16161e;border:1px solid #2a2a3a;border-radius:8px;padding:14px;margin-bottom:10px}
+.ai-prompt h4{font-size:.9rem;color:#ff5f1f;margin-bottom:6px}
+.prompt-text{background:#0a0a0f;border:1px solid #2a2a3a;border-radius:6px;padding:10px;font-size:.85rem;color:#ccc;cursor:pointer;position:relative}
+.prompt-text:hover{border-color:#ff5f1f}
+.copied{position:absolute;top:50%;right:10px;transform:translateY(-50%);background:#ff5f1f;color:#fff;padding:2px 8px;border-radius:4px;font-size:.75rem}
+.empty{text-align:center;color:#555;padding:30px;font-size:.95rem}
+footer{text-align:center;padding:20px;color:#555;font-size:.8rem;border-top:1px solid #1a1a2a;margin-top:auto}
+footer a{color:#ff5f1f;margin:0 4px}
+@media(max-width:700px){
+.form-grid{grid-template-columns:1fr 1fr}
+.grocery-list{columns:1}
+header h1{font-size:1.1rem}
+}
+</style>
+</head>
+<body>
+<header>
+<h1>AI Meal Planner</h1>
+<a href="https://spunk.codes" class="back">spunk.codes</a>
+</header>
+<main>
+<div class="panel">
+<h2>Your Preferences</h2>
+<div class="form-grid">
+<div><label>Weekly Budget ($)</label><input type="number" id="budget" min="20" step="5" placeholder="100" value="100"></div>
+<div><label>Diet</label><select id="diet"><option value="none">No Restrictions</option><option value="vegetarian">Vegetarian</option><option value="keto">Keto</option><option value="gluten-free">Gluten-Free</option></select></div>
+<div><label>Family Size</label><select id="famSize"><option value="1">1 Person</option><option value="2" selected>2 People</option><option value="3">3 People</option><option value="4">4 People</option><option value="5">5 People</option><option value="6">6+ People</option></select></div>
+<div><label>Cooking Skill</label><select id="skill"><option value="beginner">Beginner</option><option value="intermediate" selected>Intermediate</option><option value="advanced">Advanced</option></select></div>
+</div>
+<div style="display:flex;gap:8px;flex-wrap:wrap">
+<button onclick="generatePlan()">Generate Meal Plan</button>
+<button class="secondary" onclick="clearPlan()">Clear Plan</button>
+</div>
+</div>
+
+<div class="panel" id="summaryPanel" style="display:none">
+<h2>Weekly Overview</h2>
+<div class="summary-cards" id="summaryCards"></div>
+</div>
+
+<div class="panel" id="planPanel" style="display:none">
+<h2>7-Day Meal Plan</h2>
+<div id="mealPlan"></div>
+</div>
+
+<div class="panel" id="groceryPanel" style="display:none">
+<h2>Combined Grocery List</h2>
+<div class="grocery-list" id="groceryList"></div>
+<div style="margin-top:14px;text-align:right" id="groceryTotal"></div>
+</div>
+
+<div class="panel">
+<h2>AI Prompts for Detailed Recipes</h2>
+<p style="font-size:.85rem;color:#888;margin-bottom:12px">Copy these prompts and paste into ChatGPT, Claude, or your favorite AI for full recipes with step-by-step instructions.</p>
+<div class="ai-prompt">
+<h4>Full Recipe Request</h4>
+<div class="prompt-text" onclick="copyPrompt(this)">Give me a detailed recipe for [meal name] that serves [family size] people. Include: exact ingredients with measurements, step-by-step cooking instructions, prep time and cook time, estimated cost per serving, and nutrition info. Keep it [beginner/intermediate/advanced] level. My dietary restriction is [diet type].<span class="copied" style="display:none">Copied!</span></div>
+</div>
+<div class="ai-prompt">
+<h4>Budget Grocery Optimization</h4>
+<div class="prompt-text" onclick="copyPrompt(this)">I have a $[budget] weekly grocery budget for [family size] people. Here is my meal plan: [paste meals]. Optimize my grocery list to minimize cost: suggest store brands vs name brands, items to buy in bulk, seasonal substitutions, and which store (Walmart, Aldi, Costco, etc.) has the best price for each item.<span class="copied" style="display:none">Copied!</span></div>
+</div>
+<div class="ai-prompt">
+<h4>Meal Prep Guide</h4>
+<div class="prompt-text" onclick="copyPrompt(this)">Create a Sunday meal prep plan for these meals: [paste your week's meals]. Tell me what to chop, cook, and store ahead of time. Include storage instructions, what containers I need, and a timeline so I can prep everything in under 2 hours.<span class="copied" style="display:none">Copied!</span></div>
+</div>
+<div class="ai-prompt">
+<h4>Leftover Transformer</h4>
+<div class="prompt-text" onclick="copyPrompt(this)">I have these leftovers: [list leftovers]. Give me 3 creative meals I can make with just these ingredients plus basic pantry staples (salt, pepper, oil, butter, garlic). Keep it simple and under 30 minutes.<span class="copied" style="display:none">Copied!</span></div>
+</div>
+</div>
+</main>
+
+<footer>
+<a href="https://spunk.codes">spunk.codes</a> &middot;
+<a href="https://spunk.bet">spunk.bet</a> &middot;
+<a href="https://spunk.pics">spunk.pics</a> &middot;
+<a href="https://spunk.work">spunk.work</a> &middot;
+<a href="https://spunkart.com">SpunkArt.com</a>
+</footer>
+
+<script>
+const LS_KEY='spunkcodes_meal_planner';
+let plan=null;
+
+function load(){try{plan=JSON.parse(localStorage.getItem(LS_KEY))}catch(e){plan=null}}
+function save(){localStorage.setItem(LS_KEY,JSON.stringify(plan))}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function fmt(n){return'$'+Number(n).toFixed(2)}
+
+const DAYS=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+
+const MEALS={
+none:{
+breakfast:[
+{name:'Scrambled Eggs & Toast',cost:2.50,items:['Eggs','Bread','Butter']},
+{name:'Oatmeal with Banana',cost:1.50,items:['Oats','Banana','Milk']},
+{name:'Pancakes & Syrup',cost:2.00,items:['Flour','Eggs','Milk','Syrup']},
+{name:'Yogurt Parfait',cost:2.80,items:['Yogurt','Granola','Berries']},
+{name:'Bacon & Egg Sandwich',cost:3.00,items:['Bacon','Eggs','Bread','Cheese']},
+{name:'French Toast',cost:2.20,items:['Bread','Eggs','Cinnamon','Syrup']},
+{name:'Smoothie Bowl',cost:3.00,items:['Banana','Berries','Yogurt','Granola']},
+{name:'Cereal & Milk',cost:1.50,items:['Cereal','Milk']},
+{name:'Avocado Toast',cost:2.80,items:['Bread','Avocado','Eggs']},
+{name:'Breakfast Burrito',cost:3.20,items:['Tortillas','Eggs','Cheese','Salsa']}
+],
+lunch:[
+{name:'Turkey & Cheese Sandwich',cost:3.50,items:['Turkey Deli','Bread','Cheese','Lettuce']},
+{name:'Chicken Caesar Salad',cost:4.00,items:['Chicken Breast','Romaine','Parmesan','Croutons']},
+{name:'Grilled Cheese & Tomato Soup',cost:3.00,items:['Bread','Cheese','Canned Tomato Soup']},
+{name:'Tuna Salad Wrap',cost:3.00,items:['Canned Tuna','Tortillas','Mayo','Celery']},
+{name:'Black Bean Quesadilla',cost:2.50,items:['Tortillas','Black Beans','Cheese','Salsa']},
+{name:'PB&J with Apple Slices',cost:1.80,items:['Bread','Peanut Butter','Jelly','Apples']},
+{name:'Pasta Salad',cost:3.00,items:['Pasta','Cherry Tomatoes','Olives','Italian Dressing']},
+{name:'BLT Sandwich',cost:3.50,items:['Bacon','Lettuce','Tomato','Bread','Mayo']},
+{name:'Chicken Noodle Soup',cost:2.50,items:['Chicken Breast','Egg Noodles','Carrots','Celery']},
+{name:'Rice & Bean Bowl',cost:2.00,items:['Rice','Black Beans','Salsa','Sour Cream']}
+],
+dinner:[
+{name:'Spaghetti & Meat Sauce',cost:4.50,items:['Spaghetti','Ground Beef','Pasta Sauce','Parmesan']},
+{name:'Baked Chicken & Vegetables',cost:5.00,items:['Chicken Thighs','Broccoli','Potatoes','Olive Oil']},
+{name:'Tacos',cost:4.00,items:['Ground Beef','Taco Shells','Lettuce','Cheese','Salsa']},
+{name:'Stir Fry with Rice',cost:4.50,items:['Chicken Breast','Mixed Vegetables','Rice','Soy Sauce']},
+{name:'Baked Salmon & Asparagus',cost:6.50,items:['Salmon Fillets','Asparagus','Lemon','Rice']},
+{name:'Chili',cost:3.50,items:['Ground Beef','Kidney Beans','Diced Tomatoes','Onion','Chili Powder']},
+{name:'Chicken Fajitas',cost:4.50,items:['Chicken Breast','Bell Peppers','Onion','Tortillas','Spices']},
+{name:'Mac & Cheese with Broccoli',cost:3.00,items:['Macaroni','Cheese','Milk','Broccoli']},
+{name:'Meatloaf & Mashed Potatoes',cost:4.50,items:['Ground Beef','Breadcrumbs','Potatoes','Butter']},
+{name:'Pizza Night (Homemade)',cost:4.00,items:['Pizza Dough','Mozzarella','Pasta Sauce','Pepperoni']}
+]
+},
+vegetarian:{
+breakfast:[
+{name:'Veggie Omelette',cost:2.50,items:['Eggs','Bell Pepper','Onion','Cheese']},
+{name:'Oatmeal with Berries',cost:1.80,items:['Oats','Berries','Honey','Milk']},
+{name:'Avocado Toast with Egg',cost:2.80,items:['Bread','Avocado','Eggs']},
+{name:'Smoothie Bowl',cost:3.00,items:['Banana','Berries','Yogurt','Granola']},
+{name:'Pancakes with Fruit',cost:2.20,items:['Flour','Eggs','Milk','Berries']},
+{name:'Yogurt & Granola',cost:2.50,items:['Yogurt','Granola','Honey']},
+{name:'Breakfast Burrito (veggie)',cost:2.80,items:['Tortillas','Eggs','Black Beans','Cheese']},
+{name:'French Toast',cost:2.20,items:['Bread','Eggs','Cinnamon','Syrup']},
+{name:'Chia Pudding',cost:2.00,items:['Chia Seeds','Milk','Honey','Berries']},
+{name:'Cereal & Milk',cost:1.50,items:['Cereal','Milk']}
+],
+lunch:[
+{name:'Caprese Sandwich',cost:3.50,items:['Bread','Mozzarella','Tomato','Basil']},
+{name:'Black Bean Tacos',cost:2.50,items:['Tortillas','Black Beans','Avocado','Salsa']},
+{name:'Veggie Wrap',cost:3.00,items:['Tortillas','Hummus','Cucumber','Bell Pepper','Spinach']},
+{name:'Tomato Soup & Grilled Cheese',cost:3.00,items:['Canned Tomato Soup','Bread','Cheese']},
+{name:'Garden Salad with Chickpeas',cost:3.00,items:['Mixed Greens','Chickpeas','Cucumber','Feta']},
+{name:'Veggie Quesadilla',cost:2.50,items:['Tortillas','Cheese','Mushrooms','Peppers']},
+{name:'Pasta Primavera',cost:3.50,items:['Pasta','Zucchini','Tomatoes','Olive Oil','Parmesan']},
+{name:'Hummus & Veggie Plate',cost:2.80,items:['Hummus','Carrots','Celery','Pita Bread']},
+{name:'Egg Salad Sandwich',cost:2.50,items:['Eggs','Mayo','Bread','Lettuce']},
+{name:'Lentil Soup',cost:2.00,items:['Lentils','Carrots','Celery','Onion','Broth']}
+],
+dinner:[
+{name:'Vegetable Stir Fry',cost:4.00,items:['Tofu','Mixed Vegetables','Rice','Soy Sauce']},
+{name:'Eggplant Parmesan',cost:4.50,items:['Eggplant','Mozzarella','Pasta Sauce','Breadcrumbs']},
+{name:'Veggie Chili',cost:3.00,items:['Kidney Beans','Black Beans','Diced Tomatoes','Onion']},
+{name:'Spinach & Ricotta Pasta',cost:4.00,items:['Pasta','Spinach','Ricotta','Garlic']},
+{name:'Stuffed Bell Peppers',cost:4.50,items:['Bell Peppers','Rice','Black Beans','Cheese']},
+{name:'Mushroom Risotto',cost:4.00,items:['Arborio Rice','Mushrooms','Parmesan','Broth']},
+{name:'Bean & Cheese Burritos',cost:3.00,items:['Tortillas','Refried Beans','Cheese','Salsa']},
+{name:'Cauliflower Curry',cost:3.50,items:['Cauliflower','Coconut Milk','Curry Paste','Rice']},
+{name:'Veggie Pizza',cost:4.00,items:['Pizza Dough','Mozzarella','Pasta Sauce','Vegetables']},
+{name:'Lentil Bolognese',cost:3.00,items:['Lentils','Pasta','Pasta Sauce','Garlic']}
+]
+},
+keto:{
+breakfast:[
+{name:'Bacon & Eggs',cost:3.00,items:['Bacon','Eggs','Butter']},
+{name:'Cheese Omelette',cost:2.50,items:['Eggs','Cheese','Butter','Spinach']},
+{name:'Sausage & Egg Cups',cost:3.20,items:['Sausage','Eggs','Cheese']},
+{name:'Avocado & Smoked Salmon',cost:4.00,items:['Avocado','Smoked Salmon','Cream Cheese']},
+{name:'Keto Smoothie',cost:3.00,items:['Coconut Milk','Spinach','Almond Butter','Cocoa']},
+{name:'Bulletproof Coffee + Boiled Eggs',cost:2.00,items:['Coffee','Butter','Eggs']},
+{name:'Ham & Cheese Roll-ups',cost:2.50,items:['Ham','Cheese','Mustard']},
+{name:'Greek Yogurt (full fat)',cost:2.50,items:['Greek Yogurt','Almonds']},
+{name:'Egg & Avocado Plate',cost:2.80,items:['Eggs','Avocado','Olive Oil']},
+{name:'Mushroom & Cheese Scramble',cost:2.50,items:['Eggs','Mushrooms','Cheese','Butter']}
+],
+lunch:[
+{name:'Chicken Caesar Lettuce Wraps',cost:4.00,items:['Chicken Breast','Romaine','Parmesan','Caesar Dressing']},
+{name:'Tuna Stuffed Avocado',cost:3.50,items:['Canned Tuna','Avocado','Mayo']},
+{name:'Cobb Salad',cost:4.50,items:['Chicken Breast','Bacon','Eggs','Avocado','Blue Cheese']},
+{name:'Burger Patties (no bun)',cost:3.50,items:['Ground Beef','Cheese','Lettuce','Tomato']},
+{name:'Egg Drop Soup',cost:2.00,items:['Eggs','Chicken Broth','Green Onion']},
+{name:'Deli Meat Roll-ups',cost:3.00,items:['Turkey Deli','Cheese','Mustard','Pickles']},
+{name:'Zucchini Noodle Salad',cost:3.50,items:['Zucchini','Cherry Tomatoes','Olive Oil','Feta']},
+{name:'BLT Lettuce Wrap',cost:3.50,items:['Bacon','Lettuce','Tomato','Mayo']},
+{name:'Chicken & Broccoli Bowl',cost:4.00,items:['Chicken Breast','Broccoli','Butter','Cheese']},
+{name:'Shrimp & Avocado Salad',cost:5.00,items:['Shrimp','Avocado','Lime','Mixed Greens']}
+],
+dinner:[
+{name:'Grilled Steak & Asparagus',cost:7.00,items:['Steak','Asparagus','Butter','Garlic']},
+{name:'Baked Salmon & Broccoli',cost:6.50,items:['Salmon Fillets','Broccoli','Lemon','Butter']},
+{name:'Chicken Thighs & Green Beans',cost:5.00,items:['Chicken Thighs','Green Beans','Olive Oil']},
+{name:'Pork Chops & Cauliflower Mash',cost:5.50,items:['Pork Chops','Cauliflower','Butter','Cream']},
+{name:'Zucchini Lasagna',cost:5.00,items:['Zucchini','Ground Beef','Ricotta','Mozzarella']},
+{name:'Shrimp Scampi (no pasta)',cost:6.00,items:['Shrimp','Butter','Garlic','Zucchini Noodles']},
+{name:'Bacon Cheeseburger Bowl',cost:4.50,items:['Ground Beef','Bacon','Cheese','Pickles','Lettuce']},
+{name:'Chicken Alfredo (cauliflower base)',cost:5.00,items:['Chicken Breast','Cream','Parmesan','Cauliflower']},
+{name:'Stuffed Mushrooms',cost:4.50,items:['Mushrooms','Cream Cheese','Bacon','Parmesan']},
+{name:'Taco Bowl (no shell)',cost:4.00,items:['Ground Beef','Lettuce','Cheese','Sour Cream','Salsa']}
+]
+},
+'gluten-free':{
+breakfast:[
+{name:'Scrambled Eggs & Fruit',cost:2.50,items:['Eggs','Berries','Butter']},
+{name:'GF Oatmeal with Banana',cost:1.80,items:['GF Oats','Banana','Milk']},
+{name:'Yogurt Parfait',cost:2.80,items:['Yogurt','GF Granola','Berries']},
+{name:'Smoothie Bowl',cost:3.00,items:['Banana','Berries','Yogurt','GF Granola']},
+{name:'Eggs & Avocado',cost:2.80,items:['Eggs','Avocado']},
+{name:'Rice Cakes with PB',cost:2.00,items:['Rice Cakes','Peanut Butter','Banana']},
+{name:'Hash Brown & Egg Skillet',cost:3.00,items:['Potatoes','Eggs','Onion','Cheese']},
+{name:'Chia Pudding',cost:2.00,items:['Chia Seeds','Milk','Honey','Berries']},
+{name:'Bacon & Eggs',cost:3.00,items:['Bacon','Eggs']},
+{name:'Corn Tortilla Breakfast Tacos',cost:2.80,items:['Corn Tortillas','Eggs','Cheese','Salsa']}
+],
+lunch:[
+{name:'Chicken & Rice Bowl',cost:4.00,items:['Chicken Breast','Rice','Vegetables','Soy Sauce']},
+{name:'Tuna Salad on Rice Cakes',cost:3.00,items:['Canned Tuna','Rice Cakes','Mayo','Celery']},
+{name:'Black Bean & Corn Salad',cost:2.50,items:['Black Beans','Corn','Tomatoes','Lime']},
+{name:'GF Pasta Salad',cost:3.50,items:['GF Pasta','Cherry Tomatoes','Olives','Dressing']},
+{name:'Stuffed Sweet Potato',cost:3.00,items:['Sweet Potato','Black Beans','Cheese','Salsa']},
+{name:'Chicken Lettuce Wraps',cost:3.50,items:['Chicken Breast','Lettuce','Carrots','Soy Sauce']},
+{name:'Corn Tortilla Quesadilla',cost:2.50,items:['Corn Tortillas','Cheese','Peppers']},
+{name:'Greek Salad',cost:3.00,items:['Cucumber','Tomatoes','Feta','Olives','Olive Oil']},
+{name:'Lentil Soup',cost:2.00,items:['Lentils','Carrots','Celery','Onion','Broth']},
+{name:'Turkey & Cheese (GF Wrap)',cost:3.50,items:['Turkey Deli','GF Tortillas','Cheese','Lettuce']}
+],
+dinner:[
+{name:'Grilled Chicken & Potatoes',cost:5.00,items:['Chicken Breast','Potatoes','Green Beans','Olive Oil']},
+{name:'Baked Salmon & Rice',cost:6.50,items:['Salmon Fillets','Rice','Asparagus','Lemon']},
+{name:'GF Pasta Bolognese',cost:4.50,items:['GF Pasta','Ground Beef','Pasta Sauce','Parmesan']},
+{name:'Taco Night (Corn Shells)',cost:4.00,items:['Ground Beef','Corn Taco Shells','Lettuce','Cheese']},
+{name:'Stir Fry with Rice',cost:4.50,items:['Chicken Breast','Mixed Vegetables','Rice','Soy Sauce']},
+{name:'Chili',cost:3.50,items:['Ground Beef','Kidney Beans','Diced Tomatoes','Spices']},
+{name:'Baked Pork Chops & Veggies',cost:5.00,items:['Pork Chops','Broccoli','Sweet Potato']},
+{name:'Shrimp & Grits',cost:5.50,items:['Shrimp','GF Grits','Butter','Garlic']},
+{name:'Stuffed Bell Peppers',cost:4.50,items:['Bell Peppers','Rice','Ground Beef','Cheese']},
+{name:'Chicken Curry & Rice',cost:4.50,items:['Chicken Breast','Coconut Milk','Curry Paste','Rice']}
+]
+}
+};
+
+function generatePlan(){
+const budget=parseFloat(document.getElementById('budget').value)||100;
+const diet=document.getElementById('diet').value;
+const famSize=parseInt(document.getElementById('famSize').value)||2;
+const skill=document.getElementById('skill').value;
+const mealSet=MEALS[diet]||MEALS.none;
+
+const perPersonMultiplier=famSize;
+const perMealBudget=budget/(7*3*famSize);
+
+function pick(arr,exclude){
+const available=arr.filter(m=>!exclude.includes(m.name));
+if(!available.length)return arr[Math.floor(Math.random()*arr.length)];
+return available[Math.floor(Math.random()*available.length)];
+}
+
+const days=[];
+const usedB=[],usedL=[],usedD=[];
+for(let d=0;d<7;d++){
+const b=pick(mealSet.breakfast,usedB);usedB.push(b.name);
+const l=pick(mealSet.lunch,usedL);usedL.push(l.name);
+const dn=pick(mealSet.dinner,usedD);usedD.push(dn.name);
+days.push({
+day:DAYS[d],
+breakfast:{...b,cost:+(b.cost*famSize).toFixed(2)},
+lunch:{...l,cost:+(l.cost*famSize).toFixed(2)},
+dinner:{...dn,cost:+(dn.cost*famSize).toFixed(2)}
+});
+}
+
+plan={budget,diet,famSize,skill,days};
+save();renderPlan();
+}
+
+function swapMeal(dayIdx,slot){
+const diet=plan.diet;
+const mealSet=MEALS[diet]||MEALS.none;
+const arr=mealSet[slot];
+const current=plan.days[dayIdx][slot].name;
+const others=arr.filter(m=>m.name!==current);
+const pick=others[Math.floor(Math.random()*others.length)]||arr[0];
+plan.days[dayIdx][slot]={...pick,cost:+(pick.cost*plan.famSize).toFixed(2)};
+save();renderPlan();
+}
+
+function regenDay(dayIdx){
+const diet=plan.diet;
+const mealSet=MEALS[diet]||MEALS.none;
+['breakfast','lunch','dinner'].forEach(slot=>{
+const arr=mealSet[slot];
+const pick=arr[Math.floor(Math.random()*arr.length)];
+plan.days[dayIdx][slot]={...pick,cost:+(pick.cost*plan.famSize).toFixed(2)};
+});
+save();renderPlan();
+}
+
+function clearPlan(){plan=null;localStorage.removeItem(LS_KEY);
+['summaryPanel','planPanel','groceryPanel'].forEach(id=>document.getElementById(id).style.display='none');}
+
+function renderPlan(){
+if(!plan||!plan.days){clearPlan();return}
+['summaryPanel','planPanel','groceryPanel'].forEach(id=>document.getElementById(id).style.display='');
+
+const totalCost=plan.days.reduce((s,d)=>s+d.breakfast.cost+d.lunch.cost+d.dinner.cost,0);
+const perMeal=(totalCost/21).toFixed(2);
+const perDay=(totalCost/7).toFixed(2);
+const underBudget=plan.budget-totalCost;
+
+document.getElementById('summaryCards').innerHTML=`
+<div class="summary-card"><div class="value">${fmt(totalCost)}</div><div class="label">Estimated Total</div></div>
+<div class="summary-card"><div class="value">${fmt(plan.budget)}</div><div class="label">Weekly Budget</div></div>
+<div class="summary-card"><div class="value" style="color:${underBudget>=0?'#4caf50':'#ef5350'}">${underBudget>=0?'+':''}${fmt(underBudget)}</div><div class="label">${underBudget>=0?'Under Budget':'Over Budget'}</div></div>
+<div class="summary-card"><div class="value">${fmt(perMeal)}</div><div class="label">Cost/Meal</div></div>
+<div class="summary-card"><div class="value">${fmt(perDay)}</div><div class="label">Cost/Day</div></div>
+<div class="summary-card"><div class="value">${plan.famSize}</div><div class="label">Servings/Meal</div></div>`;
+
+const planDiv=document.getElementById('mealPlan');
+planDiv.innerHTML=plan.days.map((d,i)=>{
+const dayCost=d.breakfast.cost+d.lunch.cost+d.dinner.cost;
+return`<div class="day-card">
+<h3>${esc(d.day)} <span style="font-size:.85rem;font-weight:400;color:#888">${fmt(dayCost)}/day</span> <button class="secondary sm" onclick="regenDay(${i})">Regenerate Day</button></h3>
+<div class="meal-slot"><span class="meal-label">Breakfast</span><span class="meal-name">${esc(d.breakfast.name)}</span><span class="meal-cost">${fmt(d.breakfast.cost)}</span><button class="secondary sm" onclick="swapMeal(${i},'breakfast')">Swap</button></div>
+<div class="meal-slot"><span class="meal-label">Lunch</span><span class="meal-name">${esc(d.lunch.name)}</span><span class="meal-cost">${fmt(d.lunch.cost)}</span><button class="secondary sm" onclick="swapMeal(${i},'lunch')">Swap</button></div>
+<div class="meal-slot"><span class="meal-label">Dinner</span><span class="meal-name">${esc(d.dinner.name)}</span><span class="meal-cost">${fmt(d.dinner.cost)}</span><button class="secondary sm" onclick="swapMeal(${i},'dinner')">Swap</button></div>
+</div>`;}).join('');
+
+// Grocery list
+const allItems={};
+plan.days.forEach(d=>{
+[d.breakfast,d.lunch,d.dinner].forEach(m=>{
+m.items.forEach(item=>{
+if(!allItems[item])allItems[item]={count:0,estCost:0};
+allItems[item].count++;
+allItems[item].estCost+=((m.cost/m.items.length)/plan.famSize);
+});
+});
+});
+const sortedItems=Object.entries(allItems).sort((a,b)=>a[0].localeCompare(b[0]));
+let grocTotal=0;
+document.getElementById('groceryList').innerHTML=sortedItems.map(([name,info])=>{
+const cost=+(info.estCost*plan.famSize).toFixed(2);
+grocTotal+=cost;
+return`<div class="grocery-item"><span>${esc(name)} <span style="color:#888;font-size:.8rem">x${info.count}</span></span><span style="color:#ff5f1f">${fmt(cost)}</span></div>`;
+}).join('');
+document.getElementById('groceryTotal').innerHTML=`<strong>Estimated Grocery Total: <span style="color:#ff5f1f">${fmt(grocTotal)}</span></strong>`;
+}
+
+function copyPrompt(el){
+const text=el.textContent.replace('Copied!','').trim();
+navigator.clipboard.writeText(text).then(()=>{
+const badge=el.querySelector('.copied');
+badge.style.display='inline';
+setTimeout(()=>badge.style.display='none',1500);
+});
+}
+
+load();
+if(plan&&plan.days)renderPlan();
+</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>

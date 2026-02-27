@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Subscription Audit Tool — Find & Cut Wasteful Subscriptions | SPUNK.CODES</title>
+<meta name="description" content="Audit all your monthly subscriptions, flag duplicates, find free alternatives, and calculate exactly how much you can save per year by canceling.">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP')</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w")</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e8e8f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+header{background:#111118;border-bottom:2px solid #ff5f1f;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+header h1{font-size:1.4rem;color:#ff5f1f}
+header .back{color:#e8e8f0;font-size:.9rem}
+main{flex:1;max-width:1100px;width:100%;margin:0 auto;padding:24px 16px}
+button{background:#ff5f1f;color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:.9rem;font-weight:600;transition:background .2s}
+button:hover{background:#e8520e}
+button.secondary{background:#2a2a3a;color:#e8e8f0}button.secondary:hover{background:#3a3a4a}
+button.danger{background:#cc2233}button.danger:hover{background:#aa1122}
+button.success{background:#1a8a3a}button.success:hover{background:#157a30}
+.panel{background:#111118;border:1px solid #2a2a3a;border-radius:10px;padding:20px;margin-bottom:20px}
+.panel h2{font-size:1.1rem;color:#ff5f1f;margin-bottom:14px}
+input,select{background:#16161e;border:1px solid #2a2a3a;color:#e8e8f0;padding:8px 12px;border-radius:6px;font-size:.9rem}
+.stats-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-bottom:20px}
+.stat-card{background:#111118;border:1px solid #2a2a3a;border-radius:10px;padding:18px;text-align:center}
+.stat-card .val{font-size:1.8rem;font-weight:700;margin-bottom:4px}
+.stat-card .lbl{font-size:.8rem;color:#888}
+.val-green{color:#2ecc40}
+.val-red{color:#e74c3c}
+.val-orange{color:#ff5f1f}
+.val-blue{color:#42a5f5}
+.add-form{display:grid;grid-template-columns:2fr 1fr 1fr 1fr auto;gap:10px;align-items:end;margin-bottom:16px}
+.add-form label{font-size:.8rem;color:#888;display:block;margin-bottom:4px}
+.sub-table{width:100%;border-collapse:collapse}
+.sub-table th{text-align:left;padding:10px 12px;font-size:.8rem;color:#888;border-bottom:1px solid #2a2a3a;text-transform:uppercase;letter-spacing:.5px}
+.sub-table td{padding:10px 12px;border-bottom:1px solid #1a1a2a;font-size:.9rem;vertical-align:middle}
+.sub-table tr:hover{background:#16161e}
+.sub-table .name-col{font-weight:600}
+.sub-table .cost-col{color:#ff5f1f;font-weight:600}
+.sub-table .annual-col{color:#e74c3c;font-size:.85rem}
+.sub-table .cat-col{font-size:.75rem;padding:2px 8px;border-radius:10px;display:inline-block}
+.cat-streaming{background:#1a2a4a;color:#42a5f5}
+.cat-music{background:#2a1a3a;color:#ab47bc}
+.cat-software{background:#1a3a2a;color:#4caf50}
+.cat-fitness{background:#3a2a1a;color:#ff9800}
+.cat-news{background:#3a3a1a;color:#ffc107}
+.cat-gaming{background:#1a3a3a;color:#26c6da}
+.cat-cloud{background:#2a2a3a;color:#78909c}
+.cat-food{background:#3a1a1a;color:#ef5350}
+.cat-other{background:#2a2a2a;color:#999}
+.flag{font-size:.75rem;padding:2px 8px;border-radius:10px;background:#3a1a1a;color:#e74c3c;margin-left:6px;font-weight:600}
+.alt-tip{background:#0a0a0f;border:1px solid #2a2a3a;border-radius:6px;padding:10px 14px;margin-top:6px;font-size:.82rem;color:#aaa;display:none}
+.alt-tip strong{color:#2ecc40}
+.toggle-alt{font-size:.75rem;padding:4px 10px;cursor:pointer;background:#16161e;border:1px solid #2a2a3a;color:#4caf50;border-radius:4px}
+.toggle-alt:hover{background:#1a3a1a}
+.export-area{background:#0a0a0f;border:1px solid #2a2a3a;border-radius:6px;padding:12px;font-family:monospace;font-size:.85rem;color:#e8e8f0;white-space:pre-wrap;max-height:300px;overflow:auto;margin-top:10px}
+.empty{text-align:center;color:#555;padding:40px 20px;font-size:.95rem}
+.cancel-sim{background:#16161e;border:1px solid #2a2a3a;border-radius:8px;padding:14px;margin-bottom:8px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.cancel-sim .name{font-weight:600;flex:1}
+.cancel-sim .savings{color:#2ecc40;font-weight:700}
+footer{text-align:center;padding:20px;color:#555;font-size:.8rem;border-top:1px solid #1a1a2a;margin-top:auto}
+footer a{color:#ff5f1f;margin:0 4px}
+@media(max-width:700px){
+header h1{font-size:1.1rem}
+.add-form{grid-template-columns:1fr 1fr}
+.add-form label:first-child,.add-form div:first-child{grid-column:1/-1}
+.sub-table{display:block;overflow-x:auto}
+.stats-row{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+<header>
+<h1>Subscription Audit Tool</h1>
+<a href="https://spunk.codes" class="back">spunk.codes</a>
+</header>
+<main>
+
+<div class="stats-row" id="statsRow">
+<div class="stat-card"><div class="val val-orange" id="subCount">0</div><div class="lbl">Subscriptions</div></div>
+<div class="stat-card"><div class="val val-red" id="monthlyTotal">$0</div><div class="lbl">Monthly Cost</div></div>
+<div class="stat-card"><div class="val val-red" id="yearlyTotal">$0</div><div class="lbl">Yearly Cost</div></div>
+<div class="stat-card"><div class="val val-green" id="potentialSave">$0</div><div class="lbl">Potential Yearly Savings</div></div>
+</div>
+
+<div class="panel">
+<h2>Add Subscription</h2>
+<div class="add-form" id="addForm">
+<div><label>Service Name</label><input type="text" id="subName" placeholder="e.g., Netflix" style="width:100%"></div>
+<div><label>Monthly Cost ($)</label><input type="number" id="subCost" placeholder="15.99" step="0.01" min="0" style="width:100%"></div>
+<div><label>Category</label><select id="subCat" style="width:100%">
+<option value="streaming">Streaming</option>
+<option value="music">Music</option>
+<option value="software">Software/Apps</option>
+<option value="fitness">Fitness</option>
+<option value="news">News/Media</option>
+<option value="gaming">Gaming</option>
+<option value="cloud">Cloud Storage</option>
+<option value="food">Food Delivery</option>
+<option value="other">Other</option>
+</select></div>
+<div><label>Billing</label><select id="subBilling" style="width:100%">
+<option value="monthly">Monthly</option>
+<option value="annual">Annual</option>
+</select></div>
+<div style="padding-top:20px"><button onclick="addSub()">+ Add</button></div>
+</div>
+<div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
+<button class="secondary" onclick="loadSamples()">Load Sample Data</button>
+<button class="danger" onclick="clearAll()">Clear All</button>
+</div>
+</div>
+
+<div class="panel">
+<h2>Your Subscriptions <span id="sortLabel" style="font-size:.8rem;color:#888;margin-left:8px">(sorted by cost)</span></h2>
+<div style="margin-bottom:12px;display:flex;gap:8px;flex-wrap:wrap">
+<button class="secondary" onclick="sortBy('cost')">Sort by Cost</button>
+<button class="secondary" onclick="sortBy('name')">Sort by Name</button>
+<button class="secondary" onclick="sortBy('category')">Sort by Category</button>
+</div>
+<div id="subTableWrap"></div>
+</div>
+
+<div class="panel" id="dupePanel" style="display:none">
+<h2>Duplicate Flags</h2>
+<p style="font-size:.85rem;color:#888;margin-bottom:14px">You have multiple services in the same category. Consider keeping only one.</p>
+<div id="dupeList"></div>
+</div>
+
+<div class="panel">
+<h2>Cancel Simulator</h2>
+<p style="font-size:.85rem;color:#888;margin-bottom:14px">See how much you save by canceling each subscription.</p>
+<div id="cancelList"></div>
+</div>
+
+<div class="panel">
+<h2>Export Summary</h2>
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px">
+<button onclick="exportText()">Export Text</button>
+<button class="secondary" onclick="copyExport()">Copy to Clipboard</button>
+</div>
+<div class="export-area" id="exportArea">Click export to generate your subscription audit summary.</div>
+</div>
+
+</main>
+
+<footer>
+<a href="https://spunk.codes">spunk.codes</a> &middot;
+<a href="https://spunk.bet">spunk.bet</a> &middot;
+<a href="https://spunk.pics">spunk.pics</a> &middot;
+<a href="https://spunk.work">spunk.work</a> &middot;
+<a href="https://spunkart.com">SpunkArt.com</a>
+</footer>
+
+<script>
+const LS_KEY='spunkcodes_sub_audit';
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+
+const ALTERNATIVES={
+'netflix':{alt:'Tubi, Pluto TV, Kanopy (free with library card), Crackle',save:'100%'},
+'hulu':{alt:'Tubi, Pluto TV, Peacock Free, ABC/NBC free apps',save:'100%'},
+'disney+':{alt:'No direct free alternative - consider rotating monthly',save:'~80%'},
+'hbo max':{alt:'Rotate monthly, watch during free trial periods',save:'~80%'},
+'max':{alt:'Rotate monthly, watch during free trial periods',save:'~80%'},
+'paramount+':{alt:'Pluto TV (same parent company, free), Tubi',save:'100%'},
+'peacock':{alt:'Peacock has a free tier with ads',save:'up to 100%'},
+'apple tv+':{alt:'Often free with Apple device purchase, rotate monthly',save:'~80%'},
+'amazon prime':{alt:'Use Prime Video only months you order frequently',save:'~50%'},
+'spotify':{alt:'Spotify Free (with ads), YouTube Music free, SoundCloud',save:'100%'},
+'apple music':{alt:'Spotify Free, YouTube Music free, SoundCloud',save:'100%'},
+'youtube premium':{alt:'YouTube Free (with ads), uBlock Origin browser extension',save:'100%'},
+'youtube music':{alt:'Spotify Free, SoundCloud, Pandora free',save:'100%'},
+'tidal':{alt:'Spotify Free, YouTube Music free',save:'100%'},
+'adobe creative cloud':{alt:'GIMP, Inkscape, DaVinci Resolve, Canva Free, Figma Free',save:'100%'},
+'adobe':{alt:'GIMP, Inkscape, DaVinci Resolve, Canva Free',save:'100%'},
+'canva pro':{alt:'Canva Free tier, GIMP, Figma Free',save:'100%'},
+'microsoft 365':{alt:'Google Docs/Sheets/Slides (free), LibreOffice',save:'100%'},
+'notion':{alt:'Notion Free tier, Obsidian (free), Google Keep',save:'100%'},
+'grammarly':{alt:'Grammarly Free tier, LanguageTool free, built-in spell check',save:'100%'},
+'chatgpt plus':{alt:'ChatGPT Free, Claude Free, Google Gemini Free',save:'100%'},
+'dropbox':{alt:'Google Drive 15GB free, pCloud free tier',save:'100%'},
+'icloud+':{alt:'Google Drive 15GB free, local backups',save:'100%'},
+'google one':{alt:'Free 15GB tier, local storage, pCloud',save:'100%'},
+'planet fitness':{alt:'Free YouTube workouts, outdoor running, bodyweight fitness',save:'100%'},
+'gym':{alt:'Free YouTube workouts, outdoor running, bodyweight exercises',save:'100%'},
+'peloton':{alt:'Free YouTube cycling/fitness classes, Nike Training Club',save:'100%'},
+'nyt':{alt:'Google News, AP News app (free), library access',save:'100%'},
+'new york times':{alt:'Google News, AP News, Reuters, library digital access',save:'100%'},
+'wall street journal':{alt:'Library digital access, Google News, Yahoo Finance',save:'100%'},
+'wsj':{alt:'Library digital access, Google News, Yahoo Finance',save:'100%'},
+'xbox game pass':{alt:'Free-to-play games, Epic Games free weekly games',save:'100%'},
+'playstation plus':{alt:'Free-to-play games, wait for sales',save:'100%'},
+'nintendo switch online':{alt:'Free-to-play games on Switch',save:'100%'},
+'doordash':{alt:'Cook at home, pick up orders (save delivery + fees)',save:'~70%'},
+'uber eats':{alt:'Cook at home, pick up orders directly',save:'~70%'},
+'grubhub':{alt:'Cook at home, pick up orders directly',save:'~70%'},
+'1password':{alt:'Bitwarden (free), KeePassXC (free)',save:'100%'},
+'lastpass':{alt:'Bitwarden (free), KeePassXC (free)',save:'100%'},
+'nordvpn':{alt:'ProtonVPN free tier, Windscribe free',save:'100%'},
+'expressvpn':{alt:'ProtonVPN free tier, Windscribe free',save:'100%'},
+'headspace':{alt:'Insight Timer (free), YouTube meditations, Medito (free)',save:'100%'},
+'calm':{alt:'Insight Timer (free), YouTube meditations, Medito (free)',save:'100%'}
+};
+
+let subs=[];
+let sortMode='cost';
+
+function load(){try{subs=JSON.parse(localStorage.getItem(LS_KEY))||[]}catch(e){subs=[]}}
+function save(){localStorage.setItem(LS_KEY,JSON.stringify(subs))}
+
+function addSub(){
+const name=document.getElementById('subName').value.trim();
+const cost=parseFloat(document.getElementById('subCost').value);
+const cat=document.getElementById('subCat').value;
+const billing=document.getElementById('subBilling').value;
+if(!name){alert('Enter a service name.');return}
+if(isNaN(cost)||cost<=0){alert('Enter a valid cost.');return}
+const monthly=billing==='annual'?cost/12:cost;
+subs.push({name,cost:monthly,category:cat,billing,originalCost:cost});
+document.getElementById('subName').value='';
+document.getElementById('subCost').value='';
+save();render();
+}
+
+function removeSub(idx){subs.splice(idx,1);save();render()}
+
+function sortBy(mode){sortMode=mode;render()}
+
+function getSorted(){
+const s=[...subs];
+if(sortMode==='cost')s.sort((a,b)=>b.cost-a.cost);
+else if(sortMode==='name')s.sort((a,b)=>a.name.localeCompare(b.name));
+else if(sortMode==='category')s.sort((a,b)=>a.category.localeCompare(b.category));
+return s;
+}
+
+function findAlternative(name){
+const key=name.toLowerCase().trim();
+for(const k in ALTERNATIVES){
+if(key.includes(k)||k.includes(key))return ALTERNATIVES[k];
+}
+return null;
+}
+
+function renderStats(){
+const monthly=subs.reduce((s,x)=>s+x.cost,0);
+const yearly=monthly*12;
+let potentialSave=0;
+subs.forEach(s=>{const a=findAlternative(s.name);if(a)potentialSave+=s.cost*12});
+document.getElementById('subCount').textContent=subs.length;
+document.getElementById('monthlyTotal').textContent='$'+monthly.toFixed(2);
+document.getElementById('yearlyTotal').textContent='$'+yearly.toFixed(2);
+document.getElementById('potentialSave').textContent='$'+potentialSave.toFixed(2);
+}
+
+function renderTable(){
+const wrap=document.getElementById('subTableWrap');
+document.getElementById('sortLabel').textContent='(sorted by '+sortMode+')';
+if(!subs.length){wrap.innerHTML='<div class="empty">No subscriptions added yet. Add your first one above or load sample data.</div>';return}
+const sorted=getSorted();
+let html='<table class="sub-table"><thead><tr><th>Service</th><th>Category</th><th>Monthly</th><th>Annual</th><th>Alternative</th><th></th></tr></thead><tbody>';
+sorted.forEach((s,i)=>{
+const realIdx=subs.indexOf(s);
+const alt=findAlternative(s.name);
+const dupes=subs.filter(x=>x!==s&&x.category===s.category);
+const dupeFlag=dupes.length>0?'<span class="flag">'+dupes.length+' similar</span>':'';
+const altBtn=alt?'<button class="toggle-alt" onclick="toggleAlt('+realIdx+')">View Free Alt</button>':'<span style="color:#555;font-size:.8rem">--</span>';
+html+='<tr><td class="name-col">'+esc(s.name)+dupeFlag+'</td>';
+html+='<td><span class="cat-col cat-'+s.category+'">'+esc(s.category)+'</span></td>';
+html+='<td class="cost-col">$'+s.cost.toFixed(2)+'</td>';
+html+='<td class="annual-col">$'+(s.cost*12).toFixed(2)+'</td>';
+html+='<td>'+altBtn+'<div class="alt-tip" id="alt_'+realIdx+'">'+(alt?'<strong>Free alternatives:</strong> '+esc(alt.alt)+'<br>Potential savings: '+esc(alt.save):'')+'</div></td>';
+html+='<td><button class="danger" style="padding:4px 10px;font-size:.8rem" onclick="removeSub('+realIdx+')">&times;</button></td></tr>';
+});
+html+='</tbody></table>';
+wrap.innerHTML=html;
+}
+
+function toggleAlt(idx){
+const el=document.getElementById('alt_'+idx);
+el.style.display=el.style.display==='block'?'none':'block';
+}
+
+function renderDupes(){
+const panel=document.getElementById('dupePanel');
+const list=document.getElementById('dupeList');
+const cats={};
+subs.forEach(s=>{if(!cats[s.category])cats[s.category]=[];cats[s.category].push(s)});
+const dupes=Object.entries(cats).filter(([k,v])=>v.length>1);
+if(!dupes.length){panel.style.display='none';return}
+panel.style.display='block';
+list.innerHTML='';
+dupes.forEach(([cat,items])=>{
+const total=items.reduce((s,x)=>s+x.cost,0);
+const d=document.createElement('div');
+d.className='cancel-sim';
+d.innerHTML='<span class="flag" style="background:#3a2a1a;color:#ff9800">'+esc(cat)+'</span><span class="name">'+items.map(x=>esc(x.name)).join(', ')+'</span><span style="color:#888;font-size:.85rem">Combined: $'+total.toFixed(2)+'/mo ($'+(total*12).toFixed(2)+'/yr)</span>';
+list.appendChild(d);
+});
+}
+
+function renderCancelSim(){
+const list=document.getElementById('cancelList');
+if(!subs.length){list.innerHTML='<div class="empty">Add subscriptions to see cancel simulations.</div>';return}
+const sorted=[...subs].sort((a,b)=>b.cost-a.cost);
+list.innerHTML='';
+let cumulative=0;
+sorted.forEach(s=>{
+cumulative+=s.cost*12;
+const d=document.createElement('div');
+d.className='cancel-sim';
+d.innerHTML='<span class="name">Cancel '+esc(s.name)+'</span><span class="savings">Save $'+(s.cost*12).toFixed(2)+'/yr</span><span style="font-size:.8rem;color:#888">Cumulative: $'+cumulative.toFixed(2)+'/yr</span>';
+list.appendChild(d);
+});
+}
+
+function exportText(){
+const monthly=subs.reduce((s,x)=>s+x.cost,0);
+const sorted=[...subs].sort((a,b)=>b.cost-a.cost);
+let t='SUBSCRIPTION AUDIT REPORT\n'+'='.repeat(40)+'\n';
+t+='Date: '+new Date().toLocaleDateString()+'\n';
+t+='Total Subscriptions: '+subs.length+'\n';
+t+='Monthly Cost: $'+monthly.toFixed(2)+'\n';
+t+='Annual Cost: $'+(monthly*12).toFixed(2)+'\n\n';
+t+='SUBSCRIPTIONS (by cost):\n'+'-'.repeat(40)+'\n';
+sorted.forEach((s,i)=>{
+t+=(i+1)+'. '+s.name+' - $'+s.cost.toFixed(2)+'/mo ($'+(s.cost*12).toFixed(2)+'/yr) ['+s.category+']\n';
+const alt=findAlternative(s.name);
+if(alt)t+='   Free alternative: '+alt.alt+'\n';
+});
+t+='\nGenerated by spunk.codes/exclusive/subscription-audit-tool';
+document.getElementById('exportArea').textContent=t;
+}
+
+function copyExport(){
+const text=document.getElementById('exportArea').textContent;
+navigator.clipboard.writeText(text).then(()=>alert('Copied to clipboard!'));
+}
+
+function loadSamples(){
+if(subs.length&&!confirm('This will add sample subscriptions. Continue?'))return;
+const samples=[
+{name:'Netflix',cost:15.49,category:'streaming',billing:'monthly',originalCost:15.49},
+{name:'Hulu',cost:17.99,category:'streaming',billing:'monthly',originalCost:17.99},
+{name:'Disney+',cost:13.99,category:'streaming',billing:'monthly',originalCost:13.99},
+{name:'Spotify',cost:11.99,category:'music',billing:'monthly',originalCost:11.99},
+{name:'YouTube Premium',cost:13.99,category:'music',billing:'monthly',originalCost:13.99},
+{name:'Adobe Creative Cloud',cost:54.99,category:'software',billing:'monthly',originalCost:54.99},
+{name:'Microsoft 365',cost:9.99,category:'software',billing:'monthly',originalCost:9.99},
+{name:'Planet Fitness',cost:24.99,category:'fitness',billing:'monthly',originalCost:24.99},
+{name:'iCloud+',cost:2.99,category:'cloud',billing:'monthly',originalCost:2.99},
+{name:'ChatGPT Plus',cost:20.00,category:'software',billing:'monthly',originalCost:20.00},
+{name:'DoorDash DashPass',cost:9.99,category:'food',billing:'monthly',originalCost:9.99},
+{name:'NordVPN',cost:12.99,category:'software',billing:'monthly',originalCost:12.99}
+];
+subs=subs.concat(samples);
+save();render();
+}
+
+function clearAll(){
+if(!confirm('Delete all subscriptions?'))return;
+subs=[];save();render();
+}
+
+function render(){renderStats();renderTable();renderDupes();renderCancelSim()}
+load();render();
+</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>

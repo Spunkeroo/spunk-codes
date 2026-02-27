@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Smart Purchase Decision Maker — Should You Buy It? | SPUNK.CODES</title>
+<meta name="description" content="Enter any purchase and get instant analysis: hours of work to afford it, cost per use, 5-year ownership cost, investment alternative, 72-hour timer, and buy vs rent vs DIY comparison.">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP')</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w")</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e8e8f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+header{background:#111118;border-bottom:2px solid #ff5f1f;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+header h1{font-size:1.4rem;color:#ff5f1f}
+header .back{color:#e8e8f0;font-size:.9rem}
+main{flex:1;max-width:900px;width:100%;margin:0 auto;padding:24px 16px}
+.panel{background:#111118;border:1px solid #2a2a3a;border-radius:10px;padding:20px;margin-bottom:20px}
+.panel h2{font-size:1.1rem;color:#ff5f1f;margin-bottom:14px}
+button{background:#ff5f1f;color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:.9rem;font-weight:600;transition:background .2s}
+button:hover{background:#e8520e}
+button.secondary{background:#2a2a3a;color:#e8e8f0}button.secondary:hover{background:#3a3a4a}
+button.danger{background:#cc2233}button.danger:hover{background:#aa1a28}
+select,input{background:#16161e;border:1px solid #2a2a3a;color:#e8e8f0;padding:8px 12px;border-radius:6px;font-size:.9rem;width:100%}
+label{display:block;font-size:.85rem;color:#888;margin-bottom:4px;margin-top:12px}
+label:first-child{margin-top:0}
+.form-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}
+.stat-box{background:#16161e;border:1px solid #2a2a3a;border-radius:8px;padding:16px;text-align:center}
+.stat-box .num{font-size:1.6rem;color:#ff5f1f;font-weight:700}
+.stat-box .lbl{font-size:.75rem;color:#888;margin-top:4px}
+.stat-box.warn .num{color:#ffaa22}
+.stat-box.bad .num{color:#cc2233}
+.stat-box.good .num{color:#22cc66}
+.timer-box{background:#0a0a0f;border:2px solid #ff5f1f;border-radius:10px;padding:24px;text-align:center;margin:16px 0}
+.timer-box .timer-label{font-size:.9rem;color:#888;margin-bottom:8px}
+.timer-box .timer-display{font-size:2.5rem;font-weight:700;color:#ff5f1f;font-family:monospace;letter-spacing:2px}
+.timer-box .timer-msg{font-size:.85rem;color:#ccc;margin-top:8px}
+.verdict-box{background:#16161e;border:2px solid #2a2a3a;border-radius:10px;padding:20px;text-align:center;margin:16px 0}
+.verdict-box.buy{border-color:#22cc66}
+.verdict-box.wait{border-color:#ffaa22}
+.verdict-box.skip{border-color:#cc2233}
+.verdict-box .verdict{font-size:1.8rem;font-weight:700;margin-bottom:6px}
+.verdict-box.buy .verdict{color:#22cc66}
+.verdict-box.wait .verdict{color:#ffaa22}
+.verdict-box.skip .verdict{color:#cc2233}
+.verdict-box .reason{font-size:.9rem;color:#ccc}
+.compare-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0}
+.compare-card{background:#16161e;border:1px solid #2a2a3a;border-radius:8px;padding:16px;text-align:center}
+.compare-card.best{border-color:#22cc66}
+.compare-card h3{color:#ff5f1f;font-size:.95rem;margin-bottom:8px}
+.compare-card .price{font-size:1.3rem;font-weight:700;color:#e8e8f0;margin-bottom:6px}
+.compare-card .detail{font-size:.8rem;color:#999;line-height:1.5}
+.compare-card .tag{display:inline-block;background:#22cc66;color:#000;font-size:.7rem;font-weight:700;padding:2px 8px;border-radius:8px;margin-top:6px}
+.pros-cons{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0}
+.pro-col,.con-col{background:#16161e;border:1px solid #2a2a3a;border-radius:8px;padding:14px}
+.pro-col h3{color:#22cc66;font-size:.9rem;margin-bottom:8px}
+.con-col h3{color:#cc2233;font-size:.9rem;margin-bottom:8px}
+.pro-item,.con-item{font-size:.85rem;padding:4px 0;color:#ccc}
+.invest-chart{margin:16px 0}
+.invest-row{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.invest-label{width:80px;font-size:.8rem;color:#888;text-align:right;flex-shrink:0}
+.invest-bar{flex:1;background:#16161e;border-radius:4px;height:28px;position:relative;overflow:hidden}
+.invest-fill{height:100%;background:#ff5f1f;border-radius:4px;display:flex;align-items:center;justify-content:flex-end;padding-right:8px;font-size:.75rem;font-weight:600;color:#fff;min-width:40px}
+.history-item{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:#16161e;border-radius:6px;margin-bottom:6px;font-size:.85rem}
+.history-item .item-name{color:#ff5f1f;font-weight:600}
+.hidden{display:none}
+footer{text-align:center;padding:20px;color:#555;font-size:.8rem;border-top:1px solid #1a1a2a;margin-top:auto}
+footer a{color:#ff5f1f;margin:0 4px}
+@media(max-width:700px){
+.form-grid{grid-template-columns:1fr}
+.stat-row{grid-template-columns:1fr}
+.compare-grid{grid-template-columns:1fr}
+.pros-cons{grid-template-columns:1fr}
+.timer-box .timer-display{font-size:1.8rem}
+header h1{font-size:1.1rem}
+}
+</style>
+</head>
+<body>
+<header>
+<h1>Smart Purchase Decision Maker</h1>
+<a href="https://spunk.codes" class="back">spunk.codes</a>
+</header>
+<main>
+<div class="panel">
+<h2>Enter Purchase Details</h2>
+<div class="form-grid">
+<div><label>What do you want to buy?</label><input type="text" id="itemName" placeholder="e.g. iPhone 16 Pro"></div>
+<div><label>Price ($)</label><input type="number" id="itemPrice" min="0" step="0.01" placeholder="999"></div>
+<div><label>Monthly Income ($)</label><input type="number" id="monthlyIncome" min="0" step="100" placeholder="4000"></div>
+</div>
+<div class="form-grid" style="margin-top:10px">
+<div><label>Expected uses per month</label><input type="number" id="usesPerMonth" min="1" value="30" placeholder="30"></div>
+<div><label>Expected lifespan (years)</label><input type="number" id="lifespan" min="0.5" step="0.5" value="3" placeholder="3"></div>
+<div><label>Monthly maintenance cost ($)</label><input type="number" id="maintCost" min="0" step="1" value="0" placeholder="0"></div>
+</div>
+<div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap">
+<button onclick="analyze()">Analyze Purchase</button>
+<button class="secondary" onclick="startTimer()">Start 72-Hour Timer</button>
+<button class="secondary" onclick="clearForm()">Clear</button>
+</div>
+</div>
+
+<div id="resultsArea" class="hidden">
+<div class="panel">
+<h2>Analysis Results</h2>
+<div class="stat-row" id="statRow"></div>
+</div>
+
+<div class="panel">
+<h2>The Verdict</h2>
+<div class="verdict-box" id="verdictBox"></div>
+</div>
+
+<div class="panel">
+<h2>72-Hour Rule Timer</h2>
+<div class="timer-box" id="timerBox">
+<div class="timer-label">Time remaining before buying:</div>
+<div class="timer-display" id="timerDisplay">72:00:00</div>
+<div class="timer-msg" id="timerMsg">Start the timer to use the 72-hour rule. If you still want it after 72 hours, it might be worth buying.</div>
+</div>
+<div style="text-align:center;margin-top:8px">
+<button onclick="startTimer()">Start Timer</button>
+<button class="danger" onclick="resetTimer()" style="margin-left:6px">Reset Timer</button>
+</div>
+</div>
+
+<div class="panel">
+<h2>Pros & Cons Framework</h2>
+<div class="pros-cons" id="prosConsArea"></div>
+</div>
+
+<div class="panel">
+<h2>Buy vs Rent vs DIY</h2>
+<div class="compare-grid" id="compareGrid"></div>
+</div>
+
+<div class="panel">
+<h2>What If You Invested Instead?</h2>
+<p style="font-size:.85rem;color:#888;margin-bottom:12px">If you invested this money at 8% annual return (S&P 500 average):</p>
+<div class="invest-chart" id="investChart"></div>
+</div>
+</div>
+
+<div class="panel">
+<h2>Purchase History</h2>
+<div id="historyList"></div>
+</div>
+</main>
+
+<footer>
+<a href="https://spunk.codes">spunk.codes</a> &middot;
+<a href="https://spunk.bet">spunk.bet</a> &middot;
+<a href="https://spunk.pics">spunk.pics</a> &middot;
+<a href="https://spunk.work">spunk.work</a> &middot;
+<a href="https://spunkart.com">SpunkArt.com</a>
+</footer>
+
+<script>
+const LS_KEY='spunkcodes_purchase_decision';
+let data={history:[],timers:{}};
+let timerInterval=null;
+
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function fmt(n){return '$'+Number(n).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}
+
+function analyze(){
+const name=document.getElementById('itemName').value.trim();
+const price=parseFloat(document.getElementById('itemPrice').value);
+const income=parseFloat(document.getElementById('monthlyIncome').value);
+const uses=parseInt(document.getElementById('usesPerMonth').value)||30;
+const lifespan=parseFloat(document.getElementById('lifespan').value)||3;
+const maint=parseFloat(document.getElementById('maintCost').value)||0;
+
+if(!name||isNaN(price)||price<=0||isNaN(income)||income<=0){alert('Please fill in the item name, price, and monthly income.');return}
+
+const hourlyWage=income/(40*4.33);
+const hoursToAfford=price/hourlyWage;
+const totalOwnership=price+(maint*12*lifespan);
+const totalUses=uses*12*lifespan;
+const costPerUse=totalOwnership/totalUses;
+const incomePercent=(price/income)*100;
+
+document.getElementById('resultsArea').classList.remove('hidden');
+
+const statRow=document.getElementById('statRow');
+const hoursClass=hoursToAfford>40?'bad':(hoursToAfford>16?'warn':'good');
+const costPerUseClass=costPerUse>5?'bad':(costPerUse>1?'warn':'good');
+const pctClass=incomePercent>50?'bad':(incomePercent>20?'warn':'good');
+
+statRow.innerHTML=`
+<div class="stat-box ${hoursClass}"><div class="num">${hoursToAfford.toFixed(1)}h</div><div class="lbl">Hours of Work</div></div>
+<div class="stat-box ${costPerUseClass}"><div class="num">${fmt(costPerUse)}</div><div class="lbl">Cost Per Use</div></div>
+<div class="stat-box"><div class="num">${fmt(totalOwnership)}</div><div class="lbl">5-Year Total Cost</div></div>
+<div class="stat-box ${pctClass}"><div class="num">${incomePercent.toFixed(1)}%</div><div class="lbl">% of Monthly Income</div></div>
+<div class="stat-box"><div class="num">${totalUses.toLocaleString()}</div><div class="lbl">Est. Total Uses</div></div>
+<div class="stat-box"><div class="num">${fmt(hourlyWage)}</div><div class="lbl">Your Hourly Wage</div></div>`;
+
+let verdict,verdictClass,reason;
+let score=0;
+if(costPerUse<1)score+=3;else if(costPerUse<3)score+=2;else if(costPerUse<5)score+=1;
+if(incomePercent<10)score+=3;else if(incomePercent<25)score+=2;else if(incomePercent<50)score+=1;
+if(hoursToAfford<8)score+=2;else if(hoursToAfford<20)score+=1;
+
+if(score>=6){verdict='SMART BUY';verdictClass='buy';reason='Low cost per use, affordable relative to your income, and reasonable work hours to earn it. This looks like a good purchase.'}
+else if(score>=3){verdict='WAIT & THINK';verdictClass='wait';reason='This purchase has some financial weight. Use the 72-hour rule timer below. Consider if you truly need it or just want it.'}
+else{verdict='THINK TWICE';verdictClass='skip';reason='This is a significant expense relative to your income. The cost per use is high. Consider alternatives or saving up longer.'}
+
+const vBox=document.getElementById('verdictBox');
+vBox.className='verdict-box '+verdictClass;
+vBox.innerHTML=`<div class="verdict">${verdict}</div><div class="reason">${esc(reason)}</div>`;
+
+const pca=document.getElementById('prosConsArea');
+const pros=[],cons=[];
+if(costPerUse<2)pros.push('Low cost per use ('+fmt(costPerUse)+')');else cons.push('High cost per use ('+fmt(costPerUse)+')');
+if(incomePercent<15)pros.push('Small portion of income ('+incomePercent.toFixed(1)+'%)');else cons.push('Large portion of income ('+incomePercent.toFixed(1)+'%)');
+if(hoursToAfford<8)pros.push('Less than a day of work to afford');else cons.push('Takes '+hoursToAfford.toFixed(1)+' hours of work');
+if(lifespan>=3)pros.push('Long expected lifespan ('+lifespan+' years)');else cons.push('Short lifespan ('+lifespan+' years)');
+if(maint===0)pros.push('No ongoing maintenance costs');else cons.push('Monthly maintenance: '+fmt(maint));
+if(uses>=20)pros.push('Frequent expected use ('+uses+'x/month)');else cons.push('Infrequent use ('+uses+'x/month)');
+pros.push('May improve quality of life or productivity');
+cons.push('Money could be invested instead (see below)');
+
+pca.innerHTML=`
+<div class="pro-col"><h3>Reasons to Buy</h3>${pros.map(p=>'<div class="pro-item">+ '+esc(p)+'</div>').join('')}</div>
+<div class="con-col"><h3>Reasons to Skip</h3>${cons.map(c=>'<div class="con-item">- '+esc(c)+'</div>').join('')}</div>`;
+
+const rentEst=price*0.05;
+const diyEst=price*0.3;
+const buyTotal=totalOwnership;
+const rentTotal=rentEst*12*lifespan;
+const diyTotal=diyEst+(maint*0.5*12*lifespan);
+const cheapest=Math.min(buyTotal,rentTotal,diyTotal);
+
+const cg=document.getElementById('compareGrid');
+cg.innerHTML=`
+<div class="compare-card${buyTotal===cheapest?' best':''}"><h3>Buy</h3><div class="price">${fmt(buyTotal)}</div><div class="detail">Own it outright.<br>Full control and customization.<br>Resale value possible.</div>${buyTotal===cheapest?'<div class="tag">Best Value</div>':''}</div>
+<div class="compare-card${rentTotal===cheapest?' best':''}"><h3>Rent / Subscribe</h3><div class="price">${fmt(rentTotal)}</div><div class="detail">Est. ~${fmt(rentEst)}/month.<br>No upfront cost.<br>Easy to cancel or switch.</div>${rentTotal===cheapest?'<div class="tag">Best Value</div>':''}</div>
+<div class="compare-card${diyTotal===cheapest?' best':''}"><h3>DIY / Alternative</h3><div class="price">${fmt(diyTotal)}</div><div class="detail">Est. ~${fmt(diyEst)} materials.<br>Takes time and effort.<br>Learning opportunity.</div>${diyTotal===cheapest?'<div class="tag">Best Value</div>':''}</div>`;
+
+const ic=document.getElementById('investChart');
+const years=[1,3,5,10,20];
+const values=years.map(y=>price*Math.pow(1.08,y));
+const maxVal=values[values.length-1];
+ic.innerHTML=years.map((y,i)=>{
+const pct=(values[i]/maxVal)*100;
+return `<div class="invest-row"><div class="invest-label">${y} year${y>1?'s':''}</div><div class="invest-bar"><div class="invest-fill" style="width:${pct}%">${fmt(values[i])}</div></div></div>`;
+}).join('');
+
+const entry={id:Date.now(),name,price,income,verdict,score,date:new Date().toISOString()};
+data.history.unshift(entry);
+if(data.history.length>30)data.history.pop();
+saveData();
+renderHistory();
+
+document.getElementById('resultsArea').scrollIntoView({behavior:'smooth'});
+}
+
+function startTimer(){
+const name=document.getElementById('itemName').value.trim()||'Current Item';
+const key='timer_'+name.toLowerCase().replace(/\s+/g,'_');
+if(!data.timers[key]){
+data.timers[key]={start:Date.now(),name};
+saveData();
+}
+runTimer(key);
+}
+
+function runTimer(key){
+if(timerInterval)clearInterval(timerInterval);
+const timer=data.timers[key];
+if(!timer)return;
+
+function update(){
+const elapsed=Date.now()-timer.start;
+const total=72*60*60*1000;
+const remaining=Math.max(0,total-elapsed);
+const h=Math.floor(remaining/3600000);
+const m=Math.floor((remaining%3600000)/60000);
+const s=Math.floor((remaining%60000)/1000);
+document.getElementById('timerDisplay').textContent=String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+if(remaining<=0){
+document.getElementById('timerMsg').textContent='72 hours have passed! If you still want "'+esc(timer.name)+'", it might be a considered purchase worth making.';
+document.getElementById('timerDisplay').style.color='#22cc66';
+clearInterval(timerInterval);
+}else{
+document.getElementById('timerMsg').textContent='Wait before buying "'+esc(timer.name)+'". Impulse purchases cost the average person $5,400/year.';
+document.getElementById('timerDisplay').style.color='#ff5f1f';
+}
+}
+update();
+timerInterval=setInterval(update,1000);
+}
+
+function resetTimer(){
+const name=document.getElementById('itemName').value.trim()||'Current Item';
+const key='timer_'+name.toLowerCase().replace(/\s+/g,'_');
+delete data.timers[key];
+saveData();
+document.getElementById('timerDisplay').textContent='72:00:00';
+document.getElementById('timerDisplay').style.color='#ff5f1f';
+document.getElementById('timerMsg').textContent='Start the timer to use the 72-hour rule. If you still want it after 72 hours, it might be worth buying.';
+if(timerInterval)clearInterval(timerInterval);
+}
+
+function clearForm(){
+document.getElementById('itemName').value='';
+document.getElementById('itemPrice').value='';
+document.getElementById('monthlyIncome').value='';
+document.getElementById('usesPerMonth').value='30';
+document.getElementById('lifespan').value='3';
+document.getElementById('maintCost').value='0';
+document.getElementById('resultsArea').classList.add('hidden');
+}
+
+function renderHistory(){
+const el=document.getElementById('historyList');
+if(!data.history.length){el.innerHTML='<div style="color:#555;text-align:center;padding:20px">No purchase analyses yet.</div>';return}
+el.innerHTML=data.history.map(h=>{
+const vColor=h.verdict==='SMART BUY'?'#22cc66':(h.verdict==='WAIT & THINK'?'#ffaa22':'#cc2233');
+return `<div class="history-item"><div><span class="item-name">${esc(h.name)}</span> <span style="color:#888;font-size:.8rem">${fmt(h.price)}</span></div><div><span style="color:${vColor};font-weight:600;font-size:.8rem">${esc(h.verdict)}</span> <button class="danger" onclick="removeHistory(${h.id})" style="font-size:.7rem;padding:3px 8px;margin-left:6px">&times;</button></div></div>`;
+}).join('');
+}
+
+function removeHistory(id){data.history=data.history.filter(h=>h.id!==id);saveData();renderHistory()}
+
+function saveData(){localStorage.setItem(LS_KEY,JSON.stringify(data))}
+function loadData(){try{const d=JSON.parse(localStorage.getItem(LS_KEY));if(d)data={...data,...d}}catch(e){}}
+
+loadData();
+renderHistory();
+const activeTimer=Object.keys(data.timers).find(k=>data.timers[k]);
+if(activeTimer)runTimer(activeTimer);
+</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>

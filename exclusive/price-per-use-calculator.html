@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Price Per Use Calculator — Is It Worth It? | SPUNK.CODES Exclusive</title>
+<meta name="description" content="Calculate the real cost per use of any purchase. Compare items, find your best and worst values, and know exactly when something becomes worth it.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Price Per Use Calculator — SPUNK.CODES Exclusive">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/price-per-use-calculator">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0a0a0f;--card:rgba(18,18,28,0.85);--border:rgba(255,95,31,0.18);--accent:#ff5f1f;--accent-glow:rgba(255,95,31,0.3);--text:#e6edf3;--text-dim:#8b949e;--green:#39d353;--red:#f85149;--yellow:#ffd700;--blue:#58a6ff;--font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+a{color:var(--blue);text-decoration:none}
+.bg-mesh{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 80% 50% at 20% 20%,rgba(255,95,31,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(255,95,31,0.04) 0%,transparent 60%),var(--bg)}
+.bg-grid{position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,95,31,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,95,31,0.03) 1px,transparent 1px);background-size:60px 60px}
+.nav{position:sticky;top:0;z-index:100;background:rgba(10,10,15,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,95,31,0.15);padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}
+.nav-brand{font-weight:800;font-size:1.1rem;color:var(--accent);letter-spacing:0.08em}
+.nav-links{display:flex;gap:1.5rem;font-size:0.85rem}.nav-links a{color:var(--text-dim);font-weight:500}.nav-links a.active{color:var(--accent)}
+.lock-gate{position:fixed;inset:0;z-index:1000;background:rgba(10,10,15,0.97);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:2rem}
+.lock-gate.hidden{display:none}
+.lock-icon-big{font-size:4rem}.lock-gate h2{font-size:1.8rem;font-weight:800;text-align:center}.lock-gate h2 span{color:var(--accent)}.lock-gate p{color:var(--text-dim);text-align:center;max-width:400px}
+.code-input-wrap{display:flex;gap:0.5rem}
+.code-input{padding:0.8rem 1.5rem;background:rgba(18,18,28,0.8);border:2px solid var(--accent-glow);border-radius:12px;color:var(--accent);font-size:1.2rem;font-weight:800;letter-spacing:3px;text-align:center;width:200px;outline:none;text-transform:uppercase;font-family:var(--font)}
+.code-input:focus{border-color:var(--accent);box-shadow:0 0 20px rgba(255,95,31,0.2)}
+.code-submit{padding:0.8rem 1.5rem;background:linear-gradient(135deg,#ff5f1f,#ff8c00);border:none;border-radius:12px;color:#000;font-size:1rem;font-weight:800;cursor:pointer}
+.code-error{color:var(--red);font-size:0.85rem;min-height:1.2em}.lock-hint{color:var(--text-dim);font-size:0.8rem}.lock-hint a{color:var(--accent)}
+.exclusive-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;background:linear-gradient(135deg,rgba(255,95,31,0.15),rgba(255,140,0,0.15));border:1px solid var(--accent-glow);border-radius:100px;font-size:11px;font-weight:800;color:var(--accent);letter-spacing:1.5px;text-transform:uppercase}
+.main{max-width:1100px;margin:0 auto;padding:2rem}
+.hero-section{text-align:center;padding:2rem 0 2rem}
+.hero-section h1{font-size:2.2rem;font-weight:800;margin:1rem 0 0.5rem}
+.hero-section h1 .accent{background:linear-gradient(135deg,#ff5f1f,#ff8c00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-section p{color:var(--text-dim);max-width:600px;margin:0 auto}
+.card{background:var(--card);border:1px solid var(--accent-glow);border-radius:16px;padding:1.5rem;margin-bottom:1.5rem;backdrop-filter:blur(10px);position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),#ff8c00,var(--accent))}
+.card h2{font-size:1.1rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}
+.form-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:0.75rem;margin-bottom:0.75rem}
+.form-group{display:flex;flex-direction:column;gap:0.3rem}
+.form-group label{font-size:0.75rem;color:var(--text-dim);font-weight:600;text-transform:uppercase;letter-spacing:0.5px}
+.form-group input,.form-group select{padding:0.6rem 0.8rem;background:rgba(18,18,28,0.9);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.85rem;font-family:var(--font);outline:none}
+.form-group input:focus,.form-group select:focus{border-color:var(--accent)}
+.btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;transition:all 0.2s}
+.btn-accent{background:linear-gradient(135deg,#ff5f1f,#ff8c00);color:#000}
+.btn-accent:hover{transform:translateY(-1px);box-shadow:0 4px 15px rgba(255,95,31,0.3)}
+.btn-outline{background:transparent;border:1px solid var(--accent-glow);color:var(--accent)}
+.btn-outline:hover{background:rgba(255,95,31,0.1)}
+.btn-sm{padding:0.4rem 0.8rem;font-size:0.75rem}
+.btn-red{background:rgba(248,81,73,0.15);border:1px solid rgba(248,81,73,0.3);color:var(--red)}
+.btn-row{display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:0.75rem}
+.result-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;margin:1rem 0}
+.result-box{background:rgba(10,10,15,0.6);border:1px solid var(--border);border-radius:12px;padding:1rem;text-align:center}
+.result-box .value{font-size:1.5rem;font-weight:800;color:var(--accent)}
+.result-box .label{font-size:0.7rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.5px;margin-top:0.3rem}
+.result-box.good .value{color:var(--green)}
+.result-box.bad .value{color:var(--red)}
+.result-box.warn .value{color:var(--yellow)}
+.item-card{background:rgba(10,10,15,0.5);border:1px solid var(--border);border-radius:12px;padding:1rem;margin-bottom:0.75rem;transition:border-color 0.3s}
+.item-card.ppu-green{border-color:rgba(57,211,83,0.4)}
+.item-card.ppu-yellow{border-color:rgba(255,215,0,0.4)}
+.item-card.ppu-red{border-color:rgba(248,81,73,0.4)}
+.item-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem}
+.item-header h3{font-size:0.95rem;font-weight:700}
+.item-header .ppu-badge{padding:4px 10px;border-radius:20px;font-size:0.7rem;font-weight:800}
+.ppu-badge.green{background:rgba(57,211,83,0.15);color:var(--green)}
+.ppu-badge.yellow{background:rgba(255,215,0,0.15);color:var(--yellow)}
+.ppu-badge.red{background:rgba(248,81,73,0.15);color:var(--red)}
+.item-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:0.5rem;font-size:0.8rem}
+.item-stat{text-align:center}.item-stat .sv{font-weight:800;font-size:1.1rem}.item-stat .sl{color:var(--text-dim);font-size:0.65rem;text-transform:uppercase}
+.del-btn{background:none;border:none;color:var(--red);cursor:pointer;font-size:1rem;padding:0 6px}
+.breakeven-bar{height:8px;background:rgba(255,255,255,0.05);border-radius:4px;margin-top:0.5rem;overflow:hidden}
+.breakeven-fill{height:100%;border-radius:4px;transition:width 0.5s}
+.breakeven-text{font-size:0.7rem;color:var(--text-dim);margin-top:0.2rem}
+.ranking-item{display:flex;align-items:center;gap:0.75rem;padding:0.6rem 0;border-bottom:1px solid var(--border);font-size:0.85rem}
+.ranking-item:last-child{border-bottom:none}
+.rank-num{font-size:1.2rem;font-weight:800;min-width:30px;text-align:center}
+.rank-name{flex:1;font-weight:600}
+.rank-ppu{font-weight:800}
+.share-cta{background:linear-gradient(135deg,rgba(255,95,31,0.08),rgba(255,140,0,0.05));border:1px solid var(--accent-glow);border-radius:16px;padding:2rem;text-align:center;margin-top:2rem}
+.share-cta h3{color:var(--accent);margin-bottom:0.5rem}.share-cta p{color:var(--text-dim);font-size:0.9rem;margin-bottom:1rem}
+.share-btns{display:flex;gap:0.6rem;justify-content:center;flex-wrap:wrap}
+.share-btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;color:#fff}
+.share-x{background:#000;border:1px solid #333}.share-reddit{background:#ff4500}.share-email{background:#21262d;border:1px solid #30363d}
+.footer{text-align:center;padding:2rem;border-top:1px solid rgba(255,95,31,0.1);color:var(--text-dim);font-size:0.75rem;margin-top:3rem}
+.footer a{color:var(--accent)}.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-bottom:1rem}
+.watermark{position:fixed;bottom:10px;right:10px;font-size:0.6rem;color:rgba(255,95,31,0.08);font-weight:800;pointer-events:none;z-index:9999;letter-spacing:1px;text-transform:uppercase}
+@media(max-width:700px){.main{padding:1rem}.hero-section h1{font-size:1.5rem}.nav-links{display:none}.form-row{grid-template-columns:1fr}.result-grid{grid-template-columns:1fr 1fr}.item-stats{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<div class="bg-mesh"></div><div class="bg-grid"></div>
+<div class="lock-gate" id="lockGate"><div class="lock-icon-big">&#128274;</div><h2>Enter Code <span>SPUNK</span> to Unlock</h2><p>This exclusive premium tool requires the SPUNK referral code.</p><div class="code-input-wrap"><input type="text" class="code-input" id="codeInput" placeholder="CODE" maxlength="10" autocomplete="off"><button class="code-submit" onclick="submitCode()">Unlock</button></div><div class="code-error" id="codeError"></div><div class="lock-hint">Get the code at <a href="https://spunk.codes/exclusive-tools">spunk.codes/exclusive-tools</a></div></div>
+<nav class="nav"><a href="https://spunk.codes" class="nav-brand">SPUNK.CODES</a><div class="nav-links"><a href="/store">Tools</a><a href="/exclusive-tools" class="active">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a></div></nav>
+
+<div class="main">
+  <section class="hero-section">
+    <div class="exclusive-badge">&#128081; EXCLUSIVE TOOL</div>
+    <h1><span class="accent">Price Per Use</span> Calculator</h1>
+    <p>Find out the real cost of everything you own or want to buy. Compare items, see value rankings, and know exactly when a purchase becomes "worth it."</p>
+  </section>
+
+  <div class="card">
+    <h2>&#128722; Add an Item</h2>
+    <div class="form-row">
+      <div class="form-group"><label>Item Name</label><input type="text" id="itemName" placeholder="e.g. Winter Jacket"></div>
+      <div class="form-group"><label>Purchase Price ($)</label><input type="number" id="itemPrice" placeholder="200" min="0" step="0.01"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Uses Per Month</label><input type="number" id="itemUses" placeholder="12" min="0.1" step="0.1"></div>
+      <div class="form-group"><label>Expected Lifespan (Months)</label><input type="number" id="itemLifespan" placeholder="36" min="1"></div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-accent" onclick="addItem()">Add Item</button>
+      <button class="btn btn-outline" onclick="loadExamples()">Load Examples</button>
+    </div>
+  </div>
+
+  <div id="itemsSection" style="display:none">
+    <div class="card">
+      <h2>&#128200; Your Items</h2>
+      <div id="itemsList"></div>
+    </div>
+
+    <div class="card">
+      <h2>&#127942; Value Rankings</h2>
+      <div class="result-grid">
+        <div class="result-box good"><div class="value" id="bestValue">-</div><div class="label">Best Value (Lowest $/Use)</div></div>
+        <div class="result-box bad"><div class="value" id="worstValue">-</div><div class="label">Worst Value (Highest $/Use)</div></div>
+        <div class="result-box"><div class="value" id="avgPPU">-</div><div class="label">Average Price/Use</div></div>
+        <div class="result-box"><div class="value" id="totalItems">-</div><div class="label">Items Tracked</div></div>
+      </div>
+      <h3 style="font-size:0.9rem;margin:1rem 0 0.5rem">Best to Worst Value:</h3>
+      <div id="rankings"></div>
+    </div>
+
+    <div class="card">
+      <h2>&#128161; Color Guide</h2>
+      <div style="display:flex;gap:1.5rem;flex-wrap:wrap;font-size:0.85rem">
+        <div><span style="display:inline-block;width:12px;height:12px;border-radius:3px;background:var(--green);vertical-align:middle;margin-right:6px"></span><strong style="color:var(--green)">Green</strong> = Under $1/use (great value)</div>
+        <div><span style="display:inline-block;width:12px;height:12px;border-radius:3px;background:var(--yellow);vertical-align:middle;margin-right:6px"></span><strong style="color:var(--yellow)">Yellow</strong> = $1-$5/use (fair value)</div>
+        <div><span style="display:inline-block;width:12px;height:12px;border-radius:3px;background:var(--red);vertical-align:middle;margin-right:6px"></span><strong style="color:var(--red)">Red</strong> = Over $5/use (poor value)</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>&#128176; Savings Summary</h2>
+      <div id="savingsSummary"></div>
+    </div>
+  </div>
+
+  <div class="share-cta">
+    <h3>&#128275; Share the Code, Unlock More Tools</h3>
+    <p>Share code SPUNK to help others access 15+ exclusive premium tools.</p>
+    <div class="share-btns">
+      <button class="share-btn share-x" onclick="shareX()">&#120143; Share on X</button>
+      <button class="share-btn share-reddit" onclick="shareReddit()">&#128172; Reddit</button>
+      <button class="share-btn share-email" onclick="shareEmail()">&#9993; Email</button>
+    </div>
+  </div>
+</div>
+
+<footer class="footer"><div class="footer-links"><a href="https://spunk.codes">spunk.codes</a><a href="https://spunk.bet">spunk.bet</a><a href="https://spunk.pics">spunk.pics</a><a href="https://spunk.work">spunk.work</a><a href="https://spunkart.com">spunkart.com</a></div><div>&copy; 2026 SPUNK.CODES EXCLUSIVE.</div></footer>
+<div class="watermark">SPUNK.CODES EXCLUSIVE</div>
+
+<script>
+document.addEventListener('contextmenu',function(e){e.preventDefault()});
+document.addEventListener('keydown',function(e){if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'||e.key==='C'))||(e.ctrlKey&&e.key==='u'))e.preventDefault()});
+
+function esc(s){var d=document.createElement('div');d.appendChild(document.createTextNode(s));return d.innerHTML}
+
+function checkCode(){try{var c=localStorage.getItem('spunk_referral_code')||localStorage.getItem('spunk_ref_code')||'';if(c.toUpperCase()==='SPUNK'){document.getElementById('lockGate').classList.add('hidden');return true}}catch(e){}return false}
+function submitCode(){var v=document.getElementById('codeInput').value.trim().toUpperCase();if(v==='SPUNK'){try{localStorage.setItem('spunk_referral_code','SPUNK');localStorage.setItem('spunk_ref_code','SPUNK')}catch(e){}document.getElementById('lockGate').classList.add('hidden')}else{document.getElementById('codeError').textContent='Invalid code. Try: SPUNK';setTimeout(function(){document.getElementById('codeError').textContent=''},2000)}}
+document.getElementById('codeInput').addEventListener('keydown',function(e){if(e.key==='Enter')submitCode()});
+checkCode();
+
+var STORAGE_KEY='spunkcodes_price_per_use';
+var items=[];
+
+function loadData(){try{var d=JSON.parse(localStorage.getItem(STORAGE_KEY));if(d&&d.items)items=d.items}catch(e){}}
+function saveData(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify({items:items}))}catch(e){}}
+
+function fmt(n){return '$'+n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}
+function fmtShort(n){return '$'+n.toLocaleString('en-US',{minimumFractionDigits:0,maximumFractionDigits:0})}
+
+function calcPPU(item){
+  var totalUses=item.usesPerMonth*item.lifespanMonths;
+  return totalUses>0?(item.price/totalUses):item.price;
+}
+
+function ppuColor(ppu){
+  if(ppu<1)return 'green';
+  if(ppu<=5)return 'yellow';
+  return 'red';
+}
+
+function addItem(){
+  var name=document.getElementById('itemName').value.trim();
+  var price=parseFloat(document.getElementById('itemPrice').value)||0;
+  var uses=parseFloat(document.getElementById('itemUses').value)||0;
+  var lifespan=parseInt(document.getElementById('itemLifespan').value)||0;
+  if(!name){alert('Enter an item name.');return}
+  if(price<=0){alert('Enter a purchase price.');return}
+  if(uses<=0){alert('Enter uses per month.');return}
+  if(lifespan<=0){alert('Enter expected lifespan in months.');return}
+  items.push({id:Date.now(),name:name,price:price,usesPerMonth:uses,lifespanMonths:lifespan});
+  document.getElementById('itemName').value='';
+  document.getElementById('itemPrice').value='';
+  document.getElementById('itemUses').value='';
+  document.getElementById('itemLifespan').value='';
+  saveData();
+  render();
+}
+
+function removeItem(id){
+  items=items.filter(function(i){return i.id!==id});
+  saveData();
+  render();
+}
+
+function loadExamples(){
+  var examples=[
+    {name:'Gym Membership (annual)',price:600,usesPerMonth:20,lifespanMonths:12},
+    {name:'Winter Jacket',price:250,usesPerMonth:15,lifespanMonths:48},
+    {name:'Laptop',price:1200,usesPerMonth:30,lifespanMonths:48},
+    {name:'Running Shoes',price:130,usesPerMonth:12,lifespanMonths:10},
+    {name:'Coffee Machine',price:180,usesPerMonth:60,lifespanMonths:60},
+    {name:'Fancy Dress (worn once)',price:200,usesPerMonth:0.08,lifespanMonths:12}
+  ];
+  examples.forEach(function(ex){
+    var exists=items.some(function(i){return i.name===ex.name});
+    if(!exists)items.push({id:Date.now()+Math.random(),name:ex.name,price:ex.price,usesPerMonth:ex.usesPerMonth,lifespanMonths:ex.lifespanMonths});
+  });
+  saveData();
+  render();
+}
+
+function render(){
+  if(items.length===0){document.getElementById('itemsSection').style.display='none';return}
+  document.getElementById('itemsSection').style.display='block';
+
+  // Calculate PPU for all items
+  var calculated=items.map(function(item){
+    var ppu=calcPPU(item);
+    var totalUses=item.usesPerMonth*item.lifespanMonths;
+    var breakevenUses1=Math.ceil(item.price/1); // uses to reach $1/use
+    var breakevenUses5=Math.ceil(item.price/5); // uses to reach $5/use
+    return {item:item,ppu:ppu,totalUses:totalUses,color:ppuColor(ppu),breakevenUses1:breakevenUses1,breakevenUses5:breakevenUses5};
+  });
+
+  // Render items
+  var html='';
+  calculated.forEach(function(c){
+    var usesNeededForWorthIt=Math.ceil(c.item.price/1);
+    var currentProgress=Math.min((c.totalUses/usesNeededForWorthIt)*100,100);
+    html+='<div class="item-card ppu-'+c.color+'">';
+    html+='<div class="item-header"><h3>'+esc(c.item.name)+'</h3><div style="display:flex;align-items:center;gap:0.5rem"><span class="ppu-badge '+c.color+'">'+fmt(c.ppu)+'/use</span><button class="del-btn" onclick="removeItem('+c.item.id+')" title="Remove">&#10005;</button></div></div>';
+    html+='<div class="item-stats">';
+    html+='<div class="item-stat"><div class="sv">'+fmtShort(c.item.price)+'</div><div class="sl">Purchase Price</div></div>';
+    html+='<div class="item-stat"><div class="sv">'+c.item.usesPerMonth+'</div><div class="sl">Uses/Month</div></div>';
+    html+='<div class="item-stat"><div class="sv">'+c.item.lifespanMonths+'mo</div><div class="sl">Lifespan</div></div>';
+    html+='<div class="item-stat"><div class="sv">'+Math.round(c.totalUses)+'</div><div class="sl">Total Uses</div></div>';
+    html+='</div>';
+    html+='<div class="breakeven-bar"><div class="breakeven-fill" style="width:'+currentProgress+'%;background:'+(c.color==='green'?'var(--green)':(c.color==='yellow'?'var(--yellow)':'var(--red)'))+'"></div></div>';
+    if(c.ppu>=1){
+      html+='<div class="breakeven-text">Needs '+usesNeededForWorthIt+' total uses to reach $1/use (currently '+Math.round(c.totalUses)+' uses over lifetime). '+(c.totalUses>=usesNeededForWorthIt?'Already worth it!':'Need '+(usesNeededForWorthIt-Math.round(c.totalUses))+' more uses.')+'</div>';
+    }else{
+      html+='<div class="breakeven-text">Already an excellent value at '+fmt(c.ppu)+' per use!</div>';
+    }
+    html+='</div>';
+  });
+  document.getElementById('itemsList').innerHTML=html;
+
+  // Rankings
+  var sorted=calculated.slice().sort(function(a,b){return a.ppu-b.ppu});
+  var rankHtml='';
+  sorted.forEach(function(c,i){
+    var color=c.color==='green'?'var(--green)':(c.color==='yellow'?'var(--yellow)':'var(--red)');
+    rankHtml+='<div class="ranking-item"><span class="rank-num" style="color:'+color+'">#'+(i+1)+'</span><span class="rank-name">'+esc(c.item.name)+'</span><span class="rank-ppu" style="color:'+color+'">'+fmt(c.ppu)+'/use</span></div>';
+  });
+  document.getElementById('rankings').innerHTML=rankHtml;
+
+  // Summary boxes
+  document.getElementById('bestValue').textContent=sorted.length>0?esc(sorted[0].item.name):'-';
+  document.getElementById('worstValue').textContent=sorted.length>0?esc(sorted[sorted.length-1].item.name):'-';
+  var avgPPU=calculated.reduce(function(s,c){return s+c.ppu},0)/calculated.length;
+  document.getElementById('avgPPU').textContent=fmt(avgPPU);
+  document.getElementById('totalItems').textContent=items.length;
+
+  // Savings summary
+  var greenItems=calculated.filter(function(c){return c.color==='green'}).length;
+  var yellowItems=calculated.filter(function(c){return c.color==='yellow'}).length;
+  var redItems=calculated.filter(function(c){return c.color==='red'}).length;
+  var totalSpent=items.reduce(function(s,i){return s+i.price},0);
+  var redSpend=calculated.filter(function(c){return c.color==='red'}).reduce(function(s,c){return s+c.item.price},0);
+
+  var sumHtml='<div class="result-grid">';
+  sumHtml+='<div class="result-box good"><div class="value">'+greenItems+'</div><div class="label">Great Value Items</div></div>';
+  sumHtml+='<div class="result-box warn"><div class="value">'+yellowItems+'</div><div class="label">Fair Value Items</div></div>';
+  sumHtml+='<div class="result-box bad"><div class="value">'+redItems+'</div><div class="label">Poor Value Items</div></div>';
+  sumHtml+='<div class="result-box"><div class="value">'+fmtShort(totalSpent)+'</div><div class="label">Total Spent</div></div>';
+  sumHtml+='</div>';
+  if(redSpend>0){
+    sumHtml+='<div style="background:rgba(248,81,73,0.08);border:1px solid rgba(248,81,73,0.2);border-radius:8px;padding:0.75rem;font-size:0.85rem;margin-top:0.5rem"><strong style="color:var(--red)">'+fmtShort(redSpend)+'</strong> spent on items with poor value (over $5/use). Consider whether these purchases are worth it next time.</div>';
+  }
+  document.getElementById('savingsSummary').innerHTML=sumHtml;
+}
+
+function shareX(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Just calculated the real price-per-use of everything I own. Some eye-openers! Code SPUNK @SpunkArt13')+'&url='+encodeURIComponent('https://spunk.codes/exclusive-tools'),'_blank')}
+function shareReddit(){window.open('https://www.reddit.com/submit?url='+encodeURIComponent('https://spunk.codes/exclusive-tools')+'&title='+encodeURIComponent('Price Per Use Calculator - see the real cost of your purchases [spunk.codes]'),'_blank')}
+function shareEmail(){window.location.href='mailto:?subject='+encodeURIComponent('Price Per Use Calculator')+'&body='+encodeURIComponent('Find out the real cost per use of everything you own. Code SPUNK: https://spunk.codes/exclusive-tools')}
+
+loadData();
+render();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>
