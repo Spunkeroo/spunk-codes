@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Email Subject Line Tester — Free Email Subject Analyzer | SPUNK.CODES</title>
+<meta name="description" content="Analyze and score your email subject lines. Check length, spam words, personalization, urgency, emojis, and more. A/B compare two subjects. Free, no signup.">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP')</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w")</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e8e8f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;line-height:1.6;min-height:100vh;display:flex;flex-direction:column}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+.container{max-width:900px;margin:0 auto;padding:20px;flex:1}
+h1{text-align:center;font-size:1.8rem;margin:20px 0 8px;color:#ff5f1f}
+.subtitle{text-align:center;color:#888;margin-bottom:30px;font-size:0.95rem}
+.card{background:#12121a;border:1px solid #1e1e2e;border-radius:12px;padding:24px;margin-bottom:20px}
+.card h2{font-size:1.2rem;margin-bottom:16px;color:#ff5f1f}
+label{display:block;font-size:0.85rem;color:#aaa;margin-bottom:6px}
+input[type="text"],textarea{width:100%;padding:12px 14px;background:#1a1a28;border:1px solid #2a2a3a;border-radius:8px;color:#e8e8f0;font-size:1rem;outline:none;transition:border-color .2s}
+input[type="text"]:focus,textarea:focus{border-color:#ff5f1f}
+.btn{display:inline-block;padding:12px 24px;background:#ff5f1f;color:#fff;border:none;border-radius:8px;font-size:1rem;cursor:pointer;font-weight:600;transition:background .2s}
+.btn:hover{background:#e5520f}
+.btn-secondary{background:transparent;border:1px solid #ff5f1f;color:#ff5f1f}
+.btn-secondary:hover{background:#ff5f1f22}
+.btn-sm{padding:8px 16px;font-size:0.85rem}
+.score-display{text-align:center;margin:20px 0}
+.score-circle{width:120px;height:120px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:2.5rem;font-weight:700;border:4px solid #333;margin-bottom:10px}
+.score-label{font-size:0.9rem;color:#888}
+.checks-grid{display:grid;gap:12px;margin-top:16px}
+.check-item{display:flex;align-items:flex-start;gap:12px;padding:14px;background:#1a1a28;border-radius:8px;border-left:3px solid #333}
+.check-item.pass{border-left-color:#00c853}
+.check-item.warn{border-left-color:#ffab00}
+.check-item.fail{border-left-color:#ff1744}
+.check-icon{font-size:1.2rem;min-width:24px;text-align:center}
+.check-title{font-weight:600;font-size:0.95rem}
+.check-detail{font-size:0.8rem;color:#888;margin-top:2px}
+.suggestion{font-size:0.8rem;color:#ffab00;margin-top:4px;font-style:italic}
+.tabs{display:flex;gap:0;margin-bottom:20px;border-bottom:2px solid #1e1e2e}
+.tab{padding:12px 24px;cursor:pointer;color:#888;font-weight:600;border-bottom:2px solid transparent;margin-bottom:-2px;transition:all .2s}
+.tab.active{color:#ff5f1f;border-bottom-color:#ff5f1f}
+.tab-content{display:none}.tab-content.active{display:block}
+.ab-compare{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.vs-badge{display:flex;align-items:center;justify-content:center;font-size:1.5rem;font-weight:700;color:#ff5f1f}
+.winner-badge{display:inline-block;padding:4px 12px;background:#00c85322;color:#00c853;border-radius:20px;font-size:0.8rem;font-weight:600}
+.history-item{display:flex;justify-content:space-between;align-items:center;padding:12px;background:#1a1a28;border-radius:8px;margin-bottom:8px}
+.history-subject{flex:1;margin-right:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.history-score{font-weight:700;min-width:50px;text-align:right}
+.empty-state{text-align:center;color:#555;padding:30px}
+footer{text-align:center;padding:20px;color:#555;font-size:0.8rem;border-top:1px solid #1e1e2e;margin-top:40px}
+footer a{color:#ff5f1f}
+@media(max-width:600px){.ab-compare{grid-template-columns:1fr}.container{padding:12px}h1{font-size:1.4rem}.score-circle{width:90px;height:90px;font-size:2rem}}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>Email Subject Line Tester</h1>
+<p class="subtitle">Score your subject lines and find the winner before you hit send.</p>
+
+<div class="tabs">
+<div class="tab active" onclick="switchTab('single')">Single Test</div>
+<div class="tab" onclick="switchTab('ab')">A/B Compare</div>
+<div class="tab" onclick="switchTab('history')">History</div>
+</div>
+
+<div id="tab-single" class="tab-content active">
+<div class="card">
+<label for="subjectInput">Enter your email subject line</label>
+<input type="text" id="subjectInput" placeholder="e.g. Don't miss our biggest sale of the year!" maxlength="200">
+<div style="margin-top:12px;text-align:right">
+<button class="btn" onclick="analyzeSubject()">Analyze Subject</button>
+</div>
+</div>
+<div id="singleResult" style="display:none">
+<div class="card">
+<div class="score-display">
+<div class="score-circle" id="scoreCircle">--</div>
+<div class="score-label" id="scoreLabel">Enter a subject to analyze</div>
+</div>
+</div>
+<div class="card">
+<h2>Detailed Checks</h2>
+<div class="checks-grid" id="checksGrid"></div>
+</div>
+</div>
+</div>
+
+<div id="tab-ab" class="tab-content">
+<div class="card">
+<h2>A/B Subject Line Comparison</h2>
+<div class="ab-compare">
+<div>
+<label for="subjectA">Subject A</label>
+<input type="text" id="subjectA" placeholder="First subject line..." maxlength="200">
+</div>
+<div>
+<label for="subjectB">Subject B</label>
+<input type="text" id="subjectB" placeholder="Second subject line..." maxlength="200">
+</div>
+</div>
+<div style="margin-top:16px;text-align:right">
+<button class="btn" onclick="compareSubjects()">Compare</button>
+</div>
+</div>
+<div id="abResult" style="display:none">
+<div class="ab-compare" style="margin-top:0">
+<div class="card" id="abCardA">
+<div class="score-display">
+<div class="score-circle" id="scoreA">--</div>
+<div class="score-label">Subject A</div>
+</div>
+<div class="checks-grid" id="checksA"></div>
+</div>
+<div class="card" id="abCardB">
+<div class="score-display">
+<div class="score-circle" id="scoreB">--</div>
+<div class="score-label">Subject B</div>
+</div>
+<div class="checks-grid" id="checksB"></div>
+</div>
+</div>
+<div class="card" style="text-align:center" id="abVerdict"></div>
+</div>
+</div>
+
+<div id="tab-history" class="tab-content">
+<div class="card">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+<h2 style="margin:0">Analysis History</h2>
+<button class="btn btn-sm btn-secondary" onclick="clearHistory()">Clear All</button>
+</div>
+<div id="historyList"></div>
+</div>
+</div>
+</div>
+
+<footer>
+<a href="https://spunk.codes">spunk.codes</a> · <a href="https://spunk.bet">spunk.bet</a> · <a href="https://spunk.pics">spunk.pics</a> · <a href="https://spunk.work">spunk.work</a> · <a href="https://spunkart.com">SpunkArt.com</a>
+</footer>
+
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+<script>
+const SPAM_WORDS=['free','buy now','act now','limited time','click here','guaranteed','no obligation','winner','congratulations','urgent','order now','don\'t delete','this isn\'t spam','dear friend','once in a lifetime','risk-free','no cost','lowest price','cash bonus','billion','million dollars','earn money','work from home','double your','incredible deal','apply now','offer','discount','cheap','bargain','no strings','satisfaction guaranteed','while supplies last','call now','claim your','exclusive deal'];
+
+function getScore(subject){
+let score=50;let checks=[];
+const len=subject.length;
+const wordCount=subject.trim().split(/\s+/).length;
+const hasEmoji=/[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F1E0}-\u{1F1FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/u.test(subject);
+const hasPersonalization=/\{.*?\}|\[.*?\]|{{.*?}}/.test(subject);
+const isQuestion=subject.trim().endsWith('?');
+const hasNumbers=/\d/.test(subject);
+const hasUrgency=/\b(now|today|hurry|last chance|ending|expires|deadline|limited|don't miss|final)\b/i.test(subject);
+const allCaps=subject===subject.toUpperCase()&&subject.length>3;
+const excessivePunctuation=(subject.match(/[!?]{2,}/g)||[]).length>0;
+const lowerSubject=subject.toLowerCase();
+const spamMatches=SPAM_WORDS.filter(w=>lowerSubject.includes(w));
+
+// Length check
+if(len>=30&&len<=50){score+=15;checks.push({status:'pass',title:'Length: '+len+' characters',detail:'Ideal range (30-50 chars). Most email clients display this fully.',suggestion:null})}
+else if(len>=20&&len<30){score+=8;checks.push({status:'warn',title:'Length: '+len+' characters',detail:'Slightly short. Aim for 30-50 characters for best open rates.',suggestion:'Add a few more descriptive words to hit the sweet spot.'})}
+else if(len>50&&len<=70){score+=5;checks.push({status:'warn',title:'Length: '+len+' characters',detail:'A bit long. May get truncated on mobile devices.',suggestion:'Try trimming to under 50 characters for mobile optimization.'})}
+else if(len>70){score-=5;checks.push({status:'fail',title:'Length: '+len+' characters',detail:'Too long. Will be cut off on most devices.',suggestion:'Cut to 50 characters max. Remove filler words and keep the hook.'})}
+else{score-=5;checks.push({status:'fail',title:'Length: '+len+' characters',detail:'Too short to be compelling.',suggestion:'Expand with a benefit, number, or action word.'})}
+
+// Word count
+if(wordCount>=4&&wordCount<=9){score+=10;checks.push({status:'pass',title:'Word count: '+wordCount+' words',detail:'Great word count for readability and mobile display.',suggestion:null})}
+else if(wordCount<4){score+=2;checks.push({status:'warn',title:'Word count: '+wordCount+' words',detail:'Very few words. May lack context.',suggestion:'Add context — what will the reader gain from opening?'})}
+else{score+=2;checks.push({status:'warn',title:'Word count: '+wordCount+' words',detail:'Many words. Could feel overwhelming in an inbox.',suggestion:'Aim for 4-9 words for the best engagement.'})}
+
+// Spam words
+if(spamMatches.length===0){score+=15;checks.push({status:'pass',title:'No spam trigger words detected',detail:'Your subject avoids common spam filter triggers.',suggestion:null})}
+else if(spamMatches.length<=2){score-=5;checks.push({status:'warn',title:spamMatches.length+' spam trigger word(s) found',detail:'Detected: '+spamMatches.join(', '),suggestion:'Consider rephrasing to avoid spam filters. Replace with benefit-driven language.'})}
+else{score-=15;checks.push({status:'fail',title:spamMatches.length+' spam trigger words found',detail:'Detected: '+spamMatches.join(', '),suggestion:'High spam risk. Rewrite using value-focused language instead of hype words.'})}
+
+// Personalization
+if(hasPersonalization){score+=10;checks.push({status:'pass',title:'Personalization token detected',detail:'Personalized subjects get 26% higher open rates on average.',suggestion:null})}
+else{score+=0;checks.push({status:'warn',title:'No personalization detected',detail:'Adding {FirstName} or [Company] can boost open rates.',suggestion:'Try: "{{name}}, check this out" for a personal touch.'})}
+
+// Urgency
+if(hasUrgency){score+=8;checks.push({status:'pass',title:'Urgency/scarcity language detected',detail:'Creates FOMO and encourages immediate opens.',suggestion:null})}
+else{checks.push({status:'warn',title:'No urgency language',detail:'Adding a time element can boost open rates.',suggestion:'Try adding "today", "this week", or a deadline to create urgency.'})}
+
+// Emoji
+if(hasEmoji){score+=5;checks.push({status:'pass',title:'Emoji detected',detail:'Emojis can increase open rates by 56% in some industries.',suggestion:null})}
+else{checks.push({status:'warn',title:'No emoji used',detail:'Emojis help your subject stand out in crowded inboxes.',suggestion:'Add one relevant emoji at the start or end (don\'t overdo it).'})}
+
+// Question
+if(isQuestion){score+=5;checks.push({status:'pass',title:'Question format used',detail:'Questions spark curiosity and drive opens.',suggestion:null})}
+else{checks.push({status:'warn',title:'Statement format (not a question)',detail:'Questions can outperform statements by engaging curiosity.',suggestion:'Try rephrasing as a question: "Did you know...?" or "Ready for...?"'})}
+
+// Numbers
+if(hasNumbers){score+=5;checks.push({status:'pass',title:'Numbers included',detail:'Numbers add specificity and credibility.',suggestion:null})}
+else{checks.push({status:'warn',title:'No numbers used',detail:'Subjects with numbers often get higher open rates.',suggestion:'Try: "5 ways to...", "Save 30%", or "In just 3 days"'})}
+
+// All caps
+if(allCaps){score-=15;checks.push({status:'fail',title:'ALL CAPS detected',detail:'ALL CAPS triggers spam filters and feels like shouting.',suggestion:'Use sentence case or title case instead.'})}
+else{score+=5;checks.push({status:'pass',title:'Proper capitalization',detail:'Good — no ALL CAPS shouting.',suggestion:null})}
+
+// Excessive punctuation
+if(excessivePunctuation){score-=10;checks.push({status:'fail',title:'Excessive punctuation detected',detail:'Multiple !!! or ??? can trigger spam filters.',suggestion:'Use a single ! or ? for emphasis.'})}
+else{score+=5;checks.push({status:'pass',title:'Clean punctuation',detail:'No excessive exclamation or question marks.',suggestion:null})}
+
+score=Math.max(0,Math.min(100,score));
+return{score,checks};
+}
+
+function getScoreColor(score){
+if(score>=80)return'#00c853';
+if(score>=60)return'#ffab00';
+if(score>=40)return'#ff9100';
+return'#ff1744';
+}
+
+function getScoreLabel(score){
+if(score>=80)return'Excellent! Ready to send.';
+if(score>=60)return'Good, but could be better.';
+if(score>=40)return'Needs work. See suggestions below.';
+return'Weak. Major improvements needed.';
+}
+
+function renderChecks(container,checks){
+container.innerHTML='';
+checks.forEach(c=>{
+const div=document.createElement('div');
+div.className='check-item '+c.status;
+const icon=c.status==='pass'?'&#10003;':c.status==='warn'?'&#9888;':'&#10007;';
+const iconColor=c.status==='pass'?'#00c853':c.status==='warn'?'#ffab00':'#ff1744';
+div.innerHTML=`<div class="check-icon" style="color:${iconColor}">${icon}</div><div><div class="check-title">${c.title}</div><div class="check-detail">${c.detail}</div>${c.suggestion?'<div class="suggestion">'+c.suggestion+'</div>':''}</div>`;
+container.appendChild(div);
+});
+}
+
+function analyzeSubject(){
+const subject=document.getElementById('subjectInput').value.trim();
+if(!subject)return;
+const result=getScore(subject);
+document.getElementById('singleResult').style.display='block';
+const circle=document.getElementById('scoreCircle');
+circle.textContent=result.score;
+circle.style.borderColor=getScoreColor(result.score);
+circle.style.color=getScoreColor(result.score);
+document.getElementById('scoreLabel').textContent=getScoreLabel(result.score);
+renderChecks(document.getElementById('checksGrid'),result.checks);
+saveToHistory(subject,result.score);
+}
+
+function compareSubjects(){
+const a=document.getElementById('subjectA').value.trim();
+const b=document.getElementById('subjectB').value.trim();
+if(!a||!b)return;
+const ra=getScore(a);const rb=getScore(b);
+document.getElementById('abResult').style.display='block';
+const ca=document.getElementById('scoreA');
+ca.textContent=ra.score;ca.style.borderColor=getScoreColor(ra.score);ca.style.color=getScoreColor(ra.score);
+const cb=document.getElementById('scoreB');
+cb.textContent=rb.score;cb.style.borderColor=getScoreColor(rb.score);cb.style.color=getScoreColor(rb.score);
+renderChecks(document.getElementById('checksA'),ra.checks);
+renderChecks(document.getElementById('checksB'),rb.checks);
+const verdict=document.getElementById('abVerdict');
+if(ra.score>rb.score){verdict.innerHTML='<span class="winner-badge">Subject A wins!</span><p style="margin-top:8px;color:#888">Subject A scores '+ra.score+' vs Subject B\'s '+rb.score+'. Go with A.</p>';}
+else if(rb.score>ra.score){verdict.innerHTML='<span class="winner-badge">Subject B wins!</span><p style="margin-top:8px;color:#888">Subject B scores '+rb.score+' vs Subject A\'s '+ra.score+'. Go with B.</p>';}
+else{verdict.innerHTML='<span class="winner-badge" style="background:#ffab0022;color:#ffab00">It\'s a tie!</span><p style="margin-top:8px;color:#888">Both score '+ra.score+'. Try tweaking one for a clear winner.</p>';}
+saveToHistory(a,ra.score);saveToHistory(b,rb.score);
+}
+
+function saveToHistory(subject,score){
+let hist=JSON.parse(localStorage.getItem('est_history')||'[]');
+hist.unshift({subject,score,date:new Date().toISOString()});
+if(hist.length>50)hist=hist.slice(0,50);
+localStorage.setItem('est_history',JSON.stringify(hist));
+if(document.querySelector('.tab.active').textContent.includes('History'))renderHistory();
+}
+
+function renderHistory(){
+const hist=JSON.parse(localStorage.getItem('est_history')||'[]');
+const container=document.getElementById('historyList');
+if(!hist.length){container.innerHTML='<div class="empty-state">No analyses yet. Test a subject line to get started.</div>';return;}
+container.innerHTML='';
+hist.forEach(h=>{
+const div=document.createElement('div');
+div.className='history-item';
+const d=new Date(h.date);
+div.innerHTML=`<div class="history-subject" title="${h.subject}">${h.subject}</div><div class="history-score" style="color:${getScoreColor(h.score)}">${h.score}</div>`;
+container.appendChild(div);
+});
+}
+
+function clearHistory(){
+if(!confirm('Clear all history?'))return;
+localStorage.removeItem('est_history');
+renderHistory();
+}
+
+function switchTab(name){
+document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',['single','ab','history'][i]===name));
+document.querySelectorAll('.tab-content').forEach((t,i)=>t.classList.toggle('active',['single','ab','history'][i]===name));
+if(name==='history')renderHistory();
+}
+
+document.getElementById('subjectInput').addEventListener('keydown',e=>{if(e.key==='Enter')analyzeSubject()});
+</script>
+</body>
+</html>

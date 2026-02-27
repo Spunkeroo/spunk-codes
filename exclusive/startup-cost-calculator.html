@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Startup Cost Calculator — Free Business Startup Estimator | SPUNK.CODES</title>
+<meta name="description" content="Estimate your startup costs by category. Track one-time and monthly expenses, calculate runway, and export as CSV. Free, no signup.">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP')</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w")</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e8e8f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;line-height:1.6;min-height:100vh;display:flex;flex-direction:column}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+.container{max-width:960px;margin:0 auto;padding:20px;flex:1}
+h1{text-align:center;font-size:1.8rem;margin:20px 0 8px;color:#ff5f1f}
+.subtitle{text-align:center;color:#888;margin-bottom:30px;font-size:0.95rem}
+.card{background:#12121a;border:1px solid #1e1e2e;border-radius:12px;padding:24px;margin-bottom:20px}
+.card h2{font-size:1.2rem;margin-bottom:16px;color:#ff5f1f}
+label{display:block;font-size:0.85rem;color:#aaa;margin-bottom:4px}
+input[type="text"],input[type="number"],select{width:100%;padding:10px 12px;background:#1a1a28;border:1px solid #2a2a3a;border-radius:8px;color:#e8e8f0;font-size:0.95rem;outline:none}
+input:focus,select:focus{border-color:#ff5f1f}
+.btn{display:inline-block;padding:10px 20px;background:#ff5f1f;color:#fff;border:none;border-radius:8px;font-size:0.95rem;cursor:pointer;font-weight:600;transition:background .2s}
+.btn:hover{background:#e5520f}
+.btn-secondary{background:transparent;border:1px solid #ff5f1f;color:#ff5f1f}
+.btn-secondary:hover{background:#ff5f1f22}
+.btn-sm{padding:8px 14px;font-size:0.8rem}
+.btn-danger{background:#ff1744}.btn-danger:hover{background:#d50000}
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:24px}
+.summary-box{background:#1a1a28;border-radius:10px;padding:20px;text-align:center}
+.summary-box .value{font-size:1.6rem;font-weight:700;color:#ff5f1f}
+.summary-box .label{font-size:0.8rem;color:#888;margin-top:4px}
+.category-section{margin-bottom:24px}
+.category-header{display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid #1e1e2e;cursor:pointer}
+.category-header h3{font-size:1rem;display:flex;align-items:center;gap:8px}
+.category-total{color:#ff5f1f;font-weight:600;font-size:0.95rem}
+.category-items{padding:12px 0}
+.line-item{display:grid;grid-template-columns:2fr 1fr 1fr 40px;gap:10px;align-items:center;margin-bottom:8px}
+.line-item input{padding:8px 10px;font-size:0.85rem}
+.remove-btn{background:none;border:none;color:#ff1744;cursor:pointer;font-size:1.2rem;padding:4px}
+.add-item-btn{background:none;border:none;color:#ff5f1f;cursor:pointer;font-size:0.85rem;padding:8px 0;font-weight:600}
+.add-item-btn:hover{text-decoration:underline}
+.chart-bar{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.chart-bar .bar-label{min-width:100px;font-size:0.85rem;text-align:right}
+.chart-bar .bar-track{flex:1;background:#1a1a28;border-radius:4px;height:24px;overflow:hidden;position:relative}
+.chart-bar .bar-fill{height:100%;border-radius:4px;transition:width .4s ease;display:flex;align-items:center;padding-left:8px;font-size:0.75rem;font-weight:600;white-space:nowrap}
+.chart-bar .bar-value{min-width:80px;font-size:0.85rem;font-weight:600;text-align:right}
+.actions-bar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px}
+.empty-msg{color:#555;text-align:center;padding:20px;font-size:0.9rem}
+footer{text-align:center;padding:20px;color:#555;font-size:0.8rem;border-top:1px solid #1e1e2e;margin-top:40px}
+footer a{color:#ff5f1f}
+@media(max-width:600px){.line-item{grid-template-columns:1fr 1fr;gap:6px}.line-item:nth-child(odd){}.container{padding:12px}h1{font-size:1.4rem}.summary-grid{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>Startup Cost Calculator</h1>
+<p class="subtitle">Estimate every cost to launch your business — one-time and recurring.</p>
+
+<div class="summary-grid" id="summaryGrid">
+<div class="summary-box"><div class="value" id="totalOneTime">$0</div><div class="label">Total One-Time Costs</div></div>
+<div class="summary-box"><div class="value" id="totalMonthly">$0</div><div class="label">Total Monthly Costs</div></div>
+<div class="summary-box"><div class="value" id="runway6">$0</div><div class="label">6-Month Runway</div></div>
+<div class="summary-box"><div class="value" id="runway12">$0</div><div class="label">12-Month Runway</div></div>
+</div>
+
+<div class="actions-bar">
+<button class="btn btn-sm" onclick="exportCSV()">Export CSV</button>
+<button class="btn btn-sm btn-secondary" onclick="resetAll()">Reset All</button>
+</div>
+
+<div class="card">
+<h2>Cost Breakdown by Category</h2>
+<div id="categoriesContainer"></div>
+</div>
+
+<div class="card">
+<h2>Visual Breakdown</h2>
+<div id="chartContainer"></div>
+</div>
+</div>
+
+<footer>
+<a href="https://spunk.codes">spunk.codes</a> · <a href="https://spunk.bet">spunk.bet</a> · <a href="https://spunk.pics">spunk.pics</a> · <a href="https://spunk.work">spunk.work</a> · <a href="https://spunkart.com">SpunkArt.com</a>
+</footer>
+
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+<script>
+const CATEGORIES=['Legal','Equipment','Marketing','Software','Office','Insurance','Inventory','Other'];
+const CAT_COLORS=['#ff5f1f','#e91e63','#9c27b0','#2196f3','#00bcd4','#4caf50','#ff9800','#795548'];
+
+let data=JSON.parse(localStorage.getItem('scc_data')||'null');
+if(!data){
+data={};
+CATEGORIES.forEach(c=>data[c]=[]);
+}
+
+function save(){localStorage.setItem('scc_data',JSON.stringify(data));}
+
+function fmt(n){return'$'+n.toLocaleString('en-US',{minimumFractionDigits:0,maximumFractionDigits:0});}
+
+function recalc(){
+let totalOT=0,totalM=0;
+CATEGORIES.forEach(cat=>{
+(data[cat]||[]).forEach(item=>{
+totalOT+=(parseFloat(item.oneTime)||0);
+totalM+=(parseFloat(item.monthly)||0);
+});
+});
+document.getElementById('totalOneTime').textContent=fmt(totalOT);
+document.getElementById('totalMonthly').textContent=fmt(totalM);
+document.getElementById('runway6').textContent=fmt(totalOT+totalM*6);
+document.getElementById('runway12').textContent=fmt(totalOT+totalM*12);
+renderChart();
+save();
+}
+
+function renderCategories(){
+const container=document.getElementById('categoriesContainer');
+container.innerHTML='';
+CATEGORIES.forEach((cat,ci)=>{
+const items=data[cat]||[];
+let catOT=0,catM=0;
+items.forEach(it=>{catOT+=(parseFloat(it.oneTime)||0);catM+=(parseFloat(it.monthly)||0);});
+const sec=document.createElement('div');
+sec.className='category-section';
+sec.innerHTML=`
+<div class="category-header" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none'">
+<h3><span style="display:inline-block;width:12px;height:12px;border-radius:3px;background:${CAT_COLORS[ci]}"></span> ${cat}</h3>
+<span class="category-total">${fmt(catOT)} one-time + ${fmt(catM)}/mo</span>
+</div>
+<div class="category-items">
+<div style="display:grid;grid-template-columns:2fr 1fr 1fr 40px;gap:10px;margin-bottom:8px;padding:0 4px">
+<span style="font-size:0.75rem;color:#666">Item Name</span>
+<span style="font-size:0.75rem;color:#666">One-Time ($)</span>
+<span style="font-size:0.75rem;color:#666">Monthly ($)</span>
+<span></span>
+</div>
+<div id="items-${ci}"></div>
+<button class="add-item-btn" onclick="addItem('${cat}',${ci})">+ Add Item</button>
+</div>`;
+container.appendChild(sec);
+const itemsContainer=sec.querySelector('#items-'+ci);
+items.forEach((item,ii)=>{
+const row=document.createElement('div');
+row.className='line-item';
+row.innerHTML=`
+<input type="text" value="${item.name}" placeholder="Item name" onchange="updateItem('${cat}',${ii},'name',this.value)">
+<input type="number" value="${item.oneTime||''}" placeholder="0" min="0" onchange="updateItem('${cat}',${ii},'oneTime',this.value)">
+<input type="number" value="${item.monthly||''}" placeholder="0" min="0" onchange="updateItem('${cat}',${ii},'monthly',this.value)">
+<button class="remove-btn" onclick="removeItem('${cat}',${ii})">&times;</button>`;
+itemsContainer.appendChild(row);
+});
+});
+}
+
+function addItem(cat,ci){
+data[cat].push({name:'',oneTime:0,monthly:0});
+renderCategories();recalc();
+const items=document.querySelectorAll('#items-'+ci+' .line-item');
+if(items.length)items[items.length-1].querySelector('input').focus();
+}
+
+function updateItem(cat,idx,field,val){
+if(field==='name')data[cat][idx].name=val;
+else data[cat][idx][field]=parseFloat(val)||0;
+recalc();
+}
+
+function removeItem(cat,idx){
+data[cat].splice(idx,1);
+renderCategories();recalc();
+}
+
+function renderChart(){
+const container=document.getElementById('chartContainer');
+const totals=CATEGORIES.map((cat,i)=>{
+let total=0;
+(data[cat]||[]).forEach(it=>{total+=(parseFloat(it.oneTime)||0)+(parseFloat(it.monthly)||0)*12;});
+return{cat,total,color:CAT_COLORS[i]};
+}).filter(t=>t.total>0);
+if(!totals.length){container.innerHTML='<div class="empty-msg">Add items above to see the breakdown chart.</div>';return;}
+const max=Math.max(...totals.map(t=>t.total));
+container.innerHTML='';
+totals.forEach(t=>{
+const pct=max>0?(t.total/max*100):0;
+const div=document.createElement('div');
+div.className='chart-bar';
+div.innerHTML=`
+<div class="bar-label">${t.cat}</div>
+<div class="bar-track"><div class="bar-fill" style="width:${pct}%;background:${t.color}">${pct>20?fmt(t.total):''}</div></div>
+<div class="bar-value">${fmt(t.total)}</div>`;
+container.appendChild(div);
+});
+const note=document.createElement('div');
+note.style.cssText='text-align:center;color:#666;font-size:0.75rem;margin-top:8px';
+note.textContent='Chart shows 12-month totals (one-time + monthly x 12)';
+container.appendChild(note);
+}
+
+function exportCSV(){
+let csv='Category,Item,One-Time Cost,Monthly Cost\n';
+CATEGORIES.forEach(cat=>{
+(data[cat]||[]).forEach(item=>{
+csv+=`"${cat}","${(item.name||'').replace(/"/g,'""')}",${item.oneTime||0},${item.monthly||0}\n`;
+});
+});
+let totalOT=0,totalM=0;
+CATEGORIES.forEach(cat=>(data[cat]||[]).forEach(it=>{totalOT+=(parseFloat(it.oneTime)||0);totalM+=(parseFloat(it.monthly)||0);}));
+csv+=`\n"TOTAL","",${totalOT},${totalM}\n`;
+csv+=`"6-Month Runway","",${totalOT+totalM*6},\n`;
+csv+=`"12-Month Runway","",${totalOT+totalM*12},\n`;
+const blob=new Blob([csv],{type:'text/csv'});
+const url=URL.createObjectURL(blob);
+const a=document.createElement('a');a.href=url;a.download='startup-costs.csv';a.click();
+URL.revokeObjectURL(url);
+}
+
+function resetAll(){
+if(!confirm('Reset all data? This cannot be undone.'))return;
+CATEGORIES.forEach(c=>data[c]=[]);
+save();renderCategories();recalc();
+}
+
+renderCategories();recalc();
+</script>
+</body>
+</html>

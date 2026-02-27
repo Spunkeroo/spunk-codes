@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Persona Builder — Free Customer Persona Creator | SPUNK.CODES</title>
+<meta name="description" content="Create detailed buyer personas with goals, frustrations, channels, and buying behavior. Visual cards, export as text. Free, no signup required.">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP')</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w")</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e8e8f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;line-height:1.6;min-height:100vh;display:flex;flex-direction:column}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+.container{max-width:960px;margin:0 auto;padding:20px;flex:1}
+h1{text-align:center;font-size:1.8rem;margin:20px 0 8px;color:#ff5f1f}
+.subtitle{text-align:center;color:#888;margin-bottom:30px;font-size:0.95rem}
+.card{background:#12121a;border:1px solid #1e1e2e;border-radius:12px;padding:24px;margin-bottom:20px}
+.card h2{font-size:1.2rem;margin-bottom:16px;color:#ff5f1f}
+label{display:block;font-size:0.85rem;color:#aaa;margin-bottom:4px;margin-top:12px}
+label:first-child{margin-top:0}
+input[type="text"],input[type="number"],textarea,select{width:100%;padding:10px 12px;background:#1a1a28;border:1px solid #2a2a3a;border-radius:8px;color:#e8e8f0;font-size:0.95rem;outline:none;transition:border-color .2s}
+input:focus,textarea:focus,select:focus{border-color:#ff5f1f}
+textarea{resize:vertical;min-height:60px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.btn{display:inline-block;padding:12px 24px;background:#ff5f1f;color:#fff;border:none;border-radius:8px;font-size:1rem;cursor:pointer;font-weight:600;transition:background .2s}
+.btn:hover{background:#e5520f}
+.btn-secondary{background:transparent;border:1px solid #ff5f1f;color:#ff5f1f}
+.btn-secondary:hover{background:#ff5f1f22}
+.btn-sm{padding:8px 16px;font-size:0.85rem}
+.btn-danger{background:#ff1744;color:#fff}.btn-danger:hover{background:#d50000}
+.actions{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap}
+.persona-card{background:#12121a;border:1px solid #1e1e2e;border-radius:16px;overflow:hidden;margin-bottom:20px}
+.persona-header{background:linear-gradient(135deg,#ff5f1f33,#ff5f1f11);padding:24px;display:flex;align-items:center;gap:20px}
+.persona-avatar{width:80px;height:80px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:2rem;font-weight:700;color:#fff}
+.persona-name{font-size:1.4rem;font-weight:700}
+.persona-title{color:#aaa;font-size:0.9rem}
+.persona-body{padding:24px;display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.persona-section h3{color:#ff5f1f;font-size:0.85rem;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.persona-section ul{list-style:none;padding:0}
+.persona-section li{padding:4px 0;padding-left:16px;position:relative;font-size:0.9rem}
+.persona-section li::before{content:'';position:absolute;left:0;top:11px;width:6px;height:6px;border-radius:50%;background:#ff5f1f}
+.persona-quote{grid-column:1/-1;background:#1a1a28;padding:16px;border-radius:8px;font-style:italic;color:#ccc;border-left:3px solid #ff5f1f}
+.persona-list{display:grid;gap:12px;margin-top:20px}
+.persona-list-item{display:flex;justify-content:space-between;align-items:center;padding:14px;background:#12121a;border:1px solid #1e1e2e;border-radius:10px;cursor:pointer;transition:border-color .2s}
+.persona-list-item:hover{border-color:#ff5f1f}
+.persona-list-item .name{font-weight:600}
+.persona-list-item .meta{color:#888;font-size:0.85rem}
+.empty-state{text-align:center;color:#555;padding:40px}
+.tag{display:inline-block;padding:3px 10px;background:#ff5f1f22;color:#ff5f1f;border-radius:20px;font-size:0.8rem;margin:2px}
+footer{text-align:center;padding:20px;color:#555;font-size:0.8rem;border-top:1px solid #1e1e2e;margin-top:40px}
+footer a{color:#ff5f1f}
+@media(max-width:600px){.row{grid-template-columns:1fr}.persona-body{grid-template-columns:1fr}.persona-header{flex-direction:column;text-align:center}.container{padding:12px}h1{font-size:1.4rem}}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>Persona Builder</h1>
+<p class="subtitle">Create detailed buyer personas to understand your customers better.</p>
+
+<div id="viewList">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px">
+<h2 style="color:#ff5f1f;font-size:1.2rem">Your Personas</h2>
+<button class="btn" onclick="showForm()">+ New Persona</button>
+</div>
+<div id="personaList"></div>
+</div>
+
+<div id="viewForm" style="display:none">
+<div class="card">
+<h2 id="formTitle">Create New Persona</h2>
+<div class="row">
+<div><label>Persona Name</label><input type="text" id="pName" placeholder="e.g. Marketing Mary"></div>
+<div><label>Job Title</label><input type="text" id="pJob" placeholder="e.g. Marketing Manager"></div>
+</div>
+<div class="row">
+<div><label>Age Range</label><input type="text" id="pAge" placeholder="e.g. 28-35"></div>
+<div><label>Income Range</label><input type="text" id="pIncome" placeholder="e.g. $60K-$90K"></div>
+</div>
+<label>Goals (one per line)</label>
+<textarea id="pGoals" placeholder="Increase website traffic&#10;Generate more leads&#10;Reduce ad spend"></textarea>
+<label>Frustrations (one per line)</label>
+<textarea id="pFrustrations" placeholder="Too many tools to manage&#10;Unclear ROI on campaigns&#10;Lack of automation"></textarea>
+<label>Preferred Channels (comma separated)</label>
+<input type="text" id="pChannels" placeholder="e.g. LinkedIn, Email, Google Search, Twitter">
+<label>Buying Behavior</label>
+<textarea id="pBehavior" placeholder="Researches extensively before buying. Reads reviews. Prefers annual billing for discounts."></textarea>
+<label>Representative Quote</label>
+<input type="text" id="pQuote" placeholder='e.g. "I need tools that save me time, not create more work."'>
+<div class="actions">
+<button class="btn" onclick="savePersona()">Save Persona</button>
+<button class="btn btn-secondary" onclick="showList()">Cancel</button>
+</div>
+</div>
+</div>
+
+<div id="viewDetail" style="display:none">
+<div style="margin-bottom:16px"><button class="btn btn-sm btn-secondary" onclick="showList()">&larr; Back to all</button></div>
+<div id="personaDetail"></div>
+<div class="actions">
+<button class="btn btn-sm" onclick="exportPersona()">Export as Text</button>
+<button class="btn btn-sm btn-secondary" onclick="editPersona()">Edit</button>
+<button class="btn btn-sm btn-danger" onclick="deletePersona()">Delete</button>
+</div>
+</div>
+</div>
+
+<footer>
+<a href="https://spunk.codes">spunk.codes</a> · <a href="https://spunk.bet">spunk.bet</a> · <a href="https://spunk.pics">spunk.pics</a> · <a href="https://spunk.work">spunk.work</a> · <a href="https://spunkart.com">SpunkArt.com</a>
+</footer>
+
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+<script>
+let personas=JSON.parse(localStorage.getItem('pb_personas')||'[]');
+let editingId=null;
+let viewingId=null;
+const colors=['#ff5f1f','#e91e63','#9c27b0','#3f51b5','#00bcd4','#4caf50','#ff9800','#795548'];
+
+function getColor(name){
+let h=0;for(let i=0;i<name.length;i++)h=name.charCodeAt(i)+((h<<5)-h);
+return colors[Math.abs(h)%colors.length];
+}
+
+function getInitials(name){return name.split(/\s+/).map(w=>w[0]).join('').substring(0,2).toUpperCase();}
+
+function showList(){
+document.getElementById('viewList').style.display='block';
+document.getElementById('viewForm').style.display='none';
+document.getElementById('viewDetail').style.display='none';
+renderList();
+}
+
+function showForm(id){
+editingId=id||null;
+document.getElementById('viewList').style.display='none';
+document.getElementById('viewForm').style.display='block';
+document.getElementById('viewDetail').style.display='none';
+document.getElementById('formTitle').textContent=id?'Edit Persona':'Create New Persona';
+if(id){
+const p=personas.find(x=>x.id===id);
+if(p){
+document.getElementById('pName').value=p.name;
+document.getElementById('pJob').value=p.job;
+document.getElementById('pAge').value=p.age;
+document.getElementById('pIncome').value=p.income;
+document.getElementById('pGoals').value=(p.goals||[]).join('\n');
+document.getElementById('pFrustrations').value=(p.frustrations||[]).join('\n');
+document.getElementById('pChannels').value=(p.channels||[]).join(', ');
+document.getElementById('pBehavior').value=p.behavior;
+document.getElementById('pQuote').value=p.quote;
+}
+}else{
+['pName','pJob','pAge','pIncome','pGoals','pFrustrations','pChannels','pBehavior','pQuote'].forEach(id=>document.getElementById(id).value='');
+}
+}
+
+function showDetail(id){
+viewingId=id;
+document.getElementById('viewList').style.display='none';
+document.getElementById('viewForm').style.display='none';
+document.getElementById('viewDetail').style.display='block';
+renderDetail(id);
+}
+
+function savePersona(){
+const name=document.getElementById('pName').value.trim();
+if(!name){alert('Please enter a persona name.');return;}
+const data={
+id:editingId||Date.now().toString(36)+Math.random().toString(36).substr(2,5),
+name,
+job:document.getElementById('pJob').value.trim(),
+age:document.getElementById('pAge').value.trim(),
+income:document.getElementById('pIncome').value.trim(),
+goals:document.getElementById('pGoals').value.trim().split('\n').filter(Boolean),
+frustrations:document.getElementById('pFrustrations').value.trim().split('\n').filter(Boolean),
+channels:document.getElementById('pChannels').value.split(',').map(s=>s.trim()).filter(Boolean),
+behavior:document.getElementById('pBehavior').value.trim(),
+quote:document.getElementById('pQuote').value.trim(),
+created:editingId?personas.find(p=>p.id===editingId)?.created||new Date().toISOString():new Date().toISOString(),
+updated:new Date().toISOString()
+};
+if(editingId){const i=personas.findIndex(p=>p.id===editingId);if(i>=0)personas[i]=data;}
+else personas.unshift(data);
+save();showList();
+}
+
+function deletePersona(){
+if(!confirm('Delete this persona?'))return;
+personas=personas.filter(p=>p.id!==viewingId);
+save();showList();
+}
+
+function editPersona(){showForm(viewingId);}
+
+function exportPersona(){
+const p=personas.find(x=>x.id===viewingId);if(!p)return;
+let text=`BUYER PERSONA: ${p.name}\n${'='.repeat(40)}\n`;
+text+=`Job Title: ${p.job}\nAge Range: ${p.age}\nIncome: ${p.income}\n\n`;
+text+=`GOALS:\n${p.goals.map(g=>'  - '+g).join('\n')}\n\n`;
+text+=`FRUSTRATIONS:\n${p.frustrations.map(f=>'  - '+f).join('\n')}\n\n`;
+text+=`PREFERRED CHANNELS:\n  ${p.channels.join(', ')}\n\n`;
+text+=`BUYING BEHAVIOR:\n  ${p.behavior}\n\n`;
+if(p.quote)text+=`QUOTE:\n  "${p.quote}"\n`;
+const blob=new Blob([text],{type:'text/plain'});
+const url=URL.createObjectURL(blob);
+const a=document.createElement('a');a.href=url;a.download=p.name.replace(/\s+/g,'-').toLowerCase()+'-persona.txt';
+a.click();URL.revokeObjectURL(url);
+}
+
+function renderList(){
+const container=document.getElementById('personaList');
+if(!personas.length){container.innerHTML='<div class="empty-state">No personas yet. Click "New Persona" to create one.</div>';return;}
+container.innerHTML='';
+personas.forEach(p=>{
+const div=document.createElement('div');
+div.className='persona-list-item';
+div.onclick=()=>showDetail(p.id);
+div.innerHTML=`<div><div class="name">${p.name}</div><div class="meta">${p.job}${p.age?' · '+p.age:''}</div></div><div style="color:#ff5f1f;font-size:1.2rem">&rarr;</div>`;
+container.appendChild(div);
+});
+}
+
+function renderDetail(id){
+const p=personas.find(x=>x.id===id);if(!p)return;
+const bg=getColor(p.name);
+const container=document.getElementById('personaDetail');
+container.innerHTML=`
+<div class="persona-card">
+<div class="persona-header">
+<div class="persona-avatar" style="background:${bg}">${getInitials(p.name)}</div>
+<div>
+<div class="persona-name">${p.name}</div>
+<div class="persona-title">${p.job}${p.age?' · Age '+p.age:''}${p.income?' · '+p.income:''}</div>
+</div>
+</div>
+<div class="persona-body">
+<div class="persona-section">
+<h3>Goals</h3>
+<ul>${p.goals.map(g=>'<li>'+g+'</li>').join('')}</ul>
+</div>
+<div class="persona-section">
+<h3>Frustrations</h3>
+<ul>${p.frustrations.map(f=>'<li>'+f+'</li>').join('')}</ul>
+</div>
+<div class="persona-section">
+<h3>Preferred Channels</h3>
+<div>${p.channels.map(c=>'<span class="tag">'+c+'</span>').join(' ')}</div>
+</div>
+<div class="persona-section">
+<h3>Buying Behavior</h3>
+<p style="font-size:0.9rem;color:#ccc">${p.behavior||'Not specified'}</p>
+</div>
+${p.quote?'<div class="persona-quote">"'+p.quote+'"</div>':''}
+</div>
+</div>`;
+}
+
+function save(){localStorage.setItem('pb_personas',JSON.stringify(personas));}
+renderList();
+</script>
+</body>
+</html>

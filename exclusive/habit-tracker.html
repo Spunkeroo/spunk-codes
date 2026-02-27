@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Habit Tracker — Free Daily Habit Tracker | SPUNK.CODES</title>
+<meta name="description" content="Track your daily and weekly habits with a visual calendar grid. See streaks, completion rates, and check in each day. Free, no signup, data saved locally.">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP')</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w")</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e8e8f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;line-height:1.6;min-height:100vh;display:flex;flex-direction:column}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+.container{max-width:960px;margin:0 auto;padding:20px;flex:1}
+h1{text-align:center;font-size:1.8rem;margin:20px 0 8px;color:#ff5f1f}
+.subtitle{text-align:center;color:#888;margin-bottom:30px;font-size:0.95rem}
+.card{background:#12121a;border:1px solid #1e1e2e;border-radius:12px;padding:24px;margin-bottom:20px}
+.card h2{font-size:1.2rem;margin-bottom:16px;color:#ff5f1f}
+label{display:block;font-size:0.85rem;color:#aaa;margin-bottom:4px}
+input[type="text"],select{width:100%;padding:10px 12px;background:#1a1a28;border:1px solid #2a2a3a;border-radius:8px;color:#e8e8f0;font-size:0.95rem;outline:none}
+input:focus,select:focus{border-color:#ff5f1f}
+.btn{display:inline-block;padding:10px 20px;background:#ff5f1f;color:#fff;border:none;border-radius:8px;font-size:0.95rem;cursor:pointer;font-weight:600;transition:background .2s}
+.btn:hover{background:#e5520f}
+.btn-secondary{background:transparent;border:1px solid #ff5f1f;color:#ff5f1f}
+.btn-secondary:hover{background:#ff5f1f22}
+.btn-sm{padding:8px 14px;font-size:0.8rem}
+.btn-danger{background:#ff1744;color:#fff}.btn-danger:hover{background:#d50000}
+.add-form{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end}
+.add-form>div{flex:1;min-width:150px}
+.add-form .btn{align-self:flex-end}
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:24px}
+.summary-box{background:#1a1a28;border-radius:10px;padding:16px;text-align:center}
+.summary-box .value{font-size:1.5rem;font-weight:700;color:#ff5f1f}
+.summary-box .label{font-size:0.75rem;color:#888;margin-top:2px}
+.habit-card{background:#12121a;border:1px solid #1e1e2e;border-radius:12px;margin-bottom:16px;overflow:hidden}
+.habit-header{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-bottom:1px solid #1e1e2e}
+.habit-name{font-weight:700;font-size:1.05rem}
+.habit-meta{display:flex;gap:16px;align-items:center}
+.habit-badge{padding:3px 10px;border-radius:20px;font-size:0.75rem;font-weight:600}
+.badge-daily{background:#ff5f1f22;color:#ff5f1f}
+.badge-weekly{background:#2196f322;color:#2196f3}
+.streak-badge{background:#00c85322;color:#00c853;padding:3px 10px;border-radius:20px;font-size:0.75rem;font-weight:600}
+.habit-calendar{padding:16px 20px;overflow-x:auto}
+.cal-grid{display:grid;grid-template-columns:repeat(31,1fr);gap:3px;min-width:500px}
+.cal-header{font-size:0.6rem;color:#555;text-align:center;padding:2px}
+.cal-day{width:100%;aspect-ratio:1;border-radius:4px;background:#1a1a28;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center;font-size:0.6rem;color:#444;border:1px solid transparent;position:relative}
+.cal-day:hover{border-color:#ff5f1f66}
+.cal-day.done{background:#ff5f1f;color:#fff;font-weight:600}
+.cal-day.today{border-color:#ff5f1f}
+.cal-day.future{opacity:0.3;cursor:default}
+.habit-footer{display:flex;justify-content:space-between;align-items:center;padding:12px 20px;border-top:1px solid #1e1e2e;font-size:0.85rem;color:#888}
+.completion-bar{width:120px;height:6px;background:#1a1a28;border-radius:3px;overflow:hidden;display:inline-block;vertical-align:middle;margin-left:8px}
+.completion-fill{height:100%;background:#ff5f1f;border-radius:3px;transition:width .3s}
+.empty-state{text-align:center;color:#555;padding:40px}
+.delete-habit{background:none;border:none;color:#ff1744;cursor:pointer;font-size:0.8rem;padding:4px 8px;border-radius:4px}
+.delete-habit:hover{background:#ff174422}
+footer{text-align:center;padding:20px;color:#555;font-size:0.8rem;border-top:1px solid #1e1e2e;margin-top:40px}
+footer a{color:#ff5f1f}
+@media(max-width:600px){.container{padding:12px}h1{font-size:1.4rem}.add-form{flex-direction:column}.add-form>div{min-width:100%}.habit-meta{gap:8px}.summary-grid{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>Habit Tracker</h1>
+<p class="subtitle">Build better habits. Track daily and weekly goals with a visual calendar.</p>
+
+<div class="summary-grid" id="summaryGrid">
+<div class="summary-box"><div class="value" id="totalHabits">0</div><div class="label">Active Habits</div></div>
+<div class="summary-box"><div class="value" id="todayDone">0</div><div class="label">Done Today</div></div>
+<div class="summary-box"><div class="value" id="longestStreak">0</div><div class="label">Longest Streak</div></div>
+<div class="summary-box"><div class="value" id="overallPct">0%</div><div class="label">30-Day Completion</div></div>
+</div>
+
+<div class="card">
+<h2>Add New Habit</h2>
+<div class="add-form">
+<div><label>Habit Name</label><input type="text" id="habitName" placeholder="e.g. Read 30 minutes"></div>
+<div style="max-width:160px"><label>Frequency</label><select id="habitFreq"><option value="daily">Daily</option><option value="weekly">Weekly</option></select></div>
+<button class="btn" onclick="addHabit()">Add Habit</button>
+</div>
+</div>
+
+<div id="habitsContainer"></div>
+</div>
+
+<footer>
+<a href="https://spunk.codes">spunk.codes</a> · <a href="https://spunk.bet">spunk.bet</a> · <a href="https://spunk.pics">spunk.pics</a> · <a href="https://spunk.work">spunk.work</a> · <a href="https://spunkart.com">SpunkArt.com</a>
+</footer>
+
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+<script>
+let habits=JSON.parse(localStorage.getItem('ht_habits')||'[]');
+
+function save(){localStorage.setItem('ht_habits',JSON.stringify(habits));}
+
+function dateKey(d){return d.toISOString().split('T')[0];}
+function today(){return dateKey(new Date());}
+
+function getLast30Days(){
+const days=[];
+const now=new Date();
+for(let i=29;i>=0;i--){
+const d=new Date(now);d.setDate(d.getDate()-i);
+days.push(dateKey(d));
+}
+return days;
+}
+
+function getStreak(habit){
+let streak=0;
+const d=new Date();
+const checkins=habit.checkins||{};
+for(let i=0;i<365;i++){
+const key=dateKey(d);
+if(checkins[key]){streak++;}
+else if(i>0)break;
+else break;
+d.setDate(d.getDate()-1);
+}
+// Check if today is done; if not, start from yesterday
+if(!checkins[today()]){
+streak=0;
+const d2=new Date();d2.setDate(d2.getDate()-1);
+for(let i=0;i<365;i++){
+const key=dateKey(d2);
+if(checkins[key]){streak++;}
+else break;
+d2.setDate(d2.getDate()-1);
+}
+}
+return streak;
+}
+
+function getCompletion30(habit){
+const days=getLast30Days();
+const checkins=habit.checkins||{};
+let done=0;
+days.forEach(d=>{if(checkins[d])done++;});
+if(habit.freq==='weekly'){
+return Math.min(100,Math.round(done/(30/7)*100));
+}
+return Math.round(done/30*100);
+}
+
+function addHabit(){
+const name=document.getElementById('habitName').value.trim();
+if(!name)return;
+const freq=document.getElementById('habitFreq').value;
+habits.push({id:Date.now().toString(36)+Math.random().toString(36).substr(2,4),name,freq,checkins:{},created:new Date().toISOString()});
+document.getElementById('habitName').value='';
+save();render();
+}
+
+function deleteHabit(id){
+if(!confirm('Delete this habit and all its data?'))return;
+habits=habits.filter(h=>h.id!==id);
+save();render();
+}
+
+function toggleDay(habitId,dayKey){
+const habit=habits.find(h=>h.id===habitId);if(!habit)return;
+// Don't allow future dates
+if(dayKey>today())return;
+if(!habit.checkins)habit.checkins={};
+if(habit.checkins[dayKey])delete habit.checkins[dayKey];
+else habit.checkins[dayKey]=true;
+save();render();
+}
+
+function render(){
+const container=document.getElementById('habitsContainer');
+const days=getLast30Days();
+const todayKey=today();
+
+if(!habits.length){
+container.innerHTML='<div class="empty-state">No habits yet. Add one above to start tracking.</div>';
+updateSummary();return;
+}
+
+container.innerHTML='';
+habits.forEach(habit=>{
+const streak=getStreak(habit);
+const completion=getCompletion30(habit);
+const checkins=habit.checkins||{};
+
+let calHTML='<div class="cal-grid">';
+// Day labels
+days.forEach(d=>{
+const dt=new Date(d+'T12:00:00');
+const day=dt.getDate();
+calHTML+=`<div class="cal-header">${day}</div>`;
+});
+// Day cells
+days.forEach(d=>{
+const isDone=checkins[d];
+const isToday=d===todayKey;
+const isFuture=d>todayKey;
+let cls='cal-day';
+if(isDone)cls+=' done';
+if(isToday)cls+=' today';
+if(isFuture)cls+=' future';
+const dt=new Date(d+'T12:00:00');
+const dayNum=dt.getDate();
+calHTML+=`<div class="${cls}" onclick="toggleDay('${habit.id}','${d}')" title="${d}">${dayNum}</div>`;
+});
+calHTML+='</div>';
+
+const div=document.createElement('div');
+div.className='habit-card';
+div.innerHTML=`
+<div class="habit-header">
+<div>
+<span class="habit-name">${habit.name}</span>
+</div>
+<div class="habit-meta">
+<span class="habit-badge badge-${habit.freq}">${habit.freq}</span>
+${streak>0?`<span class="streak-badge">${streak} day streak</span>`:''}
+<button class="delete-habit" onclick="deleteHabit('${habit.id}')">Delete</button>
+</div>
+</div>
+<div class="habit-calendar">${calHTML}</div>
+<div class="habit-footer">
+<span>Last 30 days</span>
+<span>Completion: ${completion}%<div class="completion-bar"><div class="completion-fill" style="width:${completion}%"></div></div></span>
+</div>`;
+container.appendChild(div);
+});
+
+updateSummary();
+}
+
+function updateSummary(){
+document.getElementById('totalHabits').textContent=habits.length;
+const todayKey=today();
+let doneToday=0;
+habits.forEach(h=>{if((h.checkins||{})[todayKey])doneToday++;});
+document.getElementById('todayDone').textContent=doneToday;
+
+let maxStreak=0;
+let totalCompletion=0;
+habits.forEach(h=>{
+const s=getStreak(h);if(s>maxStreak)maxStreak=s;
+totalCompletion+=getCompletion30(h);
+});
+document.getElementById('longestStreak').textContent=maxStreak;
+document.getElementById('overallPct').textContent=habits.length?Math.round(totalCompletion/habits.length)+'%':'0%';
+}
+
+document.getElementById('habitName').addEventListener('keydown',e=>{if(e.key==='Enter')addHabit();});
+render();
+</script>
+</body>
+</html>
