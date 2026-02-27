@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Growth Metrics Dashboard — Track MRR, Churn, CAC, LTV | SPUNK.CODES</title>
+<meta name="description" content="Track key business growth metrics: MRR, churn rate, CAC, LTV, LTV:CAC ratio, and growth rate. Visualize trends with CSS charts and projections. Free browser-based tool.">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP')</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w")</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e8e8f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+header{background:#111118;border-bottom:2px solid #ff5f1f;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+header h1{font-size:1.4rem;color:#ff5f1f}
+header .back{color:#e8e8f0;font-size:.9rem}
+main{flex:1;max-width:960px;width:100%;margin:0 auto;padding:24px 16px}
+.panel{background:#111118;border:1px solid #2a2a3a;border-radius:10px;padding:20px;margin-bottom:20px}
+.panel h2{font-size:1.1rem;color:#ff5f1f;margin-bottom:14px}
+button{background:#ff5f1f;color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:.9rem;font-weight:600;transition:background .2s}
+button:hover{background:#e8520e}
+button.secondary{background:#2a2a3a;color:#e8e8f0}button.secondary:hover{background:#3a3a4a}
+button.danger{background:#cc2233}button.danger:hover{background:#aa1a28}
+select,input{background:#16161e;border:1px solid #2a2a3a;color:#e8e8f0;padding:8px 12px;border-radius:6px;font-size:.9rem;font-family:inherit;width:100%}
+.form-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:10px}
+.form-row label{font-size:.8rem;color:#888;margin-bottom:4px;display:block}
+.form-row .field{display:flex;flex-direction:column}
+.btn-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:20px}
+.kpi-card{background:#16161e;border:1px solid #2a2a3a;border-radius:10px;padding:14px;text-align:center}
+.kpi-card .kpi-val{font-size:1.5rem;font-weight:800;color:#ff5f1f}
+.kpi-card .kpi-label{font-size:.7rem;color:#888;margin-top:2px;text-transform:uppercase}
+.kpi-card .kpi-trend{font-size:.75rem;margin-top:4px;font-weight:600}
+.trend-up{color:#22cc66}
+.trend-down{color:#cc2233}
+.trend-flat{color:#888}
+.chart-container{margin:16px 0}
+.chart-title{font-size:.9rem;color:#ff5f1f;margin-bottom:8px;font-weight:600}
+.bar-chart{display:flex;align-items:flex-end;gap:4px;height:160px;padding:10px 0;border-bottom:1px solid #2a2a3a;position:relative}
+.bar-chart .bar{flex:1;min-width:20px;background:linear-gradient(180deg,#ff5f1f,#cc4410);border-radius:4px 4px 0 0;position:relative;transition:height .3s;cursor:pointer}
+.bar-chart .bar:hover{opacity:.85}
+.bar-chart .bar .bar-label{position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);font-size:.6rem;color:#888;white-space:nowrap}
+.bar-chart .bar .bar-val{position:absolute;top:-18px;left:50%;transform:translateX(-50%);font-size:.65rem;color:#e8e8f0;white-space:nowrap;font-weight:600}
+.bar-chart .bar.projected{background:linear-gradient(180deg,#ff5f1f44,#cc441044);border:1px dashed #ff5f1f}
+.chart-legend{display:flex;gap:12px;margin-top:24px;font-size:.75rem;color:#888}
+.chart-legend span{display:flex;align-items:center;gap:4px}
+.chart-legend .dot{width:10px;height:10px;border-radius:3px;display:inline-block}
+.chart-legend .dot.actual{background:#ff5f1f}
+.chart-legend .dot.proj{background:#ff5f1f44;border:1px dashed #ff5f1f}
+.data-table{width:100%;border-collapse:collapse;font-size:.8rem;margin-top:10px}
+.data-table th,.data-table td{padding:8px 10px;border:1px solid #2a2a3a;text-align:right}
+.data-table th{background:#1a1a2e;color:#ff5f1f;font-weight:600;text-align:center}
+.data-table td{color:#ccc}
+.data-table td:first-child{text-align:left;font-weight:600;color:#e8e8f0}
+.data-table tr:hover td{background:#16161e}
+.data-table .actions-cell{text-align:center}
+.data-table .actions-cell button{font-size:.7rem;padding:3px 8px}
+.metric-select{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:12px}
+.metric-select button{padding:6px 10px;font-size:.75rem}
+.metric-select button.active{background:#ff5f1f}
+.metric-select button:not(.active){background:#2a2a3a;color:#e8e8f0}
+.projection-info{background:#16161e;border:1px solid #2a2a3a;border-radius:8px;padding:12px;margin-top:10px;font-size:.8rem;color:#ccc}
+.projection-info strong{color:#ff5f1f}
+.empty{color:#555;text-align:center;padding:30px}
+.saved-list{display:flex;flex-direction:column;gap:6px}
+.saved-item{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:#16161e;border-radius:6px;font-size:.85rem}
+footer{text-align:center;padding:20px;color:#555;font-size:.8rem;border-top:1px solid #1a1a2a;margin-top:auto}
+footer a{color:#ff5f1f;margin:0 4px}
+@media(max-width:700px){
+.form-row{grid-template-columns:1fr 1fr}
+header h1{font-size:1.1rem}
+.kpi-grid{grid-template-columns:1fr 1fr}
+.bar-chart{height:120px}
+.data-table{font-size:.7rem}
+.data-table th,.data-table td{padding:5px 6px}
+}
+</style>
+</head>
+<body>
+<header>
+<h1>Growth Metrics Dashboard</h1>
+<a href="https://spunk.codes" class="back">spunk.codes</a>
+</header>
+<main>
+<div class="panel">
+<h2>Add Monthly Data Point</h2>
+<div class="form-row">
+<div class="field"><label>Month</label>
+<select id="dpMonth">
+<option value="01">January</option><option value="02">February</option><option value="03">March</option>
+<option value="04">April</option><option value="05">May</option><option value="06">June</option>
+<option value="07">July</option><option value="08">August</option><option value="09">September</option>
+<option value="10">October</option><option value="11">November</option><option value="12">December</option>
+</select>
+</div>
+<div class="field"><label>Year</label><input type="number" id="dpYear" value="2026" min="2020" max="2035"></div>
+<div class="field"><label>MRR ($)</label><input type="number" id="dpMrr" placeholder="e.g. 5000" min="0" step="0.01"></div>
+</div>
+<div class="form-row">
+<div class="field"><label>Customers (total)</label><input type="number" id="dpCustomers" placeholder="e.g. 100" min="0"></div>
+<div class="field"><label>Churned This Month</label><input type="number" id="dpChurned" placeholder="e.g. 5" min="0"></div>
+<div class="field"><label>New Customers</label><input type="number" id="dpNew" placeholder="e.g. 20" min="0"></div>
+</div>
+<div class="form-row">
+<div class="field"><label>Marketing Spend ($)</label><input type="number" id="dpSpend" placeholder="e.g. 2000" min="0" step="0.01"></div>
+<div class="field"><label>Avg Revenue/Customer ($)</label><input type="number" id="dpArpu" placeholder="e.g. 50" min="0" step="0.01"></div>
+<div class="field"><label>Avg Customer Lifespan (months)</label><input type="number" id="dpLifespan" placeholder="e.g. 24" min="1" step="1"></div>
+</div>
+<div class="btn-row">
+<button onclick="addDataPoint()">Add Data Point</button>
+<button class="secondary" onclick="addSampleData()">Load Sample Data</button>
+</div>
+</div>
+
+<div class="panel">
+<h2>Key Performance Indicators</h2>
+<div class="kpi-grid" id="kpiGrid">
+<div class="kpi-card"><div class="kpi-val" id="kpiMrr">$0</div><div class="kpi-label">MRR</div><div class="kpi-trend" id="kpiMrrTrend">--</div></div>
+<div class="kpi-card"><div class="kpi-val" id="kpiChurn">0%</div><div class="kpi-label">Churn Rate</div><div class="kpi-trend" id="kpiChurnTrend">--</div></div>
+<div class="kpi-card"><div class="kpi-val" id="kpiCac">$0</div><div class="kpi-label">CAC</div><div class="kpi-trend" id="kpiCacTrend">--</div></div>
+<div class="kpi-card"><div class="kpi-val" id="kpiLtv">$0</div><div class="kpi-label">LTV</div><div class="kpi-trend" id="kpiLtvTrend">--</div></div>
+<div class="kpi-card"><div class="kpi-val" id="kpiRatio">0x</div><div class="kpi-label">LTV:CAC</div><div class="kpi-trend" id="kpiRatioTrend">--</div></div>
+<div class="kpi-card"><div class="kpi-val" id="kpiGrowth">0%</div><div class="kpi-label">Growth Rate</div><div class="kpi-trend" id="kpiGrowthTrend">--</div></div>
+</div>
+</div>
+
+<div class="panel">
+<h2>Charts</h2>
+<div class="metric-select" id="metricSelect">
+<button class="active" onclick="setChart('mrr')">MRR</button>
+<button onclick="setChart('churn')">Churn %</button>
+<button onclick="setChart('cac')">CAC</button>
+<button onclick="setChart('ltv')">LTV</button>
+<button onclick="setChart('ratio')">LTV:CAC</button>
+<button onclick="setChart('growth')">Growth %</button>
+<button onclick="setChart('customers')">Customers</button>
+</div>
+<div class="chart-container" id="chartContainer"></div>
+<div class="chart-legend"><span><span class="dot actual"></span> Actual</span><span><span class="dot proj"></span> Projected (3mo)</span></div>
+<div class="projection-info" id="projectionInfo"></div>
+</div>
+
+<div class="panel">
+<h2>Data Table</h2>
+<div style="overflow-x:auto" id="dataTableContainer"></div>
+</div>
+
+<div class="panel">
+<h2>Actions</h2>
+<div class="btn-row">
+<button onclick="exportJSON()">Export as JSON</button>
+<button class="secondary" onclick="saveDashboard()">Save Dashboard</button>
+<button class="secondary" onclick="clearAll()">Clear All Data</button>
+</div>
+</div>
+
+<div class="panel">
+<h2>Saved Dashboards</h2>
+<div id="savedList"></div>
+</div>
+</main>
+
+<footer>
+<a href="https://spunk.codes">spunk.codes</a> &middot;
+<a href="https://spunk.bet">spunk.bet</a> &middot;
+<a href="https://spunk.pics">spunk.pics</a> &middot;
+<a href="https://spunk.work">spunk.work</a> &middot;
+<a href="https://spunkart.com">SpunkArt.com</a>
+</footer>
+
+<script>
+var LS_KEY='spunkcodes_growth_metrics';
+var dataPoints=[];
+var savedDashboards=[];
+var currentChart='mrr';
+
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+
+function addDataPoint(){
+var month=document.getElementById('dpMonth').value;
+var year=parseInt(document.getElementById('dpYear').value);
+var mrr=parseFloat(document.getElementById('dpMrr').value)||0;
+var customers=parseInt(document.getElementById('dpCustomers').value)||0;
+var churned=parseInt(document.getElementById('dpChurned').value)||0;
+var newCust=parseInt(document.getElementById('dpNew').value)||0;
+var spend=parseFloat(document.getElementById('dpSpend').value)||0;
+var arpu=parseFloat(document.getElementById('dpArpu').value)||0;
+var lifespan=parseInt(document.getElementById('dpLifespan').value)||1;
+
+if(!year||!mrr){alert('At least Month, Year, and MRR are required.');return}
+
+var key=year+'-'+month;
+var existing=-1;
+for(var i=0;i<dataPoints.length;i++){if(dataPoints[i].key===key){existing=i;break}}
+
+var dp={
+key:key,label:monthName(month)+' '+year,
+month:month,year:year,
+mrr:mrr,customers:customers,churned:churned,newCust:newCust,
+spend:spend,arpu:arpu,lifespan:lifespan,
+churnRate:customers>0?((churned/customers)*100):0,
+cac:newCust>0?(spend/newCust):0,
+ltv:arpu*lifespan,
+growthRate:0
+};
+dp.ltvCacRatio=dp.cac>0?(dp.ltv/dp.cac):0;
+
+if(existing>=0)dataPoints[existing]=dp;
+else dataPoints.push(dp);
+
+dataPoints.sort(function(a,b){return a.key<b.key?-1:a.key>b.key?1:0});
+
+for(var i=1;i<dataPoints.length;i++){
+var prev=dataPoints[i-1].mrr;
+if(prev>0)dataPoints[i].growthRate=((dataPoints[i].mrr-prev)/prev)*100;
+}
+if(dataPoints.length>0)dataPoints[0].growthRate=0;
+
+saveCurrent();renderAll();
+
+document.getElementById('dpMrr').value='';
+document.getElementById('dpCustomers').value='';
+document.getElementById('dpChurned').value='';
+document.getElementById('dpNew').value='';
+document.getElementById('dpSpend').value='';
+document.getElementById('dpArpu').value='';
+document.getElementById('dpLifespan').value='';
+}
+
+function removeDataPoint(i){
+dataPoints.splice(i,1);
+for(var j=1;j<dataPoints.length;j++){
+var prev=dataPoints[j-1].mrr;
+if(prev>0)dataPoints[j].growthRate=((dataPoints[j].mrr-prev)/prev)*100;
+else dataPoints[j].growthRate=0;
+}
+if(dataPoints.length>0)dataPoints[0].growthRate=0;
+saveCurrent();renderAll();
+}
+
+function monthName(m){
+var names=['','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+return names[parseInt(m)]||m;
+}
+
+function fmtMoney(v){return'$'+Number(v).toLocaleString(undefined,{minimumFractionDigits:0,maximumFractionDigits:0})}
+function fmtPct(v){return v.toFixed(1)+'%'}
+function fmtRatio(v){return v.toFixed(1)+'x'}
+
+function trendHtml(curr,prev,invert){
+if(prev===undefined||prev===null)return'<span class="trend-flat">--</span>';
+var diff=curr-prev;
+var pct=prev!==0?((diff/Math.abs(prev))*100):0;
+var arrow=diff>0?'\u25B2':diff<0?'\u25BC':'\u25CF';
+var cls;
+if(invert){cls=diff>0?'trend-down':diff<0?'trend-up':'trend-flat'}
+else{cls=diff>0?'trend-up':diff<0?'trend-down':'trend-flat'}
+return'<span class="'+cls+'">'+arrow+' '+Math.abs(pct).toFixed(1)+'%</span>';
+}
+
+function updateKPIs(){
+if(!dataPoints.length){
+['kpiMrr','kpiChurn','kpiCac','kpiLtv','kpiRatio','kpiGrowth'].forEach(function(id){document.getElementById(id).textContent='--'});
+['kpiMrrTrend','kpiChurnTrend','kpiCacTrend','kpiLtvTrend','kpiRatioTrend','kpiGrowthTrend'].forEach(function(id){document.getElementById(id).innerHTML='--'});
+return;
+}
+var latest=dataPoints[dataPoints.length-1];
+var prev=dataPoints.length>1?dataPoints[dataPoints.length-2]:null;
+
+document.getElementById('kpiMrr').textContent=fmtMoney(latest.mrr);
+document.getElementById('kpiChurn').textContent=fmtPct(latest.churnRate);
+document.getElementById('kpiCac').textContent=fmtMoney(latest.cac);
+document.getElementById('kpiLtv').textContent=fmtMoney(latest.ltv);
+document.getElementById('kpiRatio').textContent=fmtRatio(latest.ltvCacRatio);
+document.getElementById('kpiGrowth').textContent=fmtPct(latest.growthRate);
+
+document.getElementById('kpiMrrTrend').innerHTML=prev?trendHtml(latest.mrr,prev.mrr,false):'--';
+document.getElementById('kpiChurnTrend').innerHTML=prev?trendHtml(latest.churnRate,prev.churnRate,true):'--';
+document.getElementById('kpiCacTrend').innerHTML=prev?trendHtml(latest.cac,prev.cac,true):'--';
+document.getElementById('kpiLtvTrend').innerHTML=prev?trendHtml(latest.ltv,prev.ltv,false):'--';
+document.getElementById('kpiRatioTrend').innerHTML=prev?trendHtml(latest.ltvCacRatio,prev.ltvCacRatio,false):'--';
+document.getElementById('kpiGrowthTrend').innerHTML=prev?trendHtml(latest.growthRate,prev.growthRate,false):'--';
+}
+
+function setChart(metric){
+currentChart=metric;
+var btns=document.getElementById('metricSelect').querySelectorAll('button');
+for(var i=0;i<btns.length;i++){
+btns[i].className=btns[i].textContent.toLowerCase().replace(/[^a-z%:]/g,'').indexOf(metric)>=0||
+(metric==='mrr'&&btns[i].textContent==='MRR')||
+(metric==='churn'&&btns[i].textContent==='Churn %')||
+(metric==='cac'&&btns[i].textContent==='CAC')||
+(metric==='ltv'&&btns[i].textContent==='LTV')||
+(metric==='ratio'&&btns[i].textContent==='LTV:CAC')||
+(metric==='growth'&&btns[i].textContent==='Growth %')||
+(metric==='customers'&&btns[i].textContent==='Customers')
+?'active':'secondary';
+}
+renderChart();
+}
+
+function getMetricValue(dp,metric){
+switch(metric){
+case'mrr':return dp.mrr;
+case'churn':return dp.churnRate;
+case'cac':return dp.cac;
+case'ltv':return dp.ltv;
+case'ratio':return dp.ltvCacRatio;
+case'growth':return dp.growthRate;
+case'customers':return dp.customers;
+default:return dp.mrr;
+}
+}
+
+function formatMetricValue(v,metric){
+switch(metric){
+case'mrr':case'cac':case'ltv':return fmtMoney(v);
+case'churn':case'growth':return fmtPct(v);
+case'ratio':return fmtRatio(v);
+case'customers':return String(Math.round(v));
+default:return String(v);
+}
+}
+
+function metricTitle(metric){
+switch(metric){
+case'mrr':return'Monthly Recurring Revenue';
+case'churn':return'Churn Rate';
+case'cac':return'Customer Acquisition Cost';
+case'ltv':return'Customer Lifetime Value';
+case'ratio':return'LTV:CAC Ratio';
+case'growth':return'MRR Growth Rate';
+case'customers':return'Total Customers';
+default:return metric;
+}
+}
+
+function projectValues(metric,numMonths){
+if(dataPoints.length<2)return[];
+var recent=dataPoints.slice(-3);
+var diffs=[];
+for(var i=1;i<recent.length;i++){
+diffs.push(getMetricValue(recent[i],metric)-getMetricValue(recent[i-1],metric));
+}
+var avgDiff=diffs.reduce(function(a,b){return a+b},0)/diffs.length;
+var lastVal=getMetricValue(dataPoints[dataPoints.length-1],metric);
+var lastKey=dataPoints[dataPoints.length-1].key;
+var projections=[];
+for(var m=1;m<=numMonths;m++){
+var parts=lastKey.split('-');
+var yr=parseInt(parts[0]);var mo=parseInt(parts[1])+m;
+while(mo>12){mo-=12;yr++}
+var label=monthName(String(mo).padStart(2,'0'))+' '+yr;
+var val=lastVal+avgDiff*m;
+if((metric==='churn'||metric==='cac')&&val<0)val=0;
+projections.push({label:label,value:val});
+}
+return projections;
+}
+
+function renderChart(){
+var el=document.getElementById('chartContainer');
+var projEl=document.getElementById('projectionInfo');
+if(!dataPoints.length){el.innerHTML='<div class="empty">Add data points to see charts.</div>';projEl.innerHTML='';return}
+
+var values=dataPoints.map(function(dp){return getMetricValue(dp,currentChart)});
+var labels=dataPoints.map(function(dp){return dp.label});
+var projections=projectValues(currentChart,3);
+var projValues=projections.map(function(p){return p.value});
+var projLabels=projections.map(function(p){return p.label});
+
+var allValues=values.concat(projValues);
+var maxVal=Math.max.apply(null,allValues.map(function(v){return Math.abs(v)}));
+if(maxVal===0)maxVal=1;
+
+var html='<div class="chart-title">'+esc(metricTitle(currentChart))+'</div>';
+html+='<div class="bar-chart">';
+values.forEach(function(v,i){
+var h=Math.max(2,Math.abs(v)/maxVal*100);
+html+='<div class="bar" style="height:'+h+'%" title="'+esc(labels[i])+': '+esc(formatMetricValue(v,currentChart))+'">';
+html+='<span class="bar-val">'+esc(formatMetricValue(v,currentChart))+'</span>';
+html+='<span class="bar-label">'+esc(labels[i])+'</span>';
+html+='</div>';
+});
+projValues.forEach(function(v,i){
+var h=Math.max(2,Math.abs(v)/maxVal*100);
+html+='<div class="bar projected" style="height:'+h+'%" title="'+esc(projLabels[i])+': '+esc(formatMetricValue(v,currentChart))+' (projected)">';
+html+='<span class="bar-val">'+esc(formatMetricValue(v,currentChart))+'</span>';
+html+='<span class="bar-label">'+esc(projLabels[i])+'</span>';
+html+='</div>';
+});
+html+='</div>';
+el.innerHTML=html;
+
+if(projections.length){
+var lastActual=values[values.length-1];
+var lastProj=projValues[projValues.length-1];
+var change=lastActual!==0?((lastProj-lastActual)/Math.abs(lastActual)*100):0;
+var dir=change>0?'increase':'decrease';
+projEl.innerHTML='<strong>3-Month Projection:</strong> '+esc(metricTitle(currentChart))+' is projected to '+dir+' by '+esc(Math.abs(change).toFixed(1))+'% from '+esc(formatMetricValue(lastActual,currentChart))+' to '+esc(formatMetricValue(lastProj,currentChart))+'.';
+}else{
+projEl.innerHTML='Add at least 2 data points to see projections.';
+}
+}
+
+function renderDataTable(){
+var el=document.getElementById('dataTableContainer');
+if(!dataPoints.length){el.innerHTML='<div class="empty">No data points yet.</div>';return}
+var html='<table class="data-table"><thead><tr><th>Month</th><th>MRR</th><th>Customers</th><th>Churned</th><th>Churn %</th><th>New</th><th>CAC</th><th>LTV</th><th>LTV:CAC</th><th>Growth %</th><th></th></tr></thead><tbody>';
+dataPoints.forEach(function(dp,i){
+html+='<tr>';
+html+='<td>'+esc(dp.label)+'</td>';
+html+='<td>'+esc(fmtMoney(dp.mrr))+'</td>';
+html+='<td>'+dp.customers+'</td>';
+html+='<td>'+dp.churned+'</td>';
+html+='<td>'+esc(fmtPct(dp.churnRate))+'</td>';
+html+='<td>'+dp.newCust+'</td>';
+html+='<td>'+esc(fmtMoney(dp.cac))+'</td>';
+html+='<td>'+esc(fmtMoney(dp.ltv))+'</td>';
+html+='<td>'+esc(fmtRatio(dp.ltvCacRatio))+'</td>';
+html+='<td class="'+(dp.growthRate>0?'trend-up':dp.growthRate<0?'trend-down':'')+'">'+esc(fmtPct(dp.growthRate))+'</td>';
+html+='<td class="actions-cell"><button class="danger" onclick="removeDataPoint('+i+')">&times;</button></td>';
+html+='</tr>';
+});
+html+='</tbody></table>';
+el.innerHTML=html;
+}
+
+function renderAll(){updateKPIs();renderChart();renderDataTable()}
+
+function addSampleData(){
+if(dataPoints.length&&!confirm('This will add sample data. Continue?'))return;
+var samples=[
+{month:'01',year:2026,mrr:3200,customers:64,churned:3,newCust:12,spend:1500,arpu:50,lifespan:20},
+{month:'02',year:2026,mrr:3800,customers:73,churned:4,newCust:17,spend:1800,arpu:52,lifespan:20},
+{month:'03',year:2026,mrr:4500,customers:84,churned:5,newCust:21,spend:2100,arpu:54,lifespan:22},
+{month:'04',year:2026,mrr:5200,customers:97,churned:4,newCust:18,spend:1900,arpu:54,lifespan:22},
+{month:'05',year:2026,mrr:6100,customers:110,churned:6,newCust:25,spend:2400,arpu:55,lifespan:24},
+{month:'06',year:2026,mrr:7000,customers:126,churned:5,newCust:22,spend:2200,arpu:56,lifespan:24}
+];
+samples.forEach(function(s){
+var key=s.year+'-'+s.month;
+var dp={
+key:key,label:monthName(s.month)+' '+s.year,
+month:s.month,year:s.year,
+mrr:s.mrr,customers:s.customers,churned:s.churned,newCust:s.newCust,
+spend:s.spend,arpu:s.arpu,lifespan:s.lifespan,
+churnRate:s.customers>0?((s.churned/s.customers)*100):0,
+cac:s.newCust>0?(s.spend/s.newCust):0,
+ltv:s.arpu*s.lifespan,
+growthRate:0
+};
+dp.ltvCacRatio=dp.cac>0?(dp.ltv/dp.cac):0;
+var exists=false;
+for(var i=0;i<dataPoints.length;i++){if(dataPoints[i].key===key){dataPoints[i]=dp;exists=true;break}}
+if(!exists)dataPoints.push(dp);
+});
+dataPoints.sort(function(a,b){return a.key<b.key?-1:a.key>b.key?1:0});
+for(var j=1;j<dataPoints.length;j++){
+var prev=dataPoints[j-1].mrr;
+if(prev>0)dataPoints[j].growthRate=((dataPoints[j].mrr-prev)/prev)*100;
+else dataPoints[j].growthRate=0;
+}
+if(dataPoints.length>0)dataPoints[0].growthRate=0;
+saveCurrent();renderAll();
+}
+
+function exportJSON(){
+var json=JSON.stringify({dataPoints:dataPoints},null,2);
+var blob=new Blob([json],{type:'application/json'});
+var url=URL.createObjectURL(blob);
+var a=document.createElement('a');
+a.href=url;a.download='growth-metrics.json';a.click();URL.revokeObjectURL(url);
+}
+
+function saveDashboard(){
+var name=prompt('Save as:','My Dashboard');
+if(!name)return;
+var data={name:name,dataPoints:JSON.parse(JSON.stringify(dataPoints)),createdAt:new Date().toISOString()};
+var idx=-1;
+for(var i=0;i<savedDashboards.length;i++){if(savedDashboards[i].name===name){idx=i;break}}
+if(idx>=0)savedDashboards[idx]=data;
+else savedDashboards.unshift(data);
+if(savedDashboards.length>20)savedDashboards.pop();
+localStorage.setItem(LS_KEY,JSON.stringify(savedDashboards));
+renderSaved();alert('Saved!');
+}
+
+function loadDashboard(i){
+var d=savedDashboards[i];if(!d)return;
+dataPoints=JSON.parse(JSON.stringify(d.dataPoints||[]));
+saveCurrent();renderAll();
+}
+
+function deleteSaved(i){savedDashboards.splice(i,1);localStorage.setItem(LS_KEY,JSON.stringify(savedDashboards));renderSaved()}
+
+function renderSaved(){
+var el=document.getElementById('savedList');
+if(!savedDashboards.length){el.innerHTML='<div class="empty">No saved dashboards yet.</div>';return}
+var html='<div class="saved-list">';
+savedDashboards.forEach(function(d,i){
+html+='<div class="saved-item"><div><span style="color:#e8e8f0">'+esc(d.name)+'</span> <span style="font-size:.75rem;color:#555">('+((d.dataPoints&&d.dataPoints.length)||0)+' months)</span></div><div class="btn-row"><button onclick="loadDashboard('+i+')" style="padding:4px 10px;font-size:.75rem">Load</button><button class="danger" onclick="deleteSaved('+i+')" style="padding:4px 10px;font-size:.75rem">&times;</button></div></div>';
+});
+html+='</div>';
+el.innerHTML=html;
+}
+
+function clearAll(){
+if(dataPoints.length&&!confirm('Clear all data points?'))return;
+dataPoints=[];saveCurrent();renderAll();
+}
+
+function saveCurrent(){localStorage.setItem(LS_KEY+'_current',JSON.stringify(dataPoints))}
+function loadCurrent(){try{dataPoints=JSON.parse(localStorage.getItem(LS_KEY+'_current'))||[]}catch(e){dataPoints=[]}}
+function loadSavedList(){try{savedDashboards=JSON.parse(localStorage.getItem(LS_KEY))||[]}catch(e){savedDashboards=[]}}
+
+function init(){
+loadCurrent();loadSavedList();renderAll();renderSaved();
+var now=new Date();
+document.getElementById('dpMonth').value=String(now.getMonth()+1).padStart(2,'0');
+document.getElementById('dpYear').value=now.getFullYear();
+}
+init();
+</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>
