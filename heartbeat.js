@@ -68,8 +68,8 @@
   /* Critical element check */
   function checkCritical(){
     var missing=[];
-    if(!document.querySelector('nav')&&!document.querySelector('[role="navigation"]')) missing.push('navigation');
-    if(!document.querySelector('main')&&!document.querySelector('[role="main"]')&&!document.querySelector('.main')) missing.push('main content');
+    if(!document.querySelector('nav')&&!document.querySelector('[role="navigation"]')&&!document.querySelector('.nav')&&!document.querySelector('header')) missing.push('navigation');
+    if(!document.querySelector('main')&&!document.querySelector('[role="main"]')&&!document.querySelector('.main')&&!document.querySelector('.container')&&!document.querySelector('#app')) missing.push('main content');
     if(missing.length){
       showError('Page issue: Missing '+missing.join(', '));
       return false;
