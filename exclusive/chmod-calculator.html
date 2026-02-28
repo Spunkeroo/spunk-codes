@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Unix Chmod Calculator - Permission Calculator | SPUNK.CODES Exclusive</title>
+<meta name="description" content="Visual Unix chmod permission calculator. Toggle read/write/execute for owner/group/others, get numeric and symbolic notation, copy chmod commands.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Unix Chmod Calculator - SPUNK.CODES Exclusive">
+<meta property="og:description" content="Visual chmod permission calculator with numeric and symbolic notation.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://spunk.codes/exclusive/chmod-calculator">
+<meta property="og:site_name" content="Spunk Codes">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<meta name="twitter:creator" content="@SpunkArt13">
+<meta name="twitter:title" content="Unix Chmod Calculator - SPUNK.CODES Exclusive">
+<meta name="twitter:description" content="Visual chmod permission calculator with numeric and symbolic notation.">
+<link rel="canonical" href="https://spunk.codes/exclusive/chmod-calculator">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Unix Chmod Calculator","url":"https://spunk.codes/exclusive/chmod-calculator","applicationCategory":"DeveloperApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Visual Unix chmod permission calculator. Toggle permissions for owner/group/others, get numeric and symbolic notation.","author":{"@type":"Organization","name":"Spunk Codes","url":"https://spunk.codes"}}</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0f;color:#e0e0e0;min-height:100vh;line-height:1.6}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+.wrap{max-width:900px;margin:0 auto;padding:1.5rem}
+h1{font-size:2rem;font-weight:800;text-align:center;margin:1.5rem 0 0.5rem}
+h1 span{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.subtitle{text-align:center;color:#8b949e;margin-bottom:2rem;max-width:650px;margin-left:auto;margin-right:auto}
+.card{background:rgba(18,18,28,0.85);border:1px solid #1a1a2e;border-radius:14px;padding:1.5rem;margin-bottom:1.5rem;position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#ff5f1f,#ff9f1f,#ff5f1f)}
+.card h2{font-size:1rem;font-weight:700;margin-bottom:1rem;color:#ff9f1f}
+.result-display{text-align:center;padding:2rem;background:#0a0a0f;border:1px solid #1a1a2e;border-radius:12px;margin-bottom:1.5rem}
+.numeric{font-family:'Courier New',monospace;font-size:3.5rem;font-weight:800;color:#ff5f1f;letter-spacing:0.2em}
+.symbolic{font-family:'Courier New',monospace;font-size:1.5rem;color:#e0e0e0;margin-top:0.5rem}
+.command{font-family:'Courier New',monospace;font-size:1rem;color:#39d353;margin-top:0.5rem;cursor:pointer;padding:0.3rem 0.8rem;background:rgba(57,211,83,0.1);border-radius:6px;display:inline-block}
+.command:hover{background:rgba(57,211,83,0.2)}
+.perm-grid{display:grid;grid-template-columns:auto 1fr 1fr 1fr;gap:0;border:1px solid #1a1a2e;border-radius:12px;overflow:hidden}
+.perm-header{background:rgba(255,95,31,0.1);padding:0.8rem;text-align:center;font-weight:700;font-size:0.8rem;text-transform:uppercase;letter-spacing:0.5px;color:#ff9f1f;border-bottom:1px solid #1a1a2e}
+.perm-label{padding:0.8rem 1rem;font-weight:700;font-size:0.9rem;display:flex;align-items:center;background:rgba(18,18,28,0.5);border-bottom:1px solid rgba(255,95,31,0.06)}
+.perm-cell{padding:0.8rem;text-align:center;border-bottom:1px solid rgba(255,95,31,0.06);border-left:1px solid rgba(255,95,31,0.06)}
+.perm-cell label{display:flex;align-items:center;justify-content:center;gap:0.5rem;cursor:pointer;font-size:0.85rem}
+.perm-cell input[type="checkbox"]{width:20px;height:20px;accent-color:#ff5f1f;cursor:pointer}
+.numeric-input{display:flex;align-items:center;justify-content:center;gap:0.5rem;margin-top:1rem}
+.numeric-input input{width:60px;text-align:center;font-size:1.5rem;font-family:'Courier New',monospace;font-weight:700;padding:0.5rem;background:#0a0a0f;border:1px solid #1a1a2e;border-radius:8px;color:#ff5f1f;outline:none}
+.numeric-input input:focus{border-color:#ff5f1f}
+.numeric-input span{font-size:0.8rem;color:#8b949e;text-transform:uppercase;font-weight:600}
+.presets{display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1rem}
+.preset{padding:0.5rem 1rem;border-radius:8px;font-size:0.8rem;font-weight:600;cursor:pointer;border:1px solid #1a1a2e;background:transparent;color:#8b949e;transition:all 0.2s}
+.preset:hover{background:rgba(255,95,31,0.1);color:#ff9f1f;border-color:rgba(255,95,31,0.3)}
+.preset code{background:rgba(255,95,31,0.1);padding:1px 6px;border-radius:3px;color:#ff5f1f;margin-right:0.3rem}
+.btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.85rem;font-weight:700;cursor:pointer;border:none;transition:all 0.2s;display:inline-flex;align-items:center;gap:0.4rem}
+.btn-primary{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);color:#000}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 4px 15px rgba(255,95,31,0.3)}
+.btn-outline{background:transparent;border:1px solid rgba(255,95,31,0.3);color:#ff9f1f}
+.btn-outline:hover{background:rgba(255,95,31,0.1)}
+.actions{display:flex;gap:0.5rem;flex-wrap:wrap;margin:1rem 0;justify-content:center}
+.desc-box{padding:1rem;background:rgba(255,95,31,0.05);border:1px solid rgba(255,95,31,0.15);border-radius:8px;font-size:0.85rem;color:#8b949e;text-align:center;margin-top:1rem}
+.desc-box strong{color:#e0e0e0}
+.copied{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(57,211,83,0.95);color:#000;padding:0.8rem 2rem;border-radius:10px;font-weight:700;font-size:1rem;z-index:9999;pointer-events:none;animation:fadeOut 1.5s ease forwards}
+@keyframes fadeOut{0%{opacity:1;transform:translate(-50%,-50%) scale(1)}70%{opacity:1}100%{opacity:0;transform:translate(-50%,-60%) scale(0.95)}}
+.network-footer{text-align:center;padding:2rem 0 1rem;border-top:1px solid #1a1a2e;margin-top:2rem}
+.network-footer .links{display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap;font-size:0.85rem;margin-bottom:0.5rem}
+.network-footer .copy{color:#8b949e;font-size:0.75rem}
+.cta-banner{text-align:center;margin:2rem 0 1rem;padding:1.5rem;background:linear-gradient(135deg,rgba(255,95,31,0.1),rgba(255,159,31,0.05));border:1px solid rgba(255,95,31,0.2);border-radius:14px}
+.cta-banner p{color:#8b949e;font-size:0.9rem;margin-bottom:0.8rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1><span>Unix Chmod Calculator</span></h1>
+<p class="subtitle">Visual file permission calculator. Toggle checkboxes to set permissions, see numeric and symbolic notation, and copy the chmod command.</p>
+
+<div class="result-display">
+<div class="numeric" id="numericResult">755</div>
+<div class="symbolic" id="symbolicResult">rwxr-xr-x</div>
+<div class="command" id="commandResult" onclick="copyCommand()" title="Click to copy">chmod 755 filename</div>
+</div>
+
+<div class="card">
+<h2>Permission Grid</h2>
+<div class="perm-grid">
+<div class="perm-header"></div>
+<div class="perm-header">Read (4)</div>
+<div class="perm-header">Write (2)</div>
+<div class="perm-header">Execute (1)</div>
+
+<div class="perm-label">Owner</div>
+<div class="perm-cell"><label><input type="checkbox" data-who="owner" data-perm="r" checked onchange="updateFromGrid()"> r</label></div>
+<div class="perm-cell"><label><input type="checkbox" data-who="owner" data-perm="w" checked onchange="updateFromGrid()"> w</label></div>
+<div class="perm-cell"><label><input type="checkbox" data-who="owner" data-perm="x" checked onchange="updateFromGrid()"> x</label></div>
+
+<div class="perm-label">Group</div>
+<div class="perm-cell"><label><input type="checkbox" data-who="group" data-perm="r" checked onchange="updateFromGrid()"> r</label></div>
+<div class="perm-cell"><label><input type="checkbox" data-who="group" data-perm="w" onchange="updateFromGrid()"> w</label></div>
+<div class="perm-cell"><label><input type="checkbox" data-who="group" data-perm="x" checked onchange="updateFromGrid()"> x</label></div>
+
+<div class="perm-label">Others</div>
+<div class="perm-cell"><label><input type="checkbox" data-who="others" data-perm="r" checked onchange="updateFromGrid()"> r</label></div>
+<div class="perm-cell"><label><input type="checkbox" data-who="others" data-perm="w" onchange="updateFromGrid()"> w</label></div>
+<div class="perm-cell"><label><input type="checkbox" data-who="others" data-perm="x" checked onchange="updateFromGrid()"> x</label></div>
+</div>
+
+<div class="numeric-input">
+<div><span>Owner</span><input type="text" id="numOwner" value="7" maxlength="1" oninput="updateFromNumeric()"></div>
+<div><span>Group</span><input type="text" id="numGroup" value="5" maxlength="1" oninput="updateFromNumeric()"></div>
+<div><span>Others</span><input type="text" id="numOthers" value="5" maxlength="1" oninput="updateFromNumeric()"></div>
+</div>
+
+<div class="desc-box" id="descBox">
+<strong>Owner:</strong> read, write, execute | <strong>Group:</strong> read, execute | <strong>Others:</strong> read, execute
+</div>
+</div>
+
+<div class="card">
+<h2>Common Presets</h2>
+<div class="presets">
+<button class="preset" onclick="setPermission(755)"><code>755</code> Directories (standard)</button>
+<button class="preset" onclick="setPermission(644)"><code>644</code> Files (standard)</button>
+<button class="preset" onclick="setPermission(777)"><code>777</code> Full access (all)</button>
+<button class="preset" onclick="setPermission(700)"><code>700</code> Owner only</button>
+<button class="preset" onclick="setPermission(600)"><code>600</code> Owner read/write</button>
+<button class="preset" onclick="setPermission(400)"><code>400</code> Owner read-only</button>
+<button class="preset" onclick="setPermission(666)"><code>666</code> All read/write</button>
+<button class="preset" onclick="setPermission(750)"><code>750</code> Owner full, group r+x</button>
+<button class="preset" onclick="setPermission(640)"><code>640</code> Owner rw, group r</button>
+<button class="preset" onclick="setPermission(444)"><code>444</code> Read-only (all)</button>
+<button class="preset" onclick="setPermission(500)"><code>500</code> Owner r+x only</button>
+<button class="preset" onclick="setPermission(711)"><code>711</code> Owner full, others x</button>
+</div>
+</div>
+
+<div class="actions">
+<button class="btn btn-primary" onclick="copyCommand()">Copy chmod Command</button>
+<button class="btn btn-outline" onclick="copyNumeric()">Copy Numeric</button>
+<button class="btn btn-outline" onclick="copySymbolic()">Copy Symbolic</button>
+<button class="btn btn-outline" onclick="setPermission(755)">Reset (755)</button>
+</div>
+
+<div class="cta-banner">
+<p>300+ free tools for developers, creators & founders</p>
+<a href="https://spunk.codes" class="btn btn-primary">Browse All Tools</a>
+</div>
+<div class="network-footer">
+<div class="links">
+<a href="https://spunk.codes">Home</a>
+<a href="https://spunk.codes/exclusive/">Exclusive Tools</a>
+<a href="https://spunk.codes/about">About</a>
+<a href="https://x.com/SpunkArt13">@SpunkArt13</a>
+</div>
+<div class="copy">&copy; 2025 spunk.codes</div>
+</div>
+</div>
+
+<script>
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+
+var LS_KEY='chmod_calc_perms';
+
+function getPermsFromGrid(){
+var o=0,g=0,t=0;
+document.querySelectorAll('.perm-cell input[type="checkbox"]').forEach(function(cb){
+var w=cb.getAttribute('data-who');
+var p=cb.getAttribute('data-perm');
+var v=p==='r'?4:p==='w'?2:1;
+if(cb.checked){
+if(w==='owner')o+=v;
+else if(w==='group')g+=v;
+else t+=v;
+}
+});
+return{owner:o,group:g,others:t};
+}
+
+function setGridFromNumeric(o,g,t){
+document.querySelectorAll('.perm-cell input[type="checkbox"]').forEach(function(cb){
+var w=cb.getAttribute('data-who');
+var p=cb.getAttribute('data-perm');
+var v=p==='r'?4:p==='w'?2:1;
+var n=w==='owner'?o:w==='group'?g:t;
+cb.checked=(n&v)!==0;
+});
+}
+
+function numToSymbolic(n){
+var s='';
+s+=(n&4)?'r':'-';
+s+=(n&2)?'w':'-';
+s+=(n&1)?'x':'-';
+return s;
+}
+
+function describePerms(n){
+var parts=[];
+if(n&4)parts.push('read');
+if(n&2)parts.push('write');
+if(n&1)parts.push('execute');
+return parts.length?parts.join(', '):'none';
+}
+
+function updateDisplay(){
+var p=getPermsFromGrid();
+var num=String(p.owner)+String(p.group)+String(p.others);
+var sym=numToSymbolic(p.owner)+numToSymbolic(p.group)+numToSymbolic(p.others);
+
+document.getElementById('numericResult').textContent=num;
+document.getElementById('symbolicResult').textContent=sym;
+document.getElementById('commandResult').textContent='chmod '+num+' filename';
+document.getElementById('numOwner').value=p.owner;
+document.getElementById('numGroup').value=p.group;
+document.getElementById('numOthers').value=p.others;
+
+document.getElementById('descBox').innerHTML=
+'<strong>Owner:</strong> '+esc(describePerms(p.owner))+' | '+
+'<strong>Group:</strong> '+esc(describePerms(p.group))+' | '+
+'<strong>Others:</strong> '+esc(describePerms(p.others));
+
+try{localStorage.setItem(LS_KEY,num)}catch(e){}
+}
+
+function updateFromGrid(){updateDisplay()}
+
+function updateFromNumeric(){
+var o=parseInt(document.getElementById('numOwner').value)||0;
+var g=parseInt(document.getElementById('numGroup').value)||0;
+var t=parseInt(document.getElementById('numOthers').value)||0;
+o=Math.max(0,Math.min(7,o));
+g=Math.max(0,Math.min(7,g));
+t=Math.max(0,Math.min(7,t));
+setGridFromNumeric(o,g,t);
+updateDisplay();
+}
+
+function setPermission(num){
+var s=String(num);
+while(s.length<3)s='0'+s;
+var o=parseInt(s[0]),g=parseInt(s[1]),t=parseInt(s[2]);
+setGridFromNumeric(o,g,t);
+updateDisplay();
+}
+
+function copyCommand(){
+navigator.clipboard.writeText(document.getElementById('commandResult').textContent).then(function(){showToast('Command copied!')});
+}
+function copyNumeric(){
+navigator.clipboard.writeText(document.getElementById('numericResult').textContent).then(function(){showToast('Numeric copied!')});
+}
+function copySymbolic(){
+navigator.clipboard.writeText(document.getElementById('symbolicResult').textContent).then(function(){showToast('Symbolic copied!')});
+}
+
+function showToast(msg){
+var t=document.createElement('div');t.className='copied';t.textContent=msg;
+document.body.appendChild(t);setTimeout(function(){t.remove()},1500);
+}
+
+// Load saved
+try{
+var saved=localStorage.getItem(LS_KEY);
+if(saved&&saved.length===3)setPermission(parseInt(saved));
+else updateDisplay();
+}catch(e){updateDisplay()}
+</script>
+
+<!-- Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+<script src="/auto-monetize.js"></script>
+<!-- Share on X Button -->
+<div id="shareXBtn" style="position:fixed;left:20px;bottom:20px;z-index:9999;">
+  <a id="shareXLink" href="#" target="_blank" rel="noopener noreferrer" title="Share on X"
+     style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;
+     background:rgba(255,95,31,0.15);border:1px solid rgba(255,95,31,0.3);
+     backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:50%;
+     text-decoration:none;transition:all 0.3s ease;cursor:pointer;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+    </svg>
+  </a>
+</div>
+<style>
+  #shareXBtn a:hover {
+    background: rgba(255,95,31,0.35) !important;
+    border-color: rgba(255,95,31,0.6) !important;
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(255,95,31,0.3);
+  }
+</style>
+<script>
+(function(){
+  var page = "chmod-calculator";
+  var url = "https://spunk.codes/exclusive/" + page;
+  var text = "Never memorize chmod numbers again. This visual calculator is perfect. Free tool @SpunkArt13";
+  var href = "https://x.com/intent/tweet?text=" + encodeURIComponent(text) + "&url=" + encodeURIComponent(url);
+  document.getElementById("shareXLink").href = href;
+})();
+</script>
+<script src="/usage-tracker.js"></script>
+</body>
+</html>

@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CSS Animation Builder — Keyframe Editor | SPUNK.CODES</title>
+<meta name="description" content="Visual CSS animation keyframe editor. Set transform, opacity, color properties. Timeline editor, easing functions, live preview. Free browser tool.">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP')</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w")</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e0e0e0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+header{background:#111118;border-bottom:2px solid #ff5f1f;padding:1rem 2rem;text-align:center}
+header h1{font-size:1.6rem;color:#ff5f1f}
+header p{color:#999;font-size:.9rem;margin-top:.3rem}
+.container{max-width:1100px;margin:0 auto;padding:1.5rem;flex:1;width:100%}
+.section{background:#111118;border:1px solid #1a1a2e;border-radius:10px;padding:1.5rem;margin-bottom:1.5rem}
+.section h2{color:#ff5f1f;font-size:1.2rem;margin-bottom:1rem;display:flex;align-items:center;justify-content:space-between}
+label{display:block;color:#bbb;font-size:.85rem;margin-bottom:.3rem}
+input,select{background:#0a0a0f;color:#e0e0e0;border:1px solid #1a1a2e;border-radius:6px;padding:.5rem .7rem;font-size:.9rem;width:100%}
+input:focus,select:focus{outline:none;border-color:#ff5f1f}
+input[type=range]{accent-color:#ff5f1f}
+input[type=color]{width:50px;height:36px;border:none;cursor:pointer;background:none;padding:0}
+.btn{background:#ff5f1f;color:#fff;border:none;padding:.55rem 1.1rem;border-radius:6px;cursor:pointer;font-size:.9rem;font-weight:600;transition:background .2s}
+.btn:hover{background:#e54e10}
+.btn-sm{padding:.35rem .7rem;font-size:.8rem}
+.btn-outline{background:transparent;border:1px solid #ff5f1f;color:#ff5f1f}
+.btn-outline:hover{background:#ff5f1f;color:#fff}
+.btn-danger{background:#c0392b}.btn-danger:hover{background:#a93226}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem}
+.grid4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:.8rem}
+.preview-area{display:flex;justify-content:center;align-items:center;padding:3rem;background:#0a0a0f;border:1px solid #1a1a2e;border-radius:8px;min-height:250px;margin-bottom:1rem;overflow:hidden}
+.preview-el{width:80px;height:80px;background:#ff5f1f;border-radius:8px}
+.settings-row{display:flex;gap:1rem;align-items:end;margin-bottom:1rem;flex-wrap:wrap}
+.settings-row>div{min-width:120px}
+.timeline{position:relative;background:#0a0a0f;border:1px solid #1a1a2e;border-radius:8px;padding:1rem;min-height:80px;margin-bottom:1rem}
+.timeline-track{position:relative;height:40px;background:#151520;border-radius:4px;margin-top:.5rem}
+.timeline-marker{position:absolute;top:-4px;width:16px;height:48px;background:#ff5f1f;border-radius:4px;cursor:pointer;transform:translateX(-50%);z-index:2;transition:background .2s}
+.timeline-marker:hover{background:#e54e10}
+.timeline-marker.active{background:#fff;border:2px solid #ff5f1f}
+.timeline-marker .pct{position:absolute;top:-18px;left:50%;transform:translateX(-50%);font-size:.7rem;color:#ff5f1f;white-space:nowrap}
+.keyframe-card{background:#0a0a0f;border:1px solid #1a1a2e;border-radius:8px;padding:1rem;margin-bottom:.8rem}
+.keyframe-card.active{border-color:#ff5f1f}
+.keyframe-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:.8rem}
+.keyframe-header h4{color:#ff5f1f;font-size:.9rem}
+.slider-row{display:grid;grid-template-columns:90px 1fr 55px;gap:.5rem;align-items:center;margin-bottom:.4rem}
+.slider-row label{margin:0;font-size:.82rem}
+.slider-row .val{text-align:right;color:#ff5f1f;font-weight:600;font-size:.82rem;font-family:monospace}
+.output-box{background:#0a0a0f;border:1px solid #1a1a2e;border-radius:6px;padding:1rem;font-family:monospace;font-size:.82rem;color:#ccc;line-height:1.6;white-space:pre-wrap;word-break:break-all;max-height:400px;overflow-y:auto}
+.presets{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem}
+.preset-btn{background:#0a0a0f;border:1px solid #1a1a2e;border-radius:6px;padding:.5rem .8rem;cursor:pointer;color:#bbb;font-size:.82rem;transition:border-color .2s}
+.preset-btn:hover{border-color:#ff5f1f;color:#ff5f1f}
+footer{background:#111118;border-top:1px solid #1a1a2e;text-align:center;padding:1.2rem;color:#666;font-size:.8rem}
+footer a{color:#ff5f1f;margin:0 .3rem}
+@media(max-width:768px){
+  header h1{font-size:1.2rem}
+  .container{padding:1rem}
+  .grid2,.grid3,.grid4{grid-template-columns:1fr}
+  .settings-row{flex-direction:column}
+}
+</style>
+</head>
+<body>
+<header>
+<h1>CSS Animation Builder</h1>
+<p>Visual keyframe editor with timeline. Build CSS animations with live preview.</p>
+</header>
+<div class="container">
+  <div class="section">
+    <h2>Presets</h2>
+    <div class="presets">
+      <div class="preset-btn" onclick="loadPreset('fadeIn')">Fade In</div>
+      <div class="preset-btn" onclick="loadPreset('fadeOut')">Fade Out</div>
+      <div class="preset-btn" onclick="loadPreset('slideIn')">Slide In</div>
+      <div class="preset-btn" onclick="loadPreset('bounce')">Bounce</div>
+      <div class="preset-btn" onclick="loadPreset('spin')">Spin</div>
+      <div class="preset-btn" onclick="loadPreset('pulse')">Pulse</div>
+      <div class="preset-btn" onclick="loadPreset('shake')">Shake</div>
+      <div class="preset-btn" onclick="loadPreset('swing')">Swing</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Animation Settings</h2>
+    <div class="settings-row">
+      <div><label for="animName">Name</label><input type="text" id="animName" value="myAnimation" oninput="render()"></div>
+      <div><label for="animDur">Duration (s)</label><input type="number" id="animDur" value="1" min="0.1" step="0.1" oninput="render()"></div>
+      <div><label for="animEase">Easing</label>
+        <select id="animEase" onchange="render()">
+          <option value="ease">ease</option>
+          <option value="ease-in">ease-in</option>
+          <option value="ease-out">ease-out</option>
+          <option value="ease-in-out">ease-in-out</option>
+          <option value="linear">linear</option>
+          <option value="cubic-bezier(0.68,-0.55,0.27,1.55)">elastic</option>
+          <option value="cubic-bezier(0.25,0.46,0.45,0.94)">smooth</option>
+          <option value="steps(5,end)">steps(5)</option>
+        </select>
+      </div>
+      <div><label for="animIter">Iterations</label>
+        <select id="animIter" onchange="render()">
+          <option value="1">1</option><option value="2">2</option><option value="3">3</option>
+          <option value="5">5</option><option value="infinite">Infinite</option>
+        </select>
+      </div>
+      <div><label for="animDir">Direction</label>
+        <select id="animDir" onchange="render()">
+          <option value="normal">normal</option><option value="reverse">reverse</option>
+          <option value="alternate">alternate</option><option value="alternate-reverse">alternate-reverse</option>
+        </select>
+      </div>
+      <div><label for="animFill">Fill Mode</label>
+        <select id="animFill" onchange="render()">
+          <option value="none">none</option><option value="forwards">forwards</option>
+          <option value="backwards">backwards</option><option value="both">both</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Preview <span><button class="btn btn-sm" onclick="restartAnimation()">Restart</button></span></h2>
+    <div class="preview-area" id="previewArea">
+      <div class="preview-el" id="previewEl"></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Timeline</h2>
+    <div class="timeline">
+      <div style="display:flex;justify-content:space-between;color:#666;font-size:.7rem"><span>0%</span><span>25%</span><span>50%</span><span>75%</span><span>100%</span></div>
+      <div class="timeline-track" id="timelineTrack"></div>
+    </div>
+    <button class="btn btn-sm" onclick="addKeyframe()">+ Add Keyframe</button>
+  </div>
+
+  <div class="section">
+    <h2>Keyframes</h2>
+    <div id="keyframeList"></div>
+  </div>
+
+  <div class="section">
+    <h2>CSS Output</h2>
+    <div class="output-box" id="cssOutput"></div>
+    <div style="display:flex;gap:.5rem;margin-top:.8rem">
+      <button class="btn btn-sm" onclick="copyCss()">Copy CSS</button>
+    </div>
+  </div>
+</div>
+<footer>
+  <a href="https://spunk.codes">spunk.codes</a> &middot; <a href="https://spunk.bet">spunk.bet</a> &middot; <a href="https://spunk.pics">spunk.pics</a> &middot; <a href="https://spunk.work">spunk.work</a> &middot; <a href="https://spunkart.com">SpunkArt.com</a>
+</footer>
+<script>
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
+
+let keyframes=[
+  {pct:0,translateX:0,translateY:0,rotate:0,scale:100,opacity:100,bg:'#ff5f1f'},
+  {pct:100,translateX:0,translateY:0,rotate:0,scale:100,opacity:100,bg:'#ff5f1f'}
+];
+let activeKf=0;
+let animStyleEl=null;
+
+function addKeyframe(){
+  const pcts=keyframes.map(k=>k.pct).sort((a,b)=>a-b);
+  let newPct=50;
+  for(let i=0;i<pcts.length-1;i++){
+    const gap=pcts[i+1]-pcts[i];
+    if(gap>10){newPct=Math.round(pcts[i]+gap/2);break;}
+  }
+  keyframes.push({pct:newPct,translateX:0,translateY:0,rotate:0,scale:100,opacity:100,bg:'#ff5f1f'});
+  keyframes.sort((a,b)=>a.pct-b.pct);
+  activeKf=keyframes.findIndex(k=>k.pct===newPct);
+  renderAll();
+}
+
+function removeKeyframe(idx){
+  if(keyframes.length<=2){flash('Need at least 2 keyframes');return;}
+  keyframes.splice(idx,1);
+  if(activeKf>=keyframes.length)activeKf=keyframes.length-1;
+  renderAll();
+}
+
+function updateKf(idx,prop,val){
+  if(prop==='bg')keyframes[idx][prop]=val;
+  else keyframes[idx][prop]=parseFloat(val);
+  if(prop==='pct'){keyframes.sort((a,b)=>a.pct-b.pct);activeKf=keyframes.findIndex(k=>k===keyframes.find((_,i)=>true));}
+  render();
+}
+
+function buildKeyframesCss(){
+  const name=document.getElementById('animName').value.trim()||'myAnimation';
+  let css='@keyframes '+name+' {\n';
+  keyframes.forEach(k=>{
+    let transforms=[];
+    if(k.translateX!==0)transforms.push('translateX('+k.translateX+'px)');
+    if(k.translateY!==0)transforms.push('translateY('+k.translateY+'px)');
+    if(k.rotate!==0)transforms.push('rotate('+k.rotate+'deg)');
+    if(k.scale!==100)transforms.push('scale('+(k.scale/100).toFixed(2)+')');
+    css+='  '+k.pct+'% {\n';
+    if(transforms.length)css+='    transform: '+transforms.join(' ')+';\n';
+    if(k.opacity!==100)css+='    opacity: '+(k.opacity/100).toFixed(2)+';\n';
+    css+='    background-color: '+k.bg+';\n';
+    css+='  }\n';
+  });
+  css+='}\n\n';
+  const dur=document.getElementById('animDur').value||'1';
+  const ease=document.getElementById('animEase').value;
+  const iter=document.getElementById('animIter').value;
+  const dir=document.getElementById('animDir').value;
+  const fill=document.getElementById('animFill').value;
+  css+='.animated-element {\n';
+  css+='  animation: '+name+' '+dur+'s '+ease+' '+iter+' '+dir+' '+fill+';\n';
+  css+='}';
+  return css;
+}
+
+function render(){
+  const css=buildKeyframesCss();
+  document.getElementById('cssOutput').textContent=css;
+  applyAnimation(css);
+  renderTimeline();
+}
+
+function renderAll(){
+  renderKeyframes();
+  renderTimeline();
+  render();
+}
+
+function renderTimeline(){
+  const track=document.getElementById('timelineTrack');
+  track.innerHTML=keyframes.map((k,i)=>{
+    return '<div class="timeline-marker'+(i===activeKf?' active':'')+'" style="left:'+k.pct+'%" onclick="activeKf='+i+';renderAll()"><span class="pct">'+k.pct+'%</span></div>';
+  }).join('');
+}
+
+function renderKeyframes(){
+  const list=document.getElementById('keyframeList');
+  list.innerHTML=keyframes.map((k,i)=>{
+    return '<div class="keyframe-card'+(i===activeKf?' active':'')+'" onclick="activeKf='+i+';renderAll()">'+
+      '<div class="keyframe-header"><h4>'+k.pct+'%</h4><div style="display:flex;gap:.3rem">'+
+      (keyframes.length>2?'<button class="btn btn-sm btn-danger" onclick="event.stopPropagation();removeKeyframe('+i+')">Remove</button>':'')+
+      '</div></div>'+
+      '<div class="slider-row"><label>Percent</label><input type="range" min="0" max="100" value="'+k.pct+'" oninput="updateKf('+i+\',\'pct\',this.value);this.parentElement.parentElement.querySelector(\'h4\').textContent=this.value+\'%\'" onclick="event.stopPropagation()"><span class="val">'+k.pct+'%</span></div>'+
+      '<div class="slider-row"><label>Move X</label><input type="range" min="-200" max="200" value="'+k.translateX+'" oninput="updateKf('+i+',\'translateX\',this.value)" onclick="event.stopPropagation()"><span class="val">'+k.translateX+'px</span></div>'+
+      '<div class="slider-row"><label>Move Y</label><input type="range" min="-200" max="200" value="'+k.translateY+'" oninput="updateKf('+i+',\'translateY\',this.value)" onclick="event.stopPropagation()"><span class="val">'+k.translateY+'px</span></div>'+
+      '<div class="slider-row"><label>Rotate</label><input type="range" min="-360" max="360" value="'+k.rotate+'" oninput="updateKf('+i+',\'rotate\',this.value)" onclick="event.stopPropagation()"><span class="val">'+k.rotate+'&deg;</span></div>'+
+      '<div class="slider-row"><label>Scale</label><input type="range" min="10" max="300" value="'+k.scale+'" oninput="updateKf('+i+',\'scale\',this.value)" onclick="event.stopPropagation()"><span class="val">'+k.scale+'%</span></div>'+
+      '<div class="slider-row"><label>Opacity</label><input type="range" min="0" max="100" value="'+k.opacity+'" oninput="updateKf('+i+',\'opacity\',this.value)" onclick="event.stopPropagation()"><span class="val">'+k.opacity+'%</span></div>'+
+      '<div style="display:flex;align-items:end;gap:.5rem;margin-top:.3rem"><div><label>Color</label><input type="color" value="'+k.bg+'" onchange="updateKf('+i+',\'bg\',this.value)" onclick="event.stopPropagation()"></div></div>'+
+      '</div>';
+  }).join('');
+}
+
+function applyAnimation(css){
+  if(animStyleEl)animStyleEl.remove();
+  animStyleEl=document.createElement('style');
+  animStyleEl.textContent=css;
+  document.head.appendChild(animStyleEl);
+  const el=document.getElementById('previewEl');
+  const name=document.getElementById('animName').value.trim()||'myAnimation';
+  const dur=document.getElementById('animDur').value||'1';
+  const ease=document.getElementById('animEase').value;
+  const iter=document.getElementById('animIter').value;
+  const dir=document.getElementById('animDir').value;
+  const fill=document.getElementById('animFill').value;
+  el.style.animation='none';
+  el.offsetHeight;
+  el.style.animation=name+' '+dur+'s '+ease+' '+iter+' '+dir+' '+fill;
+}
+
+function restartAnimation(){
+  const el=document.getElementById('previewEl');
+  el.style.animation='none';
+  el.offsetHeight;
+  render();
+}
+
+const animPresets={
+  fadeIn:[{pct:0,translateX:0,translateY:0,rotate:0,scale:100,opacity:0,bg:'#ff5f1f'},{pct:100,translateX:0,translateY:0,rotate:0,scale:100,opacity:100,bg:'#ff5f1f'}],
+  fadeOut:[{pct:0,translateX:0,translateY:0,rotate:0,scale:100,opacity:100,bg:'#ff5f1f'},{pct:100,translateX:0,translateY:0,rotate:0,scale:100,opacity:0,bg:'#ff5f1f'}],
+  slideIn:[{pct:0,translateX:-200,translateY:0,rotate:0,scale:100,opacity:0,bg:'#ff5f1f'},{pct:100,translateX:0,translateY:0,rotate:0,scale:100,opacity:100,bg:'#ff5f1f'}],
+  bounce:[{pct:0,translateX:0,translateY:0,rotate:0,scale:100,opacity:100,bg:'#ff5f1f'},{pct:50,translateX:0,translateY:-60,rotate:0,scale:110,opacity:100,bg:'#ff5f1f'},{pct:100,translateX:0,translateY:0,rotate:0,scale:100,opacity:100,bg:'#ff5f1f'}],
+  spin:[{pct:0,translateX:0,translateY:0,rotate:0,scale:100,opacity:100,bg:'#ff5f1f'},{pct:100,translateX:0,translateY:0,rotate:360,scale:100,opacity:100,bg:'#ff5f1f'}],
+  pulse:[{pct:0,translateX:0,translateY:0,rotate:0,scale:100,opacity:100,bg:'#ff5f1f'},{pct:50,translateX:0,translateY:0,rotate:0,scale:120,opacity:80,bg:'#ff5f1f'},{pct:100,translateX:0,translateY:0,rotate:0,scale:100,opacity:100,bg:'#ff5f1f'}],
+  shake:[{pct:0,translateX:0,translateY:0,rotate:0,scale:100,opacity:100,bg:'#ff5f1f'},{pct:25,translateX:-15,translateY:0,rotate:-5,scale:100,opacity:100,bg:'#ff5f1f'},{pct:50,translateX:15,translateY:0,rotate:5,scale:100,opacity:100,bg:'#ff5f1f'},{pct:75,translateX:-10,translateY:0,rotate:-3,scale:100,opacity:100,bg:'#ff5f1f'},{pct:100,translateX:0,translateY:0,rotate:0,scale:100,opacity:100,bg:'#ff5f1f'}],
+  swing:[{pct:0,translateX:0,translateY:0,rotate:0,scale:100,opacity:100,bg:'#ff5f1f'},{pct:25,translateX:0,translateY:0,rotate:15,scale:100,opacity:100,bg:'#ff5f1f'},{pct:50,translateX:0,translateY:0,rotate:-10,scale:100,opacity:100,bg:'#ff5f1f'},{pct:75,translateX:0,translateY:0,rotate:5,scale:100,opacity:100,bg:'#ff5f1f'},{pct:100,translateX:0,translateY:0,rotate:0,scale:100,opacity:100,bg:'#ff5f1f'}]
+};
+
+function loadPreset(name){
+  if(!animPresets[name])return;
+  keyframes=JSON.parse(JSON.stringify(animPresets[name]));
+  activeKf=0;
+  renderAll();
+  flash('Preset: '+name);
+}
+
+function copyCss(){
+  navigator.clipboard.writeText(document.getElementById('cssOutput').textContent).then(()=>flash('CSS copied!'));
+}
+
+function flash(msg){
+  const d=document.createElement('div');
+  d.style.cssText='position:fixed;top:20px;right:20px;background:#ff5f1f;color:#fff;padding:.8rem 1.5rem;border-radius:8px;font-weight:600;z-index:9999;animation:fadeOut 2s forwards';
+  d.textContent=msg;document.body.appendChild(d);setTimeout(()=>d.remove(),2200);
+}
+const st=document.createElement('style');st.textContent='@keyframes fadeOut{0%{opacity:1}70%{opacity:1}100%{opacity:0}}';document.head.appendChild(st);
+
+renderAll();
+</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>

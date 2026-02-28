@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Number Base Converter — Binary, Octal, Decimal, Hex | SPUNK.CODES</title>
+<meta name="description" content="Convert between binary, octal, decimal, hex and any base (2-36). Step-by-step conversion, bitwise operations, ASCII table. Free browser tool.">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP')</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w")</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e0e0e0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+header{background:#111118;border-bottom:2px solid #ff5f1f;padding:1rem 2rem;text-align:center}
+header h1{font-size:1.6rem;color:#ff5f1f}
+header p{color:#999;font-size:.9rem;margin-top:.3rem}
+.container{max-width:1100px;margin:0 auto;padding:1.5rem;flex:1;width:100%}
+.section{background:#111118;border:1px solid #1a1a2e;border-radius:10px;padding:1.5rem;margin-bottom:1.5rem}
+.section h2{color:#ff5f1f;font-size:1.2rem;margin-bottom:1rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem}
+label{display:block;color:#bbb;font-size:.85rem;margin-bottom:.3rem}
+input,select{background:#0a0a0f;color:#e0e0e0;border:1px solid #1a1a2e;border-radius:6px;padding:.5rem .7rem;font-size:.9rem;width:100%}
+input:focus,select:focus{outline:none;border-color:#ff5f1f}
+.btn{background:#ff5f1f;color:#fff;border:none;padding:.55rem 1.1rem;border-radius:6px;cursor:pointer;font-size:.9rem;font-weight:600;transition:background .2s}
+.btn:hover{background:#e54e10}
+.btn-sm{padding:.35rem .7rem;font-size:.8rem}
+.btn-outline{background:transparent;border:1px solid #ff5f1f;color:#ff5f1f}
+.btn-outline:hover{background:#ff5f1f;color:#fff}
+.grid{display:grid;grid-template-columns:1fr auto 1fr;gap:1rem;align-items:end;margin-bottom:1rem}
+.result-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-bottom:1rem}
+.result-box{background:#0d0d14;border:1px solid #1a1a2e;border-radius:8px;padding:1rem;cursor:pointer;transition:border-color .2s}
+.result-box:hover{border-color:#ff5f1f}
+.result-label{color:#ff5f1f;font-size:.8rem;font-weight:600;text-transform:uppercase;margin-bottom:.3rem}
+.result-value{color:#e0e0e0;font-family:monospace;font-size:1.1rem;word-break:break-all}
+.steps{background:#0d0d14;border:1px solid #1a1a2e;border-radius:8px;padding:1rem;font-family:monospace;font-size:.85rem;line-height:1.8;color:#ccc}
+.step-num{color:#ff5f1f;font-weight:700}
+.bitwise-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1rem}
+.bitwise-box{background:#0d0d14;border:1px solid #1a1a2e;border-radius:8px;padding:1rem}
+.bitwise-label{color:#bbb;font-size:.8rem;margin-bottom:.3rem}
+.bitwise-value{color:#e0e0e0;font-family:monospace;font-size:.95rem}
+.ascii-table{width:100%;border-collapse:collapse;font-size:.8rem}
+.ascii-table th,.ascii-table td{border:1px solid #1a1a2e;padding:.3rem .5rem;text-align:center}
+.ascii-table th{background:#1a1a2e;color:#ff5f1f;font-weight:600}
+.ascii-table td{color:#ccc}
+.ascii-table .char{color:#ff5f1f;font-weight:700;font-size:.95rem}
+.swap-btn{background:#1a1a2e;color:#ff5f1f;border:1px solid #ff5f1f;border-radius:50%;width:36px;height:36px;cursor:pointer;font-size:1.2rem;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.swap-btn:hover{background:#ff5f1f;color:#fff}
+.tabs{display:flex;gap:0;margin-bottom:1rem;flex-wrap:wrap}
+.tab{padding:.5rem 1rem;background:#1a1a2e;color:#999;border:1px solid #2a2a3a;cursor:pointer;font-size:.85rem;transition:all .2s}
+.tab:first-child{border-radius:6px 0 0 6px}
+.tab:last-child{border-radius:0 6px 6px 0}
+.tab.active{background:#ff5f1f;color:#fff;border-color:#ff5f1f}
+footer{background:#111118;border-top:1px solid #1a1a2e;text-align:center;padding:1.2rem;color:#666;font-size:.8rem}
+footer a{color:#ff5f1f;margin:0 .3rem}
+@media(max-width:768px){
+  header h1{font-size:1.2rem}
+  .container{padding:1rem}
+  .grid{grid-template-columns:1fr}
+  .result-grid{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+<header>
+<h1>Number Base Converter</h1>
+<p>Convert between binary, octal, decimal, hex, and any base (2-36). Step-by-step. Free tool.</p>
+</header>
+<div class="container">
+  <div class="section">
+    <h2>Convert</h2>
+    <div class="grid">
+      <div>
+        <label>Input Number</label>
+        <input type="text" id="inputNum" placeholder="Enter a number..." oninput="convert()">
+        <label style="margin-top:.5rem">From Base</label>
+        <select id="fromBase" onchange="convert()">
+          <option value="2">Binary (2)</option>
+          <option value="8">Octal (8)</option>
+          <option value="10" selected>Decimal (10)</option>
+          <option value="16">Hexadecimal (16)</option>
+          <option value="custom">Custom...</option>
+        </select>
+        <input type="number" id="customFrom" min="2" max="36" value="2" style="display:none;margin-top:.3rem" onchange="convert()">
+      </div>
+      <div style="display:flex;align-items:center;justify-content:center">
+        <button class="swap-btn" onclick="swapBases()" title="Swap">&#8646;</button>
+      </div>
+      <div>
+        <label>To Base</label>
+        <select id="toBase" onchange="convert()">
+          <option value="2">Binary (2)</option>
+          <option value="8">Octal (8)</option>
+          <option value="10">Decimal (10)</option>
+          <option value="16" selected>Hexadecimal (16)</option>
+          <option value="custom">Custom...</option>
+        </select>
+        <input type="number" id="customTo" min="2" max="36" value="2" style="display:none;margin-top:.3rem" onchange="convert()">
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>All Bases</h2>
+    <div class="result-grid" id="allBases"></div>
+  </div>
+
+  <div class="section">
+    <h2>Step-by-Step</h2>
+    <div class="steps" id="steps">Enter a number above to see conversion steps.</div>
+  </div>
+
+  <div class="section">
+    <h2>Bitwise Operations</h2>
+    <div style="display:flex;gap:1rem;margin-bottom:1rem;flex-wrap:wrap">
+      <div style="flex:1;min-width:150px">
+        <label>Value A (decimal)</label>
+        <input type="number" id="bitA" value="42" oninput="calcBitwise()">
+      </div>
+      <div style="flex:1;min-width:150px">
+        <label>Value B (decimal)</label>
+        <input type="number" id="bitB" value="15" oninput="calcBitwise()">
+      </div>
+    </div>
+    <div class="bitwise-grid" id="bitwiseResults"></div>
+  </div>
+
+  <div class="section">
+    <h2>ASCII Table <button class="btn btn-sm btn-outline" onclick="toggleAscii()">Toggle</button></h2>
+    <div id="asciiTable" style="display:none;overflow-x:auto;max-height:400px;overflow-y:auto"></div>
+  </div>
+</div>
+<footer>
+  <a href="https://spunk.codes">spunk.codes</a> · <a href="https://spunk.bet">spunk.bet</a> · <a href="https://spunk.pics">spunk.pics</a> · <a href="https://spunk.work">spunk.work</a> · <a href="https://spunkart.com">SpunkArt.com</a>
+</footer>
+<script>
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
+
+document.getElementById('fromBase').addEventListener('change',function(){
+  document.getElementById('customFrom').style.display=this.value==='custom'?'block':'none';
+});
+document.getElementById('toBase').addEventListener('change',function(){
+  document.getElementById('customTo').style.display=this.value==='custom'?'block':'none';
+});
+
+function getBase(selectId,customId){
+  const sel=document.getElementById(selectId).value;
+  return sel==='custom'?parseInt(document.getElementById(customId).value)||10:parseInt(sel);
+}
+
+function swapBases(){
+  const from=document.getElementById('fromBase').value;
+  const to=document.getElementById('toBase').value;
+  document.getElementById('fromBase').value=to;
+  document.getElementById('toBase').value=from;
+  convert();
+}
+
+function convert(){
+  const input=document.getElementById('inputNum').value.trim().toUpperCase();
+  if(!input){
+    document.getElementById('allBases').innerHTML='';
+    document.getElementById('steps').innerHTML='Enter a number above to see conversion steps.';
+    return;
+  }
+  const fromBase=getBase('fromBase','customFrom');
+  const toBase=getBase('toBase','customTo');
+
+  // Parse to decimal
+  const decimal=parseInt(input,fromBase);
+  if(isNaN(decimal)){
+    document.getElementById('steps').innerHTML='<span style="color:#e74c3c">Invalid number for base '+fromBase+'</span>';
+    return;
+  }
+
+  // All bases
+  const bases=[
+    {name:'Binary',base:2,prefix:'0b'},
+    {name:'Octal',base:8,prefix:'0o'},
+    {name:'Decimal',base:10,prefix:''},
+    {name:'Hexadecimal',base:16,prefix:'0x'},
+    {name:'Base 32',base:32,prefix:''},
+    {name:'Base 36',base:36,prefix:''}
+  ];
+  const allC=document.getElementById('allBases');
+  allC.innerHTML='';
+  bases.forEach(b=>{
+    const val=decimal.toString(b.base).toUpperCase();
+    allC.innerHTML+=`<div class="result-box" onclick="navigator.clipboard.writeText('${val}');flash('Copied!')">
+      <div class="result-label">${esc(b.name)} (${b.base})</div>
+      <div class="result-value">${b.prefix}${esc(val)}</div>
+    </div>`;
+  });
+
+  // Steps
+  generateSteps(input,fromBase,toBase,decimal);
+}
+
+function generateSteps(input,fromBase,toBase,decimal){
+  const c=document.getElementById('steps');
+  let html='';
+
+  // Step 1: to decimal
+  html+=`<div><span class="step-num">Step 1:</span> Convert ${esc(input)} from base ${fromBase} to decimal</div>`;
+  if(fromBase!==10){
+    const digits=input.split('').reverse();
+    let parts=[];
+    digits.forEach((d,i)=>{
+      const val=parseInt(d,fromBase);
+      parts.push(`${d}(${val}) x ${fromBase}<sup>${i}</sup> = ${val*Math.pow(fromBase,i)}`);
+    });
+    html+=`<div style="margin-left:1rem;color:#999">${parts.reverse().join(' + ')}</div>`;
+    html+=`<div style="margin-left:1rem">= <strong style="color:#ff5f1f">${decimal}</strong> (decimal)</div><br>`;
+  }else{
+    html+=`<div style="margin-left:1rem">Already decimal: <strong style="color:#ff5f1f">${decimal}</strong></div><br>`;
+  }
+
+  // Step 2: to target
+  html+=`<div><span class="step-num">Step 2:</span> Convert ${decimal} (decimal) to base ${toBase}</div>`;
+  if(toBase!==10){
+    let num=decimal;
+    const remainders=[];
+    while(num>0){
+      const r=num%toBase;
+      remainders.push({quotient:Math.floor(num/toBase),remainder:r,digit:r.toString(toBase).toUpperCase()});
+      num=Math.floor(num/toBase);
+    }
+    if(remainders.length){
+      let orig=decimal;
+      remainders.forEach(r=>{
+        html+=`<div style="margin-left:1rem;color:#999">${orig} / ${toBase} = ${r.quotient} remainder <strong>${r.digit}</strong></div>`;
+        orig=r.quotient;
+      });
+      const result=remainders.map(r=>r.digit).reverse().join('');
+      html+=`<div style="margin-left:1rem">Read remainders bottom-to-top: <strong style="color:#ff5f1f">${result}</strong></div>`;
+    }
+  }else{
+    html+=`<div style="margin-left:1rem">Already decimal: <strong style="color:#ff5f1f">${decimal}</strong></div>`;
+  }
+  c.innerHTML=html;
+}
+
+function calcBitwise(){
+  const a=parseInt(document.getElementById('bitA').value)||0;
+  const b=parseInt(document.getElementById('bitB').value)||0;
+  const ops=[
+    {name:'A AND B',val:a&b,sym:'&'},
+    {name:'A OR B',val:a|b,sym:'|'},
+    {name:'A XOR B',val:a^b,sym:'^'},
+    {name:'NOT A',val:~a&0xFF,sym:'~'},
+    {name:'A << 1',val:a<<1,sym:'<<'},
+    {name:'A >> 1',val:a>>1,sym:'>>'}
+  ];
+  const c=document.getElementById('bitwiseResults');
+  c.innerHTML='';
+  // Show binary representations first
+  c.innerHTML+=`<div class="bitwise-box"><div class="bitwise-label">A in binary</div><div class="bitwise-value">${(a>>>0).toString(2).padStart(8,'0')}</div></div>`;
+  c.innerHTML+=`<div class="bitwise-box"><div class="bitwise-label">B in binary</div><div class="bitwise-value">${(b>>>0).toString(2).padStart(8,'0')}</div></div>`;
+  ops.forEach(op=>{
+    c.innerHTML+=`<div class="bitwise-box"><div class="bitwise-label">${esc(op.name)} (${op.sym})</div><div class="bitwise-value">${op.val} = ${(op.val>>>0).toString(2).padStart(8,'0')}</div></div>`;
+  });
+}
+
+let asciiVisible=false;
+function toggleAscii(){
+  asciiVisible=!asciiVisible;
+  const c=document.getElementById('asciiTable');
+  c.style.display=asciiVisible?'block':'none';
+  if(asciiVisible&&!c.innerHTML){
+    let html='<table class="ascii-table"><thead><tr><th>Dec</th><th>Hex</th><th>Oct</th><th>Bin</th><th>Char</th></tr></thead><tbody>';
+    for(let i=32;i<127;i++){
+      const ch=i===32?'SP':String.fromCharCode(i);
+      html+=`<tr><td>${i}</td><td>${i.toString(16).toUpperCase()}</td><td>${i.toString(8)}</td><td>${i.toString(2).padStart(7,'0')}</td><td class="char">${esc(ch)}</td></tr>`;
+    }
+    html+='</tbody></table>';
+    c.innerHTML=html;
+  }
+}
+
+function flash(msg){
+  const d=document.createElement('div');
+  d.style.cssText='position:fixed;top:20px;right:20px;background:#ff5f1f;color:#fff;padding:.8rem 1.5rem;border-radius:8px;font-weight:600;z-index:9999;animation:fadeOut 2s forwards';
+  d.textContent=msg;document.body.appendChild(d);setTimeout(()=>d.remove(),2200);
+}
+const st=document.createElement('style');
+st.textContent='@keyframes fadeOut{0%{opacity:1}70%{opacity:1}100%{opacity:0}}';
+document.head.appendChild(st);
+
+calcBitwise();
+</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>
