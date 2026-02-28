@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Calorie Counter | SPUNK.CODES</title>
+<meta name="description" content="Track daily calories, search foods, set calorie goals, save meals, and view weekly summary charts. Free calorie counter tool with localStorage — no signup required.">
+<meta property="og:title" content="Calorie Counter | SPUNK.CODES">
+<meta property="og:description" content="Track daily calories, search foods, set goals, save meals, and view weekly charts. Free, no signup.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://spunk.codes/exclusive/calorie-counter">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/calorie-counter">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e8e8f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+header{background:#111118;border-bottom:2px solid #ff5f1f;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;position:sticky;top:0;z-index:100}
+header h1{font-size:1.4rem;color:#ff5f1f}
+header .back{color:#e8e8f0;font-size:.9rem}
+main{flex:1;max-width:800px;width:100%;margin:0 auto;padding:24px 16px}
+.panel{background:#111118;border:1px solid #2a2a3a;border-radius:10px;padding:20px;margin-bottom:20px}
+.panel h2{font-size:1.1rem;color:#ff5f1f;margin-bottom:14px}
+button{background:#ff5f1f;color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:.9rem;font-weight:600;transition:background .2s}
+button:hover{background:#e8520e}
+button.secondary{background:#2a2a3a;color:#e8e8f0}button.secondary:hover{background:#3a3a4a}
+button.danger{background:#cc2233;color:#fff}button.danger:hover{background:#aa1122}
+input,select{background:#16161e;border:1px solid #2a2a3a;color:#e8e8f0;padding:8px 12px;border-radius:6px;font-size:.9rem;width:100%}
+input:focus,select:focus{outline:none;border-color:#ff5f1f}
+.input-group{margin-bottom:12px}
+.input-group label{font-size:.85rem;color:#888;margin-bottom:6px;display:block}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end}
+.row .input-group{flex:1;min-width:120px}
+.goal-bar-wrap{margin:14px 0}
+.goal-bar{height:28px;background:#1a1a2a;border-radius:14px;overflow:hidden;position:relative}
+.goal-fill{height:100%;border-radius:14px;transition:width .4s ease;display:flex;align-items:center;padding:0 12px;font-size:.8rem;font-weight:700;color:#000;min-width:fit-content}
+.goal-label{display:flex;justify-content:space-between;font-size:.8rem;color:#888;margin-top:4px}
+.food-results{max-height:200px;overflow-y:auto;margin:10px 0}
+.food-item{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;border:1px solid #2a2a3a;border-radius:8px;margin-bottom:6px;background:#16161e;cursor:pointer;transition:border-color .2s}
+.food-item:hover{border-color:#ff5f1f}
+.food-item .name{font-weight:600;font-size:.9rem}
+.food-item .cals{color:#ff5f1f;font-weight:700;font-size:.9rem}
+.log-item{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;border-bottom:1px solid #1e1e2e;font-size:.85rem}
+.log-item:last-child{border-bottom:none}
+.log-item .info{display:flex;gap:10px;align-items:center}
+.log-item .cals{color:#ff5f1f;font-weight:700}
+.log-item .meal-type{padding:2px 8px;border-radius:10px;font-size:.7rem;font-weight:700;text-transform:uppercase}
+.meal-breakfast{background:rgba(255,159,31,.15);color:#ff9f1f}
+.meal-lunch{background:rgba(88,166,255,.15);color:#58a6ff}
+.meal-dinner{background:rgba(168,85,247,.15);color:#a855f7}
+.meal-snack{background:rgba(57,211,83,.15);color:#39d353}
+.del-btn{background:none;border:none;color:#cc2233;cursor:pointer;font-size:1rem;padding:2px 6px}
+.del-btn:hover{color:#ff4455}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}
+.stat-card{background:#16161e;border:1px solid #2a2a3a;border-radius:10px;padding:14px;text-align:center}
+.stat-card .val{font-size:1.6rem;color:#ff5f1f;font-weight:700}
+.stat-card .lbl{font-size:.7rem;color:#888;margin-top:3px;text-transform:uppercase}
+.chart-wrap{position:relative;height:200px;margin:10px 0}
+canvas{width:100%!important;height:100%!important}
+.saved-meals{max-height:200px;overflow-y:auto}
+.saved-meal{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;border:1px solid #2a2a3a;border-radius:8px;margin-bottom:6px;background:#16161e}
+.saved-meal .name{font-weight:600;font-size:.85rem}
+.saved-meal .cals{color:#ff5f1f;font-weight:700;font-size:.85rem}
+.share-btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.share-btns button{font-size:.8rem;padding:6px 14px}
+.toast{position:fixed;bottom:20px;right:20px;background:#39d353;color:#000;padding:10px 20px;border-radius:8px;font-weight:700;font-size:.85rem;z-index:9999;transform:translateY(80px);opacity:0;transition:all .3s;pointer-events:none}
+.toast.show{transform:translateY(0);opacity:1}
+.empty{text-align:center;color:#555;padding:20px;font-size:.9rem}
+.tabs{display:flex;gap:6px;margin-bottom:14px}
+.tabs button{flex:1;padding:8px;border-radius:8px;font-size:.8rem}
+.tabs button.active{background:#ff5f1f;color:#fff}
+.tabs button:not(.active){background:#2a2a3a;color:#e8e8f0}
+footer{text-align:center;padding:20px;color:#555;font-size:.8rem;border-top:1px solid #1a1a2a;margin-top:auto}
+footer a{color:#ff5f1f;margin:0 4px}
+@media(max-width:700px){
+.stats-grid{grid-template-columns:1fr 1fr}
+.row{flex-direction:column}
+.row .input-group{min-width:100%}
+header h1{font-size:1.1rem}
+}
+</style>
+</head>
+<body>
+<header>
+<h1>Calorie Counter</h1>
+<a href="https://spunk.codes" class="back">spunk.codes</a>
+</header>
+<main>
+
+<div class="panel">
+<h2>Daily Goal</h2>
+<div class="row">
+<div class="input-group"><label>Calorie Goal</label><input type="number" id="goalInput" placeholder="2000" min="500" max="10000"></div>
+<div class="input-group"><label>&nbsp;</label><button onclick="setGoal()">Set Goal</button></div>
+</div>
+<div class="goal-bar-wrap">
+<div class="goal-bar"><div class="goal-fill" id="goalFill" style="width:0%">0%</div></div>
+<div class="goal-label"><span id="goalEaten">0 eaten</span><span id="goalRemaining">0 remaining</span></div>
+</div>
+<div class="stats-grid">
+<div class="stat-card"><div class="val" id="statCals">0</div><div class="lbl">Calories</div></div>
+<div class="stat-card"><div class="val" id="statProtein">0g</div><div class="lbl">Protein</div></div>
+<div class="stat-card"><div class="val" id="statCarbs">0g</div><div class="lbl">Carbs</div></div>
+<div class="stat-card"><div class="val" id="statFat">0g</div><div class="lbl">Fat</div></div>
+</div>
+</div>
+
+<div class="panel">
+<h2>Search &amp; Add Food</h2>
+<div class="tabs" id="mealTabs">
+<button class="active" onclick="setMealType('breakfast')">Breakfast</button>
+<button onclick="setMealType('lunch')">Lunch</button>
+<button onclick="setMealType('dinner')">Dinner</button>
+<button onclick="setMealType('snack')">Snack</button>
+</div>
+<div class="input-group"><input type="text" id="searchInput" placeholder="Search food (e.g. chicken breast, rice, apple...)" oninput="searchFood()"></div>
+<div class="food-results" id="foodResults"></div>
+<p style="font-size:.75rem;color:#555;margin-top:6px">Or add custom food below:</p>
+<div class="row" style="margin-top:8px">
+<div class="input-group"><label>Food Name</label><input type="text" id="customName" placeholder="e.g. Protein Shake"></div>
+<div class="input-group"><label>Calories</label><input type="number" id="customCals" placeholder="250" min="0"></div>
+<div class="input-group"><label>Protein (g)</label><input type="number" id="customProtein" placeholder="30" min="0"></div>
+<div class="input-group"><label>Carbs (g)</label><input type="number" id="customCarbs" placeholder="10" min="0"></div>
+<div class="input-group"><label>Fat (g)</label><input type="number" id="customFat" placeholder="5" min="0"></div>
+</div>
+<div class="row" style="margin-top:8px;gap:8px">
+<button onclick="addCustomFood()">Add Food</button>
+<button class="secondary" onclick="saveAsMeal()">Save as Meal</button>
+</div>
+</div>
+
+<div class="panel">
+<h2>Today's Log</h2>
+<div id="todayLog"></div>
+<div style="margin-top:10px;display:flex;gap:8px">
+<button class="danger" onclick="clearToday()">Clear Today</button>
+</div>
+</div>
+
+<div class="panel">
+<h2>Saved Meals</h2>
+<div class="saved-meals" id="savedMeals"></div>
+</div>
+
+<div class="panel">
+<h2>Weekly Summary</h2>
+<div class="chart-wrap"><canvas id="weeklyChart"></canvas></div>
+<div class="stats-grid" style="margin-top:10px">
+<div class="stat-card"><div class="val" id="weekAvg">0</div><div class="lbl">Avg/Day</div></div>
+<div class="stat-card"><div class="val" id="weekTotal">0</div><div class="lbl">Week Total</div></div>
+<div class="stat-card"><div class="val" id="weekHigh">0</div><div class="lbl">Highest</div></div>
+<div class="stat-card"><div class="val" id="weekLow">0</div><div class="lbl">Lowest</div></div>
+</div>
+</div>
+
+<div class="panel">
+<h2>Share</h2>
+<p style="font-size:.85rem;color:#888;margin-bottom:10px">Share your calorie tracking progress!</p>
+<div class="share-btns">
+<button onclick="shareX()">Share on X</button>
+<button class="secondary" onclick="shareReddit()">Reddit</button>
+<button class="secondary" onclick="shareEmail()">Email</button>
+</div>
+</div>
+
+</main>
+
+<div class="toast" id="toast"></div>
+
+<footer>
+<a href="https://spunk.codes">spunk.codes</a> |
+<a href="https://spunk.bet">spunk.bet</a> |
+<a href="https://spunk.pics">spunk.pics</a> |
+<a href="https://spunk.work">spunk.work</a> |
+<a href="https://spunkart.com">spunkart.com</a>
+<br>&copy; 2026 SPUNK.CODES
+</footer>
+
+<script>
+function esc(s){var d=document.createElement('div');d.appendChild(document.createTextNode(s));return d.innerHTML}
+
+var STORAGE='spunkcodes_calories';
+var data={goal:2000,log:{},meals:[]};
+var currentMealType='breakfast';
+var today=new Date().toISOString().split('T')[0];
+
+function load(){try{var d=JSON.parse(localStorage.getItem(STORAGE));if(d){data=d;if(!data.meals)data.meals=[];}}catch(e){}}
+function save(){try{localStorage.setItem(STORAGE,JSON.stringify(data))}catch(e){}}
+
+/* Food database - common foods with approximate calories per serving */
+var FOODS=[
+{name:'Chicken Breast (4oz)',cal:187,protein:35,carbs:0,fat:4},
+{name:'Salmon (4oz)',cal:233,protein:25,carbs:0,fat:14},
+{name:'Egg (large)',cal:72,protein:6,carbs:0,fat:5},
+{name:'Egg Whites (3)',cal:51,protein:11,carbs:0,fat:0},
+{name:'Ground Beef 90% (4oz)',cal:200,protein:22,carbs:0,fat:11},
+{name:'Turkey Breast (4oz)',cal:153,protein:34,carbs:0,fat:1},
+{name:'Tuna Canned (3oz)',cal:100,protein:22,carbs:0,fat:1},
+{name:'Shrimp (4oz)',cal:120,protein:23,carbs:1,fat:2},
+{name:'Tofu Firm (4oz)',cal:88,protein:10,carbs:2,fat:5},
+{name:'Greek Yogurt (1 cup)',cal:130,protein:22,carbs:8,fat:0},
+{name:'Cottage Cheese (1 cup)',cal:206,protein:28,carbs:8,fat:9},
+{name:'Whey Protein Scoop',cal:120,protein:24,carbs:3,fat:1},
+{name:'White Rice (1 cup cooked)',cal:206,protein:4,carbs:45,fat:0},
+{name:'Brown Rice (1 cup cooked)',cal:216,protein:5,carbs:45,fat:2},
+{name:'Pasta (1 cup cooked)',cal:220,protein:8,carbs:43,fat:1},
+{name:'Bread Slice (white)',cal:79,protein:3,carbs:15,fat:1},
+{name:'Bread Slice (whole wheat)',cal:81,protein:4,carbs:14,fat:1},
+{name:'Oatmeal (1 cup cooked)',cal:154,protein:5,carbs:27,fat:3},
+{name:'Sweet Potato (medium)',cal:103,protein:2,carbs:24,fat:0},
+{name:'Potato (medium baked)',cal:161,protein:4,carbs:37,fat:0},
+{name:'Quinoa (1 cup cooked)',cal:222,protein:8,carbs:39,fat:4},
+{name:'Banana (medium)',cal:105,protein:1,carbs:27,fat:0},
+{name:'Apple (medium)',cal:95,protein:0,carbs:25,fat:0},
+{name:'Orange (medium)',cal:62,protein:1,carbs:15,fat:0},
+{name:'Blueberries (1 cup)',cal:84,protein:1,carbs:21,fat:0},
+{name:'Strawberries (1 cup)',cal:49,protein:1,carbs:12,fat:0},
+{name:'Avocado (half)',cal:161,protein:2,carbs:9,fat:15},
+{name:'Broccoli (1 cup)',cal:55,protein:4,carbs:11,fat:1},
+{name:'Spinach (1 cup raw)',cal:7,protein:1,carbs:1,fat:0},
+{name:'Mixed Salad (2 cups)',cal:20,protein:2,carbs:4,fat:0},
+{name:'Carrots (1 cup)',cal:52,protein:1,carbs:12,fat:0},
+{name:'Almonds (1oz, 23 nuts)',cal:164,protein:6,carbs:6,fat:14},
+{name:'Peanut Butter (2 tbsp)',cal:190,protein:7,carbs:7,fat:16},
+{name:'Olive Oil (1 tbsp)',cal:119,protein:0,carbs:0,fat:14},
+{name:'Butter (1 tbsp)',cal:102,protein:0,carbs:0,fat:12},
+{name:'Cheese Cheddar (1oz)',cal:113,protein:7,carbs:0,fat:9},
+{name:'Milk Whole (1 cup)',cal:149,protein:8,carbs:12,fat:8},
+{name:'Milk 2% (1 cup)',cal:122,protein:8,carbs:12,fat:5},
+{name:'Almond Milk (1 cup)',cal:30,protein:1,carbs:1,fat:3},
+{name:'Orange Juice (1 cup)',cal:112,protein:2,carbs:26,fat:0},
+{name:'Coffee Black',cal:2,protein:0,carbs:0,fat:0},
+{name:'Coca-Cola (12oz)',cal:140,protein:0,carbs:39,fat:0},
+{name:'Beer (12oz)',cal:153,protein:2,carbs:13,fat:0},
+{name:'Wine Red (5oz)',cal:125,protein:0,carbs:4,fat:0},
+{name:'Pizza Slice (cheese)',cal:272,protein:12,carbs:34,fat:10},
+{name:'Hamburger (single patty)',cal:354,protein:20,carbs:29,fat:17},
+{name:'French Fries (medium)',cal:365,protein:4,carbs:48,fat:17},
+{name:'Ice Cream (1/2 cup)',cal:137,protein:2,carbs:18,fat:7},
+{name:'Chocolate Bar (1.5oz)',cal:235,protein:3,carbs:26,fat:13},
+{name:'Protein Bar (avg)',cal:210,protein:20,carbs:22,fat:8},
+{name:'Granola Bar',cal:190,protein:3,carbs:29,fat:7},
+{name:'Trail Mix (1/4 cup)',cal:175,protein:5,carbs:15,fat:11},
+{name:'Chips (1oz, ~15 chips)',cal:152,protein:2,carbs:15,fat:10},
+{name:'Popcorn (3 cups air-popped)',cal:93,protein:3,carbs:19,fat:1},
+{name:'Tortilla Wrap (large)',cal:210,protein:5,carbs:36,fat:5},
+{name:'Black Beans (1/2 cup)',cal:114,protein:8,carbs:20,fat:0},
+{name:'Lentils (1/2 cup cooked)',cal:115,protein:9,carbs:20,fat:0},
+{name:'Hummus (2 tbsp)',cal:70,protein:2,carbs:6,fat:5},
+{name:'Bacon (2 slices)',cal:86,protein:6,carbs:0,fat:7},
+{name:'Sausage Link',cal:85,protein:4,carbs:1,fat:7}
+];
+
+function searchFood(){
+  var q=document.getElementById('searchInput').value.trim().toLowerCase();
+  var el=document.getElementById('foodResults');
+  if(q.length<2){el.innerHTML='';return;}
+  var matches=FOODS.filter(function(f){return f.name.toLowerCase().indexOf(q)!==-1}).slice(0,10);
+  if(matches.length===0){el.innerHTML='<div class="empty">No matches found. Add custom food below.</div>';return;}
+  var html='';
+  matches.forEach(function(f,i){
+    html+='<div class="food-item" onclick="addFood('+i+',\''+q.replace(/'/g,"\\'")+'\')">';
+    html+='<div><span class="name">'+esc(f.name)+'</span><br><span style="font-size:.7rem;color:#888">P:'+f.protein+'g C:'+f.carbs+'g F:'+f.fat+'g</span></div>';
+    html+='<span class="cals">'+f.cal+' cal</span>';
+    html+='</div>';
+  });
+  el.innerHTML=html;
+}
+
+function addFood(idx,query){
+  var matches=FOODS.filter(function(f){return f.name.toLowerCase().indexOf(query)!==-1}).slice(0,10);
+  var f=matches[idx];
+  if(!f)return;
+  addEntry(f.name,f.cal,f.protein,f.carbs,f.fat);
+}
+
+function addCustomFood(){
+  var name=document.getElementById('customName').value.trim();
+  var cal=parseInt(document.getElementById('customCals').value)||0;
+  var protein=parseInt(document.getElementById('customProtein').value)||0;
+  var carbs=parseInt(document.getElementById('customCarbs').value)||0;
+  var fat=parseInt(document.getElementById('customFat').value)||0;
+  if(!name){toast('Enter a food name');return;}
+  if(cal<=0){toast('Enter calories');return;}
+  addEntry(name,cal,protein,carbs,fat);
+  document.getElementById('customName').value='';
+  document.getElementById('customCals').value='';
+  document.getElementById('customProtein').value='';
+  document.getElementById('customCarbs').value='';
+  document.getElementById('customFat').value='';
+}
+
+function addEntry(name,cal,protein,carbs,fat){
+  if(!data.log[today])data.log[today]=[];
+  data.log[today].push({name:name,cal:cal,protein:protein||0,carbs:carbs||0,fat:fat||0,meal:currentMealType,time:new Date().toLocaleTimeString()});
+  save();
+  render();
+  document.getElementById('searchInput').value='';
+  document.getElementById('foodResults').innerHTML='';
+  toast(esc(name)+' added ('+cal+' cal)');
+}
+
+function removeEntry(idx){
+  if(!data.log[today])return;
+  data.log[today].splice(idx,1);
+  save();
+  render();
+}
+
+function clearToday(){
+  if(!confirm('Clear all entries for today?'))return;
+  data.log[today]=[];
+  save();
+  render();
+  toast('Today\'s log cleared');
+}
+
+function setGoal(){
+  var g=parseInt(document.getElementById('goalInput').value)||0;
+  if(g<100){toast('Set a goal of at least 100');return;}
+  data.goal=g;
+  save();
+  render();
+  toast('Goal set to '+g+' calories');
+}
+
+function setMealType(type){
+  currentMealType=type;
+  var btns=document.getElementById('mealTabs').children;
+  for(var i=0;i<btns.length;i++){
+    btns[i].className=btns[i].textContent.toLowerCase()===type?'active':'';
+  }
+}
+
+function saveAsMeal(){
+  var name=document.getElementById('customName').value.trim();
+  var cal=parseInt(document.getElementById('customCals').value)||0;
+  var protein=parseInt(document.getElementById('customProtein').value)||0;
+  var carbs=parseInt(document.getElementById('customCarbs').value)||0;
+  var fat=parseInt(document.getElementById('customFat').value)||0;
+  if(!name||cal<=0){toast('Fill in name and calories first');return;}
+  data.meals.push({name:name,cal:cal,protein:protein,carbs:carbs,fat:fat});
+  save();
+  renderSavedMeals();
+  toast('Meal "'+esc(name)+'" saved');
+}
+
+function deleteMeal(idx){
+  data.meals.splice(idx,1);
+  save();
+  renderSavedMeals();
+}
+
+function quickAddMeal(idx){
+  var m=data.meals[idx];
+  if(!m)return;
+  addEntry(m.name,m.cal,m.protein,m.carbs,m.fat);
+}
+
+function render(){
+  var entries=data.log[today]||[];
+  var totalCal=0,totalP=0,totalC=0,totalF=0;
+  entries.forEach(function(e){totalCal+=e.cal;totalP+=e.protein;totalC+=e.carbs;totalF+=e.fat;});
+
+  /* Goal bar */
+  document.getElementById('goalInput').placeholder=data.goal;
+  var pct=data.goal>0?Math.min(Math.round((totalCal/data.goal)*100),150):0;
+  var fill=document.getElementById('goalFill');
+  fill.style.width=Math.min(pct,100)+'%';
+  fill.style.background=pct>100?'#cc2233':(pct>80?'#ff9f1f':'#ff5f1f');
+  fill.textContent=pct+'%';
+  document.getElementById('goalEaten').textContent=totalCal+' eaten';
+  document.getElementById('goalRemaining').textContent=Math.max(0,data.goal-totalCal)+' remaining';
+
+  /* Stats */
+  document.getElementById('statCals').textContent=totalCal;
+  document.getElementById('statProtein').textContent=totalP+'g';
+  document.getElementById('statCarbs').textContent=totalC+'g';
+  document.getElementById('statFat').textContent=totalF+'g';
+
+  /* Today log */
+  var logEl=document.getElementById('todayLog');
+  if(entries.length===0){logEl.innerHTML='<div class="empty">No food logged today. Search or add food above.</div>';
+  }else{
+    var html='';
+    entries.forEach(function(e,i){
+      html+='<div class="log-item">';
+      html+='<div class="info"><span class="meal-type meal-'+e.meal+'">'+esc(e.meal)+'</span><span>'+esc(e.name)+'</span></div>';
+      html+='<div class="info"><span class="cals">'+e.cal+' cal</span><button class="del-btn" onclick="removeEntry('+i+')" title="Remove">&#10005;</button></div>';
+      html+='</div>';
+    });
+    logEl.innerHTML=html;
+  }
+
+  renderSavedMeals();
+  renderWeeklyChart();
+}
+
+function renderSavedMeals(){
+  var el=document.getElementById('savedMeals');
+  if(data.meals.length===0){el.innerHTML='<div class="empty">No saved meals yet. Create one from the add food section.</div>';return;}
+  var html='';
+  data.meals.forEach(function(m,i){
+    html+='<div class="saved-meal">';
+    html+='<div><span class="name">'+esc(m.name)+'</span><br><span style="font-size:.7rem;color:#888">P:'+m.protein+'g C:'+m.carbs+'g F:'+m.fat+'g</span></div>';
+    html+='<div style="display:flex;align-items:center;gap:6px"><span class="cals">'+m.cal+' cal</span>';
+    html+='<button onclick="quickAddMeal('+i+')" style="padding:4px 10px;font-size:.75rem">+ Add</button>';
+    html+='<button class="del-btn" onclick="deleteMeal('+i+')">&#10005;</button></div>';
+    html+='</div>';
+  });
+  el.innerHTML=html;
+}
+
+function renderWeeklyChart(){
+  var canvas=document.getElementById('weeklyChart');
+  var ctx=canvas.getContext('2d');
+  var rect=canvas.parentElement.getBoundingClientRect();
+  canvas.width=rect.width*2;canvas.height=rect.height*2;
+  ctx.scale(2,2);
+  var w=rect.width,h=rect.height;
+  ctx.clearRect(0,0,w,h);
+
+  var days=[];
+  var labels=[];
+  for(var i=6;i>=0;i--){
+    var d=new Date();d.setDate(d.getDate()-i);
+    var key=d.toISOString().split('T')[0];
+    var entries=data.log[key]||[];
+    var total=entries.reduce(function(s,e){return s+e.cal},0);
+    days.push(total);
+    labels.push(d.toLocaleDateString('en-US',{weekday:'short'}));
+  }
+
+  var max=Math.max.apply(null,days.concat([data.goal,100]));
+  var pad={top:20,right:10,bottom:30,left:45};
+  var cw=w-pad.left-pad.right;
+  var ch=h-pad.top-pad.bottom;
+  var barW=cw/7*0.6;
+  var gap=cw/7;
+
+  /* Grid lines */
+  ctx.strokeStyle='#1e1e2e';ctx.lineWidth=1;
+  for(var g=0;g<=4;g++){
+    var gy=pad.top+ch-(ch*g/4);
+    ctx.beginPath();ctx.moveTo(pad.left,gy);ctx.lineTo(w-pad.right,gy);ctx.stroke();
+    ctx.fillStyle='#555';ctx.font='10px sans-serif';ctx.textAlign='right';
+    ctx.fillText(Math.round(max*g/4),pad.left-5,gy+3);
+  }
+
+  /* Goal line */
+  if(data.goal>0){
+    var gy=pad.top+ch-(ch*data.goal/max);
+    ctx.strokeStyle='rgba(255,95,31,0.4)';ctx.setLineDash([5,5]);
+    ctx.beginPath();ctx.moveTo(pad.left,gy);ctx.lineTo(w-pad.right,gy);ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle='#ff5f1f';ctx.font='9px sans-serif';ctx.textAlign='left';
+    ctx.fillText('Goal: '+data.goal,pad.left+2,gy-4);
+  }
+
+  /* Bars */
+  days.forEach(function(val,i){
+    var bh=max>0?ch*val/max:0;
+    var bx=pad.left+gap*i+(gap-barW)/2;
+    var by=pad.top+ch-bh;
+    var over=val>data.goal;
+    ctx.fillStyle=over?'#cc2233':'#ff5f1f';
+    ctx.beginPath();
+    var r=4;
+    ctx.moveTo(bx+r,by);ctx.lineTo(bx+barW-r,by);ctx.quadraticCurveTo(bx+barW,by,bx+barW,by+r);
+    ctx.lineTo(bx+barW,pad.top+ch);ctx.lineTo(bx,pad.top+ch);ctx.lineTo(bx,by+r);ctx.quadraticCurveTo(bx,by,bx+r,by);
+    ctx.fill();
+
+    /* Value on top */
+    if(val>0){
+      ctx.fillStyle='#e8e8f0';ctx.font='bold 10px sans-serif';ctx.textAlign='center';
+      ctx.fillText(val,bx+barW/2,by-5);
+    }
+
+    /* Day label */
+    ctx.fillStyle=i===6?'#ff5f1f':'#888';ctx.font='10px sans-serif';ctx.textAlign='center';
+    ctx.fillText(labels[i],bx+barW/2,h-8);
+  });
+
+  /* Weekly stats */
+  var nonZero=days.filter(function(d){return d>0});
+  var total=days.reduce(function(a,b){return a+b},0);
+  var avg=nonZero.length>0?Math.round(total/nonZero.length):0;
+  var high=Math.max.apply(null,days);
+  var low=nonZero.length>0?Math.min.apply(null,nonZero):0;
+  document.getElementById('weekAvg').textContent=avg;
+  document.getElementById('weekTotal').textContent=total.toLocaleString();
+  document.getElementById('weekHigh').textContent=high;
+  document.getElementById('weekLow').textContent=low;
+}
+
+function toast(msg){
+  var el=document.getElementById('toast');
+  el.textContent=msg;el.classList.add('show');
+  setTimeout(function(){el.classList.remove('show')},2000);
+}
+
+function shareX(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Tracking my calories with this free tool on spunk.codes! @SpunkArt13')+'&url='+encodeURIComponent('https://spunk.codes/exclusive/calorie-counter'),'_blank')}
+function shareReddit(){window.open('https://www.reddit.com/submit?url='+encodeURIComponent('https://spunk.codes/exclusive/calorie-counter')+'&title='+encodeURIComponent('Free Calorie Counter - track daily calories, macros, save meals, weekly charts'),'_blank')}
+function shareEmail(){window.location.href='mailto:?subject='+encodeURIComponent('Free Calorie Counter Tool')+'&body='+encodeURIComponent('Track your daily calories with this free tool: https://spunk.codes/exclusive/calorie-counter')}
+
+load();
+render();
+window.addEventListener('resize',renderWeeklyChart);
+</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>
