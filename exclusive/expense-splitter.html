@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Expense Splitter | SPUNK.CODES</title>
+<meta name="description" content="Split expenses among friends for dinners, trips, and shared bills. Track who owes whom, settle debts simply. All data saved locally. Free, no signup.">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP')</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w")</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e8e8f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+header{background:#111118;border-bottom:2px solid #ff5f1f;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;position:sticky;top:0;z-index:100}
+header h1{font-size:1.4rem;color:#ff5f1f}
+header .back{color:#e8e8f0;font-size:.9rem}
+main{flex:1;max-width:700px;width:100%;margin:0 auto;padding:24px 16px}
+.panel{background:#111118;border:1px solid #2a2a3a;border-radius:10px;padding:20px;margin-bottom:20px}
+.panel h2{font-size:1.1rem;color:#ff5f1f;margin-bottom:14px}
+button{background:#ff5f1f;color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:.9rem;font-weight:600;transition:background .2s}
+button:hover{background:#e8520e}
+button.secondary{background:#2a2a3a;color:#e8e8f0}button.secondary:hover{background:#3a3a4a}
+button.danger{background:#cc2233}button.danger:hover{background:#aa1122}
+input,select{background:#16161e;border:1px solid #2a2a3a;color:#e8e8f0;padding:8px 12px;border-radius:6px;font-size:.9rem;width:100%;font-family:inherit}
+.input-group{margin-bottom:14px}
+.input-group label{font-size:.85rem;color:#888;margin-bottom:6px;display:block}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.person-tag{display:inline-flex;align-items:center;gap:6px;background:#2a2a3a;padding:6px 12px;border-radius:20px;margin:4px;font-size:.85rem}
+.person-tag .remove{cursor:pointer;color:#cc2233;font-weight:700;font-size:1rem}
+.people-list{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:12px;min-height:36px}
+.expense-item{background:#16161e;border:1px solid #2a2a3a;border-radius:8px;padding:14px;margin-bottom:10px;position:relative}
+.expense-item .remove-btn{position:absolute;top:8px;right:8px;background:#cc2233;color:#fff;border:none;width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;padding:0}
+.expense-item .desc{font-weight:600;font-size:1rem}
+.expense-item .meta{font-size:.82rem;color:#888;margin-top:4px}
+.settlement-item{background:#16161e;border:1px solid #2a2a3a;border-radius:8px;padding:14px;margin-bottom:8px;display:flex;align-items:center;gap:12px}
+.settlement-item .arrow{color:#ff5f1f;font-size:1.4rem;font-weight:700}
+.settlement-item .amount{color:#ff5f1f;font-weight:700;font-size:1.1rem;margin-left:auto}
+.balance-item{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:#16161e;border:1px solid #2a2a3a;border-radius:8px;margin-bottom:6px}
+.balance-item .name{font-weight:600}
+.balance-item .bal{font-weight:700;font-size:1.1rem}
+.bal.positive{color:#22cc66}
+.bal.negative{color:#cc2233}
+.bal.zero{color:#888}
+.total-bar{background:#16161e;border:2px solid #ff5f1f;border-radius:10px;padding:16px;text-align:center;margin-bottom:16px}
+.total-bar .value{font-size:2rem;color:#ff5f1f;font-weight:700}
+.total-bar .label{font-size:.85rem;color:#888;margin-top:4px}
+.checkbox-list{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
+.checkbox-list label{display:flex;align-items:center;gap:6px;font-size:.88rem;cursor:pointer}
+.checkbox-list input[type=checkbox]{width:auto;accent-color:#ff5f1f}
+.empty{text-align:center;color:#555;padding:30px;font-size:.95rem}
+.share-btns{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.share-btns button{font-size:.8rem;padding:6px 12px}
+.btn-row{display:flex;gap:8px;flex-wrap:wrap}
+footer{text-align:center;padding:20px;color:#555;font-size:.8rem;border-top:1px solid #1a1a2a;margin-top:auto}
+footer a{color:#ff5f1f;margin:0 4px}
+@media(max-width:700px){
+.row,.row-3{grid-template-columns:1fr}
+header h1{font-size:1.1rem}
+.total-bar .value{font-size:1.6rem}
+}
+</style>
+</head>
+<body>
+<header>
+<h1>Expense Splitter</h1>
+<a href="https://spunk.codes" class="back">spunk.codes</a>
+</header>
+<main>
+
+<div class="panel">
+<h2>Group Name</h2>
+<div class="input-group"><input type="text" id="groupName" placeholder="Weekend Trip, Dinner Club, etc." oninput="autoSave()"></div>
+</div>
+
+<div class="panel">
+<h2>People</h2>
+<div class="people-list" id="peopleList"></div>
+<div style="display:flex;gap:8px">
+<input type="text" id="personInput" placeholder="Enter name and press Add" onkeydown="if(event.key==='Enter')addPerson()">
+<button onclick="addPerson()">Add</button>
+</div>
+</div>
+
+<div class="panel">
+<h2>Add Expense</h2>
+<div class="input-group"><label>Description</label><input type="text" id="expDesc" placeholder="Dinner, Uber, Hotel, etc."></div>
+<div class="row">
+<div class="input-group"><label>Amount ($)</label><input type="number" id="expAmount" min="0" step="0.01" placeholder="0.00"></div>
+<div class="input-group"><label>Paid By</label><select id="expPayer"><option value="">-- select --</option></select></div>
+</div>
+<div class="input-group">
+<label>Split Among</label>
+<div class="checkbox-list" id="splitAmong"></div>
+</div>
+<div class="input-group"><label>Split Type</label>
+<select id="splitType">
+<option value="equal">Equal Split</option>
+</select>
+</div>
+<button onclick="addExpense()">Add Expense</button>
+</div>
+
+<div class="total-bar">
+<div class="value" id="totalAmount">$0.00</div>
+<div class="label">Total Expenses</div>
+</div>
+
+<div class="panel">
+<h2>Expenses</h2>
+<div id="expenseList"><div class="empty">No expenses added yet.</div></div>
+</div>
+
+<div class="panel">
+<h2>Balances</h2>
+<div id="balanceList"><div class="empty">Add expenses to see balances.</div></div>
+</div>
+
+<div class="panel">
+<h2>Settlements (Who Pays Whom)</h2>
+<div id="settlementList"><div class="empty">Add expenses to see settlements.</div></div>
+</div>
+
+<div class="panel">
+<h2>Actions</h2>
+<div class="btn-row">
+<button class="secondary" onclick="exportSummary()">Copy Summary</button>
+<button class="danger" onclick="clearAll()">Clear All</button>
+</div>
+</div>
+
+<div class="panel">
+<h2>Share</h2>
+<div class="share-btns">
+<button onclick="shareTwitter()">Share on X</button>
+<button class="secondary" onclick="copyLink()">Copy Link</button>
+</div>
+</div>
+</main>
+
+<footer>
+<a href="https://spunk.codes">spunk.codes</a> &middot;
+<a href="https://spunk.bet">spunk.bet</a> &middot;
+<a href="https://spunk.pics">spunk.pics</a> &middot;
+<a href="https://spunk.work">spunk.work</a> &middot;
+<a href="https://spunkart.com">SpunkArt.com</a>
+</footer>
+
+<script>
+const LS_KEY='spunkcodes_expense_split';
+let data={groupName:'',people:[],expenses:[]};
+
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function fmt(n){return'$'+Math.abs(n).toFixed(2)}
+
+function load(){
+try{const saved=JSON.parse(localStorage.getItem(LS_KEY));if(saved)data=saved}catch(e){}
+document.getElementById('groupName').value=data.groupName||'';
+renderPeople();renderExpenses();recalc();
+}
+
+function save(){localStorage.setItem(LS_KEY,JSON.stringify(data))}
+function autoSave(){data.groupName=document.getElementById('groupName').value;save()}
+
+function addPerson(){
+const input=document.getElementById('personInput');
+const name=input.value.trim();
+if(!name)return;
+if(data.people.includes(name)){alert('Person already added');return}
+data.people.push(name);
+input.value='';
+save();renderPeople();
+}
+
+function removePerson(name){
+if(data.expenses.some(e=>e.payer===name||e.splitAmong.includes(name))){
+if(!confirm(name+' is part of existing expenses. Remove anyway? Their expenses will be deleted.'))return;
+data.expenses=data.expenses.filter(e=>e.payer!==name&&!e.splitAmong.includes(name));
+}
+data.people=data.people.filter(p=>p!==name);
+save();renderPeople();renderExpenses();recalc();
+}
+
+function renderPeople(){
+const list=document.getElementById('peopleList');
+if(!data.people.length){list.innerHTML='<span style="color:#555;font-size:.85rem">No people added yet.</span>';updatePayerSelect();updateSplitCheckboxes();return}
+list.innerHTML=data.people.map(p=>'<span class="person-tag">'+esc(p)+' <span class="remove" onclick="removePerson(\''+esc(p).replace(/'/g,"\\'")+'\')">&times;</span></span>').join('');
+updatePayerSelect();updateSplitCheckboxes();
+}
+
+function updatePayerSelect(){
+const sel=document.getElementById('expPayer');
+const cur=sel.value;
+sel.innerHTML='<option value="">-- select --</option>'+data.people.map(p=>'<option value="'+esc(p)+'">'+esc(p)+'</option>').join('');
+if(data.people.includes(cur))sel.value=cur;
+}
+
+function updateSplitCheckboxes(){
+const div=document.getElementById('splitAmong');
+div.innerHTML=data.people.map(p=>'<label><input type="checkbox" value="'+esc(p)+'" checked> '+esc(p)+'</label>').join('');
+}
+
+function addExpense(){
+const desc=document.getElementById('expDesc').value.trim();
+const amount=parseFloat(document.getElementById('expAmount').value);
+const payer=document.getElementById('expPayer').value;
+if(!desc){alert('Enter a description');return}
+if(isNaN(amount)||amount<=0){alert('Enter a valid amount');return}
+if(!payer){alert('Select who paid');return}
+const checked=[];
+document.querySelectorAll('#splitAmong input:checked').forEach(cb=>checked.push(cb.value));
+if(!checked.length){alert('Select at least one person to split among');return}
+
+data.expenses.push({id:Date.now(),desc:desc,amount:amount,payer:payer,splitAmong:checked,date:new Date().toLocaleDateString()});
+document.getElementById('expDesc').value='';
+document.getElementById('expAmount').value='';
+save();renderExpenses();recalc();
+}
+
+function removeExpense(id){
+data.expenses=data.expenses.filter(e=>e.id!==id);
+save();renderExpenses();recalc();
+}
+
+function renderExpenses(){
+const list=document.getElementById('expenseList');
+if(!data.expenses.length){list.innerHTML='<div class="empty">No expenses added yet.</div>';return}
+list.innerHTML=data.expenses.map(e=>`
+<div class="expense-item">
+<button class="remove-btn" onclick="removeExpense(${e.id})">&times;</button>
+<div class="desc">${esc(e.desc)}</div>
+<div class="meta">${fmt(e.amount)} paid by <strong>${esc(e.payer)}</strong> &middot; split among ${e.splitAmong.map(n=>esc(n)).join(', ')} &middot; ${esc(e.date)}</div>
+</div>`).join('');
+}
+
+function recalc(){
+const total=data.expenses.reduce((s,e)=>s+e.amount,0);
+document.getElementById('totalAmount').textContent=fmt(total);
+
+const balances={};
+data.people.forEach(p=>balances[p]=0);
+
+data.expenses.forEach(e=>{
+const share=e.amount/e.splitAmong.length;
+if(balances[e.payer]!==undefined)balances[e.payer]+=e.amount;
+e.splitAmong.forEach(p=>{if(balances[p]!==undefined)balances[p]-=share});
+});
+
+const balList=document.getElementById('balanceList');
+if(!data.people.length){balList.innerHTML='<div class="empty">Add people and expenses to see balances.</div>'}
+else{
+balList.innerHTML=data.people.map(p=>{
+const b=balances[p]||0;
+const cls=b>0.01?'positive':b<-0.01?'negative':'zero';
+const sign=b>0.01?'+':'';
+return'<div class="balance-item"><span class="name">'+esc(p)+'</span><span class="bal '+cls+'">'+sign+b.toFixed(2)+'</span></div>';
+}).join('');
+}
+
+// Calculate settlements using greedy algorithm
+const debtors=[];const creditors=[];
+data.people.forEach(p=>{
+const b=balances[p]||0;
+if(b<-0.01)debtors.push({name:p,amount:-b});
+else if(b>0.01)creditors.push({name:p,amount:b});
+});
+debtors.sort((a,b)=>b.amount-a.amount);
+creditors.sort((a,b)=>b.amount-a.amount);
+
+const settlements=[];
+let di=0,ci=0;
+while(di<debtors.length&&ci<creditors.length){
+const pay=Math.min(debtors[di].amount,creditors[ci].amount);
+if(pay>0.01)settlements.push({from:debtors[di].name,to:creditors[ci].name,amount:pay});
+debtors[di].amount-=pay;
+creditors[ci].amount-=pay;
+if(debtors[di].amount<0.01)di++;
+if(creditors[ci].amount<0.01)ci++;
+}
+
+const setList=document.getElementById('settlementList');
+if(!settlements.length){setList.innerHTML='<div class="empty">'+(data.expenses.length?'All settled up!':'Add expenses to see settlements.')+'</div>'}
+else{
+setList.innerHTML=settlements.map(s=>`
+<div class="settlement-item">
+<strong>${esc(s.from)}</strong>
+<span class="arrow">&rarr;</span>
+<strong>${esc(s.to)}</strong>
+<span class="amount">${fmt(s.amount)}</span>
+</div>`).join('');
+}
+}
+
+function exportSummary(){
+let text=(data.groupName||'Expense Split')+'\n'+'='.repeat(30)+'\n\n';
+text+='People: '+data.people.join(', ')+'\n\n';
+text+='Expenses:\n';
+data.expenses.forEach(e=>{text+='  '+e.desc+' - '+fmt(e.amount)+' (paid by '+e.payer+', split: '+e.splitAmong.join(', ')+')\n'});
+text+='\nTotal: '+fmt(data.expenses.reduce((s,e)=>s+e.amount,0))+'\n\n';
+text+='Settlements:\n';
+// Recalculate for text
+const balances={};data.people.forEach(p=>balances[p]=0);
+data.expenses.forEach(e=>{const share=e.amount/e.splitAmong.length;balances[e.payer]+=e.amount;e.splitAmong.forEach(p=>balances[p]-=share)});
+const debtors=[];const creditors=[];
+data.people.forEach(p=>{const b=balances[p]||0;if(b<-0.01)debtors.push({name:p,amount:-b});else if(b>0.01)creditors.push({name:p,amount:b})});
+debtors.sort((a,b)=>b.amount-a.amount);creditors.sort((a,b)=>b.amount-a.amount);
+let di=0,ci=0;
+while(di<debtors.length&&ci<creditors.length){
+const pay=Math.min(debtors[di].amount,creditors[ci].amount);
+if(pay>0.01)text+='  '+debtors[di].name+' pays '+creditors[ci].name+' '+fmt(pay)+'\n';
+debtors[di].amount-=pay;creditors[ci].amount-=pay;
+if(debtors[di].amount<0.01)di++;if(creditors[ci].amount<0.01)ci++;
+}
+navigator.clipboard.writeText(text).then(()=>alert('Summary copied to clipboard!'));
+}
+
+function clearAll(){if(!confirm('Clear all data?'))return;data={groupName:'',people:[],expenses:[]};save();location.reload()}
+
+function shareTwitter(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Split expenses with friends using this free tool! https://spunk.codes/exclusive/expense-splitter.html'),'_blank')}
+function copyLink(){navigator.clipboard.writeText('https://spunk.codes/exclusive/expense-splitter.html').then(()=>alert('Link copied!'))}
+
+load();
+</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>

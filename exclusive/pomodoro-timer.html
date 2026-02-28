@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pomodoro Timer — Focus Timer with Stats &amp; History | SPUNK.CODES</title>
+<meta name="description" content="25/5 Pomodoro timer with audio alerts. Customizable intervals, session counter, daily focus stats, history log. Track your productivity. Free, no signup.">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP')</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w")</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e8e8f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+header{background:#111118;border-bottom:2px solid #ff5f1f;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;position:sticky;top:0;z-index:100}
+header h1{font-size:1.4rem;color:#ff5f1f}
+header .back{color:#e8e8f0;font-size:.9rem}
+main{flex:1;max-width:700px;width:100%;margin:0 auto;padding:24px 16px}
+.panel{background:#111118;border:1px solid #2a2a3a;border-radius:10px;padding:20px;margin-bottom:20px}
+.panel h2{font-size:1.1rem;color:#ff5f1f;margin-bottom:14px}
+button{background:#ff5f1f;color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:.9rem;font-weight:600;transition:background .2s}
+button:hover{background:#e8520e}
+button.secondary{background:#2a2a3a;color:#e8e8f0}button.secondary:hover{background:#3a3a4a}
+button.danger{background:#cc2233}button.danger:hover{background:#aa1122}
+input,select{background:#16161e;border:1px solid #2a2a3a;color:#e8e8f0;padding:8px 12px;border-radius:6px;font-size:.9rem;width:100%}
+.input-group{margin-bottom:16px}
+.input-group label{font-size:.85rem;color:#888;margin-bottom:6px;display:block}
+.timer-display{text-align:center;padding:40px 20px;position:relative}
+.timer-ring{width:240px;height:240px;margin:0 auto;position:relative}
+.timer-ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.timer-ring circle{fill:none;stroke-width:8}
+.timer-ring .bg{stroke:#2a2a3a}
+.timer-ring .progress{stroke:#ff5f1f;stroke-linecap:round;transition:stroke-dashoffset .5s linear}
+.timer-ring .break-progress{stroke:#22c55e}
+.timer-time{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:3.5rem;font-weight:700;color:#ff5f1f;font-family:monospace}
+.timer-label{font-size:1rem;color:#888;margin-top:12px}
+.timer-controls{display:flex;gap:10px;justify-content:center;margin-top:20px;flex-wrap:wrap}
+.timer-controls button{padding:12px 28px;font-size:1rem;border-radius:10px}
+.mode-btns{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.mode-btns button{flex:1;padding:10px;border-radius:8px;font-size:.85rem;min-width:80px}
+.mode-btns button.active{background:#ff5f1f;box-shadow:0 0 12px rgba(255,95,31,.4)}
+.mode-btns button:not(.active){background:#2a2a3a;color:#e8e8f0}
+.stats-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px}
+.stat-card{background:#16161e;border:1px solid #2a2a3a;border-radius:10px;padding:16px;text-align:center}
+.stat-card .val{font-size:1.8rem;color:#ff5f1f;font-weight:700}
+.stat-card .lbl{font-size:.75rem;color:#888;margin-top:4px}
+.settings-row{display:flex;gap:10px;margin-bottom:12px;align-items:center}
+.settings-row label{font-size:.85rem;color:#888;white-space:nowrap;min-width:120px}
+.settings-row input{width:80px;text-align:center}
+.history-item{background:#16161e;border:1px solid #2a2a3a;border-radius:8px;padding:12px 16px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.history-item .info{font-size:.9rem}
+.history-item .date{font-size:.75rem;color:#555}
+.empty{text-align:center;color:#555;padding:30px;font-size:.95rem}
+.share-btns{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.share-btns button{font-size:.8rem;padding:6px 12px}
+footer{text-align:center;padding:20px;color:#555;font-size:.8rem;border-top:1px solid #1a1a2a;margin-top:auto}
+footer a{color:#ff5f1f;margin:0 4px}
+@media(max-width:700px){
+.stats-grid{grid-template-columns:1fr}
+.timer-time{font-size:2.8rem}
+.timer-ring{width:200px;height:200px}
+header h1{font-size:1.1rem}
+.settings-row{flex-direction:column;align-items:flex-start}
+}
+</style>
+</head>
+<body>
+<header>
+<h1>Pomodoro Timer</h1>
+<a href="https://spunk.codes" class="back">spunk.codes</a>
+</header>
+<main>
+<div class="panel">
+<h2>Mode</h2>
+<div class="mode-btns">
+<button class="active" onclick="setMode('work')">Work</button>
+<button onclick="setMode('short')">Short Break</button>
+<button onclick="setMode('long')">Long Break</button>
+</div>
+</div>
+
+<div class="panel">
+<div class="timer-display">
+<div class="timer-ring">
+<svg viewBox="0 0 200 200">
+<circle class="bg" cx="100" cy="100" r="90"/>
+<circle class="progress" id="progressRing" cx="100" cy="100" r="90" stroke-dasharray="565.49" stroke-dashoffset="0"/>
+</svg>
+<div class="timer-time" id="timerDisplay">25:00</div>
+</div>
+<div class="timer-label" id="timerLabel">Focus Time</div>
+<div class="timer-controls">
+<button id="startBtn" onclick="toggleTimer()">Start</button>
+<button class="secondary" onclick="resetTimer()">Reset</button>
+<button class="secondary" onclick="skipTimer()">Skip</button>
+</div>
+</div>
+</div>
+
+<div class="panel">
+<h2>Today's Stats</h2>
+<div class="stats-grid">
+<div class="stat-card"><div class="val" id="sessionsToday">0</div><div class="lbl">Sessions</div></div>
+<div class="stat-card"><div class="val" id="focusToday">0m</div><div class="lbl">Focus Time</div></div>
+<div class="stat-card"><div class="val" id="streakCount">0</div><div class="lbl">Current Streak</div></div>
+</div>
+</div>
+
+<div class="panel">
+<h2>Settings</h2>
+<div class="settings-row"><label>Work (min)</label><input type="number" id="setWork" value="25" min="1" max="120" onchange="updateSettings()"></div>
+<div class="settings-row"><label>Short Break (min)</label><input type="number" id="setShort" value="5" min="1" max="30" onchange="updateSettings()"></div>
+<div class="settings-row"><label>Long Break (min)</label><input type="number" id="setLong" value="15" min="1" max="60" onchange="updateSettings()"></div>
+<div class="settings-row"><label>Long break after</label><input type="number" id="setLongAfter" value="4" min="2" max="10" onchange="updateSettings()"> <span style="color:#888;font-size:.85rem">sessions</span></div>
+</div>
+
+<div class="panel">
+<h2>Session History</h2>
+<div id="historyList"><div class="empty">No sessions recorded yet.</div></div>
+<div style="margin-top:10px"><button class="danger" onclick="clearHistory()">Clear History</button></div>
+</div>
+
+<div class="panel">
+<h2>Share</h2>
+<div class="share-btns">
+<button onclick="shareTwitter()">Share on X</button>
+<button class="secondary" onclick="shareReddit()">Share on Reddit</button>
+<button class="secondary" onclick="shareEmail()">Share via Email</button>
+<button class="secondary" onclick="copyLink()">Copy Link</button>
+</div>
+</div>
+</main>
+
+<footer>
+<a href="https://spunk.codes">spunk.codes</a> &middot;
+<a href="https://spunk.bet">spunk.bet</a> &middot;
+<a href="https://spunk.pics">spunk.pics</a> &middot;
+<a href="https://spunk.work">spunk.work</a> &middot;
+<a href="https://spunkart.com">SpunkArt.com</a>
+</footer>
+
+<script>
+const LS_KEY='spunkcodes_pomodoro';
+const LS_SETTINGS='spunkcodes_pomodoro_settings';
+let settings={work:25,short:5,long:15,longAfter:4};
+let mode='work';
+let timeLeft=25*60;
+let totalTime=25*60;
+let running=false;
+let interval=null;
+let sessions=0;
+let history=[];
+let todayKey='';
+let audioCtx=null;
+
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function load(){
+try{history=JSON.parse(localStorage.getItem(LS_KEY))||[]}catch(e){history=[]}
+try{const s=JSON.parse(localStorage.getItem(LS_SETTINGS));if(s){settings=s;document.getElementById('setWork').value=s.work;document.getElementById('setShort').value=s.short;document.getElementById('setLong').value=s.long;document.getElementById('setLongAfter').value=s.longAfter}}catch(e){}
+todayKey=new Date().toLocaleDateString();
+}
+function save(){localStorage.setItem(LS_KEY,JSON.stringify(history.slice(0,200)))}
+function saveSettings(){localStorage.setItem(LS_SETTINGS,JSON.stringify(settings))}
+
+function updateSettings(){
+settings.work=Math.max(1,parseInt(document.getElementById('setWork').value)||25);
+settings.short=Math.max(1,parseInt(document.getElementById('setShort').value)||5);
+settings.long=Math.max(1,parseInt(document.getElementById('setLong').value)||15);
+settings.longAfter=Math.max(2,parseInt(document.getElementById('setLongAfter').value)||4);
+saveSettings();
+if(!running)setMode(mode);
+}
+
+function setMode(m){
+mode=m;
+document.querySelectorAll('.mode-btns button').forEach(b=>b.classList.remove('active'));
+const modes=['work','short','long'];
+const idx=modes.indexOf(m);
+if(idx>=0)document.querySelectorAll('.mode-btns button')[idx].classList.add('active');
+
+const ring=document.getElementById('progressRing');
+ring.classList.remove('break-progress');
+if(m==='work'){timeLeft=settings.work*60;totalTime=settings.work*60;document.getElementById('timerLabel').textContent='Focus Time'}
+else if(m==='short'){timeLeft=settings.short*60;totalTime=settings.short*60;document.getElementById('timerLabel').textContent='Short Break';ring.classList.add('break-progress')}
+else{timeLeft=settings.long*60;totalTime=settings.long*60;document.getElementById('timerLabel').textContent='Long Break';ring.classList.add('break-progress')}
+
+if(running){clearInterval(interval);running=false;document.getElementById('startBtn').textContent='Start'}
+updateDisplay();
+}
+
+function updateDisplay(){
+const m=Math.floor(timeLeft/60);
+const s=timeLeft%60;
+document.getElementById('timerDisplay').textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+const circumference=2*Math.PI*90;
+const offset=circumference*(1-timeLeft/totalTime);
+document.getElementById('progressRing').style.strokeDashoffset=offset;
+document.title=(running?'('+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0')+') ':'')+' Pomodoro Timer - SPUNK.CODES';
+}
+
+function toggleTimer(){
+if(running){clearInterval(interval);running=false;document.getElementById('startBtn').textContent='Start'}
+else{running=true;document.getElementById('startBtn').textContent='Pause';
+interval=setInterval(()=>{
+timeLeft--;
+if(timeLeft<=0){
+clearInterval(interval);running=false;document.getElementById('startBtn').textContent='Start';
+playSound();onTimerEnd();
+}
+updateDisplay();
+},1000);
+}
+}
+
+function resetTimer(){
+if(running){clearInterval(interval);running=false}
+document.getElementById('startBtn').textContent='Start';
+setMode(mode);
+}
+
+function skipTimer(){
+if(running){clearInterval(interval);running=false}
+document.getElementById('startBtn').textContent='Start';
+onTimerEnd();
+}
+
+function onTimerEnd(){
+if(mode==='work'){
+sessions++;
+const mins=settings.work;
+history.unshift({id:Date.now(),date:new Date().toLocaleDateString(),time:new Date().toLocaleTimeString(),type:'work',minutes:mins});
+save();
+
+if(sessions%settings.longAfter===0){setMode('long')}
+else{setMode('short')}
+}else{
+setMode('work');
+}
+updateStats();renderHistory();
+}
+
+function playSound(){
+try{
+if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();
+const osc=audioCtx.createOscillator();
+const gain=audioCtx.createGain();
+osc.connect(gain);gain.connect(audioCtx.destination);
+osc.frequency.value=880;osc.type='sine';
+gain.gain.setValueAtTime(0.3,audioCtx.currentTime);
+gain.gain.exponentialRampToValueAtTime(0.01,audioCtx.currentTime+0.8);
+osc.start();osc.stop(audioCtx.currentTime+0.8);
+setTimeout(()=>{
+const osc2=audioCtx.createOscillator();
+const gain2=audioCtx.createGain();
+osc2.connect(gain2);gain2.connect(audioCtx.destination);
+osc2.frequency.value=1100;osc2.type='sine';
+gain2.gain.setValueAtTime(0.3,audioCtx.currentTime);
+gain2.gain.exponentialRampToValueAtTime(0.01,audioCtx.currentTime+0.6);
+osc2.start();osc2.stop(audioCtx.currentTime+0.6);
+},300);
+}catch(e){}
+}
+
+function updateStats(){
+const today=history.filter(h=>h.date===todayKey&&h.type==='work');
+const totalMin=today.reduce((a,h)=>a+h.minutes,0);
+sessions=today.length;
+document.getElementById('sessionsToday').textContent=sessions;
+if(totalMin>=60){document.getElementById('focusToday').textContent=Math.floor(totalMin/60)+'h '+totalMin%60+'m'}
+else{document.getElementById('focusToday').textContent=totalMin+'m'}
+
+// Streak: consecutive days with at least 1 session
+let streak=0;
+const dates=[...new Set(history.filter(h=>h.type==='work').map(h=>h.date))];
+const d=new Date();
+for(let i=0;i<dates.length;i++){
+const check=new Date(d);check.setDate(check.getDate()-i);
+if(dates.includes(check.toLocaleDateString()))streak++;
+else break;
+}
+document.getElementById('streakCount').textContent=streak;
+}
+
+function renderHistory(){
+const list=document.getElementById('historyList');
+if(!history.length){list.innerHTML='<div class="empty">No sessions recorded yet.</div>';return}
+list.innerHTML=history.slice(0,30).map(h=>`<div class="history-item">
+<div><div class="info"><strong>${h.minutes} min</strong> ${esc(h.type)} session</div>
+<div class="date">${esc(h.date)} ${esc(h.time)}</div></div>
+<button class="danger" onclick="removeEntry(${h.id})" style="font-size:.75rem;padding:4px 8px">&times;</button>
+</div>`).join('');
+}
+
+function removeEntry(id){history=history.filter(h=>h.id!==id);save();renderHistory();updateStats()}
+function clearHistory(){if(!confirm('Clear all session history?'))return;history=[];sessions=0;save();renderHistory();updateStats()}
+
+function shareTwitter(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Staying focused with this free Pomodoro Timer! https://spunk.codes/exclusive/pomodoro-timer.html'),'_blank')}
+function shareReddit(){window.open('https://reddit.com/submit?url='+encodeURIComponent('https://spunk.codes/exclusive/pomodoro-timer.html')+'&title='+encodeURIComponent('Free Pomodoro Timer with Stats & History Tracking'),'_blank')}
+function shareEmail(){window.open('mailto:?subject='+encodeURIComponent('Pomodoro Timer')+'&body='+encodeURIComponent('Check out this free Pomodoro timer: https://spunk.codes/exclusive/pomodoro-timer.html'))}
+function copyLink(){navigator.clipboard.writeText('https://spunk.codes/exclusive/pomodoro-timer.html').then(()=>alert('Link copied!'))}
+
+load();updateStats();renderHistory();updateDisplay();
+</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>

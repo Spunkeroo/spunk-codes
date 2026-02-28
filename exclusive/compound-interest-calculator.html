@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Compound Interest Calculator — See Your Money Grow | SPUNK.CODES</title>
+<meta name="description" content="Calculate compound interest with monthly contributions. See future value, total interest earned, yearly breakdown table, and growth chart. Free, no signup.">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP')</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w")</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e8e8f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+header{background:#111118;border-bottom:2px solid #ff5f1f;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;position:sticky;top:0;z-index:100}
+header h1{font-size:1.4rem;color:#ff5f1f}
+header .back{color:#e8e8f0;font-size:.9rem}
+main{flex:1;max-width:700px;width:100%;margin:0 auto;padding:24px 16px}
+.panel{background:#111118;border:1px solid #2a2a3a;border-radius:10px;padding:20px;margin-bottom:20px}
+.panel h2{font-size:1.1rem;color:#ff5f1f;margin-bottom:14px}
+button{background:#ff5f1f;color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:.9rem;font-weight:600;transition:background .2s}
+button:hover{background:#e8520e}
+button.secondary{background:#2a2a3a;color:#e8e8f0}button.secondary:hover{background:#3a3a4a}
+input,select{background:#16161e;border:1px solid #2a2a3a;color:#e8e8f0;padding:8px 12px;border-radius:6px;font-size:.9rem;width:100%}
+.input-group{margin-bottom:16px}
+.input-group label{font-size:.85rem;color:#888;margin-bottom:6px;display:block}
+.results-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px}
+.result-card{background:#16161e;border:1px solid #2a2a3a;border-radius:10px;padding:18px;text-align:center}
+.result-card .value{font-size:1.6rem;color:#ff5f1f;font-weight:700}
+.result-card .label{font-size:.8rem;color:#888;margin-top:4px}
+.future-val{background:#16161e;border:2px solid #ff5f1f;border-radius:10px;padding:20px;text-align:center;margin-bottom:16px;box-shadow:0 0 20px rgba(255,95,31,.1)}
+.future-val .value{font-size:2.4rem;color:#ff5f1f;font-weight:700}
+.future-val .label{font-size:.9rem;color:#888;margin-top:4px}
+.chart-area{position:relative;height:250px;background:#16161e;border:1px solid #2a2a3a;border-radius:10px;overflow:hidden;margin-bottom:16px}
+.chart-area canvas{width:100%;height:100%}
+.legend{display:flex;gap:16px;justify-content:center;margin-bottom:10px;font-size:.8rem}
+.legend span{display:flex;align-items:center;gap:4px}
+.legend .dot{width:10px;height:10px;border-radius:50%;display:inline-block}
+table{width:100%;border-collapse:collapse;font-size:.85rem}
+th{background:#16161e;color:#ff5f1f;padding:10px 8px;text-align:right;border-bottom:1px solid #2a2a3a;position:sticky;top:0}
+th:first-child{text-align:left}
+td{padding:8px;text-align:right;border-bottom:1px solid #1a1a2a}
+td:first-child{text-align:left;color:#888}
+.table-wrap{max-height:400px;overflow-y:auto;border:1px solid #2a2a3a;border-radius:8px}
+.share-btns{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.share-btns button{font-size:.8rem;padding:6px 12px}
+footer{text-align:center;padding:20px;color:#555;font-size:.8rem;border-top:1px solid #1a1a2a;margin-top:auto}
+footer a{color:#ff5f1f;margin:0 4px}
+.freq-btns{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.freq-btns button{padding:8px 14px;border-radius:8px;font-size:.85rem;flex:1;min-width:60px}
+.freq-btns button.active{background:#ff5f1f;box-shadow:0 0 12px rgba(255,95,31,.4)}
+.freq-btns button:not(.active){background:#2a2a3a;color:#e8e8f0}
+@media(max-width:700px){
+.results-grid{grid-template-columns:1fr}
+.future-val .value{font-size:1.8rem}
+header h1{font-size:1.1rem}
+}
+</style>
+</head>
+<body>
+<header>
+<h1>Compound Interest Calculator</h1>
+<a href="https://spunk.codes" class="back">spunk.codes</a>
+</header>
+<main>
+<div class="panel">
+<h2>Investment Details</h2>
+<div class="input-group">
+<label>Initial Principal ($)</label>
+<input type="number" id="principal" min="0" step="100" placeholder="10000" oninput="calc()">
+</div>
+<div class="input-group">
+<label>Monthly Contribution ($)</label>
+<input type="number" id="monthly" min="0" step="50" placeholder="500" oninput="calc()">
+</div>
+<div class="input-group">
+<label>Annual Interest Rate (%)</label>
+<input type="number" id="rate" min="0" max="50" step="0.1" placeholder="7" oninput="calc()">
+</div>
+<div class="input-group">
+<label>Investment Period (Years)</label>
+<input type="number" id="years" min="1" max="100" step="1" placeholder="20" oninput="calc()">
+</div>
+<div class="input-group">
+<label>Compounding Frequency</label>
+</div>
+<div class="freq-btns" id="freqBtns">
+<button onclick="setFreq(1)">Annual</button>
+<button onclick="setFreq(4)">Quarterly</button>
+<button class="active" onclick="setFreq(12)">Monthly</button>
+<button onclick="setFreq(365)">Daily</button>
+</div>
+</div>
+
+<div id="resultsSection" style="display:none">
+<div class="panel">
+<h2>Future Value</h2>
+<div class="future-val">
+<div class="value" id="futureVal">$0</div>
+<div class="label">Total Balance After <span id="yearsLabel">0</span> Years</div>
+</div>
+<div class="results-grid">
+<div class="result-card"><div class="value" id="totalContrib">$0</div><div class="label">Total Contributions</div></div>
+<div class="result-card"><div class="value" id="totalInterest">$0</div><div class="label">Total Interest Earned</div></div>
+<div class="result-card"><div class="value" id="growthPct">0%</div><div class="label">Growth Multiple</div></div>
+</div>
+</div>
+
+<div class="panel">
+<h2>Growth Chart</h2>
+<div class="legend">
+<span><span class="dot" style="background:#ff5f1f"></span> With Contributions</span>
+<span><span class="dot" style="background:#555"></span> Without Contributions</span>
+</div>
+<div class="chart-area">
+<canvas id="growthChart"></canvas>
+</div>
+</div>
+
+<div class="panel">
+<h2>Yearly Breakdown</h2>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Year</th><th>Contributions</th><th>Interest</th><th>Balance</th></tr></thead>
+<tbody id="breakdownBody"></tbody>
+</table>
+</div>
+</div>
+</div>
+
+<div class="panel">
+<h2>Share</h2>
+<div class="share-btns">
+<button onclick="shareX()">Share on X</button>
+<button class="secondary" onclick="shareReddit()">Share on Reddit</button>
+<button class="secondary" onclick="shareEmail()">Email</button>
+<button class="secondary" onclick="copyLink()">Copy Link</button>
+</div>
+</div>
+</main>
+
+<footer>
+<a href="https://spunk.codes">spunk.codes</a> &middot;
+<a href="https://spunk.bet">spunk.bet</a> &middot;
+<a href="https://spunk.pics">spunk.pics</a> &middot;
+<a href="https://spunk.work">spunk.work</a> &middot;
+<a href="https://spunkart.com">SpunkArt.com</a>
+</footer>
+
+<script>
+const LS_KEY='spunkcodes_compound_calc';
+let compFreq=12;
+
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function fmt(n){return'$'+Number(n).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}
+
+function loadState(){
+try{const d=JSON.parse(localStorage.getItem(LS_KEY));if(!d)return;
+if(d.principal)document.getElementById('principal').value=d.principal;
+if(d.monthly)document.getElementById('monthly').value=d.monthly;
+if(d.rate)document.getElementById('rate').value=d.rate;
+if(d.years)document.getElementById('years').value=d.years;
+if(d.freq){compFreq=d.freq;updateFreqBtns()}
+}catch(e){}}
+
+function saveState(){
+try{localStorage.setItem(LS_KEY,JSON.stringify({
+principal:document.getElementById('principal').value,
+monthly:document.getElementById('monthly').value,
+rate:document.getElementById('rate').value,
+years:document.getElementById('years').value,
+freq:compFreq
+}))}catch(e){}}
+
+function setFreq(f){compFreq=f;updateFreqBtns();calc()}
+function updateFreqBtns(){
+const map={1:0,4:1,12:2,365:3};
+document.querySelectorAll('.freq-btns button').forEach((b,i)=>{b.classList.toggle('active',i===map[compFreq])});
+}
+
+function calc(){
+const P=parseFloat(document.getElementById('principal').value)||0;
+const M=parseFloat(document.getElementById('monthly').value)||0;
+const r=parseFloat(document.getElementById('rate').value)||0;
+const t=parseInt(document.getElementById('years').value)||0;
+const n=compFreq;
+
+if((P<=0&&M<=0)||r<0||t<=0){document.getElementById('resultsSection').style.display='none';return}
+document.getElementById('resultsSection').style.display='';
+saveState();
+
+const ratePerPeriod=r/100/n;
+const periodsPerYear=n;
+const totalPeriods=n*t;
+const monthsPerPeriod=12/n;
+
+// yearly breakdown
+const yearlyData=[];
+const yearlyWithout=[];
+let balance=P;
+let balanceNoContrib=P;
+let totalContributions=P;
+
+for(let yr=1;yr<=t;yr++){
+let yearInterest=0;
+let yearContrib=0;
+const periodsThisYear=periodsPerYear;
+for(let p=0;p<periodsThisYear;p++){
+// interest on current balance
+const interest=balance*ratePerPeriod;
+yearInterest+=interest;
+balance+=interest;
+// add contributions for this compounding period
+const contrib=M*monthsPerPeriod;
+balance+=contrib;
+yearContrib+=contrib;
+// without contributions track
+const intNoC=balanceNoContrib*ratePerPeriod;
+balanceNoContrib+=intNoC;
+}
+totalContributions+=yearContrib;
+yearlyData.push({year:yr,contributions:totalContributions,interest:balance-totalContributions,balance:balance});
+yearlyWithout.push(balanceNoContrib);
+}
+
+const totalInterest=balance-totalContributions;
+const growthMult=totalContributions>0?(balance/totalContributions):0;
+
+document.getElementById('futureVal').textContent=fmt(balance);
+document.getElementById('yearsLabel').textContent=t;
+document.getElementById('totalContrib').textContent=fmt(totalContributions);
+document.getElementById('totalInterest').textContent=fmt(totalInterest);
+document.getElementById('growthPct').textContent=growthMult.toFixed(2)+'x';
+
+// table
+const tbody=document.getElementById('breakdownBody');
+tbody.innerHTML=yearlyData.map(d=>`<tr>
+<td>${d.year}</td>
+<td>${fmt(d.contributions)}</td>
+<td>${fmt(d.interest)}</td>
+<td><strong>${fmt(d.balance)}</strong></td>
+</tr>`).join('');
+
+drawChart(yearlyData,yearlyWithout);
+}
+
+function drawChart(data,noContrib){
+const canvas=document.getElementById('growthChart');
+const ctx=canvas.getContext('2d');
+const dpr=window.devicePixelRatio||1;
+const rect=canvas.parentElement.getBoundingClientRect();
+canvas.width=rect.width*dpr;
+canvas.height=rect.height*dpr;
+canvas.style.width=rect.width+'px';
+canvas.style.height=rect.height+'px';
+ctx.scale(dpr,dpr);
+const W=rect.width;
+const H=rect.height;
+const pad={top:20,right:20,bottom:30,left:70};
+const cW=W-pad.left-pad.right;
+const cH=H-pad.top-pad.bottom;
+
+ctx.clearRect(0,0,W,H);
+
+if(!data.length)return;
+const maxVal=Math.max(data[data.length-1].balance,noContrib[noContrib.length-1])*1.1;
+const n=data.length;
+
+function x(i){return pad.left+(i/(n-1||1))*cW}
+function y(v){return pad.top+cH-(v/maxVal)*cH}
+
+// grid lines
+ctx.strokeStyle='#1a1a2a';ctx.lineWidth=1;
+for(let i=0;i<=4;i++){
+const yy=pad.top+(cH/4)*i;
+ctx.beginPath();ctx.moveTo(pad.left,yy);ctx.lineTo(W-pad.right,yy);ctx.stroke();
+const val=maxVal-((maxVal/4)*i);
+ctx.fillStyle='#555';ctx.font='11px sans-serif';ctx.textAlign='right';
+ctx.fillText('$'+Math.round(val).toLocaleString(),pad.left-6,yy+4);
+}
+
+// x-axis labels
+ctx.fillStyle='#555';ctx.textAlign='center';ctx.font='11px sans-serif';
+const step=Math.max(1,Math.floor(n/8));
+for(let i=0;i<n;i+=step){ctx.fillText('Y'+data[i].year,x(i),H-8)}
+if((n-1)%step!==0)ctx.fillText('Y'+data[n-1].year,x(n-1),H-8);
+
+// without contributions line
+ctx.beginPath();ctx.strokeStyle='#555';ctx.lineWidth=2;
+for(let i=0;i<n;i++){i===0?ctx.moveTo(x(i),y(noContrib[i])):ctx.lineTo(x(i),y(noContrib[i]))}
+ctx.stroke();
+
+// with contributions line
+ctx.beginPath();ctx.strokeStyle='#ff5f1f';ctx.lineWidth=2.5;
+for(let i=0;i<n;i++){i===0?ctx.moveTo(x(i),y(data[i].balance)):ctx.lineTo(x(i),y(data[i].balance))}
+ctx.stroke();
+
+// fill under main line
+ctx.beginPath();
+for(let i=0;i<n;i++){i===0?ctx.moveTo(x(i),y(data[i].balance)):ctx.lineTo(x(i),y(data[i].balance))}
+ctx.lineTo(x(n-1),pad.top+cH);ctx.lineTo(x(0),pad.top+cH);ctx.closePath();
+ctx.fillStyle='rgba(255,95,31,0.08)';ctx.fill();
+}
+
+const toolURL='https://spunk.codes/exclusive/compound-interest-calculator.html';
+function shareX(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Check out this free Compound Interest Calculator! '+toolURL),'_blank')}
+function shareReddit(){window.open('https://reddit.com/submit?url='+encodeURIComponent(toolURL)+'&title='+encodeURIComponent('Compound Interest Calculator - Free Tool'),'_blank')}
+function shareEmail(){window.location.href='mailto:?subject='+encodeURIComponent('Compound Interest Calculator')+'&body='+encodeURIComponent('Check out this tool: '+toolURL)}
+function copyLink(){navigator.clipboard.writeText(toolURL).then(()=>alert('Link copied!'))}
+
+loadState();
+calc();
+window.addEventListener('resize',calc);
+</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>

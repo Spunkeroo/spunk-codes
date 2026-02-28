@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Screen Resolution Tester | SPUNK.CODES</title>
+<meta name="description" content="Test how your website looks at different screen sizes. Preview frames for mobile, tablet, laptop, desktop, and custom resolutions. Free responsive design tester.">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP')</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w")</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e8e8f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+header{background:#111118;border-bottom:2px solid #ff5f1f;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;position:sticky;top:0;z-index:100}
+header h1{font-size:1.4rem;color:#ff5f1f}
+header .back{color:#e8e8f0;font-size:.9rem}
+main{flex:1;max-width:1200px;width:100%;margin:0 auto;padding:24px 16px}
+.panel{background:#111118;border:1px solid #2a2a3a;border-radius:10px;padding:20px;margin-bottom:20px}
+.panel h2{font-size:1.1rem;color:#ff5f1f;margin-bottom:14px}
+button{background:#ff5f1f;color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:.9rem;font-weight:600;transition:background .2s}
+button:hover{background:#e8520e}
+button.secondary{background:#2a2a3a;color:#e8e8f0}button.secondary:hover{background:#3a3a4a}
+button.danger{background:#cc2233}button.danger:hover{background:#aa1122}
+input,select{background:#16161e;border:1px solid #2a2a3a;color:#e8e8f0;padding:8px 12px;border-radius:6px;font-size:.9rem;width:100%}
+.input-group{margin-bottom:16px}
+.input-group label{font-size:.85rem;color:#888;margin-bottom:6px;display:block}
+.url-bar{display:flex;gap:8px;margin-bottom:16px}
+.url-bar input{flex:1}
+.presets{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.presets button{padding:10px 16px;border-radius:8px;font-size:.85rem}
+.presets button.active{background:#ff5f1f;box-shadow:0 0 12px rgba(255,95,31,.4)}
+.presets button:not(.active){background:#2a2a3a;color:#e8e8f0}
+.custom-size{display:flex;gap:8px;align-items:center;margin-bottom:16px;flex-wrap:wrap}
+.custom-size input{width:100px;text-align:center}
+.custom-size span{color:#888;font-size:.9rem}
+.frame-wrapper{background:#16161e;border:2px solid #2a2a3a;border-radius:10px;padding:16px;margin-bottom:16px;overflow:auto;display:flex;justify-content:center;min-height:200px}
+.frame-info{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px}
+.frame-info .size-label{font-size:1.1rem;color:#ff5f1f;font-weight:700}
+.frame-info .dimensions{font-size:.85rem;color:#888}
+.preview-frame{border:1px solid #3a3a4a;background:#fff;border-radius:4px;transition:width .3s,height .3s;overflow:hidden}
+.preview-frame iframe{width:100%;height:100%;border:none}
+.orientation-btns{display:flex;gap:8px;margin-bottom:16px}
+.saved-urls{margin-top:12px}
+.saved-url{background:#16161e;border:1px solid #2a2a3a;border-radius:8px;padding:10px 14px;margin-bottom:6px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.saved-url .url-text{font-size:.85rem;color:#e8e8f0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;cursor:pointer}
+.saved-url .url-text:hover{color:#ff5f1f}
+.empty{text-align:center;color:#555;padding:30px;font-size:.95rem}
+.share-btns{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.share-btns button{font-size:.8rem;padding:6px 12px}
+.rotate-icon{display:inline-block;transition:transform .2s}
+footer{text-align:center;padding:20px;color:#555;font-size:.8rem;border-top:1px solid #1a1a2a;margin-top:auto}
+footer a{color:#ff5f1f;margin:0 4px}
+@media(max-width:700px){
+header h1{font-size:1.1rem}
+.presets button{padding:8px 10px;font-size:.78rem}
+.custom-size input{width:70px}
+main{padding:16px 10px}
+}
+</style>
+</head>
+<body>
+<header>
+<h1>Screen Resolution Tester</h1>
+<a href="https://spunk.codes" class="back">spunk.codes</a>
+</header>
+<main>
+<div class="panel">
+<h2>Enter URL</h2>
+<div class="url-bar">
+<input type="url" id="urlInput" placeholder="https://example.com" value="">
+<button onclick="loadUrl()">Load</button>
+</div>
+</div>
+
+<div class="panel">
+<h2>Device Presets</h2>
+<div class="presets" id="presetBtns">
+<button onclick="setSize(375,667,'iPhone SE')" data-w="375" data-h="667">iPhone SE</button>
+<button onclick="setSize(390,844,'iPhone 14')" data-w="390" data-h="844">iPhone 14</button>
+<button onclick="setSize(412,915,'Android L')" data-w="412" data-h="915">Android L</button>
+<button onclick="setSize(768,1024,'iPad Mini')" data-w="768" data-h="1024">iPad Mini</button>
+<button onclick="setSize(1024,768,'iPad Landscape')" data-w="1024" data-h="768">iPad Landscape</button>
+<button onclick="setSize(1280,720,'Laptop HD')" data-w="1280" data-h="720">Laptop HD</button>
+<button onclick="setSize(1440,900,'Laptop')" data-w="1440" data-h="900">Laptop</button>
+<button onclick="setSize(1920,1080,'Full HD')" data-w="1920" data-h="1080">Full HD</button>
+<button onclick="setSize(2560,1440,'QHD')" data-w="2560" data-h="1440">QHD</button>
+</div>
+<div class="custom-size">
+<div class="input-group" style="margin-bottom:0">
+<label>Width (px)</label>
+<input type="number" id="customW" min="200" max="3840" value="1280" oninput="applyCustom()">
+</div>
+<span style="margin-top:16px">x</span>
+<div class="input-group" style="margin-bottom:0">
+<label>Height (px)</label>
+<input type="number" id="customH" min="200" max="2160" value="720" oninput="applyCustom()">
+</div>
+<button class="secondary" onclick="swapDimensions()" style="margin-top:16px" title="Rotate"><span class="rotate-icon">&#8635;</span> Rotate</button>
+</div>
+</div>
+
+<div class="panel" id="previewPanel" style="display:none">
+<div class="frame-info">
+<div class="size-label" id="deviceLabel">Custom</div>
+<div class="dimensions" id="dimLabel">1280 x 720</div>
+</div>
+<div class="frame-wrapper">
+<div class="preview-frame" id="previewFrame" style="width:100%;height:500px">
+<iframe id="siteFrame" sandbox="allow-scripts allow-same-origin allow-forms allow-popups" loading="lazy"></iframe>
+</div>
+</div>
+</div>
+
+<div class="panel">
+<h2>Saved URLs</h2>
+<div id="savedList"><div class="empty">No URLs saved yet. Load a URL and it will be saved here.</div></div>
+<div style="margin-top:10px"><button class="danger" onclick="clearSaved()">Clear Saved</button></div>
+</div>
+
+<div class="panel">
+<h2>Share</h2>
+<div class="share-btns">
+<button onclick="shareTwitter()">Share on X</button>
+<button class="secondary" onclick="copyLink()">Copy Link</button>
+</div>
+</div>
+</main>
+
+<footer>
+<a href="https://spunk.codes">spunk.codes</a> &middot;
+<a href="https://spunk.bet">spunk.bet</a> &middot;
+<a href="https://spunk.pics">spunk.pics</a> &middot;
+<a href="https://spunk.work">spunk.work</a> &middot;
+<a href="https://spunkart.com">SpunkArt.com</a>
+</footer>
+
+<script>
+const LS_KEY='spunkcodes_screen_res';
+let savedUrls=[];
+let currentW=1280,currentH=720,currentLabel='Custom';
+
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function load(){try{savedUrls=JSON.parse(localStorage.getItem(LS_KEY))||[]}catch(e){savedUrls=[]}renderSaved()}
+function save(){localStorage.setItem(LS_KEY,JSON.stringify(savedUrls.slice(0,30)))}
+
+function loadUrl(){
+const url=document.getElementById('urlInput').value.trim();
+if(!url){alert('Please enter a URL');return}
+let fullUrl=url;
+if(!/^https?:\/\//i.test(fullUrl))fullUrl='https://'+fullUrl;
+document.getElementById('urlInput').value=fullUrl;
+document.getElementById('siteFrame').src=fullUrl;
+document.getElementById('previewPanel').style.display='';
+if(!savedUrls.includes(fullUrl)){savedUrls.unshift(fullUrl);save();renderSaved()}
+updateFrame();
+}
+
+function setSize(w,h,label){
+currentW=w;currentH=h;currentLabel=label;
+document.getElementById('customW').value=w;
+document.getElementById('customH').value=h;
+document.querySelectorAll('.presets button').forEach(b=>{
+b.classList.toggle('active',parseInt(b.dataset.w)===w&&parseInt(b.dataset.h)===h);
+});
+updateFrame();
+}
+
+function applyCustom(){
+const w=parseInt(document.getElementById('customW').value)||1280;
+const h=parseInt(document.getElementById('customH').value)||720;
+currentW=w;currentH=h;currentLabel='Custom ('+w+'x'+h+')';
+document.querySelectorAll('.presets button').forEach(b=>b.classList.remove('active'));
+updateFrame();
+}
+
+function swapDimensions(){
+const tmp=currentW;currentW=currentH;currentH=tmp;
+document.getElementById('customW').value=currentW;
+document.getElementById('customH').value=currentH;
+if(currentLabel.indexOf('Custom')===-1)currentLabel+=' (Rotated)';
+document.querySelectorAll('.presets button').forEach(b=>b.classList.remove('active'));
+updateFrame();
+}
+
+function updateFrame(){
+const frame=document.getElementById('previewFrame');
+const wrapper=frame.parentElement;
+const maxW=wrapper.clientWidth-32;
+const scale=currentW>maxW?maxW/currentW:1;
+const displayW=Math.round(currentW*scale);
+const displayH=Math.round(currentH*scale);
+frame.style.width=displayW+'px';
+frame.style.height=displayH+'px';
+const iframe=document.getElementById('siteFrame');
+if(scale<1){
+iframe.style.width=currentW+'px';
+iframe.style.height=currentH+'px';
+iframe.style.transform='scale('+scale+')';
+iframe.style.transformOrigin='top left';
+frame.style.overflow='hidden';
+}else{
+iframe.style.width='100%';
+iframe.style.height='100%';
+iframe.style.transform='none';
+}
+document.getElementById('deviceLabel').textContent=currentLabel;
+document.getElementById('dimLabel').textContent=currentW+' x '+currentH+'px'+(scale<1?' (scaled to '+Math.round(scale*100)+'%)':'');
+}
+
+function renderSaved(){
+const list=document.getElementById('savedList');
+if(!savedUrls.length){list.innerHTML='<div class="empty">No URLs saved yet. Load a URL and it will be saved here.</div>';return}
+list.innerHTML=savedUrls.map((u,i)=>`
+<div class="saved-url">
+<div class="url-text" onclick="document.getElementById('urlInput').value='${esc(u)}';loadUrl()">${esc(u)}</div>
+<button class="danger" onclick="removeSaved(${i})" style="font-size:.75rem;padding:4px 8px">&times;</button>
+</div>`).join('');
+}
+
+function removeSaved(i){savedUrls.splice(i,1);save();renderSaved()}
+function clearSaved(){if(!confirm('Clear all saved URLs?'))return;savedUrls=[];save();renderSaved()}
+
+function shareTwitter(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Test your site at any screen resolution with this free tool! https://spunk.codes/exclusive/screen-resolution-tester.html'),'_blank')}
+function copyLink(){navigator.clipboard.writeText('https://spunk.codes/exclusive/screen-resolution-tester.html').then(()=>alert('Link copied!'))}
+
+load();
+</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>JSON to CSV Converter — Convert JSON &amp; CSV Instantly | SPUNK.CODES</title>
+<meta name="description" content="Convert JSON to CSV and CSV to JSON. Preview table, handle nested objects, auto-detect delimiters, download files, copy to clipboard. Free, no signup.">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP')</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w")</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e8e8f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+header{background:#111118;border-bottom:2px solid #ff5f1f;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;position:sticky;top:0;z-index:100}
+header h1{font-size:1.4rem;color:#ff5f1f}
+header .back{color:#e8e8f0;font-size:.9rem}
+main{flex:1;max-width:700px;width:100%;margin:0 auto;padding:24px 16px}
+.panel{background:#111118;border:1px solid #2a2a3a;border-radius:10px;padding:20px;margin-bottom:20px}
+.panel h2{font-size:1.1rem;color:#ff5f1f;margin-bottom:14px}
+button{background:#ff5f1f;color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:.9rem;font-weight:600;transition:background .2s}
+button:hover{background:#e8520e}
+button.secondary{background:#2a2a3a;color:#e8e8f0}button.secondary:hover{background:#3a3a4a}
+textarea{background:#16161e;border:1px solid #2a2a3a;color:#e8e8f0;padding:12px;border-radius:6px;font-size:.85rem;width:100%;resize:vertical;font-family:'SF Mono',Monaco,Consolas,monospace;line-height:1.5;tab-size:2}
+.input-group{margin-bottom:16px}
+.input-group label{font-size:.85rem;color:#888;margin-bottom:6px;display:block}
+input,select{background:#16161e;border:1px solid #2a2a3a;color:#e8e8f0;padding:8px 12px;border-radius:6px;font-size:.9rem;width:100%}
+.mode-btns{display:flex;gap:8px;margin-bottom:16px}
+.mode-btns button{flex:1;padding:12px;border-radius:8px;font-size:1rem}
+.mode-btns button.active{background:#ff5f1f;box-shadow:0 0 12px rgba(255,95,31,.4)}
+.mode-btns button:not(.active){background:#2a2a3a;color:#e8e8f0}
+.btn-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.error-msg{color:#ff4444;font-size:.85rem;margin-top:8px;display:none}
+.success-msg{color:#44ff88;font-size:.85rem;margin-top:8px;display:none}
+.stats{display:flex;gap:16px;margin-bottom:12px;font-size:.8rem;color:#888;flex-wrap:wrap}
+.stats span{background:#16161e;padding:4px 10px;border-radius:4px}
+.table-wrap{max-height:400px;overflow:auto;border:1px solid #2a2a3a;border-radius:8px;margin-top:12px}
+table{width:100%;border-collapse:collapse;font-size:.8rem}
+th{background:#16161e;color:#ff5f1f;padding:8px 10px;text-align:left;border-bottom:1px solid #2a2a3a;position:sticky;top:0;white-space:nowrap}
+td{padding:6px 10px;border-bottom:1px solid #1a1a2a;max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+tr:hover td{background:#16161e}
+.options-row{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
+.options-row label{font-size:.85rem;color:#888;display:flex;align-items:center;gap:4px;cursor:pointer}
+.options-row select{width:auto;min-width:80px}
+.share-btns{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.share-btns button{font-size:.8rem;padding:6px 12px}
+footer{text-align:center;padding:20px;color:#555;font-size:.8rem;border-top:1px solid #1a1a2a;margin-top:auto}
+footer a{color:#ff5f1f;margin:0 4px}
+@media(max-width:700px){
+header h1{font-size:1.1rem}
+.mode-btns button{font-size:.85rem;padding:10px}
+}
+</style>
+</head>
+<body>
+<header>
+<h1>JSON to CSV Converter</h1>
+<a href="https://spunk.codes" class="back">spunk.codes</a>
+</header>
+<main>
+<div class="panel">
+<h2>Conversion Mode</h2>
+<div class="mode-btns">
+<button class="active" onclick="setMode('j2c')">JSON &rarr; CSV</button>
+<button onclick="setMode('c2j')">CSV &rarr; JSON</button>
+</div>
+</div>
+
+<div class="panel">
+<h2>Input</h2>
+<div id="optionsJ2C" class="options-row">
+<label>Delimiter: <select id="delimiterOut" onchange="convert()"><option value=",">,</option><option value=";">;</option><option value="	">Tab</option><option value="|">|</option></select></label>
+<label><input type="checkbox" id="flattenNested" checked onchange="convert()" style="width:auto"> Flatten nested objects</label>
+</div>
+<div id="optionsC2J" class="options-row" style="display:none">
+<label>Delimiter: <select id="delimiterIn"><option value="auto">Auto-detect</option><option value=",">,</option><option value=";">;</option><option value="	">Tab</option><option value="|">|</option></select></label>
+</div>
+<textarea id="inputArea" rows="12" placeholder="Paste your JSON array or CSV here..." oninput="convert()"></textarea>
+<div class="error-msg" id="errorMsg"></div>
+<div class="success-msg" id="successMsg"></div>
+<div class="btn-row">
+<button onclick="convert()">Convert</button>
+<button class="secondary" onclick="clearAll()">Clear</button>
+<button class="secondary" onclick="loadSampleJSON()">Sample JSON</button>
+<button class="secondary" onclick="loadSampleCSV()">Sample CSV</button>
+<button class="secondary" onclick="pasteClipboard()">Paste</button>
+</div>
+</div>
+
+<div class="panel" id="outputPanel" style="display:none">
+<h2>Output</h2>
+<div class="stats" id="outputStats"></div>
+<textarea id="outputArea" rows="10" readonly></textarea>
+<div class="btn-row">
+<button onclick="copyOutput()">Copy to Clipboard</button>
+<button class="secondary" onclick="downloadOutput()">Download File</button>
+</div>
+</div>
+
+<div class="panel" id="previewPanel" style="display:none">
+<h2>Preview Table</h2>
+<div class="stats" id="previewStats"></div>
+<div class="table-wrap" id="previewTable"></div>
+</div>
+
+<div class="panel">
+<h2>Share</h2>
+<div class="share-btns">
+<button onclick="shareX()">Share on X</button>
+<button class="secondary" onclick="shareReddit()">Share on Reddit</button>
+<button class="secondary" onclick="shareEmail()">Email</button>
+<button class="secondary" onclick="copyLink()">Copy Link</button>
+</div>
+</div>
+</main>
+
+<footer>
+<a href="https://spunk.codes">spunk.codes</a> &middot;
+<a href="https://spunk.bet">spunk.bet</a> &middot;
+<a href="https://spunk.pics">spunk.pics</a> &middot;
+<a href="https://spunk.work">spunk.work</a> &middot;
+<a href="https://spunkart.com">SpunkArt.com</a>
+</footer>
+
+<script>
+const LS_KEY='spunkcodes_json_csv';
+let mode='j2c';
+let lastOutput='';
+let lastHeaders=[];
+let lastRows=[];
+
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+
+function loadState(){try{const d=JSON.parse(localStorage.getItem(LS_KEY));if(d){if(d.mode){mode=d.mode;updateModeBtns()}if(d.input)document.getElementById('inputArea').value=d.input}}catch(e){}}
+function saveState(){try{localStorage.setItem(LS_KEY,JSON.stringify({mode:mode,input:document.getElementById('inputArea').value}))}catch(e){}}
+
+function setMode(m){mode=m;updateModeBtns();convert();saveState()}
+function updateModeBtns(){
+const btns=document.querySelectorAll('.mode-btns button');
+btns[0].classList.toggle('active',mode==='j2c');
+btns[1].classList.toggle('active',mode==='c2j');
+document.getElementById('optionsJ2C').style.display=mode==='j2c'?'flex':'none';
+document.getElementById('optionsC2J').style.display=mode==='c2j'?'flex':'none';
+document.getElementById('inputArea').placeholder=mode==='j2c'?'Paste your JSON array here...':'Paste your CSV here...';
+}
+
+function showError(msg){const el=document.getElementById('errorMsg');el.textContent=msg;el.style.display='block';document.getElementById('successMsg').style.display='none'}
+function showSuccess(msg){const el=document.getElementById('successMsg');el.textContent=msg;el.style.display='block';document.getElementById('errorMsg').style.display='none'}
+function hideMessages(){document.getElementById('errorMsg').style.display='none';document.getElementById('successMsg').style.display='none'}
+
+function flattenObj(obj,prefix){
+const result={};
+for(const key in obj){
+const fullKey=prefix?prefix+'.'+key:key;
+if(obj[key]&&typeof obj[key]==='object'&&!Array.isArray(obj[key])){
+Object.assign(result,flattenObj(obj[key],fullKey));
+}else if(Array.isArray(obj[key])){
+result[fullKey]=JSON.stringify(obj[key]);
+}else{
+result[fullKey]=obj[key];
+}
+}
+return result;
+}
+
+function jsonToCSV(jsonArr,delimiter){
+const shouldFlatten=document.getElementById('flattenNested').checked;
+const processed=shouldFlatten?jsonArr.map(obj=>flattenObj(obj,'')):jsonArr;
+const headers=new Set();
+processed.forEach(obj=>{Object.keys(obj).forEach(k=>headers.add(k))});
+const headerArr=[...headers];
+lastHeaders=headerArr;
+
+const csvVal=(val)=>{
+if(val===null||val===undefined)return'';
+const s=typeof val==='object'?JSON.stringify(val):String(val);
+if(s.includes(delimiter)||s.includes('"')||s.includes('\n'))return'"'+s.replace(/"/g,'""')+'"';
+return s;
+};
+
+const lines=[headerArr.map(h=>csvVal(h)).join(delimiter)];
+const rows=[];
+processed.forEach(obj=>{
+const row=headerArr.map(h=>csvVal(obj[h]));
+lines.push(row.join(delimiter));
+rows.push(headerArr.map(h=>obj[h]!==undefined&&obj[h]!==null?String(obj[h]):''));
+});
+lastRows=rows;
+return lines.join('\n');
+}
+
+function detectDelimiter(csv){
+const firstLine=csv.split('\n')[0]||'';
+const counts={',':(firstLine.match(/,/g)||[]).length,';':(firstLine.match(/;/g)||[]).length,'\t':(firstLine.match(/\t/g)||[]).length,'|':(firstLine.match(/\|/g)||[]).length};
+let best=',',max=0;
+for(const[d,c]of Object.entries(counts)){if(c>max){max=c;best=d}}
+return best;
+}
+
+function parseCSV(csv,delimiter){
+const lines=[];
+let current='';
+let inQuotes=false;
+let row=[];
+for(let i=0;i<csv.length;i++){
+const ch=csv[i];
+if(inQuotes){
+if(ch==='"'){
+if(i+1<csv.length&&csv[i+1]==='"'){current+='"';i++}
+else{inQuotes=false}
+}else{current+=ch}
+}else{
+if(ch==='"'){inQuotes=true}
+else if(ch===delimiter){row.push(current);current=''}
+else if(ch==='\n'){row.push(current);if(row.some(c=>c.trim()))lines.push(row);row=[];current=''}
+else if(ch==='\r'){continue}
+else{current+=ch}
+}
+}
+row.push(current);
+if(row.some(c=>c.trim()))lines.push(row);
+return lines;
+}
+
+function csvToJSON(csv){
+const delimSel=document.getElementById('delimiterIn').value;
+const delimiter=delimSel==='auto'?detectDelimiter(csv):delimSel;
+const parsed=parseCSV(csv,delimiter);
+if(parsed.length<2){showError('Need at least a header row and one data row');return null}
+const headers=parsed[0].map(h=>h.trim());
+lastHeaders=headers;
+const result=[];
+const rows=[];
+for(let i=1;i<parsed.length;i++){
+const obj={};
+const row=[];
+headers.forEach((h,j)=>{
+let val=parsed[i][j]!==undefined?parsed[i][j]:'';
+// try parsing numbers and booleans
+if(val==='true')val=true;
+else if(val==='false')val=false;
+else if(val==='null')val=null;
+else if(val!==''&&!isNaN(val)&&val.trim()!=='')val=Number(val);
+obj[h]=val;
+row.push(String(parsed[i][j]||''));
+});
+result.push(obj);
+rows.push(row);
+}
+lastRows=rows;
+return result;
+}
+
+function convert(){
+hideMessages();
+const input=document.getElementById('inputArea').value.trim();
+if(!input){
+document.getElementById('outputPanel').style.display='none';
+document.getElementById('previewPanel').style.display='none';
+return;
+}
+saveState();
+
+try{
+if(mode==='j2c'){
+const parsed=JSON.parse(input);
+if(!Array.isArray(parsed)){showError('Input must be a JSON array');return}
+if(!parsed.length){showError('JSON array is empty');return}
+const delimiter=document.getElementById('delimiterOut').value;
+const csv=jsonToCSV(parsed,delimiter);
+lastOutput=csv;
+document.getElementById('outputArea').value=csv;
+document.getElementById('outputStats').innerHTML=`<span>${parsed.length} rows</span><span>${lastHeaders.length} columns</span>`;
+showSuccess('Converted '+parsed.length+' rows to CSV');
+}else{
+const result=csvToJSON(input);
+if(!result)return;
+const json=JSON.stringify(result,null,2);
+lastOutput=json;
+document.getElementById('outputArea').value=json;
+document.getElementById('outputStats').innerHTML=`<span>${result.length} rows</span><span>${lastHeaders.length} columns</span>`;
+showSuccess('Converted '+result.length+' rows to JSON');
+}
+document.getElementById('outputPanel').style.display='';
+renderPreview();
+}catch(e){
+showError('Parse error: '+e.message);
+document.getElementById('outputPanel').style.display='none';
+document.getElementById('previewPanel').style.display='none';
+}
+}
+
+function renderPreview(){
+if(!lastHeaders.length||!lastRows.length){
+document.getElementById('previewPanel').style.display='none';
+return;
+}
+document.getElementById('previewPanel').style.display='';
+const maxRows=Math.min(lastRows.length,100);
+document.getElementById('previewStats').innerHTML=`<span>Showing ${maxRows} of ${lastRows.length} rows</span>`;
+let html='<table><thead><tr>';
+lastHeaders.forEach(h=>{html+='<th>'+esc(h)+'</th>'});
+html+='</tr></thead><tbody>';
+for(let i=0;i<maxRows;i++){
+html+='<tr>';
+lastHeaders.forEach((h,j)=>{html+='<td>'+esc(lastRows[i][j]||'')+'</td>'});
+html+='</tr>';
+}
+html+='</tbody></table>';
+document.getElementById('previewTable').innerHTML=html;
+}
+
+function copyOutput(){
+navigator.clipboard.writeText(lastOutput).then(()=>alert('Copied to clipboard!')).catch(()=>alert('Copy failed'));
+}
+
+function downloadOutput(){
+const ext=mode==='j2c'?'.csv':'.json';
+const mime=mode==='j2c'?'text/csv':'application/json';
+const blob=new Blob([lastOutput],{type:mime});
+const url=URL.createObjectURL(blob);
+const a=document.createElement('a');
+a.href=url;a.download='converted'+ext;
+document.body.appendChild(a);a.click();document.body.removeChild(a);
+URL.revokeObjectURL(url);
+}
+
+function clearAll(){
+document.getElementById('inputArea').value='';
+document.getElementById('outputArea').value='';
+document.getElementById('outputPanel').style.display='none';
+document.getElementById('previewPanel').style.display='none';
+hideMessages();lastOutput='';lastHeaders=[];lastRows=[];saveState();
+}
+
+function pasteClipboard(){navigator.clipboard.readText().then(t=>{document.getElementById('inputArea').value=t;convert()}).catch(()=>alert('Clipboard access denied'))}
+
+function loadSampleJSON(){
+document.getElementById('inputArea').value=JSON.stringify([
+{"id":1,"name":"Alice Johnson","email":"alice@example.com","age":29,"city":"New York","active":true},
+{"id":2,"name":"Bob Smith","email":"bob@example.com","age":34,"city":"San Francisco","active":false},
+{"id":3,"name":"Carol White","email":"carol@example.com","age":27,"city":"Chicago","active":true},
+{"id":4,"name":"Dave Brown","email":"dave@example.com","age":41,"city":"Austin","active":true},
+{"id":5,"name":"Eve Davis","email":"eve@example.com","age":36,"city":"Seattle","active":false}
+],null,2);
+if(mode!=='j2c')setMode('j2c');else convert();
+}
+
+function loadSampleCSV(){
+document.getElementById('inputArea').value=`name,email,age,city,role
+Alice Johnson,alice@example.com,29,New York,Engineer
+Bob Smith,bob@example.com,34,San Francisco,Designer
+Carol White,carol@example.com,27,Chicago,Manager
+Dave Brown,dave@example.com,41,Austin,Developer
+Eve Davis,eve@example.com,36,Seattle,Analyst`;
+if(mode!=='c2j')setMode('c2j');else convert();
+}
+
+const toolURL='https://spunk.codes/exclusive/json-to-csv-converter.html';
+function shareX(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Convert JSON to CSV and back instantly! Free tool: '+toolURL),'_blank')}
+function shareReddit(){window.open('https://reddit.com/submit?url='+encodeURIComponent(toolURL)+'&title='+encodeURIComponent('JSON to CSV Converter - Free Tool'),'_blank')}
+function shareEmail(){window.location.href='mailto:?subject='+encodeURIComponent('JSON to CSV Converter')+'&body='+encodeURIComponent('Check this out: '+toolURL)}
+function copyLink(){navigator.clipboard.writeText(toolURL).then(()=>alert('Link copied!'))}
+
+loadState();
+updateModeBtns();
+if(document.getElementById('inputArea').value)convert();
+</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>

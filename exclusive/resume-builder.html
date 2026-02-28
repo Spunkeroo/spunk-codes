@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Resume Builder | SPUNK.CODES</title>
+<meta name="description" content="Build a clean, professional resume with customizable sections. Export to printable format. All data saved locally. Free, no signup required.">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP')</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w")</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e8e8f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+header{background:#111118;border-bottom:2px solid #ff5f1f;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;position:sticky;top:0;z-index:100}
+header h1{font-size:1.4rem;color:#ff5f1f}
+header .back{color:#e8e8f0;font-size:.9rem}
+main{flex:1;max-width:800px;width:100%;margin:0 auto;padding:24px 16px}
+.panel{background:#111118;border:1px solid #2a2a3a;border-radius:10px;padding:20px;margin-bottom:20px}
+.panel h2{font-size:1.1rem;color:#ff5f1f;margin-bottom:14px}
+button{background:#ff5f1f;color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:.9rem;font-weight:600;transition:background .2s}
+button:hover{background:#e8520e}
+button.secondary{background:#2a2a3a;color:#e8e8f0}button.secondary:hover{background:#3a3a4a}
+button.danger{background:#cc2233}button.danger:hover{background:#aa1122}
+input,textarea,select{background:#16161e;border:1px solid #2a2a3a;color:#e8e8f0;padding:8px 12px;border-radius:6px;font-size:.9rem;width:100%;font-family:inherit}
+textarea{resize:vertical;min-height:60px}
+.input-group{margin-bottom:14px}
+.input-group label{font-size:.85rem;color:#888;margin-bottom:6px;display:block}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.section-entry{background:#16161e;border:1px solid #2a2a3a;border-radius:8px;padding:14px;margin-bottom:10px;position:relative}
+.section-entry .remove-btn{position:absolute;top:8px;right:8px;background:#cc2233;color:#fff;border:none;width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;padding:0}
+.btn-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.share-btns{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.share-btns button{font-size:.8rem;padding:6px 12px}
+.tabs{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.tabs button{background:#2a2a3a;color:#e8e8f0;border-radius:8px;padding:10px 18px}
+.tabs button.active{background:#ff5f1f;color:#fff}
+.preview-frame{background:#fff;color:#222;border-radius:8px;padding:40px;min-height:400px;font-family:'Georgia','Times New Roman',serif;line-height:1.6}
+.preview-frame h1{font-size:1.8rem;color:#111;margin-bottom:2px;font-family:-apple-system,sans-serif}
+.preview-frame .contact-line{font-size:.85rem;color:#555;margin-bottom:16px}
+.preview-frame h2{font-size:1rem;color:#333;border-bottom:2px solid #333;padding-bottom:4px;margin:18px 0 10px;text-transform:uppercase;letter-spacing:1px;font-family:-apple-system,sans-serif}
+.preview-frame .entry{margin-bottom:12px}
+.preview-frame .entry-header{display:flex;justify-content:space-between;flex-wrap:wrap}
+.preview-frame .entry-title{font-weight:700;color:#111;font-size:.95rem}
+.preview-frame .entry-date{color:#666;font-size:.85rem}
+.preview-frame .entry-sub{color:#444;font-size:.9rem;font-style:italic}
+.preview-frame .entry-desc{font-size:.88rem;color:#333;margin-top:4px}
+.preview-frame .skills-list{display:flex;flex-wrap:wrap;gap:6px}
+.preview-frame .skill-tag{background:#f0f0f0;color:#333;padding:3px 10px;border-radius:4px;font-size:.82rem}
+footer{text-align:center;padding:20px;color:#555;font-size:.8rem;border-top:1px solid #1a1a2a;margin-top:auto}
+footer a{color:#ff5f1f;margin:0 4px}
+@media print{
+header,footer,.panel,.tabs,.btn-row,.share-btns,button,.no-print{display:none!important}
+body{background:#fff;color:#222}
+main{max-width:100%;padding:0}
+.preview-frame{padding:20px;box-shadow:none}
+}
+@media(max-width:700px){
+.row{grid-template-columns:1fr}
+header h1{font-size:1.1rem}
+.preview-frame{padding:20px}
+.preview-frame h1{font-size:1.4rem}
+}
+</style>
+</head>
+<body>
+<header>
+<h1>Resume Builder</h1>
+<a href="https://spunk.codes" class="back">spunk.codes</a>
+</header>
+<main>
+
+<div class="tabs no-print">
+<button class="active" onclick="showTab('edit')">Edit</button>
+<button onclick="showTab('preview')">Preview</button>
+</div>
+
+<div id="editTab">
+
+<div class="panel">
+<h2>Personal Info</h2>
+<div class="row">
+<div class="input-group"><label>Full Name</label><input type="text" id="fullName" oninput="autoSave()" placeholder="John Doe"></div>
+<div class="input-group"><label>Job Title</label><input type="text" id="jobTitle" oninput="autoSave()" placeholder="Software Engineer"></div>
+</div>
+<div class="row">
+<div class="input-group"><label>Email</label><input type="email" id="email" oninput="autoSave()" placeholder="john@example.com"></div>
+<div class="input-group"><label>Phone</label><input type="tel" id="phone" oninput="autoSave()" placeholder="(555) 123-4567"></div>
+</div>
+<div class="row">
+<div class="input-group"><label>Location</label><input type="text" id="location" oninput="autoSave()" placeholder="New York, NY"></div>
+<div class="input-group"><label>Website / LinkedIn</label><input type="text" id="website" oninput="autoSave()" placeholder="linkedin.com/in/johndoe"></div>
+</div>
+</div>
+
+<div class="panel">
+<h2>Summary</h2>
+<div class="input-group"><label>Professional Summary (2-3 sentences)</label><textarea id="summary" rows="3" oninput="autoSave()" placeholder="Experienced software engineer with 5+ years building scalable web applications..."></textarea></div>
+</div>
+
+<div class="panel">
+<h2>Work Experience</h2>
+<div id="experienceList"></div>
+<button class="secondary" onclick="addExperience()">+ Add Experience</button>
+</div>
+
+<div class="panel">
+<h2>Education</h2>
+<div id="educationList"></div>
+<button class="secondary" onclick="addEducation()">+ Add Education</button>
+</div>
+
+<div class="panel">
+<h2>Skills</h2>
+<div class="input-group"><label>Enter skills separated by commas</label><input type="text" id="skills" oninput="autoSave()" placeholder="JavaScript, React, Node.js, Python, SQL"></div>
+</div>
+
+<div class="panel">
+<h2>Projects (Optional)</h2>
+<div id="projectsList"></div>
+<button class="secondary" onclick="addProject()">+ Add Project</button>
+</div>
+
+<div class="panel">
+<h2>Actions</h2>
+<div class="btn-row">
+<button onclick="showTab('preview')">Preview Resume</button>
+<button onclick="printResume()">Print / Save PDF</button>
+<button class="secondary" onclick="exportJSON()">Export Data</button>
+<button class="secondary" onclick="document.getElementById('importFile').click()">Import Data</button>
+<input type="file" id="importFile" accept=".json" style="display:none" onchange="importJSON(event)">
+<button class="danger" onclick="clearAll()">Clear All</button>
+</div>
+</div>
+
+</div>
+
+<div id="previewTab" style="display:none">
+<div class="btn-row no-print" style="margin-bottom:16px">
+<button onclick="showTab('edit')">Back to Edit</button>
+<button onclick="printResume()">Print / Save PDF</button>
+</div>
+<div class="preview-frame" id="previewFrame"></div>
+</div>
+
+<div class="panel no-print">
+<h2>Share</h2>
+<div class="share-btns">
+<button onclick="shareTwitter()">Share on X</button>
+<button class="secondary" onclick="copyLink()">Copy Link</button>
+</div>
+</div>
+</main>
+
+<footer>
+<a href="https://spunk.codes">spunk.codes</a> &middot;
+<a href="https://spunk.bet">spunk.bet</a> &middot;
+<a href="https://spunk.pics">spunk.pics</a> &middot;
+<a href="https://spunk.work">spunk.work</a> &middot;
+<a href="https://spunkart.com">SpunkArt.com</a>
+</footer>
+
+<script>
+const LS_KEY='spunkcodes_resume';
+let data={personal:{},summary:'',experience:[],education:[],skills:'',projects:[]};
+
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+
+function load(){try{const saved=JSON.parse(localStorage.getItem(LS_KEY));if(saved){data=saved;document.getElementById('fullName').value=data.personal.fullName||'';document.getElementById('jobTitle').value=data.personal.jobTitle||'';document.getElementById('email').value=data.personal.email||'';document.getElementById('phone').value=data.personal.phone||'';document.getElementById('location').value=data.personal.location||'';document.getElementById('website').value=data.personal.website||'';document.getElementById('summary').value=data.summary||'';document.getElementById('skills').value=data.skills||'';renderExperience();renderEducation();renderProjects()}}catch(e){}}
+
+function save(){localStorage.setItem(LS_KEY,JSON.stringify(data))}
+
+function autoSave(){
+data.personal={fullName:document.getElementById('fullName').value,jobTitle:document.getElementById('jobTitle').value,email:document.getElementById('email').value,phone:document.getElementById('phone').value,location:document.getElementById('location').value,website:document.getElementById('website').value};
+data.summary=document.getElementById('summary').value;
+data.skills=document.getElementById('skills').value;
+save();
+}
+
+function showTab(tab){
+document.getElementById('editTab').style.display=tab==='edit'?'':'none';
+document.getElementById('previewTab').style.display=tab==='preview'?'':'none';
+document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('active'));
+document.querySelectorAll('.tabs button')[tab==='edit'?0:1].classList.add('active');
+if(tab==='preview')renderPreview();
+}
+
+function addExperience(){
+data.experience.push({title:'',company:'',startDate:'',endDate:'',description:''});
+save();renderExperience();
+}
+
+function renderExperience(){
+const list=document.getElementById('experienceList');
+list.innerHTML=data.experience.map((e,i)=>`
+<div class="section-entry">
+<button class="remove-btn" onclick="removeExperience(${i})">&times;</button>
+<div class="row">
+<div class="input-group"><label>Job Title</label><input type="text" value="${esc(e.title)}" onchange="updateExp(${i},'title',this.value)"></div>
+<div class="input-group"><label>Company</label><input type="text" value="${esc(e.company)}" onchange="updateExp(${i},'company',this.value)"></div>
+</div>
+<div class="row">
+<div class="input-group"><label>Start Date</label><input type="text" value="${esc(e.startDate)}" onchange="updateExp(${i},'startDate',this.value)" placeholder="Jan 2022"></div>
+<div class="input-group"><label>End Date</label><input type="text" value="${esc(e.endDate)}" onchange="updateExp(${i},'endDate',this.value)" placeholder="Present"></div>
+</div>
+<div class="input-group"><label>Description (use bullet points with - or *)</label><textarea onchange="updateExp(${i},'description',this.value)" rows="3">${esc(e.description)}</textarea></div>
+</div>`).join('');
+}
+
+function updateExp(i,field,val){data.experience[i][field]=val;save()}
+function removeExperience(i){data.experience.splice(i,1);save();renderExperience()}
+
+function addEducation(){
+data.education.push({degree:'',school:'',year:'',details:''});
+save();renderEducation();
+}
+
+function renderEducation(){
+const list=document.getElementById('educationList');
+list.innerHTML=data.education.map((e,i)=>`
+<div class="section-entry">
+<button class="remove-btn" onclick="removeEducation(${i})">&times;</button>
+<div class="row">
+<div class="input-group"><label>Degree</label><input type="text" value="${esc(e.degree)}" onchange="updateEdu(${i},'degree',this.value)" placeholder="B.S. Computer Science"></div>
+<div class="input-group"><label>School</label><input type="text" value="${esc(e.school)}" onchange="updateEdu(${i},'school',this.value)"></div>
+</div>
+<div class="row">
+<div class="input-group"><label>Year</label><input type="text" value="${esc(e.year)}" onchange="updateEdu(${i},'year',this.value)" placeholder="2020"></div>
+<div class="input-group"><label>Details (GPA, honors, etc.)</label><input type="text" value="${esc(e.details)}" onchange="updateEdu(${i},'details',this.value)"></div>
+</div>
+</div>`).join('');
+}
+
+function updateEdu(i,field,val){data.education[i][field]=val;save()}
+function removeEducation(i){data.education.splice(i,1);save();renderEducation()}
+
+function addProject(){
+data.projects.push({name:'',description:'',link:''});
+save();renderProjects();
+}
+
+function renderProjects(){
+const list=document.getElementById('projectsList');
+list.innerHTML=data.projects.map((p,i)=>`
+<div class="section-entry">
+<button class="remove-btn" onclick="removeProject(${i})">&times;</button>
+<div class="row">
+<div class="input-group"><label>Project Name</label><input type="text" value="${esc(p.name)}" onchange="updateProj(${i},'name',this.value)"></div>
+<div class="input-group"><label>Link (optional)</label><input type="text" value="${esc(p.link)}" onchange="updateProj(${i},'link',this.value)"></div>
+</div>
+<div class="input-group"><label>Description</label><textarea onchange="updateProj(${i},'description',this.value)" rows="2">${esc(p.description)}</textarea></div>
+</div>`).join('');
+}
+
+function updateProj(i,field,val){data.projects[i][field]=val;save()}
+function removeProject(i){data.projects.splice(i,1);save();renderProjects()}
+
+function formatDesc(text){
+if(!text)return'';
+const lines=text.split('\n');
+const bullets=[];
+let plain=[];
+lines.forEach(l=>{
+const trimmed=l.trim();
+if(trimmed.startsWith('- ')||trimmed.startsWith('* ')){
+if(plain.length){bullets.push('<p>'+esc(plain.join(' '))+'</p>');plain=[]}
+bullets.push('<li>'+esc(trimmed.substring(2))+'</li>');
+}else if(trimmed){plain.push(trimmed)}
+});
+if(plain.length)bullets.push('<p>'+esc(plain.join(' '))+'</p>');
+const hasLi=bullets.some(b=>b.startsWith('<li>'));
+if(hasLi){
+let html='';
+let inUl=false;
+bullets.forEach(b=>{
+if(b.startsWith('<li>')){if(!inUl){html+='<ul style="margin:4px 0 4px 18px;padding:0">';inUl=true}html+=b}
+else{if(inUl){html+='</ul>';inUl=false}html+=b}
+});
+if(inUl)html+='</ul>';
+return html;
+}
+return bullets.join('');
+}
+
+function renderPreview(){
+const p=data.personal;
+const frame=document.getElementById('previewFrame');
+let html='';
+if(p.fullName)html+='<h1>'+esc(p.fullName)+'</h1>';
+const contact=[];
+if(p.jobTitle)contact.push(esc(p.jobTitle));
+if(p.email)contact.push(esc(p.email));
+if(p.phone)contact.push(esc(p.phone));
+if(p.location)contact.push(esc(p.location));
+if(p.website)contact.push(esc(p.website));
+if(contact.length)html+='<div class="contact-line">'+contact.join(' | ')+'</div>';
+
+if(data.summary){html+='<h2>Summary</h2><p style="font-size:.9rem;color:#333">'+esc(data.summary)+'</p>'}
+
+if(data.experience.length){
+html+='<h2>Experience</h2>';
+data.experience.forEach(e=>{
+html+='<div class="entry"><div class="entry-header"><span class="entry-title">'+esc(e.title)+'</span><span class="entry-date">'+esc(e.startDate)+(e.endDate?' - '+esc(e.endDate):'')+'</span></div>';
+if(e.company)html+='<div class="entry-sub">'+esc(e.company)+'</div>';
+if(e.description)html+='<div class="entry-desc">'+formatDesc(e.description)+'</div>';
+html+='</div>';
+});
+}
+
+if(data.education.length){
+html+='<h2>Education</h2>';
+data.education.forEach(e=>{
+html+='<div class="entry"><div class="entry-header"><span class="entry-title">'+esc(e.degree)+'</span><span class="entry-date">'+esc(e.year)+'</span></div>';
+if(e.school)html+='<div class="entry-sub">'+esc(e.school)+'</div>';
+if(e.details)html+='<div class="entry-desc" style="font-size:.85rem;color:#555">'+esc(e.details)+'</div>';
+html+='</div>';
+});
+}
+
+if(data.skills){
+html+='<h2>Skills</h2><div class="skills-list">';
+data.skills.split(',').forEach(s=>{s=s.trim();if(s)html+='<span class="skill-tag">'+esc(s)+'</span>'});
+html+='</div>';
+}
+
+if(data.projects.length){
+html+='<h2>Projects</h2>';
+data.projects.forEach(p=>{
+html+='<div class="entry"><span class="entry-title">'+esc(p.name)+'</span>';
+if(p.link)html+=' <span style="font-size:.8rem;color:#666">('+esc(p.link)+')</span>';
+if(p.description)html+='<div class="entry-desc">'+esc(p.description)+'</div>';
+html+='</div>';
+});
+}
+
+frame.innerHTML=html||'<p style="color:#999;text-align:center;padding:60px 0">Fill in your details on the Edit tab to see your resume here.</p>';
+}
+
+function printResume(){showTab('preview');setTimeout(()=>window.print(),300)}
+
+function exportJSON(){
+const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='resume-data.json';a.click();
+}
+
+function importJSON(e){
+const file=e.target.files[0];if(!file)return;
+const reader=new FileReader();
+reader.onload=function(ev){try{data=JSON.parse(ev.target.result);save();load();alert('Resume data imported!')}catch(err){alert('Invalid JSON file')}};
+reader.readAsText(file);e.target.value='';
+}
+
+function clearAll(){if(!confirm('Clear all resume data?'))return;data={personal:{},summary:'',experience:[],education:[],skills:'',projects:[]};save();location.reload()}
+
+function shareTwitter(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Built my resume with this free Resume Builder! https://spunk.codes/exclusive/resume-builder.html'),'_blank')}
+function copyLink(){navigator.clipboard.writeText('https://spunk.codes/exclusive/resume-builder.html').then(()=>alert('Link copied!'))}
+
+load();
+</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>
