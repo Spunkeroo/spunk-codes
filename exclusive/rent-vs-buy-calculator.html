@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Rent vs Buy Calculator — Compare True Housing Costs | SPUNK.CODES Exclusive</title>
+<meta name="description" content="Compare renting vs buying a home. Calculate monthly costs, breakeven timeline, and total cost over 5/10/15/30 years with visual charts. Free premium tool.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Rent vs Buy Calculator — SPUNK.CODES Exclusive">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/rent-vs-buy-calculator">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0a0a0f;--card:rgba(18,18,28,0.85);--border:rgba(255,95,31,0.18);--accent:#ff5f1f;--accent-glow:rgba(255,95,31,0.3);--text:#e6edf3;--text-dim:#8b949e;--green:#39d353;--red:#f85149;--yellow:#ffd700;--blue:#58a6ff;--font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+a{color:var(--blue);text-decoration:none}
+.bg-mesh{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 80% 50% at 20% 20%,rgba(255,95,31,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(255,95,31,0.04) 0%,transparent 60%),var(--bg)}
+.bg-grid{position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,95,31,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,95,31,0.03) 1px,transparent 1px);background-size:60px 60px}
+.nav{position:sticky;top:0;z-index:100;background:rgba(10,10,15,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,95,31,0.15);padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}
+.nav-brand{font-weight:800;font-size:1.1rem;color:var(--accent);letter-spacing:0.08em}
+.nav-links{display:flex;gap:1.5rem;font-size:0.85rem}.nav-links a{color:var(--text-dim);font-weight:500}.nav-links a.active{color:var(--accent)}
+.lock-gate{position:fixed;inset:0;z-index:1000;background:rgba(10,10,15,0.97);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:2rem}
+.lock-gate.hidden{display:none}
+.lock-icon-big{font-size:4rem}.lock-gate h2{font-size:1.8rem;font-weight:800;text-align:center}.lock-gate h2 span{color:var(--accent)}.lock-gate p{color:var(--text-dim);text-align:center;max-width:400px}
+.code-input-wrap{display:flex;gap:0.5rem}
+.code-input{padding:0.8rem 1.5rem;background:rgba(18,18,28,0.8);border:2px solid var(--accent-glow);border-radius:12px;color:var(--accent);font-size:1.2rem;font-weight:800;letter-spacing:3px;text-align:center;width:200px;outline:none;text-transform:uppercase;font-family:var(--font)}
+.code-input:focus{border-color:var(--accent);box-shadow:0 0 20px rgba(255,95,31,0.2)}
+.code-submit{padding:0.8rem 1.5rem;background:linear-gradient(135deg,#ff5f1f,#ff8c00);border:none;border-radius:12px;color:#000;font-size:1rem;font-weight:800;cursor:pointer}
+.code-error{color:var(--red);font-size:0.85rem;min-height:1.2em}.lock-hint{color:var(--text-dim);font-size:0.8rem}.lock-hint a{color:var(--accent)}
+.exclusive-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;background:linear-gradient(135deg,rgba(255,95,31,0.15),rgba(255,140,0,0.15));border:1px solid var(--accent-glow);border-radius:100px;font-size:11px;font-weight:800;color:var(--accent);letter-spacing:1.5px;text-transform:uppercase}
+.main{max-width:1100px;margin:0 auto;padding:2rem}
+.hero-section{text-align:center;padding:2rem 0 2rem}
+.hero-section h1{font-size:2.2rem;font-weight:800;margin:1rem 0 0.5rem}
+.hero-section h1 .accent{background:linear-gradient(135deg,#ff5f1f,#ff8c00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-section p{color:var(--text-dim);max-width:600px;margin:0 auto}
+.card{background:var(--card);border:1px solid var(--accent-glow);border-radius:16px;padding:1.5rem;margin-bottom:1.5rem;backdrop-filter:blur(10px);position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),#ff8c00,var(--accent))}
+.card h2{font-size:1.1rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}
+.form-group{display:flex;flex-direction:column;gap:0.3rem;margin-bottom:0.75rem}
+.form-group label{font-size:0.75rem;color:var(--text-dim);font-weight:600;text-transform:uppercase;letter-spacing:0.5px}
+.form-group input,.form-group select,.form-group textarea{padding:0.6rem 0.8rem;background:rgba(18,18,28,0.9);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.85rem;font-family:var(--font);outline:none;resize:vertical}
+.form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:var(--accent)}
+.btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;transition:all 0.2s}
+.btn-accent{background:linear-gradient(135deg,#ff5f1f,#ff8c00);color:#000}
+.btn-accent:hover{transform:translateY(-1px);box-shadow:0 4px 15px rgba(255,95,31,0.3)}
+.btn-outline{background:transparent;border:1px solid var(--accent-glow);color:var(--accent)}
+.btn-outline:hover{background:rgba(255,95,31,0.1)}
+.btn-sm{padding:0.4rem 0.8rem;font-size:0.75rem}
+.btn-red{background:rgba(248,81,73,0.15);border:1px solid rgba(248,81,73,0.3);color:var(--red)}
+.btn-row{display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:0.75rem}
+.result-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1rem;margin:1rem 0}
+.result-box{background:rgba(10,10,15,0.6);border:1px solid var(--border);border-radius:12px;padding:1rem;text-align:center}
+.result-box .value{font-size:1.5rem;font-weight:800;color:var(--accent)}
+.result-box .label{font-size:0.7rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.5px;margin-top:0.3rem}
+.result-box.good .value{color:var(--green)}
+.result-box.bad .value{color:var(--red)}
+.result-box.warn .value{color:var(--yellow)}
+.copy-toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--accent);color:#000;padding:0.5rem 1.5rem;border-radius:8px;font-weight:700;font-size:0.85rem;z-index:9999;opacity:0;transition:opacity 0.3s}
+.copy-toast.show{opacity:1}
+.share-cta{background:linear-gradient(135deg,rgba(255,95,31,0.08),rgba(255,140,0,0.05));border:1px solid var(--accent-glow);border-radius:16px;padding:2rem;text-align:center;margin-top:2rem}
+.share-cta h3{color:var(--accent);margin-bottom:0.5rem}.share-cta p{color:var(--text-dim);font-size:0.9rem;margin-bottom:1rem}
+.share-btns{display:flex;gap:0.6rem;justify-content:center;flex-wrap:wrap}
+.share-btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;color:#fff}
+.share-x{background:#000;border:1px solid #333}.share-reddit{background:#ff4500}.share-email{background:#21262d;border:1px solid #30363d}
+.footer{text-align:center;padding:2rem;border-top:1px solid rgba(255,95,31,0.1);color:var(--text-dim);font-size:0.75rem;margin-top:3rem}
+.footer a{color:var(--accent)}.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-bottom:1rem}
+.watermark{position:fixed;bottom:10px;right:10px;font-size:0.6rem;color:rgba(255,95,31,0.08);font-weight:800;pointer-events:none;z-index:9999;letter-spacing:1px;text-transform:uppercase}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.chart-container{position:relative;margin:1.5rem 0}
+.chart-bar-group{margin-bottom:1rem}
+.chart-label{font-size:0.8rem;font-weight:600;margin-bottom:0.3rem;display:flex;justify-content:space-between}
+.chart-bar{height:28px;border-radius:6px;position:relative;transition:width 0.6s ease;min-width:2px}
+.chart-bar.rent-bar{background:linear-gradient(90deg,var(--blue),#79b8ff)}
+.chart-bar.buy-bar{background:linear-gradient(90deg,var(--accent),#ff8c00)}
+.chart-bar .bar-val{position:absolute;right:8px;top:50%;transform:translateY(-50%);font-size:0.7rem;font-weight:800;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,0.5)}
+.legend{display:flex;gap:1.5rem;justify-content:center;margin-bottom:1rem;font-size:0.8rem}
+.legend-dot{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:middle}
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:0.82rem}
+th,td{padding:0.6rem 0.8rem;text-align:right;border-bottom:1px solid var(--border)}
+th{color:var(--text-dim);font-weight:600;text-transform:uppercase;font-size:0.7rem;letter-spacing:0.5px}
+td:first-child,th:first-child{text-align:left}
+.saved-item{display:flex;justify-content:space-between;align-items:center;padding:0.6rem 0.8rem;background:rgba(10,10,15,0.5);border:1px solid var(--border);border-radius:8px;margin-bottom:0.4rem;font-size:0.85rem;cursor:pointer}
+.saved-item:hover{border-color:var(--accent)}
+.del-btn{background:none;border:none;color:var(--red);cursor:pointer;font-size:1rem;padding:0 6px}
+@media(max-width:700px){.main{padding:1rem}.hero-section h1{font-size:1.5rem}.nav-links{display:none}.result-grid{grid-template-columns:1fr 1fr}.form-row{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="bg-mesh"></div><div class="bg-grid"></div>
+<div class="lock-gate" id="lockGate"><div class="lock-icon-big">&#128274;</div><h2>Enter Code <span>SPUNK</span> to Unlock</h2><p>This exclusive premium tool requires the SPUNK referral code.</p><div class="code-input-wrap"><input type="text" class="code-input" id="codeInput" placeholder="CODE" maxlength="10" autocomplete="off"><button class="code-submit" onclick="submitCode()">Unlock</button></div><div class="code-error" id="codeError"></div><div class="lock-hint">Get the code at <a href="https://spunk.codes/exclusive-tools">spunk.codes/exclusive-tools</a></div></div>
+<nav class="nav"><a href="https://spunk.codes" class="nav-brand">SPUNK.CODES</a><div class="nav-links"><a href="/store">Tools</a><a href="/exclusive-tools" class="active">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a></div></nav>
+
+<div class="main">
+  <section class="hero-section">
+    <div class="exclusive-badge">&#128081; EXCLUSIVE TOOL</div>
+    <h1><span class="accent">Rent vs Buy</span> Calculator</h1>
+    <p>Compare the true cost of renting versus buying a home. See monthly costs, breakeven timeline, and total cost over 5, 10, 15, and 30 years with visual charts.</p>
+  </section>
+
+  <div class="card">
+    <h2>&#127968; Renting Details</h2>
+    <div class="form-row">
+      <div class="form-group"><label>Monthly Rent ($)</label><input type="number" id="rentAmount" placeholder="1500" min="0"></div>
+      <div class="form-group"><label>Annual Rent Increase (%)</label><input type="number" id="rentIncrease" placeholder="3" min="0" step="0.1"></div>
+    </div>
+    <div class="form-group"><label>Renter's Insurance ($/month)</label><input type="number" id="renterInsurance" placeholder="25" min="0"></div>
+  </div>
+
+  <div class="card">
+    <h2>&#127970; Buying Details</h2>
+    <div class="form-row">
+      <div class="form-group"><label>Home Price ($)</label><input type="number" id="homePrice" placeholder="350000" min="0"></div>
+      <div class="form-group"><label>Down Payment (%)</label><input type="number" id="downPayment" placeholder="20" min="0" max="100" step="0.1"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Interest Rate (%)</label><input type="number" id="interestRate" placeholder="6.5" min="0" step="0.01"></div>
+      <div class="form-group"><label>Loan Term (years)</label><select id="loanTerm"><option value="30">30 years</option><option value="15">15 years</option><option value="20">20 years</option></select></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Property Tax Rate (%/year)</label><input type="number" id="propertyTax" placeholder="1.2" min="0" step="0.01"></div>
+      <div class="form-group"><label>Homeowner's Insurance ($/month)</label><input type="number" id="homeInsurance" placeholder="150" min="0"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>HOA Fees ($/month)</label><input type="number" id="hoaFees" placeholder="0" min="0"></div>
+      <div class="form-group"><label>Maintenance (%/year of home price)</label><input type="number" id="maintenance" placeholder="1" min="0" step="0.1"></div>
+    </div>
+    <div class="form-group"><label>Home Appreciation Rate (%/year)</label><input type="number" id="appreciation" placeholder="3" min="0" step="0.1"></div>
+  </div>
+
+  <div class="btn-row" style="margin-bottom:1.5rem">
+    <button class="btn btn-accent" onclick="calculate()">Calculate</button>
+    <button class="btn btn-outline" onclick="saveScenario()">Save Scenario</button>
+    <button class="btn btn-outline" onclick="clearAll()">Clear</button>
+  </div>
+
+  <div id="resultsSection" style="display:none">
+    <div class="card">
+      <h2>&#128200; Monthly Cost Comparison</h2>
+      <div class="result-grid">
+        <div class="result-box"><div class="value" id="monthlyRent">-</div><div class="label">Monthly Rent (Year 1)</div></div>
+        <div class="result-box"><div class="value" id="monthlyBuy">-</div><div class="label">Monthly Buy (Total)</div></div>
+        <div class="result-box" id="monthlyDiffBox"><div class="value" id="monthlyDiff">-</div><div class="label">Monthly Difference</div></div>
+        <div class="result-box"><div class="value" id="breakeven">-</div><div class="label">Breakeven (Years)</div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>&#128202; Total Cost Over Time</h2>
+      <div class="legend"><span><span class="legend-dot" style="background:var(--blue)"></span>Renting</span><span><span class="legend-dot" style="background:var(--accent)"></span>Buying</span></div>
+      <div id="chartArea"></div>
+    </div>
+
+    <div class="card">
+      <h2>&#128203; Detailed Breakdown</h2>
+      <div class="table-wrap">
+        <table id="breakdownTable">
+          <thead><tr><th>Period</th><th>Rent Total</th><th>Buy Total</th><th>Home Equity</th><th>Net Buy Cost</th><th>Winner</th></tr></thead>
+          <tbody id="breakdownBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>&#128176; Buying Cost Breakdown (Monthly)</h2>
+      <div class="result-grid" id="buyBreakdownGrid"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>&#128190; Saved Scenarios</h2>
+    <div id="savedScenarios"><p style="color:var(--text-dim);font-size:0.85rem">No saved scenarios yet.</p></div>
+  </div>
+
+  <div class="share-cta">
+    <h3>&#128275; Share the Code, Unlock More Tools</h3>
+    <p>Share code SPUNK to help others access 15+ exclusive premium tools.</p>
+    <div class="share-btns">
+      <button class="share-btn share-x" onclick="shareX()">&#120143; Share on X</button>
+      <button class="share-btn share-reddit" onclick="shareReddit()">&#128172; Reddit</button>
+      <button class="share-btn share-email" onclick="shareEmail()">&#9993; Email</button>
+    </div>
+  </div>
+</div>
+
+<div class="copy-toast" id="copyToast">Copied to clipboard!</div>
+
+<footer class="footer"><div class="footer-links"><a href="https://spunk.codes">spunk.codes</a><a href="https://spunk.bet">spunk.bet</a><a href="https://spunk.pics">spunk.pics</a><a href="https://spunk.work">spunk.work</a><a href="https://spunkart.com">spunkart.com</a></div><div>&copy; 2026 SPUNK.CODES EXCLUSIVE.</div></footer>
+<div class="watermark">SPUNK.CODES EXCLUSIVE</div>
+
+<script>
+document.addEventListener('contextmenu',function(e){e.preventDefault()});
+document.addEventListener('keydown',function(e){if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'||e.key==='C'))||(e.ctrlKey&&e.key==='u'))e.preventDefault()});
+
+function esc(s){var d=document.createElement('div');d.appendChild(document.createTextNode(s));return d.innerHTML}
+
+function checkCode(){try{var c=localStorage.getItem('spunk_referral_code')||localStorage.getItem('spunk_ref_code')||'';if(c.toUpperCase()==='SPUNK'){document.getElementById('lockGate').classList.add('hidden');return true}}catch(e){}return false}
+function submitCode(){var v=document.getElementById('codeInput').value.trim().toUpperCase();if(v==='SPUNK'){try{localStorage.setItem('spunk_referral_code','SPUNK');localStorage.setItem('spunk_ref_code','SPUNK')}catch(e){}document.getElementById('lockGate').classList.add('hidden')}else{document.getElementById('codeError').textContent='Invalid code. Try: SPUNK';setTimeout(function(){document.getElementById('codeError').textContent=''},2000)}}
+document.getElementById('codeInput').addEventListener('keydown',function(e){if(e.key==='Enter')submitCode()});
+checkCode();
+
+var STORAGE_KEY='spunkcodes_rent_vs_buy';
+var savedItems=[];
+
+function fmt(n){return '$'+Math.round(n).toLocaleString()}
+function loadData(){try{var d=JSON.parse(localStorage.getItem(STORAGE_KEY));if(d&&d.items)savedItems=d.items;if(d&&d.lastInputs)restoreInputs(d.lastInputs)}catch(e){}}
+function saveData(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify({items:savedItems,lastInputs:getInputs()}))}catch(e){}}
+
+function getInputs(){return{rentAmount:document.getElementById('rentAmount').value,rentIncrease:document.getElementById('rentIncrease').value,renterInsurance:document.getElementById('renterInsurance').value,homePrice:document.getElementById('homePrice').value,downPayment:document.getElementById('downPayment').value,interestRate:document.getElementById('interestRate').value,loanTerm:document.getElementById('loanTerm').value,propertyTax:document.getElementById('propertyTax').value,homeInsurance:document.getElementById('homeInsurance').value,hoaFees:document.getElementById('hoaFees').value,maintenance:document.getElementById('maintenance').value,appreciation:document.getElementById('appreciation').value}}
+
+function restoreInputs(d){if(!d)return;var fields=['rentAmount','rentIncrease','renterInsurance','homePrice','downPayment','interestRate','loanTerm','propertyTax','homeInsurance','hoaFees','maintenance','appreciation'];fields.forEach(function(f){if(d[f]!==undefined&&d[f]!==''){var el=document.getElementById(f);if(el)el.value=d[f]}})}
+
+function getVal(id,def){var v=parseFloat(document.getElementById(id).value);return isNaN(v)?def:v}
+
+function calculate(){
+  var rent=getVal('rentAmount',1500);
+  var rentInc=getVal('rentIncrease',3)/100;
+  var renterIns=getVal('renterInsurance',25);
+  var price=getVal('homePrice',350000);
+  var downPct=getVal('downPayment',20)/100;
+  var rate=getVal('interestRate',6.5)/100;
+  var termYears=parseInt(document.getElementById('loanTerm').value)||30;
+  var propTaxRate=getVal('propertyTax',1.2)/100;
+  var homeIns=getVal('homeInsurance',150);
+  var hoa=getVal('hoaFees',0);
+  var maintRate=getVal('maintenance',1)/100;
+  var appRate=getVal('appreciation',3)/100;
+
+  var downAmt=price*downPct;
+  var loanAmt=price-downAmt;
+  var monthlyRate=rate/12;
+  var numPayments=termYears*12;
+
+  // Monthly mortgage payment (P&I)
+  var mortgage=0;
+  if(loanAmt>0&&monthlyRate>0){
+    mortgage=loanAmt*(monthlyRate*Math.pow(1+monthlyRate,numPayments))/(Math.pow(1+monthlyRate,numPayments)-1);
+  }else if(loanAmt>0){
+    mortgage=loanAmt/numPayments;
+  }
+
+  var monthlyPropTax=(price*propTaxRate)/12;
+  var monthlyMaint=(price*maintRate)/12;
+  var totalBuyMonthly=mortgage+monthlyPropTax+homeIns+hoa+monthlyMaint;
+  var totalRentMonthly=rent+renterIns;
+
+  document.getElementById('monthlyRent').textContent=fmt(totalRentMonthly);
+  document.getElementById('monthlyBuy').textContent=fmt(totalBuyMonthly);
+  var diff=totalBuyMonthly-totalRentMonthly;
+  document.getElementById('monthlyDiff').textContent=(diff>0?'+':'')+fmt(Math.abs(diff));
+  var diffBox=document.getElementById('monthlyDiffBox');
+  diffBox.className='result-box '+(diff>0?'bad':'good');
+
+  // Calculate totals over time periods
+  var periods=[5,10,15,30];
+  var rentTotals={};
+  var buyTotals={};
+  var equityTotals={};
+  var loanBalance=loanAmt;
+  var cumulativeRent=0;
+  var cumulativeBuy=downAmt; // include down payment
+  var homeVal=price;
+  var breakevenYear=0;
+  var breakevenFound=false;
+
+  for(var yr=1;yr<=30;yr++){
+    var yearRent=(rent*Math.pow(1+rentInc,yr-1)+renterIns)*12;
+    cumulativeRent+=yearRent;
+
+    var yearBuy=0;
+    for(var mo=0;mo<12;mo++){
+      var interestPayment=loanBalance*monthlyRate;
+      var principalPayment=mortgage-interestPayment;
+      if(principalPayment>loanBalance)principalPayment=loanBalance;
+      loanBalance=Math.max(0,loanBalance-principalPayment);
+      yearBuy+=mortgage+monthlyPropTax+homeIns+hoa+monthlyMaint;
+    }
+    cumulativeBuy+=yearBuy;
+    homeVal=price*Math.pow(1+appRate,yr);
+    var equity=homeVal-loanBalance;
+
+    var netBuyCost=cumulativeBuy-equity;
+    if(!breakevenFound&&netBuyCost<cumulativeRent){breakevenYear=yr;breakevenFound=true}
+
+    if(periods.indexOf(yr)>=0){
+      rentTotals[yr]=cumulativeRent;
+      buyTotals[yr]=cumulativeBuy;
+      equityTotals[yr]=equity;
+    }
+  }
+
+  document.getElementById('breakeven').textContent=breakevenFound?breakevenYear+' yrs':'30+ yrs';
+
+  // Chart
+  var chartHtml='';
+  var maxVal=0;
+  periods.forEach(function(p){
+    var r=rentTotals[p]||0;
+    var b=(buyTotals[p]||0)-(equityTotals[p]||0);
+    if(r>maxVal)maxVal=r;
+    if(b>maxVal)maxVal=b;
+  });
+
+  periods.forEach(function(p){
+    var r=rentTotals[p]||0;
+    var b=(buyTotals[p]||0)-(equityTotals[p]||0);
+    var rPct=maxVal>0?(r/maxVal*100):0;
+    var bPct=maxVal>0?(b/maxVal*100):0;
+    chartHtml+='<div class="chart-bar-group"><div class="chart-label"><span>'+p+' Years</span></div>';
+    chartHtml+='<div class="chart-bar rent-bar" style="width:'+Math.max(rPct,3)+'%"><span class="bar-val">Rent: '+fmt(r)+'</span></div>';
+    chartHtml+='<div class="chart-bar buy-bar" style="width:'+Math.max(bPct,3)+'%;margin-top:4px"><span class="bar-val">Buy: '+fmt(b)+'</span></div></div>';
+  });
+  document.getElementById('chartArea').innerHTML=chartHtml;
+
+  // Table
+  var tbody='';
+  periods.forEach(function(p){
+    var r=rentTotals[p]||0;
+    var b=buyTotals[p]||0;
+    var eq=equityTotals[p]||0;
+    var net=b-eq;
+    var winner=net<r?'<span style="color:var(--green)">Buy</span>':'<span style="color:var(--blue)">Rent</span>';
+    tbody+='<tr><td>'+p+' Years</td><td>'+fmt(r)+'</td><td>'+fmt(b)+'</td><td>'+fmt(eq)+'</td><td>'+fmt(net)+'</td><td>'+winner+'</td></tr>';
+  });
+  document.getElementById('breakdownBody').innerHTML=tbody;
+
+  // Buy breakdown
+  var bgHtml='';
+  bgHtml+='<div class="result-box"><div class="value">'+fmt(mortgage)+'</div><div class="label">Mortgage (P&I)</div></div>';
+  bgHtml+='<div class="result-box"><div class="value">'+fmt(monthlyPropTax)+'</div><div class="label">Property Tax</div></div>';
+  bgHtml+='<div class="result-box"><div class="value">'+fmt(homeIns)+'</div><div class="label">Insurance</div></div>';
+  bgHtml+='<div class="result-box"><div class="value">'+fmt(hoa)+'</div><div class="label">HOA</div></div>';
+  bgHtml+='<div class="result-box"><div class="value">'+fmt(monthlyMaint)+'</div><div class="label">Maintenance</div></div>';
+  bgHtml+='<div class="result-box"><div class="value">'+fmt(downAmt)+'</div><div class="label">Down Payment</div></div>';
+  document.getElementById('buyBreakdownGrid').innerHTML=bgHtml;
+
+  document.getElementById('resultsSection').style.display='block';
+  document.getElementById('resultsSection').scrollIntoView({behavior:'smooth'});
+  saveData();
+}
+
+function saveScenario(){
+  var price=getVal('homePrice',0);
+  var rent=getVal('rentAmount',0);
+  if(!price&&!rent){alert('Enter some values first.');return}
+  var name=prompt('Name this scenario:','Scenario '+(savedItems.length+1));
+  if(!name)return;
+  savedItems.push({id:Date.now(),name:name,inputs:getInputs(),date:new Date().toLocaleDateString()});
+  saveData();
+  renderSaved();
+}
+
+function loadScenario(id){
+  var item=savedItems.find(function(s){return s.id===id});
+  if(!item)return;
+  restoreInputs(item.inputs);
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function deleteScenario(id){
+  savedItems=savedItems.filter(function(s){return s.id!==id});
+  saveData();
+  renderSaved();
+}
+
+function renderSaved(){
+  if(savedItems.length===0){document.getElementById('savedScenarios').innerHTML='<p style="color:var(--text-dim);font-size:0.85rem">No saved scenarios yet.</p>';return}
+  var html='';
+  savedItems.forEach(function(s){
+    html+='<div class="saved-item" onclick="loadScenario('+s.id+')"><span style="font-weight:600;flex:1">'+esc(s.name)+'</span><span style="color:var(--text-dim);font-size:0.75rem;margin:0 1rem">'+esc(s.date)+'</span><button class="del-btn" onclick="event.stopPropagation();deleteScenario('+s.id+')" title="Delete">&#10005;</button></div>';
+  });
+  document.getElementById('savedScenarios').innerHTML=html;
+}
+
+function clearAll(){
+  ['rentAmount','rentIncrease','renterInsurance','homePrice','downPayment','interestRate','propertyTax','homeInsurance','hoaFees','maintenance','appreciation'].forEach(function(id){document.getElementById(id).value=''});
+  document.getElementById('resultsSection').style.display='none';
+}
+
+function shareX(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Just calculated rent vs buy costs with this free tool. Code SPUNK @SpunkArt13')+'&url='+encodeURIComponent('https://spunk.codes/exclusive-tools'),'_blank')}
+function shareReddit(){window.open('https://www.reddit.com/submit?url='+encodeURIComponent('https://spunk.codes/exclusive-tools')+'&title='+encodeURIComponent('Rent vs Buy Calculator - compare true housing costs over 5/10/15/30 years [spunk.codes]'),'_blank')}
+function shareEmail(){window.location.href='mailto:?subject='+encodeURIComponent('Rent vs Buy Calculator')+'&body='+encodeURIComponent('Compare renting vs buying a home with visual charts. Code SPUNK: https://spunk.codes/exclusive-tools')}
+
+loadData();
+renderSaved();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>
