@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Flashcard Maker | SPUNK.CODES</title>
+<meta name="description" content="Create study flashcards, flip to reveal answers, track your progress. Multiple decks, spaced repetition scoring. All data saved locally. Free, no signup.">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP')</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w")</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e8e8f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+header{background:#111118;border-bottom:2px solid #ff5f1f;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;position:sticky;top:0;z-index:100}
+header h1{font-size:1.4rem;color:#ff5f1f}
+header .back{color:#e8e8f0;font-size:.9rem}
+main{flex:1;max-width:700px;width:100%;margin:0 auto;padding:24px 16px}
+.panel{background:#111118;border:1px solid #2a2a3a;border-radius:10px;padding:20px;margin-bottom:20px}
+.panel h2{font-size:1.1rem;color:#ff5f1f;margin-bottom:14px}
+button{background:#ff5f1f;color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:.9rem;font-weight:600;transition:background .2s}
+button:hover{background:#e8520e}
+button.secondary{background:#2a2a3a;color:#e8e8f0}button.secondary:hover{background:#3a3a4a}
+button.danger{background:#cc2233}button.danger:hover{background:#aa1122}
+button.success{background:#22aa44}button.success:hover{background:#1a8836}
+button.warn{background:#cc8800}button.warn:hover{background:#aa7000}
+input,textarea,select{background:#16161e;border:1px solid #2a2a3a;color:#e8e8f0;padding:8px 12px;border-radius:6px;font-size:.9rem;width:100%;font-family:inherit}
+textarea{resize:vertical;min-height:60px}
+.input-group{margin-bottom:14px}
+.input-group label{font-size:.85rem;color:#888;margin-bottom:6px;display:block}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.deck-tab{display:inline-flex;align-items:center;gap:6px;background:#2a2a3a;padding:8px 16px;border-radius:8px;margin:4px;cursor:pointer;font-size:.88rem;transition:all .2s}
+.deck-tab:hover{background:#3a3a4a}
+.deck-tab.active{background:#ff5f1f;color:#fff}
+.deck-tabs{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:14px}
+.card-container{perspective:800px;margin-bottom:20px}
+.flashcard{width:100%;min-height:220px;position:relative;cursor:pointer;transform-style:preserve-3d;transition:transform .5s ease}
+.flashcard.flipped{transform:rotateY(180deg)}
+.card-face{position:absolute;inset:0;backface-visibility:hidden;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:30px;text-align:center}
+.card-front{background:linear-gradient(135deg,#1a1a28,#111118);border:2px solid #ff5f1f;box-shadow:0 0 20px rgba(255,95,31,.1)}
+.card-back{background:linear-gradient(135deg,#1a2818,#111818);border:2px solid #22aa44;transform:rotateY(180deg);box-shadow:0 0 20px rgba(34,170,68,.1)}
+.card-label{font-size:.75rem;color:#888;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px}
+.card-text{font-size:1.3rem;font-weight:600;line-height:1.5;word-break:break-word}
+.card-hint{font-size:.8rem;color:#666;margin-top:16px}
+.card-counter{text-align:center;font-size:.85rem;color:#888;margin-bottom:12px}
+.study-controls{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:16px}
+.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:14px}
+.stat-card{background:#16161e;border:1px solid #2a2a3a;border-radius:8px;padding:14px;text-align:center}
+.stat-card .value{font-size:1.6rem;font-weight:700;color:#ff5f1f}
+.stat-card .label{font-size:.78rem;color:#888;margin-top:4px}
+.card-item{background:#16161e;border:1px solid #2a2a3a;border-radius:8px;padding:12px 14px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.card-item .q{font-weight:600;flex:1;font-size:.9rem}
+.card-item .a{color:#888;flex:1;font-size:.85rem}
+.card-item .score{font-size:.8rem;padding:3px 8px;border-radius:4px;white-space:nowrap}
+.score-high{background:rgba(34,170,68,.2);color:#22cc66}
+.score-mid{background:rgba(204,136,0,.2);color:#cc8800}
+.score-low{background:rgba(204,34,51,.2);color:#cc2233}
+.btn-row{display:flex;gap:8px;flex-wrap:wrap}
+.share-btns{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.share-btns button{font-size:.8rem;padding:6px 12px}
+.empty{text-align:center;color:#555;padding:30px;font-size:.95rem}
+.progress-bar{background:#16161e;border:1px solid #2a2a3a;border-radius:8px;height:20px;overflow:hidden;margin-bottom:14px}
+.progress-fill{height:100%;border-radius:8px;transition:width .3s}
+.progress-know{background:#22aa44}
+.progress-learning{background:#cc8800}
+footer{text-align:center;padding:20px;color:#555;font-size:.8rem;border-top:1px solid #1a1a2a;margin-top:auto}
+footer a{color:#ff5f1f;margin:0 4px}
+@media(max-width:700px){
+.row{grid-template-columns:1fr}
+header h1{font-size:1.1rem}
+.stats-grid{grid-template-columns:1fr}
+.card-text{font-size:1.1rem}
+}
+</style>
+</head>
+<body>
+<header>
+<h1>Flashcard Maker</h1>
+<a href="https://spunk.codes" class="back">spunk.codes</a>
+</header>
+<main>
+
+<div class="panel">
+<h2>Decks</h2>
+<div class="deck-tabs" id="deckTabs"></div>
+<div style="display:flex;gap:8px">
+<input type="text" id="newDeckName" placeholder="New deck name" onkeydown="if(event.key==='Enter')addDeck()">
+<button onclick="addDeck()">Add Deck</button>
+</div>
+</div>
+
+<div id="deckContent" style="display:none">
+
+<div class="panel">
+<h2>Study Progress</h2>
+<div class="stats-grid" id="statsGrid"></div>
+<div class="progress-bar" id="progressBar"><div class="progress-fill progress-know" id="progressFill" style="width:0%"></div></div>
+</div>
+
+<div id="studyMode" style="display:none">
+<div class="card-counter" id="cardCounter"></div>
+<div class="card-container">
+<div class="flashcard" id="flashcard" onclick="flipCard()">
+<div class="card-face card-front">
+<div class="card-label">Question</div>
+<div class="card-text" id="cardFront"></div>
+<div class="card-hint">Click to flip</div>
+</div>
+<div class="card-face card-back">
+<div class="card-label">Answer</div>
+<div class="card-text" id="cardBack"></div>
+<div class="card-hint">Rate your confidence below</div>
+</div>
+</div>
+</div>
+<div class="study-controls">
+<button class="danger" onclick="rateCard(1)">Didn't Know</button>
+<button class="warn" onclick="rateCard(2)">Partially</button>
+<button class="success" onclick="rateCard(3)">Knew It!</button>
+</div>
+<div style="text-align:center;margin-bottom:20px">
+<button class="secondary" onclick="stopStudy()">Exit Study Mode</button>
+<button class="secondary" onclick="shuffleStudy()">Shuffle</button>
+</div>
+</div>
+
+<div class="panel" id="addCardPanel">
+<h2>Add Flashcard</h2>
+<div class="input-group"><label>Question (Front)</label><textarea id="cardQuestion" rows="2" placeholder="What is the capital of France?"></textarea></div>
+<div class="input-group"><label>Answer (Back)</label><textarea id="cardAnswer" rows="2" placeholder="Paris"></textarea></div>
+<button onclick="addCard()">Add Card</button>
+</div>
+
+<div class="panel">
+<h2>Cards in Deck</h2>
+<div style="margin-bottom:10px">
+<button onclick="startStudy()">Study All</button>
+<button class="secondary" onclick="studyWeak()">Study Weak Cards</button>
+<button class="secondary" onclick="resetScores()">Reset Scores</button>
+</div>
+<div id="cardList"><div class="empty">No cards yet. Add your first flashcard above.</div></div>
+</div>
+
+<div class="panel">
+<h2>Deck Actions</h2>
+<div class="btn-row">
+<button class="secondary" onclick="exportDeck()">Export Deck</button>
+<button class="secondary" onclick="document.getElementById('importFile').click()">Import Deck</button>
+<input type="file" id="importFile" accept=".json" style="display:none" onchange="importDeck(event)">
+<button class="danger" onclick="deleteDeck()">Delete Deck</button>
+</div>
+</div>
+
+</div>
+
+<div class="panel">
+<h2>Share</h2>
+<div class="share-btns">
+<button onclick="shareTwitter()">Share on X</button>
+<button class="secondary" onclick="copyLink()">Copy Link</button>
+</div>
+</div>
+</main>
+
+<footer>
+<a href="https://spunk.codes">spunk.codes</a> &middot;
+<a href="https://spunk.bet">spunk.bet</a> &middot;
+<a href="https://spunk.pics">spunk.pics</a> &middot;
+<a href="https://spunk.work">spunk.work</a> &middot;
+<a href="https://spunkart.com">SpunkArt.com</a>
+</footer>
+
+<script>
+const LS_KEY='spunkcodes_flashcards';
+let data={decks:[],activeDeck:null};
+let studyCards=[];
+let studyIndex=0;
+let isFlipped=false;
+
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+
+function load(){
+try{const saved=JSON.parse(localStorage.getItem(LS_KEY));if(saved)data=saved}catch(e){}
+if(!data.decks)data.decks=[];
+renderDeckTabs();
+if(data.activeDeck!==null)selectDeck(data.activeDeck);
+}
+
+function save(){localStorage.setItem(LS_KEY,JSON.stringify(data))}
+
+function getDeck(){return data.decks.find(d=>d.id===data.activeDeck)}
+
+function addDeck(){
+const name=document.getElementById('newDeckName').value.trim();
+if(!name){alert('Enter a deck name');return}
+const id=Date.now();
+data.decks.push({id:id,name:name,cards:[]});
+document.getElementById('newDeckName').value='';
+save();
+selectDeck(id);
+}
+
+function selectDeck(id){
+data.activeDeck=id;
+save();
+renderDeckTabs();
+const deck=getDeck();
+if(deck){
+document.getElementById('deckContent').style.display='';
+renderCards();
+updateStats();
+stopStudy();
+}else{
+document.getElementById('deckContent').style.display='none';
+}
+}
+
+function renderDeckTabs(){
+const tabs=document.getElementById('deckTabs');
+if(!data.decks.length){tabs.innerHTML='<span style="color:#555;font-size:.85rem">No decks created yet.</span>';return}
+tabs.innerHTML=data.decks.map(d=>'<span class="deck-tab'+(d.id===data.activeDeck?' active':'')+'" onclick="selectDeck('+d.id+')">'+esc(d.name)+' <span style="font-size:.75rem;opacity:.7">('+d.cards.length+')</span></span>').join('');
+}
+
+function addCard(){
+const deck=getDeck();if(!deck)return;
+const q=document.getElementById('cardQuestion').value.trim();
+const a=document.getElementById('cardAnswer').value.trim();
+if(!q){alert('Enter a question');return}
+if(!a){alert('Enter an answer');return}
+deck.cards.push({id:Date.now(),q:q,a:a,score:0,attempts:0});
+document.getElementById('cardQuestion').value='';
+document.getElementById('cardAnswer').value='';
+save();renderCards();updateStats();renderDeckTabs();
+}
+
+function removeCard(id){
+const deck=getDeck();if(!deck)return;
+deck.cards=deck.cards.filter(c=>c.id!==id);
+save();renderCards();updateStats();renderDeckTabs();
+}
+
+function renderCards(){
+const deck=getDeck();
+const list=document.getElementById('cardList');
+if(!deck||!deck.cards.length){list.innerHTML='<div class="empty">No cards yet. Add your first flashcard above.</div>';return}
+list.innerHTML=deck.cards.map(c=>{
+const pct=c.attempts>0?Math.round((c.score/c.attempts)*100):0;
+const cls=pct>=70?'score-high':pct>=40?'score-mid':'score-low';
+return'<div class="card-item"><div class="q">'+esc(c.q)+'</div><div class="a">'+esc(c.a)+'</div><span class="score '+cls+'">'+(c.attempts>0?pct+'%':'New')+'</span><button class="danger" style="padding:4px 8px;font-size:.8rem" onclick="removeCard('+c.id+')">&times;</button></div>';
+}).join('');
+}
+
+function updateStats(){
+const deck=getDeck();
+if(!deck)return;
+const total=deck.cards.length;
+const studied=deck.cards.filter(c=>c.attempts>0).length;
+const mastered=deck.cards.filter(c=>c.attempts>0&&(c.score/c.attempts)>=0.7).length;
+const grid=document.getElementById('statsGrid');
+grid.innerHTML=
+'<div class="stat-card"><div class="value">'+total+'</div><div class="label">Total Cards</div></div>'+
+'<div class="stat-card"><div class="value">'+studied+'</div><div class="label">Studied</div></div>'+
+'<div class="stat-card"><div class="value">'+mastered+'</div><div class="label">Mastered</div></div>';
+const pct=total>0?Math.round((mastered/total)*100):0;
+document.getElementById('progressFill').style.width=pct+'%';
+}
+
+function startStudy(){
+const deck=getDeck();if(!deck||!deck.cards.length){alert('Add some cards first');return}
+studyCards=[...deck.cards];
+shuffleArray(studyCards);
+studyIndex=0;isFlipped=false;
+document.getElementById('studyMode').style.display='';
+document.getElementById('addCardPanel').style.display='none';
+showStudyCard();
+}
+
+function studyWeak(){
+const deck=getDeck();if(!deck)return;
+const weak=deck.cards.filter(c=>c.attempts===0||(c.score/c.attempts)<0.7);
+if(!weak.length){alert('No weak cards! You have mastered everything.');return}
+studyCards=[...weak];
+shuffleArray(studyCards);
+studyIndex=0;isFlipped=false;
+document.getElementById('studyMode').style.display='';
+document.getElementById('addCardPanel').style.display='none';
+showStudyCard();
+}
+
+function stopStudy(){
+document.getElementById('studyMode').style.display='none';
+document.getElementById('addCardPanel').style.display='';
+}
+
+function shuffleStudy(){
+shuffleArray(studyCards);
+studyIndex=0;isFlipped=false;
+showStudyCard();
+}
+
+function shuffleArray(arr){for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]]}}
+
+function showStudyCard(){
+if(studyIndex>=studyCards.length){studyIndex=0}
+const card=studyCards[studyIndex];
+document.getElementById('cardFront').textContent=card.q;
+document.getElementById('cardBack').textContent=card.a;
+document.getElementById('cardCounter').textContent='Card '+(studyIndex+1)+' of '+studyCards.length;
+document.getElementById('flashcard').classList.remove('flipped');
+isFlipped=false;
+}
+
+function flipCard(){
+const fc=document.getElementById('flashcard');
+fc.classList.toggle('flipped');
+isFlipped=!isFlipped;
+}
+
+function rateCard(rating){
+const deck=getDeck();if(!deck)return;
+const studyCard=studyCards[studyIndex];
+const realCard=deck.cards.find(c=>c.id===studyCard.id);
+if(realCard){
+realCard.attempts++;
+if(rating===3)realCard.score++;
+else if(rating===2)realCard.score+=0.5;
+}
+save();updateStats();renderCards();
+studyIndex++;
+if(studyIndex>=studyCards.length){
+alert('Session complete! You reviewed all '+studyCards.length+' cards.');
+studyIndex=0;
+}
+showStudyCard();
+}
+
+function resetScores(){
+const deck=getDeck();if(!deck)return;
+if(!confirm('Reset all scores for this deck?'))return;
+deck.cards.forEach(c=>{c.score=0;c.attempts=0});
+save();renderCards();updateStats();
+}
+
+function deleteDeck(){
+if(!confirm('Delete this entire deck?'))return;
+data.decks=data.decks.filter(d=>d.id!==data.activeDeck);
+data.activeDeck=data.decks.length?data.decks[0].id:null;
+save();
+if(data.activeDeck)selectDeck(data.activeDeck);
+else{document.getElementById('deckContent').style.display='none';renderDeckTabs()}
+}
+
+function exportDeck(){
+const deck=getDeck();if(!deck)return;
+const blob=new Blob([JSON.stringify(deck,null,2)],{type:'application/json'});
+const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=deck.name.replace(/\s+/g,'-').toLowerCase()+'-flashcards.json';a.click();
+}
+
+function importDeck(e){
+const file=e.target.files[0];if(!file)return;
+const reader=new FileReader();
+reader.onload=function(ev){
+try{
+const imported=JSON.parse(ev.target.result);
+if(!imported.name||!imported.cards){alert('Invalid deck file');return}
+imported.id=Date.now();
+imported.cards.forEach(c=>{c.id=Date.now()+Math.random()*1000});
+data.decks.push(imported);
+save();selectDeck(imported.id);
+alert('Deck "'+imported.name+'" imported with '+imported.cards.length+' cards!');
+}catch(err){alert('Invalid JSON file')}
+};
+reader.readAsText(file);e.target.value='';
+}
+
+// Keyboard shortcuts
+document.addEventListener('keydown',function(e){
+if(document.getElementById('studyMode').style.display==='none')return;
+if(e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA')return;
+if(e.key===' '||e.key==='Enter'){e.preventDefault();flipCard()}
+else if(e.key==='1')rateCard(1);
+else if(e.key==='2')rateCard(2);
+else if(e.key==='3')rateCard(3);
+});
+
+function shareTwitter(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Making study flashcards with this free tool! https://spunk.codes/exclusive/flashcard-maker.html'),'_blank')}
+function copyLink(){navigator.clipboard.writeText('https://spunk.codes/exclusive/flashcard-maker.html').then(()=>alert('Link copied!'))}
+
+load();
+</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>

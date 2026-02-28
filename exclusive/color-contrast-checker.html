@@ -3,427 +3,322 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>WCAG Color Contrast Checker - Accessibility Testing | SPUNK.CODES Exclusive</title>
-<meta name="description" content="Check WCAG 2.1 AA/AAA color contrast ratios. Real-time preview, color blindness simulation, fix suggestions. Exclusive premium tool.">
-<meta name="robots" content="noindex, nofollow">
-<meta property="og:title" content="WCAG Color Contrast Checker - SPUNK.CODES Exclusive">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:site" content="@SpunkArt13">
-<link rel="canonical" href="https://spunk.codes/exclusive/color-contrast-checker">
+<title>Color Contrast Checker | SPUNK.CODES</title>
+<meta name="description" content="Check WCAG accessibility contrast ratios between any two colors. Real-time preview, AA/AAA compliance, color blindness simulation, fix suggestions. Free, no signup.">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP')</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w")</script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--bg:#0d1117;--card:rgba(22,27,34,0.8);--border:rgba(48,54,61,0.6);--gold:#ffd700;--gold-border:rgba(255,215,0,0.3);--text:#e6edf3;--text-dim:#8b949e;--blue:#58a6ff;--cyan:#39d353;--red:#f85149;--orange:#ff8c00;--font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
-body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
-a{color:var(--blue);text-decoration:none}
-.bg-mesh{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 80% 50% at 20% 20%,rgba(255,215,0,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(255,140,0,0.04) 0%,transparent 60%),var(--bg)}
-.bg-grid{position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,215,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,215,0,0.03) 1px,transparent 1px);background-size:60px 60px}
-.nav{position:sticky;top:0;z-index:100;background:rgba(13,17,23,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,215,0,0.15);padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}
-.nav-brand{font-weight:800;font-size:1.1rem;color:var(--gold);letter-spacing:0.08em}
-.nav-links{display:flex;gap:1.5rem;font-size:0.85rem}.nav-links a{color:var(--text-dim);font-weight:500}.nav-links a.active{color:var(--gold)}
-.lock-gate{position:fixed;inset:0;z-index:1000;background:rgba(13,17,23,0.97);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:2rem}
-.lock-gate.hidden{display:none}
-.lock-icon-big{font-size:4rem}.lock-gate h2{font-size:1.8rem;font-weight:800;text-align:center}.lock-gate h2 span{color:var(--gold)}.lock-gate p{color:var(--text-dim);text-align:center;max-width:400px}
-.code-input-wrap{display:flex;gap:0.5rem}
-.code-input{padding:0.8rem 1.5rem;background:rgba(22,27,34,0.8);border:2px solid var(--gold-border);border-radius:12px;color:var(--gold);font-size:1.2rem;font-weight:800;letter-spacing:3px;text-align:center;width:200px;outline:none;text-transform:uppercase;font-family:var(--font)}
-.code-input:focus{border-color:var(--gold);box-shadow:0 0 20px rgba(255,215,0,0.2)}
-.code-submit{padding:0.8rem 1.5rem;background:linear-gradient(135deg,#ffd700,#ff8c00);border:none;border-radius:12px;color:#000;font-size:1rem;font-weight:800;cursor:pointer}
-.code-error{color:var(--red);font-size:0.85rem;min-height:1.2em}.lock-hint{color:var(--text-dim);font-size:0.8rem}.lock-hint a{color:var(--gold)}
-.exclusive-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;background:linear-gradient(135deg,rgba(255,215,0,0.15),rgba(255,140,0,0.15));border:1px solid var(--gold-border);border-radius:100px;font-size:11px;font-weight:800;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase}
-.main{max-width:1100px;margin:0 auto;padding:2rem}
-.hero-section{text-align:center;padding:2rem 0 2rem}
-.hero-section h1{font-size:2.2rem;font-weight:800;margin:1rem 0 0.5rem}
-.hero-section h1 .gold{background:linear-gradient(135deg,#ffd700,#ff8c00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.hero-section p{color:var(--text-dim);max-width:600px;margin:0 auto}
-.card{background:var(--card);border:1px solid var(--gold-border);border-radius:16px;padding:1.5rem;margin-bottom:1.5rem;backdrop-filter:blur(10px);position:relative;overflow:hidden}
-.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),#ff8c00,var(--gold))}
-.card h2{font-size:1.1rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}
-.form-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0.75rem;margin-bottom:0.75rem}
-.form-group{display:flex;flex-direction:column;gap:0.3rem}
-.form-group label{font-size:0.75rem;color:var(--text-dim);font-weight:600;text-transform:uppercase;letter-spacing:0.5px}
-.form-group input,.form-group select{padding:0.6rem 0.8rem;background:rgba(22,27,34,0.9);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.85rem;font-family:var(--font);outline:none}
-.form-group input:focus{border-color:var(--gold)}
-.color-row{display:flex;gap:1rem;align-items:flex-end;flex-wrap:wrap;margin-bottom:1rem}
-.color-pick-group{display:flex;flex-direction:column;gap:0.3rem;flex:1;min-width:200px}
-.color-pick-group label{font-size:0.75rem;color:var(--text-dim);font-weight:600;text-transform:uppercase;letter-spacing:0.5px}
-.color-pick-row{display:flex;gap:0.5rem;align-items:center}
-.color-pick-row input[type=color]{width:50px;height:40px;border:2px solid var(--border);border-radius:8px;cursor:pointer;background:transparent;padding:2px}
-.color-pick-row input[type=text]{flex:1;padding:0.6rem 0.8rem;background:rgba(22,27,34,0.9);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.85rem;font-family:monospace;outline:none}
-.swap-btn{padding:0.6rem;border-radius:8px;background:rgba(255,215,0,0.1);border:1px solid var(--gold-border);color:var(--gold);cursor:pointer;font-size:1.2rem;align-self:center}
-.swap-btn:hover{background:rgba(255,215,0,0.2)}
-.btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;transition:all 0.2s}
-.btn-gold{background:linear-gradient(135deg,#ffd700,#ff8c00);color:#000}
-.btn-gold:hover{transform:translateY(-1px);box-shadow:0 4px 15px rgba(255,215,0,0.3)}
-.btn-outline{background:transparent;border:1px solid var(--gold-border);color:var(--gold)}
-.btn-outline:hover{background:rgba(255,215,0,0.1)}
-.btn-sm{padding:0.4rem 0.8rem;font-size:0.75rem}
-.btn-row{display:flex;gap:0.5rem;flex-wrap:wrap}
-.ratio-display{text-align:center;padding:2rem;margin-bottom:1.5rem}
-.ratio-num{font-size:4rem;font-weight:800;line-height:1}
-.ratio-label{font-size:0.85rem;color:var(--text-dim);margin-top:0.3rem}
-.wcag-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-bottom:1.5rem}
-.wcag-item{background:rgba(13,17,23,0.6);border:1px solid var(--border);border-radius:12px;padding:1rem;text-align:center}
-.wcag-item h3{font-size:0.75rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:0.5rem}
-.wcag-item .result{font-size:1.1rem;font-weight:800;padding:0.3rem 1rem;border-radius:8px;display:inline-block}
-.result-pass{background:rgba(57,211,83,0.15);color:var(--cyan);border:1px solid rgba(57,211,83,0.3)}
-.result-fail{background:rgba(248,81,73,0.15);color:var(--red);border:1px solid rgba(248,81,73,0.3)}
-.wcag-item .req{font-size:0.7rem;color:var(--text-dim);margin-top:0.3rem}
-.preview-box{border-radius:12px;padding:2rem;margin-bottom:1rem;text-align:center}
-.preview-samples{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem}
-.preview-sample{border-radius:8px;padding:1.5rem;text-align:center}
-.cb-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-bottom:1rem}
-.cb-item{border-radius:12px;padding:1.2rem;text-align:center}
-.cb-item h4{font-size:0.8rem;margin-bottom:0.5rem;opacity:0.8}
-.cb-item p{font-size:0.85rem;font-weight:700}
-.fix-suggestions{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:0.75rem}
-.fix-item{background:rgba(13,17,23,0.6);border:1px solid var(--border);border-radius:10px;padding:1rem;cursor:pointer;transition:all 0.2s}
-.fix-item:hover{border-color:var(--gold)}
-.fix-preview{height:40px;border-radius:6px;margin-bottom:0.5rem;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.85rem}
-.fix-details{font-size:0.75rem;color:var(--text-dim)}
-.report-output{background:#161b22;border:1px solid var(--border);border-radius:8px;padding:1rem;font-family:'Courier New',monospace;font-size:0.8rem;line-height:1.5;overflow:auto;white-space:pre-wrap;max-height:400px}
-.share-cta{background:linear-gradient(135deg,rgba(255,215,0,0.08),rgba(255,140,0,0.05));border:1px solid var(--gold-border);border-radius:16px;padding:2rem;text-align:center;margin-top:2rem}
-.share-cta h3{color:var(--gold);margin-bottom:0.5rem}.share-cta p{color:var(--text-dim);font-size:0.9rem;margin-bottom:1rem}
-.share-btns{display:flex;gap:0.6rem;justify-content:center;flex-wrap:wrap}
-.share-btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;color:#fff}
-.share-x{background:#000;border:1px solid #333}.share-reddit{background:#ff4500}.share-email{background:#21262d;border:1px solid #30363d}
-.footer{text-align:center;padding:2rem;border-top:1px solid rgba(255,215,0,0.1);color:var(--text-dim);font-size:0.75rem;margin-top:3rem}
-.footer a{color:var(--gold)}.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-bottom:1rem}
-.watermark{position:fixed;bottom:10px;right:10px;font-size:0.6rem;color:rgba(255,215,0,0.08);font-weight:800;pointer-events:none;z-index:9999;letter-spacing:1px;text-transform:uppercase}
-@media(max-width:768px){.main{padding:1rem}.hero-section h1{font-size:1.6rem}.nav-links{display:none}.color-row{flex-direction:column}.ratio-num{font-size:2.5rem}.wcag-grid{grid-template-columns:1fr 1fr}}
+body{background:#0a0a0f;color:#e8e8f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+header{background:#111118;border-bottom:2px solid #ff5f1f;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;position:sticky;top:0;z-index:100}
+header h1{font-size:1.4rem;color:#ff5f1f}
+header .back{color:#e8e8f0;font-size:.9rem}
+main{flex:1;max-width:700px;width:100%;margin:0 auto;padding:24px 16px}
+.panel{background:#111118;border:1px solid #2a2a3a;border-radius:10px;padding:20px;margin-bottom:20px}
+.panel h2{font-size:1.1rem;color:#ff5f1f;margin-bottom:14px}
+button{background:#ff5f1f;color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:.9rem;font-weight:600;transition:background .2s}
+button:hover{background:#e8520e}
+button.secondary{background:#2a2a3a;color:#e8e8f0}button.secondary:hover{background:#3a3a4a}
+input[type=text]{background:#16161e;border:1px solid #2a2a3a;color:#e8e8f0;padding:8px 12px;border-radius:6px;font-size:.9rem;width:100%;font-family:monospace}
+input[type=color]{width:50px;height:42px;border:2px solid #2a2a3a;border-radius:6px;cursor:pointer;background:transparent;padding:2px}
+.input-group{margin-bottom:14px}
+.input-group label{font-size:.85rem;color:#888;margin-bottom:6px;display:block}
+.color-row{display:flex;gap:16px;align-items:flex-end;flex-wrap:wrap}
+.color-pick{display:flex;flex-direction:column;gap:6px;flex:1;min-width:180px}
+.color-pick .picker-row{display:flex;gap:8px;align-items:center}
+.swap-btn{background:#2a2a3a;color:#e8e8f0;border:none;padding:8px 12px;border-radius:6px;cursor:pointer;font-size:1.2rem;align-self:center}
+.swap-btn:hover{background:#3a3a4a}
+.ratio-display{text-align:center;padding:24px;margin-bottom:20px;background:#111118;border:2px solid #ff5f1f;border-radius:12px;box-shadow:0 0 20px rgba(255,95,31,.1)}
+.ratio-num{font-size:3.2rem;font-weight:700;line-height:1}
+.ratio-label{font-size:.85rem;color:#888;margin-top:6px}
+.wcag-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.wcag-item{background:#16161e;border:1px solid #2a2a3a;border-radius:8px;padding:12px;text-align:center}
+.wcag-item h3{font-size:.72rem;color:#888;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.wcag-item .result{font-size:1rem;font-weight:700;padding:4px 12px;border-radius:6px;display:inline-block}
+.wcag-item .req{font-size:.7rem;color:#666;margin-top:4px}
+.result-pass{background:rgba(34,204,102,.15);color:#22cc66;border:1px solid rgba(34,204,102,.3)}
+.result-fail{background:rgba(204,34,51,.15);color:#cc2233;border:1px solid rgba(204,34,51,.3)}
+.preview-box{border-radius:10px;padding:24px;margin-bottom:14px;text-align:center}
+.preview-samples{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.preview-sample{border-radius:8px;padding:20px;text-align:center}
+.cb-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:10px}
+.cb-item{border-radius:8px;padding:14px;text-align:center}
+.cb-item h4{font-size:.78rem;margin-bottom:4px;opacity:.8}
+.cb-item p{font-size:.88rem;font-weight:700}
+.cb-item .meta{font-size:.7rem;margin-top:4px;opacity:.6}
+.fix-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.fix-item{background:#16161e;border:1px solid #2a2a3a;border-radius:8px;padding:12px;cursor:pointer;transition:border-color .2s}
+.fix-item:hover{border-color:#ff5f1f}
+.fix-preview{height:36px;border-radius:6px;margin-bottom:8px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.85rem}
+.fix-meta{font-size:.75rem;color:#888}
+.report-box{background:#16161e;border:1px solid #2a2a3a;border-radius:8px;padding:14px;font-family:monospace;font-size:.8rem;line-height:1.5;white-space:pre-wrap;max-height:300px;overflow:auto}
+.share-btns{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.share-btns button{font-size:.8rem;padding:6px 12px}
+.btn-row{display:flex;gap:8px;flex-wrap:wrap}
+.empty{text-align:center;color:#555;padding:30px;font-size:.95rem}
+footer{text-align:center;padding:20px;color:#555;font-size:.8rem;border-top:1px solid #1a1a2a;margin-top:auto}
+footer a{color:#ff5f1f;margin:0 4px}
+@media(max-width:700px){
+.color-row{flex-direction:column}
+.wcag-grid{grid-template-columns:1fr 1fr}
+.cb-grid{grid-template-columns:1fr}
+.preview-samples{grid-template-columns:1fr}
+header h1{font-size:1.1rem}
+.ratio-num{font-size:2.4rem}
+}
 </style>
 </head>
 <body>
-<div class="bg-mesh"></div><div class="bg-grid"></div>
-<div class="lock-gate" id="lockGate"><div class="lock-icon-big">&#128274;</div><h2>Enter Code <span>SPUNK</span> to Unlock</h2><p>This exclusive premium tool requires the SPUNK referral code.</p><div class="code-input-wrap"><input type="text" class="code-input" id="codeInput" placeholder="CODE" maxlength="10" autocomplete="off"><button class="code-submit" onclick="submitCode()">Unlock</button></div><div class="code-error" id="codeError"></div><div class="lock-hint">Get the code at <a href="https://spunk.codes/exclusive-tools">spunk.codes/exclusive-tools</a></div></div>
-<nav class="nav"><a href="https://spunk.codes" class="nav-brand">SPUNK.CODES</a><div class="nav-links"><a href="/store">Tools</a><a href="/exclusive-tools" class="active">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a></div></nav>
+<header>
+<h1>Color Contrast Checker</h1>
+<a href="https://spunk.codes" class="back">spunk.codes</a>
+</header>
+<main>
 
-<div class="main">
-  <section class="hero-section">
-    <div class="exclusive-badge">&#128081; EXCLUSIVE TOOL</div>
-    <h1><span class="gold">WCAG Color Contrast</span> Checker</h1>
-    <p>Test foreground and background color combinations against WCAG 2.1 accessibility standards with real-time previews.</p>
-  </section>
-
-  <div class="card">
-    <h2>&#127912; Color Selection</h2>
-    <div class="color-row">
-      <div class="color-pick-group">
-        <label>Foreground (Text) Color</label>
-        <div class="color-pick-row">
-          <input type="color" id="fgPicker" value="#ffffff" onchange="syncFg(this.value)">
-          <input type="text" id="fgHex" value="#ffffff" oninput="syncFgHex(this.value)" maxlength="7">
-        </div>
-      </div>
-      <button class="swap-btn" onclick="swapColors()" title="Swap colors">&#8646;</button>
-      <div class="color-pick-group">
-        <label>Background Color</label>
-        <div class="color-pick-row">
-          <input type="color" id="bgPicker" value="#000000" onchange="syncBg(this.value)">
-          <input type="text" id="bgHex" value="#000000" oninput="syncBgHex(this.value)" maxlength="7">
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="ratio-display" id="ratioDisplay">
-    <div class="ratio-num" id="ratioNum" style="color:var(--cyan)">21.00:1</div>
-    <div class="ratio-label">Contrast Ratio</div>
-  </div>
-
-  <div class="wcag-grid" id="wcagGrid">
-    <div class="wcag-item"><h3>AA Normal Text</h3><div class="result result-pass" id="aaNormal">PASS</div><div class="req">Requires 4.5:1</div></div>
-    <div class="wcag-item"><h3>AA Large Text</h3><div class="result result-pass" id="aaLarge">PASS</div><div class="req">Requires 3:1</div></div>
-    <div class="wcag-item"><h3>AAA Normal Text</h3><div class="result result-pass" id="aaaNormal">PASS</div><div class="req">Requires 7:1</div></div>
-    <div class="wcag-item"><h3>AAA Large Text</h3><div class="result result-pass" id="aaaLarge">PASS</div><div class="req">Requires 4.5:1</div></div>
-    <div class="wcag-item"><h3>AA UI Components</h3><div class="result result-pass" id="aaUI">PASS</div><div class="req">Requires 3:1</div></div>
-    <div class="wcag-item"><h3>AA Non-text Contrast</h3><div class="result result-pass" id="aaNonText">PASS</div><div class="req">Requires 3:1</div></div>
-  </div>
-
-  <div class="card">
-    <h2>&#128064; Text Preview</h2>
-    <div class="preview-samples" id="previewSamples">
-      <div class="preview-sample"><p style="font-size:12px">12px - Small body text sample</p><p style="font-size:14px">14px - Normal body text</p><p style="font-size:16px">16px - Default paragraph</p></div>
-      <div class="preview-sample"><p style="font-size:18px;font-weight:700">18px Bold - Large Text</p><p style="font-size:24px">24px - Heading</p><p style="font-size:32px;font-weight:800">32px - Title</p></div>
-    </div>
-  </div>
-
-  <div class="card" id="fixCard" style="display:none">
-    <h2>&#128295; Fix Suggestions - Closest Accessible Alternatives</h2>
-    <div class="fix-suggestions" id="fixSuggestions"></div>
-  </div>
-
-  <div class="card">
-    <h2>&#128065; Color Blindness Simulation</h2>
-    <div class="cb-grid" id="cbGrid"></div>
-  </div>
-
-  <div class="card">
-    <h2>&#128196; Accessibility Report</h2>
-    <div class="btn-row" style="margin-bottom:1rem">
-      <button class="btn btn-gold btn-sm" onclick="exportReport()">Export Report</button>
-      <button class="btn btn-outline btn-sm" onclick="copyReport()">Copy</button>
-    </div>
-    <div class="report-output" id="reportOutput"></div>
-  </div>
-
-  <div class="share-cta">
-    <h3>&#128275; Share the Code, Unlock More Tools</h3>
-    <p>Share code SPUNK to help others access 15+ exclusive premium tools.</p>
-    <div class="share-btns">
-      <button class="share-btn share-x" onclick="shareX()">&#120143; Share on X</button>
-      <button class="share-btn share-reddit" onclick="shareReddit()">&#128172; Reddit</button>
-      <button class="share-btn share-email" onclick="shareEmail()">&#9993; Email</button>
-    </div>
-  </div>
+<div class="panel">
+<h2>Choose Colors</h2>
+<div class="color-row">
+<div class="color-pick">
+<label style="font-size:.85rem;color:#888">Foreground (Text)</label>
+<div class="picker-row">
+<input type="color" id="fgPicker" value="#ffffff" onchange="syncFg(this.value)">
+<input type="text" id="fgHex" value="#ffffff" oninput="syncFgHex(this.value)" maxlength="7">
+</div>
+</div>
+<button class="swap-btn" onclick="swapColors()" title="Swap colors">&#8646;</button>
+<div class="color-pick">
+<label style="font-size:.85rem;color:#888">Background</label>
+<div class="picker-row">
+<input type="color" id="bgPicker" value="#000000" onchange="syncBg(this.value)">
+<input type="text" id="bgHex" value="#000000" oninput="syncBgHex(this.value)" maxlength="7">
+</div>
+</div>
+</div>
 </div>
 
-<footer class="footer"><div class="footer-links"><a href="https://spunk.codes">Home</a><a href="/store">Tools</a><a href="/exclusive-tools">Exclusive</a><a href="/store#ebook">Ebooks</a><a href="/blog">Blog</a><a href="https://twitter.com/SpunkArt13" target="_blank">@SpunkArt13</a></div><div>&copy; 2026 SPUNK.CODES EXCLUSIVE.</div></footer>
-<div class="watermark">SPUNK.CODES EXCLUSIVE</div>
+<div class="ratio-display">
+<div class="ratio-num" id="ratioNum" style="color:#22cc66">21.00:1</div>
+<div class="ratio-label">Contrast Ratio</div>
+</div>
+
+<div class="panel">
+<h2>WCAG 2.1 Compliance</h2>
+<div class="wcag-grid" id="wcagGrid">
+<div class="wcag-item"><h3>AA Normal</h3><div class="result result-pass" id="aaN">PASS</div><div class="req">4.5:1</div></div>
+<div class="wcag-item"><h3>AA Large</h3><div class="result result-pass" id="aaL">PASS</div><div class="req">3:1</div></div>
+<div class="wcag-item"><h3>AA UI</h3><div class="result result-pass" id="aaU">PASS</div><div class="req">3:1</div></div>
+<div class="wcag-item"><h3>AAA Normal</h3><div class="result result-pass" id="aaaN">PASS</div><div class="req">7:1</div></div>
+<div class="wcag-item"><h3>AAA Large</h3><div class="result result-pass" id="aaaL">PASS</div><div class="req">4.5:1</div></div>
+<div class="wcag-item"><h3>Overall</h3><div class="result result-pass" id="overall">AAA</div><div class="req">Best level</div></div>
+</div>
+</div>
+
+<div class="panel">
+<h2>Text Preview</h2>
+<div class="preview-samples">
+<div class="preview-sample" id="prev1"><p style="font-size:12px">12px small text</p><p style="font-size:14px">14px body text</p><p style="font-size:16px">16px paragraph</p></div>
+<div class="preview-sample" id="prev2"><p style="font-size:18px;font-weight:700">18px Bold Large</p><p style="font-size:24px">24px Heading</p><p style="font-size:32px;font-weight:800">32px Title</p></div>
+</div>
+</div>
+
+<div class="panel" id="fixPanel" style="display:none">
+<h2>Fix Suggestions</h2>
+<p style="font-size:.85rem;color:#888;margin-bottom:12px">Click a suggestion to apply it.</p>
+<div class="fix-grid" id="fixGrid"></div>
+</div>
+
+<div class="panel">
+<h2>Color Blindness Simulation</h2>
+<div class="cb-grid" id="cbGrid"></div>
+</div>
+
+<div class="panel">
+<h2>Report</h2>
+<div class="btn-row" style="margin-bottom:10px">
+<button onclick="copyReport()">Copy Report</button>
+<button class="secondary" onclick="exportReport()">Export .txt</button>
+</div>
+<div class="report-box" id="reportBox"></div>
+</div>
+
+<div class="panel">
+<h2>Saved Pairs</h2>
+<div id="savedList"><div class="empty">Save color pairs for quick reference.</div></div>
+<div style="margin-top:10px"><button class="secondary" onclick="savePair()">Save Current Pair</button></div>
+</div>
+
+<div class="panel">
+<h2>Share</h2>
+<div class="share-btns">
+<button onclick="shareTwitter()">Share on X</button>
+<button class="secondary" onclick="copyLink()">Copy Link</button>
+</div>
+</div>
+</main>
+
+<footer>
+<a href="https://spunk.codes">spunk.codes</a> &middot;
+<a href="https://spunk.bet">spunk.bet</a> &middot;
+<a href="https://spunk.pics">spunk.pics</a> &middot;
+<a href="https://spunk.work">spunk.work</a> &middot;
+<a href="https://spunkart.com">SpunkArt.com</a>
+</footer>
 
 <script>
-document.addEventListener('contextmenu',function(e){e.preventDefault()});
-document.addEventListener('keydown',function(e){if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'||e.key==='C'))||(e.ctrlKey&&e.key==='u'))e.preventDefault()});
-function checkCode(){try{var c=localStorage.getItem('spunk_referral_code')||localStorage.getItem('spunk_ref_code')||'';if(c.toUpperCase()==='SPUNK'){document.getElementById('lockGate').classList.add('hidden');return true}}catch(e){}return false}
-function submitCode(){var v=document.getElementById('codeInput').value.trim().toUpperCase();if(v==='SPUNK'){try{localStorage.setItem('spunk_referral_code','SPUNK');localStorage.setItem('spunk_ref_code','SPUNK')}catch(e){}document.getElementById('lockGate').classList.add('hidden')}else{document.getElementById('codeError').textContent='Invalid code. Try: SPUNK';setTimeout(function(){document.getElementById('codeError').textContent=''},2000)}}
-document.getElementById('codeInput').addEventListener('keydown',function(e){if(e.key==='Enter')submitCode()});
-checkCode();
+const LS_KEY='spunkcodes_contrast';
+let fg='#ffffff',bg='#000000';
+let savedPairs=[];
 
-var fg='#ffffff',bg='#000000';
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
 
-function hexToRgb(hex){
-  hex=hex.replace(/^#/,'');
-  if(hex.length===3)hex=hex[0]+hex[0]+hex[1]+hex[1]+hex[2]+hex[2];
-  var n=parseInt(hex,16);
-  return{r:(n>>16)&255,g:(n>>8)&255,b:n&255};
+function load(){
+try{savedPairs=JSON.parse(localStorage.getItem(LS_KEY))||[]}catch(e){savedPairs=[]}
+// Check URL params
+const params=new URLSearchParams(location.search);
+if(params.get('fg'))fg='#'+params.get('fg').replace('#','');
+if(params.get('bg'))bg='#'+params.get('bg').replace('#','');
+document.getElementById('fgPicker').value=fg;
+document.getElementById('fgHex').value=fg;
+document.getElementById('bgPicker').value=bg;
+document.getElementById('bgHex').value=bg;
+renderSaved();
+update();
 }
+function save(){localStorage.setItem(LS_KEY,JSON.stringify(savedPairs.slice(0,30)))}
 
-function rgbToHex(r,g,b){return '#'+[r,g,b].map(function(c){return Math.max(0,Math.min(255,Math.round(c))).toString(16).padStart(2,'0')}).join('')}
-
+function hexToRgb(hex){hex=hex.replace(/^#/,'');if(hex.length===3)hex=hex[0]+hex[0]+hex[1]+hex[1]+hex[2]+hex[2];var n=parseInt(hex,16);return{r:(n>>16)&255,g:(n>>8)&255,b:n&255}}
+function rgbToHex(r,g,b){return'#'+[r,g,b].map(function(c){return Math.max(0,Math.min(255,Math.round(c))).toString(16).padStart(2,'0')}).join('')}
 function srgbToLinear(c){c/=255;return c<=0.04045?c/12.92:Math.pow((c+0.055)/1.055,2.4)}
+function luminance(hex){var rgb=hexToRgb(hex);return 0.2126*srgbToLinear(rgb.r)+0.7152*srgbToLinear(rgb.g)+0.0722*srgbToLinear(rgb.b)}
+function contrast(a,b){var l1=luminance(a),l2=luminance(b);var lighter=Math.max(l1,l2),darker=Math.min(l1,l2);return(lighter+0.05)/(darker+0.05)}
 
-function relativeLuminance(hex){
-  var rgb=hexToRgb(hex);
-  var r=srgbToLinear(rgb.r),g=srgbToLinear(rgb.g),b=srgbToLinear(rgb.b);
-  return 0.2126*r+0.7152*g+0.0722*b;
-}
-
-function contrastRatio(hex1,hex2){
-  var l1=relativeLuminance(hex1),l2=relativeLuminance(hex2);
-  var lighter=Math.max(l1,l2),darker=Math.min(l1,l2);
-  return(lighter+0.05)/(darker+0.05);
-}
-
-function syncFg(val){fg=val;document.getElementById('fgHex').value=val;document.getElementById('fgPicker').value=val;update()}
-function syncBg(val){bg=val;document.getElementById('bgHex').value=val;document.getElementById('bgPicker').value=val;update()}
-function syncFgHex(val){if(/^#[0-9a-fA-F]{6}$/.test(val)){fg=val;document.getElementById('fgPicker').value=val;update()}}
-function syncBgHex(val){if(/^#[0-9a-fA-F]{6}$/.test(val)){bg=val;document.getElementById('bgPicker').value=val;update()}}
-
-function swapColors(){var temp=fg;syncFg(bg);syncBg(temp)}
+function syncFg(v){fg=v;document.getElementById('fgHex').value=v;document.getElementById('fgPicker').value=v;update()}
+function syncBg(v){bg=v;document.getElementById('bgHex').value=v;document.getElementById('bgPicker').value=v;update()}
+function syncFgHex(v){if(/^#[0-9a-fA-F]{6}$/.test(v)){fg=v;document.getElementById('fgPicker').value=v;update()}}
+function syncBgHex(v){if(/^#[0-9a-fA-F]{6}$/.test(v)){bg=v;document.getElementById('bgPicker').value=v;update()}}
+function swapColors(){var t=fg;syncFg(bg);syncBg(t)}
 
 function update(){
-  var ratio=contrastRatio(fg,bg);
-  var ratioStr=Math.round(ratio*100)/100;
-  document.getElementById('ratioNum').textContent=ratioStr+':1';
-  // Color the ratio
-  var ratioEl=document.getElementById('ratioNum');
-  if(ratio>=7)ratioEl.style.color='var(--cyan)';
-  else if(ratio>=4.5)ratioEl.style.color='var(--gold)';
-  else if(ratio>=3)ratioEl.style.color='var(--orange)';
-  else ratioEl.style.color='var(--red)';
+var r=contrast(fg,bg);
+var rs=Math.round(r*100)/100;
+var el=document.getElementById('ratioNum');
+el.textContent=rs+':1';
+if(r>=7)el.style.color='#22cc66';
+else if(r>=4.5)el.style.color='#ff5f1f';
+else if(r>=3)el.style.color='#cc8800';
+else el.style.color='#cc2233';
 
-  // WCAG checks
-  setResult('aaNormal',ratio>=4.5);
-  setResult('aaLarge',ratio>=3);
-  setResult('aaaNormal',ratio>=7);
-  setResult('aaaLarge',ratio>=4.5);
-  setResult('aaUI',ratio>=3);
-  setResult('aaNonText',ratio>=3);
+setRes('aaN',r>=4.5);setRes('aaL',r>=3);setRes('aaU',r>=3);
+setRes('aaaN',r>=7);setRes('aaaL',r>=4.5);
+var ov=document.getElementById('overall');
+if(r>=7){ov.textContent='AAA';ov.className='result result-pass'}
+else if(r>=4.5){ov.textContent='AA';ov.className='result result-pass'}
+else if(r>=3){ov.textContent='AA Large';ov.className='result result-fail'}
+else{ov.textContent='FAIL';ov.className='result result-fail'}
 
-  // Preview
-  var samples=document.querySelectorAll('.preview-sample');
-  samples.forEach(function(s){s.style.background=bg;s.style.color=fg});
+document.getElementById('prev1').style.background=bg;document.getElementById('prev1').style.color=fg;
+document.getElementById('prev2').style.background=bg;document.getElementById('prev2').style.color=fg;
 
-  // Fix suggestions (only if failing AA normal)
-  if(ratio<4.5){
-    document.getElementById('fixCard').style.display='block';
-    generateFixes();
-  }else{
-    document.getElementById('fixCard').style.display='none';
-  }
+if(r<4.5){document.getElementById('fixPanel').style.display='';generateFixes()}
+else{document.getElementById('fixPanel').style.display='none'}
 
-  // Color blindness
-  renderColorBlindness();
-  // Report
-  generateReport();
+renderCB();generateReport();
 }
 
-function setResult(id,pass){
-  var el=document.getElementById(id);
-  el.textContent=pass?'PASS':'FAIL';
-  el.className='result '+(pass?'result-pass':'result-fail');
-}
+function setRes(id,pass){var el=document.getElementById(id);el.textContent=pass?'PASS':'FAIL';el.className='result '+(pass?'result-pass':'result-fail')}
 
 function generateFixes(){
-  var container=document.getElementById('fixSuggestions');
-  var suggestions=[];
-  var fgRgb=hexToRgb(fg),bgRgb=hexToRgb(bg);
-  var fgLum=relativeLuminance(fg),bgLum=relativeLuminance(bg);
-  var fgIsLighter=fgLum>bgLum;
+var suggestions=[];
+var fgR=hexToRgb(fg),bgR=hexToRgb(bg);
+// Darken fg
+for(var s=1;s<=40;s++){var nf=rgbToHex(Math.max(0,fgR.r-s*6),Math.max(0,fgR.g-s*6),Math.max(0,fgR.b-s*6));if(contrast(nf,bg)>=4.5){suggestions.push({fg:nf,bg:bg,label:'Darker text',ratio:contrast(nf,bg)});break}}
+// Lighten fg
+for(var s=1;s<=40;s++){var nf=rgbToHex(Math.min(255,fgR.r+s*6),Math.min(255,fgR.g+s*6),Math.min(255,fgR.b+s*6));if(contrast(nf,bg)>=4.5){suggestions.push({fg:nf,bg:bg,label:'Lighter text',ratio:contrast(nf,bg)});break}}
+// Darken bg
+for(var s=1;s<=40;s++){var nb=rgbToHex(Math.max(0,bgR.r-s*6),Math.max(0,bgR.g-s*6),Math.max(0,bgR.b-s*6));if(contrast(fg,nb)>=4.5){suggestions.push({fg:fg,bg:nb,label:'Darker bg',ratio:contrast(fg,nb)});break}}
+// Lighten bg
+for(var s=1;s<=40;s++){var nb=rgbToHex(Math.min(255,bgR.r+s*6),Math.min(255,bgR.g+s*6),Math.min(255,bgR.b+s*6));if(contrast(fg,nb)>=4.5){suggestions.push({fg:fg,bg:nb,label:'Lighter bg',ratio:contrast(fg,nb)});break}}
+// Black/white
+if(contrast('#000000',bg)>=4.5)suggestions.push({fg:'#000000',bg:bg,label:'Black text',ratio:contrast('#000000',bg)});
+if(contrast('#ffffff',bg)>=4.5)suggestions.push({fg:'#ffffff',bg:bg,label:'White text',ratio:contrast('#ffffff',bg)});
 
-  // Adjust foreground
-  for(var step=1;step<=30;step++){
-    var factor=fgIsLighter?1+step*0.05:1-step*0.03;
-    var adjR,adjG,adjB;
-    if(fgIsLighter){
-      adjR=Math.min(255,fgRgb.r+(255-fgRgb.r)*step*0.04);
-      adjG=Math.min(255,fgRgb.g+(255-fgRgb.g)*step*0.04);
-      adjB=Math.min(255,fgRgb.b+(255-fgRgb.b)*step*0.04);
-    }else{
-      adjR=Math.max(0,fgRgb.r-step*8);
-      adjG=Math.max(0,fgRgb.g-step*8);
-      adjB=Math.max(0,fgRgb.b-step*8);
-    }
-    var newFg=rgbToHex(adjR,adjG,adjB);
-    var r=contrastRatio(newFg,bg);
-    if(r>=4.5){suggestions.push({fg:newFg,bg:bg,ratio:r,type:'Adjusted foreground'});break}
-  }
-  // Lighter foreground
-  for(var step=1;step<=30;step++){
-    var adjR=Math.min(255,fgRgb.r+step*8);
-    var adjG=Math.min(255,fgRgb.g+step*8);
-    var adjB=Math.min(255,fgRgb.b+step*8);
-    var newFg=rgbToHex(adjR,adjG,adjB);
-    var r=contrastRatio(newFg,bg);
-    if(r>=4.5){suggestions.push({fg:newFg,bg:bg,ratio:r,type:'Lighter foreground'});break}
-  }
-  // Adjust background darker
-  for(var step=1;step<=30;step++){
-    var adjR=Math.max(0,bgRgb.r-step*8);
-    var adjG=Math.max(0,bgRgb.g-step*8);
-    var adjB=Math.max(0,bgRgb.b-step*8);
-    var newBg=rgbToHex(adjR,adjG,adjB);
-    var r=contrastRatio(fg,newBg);
-    if(r>=4.5){suggestions.push({fg:fg,bg:newBg,ratio:r,type:'Darker background'});break}
-  }
-  // Adjust background lighter
-  for(var step=1;step<=30;step++){
-    var adjR=Math.min(255,bgRgb.r+step*8);
-    var adjG=Math.min(255,bgRgb.g+step*8);
-    var adjB=Math.min(255,bgRgb.b+step*8);
-    var newBg=rgbToHex(adjR,adjG,adjB);
-    var r=contrastRatio(fg,newBg);
-    if(r>=4.5){suggestions.push({fg:fg,bg:newBg,ratio:r,type:'Lighter background'});break}
-  }
-  // Black on current bg
-  var blackRatio=contrastRatio('#000000',bg);
-  if(blackRatio>=4.5)suggestions.push({fg:'#000000',bg:bg,ratio:blackRatio,type:'Black text'});
-  // White on current bg
-  var whiteRatio=contrastRatio('#ffffff',bg);
-  if(whiteRatio>=4.5)suggestions.push({fg:'#ffffff',bg:bg,ratio:whiteRatio,type:'White text'});
+var seen=new Set();
+suggestions=suggestions.filter(function(s){var k=s.fg+s.bg;if(seen.has(k))return false;seen.add(k);return true});
 
-  // Deduplicate
-  var seen=new Set();
-  suggestions=suggestions.filter(function(s){var key=s.fg+s.bg;if(seen.has(key))return false;seen.add(key);return true});
-
-  container.innerHTML=suggestions.map(function(s){
-    return '<div class="fix-item" onclick="applyFix(\''+s.fg+'\',\''+s.bg+'\')"><div class="fix-preview" style="background:'+s.bg+';color:'+s.fg+'">Aa Sample Text</div><div class="fix-details"><strong>'+s.type+'</strong><br>FG: '+s.fg+' | BG: '+s.bg+'<br>Ratio: '+Math.round(s.ratio*100)/100+':1</div></div>';
-  }).join('');
+document.getElementById('fixGrid').innerHTML=suggestions.map(function(s){
+return'<div class="fix-item" onclick="applyFix(\''+s.fg+'\',\''+s.bg+'\')"><div class="fix-preview" style="background:'+s.bg+';color:'+s.fg+'">Aa Sample</div><div class="fix-meta"><strong>'+s.label+'</strong><br>'+s.fg+' on '+s.bg+'<br>Ratio: '+Math.round(s.ratio*100)/100+':1</div></div>';
+}).join('');
 }
 
-function applyFix(newFg,newBg){syncFg(newFg);syncBg(newBg)}
+function applyFix(nf,nb){syncFg(nf);syncBg(nb)}
 
-function simulateColorBlind(hex,type){
-  var rgb=hexToRgb(hex);
-  var r=rgb.r/255,g=rgb.g/255,b=rgb.b/255;
-  var simR,simG,simB;
-  switch(type){
-    case'protanopia':simR=0.567*r+0.433*g+0*b;simG=0.558*r+0.442*g+0*b;simB=0*r+0.242*g+0.758*b;break;
-    case'deuteranopia':simR=0.625*r+0.375*g+0*b;simG=0.7*r+0.3*g+0*b;simB=0*r+0.3*g+0.7*b;break;
-    case'tritanopia':simR=0.95*r+0.05*g+0*b;simG=0*r+0.433*g+0.567*b;simB=0*r+0.475*g+0.525*b;break;
-    case'achromatopsia':var gray=0.299*r+0.587*g+0.114*b;simR=gray;simG=gray;simB=gray;break;
-    default:simR=r;simG=g;simB=b;
-  }
-  return rgbToHex(simR*255,simG*255,simB*255);
+function simCB(hex,type){
+var rgb=hexToRgb(hex);var r=rgb.r/255,g=rgb.g/255,b=rgb.b/255;var sr,sg,sb;
+switch(type){
+case'protan':sr=.567*r+.433*g;sg=.558*r+.442*g;sb=.242*g+.758*b;break;
+case'deutan':sr=.625*r+.375*g;sg=.7*r+.3*g;sb=.3*g+.7*b;break;
+case'tritan':sr=.95*r+.05*g;sg=.433*g+.567*b;sb=.475*g+.525*b;break;
+case'achrom':var gr=.299*r+.587*g+.114*b;sr=gr;sg=gr;sb=gr;break;
+default:sr=r;sg=g;sb=b;
+}
+return rgbToHex(sr*255,sg*255,sb*255);
 }
 
-function renderColorBlindness(){
-  var types=[
-    {id:'protanopia',name:'Protanopia',desc:'Red-blind (~1% of males)'},
-    {id:'deuteranopia',name:'Deuteranopia',desc:'Green-blind (~1% of males)'},
-    {id:'tritanopia',name:'Tritanopia',desc:'Blue-blind (~0.003%)'},
-    {id:'achromatopsia',name:'Achromatopsia',desc:'Total color blindness'}
-  ];
-  var container=document.getElementById('cbGrid');
-  container.innerHTML=types.map(function(t){
-    var simFg=simulateColorBlind(fg,t.id);
-    var simBg=simulateColorBlind(bg,t.id);
-    var simRatio=contrastRatio(simFg,simBg);
-    var pass=simRatio>=4.5;
-    return '<div class="cb-item" style="background:'+simBg+';color:'+simFg+';border:1px solid var(--border)"><h4>'+t.name+'</h4><p>Aa Sample Text</p><div style="font-size:0.7rem;margin-top:0.5rem;opacity:0.7">'+t.desc+'<br>Ratio: '+Math.round(simRatio*100)/100+':1 '+(pass?'PASS':'FAIL')+'</div></div>';
-  }).join('');
+function renderCB(){
+var types=[{id:'protan',name:'Protanopia',desc:'Red-blind'},{id:'deutan',name:'Deuteranopia',desc:'Green-blind'},{id:'tritan',name:'Tritanopia',desc:'Blue-blind'},{id:'achrom',name:'Achromatopsia',desc:'Total'}];
+document.getElementById('cbGrid').innerHTML=types.map(function(t){
+var sf=simCB(fg,t.id),sb=simCB(bg,t.id);
+var r=contrast(sf,sb);var pass=r>=4.5;
+return'<div class="cb-item" style="background:'+sb+';color:'+sf+';border:1px solid #2a2a3a"><h4>'+t.name+'</h4><p>Aa Sample Text</p><div class="meta">'+t.desc+' | '+Math.round(r*100)/100+':1 '+(pass?'PASS':'FAIL')+'</div></div>';
+}).join('');
 }
 
 function generateReport(){
-  var ratio=contrastRatio(fg,bg);
-  var ratioStr=Math.round(ratio*100)/100;
-  var r='WCAG COLOR CONTRAST ACCESSIBILITY REPORT\n';
-  r+='=========================================\n';
-  r+='Generated: '+new Date().toISOString().split('T')[0]+'\n';
-  r+='Tool: SPUNK.CODES Exclusive\n\n';
-  r+='COLORS\n------\n';
-  r+='Foreground: '+fg+'\n';
-  r+='Background: '+bg+'\n';
-  r+='Contrast Ratio: '+ratioStr+':1\n\n';
-  r+='WCAG 2.1 RESULTS\n-----------------\n';
-  r+='AA Normal Text (4.5:1):  '+(ratio>=4.5?'PASS':'FAIL')+'\n';
-  r+='AA Large Text (3:1):     '+(ratio>=3?'PASS':'FAIL')+'\n';
-  r+='AAA Normal Text (7:1):   '+(ratio>=7?'PASS':'FAIL')+'\n';
-  r+='AAA Large Text (4.5:1):  '+(ratio>=4.5?'PASS':'FAIL')+'\n';
-  r+='AA UI Components (3:1):  '+(ratio>=3?'PASS':'FAIL')+'\n';
-  r+='AA Non-text (3:1):       '+(ratio>=3?'PASS':'FAIL')+'\n\n';
-  r+='COLOR BLINDNESS SIMULATION\n--------------------------\n';
-  ['protanopia','deuteranopia','tritanopia','achromatopsia'].forEach(function(t){
-    var simFg=simulateColorBlind(fg,t);
-    var simBg=simulateColorBlind(bg,t);
-    var simRatio=Math.round(contrastRatio(simFg,simBg)*100)/100;
-    r+=t.charAt(0).toUpperCase()+t.slice(1)+': '+simRatio+':1 '+(simRatio>=4.5?'PASS':'FAIL')+'\n';
-  });
-  r+='\nOVERALL: '+(ratio>=7?'Excellent (AAA)':ratio>=4.5?'Good (AA)':ratio>=3?'Partial (Large text only)':'Poor (Fails all)')+'\n';
-  document.getElementById('reportOutput').textContent=r;
+var r=contrast(fg,bg);var rs=Math.round(r*100)/100;
+var txt='WCAG COLOR CONTRAST REPORT\n';
+txt+='==========================\n';
+txt+='Date: '+new Date().toISOString().split('T')[0]+'\n';
+txt+='Tool: spunk.codes\n\n';
+txt+='COLORS\n------\n';
+txt+='Foreground: '+fg+'\nBackground: '+bg+'\nContrast Ratio: '+rs+':1\n\n';
+txt+='WCAG 2.1 RESULTS\n-----------------\n';
+txt+='AA Normal (4.5:1):  '+(r>=4.5?'PASS':'FAIL')+'\n';
+txt+='AA Large (3:1):     '+(r>=3?'PASS':'FAIL')+'\n';
+txt+='AAA Normal (7:1):   '+(r>=7?'PASS':'FAIL')+'\n';
+txt+='AAA Large (4.5:1):  '+(r>=4.5?'PASS':'FAIL')+'\n';
+txt+='AA UI (3:1):        '+(r>=3?'PASS':'FAIL')+'\n\n';
+txt+='OVERALL: '+(r>=7?'Excellent (AAA)':r>=4.5?'Good (AA)':r>=3?'Partial (Large text only)':'Fails all standards')+'\n';
+document.getElementById('reportBox').textContent=txt;
 }
 
-function copyReport(){navigator.clipboard.writeText(document.getElementById('reportOutput').textContent).then(function(){alert('Report copied!')})}
+function copyReport(){navigator.clipboard.writeText(document.getElementById('reportBox').textContent).then(function(){alert('Report copied!')})}
+function exportReport(){var blob=new Blob([document.getElementById('reportBox').textContent],{type:'text/plain'});var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='contrast-report.txt';a.click()}
 
-function exportReport(){
-  var blob=new Blob([document.getElementById('reportOutput').textContent],{type:'text/plain'});
-  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='accessibility-report.txt';a.click();
+function savePair(){
+savedPairs.unshift({fg:fg,bg:bg,ratio:Math.round(contrast(fg,bg)*100)/100,date:new Date().toLocaleDateString()});
+save();renderSaved();
 }
 
-// Init
-update();
+function removeSaved(i){savedPairs.splice(i,1);save();renderSaved()}
 
-function shareX(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Checking color contrast accessibility with this tool. Code SPUNK @SpunkArt13')+'&url='+encodeURIComponent('https://spunk.codes/exclusive-tools'),'_blank')}
-function shareReddit(){window.open('https://www.reddit.com/submit?url='+encodeURIComponent('https://spunk.codes/exclusive-tools')+'&title='+encodeURIComponent('WCAG Color Contrast Checker - free with code SPUNK [spunk.codes]'),'_blank')}
-function shareEmail(){window.location.href='mailto:?subject='+encodeURIComponent('WCAG Color Contrast Checker')+'&body='+encodeURIComponent('Check color accessibility with WCAG 2.1 standards. Code SPUNK: https://spunk.codes/exclusive-tools')}
+function renderSaved(){
+var list=document.getElementById('savedList');
+if(!savedPairs.length){list.innerHTML='<div class="empty">Save color pairs for quick reference.</div>';return}
+list.innerHTML=savedPairs.map(function(p,i){
+return'<div style="display:flex;align-items:center;gap:10px;background:#16161e;border:1px solid #2a2a3a;border-radius:8px;padding:10px 14px;margin-bottom:6px;cursor:pointer" onclick="syncFg(\''+p.fg+'\');syncBg(\''+p.bg+'\')"><div style="width:30px;height:30px;border-radius:4px;background:'+p.bg+';border:2px solid '+p.fg+'"></div><span style="font-family:monospace;font-size:.82rem">'+p.fg+' on '+p.bg+'</span><span style="font-size:.82rem;color:#888">'+p.ratio+':1</span><span style="font-size:.75rem;color:#555;margin-left:auto">'+p.date+'</span><button class="danger" style="padding:3px 6px;font-size:.75rem" onclick="event.stopPropagation();removeSaved('+i+')">&times;</button></div>';
+}).join('');
+}
+
+function shareTwitter(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Check color contrast accessibility with this free WCAG tool! https://spunk.codes/exclusive/color-contrast-checker.html'),'_blank')}
+function copyLink(){
+var url='https://spunk.codes/exclusive/color-contrast-checker.html?fg='+fg.replace('#','')+'&bg='+bg.replace('#','');
+navigator.clipboard.writeText(url).then(function(){alert('Link copied with current colors!')});
+}
+
+load();
 </script>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
-<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
-<script src="/auto-monetize.js"></script>
-<div id="shareXBtn" style="position:fixed;left:20px;bottom:20px;z-index:9999;">
-  <a id="shareXLink" href="#" target="_blank" rel="noopener noreferrer" title="Share on X"
-     style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;
-     background:rgba(88,166,255,0.15);border:1px solid rgba(88,166,255,0.3);
-     backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:50%;
-     text-decoration:none;transition:all 0.3s ease;cursor:pointer;">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
-      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-    </svg>
-  </a>
-</div>
-<style>#shareXBtn a:hover{background:rgba(88,166,255,0.35)!important;border-color:rgba(88,166,255,0.6)!important;transform:scale(1.1);box-shadow:0 0 15px rgba(88,166,255,0.3)}</style>
-<script>
-(function(){var page=location.pathname.split("/").pop()||"index.html";var url="https://spunk.codes/"+page;var text="Just used this free tool on spunk.codes — amazing! @SpunkArt13";var href="https://x.com/intent/tweet?text="+encodeURIComponent(text)+"&url="+encodeURIComponent(url);document.getElementById("shareXLink").href=href})();
-</script>
-<script src="/usage-tracker.js"></script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
 </body>
 </html>
