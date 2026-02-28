@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tax Bracket Calculator | SPUNK.CODES</title>
+<meta name="description" content="Calculate your 2026 federal income tax brackets, estimated tax owed, effective tax rate, and take-home pay. Free, instant, no signup required.">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP')</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w")</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e8e8f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+header{background:#111118;border-bottom:2px solid #ff5f1f;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;position:sticky;top:0;z-index:100}
+header h1{font-size:1.4rem;color:#ff5f1f}
+header .back{color:#e8e8f0;font-size:.9rem}
+main{flex:1;max-width:700px;width:100%;margin:0 auto;padding:24px 16px}
+.panel{background:#111118;border:1px solid #2a2a3a;border-radius:10px;padding:20px;margin-bottom:20px}
+.panel h2{font-size:1.1rem;color:#ff5f1f;margin-bottom:14px}
+button{background:#ff5f1f;color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:.9rem;font-weight:600;transition:background .2s}
+button:hover{background:#e8520e}
+button.secondary{background:#2a2a3a;color:#e8e8f0}button.secondary:hover{background:#3a3a4a}
+button.danger{background:#cc2233}button.danger:hover{background:#aa1122}
+input,select{background:#16161e;border:1px solid #2a2a3a;color:#e8e8f0;padding:8px 12px;border-radius:6px;font-size:.9rem;width:100%}
+.input-group{margin-bottom:16px}
+.input-group label{font-size:.85rem;color:#888;margin-bottom:6px;display:block}
+.results-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
+.result-card{background:#16161e;border:1px solid #2a2a3a;border-radius:10px;padding:18px;text-align:center}
+.result-card .value{font-size:1.8rem;color:#ff5f1f;font-weight:700}
+.result-card .label{font-size:.8rem;color:#888;margin-top:4px}
+.result-card.highlight{border:2px solid #ff5f1f;box-shadow:0 0 20px rgba(255,95,31,.1)}
+.bracket-table{width:100%;border-collapse:collapse;margin-top:10px}
+.bracket-table th,.bracket-table td{padding:10px 12px;text-align:left;border-bottom:1px solid #2a2a3a;font-size:.85rem}
+.bracket-table th{color:#ff5f1f;font-weight:600}
+.bracket-table tr.active{background:rgba(255,95,31,.1)}
+.bracket-bar{height:8px;background:#2a2a3a;border-radius:4px;margin-top:4px;overflow:hidden}
+.bracket-bar .fill{height:100%;background:#ff5f1f;border-radius:4px;transition:width .3s}
+.filing-btns{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.filing-btns button.active{background:#ff5f1f;box-shadow:0 0 12px rgba(255,95,31,.4)}
+.filing-btns button:not(.active){background:#2a2a3a;color:#e8e8f0}
+.share-btns{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.share-btns button{font-size:.8rem;padding:6px 12px}
+.history-item{background:#16161e;border:1px solid #2a2a3a;border-radius:8px;padding:12px 16px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.history-item .info{font-size:.9rem}
+.history-item .date{font-size:.75rem;color:#555}
+.empty{text-align:center;color:#555;padding:30px;font-size:.95rem}
+footer{text-align:center;padding:20px;color:#555;font-size:.8rem;border-top:1px solid #1a1a2a;margin-top:auto}
+footer a{color:#ff5f1f;margin:0 4px}
+@media(max-width:700px){
+.results-grid{grid-template-columns:1fr}
+.result-card .value{font-size:1.4rem}
+header h1{font-size:1.1rem}
+.bracket-table{font-size:.75rem}
+.bracket-table th,.bracket-table td{padding:6px 8px}
+}
+</style>
+</head>
+<body>
+<header>
+<h1>Tax Bracket Calculator</h1>
+<a href="https://spunk.codes" class="back">spunk.codes</a>
+</header>
+<main>
+<div class="panel">
+<h2>Filing Status</h2>
+<div class="filing-btns" id="filingBtns">
+<button class="active" onclick="setFiling('single')">Single</button>
+<button onclick="setFiling('married_joint')">Married Filing Jointly</button>
+<button onclick="setFiling('married_separate')">Married Filing Separately</button>
+<button onclick="setFiling('head')">Head of Household</button>
+</div>
+</div>
+
+<div class="panel">
+<h2>Income Details</h2>
+<div class="input-group">
+<label>Annual Gross Income ($)</label>
+<input type="number" id="income" min="0" step="100" placeholder="75000" oninput="calc()">
+</div>
+<div class="input-group">
+<label>Deductions ($) &mdash; leave blank for standard deduction</label>
+<input type="number" id="deductions" min="0" step="100" placeholder="" oninput="calc()">
+</div>
+<div class="input-group">
+<label>Pre-tax Retirement Contributions ($)</label>
+<input type="number" id="retirement" min="0" step="100" placeholder="0" oninput="calc()">
+</div>
+</div>
+
+<div class="panel" id="resultsPanel" style="display:none">
+<h2>Results</h2>
+<div class="results-grid">
+<div class="result-card highlight"><div class="value" id="totalTax">$0</div><div class="label">Estimated Federal Tax</div></div>
+<div class="result-card"><div class="value" id="effectiveRate">0%</div><div class="label">Effective Tax Rate</div></div>
+<div class="result-card"><div class="value" id="marginalRate">0%</div><div class="label">Marginal Tax Rate</div></div>
+<div class="result-card highlight"><div class="value" id="takeHome">$0</div><div class="label">Take-Home Pay</div></div>
+<div class="result-card"><div class="value" id="taxableIncome">$0</div><div class="label">Taxable Income</div></div>
+<div class="result-card"><div class="value" id="monthlyTakeHome">$0</div><div class="label">Monthly Take-Home</div></div>
+</div>
+</div>
+
+<div class="panel" id="bracketPanel" style="display:none">
+<h2>Tax Bracket Breakdown</h2>
+<table class="bracket-table">
+<thead><tr><th>Rate</th><th>Bracket Range</th><th>Tax in Bracket</th><th>Filled</th></tr></thead>
+<tbody id="bracketBody"></tbody>
+</table>
+</div>
+
+<div class="panel">
+<h2>Saved Calculations</h2>
+<div id="historyList"><div class="empty">No calculations saved yet.</div></div>
+<div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
+<button onclick="saveCalc()">Save Current</button>
+<button class="danger" onclick="clearHistory()">Clear All</button>
+</div>
+</div>
+
+<div class="panel">
+<h2>Share</h2>
+<div class="share-btns">
+<button onclick="shareTwitter()">Share on X</button>
+<button class="secondary" onclick="copyLink()">Copy Link</button>
+</div>
+</div>
+</main>
+
+<footer>
+<a href="https://spunk.codes">spunk.codes</a> &middot;
+<a href="https://spunk.bet">spunk.bet</a> &middot;
+<a href="https://spunk.pics">spunk.pics</a> &middot;
+<a href="https://spunk.work">spunk.work</a> &middot;
+<a href="https://spunkart.com">SpunkArt.com</a>
+</footer>
+
+<script>
+const LS_KEY='spunkcodes_tax_bracket';
+let filing='single';
+let history=[];
+
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function fmt(n){return'$'+Number(n).toLocaleString('en-US',{minimumFractionDigits:0,maximumFractionDigits:0})}
+function fmtD(n){return'$'+Number(n).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}
+
+// 2026 Federal Tax Brackets (projected, based on inflation adjustments)
+const brackets={
+single:[
+{rate:10,min:0,max:11925},
+{rate:12,min:11925,max:48475},
+{rate:22,min:48475,max:103350},
+{rate:24,min:103350,max:197300},
+{rate:32,min:197300,max:250525},
+{rate:35,min:250525,max:626350},
+{rate:37,min:626350,max:Infinity}
+],
+married_joint:[
+{rate:10,min:0,max:23850},
+{rate:12,min:23850,max:96950},
+{rate:22,min:96950,max:206700},
+{rate:24,min:206700,max:394600},
+{rate:32,min:394600,max:501050},
+{rate:35,min:501050,max:751600},
+{rate:37,min:751600,max:Infinity}
+],
+married_separate:[
+{rate:10,min:0,max:11925},
+{rate:12,min:11925,max:48475},
+{rate:22,min:48475,max:103350},
+{rate:24,min:103350,max:197300},
+{rate:32,min:197300,max:250525},
+{rate:35,min:250525,max:375800},
+{rate:37,min:375800,max:Infinity}
+],
+head:[
+{rate:10,min:0,max:17000},
+{rate:12,min:17000,max:64850},
+{rate:22,min:64850,max:103350},
+{rate:24,min:103350,max:197300},
+{rate:32,min:197300,max:250500},
+{rate:35,min:250500,max:626350},
+{rate:37,min:626350,max:Infinity}
+]
+};
+
+const standardDeductions={single:15700,married_joint:31400,married_separate:15700,head:23500};
+
+function setFiling(f){
+filing=f;
+document.querySelectorAll('.filing-btns button').forEach(b=>b.classList.remove('active'));
+const map={single:0,married_joint:1,married_separate:2,head:3};
+document.querySelectorAll('.filing-btns button')[map[f]].classList.add('active');
+calc();
+}
+
+function calc(){
+const gross=parseFloat(document.getElementById('income').value)||0;
+if(gross<=0){document.getElementById('resultsPanel').style.display='none';document.getElementById('bracketPanel').style.display='none';return}
+
+const retirement=parseFloat(document.getElementById('retirement').value)||0;
+const customDed=document.getElementById('deductions').value;
+const deduction=customDed!==''?parseFloat(customDed):standardDeductions[filing];
+const taxable=Math.max(0,gross-retirement-deduction);
+
+let totalTax=0;
+let marginal=10;
+const b=brackets[filing];
+const breakdown=[];
+
+for(let i=0;i<b.length;i++){
+const bracket=b[i];
+const lo=bracket.min;
+const hi=bracket.max===Infinity?Infinity:bracket.max;
+if(taxable<=lo){breakdown.push({rate:bracket.rate,min:lo,max:hi,taxed:0,filled:0});continue}
+const inBracket=Math.min(taxable,hi)-lo;
+const tax=inBracket*(bracket.rate/100);
+totalTax+=tax;
+marginal=bracket.rate;
+const bracketSize=hi===Infinity?inBracket:hi-lo;
+breakdown.push({rate:bracket.rate,min:lo,max:hi,taxed:tax,filled:Math.min(100,(inBracket/bracketSize)*100)});
+}
+
+const effective=gross>0?(totalTax/gross)*100:0;
+const takeHome=gross-totalTax-retirement;
+
+document.getElementById('resultsPanel').style.display='';
+document.getElementById('bracketPanel').style.display='';
+document.getElementById('totalTax').textContent=fmt(totalTax);
+document.getElementById('effectiveRate').textContent=effective.toFixed(1)+'%';
+document.getElementById('marginalRate').textContent=marginal+'%';
+document.getElementById('takeHome').textContent=fmt(takeHome);
+document.getElementById('taxableIncome').textContent=fmt(taxable);
+document.getElementById('monthlyTakeHome').textContent=fmt(takeHome/12);
+
+const tbody=document.getElementById('bracketBody');
+tbody.innerHTML=breakdown.map(b=>{
+const maxStr=b.max===Infinity?'+':fmt(b.max);
+const active=b.taxed>0?'class="active"':'';
+return`<tr ${active}><td>${b.rate}%</td><td>${fmt(b.min)} &ndash; ${maxStr}</td><td>${fmtD(b.taxed)}</td><td><div class="bracket-bar"><div class="fill" style="width:${b.filled}%"></div></div></td></tr>`;
+}).join('');
+}
+
+function load(){try{history=JSON.parse(localStorage.getItem(LS_KEY))||[]}catch(e){history=[]}}
+function save(){localStorage.setItem(LS_KEY,JSON.stringify(history.slice(0,50)))}
+
+function saveCalc(){
+const gross=parseFloat(document.getElementById('income').value)||0;
+if(gross<=0)return;
+const retirement=parseFloat(document.getElementById('retirement').value)||0;
+const customDed=document.getElementById('deductions').value;
+const deduction=customDed!==''?parseFloat(customDed):standardDeductions[filing];
+const taxable=Math.max(0,gross-retirement-deduction);
+let totalTax=0;
+const b=brackets[filing];
+for(let i=0;i<b.length;i++){
+const lo=b[i].min;
+const hi=b[i].max===Infinity?Infinity:b[i].max;
+if(taxable<=lo)continue;
+totalTax+=((Math.min(taxable,hi)-lo)*(b[i].rate/100));
+}
+const effective=gross>0?(totalTax/gross)*100:0;
+history.unshift({id:Date.now(),date:new Date().toLocaleDateString(),filing:filing,gross:gross,tax:totalTax,effective:effective.toFixed(1),takeHome:gross-totalTax-retirement});
+save();renderHistory();
+}
+
+function removeHistory(id){history=history.filter(h=>h.id!==id);save();renderHistory()}
+function clearHistory(){if(!confirm('Clear all saved calculations?'))return;history=[];save();renderHistory()}
+
+function renderHistory(){
+const list=document.getElementById('historyList');
+if(!history.length){list.innerHTML='<div class="empty">No calculations saved yet.</div>';return}
+const names={single:'Single',married_joint:'MFJ',married_separate:'MFS',head:'HoH'};
+list.innerHTML=history.map(h=>`
+<div class="history-item">
+<div>
+<div class="info"><strong>${fmt(h.gross)}</strong> income &rarr; <strong>${fmt(h.tax)}</strong> tax (${esc(h.effective)}% eff.) &rarr; <strong>${fmt(h.takeHome)}</strong> take-home</div>
+<div class="date">${esc(h.date)} &middot; ${esc(names[h.filing]||h.filing)}</div>
+</div>
+<button class="danger" onclick="removeHistory(${h.id})" style="font-size:.75rem;padding:4px 8px">&times;</button>
+</div>`).join('');
+}
+
+function shareTwitter(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Calculate your 2026 federal tax brackets, effective rate & take-home pay for free! https://spunk.codes/exclusive/tax-bracket-calculator.html'),'_blank')}
+function copyLink(){navigator.clipboard.writeText('https://spunk.codes/exclusive/tax-bracket-calculator.html').then(()=>alert('Link copied!'))}
+
+load();renderHistory();
+</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>

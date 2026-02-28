@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Net Worth Calculator | SPUNK.CODES</title>
+<meta name="description" content="Track your assets vs liabilities, calculate net worth, save history over time, and visualize your financial growth with interactive charts. Free, no signup.">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP')</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w")</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e8e8f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+header{background:#111118;border-bottom:2px solid #ff5f1f;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;position:sticky;top:0;z-index:100}
+header h1{font-size:1.4rem;color:#ff5f1f}
+header .back{color:#e8e8f0;font-size:.9rem}
+main{flex:1;max-width:700px;width:100%;margin:0 auto;padding:24px 16px}
+.panel{background:#111118;border:1px solid #2a2a3a;border-radius:10px;padding:20px;margin-bottom:20px}
+.panel h2{font-size:1.1rem;color:#ff5f1f;margin-bottom:14px}
+button{background:#ff5f1f;color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:.9rem;font-weight:600;transition:background .2s}
+button:hover{background:#e8520e}
+button.secondary{background:#2a2a3a;color:#e8e8f0}button.secondary:hover{background:#3a3a4a}
+button.danger{background:#cc2233}button.danger:hover{background:#aa1122}
+input,select{background:#16161e;border:1px solid #2a2a3a;color:#e8e8f0;padding:8px 12px;border-radius:6px;font-size:.9rem;width:100%}
+.input-group{margin-bottom:16px}
+.input-group label{font-size:.85rem;color:#888;margin-bottom:6px;display:block}
+.results-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px}
+.result-card{background:#16161e;border:1px solid #2a2a3a;border-radius:10px;padding:18px;text-align:center}
+.result-card .value{font-size:1.8rem;font-weight:700}
+.result-card .value.positive{color:#00cc66}
+.result-card .value.negative{color:#ff3344}
+.result-card .value.accent{color:#ff5f1f}
+.result-card .label{font-size:.8rem;color:#888;margin-top:4px}
+.result-card.highlight{border:2px solid #ff5f1f;box-shadow:0 0 20px rgba(255,95,31,.1)}
+.item-row{display:flex;gap:8px;align-items:center;margin-bottom:8px}
+.item-row input{flex:1}
+.item-row input:first-child{flex:2}
+.item-row button{flex-shrink:0;padding:6px 10px;font-size:.8rem}
+.add-btn{margin-top:8px}
+.section-total{text-align:right;font-size:1rem;color:#ff5f1f;font-weight:600;margin-top:10px;padding-top:10px;border-top:1px solid #2a2a3a}
+.chart-container{position:relative;width:100%;height:250px;margin-bottom:16px}
+#growthCanvas{width:100%;height:100%;background:#16161e;border:1px solid #2a2a3a;border-radius:8px}
+.history-item{background:#16161e;border:1px solid #2a2a3a;border-radius:8px;padding:12px 16px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.history-item .info{font-size:.9rem}
+.history-item .date{font-size:.75rem;color:#555}
+.empty{text-align:center;color:#555;padding:30px;font-size:.95rem}
+.share-btns{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.share-btns button{font-size:.8rem;padding:6px 12px}
+footer{text-align:center;padding:20px;color:#555;font-size:.8rem;border-top:1px solid #1a1a2a;margin-top:auto}
+footer a{color:#ff5f1f;margin:0 4px}
+@media(max-width:700px){
+.results-grid{grid-template-columns:1fr}
+.result-card .value{font-size:1.4rem}
+header h1{font-size:1.1rem}
+.item-row{flex-wrap:wrap}
+.item-row input{min-width:100px}
+}
+</style>
+</head>
+<body>
+<header>
+<h1>Net Worth Calculator</h1>
+<a href="https://spunk.codes" class="back">spunk.codes</a>
+</header>
+<main>
+<div class="panel" id="resultsPanel">
+<h2>Net Worth Summary</h2>
+<div class="results-grid">
+<div class="result-card"><div class="value accent" id="totalAssets">$0</div><div class="label">Total Assets</div></div>
+<div class="result-card"><div class="value accent" id="totalLiabilities">$0</div><div class="label">Total Liabilities</div></div>
+<div class="result-card highlight"><div class="value positive" id="netWorth">$0</div><div class="label">Net Worth</div></div>
+</div>
+</div>
+
+<div class="panel">
+<h2>Assets</h2>
+<div id="assetsList"></div>
+<button class="add-btn" onclick="addItem('asset')">+ Add Asset</button>
+<div class="section-total">Total Assets: <span id="assetTotal">$0</span></div>
+</div>
+
+<div class="panel">
+<h2>Liabilities</h2>
+<div id="liabilitiesList"></div>
+<button class="add-btn" onclick="addItem('liability')">+ Add Liability</button>
+<div class="section-total">Total Liabilities: <span id="liabilityTotal">$0</span></div>
+</div>
+
+<div class="panel">
+<h2>Growth Over Time</h2>
+<div class="chart-container">
+<canvas id="growthCanvas"></canvas>
+</div>
+<div style="display:flex;gap:8px;flex-wrap:wrap">
+<button onclick="saveSnapshot()">Save Snapshot</button>
+<button class="secondary" onclick="autoSave()">Auto-Save Current</button>
+</div>
+</div>
+
+<div class="panel">
+<h2>Snapshot History</h2>
+<div id="historyList"><div class="empty">No snapshots yet. Save your first one!</div></div>
+<div style="margin-top:10px"><button class="danger" onclick="clearHistory()">Clear All Snapshots</button></div>
+</div>
+
+<div class="panel">
+<h2>Share</h2>
+<div class="share-btns">
+<button onclick="shareTwitter()">Share on X</button>
+<button class="secondary" onclick="copyLink()">Copy Link</button>
+</div>
+</div>
+</main>
+
+<footer>
+<a href="https://spunk.codes">spunk.codes</a> &middot;
+<a href="https://spunk.bet">spunk.bet</a> &middot;
+<a href="https://spunk.pics">spunk.pics</a> &middot;
+<a href="https://spunk.work">spunk.work</a> &middot;
+<a href="https://spunkart.com">SpunkArt.com</a>
+</footer>
+
+<script>
+const LS_KEY='spunkcodes_net_worth';
+const LS_ITEMS='spunkcodes_nw_items';
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function fmt(n){const neg=n<0;const abs=Math.abs(n);return(neg?'-':'')+'$'+abs.toLocaleString('en-US',{minimumFractionDigits:0,maximumFractionDigits:0})}
+
+const defaultAssets=[
+{name:'Checking Account',value:0},
+{name:'Savings Account',value:0},
+{name:'Investment Portfolio',value:0},
+{name:'Retirement (401k/IRA)',value:0},
+{name:'Home Value',value:0},
+{name:'Vehicle',value:0}
+];
+
+const defaultLiabilities=[
+{name:'Mortgage',value:0},
+{name:'Student Loans',value:0},
+{name:'Credit Card Debt',value:0},
+{name:'Auto Loan',value:0}
+];
+
+let assets=[];
+let liabilities=[];
+let snapshots=[];
+
+function loadItems(){
+try{
+const data=JSON.parse(localStorage.getItem(LS_ITEMS));
+if(data){assets=data.assets||defaultAssets.slice();liabilities=data.liabilities||defaultLiabilities.slice()}
+else{assets=defaultAssets.slice();liabilities=defaultLiabilities.slice()}
+}catch(e){assets=defaultAssets.slice();liabilities=defaultLiabilities.slice()}
+}
+
+function saveItems(){localStorage.setItem(LS_ITEMS,JSON.stringify({assets,liabilities}))}
+
+function loadSnapshots(){try{snapshots=JSON.parse(localStorage.getItem(LS_KEY))||[]}catch(e){snapshots=[]}}
+function saveSnapshots(){localStorage.setItem(LS_KEY,JSON.stringify(snapshots.slice(0,100)))}
+
+function renderItems(type){
+const list=document.getElementById(type==='asset'?'assetsList':'liabilitiesList');
+const items=type==='asset'?assets:liabilities;
+list.innerHTML=items.map((item,i)=>`
+<div class="item-row">
+<input type="text" value="${esc(item.name)}" onchange="${type==='asset'?'assets':'liabilities'}[${i}].name=this.value;saveItems()">
+<input type="number" value="${item.value||''}" min="0" step="100" placeholder="0" oninput="${type==='asset'?'assets':'liabilities'}[${i}].value=parseFloat(this.value)||0;saveItems();calc()">
+<button class="danger" onclick="removeItem('${type}',${i})">x</button>
+</div>`).join('');
+}
+
+function addItem(type){
+if(type==='asset')assets.push({name:'New Asset',value:0});
+else liabilities.push({name:'New Liability',value:0});
+saveItems();renderItems(type);
+}
+
+function removeItem(type,i){
+if(type==='asset')assets.splice(i,1);
+else liabilities.splice(i,1);
+saveItems();renderItems(type);calc();
+}
+
+function calc(){
+const totalA=assets.reduce((sum,a)=>sum+(a.value||0),0);
+const totalL=liabilities.reduce((sum,l)=>sum+(l.value||0),0);
+const nw=totalA-totalL;
+
+document.getElementById('totalAssets').textContent=fmt(totalA);
+document.getElementById('totalLiabilities').textContent=fmt(totalL);
+document.getElementById('assetTotal').textContent=fmt(totalA);
+document.getElementById('liabilityTotal').textContent=fmt(totalL);
+
+const nwEl=document.getElementById('netWorth');
+nwEl.textContent=fmt(nw);
+nwEl.className='value '+(nw>=0?'positive':'negative');
+}
+
+function saveSnapshot(){
+const totalA=assets.reduce((sum,a)=>sum+(a.value||0),0);
+const totalL=liabilities.reduce((sum,l)=>sum+(l.value||0),0);
+const nw=totalA-totalL;
+snapshots.push({id:Date.now(),date:new Date().toLocaleDateString(),dateISO:new Date().toISOString().slice(0,10),assets:totalA,liabilities:totalL,netWorth:nw});
+saveSnapshots();renderHistory();drawChart();
+}
+
+function autoSave(){saveSnapshot();alert('Snapshot saved!')}
+
+function clearHistory(){if(!confirm('Clear all snapshots?'))return;snapshots=[];saveSnapshots();renderHistory();drawChart()}
+
+function renderHistory(){
+const list=document.getElementById('historyList');
+if(!snapshots.length){list.innerHTML='<div class="empty">No snapshots yet. Save your first one!</div>';return}
+list.innerHTML=snapshots.slice().reverse().slice(0,30).map(s=>{
+const prev=snapshots.length>1?snapshots[snapshots.indexOf(s)-1]:null;
+let change='';
+if(prev){
+const diff=s.netWorth-prev.netWorth;
+const arrow=diff>=0?'&uarr;':'&darr;';
+const color=diff>=0?'#00cc66':'#ff3344';
+change=` <span style="color:${color};font-size:.8rem">${arrow} ${fmt(Math.abs(diff))}</span>`;
+}
+return`<div class="history-item">
+<div>
+<div class="info">Net Worth: <strong style="color:${s.netWorth>=0?'#00cc66':'#ff3344'}">${fmt(s.netWorth)}</strong>${change}</div>
+<div class="date">${esc(s.date)} &middot; Assets: ${fmt(s.assets)} &middot; Liabilities: ${fmt(s.liabilities)}</div>
+</div>
+<button class="danger" onclick="removeSnapshot(${s.id})" style="font-size:.75rem;padding:4px 8px">&times;</button>
+</div>`;
+}).join('');
+}
+
+function removeSnapshot(id){snapshots=snapshots.filter(s=>s.id!==id);saveSnapshots();renderHistory();drawChart()}
+
+function drawChart(){
+const canvas=document.getElementById('growthCanvas');
+const ctx=canvas.getContext('2d');
+const rect=canvas.parentElement.getBoundingClientRect();
+canvas.width=rect.width*2;
+canvas.height=250*2;
+ctx.scale(2,2);
+const w=rect.width;
+const h=250;
+
+ctx.clearRect(0,0,w,h);
+ctx.fillStyle='#16161e';
+ctx.fillRect(0,0,w,h);
+
+if(snapshots.length<2){
+ctx.fillStyle='#555';
+ctx.font='14px -apple-system,BlinkMacSystemFont,sans-serif';
+ctx.textAlign='center';
+ctx.fillText('Save at least 2 snapshots to see growth chart',w/2,h/2);
+return;
+}
+
+const pad={top:30,right:20,bottom:40,left:70};
+const cw=w-pad.left-pad.right;
+const ch=h-pad.top-pad.bottom;
+
+const values=snapshots.map(s=>s.netWorth);
+const minV=Math.min(...values);
+const maxV=Math.max(...values);
+const range=maxV-minV||1;
+
+// Grid lines
+ctx.strokeStyle='#2a2a3a';
+ctx.lineWidth=1;
+ctx.font='11px -apple-system,BlinkMacSystemFont,sans-serif';
+ctx.fillStyle='#666';
+ctx.textAlign='right';
+for(let i=0;i<=4;i++){
+const y=pad.top+ch-(i/4)*ch;
+const val=minV+(i/4)*range;
+ctx.beginPath();ctx.moveTo(pad.left,y);ctx.lineTo(w-pad.right,y);ctx.stroke();
+ctx.fillText(fmt(val),pad.left-8,y+4);
+}
+
+// X labels
+ctx.textAlign='center';
+ctx.fillStyle='#666';
+const step=Math.max(1,Math.floor(snapshots.length/6));
+for(let i=0;i<snapshots.length;i+=step){
+const x=pad.left+(i/(snapshots.length-1))*cw;
+const label=snapshots[i].dateISO?snapshots[i].dateISO.slice(5):snapshots[i].date;
+ctx.fillText(label,x,h-pad.bottom+20);
+}
+
+// Line
+ctx.beginPath();
+ctx.strokeStyle='#ff5f1f';
+ctx.lineWidth=2.5;
+for(let i=0;i<snapshots.length;i++){
+const x=pad.left+(i/(snapshots.length-1))*cw;
+const y=pad.top+ch-((values[i]-minV)/range)*ch;
+if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);
+}
+ctx.stroke();
+
+// Fill under
+ctx.lineTo(pad.left+cw,pad.top+ch);
+ctx.lineTo(pad.left,pad.top+ch);
+ctx.closePath();
+const grad=ctx.createLinearGradient(0,pad.top,0,pad.top+ch);
+grad.addColorStop(0,'rgba(255,95,31,0.3)');
+grad.addColorStop(1,'rgba(255,95,31,0.02)');
+ctx.fillStyle=grad;
+ctx.fill();
+
+// Dots
+for(let i=0;i<snapshots.length;i++){
+const x=pad.left+(i/(snapshots.length-1))*cw;
+const y=pad.top+ch-((values[i]-minV)/range)*ch;
+ctx.beginPath();ctx.arc(x,y,4,0,Math.PI*2);ctx.fillStyle='#ff5f1f';ctx.fill();
+ctx.strokeStyle='#0a0a0f';ctx.lineWidth=2;ctx.stroke();
+}
+}
+
+function shareTwitter(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Track your net worth over time with this free calculator! https://spunk.codes/exclusive/net-worth-calculator.html'),'_blank')}
+function copyLink(){navigator.clipboard.writeText('https://spunk.codes/exclusive/net-worth-calculator.html').then(()=>alert('Link copied!'))}
+
+loadItems();loadSnapshots();
+renderItems('asset');renderItems('liability');
+calc();renderHistory();
+setTimeout(drawChart,100);
+window.addEventListener('resize',drawChart);
+</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>

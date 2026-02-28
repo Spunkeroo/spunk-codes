@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Typing Speed Test | SPUNK.CODES</title>
+<meta name="description" content="Test your typing speed in WPM with accuracy tracking, multiple difficulty levels, and personal record saving. Free typing test, no signup required.">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP')</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w")</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e8e8f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+header{background:#111118;border-bottom:2px solid #ff5f1f;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;position:sticky;top:0;z-index:100}
+header h1{font-size:1.4rem;color:#ff5f1f}
+header .back{color:#e8e8f0;font-size:.9rem}
+main{flex:1;max-width:700px;width:100%;margin:0 auto;padding:24px 16px}
+.panel{background:#111118;border:1px solid #2a2a3a;border-radius:10px;padding:20px;margin-bottom:20px}
+.panel h2{font-size:1.1rem;color:#ff5f1f;margin-bottom:14px}
+button{background:#ff5f1f;color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:.9rem;font-weight:600;transition:background .2s}
+button:hover{background:#e8520e}
+button.secondary{background:#2a2a3a;color:#e8e8f0}button.secondary:hover{background:#3a3a4a}
+button.danger{background:#cc2233}button.danger:hover{background:#aa1122}
+input,select,textarea{background:#16161e;border:1px solid #2a2a3a;color:#e8e8f0;padding:8px 12px;border-radius:6px;font-size:.9rem;width:100%}
+.input-group{margin-bottom:16px}
+.input-group label{font-size:.85rem;color:#888;margin-bottom:6px;display:block}
+.results-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px}
+.result-card{background:#16161e;border:1px solid #2a2a3a;border-radius:10px;padding:18px;text-align:center}
+.result-card .value{font-size:2rem;color:#ff5f1f;font-weight:700}
+.result-card .label{font-size:.8rem;color:#888;margin-top:4px}
+.result-card.highlight{border:2px solid #ff5f1f;box-shadow:0 0 20px rgba(255,95,31,.1)}
+.diff-btns{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.diff-btns button.active{background:#ff5f1f;box-shadow:0 0 12px rgba(255,95,31,.4)}
+.diff-btns button:not(.active){background:#2a2a3a;color:#e8e8f0}
+.text-display{background:#16161e;border:1px solid #2a2a3a;border-radius:8px;padding:20px;font-size:1.15rem;line-height:1.8;margin-bottom:16px;min-height:120px;user-select:none;font-family:'Courier New',Courier,monospace}
+.text-display .correct{color:#00cc66}
+.text-display .incorrect{color:#ff3344;text-decoration:underline}
+.text-display .current{background:rgba(255,95,31,.3);border-radius:2px;padding:0 1px}
+.text-display .pending{color:#555}
+#typingInput{font-size:1.1rem;padding:14px;font-family:'Courier New',Courier,monospace}
+.timer-bar{height:6px;background:#2a2a3a;border-radius:3px;margin-bottom:16px;overflow:hidden}
+.timer-bar .fill{height:100%;background:#ff5f1f;border-radius:3px;transition:width .1s linear}
+.history-item{background:#16161e;border:1px solid #2a2a3a;border-radius:8px;padding:12px 16px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.history-item .info{font-size:.9rem}
+.history-item .date{font-size:.75rem;color:#555}
+.empty{text-align:center;color:#555;padding:30px;font-size:.95rem}
+.share-btns{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.share-btns button{font-size:.8rem;padding:6px 12px}
+.best-record{background:rgba(255,95,31,.1);border:1px solid #ff5f1f;border-radius:8px;padding:12px 16px;margin-bottom:16px;text-align:center;font-size:.95rem}
+.best-record strong{color:#ff5f1f}
+footer{text-align:center;padding:20px;color:#555;font-size:.8rem;border-top:1px solid #1a1a2a;margin-top:auto}
+footer a{color:#ff5f1f;margin:0 4px}
+@media(max-width:700px){
+.results-grid{grid-template-columns:1fr}
+.result-card .value{font-size:1.5rem}
+header h1{font-size:1.1rem}
+.text-display{font-size:1rem}
+}
+</style>
+</head>
+<body>
+<header>
+<h1>Typing Speed Test</h1>
+<a href="https://spunk.codes" class="back">spunk.codes</a>
+</header>
+<main>
+<div class="panel">
+<h2>Settings</h2>
+<div class="diff-btns" id="diffBtns">
+<button class="active" onclick="setDifficulty('easy')">Easy</button>
+<button onclick="setDifficulty('medium')">Medium</button>
+<button onclick="setDifficulty('hard')">Hard</button>
+</div>
+<div class="input-group">
+<label>Duration</label>
+<select id="duration" onchange="resetTest()">
+<option value="30">30 seconds</option>
+<option value="60" selected>60 seconds</option>
+<option value="120">2 minutes</option>
+</select>
+</div>
+</div>
+
+<div class="panel" id="bestPanel" style="display:none">
+<div class="best-record" id="bestRecord"></div>
+</div>
+
+<div class="panel">
+<h2>Type the text below</h2>
+<div class="timer-bar"><div class="fill" id="timerFill" style="width:100%"></div></div>
+<div class="text-display" id="textDisplay"></div>
+<input type="text" id="typingInput" placeholder="Start typing here..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+<div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+<button onclick="resetTest()">New Test</button>
+</div>
+</div>
+
+<div class="panel" id="resultsPanel" style="display:none">
+<h2>Results</h2>
+<div class="results-grid">
+<div class="result-card highlight"><div class="value" id="wpmResult">0</div><div class="label">Words Per Minute</div></div>
+<div class="result-card"><div class="value" id="accuracyResult">0%</div><div class="label">Accuracy</div></div>
+<div class="result-card"><div class="value" id="charsResult">0</div><div class="label">Characters Typed</div></div>
+</div>
+<div class="results-grid">
+<div class="result-card"><div class="value" id="correctResult">0</div><div class="label">Correct</div></div>
+<div class="result-card"><div class="value" id="errorResult">0</div><div class="label">Errors</div></div>
+<div class="result-card"><div class="value" id="rawWpm">0</div><div class="label">Raw WPM</div></div>
+</div>
+</div>
+
+<div class="panel">
+<h2>Personal Records</h2>
+<div id="historyList"><div class="empty">No records yet. Complete a test!</div></div>
+<div style="margin-top:10px"><button class="danger" onclick="clearHistory()">Clear Records</button></div>
+</div>
+
+<div class="panel">
+<h2>Share</h2>
+<div class="share-btns">
+<button onclick="shareTwitter()">Share on X</button>
+<button class="secondary" onclick="copyLink()">Copy Link</button>
+</div>
+</div>
+</main>
+
+<footer>
+<a href="https://spunk.codes">spunk.codes</a> &middot;
+<a href="https://spunk.bet">spunk.bet</a> &middot;
+<a href="https://spunk.pics">spunk.pics</a> &middot;
+<a href="https://spunk.work">spunk.work</a> &middot;
+<a href="https://spunkart.com">SpunkArt.com</a>
+</footer>
+
+<script>
+const LS_KEY='spunkcodes_typing_test';
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+
+const texts={
+easy:[
+"The quick brown fox jumps over the lazy dog near the river bank on a warm summer day.",
+"She sells sea shells by the sea shore while the sun shines bright and the waves crash gently.",
+"A good book is a great friend that you can take anywhere you go in this wide world.",
+"The rain in Spain falls mainly on the plain during the cold winter months of the year.",
+"Every morning the birds sing their songs as the sun rises over the green hills and valleys.",
+"Life is what happens when you are busy making other plans for the future ahead of you.",
+"The best time to plant a tree was twenty years ago and the second best time is right now.",
+"Music is the universal language that brings people together from all walks of life around the world."
+],
+medium:[
+"Programming is the art of telling another human what one wants the computer to do in a language both can understand.",
+"The development of artificial intelligence has accelerated rapidly, transforming industries and creating new opportunities for innovation.",
+"Successful entrepreneurs understand that failure is not the opposite of success but rather an integral part of the journey.",
+"Cloud computing has revolutionized how businesses operate by providing scalable infrastructure and reducing operational costs significantly.",
+"The intersection of technology and creativity continues to produce remarkable tools that empower individuals and organizations alike.",
+"Effective communication requires active listening, empathy, and the ability to articulate complex ideas in simple terms.",
+"Data-driven decision making has become essential for modern businesses seeking competitive advantages in rapidly evolving markets.",
+"The global economy faces unprecedented challenges that require collaborative solutions and innovative approaches to sustainability."
+],
+hard:[
+"Asynchronous JavaScript execution leverages event-driven architectures, utilizing promises, callbacks, and async/await patterns to handle concurrent operations efficiently.",
+"Quantum computing exploits superposition and entanglement phenomena to process information exponentially faster than classical binary architectures for specific algorithmic problems.",
+"The implementation of microservices architecture necessitates careful consideration of inter-service communication, distributed data management, and fault-tolerance mechanisms.",
+"Cryptographic hash functions provide deterministic, fixed-length outputs from arbitrary inputs while maintaining collision resistance and pre-image resistance properties.",
+"Functional programming paradigms emphasize immutability, pure functions, and declarative expressions to minimize side effects and enhance code predictability.",
+"Machine learning algorithms iteratively optimize parameterized models through gradient descent, backpropagation, and regularization techniques to minimize empirical risk.",
+"Distributed systems must balance consistency, availability, and partition tolerance according to Brewer's CAP theorem when designing fault-tolerant architectures.",
+"The observer pattern establishes a one-to-many dependency between objects, automatically notifying dependents of state changes through subscription-based event propagation."
+]
+};
+
+let difficulty='easy';
+let currentText='';
+let charIndex=0;
+let started=false;
+let finished=false;
+let startTime=0;
+let timer=null;
+let duration=60;
+let correctChars=0;
+let errorChars=0;
+let totalTyped=0;
+let history=[];
+let lastWpm=0;
+let lastAcc=0;
+
+function setDifficulty(d){
+difficulty=d;
+document.querySelectorAll('#diffBtns button').forEach(b=>b.classList.remove('active'));
+const map={easy:0,medium:1,hard:2};
+document.querySelectorAll('#diffBtns button')[map[d]].classList.add('active');
+resetTest();
+}
+
+function pickText(){
+const arr=texts[difficulty];
+return arr[Math.floor(Math.random()*arr.length)];
+}
+
+function resetTest(){
+duration=parseInt(document.getElementById('duration').value);
+currentText=pickText();
+charIndex=0;started=false;finished=false;
+correctChars=0;errorChars=0;totalTyped=0;
+if(timer)clearInterval(timer);
+timer=null;
+document.getElementById('typingInput').value='';
+document.getElementById('typingInput').disabled=false;
+document.getElementById('resultsPanel').style.display='none';
+document.getElementById('timerFill').style.width='100%';
+renderText();
+document.getElementById('typingInput').focus();
+}
+
+function renderText(){
+let html='';
+for(let i=0;i<currentText.length;i++){
+const ch=currentText[i]===' '?'&nbsp;':esc(currentText[i]);
+if(i<charIndex){
+html+=`<span class="correct">${ch}</span>`;
+}else if(i===charIndex){
+html+=`<span class="current">${ch}</span>`;
+}else{
+html+=`<span class="pending">${ch}</span>`;
+}
+}
+document.getElementById('textDisplay').innerHTML=html;
+}
+
+function startTimer(){
+started=true;
+startTime=Date.now();
+timer=setInterval(()=>{
+const elapsed=(Date.now()-startTime)/1000;
+const remaining=Math.max(0,duration-elapsed);
+const pct=(remaining/duration)*100;
+document.getElementById('timerFill').style.width=pct+'%';
+if(remaining<=0)endTest();
+},100);
+}
+
+function endTest(){
+finished=true;
+if(timer)clearInterval(timer);
+timer=null;
+document.getElementById('typingInput').disabled=true;
+document.getElementById('timerFill').style.width='0%';
+
+const elapsed=Math.min((Date.now()-startTime)/1000,duration);
+const minutes=elapsed/60;
+const rawWpmVal=totalTyped>0?(totalTyped/5)/minutes:0;
+const netWpm=Math.max(0,(correctChars/5)/minutes);
+const accuracy=totalTyped>0?(correctChars/totalTyped)*100:0;
+
+lastWpm=Math.round(netWpm);
+lastAcc=accuracy.toFixed(1);
+
+document.getElementById('resultsPanel').style.display='';
+document.getElementById('wpmResult').textContent=Math.round(netWpm);
+document.getElementById('accuracyResult').textContent=accuracy.toFixed(1)+'%';
+document.getElementById('charsResult').textContent=totalTyped;
+document.getElementById('correctResult').textContent=correctChars;
+document.getElementById('errorResult').textContent=errorChars;
+document.getElementById('rawWpm').textContent=Math.round(rawWpmVal);
+
+saveRecord(Math.round(netWpm),accuracy.toFixed(1),totalTyped);
+}
+
+document.getElementById('typingInput').addEventListener('input',function(e){
+if(finished)return;
+if(!started)startTimer();
+
+const val=this.value;
+const lastChar=val[val.length-1];
+
+if(lastChar===currentText[charIndex]){
+correctChars++;
+charIndex++;
+}else{
+errorChars++;
+charIndex++;
+}
+totalTyped++;
+
+this.value='';
+
+if(charIndex>=currentText.length){
+const nextText=pickText();
+currentText=currentText+' '+nextText;
+}
+
+renderText();
+});
+
+document.getElementById('typingInput').addEventListener('keydown',function(e){
+if(e.key==='Tab'){e.preventDefault();resetTest()}
+});
+
+function load(){try{history=JSON.parse(localStorage.getItem(LS_KEY))||[]}catch(e){history=[]}showBest()}
+function save(){localStorage.setItem(LS_KEY,JSON.stringify(history.slice(0,100)))}
+
+function saveRecord(wpm,acc,chars){
+history.unshift({id:Date.now(),date:new Date().toLocaleDateString(),wpm:wpm,accuracy:acc,chars:chars,difficulty:difficulty,duration:duration});
+save();renderHistory();showBest();
+}
+
+function showBest(){
+if(!history.length){document.getElementById('bestPanel').style.display='none';return}
+const best=history.reduce((a,b)=>a.wpm>b.wpm?a:b);
+document.getElementById('bestPanel').style.display='';
+document.getElementById('bestRecord').innerHTML='Personal Best: <strong>'+best.wpm+' WPM</strong> with '+best.accuracy+'% accuracy ('+best.difficulty+')';
+}
+
+function clearHistory(){if(!confirm('Clear all records?'))return;history=[];save();renderHistory();showBest()}
+
+function renderHistory(){
+const list=document.getElementById('historyList');
+if(!history.length){list.innerHTML='<div class="empty">No records yet. Complete a test!</div>';return}
+list.innerHTML=history.slice(0,20).map(h=>`
+<div class="history-item">
+<div>
+<div class="info"><strong>${h.wpm} WPM</strong> &middot; ${esc(h.accuracy)}% accuracy &middot; ${h.chars} chars</div>
+<div class="date">${esc(h.date)} &middot; ${esc(h.difficulty)} &middot; ${h.duration}s</div>
+</div>
+</div>`).join('');
+}
+
+function shareTwitter(){
+const msg=lastWpm>0?'I just typed '+lastWpm+' WPM with '+lastAcc+'% accuracy!':'Test your typing speed for free!';
+window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent(msg+' https://spunk.codes/exclusive/typing-speed-test.html'),'_blank');
+}
+function copyLink(){navigator.clipboard.writeText('https://spunk.codes/exclusive/typing-speed-test.html').then(()=>alert('Link copied!'))}
+
+load();resetTest();renderHistory();
+</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>
