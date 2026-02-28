@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tip Calculator — Split Bills &amp; Calculate Tips Instantly | SPUNK.CODES</title>
+<meta name="description" content="Calculate tips, split bills between friends, round up totals. Quick tip buttons for 15%, 18%, 20%, 25%. Bill history saved locally. Free, no signup.">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP')</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w")</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e8e8f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+header{background:#111118;border-bottom:2px solid #ff5f1f;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;position:sticky;top:0;z-index:100}
+header h1{font-size:1.4rem;color:#ff5f1f}
+header .back{color:#e8e8f0;font-size:.9rem}
+main{flex:1;max-width:700px;width:100%;margin:0 auto;padding:24px 16px}
+.panel{background:#111118;border:1px solid #2a2a3a;border-radius:10px;padding:20px;margin-bottom:20px}
+.panel h2{font-size:1.1rem;color:#ff5f1f;margin-bottom:14px}
+button{background:#ff5f1f;color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:.9rem;font-weight:600;transition:background .2s}
+button:hover{background:#e8520e}
+button.secondary{background:#2a2a3a;color:#e8e8f0}button.secondary:hover{background:#3a3a4a}
+button.danger{background:#cc2233}button.danger:hover{background:#aa1122}
+input,select{background:#16161e;border:1px solid #2a2a3a;color:#e8e8f0;padding:8px 12px;border-radius:6px;font-size:.9rem;width:100%}
+.input-group{margin-bottom:16px}
+.input-group label{font-size:.85rem;color:#888;margin-bottom:6px;display:block}
+.input-group .big-input{font-size:2rem;text-align:center;padding:14px;font-weight:700;color:#ff5f1f}
+.tip-buttons{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.tip-buttons button{padding:12px 20px;border-radius:8px;font-size:1rem;flex:1;min-width:60px}
+.tip-buttons button.active{background:#ff5f1f;box-shadow:0 0 12px rgba(255,95,31,.4)}
+.tip-buttons button:not(.active){background:#2a2a3a;color:#e8e8f0}
+.custom-tip{display:flex;gap:8px;align-items:center;margin-bottom:16px}
+.custom-tip label{font-size:.85rem;color:#888;white-space:nowrap}
+.custom-tip input{width:80px;text-align:center}
+.people-control{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.people-control button{width:40px;height:40px;border-radius:50%;font-size:1.3rem;padding:0;display:flex;align-items:center;justify-content:center}
+.people-control .count{font-size:1.8rem;font-weight:700;color:#ff5f1f;min-width:40px;text-align:center}
+.people-control label{font-size:.85rem;color:#888}
+.results{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px}
+.result-card{background:#16161e;border:1px solid #2a2a3a;border-radius:10px;padding:18px;text-align:center}
+.result-card .value{font-size:2rem;color:#ff5f1f;font-weight:700}
+.result-card .label{font-size:.8rem;color:#888;margin-top:4px}
+.per-person{background:#16161e;border:2px solid #ff5f1f;border-radius:10px;padding:20px;text-align:center;margin-bottom:16px;box-shadow:0 0 20px rgba(255,95,31,.1)}
+.per-person .value{font-size:2.8rem;color:#ff5f1f;font-weight:700}
+.per-person .label{font-size:.9rem;color:#888;margin-top:4px}
+.round-up{display:flex;align-items:center;gap:10px;padding:12px;background:#16161e;border:1px solid #2a2a3a;border-radius:8px;margin-bottom:16px}
+.round-up label{font-size:.9rem;color:#888;cursor:pointer;display:flex;align-items:center;gap:8px}
+.round-up input[type=checkbox]{width:auto;accent-color:#ff5f1f}
+.history-item{background:#16161e;border:1px solid #2a2a3a;border-radius:8px;padding:12px 16px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.history-item .info{font-size:.9rem}
+.history-item .date{font-size:.75rem;color:#555}
+.history-item .amounts{display:flex;gap:12px;font-size:.85rem;color:#888}
+.empty{text-align:center;color:#555;padding:30px;font-size:.95rem}
+.share-btns{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.share-btns button{font-size:.8rem;padding:6px 12px}
+footer{text-align:center;padding:20px;color:#555;font-size:.8rem;border-top:1px solid #1a1a2a;margin-top:auto}
+footer a{color:#ff5f1f;margin:0 4px}
+@media(max-width:700px){
+.results{grid-template-columns:1fr}
+.per-person .value{font-size:2.2rem}
+header h1{font-size:1.1rem}
+}
+</style>
+</head>
+<body>
+<header>
+<h1>Tip Calculator</h1>
+<a href="https://spunk.codes" class="back">spunk.codes</a>
+</header>
+<main>
+<div class="panel">
+<h2>Bill Amount</h2>
+<div class="input-group">
+<label>Enter your bill total</label>
+<input type="number" id="billAmount" class="big-input" min="0" step="0.01" placeholder="0.00" oninput="calc()">
+</div>
+</div>
+
+<div class="panel">
+<h2>Tip Percentage</h2>
+<div class="tip-buttons" id="tipBtns">
+<button onclick="setTip(15)">15%</button>
+<button class="active" onclick="setTip(18)">18%</button>
+<button onclick="setTip(20)">20%</button>
+<button onclick="setTip(25)">25%</button>
+</div>
+<div class="custom-tip">
+<label>Custom:</label>
+<input type="number" id="customTip" min="0" max="100" step="1" placeholder="18" oninput="setCustomTip()">
+<span style="color:#888;font-size:.85rem">%</span>
+</div>
+</div>
+
+<div class="panel">
+<h2>Split Between</h2>
+<div class="people-control">
+<button class="secondary" onclick="changePeople(-1)">-</button>
+<div class="count" id="peopleCount">1</div>
+<button class="secondary" onclick="changePeople(1)">+</button>
+<label>people</label>
+</div>
+<div class="round-up">
+<label><input type="checkbox" id="roundUp" onchange="calc()"> Round up total to nearest dollar</label>
+</div>
+</div>
+
+<div class="panel" id="resultsPanel" style="display:none">
+<h2>Results</h2>
+<div class="results">
+<div class="result-card"><div class="value" id="tipAmt">$0.00</div><div class="label">Tip Amount</div></div>
+<div class="result-card"><div class="value" id="totalAmt">$0.00</div><div class="label">Total</div></div>
+<div class="result-card"><div class="value" id="effectivePct">0%</div><div class="label">Effective Tip %</div></div>
+</div>
+<div class="per-person" id="perPersonDiv" style="display:none">
+<div class="value" id="perPerson">$0.00</div>
+<div class="label">Per Person</div>
+</div>
+<div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
+<button onclick="saveBill()">Save to History</button>
+</div>
+</div>
+
+<div class="panel">
+<h2>Bill History</h2>
+<div id="historyList"><div class="empty">No bills saved yet.</div></div>
+<div style="margin-top:10px"><button class="danger" onclick="clearHistory()">Clear History</button></div>
+</div>
+
+<div class="panel">
+<h2>Share</h2>
+<div class="share-btns">
+<button onclick="shareTwitter()">Share on X</button>
+<button class="secondary" onclick="copyLink()">Copy Link</button>
+</div>
+</div>
+</main>
+
+<footer>
+<a href="https://spunk.codes">spunk.codes</a> &middot;
+<a href="https://spunk.bet">spunk.bet</a> &middot;
+<a href="https://spunk.pics">spunk.pics</a> &middot;
+<a href="https://spunk.work">spunk.work</a> &middot;
+<a href="https://spunkart.com">SpunkArt.com</a>
+</footer>
+
+<script>
+const LS_KEY='spunkcodes_tip_calc';
+let tipPct=18;
+let people=1;
+let history=[];
+
+function load(){try{history=JSON.parse(localStorage.getItem(LS_KEY))||[]}catch(e){history=[]}}
+function save(){localStorage.setItem(LS_KEY,JSON.stringify(history.slice(0,50)))}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function fmt(n){return'$'+Number(n).toFixed(2)}
+
+function setTip(pct){
+tipPct=pct;
+document.querySelectorAll('.tip-buttons button').forEach(b=>b.classList.remove('active'));
+const btns=document.querySelectorAll('.tip-buttons button');
+const map={15:0,18:1,20:2,25:3};
+if(map[pct]!==undefined)btns[map[pct]].classList.add('active');
+document.getElementById('customTip').value=pct;
+calc();
+}
+
+function setCustomTip(){
+const v=parseFloat(document.getElementById('customTip').value);
+if(!isNaN(v)&&v>=0){tipPct=v;document.querySelectorAll('.tip-buttons button').forEach(b=>b.classList.remove('active'));
+const btns=document.querySelectorAll('.tip-buttons button');
+const map={15:0,18:1,20:2,25:3};
+if(map[v]!==undefined)btns[map[v]].classList.add('active');
+calc()}
+}
+
+function changePeople(d){
+people=Math.max(1,people+d);
+document.getElementById('peopleCount').textContent=people;
+calc();
+}
+
+function calc(){
+const bill=parseFloat(document.getElementById('billAmount').value);
+if(isNaN(bill)||bill<=0){document.getElementById('resultsPanel').style.display='none';return}
+document.getElementById('resultsPanel').style.display='';
+
+let tip=bill*(tipPct/100);
+let total=bill+tip;
+const roundUp=document.getElementById('roundUp').checked;
+if(roundUp){total=Math.ceil(total);tip=total-bill}
+
+const perP=total/people;
+const effectivePct=bill>0?((tip/bill)*100):0;
+
+document.getElementById('tipAmt').textContent=fmt(tip);
+document.getElementById('totalAmt').textContent=fmt(total);
+document.getElementById('effectivePct').textContent=effectivePct.toFixed(1)+'%';
+
+const ppDiv=document.getElementById('perPersonDiv');
+if(people>1){ppDiv.style.display='';document.getElementById('perPerson').textContent=fmt(perP)}
+else{ppDiv.style.display='none'}
+}
+
+function saveBill(){
+const bill=parseFloat(document.getElementById('billAmount').value);
+if(isNaN(bill)||bill<=0)return;
+const tip=bill*(tipPct/100);
+let total=bill+tip;
+if(document.getElementById('roundUp').checked)total=Math.ceil(total);
+history.unshift({id:Date.now(),date:new Date().toLocaleDateString(),bill:bill,tipPct:tipPct,tip:tip,total:total,people:people,perPerson:total/people});
+save();renderHistory();
+}
+
+function removeHistory(id){history=history.filter(h=>h.id!==id);save();renderHistory()}
+function clearHistory(){if(!confirm('Clear all bill history?'))return;history=[];save();renderHistory()}
+
+function renderHistory(){
+const list=document.getElementById('historyList');
+if(!history.length){list.innerHTML='<div class="empty">No bills saved yet.</div>';return}
+list.innerHTML=history.map(h=>`
+<div class="history-item">
+<div>
+<div class="info"><strong>${fmt(h.bill)}</strong> bill &rarr; <strong>${fmt(h.total)}</strong> total (${h.tipPct}% tip)</div>
+<div class="date">${esc(h.date)}${h.people>1?' &middot; '+h.people+' people &middot; '+fmt(h.perPerson)+'/person':''}</div>
+</div>
+<button class="danger" onclick="removeHistory(${h.id})" style="font-size:.75rem;padding:4px 8px">&times;</button>
+</div>`).join('');
+}
+
+function shareTwitter(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Check out this free Tip Calculator! https://spunk.codes/exclusive/tip-calculator.html'),'_blank')}
+function copyLink(){navigator.clipboard.writeText('https://spunk.codes/exclusive/tip-calculator.html').then(()=>alert('Link copied!'))}
+
+load();renderHistory();
+</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>

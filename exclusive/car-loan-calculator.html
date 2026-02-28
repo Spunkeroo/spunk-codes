@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Car Loan Calculator — Compare Auto Loan Payments | SPUNK.CODES</title>
+<meta name="description" content="Calculate car loan monthly payments, total interest, and total cost. Compare multiple loan scenarios side by side. See how extra payments save you money. Free, no signup.">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP')</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w")</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e8e8f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+header{background:#111118;border-bottom:2px solid #ff5f1f;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;position:sticky;top:0;z-index:100}
+header h1{font-size:1.4rem;color:#ff5f1f}
+header .back{color:#e8e8f0;font-size:.9rem}
+main{flex:1;max-width:1000px;width:100%;margin:0 auto;padding:24px 16px}
+.panel{background:#111118;border:1px solid #2a2a3a;border-radius:10px;padding:20px;margin-bottom:20px}
+.panel h2{font-size:1.1rem;color:#ff5f1f;margin-bottom:14px}
+button{background:#ff5f1f;color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:.9rem;font-weight:600;transition:background .2s}
+button:hover{background:#e8520e}
+button.secondary{background:#2a2a3a;color:#e8e8f0}button.secondary:hover{background:#3a3a4a}
+button.danger{background:#cc2233}button.danger:hover{background:#aa1122}
+input,select{background:#16161e;border:1px solid #2a2a3a;color:#e8e8f0;padding:8px 12px;border-radius:6px;font-size:.9rem;width:100%}
+.form-grid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px;margin-bottom:14px;align-items:end}
+.form-grid label{font-size:.8rem;color:#888;margin-bottom:4px;display:block}
+.summary-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:20px}
+.summary-card{background:#16161e;border:1px solid #2a2a3a;border-radius:8px;padding:16px;text-align:center}
+.summary-card .value{font-size:1.6rem;color:#ff5f1f;font-weight:700}
+.summary-card .label{font-size:.8rem;color:#888;margin-top:4px}
+.scenario-row{background:#16161e;border:1px solid #2a2a3a;border-radius:8px;padding:14px;margin-bottom:8px;display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr auto;gap:10px;align-items:center}
+.scenario-row.header{background:transparent;border:none;font-size:.8rem;color:#888;font-weight:600;padding:8px 14px}
+.scenario-val{font-size:.9rem;text-align:center}
+.schedule-table{width:100%;border-collapse:collapse;margin-top:10px;font-size:.85rem}
+.schedule-table th{text-align:left;padding:8px;border-bottom:1px solid #2a2a3a;color:#888;font-size:.75rem}
+.schedule-table td{padding:8px;border-bottom:1px solid #1a1a2a}
+.schedule-table tr:nth-child(even){background:#0d0d14}
+.chart-container{position:relative;margin-top:10px}
+.chart-canvas{width:100%;background:#0a0a0f;border:1px solid #2a2a3a;border-radius:8px}
+.extra-section{display:flex;gap:10px;align-items:center;margin-top:14px;flex-wrap:wrap}
+.extra-section label{font-size:.9rem;color:#888}
+.share-btns{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.share-btns button{font-size:.8rem;padding:6px 12px}
+.comparison-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:14px}
+.comp-card{background:#16161e;border:1px solid #2a2a3a;border-radius:8px;padding:16px}
+.comp-card h3{color:#ff5f1f;font-size:.95rem;margin-bottom:10px}
+.comp-card .stat{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #1a1a2a;font-size:.88rem}
+.comp-card .stat:last-child{border:none}
+.comp-card.best{border-color:#ff5f1f;box-shadow:0 0 10px rgba(255,95,31,.15)}
+.empty{text-align:center;color:#555;padding:30px;font-size:.95rem}
+footer{text-align:center;padding:20px;color:#555;font-size:.8rem;border-top:1px solid #1a1a2a;margin-top:auto}
+footer a{color:#ff5f1f;margin:0 4px}
+@media(max-width:700px){
+.form-grid{grid-template-columns:1fr 1fr}
+.scenario-row{grid-template-columns:1fr 1fr;gap:6px}
+.scenario-row.header{display:none}
+.scenario-val::before{content:attr(data-label);font-size:.7rem;color:#888;display:block}
+.schedule-table{font-size:.75rem}
+.schedule-table th,.schedule-table td{padding:5px 4px}
+header h1{font-size:1.1rem}
+}
+</style>
+</head>
+<body>
+<header>
+<h1>Car Loan Calculator</h1>
+<a href="https://spunk.codes" class="back">spunk.codes</a>
+</header>
+<main>
+<div class="panel">
+<h2>Loan Details</h2>
+<div class="form-grid">
+<div><label>Car Price ($)</label><input type="number" id="carPrice" min="1" step="100" placeholder="35000"></div>
+<div><label>Down Payment ($)</label><input type="number" id="downPayment" min="0" step="100" placeholder="5000"></div>
+<div><label>Interest Rate (%)</label><input type="number" id="rate" min="0" max="30" step="0.01" placeholder="6.5"></div>
+<div><label>Loan Term (months)</label><select id="term"><option value="24">24 months (2 yr)</option><option value="36">36 months (3 yr)</option><option value="48">48 months (4 yr)</option><option value="60" selected>60 months (5 yr)</option><option value="72">72 months (6 yr)</option><option value="84">84 months (7 yr)</option></select></div>
+</div>
+<div class="extra-section">
+<label>Extra Monthly Payment: $</label>
+<input type="number" id="extraPay" min="0" step="25" value="0" style="width:120px">
+<span style="font-size:.8rem;color:#888">See how extra payments save you money</span>
+</div>
+<div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap">
+<button onclick="calculate()">Calculate</button>
+<button class="secondary" onclick="saveScenario()">Save Scenario</button>
+<button class="danger" onclick="clearScenarios()">Clear All</button>
+</div>
+</div>
+
+<div class="panel" id="resultsPanel" style="display:none">
+<h2>Loan Summary</h2>
+<div class="summary-cards" id="summaryCards"></div>
+<div id="extraSavings" style="display:none;margin-top:10px;padding:12px;background:#16161e;border:1px solid #ff5f1f;border-radius:8px;text-align:center;font-size:.95rem"></div>
+</div>
+
+<div class="panel" id="scenariosPanel" style="display:none">
+<h2>Scenario Comparison</h2>
+<div class="comparison-grid" id="scenariosGrid"></div>
+</div>
+
+<div class="panel" id="chartPanel" style="display:none">
+<h2>Balance Over Time</h2>
+<div class="chart-container">
+<canvas class="chart-canvas" id="chart" height="280"></canvas>
+</div>
+</div>
+
+<div class="panel" id="schedulePanel" style="display:none">
+<h2>Amortization Schedule</h2>
+<div style="max-height:500px;overflow-y:auto">
+<table class="schedule-table" id="scheduleTable">
+<thead><tr><th>#</th><th>Payment</th><th>Principal</th><th>Interest</th><th>Extra</th><th>Balance</th></tr></thead>
+<tbody id="scheduleBody"></tbody>
+</table>
+</div>
+</div>
+
+<div class="panel">
+<h2>Share</h2>
+<div class="share-btns">
+<button onclick="shareTwitter()">Share on X</button>
+<button class="secondary" onclick="copyLink()">Copy Link</button>
+</div>
+</div>
+</main>
+
+<footer>
+<a href="https://spunk.codes">spunk.codes</a> &middot;
+<a href="https://spunk.bet">spunk.bet</a> &middot;
+<a href="https://spunk.pics">spunk.pics</a> &middot;
+<a href="https://spunk.work">spunk.work</a> &middot;
+<a href="https://spunkart.com">SpunkArt.com</a>
+</footer>
+
+<script>
+const LS_KEY='spunkcodes_car_loan';
+let scenarios=[];
+let lastResult=null;
+
+function load(){try{scenarios=JSON.parse(localStorage.getItem(LS_KEY))||[]}catch(e){scenarios=[]}}
+function save(){localStorage.setItem(LS_KEY,JSON.stringify(scenarios))}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function fmt(n){return'$'+Number(n).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}
+
+function calculate(){
+const price=parseFloat(document.getElementById('carPrice').value);
+const down=parseFloat(document.getElementById('downPayment').value)||0;
+const rate=parseFloat(document.getElementById('rate').value);
+const term=parseInt(document.getElementById('term').value);
+const extra=parseFloat(document.getElementById('extraPay').value)||0;
+
+if(isNaN(price)||price<=0){alert('Enter a valid car price.');return}
+if(isNaN(rate)||rate<0){alert('Enter a valid interest rate.');return}
+if(down>=price){alert('Down payment must be less than car price.');return}
+
+const loanAmt=price-down;
+const monthlyRate=rate/100/12;
+let monthlyPayment;
+if(monthlyRate===0){monthlyPayment=loanAmt/term}
+else{monthlyPayment=loanAmt*(monthlyRate*Math.pow(1+monthlyRate,term))/(Math.pow(1+monthlyRate,term)-1)}
+
+// Simulate with extra payments
+let balance=loanAmt;
+let totalInterest=0;
+let totalPaid=0;
+let months=0;
+const schedule=[];
+const balances=[];
+
+while(balance>0.01&&months<term+120){
+months++;
+const interest=balance*monthlyRate;
+totalInterest+=interest;
+let principal=monthlyPayment-interest;
+let extraPmt=Math.min(extra,balance-principal);
+if(principal+extraPmt>balance){principal=balance-extraPmt;if(principal<0){extraPmt=balance;principal=0}}
+const totalPmt=Math.min(monthlyPayment+extraPmt,balance+interest);
+balance=Math.max(0,balance-principal-extraPmt);
+totalPaid+=totalPmt;
+schedule.push({month:months,payment:totalPmt,principal:principal,interest:interest,extra:extraPmt,balance:balance});
+balances.push(balance);
+}
+
+// Simulate without extra for comparison
+let balNoExtra=loanAmt;
+let totalIntNoExtra=0;
+let monthsNoExtra=0;
+const balancesNoExtra=[];
+while(balNoExtra>0.01&&monthsNoExtra<term+120){
+monthsNoExtra++;
+const int2=balNoExtra*monthlyRate;
+totalIntNoExtra+=int2;
+let prin2=monthlyPayment-int2;
+if(prin2>balNoExtra)prin2=balNoExtra;
+balNoExtra=Math.max(0,balNoExtra-prin2);
+balancesNoExtra.push(balNoExtra);
+}
+
+lastResult={price,down,loanAmt,rate,term,monthlyPayment,extra,months,totalInterest,totalPaid,schedule,balances,balancesNoExtra,monthsNoExtra,totalIntNoExtra};
+
+// Summary
+document.getElementById('resultsPanel').style.display='';
+document.getElementById('summaryCards').innerHTML=`
+<div class="summary-card"><div class="value">${fmt(monthlyPayment)}</div><div class="label">Monthly Payment</div></div>
+<div class="summary-card"><div class="value">${fmt(loanAmt)}</div><div class="label">Loan Amount</div></div>
+<div class="summary-card"><div class="value">${fmt(totalInterest)}</div><div class="label">Total Interest</div></div>
+<div class="summary-card"><div class="value">${fmt(totalPaid+down)}</div><div class="label">Total Cost</div></div>
+<div class="summary-card"><div class="value">${months}</div><div class="label">Months to Payoff</div></div>`;
+
+const extraDiv=document.getElementById('extraSavings');
+if(extra>0){
+const saved=totalIntNoExtra-totalInterest;
+const monthsSaved=monthsNoExtra-months;
+extraDiv.style.display='';
+extraDiv.innerHTML=`<strong style="color:#ff5f1f">Extra Payment Savings:</strong> You save <strong>${fmt(saved)}</strong> in interest and pay off <strong>${monthsSaved} months</strong> earlier with ${fmt(extra)}/mo extra!`;
+}else{extraDiv.style.display='none'}
+
+// Schedule
+document.getElementById('schedulePanel').style.display='';
+const tbody=document.getElementById('scheduleBody');
+tbody.innerHTML=schedule.map(s=>`<tr><td>${s.month}</td><td>${fmt(s.payment)}</td><td>${fmt(s.principal)}</td><td>${fmt(s.interest)}</td><td>${s.extra>0?fmt(s.extra):'-'}</td><td>${fmt(s.balance)}</td></tr>`).join('');
+
+// Chart
+document.getElementById('chartPanel').style.display='';
+drawChart(balances,extra>0?balancesNoExtra:null);
+
+renderScenarios();
+}
+
+function saveScenario(){
+if(!lastResult){alert('Calculate a loan first.');return}
+const r=lastResult;
+scenarios.push({id:Date.now(),label:`${fmt(r.price)} @ ${r.rate}% / ${r.term}mo`,price:r.price,down:r.down,rate:r.rate,term:r.term,extra:r.extra,monthlyPayment:r.monthlyPayment,totalInterest:r.totalInterest,totalPaid:r.totalPaid,months:r.months});
+save();renderScenarios();
+}
+
+function removeScenario(id){scenarios=scenarios.filter(s=>s.id!==id);save();renderScenarios()}
+function clearScenarios(){if(!confirm('Clear all saved scenarios?'))return;scenarios=[];save();renderScenarios()}
+
+function renderScenarios(){
+const panel=document.getElementById('scenariosPanel');
+if(!scenarios.length){panel.style.display='none';return}
+panel.style.display='';
+const bestIdx=scenarios.reduce((best,s,i)=>s.totalInterest<scenarios[best].totalInterest?i:best,0);
+document.getElementById('scenariosGrid').innerHTML=scenarios.map((s,i)=>`
+<div class="comp-card ${i===bestIdx&&scenarios.length>1?'best':''}">
+<h3>${esc(s.label)}${i===bestIdx&&scenarios.length>1?' (Best)':''}</h3>
+<div class="stat"><span>Monthly</span><strong>${fmt(s.monthlyPayment)}</strong></div>
+<div class="stat"><span>Total Interest</span><strong>${fmt(s.totalInterest)}</strong></div>
+<div class="stat"><span>Total Cost</span><strong>${fmt(s.totalPaid+s.down)}</strong></div>
+<div class="stat"><span>Months</span><strong>${s.months}</strong></div>
+${s.extra>0?'<div class="stat"><span>Extra/mo</span><strong>'+fmt(s.extra)+'</strong></div>':''}
+<div style="margin-top:8px"><button class="danger" onclick="removeScenario(${s.id})" style="font-size:.75rem;padding:4px 8px">Remove</button></div>
+</div>`).join('');
+}
+
+function drawChart(data,dataNoExtra){
+const canvas=document.getElementById('chart');
+const ctx=canvas.getContext('2d');
+const dpr=window.devicePixelRatio||1;
+const rect=canvas.parentElement.getBoundingClientRect();
+canvas.width=rect.width*dpr;canvas.height=280*dpr;
+canvas.style.width=rect.width+'px';canvas.style.height='280px';
+ctx.scale(dpr,dpr);
+const W=rect.width,H=280;
+ctx.fillStyle='#0a0a0f';ctx.fillRect(0,0,W,H);
+const maxLen=dataNoExtra?Math.max(data.length,dataNoExtra.length):data.length;
+if(!maxLen)return;
+const pad={top:35,right:20,bottom:50,left:70};
+const cW=W-pad.left-pad.right,cH=H-pad.top-pad.bottom;
+const maxVal=Math.max(data[0]||0,dataNoExtra?dataNoExtra[0]:0,1);
+
+ctx.fillStyle='#888';ctx.font='12px sans-serif';ctx.textAlign='center';
+ctx.fillText('Remaining Balance Over Time',W/2,16);
+
+ctx.strokeStyle='#2a2a3a';ctx.lineWidth=1;
+for(let i=0;i<=5;i++){
+const y=pad.top+cH-(cH/5)*i;
+ctx.beginPath();ctx.moveTo(pad.left,y);ctx.lineTo(W-pad.right,y);ctx.stroke();
+ctx.fillStyle='#666';ctx.font='11px sans-serif';ctx.textAlign='right';
+const v=maxVal/5*i;
+ctx.fillText(v>=1000?'$'+(v/1000).toFixed(0)+'k':'$'+v.toFixed(0),pad.left-8,y+4);
+}
+const xStep=Math.max(1,Math.floor(maxLen/8));
+ctx.fillStyle='#666';ctx.font='11px sans-serif';ctx.textAlign='center';
+for(let m=0;m<maxLen;m+=xStep){ctx.fillText('M'+m,pad.left+(m/maxLen)*cW,H-pad.bottom+20)}
+
+function drawLine(d,color){
+ctx.strokeStyle=color;ctx.lineWidth=2;ctx.beginPath();
+d.forEach((v,i)=>{const x=pad.left+(i/(maxLen-1||1))*cW;const y=pad.top+cH-(v/maxVal)*cH;if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y)});
+ctx.stroke();
+}
+if(dataNoExtra){drawLine(dataNoExtra,'#555');ctx.fillStyle='#555';ctx.fillRect(W-180,pad.top+18,12,12);ctx.fillStyle='#e8e8f0';ctx.textAlign='left';ctx.fillText('Without Extra',W-164,pad.top+28)}
+drawLine(data,'#ff5f1f');
+ctx.fillStyle='#ff5f1f';ctx.fillRect(W-180,pad.top,12,12);ctx.fillStyle='#e8e8f0';ctx.textAlign='left';ctx.fillText(dataNoExtra?'With Extra':'Balance',W-164,pad.top+10);
+}
+
+function shareTwitter(){const text=lastResult?`I calculated my car loan: ${fmt(lastResult.monthlyPayment)}/mo for ${lastResult.months} months. Total interest: ${fmt(lastResult.totalInterest)}. Try it free:`:'Check out this free Car Loan Calculator:';window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent(text+' https://spunk.codes/exclusive/car-loan-calculator.html'),'_blank')}
+function copyLink(){navigator.clipboard.writeText('https://spunk.codes/exclusive/car-loan-calculator.html').then(()=>alert('Link copied!'))}
+
+window.addEventListener('resize',()=>{if(lastResult)calculate()});
+load();renderScenarios();
+</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>
