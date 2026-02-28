@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Debt Payoff Calculator | SPUNK.CODES</title>
+<meta name="description" content="Compare snowball vs avalanche debt payoff strategies. See total interest, payoff timeline, and monthly breakdown. Free debt-free date calculator with savings comparison.">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP')</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w")</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e8e8f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+header{background:#111118;border-bottom:2px solid #ff5f1f;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;position:sticky;top:0;z-index:100}
+header h1{font-size:1.4rem;color:#ff5f1f}
+header .back{color:#e8e8f0;font-size:.9rem}
+main{flex:1;max-width:800px;width:100%;margin:0 auto;padding:24px 16px}
+.panel{background:#111118;border:1px solid #2a2a3a;border-radius:10px;padding:20px;margin-bottom:20px}
+.panel h2{font-size:1.1rem;color:#ff5f1f;margin-bottom:14px}
+button{background:#ff5f1f;color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:.9rem;font-weight:600;transition:background .2s}
+button:hover{background:#e8520e}
+button.secondary{background:#2a2a3a;color:#e8e8f0}button.secondary:hover{background:#3a3a4a}
+button.danger{background:#cc2233}button.danger:hover{background:#aa1122}
+input,select{background:#16161e;border:1px solid #2a2a3a;color:#e8e8f0;padding:8px 12px;border-radius:6px;font-size:.9rem;width:100%}
+.input-group{margin-bottom:16px}
+.input-group label{font-size:.85rem;color:#888;margin-bottom:6px;display:block}
+.debt-row{background:#16161e;border:1px solid #2a2a3a;border-radius:8px;padding:14px;margin-bottom:10px}
+.debt-row .row-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.debt-row .row-header strong{color:#ff5f1f;font-size:.95rem}
+.debt-fields{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px}
+.debt-fields .input-group{margin-bottom:0}
+.results-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.result-card{background:#16161e;border:1px solid #2a2a3a;border-radius:10px;padding:18px;text-align:center}
+.result-card.highlight{border-color:#ff5f1f;box-shadow:0 0 16px rgba(255,95,31,.15)}
+.result-card .method{font-size:.85rem;color:#888;margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px}
+.result-card .value{font-size:1.8rem;color:#ff5f1f;font-weight:700}
+.result-card .sub{font-size:.8rem;color:#888;margin-top:4px}
+.winner-badge{display:inline-block;background:#ff5f1f;color:#fff;padding:2px 8px;border-radius:4px;font-size:.7rem;font-weight:700;margin-top:6px}
+.savings-banner{background:#16161e;border:2px solid #ff5f1f;border-radius:10px;padding:20px;text-align:center;margin-bottom:16px;box-shadow:0 0 20px rgba(255,95,31,.1)}
+.savings-banner .value{font-size:2rem;color:#ff5f1f;font-weight:700}
+.savings-banner .label{font-size:.9rem;color:#888;margin-top:4px}
+.timeline-bar{background:#2a2a3a;border-radius:6px;height:24px;margin-bottom:8px;position:relative;overflow:hidden}
+.timeline-bar .fill{height:100%;border-radius:6px;transition:width .4s}
+.timeline-bar .fill.snowball{background:linear-gradient(90deg,#ff5f1f,#ff8844)}
+.timeline-bar .fill.avalanche{background:linear-gradient(90deg,#1fa0ff,#44bbff)}
+.timeline-legend{display:flex;gap:16px;margin-bottom:16px;font-size:.85rem;color:#888}
+.timeline-legend span{display:flex;align-items:center;gap:6px}
+.timeline-legend .dot{width:12px;height:12px;border-radius:50%}
+.schedule-table{width:100%;border-collapse:collapse;font-size:.85rem}
+.schedule-table th{background:#16161e;color:#ff5f1f;padding:10px 8px;text-align:left;border-bottom:1px solid #2a2a3a;position:sticky;top:0}
+.schedule-table td{padding:8px;border-bottom:1px solid #1a1a2a}
+.schedule-table tr:hover{background:#16161e}
+.schedule-scroll{max-height:400px;overflow-y:auto;border:1px solid #2a2a3a;border-radius:8px}
+.empty{text-align:center;color:#555;padding:30px;font-size:.95rem}
+.share-btns{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.share-btns button{font-size:.8rem;padding:6px 12px}
+footer{text-align:center;padding:20px;color:#555;font-size:.8rem;border-top:1px solid #1a1a2a;margin-top:auto}
+footer a{color:#ff5f1f;margin:0 4px}
+@media(max-width:700px){
+header h1{font-size:1.1rem}
+.debt-fields{grid-template-columns:1fr 1fr}
+.results-grid{grid-template-columns:1fr}
+.result-card .value{font-size:1.4rem}
+main{padding:16px 10px}
+}
+</style>
+</head>
+<body>
+<header>
+<h1>Debt Payoff Calculator</h1>
+<a href="https://spunk.codes" class="back">spunk.codes</a>
+</header>
+<main>
+<div class="panel">
+<h2>Your Debts</h2>
+<div id="debtList"></div>
+<div style="display:flex;gap:8px;margin-top:12px">
+<button onclick="addDebt()">+ Add Debt</button>
+</div>
+</div>
+
+<div class="panel">
+<h2>Extra Monthly Payment</h2>
+<div class="input-group">
+<label>Additional amount above minimum payments</label>
+<input type="number" id="extraPayment" min="0" step="10" value="100" placeholder="100" oninput="calculate()">
+</div>
+</div>
+
+<div class="panel" id="resultsPanel" style="display:none">
+<h2>Snowball vs Avalanche Comparison</h2>
+<div class="results-grid" id="resultsGrid"></div>
+<div id="savingsBanner"></div>
+<h2 style="margin-top:16px">Timeline</h2>
+<div id="timelineBars"></div>
+<div class="timeline-legend">
+<span><span class="dot" style="background:#ff5f1f"></span> Snowball (smallest balance first)</span>
+<span><span class="dot" style="background:#1fa0ff"></span> Avalanche (highest rate first)</span>
+</div>
+</div>
+
+<div class="panel" id="schedulePanel" style="display:none">
+<h2>Monthly Schedule — <span id="scheduleMethod">Avalanche</span></h2>
+<div style="display:flex;gap:8px;margin-bottom:12px">
+<button onclick="showSchedule('avalanche')">Avalanche</button>
+<button class="secondary" onclick="showSchedule('snowball')">Snowball</button>
+</div>
+<div class="schedule-scroll">
+<table class="schedule-table" id="scheduleTable">
+<thead><tr><th>Month</th><th>Debt</th><th>Payment</th><th>Interest</th><th>Principal</th><th>Remaining</th></tr></thead>
+<tbody id="scheduleBody"></tbody>
+</table>
+</div>
+</div>
+
+<div class="panel">
+<h2>Share</h2>
+<div class="share-btns">
+<button onclick="shareTwitter()">Share on X</button>
+<button class="secondary" onclick="copyLink()">Copy Link</button>
+</div>
+</div>
+</main>
+
+<footer>
+<a href="https://spunk.codes">spunk.codes</a> &middot;
+<a href="https://spunk.bet">spunk.bet</a> &middot;
+<a href="https://spunk.pics">spunk.pics</a> &middot;
+<a href="https://spunk.work">spunk.work</a> &middot;
+<a href="https://spunkart.com">SpunkArt.com</a>
+</footer>
+
+<script>
+const LS_KEY='spunkcodes_debt_payoff';
+let debts=[];
+let scheduleData={avalanche:[],snowball:[]};
+
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function fmt(n){return'$'+Number(n).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}
+
+function loadData(){
+try{const d=JSON.parse(localStorage.getItem(LS_KEY));if(d&&d.debts){debts=d.debts;document.getElementById('extraPayment').value=d.extra||100}}catch(e){debts=[]}
+if(!debts.length)debts=[{name:'Credit Card 1',balance:5000,rate:22.99,minPayment:100}];
+renderDebts();calculate();
+}
+function saveData(){
+const extra=parseFloat(document.getElementById('extraPayment').value)||0;
+localStorage.setItem(LS_KEY,JSON.stringify({debts,extra}));
+}
+
+function addDebt(){
+debts.push({name:'Debt '+(debts.length+1),balance:1000,rate:15,minPayment:50});
+renderDebts();calculate();
+}
+
+function removeDebt(i){
+if(debts.length<=1){alert('You need at least one debt.');return}
+debts.splice(i,1);renderDebts();calculate();
+}
+
+function updateDebt(i,field,val){
+if(field==='name')debts[i][field]=val;
+else debts[i][field]=parseFloat(val)||0;
+saveData();calculate();
+}
+
+function renderDebts(){
+const list=document.getElementById('debtList');
+list.innerHTML=debts.map((d,i)=>`
+<div class="debt-row">
+<div class="row-header">
+<strong>${esc(d.name)}</strong>
+<button class="danger" onclick="removeDebt(${i})" style="font-size:.75rem;padding:4px 8px">&times;</button>
+</div>
+<div class="debt-fields">
+<div class="input-group"><label>Name</label><input value="${esc(d.name)}" oninput="updateDebt(${i},'name',this.value)"></div>
+<div class="input-group"><label>Balance ($)</label><input type="number" min="0" step="100" value="${d.balance}" oninput="updateDebt(${i},'balance',this.value)"></div>
+<div class="input-group"><label>Interest Rate (%)</label><input type="number" min="0" max="100" step="0.01" value="${d.rate}" oninput="updateDebt(${i},'rate',this.value)"></div>
+<div class="input-group"><label>Min Payment ($)</label><input type="number" min="0" step="10" value="${d.minPayment}" oninput="updateDebt(${i},'minPayment',this.value)"></div>
+</div>
+</div>`).join('');
+}
+
+function simulate(sortFn){
+const extra=parseFloat(document.getElementById('extraPayment').value)||0;
+let balances=debts.map(d=>({...d}));
+let totalInterest=0;
+let months=0;
+const schedule=[];
+const maxMonths=600;
+
+while(balances.some(b=>b.balance>0.01)&&months<maxMonths){
+months++;
+let available=extra;
+// Pay minimum on all
+balances.forEach(b=>{
+if(b.balance<=0)return;
+const interest=b.balance*(b.rate/100/12);
+totalInterest+=interest;
+b.balance+=interest;
+const minPay=Math.min(b.minPayment,b.balance);
+b.balance-=minPay;
+schedule.push({month:months,name:b.name,payment:minPay,interest:interest,principal:minPay-interest,remaining:Math.max(0,b.balance)});
+});
+// Sort remaining debts and apply extra
+const sorted=balances.filter(b=>b.balance>0.01).sort(sortFn);
+for(const b of sorted){
+if(available<=0)break;
+const pay=Math.min(available,b.balance);
+b.balance-=pay;
+available-=pay;
+const lastEntry=schedule.filter(s=>s.month===months&&s.name===b.name);
+if(lastEntry.length){const e=lastEntry[lastEntry.length-1];e.payment+=pay;e.principal+=pay;e.remaining=Math.max(0,b.balance)}
+}
+}
+return{months,totalInterest,schedule};
+}
+
+function calculate(){
+if(!debts.length)return;
+saveData();
+const totalDebt=debts.reduce((s,d)=>s+d.balance,0);
+if(totalDebt<=0)return;
+
+const snowball=simulate((a,b)=>a.balance-b.balance);
+const avalanche=simulate((a,b)=>b.rate-a.rate);
+
+scheduleData.snowball=snowball.schedule;
+scheduleData.avalanche=avalanche.schedule;
+
+const grid=document.getElementById('resultsGrid');
+const snowWins=snowball.totalInterest<avalanche.totalInterest;
+const avWins=avalanche.totalInterest<snowball.totalInterest;
+const tied=Math.abs(snowball.totalInterest-avalanche.totalInterest)<1;
+
+grid.innerHTML=`
+<div class="result-card ${avWins?'highlight':''}">
+<div class="method">Avalanche</div>
+<div class="value">${fmt(avalanche.totalInterest)}</div>
+<div class="sub">Total Interest</div>
+<div class="sub">${avalanche.months} months (${(avalanche.months/12).toFixed(1)} years)</div>
+${avWins?'<div class="winner-badge">SAVES MORE</div>':''}
+</div>
+<div class="result-card ${snowWins?'highlight':''}">
+<div class="method">Snowball</div>
+<div class="value">${fmt(snowball.totalInterest)}</div>
+<div class="sub">Total Interest</div>
+<div class="sub">${snowball.months} months (${(snowball.months/12).toFixed(1)} years)</div>
+${snowWins?'<div class="winner-badge">SAVES MORE</div>':''}
+</div>`;
+
+const banner=document.getElementById('savingsBanner');
+if(tied){
+banner.innerHTML='<div class="savings-banner"><div class="value">$0</div><div class="label">Both methods cost the same!</div></div>';
+}else{
+const diff=Math.abs(snowball.totalInterest-avalanche.totalInterest);
+const winner=avWins?'Avalanche':'Snowball';
+const monthDiff=Math.abs(snowball.months-avalanche.months);
+banner.innerHTML=`<div class="savings-banner"><div class="value">${fmt(diff)}</div><div class="label">${winner} saves you ${fmt(diff)} in interest${monthDiff>0?' and '+monthDiff+' month'+(monthDiff!==1?'s':'')+' faster':''}</div></div>`;
+}
+
+const maxM=Math.max(snowball.months,avalanche.months);
+document.getElementById('timelineBars').innerHTML=`
+<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><span style="font-size:.8rem;color:#888;width:70px">Snowball</span><div class="timeline-bar" style="flex:1"><div class="fill snowball" style="width:${maxM?snowball.months/maxM*100:0}%"></div></div><span style="font-size:.8rem;color:#888">${snowball.months}mo</span></div>
+<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><span style="font-size:.8rem;color:#888;width:70px">Avalanche</span><div class="timeline-bar" style="flex:1"><div class="fill avalanche" style="width:${maxM?avalanche.months/maxM*100:0}%"></div></div><span style="font-size:.8rem;color:#888">${avalanche.months}mo</span></div>`;
+
+document.getElementById('resultsPanel').style.display='';
+document.getElementById('schedulePanel').style.display='';
+showSchedule('avalanche');
+}
+
+function showSchedule(method){
+document.getElementById('scheduleMethod').textContent=method==='avalanche'?'Avalanche':'Snowball';
+const data=scheduleData[method];
+const body=document.getElementById('scheduleBody');
+body.innerHTML=data.slice(0,200).map(r=>`<tr><td>${r.month}</td><td>${esc(r.name)}</td><td>${fmt(r.payment)}</td><td>${fmt(r.interest)}</td><td>${fmt(r.principal)}</td><td>${fmt(r.remaining)}</td></tr>`).join('');
+if(data.length>200)body.innerHTML+=`<tr><td colspan="6" style="text-align:center;color:#888">Showing first 200 of ${data.length} rows</td></tr>`;
+}
+
+function shareTwitter(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Compare snowball vs avalanche debt payoff strategies! Free calculator: https://spunk.codes/exclusive/debt-payoff-calculator.html'),'_blank')}
+function copyLink(){navigator.clipboard.writeText('https://spunk.codes/exclusive/debt-payoff-calculator.html').then(()=>alert('Link copied!'))}
+
+loadData();
+</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>

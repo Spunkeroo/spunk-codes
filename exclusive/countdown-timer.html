@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Countdown Timer | SPUNK.CODES</title>
+<meta name="description" content="Set a countdown to any date or event. Share your countdown with a link. Beautiful display with days, hours, minutes, seconds. Free, no signup required.">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP')</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w")</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e8e8f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+header{background:#111118;border-bottom:2px solid #ff5f1f;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;position:sticky;top:0;z-index:100}
+header h1{font-size:1.4rem;color:#ff5f1f}
+header .back{color:#e8e8f0;font-size:.9rem}
+main{flex:1;max-width:700px;width:100%;margin:0 auto;padding:24px 16px}
+.panel{background:#111118;border:1px solid #2a2a3a;border-radius:10px;padding:20px;margin-bottom:20px}
+.panel h2{font-size:1.1rem;color:#ff5f1f;margin-bottom:14px}
+button{background:#ff5f1f;color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:.9rem;font-weight:600;transition:background .2s}
+button:hover{background:#e8520e}
+button.secondary{background:#2a2a3a;color:#e8e8f0}button.secondary:hover{background:#3a3a4a}
+button.danger{background:#cc2233}button.danger:hover{background:#aa1122}
+input,select{background:#16161e;border:1px solid #2a2a3a;color:#e8e8f0;padding:8px 12px;border-radius:6px;font-size:.9rem;width:100%;font-family:inherit}
+.input-group{margin-bottom:14px}
+.input-group label{font-size:.85rem;color:#888;margin-bottom:6px;display:block}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.countdown-display{text-align:center;padding:30px 10px;margin-bottom:20px}
+.countdown-title{font-size:1.6rem;font-weight:700;color:#ff5f1f;margin-bottom:8px;word-break:break-word}
+.countdown-date{font-size:.9rem;color:#888;margin-bottom:24px}
+.countdown-units{display:flex;justify-content:center;gap:16px;flex-wrap:wrap}
+.unit-box{background:#111118;border:2px solid #ff5f1f;border-radius:12px;padding:16px 12px;min-width:80px;text-align:center;box-shadow:0 0 20px rgba(255,95,31,.1)}
+.unit-box .number{font-size:2.8rem;font-weight:700;color:#ff5f1f;line-height:1}
+.unit-box .label{font-size:.75rem;color:#888;margin-top:6px;text-transform:uppercase;letter-spacing:1px}
+.progress-bar{background:#16161e;border:1px solid #2a2a3a;border-radius:8px;height:24px;overflow:hidden;margin-bottom:8px}
+.progress-fill{height:100%;background:linear-gradient(90deg,#ff5f1f,#ff8c4a);border-radius:8px;transition:width .5s ease}
+.progress-text{text-align:center;font-size:.8rem;color:#888}
+.completed{text-align:center;padding:40px}
+.completed .icon{font-size:4rem;margin-bottom:12px}
+.completed .msg{font-size:1.6rem;font-weight:700;color:#22cc66}
+.timer-item{background:#16161e;border:1px solid #2a2a3a;border-radius:8px;padding:14px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;cursor:pointer;transition:border-color .2s}
+.timer-item:hover{border-color:#ff5f1f}
+.timer-item .info{flex:1}
+.timer-item .name{font-weight:600;font-size:.95rem}
+.timer-item .date{font-size:.8rem;color:#888}
+.timer-item .remaining{color:#ff5f1f;font-weight:600;font-size:.88rem;white-space:nowrap}
+.timer-item.active{border-color:#ff5f1f;background:#1a1520}
+.btn-row{display:flex;gap:8px;flex-wrap:wrap}
+.share-btns{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.share-btns button{font-size:.8rem;padding:6px 12px}
+.empty{text-align:center;color:#555;padding:30px;font-size:.95rem}
+.quick-btns{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.quick-btns button{font-size:.8rem;padding:6px 12px}
+footer{text-align:center;padding:20px;color:#555;font-size:.8rem;border-top:1px solid #1a1a2a;margin-top:auto}
+footer a{color:#ff5f1f;margin:0 4px}
+@media(max-width:700px){
+.row{grid-template-columns:1fr}
+header h1{font-size:1.1rem}
+.unit-box{min-width:65px;padding:12px 8px}
+.unit-box .number{font-size:2rem}
+.countdown-title{font-size:1.3rem}
+}
+</style>
+</head>
+<body>
+<header>
+<h1>Countdown Timer</h1>
+<a href="https://spunk.codes" class="back">spunk.codes</a>
+</header>
+<main>
+
+<div id="countdownDisplay" class="countdown-display" style="display:none">
+<div class="countdown-title" id="cdTitle"></div>
+<div class="countdown-date" id="cdDate"></div>
+<div class="countdown-units" id="cdUnits"></div>
+<div style="margin-top:20px;max-width:400px;margin-left:auto;margin-right:auto">
+<div class="progress-bar"><div class="progress-fill" id="cdProgress" style="width:0%"></div></div>
+<div class="progress-text" id="cdProgressText"></div>
+</div>
+</div>
+
+<div class="panel">
+<h2>Create Countdown</h2>
+<div class="input-group"><label>Event Name</label><input type="text" id="eventName" placeholder="Birthday, Launch Day, Vacation, etc."></div>
+<div class="row">
+<div class="input-group"><label>Date</label><input type="date" id="eventDate"></div>
+<div class="input-group"><label>Time (optional)</label><input type="time" id="eventTime" value="00:00"></div>
+</div>
+<div class="input-group"><label>Quick Presets</label>
+<div class="quick-btns">
+<button class="secondary" onclick="setPreset('new-year')">New Year</button>
+<button class="secondary" onclick="setPreset('christmas')">Christmas</button>
+<button class="secondary" onclick="setPreset('30-days')">30 Days</button>
+<button class="secondary" onclick="setPreset('90-days')">90 Days</button>
+<button class="secondary" onclick="setPreset('1-week')">1 Week</button>
+</div>
+</div>
+<button onclick="createCountdown()">Start Countdown</button>
+</div>
+
+<div class="panel">
+<h2>Saved Countdowns</h2>
+<div id="timerList"><div class="empty">No countdowns saved yet.</div></div>
+<div style="margin-top:10px"><button class="danger" onclick="clearAll()">Clear All</button></div>
+</div>
+
+<div class="panel">
+<h2>Share</h2>
+<div class="share-btns">
+<button onclick="shareTwitter()">Share on X</button>
+<button class="secondary" onclick="copyShareLink()">Copy Shareable Link</button>
+<button class="secondary" onclick="copyLink()">Copy Page Link</button>
+</div>
+</div>
+</main>
+
+<footer>
+<a href="https://spunk.codes">spunk.codes</a> &middot;
+<a href="https://spunk.bet">spunk.bet</a> &middot;
+<a href="https://spunk.pics">spunk.pics</a> &middot;
+<a href="https://spunk.work">spunk.work</a> &middot;
+<a href="https://spunkart.com">SpunkArt.com</a>
+</footer>
+
+<script>
+const LS_KEY='spunkcodes_countdowns';
+let timers=[];
+let activeId=null;
+let tickInterval=null;
+
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+
+function load(){
+try{timers=JSON.parse(localStorage.getItem(LS_KEY))||[]}catch(e){timers=[]}
+// Check URL for shared countdown
+const params=new URLSearchParams(location.search);
+const sharedName=params.get('event');
+const sharedDate=params.get('date');
+if(sharedName&&sharedDate){
+const existing=timers.find(t=>t.name===sharedName&&t.target===sharedDate);
+if(!existing){
+const id=Date.now();
+timers.push({id:id,name:sharedName,target:sharedDate,created:new Date().toISOString()});
+save();
+activeId=id;
+}else{activeId=existing.id}
+}else if(timers.length){
+activeId=timers[0].id;
+}
+renderTimers();
+startTick();
+}
+
+function save(){localStorage.setItem(LS_KEY,JSON.stringify(timers))}
+
+function setPreset(type){
+const now=new Date();
+let date,name;
+switch(type){
+case'new-year':date=new Date(now.getFullYear()+1,0,1);name='New Year '+(now.getFullYear()+1);break;
+case'christmas':const xmas=new Date(now.getFullYear(),11,25);date=xmas>now?xmas:new Date(now.getFullYear()+1,11,25);name='Christmas '+(date.getFullYear());break;
+case'30-days':date=new Date(now.getTime()+30*86400000);name='30 Days From Now';break;
+case'90-days':date=new Date(now.getTime()+90*86400000);name='90 Days From Now';break;
+case'1-week':date=new Date(now.getTime()+7*86400000);name='1 Week From Now';break;
+}
+document.getElementById('eventName').value=name;
+document.getElementById('eventDate').value=date.toISOString().split('T')[0];
+document.getElementById('eventTime').value='00:00';
+}
+
+function createCountdown(){
+const name=document.getElementById('eventName').value.trim();
+const date=document.getElementById('eventDate').value;
+const time=document.getElementById('eventTime').value||'00:00';
+if(!name){alert('Enter an event name');return}
+if(!date){alert('Select a date');return}
+const target=date+'T'+time+':00';
+const id=Date.now();
+timers.unshift({id:id,name:name,target:target,created:new Date().toISOString()});
+save();
+activeId=id;
+document.getElementById('eventName').value='';
+document.getElementById('eventDate').value='';
+document.getElementById('eventTime').value='00:00';
+renderTimers();
+startTick();
+}
+
+function selectTimer(id){
+activeId=id;
+renderTimers();
+startTick();
+}
+
+function removeTimer(id,e){
+e.stopPropagation();
+timers=timers.filter(t=>t.id!==id);
+if(activeId===id)activeId=timers.length?timers[0].id:null;
+save();renderTimers();startTick();
+}
+
+function renderTimers(){
+const list=document.getElementById('timerList');
+if(!timers.length){
+list.innerHTML='<div class="empty">No countdowns saved yet.</div>';
+document.getElementById('countdownDisplay').style.display='none';
+return;
+}
+list.innerHTML=timers.map(t=>{
+const target=new Date(t.target);
+const now=new Date();
+const diff=target-now;
+let remaining='';
+if(diff<=0){remaining='Completed!'}
+else{
+const days=Math.floor(diff/86400000);
+const hrs=Math.floor((diff%86400000)/3600000);
+if(days>0)remaining=days+'d '+hrs+'h';
+else{const mins=Math.floor((diff%3600000)/60000);remaining=hrs+'h '+mins+'m'}
+}
+return'<div class="timer-item'+(t.id===activeId?' active':'')+'" onclick="selectTimer('+t.id+')"><div class="info"><div class="name">'+esc(t.name)+'</div><div class="date">'+target.toLocaleDateString(undefined,{weekday:'short',month:'short',day:'numeric',year:'numeric'})+'</div></div><span class="remaining">'+remaining+'</span><button class="danger" style="padding:4px 8px;font-size:.8rem" onclick="removeTimer('+t.id+',event)">&times;</button></div>';
+}).join('');
+}
+
+function startTick(){
+if(tickInterval)clearInterval(tickInterval);
+tick();
+tickInterval=setInterval(tick,1000);
+}
+
+function tick(){
+if(!activeId){document.getElementById('countdownDisplay').style.display='none';return}
+const timer=timers.find(t=>t.id===activeId);
+if(!timer){document.getElementById('countdownDisplay').style.display='none';return}
+
+document.getElementById('countdownDisplay').style.display='';
+document.getElementById('cdTitle').textContent=timer.name;
+
+const target=new Date(timer.target);
+document.getElementById('cdDate').textContent=target.toLocaleDateString(undefined,{weekday:'long',month:'long',day:'numeric',year:'numeric'})+' at '+target.toLocaleTimeString(undefined,{hour:'2-digit',minute:'2-digit'});
+
+const now=new Date();
+const diff=target-now;
+
+if(diff<=0){
+document.getElementById('cdUnits').innerHTML='<div class="completed"><div class="icon">&#127881;</div><div class="msg">Event Reached!</div></div>';
+document.getElementById('cdProgress').style.width='100%';
+document.getElementById('cdProgressText').textContent='Completed!';
+return;
+}
+
+const days=Math.floor(diff/86400000);
+const hours=Math.floor((diff%86400000)/3600000);
+const minutes=Math.floor((diff%3600000)/60000);
+const seconds=Math.floor((diff%60000)/1000);
+
+document.getElementById('cdUnits').innerHTML=
+'<div class="unit-box"><div class="number">'+days+'</div><div class="label">Days</div></div>'+
+'<div class="unit-box"><div class="number">'+String(hours).padStart(2,'0')+'</div><div class="label">Hours</div></div>'+
+'<div class="unit-box"><div class="number">'+String(minutes).padStart(2,'0')+'</div><div class="label">Minutes</div></div>'+
+'<div class="unit-box"><div class="number">'+String(seconds).padStart(2,'0')+'</div><div class="label">Seconds</div></div>';
+
+// Progress bar
+const created=new Date(timer.created);
+const totalDuration=target-created;
+const elapsed=now-created;
+const pct=totalDuration>0?Math.min(100,Math.max(0,(elapsed/totalDuration)*100)):0;
+document.getElementById('cdProgress').style.width=pct.toFixed(1)+'%';
+document.getElementById('cdProgressText').textContent=pct.toFixed(1)+'% elapsed';
+
+// Update timer list remaining times every 10 seconds
+if(seconds%10===0)renderTimers();
+}
+
+function copyShareLink(){
+if(!activeId){alert('Select a countdown first');return}
+const timer=timers.find(t=>t.id===activeId);
+if(!timer)return;
+const url='https://spunk.codes/exclusive/countdown-timer.html?event='+encodeURIComponent(timer.name)+'&date='+encodeURIComponent(timer.target);
+navigator.clipboard.writeText(url).then(()=>alert('Shareable link copied!'));
+}
+
+function clearAll(){if(!confirm('Clear all countdowns?'))return;timers=[];activeId=null;save();renderTimers();document.getElementById('countdownDisplay').style.display='none'}
+
+function shareTwitter(){
+let text='Counting down with this free tool!';
+if(activeId){const t=timers.find(t=>t.id===activeId);if(t)text='Counting down to '+t.name+'!'}
+window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent(text+' https://spunk.codes/exclusive/countdown-timer.html'),'_blank');
+}
+function copyLink(){navigator.clipboard.writeText('https://spunk.codes/exclusive/countdown-timer.html').then(()=>alert('Link copied!'))}
+
+load();
+</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>
