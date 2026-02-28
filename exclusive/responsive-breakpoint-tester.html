@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Responsive Breakpoint Tester — Preview at All Screen Sizes | SPUNK.CODES</title>
+<meta name="description" content="Test responsive designs at common breakpoints. Preview HTML at 320, 375, 768, 1024, 1440px. Bootstrap and Tailwind breakpoints. Free browser tool.">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP')</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w")</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e0e0e0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+header{background:#111118;border-bottom:2px solid #ff5f1f;padding:1rem 2rem;text-align:center}
+header h1{font-size:1.6rem;color:#ff5f1f}
+header p{color:#999;font-size:.9rem;margin-top:.3rem}
+.container{max-width:1400px;margin:0 auto;padding:1.5rem;flex:1;width:100%}
+.section{background:#111118;border:1px solid #1a1a2e;border-radius:10px;padding:1.5rem;margin-bottom:1.5rem}
+.section h2{color:#ff5f1f;font-size:1.2rem;margin-bottom:1rem;display:flex;align-items:center;justify-content:space-between}
+label{display:block;color:#bbb;font-size:.85rem;margin-bottom:.3rem}
+input,select,textarea{background:#0a0a0f;color:#e0e0e0;border:1px solid #1a1a2e;border-radius:6px;padding:.5rem .7rem;font-size:.9rem;width:100%}
+input:focus,select:focus,textarea:focus{outline:none;border-color:#ff5f1f}
+textarea{font-family:monospace;resize:vertical}
+.btn{background:#ff5f1f;color:#fff;border:none;padding:.55rem 1.1rem;border-radius:6px;cursor:pointer;font-size:.9rem;font-weight:600;transition:background .2s}
+.btn:hover{background:#e54e10}
+.btn-sm{padding:.35rem .7rem;font-size:.8rem}
+.btn-outline{background:transparent;border:1px solid #ff5f1f;color:#ff5f1f}
+.btn-outline:hover{background:#ff5f1f;color:#fff}
+.input-row{display:flex;gap:1rem;margin-bottom:1rem;align-items:end;flex-wrap:wrap}
+.input-row>div{flex:1;min-width:200px}
+.bp-grid{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem}
+.bp-btn{background:#0a0a0f;border:2px solid #1a1a2e;border-radius:6px;padding:.5rem .8rem;cursor:pointer;color:#bbb;font-size:.82rem;transition:border-color .2s,background .2s;text-align:center}
+.bp-btn:hover{border-color:#ff5f1f;color:#ff5f1f}
+.bp-btn.active{border-color:#ff5f1f;background:#1a1018;color:#ff5f1f}
+.bp-btn .size{font-weight:700;display:block;color:#ff5f1f;font-size:.9rem}
+.bp-btn .label{font-size:.75rem;color:#888}
+.framework-section{margin-bottom:1rem}
+.framework-section h3{color:#bbb;font-size:.95rem;margin-bottom:.5rem}
+.preview-container{position:relative;overflow:hidden;border:2px solid #1a1a2e;border-radius:8px;margin:0 auto;transition:width .3s;background:#fff}
+.preview-container iframe{width:100%;height:600px;border:none;display:block}
+.preview-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:.8rem;padding:.5rem;background:#0a0a0f;border:1px solid #1a1a2e;border-radius:6px}
+.preview-header .current-size{color:#ff5f1f;font-weight:700;font-family:monospace}
+.preview-header .device-name{color:#888;font-size:.85rem}
+.mq-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:.5rem;margin-top:.5rem}
+.mq-item{background:#0a0a0f;border:1px solid #1a1a2e;border-radius:6px;padding:.5rem .8rem;display:flex;justify-content:space-between;align-items:center}
+.mq-item .name{color:#bbb;font-size:.85rem}
+.mq-item .status{font-size:.8rem;font-weight:700}
+.mq-item .status.active{color:#2ecc71}
+.mq-item .status.inactive{color:#555}
+.custom-row{display:flex;gap:.5rem;align-items:end;margin-top:.5rem}
+.custom-row input{max-width:120px}
+.height-control{display:flex;gap:.5rem;align-items:center;margin-bottom:.5rem}
+.height-control input{max-width:100px}
+footer{background:#111118;border-top:1px solid #1a1a2e;text-align:center;padding:1.2rem;color:#666;font-size:.8rem}
+footer a{color:#ff5f1f;margin:0 .3rem}
+@media(max-width:768px){
+  header h1{font-size:1.2rem}
+  .container{padding:1rem}
+  .input-row{flex-direction:column}
+}
+</style>
+</head>
+<body>
+<header>
+<h1>Responsive Breakpoint Tester</h1>
+<p>Preview pages at every screen size. Test Bootstrap, Tailwind, custom breakpoints.</p>
+</header>
+<div class="container">
+  <div class="section">
+    <h2>Input</h2>
+    <div class="input-row">
+      <div style="flex:2">
+        <label for="urlInput">URL (must allow iframes)</label>
+        <input type="text" id="urlInput" placeholder="https://example.com">
+      </div>
+      <div>
+        <button class="btn" onclick="loadUrl()">Load URL</button>
+      </div>
+    </div>
+    <label for="htmlInput">Or paste HTML directly</label>
+    <textarea id="htmlInput" rows="8" placeholder="<!DOCTYPE html><html>...</html>" oninput="loadHtml()"></textarea>
+  </div>
+
+  <div class="section">
+    <h2>Common Breakpoints</h2>
+    <div class="bp-grid" id="bpGrid"></div>
+    <div class="framework-section">
+      <h3>Bootstrap 5</h3>
+      <div class="bp-grid" id="bsBp"></div>
+    </div>
+    <div class="framework-section">
+      <h3>Tailwind CSS</h3>
+      <div class="bp-grid" id="twBp"></div>
+    </div>
+    <div class="custom-row">
+      <div><label>Custom Width (px)</label><input type="number" id="customWidth" min="100" max="3000" placeholder="e.g. 600"></div>
+      <button class="btn btn-sm" onclick="setCustom()">Set</button>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Preview</h2>
+    <div class="preview-header">
+      <span class="device-name" id="deviceName">Select a breakpoint</span>
+      <span class="current-size" id="currentSize">--</span>
+    </div>
+    <div class="height-control">
+      <label style="margin:0;white-space:nowrap">Height:</label>
+      <input type="number" id="iframeHeight" value="600" min="200" max="2000" oninput="updateHeight()">
+      <span style="color:#888;font-size:.85rem">px</span>
+    </div>
+    <div style="overflow-x:auto">
+      <div class="preview-container" id="previewContainer" style="width:100%">
+        <iframe id="previewFrame" sandbox="allow-scripts allow-same-origin"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Media Query Status</h2>
+    <div class="mq-list" id="mqList"></div>
+  </div>
+</div>
+<footer>
+  <a href="https://spunk.codes">spunk.codes</a> &middot; <a href="https://spunk.bet">spunk.bet</a> &middot; <a href="https://spunk.pics">spunk.pics</a> &middot; <a href="https://spunk.work">spunk.work</a> &middot; <a href="https://spunkart.com">SpunkArt.com</a>
+</footer>
+<script>
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
+
+const commonBp=[
+  {w:320,label:'iPhone SE',cat:'mobile'},
+  {w:375,label:'iPhone 12',cat:'mobile'},
+  {w:390,label:'iPhone 14',cat:'mobile'},
+  {w:414,label:'iPhone Plus',cat:'mobile'},
+  {w:768,label:'iPad',cat:'tablet'},
+  {w:820,label:'iPad Air',cat:'tablet'},
+  {w:1024,label:'iPad Pro',cat:'tablet'},
+  {w:1280,label:'Laptop',cat:'desktop'},
+  {w:1440,label:'Desktop',cat:'desktop'},
+  {w:1920,label:'Full HD',cat:'desktop'}
+];
+
+const bootstrapBp=[
+  {w:576,label:'sm'},{w:768,label:'md'},{w:992,label:'lg'},
+  {w:1200,label:'xl'},{w:1400,label:'xxl'}
+];
+
+const tailwindBp=[
+  {w:640,label:'sm'},{w:768,label:'md'},{w:1024,label:'lg'},
+  {w:1280,label:'xl'},{w:1536,label:'2xl'}
+];
+
+let currentWidth=null;
+
+function initBreakpoints(){
+  document.getElementById('bpGrid').innerHTML=commonBp.map(bp=>
+    '<div class="bp-btn" onclick="setWidth('+bp.w+',\''+esc(bp.label)+'\')"><span class="size">'+bp.w+'</span><span class="label">'+esc(bp.label)+'</span></div>'
+  ).join('');
+  document.getElementById('bsBp').innerHTML=bootstrapBp.map(bp=>
+    '<div class="bp-btn" onclick="setWidth('+bp.w+',\'Bootstrap '+esc(bp.label)+'\')"><span class="size">'+bp.w+'</span><span class="label">'+esc(bp.label)+'</span></div>'
+  ).join('');
+  document.getElementById('twBp').innerHTML=tailwindBp.map(bp=>
+    '<div class="bp-btn" onclick="setWidth('+bp.w+',\'Tailwind '+esc(bp.label)+'\')"><span class="size">'+bp.w+'</span><span class="label">'+esc(bp.label)+'</span></div>'
+  ).join('');
+}
+
+function setWidth(w,name){
+  currentWidth=w;
+  const container=document.getElementById('previewContainer');
+  container.style.width=w+'px';
+  document.getElementById('currentSize').textContent=w+'px';
+  document.getElementById('deviceName').textContent=name||w+'px';
+  document.querySelectorAll('.bp-btn').forEach(btn=>{
+    const size=parseInt(btn.querySelector('.size').textContent);
+    btn.classList.toggle('active',size===w);
+  });
+  updateMediaQueries(w);
+}
+
+function setCustom(){
+  const w=parseInt(document.getElementById('customWidth').value);
+  if(!w||w<100){flash('Enter valid width');return;}
+  setWidth(w,'Custom');
+}
+
+function updateHeight(){
+  const h=document.getElementById('iframeHeight').value;
+  document.getElementById('previewFrame').style.height=h+'px';
+}
+
+function loadUrl(){
+  const url=document.getElementById('urlInput').value.trim();
+  if(!url){flash('Enter a URL');return;}
+  document.getElementById('previewFrame').src=url;
+  flash('Loading URL...');
+}
+
+function loadHtml(){
+  const html=document.getElementById('htmlInput').value;
+  if(!html.trim())return;
+  const frame=document.getElementById('previewFrame');
+  const blob=new Blob([html],{type:'text/html'});
+  const url=URL.createObjectURL(blob);
+  frame.src=url;
+}
+
+function updateMediaQueries(w){
+  const queries=[
+    {name:'max-width: 320px',q:'(max-width: 320px)'},
+    {name:'max-width: 375px',q:'(max-width: 375px)'},
+    {name:'max-width: 480px',q:'(max-width: 480px)'},
+    {name:'max-width: 576px (Bootstrap sm)',q:'(max-width: 576px)'},
+    {name:'max-width: 640px (Tailwind sm)',q:'(max-width: 640px)'},
+    {name:'max-width: 768px (tablet)',q:'(max-width: 768px)'},
+    {name:'max-width: 992px (Bootstrap lg)',q:'(max-width: 992px)'},
+    {name:'max-width: 1024px (Tailwind lg)',q:'(max-width: 1024px)'},
+    {name:'max-width: 1200px (Bootstrap xl)',q:'(max-width: 1200px)'},
+    {name:'max-width: 1280px (Tailwind xl)',q:'(max-width: 1280px)'},
+    {name:'min-width: 768px',q:'(min-width: 768px)'},
+    {name:'min-width: 1024px',q:'(min-width: 1024px)'},
+    {name:'min-width: 1280px',q:'(min-width: 1280px)'},
+    {name:'min-width: 1440px',q:'(min-width: 1440px)'}
+  ];
+  const list=document.getElementById('mqList');
+  list.innerHTML=queries.map(mq=>{
+    const match=checkQuery(mq.q,w);
+    return '<div class="mq-item"><span class="name">@media '+esc(mq.q)+'</span><span class="status '+(match?'active':'inactive')+'">'+(match?'ACTIVE':'inactive')+'</span></div>';
+  }).join('');
+}
+
+function checkQuery(q,w){
+  const maxMatch=q.match(/max-width:\s*(\d+)px/);
+  const minMatch=q.match(/min-width:\s*(\d+)px/);
+  if(maxMatch)return w<=parseInt(maxMatch[1]);
+  if(minMatch)return w>=parseInt(minMatch[1]);
+  return false;
+}
+
+function flash(msg){
+  const d=document.createElement('div');
+  d.style.cssText='position:fixed;top:20px;right:20px;background:#ff5f1f;color:#fff;padding:.8rem 1.5rem;border-radius:8px;font-weight:600;z-index:9999;animation:fadeOut 2s forwards';
+  d.textContent=msg;document.body.appendChild(d);setTimeout(()=>d.remove(),2200);
+}
+const st=document.createElement('style');st.textContent='@keyframes fadeOut{0%{opacity:1}70%{opacity:1}100%{opacity:0}}';document.head.appendChild(st);
+
+initBreakpoints();
+</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>

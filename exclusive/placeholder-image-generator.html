@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Placeholder Image Generator — Custom Placeholder Images | SPUNK.CODES</title>
+<meta name="description" content="Generate placeholder images with custom dimensions, colors, and text. Download as PNG or JPEG. Social media size presets. Free browser tool.">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP')</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w")</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e0e0e0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+header{background:#111118;border-bottom:2px solid #ff5f1f;padding:1rem 2rem;text-align:center}
+header h1{font-size:1.6rem;color:#ff5f1f}
+header p{color:#999;font-size:.9rem;margin-top:.3rem}
+.container{max-width:1100px;margin:0 auto;padding:1.5rem;flex:1;width:100%}
+.section{background:#111118;border:1px solid #1a1a2e;border-radius:10px;padding:1.5rem;margin-bottom:1.5rem}
+.section h2{color:#ff5f1f;font-size:1.2rem;margin-bottom:1rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem}
+label{display:block;color:#bbb;font-size:.85rem;margin-bottom:.3rem}
+input,select{background:#0a0a0f;color:#e0e0e0;border:1px solid #1a1a2e;border-radius:6px;padding:.5rem .7rem;font-size:.9rem;width:100%}
+input:focus,select:focus{outline:none;border-color:#ff5f1f}
+.btn{background:#ff5f1f;color:#fff;border:none;padding:.55rem 1.1rem;border-radius:6px;cursor:pointer;font-size:.9rem;font-weight:600;transition:background .2s}
+.btn:hover{background:#e54e10}
+.btn-sm{padding:.35rem .7rem;font-size:.8rem}
+.btn-outline{background:transparent;border:1px solid #ff5f1f;color:#ff5f1f}
+.btn-outline:hover{background:#ff5f1f;color:#fff}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;margin-bottom:1rem}
+.presets{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem}
+.preset-btn{background:#1a1a2e;color:#e0e0e0;border:1px solid #2a2a3a;padding:.4rem .8rem;border-radius:6px;cursor:pointer;font-size:.8rem;transition:all .2s}
+.preset-btn:hover{border-color:#ff5f1f;color:#ff5f1f}
+.preview-wrap{display:flex;justify-content:center;padding:1rem;background:#0d0d14;border-radius:8px;overflow:auto}
+.preview-wrap canvas{max-width:100%;height:auto;border-radius:4px}
+.color-row{display:flex;gap:.5rem;align-items:center}
+.color-row input[type="color"]{width:50px;height:36px;padding:2px;border-radius:4px;cursor:pointer}
+.color-row input[type="text"]{flex:1}
+.history-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:.5rem}
+.history-item{background:#0d0d14;border:1px solid #1a1a2e;border-radius:6px;overflow:hidden;cursor:pointer;transition:border-color .2s}
+.history-item:hover{border-color:#ff5f1f}
+.history-item img{width:100%;aspect-ratio:16/9;object-fit:cover}
+.history-item .info{padding:.3rem;font-size:.7rem;color:#999;text-align:center}
+footer{background:#111118;border-top:1px solid #1a1a2e;text-align:center;padding:1.2rem;color:#666;font-size:.8rem}
+footer a{color:#ff5f1f;margin:0 .3rem}
+@media(max-width:768px){
+  header h1{font-size:1.2rem}
+  .container{padding:1rem}
+  .grid{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+<header>
+<h1>Placeholder Image Generator</h1>
+<p>Generate custom placeholder images with text overlays. Download as PNG/JPEG. Free tool.</p>
+</header>
+<div class="container">
+  <div class="section">
+    <h2>Presets</h2>
+    <div class="presets">
+      <button class="preset-btn" onclick="applyPreset(1200,630,'OG Image')">OG Image (1200x630)</button>
+      <button class="preset-btn" onclick="applyPreset(1200,675,'Twitter')">Twitter (1200x675)</button>
+      <button class="preset-btn" onclick="applyPreset(1080,1080,'Instagram')">Instagram (1080x1080)</button>
+      <button class="preset-btn" onclick="applyPreset(1080,1920,'IG Story')">IG Story (1080x1920)</button>
+      <button class="preset-btn" onclick="applyPreset(1920,1080,'HD')">HD (1920x1080)</button>
+      <button class="preset-btn" onclick="applyPreset(1280,720,'720p')">720p (1280x720)</button>
+      <button class="preset-btn" onclick="applyPreset(800,600,'4:3')">4:3 (800x600)</button>
+      <button class="preset-btn" onclick="applyPreset(300,250,'Ad')">Ad (300x250)</button>
+      <button class="preset-btn" onclick="applyPreset(728,90,'Banner')">Banner (728x90)</button>
+      <button class="preset-btn" onclick="applyPreset(16,16,'Favicon')">Favicon (16x16)</button>
+      <button class="preset-btn" onclick="applyPreset(512,512,'App Icon')">App Icon (512x512)</button>
+      <button class="preset-btn" onclick="applyPreset(150,150,'Thumb')">Thumbnail (150x150)</button>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Settings</h2>
+    <div class="grid">
+      <div>
+        <label>Width (px)</label>
+        <input type="number" id="imgWidth" value="800" min="1" max="4096" oninput="generate()">
+      </div>
+      <div>
+        <label>Height (px)</label>
+        <input type="number" id="imgHeight" value="400" min="1" max="4096" oninput="generate()">
+      </div>
+      <div>
+        <label>Background</label>
+        <div class="color-row">
+          <input type="color" id="bgColor" value="#1a1a2e" oninput="document.getElementById('bgHex').value=this.value;generate()">
+          <input type="text" id="bgHex" value="#1a1a2e" oninput="document.getElementById('bgColor').value=this.value;generate()">
+        </div>
+      </div>
+      <div>
+        <label>Text Color</label>
+        <div class="color-row">
+          <input type="color" id="txtColor" value="#ff5f1f" oninput="document.getElementById('txtHex').value=this.value;generate()">
+          <input type="text" id="txtHex" value="#ff5f1f" oninput="document.getElementById('txtColor').value=this.value;generate()">
+        </div>
+      </div>
+      <div>
+        <label>Text</label>
+        <input type="text" id="imgText" placeholder="Custom text (leave empty for dimensions)" oninput="generate()">
+      </div>
+      <div>
+        <label>Font Size (px, 0=auto)</label>
+        <input type="number" id="fontSize" value="0" min="0" max="500" oninput="generate()">
+      </div>
+      <div>
+        <label>Font</label>
+        <select id="fontFamily" onchange="generate()">
+          <option value="Arial, sans-serif">Arial</option>
+          <option value="'Courier New', monospace">Courier New</option>
+          <option value="Georgia, serif">Georgia</option>
+          <option value="'Times New Roman', serif">Times New Roman</option>
+          <option value="Verdana, sans-serif">Verdana</option>
+          <option value="Impact, sans-serif">Impact</option>
+        </select>
+      </div>
+      <div>
+        <label>Format</label>
+        <select id="imgFormat">
+          <option value="png">PNG</option>
+          <option value="jpeg">JPEG</option>
+          <option value="webp">WebP</option>
+        </select>
+      </div>
+    </div>
+    <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+      <label style="display:flex;align-items:center;gap:.3rem;cursor:pointer">
+        <input type="checkbox" id="showDimensions" checked onchange="generate()"> Show dimensions
+      </label>
+      <label style="display:flex;align-items:center;gap:.3rem;cursor:pointer">
+        <input type="checkbox" id="showBorder" onchange="generate()"> Show border
+      </label>
+      <label style="display:flex;align-items:center;gap:.3rem;cursor:pointer">
+        <input type="checkbox" id="showCross" onchange="generate()"> Show cross lines
+      </label>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Preview</h2>
+    <div class="preview-wrap">
+      <canvas id="previewCanvas"></canvas>
+    </div>
+    <div style="margin-top:1rem;display:flex;gap:.5rem;flex-wrap:wrap">
+      <button class="btn" onclick="downloadImage()">Download Image</button>
+      <button class="btn btn-outline" onclick="copyDataUrl()">Copy Data URL</button>
+      <button class="btn btn-outline" onclick="copyImgTag()">Copy &lt;img&gt; Tag</button>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>History</h2>
+    <div class="history-grid" id="historyGrid"></div>
+  </div>
+</div>
+<footer>
+  <a href="https://spunk.codes">spunk.codes</a> · <a href="https://spunk.bet">spunk.bet</a> · <a href="https://spunk.pics">spunk.pics</a> · <a href="https://spunk.work">spunk.work</a> · <a href="https://spunkart.com">SpunkArt.com</a>
+</footer>
+<script>
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
+
+const canvas=document.getElementById('previewCanvas');
+const ctx=canvas.getContext('2d');
+
+function applyPreset(w,h,text){
+  document.getElementById('imgWidth').value=w;
+  document.getElementById('imgHeight').value=h;
+  document.getElementById('imgText').value=text;
+  generate();
+}
+
+function generate(){
+  const w=Math.min(4096,Math.max(1,parseInt(document.getElementById('imgWidth').value)||800));
+  const h=Math.min(4096,Math.max(1,parseInt(document.getElementById('imgHeight').value)||400));
+  const bg=document.getElementById('bgColor').value;
+  const fg=document.getElementById('txtColor').value;
+  const customText=document.getElementById('imgText').value;
+  const customSize=parseInt(document.getElementById('fontSize').value)||0;
+  const font=document.getElementById('fontFamily').value;
+  const showDim=document.getElementById('showDimensions').checked;
+  const showBorder=document.getElementById('showBorder').checked;
+  const showCross=document.getElementById('showCross').checked;
+
+  canvas.width=w;
+  canvas.height=h;
+
+  // Background
+  ctx.fillStyle=bg;
+  ctx.fillRect(0,0,w,h);
+
+  // Cross lines
+  if(showCross){
+    ctx.strokeStyle=fg;
+    ctx.globalAlpha=0.15;
+    ctx.lineWidth=1;
+    ctx.beginPath();
+    ctx.moveTo(0,0);ctx.lineTo(w,h);
+    ctx.moveTo(w,0);ctx.lineTo(0,h);
+    ctx.stroke();
+    ctx.globalAlpha=1;
+  }
+
+  // Border
+  if(showBorder){
+    ctx.strokeStyle=fg;
+    ctx.globalAlpha=0.3;
+    ctx.lineWidth=2;
+    ctx.strokeRect(1,1,w-2,h-2);
+    ctx.globalAlpha=1;
+  }
+
+  // Text
+  const mainText=customText||`${w} x ${h}`;
+  const fontSize=customSize||Math.max(12,Math.min(w/8,h/4));
+  ctx.fillStyle=fg;
+  ctx.font=`bold ${fontSize}px ${font}`;
+  ctx.textAlign='center';
+  ctx.textBaseline='middle';
+  ctx.fillText(mainText,w/2,h/2);
+
+  // Dimension subtitle
+  if(showDim&&customText){
+    const subSize=Math.max(10,fontSize*0.4);
+    ctx.font=`${subSize}px ${font}`;
+    ctx.globalAlpha=0.6;
+    ctx.fillText(`${w} x ${h}`,w/2,h/2+fontSize*0.7);
+    ctx.globalAlpha=1;
+  }
+
+  saveState();
+}
+
+function downloadImage(){
+  const format=document.getElementById('imgFormat').value;
+  const mime=format==='jpeg'?'image/jpeg':format==='webp'?'image/webp':'image/png';
+  const dataUrl=canvas.toDataURL(mime,0.92);
+  const a=document.createElement('a');
+  a.href=dataUrl;
+  const w=document.getElementById('imgWidth').value;
+  const h=document.getElementById('imgHeight').value;
+  a.download=`placeholder-${w}x${h}.${format}`;
+  a.click();
+  addToHistory(dataUrl,w,h);
+  flash('Downloaded!');
+}
+
+function copyDataUrl(){
+  const format=document.getElementById('imgFormat').value;
+  const mime=format==='jpeg'?'image/jpeg':format==='webp'?'image/webp':'image/png';
+  const url=canvas.toDataURL(mime,0.92);
+  navigator.clipboard.writeText(url).then(()=>flash('Data URL copied!'));
+}
+
+function copyImgTag(){
+  const w=document.getElementById('imgWidth').value;
+  const h=document.getElementById('imgHeight').value;
+  const tag=`<img src="placeholder-${w}x${h}.png" width="${w}" height="${h}" alt="Placeholder ${w}x${h}">`;
+  navigator.clipboard.writeText(tag).then(()=>flash('IMG tag copied!'));
+}
+
+function addToHistory(dataUrl,w,h){
+  const hist=JSON.parse(localStorage.getItem('phg_history')||'[]');
+  // Store as thumbnail
+  const thumb=document.createElement('canvas');
+  const tctx=thumb.getContext('2d');
+  thumb.width=150;thumb.height=84;
+  const img=new Image();
+  img.onload=function(){
+    tctx.drawImage(img,0,0,150,84);
+    hist.unshift({url:thumb.toDataURL('image/jpeg',0.6),w,h,date:new Date().toISOString()});
+    if(hist.length>20)hist.pop();
+    localStorage.setItem('phg_history',JSON.stringify(hist));
+    renderHistory();
+  };
+  img.src=dataUrl;
+}
+
+function renderHistory(){
+  const hist=JSON.parse(localStorage.getItem('phg_history')||'[]');
+  const c=document.getElementById('historyGrid');
+  if(!hist.length){c.innerHTML='<div style="color:#555;font-size:.85rem">No history yet. Download an image to save it.</div>';return;}
+  c.innerHTML='';
+  hist.forEach((h,i)=>{
+    c.innerHTML+=`<div class="history-item" onclick="applyPreset(${h.w},${h.h},'')">
+      <img src="${h.url}" alt="${h.w}x${h.h}">
+      <div class="info">${h.w}x${h.h}</div>
+    </div>`;
+  });
+}
+
+function saveState(){
+  localStorage.setItem('phg_state',JSON.stringify({
+    w:document.getElementById('imgWidth').value,
+    h:document.getElementById('imgHeight').value,
+    bg:document.getElementById('bgColor').value,
+    fg:document.getElementById('txtColor').value,
+    text:document.getElementById('imgText').value
+  }));
+}
+
+function loadState(){
+  try{
+    const s=JSON.parse(localStorage.getItem('phg_state'));
+    if(s){
+      document.getElementById('imgWidth').value=s.w;
+      document.getElementById('imgHeight').value=s.h;
+      document.getElementById('bgColor').value=s.bg;
+      document.getElementById('bgHex').value=s.bg;
+      document.getElementById('txtColor').value=s.fg;
+      document.getElementById('txtHex').value=s.fg;
+      if(s.text)document.getElementById('imgText').value=s.text;
+    }
+  }catch(e){}
+}
+
+function flash(msg){
+  const d=document.createElement('div');
+  d.style.cssText='position:fixed;top:20px;right:20px;background:#ff5f1f;color:#fff;padding:.8rem 1.5rem;border-radius:8px;font-weight:600;z-index:9999;animation:fadeOut 2s forwards';
+  d.textContent=msg;document.body.appendChild(d);setTimeout(()=>d.remove(),2200);
+}
+const st=document.createElement('style');
+st.textContent='@keyframes fadeOut{0%{opacity:1}70%{opacity:1}100%{opacity:0}}';
+document.head.appendChild(st);
+
+loadState();
+generate();
+renderHistory();
+</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>

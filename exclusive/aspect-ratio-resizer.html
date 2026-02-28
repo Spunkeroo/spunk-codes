@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Image Aspect Ratio Calculator - Resize & Scale | SPUNK.CODES Exclusive</title>
+<meta name="description" content="Calculate aspect ratios, lock ratios and scale dimensions. Common presets for 16:9, 4:3, 1:1, social media sizes. Free online tool.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Image Aspect Ratio Calculator - SPUNK.CODES Exclusive">
+<meta property="og:description" content="Calculate and scale image dimensions with locked aspect ratios and social media presets.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://spunk.codes/exclusive/aspect-ratio-resizer">
+<meta property="og:site_name" content="Spunk Codes">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<meta name="twitter:creator" content="@SpunkArt13">
+<meta name="twitter:title" content="Image Aspect Ratio Calculator - SPUNK.CODES Exclusive">
+<meta name="twitter:description" content="Calculate aspect ratios and scale dimensions with social media presets.">
+<link rel="canonical" href="https://spunk.codes/exclusive/aspect-ratio-resizer">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Image Aspect Ratio Calculator","url":"https://spunk.codes/exclusive/aspect-ratio-resizer","applicationCategory":"DesignApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Calculate aspect ratios, lock and scale dimensions, common presets for social media.","author":{"@type":"Organization","name":"Spunk Codes","url":"https://spunk.codes"}}</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0f;color:#e0e0e0;min-height:100vh;line-height:1.6}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+.wrap{max-width:900px;margin:0 auto;padding:1.5rem}
+h1{font-size:2rem;font-weight:800;text-align:center;margin:1.5rem 0 0.5rem}
+h1 span{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.subtitle{text-align:center;color:#8b949e;margin-bottom:2rem;max-width:650px;margin-left:auto;margin-right:auto}
+.card{background:rgba(18,18,28,0.85);border:1px solid #1a1a2e;border-radius:14px;padding:1.5rem;margin-bottom:1.5rem;position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#ff5f1f,#ff9f1f,#ff5f1f)}
+.card h2{font-size:1rem;font-weight:700;margin-bottom:1rem;color:#ff9f1f}
+.ratio-display{text-align:center;padding:2rem;background:#0a0a0f;border:1px solid #1a1a2e;border-radius:12px;margin-bottom:1.5rem}
+.ratio-big{font-size:3rem;font-weight:800;color:#ff5f1f;font-family:'Courier New',monospace}
+.ratio-info{font-size:0.9rem;color:#8b949e;margin-top:0.5rem}
+.dim-row{display:flex;align-items:center;gap:1rem;justify-content:center;margin-bottom:1rem;flex-wrap:wrap}
+.dim-group{display:flex;flex-direction:column;align-items:center}
+.dim-group label{font-size:0.75rem;font-weight:700;color:#8b949e;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:0.3rem}
+.dim-group input{width:120px;text-align:center;font-size:1.3rem;font-family:'Courier New',monospace;font-weight:700;padding:0.6rem;background:#0a0a0f;border:1px solid #1a1a2e;border-radius:8px;color:#e0e0e0;outline:none}
+.dim-group input:focus{border-color:#ff5f1f}
+.lock-btn{width:48px;height:48px;border-radius:50%;border:2px solid #1a1a2e;background:transparent;color:#8b949e;font-size:1.2rem;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;justify-content:center;margin-top:1rem}
+.lock-btn.locked{border-color:#ff5f1f;color:#ff5f1f;background:rgba(255,95,31,0.1)}
+.lock-btn:hover{border-color:#ff5f1f}
+.presets{display:flex;gap:0.5rem;flex-wrap:wrap;justify-content:center}
+.preset{padding:0.5rem 1rem;border-radius:8px;font-size:0.8rem;font-weight:600;cursor:pointer;border:1px solid #1a1a2e;background:transparent;color:#8b949e;transition:all 0.2s}
+.preset:hover{background:rgba(255,95,31,0.1);color:#ff9f1f;border-color:rgba(255,95,31,0.3)}
+.preset.active{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);color:#000;border-color:transparent}
+.social-table{width:100%;border-collapse:collapse;font-size:0.8rem;margin-top:0.5rem}
+.social-table th{text-align:left;color:#ff9f1f;padding:0.5rem 0.6rem;border-bottom:1px solid #1a1a2e;font-weight:700}
+.social-table td{padding:0.5rem 0.6rem;border-bottom:1px solid rgba(255,95,31,0.06);color:#8b949e}
+.social-table tr{cursor:pointer;transition:background 0.2s}
+.social-table tr:hover td{background:rgba(255,95,31,0.05);color:#e0e0e0}
+.social-table .dims{font-family:'Courier New',monospace;color:#e0e0e0}
+.preview-box{display:flex;justify-content:center;align-items:center;padding:2rem}
+.preview-rect{border:2px solid #ff5f1f;background:rgba(255,95,31,0.05);border-radius:4px;position:relative;transition:all 0.3s}
+.preview-rect span{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:0.75rem;color:#8b949e;white-space:nowrap}
+.pixel-count{text-align:center;font-size:0.85rem;color:#8b949e;margin-top:0.5rem}
+.pixel-count strong{color:#e0e0e0}
+.btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.85rem;font-weight:700;cursor:pointer;border:none;transition:all 0.2s;display:inline-flex;align-items:center;gap:0.4rem}
+.btn-primary{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);color:#000}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 4px 15px rgba(255,95,31,0.3)}
+.btn-outline{background:transparent;border:1px solid rgba(255,95,31,0.3);color:#ff9f1f}
+.btn-outline:hover{background:rgba(255,95,31,0.1)}
+.actions{display:flex;gap:0.5rem;flex-wrap:wrap;margin:1rem 0;justify-content:center}
+.copied{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(57,211,83,0.95);color:#000;padding:0.8rem 2rem;border-radius:10px;font-weight:700;font-size:1rem;z-index:9999;pointer-events:none;animation:fadeOut 1.5s ease forwards}
+@keyframes fadeOut{0%{opacity:1;transform:translate(-50%,-50%) scale(1)}70%{opacity:1}100%{opacity:0;transform:translate(-50%,-60%) scale(0.95)}}
+.network-footer{text-align:center;padding:2rem 0 1rem;border-top:1px solid #1a1a2e;margin-top:2rem}
+.network-footer .links{display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap;font-size:0.85rem;margin-bottom:0.5rem}
+.network-footer .copy{color:#8b949e;font-size:0.75rem}
+.cta-banner{text-align:center;margin:2rem 0 1rem;padding:1.5rem;background:linear-gradient(135deg,rgba(255,95,31,0.1),rgba(255,159,31,0.05));border:1px solid rgba(255,95,31,0.2);border-radius:14px}
+.cta-banner p{color:#8b949e;font-size:0.9rem;margin-bottom:0.8rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1><span>Aspect Ratio Calculator</span></h1>
+<p class="subtitle">Enter width and height to calculate the aspect ratio. Lock the ratio and enter one dimension to automatically get the other. Includes social media presets.</p>
+
+<div class="ratio-display">
+<div class="ratio-big" id="ratioDisplay">16:9</div>
+<div class="ratio-info" id="ratioInfo">Widescreen (1.778:1) | 2,073,600 pixels</div>
+</div>
+
+<div class="card">
+<h2>Dimensions</h2>
+<div class="dim-row">
+<div class="dim-group">
+<label>Width (px)</label>
+<input type="number" id="widthInput" value="1920" min="1" oninput="onWidthChange()">
+</div>
+<button class="lock-btn locked" id="lockBtn" onclick="toggleLock()" title="Lock/unlock aspect ratio">&#128274;</button>
+<div class="dim-group">
+<label>Height (px)</label>
+<input type="number" id="heightInput" value="1080" min="1" oninput="onHeightChange()">
+</div>
+</div>
+<div class="actions">
+<button class="btn btn-outline" onclick="swapDimensions()">Swap W/H</button>
+<button class="btn btn-outline" onclick="halve()">Half Size</button>
+<button class="btn btn-outline" onclick="double_()">Double Size</button>
+</div>
+</div>
+
+<div class="card">
+<h2>Common Aspect Ratios</h2>
+<div class="presets">
+<button class="preset" onclick="setRatio(1,1)">1:1 Square</button>
+<button class="preset" onclick="setRatio(4,3)">4:3 Standard</button>
+<button class="preset" onclick="setRatio(3,2)">3:2 Photo</button>
+<button class="preset active" onclick="setRatio(16,9)">16:9 Widescreen</button>
+<button class="preset" onclick="setRatio(16,10)">16:10 Display</button>
+<button class="preset" onclick="setRatio(21,9)">21:9 Ultrawide</button>
+<button class="preset" onclick="setRatio(9,16)">9:16 Portrait</button>
+<button class="preset" onclick="setRatio(2,3)">2:3 Portrait Photo</button>
+<button class="preset" onclick="setRatio(3,4)">3:4 Portrait</button>
+<button class="preset" onclick="setRatio(5,4)">5:4 Monitor</button>
+<button class="preset" onclick="setRatio(32,9)">32:9 Super Ultra</button>
+</div>
+</div>
+
+<div class="card">
+<h2>Visual Preview</h2>
+<div class="preview-box" id="previewBox">
+<div class="preview-rect" id="previewRect"><span id="previewLabel">1920 x 1080</span></div>
+</div>
+</div>
+
+<div class="card">
+<h2>Social Media Sizes</h2>
+<table class="social-table">
+<tr><th>Platform</th><th>Type</th><th>Dimensions</th><th>Ratio</th></tr>
+<tr onclick="setDimensions(1200,630)"><td>Facebook</td><td>Post / Link</td><td class="dims">1200 x 630</td><td>40:21</td></tr>
+<tr onclick="setDimensions(1080,1080)"><td>Instagram</td><td>Post (Square)</td><td class="dims">1080 x 1080</td><td>1:1</td></tr>
+<tr onclick="setDimensions(1080,1350)"><td>Instagram</td><td>Post (Portrait)</td><td class="dims">1080 x 1350</td><td>4:5</td></tr>
+<tr onclick="setDimensions(1080,1920)"><td>Instagram</td><td>Story / Reel</td><td class="dims">1080 x 1920</td><td>9:16</td></tr>
+<tr onclick="setDimensions(1200,675)"><td>Twitter / X</td><td>Post Image</td><td class="dims">1200 x 675</td><td>16:9</td></tr>
+<tr onclick="setDimensions(1500,500)"><td>Twitter / X</td><td>Header</td><td class="dims">1500 x 500</td><td>3:1</td></tr>
+<tr onclick="setDimensions(1200,627)"><td>LinkedIn</td><td>Post Image</td><td class="dims">1200 x 627</td><td>~1.91:1</td></tr>
+<tr onclick="setDimensions(1584,396)"><td>LinkedIn</td><td>Banner</td><td class="dims">1584 x 396</td><td>4:1</td></tr>
+<tr onclick="setDimensions(1280,720)"><td>YouTube</td><td>Thumbnail</td><td class="dims">1280 x 720</td><td>16:9</td></tr>
+<tr onclick="setDimensions(2560,1440)"><td>YouTube</td><td>Banner</td><td class="dims">2560 x 1440</td><td>16:9</td></tr>
+<tr onclick="setDimensions(1000,1500)"><td>Pinterest</td><td>Pin</td><td class="dims">1000 x 1500</td><td>2:3</td></tr>
+<tr onclick="setDimensions(1080,1920)"><td>TikTok</td><td>Video</td><td class="dims">1080 x 1920</td><td>9:16</td></tr>
+</table>
+</div>
+
+<div class="cta-banner">
+<p>300+ free tools for developers, creators & founders</p>
+<a href="https://spunk.codes" class="btn btn-primary">Browse All Tools</a>
+</div>
+<div class="network-footer">
+<div class="links">
+<a href="https://spunk.codes">Home</a>
+<a href="https://spunk.codes/exclusive/">Exclusive Tools</a>
+<a href="https://spunk.codes/about">About</a>
+<a href="https://x.com/SpunkArt13">@SpunkArt13</a>
+</div>
+<div class="copy">&copy; 2025 spunk.codes</div>
+</div>
+</div>
+
+<script>
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+
+var locked=true;
+var ratioW=16,ratioH=9;
+var LS_KEY='aspect_ratio_dims';
+
+function gcd(a,b){return b===0?a:gcd(b,a%b)}
+
+function calcRatio(w,h){
+if(!w||!h)return{rw:0,rh:0};
+var d=gcd(w,h);
+return{rw:w/d,rh:h/d};
+}
+
+function updateDisplay(){
+var w=parseInt(document.getElementById('widthInput').value)||0;
+var h=parseInt(document.getElementById('heightInput').value)||0;
+var r=calcRatio(w,h);
+var rText=r.rw+':'+r.rh;
+
+// Simplify large ratios
+if(r.rw>100||r.rh>100){
+var decimal=(w/h).toFixed(2);
+rText=decimal+':1';
+}
+
+document.getElementById('ratioDisplay').textContent=rText;
+var pixels=w*h;
+var pxStr=pixels.toLocaleString();
+var decimal=(h>0?(w/h):0).toFixed(3);
+document.getElementById('ratioInfo').textContent=decimal+':1 | '+pxStr+' pixels';
+
+// Preview
+var maxW=300,maxH=200;
+var scale=Math.min(maxW/Math.max(w,1),maxH/Math.max(h,1),1);
+var pw=Math.max(40,w*scale);
+var ph=Math.max(30,h*scale);
+if(pw>maxW){var s2=maxW/pw;pw*=s2;ph*=s2}
+if(ph>maxH){var s3=maxH/ph;pw*=s3;ph*=s3}
+var rect=document.getElementById('previewRect');
+rect.style.width=pw+'px';
+rect.style.height=ph+'px';
+document.getElementById('previewLabel').textContent=w+' x '+h;
+
+// Highlight preset
+document.querySelectorAll('.preset').forEach(function(b){b.classList.remove('active')});
+
+try{localStorage.setItem(LS_KEY,JSON.stringify({w:w,h:h}))}catch(e){}
+}
+
+function onWidthChange(){
+var w=parseInt(document.getElementById('widthInput').value)||0;
+if(locked&&ratioW&&ratioH){
+var h=Math.round(w*ratioH/ratioW);
+document.getElementById('heightInput').value=h;
+}else{
+var h=parseInt(document.getElementById('heightInput').value)||0;
+var r=calcRatio(w,h);
+ratioW=r.rw;ratioH=r.rh;
+}
+updateDisplay();
+}
+
+function onHeightChange(){
+var h=parseInt(document.getElementById('heightInput').value)||0;
+if(locked&&ratioW&&ratioH){
+var w=Math.round(h*ratioW/ratioH);
+document.getElementById('widthInput').value=w;
+}else{
+var w=parseInt(document.getElementById('widthInput').value)||0;
+var r=calcRatio(w,h);
+ratioW=r.rw;ratioH=r.rh;
+}
+updateDisplay();
+}
+
+function toggleLock(){
+locked=!locked;
+var btn=document.getElementById('lockBtn');
+btn.classList.toggle('locked',locked);
+btn.innerHTML=locked?'&#128274;':'&#128275;';
+if(locked){
+var w=parseInt(document.getElementById('widthInput').value)||0;
+var h=parseInt(document.getElementById('heightInput').value)||0;
+var r=calcRatio(w,h);
+ratioW=r.rw;ratioH=r.rh;
+}
+}
+
+function setRatio(rw,rh){
+ratioW=rw;ratioH=rh;
+locked=true;
+document.getElementById('lockBtn').classList.add('locked');
+document.getElementById('lockBtn').innerHTML='&#128274;';
+var w=parseInt(document.getElementById('widthInput').value)||1920;
+var h=Math.round(w*rh/rw);
+document.getElementById('heightInput').value=h;
+updateDisplay();
+}
+
+function setDimensions(w,h){
+document.getElementById('widthInput').value=w;
+document.getElementById('heightInput').value=h;
+var r=calcRatio(w,h);
+ratioW=r.rw;ratioH=r.rh;
+updateDisplay();
+}
+
+function swapDimensions(){
+var w=document.getElementById('widthInput').value;
+var h=document.getElementById('heightInput').value;
+document.getElementById('widthInput').value=h;
+document.getElementById('heightInput').value=w;
+var tmp=ratioW;ratioW=ratioH;ratioH=tmp;
+updateDisplay();
+}
+
+function halve(){
+var w=parseInt(document.getElementById('widthInput').value)||0;
+var h=parseInt(document.getElementById('heightInput').value)||0;
+document.getElementById('widthInput').value=Math.round(w/2);
+document.getElementById('heightInput').value=Math.round(h/2);
+updateDisplay();
+}
+
+function double_(){
+var w=parseInt(document.getElementById('widthInput').value)||0;
+var h=parseInt(document.getElementById('heightInput').value)||0;
+document.getElementById('widthInput').value=w*2;
+document.getElementById('heightInput').value=h*2;
+updateDisplay();
+}
+
+// Load saved
+try{
+var saved=JSON.parse(localStorage.getItem(LS_KEY));
+if(saved){
+document.getElementById('widthInput').value=saved.w;
+document.getElementById('heightInput').value=saved.h;
+var r=calcRatio(saved.w,saved.h);
+ratioW=r.rw;ratioH=r.rh;
+}
+}catch(e){}
+updateDisplay();
+</script>
+
+<!-- Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+<script src="/auto-monetize.js"></script>
+<!-- Share on X Button -->
+<div id="shareXBtn" style="position:fixed;left:20px;bottom:20px;z-index:9999;">
+  <a id="shareXLink" href="#" target="_blank" rel="noopener noreferrer" title="Share on X"
+     style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;
+     background:rgba(255,95,31,0.15);border:1px solid rgba(255,95,31,0.3);
+     backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:50%;
+     text-decoration:none;transition:all 0.3s ease;cursor:pointer;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+    </svg>
+  </a>
+</div>
+<style>
+  #shareXBtn a:hover {
+    background: rgba(255,95,31,0.35) !important;
+    border-color: rgba(255,95,31,0.6) !important;
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(255,95,31,0.3);
+  }
+</style>
+<script>
+(function(){
+  var page = "aspect-ratio-resizer";
+  var url = "https://spunk.codes/exclusive/" + page;
+  var text = "This aspect ratio calculator has all the social media sizes built in. Super handy. Free @SpunkArt13";
+  var href = "https://x.com/intent/tweet?text=" + encodeURIComponent(text) + "&url=" + encodeURIComponent(url);
+  document.getElementById("shareXLink").href = href;
+})();
+</script>
+<script src="/usage-tracker.js"></script>
+</body>
+</html>

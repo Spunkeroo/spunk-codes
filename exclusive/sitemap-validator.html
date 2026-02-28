@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sitemap Validator — XML Sitemap Checker | SPUNK.CODES</title>
+<meta name="description" content="Validate XML sitemaps. Check structure, URL count, priorities, lastmod dates. Flag errors and warnings. Export clean version. Free browser tool.">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP')</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w")</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e0e0e0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+header{background:#111118;border-bottom:2px solid #ff5f1f;padding:1rem 2rem;text-align:center}
+header h1{font-size:1.6rem;color:#ff5f1f}
+header p{color:#999;font-size:.9rem;margin-top:.3rem}
+.container{max-width:1100px;margin:0 auto;padding:1.5rem;flex:1;width:100%}
+.section{background:#111118;border:1px solid #1a1a2e;border-radius:10px;padding:1.5rem;margin-bottom:1.5rem}
+.section h2{color:#ff5f1f;font-size:1.2rem;margin-bottom:1rem;display:flex;align-items:center;justify-content:space-between}
+label{display:block;color:#bbb;font-size:.85rem;margin-bottom:.3rem}
+input,select,textarea{background:#0a0a0f;color:#e0e0e0;border:1px solid #1a1a2e;border-radius:6px;padding:.5rem .7rem;font-size:.9rem;width:100%}
+input:focus,select:focus,textarea:focus{outline:none;border-color:#ff5f1f}
+textarea{font-family:monospace;resize:vertical}
+.btn{background:#ff5f1f;color:#fff;border:none;padding:.55rem 1.1rem;border-radius:6px;cursor:pointer;font-size:.9rem;font-weight:600;transition:background .2s}
+.btn:hover{background:#e54e10}
+.btn-sm{padding:.35rem .7rem;font-size:.8rem}
+.btn-outline{background:transparent;border:1px solid #ff5f1f;color:#ff5f1f}
+.btn-outline:hover{background:#ff5f1f;color:#fff}
+.btn-danger{background:#c0392b}.btn-danger:hover{background:#a93226}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:.8rem;margin-bottom:1.5rem}
+.stat-card{background:#0a0a0f;border:1px solid #1a1a2e;border-radius:8px;padding:1rem;text-align:center}
+.stat-card .num{font-size:1.8rem;font-weight:700;color:#ff5f1f}
+.stat-card .lbl{font-size:.8rem;color:#888;margin-top:.2rem}
+.result-badge{display:inline-block;padding:.3rem .8rem;border-radius:20px;font-size:.85rem;font-weight:700;margin-bottom:1rem}
+.badge-pass{background:#1a3a1a;color:#2ecc71}
+.badge-warn{background:#2a2a1a;color:#f1c40f}
+.badge-fail{background:#3a1a1a;color:#e74c3c}
+.issues-list{margin-top:.5rem}
+.issue-item{padding:.6rem .8rem;border-left:3px solid;margin-bottom:.4rem;border-radius:0 6px 6px 0;font-size:.85rem}
+.issue-error{border-color:#e74c3c;background:#1a0a0a;color:#e74c3c}
+.issue-warning{border-color:#f1c40f;background:#1a1a0a;color:#f1c40f}
+.issue-info{border-color:#3498db;background:#0a0a1a;color:#3498db}
+.url-table{width:100%;border-collapse:collapse;margin-top:.5rem}
+.url-table th{text-align:left;padding:.5rem .6rem;border-bottom:2px solid #1a1a2e;color:#ff5f1f;font-size:.85rem;font-weight:700}
+.url-table td{padding:.4rem .6rem;border-bottom:1px solid #1a1a2e;font-size:.82rem;color:#ccc;word-break:break-all}
+.url-table tr:hover{background:#0a0a15}
+.output-box{background:#0a0a0f;border:1px solid #1a1a2e;border-radius:6px;padding:1rem;font-family:monospace;font-size:.82rem;color:#ccc;white-space:pre-wrap;word-break:break-all;max-height:400px;overflow-y:auto;line-height:1.5}
+.sample-btn{display:inline-block;background:#0a0a0f;border:1px solid #1a1a2e;border-radius:6px;padding:.4rem .8rem;cursor:pointer;color:#bbb;font-size:.82rem;transition:border-color .2s;margin-right:.5rem;margin-bottom:.5rem}
+.sample-btn:hover{border-color:#ff5f1f;color:#ff5f1f}
+.hidden{display:none}
+.table-scroll{max-height:400px;overflow-y:auto}
+footer{background:#111118;border-top:1px solid #1a1a2e;text-align:center;padding:1.2rem;color:#666;font-size:.8rem}
+footer a{color:#ff5f1f;margin:0 .3rem}
+@media(max-width:768px){
+  header h1{font-size:1.2rem}
+  .container{padding:1rem}
+  .stats-grid{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+<header>
+<h1>Sitemap Validator</h1>
+<p>Validate XML sitemaps. Check structure, URLs, priorities, dates. Free, browser-based.</p>
+</header>
+<div class="container">
+  <div class="section">
+    <h2>Input</h2>
+    <div style="margin-bottom:.8rem">
+      <span class="sample-btn" onclick="loadSample('basic')">Sample: Basic</span>
+      <span class="sample-btn" onclick="loadSample('errors')">Sample: With Errors</span>
+      <span class="sample-btn" onclick="loadSample('index')">Sample: Index</span>
+    </div>
+    <textarea id="xmlInput" rows="12" placeholder="Paste your sitemap XML here..."></textarea>
+    <div style="display:flex;gap:.5rem;margin-top:.8rem;flex-wrap:wrap">
+      <button class="btn" onclick="validate()">Validate Sitemap</button>
+      <button class="btn btn-outline" onclick="document.getElementById('fileInput').click()">Upload XML File</button>
+      <input type="file" id="fileInput" style="display:none" accept=".xml,.txt" onchange="loadFile(event)">
+      <button class="btn btn-outline" onclick="document.getElementById('xmlInput').value='';hideResults()">Clear</button>
+    </div>
+  </div>
+
+  <div class="section hidden" id="resultsSection">
+    <h2>Validation Results</h2>
+    <div id="resultBadge"></div>
+    <div class="stats-grid" id="statsGrid"></div>
+    <div id="issuesList"></div>
+  </div>
+
+  <div class="section hidden" id="urlsSection">
+    <h2>URLs Found <span class="btn btn-sm btn-outline" onclick="copyUrls()">Copy URLs</span></h2>
+    <div class="table-scroll">
+      <table class="url-table" id="urlTable">
+        <thead><tr><th>#</th><th>URL</th><th>Priority</th><th>Changefreq</th><th>Last Modified</th></tr></thead>
+        <tbody id="urlTableBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section hidden" id="cleanSection">
+    <h2>Clean Output <span style="display:flex;gap:.4rem"><button class="btn btn-sm" onclick="copyCleaned()">Copy</button><button class="btn btn-sm btn-outline" onclick="downloadCleaned()">Download</button></span></h2>
+    <div class="output-box" id="cleanOutput"></div>
+  </div>
+</div>
+<footer>
+  <a href="https://spunk.codes">spunk.codes</a> &middot; <a href="https://spunk.bet">spunk.bet</a> &middot; <a href="https://spunk.pics">spunk.pics</a> &middot; <a href="https://spunk.work">spunk.work</a> &middot; <a href="https://spunkart.com">SpunkArt.com</a>
+</footer>
+<script>
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
+
+const samples={
+basic:`<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://example.com/</loc>
+    <lastmod>2024-01-15</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://example.com/about</loc>
+    <lastmod>2024-01-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://example.com/blog</loc>
+    <lastmod>2024-01-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+</urlset>`,
+errors:`<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://example.com/</loc>
+    <priority>1.5</priority>
+    <changefreq>sometimes</changefreq>
+  </url>
+  <url>
+    <loc>example.com/no-protocol</loc>
+    <lastmod>not-a-date</lastmod>
+  </url>
+  <url>
+    <loc>https://example.com/valid</loc>
+    <priority>0.5</priority>
+    <changefreq>weekly</changefreq>
+    <lastmod>2024-02-01</lastmod>
+  </url>
+</urlset>`,
+index:`<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <sitemap>
+    <loc>https://example.com/sitemap-posts.xml</loc>
+    <lastmod>2024-01-15</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://example.com/sitemap-pages.xml</loc>
+    <lastmod>2024-01-10</lastmod>
+  </sitemap>
+</sitemapindex>`
+};
+
+function loadSample(name){document.getElementById('xmlInput').value=samples[name]||'';validate();}
+function loadFile(e){
+  const f=e.target.files[0];if(!f)return;
+  const r=new FileReader();r.onload=function(ev){document.getElementById('xmlInput').value=ev.target.result;validate();};
+  r.readAsText(f);e.target.value='';
+}
+
+function hideResults(){
+  ['resultsSection','urlsSection','cleanSection'].forEach(id=>document.getElementById(id).classList.add('hidden'));
+}
+
+let parsedUrls=[];
+
+function validate(){
+  const xml=document.getElementById('xmlInput').value.trim();
+  if(!xml){flash('Paste sitemap XML first');return;}
+
+  const issues=[];
+  let urls=[];
+  let isSitemapIndex=false;
+
+  // Parse XML
+  const parser=new DOMParser();
+  const doc=parser.parseFromString(xml,'text/xml');
+  const parseError=doc.querySelector('parsererror');
+  if(parseError){
+    issues.push({type:'error',msg:'XML parsing error: '+parseError.textContent.slice(0,200)});
+    showResults(issues,[],false);return;
+  }
+
+  // Check root element
+  const root=doc.documentElement;
+  if(root.localName==='sitemapindex'){
+    isSitemapIndex=true;
+    const sitemaps=root.getElementsByTagNameNS('*','sitemap');
+    for(let i=0;i<sitemaps.length;i++){
+      const loc=getTagText(sitemaps[i],'loc');
+      const lastmod=getTagText(sitemaps[i],'lastmod');
+      if(!loc)issues.push({type:'error',msg:'Sitemap '+(i+1)+': missing <loc>'});
+      else{
+        urls.push({loc,lastmod});
+        if(!loc.match(/^https?:\/\//))issues.push({type:'warning',msg:'Sitemap '+(i+1)+': URL missing protocol: '+loc});
+      }
+      if(lastmod&&!isValidDate(lastmod))issues.push({type:'warning',msg:'Sitemap '+(i+1)+': invalid lastmod date: '+lastmod});
+    }
+    if(sitemaps.length===0)issues.push({type:'error',msg:'No <sitemap> entries found'});
+  }else if(root.localName==='urlset'){
+    const urlEls=root.getElementsByTagNameNS('*','url');
+    const validFreqs=['always','hourly','daily','weekly','monthly','yearly','never'];
+    const seenUrls=new Set();
+    for(let i=0;i<urlEls.length;i++){
+      const loc=getTagText(urlEls[i],'loc');
+      const lastmod=getTagText(urlEls[i],'lastmod');
+      const changefreq=getTagText(urlEls[i],'changefreq');
+      const priority=getTagText(urlEls[i],'priority');
+      if(!loc){issues.push({type:'error',msg:'URL '+(i+1)+': missing <loc>'});continue;}
+      if(!loc.match(/^https?:\/\//))issues.push({type:'error',msg:'URL '+(i+1)+': missing protocol in <loc>: '+loc});
+      if(seenUrls.has(loc))issues.push({type:'warning',msg:'Duplicate URL: '+loc});
+      seenUrls.add(loc);
+      if(lastmod&&!isValidDate(lastmod))issues.push({type:'warning',msg:'URL '+(i+1)+': invalid lastmod: '+lastmod});
+      if(changefreq&&!validFreqs.includes(changefreq))issues.push({type:'error',msg:'URL '+(i+1)+': invalid changefreq: '+changefreq});
+      if(priority){
+        const p=parseFloat(priority);
+        if(isNaN(p)||p<0||p>1)issues.push({type:'error',msg:'URL '+(i+1)+': priority must be 0.0-1.0, got: '+priority});
+      }
+      if(loc.length>2048)issues.push({type:'warning',msg:'URL '+(i+1)+': URL exceeds 2048 chars'});
+      urls.push({loc,lastmod:lastmod||'',changefreq:changefreq||'',priority:priority||''});
+    }
+    if(urlEls.length===0)issues.push({type:'error',msg:'No <url> entries found'});
+    if(urlEls.length>50000)issues.push({type:'warning',msg:'Sitemap exceeds 50,000 URL limit ('+urlEls.length+')'});
+    const size=new Blob([xml]).size;
+    if(size>52428800)issues.push({type:'warning',msg:'Sitemap exceeds 50MB uncompressed limit'});
+
+    // Check xmlns
+    if(!root.getAttribute('xmlns')||!root.getAttribute('xmlns').includes('sitemaps.org'))
+      issues.push({type:'warning',msg:'Missing or incorrect xmlns attribute'});
+
+    // Info items
+    if(!issues.some(i=>i.type==='error')){
+      issues.push({type:'info',msg:'XML structure is valid'});
+      if(urls.every(u=>u.lastmod))issues.push({type:'info',msg:'All URLs have lastmod dates'});
+      else issues.push({type:'warning',msg:urls.filter(u=>!u.lastmod).length+' URLs missing lastmod'});
+    }
+  }else{
+    issues.push({type:'error',msg:'Root element must be <urlset> or <sitemapindex>, found: <'+root.localName+'>'});
+  }
+
+  parsedUrls=urls;
+  showResults(issues,urls,isSitemapIndex);
+}
+
+function getTagText(parent,tag){
+  const el=parent.getElementsByTagNameNS('*',tag)[0];
+  return el?el.textContent.trim():'';
+}
+
+function isValidDate(d){
+  return /^\d{4}-\d{2}-\d{2}(T\d{2}:\d{2}(:\d{2})?([+-]\d{2}:\d{2}|Z)?)?$/.test(d);
+}
+
+function showResults(issues,urls,isIndex){
+  document.getElementById('resultsSection').classList.remove('hidden');
+  const errors=issues.filter(i=>i.type==='error').length;
+  const warnings=issues.filter(i=>i.type==='warning').length;
+  let badge;
+  if(errors>0)badge='<span class="result-badge badge-fail">FAILED - '+errors+' error(s)</span>';
+  else if(warnings>0)badge='<span class="result-badge badge-warn">PASSED with '+warnings+' warning(s)</span>';
+  else badge='<span class="result-badge badge-pass">VALID SITEMAP</span>';
+  document.getElementById('resultBadge').innerHTML=badge;
+
+  const stats=[
+    {num:urls.length,lbl:isIndex?'Sitemaps':'URLs'},
+    {num:errors,lbl:'Errors'},
+    {num:warnings,lbl:'Warnings'},
+    {num:new Blob([document.getElementById('xmlInput').value]).size,lbl:'Bytes'},
+    {num:isIndex?'Index':'Urlset',lbl:'Type'}
+  ];
+  document.getElementById('statsGrid').innerHTML=stats.map(s=>'<div class="stat-card"><div class="num">'+(typeof s.num==='number'?s.num.toLocaleString():s.num)+'</div><div class="lbl">'+esc(s.lbl)+'</div></div>').join('');
+
+  document.getElementById('issuesList').innerHTML=issues.length?'<div class="issues-list">'+issues.map(i=>'<div class="issue-item issue-'+i.type+'">'+esc(i.msg)+'</div>').join('')+'</div>':'<div style="color:#2ecc71;text-align:center;padding:.5rem">No issues found!</div>';
+
+  // URLs table
+  if(urls.length&&!isIndex){
+    document.getElementById('urlsSection').classList.remove('hidden');
+    document.getElementById('urlTableBody').innerHTML=urls.map((u,i)=>'<tr><td>'+(i+1)+'</td><td>'+esc(u.loc)+'</td><td>'+esc(u.priority)+'</td><td>'+esc(u.changefreq)+'</td><td>'+esc(u.lastmod)+'</td></tr>').join('');
+  }else{document.getElementById('urlsSection').classList.add('hidden');}
+
+  // Generate clean output
+  if(urls.length&&!isIndex){
+    document.getElementById('cleanSection').classList.remove('hidden');
+    let clean='<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n';
+    urls.filter(u=>u.loc.match(/^https?:\/\//)).forEach(u=>{
+      clean+='  <url>\n    <loc>'+escXml(u.loc)+'</loc>\n';
+      if(u.lastmod&&isValidDate(u.lastmod))clean+='    <lastmod>'+u.lastmod+'</lastmod>\n';
+      if(u.changefreq&&['always','hourly','daily','weekly','monthly','yearly','never'].includes(u.changefreq))
+        clean+='    <changefreq>'+u.changefreq+'</changefreq>\n';
+      if(u.priority){const p=parseFloat(u.priority);if(!isNaN(p)&&p>=0&&p<=1)clean+='    <priority>'+p.toFixed(1)+'</priority>\n';}
+      clean+='  </url>\n';
+    });
+    clean+='</urlset>';
+    document.getElementById('cleanOutput').textContent=clean;
+  }else{document.getElementById('cleanSection').classList.add('hidden');}
+}
+
+function escXml(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&apos;');}
+
+function copyUrls(){
+  const urls=parsedUrls.map(u=>u.loc).join('\n');
+  navigator.clipboard.writeText(urls).then(()=>flash('URLs copied!'));
+}
+function copyCleaned(){
+  navigator.clipboard.writeText(document.getElementById('cleanOutput').textContent).then(()=>flash('Clean XML copied!'));
+}
+function downloadCleaned(){
+  const xml=document.getElementById('cleanOutput').textContent;
+  const blob=new Blob([xml],{type:'application/xml'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='sitemap-clean.xml';a.click();
+  URL.revokeObjectURL(a.href);flash('Downloaded!');
+}
+
+function flash(msg){
+  const d=document.createElement('div');
+  d.style.cssText='position:fixed;top:20px;right:20px;background:#ff5f1f;color:#fff;padding:.8rem 1.5rem;border-radius:8px;font-weight:600;z-index:9999;animation:fadeOut 2s forwards';
+  d.textContent=msg;document.body.appendChild(d);setTimeout(()=>d.remove(),2200);
+}
+const st=document.createElement('style');st.textContent='@keyframes fadeOut{0%{opacity:1}70%{opacity:1}100%{opacity:0}}';document.head.appendChild(st);
+</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>

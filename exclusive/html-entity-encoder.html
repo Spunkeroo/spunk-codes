@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HTML Entity Encoder/Decoder - Named, Decimal, Hex | SPUNK.CODES Exclusive</title>
+<meta name="description" content="Encode and decode HTML entities. Support for named, decimal, and hex formats. Full reference table of common HTML entities.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="HTML Entity Encoder/Decoder - SPUNK.CODES Exclusive">
+<meta property="og:description" content="Encode and decode HTML entities with named, decimal, and hex format support.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://spunk.codes/exclusive/html-entity-encoder">
+<meta property="og:site_name" content="Spunk Codes">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<meta name="twitter:creator" content="@SpunkArt13">
+<meta name="twitter:title" content="HTML Entity Encoder/Decoder - SPUNK.CODES Exclusive">
+<meta name="twitter:description" content="Encode and decode HTML entities with full reference table.">
+<link rel="canonical" href="https://spunk.codes/exclusive/html-entity-encoder">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"HTML Entity Encoder/Decoder","url":"https://spunk.codes/exclusive/html-entity-encoder","applicationCategory":"DeveloperApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Encode and decode HTML entities. Named, decimal, and hex formats with full reference table.","author":{"@type":"Organization","name":"Spunk Codes","url":"https://spunk.codes"}}</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0f;color:#e0e0e0;min-height:100vh;line-height:1.6}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+.wrap{max-width:1000px;margin:0 auto;padding:1.5rem}
+h1{font-size:2rem;font-weight:800;text-align:center;margin:1.5rem 0 0.5rem}
+h1 span{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.subtitle{text-align:center;color:#8b949e;margin-bottom:2rem;max-width:650px;margin-left:auto;margin-right:auto}
+.card{background:rgba(18,18,28,0.85);border:1px solid #1a1a2e;border-radius:14px;padding:1.5rem;margin-bottom:1.5rem;position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#ff5f1f,#ff9f1f,#ff5f1f)}
+.card h2{font-size:1rem;font-weight:700;margin-bottom:1rem;color:#ff9f1f}
+textarea{width:100%;padding:1rem;background:#0a0a0f;border:1px solid #1a1a2e;border-radius:8px;color:#e0e0e0;font-family:'Courier New',monospace;font-size:0.9rem;resize:vertical;outline:none;min-height:120px;line-height:1.5}
+textarea:focus{border-color:#ff5f1f}
+.btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.85rem;font-weight:700;cursor:pointer;border:none;transition:all 0.2s;display:inline-flex;align-items:center;gap:0.4rem}
+.btn-primary{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);color:#000}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 4px 15px rgba(255,95,31,0.3)}
+.btn-outline{background:transparent;border:1px solid rgba(255,95,31,0.3);color:#ff9f1f}
+.btn-outline:hover{background:rgba(255,95,31,0.1)}
+.actions{display:flex;gap:0.5rem;flex-wrap:wrap;margin:1rem 0}
+.mode-tabs{display:flex;gap:0.5rem;margin-bottom:1rem}
+.mode-tab{padding:0.5rem 1rem;border-radius:8px;font-size:0.8rem;font-weight:700;cursor:pointer;border:1px solid #1a1a2e;background:transparent;color:#8b949e;transition:all 0.2s}
+.mode-tab.active{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);color:#000;border-color:transparent}
+.mode-tab:hover:not(.active){background:rgba(255,95,31,0.1);color:#ff9f1f}
+.output-area{width:100%;min-height:120px;padding:1rem;background:#0a0a0f;border:1px solid #1a1a2e;border-radius:8px;font-family:'Courier New',monospace;font-size:0.9rem;overflow:auto;line-height:1.5;white-space:pre-wrap;word-break:break-word}
+.entity-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:0.5rem;max-height:500px;overflow-y:auto;padding-right:0.5rem}
+.entity-item{display:flex;align-items:center;gap:0.5rem;padding:0.5rem 0.8rem;background:rgba(10,10,15,0.6);border:1px solid rgba(255,95,31,0.06);border-radius:6px;cursor:pointer;transition:all 0.2s;font-size:0.8rem}
+.entity-item:hover{border-color:rgba(255,95,31,0.3);background:rgba(255,95,31,0.05)}
+.entity-char{font-size:1.2rem;width:28px;text-align:center;flex-shrink:0}
+.entity-name{color:#ff9f1f;font-family:'Courier New',monospace;font-size:0.75rem}
+.entity-code{color:#8b949e;font-family:'Courier New',monospace;font-size:0.7rem}
+.search-input{width:100%;padding:0.6rem 0.8rem;background:#0a0a0f;border:1px solid #1a1a2e;border-radius:8px;color:#e0e0e0;font-size:0.9rem;outline:none;margin-bottom:1rem}
+.search-input:focus{border-color:#ff5f1f}
+.arrow-down{display:flex;justify-content:center;margin:0.5rem 0;font-size:1.5rem;color:#ff5f1f}
+.stat{font-size:0.78rem;color:#8b949e;margin-top:0.5rem}
+.copied{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(57,211,83,0.95);color:#000;padding:0.8rem 2rem;border-radius:10px;font-weight:700;font-size:1rem;z-index:9999;pointer-events:none;animation:fadeOut 1.5s ease forwards}
+@keyframes fadeOut{0%{opacity:1;transform:translate(-50%,-50%) scale(1)}70%{opacity:1}100%{opacity:0;transform:translate(-50%,-60%) scale(0.95)}}
+.network-footer{text-align:center;padding:2rem 0 1rem;border-top:1px solid #1a1a2e;margin-top:2rem}
+.network-footer .links{display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap;font-size:0.85rem;margin-bottom:0.5rem}
+.network-footer .copy{color:#8b949e;font-size:0.75rem}
+.cta-banner{text-align:center;margin:2rem 0 1rem;padding:1.5rem;background:linear-gradient(135deg,rgba(255,95,31,0.1),rgba(255,159,31,0.05));border:1px solid rgba(255,95,31,0.2);border-radius:14px}
+.cta-banner p{color:#8b949e;font-size:0.9rem;margin-bottom:0.8rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1><span>HTML Entity Encoder/Decoder</span></h1>
+<p class="subtitle">Encode special characters to HTML entities or decode them back. Supports named, decimal, and hexadecimal formats.</p>
+
+<div class="card">
+<h2>Input</h2>
+<textarea id="inputText" placeholder='Type or paste text here... e.g. <div class="test"> or &amp;lt;div&amp;gt;'></textarea>
+<div class="actions">
+<button class="btn btn-primary" onclick="encode()">Encode &darr;</button>
+<button class="btn btn-primary" onclick="decode()">Decode &darr;</button>
+<button class="btn btn-outline" onclick="swapIO()">Swap Input/Output</button>
+<button class="btn btn-outline" onclick="clearAll()">Clear</button>
+</div>
+</div>
+
+<div class="card">
+<h2>Encoding Format</h2>
+<div class="mode-tabs">
+<button class="mode-tab active" onclick="setMode('named',this)">Named (&amp;amp;)</button>
+<button class="mode-tab" onclick="setMode('decimal',this)">Decimal (&amp;#38;)</button>
+<button class="mode-tab" onclick="setMode('hex',this)">Hex (&amp;#x26;)</button>
+<button class="mode-tab" onclick="setMode('all',this)">Encode All Chars</button>
+</div>
+</div>
+
+<div class="card">
+<h2>Output</h2>
+<div class="output-area" id="outputArea"></div>
+<div class="stat" id="statInfo"></div>
+<div class="actions">
+<button class="btn btn-outline" onclick="copyOutput()">Copy Output</button>
+</div>
+</div>
+
+<div class="card">
+<h2>HTML Entity Reference</h2>
+<input type="text" class="search-input" id="entitySearch" placeholder="Search entities (e.g. ampersand, heart, arrow...)" oninput="filterEntities()">
+<div class="entity-grid" id="entityGrid"></div>
+</div>
+
+<div class="cta-banner">
+<p>300+ free tools for developers, creators & founders</p>
+<a href="https://spunk.codes" class="btn btn-primary">Browse All Tools</a>
+</div>
+<div class="network-footer">
+<div class="links">
+<a href="https://spunk.codes">Home</a>
+<a href="https://spunk.codes/exclusive/">Exclusive Tools</a>
+<a href="https://spunk.codes/about">About</a>
+<a href="https://x.com/SpunkArt13">@SpunkArt13</a>
+</div>
+<div class="copy">&copy; 2025 spunk.codes</div>
+</div>
+</div>
+
+<script>
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+
+var currentMode='named';
+
+var namedEntities=[
+['&','amp','38','ampersand'],['<','lt','60','less than'],['>','gt','62','greater than'],
+['"','quot','34','quotation mark'],["'",'apos','39','apostrophe'],
+[' ','nbsp','160','non-breaking space'],['&copy;','copy','169','copyright'],
+['&reg;','reg','174','registered'],['&trade;','trade','8482','trademark'],
+['&euro;','euro','8364','euro sign'],['&pound;','pound','163','pound sign'],
+['&yen;','yen','165','yen sign'],['&cent;','cent','162','cent sign'],
+['&sect;','sect','167','section'],['&para;','para','182','paragraph'],
+['&deg;','deg','176','degree'],['&plusmn;','plusmn','177','plus-minus'],
+['&times;','times','215','multiplication'],['&divide;','divide','247','division'],
+['&frac12;','frac12','189','one half'],['&frac14;','frac14','188','one quarter'],
+['&frac34;','frac34','190','three quarters'],
+['&laquo;','laquo','171','left angle quotes'],['&raquo;','raquo','187','right angle quotes'],
+['&lsquo;','lsquo','8216','left single quote'],['&rsquo;','rsquo','8217','right single quote'],
+['&ldquo;','ldquo','8220','left double quote'],['&rdquo;','rdquo','8221','right double quote'],
+['&ndash;','ndash','8211','en dash'],['&mdash;','mdash','8212','em dash'],
+['&bull;','bull','8226','bullet'],['&hellip;','hellip','8230','ellipsis'],
+['&larr;','larr','8592','left arrow'],['&rarr;','rarr','8594','right arrow'],
+['&uarr;','uarr','8593','up arrow'],['&darr;','darr','8595','down arrow'],
+['&harr;','harr','8596','left-right arrow'],
+['&hearts;','hearts','9829','heart'],['&diams;','diams','9830','diamond'],
+['&clubs;','clubs','9827','club'],['&spades;','spades','9824','spade'],
+['&check;','check','10003','checkmark'],['&cross;','cross','10007','cross mark'],
+['&star;','star','9734','star'],['&starf;','starf','9733','filled star'],
+['&infin;','infin','8734','infinity'],['&ne;','ne','8800','not equal'],
+['&le;','le','8804','less or equal'],['&ge;','ge','8805','greater or equal'],
+['&asymp;','asymp','8776','approximately'],['&sum;','sum','8721','sum'],
+['&prod;','prod','8719','product'],['&radic;','radic','8730','square root'],
+['&alpha;','alpha','945','alpha'],['&beta;','beta','946','beta'],
+['&gamma;','gamma','947','gamma'],['&delta;','delta','948','delta'],
+['&pi;','pi','960','pi'],['&sigma;','sigma','963','sigma'],
+['&mu;','mu','956','mu'],['&lambda;','lambda','955','lambda']
+];
+
+// Build lookup for named encoding
+var charToEntity={};
+namedEntities.forEach(function(e){
+var ch=e[0];var name=e[1];
+// Only map single chars
+if(ch.length===1)charToEntity[ch]='&'+name+';';
+});
+
+function encode(){
+var input=document.getElementById('inputText').value;
+if(!input)return;
+var result='';
+var encoded=0;
+for(var i=0;i<input.length;i++){
+var ch=input[i];
+var code=input.charCodeAt(i);
+if(currentMode==='named'&&charToEntity[ch]){
+result+=charToEntity[ch];encoded++;
+}else if(currentMode==='decimal'&&(code<32||code>126||ch==='<'||ch==='>'||ch==='&'||ch==='"'||ch==="'")){
+result+='&#'+code+';';encoded++;
+}else if(currentMode==='hex'&&(code<32||code>126||ch==='<'||ch==='>'||ch==='&'||ch==='"'||ch==="'")){
+result+='&#x'+code.toString(16)+';';encoded++;
+}else if(currentMode==='all'){
+result+='&#'+code+';';encoded++;
+}else{
+result+=ch;
+}
+}
+document.getElementById('outputArea').textContent=result;
+document.getElementById('statInfo').textContent=encoded+' character(s) encoded | '+result.length+' total output characters';
+}
+
+function decode(){
+var input=document.getElementById('inputText').value;
+if(!input)return;
+var div=document.createElement('div');
+div.innerHTML=input;
+var result=div.textContent||div.innerText||'';
+document.getElementById('outputArea').textContent=result;
+document.getElementById('statInfo').textContent='Decoded to '+result.length+' character(s)';
+}
+
+function setMode(mode,btn){
+currentMode=mode;
+document.querySelectorAll('.mode-tab').forEach(function(t){t.classList.remove('active')});
+btn.classList.add('active');
+if(document.getElementById('inputText').value)encode();
+}
+
+function swapIO(){
+var input=document.getElementById('inputText').value;
+var output=document.getElementById('outputArea').textContent;
+document.getElementById('inputText').value=output;
+document.getElementById('outputArea').textContent=input;
+}
+
+function clearAll(){
+document.getElementById('inputText').value='';
+document.getElementById('outputArea').textContent='';
+document.getElementById('statInfo').textContent='';
+}
+
+function copyOutput(){
+var text=document.getElementById('outputArea').textContent;
+if(!text)return;
+navigator.clipboard.writeText(text).then(function(){showToast('Copied!')});
+}
+
+function renderEntities(filter){
+var grid=document.getElementById('entityGrid');
+grid.innerHTML='';
+var f=(filter||'').toLowerCase();
+namedEntities.forEach(function(e){
+var ch=e[0],name=e[1],code=e[2],desc=e[3];
+if(f&&name.indexOf(f)===-1&&desc.indexOf(f)===-1&&ch.indexOf(f)===-1)return;
+var item=document.createElement('div');
+item.className='entity-item';
+item.onclick=function(){
+document.getElementById('inputText').value+=ch.length===1?ch:String.fromCharCode(parseInt(code));
+};
+item.innerHTML='<span class="entity-char">'+esc(ch.length===1?ch:String.fromCharCode(parseInt(code)))+'</span><div><div class="entity-name">&amp;'+esc(name)+';</div><div class="entity-code">&#'+esc(code)+'; | '+esc(desc)+'</div></div>';
+grid.appendChild(item);
+});
+}
+
+function filterEntities(){
+renderEntities(document.getElementById('entitySearch').value);
+}
+
+function showToast(msg){
+var t=document.createElement('div');t.className='copied';t.textContent=msg;
+document.body.appendChild(t);setTimeout(function(){t.remove()},1500);
+}
+
+renderEntities();
+</script>
+
+<!-- Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+<script src="/auto-monetize.js"></script>
+<!-- Share on X Button -->
+<div id="shareXBtn" style="position:fixed;left:20px;bottom:20px;z-index:9999;">
+  <a id="shareXLink" href="#" target="_blank" rel="noopener noreferrer" title="Share on X"
+     style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;
+     background:rgba(255,95,31,0.15);border:1px solid rgba(255,95,31,0.3);
+     backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:50%;
+     text-decoration:none;transition:all 0.3s ease;cursor:pointer;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+    </svg>
+  </a>
+</div>
+<style>
+  #shareXBtn a:hover {
+    background: rgba(255,95,31,0.35) !important;
+    border-color: rgba(255,95,31,0.6) !important;
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(255,95,31,0.3);
+  }
+</style>
+<script>
+(function(){
+  var page = "html-entity-encoder";
+  var url = "https://spunk.codes/exclusive/" + page;
+  var text = "HTML entity encoder/decoder with full reference table. Named, decimal, hex formats. Free @SpunkArt13";
+  var href = "https://x.com/intent/tweet?text=" + encodeURIComponent(text) + "&url=" + encodeURIComponent(url);
+  document.getElementById("shareXLink").href = href;
+})();
+</script>
+<script src="/usage-tracker.js"></script>
+</body>
+</html>

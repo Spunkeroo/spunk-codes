@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CSS Clip Path Generator — Visual Polygon Editor | SPUNK.CODES</title>
+<meta name="description" content="Create CSS clip-path shapes visually. Drag points, use presets (triangle, star, arrow), circle and ellipse modes. Copy CSS. Free browser tool.">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP')</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w")</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e0e0e0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+header{background:#111118;border-bottom:2px solid #ff5f1f;padding:1rem 2rem;text-align:center}
+header h1{font-size:1.6rem;color:#ff5f1f}
+header p{color:#999;font-size:.9rem;margin-top:.3rem}
+.container{max-width:1100px;margin:0 auto;padding:1.5rem;flex:1;width:100%}
+.section{background:#111118;border:1px solid #1a1a2e;border-radius:10px;padding:1.5rem;margin-bottom:1.5rem}
+.section h2{color:#ff5f1f;font-size:1.2rem;margin-bottom:1rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem}
+label{display:block;color:#bbb;font-size:.85rem;margin-bottom:.3rem}
+input,select{background:#0a0a0f;color:#e0e0e0;border:1px solid #1a1a2e;border-radius:6px;padding:.5rem .7rem;font-size:.9rem;width:100%}
+input:focus,select:focus{outline:none;border-color:#ff5f1f}
+.btn{background:#ff5f1f;color:#fff;border:none;padding:.55rem 1.1rem;border-radius:6px;cursor:pointer;font-size:.9rem;font-weight:600;transition:background .2s}
+.btn:hover{background:#e54e10}
+.btn-sm{padding:.35rem .7rem;font-size:.8rem}
+.btn-outline{background:transparent;border:1px solid #ff5f1f;color:#ff5f1f}
+.btn-outline:hover{background:#ff5f1f;color:#fff}
+.btn-danger{background:#c0392b}.btn-danger:hover{background:#a93226}
+.presets{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem}
+.preset-btn{background:#1a1a2e;color:#e0e0e0;border:1px solid #2a2a3a;padding:.5rem 1rem;border-radius:6px;cursor:pointer;font-size:.85rem;transition:all .2s}
+.preset-btn:hover{border-color:#ff5f1f;color:#ff5f1f}
+.editor-wrap{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+.canvas-wrap{position:relative;background:#1a1a2e;border-radius:8px;overflow:hidden;aspect-ratio:1}
+.canvas-wrap canvas{width:100%;height:100%;display:block;cursor:crosshair}
+.point{position:absolute;width:14px;height:14px;background:#ff5f1f;border:2px solid #fff;border-radius:50%;cursor:grab;transform:translate(-50%,-50%);z-index:10;transition:box-shadow .2s}
+.point:hover{box-shadow:0 0 10px #ff5f1f}
+.point.active{background:#fff;border-color:#ff5f1f}
+.preview-shape{width:100%;aspect-ratio:1;background:linear-gradient(135deg,#ff5f1f,#ff8f5f);border-radius:0}
+.output-box{background:#0a0a0f;border:1px solid #1a1a2e;border-radius:6px;padding:1rem;font-family:monospace;font-size:.9rem;color:#ccc;line-height:1.6;word-break:break-all}
+.mode-tabs{display:flex;gap:0;margin-bottom:1rem}
+.mode-tab{padding:.5rem 1rem;background:#1a1a2e;color:#999;border:1px solid #2a2a3a;cursor:pointer;font-size:.85rem;transition:all .2s}
+.mode-tab:first-child{border-radius:6px 0 0 6px}
+.mode-tab:last-child{border-radius:0 6px 6px 0}
+.mode-tab.active{background:#ff5f1f;color:#fff;border-color:#ff5f1f}
+.controls-row{display:flex;gap:1rem;margin-bottom:1rem;flex-wrap:wrap;align-items:end}
+.controls-row>div{flex:1;min-width:100px}
+footer{background:#111118;border-top:1px solid #1a1a2e;text-align:center;padding:1.2rem;color:#666;font-size:.8rem}
+footer a{color:#ff5f1f;margin:0 .3rem}
+@media(max-width:768px){
+  header h1{font-size:1.2rem}
+  .container{padding:1rem}
+  .editor-wrap{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<header>
+<h1>CSS Clip Path Generator</h1>
+<p>Create clip-path shapes visually. Drag points, use presets, copy CSS. 100% client-side.</p>
+</header>
+<div class="container">
+  <div class="section">
+    <h2>Shape Mode</h2>
+    <div class="mode-tabs">
+      <div class="mode-tab active" onclick="setMode('polygon',this)">Polygon</div>
+      <div class="mode-tab" onclick="setMode('circle',this)">Circle</div>
+      <div class="mode-tab" onclick="setMode('ellipse',this)">Ellipse</div>
+      <div class="mode-tab" onclick="setMode('inset',this)">Inset</div>
+    </div>
+  </div>
+
+  <div id="polygonControls">
+    <div class="section">
+      <h2>Presets</h2>
+      <div class="presets">
+        <button class="preset-btn" onclick="loadPreset('triangle')">Triangle</button>
+        <button class="preset-btn" onclick="loadPreset('pentagon')">Pentagon</button>
+        <button class="preset-btn" onclick="loadPreset('hexagon')">Hexagon</button>
+        <button class="preset-btn" onclick="loadPreset('star')">Star</button>
+        <button class="preset-btn" onclick="loadPreset('arrow')">Arrow Right</button>
+        <button class="preset-btn" onclick="loadPreset('arrowLeft')">Arrow Left</button>
+        <button class="preset-btn" onclick="loadPreset('chevron')">Chevron</button>
+        <button class="preset-btn" onclick="loadPreset('cross')">Cross</button>
+        <button class="preset-btn" onclick="loadPreset('diamond')">Diamond</button>
+        <button class="preset-btn" onclick="loadPreset('parallelogram')">Parallelogram</button>
+        <button class="preset-btn" onclick="loadPreset('trapezoid')">Trapezoid</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="circleControls" style="display:none">
+    <div class="section">
+      <h2>Circle Settings</h2>
+      <div class="controls-row">
+        <div><label>Radius (%)</label><input type="range" id="circleR" min="5" max="50" value="40" oninput="updateShape()"><span id="circleRVal">40</span>%</div>
+        <div><label>Center X (%)</label><input type="range" id="circleCX" min="0" max="100" value="50" oninput="updateShape()"><span id="circleCXVal">50</span>%</div>
+        <div><label>Center Y (%)</label><input type="range" id="circleCY" min="0" max="100" value="50" oninput="updateShape()"><span id="circleCYVal">50</span>%</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="ellipseControls" style="display:none">
+    <div class="section">
+      <h2>Ellipse Settings</h2>
+      <div class="controls-row">
+        <div><label>Radius X (%)</label><input type="range" id="ellipseRX" min="5" max="50" value="40" oninput="updateShape()"><span id="ellipseRXVal">40</span>%</div>
+        <div><label>Radius Y (%)</label><input type="range" id="ellipseRY" min="5" max="50" value="30" oninput="updateShape()"><span id="ellipseRYVal">30</span>%</div>
+        <div><label>Center X (%)</label><input type="range" id="ellipseCX" min="0" max="100" value="50" oninput="updateShape()"><span id="ellipseCXVal">50</span>%</div>
+        <div><label>Center Y (%)</label><input type="range" id="ellipseCY" min="0" max="100" value="50" oninput="updateShape()"><span id="ellipseCYVal">50</span>%</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="insetControls" style="display:none">
+    <div class="section">
+      <h2>Inset Settings</h2>
+      <div class="controls-row">
+        <div><label>Top (%)</label><input type="range" id="insetTop" min="0" max="50" value="10" oninput="updateShape()"><span id="insetTopVal">10</span>%</div>
+        <div><label>Right (%)</label><input type="range" id="insetRight" min="0" max="50" value="10" oninput="updateShape()"><span id="insetRightVal">10</span>%</div>
+        <div><label>Bottom (%)</label><input type="range" id="insetBottom" min="0" max="50" value="10" oninput="updateShape()"><span id="insetBottomVal">10</span>%</div>
+        <div><label>Left (%)</label><input type="range" id="insetLeft" min="0" max="50" value="10" oninput="updateShape()"><span id="insetLeftVal">10</span>%</div>
+        <div><label>Border Radius (px)</label><input type="range" id="insetRadius" min="0" max="50" value="0" oninput="updateShape()"><span id="insetRadiusVal">0</span>px</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Editor & Preview</h2>
+    <div class="editor-wrap">
+      <div>
+        <div class="canvas-wrap" id="canvasWrap">
+          <canvas id="editorCanvas"></canvas>
+        </div>
+        <div style="margin-top:.5rem;display:flex;gap:.5rem">
+          <button class="btn btn-sm btn-outline" onclick="addPoint()">+ Add Point</button>
+          <button class="btn btn-sm btn-danger" onclick="removeLastPoint()">- Remove Last</button>
+          <button class="btn btn-sm btn-outline" onclick="resetPoints()">Reset</button>
+        </div>
+      </div>
+      <div>
+        <div class="preview-shape" id="previewShape"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>CSS Output <button class="btn btn-sm" onclick="copyCSS()">Copy</button></h2>
+    <div class="output-box" id="cssOutput"></div>
+  </div>
+</div>
+<footer>
+  <a href="https://spunk.codes">spunk.codes</a> · <a href="https://spunk.bet">spunk.bet</a> · <a href="https://spunk.pics">spunk.pics</a> · <a href="https://spunk.work">spunk.work</a> · <a href="https://spunkart.com">SpunkArt.com</a>
+</footer>
+<script>
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
+
+let currentMode='polygon';
+let points=[{x:50,y:0},{x:100,y:100},{x:0,y:100}]; // triangle default
+let dragging=-1;
+const canvas=document.getElementById('editorCanvas');
+const ctx=canvas.getContext('2d');
+const wrap=document.getElementById('canvasWrap');
+
+function setMode(mode,el){
+  currentMode=mode;
+  document.querySelectorAll('.mode-tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('polygonControls').style.display=mode==='polygon'?'block':'none';
+  document.getElementById('circleControls').style.display=mode==='circle'?'block':'none';
+  document.getElementById('ellipseControls').style.display=mode==='ellipse'?'block':'none';
+  document.getElementById('insetControls').style.display=mode==='inset'?'block':'none';
+  updateShape();
+}
+
+const presets={
+  triangle:[{x:50,y:0},{x:100,y:100},{x:0,y:100}],
+  pentagon:[{x:50,y:0},{x:100,y:38},{x:81,y:100},{x:19,y:100},{x:0,y:38}],
+  hexagon:[{x:25,y:0},{x:75,y:0},{x:100,y:50},{x:75,y:100},{x:25,y:100},{x:0,y:50}],
+  star:[{x:50,y:0},{x:61,y:35},{x:98,y:35},{x:68,y:57},{x:79,y:91},{x:50,y:70},{x:21,y:91},{x:32,y:57},{x:2,y:35},{x:39,y:35}],
+  arrow:[{x:0,y:25},{x:60,y:25},{x:60,y:0},{x:100,y:50},{x:60,y:100},{x:60,y:75},{x:0,y:75}],
+  arrowLeft:[{x:40,y:0},{x:40,y:25},{x:100,y:25},{x:100,y:75},{x:40,y:75},{x:40,y:100},{x:0,y:50}],
+  chevron:[{x:0,y:0},{x:75,y:0},{x:100,y:50},{x:75,y:100},{x:0,y:100},{x:25,y:50}],
+  cross:[{x:35,y:0},{x:65,y:0},{x:65,y:35},{x:100,y:35},{x:100,y:65},{x:65,y:65},{x:65,y:100},{x:35,y:100},{x:35,y:65},{x:0,y:65},{x:0,y:35},{x:35,y:35}],
+  diamond:[{x:50,y:0},{x:100,y:50},{x:50,y:100},{x:0,y:50}],
+  parallelogram:[{x:20,y:0},{x:100,y:0},{x:80,y:100},{x:0,y:100}],
+  trapezoid:[{x:20,y:0},{x:80,y:0},{x:100,y:100},{x:0,y:100}]
+};
+
+function loadPreset(name){
+  points=presets[name].map(p=>({...p}));
+  drawCanvas();
+  updateShape();
+}
+
+function resizeCanvas(){
+  const rect=wrap.getBoundingClientRect();
+  canvas.width=rect.width;
+  canvas.height=rect.height;
+  drawCanvas();
+}
+
+function drawCanvas(){
+  const w=canvas.width,h=canvas.height;
+  ctx.clearRect(0,0,w,h);
+
+  // Grid
+  ctx.strokeStyle='#2a2a3a';
+  ctx.lineWidth=0.5;
+  for(let i=0;i<=10;i++){
+    const x=w*i/10,y=h*i/10;
+    ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,h);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(w,y);ctx.stroke();
+  }
+
+  if(currentMode==='polygon'&&points.length>1){
+    // Fill
+    ctx.fillStyle='rgba(255,95,31,0.2)';
+    ctx.beginPath();
+    ctx.moveTo(points[0].x*w/100,points[0].y*h/100);
+    for(let i=1;i<points.length;i++){
+      ctx.lineTo(points[i].x*w/100,points[i].y*h/100);
+    }
+    ctx.closePath();
+    ctx.fill();
+
+    // Lines
+    ctx.strokeStyle='#ff5f1f';
+    ctx.lineWidth=2;
+    ctx.beginPath();
+    ctx.moveTo(points[0].x*w/100,points[0].y*h/100);
+    for(let i=1;i<points.length;i++){
+      ctx.lineTo(points[i].x*w/100,points[i].y*h/100);
+    }
+    ctx.closePath();
+    ctx.stroke();
+
+    // Points
+    points.forEach((p,i)=>{
+      ctx.beginPath();
+      ctx.arc(p.x*w/100,p.y*h/100,6,0,Math.PI*2);
+      ctx.fillStyle=i===dragging?'#fff':'#ff5f1f';
+      ctx.fill();
+      ctx.strokeStyle='#fff';
+      ctx.lineWidth=2;
+      ctx.stroke();
+      // Label
+      ctx.fillStyle='#999';
+      ctx.font='11px monospace';
+      ctx.fillText(`${Math.round(p.x)}%,${Math.round(p.y)}%`,p.x*w/100+10,p.y*h/100-10);
+    });
+  }
+}
+
+function updateShape(){
+  let clipPath='';
+  if(currentMode==='polygon'){
+    clipPath='polygon('+points.map(p=>`${Math.round(p.x)}% ${Math.round(p.y)}%`).join(', ')+')';
+  }else if(currentMode==='circle'){
+    const r=document.getElementById('circleR').value;
+    const cx=document.getElementById('circleCX').value;
+    const cy=document.getElementById('circleCY').value;
+    document.getElementById('circleRVal').textContent=r;
+    document.getElementById('circleCXVal').textContent=cx;
+    document.getElementById('circleCYVal').textContent=cy;
+    clipPath=`circle(${r}% at ${cx}% ${cy}%)`;
+  }else if(currentMode==='ellipse'){
+    const rx=document.getElementById('ellipseRX').value;
+    const ry=document.getElementById('ellipseRY').value;
+    const cx=document.getElementById('ellipseCX').value;
+    const cy=document.getElementById('ellipseCY').value;
+    document.getElementById('ellipseRXVal').textContent=rx;
+    document.getElementById('ellipseRYVal').textContent=ry;
+    document.getElementById('ellipseCXVal').textContent=cx;
+    document.getElementById('ellipseCYVal').textContent=cy;
+    clipPath=`ellipse(${rx}% ${ry}% at ${cx}% ${cy}%)`;
+  }else if(currentMode==='inset'){
+    const t=document.getElementById('insetTop').value;
+    const r=document.getElementById('insetRight').value;
+    const b=document.getElementById('insetBottom').value;
+    const l=document.getElementById('insetLeft').value;
+    const rad=document.getElementById('insetRadius').value;
+    document.getElementById('insetTopVal').textContent=t;
+    document.getElementById('insetRightVal').textContent=r;
+    document.getElementById('insetBottomVal').textContent=b;
+    document.getElementById('insetLeftVal').textContent=l;
+    document.getElementById('insetRadiusVal').textContent=rad;
+    clipPath=`inset(${t}% ${r}% ${b}% ${l}%${rad>0?' round '+rad+'px':''})`;
+  }
+
+  document.getElementById('previewShape').style.clipPath=clipPath;
+  document.getElementById('cssOutput').textContent=`clip-path: ${clipPath};\n-webkit-clip-path: ${clipPath};`;
+  localStorage.setItem('clippath_data',JSON.stringify({mode:currentMode,points,clipPath}));
+}
+
+function addPoint(){
+  if(currentMode!=='polygon')return;
+  points.push({x:50,y:50});
+  drawCanvas();updateShape();
+}
+function removeLastPoint(){
+  if(currentMode!=='polygon'||points.length<=3)return;
+  points.pop();drawCanvas();updateShape();
+}
+function resetPoints(){
+  if(currentMode==='polygon'){
+    points=[{x:50,y:0},{x:100,y:100},{x:0,y:100}];
+    drawCanvas();updateShape();
+  }
+}
+
+// Mouse dragging
+canvas.addEventListener('mousedown',function(e){
+  if(currentMode!=='polygon')return;
+  const rect=canvas.getBoundingClientRect();
+  const mx=(e.clientX-rect.left)/rect.width*100;
+  const my=(e.clientY-rect.top)/rect.height*100;
+  points.forEach((p,i)=>{
+    if(Math.abs(p.x-mx)<4&&Math.abs(p.y-my)<4)dragging=i;
+  });
+});
+canvas.addEventListener('mousemove',function(e){
+  if(dragging<0)return;
+  const rect=canvas.getBoundingClientRect();
+  points[dragging].x=Math.max(0,Math.min(100,(e.clientX-rect.left)/rect.width*100));
+  points[dragging].y=Math.max(0,Math.min(100,(e.clientY-rect.top)/rect.height*100));
+  drawCanvas();updateShape();
+});
+canvas.addEventListener('mouseup',function(){dragging=-1;});
+canvas.addEventListener('mouseleave',function(){dragging=-1;});
+
+// Touch support
+canvas.addEventListener('touchstart',function(e){
+  if(currentMode!=='polygon')return;
+  e.preventDefault();
+  const touch=e.touches[0];
+  const rect=canvas.getBoundingClientRect();
+  const mx=(touch.clientX-rect.left)/rect.width*100;
+  const my=(touch.clientY-rect.top)/rect.height*100;
+  points.forEach((p,i)=>{
+    if(Math.abs(p.x-mx)<6&&Math.abs(p.y-my)<6)dragging=i;
+  });
+},{passive:false});
+canvas.addEventListener('touchmove',function(e){
+  if(dragging<0)return;
+  e.preventDefault();
+  const touch=e.touches[0];
+  const rect=canvas.getBoundingClientRect();
+  points[dragging].x=Math.max(0,Math.min(100,(touch.clientX-rect.left)/rect.width*100));
+  points[dragging].y=Math.max(0,Math.min(100,(touch.clientY-rect.top)/rect.height*100));
+  drawCanvas();updateShape();
+},{passive:false});
+canvas.addEventListener('touchend',function(){dragging=-1;});
+
+function copyCSS(){
+  const t=document.getElementById('cssOutput').textContent;
+  navigator.clipboard.writeText(t).then(()=>flash('CSS copied!'));
+}
+
+function flash(msg){
+  const d=document.createElement('div');
+  d.style.cssText='position:fixed;top:20px;right:20px;background:#ff5f1f;color:#fff;padding:.8rem 1.5rem;border-radius:8px;font-weight:600;z-index:9999;animation:fadeOut 2s forwards';
+  d.textContent=msg;document.body.appendChild(d);setTimeout(()=>d.remove(),2200);
+}
+const st=document.createElement('style');
+st.textContent='@keyframes fadeOut{0%{opacity:1}70%{opacity:1}100%{opacity:0}}';
+document.head.appendChild(st);
+
+window.addEventListener('resize',resizeCanvas);
+setTimeout(()=>{resizeCanvas();updateShape();},100);
+</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>
