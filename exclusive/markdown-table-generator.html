@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Markdown Table Generator — Visual Grid Editor | SPUNK.CODES</title>
+<meta name="description" content="Generate markdown tables with a visual spreadsheet-like editor. Add rows, columns, set alignment. Import from CSV. Free browser tool.">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP')</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w")</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e0e0e0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+header{background:#111118;border-bottom:2px solid #ff5f1f;padding:1rem 2rem;text-align:center}
+header h1{font-size:1.6rem;color:#ff5f1f}
+header p{color:#999;font-size:.9rem;margin-top:.3rem}
+.container{max-width:1100px;margin:0 auto;padding:1.5rem;flex:1;width:100%}
+.section{background:#111118;border:1px solid #1a1a2e;border-radius:10px;padding:1.5rem;margin-bottom:1.5rem}
+.section h2{color:#ff5f1f;font-size:1.2rem;margin-bottom:1rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem}
+label{display:block;color:#bbb;font-size:.85rem;margin-bottom:.3rem}
+input,select,textarea{background:#0a0a0f;color:#e0e0e0;border:1px solid #1a1a2e;border-radius:6px;padding:.5rem .7rem;font-size:.9rem;width:100%}
+input:focus,select:focus,textarea:focus{outline:none;border-color:#ff5f1f}
+textarea{font-family:monospace;resize:vertical;min-height:100px}
+.btn{background:#ff5f1f;color:#fff;border:none;padding:.55rem 1.1rem;border-radius:6px;cursor:pointer;font-size:.9rem;font-weight:600;transition:background .2s}
+.btn:hover{background:#e54e10}
+.btn-sm{padding:.35rem .7rem;font-size:.8rem}
+.btn-outline{background:transparent;border:1px solid #ff5f1f;color:#ff5f1f}
+.btn-outline:hover{background:#ff5f1f;color:#fff}
+.btn-danger{background:#c0392b}.btn-danger:hover{background:#a93226}
+.actions{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem}
+.table-wrap{overflow-x:auto;margin-bottom:1rem}
+table{border-collapse:collapse;width:100%}
+th,td{border:1px solid #1a1a2e;padding:0;position:relative}
+th{background:#1a1a2e}
+th input,td input{border:none;border-radius:0;background:transparent;padding:.5rem .6rem;width:100%;min-width:80px}
+th input{color:#ff5f1f;font-weight:600}
+.align-row{display:flex;gap:0}
+.align-btn{background:#1a1a2e;color:#999;border:1px solid #2a2a3a;padding:.25rem .5rem;cursor:pointer;font-size:.75rem;transition:all .2s}
+.align-btn:first-child{border-radius:4px 0 0 4px}
+.align-btn:last-child{border-radius:0 4px 4px 0}
+.align-btn.active{background:#ff5f1f;color:#fff;border-color:#ff5f1f}
+.col-controls{display:flex;align-items:center;flex-direction:column;gap:.3rem;padding:.3rem}
+.output-box{background:#0a0a0f;border:1px solid #1a1a2e;border-radius:6px;padding:1rem;font-family:monospace;font-size:.85rem;white-space:pre-wrap;word-break:break-all;min-height:100px;overflow-y:auto;color:#ccc;line-height:1.6}
+.preview-table{width:100%;border-collapse:collapse;margin-top:.5rem}
+.preview-table th,.preview-table td{border:1px solid #2a2a3a;padding:.5rem .8rem;font-size:.85rem}
+.preview-table th{background:#1a1a2e;color:#ff5f1f;font-weight:600}
+.preview-table td{color:#ccc}
+.import-area{margin-bottom:1rem}
+footer{background:#111118;border-top:1px solid #1a1a2e;text-align:center;padding:1.2rem;color:#666;font-size:.8rem}
+footer a{color:#ff5f1f;margin:0 .3rem}
+@media(max-width:768px){
+  header h1{font-size:1.2rem}
+  .container{padding:1rem}
+}
+</style>
+</head>
+<body>
+<header>
+<h1>Markdown Table Generator</h1>
+<p>Visual spreadsheet-like editor for markdown tables. Add rows, columns, set alignment. Free tool.</p>
+</header>
+<div class="container">
+  <div class="section">
+    <h2>Import</h2>
+    <div class="import-area">
+      <textarea id="csvInput" placeholder="Paste CSV or tab-separated data here..." rows="3"></textarea>
+      <div style="margin-top:.5rem;display:flex;gap:.5rem">
+        <button class="btn btn-sm" onclick="importCSV()">Import CSV</button>
+        <button class="btn btn-sm btn-outline" onclick="importTSV()">Import TSV</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Table Editor
+      <span style="display:flex;gap:.4rem">
+        <button class="btn btn-sm btn-outline" onclick="addCol()">+ Column</button>
+        <button class="btn btn-sm btn-outline" onclick="addRow()">+ Row</button>
+      </span>
+    </h2>
+    <div id="alignControls" style="display:flex;gap:1rem;margin-bottom:1rem;flex-wrap:wrap"></div>
+    <div class="table-wrap">
+      <table id="editTable"></table>
+    </div>
+    <div class="actions">
+      <button class="btn btn-sm btn-danger" onclick="removeLastRow()">Remove Last Row</button>
+      <button class="btn btn-sm btn-danger" onclick="removeLastCol()">Remove Last Column</button>
+      <button class="btn btn-sm btn-danger" onclick="clearTable()">Clear All</button>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Markdown Output <button class="btn btn-sm" onclick="copyMd()">Copy</button></h2>
+    <div class="output-box" id="mdOutput"></div>
+  </div>
+
+  <div class="section">
+    <h2>Preview</h2>
+    <div id="previewArea"></div>
+  </div>
+
+  <div class="section">
+    <h2>Saved Tables <button class="btn btn-sm btn-outline" onclick="saveTable()">Save Current</button></h2>
+    <div id="savedList"></div>
+  </div>
+</div>
+<footer>
+  <a href="https://spunk.codes">spunk.codes</a> · <a href="https://spunk.bet">spunk.bet</a> · <a href="https://spunk.pics">spunk.pics</a> · <a href="https://spunk.work">spunk.work</a> · <a href="https://spunkart.com">SpunkArt.com</a>
+</footer>
+<script>
+const LS='mdtg_data';const LS_SAVED='mdtg_saved';
+let cols=3,rows=3;
+let headerData=['Header 1','Header 2','Header 3'];
+let cellData=[['','',''],['','',''],['','','']];
+let alignments=['left','left','left'];
+
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
+
+function renderTable(){
+  const table=document.getElementById('editTable');
+  let html='<thead><tr>';
+  for(let c=0;c<cols;c++){
+    html+=`<th><input type="text" value="${esc(headerData[c]||'')}" onchange="headerData[${c}]=this.value;generate()"></th>`;
+  }
+  html+='</tr></thead><tbody>';
+  for(let r=0;r<rows;r++){
+    html+='<tr>';
+    for(let c=0;c<cols;c++){
+      if(!cellData[r])cellData[r]=[];
+      html+=`<td><input type="text" value="${esc(cellData[r][c]||'')}" onchange="cellData[${r}][${c}]=this.value;generate()"></td>`;
+    }
+    html+='</tr>';
+  }
+  html+='</tbody>';
+  table.innerHTML=html;
+  renderAlignControls();
+  generate();
+}
+
+function renderAlignControls(){
+  const c=document.getElementById('alignControls');
+  c.innerHTML='';
+  for(let i=0;i<cols;i++){
+    const al=alignments[i]||'left';
+    c.innerHTML+=`<div style="text-align:center">
+      <div style="color:#999;font-size:.75rem;margin-bottom:.2rem">Col ${i+1}</div>
+      <div class="align-row">
+        <button class="align-btn${al==='left'?' active':''}" onclick="setAlign(${i},'left')">Left</button>
+        <button class="align-btn${al==='center'?' active':''}" onclick="setAlign(${i},'center')">Center</button>
+        <button class="align-btn${al==='right'?' active':''}" onclick="setAlign(${i},'right')">Right</button>
+      </div>
+    </div>`;
+  }
+}
+
+function setAlign(col,align){alignments[col]=align;renderAlignControls();generate();}
+
+function addCol(){
+  cols++;
+  headerData.push('Header '+cols);
+  alignments.push('left');
+  cellData.forEach(r=>{r.push('');});
+  renderTable();
+}
+function addRow(){
+  rows++;
+  cellData.push(new Array(cols).fill(''));
+  renderTable();
+}
+function removeLastRow(){
+  if(rows<=1)return;
+  rows--;cellData.pop();renderTable();
+}
+function removeLastCol(){
+  if(cols<=1)return;
+  cols--;headerData.pop();alignments.pop();
+  cellData.forEach(r=>r.pop());
+  renderTable();
+}
+function clearTable(){
+  cols=3;rows=3;
+  headerData=['Header 1','Header 2','Header 3'];
+  cellData=[['','',''],['','',''],['','','']];
+  alignments=['left','left','left'];
+  renderTable();
+}
+
+function generate(){
+  const md=buildMarkdown();
+  document.getElementById('mdOutput').textContent=md;
+  renderPreview();
+  saveState();
+}
+
+function buildMarkdown(){
+  let md='| '+headerData.slice(0,cols).map(h=>h||' ').join(' | ')+' |\n';
+  md+='| '+alignments.slice(0,cols).map(a=>{
+    if(a==='center')return ':---:';
+    if(a==='right')return '---:';
+    return ':---';
+  }).join(' | ')+' |\n';
+  for(let r=0;r<rows;r++){
+    md+='| '+Array.from({length:cols},(_, c)=>cellData[r]&&cellData[r][c]?cellData[r][c]:' ').join(' | ')+' |\n';
+  }
+  return md;
+}
+
+function renderPreview(){
+  const area=document.getElementById('previewArea');
+  let html='<table class="preview-table"><thead><tr>';
+  for(let c=0;c<cols;c++){
+    const al=alignments[c]||'left';
+    html+=`<th style="text-align:${al}">${esc(headerData[c]||'')}</th>`;
+  }
+  html+='</tr></thead><tbody>';
+  for(let r=0;r<rows;r++){
+    html+='<tr>';
+    for(let c=0;c<cols;c++){
+      const al=alignments[c]||'left';
+      html+=`<td style="text-align:${al}">${esc(cellData[r]&&cellData[r][c]?cellData[r][c]:'')}</td>`;
+    }
+    html+='</tr>';
+  }
+  html+='</tbody></table>';
+  area.innerHTML=html;
+}
+
+function copyMd(){
+  const md=document.getElementById('mdOutput').textContent;
+  navigator.clipboard.writeText(md).then(()=>flash('Copied markdown!'));
+}
+
+function importCSV(){importDelimited(',');}
+function importTSV(){importDelimited('\t');}
+function importDelimited(delim){
+  const raw=document.getElementById('csvInput').value.trim();
+  if(!raw){flash('Paste data first');return;}
+  const lines=raw.split('\n').map(l=>l.split(delim).map(c=>c.trim().replace(/^"|"$/g,'')));
+  if(lines.length<1)return;
+  headerData=[...lines[0]];
+  cols=headerData.length;
+  alignments=new Array(cols).fill('left');
+  cellData=lines.slice(1).map(r=>{
+    while(r.length<cols)r.push('');
+    return r.slice(0,cols);
+  });
+  rows=cellData.length||1;
+  if(!cellData.length)cellData=[new Array(cols).fill('')];
+  renderTable();
+  flash('Imported '+rows+' rows!');
+}
+
+function saveState(){
+  localStorage.setItem(LS,JSON.stringify({cols,rows,headerData,cellData,alignments}));
+}
+function loadState(){
+  try{
+    const d=JSON.parse(localStorage.getItem(LS));
+    if(d){cols=d.cols;rows=d.rows;headerData=d.headerData;cellData=d.cellData;alignments=d.alignments;}
+  }catch(e){}
+}
+
+function saveTable(){
+  const name=prompt('Table name:');
+  if(!name)return;
+  const saved=JSON.parse(localStorage.getItem(LS_SAVED)||'[]');
+  saved.push({name,cols,rows,headerData:[...headerData],cellData:cellData.map(r=>[...r]),alignments:[...alignments],date:new Date().toISOString()});
+  localStorage.setItem(LS_SAVED,JSON.stringify(saved));
+  renderSaved();flash('Saved!');
+}
+function loadSavedTable(i){
+  const saved=JSON.parse(localStorage.getItem(LS_SAVED)||'[]');
+  const t=saved[i];if(!t)return;
+  cols=t.cols;rows=t.rows;headerData=t.headerData;cellData=t.cellData;alignments=t.alignments;
+  renderTable();flash('Loaded: '+t.name);
+}
+function deleteSavedTable(i){
+  const saved=JSON.parse(localStorage.getItem(LS_SAVED)||'[]');
+  saved.splice(i,1);localStorage.setItem(LS_SAVED,JSON.stringify(saved));renderSaved();
+}
+function renderSaved(){
+  const saved=JSON.parse(localStorage.getItem(LS_SAVED)||'[]');
+  const c=document.getElementById('savedList');
+  if(!saved.length){c.innerHTML='<div style="color:#555;padding:.5rem;font-size:.85rem">No saved tables.</div>';return;}
+  c.innerHTML='';
+  saved.forEach((s,i)=>{
+    c.innerHTML+=`<div style="display:flex;justify-content:space-between;align-items:center;padding:.5rem;border-bottom:1px solid #1a1a2e">
+      <span style="color:#ccc;font-size:.85rem;cursor:pointer" onclick="loadSavedTable(${i})">${esc(s.name)} <span style="color:#555;font-size:.75rem">${s.cols}x${s.rows}</span></span>
+      <button class="btn btn-sm btn-danger" onclick="deleteSavedTable(${i})">&times;</button>
+    </div>`;
+  });
+}
+
+function flash(msg){
+  const d=document.createElement('div');
+  d.style.cssText='position:fixed;top:20px;right:20px;background:#ff5f1f;color:#fff;padding:.8rem 1.5rem;border-radius:8px;font-weight:600;z-index:9999;animation:fadeOut 2s forwards';
+  d.textContent=msg;document.body.appendChild(d);setTimeout(()=>d.remove(),2200);
+}
+const st=document.createElement('style');
+st.textContent='@keyframes fadeOut{0%{opacity:1}70%{opacity:1}100%{opacity:0}}';
+document.head.appendChild(st);
+
+loadState();
+renderTable();
+renderSaved();
+</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>

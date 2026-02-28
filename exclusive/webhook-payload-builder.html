@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Webhook Payload Builder — Build & Test JSON Payloads | SPUNK.CODES</title>
+<meta name="description" content="Build JSON webhook payloads visually with key-value editor. Common templates for Stripe, GitHub, Slack, Discord. Generate curl commands. Free browser tool.">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP')</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w")</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e0e0e0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+header{background:#111118;border-bottom:2px solid #ff5f1f;padding:1rem 2rem;text-align:center}
+header h1{font-size:1.6rem;color:#ff5f1f}
+header p{color:#999;font-size:.9rem;margin-top:.3rem}
+.container{max-width:1100px;margin:0 auto;padding:1.5rem;flex:1;width:100%}
+.section{background:#111118;border:1px solid #1a1a2e;border-radius:10px;padding:1.5rem;margin-bottom:1.5rem}
+.section h2{color:#ff5f1f;font-size:1.2rem;margin-bottom:1rem;display:flex;align-items:center;justify-content:space-between}
+label{display:block;color:#bbb;font-size:.85rem;margin-bottom:.3rem}
+input,select,textarea{background:#0a0a0f;color:#e0e0e0;border:1px solid #1a1a2e;border-radius:6px;padding:.5rem .7rem;font-size:.9rem;width:100%}
+input:focus,select:focus,textarea:focus{outline:none;border-color:#ff5f1f}
+textarea{font-family:monospace;resize:vertical;min-height:100px}
+.btn{background:#ff5f1f;color:#fff;border:none;padding:.55rem 1.1rem;border-radius:6px;cursor:pointer;font-size:.9rem;font-weight:600;transition:background .2s}
+.btn:hover{background:#e54e10}
+.btn-sm{padding:.35rem .7rem;font-size:.8rem}
+.btn-outline{background:transparent;border:1px solid #ff5f1f;color:#ff5f1f}
+.btn-outline:hover{background:#ff5f1f;color:#fff}
+.btn-danger{background:#c0392b}.btn-danger:hover{background:#a93226}
+.row{display:flex;gap:.8rem;margin-bottom:.6rem;align-items:center;flex-wrap:wrap}
+.row input{flex:1;min-width:120px}
+.row select{width:120px;flex:none}
+.kv-row{display:grid;grid-template-columns:1fr 120px 2fr auto;gap:.5rem;margin-bottom:.5rem;align-items:center}
+.header-row{display:grid;grid-template-columns:1fr 1fr auto;gap:.5rem;margin-bottom:.5rem;align-items:center}
+.templates{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem}
+.template-btn{background:#1a1a2e;color:#e0e0e0;border:1px solid #2a2a3a;padding:.4rem .8rem;border-radius:6px;cursor:pointer;font-size:.8rem;transition:all .2s}
+.template-btn:hover,.template-btn.active{border-color:#ff5f1f;color:#ff5f1f}
+.output-box{background:#0a0a0f;border:1px solid #1a1a2e;border-radius:6px;padding:1rem;font-family:monospace;font-size:.85rem;white-space:pre-wrap;word-break:break-all;min-height:120px;overflow-y:auto;color:#ccc;line-height:1.6;max-height:400px}
+.panels{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+.saved-list{max-height:200px;overflow-y:auto}
+.saved-item{display:flex;justify-content:space-between;align-items:center;padding:.5rem;border-bottom:1px solid #1a1a2e}
+.saved-item span{color:#ccc;font-size:.85rem;cursor:pointer}
+.saved-item span:hover{color:#ff5f1f}
+.top-actions{display:flex;gap:.5rem;margin-bottom:1rem;flex-wrap:wrap}
+.tabs{display:flex;gap:0;margin-bottom:1rem}
+.tab{padding:.5rem 1rem;background:#1a1a2e;color:#999;border:1px solid #2a2a3a;cursor:pointer;font-size:.85rem;transition:all .2s}
+.tab:first-child{border-radius:6px 0 0 6px}
+.tab:last-child{border-radius:0 6px 6px 0}
+.tab.active{background:#ff5f1f;color:#fff;border-color:#ff5f1f}
+footer{background:#111118;border-top:1px solid #1a1a2e;text-align:center;padding:1.2rem;color:#666;font-size:.8rem}
+footer a{color:#ff5f1f;margin:0 .3rem}
+@media(max-width:768px){
+  header h1{font-size:1.2rem}
+  .container{padding:1rem}
+  .panels{grid-template-columns:1fr}
+  .kv-row{grid-template-columns:1fr}
+  .header-row{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<header>
+<h1>Webhook Payload Builder</h1>
+<p>Build JSON payloads visually, add headers, generate curl commands. 100% client-side.</p>
+</header>
+<div class="container">
+  <div class="section">
+    <h2>Template</h2>
+    <div class="templates">
+      <button class="template-btn" onclick="loadTemplate('stripe')">Stripe</button>
+      <button class="template-btn" onclick="loadTemplate('github')">GitHub</button>
+      <button class="template-btn" onclick="loadTemplate('slack')">Slack</button>
+      <button class="template-btn" onclick="loadTemplate('discord')">Discord</button>
+      <button class="template-btn" onclick="loadTemplate('custom')">Custom</button>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Endpoint</h2>
+    <div class="row">
+      <select id="httpMethod" style="width:100px;flex:none">
+        <option>POST</option><option>PUT</option><option>PATCH</option><option>DELETE</option>
+      </select>
+      <input type="text" id="endpointUrl" placeholder="https://example.com/webhook">
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Headers <button class="btn btn-sm btn-outline" onclick="addHeader()">+ Add</button></h2>
+    <div id="headersContainer"></div>
+  </div>
+
+  <div class="section">
+    <h2>Payload Fields <button class="btn btn-sm btn-outline" onclick="addField()">+ Add Field</button></h2>
+    <div id="fieldsContainer"></div>
+  </div>
+
+  <div class="section">
+    <h2>Output</h2>
+    <div class="tabs">
+      <div class="tab active" onclick="switchTab('json',this)">JSON</div>
+      <div class="tab" onclick="switchTab('curl',this)">cURL</div>
+    </div>
+    <div class="output-box" id="outputBox"></div>
+    <div class="top-actions" style="margin-top:1rem">
+      <button class="btn" onclick="copyOutput()">Copy Output</button>
+      <button class="btn btn-outline" onclick="prettify()">Prettify JSON</button>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Saved Templates <button class="btn btn-sm btn-outline" onclick="saveTemplate()">Save Current</button></h2>
+    <div class="saved-list" id="savedList"></div>
+  </div>
+</div>
+<footer>
+  <a href="https://spunk.codes">spunk.codes</a> · <a href="https://spunk.bet">spunk.bet</a> · <a href="https://spunk.pics">spunk.pics</a> · <a href="https://spunk.work">spunk.work</a> · <a href="https://spunkart.com">SpunkArt.com</a>
+</footer>
+<script>
+const LS='wpb_saved';
+let currentTab='json';
+let headers=[{key:'Content-Type',value:'application/json'}];
+let fields=[];
+
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
+
+const templates={
+  stripe:{
+    method:'POST',url:'https://api.stripe.com/v1/webhook',
+    headers:[{key:'Content-Type',value:'application/json'},{key:'Stripe-Signature',value:'t=timestamp,v1=signature'}],
+    fields:[
+      {key:'id',type:'string',value:'evt_1234567890'},
+      {key:'object',type:'string',value:'event'},
+      {key:'type',type:'string',value:'payment_intent.succeeded'},
+      {key:'data.object.id',type:'string',value:'pi_1234567890'},
+      {key:'data.object.amount',type:'number',value:'2000'},
+      {key:'data.object.currency',type:'string',value:'usd'},
+      {key:'data.object.status',type:'string',value:'succeeded'}
+    ]
+  },
+  github:{
+    method:'POST',url:'https://example.com/github-webhook',
+    headers:[{key:'Content-Type',value:'application/json'},{key:'X-GitHub-Event',value:'push'},{key:'X-Hub-Signature-256',value:'sha256=abc123'}],
+    fields:[
+      {key:'ref',type:'string',value:'refs/heads/main'},
+      {key:'repository.full_name',type:'string',value:'user/repo'},
+      {key:'pusher.name',type:'string',value:'username'},
+      {key:'commits',type:'array',value:'[]'},
+      {key:'head_commit.message',type:'string',value:'Update README.md'}
+    ]
+  },
+  slack:{
+    method:'POST',url:'https://hooks.slack.com/services/T00/B00/xxx',
+    headers:[{key:'Content-Type',value:'application/json'}],
+    fields:[
+      {key:'text',type:'string',value:'Hello from webhook!'},
+      {key:'channel',type:'string',value:'#general'},
+      {key:'username',type:'string',value:'webhookbot'},
+      {key:'icon_emoji',type:'string',value:':robot_face:'}
+    ]
+  },
+  discord:{
+    method:'POST',url:'https://discord.com/api/webhooks/ID/TOKEN',
+    headers:[{key:'Content-Type',value:'application/json'}],
+    fields:[
+      {key:'content',type:'string',value:'Hello from webhook!'},
+      {key:'username',type:'string',value:'Bot'},
+      {key:'avatar_url',type:'string',value:'https://example.com/avatar.png'},
+      {key:'embeds[0].title',type:'string',value:'Embed Title'},
+      {key:'embeds[0].description',type:'string',value:'Embed content here'},
+      {key:'embeds[0].color',type:'number',value:'5814783'}
+    ]
+  },
+  custom:{
+    method:'POST',url:'',
+    headers:[{key:'Content-Type',value:'application/json'}],
+    fields:[{key:'key',type:'string',value:'value'}]
+  }
+};
+
+function loadTemplate(name){
+  const t=templates[name];
+  document.getElementById('httpMethod').value=t.method;
+  document.getElementById('endpointUrl').value=t.url;
+  headers=[...t.fields?t.headers.map(h=>({...h})):[]];
+  if(t.headers)headers=t.headers.map(h=>({...h}));
+  fields=t.fields.map(f=>({...f}));
+  renderAll();
+  document.querySelectorAll('.template-btn').forEach(b=>b.classList.remove('active'));
+  event.target.classList.add('active');
+}
+
+function addHeader(){headers.push({key:'',value:''});renderHeaders();}
+function addField(){fields.push({key:'',type:'string',value:''});renderFields();}
+
+function renderHeaders(){
+  const c=document.getElementById('headersContainer');
+  c.innerHTML='';
+  headers.forEach((h,i)=>{
+    c.innerHTML+=`<div class="header-row">
+      <input type="text" value="${esc(h.key)}" placeholder="Header name" onchange="headers[${i}].key=this.value;updateOutput()">
+      <input type="text" value="${esc(h.value)}" placeholder="Value" onchange="headers[${i}].value=this.value;updateOutput()">
+      <button class="btn btn-sm btn-danger" onclick="headers.splice(${i},1);renderHeaders();updateOutput()">&times;</button>
+    </div>`;
+  });
+  updateOutput();
+}
+
+function renderFields(){
+  const c=document.getElementById('fieldsContainer');
+  c.innerHTML='';
+  fields.forEach((f,i)=>{
+    c.innerHTML+=`<div class="kv-row">
+      <input type="text" value="${esc(f.key)}" placeholder="key (use dots for nesting)" onchange="fields[${i}].key=this.value;updateOutput()">
+      <select onchange="fields[${i}].type=this.value;updateOutput()">
+        <option value="string"${f.type==='string'?' selected':''}>String</option>
+        <option value="number"${f.type==='number'?' selected':''}>Number</option>
+        <option value="boolean"${f.type==='boolean'?' selected':''}>Boolean</option>
+        <option value="null"${f.type==='null'?' selected':''}>Null</option>
+        <option value="array"${f.type==='array'?' selected':''}>Array (JSON)</option>
+        <option value="object"${f.type==='object'?' selected':''}>Object (JSON)</option>
+      </select>
+      <input type="text" value="${esc(f.value)}" placeholder="value" onchange="fields[${i}].value=this.value;updateOutput()">
+      <button class="btn btn-sm btn-danger" onclick="fields.splice(${i},1);renderFields()">&times;</button>
+    </div>`;
+  });
+  updateOutput();
+}
+
+function buildPayload(){
+  const obj={};
+  fields.forEach(f=>{
+    if(!f.key)return;
+    const keys=f.key.split('.');
+    let cur=obj;
+    keys.forEach((k,idx)=>{
+      const arrMatch=k.match(/^(.+)\[(\d+)\]$/);
+      if(arrMatch){
+        const arrKey=arrMatch[1];
+        const arrIdx=parseInt(arrMatch[2]);
+        if(!cur[arrKey])cur[arrKey]=[];
+        if(idx===keys.length-1){
+          cur[arrKey][arrIdx]=castValue(f);
+        }else{
+          if(!cur[arrKey][arrIdx])cur[arrKey][arrIdx]={};
+          cur=cur[arrKey][arrIdx];
+        }
+      }else if(idx===keys.length-1){
+        cur[k]=castValue(f);
+      }else{
+        if(!cur[k]||typeof cur[k]!=='object')cur[k]={};
+        cur=cur[k];
+      }
+    });
+  });
+  return obj;
+}
+
+function castValue(f){
+  switch(f.type){
+    case 'number':return Number(f.value)||0;
+    case 'boolean':return f.value==='true'||f.value==='1';
+    case 'null':return null;
+    case 'array':try{return JSON.parse(f.value)}catch(e){return[];}
+    case 'object':try{return JSON.parse(f.value)}catch(e){return{};}
+    default:return f.value;
+  }
+}
+
+function updateOutput(){
+  const payload=buildPayload();
+  const box=document.getElementById('outputBox');
+  if(currentTab==='json'){
+    box.textContent=JSON.stringify(payload,null,2);
+  }else{
+    const method=document.getElementById('httpMethod').value;
+    const url=document.getElementById('endpointUrl').value||'https://example.com/webhook';
+    let curl=`curl -X ${method} '${url}'`;
+    headers.forEach(h=>{if(h.key)curl+=` \\\n  -H '${h.key}: ${h.value}'`;});
+    curl+=` \\\n  -d '${JSON.stringify(payload)}'`;
+    box.textContent=curl;
+  }
+}
+
+function switchTab(tab,el){
+  currentTab=tab;
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  updateOutput();
+}
+
+function copyOutput(){
+  const text=document.getElementById('outputBox').textContent;
+  navigator.clipboard.writeText(text).then(()=>flash('Copied!'));
+}
+
+function prettify(){
+  if(currentTab!=='json')return;
+  try{
+    const obj=JSON.parse(document.getElementById('outputBox').textContent);
+    document.getElementById('outputBox').textContent=JSON.stringify(obj,null,2);
+    flash('Prettified!');
+  }catch(e){flash('Invalid JSON');}
+}
+
+function saveTemplate(){
+  const name=prompt('Template name:');
+  if(!name)return;
+  const saved=JSON.parse(localStorage.getItem(LS)||'[]');
+  saved.push({
+    name,
+    method:document.getElementById('httpMethod').value,
+    url:document.getElementById('endpointUrl').value,
+    headers:[...headers],
+    fields:[...fields],
+    date:new Date().toISOString()
+  });
+  localStorage.setItem(LS,JSON.stringify(saved));
+  renderSaved();
+  flash('Template saved!');
+}
+
+function loadSaved(idx){
+  const saved=JSON.parse(localStorage.getItem(LS)||'[]');
+  const t=saved[idx];if(!t)return;
+  document.getElementById('httpMethod').value=t.method;
+  document.getElementById('endpointUrl').value=t.url;
+  headers=t.headers.map(h=>({...h}));
+  fields=t.fields.map(f=>({...f}));
+  renderAll();
+  flash('Loaded: '+t.name);
+}
+
+function deleteSaved(idx){
+  const saved=JSON.parse(localStorage.getItem(LS)||'[]');
+  saved.splice(idx,1);
+  localStorage.setItem(LS,JSON.stringify(saved));
+  renderSaved();
+}
+
+function renderSaved(){
+  const saved=JSON.parse(localStorage.getItem(LS)||'[]');
+  const c=document.getElementById('savedList');
+  if(!saved.length){c.innerHTML='<div style="color:#555;padding:.5rem;font-size:.85rem">No saved templates yet.</div>';return;}
+  c.innerHTML='';
+  saved.forEach((s,i)=>{
+    c.innerHTML+=`<div class="saved-item">
+      <span onclick="loadSaved(${i})">${esc(s.name)} <span style="color:#555;font-size:.75rem">${s.date?s.date.split('T')[0]:''}</span></span>
+      <button class="btn btn-sm btn-danger" onclick="deleteSaved(${i})">&times;</button>
+    </div>`;
+  });
+}
+
+function renderAll(){renderHeaders();renderFields();renderSaved();}
+
+function flash(msg){
+  const d=document.createElement('div');
+  d.style.cssText='position:fixed;top:20px;right:20px;background:#ff5f1f;color:#fff;padding:.8rem 1.5rem;border-radius:8px;font-weight:600;z-index:9999;animation:fadeOut 2s forwards';
+  d.textContent=msg;document.body.appendChild(d);setTimeout(()=>d.remove(),2200);
+}
+const style=document.createElement('style');
+style.textContent='@keyframes fadeOut{0%{opacity:1}70%{opacity:1}100%{opacity:0}}';
+document.head.appendChild(style);
+
+// Init
+loadTemplate('slack');
+renderSaved();
+</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>

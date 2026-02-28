@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DNS Record Generator — Free DNS Zone File Builder | SPUNK.CODES</title>
+<meta name="description" content="Generate properly formatted DNS records for A, AAAA, CNAME, MX, TXT, SRV and more. Common templates for email, website, subdomain setup. Free browser tool.">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP')</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w")</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e0e0e0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+header{background:#111118;border-bottom:2px solid #ff5f1f;padding:1rem 2rem;text-align:center}
+header h1{font-size:1.6rem;color:#ff5f1f}
+header p{color:#999;font-size:.9rem;margin-top:.3rem}
+.container{max-width:1100px;margin:0 auto;padding:1.5rem;flex:1;width:100%}
+.section{background:#111118;border:1px solid #1a1a2e;border-radius:10px;padding:1.5rem;margin-bottom:1.5rem}
+.section h2{color:#ff5f1f;font-size:1.2rem;margin-bottom:1rem;display:flex;align-items:center;justify-content:space-between}
+label{display:block;color:#bbb;font-size:.85rem;margin-bottom:.3rem}
+input,select,textarea{background:#0a0a0f;color:#e0e0e0;border:1px solid #1a1a2e;border-radius:6px;padding:.5rem .7rem;font-size:.9rem;width:100%}
+input:focus,select:focus,textarea:focus{outline:none;border-color:#ff5f1f}
+textarea{font-family:monospace;resize:vertical;min-height:100px}
+.btn{background:#ff5f1f;color:#fff;border:none;padding:.55rem 1.1rem;border-radius:6px;cursor:pointer;font-size:.9rem;font-weight:600;transition:background .2s}
+.btn:hover{background:#e54e10}
+.btn-sm{padding:.35rem .7rem;font-size:.8rem}
+.btn-outline{background:transparent;border:1px solid #ff5f1f;color:#ff5f1f}
+.btn-outline:hover{background:#ff5f1f;color:#fff}
+.btn-danger{background:#c0392b}.btn-danger:hover{background:#a93226}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
+.form-grid.cols3{grid-template-columns:1fr 1fr 1fr}
+.form-grid .full{grid-column:1/-1}
+.output-box{background:#0a0a0f;border:1px solid #1a1a2e;border-radius:6px;padding:1rem;font-family:monospace;font-size:.85rem;white-space:pre-wrap;word-break:break-all;min-height:80px;color:#ccc;line-height:1.6}
+.template-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.8rem;margin-bottom:1rem}
+.template-card{background:#0a0a0f;border:1px solid #1a1a2e;border-radius:8px;padding:1rem;cursor:pointer;transition:border-color .2s}
+.template-card:hover{border-color:#ff5f1f}
+.template-card h4{color:#ff5f1f;font-size:.9rem;margin-bottom:.3rem}
+.template-card p{color:#888;font-size:.78rem}
+.record-list{margin-top:1rem}
+.record-item{background:#0a0a0f;border:1px solid #1a1a2e;border-radius:6px;padding:.8rem;margin-bottom:.5rem;display:flex;justify-content:space-between;align-items:center;font-family:monospace;font-size:.82rem;color:#ccc}
+.record-item .actions{display:flex;gap:.3rem;flex-shrink:0}
+.hidden{display:none}
+.top-actions{display:flex;gap:.5rem;margin-bottom:1rem;flex-wrap:wrap}
+.count-badge{background:#ff5f1f;color:#fff;padding:.2rem .6rem;border-radius:12px;font-size:.8rem;font-weight:700}
+footer{background:#111118;border-top:1px solid #1a1a2e;text-align:center;padding:1.2rem;color:#666;font-size:.8rem}
+footer a{color:#ff5f1f;margin:0 .3rem}
+@media(max-width:768px){
+  header h1{font-size:1.2rem}
+  .container{padding:1rem}
+  .form-grid,.form-grid.cols3{grid-template-columns:1fr}
+  .template-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<header>
+<h1>DNS Record Generator</h1>
+<p>Generate properly formatted DNS records. Paste directly into your DNS provider. Free, browser-based.</p>
+</header>
+<div class="container">
+  <div class="section">
+    <h2>Templates</h2>
+    <div class="template-grid">
+      <div class="template-card" onclick="applyTemplate('website')"><h4>Website Setup</h4><p>A + CNAME records for domain + www</p></div>
+      <div class="template-card" onclick="applyTemplate('email')"><h4>Email (Google)</h4><p>MX + TXT (SPF, DKIM, DMARC)</p></div>
+      <div class="template-card" onclick="applyTemplate('emailMS')"><h4>Email (Microsoft 365)</h4><p>MX + TXT + CNAME for Outlook</p></div>
+      <div class="template-card" onclick="applyTemplate('subdomain')"><h4>Subdomain</h4><p>A or CNAME for a subdomain</p></div>
+      <div class="template-card" onclick="applyTemplate('redirect')"><h4>URL Redirect</h4><p>A record for redirect service</p></div>
+      <div class="template-card" onclick="applyTemplate('vercel')"><h4>Vercel Deploy</h4><p>A + CNAME for Vercel hosting</p></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Create Record</h2>
+    <div class="form-grid cols3">
+      <div>
+        <label for="recType">Record Type</label>
+        <select id="recType" onchange="updateFields()">
+          <option value="A">A</option>
+          <option value="AAAA">AAAA</option>
+          <option value="CNAME">CNAME</option>
+          <option value="MX">MX</option>
+          <option value="TXT">TXT</option>
+          <option value="SRV">SRV</option>
+          <option value="NS">NS</option>
+          <option value="CAA">CAA</option>
+          <option value="PTR">PTR</option>
+        </select>
+      </div>
+      <div>
+        <label for="recName">Name / Host</label>
+        <input type="text" id="recName" placeholder="@ or subdomain">
+      </div>
+      <div>
+        <label for="recTTL">TTL (seconds)</label>
+        <input type="number" id="recTTL" value="3600" min="60">
+      </div>
+    </div>
+    <div class="form-grid cols3" id="valueFields">
+      <div class="full">
+        <label for="recValue">Value / Target</label>
+        <input type="text" id="recValue" placeholder="IP address, hostname, or text value">
+      </div>
+    </div>
+    <div class="form-grid cols3 hidden" id="mxFields">
+      <div>
+        <label for="mxPriority">Priority</label>
+        <input type="number" id="mxPriority" value="10" min="0">
+      </div>
+      <div class="full">
+        <label for="mxTarget">Mail Server</label>
+        <input type="text" id="mxTarget" placeholder="mail.example.com.">
+      </div>
+    </div>
+    <div class="form-grid hidden" id="srvFields">
+      <div>
+        <label for="srvPriority">Priority</label>
+        <input type="number" id="srvPriority" value="10" min="0">
+      </div>
+      <div>
+        <label for="srvWeight">Weight</label>
+        <input type="number" id="srvWeight" value="60" min="0">
+      </div>
+      <div>
+        <label for="srvPort">Port</label>
+        <input type="number" id="srvPort" value="443" min="0">
+      </div>
+      <div>
+        <label for="srvTarget">Target</label>
+        <input type="text" id="srvTarget" placeholder="server.example.com.">
+      </div>
+    </div>
+    <button class="btn" onclick="addRecord()">Add Record</button>
+  </div>
+
+  <div class="section">
+    <h2>Records <span class="count-badge" id="recCount">0</span></h2>
+    <div class="top-actions">
+      <button class="btn btn-sm" onclick="copyAll()">Copy All</button>
+      <button class="btn btn-sm btn-outline" onclick="downloadZone()">Download Zone File</button>
+      <button class="btn btn-sm btn-danger" onclick="clearAll()">Clear All</button>
+    </div>
+    <div id="recordList" class="record-list"></div>
+    <div style="margin-top:1rem">
+      <label>Zone File Output</label>
+      <div class="output-box" id="zoneOutput">No records yet. Add records above or use a template.</div>
+    </div>
+  </div>
+</div>
+<footer>
+  <a href="https://spunk.codes">spunk.codes</a> &middot; <a href="https://spunk.bet">spunk.bet</a> &middot; <a href="https://spunk.pics">spunk.pics</a> &middot; <a href="https://spunk.work">spunk.work</a> &middot; <a href="https://spunkart.com">SpunkArt.com</a>
+</footer>
+<script>
+const LS='dns_records';
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
+function getRecords(){return JSON.parse(localStorage.getItem(LS)||'[]');}
+function saveRecords(r){localStorage.setItem(LS,JSON.stringify(r));}
+
+function updateFields(){
+  const t=document.getElementById('recType').value;
+  document.getElementById('mxFields').classList.toggle('hidden',t!=='MX');
+  document.getElementById('srvFields').classList.toggle('hidden',t!=='SRV');
+  document.getElementById('valueFields').classList.toggle('hidden',t==='MX'||t==='SRV');
+  const ph=document.getElementById('recValue');
+  if(t==='A')ph.placeholder='e.g. 192.168.1.1';
+  else if(t==='AAAA')ph.placeholder='e.g. 2001:db8::1';
+  else if(t==='CNAME')ph.placeholder='e.g. example.com.';
+  else if(t==='TXT')ph.placeholder='e.g. v=spf1 include:_spf.google.com ~all';
+  else if(t==='NS')ph.placeholder='e.g. ns1.example.com.';
+  else if(t==='CAA')ph.placeholder='e.g. 0 issue "letsencrypt.org"';
+  else if(t==='PTR')ph.placeholder='e.g. host.example.com.';
+  else ph.placeholder='Value';
+}
+
+function formatRecord(r){
+  let line=r.name+'\t'+r.ttl+'\tIN\t'+r.type+'\t';
+  if(r.type==='MX')line+=r.priority+'\t'+r.target;
+  else if(r.type==='SRV')line+=r.priority+'\t'+r.weight+'\t'+r.port+'\t'+r.target;
+  else line+=r.value;
+  return line;
+}
+
+function addRecord(){
+  const type=document.getElementById('recType').value;
+  const name=document.getElementById('recName').value.trim()||'@';
+  const ttl=document.getElementById('recTTL').value||'3600';
+  let rec={id:Date.now().toString(36),type,name,ttl};
+  if(type==='MX'){
+    rec.priority=document.getElementById('mxPriority').value||'10';
+    rec.target=document.getElementById('mxTarget').value.trim();
+    if(!rec.target){flash('Mail server is required');return;}
+  }else if(type==='SRV'){
+    rec.priority=document.getElementById('srvPriority').value||'10';
+    rec.weight=document.getElementById('srvWeight').value||'60';
+    rec.port=document.getElementById('srvPort').value||'443';
+    rec.target=document.getElementById('srvTarget').value.trim();
+    if(!rec.target){flash('Target is required');return;}
+  }else{
+    rec.value=document.getElementById('recValue').value.trim();
+    if(!rec.value){flash('Value is required');return;}
+    if(type==='TXT'&&!rec.value.startsWith('"'))rec.value='"'+rec.value+'"';
+  }
+  const records=getRecords();
+  records.push(rec);
+  saveRecords(records);
+  render();
+  flash('Record added!');
+}
+
+function deleteRecord(id){
+  saveRecords(getRecords().filter(r=>r.id!==id));
+  render();
+}
+
+function applyTemplate(tpl){
+  const domain=prompt('Enter your domain (e.g. example.com):');
+  if(!domain)return;
+  let recs=[];
+  const base={ttl:'3600'};
+  if(tpl==='website'){
+    recs=[
+      {...base,type:'A',name:'@',value:'YOUR_SERVER_IP'},
+      {...base,type:'CNAME',name:'www',value:domain+'.'}
+    ];
+  }else if(tpl==='email'){
+    recs=[
+      {...base,type:'MX',name:'@',priority:'1',target:'aspmx.l.google.com.'},
+      {...base,type:'MX',name:'@',priority:'5',target:'alt1.aspmx.l.google.com.'},
+      {...base,type:'MX',name:'@',priority:'5',target:'alt2.aspmx.l.google.com.'},
+      {...base,type:'TXT',name:'@',value:'"v=spf1 include:_spf.google.com ~all"'},
+      {...base,type:'TXT',name:'_dmarc',value:'"v=DMARC1; p=quarantine; rua=mailto:dmarc@'+domain+'"'}
+    ];
+  }else if(tpl==='emailMS'){
+    recs=[
+      {...base,type:'MX',name:'@',priority:'0',target:domain.replace(/\./g,'-')+'.mail.protection.outlook.com.'},
+      {...base,type:'TXT',name:'@',value:'"v=spf1 include:spf.protection.outlook.com ~all"'},
+      {...base,type:'CNAME',name:'autodiscover',value:'autodiscover.outlook.com.'}
+    ];
+  }else if(tpl==='subdomain'){
+    recs=[{...base,type:'A',name:'app',value:'YOUR_SERVER_IP'}];
+  }else if(tpl==='redirect'){
+    recs=[{...base,type:'A',name:'@',value:'YOUR_REDIRECT_IP'},{...base,type:'CNAME',name:'www',value:domain+'.'}];
+  }else if(tpl==='vercel'){
+    recs=[
+      {...base,type:'A',name:'@',value:'76.76.21.21'},
+      {...base,type:'CNAME',name:'www',value:'cname.vercel-dns.com.'}
+    ];
+  }
+  const existing=getRecords();
+  recs.forEach(r=>{r.id=Date.now().toString(36)+Math.random().toString(36).slice(2,5);});
+  saveRecords([...existing,...recs]);
+  render();
+  flash(recs.length+' records added from template!');
+}
+
+function render(){
+  const records=getRecords();
+  document.getElementById('recCount').textContent=records.length;
+  const list=document.getElementById('recordList');
+  if(!records.length){
+    list.innerHTML='<div style="color:#555;text-align:center;padding:1rem">No records yet.</div>';
+    document.getElementById('zoneOutput').textContent='No records yet. Add records above or use a template.';
+    return;
+  }
+  list.innerHTML=records.map(r=>'<div class="record-item"><span>'+esc(formatRecord(r))+'</span><div class="actions"><button class="btn btn-sm btn-outline" onclick="copyOne(\''+r.id+'\')">Copy</button><button class="btn btn-sm btn-danger" onclick="deleteRecord(\''+r.id+'\')">Del</button></div></div>').join('');
+  const zone='; Zone file generated by spunk.codes DNS Record Generator\n; Generated: '+new Date().toISOString()+'\n$TTL 3600\n\n'+records.map(r=>formatRecord(r)).join('\n');
+  document.getElementById('zoneOutput').textContent=zone;
+}
+
+function copyOne(id){
+  const r=getRecords().find(x=>x.id===id);
+  if(r)navigator.clipboard.writeText(formatRecord(r)).then(()=>flash('Record copied!'));
+}
+function copyAll(){
+  const text=document.getElementById('zoneOutput').textContent;
+  if(text.startsWith('No records')){flash('Nothing to copy');return;}
+  navigator.clipboard.writeText(text).then(()=>flash('Zone file copied!'));
+}
+function downloadZone(){
+  const text=document.getElementById('zoneOutput').textContent;
+  if(text.startsWith('No records')){flash('Nothing to download');return;}
+  const blob=new Blob([text],{type:'text/plain'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='zone-file.txt';a.click();
+  URL.revokeObjectURL(a.href);flash('Zone file downloaded!');
+}
+function clearAll(){
+  if(!confirm('Delete all records?'))return;
+  saveRecords([]);render();flash('All records cleared');
+}
+function flash(msg){
+  const d=document.createElement('div');
+  d.style.cssText='position:fixed;top:20px;right:20px;background:#ff5f1f;color:#fff;padding:.8rem 1.5rem;border-radius:8px;font-weight:600;z-index:9999;animation:fadeOut 2s forwards';
+  d.textContent=msg;document.body.appendChild(d);setTimeout(()=>d.remove(),2200);
+}
+const st=document.createElement('style');st.textContent='@keyframes fadeOut{0%{opacity:1}70%{opacity:1}100%{opacity:0}}';document.head.appendChild(st);
+updateFields();render();
+</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>

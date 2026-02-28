@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SVG to CSS Background Converter — Data URI Generator | SPUNK.CODES</title>
+<meta name="description" content="Convert SVG code to CSS background-image data URI. URL-encode properly, live preview, copy CSS property. Free browser tool.">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP')</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w")</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e0e0e0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+header{background:#111118;border-bottom:2px solid #ff5f1f;padding:1rem 2rem;text-align:center}
+header h1{font-size:1.6rem;color:#ff5f1f}
+header p{color:#999;font-size:.9rem;margin-top:.3rem}
+.container{max-width:1000px;margin:0 auto;padding:1.5rem;flex:1;width:100%}
+.section{background:#111118;border:1px solid #1a1a2e;border-radius:10px;padding:1.5rem;margin-bottom:1.5rem}
+.section h2{color:#ff5f1f;font-size:1.2rem;margin-bottom:1rem;display:flex;align-items:center;justify-content:space-between}
+label{display:block;color:#bbb;font-size:.85rem;margin-bottom:.3rem}
+input,select,textarea{background:#0a0a0f;color:#e0e0e0;border:1px solid #1a1a2e;border-radius:6px;padding:.5rem .7rem;font-size:.9rem;width:100%}
+input:focus,select:focus,textarea:focus{outline:none;border-color:#ff5f1f}
+textarea{font-family:monospace;resize:vertical}
+.btn{background:#ff5f1f;color:#fff;border:none;padding:.55rem 1.1rem;border-radius:6px;cursor:pointer;font-size:.9rem;font-weight:600;transition:background .2s}
+.btn:hover{background:#e54e10}
+.btn-sm{padding:.35rem .7rem;font-size:.8rem}
+.btn-outline{background:transparent;border:1px solid #ff5f1f;color:#ff5f1f}
+.btn-outline:hover{background:#ff5f1f;color:#fff}
+.panels{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+.output-box{background:#0a0a0f;border:1px solid #1a1a2e;border-radius:6px;padding:1rem;font-family:monospace;font-size:.82rem;white-space:pre-wrap;word-break:break-all;min-height:120px;color:#ccc;line-height:1.5;max-height:300px;overflow-y:auto}
+.preview-box{background:#0a0a0f;border:1px solid #1a1a2e;border-radius:6px;min-height:200px;display:flex;align-items:center;justify-content:center;background-repeat:no-repeat;background-position:center;background-size:contain;position:relative}
+.preview-box.checkerboard{background-image:linear-gradient(45deg,#1a1a2e 25%,transparent 25%),linear-gradient(-45deg,#1a1a2e 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#1a1a2e 75%),linear-gradient(-45deg,transparent 75%,#1a1a2e 75%);background-size:20px 20px;background-position:0 0,0 10px,10px -10px,-10px 0px}
+.empty-msg{color:#555;text-align:center}
+.stat-row{display:flex;gap:1rem;margin-top:.8rem;flex-wrap:wrap}
+.stat{background:#0a0a0f;border:1px solid #1a1a2e;border-radius:6px;padding:.5rem .8rem;font-size:.8rem}
+.stat span{color:#ff5f1f;font-weight:700}
+.options{display:flex;gap:1rem;margin-bottom:1rem;flex-wrap:wrap;align-items:center}
+.options label{margin:0;display:flex;align-items:center;gap:.4rem;font-size:.85rem;cursor:pointer}
+.options input[type=checkbox]{width:auto}
+.sample-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:.5rem;margin-top:.5rem}
+.sample-btn{background:#0a0a0f;border:1px solid #1a1a2e;border-radius:6px;padding:.5rem;cursor:pointer;text-align:center;font-size:.8rem;color:#bbb;transition:border-color .2s}
+.sample-btn:hover{border-color:#ff5f1f;color:#ff5f1f}
+footer{background:#111118;border-top:1px solid #1a1a2e;text-align:center;padding:1.2rem;color:#666;font-size:.8rem}
+footer a{color:#ff5f1f;margin:0 .3rem}
+@media(max-width:768px){
+  header h1{font-size:1.2rem}
+  .container{padding:1rem}
+  .panels{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<header>
+<h1>SVG to CSS Background Converter</h1>
+<p>Paste SVG, get CSS background-image data URI. Live preview. Free, browser-based.</p>
+</header>
+<div class="container">
+  <div class="section">
+    <h2>Sample SVGs</h2>
+    <div class="sample-grid">
+      <div class="sample-btn" onclick="loadSample('circle')">Circle</div>
+      <div class="sample-btn" onclick="loadSample('star')">Star</div>
+      <div class="sample-btn" onclick="loadSample('wave')">Wave Pattern</div>
+      <div class="sample-btn" onclick="loadSample('grid')">Grid Pattern</div>
+      <div class="sample-btn" onclick="loadSample('dots')">Dots Pattern</div>
+      <div class="sample-btn" onclick="loadSample('chevron')">Chevron</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>SVG Input</h2>
+    <div class="options">
+      <label><input type="checkbox" id="optMinify" checked onchange="convert()"> Minify</label>
+      <label><input type="checkbox" id="optBase64" onchange="convert()"> Base64 encode</label>
+      <label><input type="checkbox" id="optRepeat" checked onchange="convert()"> Repeat background</label>
+    </div>
+    <textarea id="svgInput" rows="10" placeholder="Paste your SVG code here..." oninput="convert()"></textarea>
+  </div>
+
+  <div class="section">
+    <h2>Output &amp; Preview</h2>
+    <div class="panels">
+      <div>
+        <label>CSS Output</label>
+        <div class="output-box" id="cssOutput">Paste SVG above to generate CSS...</div>
+        <div style="display:flex;gap:.5rem;margin-top:.8rem">
+          <button class="btn btn-sm" onclick="copyCss()">Copy CSS</button>
+          <button class="btn btn-sm btn-outline" onclick="copyDataUri()">Copy Data URI Only</button>
+        </div>
+        <div class="stat-row" id="stats"></div>
+      </div>
+      <div>
+        <label>Live Preview</label>
+        <div class="preview-box checkerboard" id="preview"><span class="empty-msg">Preview will appear here</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+<footer>
+  <a href="https://spunk.codes">spunk.codes</a> &middot; <a href="https://spunk.bet">spunk.bet</a> &middot; <a href="https://spunk.pics">spunk.pics</a> &middot; <a href="https://spunk.work">spunk.work</a> &middot; <a href="https://spunkart.com">SpunkArt.com</a>
+</footer>
+<script>
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
+let lastDataUri='';
+
+const samples={
+  circle:'<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="#ff5f1f" opacity="0.8"/></svg>',
+  star:'<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><polygon points="50,5 63,38 98,38 70,60 80,95 50,73 20,95 30,60 2,38 37,38" fill="#ff5f1f"/></svg>',
+  wave:'<svg xmlns="http://www.w3.org/2000/svg" width="100" height="20" viewBox="0 0 100 20"><path d="M0 10 Q25 0 50 10 T100 10" stroke="#ff5f1f" stroke-width="2" fill="none"/></svg>',
+  grid:'<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><rect width="20" height="20" fill="none" stroke="#ff5f1f" stroke-width="0.5" opacity="0.3"/></svg>',
+  dots:'<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><circle cx="10" cy="10" r="2" fill="#ff5f1f" opacity="0.4"/></svg>',
+  chevron:'<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40"><path d="M0 20 L20 0 L40 20 L40 30 L20 10 L0 30Z" fill="#ff5f1f" opacity="0.15"/></svg>'
+};
+
+function loadSample(name){
+  document.getElementById('svgInput').value=samples[name]||'';
+  convert();
+}
+
+function encodeSvg(svg){
+  return svg.replace(/"/g,"'").replace(/%/g,'%25').replace(/#/g,'%23').replace(/{/g,'%7B').replace(/}/g,'%7D').replace(/</g,'%3C').replace(/>/g,'%3E').replace(/\s+/g,' ').trim();
+}
+
+function convert(){
+  let svg=document.getElementById('svgInput').value.trim();
+  const preview=document.getElementById('preview');
+  const output=document.getElementById('cssOutput');
+  const stats=document.getElementById('stats');
+  if(!svg){
+    output.textContent='Paste SVG above to generate CSS...';
+    preview.innerHTML='<span class="empty-msg">Preview will appear here</span>';
+    preview.style.backgroundImage='none';
+    stats.innerHTML='';
+    lastDataUri='';
+    return;
+  }
+  const origSize=new Blob([svg]).size;
+  const minify=document.getElementById('optMinify').checked;
+  const base64=document.getElementById('optBase64').checked;
+  const repeat=document.getElementById('optRepeat').checked;
+
+  if(minify){
+    svg=svg.replace(/<!--[\s\S]*?-->/g,'').replace(/\s+/g,' ').replace(/>\s+</g,'><').replace(/\s*=\s*/g,'=').trim();
+  }
+
+  let dataUri;
+  if(base64){
+    dataUri='data:image/svg+xml;base64,'+btoa(unescape(encodeURIComponent(svg)));
+  }else{
+    dataUri='data:image/svg+xml,'+encodeSvg(svg);
+  }
+  lastDataUri=dataUri;
+
+  const bgRepeat=repeat?'repeat':'no-repeat';
+  const css='background-image: url("'+dataUri+'");\nbackground-repeat: '+bgRepeat+';\nbackground-position: center;\nbackground-size: '+(repeat?'auto':'contain')+';';
+  output.textContent=css;
+
+  preview.innerHTML='';
+  preview.style.backgroundImage='url("'+dataUri+'")';
+  preview.style.backgroundRepeat=bgRepeat;
+  preview.style.backgroundSize=repeat?'auto':'contain';
+  preview.style.backgroundPosition='center';
+
+  const finalSize=new Blob([dataUri]).size;
+  stats.innerHTML='<div class="stat">Original: <span>'+origSize+' B</span></div><div class="stat">Data URI: <span>'+finalSize+' B</span></div><div class="stat">Savings: <span>'+(origSize>finalSize?'-':'+')+Math.abs(Math.round((1-finalSize/origSize)*100))+'%</span></div>';
+}
+
+function copyCss(){
+  const text=document.getElementById('cssOutput').textContent;
+  if(text.startsWith('Paste')){flash('Nothing to copy');return;}
+  navigator.clipboard.writeText(text).then(()=>flash('CSS copied!'));
+}
+function copyDataUri(){
+  if(!lastDataUri){flash('Nothing to copy');return;}
+  navigator.clipboard.writeText(lastDataUri).then(()=>flash('Data URI copied!'));
+}
+
+function flash(msg){
+  const d=document.createElement('div');
+  d.style.cssText='position:fixed;top:20px;right:20px;background:#ff5f1f;color:#fff;padding:.8rem 1.5rem;border-radius:8px;font-weight:600;z-index:9999;animation:fadeOut 2s forwards';
+  d.textContent=msg;document.body.appendChild(d);setTimeout(()=>d.remove(),2200);
+}
+const st=document.createElement('style');st.textContent='@keyframes fadeOut{0%{opacity:1}70%{opacity:1}100%{opacity:0}}';document.head.appendChild(st);
+</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>

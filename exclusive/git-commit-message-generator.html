@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Git Commit Message Generator — Conventional Commits Builder | SPUNK.CODES</title>
+<meta name="description" content="Generate conventional commit messages with type, scope, subject, body, and breaking changes. History saved locally. Free browser tool.">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP')</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w")</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e0e0e0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+header{background:#111118;border-bottom:2px solid #ff5f1f;padding:1rem 2rem;text-align:center}
+header h1{font-size:1.6rem;color:#ff5f1f}
+header p{color:#999;font-size:.9rem;margin-top:.3rem}
+.container{max-width:900px;margin:0 auto;padding:1.5rem;flex:1;width:100%}
+.section{background:#111118;border:1px solid #1a1a2e;border-radius:10px;padding:1.5rem;margin-bottom:1.5rem}
+.section h2{color:#ff5f1f;font-size:1.2rem;margin-bottom:1rem;display:flex;align-items:center;justify-content:space-between}
+label{display:block;color:#bbb;font-size:.85rem;margin-bottom:.3rem}
+input,select,textarea{background:#0a0a0f;color:#e0e0e0;border:1px solid #1a1a2e;border-radius:6px;padding:.5rem .7rem;font-size:.9rem;width:100%}
+input:focus,select:focus,textarea:focus{outline:none;border-color:#ff5f1f}
+textarea{font-family:monospace;resize:vertical;min-height:80px}
+.btn{background:#ff5f1f;color:#fff;border:none;padding:.55rem 1.1rem;border-radius:6px;cursor:pointer;font-size:.9rem;font-weight:600;transition:background .2s}
+.btn:hover{background:#e54e10}
+.btn-sm{padding:.35rem .7rem;font-size:.8rem}
+.btn-outline{background:transparent;border:1px solid #ff5f1f;color:#ff5f1f}
+.btn-outline:hover{background:#ff5f1f;color:#fff}
+.btn-danger{background:#c0392b}.btn-danger:hover{background:#a93226}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
+.form-grid .full{grid-column:1/-1}
+.output-box{background:#0a0a0f;border:1px solid #1a1a2e;border-radius:6px;padding:1rem;font-family:monospace;font-size:.9rem;white-space:pre-wrap;word-break:break-word;min-height:60px;color:#ccc;line-height:1.6}
+.type-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:.5rem;margin-bottom:1rem}
+.type-btn{background:#0a0a0f;border:2px solid #1a1a2e;border-radius:8px;padding:.6rem .5rem;cursor:pointer;text-align:center;transition:border-color .2s,background .2s}
+.type-btn:hover{border-color:#ff5f1f}
+.type-btn.active{border-color:#ff5f1f;background:#1a1018}
+.type-btn .emoji{font-size:1.3rem;display:block;margin-bottom:.2rem}
+.type-btn .name{font-size:.8rem;font-weight:700;color:#ff5f1f}
+.type-btn .desc{font-size:.7rem;color:#888;margin-top:.1rem}
+.history-item{background:#0a0a0f;border:1px solid #1a1a2e;border-radius:6px;padding:.8rem;margin-bottom:.5rem;display:flex;justify-content:space-between;align-items:flex-start;gap:.5rem}
+.history-item code{font-size:.82rem;color:#ccc;word-break:break-all;flex:1}
+.history-item .actions{display:flex;gap:.3rem;flex-shrink:0}
+.history-time{color:#666;font-size:.75rem;margin-top:.3rem}
+.count-badge{background:#ff5f1f;color:#fff;padding:.2rem .6rem;border-radius:12px;font-size:.8rem;font-weight:700}
+.check-row{display:flex;align-items:center;gap:.5rem;margin-bottom:1rem}
+.check-row input[type=checkbox]{width:auto}
+footer{background:#111118;border-top:1px solid #1a1a2e;text-align:center;padding:1.2rem;color:#666;font-size:.8rem}
+footer a{color:#ff5f1f;margin:0 .3rem}
+@media(max-width:768px){
+  header h1{font-size:1.2rem}
+  .container{padding:1rem}
+  .form-grid{grid-template-columns:1fr}
+  .type-grid{grid-template-columns:repeat(auto-fill,minmax(100px,1fr))}
+}
+</style>
+</head>
+<body>
+<header>
+<h1>Git Commit Message Generator</h1>
+<p>Build conventional commit messages. Copy-paste ready. History saved locally.</p>
+</header>
+<div class="container">
+  <div class="section">
+    <h2>Commit Type</h2>
+    <div class="type-grid" id="typeGrid"></div>
+  </div>
+
+  <div class="section">
+    <h2>Details</h2>
+    <div class="form-grid">
+      <div>
+        <label for="scope">Scope (optional)</label>
+        <input type="text" id="scope" placeholder="e.g. auth, api, ui">
+      </div>
+      <div>
+        <label for="subject">Subject (imperative mood)</label>
+        <input type="text" id="subject" placeholder="e.g. add login validation" maxlength="72">
+        <div style="color:#666;font-size:.75rem;margin-top:.2rem;text-align:right"><span id="charCount">0</span>/72</div>
+      </div>
+      <div class="full">
+        <label for="body">Body (optional)</label>
+        <textarea id="body" placeholder="Explain what and why (not how)"></textarea>
+      </div>
+      <div class="full">
+        <label for="footer">Footer (optional)</label>
+        <input type="text" id="footer" placeholder="e.g. Refs #123, Closes #456">
+      </div>
+    </div>
+    <div class="check-row">
+      <input type="checkbox" id="breaking">
+      <label for="breaking" style="margin:0;cursor:pointer">Breaking change</label>
+    </div>
+    <div class="full hidden" id="breakingDesc" style="margin-bottom:1rem">
+      <label for="breakingText">Breaking change description</label>
+      <input type="text" id="breakingText" placeholder="Describe what breaks">
+    </div>
+    <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+      <button class="btn" onclick="generate()">Generate Message</button>
+      <button class="btn btn-outline" onclick="clearForm()">Clear</button>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Output</h2>
+    <div class="output-box" id="output">Your commit message will appear here...</div>
+    <div style="display:flex;gap:.5rem;margin-top:1rem">
+      <button class="btn btn-sm" onclick="copyMsg()">Copy Message</button>
+      <button class="btn btn-sm btn-outline" onclick="copyCmd()">Copy as git commit</button>
+      <button class="btn btn-sm btn-outline" onclick="saveToHistory()">Save to History</button>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>History <span class="count-badge" id="histCount">0</span></h2>
+    <div id="historyList"></div>
+    <button class="btn btn-sm btn-danger" onclick="clearHistory()" style="margin-top:.5rem">Clear History</button>
+  </div>
+</div>
+<footer>
+  <a href="https://spunk.codes">spunk.codes</a> &middot; <a href="https://spunk.bet">spunk.bet</a> &middot; <a href="https://spunk.pics">spunk.pics</a> &middot; <a href="https://spunk.work">spunk.work</a> &middot; <a href="https://spunkart.com">SpunkArt.com</a>
+</footer>
+<script>
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
+const LS='git_commit_history';
+const types=[
+  {key:'feat',label:'feat',desc:'New feature'},
+  {key:'fix',label:'fix',desc:'Bug fix'},
+  {key:'docs',label:'docs',desc:'Documentation'},
+  {key:'style',label:'style',desc:'Formatting'},
+  {key:'refactor',label:'refactor',desc:'Refactor code'},
+  {key:'test',label:'test',desc:'Add tests'},
+  {key:'chore',label:'chore',desc:'Maintenance'},
+  {key:'perf',label:'perf',desc:'Performance'},
+  {key:'ci',label:'ci',desc:'CI/CD changes'},
+  {key:'build',label:'build',desc:'Build system'},
+  {key:'revert',label:'revert',desc:'Revert commit'}
+];
+let selectedType='feat';
+
+function initTypes(){
+  const grid=document.getElementById('typeGrid');
+  grid.innerHTML=types.map(t=>'<div class="type-btn'+(t.key===selectedType?' active':'')+'" onclick="selectType(\''+t.key+'\')"><div class="name">'+esc(t.label)+'</div><div class="desc">'+esc(t.desc)+'</div></div>').join('');
+}
+
+function selectType(t){
+  selectedType=t;
+  initTypes();
+  generate();
+}
+
+document.getElementById('subject').addEventListener('input',function(){
+  document.getElementById('charCount').textContent=this.value.length;
+  generate();
+});
+document.getElementById('scope').addEventListener('input',generate);
+document.getElementById('body').addEventListener('input',generate);
+document.getElementById('footer').addEventListener('input',generate);
+document.getElementById('breaking').addEventListener('change',function(){
+  document.getElementById('breakingDesc').classList.toggle('hidden',!this.checked);
+  generate();
+});
+document.getElementById('breakingText').addEventListener('input',generate);
+
+function buildMessage(){
+  const scope=document.getElementById('scope').value.trim();
+  const subject=document.getElementById('subject').value.trim();
+  const body=document.getElementById('body').value.trim();
+  const footer=document.getElementById('footer').value.trim();
+  const breaking=document.getElementById('breaking').checked;
+  const breakingText=document.getElementById('breakingText').value.trim();
+  if(!subject)return '';
+  let header=selectedType;
+  if(scope)header+='('+scope+')';
+  if(breaking)header+='!';
+  header+=': '+subject;
+  let msg=header;
+  if(body)msg+='\n\n'+body;
+  if(breaking&&breakingText)msg+='\n\nBREAKING CHANGE: '+breakingText;
+  if(footer)msg+='\n\n'+footer;
+  return msg;
+}
+
+function generate(){
+  const msg=buildMessage();
+  document.getElementById('output').textContent=msg||'Your commit message will appear here...';
+}
+
+function copyMsg(){
+  const msg=buildMessage();
+  if(!msg){flash('Enter a subject first');return;}
+  navigator.clipboard.writeText(msg).then(()=>flash('Message copied!'));
+}
+
+function copyCmd(){
+  const msg=buildMessage();
+  if(!msg){flash('Enter a subject first');return;}
+  const cmd='git commit -m "'+msg.replace(/"/g,'\\"').replace(/\n/g,'" -m "')+'"';
+  navigator.clipboard.writeText(cmd).then(()=>flash('Git command copied!'));
+}
+
+function saveToHistory(){
+  const msg=buildMessage();
+  if(!msg){flash('Nothing to save');return;}
+  const hist=JSON.parse(localStorage.getItem(LS)||'[]');
+  hist.unshift({msg,time:Date.now()});
+  if(hist.length>50)hist.length=50;
+  localStorage.setItem(LS,JSON.stringify(hist));
+  renderHistory();
+  flash('Saved to history!');
+}
+
+function getHistory(){return JSON.parse(localStorage.getItem(LS)||'[]');}
+
+function renderHistory(){
+  const hist=getHistory();
+  document.getElementById('histCount').textContent=hist.length;
+  const list=document.getElementById('historyList');
+  if(!hist.length){list.innerHTML='<div style="color:#555;text-align:center;padding:1rem">No history yet.</div>';return;}
+  list.innerHTML=hist.map((h,i)=>'<div class="history-item"><div><code>'+esc(h.msg)+'</code><div class="history-time">'+new Date(h.time).toLocaleString()+'</div></div><div class="actions"><button class="btn btn-sm btn-outline" onclick="copyHistItem('+i+')">Copy</button><button class="btn btn-sm btn-danger" onclick="deleteHistItem('+i+')">Del</button></div></div>').join('');
+}
+
+function copyHistItem(i){
+  const hist=getHistory();
+  if(hist[i])navigator.clipboard.writeText(hist[i].msg).then(()=>flash('Copied!'));
+}
+function deleteHistItem(i){
+  const hist=getHistory();
+  hist.splice(i,1);
+  localStorage.setItem(LS,JSON.stringify(hist));
+  renderHistory();
+}
+function clearHistory(){
+  if(!confirm('Clear all history?'))return;
+  localStorage.removeItem(LS);renderHistory();flash('History cleared');
+}
+function clearForm(){
+  document.getElementById('scope').value='';
+  document.getElementById('subject').value='';
+  document.getElementById('body').value='';
+  document.getElementById('footer').value='';
+  document.getElementById('breaking').checked=false;
+  document.getElementById('breakingText').value='';
+  document.getElementById('breakingDesc').classList.add('hidden');
+  document.getElementById('charCount').textContent='0';
+  selectedType='feat';initTypes();generate();
+}
+function flash(msg){
+  const d=document.createElement('div');
+  d.style.cssText='position:fixed;top:20px;right:20px;background:#ff5f1f;color:#fff;padding:.8rem 1.5rem;border-radius:8px;font-weight:600;z-index:9999;animation:fadeOut 2s forwards';
+  d.textContent=msg;document.body.appendChild(d);setTimeout(()=>d.remove(),2200);
+}
+const st=document.createElement('style');st.textContent='@keyframes fadeOut{0%{opacity:1}70%{opacity:1}100%{opacity:0}}';document.head.appendChild(st);
+initTypes();renderHistory();generate();
+</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>

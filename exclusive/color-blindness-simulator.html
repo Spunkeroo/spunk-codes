@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Color Blindness Simulator - Test Accessibility | SPUNK.CODES Exclusive</title>
+<meta name="description" content="Simulate color blindness on any image. Test protanopia, deuteranopia, tritanopia, achromatopsia. Canvas-based, no uploads required.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Color Blindness Simulator - SPUNK.CODES Exclusive">
+<meta property="og:description" content="Simulate color blindness on images to test accessibility. Supports all major types.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://spunk.codes/exclusive/color-blindness-simulator">
+<meta property="og:site_name" content="Spunk Codes">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<meta name="twitter:creator" content="@SpunkArt13">
+<meta name="twitter:title" content="Color Blindness Simulator - SPUNK.CODES Exclusive">
+<meta name="twitter:description" content="Simulate color blindness on images to test accessibility.">
+<link rel="canonical" href="https://spunk.codes/exclusive/color-blindness-simulator">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Color Blindness Simulator","url":"https://spunk.codes/exclusive/color-blindness-simulator","applicationCategory":"DesignApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Simulate color blindness on any image. Test protanopia, deuteranopia, tritanopia, achromatopsia with canvas-based processing.","author":{"@type":"Organization","name":"Spunk Codes","url":"https://spunk.codes"}}</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0f;color:#e0e0e0;min-height:100vh;line-height:1.6}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+.wrap{max-width:1200px;margin:0 auto;padding:1.5rem}
+h1{font-size:2rem;font-weight:800;text-align:center;margin:1.5rem 0 0.5rem}
+h1 span{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.subtitle{text-align:center;color:#8b949e;margin-bottom:2rem;max-width:650px;margin-left:auto;margin-right:auto}
+.card{background:rgba(18,18,28,0.85);border:1px solid #1a1a2e;border-radius:14px;padding:1.5rem;margin-bottom:1.5rem;position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#ff5f1f,#ff9f1f,#ff5f1f)}
+.card h2{font-size:1rem;font-weight:700;margin-bottom:1rem;color:#ff9f1f}
+.btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.85rem;font-weight:700;cursor:pointer;border:none;transition:all 0.2s;display:inline-flex;align-items:center;gap:0.4rem}
+.btn-primary{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);color:#000}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 4px 15px rgba(255,95,31,0.3)}
+.btn-outline{background:transparent;border:1px solid rgba(255,95,31,0.3);color:#ff9f1f}
+.btn-outline:hover{background:rgba(255,95,31,0.1)}
+.upload-zone{border:2px dashed #1a1a2e;border-radius:12px;padding:3rem;text-align:center;cursor:pointer;transition:all 0.3s;margin-bottom:1rem}
+.upload-zone:hover,.upload-zone.dragover{border-color:#ff5f1f;background:rgba(255,95,31,0.05)}
+.upload-zone p{color:#8b949e;margin-top:0.5rem;font-size:0.85rem}
+.types{display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1.5rem;justify-content:center}
+.type-btn{padding:0.5rem 1rem;border-radius:8px;font-size:0.8rem;font-weight:600;cursor:pointer;border:1px solid #1a1a2e;background:transparent;color:#8b949e;transition:all 0.2s}
+.type-btn.active{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);color:#000;border-color:transparent}
+.type-btn:hover:not(.active){background:rgba(255,95,31,0.1);color:#ff9f1f}
+.comparison{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1rem}
+@media(max-width:768px){.comparison{grid-template-columns:1fr}}
+.img-panel{text-align:center}
+.img-panel h3{font-size:0.85rem;color:#8b949e;margin-bottom:0.5rem;font-weight:600}
+.img-panel canvas{max-width:100%;border-radius:8px;border:1px solid #1a1a2e}
+.info-box{background:rgba(255,95,31,0.05);border:1px solid rgba(255,95,31,0.15);border-radius:8px;padding:1rem;margin-top:1rem;font-size:0.85rem;color:#8b949e;line-height:1.7}
+.info-box strong{color:#ff9f1f}
+.hidden{display:none}
+.network-footer{text-align:center;padding:2rem 0 1rem;border-top:1px solid #1a1a2e;margin-top:2rem}
+.network-footer .links{display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap;font-size:0.85rem;margin-bottom:0.5rem}
+.network-footer .copy{color:#8b949e;font-size:0.75rem}
+.cta-banner{text-align:center;margin:2rem 0 1rem;padding:1.5rem;background:linear-gradient(135deg,rgba(255,95,31,0.1),rgba(255,159,31,0.05));border:1px solid rgba(255,95,31,0.2);border-radius:14px}
+.cta-banner p{color:#8b949e;font-size:0.9rem;margin-bottom:0.8rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1><span>Color Blindness Simulator</span></h1>
+<p class="subtitle">Upload an image or use the color picker to see how it appears to people with different types of color vision deficiency. 100% client-side processing.</p>
+
+<div class="card">
+<h2>Upload Image</h2>
+<div class="upload-zone" id="dropZone" onclick="document.getElementById('fileInput').click()">
+<div style="font-size:2.5rem;margin-bottom:0.5rem">&#128444;</div>
+<div style="font-weight:700;font-size:1rem">Drop an image here or click to upload</div>
+<p>Supports PNG, JPG, GIF, SVG, WebP</p>
+<input type="file" id="fileInput" accept="image/*" style="display:none" onchange="handleFile(this.files[0])">
+</div>
+<div style="text-align:center;color:#8b949e;font-size:0.85rem;margin-bottom:1rem">or test with a color</div>
+<div style="display:flex;align-items:center;gap:1rem;justify-content:center;flex-wrap:wrap">
+<input type="color" id="testColor" value="#ff5f1f" style="width:60px;height:40px;border:none;cursor:pointer;background:none;border-radius:6px">
+<button class="btn btn-outline" onclick="useColorSwatch()">Generate Color Swatch</button>
+<button class="btn btn-outline" onclick="useSampleImage()">Use Sample Image</button>
+</div>
+</div>
+
+<div class="types">
+<button class="type-btn active" data-type="normal" onclick="setType('normal',this)">Normal Vision</button>
+<button class="type-btn" data-type="protanopia" onclick="setType('protanopia',this)">Protanopia (Red)</button>
+<button class="type-btn" data-type="deuteranopia" onclick="setType('deuteranopia',this)">Deuteranopia (Green)</button>
+<button class="type-btn" data-type="tritanopia" onclick="setType('tritanopia',this)">Tritanopia (Blue)</button>
+<button class="type-btn" data-type="achromatopsia" onclick="setType('achromatopsia',this)">Achromatopsia (Total)</button>
+<button class="type-btn" data-type="all" onclick="setType('all',this)">Show All</button>
+</div>
+
+<div id="resultArea" class="hidden">
+<div class="card" id="singleView">
+<div class="comparison">
+<div class="img-panel"><h3>Original</h3><canvas id="canvasOriginal"></canvas></div>
+<div class="img-panel"><h3 id="simLabel">Simulated</h3><canvas id="canvasSimulated"></canvas></div>
+</div>
+</div>
+<div class="card hidden" id="allView">
+<h2>All Comparisons</h2>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1rem;margin-top:1rem">
+<div class="img-panel"><h3>Original</h3><canvas id="canvasAll0"></canvas></div>
+<div class="img-panel"><h3>Protanopia</h3><canvas id="canvasAll1"></canvas></div>
+<div class="img-panel"><h3>Deuteranopia</h3><canvas id="canvasAll2"></canvas></div>
+<div class="img-panel"><h3>Tritanopia</h3><canvas id="canvasAll3"></canvas></div>
+<div class="img-panel"><h3>Achromatopsia</h3><canvas id="canvasAll4"></canvas></div>
+</div>
+</div>
+</div>
+
+<div class="info-box">
+<strong>About Color Blindness Types:</strong><br>
+<strong>Protanopia</strong> (~1% of males): Reduced sensitivity to red light.<br>
+<strong>Deuteranopia</strong> (~1% of males): Reduced sensitivity to green light. Most common type.<br>
+<strong>Tritanopia</strong> (~0.003%): Reduced sensitivity to blue light. Very rare.<br>
+<strong>Achromatopsia</strong> (~0.003%): Complete color blindness, seeing only shades of gray.
+</div>
+
+<div class="cta-banner">
+<p>300+ free tools for developers, creators & founders</p>
+<a href="https://spunk.codes" class="btn btn-primary">Browse All Tools</a>
+</div>
+<div class="network-footer">
+<div class="links">
+<a href="https://spunk.codes">Home</a>
+<a href="https://spunk.codes/exclusive/">Exclusive Tools</a>
+<a href="https://spunk.codes/about">About</a>
+<a href="https://x.com/SpunkArt13">@SpunkArt13</a>
+</div>
+<div class="copy">&copy; 2025 spunk.codes</div>
+</div>
+</div>
+
+<script>
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+
+var sourceImage=null;
+var currentType='normal';
+
+// Color vision deficiency simulation matrices (Brettel 1997)
+var matrices={
+protanopia:[0.567,0.433,0,0,0.558,0.442,0,0,0,0.242,0.758,0,0,0,0,1],
+deuteranopia:[0.625,0.375,0,0,0.7,0.3,0,0,0,0.3,0.7,0,0,0,0,1],
+tritanopia:[0.95,0.05,0,0,0,0.433,0.567,0,0,0.475,0.525,0,0,0,0,1],
+achromatopsia:[0.299,0.587,0.114,0,0.299,0.587,0.114,0,0.299,0.587,0.114,0,0,0,0,1]
+};
+
+function applyMatrix(imageData,matrix){
+var d=imageData.data;
+for(var i=0;i<d.length;i+=4){
+var r=d[i],g=d[i+1],b=d[i+2];
+d[i]=r*matrix[0]+g*matrix[1]+b*matrix[2]+matrix[3]*255;
+d[i+1]=r*matrix[4]+g*matrix[5]+b*matrix[6]+matrix[7]*255;
+d[i+2]=r*matrix[8]+g*matrix[9]+b*matrix[10]+matrix[11]*255;
+}
+return imageData;
+}
+
+function drawToCanvas(canvas,img,matrix){
+var maxW=560;
+var scale=Math.min(1,maxW/img.width);
+canvas.width=img.width*scale;
+canvas.height=img.height*scale;
+var ctx=canvas.getContext('2d');
+ctx.drawImage(img,0,0,canvas.width,canvas.height);
+if(matrix){
+var imgData=ctx.getImageData(0,0,canvas.width,canvas.height);
+applyMatrix(imgData,matrix);
+ctx.putImageData(imgData,0,0);
+}
+}
+
+function handleFile(file){
+if(!file||!file.type.startsWith('image/'))return;
+var reader=new FileReader();
+reader.onload=function(e){
+var img=new Image();
+img.onload=function(){
+sourceImage=img;
+render();
+};
+img.src=e.target.result;
+};
+reader.readAsDataURL(file);
+}
+
+function useColorSwatch(){
+var c=document.getElementById('testColor').value;
+var canvas=document.createElement('canvas');
+canvas.width=400;canvas.height=300;
+var ctx=canvas.getContext('2d');
+// Create a gradient swatch with the chosen color
+var colors=[c,'#ff0000','#00ff00','#0000ff','#ffff00','#ff00ff','#00ffff','#ffffff','#000000'];
+var bw=canvas.width/3;var bh=canvas.height/3;
+for(var i=0;i<9;i++){
+ctx.fillStyle=colors[i];
+ctx.fillRect((i%3)*bw,Math.floor(i/3)*bh,bw,bh);
+}
+var img=new Image();
+img.onload=function(){sourceImage=img;render()};
+img.src=canvas.toDataURL();
+}
+
+function useSampleImage(){
+var canvas=document.createElement('canvas');
+canvas.width=400;canvas.height=300;
+var ctx=canvas.getContext('2d');
+// Create a colorful test pattern
+var gradient=ctx.createLinearGradient(0,0,400,0);
+gradient.addColorStop(0,'#ff0000');gradient.addColorStop(0.17,'#ff8800');
+gradient.addColorStop(0.33,'#ffff00');gradient.addColorStop(0.5,'#00ff00');
+gradient.addColorStop(0.67,'#0088ff');gradient.addColorStop(0.83,'#8800ff');
+gradient.addColorStop(1,'#ff0088');
+ctx.fillStyle=gradient;ctx.fillRect(0,0,400,150);
+var g2=ctx.createLinearGradient(0,150,0,300);
+g2.addColorStop(0,'#ffffff');g2.addColorStop(1,'#000000');
+ctx.fillStyle=g2;ctx.fillRect(0,150,400,150);
+// Circles
+var ccolors=['#ff0000','#00ff00','#0000ff','#ffff00','#ff00ff'];
+ccolors.forEach(function(col,i){
+ctx.beginPath();
+ctx.arc(60+i*80,220,30,0,Math.PI*2);
+ctx.fillStyle=col;ctx.fill();
+});
+var img=new Image();
+img.onload=function(){sourceImage=img;render()};
+img.src=canvas.toDataURL();
+}
+
+function setType(type,btn){
+currentType=type;
+document.querySelectorAll('.type-btn').forEach(function(b){b.classList.remove('active')});
+btn.classList.add('active');
+if(sourceImage)render();
+}
+
+function render(){
+if(!sourceImage)return;
+document.getElementById('resultArea').classList.remove('hidden');
+if(currentType==='all'){
+document.getElementById('singleView').classList.add('hidden');
+document.getElementById('allView').classList.remove('hidden');
+drawToCanvas(document.getElementById('canvasAll0'),sourceImage,null);
+drawToCanvas(document.getElementById('canvasAll1'),sourceImage,matrices.protanopia);
+drawToCanvas(document.getElementById('canvasAll2'),sourceImage,matrices.deuteranopia);
+drawToCanvas(document.getElementById('canvasAll3'),sourceImage,matrices.tritanopia);
+drawToCanvas(document.getElementById('canvasAll4'),sourceImage,matrices.achromatopsia);
+}else{
+document.getElementById('singleView').classList.remove('hidden');
+document.getElementById('allView').classList.add('hidden');
+drawToCanvas(document.getElementById('canvasOriginal'),sourceImage,null);
+var m=currentType==='normal'?null:matrices[currentType];
+drawToCanvas(document.getElementById('canvasSimulated'),sourceImage,m);
+var labels={normal:'Normal Vision',protanopia:'Protanopia (Red-Blind)',deuteranopia:'Deuteranopia (Green-Blind)',tritanopia:'Tritanopia (Blue-Blind)',achromatopsia:'Achromatopsia (Total)'};
+document.getElementById('simLabel').textContent=labels[currentType]||'Simulated';
+}
+}
+
+// Drag & drop
+var dz=document.getElementById('dropZone');
+dz.addEventListener('dragover',function(e){e.preventDefault();dz.classList.add('dragover')});
+dz.addEventListener('dragleave',function(){dz.classList.remove('dragover')});
+dz.addEventListener('drop',function(e){e.preventDefault();dz.classList.remove('dragover');if(e.dataTransfer.files.length)handleFile(e.dataTransfer.files[0])});
+</script>
+
+<!-- Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+<script src="/auto-monetize.js"></script>
+<!-- Share on X Button -->
+<div id="shareXBtn" style="position:fixed;left:20px;bottom:20px;z-index:9999;">
+  <a id="shareXLink" href="#" target="_blank" rel="noopener noreferrer" title="Share on X"
+     style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;
+     background:rgba(255,95,31,0.15);border:1px solid rgba(255,95,31,0.3);
+     backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:50%;
+     text-decoration:none;transition:all 0.3s ease;cursor:pointer;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+    </svg>
+  </a>
+</div>
+<style>
+  #shareXBtn a:hover {
+    background: rgba(255,95,31,0.35) !important;
+    border-color: rgba(255,95,31,0.6) !important;
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(255,95,31,0.3);
+  }
+</style>
+<script>
+(function(){
+  var page = "color-blindness-simulator";
+  var url = "https://spunk.codes/exclusive/" + page;
+  var text = "This color blindness simulator is amazing for testing accessibility. Free tool @SpunkArt13";
+  var href = "https://x.com/intent/tweet?text=" + encodeURIComponent(text) + "&url=" + encodeURIComponent(url);
+  document.getElementById("shareXLink").href = href;
+})();
+</script>
+<script src="/usage-tracker.js"></script>
+</body>
+</html>
