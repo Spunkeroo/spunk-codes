@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>JSON Path Finder — Click Any Value to Get Its JSONPath | SPUNK.CODES</title>
+<meta name="description" content="Paste JSON, click any value to get its JSONPath expression. Copy path, navigate nested objects and arrays. Free, no signup, 100% client-side.">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP')</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w")</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e0e0e0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+header{background:#111118;border-bottom:2px solid #ff5f1f;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;position:sticky;top:0;z-index:100}
+header h1{font-size:1.4rem;color:#ff5f1f}
+header .back{color:#e0e0e0;font-size:.9rem}
+main{flex:1;max-width:900px;width:100%;margin:0 auto;padding:24px 16px}
+.panel{background:#111118;border:1px solid #1a1a2e;border-radius:10px;padding:20px;margin-bottom:20px}
+.panel h2{font-size:1.1rem;color:#ff5f1f;margin-bottom:14px}
+button{background:#ff5f1f;color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:.9rem;font-weight:600;transition:background .2s}
+button:hover{background:#e8520e}
+button.secondary{background:#2a2a3a;color:#e0e0e0}button.secondary:hover{background:#3a3a4a}
+textarea{background:#16161e;border:1px solid #1a1a2e;color:#e0e0e0;padding:12px;border-radius:6px;font-size:.85rem;width:100%;resize:vertical;font-family:'Courier New',monospace;line-height:1.5}
+.btn-row{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.path-display{background:#16161e;border:2px solid #ff5f1f;border-radius:8px;padding:14px;font-family:'Courier New',monospace;font-size:.95rem;color:#ff5f1f;min-height:44px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.path-display .path-text{flex:1;word-break:break-all}
+.path-display .value-text{font-size:.8rem;color:#888;max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tree-container{background:#0a0a0f;border:1px solid #1a1a2e;border-radius:8px;padding:16px;max-height:500px;overflow:auto;font-family:'Courier New',monospace;font-size:.85rem;line-height:1.8}
+.tree-key{color:#ff5f1f;cursor:pointer}
+.tree-key:hover{text-decoration:underline}
+.tree-str{color:#98c379;cursor:pointer}
+.tree-str:hover{opacity:.8}
+.tree-num{color:#d19a66;cursor:pointer}
+.tree-num:hover{opacity:.8}
+.tree-bool{color:#56b6c2;cursor:pointer}
+.tree-bool:hover{opacity:.8}
+.tree-null{color:#636d83;cursor:pointer}
+.tree-null:hover{opacity:.8}
+.tree-bracket{color:#636d83}
+.tree-toggle{cursor:pointer;user-select:none;color:#636d83;display:inline-block;width:14px;text-align:center}
+.tree-toggle:hover{color:#ff5f1f}
+.tree-line{padding-left:20px}
+.tree-line.highlight{background:rgba(255,95,31,.08);border-radius:4px}
+.error-msg{color:#e06c75;font-size:.85rem;padding:10px;background:rgba(224,108,117,.08);border-radius:6px;margin-top:10px}
+.stats{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:14px;font-size:.82rem;color:#888}
+.stats span{background:#16161e;padding:4px 10px;border-radius:4px}
+.share-btns{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.share-btns button{font-size:.8rem;padding:6px 12px}
+.copied-toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#ff5f1f;color:#fff;padding:10px 24px;border-radius:8px;font-weight:600;font-size:.9rem;z-index:999;opacity:0;transition:opacity .3s;pointer-events:none}
+.copied-toast.show{opacity:1}
+footer{text-align:center;padding:20px;color:#555;font-size:.8rem;border-top:1px solid #1a1a2e;margin-top:auto}
+footer a{color:#ff5f1f;margin:0 4px}
+@media(max-width:600px){header h1{font-size:1.1rem}}
+</style>
+</head>
+<body>
+<header>
+<h1>JSON Path Finder</h1>
+<a href="https://spunk.codes" class="back">spunk.codes</a>
+</header>
+<main>
+
+<div class="panel">
+<h2>Paste Your JSON</h2>
+<textarea id="jsonInput" rows="10" placeholder='Paste JSON here, e.g. {"name":"John","items":[1,2,3]}'></textarea>
+<div class="btn-row">
+<button onclick="parseJSON()">Parse JSON</button>
+<button class="secondary" onclick="formatJSON()">Format</button>
+<button class="secondary" onclick="minifyJSON()">Minify</button>
+<button class="secondary" onclick="loadSample()">Load Sample</button>
+<button class="secondary" onclick="clearAll()">Clear</button>
+</div>
+<div id="errorMsg"></div>
+</div>
+
+<div class="panel" id="resultPanel" style="display:none">
+<h2>Click Any Value to Get Its Path</h2>
+<div class="path-display">
+<span class="path-text" id="pathText">$</span>
+<span class="value-text" id="valueText">Click a value below</span>
+<button onclick="copyPath()" style="font-size:.78rem;padding:4px 10px;flex-shrink:0">Copy Path</button>
+</div>
+<div class="stats" id="stats"></div>
+<div class="tree-container" id="treeContainer"></div>
+</div>
+
+<div class="panel">
+<h2>Share</h2>
+<div class="share-btns">
+<button onclick="shareX()">Share on X</button>
+<button class="secondary" onclick="shareReddit()">Share on Reddit</button>
+<button class="secondary" onclick="copyLink()">Copy Link</button>
+</div>
+</div>
+</main>
+
+<footer>
+<a href="https://spunk.codes">spunk.codes</a> &middot;
+<a href="https://spunk.bet">spunk.bet</a> &middot;
+<a href="https://spunk.pics">spunk.pics</a> &middot;
+<a href="https://spunk.work">spunk.work</a> &middot;
+<a href="https://spunkart.com">SpunkArt.com</a>
+</footer>
+
+<div class="copied-toast" id="toast"></div>
+
+<script>
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+
+const LS_KEY='spunkcodes_json_path';
+let parsedData=null;
+let currentPath='$';
+
+function parseJSON(){
+const input=document.getElementById('jsonInput').value.trim();
+const errEl=document.getElementById('errorMsg');
+if(!input){errEl.innerHTML='<div class="error-msg">Please paste some JSON.</div>';return}
+try{
+parsedData=JSON.parse(input);
+errEl.innerHTML='';
+document.getElementById('resultPanel').style.display='block';
+renderTree();
+computeStats();
+saveState();
+}catch(e){
+errEl.innerHTML='<div class="error-msg">Invalid JSON: '+esc(e.message)+'</div>';
+document.getElementById('resultPanel').style.display='none';
+}
+}
+
+function formatJSON(){
+try{const d=JSON.parse(document.getElementById('jsonInput').value);document.getElementById('jsonInput').value=JSON.stringify(d,null,2)}catch(e){}}
+
+function minifyJSON(){
+try{const d=JSON.parse(document.getElementById('jsonInput').value);document.getElementById('jsonInput').value=JSON.stringify(d)}catch(e){}}
+
+function computeStats(){
+let keys=0,arrays=0,strings=0,numbers=0,booleans=0,nulls=0;
+function walk(obj){
+if(obj===null){nulls++;return}
+if(Array.isArray(obj)){arrays++;obj.forEach(walk);return}
+if(typeof obj==='object'){keys+=Object.keys(obj).length;Object.values(obj).forEach(walk);return}
+if(typeof obj==='string')strings++;
+else if(typeof obj==='number')numbers++;
+else if(typeof obj==='boolean')booleans++;
+}
+walk(parsedData);
+document.getElementById('stats').innerHTML=`<span>Keys: ${keys}</span><span>Arrays: ${arrays}</span><span>Strings: ${strings}</span><span>Numbers: ${numbers}</span><span>Booleans: ${booleans}</span><span>Nulls: ${nulls}</span>`;
+}
+
+function renderTree(){
+const container=document.getElementById('treeContainer');
+container.innerHTML=buildTree(parsedData,'$',0);
+}
+
+function buildTree(data,path,depth){
+if(data===null)return`<span class="tree-null" onclick="selectPath('${esc(path)}','null')">null</span>`;
+if(typeof data==='string')return`<span class="tree-str" onclick="selectPath('${esc(path)}',${esc(JSON.stringify(data))})">"${esc(data)}"</span>`;
+if(typeof data==='number')return`<span class="tree-num" onclick="selectPath('${esc(path)}','${data}')">${data}</span>`;
+if(typeof data==='boolean')return`<span class="tree-bool" onclick="selectPath('${esc(path)}','${data}')">${data}</span>`;
+
+const id='n'+Math.random().toString(36).slice(2,9);
+if(Array.isArray(data)){
+if(data.length===0)return`<span class="tree-bracket">[]</span>`;
+let html=`<span class="tree-toggle" onclick="toggleNode('${id}')">&#9660;</span><span class="tree-bracket">[</span><div id="${id}">`;
+data.forEach((item,i)=>{
+const childPath=path+'['+i+']';
+html+=`<div class="tree-line">${buildTree(item,childPath,depth+1)}${i<data.length-1?'<span class="tree-bracket">,</span>':''}</div>`;
+});
+html+=`</div><span class="tree-bracket">]</span>`;
+return html;
+}
+
+const keys=Object.keys(data);
+if(keys.length===0)return`<span class="tree-bracket">{}</span>`;
+let html=`<span class="tree-toggle" onclick="toggleNode('${id}')">&#9660;</span><span class="tree-bracket">{</span><div id="${id}">`;
+keys.forEach((key,i)=>{
+const childPath=path+(/^[a-zA-Z_$][a-zA-Z0-9_$]*$/.test(key)?'.'+key:'["'+key.replace(/"/g,'\\"')+'"]');
+html+=`<div class="tree-line"><span class="tree-key" onclick="selectPath('${esc(childPath)}','key: ${esc(key)}')">"${esc(key)}"</span>: ${buildTree(data[key],childPath,depth+1)}${i<keys.length-1?'<span class="tree-bracket">,</span>':''}</div>`;
+});
+html+=`</div><span class="tree-bracket">}</span>`;
+return html;
+}
+
+function toggleNode(id){
+const el=document.getElementById(id);
+if(!el)return;
+const toggle=el.previousElementSibling.previousElementSibling;
+if(el.style.display==='none'){
+el.style.display='';
+toggle.innerHTML='&#9660;';
+}else{
+el.style.display='none';
+toggle.innerHTML='&#9654;';
+}
+}
+
+function selectPath(path,value){
+currentPath=path;
+document.getElementById('pathText').textContent=path;
+document.getElementById('valueText').textContent=value;
+}
+
+function copyPath(){
+navigator.clipboard.writeText(currentPath).then(()=>showToast('Path copied: '+currentPath)).catch(()=>showToast('Copy failed'));
+}
+
+function loadSample(){
+document.getElementById('jsonInput').value=JSON.stringify({
+"store":{
+"name":"SPUNK Store",
+"location":{"city":"New York","zip":"10001"},
+"products":[
+{"id":1,"name":"Widget","price":9.99,"inStock":true,"tags":["sale","new"]},
+{"id":2,"name":"Gadget","price":24.99,"inStock":false,"tags":["popular"]},
+{"id":3,"name":"Doohickey","price":4.99,"inStock":true,"tags":["clearance"]}
+],
+"employees":null,
+"isOpen":true
+}
+},null,2);
+parseJSON();
+}
+
+function clearAll(){
+document.getElementById('jsonInput').value='';
+document.getElementById('resultPanel').style.display='none';
+document.getElementById('errorMsg').innerHTML='';
+parsedData=null;
+}
+
+function saveState(){try{localStorage.setItem(LS_KEY,document.getElementById('jsonInput').value)}catch(e){}}
+function loadState(){try{const d=localStorage.getItem(LS_KEY);if(d){document.getElementById('jsonInput').value=d;parseJSON()}}catch(e){}}
+
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1800)}
+
+const toolURL='https://spunk.codes/exclusive/json-path-finder.html';
+function shareX(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('JSON Path Finder - click any value to get its path! '+toolURL),'_blank')}
+function shareReddit(){window.open('https://reddit.com/submit?url='+encodeURIComponent(toolURL)+'&title='+encodeURIComponent('JSON Path Finder - Free Tool'),'_blank')}
+function copyLink(){navigator.clipboard.writeText(toolURL).then(()=>showToast('Link copied!'))}
+
+loadState();
+</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>

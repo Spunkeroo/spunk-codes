@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Personal Kanban Board — Drag &amp; Drop Task Manager | SPUNK.CODES</title>
+<meta name="description" content="Drag-and-drop Kanban board with Todo, Doing, Done columns. Add, edit, delete cards. Saved locally. Free, no signup, 100% client-side.">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP')</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w")</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e0e0e0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+header{background:#111118;border-bottom:2px solid #ff5f1f;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;position:sticky;top:0;z-index:100}
+header h1{font-size:1.4rem;color:#ff5f1f}
+header .back{color:#e0e0e0;font-size:.9rem}
+header .header-btns{display:flex;gap:8px}
+main{flex:1;padding:24px 16px;overflow-x:auto}
+button{background:#ff5f1f;color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:.9rem;font-weight:600;transition:background .2s}
+button:hover{background:#e8520e}
+button.secondary{background:#2a2a3a;color:#e0e0e0}button.secondary:hover{background:#3a3a4a}
+button.sm{font-size:.75rem;padding:4px 8px}
+.board{display:flex;gap:16px;min-height:calc(100vh - 200px);padding-bottom:20px}
+.column{background:#111118;border:1px solid #1a1a2e;border-radius:10px;min-width:280px;flex:1;display:flex;flex-direction:column;max-width:400px}
+.col-header{padding:14px 16px;border-bottom:1px solid #1a1a2e;display:flex;align-items:center;justify-content:space-between}
+.col-header h2{font-size:1rem;display:flex;align-items:center;gap:8px}
+.col-header .count{background:#1a1a2e;color:#888;font-size:.72rem;padding:2px 8px;border-radius:10px;font-weight:600}
+.col-header .add-btn{background:none;border:1px solid #2a2a3a;color:#e0e0e0;font-size:1.1rem;width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;padding:0;cursor:pointer;transition:background .2s}
+.col-header .add-btn:hover{background:#ff5f1f;border-color:#ff5f1f}
+.col-body{flex:1;padding:10px;overflow-y:auto;min-height:100px}
+.col-body.drag-over{background:rgba(255,95,31,.05);border-radius:0 0 10px 10px}
+.card{background:#16161e;border:1px solid #1a1a2e;border-radius:8px;padding:12px;margin-bottom:8px;cursor:grab;transition:transform .15s,box-shadow .15s;position:relative}
+.card:hover{border-color:#ff5f1f40}
+.card.dragging{opacity:.5;transform:rotate(2deg)}
+.card .card-title{font-size:.9rem;color:#e0e0e0;font-weight:600;margin-bottom:4px;word-wrap:break-word}
+.card .card-desc{font-size:.78rem;color:#888;line-height:1.4;word-wrap:break-word}
+.card .card-meta{display:flex;justify-content:space-between;align-items:center;margin-top:8px}
+.card .card-date{font-size:.68rem;color:#555}
+.card .card-actions{display:flex;gap:4px}
+.card .card-actions button{background:none;border:none;color:#555;font-size:.75rem;cursor:pointer;padding:2px 4px}
+.card .card-actions button:hover{color:#ff5f1f}
+.card .priority{position:absolute;top:0;right:12px;width:4px;height:20px;border-radius:0 0 4px 4px}
+.priority-high{background:#e06c75}
+.priority-med{background:#d19a66}
+.priority-low{background:#98c379}
+
+/* Modal */
+.modal-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.7);backdrop-filter:blur(4px);z-index:200;align-items:center;justify-content:center}
+.modal-overlay.show{display:flex}
+.modal{background:#111118;border:1px solid #1a1a2e;border-radius:12px;padding:24px;width:400px;max-width:92vw}
+.modal h3{font-size:1.1rem;color:#ff5f1f;margin-bottom:16px}
+.modal label{font-size:.82rem;color:#888;display:block;margin-bottom:4px;margin-top:12px}
+.modal input,.modal textarea,.modal select{background:#16161e;border:1px solid #1a1a2e;color:#e0e0e0;padding:10px;border-radius:6px;font-size:.9rem;width:100%;font-family:inherit}
+.modal textarea{resize:vertical;min-height:60px}
+.modal select{cursor:pointer}
+.modal .modal-btns{display:flex;gap:8px;margin-top:16px;justify-content:flex-end}
+
+.stats-bar{display:flex;gap:16px;padding:10px 16px;flex-wrap:wrap;font-size:.78rem;color:#888}
+.stats-bar span{background:#111118;border:1px solid #1a1a2e;padding:4px 10px;border-radius:6px}
+
+.share-row{text-align:center;padding:10px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.share-row button{font-size:.78rem;padding:5px 10px}
+
+.copied-toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#ff5f1f;color:#fff;padding:10px 24px;border-radius:8px;font-weight:600;font-size:.9rem;z-index:999;opacity:0;transition:opacity .3s;pointer-events:none}
+.copied-toast.show{opacity:1}
+footer{text-align:center;padding:20px;color:#555;font-size:.8rem;border-top:1px solid #1a1a2e;margin-top:auto}
+footer a{color:#ff5f1f;margin:0 4px}
+@media(max-width:700px){
+.board{flex-direction:column}
+.column{min-width:auto;max-width:none}
+header h1{font-size:1.1rem}
+}
+</style>
+</head>
+<body>
+<header>
+<h1>Personal Kanban Board</h1>
+<div class="header-btns">
+<button class="secondary sm" onclick="exportBoard()">Export</button>
+<button class="secondary sm" onclick="importBoard()">Import</button>
+<button class="secondary sm" onclick="clearBoard()">Clear</button>
+<a href="https://spunk.codes" class="back" style="margin-left:8px">spunk.codes</a>
+</div>
+</header>
+
+<div class="stats-bar" id="statsBar"></div>
+
+<main>
+<div class="board" id="board"></div>
+</main>
+
+<div class="share-row">
+<button onclick="shareX()">Share on X</button>
+<button class="secondary" onclick="shareReddit()">Share on Reddit</button>
+<button class="secondary" onclick="copyLink()">Copy Link</button>
+</div>
+
+<footer>
+<a href="https://spunk.codes">spunk.codes</a> &middot;
+<a href="https://spunk.bet">spunk.bet</a> &middot;
+<a href="https://spunk.pics">spunk.pics</a> &middot;
+<a href="https://spunk.work">spunk.work</a> &middot;
+<a href="https://spunkart.com">SpunkArt.com</a>
+</footer>
+
+<div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this)closeModal()">
+<div class="modal">
+<h3 id="modalTitle">Add Card</h3>
+<label>Title *</label>
+<input type="text" id="cardTitle" placeholder="Task title..." maxlength="120">
+<label>Description</label>
+<textarea id="cardDesc" placeholder="Optional description..." maxlength="500"></textarea>
+<label>Priority</label>
+<select id="cardPriority">
+<option value="low">Low</option>
+<option value="med" selected>Medium</option>
+<option value="high">High</option>
+</select>
+<div class="modal-btns">
+<button class="secondary" onclick="closeModal()">Cancel</button>
+<button id="modalSave" onclick="saveCard()">Add</button>
+</div>
+</div>
+</div>
+
+<div class="copied-toast" id="toast"></div>
+
+<script>
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+
+const LS_KEY='spunkcodes_kanban';
+const COLUMNS=['Todo','Doing','Done'];
+const COL_COLORS={'Todo':'#ff5f1f','Doing':'#d19a66','Done':'#3fb950'};
+
+let data={};
+let editingCard=null;
+let editingCol=null;
+let dragCard=null;
+let dragSourceCol=null;
+
+function initData(){
+COLUMNS.forEach(c=>{if(!data[c])data[c]=[]});
+}
+
+function loadData(){
+try{const d=JSON.parse(localStorage.getItem(LS_KEY));if(d)data=d}catch(e){}
+initData();
+}
+
+function saveData(){
+try{localStorage.setItem(LS_KEY,JSON.stringify(data))}catch(e){}
+}
+
+function render(){
+const board=document.getElementById('board');
+board.innerHTML='';
+COLUMNS.forEach(col=>{
+const colEl=document.createElement('div');
+colEl.className='column';
+colEl.innerHTML=`<div class="col-header">
+<h2><span style="color:${COL_COLORS[col]}">${esc(col)}</span> <span class="count">${data[col].length}</span></h2>
+<button class="add-btn" onclick="openAdd('${col}')">+</button>
+</div>
+<div class="col-body" id="col-${col}" ondragover="onDragOver(event)" ondrop="onDrop(event,'${col}')" ondragleave="onDragLeave(event)"></div>`;
+board.appendChild(colEl);
+
+const body=colEl.querySelector('.col-body');
+data[col].forEach((card,i)=>{
+const el=document.createElement('div');
+el.className='card';
+el.draggable=true;
+el.dataset.col=col;
+el.dataset.idx=i;
+el.ondragstart=e=>{dragCard=card;dragSourceCol=col;el.classList.add('dragging');e.dataTransfer.effectAllowed='move'};
+el.ondragend=()=>{el.classList.remove('dragging');dragCard=null;dragSourceCol=null};
+el.innerHTML=`<div class="priority priority-${card.p||'med'}"></div>
+<div class="card-title">${esc(card.t)}</div>
+${card.d?'<div class="card-desc">'+esc(card.d)+'</div>':''}
+<div class="card-meta">
+<span class="card-date">${card.date||''}</span>
+<div class="card-actions">
+<button onclick="openEdit('${col}',${i})">Edit</button>
+<button onclick="deleteCard('${col}',${i})">Del</button>
+${col!=='Done'?'<button onclick="moveRight(\''+col+'\','+i+')">&#9654;</button>':''}
+${col!=='Todo'?'<button onclick="moveLeft(\''+col+'\','+i+')">&#9664;</button>':''}
+</div>
+</div>`;
+body.appendChild(el);
+});
+});
+updateStats();
+}
+
+function onDragOver(e){e.preventDefault();e.currentTarget.classList.add('drag-over')}
+function onDragLeave(e){e.currentTarget.classList.remove('drag-over')}
+function onDrop(e,targetCol){
+e.preventDefault();
+e.currentTarget.classList.remove('drag-over');
+if(!dragCard||!dragSourceCol)return;
+if(dragSourceCol===targetCol)return;
+data[dragSourceCol]=data[dragSourceCol].filter(c=>c!==dragCard);
+data[targetCol].push(dragCard);
+saveData();render();
+}
+
+function openAdd(col){
+editingCard=null;editingCol=col;
+document.getElementById('modalTitle').textContent='Add Card to '+col;
+document.getElementById('cardTitle').value='';
+document.getElementById('cardDesc').value='';
+document.getElementById('cardPriority').value='med';
+document.getElementById('modalSave').textContent='Add';
+document.getElementById('modalOverlay').classList.add('show');
+document.getElementById('cardTitle').focus();
+}
+
+function openEdit(col,idx){
+editingCard=data[col][idx];editingCol=col;
+document.getElementById('modalTitle').textContent='Edit Card';
+document.getElementById('cardTitle').value=editingCard.t;
+document.getElementById('cardDesc').value=editingCard.d||'';
+document.getElementById('cardPriority').value=editingCard.p||'med';
+document.getElementById('modalSave').textContent='Save';
+document.getElementById('modalOverlay').classList.add('show');
+document.getElementById('cardTitle').focus();
+}
+
+function closeModal(){document.getElementById('modalOverlay').classList.remove('show')}
+
+function saveCard(){
+const title=document.getElementById('cardTitle').value.trim();
+if(!title){showToast('Title is required');return}
+const desc=document.getElementById('cardDesc').value.trim();
+const priority=document.getElementById('cardPriority').value;
+if(editingCard){
+editingCard.t=title;editingCard.d=desc;editingCard.p=priority;
+}else{
+data[editingCol].push({t:title,d:desc,p:priority,date:new Date().toLocaleDateString()});
+}
+saveData();render();closeModal();
+}
+
+function deleteCard(col,idx){
+if(!confirm('Delete this card?'))return;
+data[col].splice(idx,1);
+saveData();render();
+}
+
+function moveRight(col,idx){
+const ci=COLUMNS.indexOf(col);
+if(ci>=COLUMNS.length-1)return;
+const card=data[col].splice(idx,1)[0];
+data[COLUMNS[ci+1]].push(card);
+saveData();render();
+}
+
+function moveLeft(col,idx){
+const ci=COLUMNS.indexOf(col);
+if(ci<=0)return;
+const card=data[col].splice(idx,1)[0];
+data[COLUMNS[ci-1]].push(card);
+saveData();render();
+}
+
+function updateStats(){
+const total=COLUMNS.reduce((s,c)=>s+data[c].length,0);
+const done=data['Done'].length;
+const pct=total>0?Math.round((done/total)*100):0;
+document.getElementById('statsBar').innerHTML=`<span>Total: ${total}</span><span>Todo: ${data['Todo'].length}</span><span>Doing: ${data['Doing'].length}</span><span>Done: ${data['Done'].length}</span><span>Completion: ${pct}%</span>`;
+}
+
+function exportBoard(){
+const json=JSON.stringify(data,null,2);
+const blob=new Blob([json],{type:'application/json'});
+const a=document.createElement('a');
+a.href=URL.createObjectURL(blob);
+a.download='kanban-export.json';
+a.click();
+URL.revokeObjectURL(a.href);
+showToast('Exported!');
+}
+
+function importBoard(){
+const input=document.createElement('input');
+input.type='file';
+input.accept='.json';
+input.onchange=e=>{
+const file=e.target.files[0];
+if(!file)return;
+const reader=new FileReader();
+reader.onload=ev=>{
+try{
+data=JSON.parse(ev.target.result);
+initData();saveData();render();
+showToast('Imported!');
+}catch(err){showToast('Invalid JSON file')}
+};
+reader.readAsText(file);
+};
+input.click();
+}
+
+function clearBoard(){
+if(!confirm('Clear all cards? This cannot be undone.'))return;
+data={};initData();saveData();render();
+showToast('Board cleared');
+}
+
+// Keyboard shortcut
+document.addEventListener('keydown',e=>{
+if(e.key==='Escape')closeModal();
+if(e.key==='Enter'&&document.getElementById('modalOverlay').classList.contains('show')){
+if(document.activeElement.tagName!=='TEXTAREA')saveCard();
+}
+});
+
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1800)}
+
+const toolURL='https://spunk.codes/exclusive/kanban-board.html';
+function shareX(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Free Personal Kanban Board - drag & drop task manager! '+toolURL),'_blank')}
+function shareReddit(){window.open('https://reddit.com/submit?url='+encodeURIComponent(toolURL)+'&title='+encodeURIComponent('Personal Kanban Board - Free Tool'),'_blank')}
+function copyLink(){navigator.clipboard.writeText(toolURL).then(()=>showToast('Link copied!'))}
+
+loadData();render();
+</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>

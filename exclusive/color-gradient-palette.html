@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Color Palette from Gradient — Generate Intermediate Colors Between Two Colors | SPUNK.CODES</title>
+<meta name="description" content="Pick two colors and generate 5-10 intermediate colors. Copy HEX array, CSS gradient, or individual color values. Free, no signup.">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP')</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w")</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e0e0e0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+header{background:#111118;border-bottom:2px solid #ff5f1f;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;position:sticky;top:0;z-index:100}
+header h1{font-size:1.4rem;color:#ff5f1f}
+header .back{color:#e0e0e0;font-size:.9rem}
+main{flex:1;max-width:800px;width:100%;margin:0 auto;padding:24px 16px}
+.panel{background:#111118;border:1px solid #1a1a2e;border-radius:10px;padding:20px;margin-bottom:20px}
+.panel h2{font-size:1.1rem;color:#ff5f1f;margin-bottom:14px}
+button{background:#ff5f1f;color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:.9rem;font-weight:600;transition:background .2s}
+button:hover{background:#e8520e}
+button.secondary{background:#2a2a3a;color:#e0e0e0}button.secondary:hover{background:#3a3a4a}
+.color-inputs{display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin-bottom:16px}
+.color-input{display:flex;align-items:center;gap:8px}
+.color-input label{font-size:.85rem;color:#888}
+.color-input input[type="color"]{width:50px;height:40px;border:2px solid #1a1a2e;border-radius:8px;cursor:pointer;background:transparent;padding:2px}
+.color-input input[type="text"]{background:#16161e;border:1px solid #1a1a2e;color:#e0e0e0;padding:8px;border-radius:6px;width:100px;font-family:monospace;font-size:.9rem}
+.steps-row{display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap}
+.steps-row label{font-size:.85rem;color:#888}
+.steps-row input[type="range"]{flex:1;min-width:120px;accent-color:#ff5f1f}
+.steps-row .val{color:#ff5f1f;font-weight:700;font-size:1rem;min-width:30px}
+.mode-row{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.mode-row button{font-size:.8rem;padding:6px 14px;border-radius:20px;background:#1a1a2e;color:#e0e0e0;border:1px solid #2a2a3a}
+.mode-row button.active{background:#ff5f1f;color:#fff;border-color:#ff5f1f}
+.gradient-bar{height:60px;border-radius:10px;margin-bottom:16px;border:1px solid #1a1a2e}
+.color-swatches{display:grid;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:10px;margin-bottom:16px}
+.swatch{border-radius:10px;overflow:hidden;cursor:pointer;transition:transform .15s;border:1px solid #1a1a2e}
+.swatch:hover{transform:scale(1.05)}
+.swatch .color-box{height:70px}
+.swatch .color-label{padding:8px;text-align:center;font-family:monospace;font-size:.75rem;background:#16161e;color:#e0e0e0}
+.code-block{background:#0a0a0f;border:1px solid #1a1a2e;border-radius:8px;padding:14px;font-family:'Courier New',monospace;font-size:.82rem;color:#b0b0b0;overflow-x:auto;white-space:pre-wrap;word-break:break-all;position:relative;margin-bottom:10px}
+.code-block .copy-btn{position:absolute;top:8px;right:8px;font-size:.75rem;padding:4px 10px}
+.btn-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.share-btns{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.share-btns button{font-size:.8rem;padding:6px 12px}
+.copied-toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#ff5f1f;color:#fff;padding:10px 24px;border-radius:8px;font-weight:600;font-size:.9rem;z-index:999;opacity:0;transition:opacity .3s;pointer-events:none}
+.copied-toast.show{opacity:1}
+footer{text-align:center;padding:20px;color:#555;font-size:.8rem;border-top:1px solid #1a1a2e;margin-top:auto}
+footer a{color:#ff5f1f;margin:0 4px}
+@media(max-width:600px){
+header h1{font-size:1.1rem}
+.color-inputs{flex-direction:column;align-items:stretch}
+.color-swatches{grid-template-columns:repeat(auto-fill,minmax(65px,1fr))}
+}
+</style>
+</head>
+<body>
+<header>
+<h1>Color Palette from Gradient</h1>
+<a href="https://spunk.codes" class="back">spunk.codes</a>
+</header>
+<main>
+
+<div class="panel">
+<h2>Pick Two Colors</h2>
+<div class="color-inputs">
+<div class="color-input">
+<label>Start</label>
+<input type="color" id="color1" value="#ff5f1f" oninput="sync('color1');generate()">
+<input type="text" id="color1Hex" value="#ff5f1f" oninput="syncHex('color1');generate()">
+</div>
+<div style="color:#555;font-size:1.2rem">&#8594;</div>
+<div class="color-input">
+<label>End</label>
+<input type="color" id="color2" value="#1a1a2e" oninput="sync('color2');generate()">
+<input type="text" id="color2Hex" value="#1a1a2e" oninput="syncHex('color2');generate()">
+</div>
+<button class="secondary" onclick="swapColors()">Swap</button>
+<button class="secondary" onclick="randomColors()">Random</button>
+</div>
+
+<div class="steps-row">
+<label>Steps:</label>
+<input type="range" id="steps" min="3" max="20" value="7" oninput="generate()">
+<span class="val" id="stepsVal">7</span>
+</div>
+
+<div class="mode-row">
+<button class="active" onclick="setMode('rgb',this)">RGB</button>
+<button onclick="setMode('hsl',this)">HSL</button>
+<button onclick="setMode('lab',this)">LAB (perceptual)</button>
+</div>
+</div>
+
+<div class="panel">
+<h2>Gradient Preview</h2>
+<div class="gradient-bar" id="gradientBar"></div>
+<div class="color-swatches" id="swatches"></div>
+</div>
+
+<div class="panel">
+<h2>Export</h2>
+<div class="btn-row">
+<button onclick="copyHexArray()">Copy HEX Array</button>
+<button class="secondary" onclick="copyCSSGradient()">Copy CSS Gradient</button>
+<button class="secondary" onclick="copyCSSVars()">Copy CSS Variables</button>
+<button class="secondary" onclick="copyTailwind()">Copy Tailwind Config</button>
+</div>
+<div class="code-block" id="codeOutput"><button class="copy-btn" onclick="copyHexArray()">Copy</button></div>
+</div>
+
+<div class="panel">
+<h2>Share</h2>
+<div class="share-btns">
+<button onclick="shareX()">Share on X</button>
+<button class="secondary" onclick="shareReddit()">Share on Reddit</button>
+<button class="secondary" onclick="copyLinkBtn()">Copy Link</button>
+</div>
+</div>
+</main>
+
+<footer>
+<a href="https://spunk.codes">spunk.codes</a> &middot;
+<a href="https://spunk.bet">spunk.bet</a> &middot;
+<a href="https://spunk.pics">spunk.pics</a> &middot;
+<a href="https://spunk.work">spunk.work</a> &middot;
+<a href="https://spunkart.com">SpunkArt.com</a>
+</footer>
+
+<div class="copied-toast" id="toast"></div>
+
+<script>
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+
+const LS_KEY='spunkcodes_gradient_palette';
+let mode='rgb';
+let colors=[];
+
+function hexToRgb(hex){hex=hex.replace('#','');if(hex.length===3)hex=hex[0]+hex[0]+hex[1]+hex[1]+hex[2]+hex[2];return[parseInt(hex.substring(0,2),16),parseInt(hex.substring(2,4),16),parseInt(hex.substring(4,6),16)]}
+function rgbToHex(r,g,b){return'#'+[r,g,b].map(x=>Math.round(Math.max(0,Math.min(255,x))).toString(16).padStart(2,'0')).join('')}
+
+function rgbToHsl(r,g,b){r/=255;g/=255;b/=255;const mx=Math.max(r,g,b),mn=Math.min(r,g,b),l=(mx+mn)/2;let h=0,s=0;if(mx!==mn){const d=mx-mn;s=l>0.5?d/(2-mx-mn):d/(mx+mn);switch(mx){case r:h=((g-b)/d+(g<b?6:0))/6;break;case g:h=((b-r)/d+2)/6;break;case b:h=((r-g)/d+4)/6;break}}return[h*360,s*100,l*100]}
+function hslToRgb(h,s,l){h/=360;s/=100;l/=100;let r,g,b;if(s===0){r=g=b=l}else{const hue2rgb=(p,q,t)=>{if(t<0)t+=1;if(t>1)t-=1;if(t<1/6)return p+(q-p)*6*t;if(t<1/2)return q;if(t<2/3)return p+(q-p)*(2/3-t)*6;return p};const q=l<0.5?l*(1+s):l+s-l*s;const p=2*l-q;r=hue2rgb(p,q,h+1/3);g=hue2rgb(p,q,h);b=hue2rgb(p,q,h-1/3)}return[r*255,g*255,b*255]}
+
+// Simple LAB conversion for perceptual interpolation
+function rgbToLab(r,g,b){let x,y,z;r/=255;g/=255;b/=255;r=r>0.04045?Math.pow((r+0.055)/1.055,2.4):r/12.92;g=g>0.04045?Math.pow((g+0.055)/1.055,2.4):g/12.92;b=b>0.04045?Math.pow((b+0.055)/1.055,2.4):b/12.92;x=(r*0.4124+g*0.3576+b*0.1805)/0.95047;y=(r*0.2126+g*0.7152+b*0.0722)/1.0;z=(r*0.0193+g*0.1192+b*0.9505)/1.08883;x=x>0.008856?Math.pow(x,1/3):7.787*x+16/116;y=y>0.008856?Math.pow(y,1/3):7.787*y+16/116;z=z>0.008856?Math.pow(z,1/3):7.787*z+16/116;return[116*y-16,500*(x-y),200*(y-z)]}
+function labToRgb(l,a,b){let y=(l+16)/116,x=a/500+y,z=y-b/200;x=0.95047*(x*x*x>0.008856?x*x*x:(x-16/116)/7.787);y=1.0*(y*y*y>0.008856?y*y*y:(y-16/116)/7.787);z=1.08883*(z*z*z>0.008856?z*z*z:(z-16/116)/7.787);let r=x*3.2406+y*-1.5372+z*-0.4986;let g=x*-0.9689+y*1.8758+z*0.0415;let bl=x*0.0557+y*-0.204+z*1.057;r=r>0.0031308?1.055*Math.pow(r,1/2.4)-0.055:12.92*r;g=g>0.0031308?1.055*Math.pow(g,1/2.4)-0.055:12.92*g;bl=bl>0.0031308?1.055*Math.pow(bl,1/2.4)-0.055:12.92*bl;return[Math.max(0,Math.min(255,r*255)),Math.max(0,Math.min(255,g*255)),Math.max(0,Math.min(255,bl*255))]}
+
+function lerp(a,b,t){return a+(b-a)*t}
+
+function interpolate(c1,c2,steps){
+const result=[];
+const rgb1=hexToRgb(c1),rgb2=hexToRgb(c2);
+for(let i=0;i<steps;i++){
+const t=steps===1?0:i/(steps-1);
+let r,g,b;
+if(mode==='rgb'){
+r=lerp(rgb1[0],rgb2[0],t);g=lerp(rgb1[1],rgb2[1],t);b=lerp(rgb1[2],rgb2[2],t);
+}else if(mode==='hsl'){
+const hsl1=rgbToHsl(...rgb1),hsl2=rgbToHsl(...rgb2);
+let h1=hsl1[0],h2=hsl2[0];
+if(Math.abs(h2-h1)>180){if(h1<h2)h1+=360;else h2+=360}
+const h=((lerp(h1,h2,t)%360)+360)%360;
+const s=lerp(hsl1[1],hsl2[1],t);
+const l=lerp(hsl1[2],hsl2[2],t);
+[r,g,b]=hslToRgb(h,s,l);
+}else{
+const lab1=rgbToLab(...rgb1),lab2=rgbToLab(...rgb2);
+const ll=lerp(lab1[0],lab2[0],t);
+const la=lerp(lab1[1],lab2[1],t);
+const lb=lerp(lab1[2],lab2[2],t);
+[r,g,b]=labToRgb(ll,la,lb);
+}
+result.push(rgbToHex(r,g,b));
+}
+return result;
+}
+
+function sync(id){document.getElementById(id+'Hex').value=document.getElementById(id).value}
+function syncHex(id){const v=document.getElementById(id+'Hex').value;if(/^#[0-9a-fA-F]{6}$/.test(v))document.getElementById(id).value=v}
+
+function setMode(m,btn){
+mode=m;
+document.querySelectorAll('.mode-row button').forEach(b=>b.classList.remove('active'));
+btn.classList.add('active');
+generate();
+}
+
+function swapColors(){
+const c1=document.getElementById('color1').value;
+const c2=document.getElementById('color2').value;
+document.getElementById('color1').value=c2;document.getElementById('color1Hex').value=c2;
+document.getElementById('color2').value=c1;document.getElementById('color2Hex').value=c1;
+generate();
+}
+
+function randomColors(){
+const rc=()=>'#'+Math.floor(Math.random()*16777215).toString(16).padStart(6,'0');
+const c1=rc(),c2=rc();
+document.getElementById('color1').value=c1;document.getElementById('color1Hex').value=c1;
+document.getElementById('color2').value=c2;document.getElementById('color2Hex').value=c2;
+generate();
+}
+
+function generate(){
+const c1=document.getElementById('color1').value;
+const c2=document.getElementById('color2').value;
+const steps=parseInt(document.getElementById('steps').value);
+document.getElementById('stepsVal').textContent=steps;
+colors=interpolate(c1,c2,steps);
+
+// Gradient bar
+document.getElementById('gradientBar').style.background=`linear-gradient(to right, ${colors.join(', ')})`;
+
+// Swatches
+const sw=document.getElementById('swatches');
+sw.innerHTML=colors.map((c,i)=>`<div class="swatch" onclick="copySingle('${c}')"><div class="color-box" style="background:${c}"></div><div class="color-label">${c.toUpperCase()}</div></div>`).join('');
+
+// Code output
+updateCodeOutput();
+saveState();
+}
+
+function updateCodeOutput(){
+const hexArr=JSON.stringify(colors.map(c=>c.toUpperCase()));
+const gradient=`background: linear-gradient(90deg, ${colors.join(', ')});`;
+document.getElementById('codeOutput').innerHTML=`<button class="copy-btn" onclick="copyHexArray()">Copy</button>/* HEX Array */\n${esc(hexArr)}\n\n/* CSS Gradient */\n${esc(gradient)}`;
+}
+
+function copySingle(c){navigator.clipboard.writeText(c.toUpperCase()).then(()=>showToast(c.toUpperCase()+' copied!'))}
+function copyHexArray(){navigator.clipboard.writeText(JSON.stringify(colors.map(c=>c.toUpperCase()))).then(()=>showToast('HEX array copied!'))}
+function copyCSSGradient(){navigator.clipboard.writeText(`background: linear-gradient(90deg, ${colors.join(', ')});`).then(()=>showToast('CSS gradient copied!'))}
+function copyCSSVars(){const vars=colors.map((c,i)=>`  --color-${i+1}: ${c.toUpperCase()};`).join('\n');navigator.clipboard.writeText(`:root {\n${vars}\n}`).then(()=>showToast('CSS variables copied!'))}
+function copyTailwind(){const obj={};colors.forEach((c,i)=>{obj[(i+1)*100]=c.toUpperCase()});navigator.clipboard.writeText(JSON.stringify(obj,null,2)).then(()=>showToast('Tailwind config copied!'))}
+
+function saveState(){try{localStorage.setItem(LS_KEY,JSON.stringify({c1:document.getElementById('color1').value,c2:document.getElementById('color2').value,steps:document.getElementById('steps').value,mode}))}catch(e){}}
+function loadState(){try{const d=JSON.parse(localStorage.getItem(LS_KEY));if(d){document.getElementById('color1').value=d.c1;document.getElementById('color1Hex').value=d.c1;document.getElementById('color2').value=d.c2;document.getElementById('color2Hex').value=d.c2;document.getElementById('steps').value=d.steps||7;if(d.mode){mode=d.mode;document.querySelectorAll('.mode-row button').forEach(b=>{b.classList.toggle('active',b.textContent.toLowerCase().startsWith(mode))})}}}catch(e){}}
+
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1800)}
+
+const toolURL='https://spunk.codes/exclusive/color-gradient-palette.html';
+function shareX(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Generate color palettes from gradients! '+toolURL),'_blank')}
+function shareReddit(){window.open('https://reddit.com/submit?url='+encodeURIComponent(toolURL)+'&title='+encodeURIComponent('Color Palette from Gradient - Free Tool'),'_blank')}
+function copyLinkBtn(){navigator.clipboard.writeText(toolURL).then(()=>showToast('Link copied!'))}
+
+loadState();
+generate();
+</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>

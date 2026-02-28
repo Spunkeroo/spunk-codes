@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Invoice PDF Generator — Create &amp; Download Professional Invoices | SPUNK.CODES</title>
+<meta name="description" content="Fill in company details, client info, line items, tax rate. Generate and download a professional PDF invoice. Free, no signup, 100% client-side.">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP')</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w")</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e0e0e0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+header{background:#111118;border-bottom:2px solid #ff5f1f;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;position:sticky;top:0;z-index:100}
+header h1{font-size:1.4rem;color:#ff5f1f}
+header .back{color:#e0e0e0;font-size:.9rem}
+main{flex:1;max-width:800px;width:100%;margin:0 auto;padding:24px 16px}
+.panel{background:#111118;border:1px solid #1a1a2e;border-radius:10px;padding:20px;margin-bottom:20px}
+.panel h2{font-size:1.1rem;color:#ff5f1f;margin-bottom:14px}
+button{background:#ff5f1f;color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:.9rem;font-weight:600;transition:background .2s}
+button:hover{background:#e8520e}
+button.secondary{background:#2a2a3a;color:#e0e0e0}button.secondary:hover{background:#3a3a4a}
+button.danger{background:#e06c75}button.danger:hover{background:#c5555e}
+input,textarea,select{background:#16161e;border:1px solid #1a1a2e;color:#e0e0e0;padding:10px;border-radius:6px;font-size:.9rem;width:100%;font-family:inherit}
+textarea{resize:vertical;min-height:60px}
+select{cursor:pointer}
+label{font-size:.82rem;color:#888;display:block;margin-bottom:4px;margin-top:12px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 16px}
+.form-grid.full label{grid-column:span 1}
+.invoice-row{display:flex;gap:8px;align-items:flex-end;margin-bottom:8px;flex-wrap:wrap}
+.invoice-row .desc{flex:3;min-width:150px}
+.invoice-row .qty{flex:1;min-width:60px}
+.invoice-row .price{flex:1;min-width:80px}
+.invoice-row .total{flex:1;min-width:80px;text-align:right;padding:10px;font-weight:600;color:#ff5f1f;font-size:.9rem}
+.invoice-row .del{flex-shrink:0}
+.invoice-row label{margin-top:0}
+.items-header{display:flex;gap:8px;padding:0 0 6px;font-size:.78rem;color:#888;font-weight:600;flex-wrap:wrap}
+.items-header span:nth-child(1){flex:3;min-width:150px}
+.items-header span:nth-child(2){flex:1;min-width:60px}
+.items-header span:nth-child(3){flex:1;min-width:80px}
+.items-header span:nth-child(4){flex:1;min-width:80px;text-align:right}
+.items-header span:nth-child(5){width:32px}
+.totals{background:#16161e;border:1px solid #1a1a2e;border-radius:8px;padding:14px;margin-top:14px}
+.totals .row{display:flex;justify-content:space-between;padding:4px 0;font-size:.9rem}
+.totals .row.grand{font-size:1.1rem;font-weight:700;color:#ff5f1f;border-top:1px solid #1a1a2e;padding-top:8px;margin-top:4px}
+.btn-row{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
+.share-btns{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.share-btns button{font-size:.8rem;padding:6px 12px}
+.copied-toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#ff5f1f;color:#fff;padding:10px 24px;border-radius:8px;font-weight:600;font-size:.9rem;z-index:999;opacity:0;transition:opacity .3s;pointer-events:none}
+.copied-toast.show{opacity:1}
+footer{text-align:center;padding:20px;color:#555;font-size:.8rem;border-top:1px solid #1a1a2e;margin-top:auto}
+footer a{color:#ff5f1f;margin:0 4px}
+@media(max-width:600px){
+header h1{font-size:1.1rem}
+.form-grid{grid-template-columns:1fr}
+.invoice-row{flex-direction:column}
+.invoice-row .total{text-align:left}
+}
+</style>
+</head>
+<body>
+<header>
+<h1>Invoice PDF Generator</h1>
+<a href="https://spunk.codes" class="back">spunk.codes</a>
+</header>
+<main>
+
+<div class="panel">
+<h2>Invoice Details</h2>
+<div class="form-grid">
+<div><label>Invoice Number</label><input type="text" id="invNumber" value="INV-001"></div>
+<div><label>Invoice Date</label><input type="date" id="invDate"></div>
+<div><label>Due Date</label><input type="date" id="dueDate"></div>
+<div><label>Currency</label>
+<select id="currency">
+<option value="$">USD ($)</option>
+<option value="EUR">EUR</option>
+<option value="GBP">GBP</option>
+<option value="CAD">CAD ($)</option>
+<option value="AUD">AUD ($)</option>
+<option value="JPY">JPY</option>
+<option value="BTC">BTC</option>
+</select>
+</div>
+</div>
+</div>
+
+<div class="panel">
+<h2>Your Company</h2>
+<div class="form-grid">
+<div><label>Company Name</label><input type="text" id="companyName" placeholder="Your Company LLC"></div>
+<div><label>Email</label><input type="text" id="companyEmail" placeholder="billing@company.com"></div>
+</div>
+<label>Address</label>
+<textarea id="companyAddress" rows="2" placeholder="123 Main St, City, State 12345"></textarea>
+</div>
+
+<div class="panel">
+<h2>Bill To (Client)</h2>
+<div class="form-grid">
+<div><label>Client Name</label><input type="text" id="clientName" placeholder="Client Corp"></div>
+<div><label>Client Email</label><input type="text" id="clientEmail" placeholder="accounting@client.com"></div>
+</div>
+<label>Client Address</label>
+<textarea id="clientAddress" rows="2" placeholder="456 Oak Ave, City, State 67890"></textarea>
+</div>
+
+<div class="panel">
+<h2>Line Items</h2>
+<div class="items-header"><span>Description</span><span>Qty</span><span>Unit Price</span><span>Total</span><span></span></div>
+<div id="itemsContainer"></div>
+<button class="secondary" onclick="addItem()" style="margin-top:8px">+ Add Item</button>
+
+<div class="form-grid" style="margin-top:14px">
+<div><label>Tax Rate (%)</label><input type="number" id="taxRate" value="0" min="0" max="100" step="0.01" oninput="calcTotals()"></div>
+<div><label>Discount ($)</label><input type="number" id="discount" value="0" min="0" step="0.01" oninput="calcTotals()"></div>
+</div>
+
+<div class="totals" id="totalsDisplay"></div>
+</div>
+
+<div class="panel">
+<h2>Notes</h2>
+<textarea id="notes" rows="3" placeholder="Payment terms, thank you message, bank details..."></textarea>
+</div>
+
+<div class="panel">
+<div class="btn-row">
+<button onclick="generatePDF()">Generate &amp; Download PDF</button>
+<button class="secondary" onclick="saveInvoice()">Save Draft</button>
+<button class="secondary" onclick="loadInvoice()">Load Draft</button>
+<button class="secondary" onclick="resetForm()">Reset</button>
+</div>
+</div>
+
+<div class="panel">
+<h2>Share</h2>
+<div class="share-btns">
+<button onclick="shareX()">Share on X</button>
+<button class="secondary" onclick="shareReddit()">Share on Reddit</button>
+<button class="secondary" onclick="copyLink()">Copy Link</button>
+</div>
+</div>
+</main>
+
+<footer>
+<a href="https://spunk.codes">spunk.codes</a> &middot;
+<a href="https://spunk.bet">spunk.bet</a> &middot;
+<a href="https://spunk.pics">spunk.pics</a> &middot;
+<a href="https://spunk.work">spunk.work</a> &middot;
+<a href="https://spunkart.com">SpunkArt.com</a>
+</footer>
+
+<div class="copied-toast" id="toast"></div>
+
+<script>
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+
+const LS_KEY='spunkcodes_invoice_gen';
+let items=[{desc:'',qty:1,price:0}];
+
+function setToday(){
+const d=new Date();
+const iso=d.toISOString().split('T')[0];
+document.getElementById('invDate').value=iso;
+const due=new Date(d);
+due.setDate(due.getDate()+30);
+document.getElementById('dueDate').value=due.toISOString().split('T')[0];
+}
+
+function renderItems(){
+const c=document.getElementById('itemsContainer');
+c.innerHTML='';
+items.forEach((item,i)=>{
+const total=(item.qty*item.price).toFixed(2);
+c.innerHTML+=`<div class="invoice-row">
+<div class="desc"><input type="text" value="${esc(item.desc)}" placeholder="Item description" oninput="items[${i}].desc=this.value;calcTotals()"></div>
+<div class="qty"><input type="number" value="${item.qty}" min="1" step="1" oninput="items[${i}].qty=parseFloat(this.value)||0;calcTotals()"></div>
+<div class="price"><input type="number" value="${item.price}" min="0" step="0.01" oninput="items[${i}].price=parseFloat(this.value)||0;calcTotals()"></div>
+<div class="total">${getCurrency()}${total}</div>
+<div class="del">${items.length>1?'<button class="danger" style="font-size:.75rem;padding:4px 8px" onclick="removeItem('+i+')">X</button>':''}</div>
+</div>`;
+});
+calcTotals();
+}
+
+function addItem(){items.push({desc:'',qty:1,price:0});renderItems()}
+function removeItem(i){items.splice(i,1);renderItems()}
+
+function getCurrency(){return document.getElementById('currency').value==='EUR'?'\u20AC':document.getElementById('currency').value==='GBP'?'\u00A3':document.getElementById('currency').value==='JPY'?'\u00A5':document.getElementById('currency').value==='BTC'?'\u20BF':'$'}
+
+function calcTotals(){
+const cur=getCurrency();
+const subtotal=items.reduce((s,i)=>s+i.qty*i.price,0);
+const taxRate=parseFloat(document.getElementById('taxRate').value)||0;
+const discount=parseFloat(document.getElementById('discount').value)||0;
+const tax=subtotal*(taxRate/100);
+const total=subtotal+tax-discount;
+document.getElementById('totalsDisplay').innerHTML=`
+<div class="row"><span>Subtotal</span><span>${cur}${subtotal.toFixed(2)}</span></div>
+${taxRate>0?'<div class="row"><span>Tax ('+taxRate+'%)</span><span>'+cur+tax.toFixed(2)+'</span></div>':''}
+${discount>0?'<div class="row"><span>Discount</span><span>-'+cur+discount.toFixed(2)+'</span></div>':''}
+<div class="row grand"><span>Total Due</span><span>${cur}${total.toFixed(2)}</span></div>`;
+}
+
+function generatePDF(){
+// Inline jsPDF-like PDF generation using raw PDF spec
+const cur=getCurrency();
+const subtotal=items.reduce((s,i)=>s+i.qty*i.price,0);
+const taxRate=parseFloat(document.getElementById('taxRate').value)||0;
+const discount=parseFloat(document.getElementById('discount').value)||0;
+const tax=subtotal*(taxRate/100);
+const total=subtotal+tax-discount;
+
+const companyName=document.getElementById('companyName').value||'Your Company';
+const companyEmail=document.getElementById('companyEmail').value||'';
+const companyAddress=document.getElementById('companyAddress').value||'';
+const clientName=document.getElementById('clientName').value||'Client';
+const clientEmail=document.getElementById('clientEmail').value||'';
+const clientAddress=document.getElementById('clientAddress').value||'';
+const invNumber=document.getElementById('invNumber').value||'INV-001';
+const invDate=document.getElementById('invDate').value||'';
+const dueDate=document.getElementById('dueDate').value||'';
+const notes=document.getElementById('notes').value||'';
+
+// Build PDF manually (PDF 1.4 spec)
+let y=750;
+const lines=[];
+function addText(x,yy,text,size,bold){
+const fontCmd=bold?'/F2':'/F1';
+lines.push(`BT ${fontCmd} ${size} Tf ${x} ${yy} Td (${pdfEsc(text)}) Tj ET`);
+}
+function pdfEsc(s){return s.replace(/\\/g,'\\\\').replace(/\(/g,'\\(').replace(/\)/g,'\\)').replace(/[\r\n]/g,' ')}
+function addLine(x1,y1,x2,y2,w){
+lines.push(`${w||0.5} w ${x1} ${y1} m ${x2} ${y2} l S`);
+}
+
+// Header
+addText(50,y,'INVOICE',24,true);y-=20;
+addText(50,y,companyName,12,true);y-=15;
+if(companyAddress)companyAddress.split('\n').forEach(l=>{addText(50,y,l,9,false);y-=12});
+if(companyEmail){addText(50,y,companyEmail,9,false);y-=15}
+
+// Invoice details right side
+addText(350,750,'Invoice #: '+invNumber,10,false);
+addText(350,738,'Date: '+invDate,10,false);
+addText(350,726,'Due: '+dueDate,10,false);
+
+// Bill To
+y-=10;
+addLine(50,y,550,y,1);y-=20;
+addText(50,y,'Bill To:',10,true);y-=14;
+addText(50,y,clientName,11,true);y-=14;
+if(clientAddress)clientAddress.split('\n').forEach(l=>{addText(50,y,l,9,false);y-=12});
+if(clientEmail){addText(50,y,clientEmail,9,false);y-=12}
+
+// Items table
+y-=16;
+addLine(50,y,550,y,0.5);y-=14;
+addText(50,y,'Description',9,true);
+addText(350,y,'Qty',9,true);
+addText(410,y,'Price',9,true);
+addText(490,y,'Total',9,true);
+y-=4;addLine(50,y,550,y,0.5);y-=14;
+
+items.forEach(item=>{
+const lineTotal=(item.qty*item.price).toFixed(2);
+addText(50,y,item.desc||'-',9,false);
+addText(355,y,String(item.qty),9,false);
+addText(410,y,cur+parseFloat(item.price).toFixed(2),9,false);
+addText(490,y,cur+lineTotal,9,false);
+y-=14;
+});
+
+// Totals
+y-=6;addLine(380,y,550,y,0.5);y-=14;
+addText(380,y,'Subtotal:',9,false);addText(490,y,cur+subtotal.toFixed(2),9,false);y-=14;
+if(taxRate>0){addText(380,y,'Tax ('+taxRate+'%):',9,false);addText(490,y,cur+tax.toFixed(2),9,false);y-=14}
+if(discount>0){addText(380,y,'Discount:',9,false);addText(490,y,'-'+cur+discount.toFixed(2),9,false);y-=14}
+addLine(380,y+4,550,y+4,1);
+addText(380,y-4,'TOTAL DUE:',11,true);addText(490,y-4,cur+total.toFixed(2),11,true);
+y-=30;
+
+// Notes
+if(notes){
+addText(50,y,'Notes:',9,true);y-=14;
+notes.split('\n').forEach(l=>{addText(50,y,l,8,false);y-=11});
+}
+
+// Footer
+addText(50,40,'Generated with spunk.codes/exclusive/invoice-pdf-generator.html',7,false);
+
+// Build PDF
+const stream=lines.join('\n');
+const objects=[];
+let objNum=1;
+function addObj(content){objects.push({num:objNum,content});return objNum++}
+
+addObj('<< /Type /Catalog /Pages 2 0 R >>');
+addObj('<< /Type /Pages /Kids [3 0 R] /Count 1 >>');
+addObj(`<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 4 0 R /Resources << /Font << /F1 5 0 R /F2 6 0 R >> >> >>`);
+addObj(`<< /Length ${stream.length} >>\nstream\n${stream}\nendstream`);
+addObj('<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>');
+addObj('<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>');
+
+let pdf='%PDF-1.4\n';
+const offsets=[];
+objects.forEach(obj=>{
+offsets.push(pdf.length);
+pdf+=`${obj.num} 0 obj\n${obj.content}\nendobj\n`;
+});
+
+const xrefOffset=pdf.length;
+pdf+=`xref\n0 ${objects.length+1}\n0000000000 65535 f \n`;
+offsets.forEach(off=>{
+pdf+=String(off).padStart(10,'0')+' 00000 n \n';
+});
+pdf+=`trailer\n<< /Size ${objects.length+1} /Root 1 0 R >>\nstartxref\n${xrefOffset}\n%%EOF`;
+
+const blob=new Blob([pdf],{type:'application/pdf'});
+const a=document.createElement('a');
+a.href=URL.createObjectURL(blob);
+a.download=invNumber+'.pdf';
+a.click();
+URL.revokeObjectURL(a.href);
+showToast('PDF downloaded!');
+}
+
+function saveInvoice(){
+const data={
+invNumber:document.getElementById('invNumber').value,
+invDate:document.getElementById('invDate').value,
+dueDate:document.getElementById('dueDate').value,
+currency:document.getElementById('currency').value,
+companyName:document.getElementById('companyName').value,
+companyEmail:document.getElementById('companyEmail').value,
+companyAddress:document.getElementById('companyAddress').value,
+clientName:document.getElementById('clientName').value,
+clientEmail:document.getElementById('clientEmail').value,
+clientAddress:document.getElementById('clientAddress').value,
+taxRate:document.getElementById('taxRate').value,
+discount:document.getElementById('discount').value,
+notes:document.getElementById('notes').value,
+items
+};
+try{localStorage.setItem(LS_KEY,JSON.stringify(data))}catch(e){}
+showToast('Draft saved!');
+}
+
+function loadInvoice(){
+try{
+const d=JSON.parse(localStorage.getItem(LS_KEY));
+if(!d){showToast('No saved draft');return}
+document.getElementById('invNumber').value=d.invNumber||'INV-001';
+document.getElementById('invDate').value=d.invDate||'';
+document.getElementById('dueDate').value=d.dueDate||'';
+document.getElementById('currency').value=d.currency||'$';
+document.getElementById('companyName').value=d.companyName||'';
+document.getElementById('companyEmail').value=d.companyEmail||'';
+document.getElementById('companyAddress').value=d.companyAddress||'';
+document.getElementById('clientName').value=d.clientName||'';
+document.getElementById('clientEmail').value=d.clientEmail||'';
+document.getElementById('clientAddress').value=d.clientAddress||'';
+document.getElementById('taxRate').value=d.taxRate||0;
+document.getElementById('discount').value=d.discount||0;
+document.getElementById('notes').value=d.notes||'';
+items=d.items||[{desc:'',qty:1,price:0}];
+renderItems();
+showToast('Draft loaded!');
+}catch(e){showToast('Failed to load')}
+}
+
+function resetForm(){
+if(!confirm('Reset all fields?'))return;
+document.querySelectorAll('input,textarea').forEach(el=>{
+if(el.type==='number')el.value=el.id==='taxRate'||el.id==='discount'?'0':'';
+else if(el.type==='date')el.value='';
+else el.value='';
+});
+document.getElementById('invNumber').value='INV-001';
+items=[{desc:'',qty:1,price:0}];
+setToday();renderItems();
+}
+
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1800)}
+
+const toolURL='https://spunk.codes/exclusive/invoice-pdf-generator.html';
+function shareX(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Create professional invoices as PDF - free, no signup! '+toolURL),'_blank')}
+function shareReddit(){window.open('https://reddit.com/submit?url='+encodeURIComponent(toolURL)+'&title='+encodeURIComponent('Invoice PDF Generator - Free Tool'),'_blank')}
+function copyLink(){navigator.clipboard.writeText(toolURL).then(()=>showToast('Link copied!'))}
+
+setToday();
+renderItems();
+</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>

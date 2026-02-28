@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Website Color Scheme Generator — Complementary, Triadic, Analogous Schemes | SPUNK.CODES</title>
+<meta name="description" content="Enter a base color and generate complementary, triadic, analogous, and split-complementary color schemes. Export as CSS variables. Free, no signup.">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP')</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w")</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e0e0e0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+header{background:#111118;border-bottom:2px solid #ff5f1f;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;position:sticky;top:0;z-index:100}
+header h1{font-size:1.4rem;color:#ff5f1f}
+header .back{color:#e0e0e0;font-size:.9rem}
+main{flex:1;max-width:900px;width:100%;margin:0 auto;padding:24px 16px}
+.panel{background:#111118;border:1px solid #1a1a2e;border-radius:10px;padding:20px;margin-bottom:20px}
+.panel h2{font-size:1.1rem;color:#ff5f1f;margin-bottom:14px}
+button{background:#ff5f1f;color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:.9rem;font-weight:600;transition:background .2s}
+button:hover{background:#e8520e}
+button.secondary{background:#2a2a3a;color:#e0e0e0}button.secondary:hover{background:#3a3a4a}
+.base-row{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:16px}
+.base-row input[type="color"]{width:60px;height:50px;border:2px solid #1a1a2e;border-radius:10px;cursor:pointer;background:transparent;padding:2px}
+.base-row input[type="text"]{background:#16161e;border:1px solid #1a1a2e;color:#e0e0e0;padding:12px;border-radius:6px;width:120px;font-family:monospace;font-size:1rem}
+.scheme-section{margin-bottom:20px}
+.scheme-section h3{font-size:.95rem;color:#e0e0e0;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.scheme-section h3 .badge{font-size:.7rem;background:#1a1a2e;color:#888;padding:2px 8px;border-radius:10px}
+.color-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.color-chip{border-radius:10px;overflow:hidden;cursor:pointer;transition:transform .15s;border:1px solid #1a1a2e;flex:1;min-width:80px;max-width:160px}
+.color-chip:hover{transform:scale(1.03)}
+.color-chip .swatch{height:80px}
+.color-chip .info{padding:8px;background:#16161e;text-align:center}
+.color-chip .hex{font-family:monospace;font-size:.82rem;color:#e0e0e0;font-weight:600}
+.color-chip .hsl{font-size:.68rem;color:#888;margin-top:2px}
+.preview-section{margin-bottom:16px}
+.preview-card{border-radius:10px;overflow:hidden;border:1px solid #1a1a2e}
+.preview-card .pc-header{padding:16px 20px;display:flex;align-items:center;justify-content:space-between}
+.preview-card .pc-header h4{font-size:1.1rem}
+.preview-card .pc-body{padding:20px}
+.preview-card .pc-body p{font-size:.9rem;line-height:1.6;margin-bottom:12px}
+.preview-card .pc-body .btn-prev{display:inline-block;padding:10px 24px;border-radius:6px;font-weight:700;font-size:.9rem;cursor:pointer;border:none}
+.code-block{background:#0a0a0f;border:1px solid #1a1a2e;border-radius:8px;padding:14px;font-family:'Courier New',monospace;font-size:.82rem;color:#b0b0b0;overflow-x:auto;white-space:pre-wrap;word-break:break-all;position:relative;margin-bottom:10px}
+.code-block .copy-btn{position:absolute;top:8px;right:8px;font-size:.75rem;padding:4px 10px}
+.btn-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.share-btns{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.share-btns button{font-size:.8rem;padding:6px 12px}
+.copied-toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#ff5f1f;color:#fff;padding:10px 24px;border-radius:8px;font-weight:600;font-size:.9rem;z-index:999;opacity:0;transition:opacity .3s;pointer-events:none}
+.copied-toast.show{opacity:1}
+footer{text-align:center;padding:20px;color:#555;font-size:.8rem;border-top:1px solid #1a1a2e;margin-top:auto}
+footer a{color:#ff5f1f;margin:0 4px}
+@media(max-width:600px){
+header h1{font-size:1.1rem}
+.color-row{flex-direction:column}
+.color-chip{max-width:none}
+}
+</style>
+</head>
+<body>
+<header>
+<h1>Website Color Scheme Generator</h1>
+<a href="https://spunk.codes" class="back">spunk.codes</a>
+</header>
+<main>
+
+<div class="panel">
+<h2>Base Color</h2>
+<div class="base-row">
+<input type="color" id="baseColor" value="#ff5f1f" oninput="syncColor();generate()">
+<input type="text" id="baseHex" value="#ff5f1f" oninput="syncHex();generate()">
+<button class="secondary" onclick="randomColor()">Random</button>
+<button class="secondary" onclick="copyAll()">Copy All CSS</button>
+</div>
+</div>
+
+<div id="schemesContainer"></div>
+
+<div class="panel">
+<h2>Live Preview</h2>
+<div class="preview-card" id="previewCard">
+<div class="pc-header"><h4>Sample Website Header</h4><span>Navigation</span></div>
+<div class="pc-body">
+<p>This preview shows how your color scheme would look on a real website. The primary color is used for headings and buttons, secondary for accents, and neutral tones for text and backgrounds.</p>
+<button class="btn-prev" id="previewBtn">Call to Action</button>
+</div>
+</div>
+</div>
+
+<div class="panel">
+<h2>Export CSS Variables</h2>
+<div class="code-block" id="cssOutput"><button class="copy-btn" onclick="copyCSSVars()">Copy</button></div>
+<div class="btn-row">
+<button onclick="copyCSSVars()">Copy CSS Variables</button>
+<button class="secondary" onclick="copyTailwind()">Copy Tailwind Config</button>
+<button class="secondary" onclick="copySCSS()">Copy SCSS Variables</button>
+</div>
+</div>
+
+<div class="panel">
+<h2>Share</h2>
+<div class="share-btns">
+<button onclick="shareX()">Share on X</button>
+<button class="secondary" onclick="shareReddit()">Share on Reddit</button>
+<button class="secondary" onclick="copyLink()">Copy Link</button>
+</div>
+</div>
+</main>
+
+<footer>
+<a href="https://spunk.codes">spunk.codes</a> &middot;
+<a href="https://spunk.bet">spunk.bet</a> &middot;
+<a href="https://spunk.pics">spunk.pics</a> &middot;
+<a href="https://spunk.work">spunk.work</a> &middot;
+<a href="https://spunkart.com">SpunkArt.com</a>
+</footer>
+
+<div class="copied-toast" id="toast"></div>
+
+<script>
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+
+const LS_KEY='spunkcodes_color_scheme';
+let allSchemes={};
+
+function hexToRgb(hex){hex=hex.replace('#','');if(hex.length===3)hex=hex[0]+hex[0]+hex[1]+hex[1]+hex[2]+hex[2];return[parseInt(hex.substring(0,2),16),parseInt(hex.substring(2,4),16),parseInt(hex.substring(4,6),16)]}
+function rgbToHex(r,g,b){return'#'+[r,g,b].map(x=>Math.round(Math.max(0,Math.min(255,x))).toString(16).padStart(2,'0')).join('')}
+
+function rgbToHsl(r,g,b){r/=255;g/=255;b/=255;const mx=Math.max(r,g,b),mn=Math.min(r,g,b),l=(mx+mn)/2;let h=0,s=0;if(mx!==mn){const d=mx-mn;s=l>0.5?d/(2-mx-mn):d/(mx+mn);switch(mx){case r:h=((g-b)/d+(g<b?6:0))/6;break;case g:h=((b-r)/d+2)/6;break;case b:h=((r-g)/d+4)/6;break}}return[Math.round(h*360),Math.round(s*100),Math.round(l*100)]}
+function hslToRgb(h,s,l){h=((h%360)+360)%360;h/=360;s/=100;l/=100;let r,g,b;if(s===0){r=g=b=l}else{const hue2rgb=(p,q,t)=>{if(t<0)t+=1;if(t>1)t-=1;if(t<1/6)return p+(q-p)*6*t;if(t<1/2)return q;if(t<2/3)return p+(q-p)*(2/3-t)*6;return p};const q=l<0.5?l*(1+s):l+s-l*s;const p=2*l-q;r=hue2rgb(p,q,h+1/3);g=hue2rgb(p,q,h);b=hue2rgb(p,q,h-1/3)}return[Math.round(r*255),Math.round(g*255),Math.round(b*255)]}
+
+function hslColor(h,s,l){const rgb=hslToRgb(h,s,l);return rgbToHex(...rgb)}
+
+function syncColor(){document.getElementById('baseHex').value=document.getElementById('baseColor').value}
+function syncHex(){const v=document.getElementById('baseHex').value;if(/^#[0-9a-fA-F]{6}$/.test(v))document.getElementById('baseColor').value=v}
+
+function randomColor(){
+const c='#'+Math.floor(Math.random()*16777215).toString(16).padStart(6,'0');
+document.getElementById('baseColor').value=c;
+document.getElementById('baseHex').value=c;
+generate();
+}
+
+function generate(){
+const base=document.getElementById('baseColor').value;
+const [r,g,b]=hexToRgb(base);
+const [h,s,l]=rgbToHsl(r,g,b);
+
+const schemes={
+'Complementary':{
+desc:'Opposite on the color wheel',
+colors:[
+{hex:base,label:'Base',h,s,l},
+{hex:hslColor((h+180)%360,s,l),label:'Complement',h:(h+180)%360,s,l},
+]
+},
+'Analogous':{
+desc:'Adjacent colors on the wheel',
+colors:[
+{hex:hslColor((h-30+360)%360,s,l),label:'Analog -30',h:(h-30+360)%360,s,l},
+{hex:base,label:'Base',h,s,l},
+{hex:hslColor((h+30)%360,s,l),label:'Analog +30',h:(h+30)%360,s,l},
+]
+},
+'Triadic':{
+desc:'Three equally spaced colors',
+colors:[
+{hex:base,label:'Base',h,s,l},
+{hex:hslColor((h+120)%360,s,l),label:'Triad 1',h:(h+120)%360,s,l},
+{hex:hslColor((h+240)%360,s,l),label:'Triad 2',h:(h+240)%360,s,l},
+]
+},
+'Split-Complementary':{
+desc:'Base + two adjacent to complement',
+colors:[
+{hex:base,label:'Base',h,s,l},
+{hex:hslColor((h+150)%360,s,l),label:'Split 1',h:(h+150)%360,s,l},
+{hex:hslColor((h+210)%360,s,l),label:'Split 2',h:(h+210)%360,s,l},
+]
+},
+'Tetradic':{
+desc:'Two complementary pairs',
+colors:[
+{hex:base,label:'Base',h,s,l},
+{hex:hslColor((h+90)%360,s,l),label:'Tetrad 1',h:(h+90)%360,s,l},
+{hex:hslColor((h+180)%360,s,l),label:'Tetrad 2',h:(h+180)%360,s,l},
+{hex:hslColor((h+270)%360,s,l),label:'Tetrad 3',h:(h+270)%360,s,l},
+]
+},
+'Monochromatic':{
+desc:'Shades and tints of the base color',
+colors:[
+{hex:hslColor(h,s,Math.max(10,l-30)),label:'Dark',h,s,l:Math.max(10,l-30)},
+{hex:hslColor(h,s,Math.max(10,l-15)),label:'Mid-dark',h,s,l:Math.max(10,l-15)},
+{hex:base,label:'Base',h,s,l},
+{hex:hslColor(h,s,Math.min(90,l+15)),label:'Mid-light',h,s,l:Math.min(90,l+15)},
+{hex:hslColor(h,s,Math.min(95,l+30)),label:'Light',h,s,l:Math.min(95,l+30)},
+]
+}
+};
+
+allSchemes=schemes;
+
+const container=document.getElementById('schemesContainer');
+container.innerHTML='';
+Object.entries(schemes).forEach(([name,scheme])=>{
+let html=`<div class="panel scheme-section"><h3>${esc(name)} <span class="badge">${esc(scheme.desc)}</span></h3><div class="color-row">`;
+scheme.colors.forEach(c=>{
+const [ch,cs,cl]=rgbToHsl(...hexToRgb(c.hex));
+html+=`<div class="color-chip" onclick="copyColor('${c.hex}')">
+<div class="swatch" style="background:${c.hex}"></div>
+<div class="info"><div class="hex">${c.hex.toUpperCase()}</div><div class="hsl">HSL(${ch}, ${cs}%, ${cl}%)</div><div class="hsl">${esc(c.label)}</div></div>
+</div>`;
+});
+html+=`</div></div>`;
+container.innerHTML+=html;
+});
+
+updatePreview(base,hslColor((h+180)%360,s,l));
+updateCSSOutput(base,h,s,l);
+saveState();
+}
+
+function updatePreview(primary,secondary){
+const card=document.getElementById('previewCard');
+const isDark=rgbToHsl(...hexToRgb(primary))[2]<50;
+card.querySelector('.pc-header').style.background=primary;
+card.querySelector('.pc-header').style.color=isDark?'#fff':'#111';
+card.querySelector('.pc-header span').style.color=isDark?'rgba(255,255,255,.7)':'rgba(0,0,0,.6)';
+card.querySelector('.pc-body').style.background=isDark?'#f8f8f8':'#1a1a2e';
+card.querySelector('.pc-body p').style.color=isDark?'#333':'#ccc';
+const btn=document.getElementById('previewBtn');
+btn.style.background=secondary;
+const secDark=rgbToHsl(...hexToRgb(secondary))[2]<50;
+btn.style.color=secDark?'#fff':'#111';
+}
+
+function updateCSSOutput(base,h,s,l){
+const comp=hslColor((h+180)%360,s,l);
+const light=hslColor(h,s,Math.min(95,l+30));
+const dark=hslColor(h,s,Math.max(10,l-30));
+const accent=hslColor((h+30)%360,s,l);
+
+const css=`:root {
+  --color-primary: ${base.toUpperCase()};
+  --color-primary-light: ${light.toUpperCase()};
+  --color-primary-dark: ${dark.toUpperCase()};
+  --color-secondary: ${comp.toUpperCase()};
+  --color-accent: ${accent.toUpperCase()};
+  --color-bg: ${hslColor(h, Math.max(0,s-40), 5).toUpperCase()};
+  --color-surface: ${hslColor(h, Math.max(0,s-35), 10).toUpperCase()};
+  --color-text: ${hslColor(h, Math.max(0,s-30), 90).toUpperCase()};
+  --color-text-muted: ${hslColor(h, Math.max(0,s-35), 60).toUpperCase()};
+  --color-border: ${hslColor(h, Math.max(0,s-35), 20).toUpperCase()};
+}`;
+
+document.getElementById('cssOutput').innerHTML=`<button class="copy-btn" onclick="copyCSSVars()">Copy</button>${esc(css)}`;
+}
+
+function copyColor(hex){
+navigator.clipboard.writeText(hex.toUpperCase()).then(()=>showToast(hex.toUpperCase()+' copied!')).catch(()=>showToast('Copy failed'));
+}
+
+function copyCSSVars(){
+const el=document.getElementById('cssOutput');
+const text=el.textContent.replace('Copy','').trim();
+navigator.clipboard.writeText(text).then(()=>showToast('CSS variables copied!')).catch(()=>showToast('Copy failed'));
+}
+
+function copyTailwind(){
+const base=document.getElementById('baseColor').value;
+const [r,g,b]=hexToRgb(base);
+const [h,s,l]=rgbToHsl(r,g,b);
+const obj={
+50:hslColor(h,s,Math.min(97,l+40)).toUpperCase(),
+100:hslColor(h,s,Math.min(95,l+30)).toUpperCase(),
+200:hslColor(h,s,Math.min(90,l+20)).toUpperCase(),
+300:hslColor(h,s,Math.min(80,l+10)).toUpperCase(),
+400:hslColor(h,s,l).toUpperCase(),
+500:base.toUpperCase(),
+600:hslColor(h,s,Math.max(10,l-10)).toUpperCase(),
+700:hslColor(h,s,Math.max(10,l-20)).toUpperCase(),
+800:hslColor(h,s,Math.max(10,l-30)).toUpperCase(),
+900:hslColor(h,s,Math.max(5,l-40)).toUpperCase(),
+};
+navigator.clipboard.writeText('primary: '+JSON.stringify(obj,null,2)).then(()=>showToast('Tailwind config copied!')).catch(()=>showToast('Copy failed'));
+}
+
+function copySCSS(){
+const base=document.getElementById('baseColor').value;
+const [r,g,b]=hexToRgb(base);
+const [h,s,l]=rgbToHsl(r,g,b);
+const comp=hslColor((h+180)%360,s,l);
+const text=`$color-primary: ${base.toUpperCase()};\n$color-primary-light: ${hslColor(h,s,Math.min(95,l+30)).toUpperCase()};\n$color-primary-dark: ${hslColor(h,s,Math.max(10,l-30)).toUpperCase()};\n$color-secondary: ${comp.toUpperCase()};\n$color-accent: ${hslColor((h+30)%360,s,l).toUpperCase()};`;
+navigator.clipboard.writeText(text).then(()=>showToast('SCSS variables copied!')).catch(()=>showToast('Copy failed'));
+}
+
+function copyAll(){
+const base=document.getElementById('baseColor').value;
+const [r,g,b]=hexToRgb(base);
+const [h,s,l]=rgbToHsl(r,g,b);
+let text='/* Color Scheme from '+base.toUpperCase()+' */\n\n';
+Object.entries(allSchemes).forEach(([name,scheme])=>{
+text+='/* '+name+' */\n';
+scheme.colors.forEach(c=>{text+='  '+c.label+': '+c.hex.toUpperCase()+'\n'});
+text+='\n';
+});
+navigator.clipboard.writeText(text).then(()=>showToast('All schemes copied!')).catch(()=>showToast('Copy failed'));
+}
+
+function saveState(){try{localStorage.setItem(LS_KEY,document.getElementById('baseColor').value)}catch(e){}}
+function loadState(){try{const d=localStorage.getItem(LS_KEY);if(d){document.getElementById('baseColor').value=d;document.getElementById('baseHex').value=d}}catch(e){}}
+
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1800)}
+
+const toolURL='https://spunk.codes/exclusive/website-color-scheme.html';
+function shareX(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Generate website color schemes instantly! '+toolURL),'_blank')}
+function shareReddit(){window.open('https://reddit.com/submit?url='+encodeURIComponent(toolURL)+'&title='+encodeURIComponent('Website Color Scheme Generator - Free Tool'),'_blank')}
+function copyLink(){navigator.clipboard.writeText(toolURL).then(()=>showToast('Link copied!'))}
+
+loadState();
+generate();
+</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Emoji Picker &amp; Search — Find, Copy &amp; Use Any Emoji | SPUNK.CODES</title>
+<meta name="description" content="Searchable emoji grid with categories, copy emoji or shortcode, recently used, skin tone selector. Free, no signup, 100% client-side.">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP')</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w")</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e0e0e0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+header{background:#111118;border-bottom:2px solid #ff5f1f;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;position:sticky;top:0;z-index:100}
+header h1{font-size:1.4rem;color:#ff5f1f}
+header .back{color:#e0e0e0;font-size:.9rem}
+main{flex:1;max-width:800px;width:100%;margin:0 auto;padding:24px 16px}
+.panel{background:#111118;border:1px solid #1a1a2e;border-radius:10px;padding:20px;margin-bottom:20px}
+.panel h2{font-size:1.1rem;color:#ff5f1f;margin-bottom:14px}
+button{background:#ff5f1f;color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:.9rem;font-weight:600;transition:background .2s}
+button:hover{background:#e8520e}
+button.secondary{background:#2a2a3a;color:#e0e0e0}button.secondary:hover{background:#3a3a4a}
+input[type="text"],input[type="search"]{background:#16161e;border:1px solid #1a1a2e;color:#e0e0e0;padding:12px;border-radius:6px;font-size:.95rem;width:100%;font-family:inherit}
+.search-row{display:flex;gap:10px;margin-bottom:14px}
+.search-row input{flex:1}
+.skin-tones{display:flex;gap:6px;align-items:center;flex-shrink:0}
+.skin-tones span{font-size:1.3rem;cursor:pointer;padding:4px;border-radius:6px;border:2px solid transparent;transition:border-color .2s}
+.skin-tones span.active{border-color:#ff5f1f}
+.skin-tones span:hover{border-color:#ff5f1f80}
+.categories{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.categories button{font-size:.8rem;padding:6px 12px;border-radius:20px;background:#1a1a2e;color:#e0e0e0;border:1px solid #2a2a3a}
+.categories button.active{background:#ff5f1f;color:#fff;border-color:#ff5f1f}
+.emoji-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(46px,1fr));gap:4px;max-height:440px;overflow-y:auto;padding:4px}
+.emoji-grid .emo{font-size:1.7rem;text-align:center;padding:8px 4px;border-radius:8px;cursor:pointer;transition:background .15s,transform .15s;user-select:none}
+.emoji-grid .emo:hover{background:#1a1a2e;transform:scale(1.2)}
+.no-results{text-align:center;color:#555;padding:30px;font-size:.9rem}
+.copied-toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#ff5f1f;color:#fff;padding:10px 24px;border-radius:8px;font-weight:600;font-size:.9rem;z-index:999;opacity:0;transition:opacity .3s;pointer-events:none}
+.copied-toast.show{opacity:1}
+.recent-section{margin-bottom:14px}
+.recent-section h3{font-size:.85rem;color:#888;margin-bottom:8px}
+.recent-grid{display:flex;gap:4px;flex-wrap:wrap}
+.recent-grid .emo{font-size:1.5rem;padding:6px;border-radius:6px;cursor:pointer;transition:background .15s}
+.recent-grid .emo:hover{background:#1a1a2e}
+.preview{display:flex;align-items:center;gap:16px;padding:14px;background:#16161e;border-radius:8px;margin-bottom:14px;min-height:60px}
+.preview .big{font-size:3rem}
+.preview .info{flex:1}
+.preview .info .name{font-size:.95rem;color:#e0e0e0;font-weight:600}
+.preview .info .code{font-size:.8rem;color:#888;margin-top:4px;font-family:monospace}
+.preview .copy-btns{display:flex;gap:6px}
+.preview .copy-btns button{font-size:.78rem;padding:6px 10px}
+.share-btns{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.share-btns button{font-size:.8rem;padding:6px 12px}
+footer{text-align:center;padding:20px;color:#555;font-size:.8rem;border-top:1px solid #1a1a2e;margin-top:auto}
+footer a{color:#ff5f1f;margin:0 4px}
+@media(max-width:600px){
+header h1{font-size:1.1rem}
+.emoji-grid{grid-template-columns:repeat(auto-fill,minmax(40px,1fr))}
+.preview{flex-direction:column;text-align:center}
+.preview .copy-btns{justify-content:center}
+.search-row{flex-direction:column}
+}
+</style>
+</head>
+<body>
+<header>
+<h1>Emoji Picker &amp; Search</h1>
+<a href="https://spunk.codes" class="back">spunk.codes</a>
+</header>
+<main>
+
+<div class="panel">
+<h2>Search &amp; Skin Tone</h2>
+<div class="search-row">
+<input type="search" id="searchInput" placeholder="Search emojis (e.g. smile, heart, fire)..." oninput="filterEmojis()">
+<div class="skin-tones" id="skinTones"></div>
+</div>
+<div class="categories" id="categories"></div>
+</div>
+
+<div class="panel" id="recentPanel" style="display:none">
+<div class="recent-section">
+<h3>Recently Used</h3>
+<div class="recent-grid" id="recentGrid"></div>
+</div>
+</div>
+
+<div class="panel">
+<div class="preview" id="preview">
+<div class="big" id="previewEmoji">&#128512;</div>
+<div class="info">
+<div class="name" id="previewName">grinning face</div>
+<div class="code" id="previewCode">:grinning:</div>
+</div>
+<div class="copy-btns">
+<button onclick="copyEmoji()">Copy Emoji</button>
+<button class="secondary" onclick="copyShortcode()">Copy :code:</button>
+</div>
+</div>
+<div class="emoji-grid" id="emojiGrid"></div>
+</div>
+
+<div class="panel">
+<h2>Share</h2>
+<div class="share-btns">
+<button onclick="shareX()">Share on X</button>
+<button class="secondary" onclick="shareReddit()">Share on Reddit</button>
+<button class="secondary" onclick="copyLink()">Copy Link</button>
+</div>
+</div>
+</main>
+
+<footer>
+<a href="https://spunk.codes">spunk.codes</a> &middot;
+<a href="https://spunk.bet">spunk.bet</a> &middot;
+<a href="https://spunk.pics">spunk.pics</a> &middot;
+<a href="https://spunk.work">spunk.work</a> &middot;
+<a href="https://spunkart.com">SpunkArt.com</a>
+</footer>
+
+<div class="copied-toast" id="toast"></div>
+
+<script>
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+
+const LS_KEY='spunkcodes_emoji_recent';
+const skinMods=['',...['\u{1F3FB}','\u{1F3FC}','\u{1F3FD}','\u{1F3FE}','\u{1F3FF}']];
+const skinLabels=['\u{1F44B}','\u{1F44B}\u{1F3FB}','\u{1F44B}\u{1F3FC}','\u{1F44B}\u{1F3FD}','\u{1F44B}\u{1F3FE}','\u{1F44B}\u{1F3FF}'];
+let currentSkin=0;
+let currentCat='all';
+let selectedEmoji=null;
+
+const emojiData=[
+{cat:'Smileys',emojis:[
+{e:'\u{1F600}',n:'grinning face',c:':grinning:'},{e:'\u{1F601}',n:'beaming face',c:':grin:'},{e:'\u{1F602}',n:'face with tears of joy',c:':joy:'},{e:'\u{1F923}',n:'rolling on the floor laughing',c:':rofl:'},{e:'\u{1F603}',n:'smiley face',c:':smiley:'},{e:'\u{1F604}',n:'grinning face with smiling eyes',c:':smile:'},{e:'\u{1F605}',n:'grinning with sweat',c:':sweat_smile:'},{e:'\u{1F606}',n:'squinting face',c:':laughing:'},{e:'\u{1F609}',n:'winking face',c:':wink:'},{e:'\u{1F60A}',n:'smiling face with smiling eyes',c:':blush:'},{e:'\u{1F60B}',n:'face savoring food',c:':yum:'},{e:'\u{1F60E}',n:'smiling with sunglasses',c:':sunglasses:'},{e:'\u{1F60D}',n:'smiling with heart-eyes',c:':heart_eyes:'},{e:'\u{1F618}',n:'face blowing a kiss',c:':kissing_heart:'},{e:'\u{1F617}',n:'kissing face',c:':kissing:'},{e:'\u{1F619}',n:'kissing with smiling eyes',c:':kissing_smiling_eyes:'},{e:'\u{1F61A}',n:'kissing with closed eyes',c:':kissing_closed_eyes:'},{e:'\u{1F642}',n:'slightly smiling face',c:':slight_smile:'},{e:'\u{1F917}',n:'hugging face',c:':hugs:'},{e:'\u{1F914}',n:'thinking face',c:':thinking:'},{e:'\u{1F610}',n:'neutral face',c:':neutral_face:'},{e:'\u{1F611}',n:'expressionless face',c:':expressionless:'},{e:'\u{1F636}',n:'face without mouth',c:':no_mouth:'},{e:'\u{1F60F}',n:'smirking face',c:':smirk:'},{e:'\u{1F612}',n:'unamused face',c:':unamused:'},{e:'\u{1F644}',n:'face with rolling eyes',c:':roll_eyes:'},{e:'\u{1F62C}',n:'grimacing face',c:':grimacing:'},{e:'\u{1F925}',n:'lying face',c:':lying_face:'},{e:'\u{1F60C}',n:'relieved face',c:':relieved:'},{e:'\u{1F614}',n:'pensive face',c:':pensive:'},{e:'\u{1F62A}',n:'sleepy face',c:':sleepy:'},{e:'\u{1F924}',n:'drooling face',c:':drooling:'},{e:'\u{1F634}',n:'sleeping face',c:':sleeping:'},{e:'\u{1F637}',n:'face with medical mask',c:':mask:'},{e:'\u{1F912}',n:'face with thermometer',c:':thermometer_face:'},{e:'\u{1F915}',n:'face with head-bandage',c:':head_bandage:'},{e:'\u{1F922}',n:'nauseated face',c:':nauseated:'},{e:'\u{1F927}',n:'sneezing face',c:':sneezing:'},{e:'\u{1F975}',n:'hot face',c:':hot_face:'},{e:'\u{1F976}',n:'cold face',c:':cold_face:'},{e:'\u{1F974}',n:'woozy face',c:':woozy:'},{e:'\u{1F635}',n:'dizzy face',c:':dizzy_face:'},{e:'\u{1F92F}',n:'exploding head',c:':exploding_head:'},{e:'\u{1F920}',n:'cowboy hat face',c:':cowboy:'},{e:'\u{1F973}',n:'partying face',c:':partying:'},{e:'\u{1F60E}',n:'sunglasses',c:':sunglasses:'},{e:'\u{1F913}',n:'nerd face',c:':nerd:'},{e:'\u{1F9D0}',n:'monocle face',c:':monocle:'},{e:'\u{1F615}',n:'confused face',c:':confused:'},{e:'\u{1F61F}',n:'worried face',c:':worried:'},{e:'\u{1F641}',n:'slightly frowning',c:':frowning:'},{e:'\u{2639}',n:'frowning face',c:':frowning2:'},{e:'\u{1F62E}',n:'face with open mouth',c:':open_mouth:'},{e:'\u{1F62F}',n:'hushed face',c:':hushed:'},{e:'\u{1F632}',n:'astonished face',c:':astonished:'},{e:'\u{1F633}',n:'flushed face',c:':flushed:'},{e:'\u{1F97A}',n:'pleading face',c:':pleading:'},{e:'\u{1F626}',n:'frowning open mouth',c:':frowning_open:'},{e:'\u{1F627}',n:'anguished face',c:':anguished:'},{e:'\u{1F628}',n:'fearful face',c:':fearful:'},{e:'\u{1F630}',n:'anxious with sweat',c:':cold_sweat:'},{e:'\u{1F625}',n:'sad but relieved',c:':disappointed_relieved:'},{e:'\u{1F622}',n:'crying face',c:':cry:'},{e:'\u{1F62D}',n:'loudly crying face',c:':sob:'},{e:'\u{1F631}',n:'face screaming in fear',c:':scream:'},{e:'\u{1F616}',n:'confounded face',c:':confounded:'},{e:'\u{1F623}',n:'persevering face',c:':persevere:'},{e:'\u{1F61E}',n:'disappointed face',c:':disappointed:'},{e:'\u{1F613}',n:'face with cold sweat',c:':sweat:'},{e:'\u{1F629}',n:'weary face',c:':weary:'},{e:'\u{1F62B}',n:'tired face',c:':tired_face:'},{e:'\u{1F971}',n:'yawning face',c:':yawning:'},{e:'\u{1F624}',n:'face with steam from nose',c:':triumph:'},{e:'\u{1F621}',n:'pouting face',c:':rage:'},{e:'\u{1F620}',n:'angry face',c:':angry:'},{e:'\u{1F92C}',n:'face with symbols on mouth',c:':cursing:'},{e:'\u{1F608}',n:'smiling face with horns',c:':smiling_imp:'},{e:'\u{1F47F}',n:'angry face with horns',c:':imp:'},{e:'\u{1F480}',n:'skull',c:':skull:'},{e:'\u{2620}',n:'skull and crossbones',c:':skull_crossbones:'},{e:'\u{1F4A9}',n:'pile of poo',c:':poop:'},{e:'\u{1F921}',n:'clown face',c:':clown:'},{e:'\u{1F479}',n:'ogre',c:':ogre:'},{e:'\u{1F47A}',n:'goblin',c:':goblin:'},{e:'\u{1F47B}',n:'ghost',c:':ghost:'},{e:'\u{1F47D}',n:'alien',c:':alien:'},{e:'\u{1F47E}',n:'alien monster',c:':space_invader:'},{e:'\u{1F916}',n:'robot',c:':robot:'},{e:'\u{1F63A}',n:'grinning cat',c:':smiley_cat:'},{e:'\u{1F638}',n:'grinning cat smiling eyes',c:':smile_cat:'},{e:'\u{1F639}',n:'cat with tears of joy',c:':joy_cat:'},{e:'\u{1F63B}',n:'smiling cat heart-eyes',c:':heart_eyes_cat:'},{e:'\u{1F63C}',n:'cat with wry smile',c:':smirk_cat:'},{e:'\u{1F63D}',n:'kissing cat',c:':kissing_cat:'},{e:'\u{1F640}',n:'weary cat',c:':scream_cat:'},{e:'\u{1F63F}',n:'crying cat',c:':crying_cat:'},{e:'\u{1F63E}',n:'pouting cat',c:':pouting_cat:'}
+]},
+{cat:'Gestures',skin:true,emojis:[
+{e:'\u{1F44B}',n:'waving hand',c:':wave:'},{e:'\u{1F91A}',n:'raised back of hand',c:':raised_back_of_hand:'},{e:'\u{1F590}',n:'hand with fingers splayed',c:':raised_hand_splayed:'},{e:'\u{270B}',n:'raised hand',c:':raised_hand:'},{e:'\u{1F596}',n:'vulcan salute',c:':vulcan:'},{e:'\u{1F44C}',n:'OK hand',c:':ok_hand:'},{e:'\u{1F90C}',n:'pinched fingers',c:':pinched_fingers:'},{e:'\u{1F90F}',n:'pinching hand',c:':pinching_hand:'},{e:'\u{270C}',n:'victory hand',c:':v:'},{e:'\u{1F91E}',n:'crossed fingers',c:':crossed_fingers:'},{e:'\u{1F91F}',n:'love-you gesture',c:':love_you:'},{e:'\u{1F918}',n:'sign of the horns',c:':metal:'},{e:'\u{1F919}',n:'call me hand',c:':call_me:'},{e:'\u{1F448}',n:'backhand pointing left',c:':point_left:'},{e:'\u{1F449}',n:'backhand pointing right',c:':point_right:'},{e:'\u{1F446}',n:'backhand pointing up',c:':point_up_2:'},{e:'\u{1F595}',n:'middle finger',c:':middle_finger:'},{e:'\u{1F447}',n:'backhand pointing down',c:':point_down:'},{e:'\u{261D}',n:'index pointing up',c:':point_up:'},{e:'\u{1F44D}',n:'thumbs up',c:':thumbsup:'},{e:'\u{1F44E}',n:'thumbs down',c:':thumbsdown:'},{e:'\u{270A}',n:'raised fist',c:':fist:'},{e:'\u{1F44A}',n:'oncoming fist',c:':punch:'},{e:'\u{1F91B}',n:'left-facing fist',c:':left_fist:'},{e:'\u{1F91C}',n:'right-facing fist',c:':right_fist:'},{e:'\u{1F44F}',n:'clapping hands',c:':clap:'},{e:'\u{1F64C}',n:'raising hands',c:':raised_hands:'},{e:'\u{1F450}',n:'open hands',c:':open_hands:'},{e:'\u{1F932}',n:'palms up together',c:':palms_up:'},{e:'\u{1F91D}',n:'handshake',c:':handshake:'},{e:'\u{1F64F}',n:'folded hands',c:':pray:'},{e:'\u{270D}',n:'writing hand',c:':writing_hand:'},{e:'\u{1F485}',n:'nail polish',c:':nail_care:'},{e:'\u{1F933}',n:'selfie',c:':selfie:'},{e:'\u{1F4AA}',n:'flexed biceps',c:':muscle:'}
+]},
+{cat:'Hearts',emojis:[
+{e:'\u{2764}',n:'red heart',c:':heart:'},{e:'\u{1F9E1}',n:'orange heart',c:':orange_heart:'},{e:'\u{1F49B}',n:'yellow heart',c:':yellow_heart:'},{e:'\u{1F49A}',n:'green heart',c:':green_heart:'},{e:'\u{1F499}',n:'blue heart',c:':blue_heart:'},{e:'\u{1F49C}',n:'purple heart',c:':purple_heart:'},{e:'\u{1F5A4}',n:'black heart',c:':black_heart:'},{e:'\u{1F90D}',n:'white heart',c:':white_heart:'},{e:'\u{1F90E}',n:'brown heart',c:':brown_heart:'},{e:'\u{1F494}',n:'broken heart',c:':broken_heart:'},{e:'\u{2763}',n:'heart exclamation',c:':heart_exclamation:'},{e:'\u{1F495}',n:'two hearts',c:':two_hearts:'},{e:'\u{1F49E}',n:'revolving hearts',c:':revolving_hearts:'},{e:'\u{1F493}',n:'beating heart',c:':heartbeat:'},{e:'\u{1F497}',n:'growing heart',c:':heartpulse:'},{e:'\u{1F496}',n:'sparkling heart',c:':sparkling_heart:'},{e:'\u{1F498}',n:'heart with arrow',c:':cupid:'},{e:'\u{1F49D}',n:'heart with ribbon',c:':gift_heart:'},{e:'\u{1F48C}',n:'love letter',c:':love_letter:'},{e:'\u{1F49F}',n:'heart decoration',c:':heart_decoration:'}
+]},
+{cat:'Nature',emojis:[
+{e:'\u{1F436}',n:'dog face',c:':dog:'},{e:'\u{1F431}',n:'cat face',c:':cat:'},{e:'\u{1F42D}',n:'mouse face',c:':mouse:'},{e:'\u{1F439}',n:'hamster',c:':hamster:'},{e:'\u{1F430}',n:'rabbit face',c:':rabbit:'},{e:'\u{1F98A}',n:'fox',c:':fox:'},{e:'\u{1F43B}',n:'bear',c:':bear:'},{e:'\u{1F43C}',n:'panda',c:':panda:'},{e:'\u{1F428}',n:'koala',c:':koala:'},{e:'\u{1F42F}',n:'tiger face',c:':tiger:'},{e:'\u{1F981}',n:'lion',c:':lion:'},{e:'\u{1F42E}',n:'cow face',c:':cow:'},{e:'\u{1F437}',n:'pig face',c:':pig:'},{e:'\u{1F438}',n:'frog',c:':frog:'},{e:'\u{1F435}',n:'monkey face',c:':monkey:'},{e:'\u{1F412}',n:'monkey',c:':monkey_body:'},{e:'\u{1F414}',n:'chicken',c:':chicken:'},{e:'\u{1F427}',n:'penguin',c:':penguin:'},{e:'\u{1F426}',n:'bird',c:':bird:'},{e:'\u{1F985}',n:'eagle',c:':eagle:'},{e:'\u{1F989}',n:'owl',c:':owl:'},{e:'\u{1F987}',n:'bat',c:':bat:'},{e:'\u{1F43A}',n:'wolf',c:':wolf:'},{e:'\u{1F417}',n:'boar',c:':boar:'},{e:'\u{1F434}',n:'horse face',c:':horse:'},{e:'\u{1F984}',n:'unicorn',c:':unicorn:'},{e:'\u{1F41D}',n:'honeybee',c:':bee:'},{e:'\u{1F41B}',n:'bug',c:':bug:'},{e:'\u{1F98B}',n:'butterfly',c:':butterfly:'},{e:'\u{1F40C}',n:'snail',c:':snail:'},{e:'\u{1F41A}',n:'spiral shell',c:':shell:'},{e:'\u{1F982}',n:'scorpion',c:':scorpion:'},{e:'\u{1F490}',n:'bouquet',c:':bouquet:'},{e:'\u{1F339}',n:'rose',c:':rose:'},{e:'\u{1F33B}',n:'sunflower',c:':sunflower:'},{e:'\u{1F332}',n:'evergreen tree',c:':evergreen:'},{e:'\u{1F333}',n:'deciduous tree',c:':tree:'},{e:'\u{1F334}',n:'palm tree',c:':palm_tree:'},{e:'\u{1F335}',n:'cactus',c:':cactus:'},{e:'\u{1F340}',n:'four leaf clover',c:':four_leaf_clover:'}
+]},
+{cat:'Food',emojis:[
+{e:'\u{1F34E}',n:'red apple',c:':apple:'},{e:'\u{1F34A}',n:'tangerine',c:':tangerine:'},{e:'\u{1F34B}',n:'lemon',c:':lemon:'},{e:'\u{1F34C}',n:'banana',c:':banana:'},{e:'\u{1F349}',n:'watermelon',c:':watermelon:'},{e:'\u{1F347}',n:'grapes',c:':grapes:'},{e:'\u{1F353}',n:'strawberry',c:':strawberry:'},{e:'\u{1F352}',n:'cherries',c:':cherries:'},{e:'\u{1F351}',n:'peach',c:':peach:'},{e:'\u{1F34D}',n:'pineapple',c:':pineapple:'},{e:'\u{1F96D}',n:'mango',c:':mango:'},{e:'\u{1F95D}',n:'kiwi fruit',c:':kiwi:'},{e:'\u{1F354}',n:'hamburger',c:':hamburger:'},{e:'\u{1F355}',n:'pizza',c:':pizza:'},{e:'\u{1F32E}',n:'taco',c:':taco:'},{e:'\u{1F32F}',n:'burrito',c:':burrito:'},{e:'\u{1F35F}',n:'french fries',c:':fries:'},{e:'\u{1F36A}',n:'cookie',c:':cookie:'},{e:'\u{1F370}',n:'shortcake',c:':cake:'},{e:'\u{1F382}',n:'birthday cake',c:':birthday:'},{e:'\u{1F369}',n:'doughnut',c:':doughnut:'},{e:'\u{1F36B}',n:'chocolate bar',c:':chocolate_bar:'},{e:'\u{1F36D}',n:'lollipop',c:':lollipop:'},{e:'\u{1F36E}',n:'custard',c:':custard:'},{e:'\u{2615}',n:'hot beverage',c:':coffee:'},{e:'\u{1F375}',n:'teacup without handle',c:':tea:'},{e:'\u{1F37A}',n:'beer mug',c:':beer:'},{e:'\u{1F37B}',n:'clinking beer mugs',c:':beers:'},{e:'\u{1F377}',n:'wine glass',c:':wine_glass:'},{e:'\u{1F378}',n:'cocktail glass',c:':cocktail:'}
+]},
+{cat:'Travel',emojis:[
+{e:'\u{1F697}',n:'automobile',c:':car:'},{e:'\u{1F695}',n:'taxi',c:':taxi:'},{e:'\u{1F68C}',n:'bus',c:':bus:'},{e:'\u{1F3CE}',n:'racing car',c:':racing_car:'},{e:'\u{1F6F5}',n:'motor scooter',c:':scooter:'},{e:'\u{1F6B2}',n:'bicycle',c:':bike:'},{e:'\u{2708}',n:'airplane',c:':airplane:'},{e:'\u{1F680}',n:'rocket',c:':rocket:'},{e:'\u{1F6F8}',n:'flying saucer',c:':ufo:'},{e:'\u{1F6A2}',n:'ship',c:':ship:'},{e:'\u{1F3E0}',n:'house',c:':house:'},{e:'\u{1F3D7}',n:'building construction',c:':construction_site:'},{e:'\u{1F3D6}',n:'beach with umbrella',c:':beach:'},{e:'\u{1F3D4}',n:'snow-capped mountain',c:':mountain_snow:'},{e:'\u{26F0}',n:'mountain',c:':mountain:'},{e:'\u{1F30B}',n:'volcano',c:':volcano:'},{e:'\u{1F3DD}',n:'desert island',c:':island:'},{e:'\u{1F307}',n:'sunset',c:':sunset:'},{e:'\u{1F303}',n:'night with stars',c:':night_stars:'},{e:'\u{1F5FC}',n:'Tokyo tower',c:':tokyo_tower:'},{e:'\u{1F5FD}',n:'Statue of Liberty',c:':statue_of_liberty:'},{e:'\u{26A1}',n:'high voltage',c:':zap:'},{e:'\u{1F525}',n:'fire',c:':fire:'},{e:'\u{2B50}',n:'star',c:':star:'},{e:'\u{1F31F}',n:'glowing star',c:':star2:'},{e:'\u{1F308}',n:'rainbow',c:':rainbow:'},{e:'\u{2600}',n:'sun',c:':sunny:'},{e:'\u{1F324}',n:'sun behind small cloud',c:':mostly_sunny:'},{e:'\u{26C5}',n:'sun behind cloud',c:':partly_sunny:'},{e:'\u{1F327}',n:'cloud with rain',c:':rain:'}
+]},
+{cat:'Objects',emojis:[
+{e:'\u{1F4F1}',n:'mobile phone',c:':iphone:'},{e:'\u{1F4BB}',n:'laptop',c:':computer:'},{e:'\u{2328}',n:'keyboard',c:':keyboard:'},{e:'\u{1F5A5}',n:'desktop computer',c:':desktop:'},{e:'\u{1F4BE}',n:'floppy disk',c:':floppy:'},{e:'\u{1F4BF}',n:'optical disk',c:':cd:'},{e:'\u{1F4C0}',n:'DVD',c:':dvd:'},{e:'\u{1F3A5}',n:'movie camera',c:':movie_camera:'},{e:'\u{1F4F7}',n:'camera',c:':camera:'},{e:'\u{1F4F8}',n:'camera with flash',c:':camera_flash:'},{e:'\u{1F4FA}',n:'television',c:':tv:'},{e:'\u{1F4FB}',n:'radio',c:':radio:'},{e:'\u{1F50B}',n:'battery',c:':battery:'},{e:'\u{1F50C}',n:'electric plug',c:':electric_plug:'},{e:'\u{1F4A1}',n:'light bulb',c:':bulb:'},{e:'\u{1F526}',n:'flashlight',c:':flashlight:'},{e:'\u{1F56F}',n:'candle',c:':candle:'},{e:'\u{1F4D6}',n:'open book',c:':book:'},{e:'\u{1F4DA}',n:'books',c:':books:'},{e:'\u{1F4DD}',n:'memo',c:':memo:'},{e:'\u{270F}',n:'pencil',c:':pencil:'},{e:'\u{1F58A}',n:'pen',c:':pen:'},{e:'\u{1F4CE}',n:'paperclip',c:':paperclip:'},{e:'\u{1F4CB}',n:'clipboard',c:':clipboard:'},{e:'\u{2702}',n:'scissors',c:':scissors:'},{e:'\u{1F4E6}',n:'package',c:':package:'},{e:'\u{1F511}',n:'key',c:':key:'},{e:'\u{1F512}',n:'lock',c:':lock:'},{e:'\u{1F513}',n:'unlock',c:':unlock:'},{e:'\u{1F527}',n:'wrench',c:':wrench:'}
+]},
+{cat:'Symbols',emojis:[
+{e:'\u{2705}',n:'check mark',c:':white_check_mark:'},{e:'\u{274C}',n:'cross mark',c:':x:'},{e:'\u{2753}',n:'question mark',c:':question:'},{e:'\u{2757}',n:'exclamation mark',c:':exclamation:'},{e:'\u{1F4AF}',n:'hundred points',c:':100:'},{e:'\u{1F51D}',n:'top arrow',c:':top:'},{e:'\u{267B}',n:'recycling symbol',c:':recycle:'},{e:'\u{1F6AB}',n:'prohibited',c:':no_entry_sign:'},{e:'\u{26A0}',n:'warning',c:':warning:'},{e:'\u{1F4F4}',n:'mobile phone off',c:':mobile_phone_off:'},{e:'\u{1F4B0}',n:'money bag',c:':moneybag:'},{e:'\u{1F4B5}',n:'dollar banknote',c:':dollar:'},{e:'\u{1F4B8}',n:'money with wings',c:':money_with_wings:'},{e:'\u{1F4B3}',n:'credit card',c:':credit_card:'},{e:'\u{1F4B2}',n:'heavy dollar sign',c:':heavy_dollar_sign:'},{e:'\u{2695}',n:'medical symbol',c:':medical:'},{e:'\u{267F}',n:'wheelchair symbol',c:':wheelchair:'},{e:'\u{1F3B5}',n:'musical note',c:':musical_note:'},{e:'\u{1F3B6}',n:'musical notes',c:':notes:'},{e:'\u{1F3B5}',n:'music',c:':music:'},{e:'\u{1F4AC}',n:'speech balloon',c:':speech_balloon:'},{e:'\u{1F4AD}',n:'thought balloon',c:':thought_balloon:'},{e:'\u{1F4A4}',n:'zzz',c:':zzz:'},{e:'\u{1F4A5}',n:'collision',c:':boom:'},{e:'\u{1F4A2}',n:'anger symbol',c:':anger:'},{e:'\u{1F4AB}',n:'dizzy',c:':dizzy:'},{e:'\u{1F4A6}',n:'sweat droplets',c:':sweat_drops:'},{e:'\u{1F4A8}',n:'dashing away',c:':dash:'},{e:'\u{1F573}',n:'hole',c:':hole:'},{e:'\u{1F4A3}',n:'bomb',c:':bomb:'}
+]},
+{cat:'Flags',emojis:[
+{e:'\u{1F1FA}\u{1F1F8}',n:'United States',c:':us:'},{e:'\u{1F1EC}\u{1F1E7}',n:'United Kingdom',c:':gb:'},{e:'\u{1F1E8}\u{1F1E6}',n:'Canada',c:':canada:'},{e:'\u{1F1E6}\u{1F1FA}',n:'Australia',c:':australia:'},{e:'\u{1F1E9}\u{1F1EA}',n:'Germany',c:':de:'},{e:'\u{1F1EB}\u{1F1F7}',n:'France',c:':fr:'},{e:'\u{1F1EA}\u{1F1F8}',n:'Spain',c:':es:'},{e:'\u{1F1EE}\u{1F1F9}',n:'Italy',c:':it:'},{e:'\u{1F1EF}\u{1F1F5}',n:'Japan',c:':jp:'},{e:'\u{1F1F0}\u{1F1F7}',n:'South Korea',c:':kr:'},{e:'\u{1F1E7}\u{1F1F7}',n:'Brazil',c:':brazil:'},{e:'\u{1F1EE}\u{1F1F3}',n:'India',c:':india:'},{e:'\u{1F1F2}\u{1F1FD}',n:'Mexico',c:':mexico:'},{e:'\u{1F1F7}\u{1F1FA}',n:'Russia',c:':ru:'},{e:'\u{1F1E8}\u{1F1F3}',n:'China',c:':cn:'},{e:'\u{1F3C1}',n:'chequered flag',c:':checkered_flag:'},{e:'\u{1F3F3}',n:'white flag',c:':white_flag:'},{e:'\u{1F3F4}',n:'black flag',c:':black_flag:'},{e:'\u{1F6A9}',n:'triangular flag',c:':triangular_flag:'}
+]}
+];
+
+let allEmojis=[];
+emojiData.forEach(cat=>{cat.emojis.forEach(em=>{allEmojis.push({...em,category:cat.cat,hasSkin:!!cat.skin})})});
+
+function initSkinTones(){
+const c=document.getElementById('skinTones');
+skinLabels.forEach((label,i)=>{
+const s=document.createElement('span');
+s.textContent=label;
+if(i===0)s.classList.add('active');
+s.onclick=()=>{currentSkin=i;c.querySelectorAll('span').forEach(x=>x.classList.remove('active'));s.classList.add('active');renderGrid()};
+c.appendChild(s);
+});
+}
+
+function initCategories(){
+const c=document.getElementById('categories');
+const cats=['all',...emojiData.map(d=>d.cat)];
+cats.forEach(cat=>{
+const b=document.createElement('button');
+b.textContent=cat==='all'?'All':cat;
+if(cat==='all')b.classList.add('active');
+b.onclick=()=>{currentCat=cat;c.querySelectorAll('button').forEach(x=>x.classList.remove('active'));b.classList.add('active');filterEmojis()};
+c.appendChild(b);
+});
+}
+
+function applySkin(emoji,hasSkin){
+if(!hasSkin||currentSkin===0)return emoji;
+return emoji+skinMods[currentSkin];
+}
+
+function renderGrid(){
+const grid=document.getElementById('emojiGrid');
+const query=document.getElementById('searchInput').value.toLowerCase().trim();
+let filtered=allEmojis;
+if(currentCat!=='all')filtered=filtered.filter(e=>e.category===currentCat);
+if(query)filtered=filtered.filter(e=>e.n.includes(query)||e.c.includes(query)||e.e.includes(query));
+
+if(!filtered.length){
+grid.innerHTML='<div class="no-results">No emojis found. Try a different search.</div>';
+return;
+}
+grid.innerHTML=filtered.map(em=>{
+const display=applySkin(em.e,em.hasSkin);
+return`<div class="emo" onclick="selectEmoji('${esc(em.e)}','${esc(em.n)}','${esc(em.c)}',${em.hasSkin})" title="${esc(em.n)}">${display}</div>`;
+}).join('');
+}
+
+function filterEmojis(){renderGrid()}
+
+function selectEmoji(e,n,c,hasSkin){
+const display=applySkin(e,hasSkin);
+selectedEmoji={e:display,n,c};
+document.getElementById('previewEmoji').textContent=display;
+document.getElementById('previewName').textContent=n;
+document.getElementById('previewCode').textContent=c;
+}
+
+function copyEmoji(){
+if(!selectedEmoji)return;
+navigator.clipboard.writeText(selectedEmoji.e).then(()=>{addRecent(selectedEmoji);showToast('Emoji copied!')}).catch(()=>showToast('Copy failed'));
+}
+
+function copyShortcode(){
+if(!selectedEmoji)return;
+navigator.clipboard.writeText(selectedEmoji.c).then(()=>{addRecent(selectedEmoji);showToast('Shortcode copied!')}).catch(()=>showToast('Copy failed'));
+}
+
+function getRecent(){try{return JSON.parse(localStorage.getItem(LS_KEY)||'[]')}catch(e){return[]}}
+function saveRecent(arr){try{localStorage.setItem(LS_KEY,JSON.stringify(arr))}catch(e){}}
+
+function addRecent(em){
+let arr=getRecent();
+arr=arr.filter(x=>x.e!==em.e);
+arr.unshift({e:em.e,n:em.n,c:em.c});
+if(arr.length>20)arr=arr.slice(0,20);
+saveRecent(arr);
+renderRecent();
+}
+
+function renderRecent(){
+const arr=getRecent();
+const panel=document.getElementById('recentPanel');
+const grid=document.getElementById('recentGrid');
+if(!arr.length){panel.style.display='none';return}
+panel.style.display='block';
+grid.innerHTML=arr.map(em=>`<div class="emo" onclick="selectEmoji('${esc(em.e)}','${esc(em.n)}','${esc(em.c)}',false)" title="${esc(em.n)}">${em.e}</div>`).join('');
+}
+
+function showToast(msg){
+const t=document.getElementById('toast');
+t.textContent=msg;
+t.classList.add('show');
+setTimeout(()=>t.classList.remove('show'),1800);
+}
+
+const toolURL='https://spunk.codes/exclusive/emoji-picker.html';
+function shareX(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Free Emoji Picker & Search tool! '+toolURL),'_blank')}
+function shareReddit(){window.open('https://reddit.com/submit?url='+encodeURIComponent(toolURL)+'&title='+encodeURIComponent('Emoji Picker & Search - Free Tool'),'_blank')}
+function copyLink(){navigator.clipboard.writeText(toolURL).then(()=>showToast('Link copied!'))}
+
+initSkinTones();
+initCategories();
+renderGrid();
+renderRecent();
+</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Character Counter Pro — Words, Sentences, Readability, Keyword Density | SPUNK.CODES</title>
+<meta name="description" content="Count characters, words, sentences, paragraphs. Reading time, keyword density, Flesch-Kincaid readability score, social media limits. Free, no signup.">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP')</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w")</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e0e0e0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+header{background:#111118;border-bottom:2px solid #ff5f1f;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;position:sticky;top:0;z-index:100}
+header h1{font-size:1.4rem;color:#ff5f1f}
+header .back{color:#e0e0e0;font-size:.9rem}
+main{flex:1;max-width:800px;width:100%;margin:0 auto;padding:24px 16px}
+.panel{background:#111118;border:1px solid #1a1a2e;border-radius:10px;padding:20px;margin-bottom:20px}
+.panel h2{font-size:1.1rem;color:#ff5f1f;margin-bottom:14px}
+button{background:#ff5f1f;color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:.9rem;font-weight:600;transition:background .2s}
+button:hover{background:#e8520e}
+button.secondary{background:#2a2a3a;color:#e0e0e0}button.secondary:hover{background:#3a3a4a}
+textarea{background:#16161e;border:1px solid #1a1a2e;color:#e0e0e0;padding:12px;border-radius:6px;font-size:.95rem;width:100%;resize:vertical;font-family:inherit;line-height:1.6}
+.btn-row{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}
+.stat-card{background:#16161e;border:1px solid #1a1a2e;border-radius:10px;padding:14px;text-align:center}
+.stat-card .value{font-size:1.5rem;color:#ff5f1f;font-weight:700}
+.stat-card .label{font-size:.72rem;color:#888;margin-top:4px}
+.time-cards{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:16px}
+.time-card{background:#16161e;border:1px solid #1a1a2e;border-radius:10px;padding:14px;text-align:center}
+.time-card .value{font-size:1.3rem;color:#ff5f1f;font-weight:700}
+.time-card .label{font-size:.72rem;color:#888;margin-top:4px}
+.social-limits{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;margin-bottom:16px}
+.social-card{background:#16161e;border:1px solid #1a1a2e;border-radius:10px;padding:12px;display:flex;justify-content:space-between;align-items:center}
+.social-card .name{font-size:.82rem;color:#e0e0e0;font-weight:600}
+.social-card .bar{flex:1;margin:0 10px;height:6px;background:#1a1a2e;border-radius:3px;overflow:hidden}
+.social-card .bar .fill{height:100%;border-radius:3px;transition:width .3s}
+.social-card .count{font-size:.75rem;color:#888;min-width:50px;text-align:right}
+.readability{background:#16161e;border:2px solid #ff5f1f;border-radius:10px;padding:20px;text-align:center;margin-bottom:16px;box-shadow:0 0 20px rgba(255,95,31,.1)}
+.readability .score{font-size:2.2rem;color:#ff5f1f;font-weight:700}
+.readability .grade{font-size:.95rem;color:#e0e0e0;margin-top:4px}
+.readability .desc{font-size:.78rem;color:#888;margin-top:4px}
+.kw-list{max-height:250px;overflow-y:auto}
+.kw-row{display:flex;justify-content:space-between;align-items:center;padding:6px 10px;border-bottom:1px solid #1a1a2e;font-size:.82rem}
+.kw-row .word{color:#e0e0e0;font-weight:600}
+.kw-row .bar{flex:1;margin:0 10px;height:5px;background:#1a1a2e;border-radius:3px;overflow:hidden}
+.kw-row .bar .fill{height:100%;background:#ff5f1f;border-radius:3px}
+.kw-row .count{color:#888}
+.share-btns{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.share-btns button{font-size:.8rem;padding:6px 12px}
+.copied-toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#ff5f1f;color:#fff;padding:10px 24px;border-radius:8px;font-weight:600;font-size:.9rem;z-index:999;opacity:0;transition:opacity .3s;pointer-events:none}
+.copied-toast.show{opacity:1}
+footer{text-align:center;padding:20px;color:#555;font-size:.8rem;border-top:1px solid #1a1a2e;margin-top:auto}
+footer a{color:#ff5f1f;margin:0 4px}
+@media(max-width:600px){
+header h1{font-size:1.1rem}
+.stats-grid{grid-template-columns:repeat(2,1fr)}
+.social-limits{grid-template-columns:1fr}
+.readability .score{font-size:1.6rem}
+}
+</style>
+</head>
+<body>
+<header>
+<h1>Character Counter Pro</h1>
+<a href="https://spunk.codes" class="back">spunk.codes</a>
+</header>
+<main>
+
+<div class="panel">
+<h2>Your Text</h2>
+<textarea id="textInput" rows="8" placeholder="Type or paste your text here..." oninput="analyze()"></textarea>
+<div class="btn-row">
+<button onclick="clearText()">Clear</button>
+<button class="secondary" onclick="pasteText()">Paste</button>
+<button class="secondary" onclick="loadSample()">Sample</button>
+<button class="secondary" onclick="copyStats()">Copy Stats</button>
+</div>
+</div>
+
+<div class="panel">
+<h2>Statistics</h2>
+<div class="stats-grid">
+<div class="stat-card"><div class="value" id="charCount">0</div><div class="label">Characters</div></div>
+<div class="stat-card"><div class="value" id="charNoSpace">0</div><div class="label">No Spaces</div></div>
+<div class="stat-card"><div class="value" id="wordCount">0</div><div class="label">Words</div></div>
+<div class="stat-card"><div class="value" id="sentenceCount">0</div><div class="label">Sentences</div></div>
+<div class="stat-card"><div class="value" id="paraCount">0</div><div class="label">Paragraphs</div></div>
+<div class="stat-card"><div class="value" id="lineCount">0</div><div class="label">Lines</div></div>
+<div class="stat-card"><div class="value" id="avgWordLen">0</div><div class="label">Avg Word Len</div></div>
+<div class="stat-card"><div class="value" id="avgSentLen">0</div><div class="label">Avg Sent Len</div></div>
+</div>
+<div class="time-cards">
+<div class="time-card"><div class="value" id="readTime">0s</div><div class="label">Reading Time (~238 wpm)</div></div>
+<div class="time-card"><div class="value" id="speakTime">0s</div><div class="label">Speaking Time (~150 wpm)</div></div>
+</div>
+</div>
+
+<div class="panel">
+<h2>Social Media Limits</h2>
+<div class="social-limits" id="socialLimits"></div>
+</div>
+
+<div class="panel">
+<h2>Readability Score</h2>
+<div class="readability">
+<div class="score" id="fkScore">--</div>
+<div class="grade" id="fkGrade">Enter text to analyze</div>
+<div class="desc" id="fkDesc"></div>
+</div>
+</div>
+
+<div class="panel">
+<h2>Top Keywords</h2>
+<div class="kw-list" id="kwList">
+<div style="text-align:center;color:#555;padding:20px;font-size:.85rem">Enter text to see keywords.</div>
+</div>
+</div>
+
+<div class="panel">
+<h2>Share</h2>
+<div class="share-btns">
+<button onclick="shareX()">Share on X</button>
+<button class="secondary" onclick="shareReddit()">Share on Reddit</button>
+<button class="secondary" onclick="copyLink()">Copy Link</button>
+</div>
+</div>
+</main>
+
+<footer>
+<a href="https://spunk.codes">spunk.codes</a> &middot;
+<a href="https://spunk.bet">spunk.bet</a> &middot;
+<a href="https://spunk.pics">spunk.pics</a> &middot;
+<a href="https://spunk.work">spunk.work</a> &middot;
+<a href="https://spunkart.com">SpunkArt.com</a>
+</footer>
+
+<div class="copied-toast" id="toast"></div>
+
+<script>
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+
+const LS_KEY='spunkcodes_char_counter_pro';
+
+const socialPlatforms=[
+{name:'X (Twitter)',limit:280,key:'chars'},
+{name:'Instagram Bio',limit:150,key:'chars'},
+{name:'Facebook Post',limit:63206,key:'chars'},
+{name:'LinkedIn Post',limit:3000,key:'chars'},
+{name:'YouTube Title',limit:100,key:'chars'},
+{name:'Meta Title',limit:60,key:'chars'},
+{name:'Meta Description',limit:160,key:'chars'},
+{name:'TikTok Caption',limit:2200,key:'chars'},
+];
+
+function countSyllables(word){
+word=word.toLowerCase().replace(/[^a-z]/g,'');
+if(word.length<=3)return 1;
+word=word.replace(/(?:[^laeiouy]es|ed|[^laeiouy]e)$/,'');
+word=word.replace(/^y/,'');
+const m=word.match(/[aeiouy]{1,2}/g);
+return m?m.length:1;
+}
+
+function analyze(){
+const text=document.getElementById('textInput').value;
+saveState();
+const trimmed=text.trim();
+const chars=text.length;
+const charsNoSpace=text.replace(/\s/g,'').length;
+const words=trimmed?trimmed.split(/\s+/).filter(w=>w.length>0):[];
+const wc=words.length;
+const sentences=trimmed?trimmed.split(/[.!?]+/).filter(s=>s.trim().length>0):[];
+const sc=sentences.length;
+const paragraphs=trimmed?trimmed.split(/\n\s*\n/).filter(p=>p.trim().length>0):[];
+const pc=trimmed?Math.max(paragraphs.length,trimmed.length>0?1:0):0;
+const lines=text.split('\n').length;
+const avgWL=wc>0?(words.reduce((s,w)=>s+w.replace(/[^a-zA-Z0-9]/g,'').length,0)/wc):0;
+const avgSL=wc>0&&sc>0?(wc/sc):0;
+
+document.getElementById('charCount').textContent=chars.toLocaleString();
+document.getElementById('charNoSpace').textContent=charsNoSpace.toLocaleString();
+document.getElementById('wordCount').textContent=wc.toLocaleString();
+document.getElementById('sentenceCount').textContent=sc.toLocaleString();
+document.getElementById('paraCount').textContent=pc.toLocaleString();
+document.getElementById('lineCount').textContent=lines.toLocaleString();
+document.getElementById('avgWordLen').textContent=avgWL.toFixed(1);
+document.getElementById('avgSentLen').textContent=avgSL.toFixed(1);
+
+const readMin=wc/238;
+const speakMin=wc/150;
+document.getElementById('readTime').textContent=fmtTime(readMin);
+document.getElementById('speakTime').textContent=fmtTime(speakMin);
+
+// Social limits
+const slEl=document.getElementById('socialLimits');
+slEl.innerHTML=socialPlatforms.map(p=>{
+const val=chars;
+const pct=Math.min(100,(val/p.limit)*100);
+const color=pct>100?'#e06c75':pct>80?'#d19a66':'#ff5f1f';
+return`<div class="social-card">
+<span class="name">${esc(p.name)}</span>
+<div class="bar"><div class="fill" style="width:${Math.min(100,pct)}%;background:${color}"></div></div>
+<span class="count">${val}/${p.limit}</span>
+</div>`;
+}).join('');
+
+// Readability
+if(wc>0&&sc>0){
+const totalSyl=words.reduce((s,w)=>s+countSyllables(w),0);
+const fk=206.835-1.015*(wc/sc)-84.6*(totalSyl/wc);
+const fkC=Math.max(0,Math.min(100,fk));
+const grade=0.39*(wc/sc)+11.8*(totalSyl/wc)-15.59;
+const gradeC=Math.max(0,Math.round(grade*10)/10);
+document.getElementById('fkScore').textContent=Math.round(fkC);
+const info=readInfo(fkC);
+document.getElementById('fkGrade').textContent=info.level+' (Grade '+gradeC+')';
+document.getElementById('fkDesc').textContent=info.desc;
+}else{
+document.getElementById('fkScore').textContent='--';
+document.getElementById('fkGrade').textContent='Enter text to analyze';
+document.getElementById('fkDesc').textContent='';
+}
+
+// Keywords
+const stops=new Set(['the','a','an','and','or','but','in','on','at','to','for','of','is','it','that','this','was','are','be','has','had','have','with','as','by','from','not','no','will','can','do','if','my','your','we','they','he','she','them','their','its','so','up','out','about','just','than','into','also','been','would','could','should','each','which','how','what','when','where','who','all','there','more','some','very','then','any','these','those','only','many','much','own','other','our','us','i','me','am','her','him','his','did','does','over','after','before','between','under','again','too','here','both','few','most']);
+const freq={};
+words.forEach(w=>{const c=w.toLowerCase().replace(/[^a-z0-9'-]/g,'');if(c.length>1&&!stops.has(c))freq[c]=(freq[c]||0)+1});
+const sorted=Object.entries(freq).sort((a,b)=>b[1]-a[1]).slice(0,15);
+const maxF=sorted.length?sorted[0][1]:1;
+const kwEl=document.getElementById('kwList');
+if(!sorted.length){kwEl.innerHTML='<div style="text-align:center;color:#555;padding:20px;font-size:.85rem">No keywords found.</div>'}
+else{kwEl.innerHTML=sorted.map(([word,count])=>{
+const pct=wc>0?((count/wc)*100).toFixed(1):'0';
+const bw=Math.round((count/maxF)*100);
+return`<div class="kw-row"><span class="word">${esc(word)}</span><div class="bar"><div class="fill" style="width:${bw}%"></div></div><span class="count">${count} (${pct}%)</span></div>`;
+}).join('')}
+}
+
+function fmtTime(min){if(min<1)return Math.round(min*60)+'s';const m=Math.floor(min);const s=Math.round((min-m)*60);return m+'m'+(s>0?' '+s+'s':'')}
+function readInfo(s){if(s>=90)return{level:'Very Easy',desc:'Easily understood by 11-year-olds'};if(s>=80)return{level:'Easy',desc:'Conversational English'};if(s>=70)return{level:'Fairly Easy',desc:'Understood by 13-15 year olds'};if(s>=60)return{level:'Standard',desc:'Plain English for most adults'};if(s>=50)return{level:'Fairly Difficult',desc:'Fairly difficult to read'};if(s>=30)return{level:'Difficult',desc:'College-level reading'};return{level:'Very Difficult',desc:'University-graduate level'}}
+
+function clearText(){document.getElementById('textInput').value='';analyze()}
+function pasteText(){navigator.clipboard.readText().then(t=>{document.getElementById('textInput').value=t;analyze()}).catch(()=>showToast('Clipboard denied'))}
+function loadSample(){document.getElementById('textInput').value='The quick brown fox jumps over the lazy dog. This classic pangram contains every letter of the English alphabet at least once.\n\nPangrams are sentences that use every letter of a given alphabet at least once. They are commonly used in typography and graphic design to display font samples.\n\nCreating natural-sounding pangrams is surprisingly challenging. Most attempts either sound forced or require obscure vocabulary. The fox sentence endures because it tells a simple, vivid story while accomplishing its technical goal.';analyze()}
+
+function copyStats(){
+const s=`Characters: ${document.getElementById('charCount').textContent}\nNo Spaces: ${document.getElementById('charNoSpace').textContent}\nWords: ${document.getElementById('wordCount').textContent}\nSentences: ${document.getElementById('sentenceCount').textContent}\nParagraphs: ${document.getElementById('paraCount').textContent}\nReading Time: ${document.getElementById('readTime').textContent}\nReadability: ${document.getElementById('fkScore').textContent} - ${document.getElementById('fkGrade').textContent}`;
+navigator.clipboard.writeText(s).then(()=>showToast('Stats copied!')).catch(()=>showToast('Copy failed'));
+}
+
+function saveState(){try{localStorage.setItem(LS_KEY,document.getElementById('textInput').value)}catch(e){}}
+function loadState(){try{const d=localStorage.getItem(LS_KEY);if(d){document.getElementById('textInput').value=d;analyze()}}catch(e){}}
+
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1800)}
+
+const toolURL='https://spunk.codes/exclusive/character-counter-pro.html';
+function shareX(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Character Counter Pro with readability & keyword density! '+toolURL),'_blank')}
+function shareReddit(){window.open('https://reddit.com/submit?url='+encodeURIComponent(toolURL)+'&title='+encodeURIComponent('Character Counter Pro - Free Tool'),'_blank')}
+function copyLink(){navigator.clipboard.writeText(toolURL).then(()=>showToast('Link copied!'))}
+
+loadState();
+if(!document.getElementById('textInput').value)analyze();
+</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>
