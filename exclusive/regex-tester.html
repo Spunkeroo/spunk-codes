@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Regex Tester - Real-Time Pattern Matching | SPUNK.CODES Exclusive</title>
+<meta name="description" content="Test regular expressions in real-time with live highlighting, match groups, indices, and common pattern quick-inserts. Supports g, i, m, s flags.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Regex Tester - SPUNK.CODES Exclusive">
+<meta property="og:description" content="Test regular expressions in real-time with live highlighting, match groups, indices, and common pattern quick-inserts.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://spunk.codes/exclusive/regex-tester">
+<meta property="og:site_name" content="Spunk Codes">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<meta name="twitter:title" content="Regex Tester - SPUNK.CODES Exclusive">
+<meta name="twitter:description" content="Test regular expressions in real-time with live highlighting, match groups, and indices.">
+<link rel="canonical" href="https://spunk.codes/exclusive/regex-tester">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Regex Tester","url":"https://spunk.codes/exclusive/regex-tester","applicationCategory":"DeveloperApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Test regular expressions in real-time with live highlighting, match groups, indices, and common pattern quick-inserts.","author":{"@type":"Organization","name":"Spunk Codes","url":"https://spunk.codes"}}</script>
+<!-- GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<!-- Clarity -->
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0a0a0f;--card:rgba(18,18,28,0.85);--border:#1a1a2e;--accent:#ff5f1f;--accent2:#ff9f1f;--text:#e0e0e0;--text-dim:#8b8b9e;--green:#39d353;--red:#f85149;--blue:#58a6ff;--purple:#a855f7;--font:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;--mono:'SF Mono',Monaco,Consolas,'Courier New',monospace}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+a{color:var(--blue);text-decoration:none}a:hover{color:#fff}
+.bg-mesh{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse 80% 50% at 20% 20%,rgba(255,95,31,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(255,159,31,0.04) 0%,transparent 60%),var(--bg)}
+.nav{position:sticky;top:0;z-index:100;background:rgba(10,10,15,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,95,31,0.15);padding:0.8rem 2rem;display:flex;justify-content:space-between;align-items:center}
+.nav-brand{font-weight:800;font-size:1.1rem;background:linear-gradient(135deg,#ff5f1f,#ff9f1f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:0.08em}
+.nav-links{display:flex;gap:1.5rem;font-size:0.85rem}.nav-links a{color:var(--text-dim);transition:color 0.2s;font-weight:500}.nav-links a:hover{color:#fff}.nav-links a.active{color:var(--accent)}
+.lock-gate{position:fixed;inset:0;z-index:1000;background:rgba(10,10,15,0.97);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:2rem}.lock-gate.hidden{display:none}
+.lock-icon-big{font-size:4rem;margin-bottom:0.5rem}.lock-gate h2{font-size:1.8rem;font-weight:800;text-align:center}.lock-gate h2 span{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.lock-gate p{color:var(--text-dim);text-align:center;max-width:400px}
+.code-input-wrap{display:flex;gap:0.5rem;margin-top:0.5rem}.code-input{padding:0.8rem 1.5rem;background:rgba(18,18,28,0.8);border:2px solid rgba(255,95,31,0.3);border-radius:12px;color:var(--accent);font-size:1.2rem;font-weight:800;letter-spacing:3px;text-align:center;width:200px;outline:none;text-transform:uppercase;font-family:var(--font)}.code-input:focus{border-color:var(--accent);box-shadow:0 0 20px rgba(255,95,31,0.2)}
+.code-submit{padding:0.8rem 1.5rem;background:linear-gradient(135deg,#ff5f1f,#ff9f1f);border:none;border-radius:12px;color:#000;font-size:1rem;font-weight:800;cursor:pointer;transition:all 0.3s}.code-submit:hover{transform:scale(1.05)}
+.code-error{color:#f85149;font-size:0.85rem;min-height:1.2em}
+.lock-hint{color:var(--text-dim);font-size:0.8rem;margin-top:1rem}.lock-hint a{color:var(--accent)}
+.exclusive-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;background:linear-gradient(135deg,rgba(255,95,31,0.15),rgba(255,159,31,0.15));border:1px solid rgba(255,95,31,0.3);border-radius:100px;font-size:11px;font-weight:800;color:var(--accent);letter-spacing:1.5px;text-transform:uppercase}
+.main{max-width:1100px;margin:0 auto;padding:2rem}
+.hero-section{text-align:center;padding:2rem 0 2rem}
+.hero-section h1{font-size:2.2rem;font-weight:800;margin:1rem 0 0.5rem}
+.hero-section h1 .grad{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-section p{color:var(--text-dim);max-width:600px;margin:0 auto}
+.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.5rem;margin-bottom:1.5rem;backdrop-filter:blur(10px);position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#ff5f1f,#ff9f1f,#ff5f1f)}
+.card h2{font-size:1.1rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}
+.regex-input-wrap{display:flex;align-items:center;background:rgba(10,10,15,0.6);border:2px solid var(--border);border-radius:12px;padding:0.2rem;margin-bottom:0.75rem}
+.regex-slash{color:var(--accent);font-size:1.2rem;font-weight:800;padding:0 0.5rem;font-family:monospace}
+.regex-input{flex:1;padding:0.6rem 0.4rem;background:transparent;border:none;color:var(--text);font-size:1rem;font-family:var(--mono);outline:none}
+.flags-wrap{display:flex;gap:0.5rem;margin-bottom:1rem;flex-wrap:wrap}
+.flag-btn{padding:0.4rem 0.8rem;border-radius:6px;font-size:0.8rem;font-weight:700;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--text-dim);font-family:monospace;transition:all 0.2s}
+.flag-btn.active{border-color:var(--accent);color:var(--accent);background:rgba(255,95,31,0.1)}
+.test-textarea{width:100%;padding:1rem;background:rgba(10,10,15,0.6);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:0.9rem;font-family:var(--mono);min-height:120px;outline:none;resize:vertical;line-height:1.8}
+.test-textarea:focus{border-color:var(--accent)}
+.highlight-area{width:100%;padding:1rem;background:rgba(10,10,15,0.6);border:1px solid var(--border);border-radius:10px;font-size:0.9rem;font-family:var(--mono);min-height:120px;line-height:1.8;white-space:pre-wrap;word-break:break-all;overflow:auto}
+.match-hl{background:rgba(255,95,31,0.3);border-bottom:2px solid var(--accent);padding:1px 0;border-radius:2px}
+.match-g1{background:rgba(88,166,255,0.3);border-bottom:2px solid var(--blue)}
+.match-g2{background:rgba(57,211,83,0.3);border-bottom:2px solid var(--green)}
+.match-g3{background:rgba(168,85,247,0.3);border-bottom:2px solid var(--purple)}
+.stats-row{display:flex;gap:1.5rem;margin:0.75rem 0;flex-wrap:wrap}
+.stat{font-size:0.85rem}.stat-label{color:var(--text-dim);font-size:0.75rem}.stat-val{color:var(--accent);font-weight:700}
+.group-table{width:100%;border-collapse:collapse;font-size:0.8rem;margin-top:0.5rem}
+.group-table th{text-align:left;padding:0.4rem 0.6rem;color:var(--text-dim);font-size:0.7rem;text-transform:uppercase;border-bottom:1px solid var(--border)}
+.group-table td{padding:0.4rem 0.6rem;border-bottom:1px solid rgba(26,26,46,0.5);font-family:monospace}
+.group-table .gnum{color:var(--accent);font-weight:700}
+.pattern-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:0.5rem}
+.pattern-item{padding:0.6rem;background:rgba(10,10,15,0.5);border:1px solid var(--border);border-radius:8px;cursor:pointer;transition:all 0.2s;font-size:0.8rem}
+.pattern-item:hover{border-color:var(--accent);background:rgba(255,95,31,0.05)}
+.pattern-item .pname{font-weight:700;color:var(--text);margin-bottom:0.2rem}
+.pattern-item .pregex{font-family:monospace;font-size:0.75rem;color:var(--accent);word-break:break-all}
+.error-msg{color:var(--red);font-size:0.8rem;padding:0.5rem;background:rgba(248,81,73,0.1);border-radius:6px;margin-bottom:0.5rem;display:none}
+.btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;transition:all 0.2s;font-family:var(--font)}
+.btn-primary{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);color:#000}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 4px 15px rgba(255,95,31,0.3)}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--text-dim)}
+.btn-outline:hover{border-color:var(--accent);color:var(--accent)}
+.btn-sm{padding:0.4rem 0.8rem;font-size:0.75rem}
+.btn-row{display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1rem}
+.toast{position:fixed;bottom:2rem;right:2rem;padding:0.75rem 1.5rem;background:rgba(57,211,83,0.95);color:#000;font-weight:700;font-size:0.85rem;border-radius:10px;z-index:2000;transform:translateY(100px);opacity:0;transition:all 0.3s;pointer-events:none}
+.toast.show{transform:translateY(0);opacity:1}
+.share-cta{background:linear-gradient(135deg,rgba(255,95,31,0.08),rgba(255,159,31,0.05));border:1px solid rgba(255,95,31,0.2);border-radius:16px;padding:2rem;text-align:center;margin-top:2rem}
+.share-cta h3{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:0.5rem;font-size:1.1rem}
+.share-cta p{color:var(--text-dim);font-size:0.9rem;margin-bottom:1rem}
+.footer{text-align:center;padding:2rem;border-top:1px solid rgba(255,95,31,0.1);color:var(--text-dim);font-size:0.75rem;margin-top:3rem}
+.footer a{color:var(--accent)}.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-bottom:1rem}
+@media(max-width:768px){.main{padding:1rem}.hero-section h1{font-size:1.6rem}.nav-links{display:none}.pattern-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="bg-mesh"></div>
+<div class="lock-gate" id="lockGate">
+  <div class="lock-icon-big">&#128274;</div>
+  <h2>Enter Code <span>SPUNK</span> to Unlock</h2>
+  <p>This is an exclusive premium tool. Enter the referral code to get instant access.</p>
+  <div class="code-input-wrap">
+    <input type="text" class="code-input" id="codeInput" placeholder="CODE" maxlength="10" autocomplete="off">
+    <button class="code-submit" onclick="submitCode()">Unlock</button>
+  </div>
+  <div class="code-error" id="codeError"></div>
+  <div class="lock-hint">Get the code at <a href="https://spunk.codes/exclusive/">spunk.codes/exclusive/</a></div>
+</div>
+
+<nav class="nav">
+  <a href="https://spunk.codes" class="nav-brand">SPUNK.CODES</a>
+  <div class="nav-links">
+    <a href="/store">Tools</a>
+    <a href="/exclusive/" class="active">Exclusive</a>
+    <a href="/store#ebook">Ebooks</a>
+    <a href="/blog">Blog</a>
+  </div>
+</nav>
+
+<div class="main">
+  <section class="hero-section">
+    <div class="exclusive-badge">&#9889; EXCLUSIVE TOOL</div>
+    <h1>Regex <span class="grad">Tester</span></h1>
+    <p>Test regular expressions in real-time with live match highlighting, capture groups, indices, and a library of common patterns.</p>
+  </section>
+
+  <div class="card">
+    <h2>&#128269; Pattern</h2>
+    <div class="regex-input-wrap">
+      <span class="regex-slash">/</span>
+      <input type="text" class="regex-input" id="regexInput" placeholder="Enter regex pattern..." oninput="runMatch()">
+      <span class="regex-slash">/</span>
+      <span id="flagDisplay" style="color:var(--accent);font-family:monospace;font-weight:700;padding-right:0.5rem;min-width:30px">g</span>
+    </div>
+    <div class="flags-wrap">
+      <button class="flag-btn active" data-flag="g" onclick="toggleFlag(this)">g <small>global</small></button>
+      <button class="flag-btn" data-flag="i" onclick="toggleFlag(this)">i <small>insensitive</small></button>
+      <button class="flag-btn" data-flag="m" onclick="toggleFlag(this)">m <small>multiline</small></button>
+      <button class="flag-btn" data-flag="s" onclick="toggleFlag(this)">s <small>dotall</small></button>
+    </div>
+    <div class="error-msg" id="errorMsg"></div>
+  </div>
+
+  <div class="card">
+    <h2>&#128196; Test String</h2>
+    <textarea class="test-textarea" id="testString" placeholder="Enter test string here..." oninput="runMatch()">The quick brown fox jumps over the lazy dog.
+Email: user@example.com, admin@test.org
+Phone: (555) 123-4567, 555-987-6543
+URL: https://spunk.codes/exclusive/regex-tester
+Date: 2026-02-28, 12/25/2026
+IP: 192.168.1.1, 10.0.0.255</textarea>
+  </div>
+
+  <div class="card">
+    <h2>&#127912; Highlighted Matches</h2>
+    <div class="stats-row">
+      <div class="stat"><span class="stat-label">Matches</span> <span class="stat-val" id="matchCount">0</span></div>
+      <div class="stat"><span class="stat-label">Groups</span> <span class="stat-val" id="groupCount">0</span></div>
+      <div class="stat"><span class="stat-label">Exec Time</span> <span class="stat-val" id="execTime">0ms</span></div>
+    </div>
+    <div class="highlight-area" id="highlightArea"></div>
+  </div>
+
+  <div class="card">
+    <h2>&#128203; Match Details</h2>
+    <div id="matchDetails" style="max-height:400px;overflow-y:auto">
+      <p style="color:var(--text-dim);font-size:0.85rem">Enter a regex pattern to see match details.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>&#128218; Common Patterns</h2>
+    <div class="btn-row">
+      <button class="btn btn-outline btn-sm" onclick="filterPatterns('all')">All</button>
+      <button class="btn btn-outline btn-sm" onclick="filterPatterns('validation')">Validation</button>
+      <button class="btn btn-outline btn-sm" onclick="filterPatterns('extraction')">Extraction</button>
+      <button class="btn btn-outline btn-sm" onclick="filterPatterns('format')">Format</button>
+    </div>
+    <div class="pattern-grid" id="patternGrid"></div>
+  </div>
+
+  <div class="share-cta">
+    <h3>More Exclusive Tools</h3>
+    <p>Diff checkers, gradient generators, favicon makers, meta tag builders, and more -- all free with code SPUNK.</p>
+    <a href="https://spunk.codes/exclusive/" class="btn btn-primary">Browse All Exclusive Tools</a>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<footer class="footer">
+  <div class="footer-links">
+    <a href="https://spunk.codes">spunk.codes</a>
+    <a href="https://spunk.bet">spunk.bet</a>
+    <a href="https://spunk.work">spunk.work</a>
+    <a href="https://spunk.pics">spunk.pics</a>
+  </div>
+  &copy; 2026 SPUNK.CODES -- Built for builders.
+</footer>
+
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+<script>
+/* XSS protection */
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+/* Lock gate */
+function submitCode(){
+  const v=document.getElementById('codeInput').value.trim().toUpperCase();
+  if(v==='SPUNK'){document.getElementById('lockGate').classList.add('hidden');localStorage.setItem('spunk_unlocked','1');}
+  else{document.getElementById('codeError').textContent='Invalid code. Try again.';}
+}
+document.getElementById('codeInput').addEventListener('keydown',e=>{if(e.key==='Enter')submitCode();});
+if(localStorage.getItem('spunk_unlocked')==='1')document.getElementById('lockGate').classList.add('hidden');
+
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2000);}
+
+/* Flags */
+let activeFlags={g:true,i:false,m:false,s:false};
+function toggleFlag(el){
+  const f=el.dataset.flag;
+  activeFlags[f]=!activeFlags[f];
+  el.classList.toggle('active');
+  document.getElementById('flagDisplay').textContent=getFlags();
+  runMatch();
+}
+function getFlags(){return Object.entries(activeFlags).filter(([,v])=>v).map(([k])=>k).join('');}
+
+/* Common patterns */
+const patterns=[
+  {name:'Email Address',regex:'[\\w.+-]+@[\\w-]+\\.[\\w.]+',cat:'validation'},
+  {name:'URL',regex:'https?://[\\w.-]+(?:\\.[\\w]+)+[/\\w._~:?#\\[\\]@!$&\'()*+,;=-]*',cat:'validation'},
+  {name:'IPv4 Address',regex:'\\b(?:\\d{1,3}\\.){3}\\d{1,3}\\b',cat:'validation'},
+  {name:'Phone Number',regex:'[\\(]?\\d{3}[\\)]?[-.\\s]?\\d{3}[-.\\s]?\\d{4}',cat:'validation'},
+  {name:'Date (YYYY-MM-DD)',regex:'\\d{4}-\\d{2}-\\d{2}',cat:'format'},
+  {name:'Date (MM/DD/YYYY)',regex:'\\d{2}/\\d{2}/\\d{4}',cat:'format'},
+  {name:'Hex Color',regex:'#(?:[0-9a-fA-F]{3}){1,2}\\b',cat:'format'},
+  {name:'HTML Tag',regex:'<([a-z][a-z0-9]*)\\b[^>]*>.*?</\\1>',cat:'extraction'},
+  {name:'CSS Class',regex:'\\.([a-zA-Z_][\\w-]*)',cat:'extraction'},
+  {name:'Digits Only',regex:'\\b\\d+\\b',cat:'extraction'},
+  {name:'Words',regex:'\\b[a-zA-Z]+\\b',cat:'extraction'},
+  {name:'Quoted String',regex:'["\']([^"\']*)["\']',cat:'extraction'},
+  {name:'Whitespace',regex:'\\s+',cat:'format'},
+  {name:'Username',regex:'@[\\w]+',cat:'validation'},
+  {name:'Strong Password',regex:'(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}',cat:'validation'},
+  {name:'Credit Card',regex:'\\b(?:\\d{4}[- ]?){3}\\d{4}\\b',cat:'validation'},
+  {name:'ZIP Code (US)',regex:'\\b\\d{5}(?:-\\d{4})?\\b',cat:'validation'},
+  {name:'Slug',regex:'[a-z0-9]+(?:-[a-z0-9]+)*',cat:'format'},
+];
+
+function renderPatterns(filter){
+  const grid=document.getElementById('patternGrid');
+  const filtered=filter==='all'?patterns:patterns.filter(p=>p.cat===filter);
+  grid.innerHTML=filtered.map(p=>'<div class="pattern-item" onclick="insertPattern(\''+p.regex.replace(/'/g,"\\'").replace(/\\/g,'\\\\')+'\')"><div class="pname">'+esc(p.name)+'</div><div class="pregex">'+esc(p.regex)+'</div></div>').join('');
+}
+function filterPatterns(cat){renderPatterns(cat);}
+function insertPattern(regex){
+  document.getElementById('regexInput').value=regex;
+  runMatch();
+  showToast('Pattern inserted');
+}
+renderPatterns('all');
+
+/* Match highlighting colors */
+const hlColors=[
+  {bg:'rgba(255,95,31,0.3)',border:'var(--accent)'},
+  {bg:'rgba(88,166,255,0.3)',border:'var(--blue)'},
+  {bg:'rgba(57,211,83,0.3)',border:'var(--green)'},
+  {bg:'rgba(168,85,247,0.3)',border:'var(--purple)'},
+];
+
+function runMatch(){
+  const pattern=document.getElementById('regexInput').value;
+  const testStr=document.getElementById('testString').value;
+  const errorEl=document.getElementById('errorMsg');
+  const hlArea=document.getElementById('highlightArea');
+  const detailsEl=document.getElementById('matchDetails');
+  errorEl.style.display='none';
+
+  if(!pattern){
+    hlArea.innerHTML=esc(testStr);
+    detailsEl.innerHTML='<p style="color:var(--text-dim);font-size:0.85rem">Enter a regex pattern to see match details.</p>';
+    document.getElementById('matchCount').textContent='0';
+    document.getElementById('groupCount').textContent='0';
+    document.getElementById('execTime').textContent='0ms';
+    return;
+  }
+
+  let regex;
+  try{
+    regex=new RegExp(pattern,getFlags());
+  }catch(e){
+    errorEl.textContent='Invalid regex: '+e.message;
+    errorEl.style.display='block';
+    hlArea.innerHTML=esc(testStr);
+    return;
+  }
+
+  const startTime=performance.now();
+  const matches=[];
+  let m;
+  if(regex.global){
+    while((m=regex.exec(testStr))!==null){
+      matches.push({match:m[0],index:m.index,groups:m.slice(1),namedGroups:m.groups||{}});
+      if(m.index===regex.lastIndex)regex.lastIndex++;
+    }
+  }else{
+    m=regex.exec(testStr);
+    if(m)matches.push({match:m[0],index:m.index,groups:m.slice(1),namedGroups:m.groups||{}});
+  }
+  const execTimeMs=(performance.now()-startTime).toFixed(2);
+
+  document.getElementById('matchCount').textContent=matches.length;
+  document.getElementById('groupCount').textContent=matches.length>0?matches[0].groups.length:0;
+  document.getElementById('execTime').textContent=execTimeMs+'ms';
+
+  /* Build highlighted text */
+  let html='';
+  let lastIdx=0;
+  matches.forEach((m,i)=>{
+    const col=hlColors[i%hlColors.length];
+    if(m.index>lastIdx)html+=esc(testStr.slice(lastIdx,m.index));
+    html+='<span style="background:'+col.bg+';border-bottom:2px solid '+col.border+';padding:1px 0;border-radius:2px">'+esc(m.match)+'</span>';
+    lastIdx=m.index+m.match.length;
+  });
+  if(lastIdx<testStr.length)html+=esc(testStr.slice(lastIdx));
+  hlArea.innerHTML=html||esc(testStr);
+
+  /* Match details table */
+  if(matches.length===0){
+    detailsEl.innerHTML='<p style="color:var(--text-dim);font-size:0.85rem">No matches found.</p>';
+  }else{
+    let tableHtml='<table class="group-table"><thead><tr><th>#</th><th>Match</th><th>Index</th><th>Length</th>';
+    const maxGroups=Math.max(...matches.map(m=>m.groups.length));
+    for(let g=1;g<=maxGroups;g++)tableHtml+='<th>Group '+g+'</th>';
+    tableHtml+='</tr></thead><tbody>';
+    matches.forEach((m,i)=>{
+      tableHtml+='<tr><td class="gnum">'+(i+1)+'</td><td style="color:var(--accent);font-family:monospace">'+esc(m.match)+'</td><td>'+m.index+'</td><td>'+m.match.length+'</td>';
+      for(let g=0;g<maxGroups;g++){
+        tableHtml+='<td style="font-family:monospace">'+(m.groups[g]!==undefined?esc(m.groups[g]):'<span style="color:var(--text-dim)">--</span>')+'</td>';
+      }
+      tableHtml+='</tr>';
+    });
+    tableHtml+='</tbody></table>';
+    detailsEl.innerHTML=tableHtml;
+  }
+
+  /* Save to localStorage */
+  localStorage.setItem('regex_pattern',pattern);
+  localStorage.setItem('regex_flags',getFlags());
+  localStorage.setItem('regex_test',testStr);
+}
+
+/* Restore from localStorage */
+(function(){
+  const p=localStorage.getItem('regex_pattern');
+  const f=localStorage.getItem('regex_flags');
+  const t=localStorage.getItem('regex_test');
+  if(p)document.getElementById('regexInput').value=p;
+  if(f){
+    activeFlags={g:f.includes('g'),i:f.includes('i'),m:f.includes('m'),s:f.includes('s')};
+    document.querySelectorAll('.flag-btn').forEach(btn=>{
+      btn.classList.toggle('active',activeFlags[btn.dataset.flag]);
+    });
+    document.getElementById('flagDisplay').textContent=f;
+  }
+  if(t)document.getElementById('testString').value=t;
+  if(p)runMatch();
+})();
+</script>
+</body>
+</html>
