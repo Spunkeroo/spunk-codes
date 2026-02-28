@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>API Mock Server — Define Endpoints, Responses &amp; Test Locally | SPUNK.CODES</title>
+<meta name="description" content="Create mock API endpoints with custom responses, status codes, headers and delays. Test your frontend locally without a backend. Free, no signup, 100% client-side.">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP')</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w")</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e0e0e0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+header{background:#111118;border-bottom:2px solid #ff5f1f;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;position:sticky;top:0;z-index:100}
+header h1{font-size:1.4rem;color:#ff5f1f}
+header .back{color:#e0e0e0;font-size:.9rem}
+main{flex:1;max-width:900px;width:100%;margin:0 auto;padding:24px 16px}
+.panel{background:#111118;border:1px solid #1a1a2e;border-radius:10px;padding:20px;margin-bottom:20px}
+.panel h2{font-size:1.1rem;color:#ff5f1f;margin-bottom:14px}
+button{background:#ff5f1f;color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:.9rem;font-weight:600;transition:background .2s}
+button:hover{background:#e8520e}
+button.secondary{background:#2a2a3a;color:#e0e0e0}button.secondary:hover{background:#3a3a4a}
+button.danger{background:#dc3545;color:#fff}button.danger:hover{background:#c82333}
+input,select,textarea{background:#16161e;border:1px solid #1a1a2e;color:#e0e0e0;padding:10px;border-radius:6px;font-size:.9rem;width:100%;font-family:inherit}
+textarea{resize:vertical;min-height:100px;font-family:'SFMono-Regular',Consolas,monospace}
+label{display:block;font-size:.85rem;color:#888;margin-bottom:6px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.form-row.triple{grid-template-columns:100px 1fr 100px}
+.endpoint-list{display:flex;flex-direction:column;gap:10px}
+.endpoint-card{background:#16161e;border:1px solid #1a1a2e;border-radius:8px;padding:14px;display:flex;flex-direction:column;gap:8px}
+.endpoint-card .top-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.endpoint-card .method{font-weight:700;font-size:.8rem;padding:4px 8px;border-radius:4px;text-transform:uppercase}
+.method-GET{background:#28a745;color:#fff}
+.method-POST{background:#007bff;color:#fff}
+.method-PUT{background:#fd7e14;color:#fff}
+.method-DELETE{background:#dc3545;color:#fff}
+.method-PATCH{background:#6f42c1;color:#fff}
+.endpoint-card .path{font-family:monospace;font-size:.9rem;flex:1}
+.endpoint-card .status{color:#888;font-size:.8rem}
+.endpoint-card .actions{display:flex;gap:6px}
+.endpoint-card .actions button{font-size:.78rem;padding:5px 10px}
+.response-preview{background:#0d0d14;border:1px solid #1a1a2e;border-radius:6px;padding:12px;font-family:monospace;font-size:.82rem;max-height:200px;overflow:auto;white-space:pre-wrap;word-break:break-all}
+.test-section{margin-top:12px}
+.test-result{margin-top:10px}
+.test-result .status-line{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.test-result .status-badge{padding:4px 10px;border-radius:4px;font-weight:700;font-size:.85rem}
+.test-result .status-badge.ok{background:#28a74533;color:#28a745;border:1px solid #28a745}
+.test-result .status-badge.err{background:#dc354533;color:#dc3545;border:1px solid #dc3545}
+.empty-state{text-align:center;color:#555;padding:40px;font-size:.95rem}
+.copied-toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#ff5f1f;color:#fff;padding:10px 24px;border-radius:8px;font-weight:600;font-size:.9rem;z-index:999;opacity:0;transition:opacity .3s;pointer-events:none}
+.copied-toast.show{opacity:1}
+.share-fixed{position:fixed;bottom:18px;left:18px;z-index:200}
+footer{text-align:center;padding:20px;color:#555;font-size:.8rem;border-top:1px solid #1a1a2e;margin-top:auto}
+footer a{color:#ff5f1f;margin:0 4px}
+@media(max-width:600px){
+header h1{font-size:1.1rem}
+.form-row,.form-row.triple{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<header>
+<h1>API Mock Server</h1>
+<a href="https://spunk.codes" class="back">spunk.codes</a>
+</header>
+<main>
+
+<div class="panel">
+<h2>Create Endpoint</h2>
+<div class="form-row triple">
+<div><label>Method</label><select id="method"><option>GET</option><option>POST</option><option>PUT</option><option>DELETE</option><option>PATCH</option></select></div>
+<div><label>Path</label><input id="path" placeholder="/api/users"></div>
+<div><label>Status</label><input id="status" type="number" value="200" min="100" max="599"></div>
+</div>
+<div style="margin-bottom:12px"><label>Response Headers (JSON)</label><textarea id="headers" rows="2" placeholder='{"Content-Type":"application/json"}'></textarea></div>
+<div style="margin-bottom:12px"><label>Response Body</label><textarea id="body" rows="5" placeholder='{"users":[{"id":1,"name":"John"}]}'></textarea></div>
+<div class="form-row">
+<div><label>Delay (ms)</label><input id="delay" type="number" value="0" min="0" max="10000"></div>
+<div style="display:flex;align-items:flex-end"><button onclick="addEndpoint()" style="width:100%">Add Endpoint</button></div>
+</div>
+</div>
+
+<div class="panel">
+<h2>Endpoints</h2>
+<div class="endpoint-list" id="endpointList">
+<div class="empty-state">No endpoints yet. Create one above.</div>
+</div>
+<div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap">
+<button class="secondary" onclick="exportEndpoints()">Export JSON</button>
+<button class="secondary" onclick="importEndpoints()">Import JSON</button>
+<button class="danger" onclick="clearAll()">Clear All</button>
+</div>
+</div>
+
+<div class="panel">
+<h2>Test Endpoint</h2>
+<div class="form-row triple">
+<div><label>Method</label><select id="testMethod"><option>GET</option><option>POST</option><option>PUT</option><option>DELETE</option><option>PATCH</option></select></div>
+<div><label>Path</label><input id="testPath" placeholder="/api/users"></div>
+<div style="display:flex;align-items:flex-end"><button onclick="testEndpoint()" style="width:100%">Send</button></div>
+</div>
+<div style="margin-top:12px"><label>Request Body (optional)</label><textarea id="testBody" rows="3" placeholder='{"name":"Jane"}'></textarea></div>
+<div class="test-result" id="testResult"></div>
+</div>
+
+</main>
+
+<div class="share-fixed"><button onclick="shareX()">Share on X</button></div>
+
+<footer>
+<a href="https://spunk.codes">Home</a> &middot;
+<a href="https://spunk.codes/tools.html">All Tools</a> &middot;
+<a href="https://x.com/SpunkArt13">@SpunkArt13</a>
+</footer>
+
+<div class="copied-toast" id="toast"></div>
+
+<script>
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+
+const LS_KEY='spunkcodes_api_mock';
+let endpoints=[];
+
+function load(){try{endpoints=JSON.parse(localStorage.getItem(LS_KEY)||'[]')}catch(e){endpoints=[]}}
+function save(){try{localStorage.setItem(LS_KEY,JSON.stringify(endpoints))}catch(e){}}
+
+function addEndpoint(){
+const method=document.getElementById('method').value;
+const path=document.getElementById('path').value.trim();
+const status=parseInt(document.getElementById('status').value)||200;
+const headersRaw=document.getElementById('headers').value.trim();
+const body=document.getElementById('body').value;
+const delay=parseInt(document.getElementById('delay').value)||0;
+if(!path){showToast('Path is required');return}
+let headers={};
+if(headersRaw){try{headers=JSON.parse(headersRaw)}catch(e){showToast('Invalid headers JSON');return}}
+endpoints.push({id:Date.now(),method,path,status,headers,body,delay});
+save();render();
+document.getElementById('path').value='';
+document.getElementById('body').value='';
+document.getElementById('headers').value='';
+showToast('Endpoint added');
+}
+
+function removeEndpoint(id){
+endpoints=endpoints.filter(e=>e.id!==id);
+save();render();
+}
+
+function duplicateEndpoint(id){
+const ep=endpoints.find(e=>e.id===id);
+if(ep){endpoints.push({...ep,id:Date.now()});save();render()}
+}
+
+function render(){
+const list=document.getElementById('endpointList');
+if(!endpoints.length){list.innerHTML='<div class="empty-state">No endpoints yet. Create one above.</div>';return}
+list.innerHTML=endpoints.map(ep=>{
+let bodyPreview=ep.body||'(empty)';
+if(bodyPreview.length>200)bodyPreview=bodyPreview.slice(0,200)+'...';
+return`<div class="endpoint-card">
+<div class="top-row">
+<span class="method method-${esc(ep.method)}">${esc(ep.method)}</span>
+<span class="path">${esc(ep.path)}</span>
+<span class="status">${esc(String(ep.status))}${ep.delay?' &middot; '+esc(String(ep.delay))+'ms':''}</span>
+</div>
+<div class="response-preview">${esc(bodyPreview)}</div>
+<div class="actions">
+<button class="secondary" onclick="duplicateEndpoint(${ep.id})">Duplicate</button>
+<button class="danger" onclick="removeEndpoint(${ep.id})">Delete</button>
+</div>
+</div>`}).join('');
+}
+
+function testEndpoint(){
+const method=document.getElementById('testMethod').value;
+const path=document.getElementById('testPath').value.trim();
+const result=document.getElementById('testResult');
+if(!path){showToast('Enter a path to test');return}
+const match=endpoints.find(e=>e.method===method&&matchPath(e.path,path));
+if(!match){
+result.innerHTML=`<div class="status-line"><span class="status-badge err">404 Not Found</span></div><div class="response-preview">No matching endpoint found for ${esc(method)} ${esc(path)}</div>`;
+return;
+}
+const delay=match.delay||0;
+result.innerHTML='<div class="response-preview">Waiting '+delay+'ms...</div>';
+setTimeout(()=>{
+const statusClass=match.status>=200&&match.status<400?'ok':'err';
+let headersHtml='';
+if(match.headers&&Object.keys(match.headers).length){headersHtml='<div style="margin:8px 0;font-size:.8rem;color:#888">Headers: '+esc(JSON.stringify(match.headers))+'</div>'}
+result.innerHTML=`<div class="status-line"><span class="status-badge ${statusClass}">${esc(String(match.status))}</span><span style="color:#888;font-size:.8rem">${delay}ms delay</span></div>${headersHtml}<div class="response-preview">${esc(match.body||'(empty body)')}</div>`;
+},delay);
+}
+
+function matchPath(pattern,path){
+if(pattern===path)return true;
+const pParts=pattern.split('/');
+const tParts=path.split('/');
+if(pParts.length!==tParts.length)return false;
+return pParts.every((p,i)=>p.startsWith(':')||p===tParts[i]);
+}
+
+function exportEndpoints(){
+const json=JSON.stringify(endpoints,null,2);
+navigator.clipboard.writeText(json).then(()=>showToast('Exported to clipboard')).catch(()=>{
+const blob=new Blob([json],{type:'application/json'});
+const url=URL.createObjectURL(blob);
+const a=document.createElement('a');a.href=url;a.download='mock-endpoints.json';a.click();URL.revokeObjectURL(url);
+});
+}
+
+function importEndpoints(){
+const input=prompt('Paste exported JSON:');
+if(!input)return;
+try{
+const data=JSON.parse(input);
+if(Array.isArray(data)){endpoints=data;save();render();showToast('Imported '+data.length+' endpoints')}
+else showToast('Invalid format');
+}catch(e){showToast('Invalid JSON')}
+}
+
+function clearAll(){if(confirm('Delete all endpoints?')){endpoints=[];save();render()}}
+
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1800)}
+
+const toolURL='https://spunk.codes/exclusive/api-mock-server.html';
+function shareX(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('API Mock Server - define endpoints & test locally! '+toolURL),'_blank')}
+
+load();render();
+</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>

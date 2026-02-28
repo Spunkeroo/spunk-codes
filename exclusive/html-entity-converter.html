@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HTML Entity Converter — Encode &amp; Decode HTML Entities | SPUNK.CODES</title>
+<meta name="description" content="Encode text to HTML entities or decode HTML entities back to text. Supports named, decimal, and hex entities. Free, no signup, 100% client-side.">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP')</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w")</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e0e0e0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+header{background:#111118;border-bottom:2px solid #ff5f1f;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;position:sticky;top:0;z-index:100}
+header h1{font-size:1.4rem;color:#ff5f1f}
+header .back{color:#e0e0e0;font-size:.9rem}
+main{flex:1;max-width:900px;width:100%;margin:0 auto;padding:24px 16px}
+.panel{background:#111118;border:1px solid #1a1a2e;border-radius:10px;padding:20px;margin-bottom:20px}
+.panel h2{font-size:1.1rem;color:#ff5f1f;margin-bottom:14px}
+button{background:#ff5f1f;color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:.9rem;font-weight:600;transition:background .2s}
+button:hover{background:#e8520e}
+button.secondary{background:#2a2a3a;color:#e0e0e0}button.secondary:hover{background:#3a3a4a}
+textarea{background:#16161e;border:1px solid #1a1a2e;color:#e0e0e0;padding:12px;border-radius:6px;font-size:.9rem;width:100%;font-family:'SFMono-Regular',Consolas,monospace;resize:vertical;min-height:120px;line-height:1.6}
+select{background:#16161e;border:1px solid #1a1a2e;color:#e0e0e0;padding:8px;border-radius:6px;font-size:.85rem;font-family:inherit}
+label{display:block;font-size:.82rem;color:#888;margin-bottom:4px}
+.btn-row{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+.mode-tabs{display:flex;gap:0;margin-bottom:14px}
+.mode-tabs button{border-radius:0;flex:1;padding:10px;font-size:.9rem;background:#16161e;color:#888;border:1px solid #1a1a2e}
+.mode-tabs button:first-child{border-radius:6px 0 0 6px}
+.mode-tabs button:last-child{border-radius:0 6px 6px 0}
+.mode-tabs button.active{background:#ff5f1f;color:#fff;border-color:#ff5f1f}
+.output-area{background:#0d0d14;border:1px solid #1a1a2e;border-radius:6px;padding:14px;font-family:'SFMono-Regular',Consolas,monospace;font-size:.85rem;white-space:pre-wrap;word-break:break-all;min-height:80px;max-height:300px;overflow:auto;position:relative}
+.copy-btn{position:absolute;top:8px;right:8px}
+.ref-table{width:100%;border-collapse:collapse}
+.ref-table th,.ref-table td{padding:8px 10px;border-bottom:1px solid #1a1a2e;font-size:.85rem;text-align:left}
+.ref-table th{color:#888;font-weight:600}
+.ref-table td:first-child{font-weight:700;color:#ff5f1f}
+.ref-table td{font-family:monospace}
+.ref-table .char-preview{font-size:1.2rem;text-align:center}
+.search-row{margin-bottom:12px}
+.search-row input{background:#16161e;border:1px solid #1a1a2e;color:#e0e0e0;padding:10px;border-radius:6px;font-size:.9rem;width:100%}
+.stats{display:flex;gap:12px;font-size:.8rem;color:#888;flex-wrap:wrap;margin-top:10px}
+.stats span{background:#16161e;padding:4px 10px;border-radius:4px}
+.copied-toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#ff5f1f;color:#fff;padding:10px 24px;border-radius:8px;font-weight:600;font-size:.9rem;z-index:999;opacity:0;transition:opacity .3s;pointer-events:none}
+.copied-toast.show{opacity:1}
+.share-fixed{position:fixed;bottom:18px;left:18px;z-index:200}
+footer{text-align:center;padding:20px;color:#555;font-size:.8rem;border-top:1px solid #1a1a2e;margin-top:auto}
+footer a{color:#ff5f1f;margin:0 4px}
+@media(max-width:600px){header h1{font-size:1.1rem}}
+</style>
+</head>
+<body>
+<header>
+<h1>HTML Entity Converter</h1>
+<a href="https://spunk.codes" class="back">spunk.codes</a>
+</header>
+<main>
+
+<div class="panel">
+<h2>Convert</h2>
+<div class="mode-tabs">
+<button class="active" id="tabEncode" onclick="setMode('encode')">Encode</button>
+<button id="tabDecode" onclick="setMode('decode')">Decode</button>
+</div>
+<label id="inputLabel">Text to Encode</label>
+<textarea id="input" placeholder='<div class="hello">&copy; 2024</div>' oninput="convert()"></textarea>
+<div class="btn-row">
+<button onclick="convert()">Convert</button>
+<button class="secondary" onclick="swapIO()">Swap Input/Output</button>
+<button class="secondary" onclick="clearAll()">Clear</button>
+<select id="encodeType" onchange="convert()" style="width:auto">
+<option value="named">Named Entities</option>
+<option value="decimal">Decimal (&#38;#nn;)</option>
+<option value="hex">Hex (&#38;#xnn;)</option>
+</select>
+</div>
+<label>Output</label>
+<div style="position:relative">
+<div class="output-area" id="output"></div>
+<button class="copy-btn" onclick="copyOutput()">Copy</button>
+</div>
+<div class="stats" id="stats"></div>
+</div>
+
+<div class="panel">
+<h2>Common HTML Entities Reference</h2>
+<div class="search-row"><input type="text" id="refSearch" placeholder="Search entities..." oninput="filterRef()"></div>
+<div style="max-height:400px;overflow:auto">
+<table class="ref-table" id="refTable"></table>
+</div>
+</div>
+
+</main>
+
+<div class="share-fixed"><button onclick="shareX()">Share on X</button></div>
+
+<footer>
+<a href="https://spunk.codes">Home</a> &middot;
+<a href="https://spunk.codes/tools.html">All Tools</a> &middot;
+<a href="https://x.com/SpunkArt13">@SpunkArt13</a>
+</footer>
+
+<div class="copied-toast" id="toast"></div>
+
+<script>
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+
+const LS_KEY='spunkcodes_htmlentity';
+let mode='encode';
+let lastOutput='';
+
+const ENTITIES=[
+['&','&amp;','&#38;','&#x26;','Ampersand'],
+['<','&lt;','&#60;','&#x3C;','Less than'],
+['>','&gt;','&#62;','&#x3E;','Greater than'],
+['"','&quot;','&#34;','&#x22;','Double quote'],
+["'",'&apos;','&#39;','&#x27;','Single quote'],
+[' ','&nbsp;','&#160;','&#xA0;','Non-breaking space'],
+['\u00a9','&copy;','&#169;','&#xA9;','Copyright'],
+['\u00ae','&reg;','&#174;','&#xAE;','Registered'],
+['\u2122','&trade;','&#8482;','&#x2122;','Trademark'],
+['\u00a2','&cent;','&#162;','&#xA2;','Cent'],
+['\u00a3','&pound;','&#163;','&#xA3;','Pound'],
+['\u00a5','&yen;','&#165;','&#xA5;','Yen'],
+['\u20ac','&euro;','&#8364;','&#x20AC;','Euro'],
+['\u00b0','&deg;','&#176;','&#xB0;','Degree'],
+['\u00b1','&plusmn;','&#177;','&#xB1;','Plus-minus'],
+['\u00d7','&times;','&#215;','&#xD7;','Multiplication'],
+['\u00f7','&divide;','&#247;','&#xF7;','Division'],
+['\u2013','&ndash;','&#8211;','&#x2013;','En dash'],
+['\u2014','&mdash;','&#8212;','&#x2014;','Em dash'],
+['\u2018','&lsquo;','&#8216;','&#x2018;','Left single quote'],
+['\u2019','&rsquo;','&#8217;','&#x2019;','Right single quote'],
+['\u201c','&ldquo;','&#8220;','&#x201C;','Left double quote'],
+['\u201d','&rdquo;','&#8221;','&#x201D;','Right double quote'],
+['\u2022','&bull;','&#8226;','&#x2022;','Bullet'],
+['\u2026','&hellip;','&#8230;','&#x2026;','Ellipsis'],
+['\u2190','&larr;','&#8592;','&#x2190;','Left arrow'],
+['\u2191','&uarr;','&#8593;','&#x2191;','Up arrow'],
+['\u2192','&rarr;','&#8594;','&#x2192;','Right arrow'],
+['\u2193','&darr;','&#8595;','&#x2193;','Down arrow'],
+['\u2660','&spades;','&#9824;','&#x2660;','Spade'],
+['\u2663','&clubs;','&#9827;','&#x2663;','Club'],
+['\u2665','&hearts;','&#9829;','&#x2665;','Heart'],
+['\u2666','&diams;','&#9830;','&#x2666;','Diamond'],
+['\u2714','','&#10004;','&#x2714;','Check mark'],
+['\u2718','','&#10008;','&#x2718;','Cross mark'],
+['\u221e','&infin;','&#8734;','&#x221E;','Infinity'],
+['\u00bc','&frac14;','&#188;','&#xBC;','1/4 fraction'],
+['\u00bd','&frac12;','&#189;','&#xBD;','1/2 fraction'],
+['\u00be','&frac34;','&#190;','&#xBE;','3/4 fraction']
+];
+
+const namedMap={};
+ENTITIES.forEach(e=>{if(e[1])namedMap[e[0]]=e[1]});
+
+function setMode(m){
+mode=m;
+document.getElementById('tabEncode').className=m==='encode'?'active':'';
+document.getElementById('tabDecode').className=m==='decode'?'active':'';
+document.getElementById('inputLabel').textContent=m==='encode'?'Text to Encode':'HTML Entities to Decode';
+document.getElementById('input').placeholder=m==='encode'?'<div class="hello">&copy; 2024</div>':'&lt;div class=&quot;hello&quot;&gt;&amp;copy; 2024&lt;/div&gt;';
+convert();
+}
+
+function convert(){
+const input=document.getElementById('input').value;
+const output=document.getElementById('output');
+if(!input){output.textContent='';document.getElementById('stats').innerHTML='';return}
+let result='';
+if(mode==='encode'){
+const encType=document.getElementById('encodeType').value;
+result=encodeText(input,encType);
+}else{
+result=decodeEntities(input);
+}
+lastOutput=result;
+output.textContent=result;
+const stats=document.getElementById('stats');
+stats.innerHTML=`<span>Input: ${input.length} chars</span><span>Output: ${result.length} chars</span>`;
+try{localStorage.setItem(LS_KEY,JSON.stringify({mode,input}))}catch(e){}
+}
+
+function encodeText(text,type){
+let result='';
+for(let i=0;i<text.length;i++){
+const ch=text[i];
+const code=ch.charCodeAt(0);
+if(type==='named'&&namedMap[ch]){result+=namedMap[ch]}
+else if(type==='decimal'&&(code>127||'<>&"\''.includes(ch))){result+='&#'+code+';'}
+else if(type==='hex'&&(code>127||'<>&"\''.includes(ch))){result+='&#x'+code.toString(16).toUpperCase()+';'}
+else if(type==='named'&&'<>&"\''.includes(ch)){
+const map={'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;',"'":'&apos;'};
+result+=map[ch]||ch;
+}else{result+=ch}
+}
+return result;
+}
+
+function decodeEntities(text){
+const ta=document.createElement('textarea');
+ta.innerHTML=text;
+return ta.value;
+}
+
+function swapIO(){
+const input=document.getElementById('input');
+input.value=lastOutput||'';
+mode=mode==='encode'?'decode':'encode';
+setMode(mode);
+}
+
+function clearAll(){document.getElementById('input').value='';document.getElementById('output').textContent='';document.getElementById('stats').innerHTML='';lastOutput='';try{localStorage.removeItem(LS_KEY)}catch(e){}}
+
+function copyOutput(){
+navigator.clipboard.writeText(lastOutput).then(()=>showToast('Copied!')).catch(()=>showToast('Copy failed'));
+}
+
+function renderRef(filter){
+const table=document.getElementById('refTable');
+const q=(filter||'').toLowerCase();
+let html='<tr><th>Char</th><th>Named</th><th>Decimal</th><th>Hex</th><th>Description</th></tr>';
+ENTITIES.forEach(e=>{
+if(q&&!e[4].toLowerCase().includes(q)&&!e[1].toLowerCase().includes(q)&&!e[0].includes(q))return;
+html+=`<tr><td class="char-preview">${esc(e[0])}</td><td>${esc(e[1]||'--')}</td><td>${esc(e[2])}</td><td>${esc(e[3])}</td><td>${esc(e[4])}</td></tr>`;
+});
+table.innerHTML=html;
+}
+
+function filterRef(){renderRef(document.getElementById('refSearch').value)}
+
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1800)}
+
+const toolURL='https://spunk.codes/exclusive/html-entity-converter.html';
+function shareX(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('HTML Entity Converter - encode & decode HTML entities! '+toolURL),'_blank')}
+
+renderRef();
+try{const saved=JSON.parse(localStorage.getItem(LS_KEY));if(saved){mode=saved.mode||'encode';setMode(mode);document.getElementById('input').value=saved.input||'';convert()}}catch(e){}
+</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>
