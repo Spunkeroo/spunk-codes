@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sleep Calculator | SPUNK.CODES</title>
+<meta name="description" content="Calculate optimal bedtime and wake-up times based on 90-minute sleep cycles. Get 4, 5, or 6 full cycles for better rest. Track your sleep history. Free sleep cycle calculator.">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP')</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w")</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e8e8f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+header{background:#111118;border-bottom:2px solid #ff5f1f;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;position:sticky;top:0;z-index:100}
+header h1{font-size:1.4rem;color:#ff5f1f}
+header .back{color:#e8e8f0;font-size:.9rem}
+main{flex:1;max-width:700px;width:100%;margin:0 auto;padding:24px 16px}
+.panel{background:#111118;border:1px solid #2a2a3a;border-radius:10px;padding:20px;margin-bottom:20px}
+.panel h2{font-size:1.1rem;color:#ff5f1f;margin-bottom:14px}
+button{background:#ff5f1f;color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:.9rem;font-weight:600;transition:background .2s}
+button:hover{background:#e8520e}
+button.secondary{background:#2a2a3a;color:#e8e8f0}button.secondary:hover{background:#3a3a4a}
+button.danger{background:#cc2233}button.danger:hover{background:#aa1122}
+input,select{background:#16161e;border:1px solid #2a2a3a;color:#e8e8f0;padding:8px 12px;border-radius:6px;font-size:.9rem;width:100%}
+.input-group{margin-bottom:16px}
+.input-group label{font-size:.85rem;color:#888;margin-bottom:6px;display:block}
+.mode-tabs{display:flex;gap:0;margin-bottom:20px;border-radius:8px;overflow:hidden;border:1px solid #2a2a3a}
+.mode-tabs button{flex:1;border-radius:0;border:none;padding:12px 16px;font-size:.9rem}
+.mode-tabs button.active{background:#ff5f1f}
+.mode-tabs button:not(.active){background:#16161e;color:#888}
+.time-input{display:flex;gap:8px;align-items:center;margin-bottom:16px}
+.time-input input[type=time]{font-size:1.4rem;padding:12px;text-align:center;font-weight:600;color:#ff5f1f}
+.time-input label{font-size:.85rem;color:#888;white-space:nowrap}
+.fallasleep{display:flex;gap:8px;align-items:center;margin-bottom:16px}
+.fallasleep input{width:80px;text-align:center}
+.fallasleep span{color:#888;font-size:.85rem}
+.cycle-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
+.cycle-card{background:#16161e;border:1px solid #2a2a3a;border-radius:10px;padding:18px;text-align:center;cursor:pointer;transition:border-color .2s,box-shadow .2s}
+.cycle-card:hover{border-color:#ff5f1f}
+.cycle-card.recommended{border-color:#ff5f1f;box-shadow:0 0 16px rgba(255,95,31,.2)}
+.cycle-card .time{font-size:1.8rem;color:#ff5f1f;font-weight:700}
+.cycle-card .cycles{font-size:.85rem;color:#888;margin-top:4px}
+.cycle-card .hours{font-size:.8rem;color:#555;margin-top:2px}
+.cycle-card .badge{display:inline-block;background:#ff5f1f;color:#fff;padding:2px 8px;border-radius:4px;font-size:.7rem;font-weight:700;margin-top:6px}
+.sleep-now{background:#16161e;border:2px solid #ff5f1f;border-radius:10px;padding:20px;text-align:center;margin-bottom:16px;box-shadow:0 0 20px rgba(255,95,31,.1)}
+.sleep-now .label{font-size:.9rem;color:#888}
+.sleep-now .time{font-size:2rem;color:#ff5f1f;font-weight:700;margin-top:4px}
+.info-box{background:#16161e;border:1px solid #2a2a3a;border-radius:8px;padding:16px;margin-bottom:16px;font-size:.9rem;line-height:1.6}
+.info-box h3{color:#ff5f1f;margin-bottom:8px;font-size:.95rem}
+.info-box ul{padding-left:18px;color:#888}
+.info-box li{margin-bottom:4px}
+.history-item{background:#16161e;border:1px solid #2a2a3a;border-radius:8px;padding:12px 16px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.history-item .info{font-size:.9rem}
+.history-item .date{font-size:.75rem;color:#555}
+.empty{text-align:center;color:#555;padding:30px;font-size:.95rem}
+.share-btns{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.share-btns button{font-size:.8rem;padding:6px 12px}
+footer{text-align:center;padding:20px;color:#555;font-size:.8rem;border-top:1px solid #1a1a2a;margin-top:auto}
+footer a{color:#ff5f1f;margin:0 4px}
+@media(max-width:700px){
+header h1{font-size:1.1rem}
+.cycle-cards{grid-template-columns:1fr}
+.cycle-card .time{font-size:1.5rem}
+main{padding:16px 10px}
+}
+</style>
+</head>
+<body>
+<header>
+<h1>Sleep Calculator</h1>
+<a href="https://spunk.codes" class="back">spunk.codes</a>
+</header>
+<main>
+<div class="panel">
+<h2>Calculate Sleep Times</h2>
+<div class="mode-tabs">
+<button class="active" onclick="setMode('wake')">I need to wake up at...</button>
+<button onclick="setMode('sleep')">I want to sleep at...</button>
+<button onclick="setMode('now')">I'm going to sleep now</button>
+</div>
+<div id="wakeMode">
+<div class="time-input">
+<label>Wake-up time:</label>
+<input type="time" id="wakeTime" value="07:00" oninput="calc()">
+</div>
+</div>
+<div id="sleepMode" style="display:none">
+<div class="time-input">
+<label>Bedtime:</label>
+<input type="time" id="sleepTime" value="22:00" oninput="calc()">
+</div>
+</div>
+<div id="nowMode" style="display:none">
+<div class="sleep-now">
+<div class="label">Current time</div>
+<div class="time" id="currentTime">--:--</div>
+</div>
+</div>
+<div class="fallasleep">
+<span>I take about</span>
+<input type="number" id="fallAsleep" min="0" max="120" value="14" oninput="calc()">
+<span>minutes to fall asleep</span>
+</div>
+</div>
+
+<div class="panel">
+<h2>Optimal Times</h2>
+<div class="cycle-cards" id="cycleCards"></div>
+</div>
+
+<div class="panel">
+<h2>Sleep Cycle Guide</h2>
+<div class="info-box">
+<h3>How Sleep Cycles Work</h3>
+<p style="color:#888;margin-bottom:8px">Each sleep cycle lasts approximately <strong style="color:#ff5f1f">90 minutes</strong> and includes light sleep, deep sleep, and REM stages. Waking up between cycles (not during one) helps you feel more refreshed.</p>
+<ul>
+<li><strong>6 cycles (9 hours)</strong> — maximum recovery, ideal for sleep debt</li>
+<li><strong>5 cycles (7.5 hours)</strong> — recommended for most adults</li>
+<li><strong>4 cycles (6 hours)</strong> — minimum for functioning well</li>
+<li><strong>3 cycles (4.5 hours)</strong> — emergency nap territory</li>
+</ul>
+</div>
+<div class="info-box">
+<h3>Tips for Better Sleep</h3>
+<ul>
+<li>Keep a consistent sleep schedule, even on weekends</li>
+<li>Avoid screens 30-60 minutes before bed</li>
+<li>Keep your bedroom cool (65-68F / 18-20C)</li>
+<li>Limit caffeine after 2 PM</li>
+<li>Exercise regularly, but not within 3 hours of bedtime</li>
+</ul>
+</div>
+</div>
+
+<div class="panel">
+<h2>Sleep Log</h2>
+<div id="historyList"><div class="empty">No sleep entries logged yet.</div></div>
+<div style="margin-top:10px;display:flex;gap:8px">
+<button class="secondary" onclick="logSleep()">Log Tonight</button>
+<button class="danger" onclick="clearHistory()">Clear Log</button>
+</div>
+</div>
+
+<div class="panel">
+<h2>Share</h2>
+<div class="share-btns">
+<button onclick="shareTwitter()">Share on X</button>
+<button class="secondary" onclick="copyLink()">Copy Link</button>
+</div>
+</div>
+</main>
+
+<footer>
+<a href="https://spunk.codes">spunk.codes</a> &middot;
+<a href="https://spunk.bet">spunk.bet</a> &middot;
+<a href="https://spunk.pics">spunk.pics</a> &middot;
+<a href="https://spunk.work">spunk.work</a> &middot;
+<a href="https://spunkart.com">SpunkArt.com</a>
+</footer>
+
+<script>
+const LS_KEY='spunkcodes_sleep_calc';
+const CYCLE_MIN=90;
+let mode='wake';
+let history=[];
+let clockInterval=null;
+
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+
+function loadData(){
+try{const d=JSON.parse(localStorage.getItem(LS_KEY));if(d){history=d.history||[];if(d.fallAsleep)document.getElementById('fallAsleep').value=d.fallAsleep;if(d.wakeTime)document.getElementById('wakeTime').value=d.wakeTime;if(d.sleepTime)document.getElementById('sleepTime').value=d.sleepTime}}catch(e){}
+renderHistory();calc();startClock();
+}
+
+function saveData(){
+localStorage.setItem(LS_KEY,JSON.stringify({history:history.slice(0,60),fallAsleep:parseInt(document.getElementById('fallAsleep').value),wakeTime:document.getElementById('wakeTime').value,sleepTime:document.getElementById('sleepTime').value}));
+}
+
+function startClock(){
+const update=()=>{const now=new Date();document.getElementById('currentTime').textContent=now.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})};
+update();clockInterval=setInterval(update,10000);
+}
+
+function setMode(m){
+mode=m;
+document.querySelectorAll('.mode-tabs button').forEach(b=>b.classList.remove('active'));
+document.querySelectorAll('.mode-tabs button')[{wake:0,sleep:1,now:2}[m]].classList.add('active');
+document.getElementById('wakeMode').style.display=m==='wake'?'':'none';
+document.getElementById('sleepMode').style.display=m==='sleep'?'':'none';
+document.getElementById('nowMode').style.display=m==='now'?'':'none';
+calc();
+}
+
+function parseTime(str){const[h,m]=str.split(':').map(Number);return h*60+m}
+function formatTime(mins){
+mins=((mins%1440)+1440)%1440;
+const h=Math.floor(mins/60);const m=mins%60;
+const ampm=h>=12?'PM':'AM';
+const h12=h===0?12:h>12?h-12:h;
+return h12+':'+(m<10?'0':'')+m+' '+ampm;
+}
+
+function calc(){
+const fallAsleep=parseInt(document.getElementById('fallAsleep').value)||14;
+const cards=document.getElementById('cycleCards');
+const cycles=[6,5,4,3];
+
+if(mode==='wake'){
+const wakeMin=parseTime(document.getElementById('wakeTime').value);
+cards.innerHTML=cycles.map(c=>{
+const sleepDuration=c*CYCLE_MIN;
+const bedtime=wakeMin-sleepDuration-fallAsleep;
+const totalHrs=(sleepDuration/60).toFixed(1);
+const recommended=c===5;
+return`<div class="cycle-card${recommended?' recommended':''}" onclick="selectCycle(this)">
+<div class="time">${formatTime(bedtime)}</div>
+<div class="cycles">${c} cycles &middot; ${totalHrs} hours of sleep</div>
+<div class="hours">Fall asleep by ${formatTime(bedtime+fallAsleep)}</div>
+${recommended?'<div class="badge">RECOMMENDED</div>':''}
+</div>`;
+}).join('');
+}else if(mode==='sleep'){
+const sleepMin=parseTime(document.getElementById('sleepTime').value);
+const actualSleep=sleepMin+fallAsleep;
+cards.innerHTML=cycles.map(c=>{
+const sleepDuration=c*CYCLE_MIN;
+const wakeUp=actualSleep+sleepDuration;
+const totalHrs=(sleepDuration/60).toFixed(1);
+const recommended=c===5;
+return`<div class="cycle-card${recommended?' recommended':''}" onclick="selectCycle(this)">
+<div class="time">${formatTime(wakeUp)}</div>
+<div class="cycles">${c} cycles &middot; ${totalHrs} hours of sleep</div>
+<div class="hours">You'll fall asleep around ${formatTime(actualSleep)}</div>
+${recommended?'<div class="badge">RECOMMENDED</div>':''}
+</div>`;
+}).join('');
+}else{
+const now=new Date();
+const nowMin=now.getHours()*60+now.getMinutes();
+const actualSleep=nowMin+fallAsleep;
+cards.innerHTML=cycles.map(c=>{
+const sleepDuration=c*CYCLE_MIN;
+const wakeUp=actualSleep+sleepDuration;
+const totalHrs=(sleepDuration/60).toFixed(1);
+const recommended=c===5;
+return`<div class="cycle-card${recommended?' recommended':''}" onclick="selectCycle(this)">
+<div class="time">${formatTime(wakeUp)}</div>
+<div class="cycles">${c} cycles &middot; ${totalHrs} hours of sleep</div>
+<div class="hours">You'll fall asleep around ${formatTime(actualSleep)}</div>
+${recommended?'<div class="badge">RECOMMENDED</div>':''}
+</div>`;
+}).join('');
+}
+saveData();
+}
+
+function selectCycle(el){
+document.querySelectorAll('.cycle-card').forEach(c=>c.style.borderColor='#2a2a3a');
+el.style.borderColor='#ff5f1f';
+}
+
+function logSleep(){
+const fallAsleep=parseInt(document.getElementById('fallAsleep').value)||14;
+let bedtime='',waketime='',cycles=0;
+if(mode==='wake'){
+const wt=document.getElementById('wakeTime').value;
+waketime=wt;cycles=5;
+const wMin=parseTime(wt);bedtime=formatTime(wMin-5*CYCLE_MIN-fallAsleep);
+}else if(mode==='sleep'){
+const st=document.getElementById('sleepTime').value;
+bedtime=st;cycles=5;
+const sMin=parseTime(st)+fallAsleep;waketime=formatTime(sMin+5*CYCLE_MIN);
+}else{
+const now=new Date();bedtime=now.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});cycles=5;
+const nowMin=now.getHours()*60+now.getMinutes();waketime=formatTime(nowMin+fallAsleep+5*CYCLE_MIN);
+}
+history.unshift({id:Date.now(),date:new Date().toLocaleDateString(),bedtime,waketime,cycles,hours:(cycles*1.5).toFixed(1)});
+saveData();renderHistory();
+}
+
+function removeHistory(id){history=history.filter(h=>h.id!==id);saveData();renderHistory()}
+function clearHistory(){if(!confirm('Clear sleep log?'))return;history=[];saveData();renderHistory()}
+
+function renderHistory(){
+const list=document.getElementById('historyList');
+if(!history.length){list.innerHTML='<div class="empty">No sleep entries logged yet.</div>';return}
+list.innerHTML=history.map(h=>`
+<div class="history-item">
+<div>
+<div class="info">Bed: <strong>${esc(h.bedtime)}</strong> &rarr; Wake: <strong>${esc(h.waketime)}</strong></div>
+<div class="date">${esc(h.date)} &middot; ${h.cycles} cycles &middot; ${h.hours}h</div>
+</div>
+<button class="danger" onclick="removeHistory(${h.id})" style="font-size:.75rem;padding:4px 8px">&times;</button>
+</div>`).join('');
+}
+
+function shareTwitter(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Calculate your optimal bedtime based on sleep cycles! Free tool: https://spunk.codes/exclusive/sleep-calculator.html'),'_blank')}
+function copyLink(){navigator.clipboard.writeText('https://spunk.codes/exclusive/sleep-calculator.html').then(()=>alert('Link copied!'))}
+
+loadData();
+</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>

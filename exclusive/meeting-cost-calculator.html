@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Meeting Cost Calculator | SPUNK.CODES</title>
+<meta name="description" content="Calculate the real cost of meetings based on attendee count, hourly rates, and duration. Track meeting expenses, see annual impact, and find savings. Free meeting ROI tool.">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP')</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w")</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e8e8f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+header{background:#111118;border-bottom:2px solid #ff5f1f;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;position:sticky;top:0;z-index:100}
+header h1{font-size:1.4rem;color:#ff5f1f}
+header .back{color:#e8e8f0;font-size:.9rem}
+main{flex:1;max-width:700px;width:100%;margin:0 auto;padding:24px 16px}
+.panel{background:#111118;border:1px solid #2a2a3a;border-radius:10px;padding:20px;margin-bottom:20px}
+.panel h2{font-size:1.1rem;color:#ff5f1f;margin-bottom:14px}
+button{background:#ff5f1f;color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:.9rem;font-weight:600;transition:background .2s}
+button:hover{background:#e8520e}
+button.secondary{background:#2a2a3a;color:#e8e8f0}button.secondary:hover{background:#3a3a4a}
+button.danger{background:#cc2233}button.danger:hover{background:#aa1122}
+input,select{background:#16161e;border:1px solid #2a2a3a;color:#e8e8f0;padding:8px 12px;border-radius:6px;font-size:.9rem;width:100%}
+.input-group{margin-bottom:16px}
+.input-group label{font-size:.85rem;color:#888;margin-bottom:6px;display:block}
+.attendee-row{display:grid;grid-template-columns:1fr 120px auto;gap:8px;align-items:center;margin-bottom:8px}
+.attendee-row input{margin:0}
+.results-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px}
+.result-card{background:#16161e;border:1px solid #2a2a3a;border-radius:10px;padding:18px;text-align:center}
+.result-card .value{font-size:1.8rem;color:#ff5f1f;font-weight:700}
+.result-card .label{font-size:.8rem;color:#888;margin-top:4px}
+.cost-hero{background:#16161e;border:2px solid #ff5f1f;border-radius:10px;padding:24px;text-align:center;margin-bottom:16px;box-shadow:0 0 20px rgba(255,95,31,.1)}
+.cost-hero .value{font-size:3rem;color:#ff5f1f;font-weight:700}
+.cost-hero .label{font-size:1rem;color:#888;margin-top:4px}
+.ticker{font-family:monospace;font-size:2rem;color:#ff5f1f;text-align:center;padding:16px;background:#16161e;border:1px solid #2a2a3a;border-radius:10px;margin-bottom:16px}
+.ticker .label{font-size:.8rem;color:#888;font-family:-apple-system,sans-serif}
+.annual-card{background:#16161e;border:1px solid #2a2a3a;border-radius:10px;padding:18px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center}
+.annual-card .freq{color:#888;font-size:.9rem}
+.annual-card .cost{color:#ff5f1f;font-size:1.3rem;font-weight:700}
+.duration-slider{width:100%;accent-color:#ff5f1f;margin-top:8px}
+.slider-labels{display:flex;justify-content:space-between;font-size:.75rem;color:#555;margin-top:4px}
+.history-item{background:#16161e;border:1px solid #2a2a3a;border-radius:8px;padding:12px 16px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.history-item .info{font-size:.9rem}
+.history-item .date{font-size:.75rem;color:#555}
+.empty{text-align:center;color:#555;padding:30px;font-size:.95rem}
+.share-btns{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.share-btns button{font-size:.8rem;padding:6px 12px}
+footer{text-align:center;padding:20px;color:#555;font-size:.8rem;border-top:1px solid #1a1a2a;margin-top:auto}
+footer a{color:#ff5f1f;margin:0 4px}
+@media(max-width:700px){
+header h1{font-size:1.1rem}
+.results-grid{grid-template-columns:1fr}
+.cost-hero .value{font-size:2.2rem}
+.attendee-row{grid-template-columns:1fr 90px auto}
+main{padding:16px 10px}
+}
+</style>
+</head>
+<body>
+<header>
+<h1>Meeting Cost Calculator</h1>
+<a href="https://spunk.codes" class="back">spunk.codes</a>
+</header>
+<main>
+<div class="panel">
+<h2>Meeting Details</h2>
+<div class="input-group">
+<label>Meeting Name</label>
+<input type="text" id="meetingName" placeholder="Weekly Standup" oninput="calc()">
+</div>
+<div class="input-group">
+<label>Duration: <strong id="durationLabel">30 minutes</strong></label>
+<input type="range" class="duration-slider" id="duration" min="5" max="480" step="5" value="30" oninput="updateDuration()">
+<div class="slider-labels"><span>5 min</span><span>1 hr</span><span>2 hr</span><span>4 hr</span><span>8 hr</span></div>
+</div>
+</div>
+
+<div class="panel">
+<h2>Attendees</h2>
+<div id="attendeeList"></div>
+<div style="display:flex;gap:8px;margin-top:12px">
+<button onclick="addAttendee()">+ Add Attendee</button>
+<button class="secondary" onclick="addPreset('engineer')">+ Engineer ($75/hr)</button>
+<button class="secondary" onclick="addPreset('manager')">+ Manager ($95/hr)</button>
+<button class="secondary" onclick="addPreset('exec')">+ Executive ($150/hr)</button>
+</div>
+</div>
+
+<div class="panel" id="resultsPanel" style="display:none">
+<h2>Meeting Cost</h2>
+<div class="cost-hero">
+<div class="value" id="totalCost">$0</div>
+<div class="label">Total cost of this meeting</div>
+</div>
+<div class="ticker" id="liveTicker" style="display:none">
+<div id="tickerValue">$0.00</div>
+<div class="label">Cost so far (live ticker)</div>
+<div style="margin-top:8px"><button onclick="toggleTicker()" id="tickerBtn">Start Live Ticker</button></div>
+</div>
+<div class="results-grid">
+<div class="result-card"><div class="value" id="costPerMin">$0</div><div class="label">Per Minute</div></div>
+<div class="result-card"><div class="value" id="costPerPerson">$0</div><div class="label">Per Person</div></div>
+<div class="result-card"><div class="value" id="attendeeCount">0</div><div class="label">Attendees</div></div>
+</div>
+</div>
+
+<div class="panel" id="annualPanel" style="display:none">
+<h2>Annual Impact</h2>
+<div id="annualBreakdown"></div>
+</div>
+
+<div class="panel">
+<h2>Meeting History</h2>
+<div id="historyList"><div class="empty">No meetings calculated yet.</div></div>
+<div style="margin-top:10px;display:flex;gap:8px">
+<button class="secondary" onclick="saveMeeting()">Save Current Meeting</button>
+<button class="danger" onclick="clearHistory()">Clear History</button>
+</div>
+</div>
+
+<div class="panel">
+<h2>Share</h2>
+<div class="share-btns">
+<button onclick="shareTwitter()">Share on X</button>
+<button class="secondary" onclick="copyLink()">Copy Link</button>
+</div>
+</div>
+</main>
+
+<footer>
+<a href="https://spunk.codes">spunk.codes</a> &middot;
+<a href="https://spunk.bet">spunk.bet</a> &middot;
+<a href="https://spunk.pics">spunk.pics</a> &middot;
+<a href="https://spunk.work">spunk.work</a> &middot;
+<a href="https://spunkart.com">SpunkArt.com</a>
+</footer>
+
+<script>
+const LS_KEY='spunkcodes_meeting_cost';
+let attendees=[];
+let history=[];
+let tickerInterval=null;
+let tickerStart=null;
+let costPerSec=0;
+
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function fmt(n){return'$'+Number(n).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}
+
+function loadData(){
+try{const d=JSON.parse(localStorage.getItem(LS_KEY));if(d){history=d.history||[];if(d.attendees&&d.attendees.length){attendees=d.attendees;document.getElementById('duration').value=d.duration||30;document.getElementById('meetingName').value=d.meetingName||''}}}catch(e){}
+if(!attendees.length){attendees=[{role:'Engineer',rate:75},{role:'Designer',rate:65},{role:'Manager',rate:95}]}
+renderAttendees();updateDuration();calc();renderHistory();
+}
+
+function saveData(){
+localStorage.setItem(LS_KEY,JSON.stringify({attendees,history:history.slice(0,50),duration:parseInt(document.getElementById('duration').value),meetingName:document.getElementById('meetingName').value}));
+}
+
+function addAttendee(){attendees.push({role:'Attendee',rate:50});renderAttendees();calc()}
+function addPreset(type){
+const presets={engineer:{role:'Engineer',rate:75},manager:{role:'Manager',rate:95},exec:{role:'Executive',rate:150}};
+attendees.push({...presets[type]});renderAttendees();calc();
+}
+function removeAttendee(i){attendees.splice(i,1);renderAttendees();calc()}
+function updateAttendee(i,field,val){
+if(field==='role')attendees[i][field]=val;
+else attendees[i][field]=parseFloat(val)||0;
+saveData();calc();
+}
+
+function renderAttendees(){
+document.getElementById('attendeeList').innerHTML=attendees.map((a,i)=>`
+<div class="attendee-row">
+<input type="text" value="${esc(a.role)}" placeholder="Role" oninput="updateAttendee(${i},'role',this.value)">
+<input type="number" min="0" step="5" value="${a.rate}" placeholder="$/hr" oninput="updateAttendee(${i},'rate',this.value)" style="text-align:center">
+<button class="danger" onclick="removeAttendee(${i})" style="font-size:.75rem;padding:4px 8px">&times;</button>
+</div>`).join('');
+}
+
+function updateDuration(){
+const mins=parseInt(document.getElementById('duration').value);
+const hrs=Math.floor(mins/60);
+const m=mins%60;
+document.getElementById('durationLabel').textContent=hrs>0?(hrs+'h'+(m>0?' '+m+'m':'')):(mins+' minutes');
+calc();
+}
+
+function calc(){
+const mins=parseInt(document.getElementById('duration').value)||30;
+const totalRate=attendees.reduce((s,a)=>s+a.rate,0);
+const totalCost=totalRate*(mins/60);
+const perMin=totalRate/60;
+const perPerson=attendees.length?totalCost/attendees.length:0;
+costPerSec=totalRate/3600;
+
+document.getElementById('totalCost').textContent=fmt(totalCost);
+document.getElementById('costPerMin').textContent=fmt(perMin);
+document.getElementById('costPerPerson').textContent=fmt(perPerson);
+document.getElementById('attendeeCount').textContent=attendees.length;
+
+document.getElementById('resultsPanel').style.display=attendees.length?'':'none';
+document.getElementById('liveTicker').style.display=attendees.length?'':'none';
+
+const annual=document.getElementById('annualBreakdown');
+const freqs=[{label:'Daily (5x/week)',mult:260},{label:'3x per week',mult:156},{label:'Weekly',mult:52},{label:'Biweekly',mult:26},{label:'Monthly',mult:12}];
+annual.innerHTML=freqs.map(f=>`
+<div class="annual-card">
+<span class="freq">${f.label}</span>
+<span class="cost">${fmt(totalCost*f.mult)}/year</span>
+</div>`).join('');
+document.getElementById('annualPanel').style.display=attendees.length?'':'none';
+saveData();
+}
+
+function toggleTicker(){
+if(tickerInterval){
+clearInterval(tickerInterval);tickerInterval=null;tickerStart=null;
+document.getElementById('tickerBtn').textContent='Start Live Ticker';
+document.getElementById('tickerBtn').style.background='#ff5f1f';
+return;
+}
+tickerStart=Date.now();
+document.getElementById('tickerBtn').textContent='Stop Ticker';
+document.getElementById('tickerBtn').style.background='#cc2233';
+tickerInterval=setInterval(()=>{
+const elapsed=(Date.now()-tickerStart)/1000;
+document.getElementById('tickerValue').textContent=fmt(elapsed*costPerSec);
+},100);
+}
+
+function saveMeeting(){
+const name=document.getElementById('meetingName').value||'Unnamed Meeting';
+const mins=parseInt(document.getElementById('duration').value)||30;
+const totalRate=attendees.reduce((s,a)=>s+a.rate,0);
+const cost=totalRate*(mins/60);
+history.unshift({id:Date.now(),name,date:new Date().toLocaleDateString(),attendees:attendees.length,duration:mins,cost});
+saveData();renderHistory();
+}
+
+function removeHistory(id){history=history.filter(h=>h.id!==id);saveData();renderHistory()}
+function clearHistory(){if(!confirm('Clear meeting history?'))return;history=[];saveData();renderHistory()}
+
+function renderHistory(){
+const list=document.getElementById('historyList');
+if(!history.length){list.innerHTML='<div class="empty">No meetings calculated yet.</div>';return}
+list.innerHTML=history.map(h=>`
+<div class="history-item">
+<div>
+<div class="info"><strong>${esc(h.name)}</strong> — ${fmt(h.cost)}</div>
+<div class="date">${esc(h.date)} &middot; ${h.attendees} people &middot; ${h.duration} min</div>
+</div>
+<button class="danger" onclick="removeHistory(${h.id})" style="font-size:.75rem;padding:4px 8px">&times;</button>
+</div>`).join('');
+}
+
+function shareTwitter(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Find out how much your meetings actually cost! Free tool: https://spunk.codes/exclusive/meeting-cost-calculator.html'),'_blank')}
+function copyLink(){navigator.clipboard.writeText('https://spunk.codes/exclusive/meeting-cost-calculator.html').then(()=>alert('Link copied!'))}
+
+loadData();
+</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>
