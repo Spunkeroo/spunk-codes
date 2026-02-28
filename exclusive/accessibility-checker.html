@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Accessibility Checker — HTML A11y Audit Tool | SPUNK.CODES</title>
+<meta name="description" content="Check HTML for accessibility issues. Validates alt tags, labels, headings, ARIA roles, color contrast. Detailed fix suggestions. Free browser tool.">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP')</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w")</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e0e0e0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+header{background:#111118;border-bottom:2px solid #ff5f1f;padding:1rem 2rem;text-align:center}
+header h1{font-size:1.6rem;color:#ff5f1f}
+header p{color:#999;font-size:.9rem;margin-top:.3rem}
+.container{max-width:1100px;margin:0 auto;padding:1.5rem;flex:1;width:100%}
+.section{background:#111118;border:1px solid #1a1a2e;border-radius:10px;padding:1.5rem;margin-bottom:1.5rem}
+.section h2{color:#ff5f1f;font-size:1.2rem;margin-bottom:1rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem}
+label{display:block;color:#bbb;font-size:.85rem;margin-bottom:.3rem}
+input,select,textarea{background:#0a0a0f;color:#e0e0e0;border:1px solid #1a1a2e;border-radius:6px;padding:.5rem .7rem;font-size:.9rem;width:100%}
+input:focus,textarea:focus{outline:none;border-color:#ff5f1f}
+textarea{font-family:monospace;resize:vertical}
+.btn{background:#ff5f1f;color:#fff;border:none;padding:.55rem 1.1rem;border-radius:6px;cursor:pointer;font-size:.9rem;font-weight:600;transition:background .2s}
+.btn:hover{background:#e54e10}
+.btn-sm{padding:.35rem .7rem;font-size:.8rem}
+.btn-outline{background:transparent;border:1px solid #ff5f1f;color:#ff5f1f}
+.btn-outline:hover{background:#ff5f1f;color:#fff}
+.score-bar{display:flex;align-items:center;gap:1.5rem;margin-bottom:1.5rem;flex-wrap:wrap}
+.score-circle{width:100px;height:100px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:2rem;font-weight:800;border:4px solid}
+.score-good{border-color:#2ecc71;color:#2ecc71;background:rgba(46,204,113,0.1)}
+.score-warn{border-color:#f39c12;color:#f39c12;background:rgba(243,156,18,0.1)}
+.score-bad{border-color:#e74c3c;color:#e74c3c;background:rgba(231,76,60,0.1)}
+.score-stats{display:flex;gap:1.5rem;flex-wrap:wrap}
+.stat{text-align:center}
+.stat-num{font-size:1.5rem;font-weight:700}
+.stat-label{color:#999;font-size:.8rem}
+.stat-errors .stat-num{color:#e74c3c}
+.stat-warnings .stat-num{color:#f39c12}
+.stat-passes .stat-num{color:#2ecc71}
+.issue-card{background:#0d0d14;border:1px solid #1a1a2e;border-radius:8px;padding:1rem;margin-bottom:.8rem}
+.issue-card.error{border-left:4px solid #e74c3c}
+.issue-card.warning{border-left:4px solid #f39c12}
+.issue-card.pass{border-left:4px solid #2ecc71}
+.issue-header{display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem}
+.issue-badge{padding:.2rem .6rem;border-radius:4px;font-size:.75rem;font-weight:700;text-transform:uppercase}
+.badge-error{background:#3a1a1a;color:#e74c3c}
+.badge-warning{background:#3a2a1a;color:#f39c12}
+.badge-pass{background:#1a3a1a;color:#2ecc71}
+.issue-title{font-weight:600;color:#e0e0e0;font-size:.95rem}
+.issue-desc{color:#bbb;font-size:.85rem;line-height:1.5;margin-bottom:.5rem}
+.issue-element{background:#0a0a0f;border:1px solid #1a1a2e;border-radius:4px;padding:.4rem .6rem;font-family:monospace;font-size:.8rem;color:#999;word-break:break-all;margin-bottom:.5rem}
+.issue-fix{background:#1a2a1a;border:1px solid #2a3a2a;border-radius:4px;padding:.5rem .8rem;font-size:.85rem;color:#2ecc71}
+.fix-label{color:#ff5f1f;font-size:.75rem;font-weight:600;text-transform:uppercase;margin-bottom:.2rem}
+.contrast-demo{display:flex;gap:1rem;align-items:center;margin-top:1rem;flex-wrap:wrap}
+.contrast-box{padding:1rem 1.5rem;border-radius:8px;font-size:1rem;font-weight:600}
+.contrast-result{font-size:.9rem}
+.contrast-ratio{font-size:1.4rem;font-weight:700;color:#ff5f1f}
+.categories{display:flex;gap:0;margin-bottom:1rem;flex-wrap:wrap}
+.cat-tab{padding:.5rem 1rem;background:#1a1a2e;color:#999;border:1px solid #2a2a3a;cursor:pointer;font-size:.85rem;transition:all .2s}
+.cat-tab:first-child{border-radius:6px 0 0 6px}
+.cat-tab:last-child{border-radius:0 6px 6px 0}
+.cat-tab.active{background:#ff5f1f;color:#fff;border-color:#ff5f1f}
+footer{background:#111118;border-top:1px solid #1a1a2e;text-align:center;padding:1.2rem;color:#666;font-size:.8rem}
+footer a{color:#ff5f1f;margin:0 .3rem}
+@media(max-width:768px){
+  header h1{font-size:1.2rem}
+  .container{padding:1rem}
+  .score-bar{flex-direction:column;align-items:flex-start}
+  .categories{flex-wrap:wrap;gap:.3rem}
+  .cat-tab{border-radius:6px !important;flex:1;text-align:center;min-width:70px}
+}
+</style>
+</head>
+<body>
+<header>
+<h1>Accessibility Checker</h1>
+<p>Audit HTML for accessibility issues. Alt tags, labels, headings, ARIA, color contrast. Free tool.</p>
+</header>
+<div class="container">
+  <div class="section">
+    <h2>Paste HTML</h2>
+    <textarea id="htmlInput" rows="12" placeholder="Paste your HTML source code here..."></textarea>
+    <div style="margin-top:.8rem;display:flex;gap:.5rem">
+      <button class="btn" onclick="runAudit()">Run Audit</button>
+      <button class="btn btn-outline" onclick="loadExample()">Load Example</button>
+      <button class="btn btn-outline" onclick="clearAll()">Clear</button>
+    </div>
+  </div>
+
+  <div id="resultsSection" style="display:none">
+    <div class="section">
+      <h2>Score</h2>
+      <div class="score-bar">
+        <div class="score-circle" id="scoreCircle">--</div>
+        <div class="score-stats">
+          <div class="stat stat-errors"><div class="stat-num" id="errorCount">0</div><div class="stat-label">Errors</div></div>
+          <div class="stat stat-warnings"><div class="stat-num" id="warnCount">0</div><div class="stat-label">Warnings</div></div>
+          <div class="stat stat-passes"><div class="stat-num" id="passCount">0</div><div class="stat-label">Passes</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Filter</h2>
+      <div class="categories">
+        <div class="cat-tab active" onclick="filterIssues('all',this)">All</div>
+        <div class="cat-tab" onclick="filterIssues('error',this)">Errors</div>
+        <div class="cat-tab" onclick="filterIssues('warning',this)">Warnings</div>
+        <div class="cat-tab" onclick="filterIssues('pass',this)">Passes</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Results <button class="btn btn-sm btn-outline" onclick="copyReport()">Copy Report</button></h2>
+      <div id="issuesList"></div>
+    </div>
+
+    <div class="section">
+      <h2>Color Contrast Checker</h2>
+      <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:1rem">
+        <div style="flex:1;min-width:150px">
+          <label>Foreground</label>
+          <input type="color" id="fgColor" value="#ffffff" oninput="checkContrast()">
+        </div>
+        <div style="flex:1;min-width:150px">
+          <label>Background</label>
+          <input type="color" id="bgColorCheck" value="#000000" oninput="checkContrast()">
+        </div>
+      </div>
+      <div class="contrast-demo" id="contrastDemo"></div>
+    </div>
+  </div>
+</div>
+<footer>
+  <a href="https://spunk.codes">spunk.codes</a> · <a href="https://spunk.bet">spunk.bet</a> · <a href="https://spunk.pics">spunk.pics</a> · <a href="https://spunk.work">spunk.work</a> · <a href="https://spunkart.com">SpunkArt.com</a>
+</footer>
+<script>
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
+
+let allIssues=[];
+let currentFilter='all';
+
+function runAudit(){
+  const html=document.getElementById('htmlInput').value;
+  if(!html.trim()){flash('Paste HTML first');return;}
+
+  const parser=new DOMParser();
+  const doc=parser.parseFromString(html,'text/html');
+  allIssues=[];
+
+  checkImages(doc);
+  checkFormLabels(doc);
+  checkHeadingHierarchy(doc);
+  checkLinks(doc);
+  checkAriaRoles(doc);
+  checkLanguage(doc);
+  checkMeta(doc);
+  checkTables(doc);
+  checkButtons(doc);
+  checkLandmarks(doc);
+
+  displayResults();
+  document.getElementById('resultsSection').style.display='block';
+  checkContrast();
+  localStorage.setItem('a11y_last',html);
+}
+
+function addIssue(type,category,title,desc,element,fix){
+  allIssues.push({type,category,title,desc,element:element||'',fix:fix||''});
+}
+
+function checkImages(doc){
+  const imgs=doc.querySelectorAll('img');
+  let missing=0;
+  imgs.forEach(img=>{
+    const alt=img.getAttribute('alt');
+    const src=img.getAttribute('src')||'';
+    if(alt===null){
+      missing++;
+      addIssue('error','Images','Missing alt attribute',`Image "${src}" has no alt attribute.`,`<img src="${src}">`,`Add alt="description" or alt="" for decorative images.`);
+    }else if(alt===''&&!img.getAttribute('role')){
+      addIssue('warning','Images','Empty alt without role','Image has empty alt but no role="presentation" or role="none".',`<img src="${src}" alt="">`,`Add role="presentation" if decorative, or add descriptive alt text.`);
+    }
+  });
+  if(imgs.length&&!missing){
+    addIssue('pass','Images','All images have alt attributes',`${imgs.length} image(s) checked, all have alt attributes.`);
+  }
+}
+
+function checkFormLabels(doc){
+  const inputs=doc.querySelectorAll('input:not([type="hidden"]):not([type="submit"]):not([type="button"]):not([type="reset"]),select,textarea');
+  let unlabeled=0;
+  inputs.forEach(input=>{
+    const id=input.getAttribute('id');
+    const ariaLabel=input.getAttribute('aria-label');
+    const ariaLabelledBy=input.getAttribute('aria-labelledby');
+    const title=input.getAttribute('title');
+    const hasLabel=id&&doc.querySelector(`label[for="${id}"]`);
+    const parentLabel=input.closest('label');
+    if(!hasLabel&&!parentLabel&&!ariaLabel&&!ariaLabelledBy&&!title){
+      unlabeled++;
+      const type=input.getAttribute('type')||input.tagName.toLowerCase();
+      const name=input.getAttribute('name')||'';
+      addIssue('error','Forms','Form input without label',`${type} input "${name}" has no associated label.`,`<${input.tagName.toLowerCase()} type="${type}" name="${name}">`,`Add a <label for="id"> element or aria-label attribute.`);
+    }
+  });
+  if(inputs.length&&!unlabeled){
+    addIssue('pass','Forms','All form inputs have labels',`${inputs.length} input(s) checked, all properly labeled.`);
+  }
+}
+
+function checkHeadingHierarchy(doc){
+  const headings=doc.querySelectorAll('h1,h2,h3,h4,h5,h6');
+  const levels=[];
+  let hasSkip=false;
+  headings.forEach(h=>{
+    const level=parseInt(h.tagName[1]);
+    if(levels.length){
+      const prev=levels[levels.length-1];
+      if(level>prev+1){
+        hasSkip=true;
+        addIssue('warning','Headings',`Heading level skipped: h${prev} to h${level}`,`Heading hierarchy jumps from h${prev} to h${level}. This can confuse screen readers.`,`<${h.tagName.toLowerCase()}>${h.textContent.substring(0,50)}</${h.tagName.toLowerCase()}>`,`Use sequential heading levels (h1, h2, h3...) without skipping.`);
+      }
+    }
+    levels.push(level);
+  });
+  const h1s=doc.querySelectorAll('h1');
+  if(h1s.length===0){
+    addIssue('warning','Headings','No h1 element found','Page should have exactly one h1 element for accessibility and SEO.','','Add an <h1> element as the main page heading.');
+  }else if(h1s.length>1){
+    addIssue('warning','Headings','Multiple h1 elements',`Found ${h1s.length} h1 elements. Best practice is one h1 per page.`,'','Keep one h1 as the main heading. Use h2+ for subheadings.');
+  }
+  if(headings.length&&!hasSkip&&h1s.length===1){
+    addIssue('pass','Headings','Heading hierarchy is correct',`${headings.length} heading(s) checked with proper hierarchy.`);
+  }
+}
+
+function checkLinks(doc){
+  const links=doc.querySelectorAll('a');
+  let issues=0;
+  links.forEach(link=>{
+    const text=(link.textContent||'').trim();
+    const ariaLabel=link.getAttribute('aria-label');
+    const title=link.getAttribute('title');
+    const img=link.querySelector('img[alt]');
+    if(!text&&!ariaLabel&&!title&&!img){
+      issues++;
+      addIssue('error','Links','Empty link',`Link has no accessible text content.`,`<a href="${link.getAttribute('href')||''}"></a>`,`Add text content, aria-label, or an image with alt text inside the link.`);
+    }
+    if(text&&['click here','here','link','read more','more'].includes(text.toLowerCase())){
+      addIssue('warning','Links','Non-descriptive link text',`Link text "${text}" is not descriptive enough for screen readers.`,`<a>${text}</a>`,`Use descriptive text that explains the link destination.`);
+    }
+    const target=link.getAttribute('target');
+    if(target==='_blank'&&!link.getAttribute('rel')){
+      addIssue('warning','Links','External link without rel',`Link opens in new tab but lacks rel="noopener noreferrer".`,`<a target="_blank">`,`Add rel="noopener noreferrer" for security and accessibility.`);
+    }
+  });
+  if(links.length&&!issues){
+    addIssue('pass','Links','All links have accessible text',`${links.length} link(s) checked.`);
+  }
+}
+
+function checkAriaRoles(doc){
+  const validRoles=['alert','alertdialog','application','article','banner','button','cell','checkbox','columnheader','combobox','complementary','contentinfo','definition','dialog','directory','document','feed','figure','form','grid','gridcell','group','heading','img','link','list','listbox','listitem','log','main','marquee','math','menu','menubar','menuitem','menuitemcheckbox','menuitemradio','navigation','none','note','option','presentation','progressbar','radio','radiogroup','region','row','rowgroup','rowheader','scrollbar','search','searchbox','separator','slider','spinbutton','status','switch','tab','table','tablist','tabpanel','term','textbox','timer','toolbar','tooltip','tree','treegrid','treeitem'];
+  const elems=doc.querySelectorAll('[role]');
+  let invalid=0;
+  elems.forEach(el=>{
+    const role=el.getAttribute('role');
+    if(!validRoles.includes(role)){
+      invalid++;
+      addIssue('error','ARIA',`Invalid ARIA role: "${role}"`,`Element uses unrecognized ARIA role.`,`<${el.tagName.toLowerCase()} role="${role}">`,`Use a valid ARIA role from the WAI-ARIA specification.`);
+    }
+  });
+  // Check aria-hidden on focusable elements
+  const hiddenFocusable=doc.querySelectorAll('[aria-hidden="true"] a, [aria-hidden="true"] button, [aria-hidden="true"] input, [aria-hidden="true"] [tabindex]');
+  hiddenFocusable.forEach(el=>{
+    addIssue('error','ARIA','Focusable element inside aria-hidden','Screen readers skip aria-hidden content, but focusable elements inside can still receive focus.',`<${el.tagName.toLowerCase()}>`,`Remove focusable elements from aria-hidden containers or set tabindex="-1".`);
+  });
+  if(elems.length&&!invalid){
+    addIssue('pass','ARIA','All ARIA roles are valid',`${elems.length} ARIA role(s) validated.`);
+  }
+}
+
+function checkLanguage(doc){
+  const html=doc.querySelector('html');
+  if(html&&!html.getAttribute('lang')){
+    addIssue('error','Document','Missing lang attribute','The <html> element should have a lang attribute for screen readers.','<html>','Add lang="en" (or appropriate language code) to the <html> element.');
+  }else if(html&&html.getAttribute('lang')){
+    addIssue('pass','Document','Language attribute present',`Language set to "${html.getAttribute('lang')}".`);
+  }
+}
+
+function checkMeta(doc){
+  const viewport=doc.querySelector('meta[name="viewport"]');
+  if(viewport){
+    const content=viewport.getAttribute('content')||'';
+    if(content.includes('user-scalable=no')||content.includes('maximum-scale=1')){
+      addIssue('error','Document','Zoom disabled','Viewport meta prevents users from zooming, which is an accessibility barrier.',`<meta name="viewport" content="${content}">`,`Remove user-scalable=no and maximum-scale=1 restrictions.`);
+    }
+  }
+  const title=doc.querySelector('title');
+  if(!title||!title.textContent.trim()){
+    addIssue('warning','Document','Missing or empty title','Page should have a descriptive <title> element.','','Add a meaningful <title> for screen readers and SEO.');
+  }else{
+    addIssue('pass','Document','Page title present',`Title: "${title.textContent.trim().substring(0,60)}"`);
+  }
+}
+
+function checkTables(doc){
+  const tables=doc.querySelectorAll('table');
+  tables.forEach(table=>{
+    const ths=table.querySelectorAll('th');
+    if(!ths.length){
+      addIssue('warning','Tables','Table without headers','Data tables should use <th> elements for header cells.','<table>','Add <th> elements with scope="col" or scope="row" attributes.');
+    }
+    ths.forEach(th=>{
+      if(!th.getAttribute('scope')){
+        addIssue('warning','Tables','Table header without scope','<th> element lacks scope attribute.',`<th>${th.textContent.substring(0,30)}</th>`,`Add scope="col" or scope="row" to <th> elements.`);
+      }
+    });
+  });
+}
+
+function checkButtons(doc){
+  const buttons=doc.querySelectorAll('button,[role="button"]');
+  buttons.forEach(btn=>{
+    const text=(btn.textContent||'').trim();
+    const ariaLabel=btn.getAttribute('aria-label');
+    const title=btn.getAttribute('title');
+    if(!text&&!ariaLabel&&!title){
+      addIssue('error','Interactive','Button without accessible name','Button has no text content or aria-label.',`<${btn.tagName.toLowerCase()}>`,`Add text content or aria-label to the button.`);
+    }
+  });
+}
+
+function checkLandmarks(doc){
+  const main=doc.querySelectorAll('main,[role="main"]');
+  const nav=doc.querySelectorAll('nav,[role="navigation"]');
+  if(!main.length){
+    addIssue('warning','Landmarks','No main landmark','Page should have a <main> element or role="main" for screen reader navigation.','','Wrap primary content in a <main> element.');
+  }
+  if(!nav.length){
+    addIssue('warning','Landmarks','No navigation landmark','Consider using <nav> elements for navigation menus.','','Wrap navigation links in <nav> elements.');
+  }
+}
+
+function displayResults(){
+  const errors=allIssues.filter(i=>i.type==='error').length;
+  const warnings=allIssues.filter(i=>i.type==='warning').length;
+  const passes=allIssues.filter(i=>i.type==='pass').length;
+  const total=errors+warnings+passes;
+  const score=total?Math.round((passes/(total))*100):0;
+
+  document.getElementById('errorCount').textContent=errors;
+  document.getElementById('warnCount').textContent=warnings;
+  document.getElementById('passCount').textContent=passes;
+
+  const circle=document.getElementById('scoreCircle');
+  circle.textContent=score;
+  circle.className='score-circle '+(score>=80?'score-good':score>=50?'score-warn':'score-bad');
+
+  filterIssues(currentFilter);
+}
+
+function filterIssues(filter,el){
+  currentFilter=filter;
+  if(el){document.querySelectorAll('.cat-tab').forEach(t=>t.classList.remove('active'));el.classList.add('active');}
+
+  const c=document.getElementById('issuesList');
+  const filtered=filter==='all'?allIssues:allIssues.filter(i=>i.type===filter);
+  if(!filtered.length){c.innerHTML='<div style="color:#555;padding:1rem;text-align:center">No issues in this category.</div>';return;}
+
+  c.innerHTML='';
+  filtered.forEach(issue=>{
+    let html=`<div class="issue-card ${issue.type}">
+      <div class="issue-header">
+        <span class="issue-badge badge-${issue.type}">${issue.type}</span>
+        <span class="issue-title">${esc(issue.title)}</span>
+        <span style="color:#555;font-size:.75rem;margin-left:auto">${esc(issue.category)}</span>
+      </div>
+      <div class="issue-desc">${esc(issue.desc)}</div>`;
+    if(issue.element){
+      html+=`<div class="issue-element">${esc(issue.element)}</div>`;
+    }
+    if(issue.fix){
+      html+=`<div class="fix-label">Fix</div><div class="issue-fix">${esc(issue.fix)}</div>`;
+    }
+    html+=`</div>`;
+    c.innerHTML+=html;
+  });
+}
+
+function checkContrast(){
+  const fg=document.getElementById('fgColor').value;
+  const bg=document.getElementById('bgColorCheck').value;
+  const fgRgb=hexToRgb(fg);
+  const bgRgb=hexToRgb(bg);
+  const ratio=contrastRatio(fgRgb,bgRgb);
+  const aaLarge=ratio>=3;
+  const aaNormal=ratio>=4.5;
+  const aaaLarge=ratio>=4.5;
+  const aaaNormal=ratio>=7;
+
+  const c=document.getElementById('contrastDemo');
+  c.innerHTML=`
+    <div class="contrast-box" style="background:${bg};color:${fg}">Sample Text</div>
+    <div class="contrast-result">
+      <div>Ratio: <span class="contrast-ratio">${ratio.toFixed(2)}:1</span></div>
+      <div style="margin-top:.5rem;font-size:.85rem">
+        <div>AA Normal (4.5:1): <span style="color:${aaNormal?'#2ecc71':'#e74c3c'}">${aaNormal?'PASS':'FAIL'}</span></div>
+        <div>AA Large (3:1): <span style="color:${aaLarge?'#2ecc71':'#e74c3c'}">${aaLarge?'PASS':'FAIL'}</span></div>
+        <div>AAA Normal (7:1): <span style="color:${aaaNormal?'#2ecc71':'#e74c3c'}">${aaaNormal?'PASS':'FAIL'}</span></div>
+        <div>AAA Large (4.5:1): <span style="color:${aaaLarge?'#2ecc71':'#e74c3c'}">${aaaLarge?'PASS':'FAIL'}</span></div>
+      </div>
+    </div>`;
+}
+
+function hexToRgb(hex){
+  const r=parseInt(hex.slice(1,3),16);
+  const g=parseInt(hex.slice(3,5),16);
+  const b=parseInt(hex.slice(5,7),16);
+  return{r,g,b};
+}
+
+function luminance(rgb){
+  const a=[rgb.r,rgb.g,rgb.b].map(v=>{v/=255;return v<=0.03928?v/12.92:Math.pow((v+0.055)/1.055,2.4);});
+  return 0.2126*a[0]+0.7152*a[1]+0.0722*a[2];
+}
+
+function contrastRatio(fg,bg){
+  const l1=luminance(fg);
+  const l2=luminance(bg);
+  const lighter=Math.max(l1,l2);
+  const darker=Math.min(l1,l2);
+  return(lighter+0.05)/(darker+0.05);
+}
+
+function copyReport(){
+  let report='ACCESSIBILITY AUDIT REPORT\n';
+  report+='='.repeat(40)+'\n\n';
+  const errors=allIssues.filter(i=>i.type==='error');
+  const warnings=allIssues.filter(i=>i.type==='warning');
+  const passes=allIssues.filter(i=>i.type==='pass');
+  report+=`Errors: ${errors.length} | Warnings: ${warnings.length} | Passes: ${passes.length}\n\n`;
+  allIssues.forEach(i=>{
+    report+=`[${i.type.toUpperCase()}] ${i.title}\n`;
+    report+=`  ${i.desc}\n`;
+    if(i.element)report+=`  Element: ${i.element}\n`;
+    if(i.fix)report+=`  Fix: ${i.fix}\n`;
+    report+='\n';
+  });
+  navigator.clipboard.writeText(report).then(()=>flash('Report copied!'));
+}
+
+function clearAll(){
+  document.getElementById('htmlInput').value='';
+  document.getElementById('resultsSection').style.display='none';
+  allIssues=[];
+}
+
+function loadExample(){
+  document.getElementById('htmlInput').value=`<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  <title></title>
+</head>
+<body>
+  <div>
+    <h1>Welcome</h1>
+    <h3>Skipped h2!</h3>
+    <img src="photo.jpg">
+    <img src="decorative.png" alt="">
+    <a href="/about"></a>
+    <a href="https://example.com" target="_blank">Click here</a>
+    <form>
+      <input type="text" name="email">
+      <input type="password" name="pass">
+      <button></button>
+    </form>
+    <table>
+      <tr><td>Name</td><td>Age</td></tr>
+      <tr><td>Alice</td><td>30</td></tr>
+    </table>
+    <div role="invalidrole">Bad role</div>
+    <div aria-hidden="true">
+      <a href="/hidden">Hidden link</a>
+    </div>
+  </div>
+</body>
+</html>`;
+  runAudit();
+}
+
+function flash(msg){
+  const d=document.createElement('div');
+  d.style.cssText='position:fixed;top:20px;right:20px;background:#ff5f1f;color:#fff;padding:.8rem 1.5rem;border-radius:8px;font-weight:600;z-index:9999;animation:fadeOut 2s forwards';
+  d.textContent=msg;document.body.appendChild(d);setTimeout(()=>d.remove(),2200);
+}
+const st=document.createElement('style');
+st.textContent='@keyframes fadeOut{0%{opacity:1}70%{opacity:1}100%{opacity:0}}';
+document.head.appendChild(st);
+
+// Restore
+const last=localStorage.getItem('a11y_last');
+if(last){document.getElementById('htmlInput').value=last;}
+</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>
