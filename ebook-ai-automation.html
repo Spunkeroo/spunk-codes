@@ -1709,6 +1709,298 @@ document.<span class="func">getElementById</span>(<span class="string">'share-bt
   <p>You now have the complete playbook. The rest is execution.</p>
 </section>
 
+<!-- ════════════════════════════════════════════ -->
+<!-- CHAPTER 11 -->
+<!-- ════════════════════════════════════════════ -->
+<section class="chapter" id="ch11">
+  <div class="chapter-num">Chapter 11</div>
+  <h2>AI Agent Orchestration — Multi-Agent Workflows in 2026</h2>
+
+  <h3>The Multi-Agent Revolution</h3>
+  <p>Single AI assistants are powerful. Multiple AI agents working in parallel are transformative. In 2026, solo founders are running orchestrated fleets of AI agents that handle development, content creation, deployment, monitoring, and customer support simultaneously. This chapter covers how to build and manage multi-agent workflows that multiply your output by 10x or more.</p>
+
+  <p>The key insight is that AI agents are not just faster humans. They are <em>parallelizable</em>. A human developer works on one task at a time. An AI agent fleet works on 5, 10, or 20 tasks simultaneously. The limiting factor is no longer your time. It is your ability to coordinate and direct multiple agents effectively.</p>
+
+  <h3>Claude Code: The Command Center</h3>
+  <p>Claude Code (Anthropic's official CLI) has become the backbone of AI-powered development in 2026. It operates directly in your terminal, reads and writes files, runs commands, and manages entire codebases. Here is how to use it as your primary development agent:</p>
+
+  <div class="template">
+    <div class="template-title">Template: Claude Code Workflow</div>
+    <h4>Setup and Configuration</h4>
+    <ul>
+      <li>Install: <code>npm install -g @anthropic-ai/claude-code</code></li>
+      <li>Run: <code>claude</code> in any project directory</li>
+      <li>Create <code>.claude/commands/</code> for custom slash commands</li>
+      <li>Set up <code>CLAUDE.md</code> with project context and rules</li>
+    </ul>
+
+    <h4>Power User Techniques</h4>
+    <ul>
+      <li><strong>Extended thinking:</strong> For complex architecture decisions, enable extended thinking to get deeper analysis before Claude writes code</li>
+      <li><strong>Multi-file editing:</strong> Claude Code can read, modify, and create dozens of files in a single session. Describe the full change you need and let it work across the codebase</li>
+      <li><strong>Subagent spawning:</strong> Use parallel subagents for independent tasks. One agent updates CSS, another writes tests, a third refactors the API layer</li>
+      <li><strong>Git integration:</strong> Claude Code understands git. Ask it to create branches, commit changes, and even open pull requests</li>
+      <li><strong>Tool use:</strong> It can run your build tools, linters, test suites, and deployment scripts directly. No copy-paste needed</li>
+    </ul>
+  </div>
+
+<pre><code># CLAUDE.md — Project context file for Claude Code
+
+# Project: SpunkArt Site Empire
+# Stack: Static HTML/CSS/JS, GitHub Pages, Firebase
+# Sites: 120+ across multiple domains
+
+## Rules
+- Never modify production config files without confirmation
+- Always run tests after code changes
+- Use semantic commit messages
+- Keep all pages under 100KB
+- Mobile-first responsive design required
+- All new features must work without JavaScript (progressive enhancement)
+
+## Architecture
+- /sites/ — Individual site directories
+- /generators/ — Python site generators
+- /templates/ — Shared HTML/CSS templates
+- /scripts/ — Deployment and automation scripts
+
+## Current Priorities
+1. Add new ebook chapters (200-400 lines each)
+2. Optimize Core Web Vitals across all sites
+3. Update cross-links for new domain additions
+4. Fix broken affiliate links</code></pre>
+
+  <h3>Cursor IDE: The Visual Agent</h3>
+  <p>While Claude Code excels in the terminal, Cursor IDE provides the visual, multi-file editing experience that is ideal for complex refactoring and UI work. The two tools complement each other perfectly:</p>
+
+  <ul>
+    <li><strong>Cursor for UI work:</strong> When you need to see the visual impact of CSS changes, component restructuring, or layout modifications, Cursor's inline editing with live preview is unmatched</li>
+    <li><strong>Cursor for multi-file refactors:</strong> Select multiple files in the sidebar, describe the refactor, and Cursor applies changes across all files simultaneously with a diff preview</li>
+    <li><strong>Cursor Composer:</strong> The Composer feature lets you describe entire features and Cursor generates the complete implementation across multiple files</li>
+    <li><strong>Tab completion on steroids:</strong> Cursor's autocomplete predicts entire blocks of code based on context, cutting typing by 80%</li>
+  </ul>
+
+  <div class="callout">
+    <div class="callout-title">The Optimal Stack in 2026</div>
+    <p><strong>Claude Code</strong> for terminal-based development, automation scripts, deployment, and complex multi-file changes. <strong>Cursor IDE</strong> for visual editing, UI development, and real-time collaboration with AI. <strong>GitHub Copilot</strong> for inline code completion while typing. Use all three simultaneously for maximum velocity. Each tool has a sweet spot. The best developers use all of them.</p>
+  </div>
+
+  <h3>Parallel Agent Architecture</h3>
+  <p>The real breakthrough is running multiple agents in parallel. Here is the architecture for a multi-agent workflow that ships an entire ebook in under 4 hours:</p>
+
+<pre><code># Multi-Agent Ebook Pipeline
+
+Orchestrator (You):
+├── Define chapter outlines and requirements
+├── Assign chapters to parallel agents
+├── Review and merge outputs
+└── Final quality pass and deployment
+
+Agent 1 (Claude Code — Terminal):
+├── Writes Chapters 1-3
+├── Generates code examples
+├── Creates pre/code blocks
+└── Time: ~90 minutes
+
+Agent 2 (Claude Code — Terminal, separate session):
+├── Writes Chapters 4-7
+├── Generates practical templates
+├── Creates data tables and comparisons
+└── Time: ~90 minutes
+
+Agent 3 (Cursor IDE):
+├── Writes Chapters 8-10
+├── Handles CSS/HTML formatting
+├── Creates visual diagrams (ASCII)
+└── Time: ~90 minutes
+
+Agent 4 (Claude Code — Terminal):
+├── Writes introduction and conclusion
+├── Creates table of contents
+├── Generates SEO metadata
+├── Builds email gate and CTAs
+└── Time: ~60 minutes
+
+Agent 5 (Claude Code — Terminal):
+├── Proofreads all chapters
+├── Checks cross-references
+├── Validates HTML structure
+├── Runs accessibility checks
+└── Time: ~30 minutes
+
+# Total wall-clock time: ~3.5 hours
+# Total human time: ~45 minutes (directing + reviewing)
+# Without AI: 40-60 hours of writing</code></pre>
+
+  <h3>Automated Deployment Pipelines</h3>
+  <p>AI agents should not just write code. They should deploy it. Here is a complete CI/CD pipeline that takes code from an AI agent's output to live production with zero manual steps:</p>
+
+<pre><code># .github/workflows/ai-deploy.yml
+
+name: AI Agent Auto-Deploy
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      sites:
+        description: 'Comma-separated site names to deploy'
+        required: false
+        default: 'all'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: HTML Validation
+        run: |
+          npx html-validate "**/*.html" --config .htmlvalidate.json
+          echo "HTML validation passed"
+
+      - name: Link Checker
+        run: |
+          npx linkinator . --recurse --skip "^https?://(localhost|127)" \
+            --timeout 10000 --retry true
+          echo "All links valid"
+
+      - name: Performance Budget
+        run: |
+          for file in $(find . -name "*.html" -not -path "./.git/*"); do
+            size=$(wc -c < "$file")
+            if [ $size -gt 102400 ]; then
+              echo "WARNING: $file is ${size} bytes (>100KB)"
+            fi
+          done
+
+  deploy:
+    needs: validate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./
+          cname: spunk.codes
+
+      - name: Purge CDN Cache
+        run: |
+          curl -X POST "https://api.cloudflare.com/client/v4/zones/${{ secrets.CF_ZONE }}/purge_cache" \
+            -H "Authorization: Bearer ${{ secrets.CF_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            --data '{"purge_everything":true}'
+
+      - name: Notify on Success
+        run: |
+          curl -s -X POST "https://api.telegram.org/bot${{ secrets.TG_BOT }}/sendMessage" \
+            -d chat_id=${{ secrets.TG_CHAT }} \
+            -d text="Deployed: ${{ github.event.head_commit.message }}"</code></pre>
+
+  <h3>Agent Communication Patterns</h3>
+  <p>When running multiple AI agents, they need to share context without stepping on each other's work. Here are the three patterns that work:</p>
+
+  <ul>
+    <li><strong>File-based handoff:</strong> Agent 1 writes output to a shared directory. Agent 2 reads it as input. Simple, reliable, works across any tools. Use JSON or markdown files as the interchange format.</li>
+    <li><strong>Git-based coordination:</strong> Each agent works on a separate branch. Use pull requests to merge. This gives you automatic conflict detection and a complete audit trail of every change.</li>
+    <li><strong>Shared context document:</strong> Maintain a single CONTEXT.md file that all agents read before starting. Update it after each agent completes its task. This keeps all agents aligned on project state.</li>
+  </ul>
+
+<pre><code># agent-handoff.json — Shared state between agents
+
+{
+  "project": "ebook-ai-automation",
+  "status": "in_progress",
+  "last_updated": "2026-02-27T14:30:00Z",
+  "agents": {
+    "agent_1": {
+      "task": "chapters_1_3",
+      "status": "complete",
+      "output_files": ["ch1.html", "ch2.html", "ch3.html"],
+      "word_count": 4500,
+      "issues": []
+    },
+    "agent_2": {
+      "task": "chapters_4_7",
+      "status": "in_progress",
+      "output_files": ["ch4.html", "ch5.html"],
+      "word_count": 3200,
+      "issues": ["ch6 needs more code examples"]
+    },
+    "agent_3": {
+      "task": "chapters_8_10",
+      "status": "queued",
+      "dependencies": ["agent_2.complete"]
+    }
+  },
+  "quality_gates": {
+    "min_word_count_per_chapter": 1500,
+    "max_file_size_kb": 100,
+    "required_elements": ["h2", "h3", "pre", "code", "tip_or_callout"],
+    "html_valid": true
+  }
+}</code></pre>
+
+  <h3>Cost Optimization for AI Agent Fleets</h3>
+  <p>Running multiple AI agents costs money. Here is how to optimize your spend while maintaining output quality:</p>
+
+  <div class="template">
+    <div class="template-title">Template: AI Cost Optimization</div>
+    <h4>Model Selection by Task</h4>
+    <ul>
+      <li><strong>Claude Opus 4 ($15/MTok in, $75/MTok out):</strong> Use for complex architecture decisions, nuanced content writing, and tasks requiring deep reasoning. Worth the premium for high-stakes work.</li>
+      <li><strong>Claude Sonnet 4 ($3/MTok in, $15/MTok out):</strong> The workhorse. Use for 80% of coding, content generation, and routine tasks. Best cost-to-quality ratio.</li>
+      <li><strong>Claude Haiku 3.5 ($0.80/MTok in, $4/MTok out):</strong> Use for simple transformations, formatting, validation, and high-volume batch processing. 5x cheaper than Sonnet.</li>
+    </ul>
+
+    <h4>Cost Reduction Strategies</h4>
+    <ul>
+      <li>Cache frequently used system prompts (up to 90% discount on cached tokens)</li>
+      <li>Batch similar tasks together to amortize context loading</li>
+      <li>Use smaller models for validation and formatting passes</li>
+      <li>Implement prompt compression to reduce input token count</li>
+      <li>Set max_tokens limits to prevent runaway responses</li>
+    </ul>
+
+    <h4>Monthly Budget Targets</h4>
+    <ul>
+      <li><strong>Hobby ($50/mo):</strong> 1-2 agents, 10 hours/week of active use</li>
+      <li><strong>Professional ($200/mo):</strong> 3-5 agents, daily use, medium volume</li>
+      <li><strong>Scale ($500/mo):</strong> 5-10 agents, continuous operation, high volume</li>
+      <li><strong>Enterprise ($1,000+/mo):</strong> 10+ agents, 24/7 automation, maximum throughput</li>
+    </ul>
+  </div>
+
+  <h3>Real-World Multi-Agent Workflow: Building 10 Tools in a Day</h3>
+  <p>Here is a step-by-step walkthrough of using multi-agent orchestration to build and deploy 10 new developer tools in a single day:</p>
+
+  <div class="callout green">
+    <div class="callout-title">Case Study: 10 Tools in 8 Hours</div>
+    <p><strong>8:00 AM:</strong> Define tool specifications for all 10 tools in a single brief document. Include tool name, primary keyword, core functionality, and target user. Time: 30 minutes.</p>
+    <p><strong>8:30 AM:</strong> Launch 5 parallel Claude Code agents. Each agent builds 2 tools simultaneously. Provide each agent with the spec document and the HTML template. Time spent directing: 15 minutes.</p>
+    <p><strong>8:45 AM - 11:00 AM:</strong> Agents work autonomously. You review output as each tool completes. Flag issues for revision. Most tools are production-ready on first pass. Total review time: 45 minutes across all 10.</p>
+    <p><strong>11:00 AM:</strong> Launch a QA agent to validate all 10 tools. Check HTML validity, responsive design, accessibility, and functionality. Time: 20 minutes automated.</p>
+    <p><strong>11:30 AM:</strong> Launch a deployment agent to push all 10 tools to GitHub Pages. Update sitemap, cross-links, and the tools directory. Time: 10 minutes automated.</p>
+    <p><strong>12:00 PM:</strong> Launch a content agent to write SEO descriptions, social media posts, and Product Hunt copy for all 10 tools. Time: 15 minutes automated.</p>
+    <p><strong>Result:</strong> 10 fully functional, deployed, SEO-optimized tools. Total human time invested: approximately 2 hours. Total wall-clock time: 4 hours. Without AI agents, this would take 2-3 weeks of solo development.</p>
+  </div>
+
+  <h3>The Future: Fully Autonomous Agent Pipelines</h3>
+  <p>The trajectory is clear. By late 2026, expect AI agent pipelines that require near-zero human intervention for routine tasks:</p>
+
+  <ul>
+    <li><strong>Self-healing deployments:</strong> Agents detect production errors, diagnose root causes, write fixes, test them, and deploy automatically. You get a notification that the issue was found and fixed.</li>
+    <li><strong>Autonomous content generation:</strong> Agents monitor trending keywords, identify content gaps, write and publish new pages, and track their ranking performance over time.</li>
+    <li><strong>Revenue optimization agents:</strong> Agents A/B test pricing, CTA copy, and page layouts. They implement winning variants automatically and move on to the next experiment.</li>
+    <li><strong>Customer support agents:</strong> Agents handle 90% of support queries using your knowledge base. They escalate only the genuinely complex issues to you.</li>
+  </ul>
+
+  <p>The solo founder of 2026 is not a person who does everything. They are a person who <em>directs AI agents that do everything</em>. Your competitive advantage is not coding speed or writing ability. It is your ability to orchestrate, direct, and quality-check an army of AI agents working in parallel.</p>
+</section>
+
 </div><!-- end .locked-content -->
 </main>
 

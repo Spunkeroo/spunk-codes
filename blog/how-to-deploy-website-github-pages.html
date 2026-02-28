@@ -1,0 +1,468 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How to Deploy a Website on GitHub Pages for Free (Step-by-Step Guide) | SpunkArt</title>
+<meta name="description" content="Complete guide to deploying a website on GitHub Pages for free. Step-by-step instructions for static sites, custom domains, HTTPS, CI/CD, and troubleshooting. No hosting fees, no server management.">
+<meta name="keywords" content="deploy website GitHub Pages, free website hosting, GitHub Pages tutorial 2026, custom domain GitHub Pages, static site hosting free, GitHub Pages HTTPS, deploy HTML CSS GitHub, free web hosting no ads">
+<meta name="author" content="SpunkArt">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://spunk.codes/blog/how-to-deploy-website-github-pages">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="How to Deploy a Website on GitHub Pages for Free">
+<meta property="og:description" content="Step-by-step guide to deploying a website on GitHub Pages. Free hosting, custom domains, HTTPS, and CI/CD — no server management required.">
+<meta property="og:url" content="https://spunk.codes/blog/how-to-deploy-website-github-pages">
+<meta property="og:site_name" content="SpunkArt">
+<meta property="article:published_time" content="2026-02-27T00:00:00Z">
+<meta property="article:author" content="SpunkArt">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<meta name="twitter:creator" content="@SpunkArt13">
+<meta name="twitter:title" content="How to Deploy a Website on GitHub Pages for Free">
+<meta name="twitter:description" content="Free website hosting with GitHub Pages. Custom domains, HTTPS, CI/CD — the complete deployment guide for 2026.">
+
+<!-- Schema.org BlogPosting -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "How to Deploy a Website on GitHub Pages for Free",
+  "description": "Complete guide to deploying a website on GitHub Pages for free. Step-by-step instructions for static sites, custom domains, HTTPS, CI/CD, and troubleshooting.",
+  "datePublished": "2026-02-27",
+  "dateModified": "2026-02-27",
+  "author": {"@type": "Organization", "name": "SpunkArt", "url": "https://spunk.codes"},
+  "publisher": {"@type": "Organization", "name": "SpunkArt", "url": "https://spunk.codes"},
+  "mainEntityOfPage": {"@type": "WebPage", "@id": "https://spunk.codes/blog/how-to-deploy-website-github-pages"},
+  "keywords": ["GitHub Pages", "free website hosting", "deploy website", "static site hosting", "custom domain", "CI/CD"],
+  "wordCount": 2800
+}
+</script>
+
+<!-- Schema.org FAQPage -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "Is GitHub Pages really free?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, GitHub Pages is completely free for public repositories. You get free hosting, free HTTPS via Let's Encrypt, free custom domain support, and a global CDN. There are soft limits of 1 GB repository size, 100 GB monthly bandwidth, and 10 builds per hour, but these are more than enough for most websites. Private repositories on free GitHub accounts can also use GitHub Pages."}},
+    {"@type": "Question", "name": "Can I use a custom domain with GitHub Pages?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. GitHub Pages supports custom domains including apex domains (example.com) and subdomains (www.example.com). You configure DNS records at your domain registrar pointing to GitHub's servers, then add the custom domain in your repository settings. GitHub automatically provisions a free HTTPS certificate via Let's Encrypt for your custom domain."}},
+    {"@type": "Question", "name": "What types of websites can I host on GitHub Pages?", "acceptedAnswer": {"@type": "Answer", "text": "GitHub Pages hosts static websites only. This includes HTML, CSS, JavaScript, images, and any client-side code. You can use static site generators like Jekyll, Hugo, Astro, Next.js (static export), and Gatsby. You cannot run server-side code (PHP, Python, Node.js backends, databases). For dynamic features, use client-side JavaScript with external APIs."}},
+    {"@type": "Question", "name": "How do I fix a 404 error on GitHub Pages?", "acceptedAnswer": {"@type": "Answer", "text": "The most common causes of 404 errors are: wrong branch selected in repository settings (should be main or gh-pages), missing index.html in the root or docs folder, incorrect repository name for user sites (must be username.github.io), or the site has not finished building yet (wait 2-5 minutes). Check the Actions tab for build errors and ensure your source branch and folder are correctly configured."}},
+    {"@type": "Question", "name": "Can I use GitHub Pages for a blog or portfolio?", "acceptedAnswer": {"@type": "Answer", "text": "Absolutely. GitHub Pages is one of the best platforms for blogs and portfolios. Jekyll is built in and requires zero configuration. For modern frameworks, use GitHub Actions to build and deploy automatically on every push. Thousands of developer portfolios, project documentation sites, and blogs run on GitHub Pages with zero hosting costs."}}
+  ]
+}
+</script>
+
+<!-- GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<!-- Clarity -->
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<!-- Heartbeat -->
+<script src="https://spunk.codes/heartbeat.js" defer></script>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e8e8f0;font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;line-height:1.7}
+a{color:#58a6ff;text-decoration:none}
+a:hover{text-decoration:underline}
+.container{max-width:800px;margin:0 auto;padding:40px 20px}
+h1{font-size:2.2rem;line-height:1.2;margin-bottom:10px;background:linear-gradient(135deg,#ff5f1f,#ff9f1f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+h2{font-size:1.6rem;color:#fff;margin-top:40px;margin-bottom:15px;padding-bottom:8px;border-bottom:1px solid #1a1a2e}
+h3{font-size:1.2rem;color:#ff5f1f;margin-top:25px;margin-bottom:8px}
+p{margin-bottom:16px;color:#ccc}
+ul,ol{margin:0 0 16px 24px;color:#ccc}li{margin-bottom:8px}
+code{background:#1a1a2e;padding:2px 8px;border-radius:4px;color:#ff9f1f;font-size:0.9em}
+pre{background:#111118;border:1px solid #2a2a3a;border-radius:8px;padding:16px;overflow-x:auto;margin:16px 0;color:#e8e8f0;font-size:0.9em;line-height:1.5}
+.breadcrumb{color:#666;font-size:.85rem;margin-bottom:20px}
+.breadcrumb a{color:#58a6ff}
+.date{color:#666;font-size:.85rem;margin-bottom:25px}
+.toc{background:#111118;border:1px solid #2a2a3a;border-radius:10px;padding:20px 24px;margin:25px 0}
+.toc h3{color:#fff;margin:0 0 12px;font-size:1rem}
+.toc ol{padding-left:20px}
+.toc li{margin-bottom:6px}
+.toc a{color:#ccc;font-size:.9rem}
+.toc a:hover{color:#58a6ff}
+.step-box{background:#111118;border-left:4px solid #ff5f1f;border-radius:0 8px 8px 0;padding:16px 20px;margin:16px 0}
+.step-box strong{color:#ff5f1f}
+.cta-box{background:linear-gradient(135deg,#1a1a2e,#16213e);border:2px solid #ff5f1f;border-radius:16px;padding:32px;text-align:center;margin:32px 0}
+.cta-box h3{color:#ff5f1f;margin-bottom:12px}
+.cta-box a.btn{display:inline-block;background:#ff5f1f;color:#fff;padding:12px 24px;border-radius:8px;font-weight:600;margin-top:12px;text-decoration:none}
+.faq{background:#111118;border:1px solid #2a2a3a;border-radius:12px;padding:24px;margin:32px 0}
+.faq h2{margin-top:0;border:none;padding:0}
+.faq details{border-bottom:1px solid #2a2a3a;padding:12px 0}
+.faq details:last-child{border-bottom:none}
+.faq summary{cursor:pointer;font-weight:600;color:#fff;padding:4px 0}
+.faq details p{margin-top:10px;color:#bbb}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.95rem}
+th{background:#111118;color:#ff9f1f;padding:12px;text-align:left;border:1px solid #2a2a3a}
+td{padding:12px;border:1px solid #2a2a3a;color:#ccc}
+.share-btn{display:inline-block;background:#1d9bf0;color:#fff;font-weight:600;padding:10px 24px;border-radius:8px;text-decoration:none;margin:20px 0}
+.share-btn:hover{background:#1a8cd8;color:#fff}
+.network-footer{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin:10px 0}
+.network-footer a{color:#58a6ff;font-size:.9rem}
+footer{text-align:center;padding:30px 20px;color:#555;font-size:.8rem;border-top:1px solid #1a1a2e;margin-top:40px}
+footer a{color:#ff5f1f;text-decoration:none}
+@media(max-width:600px){h1{font-size:1.6rem}h2{font-size:1.3rem}.container{padding:20px 16px}pre{font-size:.8em}}
+</style>
+</head>
+<body>
+<div class="container">
+
+<nav class="breadcrumb"><a href="https://spunk.codes">spunk.codes</a> &rarr; <a href="https://spunk.codes/blog/">Blog</a> &rarr; Deploy on GitHub Pages</nav>
+
+<h1>How to Deploy a Website on GitHub Pages for Free</h1>
+<p class="date">Published February 27, 2026 &middot; by SpunkArt &middot; 14 min read</p>
+
+<p>GitHub Pages is the best free hosting platform for static websites. Zero cost, zero ads, free HTTPS, custom domain support, and a global CDN backed by Microsoft's infrastructure. Every site in the Spunk Network runs on GitHub Pages, and this guide shows you exactly how to do the same.</p>
+
+<p>Whether you are deploying a portfolio, blog, documentation site, landing page, or full web application with a static frontend, this step-by-step guide covers everything from creating your first repository to configuring custom domains and setting up automated deployments.</p>
+
+<div class="toc">
+<h3>Table of Contents</h3>
+<ol>
+<li><a href="#what-is-github-pages">What Is GitHub Pages?</a></li>
+<li><a href="#requirements">What You Need Before Starting</a></li>
+<li><a href="#create-repo">Step 1: Create a GitHub Repository</a></li>
+<li><a href="#add-files">Step 2: Add Your Website Files</a></li>
+<li><a href="#enable-pages">Step 3: Enable GitHub Pages</a></li>
+<li><a href="#custom-domain">Step 4: Configure a Custom Domain</a></li>
+<li><a href="#https">Step 5: Enable HTTPS</a></li>
+<li><a href="#github-actions">Step 6: Set Up GitHub Actions for CI/CD</a></li>
+<li><a href="#static-generators">Using Static Site Generators</a></li>
+<li><a href="#troubleshooting">Troubleshooting Common Issues</a></li>
+<li><a href="#advanced">Advanced Tips and Optimization</a></li>
+<li><a href="#faq">FAQ</a></li>
+</ol>
+</div>
+
+<h2 id="what-is-github-pages">What Is GitHub Pages?</h2>
+
+<p>GitHub Pages is a free static site hosting service provided by GitHub. It takes HTML, CSS, and JavaScript files directly from a repository, optionally runs them through a build process, and publishes them as a website. Every GitHub account gets one user site at <code>username.github.io</code> and unlimited project sites at <code>username.github.io/project-name</code>.</p>
+
+<p>The service is backed by a global content delivery network (CDN), which means your site loads fast for visitors anywhere in the world. GitHub automatically provisions free SSL certificates through Let's Encrypt, so every site gets HTTPS without any configuration. There are no hosting fees, no bandwidth charges (within reasonable limits), and no ads injected into your pages.</p>
+
+<h3>GitHub Pages Limits</h3>
+<table>
+<tr><th>Limit</th><th>Value</th><th>Notes</th></tr>
+<tr><td>Repository size</td><td>1 GB (soft limit)</td><td>Keep images optimized and avoid large binary files</td></tr>
+<tr><td>Monthly bandwidth</td><td>100 GB</td><td>More than enough for most sites; use a CDN for high-traffic assets</td></tr>
+<tr><td>Builds per hour</td><td>10</td><td>Rarely hit unless deploying every few minutes</td></tr>
+<tr><td>Site size</td><td>1 GB</td><td>Published site output should stay under 1 GB</td></tr>
+<tr><td>Custom domains</td><td>Unlimited</td><td>One custom domain per site, but unlimited sites per account</td></tr>
+</table>
+
+<p>For most personal projects, portfolios, blogs, documentation sites, and even small business websites, these limits are never reached. GitHub Pages has been trusted by millions of projects including major open-source documentation, developer portfolios, and production websites.</p>
+
+<h2 id="requirements">What You Need Before Starting</h2>
+
+<p>Before deploying to GitHub Pages, you need exactly three things:</p>
+
+<ul>
+<li><strong>A GitHub account</strong> -- free at <a href="https://github.com" target="_blank" rel="noopener">github.com</a>. No paid plan required.</li>
+<li><strong>Git installed on your computer</strong> -- download from <a href="https://git-scm.com" target="_blank" rel="noopener">git-scm.com</a> or install via your package manager. On macOS, Xcode Command Line Tools include Git.</li>
+<li><strong>Your website files</strong> -- at minimum, an <code>index.html</code> file. This can be a simple HTML page, a built React/Vue/Svelte app, or output from any static site generator.</li>
+</ul>
+
+<div class="step-box">
+<strong>Quick check:</strong> Open your terminal and run <code>git --version</code>. If you see a version number (like <code>git version 2.44.0</code>), you are ready. If not, install Git first.
+</div>
+
+<h2 id="create-repo">Step 1: Create a GitHub Repository</h2>
+
+<p>You have two options for repository naming, and the choice affects your site's URL:</p>
+
+<h3>Option A: User/Organization Site</h3>
+<p>Create a repository named exactly <code>username.github.io</code> (replacing "username" with your actual GitHub username). This becomes your primary site at <code>https://username.github.io</code>. You get one of these per account.</p>
+
+<h3>Option B: Project Site</h3>
+<p>Create a repository with any name (like <code>my-portfolio</code> or <code>my-blog</code>). This deploys to <code>https://username.github.io/repository-name</code>. You can create unlimited project sites.</p>
+
+<p>For most cases, Option B with a custom domain is the way to go. Here is how to create the repository:</p>
+
+<ol>
+<li>Go to <a href="https://github.com/new" target="_blank" rel="noopener">github.com/new</a></li>
+<li>Enter your repository name</li>
+<li>Set visibility to <strong>Public</strong> (required for free accounts; GitHub Pro supports private repo Pages)</li>
+<li>Check "Add a README file" if starting from scratch</li>
+<li>Click <strong>Create repository</strong></li>
+</ol>
+
+<p>Then clone the repository to your local machine:</p>
+<pre>git clone https://github.com/yourusername/your-repo-name.git
+cd your-repo-name</pre>
+
+<h2 id="add-files">Step 2: Add Your Website Files</h2>
+
+<p>At minimum, GitHub Pages needs an <code>index.html</code> file in the root of your repository (or in a <code>/docs</code> folder, depending on your configuration). Here is a minimal example:</p>
+
+<pre>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+  &lt;title&gt;My Website&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Hello, world!&lt;/h1&gt;
+  &lt;p&gt;This site is hosted on GitHub Pages for free.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+
+<p>For a real website, you will want to add your CSS files, JavaScript files, images, and any other assets. Organize them however you prefer -- GitHub Pages serves the entire repository structure as-is.</p>
+
+<p>Commit and push your files:</p>
+<pre>git add .
+git commit -m "Initial site deployment"
+git push origin main</pre>
+
+<h2 id="enable-pages">Step 3: Enable GitHub Pages</h2>
+
+<p>This is where the hosting actually turns on. Navigate to your repository on GitHub, then:</p>
+
+<ol>
+<li>Go to <strong>Settings</strong> (gear icon in the top menu bar)</li>
+<li>Click <strong>Pages</strong> in the left sidebar (under "Code and automation")</li>
+<li>Under <strong>Source</strong>, select <strong>Deploy from a branch</strong></li>
+<li>Choose your branch (usually <strong>main</strong>) and folder (<strong>/ (root)</strong> or <strong>/docs</strong>)</li>
+<li>Click <strong>Save</strong></li>
+</ol>
+
+<div class="step-box">
+<strong>Wait 2-5 minutes.</strong> GitHub needs to build and deploy your site. You can monitor progress in the <strong>Actions</strong> tab. Once the build completes, your site is live at <code>https://username.github.io/repository-name</code>.
+</div>
+
+<p>If you chose <strong>GitHub Actions</strong> as the source instead of a branch, GitHub will look for a workflow file in <code>.github/workflows/</code> to build and deploy your site. This is the preferred method for sites using build tools like Jekyll, Hugo, Astro, or any JavaScript framework.</p>
+
+<h2 id="custom-domain">Step 4: Configure a Custom Domain</h2>
+
+<p>A custom domain transforms <code>username.github.io/project</code> into <code>yourdomain.com</code>. Here is how to set it up:</p>
+
+<h3>At Your Domain Registrar (Namecheap, Cloudflare, Google Domains, etc.)</h3>
+
+<p>For an <strong>apex domain</strong> (example.com), add these A records pointing to GitHub's IP addresses:</p>
+<pre>185.199.108.153
+185.199.109.153
+185.199.110.153
+185.199.111.153</pre>
+
+<p>For a <strong>subdomain</strong> (www.example.com), add a CNAME record:</p>
+<pre>CNAME  www  username.github.io</pre>
+
+<p>For best results, configure both the apex domain and www subdomain so visitors reach your site regardless of which they type.</p>
+
+<h3>In Your GitHub Repository</h3>
+
+<ol>
+<li>Go to <strong>Settings &rarr; Pages</strong></li>
+<li>Under <strong>Custom domain</strong>, enter your domain (e.g., <code>example.com</code>)</li>
+<li>Click <strong>Save</strong></li>
+<li>This creates a <code>CNAME</code> file in your repository root</li>
+</ol>
+
+<div class="step-box">
+<strong>DNS propagation takes time.</strong> After updating DNS records, allow 15 minutes to 48 hours for changes to propagate globally. You can check propagation status at <a href="https://dnschecker.org" target="_blank" rel="noopener">dnschecker.org</a>.
+</div>
+
+<h3>Recommended: Add CNAME File Manually</h3>
+<p>Create a file called <code>CNAME</code> (no extension) in your repository root containing just your domain name:</p>
+<pre>example.com</pre>
+<p>Commit this file so it persists across builds and is not accidentally deleted.</p>
+
+<h2 id="https">Step 5: Enable HTTPS</h2>
+
+<p>After your custom domain's DNS has propagated and GitHub has verified it, HTTPS becomes available:</p>
+
+<ol>
+<li>Go to <strong>Settings &rarr; Pages</strong></li>
+<li>Check <strong>Enforce HTTPS</strong></li>
+</ol>
+
+<p>GitHub provisions a free SSL certificate from Let's Encrypt. This typically takes a few minutes after DNS verification. Once enabled, all HTTP traffic is automatically redirected to HTTPS. There is no certificate to manage, no renewal to remember, and no cost.</p>
+
+<p>If the "Enforce HTTPS" checkbox is grayed out, your DNS has not propagated yet or the certificate is still being provisioned. Wait 15-30 minutes and try again.</p>
+
+<h2 id="github-actions">Step 6: Set Up GitHub Actions for CI/CD</h2>
+
+<p>For sites that require a build step (JavaScript frameworks, static site generators, preprocessors), GitHub Actions automates the entire build-and-deploy process. Every time you push code, your site rebuilds automatically.</p>
+
+<p>Here is a universal GitHub Actions workflow for deploying to GitHub Pages:</p>
+
+<pre>name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm ci
+      - run: npm run build
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/deploy-pages@v4
+        id: deployment</pre>
+
+<p>Save this as <code>.github/workflows/deploy.yml</code> in your repository. Adjust the <code>path: ./dist</code> line to match your build output directory (<code>build</code> for Create React App, <code>out</code> for Next.js static export, <code>public</code> for Hugo, etc.).</p>
+
+<h2 id="static-generators">Using Static Site Generators</h2>
+
+<p>Static site generators transform templates and content into fast, pre-built HTML. Here are the most popular options and how they work with GitHub Pages:</p>
+
+<h3>Jekyll (Built-in Support)</h3>
+<p>Jekyll is the only static site generator with native GitHub Pages support. Push your Jekyll source files and GitHub builds the site automatically -- no Actions workflow needed. Add a <code>_config.yml</code> file to configure your site, create posts in <code>_posts/</code> using Markdown, and GitHub handles the rest.</p>
+
+<h3>Hugo</h3>
+<p>Hugo is the fastest static site generator, building thousands of pages in milliseconds. Use a GitHub Actions workflow with <code>peaceiris/actions-hugo</code> to build and deploy. Hugo is ideal for large blogs and documentation sites.</p>
+
+<h3>Astro</h3>
+<p>Astro is the modern choice for content-focused websites. It ships zero JavaScript by default and supports React, Vue, Svelte, and Solid components. Use <code>withastro/action</code> in your GitHub Actions workflow for seamless deployment.</p>
+
+<h3>Next.js (Static Export)</h3>
+<p>Next.js can export a fully static site with <code>output: 'export'</code> in <code>next.config.js</code>. This removes all server-side features but produces a fast static site perfect for GitHub Pages. The standard Node.js GitHub Actions workflow handles the build.</p>
+
+<h3>Plain HTML/CSS/JS</h3>
+<p>No generator needed. Just push your HTML files directly. This is the simplest approach and works perfectly for portfolios, landing pages, and web apps built with vanilla JavaScript or bundled with Vite, Parcel, or webpack.</p>
+
+<h2 id="troubleshooting">Troubleshooting Common Issues</h2>
+
+<h3>404 Error After Deployment</h3>
+<ul>
+<li>Check that <code>index.html</code> exists in the root of your selected branch/folder</li>
+<li>Verify the correct branch is selected in Settings &rarr; Pages</li>
+<li>For user sites, the repository must be named exactly <code>username.github.io</code></li>
+<li>Wait 2-5 minutes after pushing -- builds are not instant</li>
+<li>Check the Actions tab for build failures</li>
+</ul>
+
+<h3>CSS/JS Not Loading</h3>
+<ul>
+<li>Use relative paths (<code>./styles.css</code>) instead of absolute paths (<code>/styles.css</code>) for project sites</li>
+<li>For project sites, asset paths must include the repository name: <code>/repo-name/styles.css</code></li>
+<li>A <code>&lt;base&gt;</code> tag can fix path issues: <code>&lt;base href="/repo-name/"&gt;</code></li>
+</ul>
+
+<h3>Custom Domain Not Working</h3>
+<ul>
+<li>Verify DNS records with <code>dig example.com +short</code> -- should show GitHub's IP addresses</li>
+<li>Check the CNAME file exists in your repository root</li>
+<li>Wait up to 48 hours for DNS propagation</li>
+<li>If using Cloudflare, set the DNS proxy to "DNS only" (gray cloud) initially</li>
+</ul>
+
+<h3>Build Failures</h3>
+<ul>
+<li>Check the Actions tab for error messages</li>
+<li>Jekyll: ensure your <code>Gemfile</code> uses <code>github-pages</code> gem for compatibility</li>
+<li>Node.js projects: ensure <code>npm run build</code> works locally before pushing</li>
+<li>Check file permissions and that no files exceed 100 MB</li>
+</ul>
+
+<h2 id="advanced">Advanced Tips and Optimization</h2>
+
+<h3>Performance Optimization</h3>
+<ul>
+<li>Compress images with tools like <a href="https://squoosh.app" target="_blank" rel="noopener">Squoosh</a> or <a href="https://tinypng.com" target="_blank" rel="noopener">TinyPNG</a> before committing</li>
+<li>Use modern image formats (WebP, AVIF) with fallbacks</li>
+<li>Minify HTML, CSS, and JavaScript in your build process</li>
+<li>Defer non-critical scripts with <code>defer</code> or <code>async</code> attributes</li>
+<li>Inline critical CSS for faster first paint</li>
+</ul>
+
+<h3>SEO for GitHub Pages Sites</h3>
+<ul>
+<li>Add a <code>sitemap.xml</code> to help search engines discover all pages</li>
+<li>Create a <code>robots.txt</code> allowing full crawling</li>
+<li>Use descriptive <code>&lt;title&gt;</code> tags and <code>&lt;meta name="description"&gt;</code> on every page</li>
+<li>Add structured data (Schema.org JSON-LD) for rich search results</li>
+<li>Submit your sitemap to Google Search Console and Bing Webmaster Tools</li>
+</ul>
+
+<h3>Multiple Sites Strategy</h3>
+<p>You can run an entire network of websites from a single GitHub account for free. Each repository gets its own GitHub Pages site, and each can have its own custom domain. This is exactly how the Spunk Network operates -- <a href="https://spunk.codes">spunk.codes</a>, <a href="https://spunk.bet">spunk.bet</a>, <a href="https://spunk.work">spunk.work</a>, <a href="https://spunk.pics">spunk.pics</a>, and <a href="https://spunkart.com">spunkart.com</a> all run on GitHub Pages with custom domains.</p>
+
+<h3>Custom 404 Page</h3>
+<p>Create a <code>404.html</code> file in your repository root. GitHub Pages serves this automatically for any URL that does not match an existing file. Use this to redirect users back to your homepage or show a helpful error page.</p>
+
+<h3>Environment Variables and Secrets</h3>
+<p>Never commit API keys, passwords, or secrets to your repository. For GitHub Actions workflows that need secrets (API tokens, deploy keys), use <strong>Settings &rarr; Secrets and variables &rarr; Actions</strong> to store them securely. Reference them in workflows with <code>${{ secrets.SECRET_NAME }}</code>.</p>
+
+<div class="cta-box">
+<h3>Build Free Tools Like a Pro</h3>
+<p style="color:#ccc">spunk.codes has 250+ free tools -- all built with HTML, CSS, JavaScript, and deployed on GitHub Pages.</p>
+<a class="btn" href="https://spunk.codes">Explore spunk.codes &rarr;</a>
+</div>
+
+<div class="faq">
+<h2 id="faq">FAQ</h2>
+<details>
+<summary>Is GitHub Pages really free?</summary>
+<p>Yes, GitHub Pages is completely free for public repositories. You get free hosting, free HTTPS via Let's Encrypt, free custom domain support, and a global CDN. There are soft limits of 1 GB repository size, 100 GB monthly bandwidth, and 10 builds per hour, but these are more than enough for most websites. Private repositories on free GitHub accounts can also use GitHub Pages.</p>
+</details>
+<details>
+<summary>Can I use a custom domain with GitHub Pages?</summary>
+<p>Yes. GitHub Pages supports custom domains including apex domains (example.com) and subdomains (www.example.com). You configure DNS records at your domain registrar pointing to GitHub's servers, then add the custom domain in your repository settings. GitHub automatically provisions a free HTTPS certificate via Let's Encrypt for your custom domain.</p>
+</details>
+<details>
+<summary>What types of websites can I host on GitHub Pages?</summary>
+<p>GitHub Pages hosts static websites only. This includes HTML, CSS, JavaScript, images, and any client-side code. You can use static site generators like Jekyll, Hugo, Astro, Next.js (static export), and Gatsby. You cannot run server-side code (PHP, Python, Node.js backends, databases). For dynamic features, use client-side JavaScript with external APIs.</p>
+</details>
+<details>
+<summary>How do I fix a 404 error on GitHub Pages?</summary>
+<p>The most common causes of 404 errors are: wrong branch selected in repository settings (should be main or gh-pages), missing index.html in the root or docs folder, incorrect repository name for user sites (must be username.github.io), or the site has not finished building yet (wait 2-5 minutes). Check the Actions tab for build errors and ensure your source branch and folder are correctly configured.</p>
+</details>
+<details>
+<summary>Can I use GitHub Pages for a blog or portfolio?</summary>
+<p>Absolutely. GitHub Pages is one of the best platforms for blogs and portfolios. Jekyll is built in and requires zero configuration. For modern frameworks, use GitHub Actions to build and deploy automatically on every push. Thousands of developer portfolios, project documentation sites, and blogs run on GitHub Pages with zero hosting costs.</p>
+</details>
+</div>
+
+<a class="share-btn" href="https://twitter.com/intent/tweet?text=How%20to%20deploy%20a%20website%20on%20GitHub%20Pages%20for%20free%20%E2%80%93%20complete%20step-by-step%20guide%3A&url=https%3A%2F%2Fspunk.codes%2Fblog%2Fhow-to-deploy-website-github-pages&via=SpunkArt13" target="_blank" rel="noopener">Share on X</a>
+
+<div style="text-align:center;margin:30px 0">
+<p style="color:#888;font-size:.85rem;margin-bottom:10px">Part of the SpunkArt Network</p>
+<div class="network-footer">
+<a href="https://spunk.codes">spunk.codes</a>
+<a href="https://spunk.bet">spunk.bet</a>
+<a href="https://spunk.work">spunk.work</a>
+<a href="https://spunk.pics">spunk.pics</a>
+<a href="https://spunkart.com">SpunkArt.com</a>
+</div>
+</div>
+
+</div>
+
+<footer>
+  <div style="margin-bottom:10px"><a href="/">SpunkArt</a> &middot; <a href="/blog" style="color:#888">Blog</a> &middot; <a href="https://spunk.bet" style="color:#888">Spunk.Bet</a> &middot; <a href="https://spunk.work" style="color:#888">Spunk.Work</a> &middot; <a href="https://spunk.pics" style="color:#888">Spunk.Pics</a> &middot; <a href="https://spunkart.com" style="color:#888">SpunkArt.com</a></div>
+  <p>&copy; 2026 <a href="https://spunk.codes">SpunkArt</a>. All rights reserved.</p>
+  <p style="margin-top:8px"><a href="https://x.com/SpunkArt13" target="_blank" style="color:#888">Follow @SpunkArt13</a></p>
+</footer>
+
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>

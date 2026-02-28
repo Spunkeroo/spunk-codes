@@ -307,6 +307,251 @@ footer .social a{color:var(--muted);margin:0 8px;font-size:0.9rem}
   <a href="https://spunk.codes/store" class="btn btn-alt">Explore 80+ Free Tools &rarr;</a>
 </div>
 
+<!-- ==================== CHAPTER 13 ==================== -->
+<section class="preview" id="ch13">
+  <div class="chapter-num">Chapter 13</div>
+  <h2>Claude 4.5/4.6 Prompt Strategies</h2>
+
+  <p>Anthropic's Claude model family has evolved dramatically. In 2026, the lineup includes Claude Opus 4.6 (the most capable reasoning model), Claude Sonnet 4 (the balanced workhorse), and Claude Haiku 3.5 (the fastest and cheapest option). Each model responds differently to prompts, and understanding these differences is the key to getting optimal results while managing costs.</p>
+
+  <h3>Opus vs Sonnet vs Haiku: When to Use Each</h3>
+
+  <p>The single biggest mistake prompt engineers make is using the same prompts for every model. Each model tier has different strengths, and your prompts should be tailored accordingly:</p>
+
+  <ul>
+    <li><strong>Claude Opus 4.6 (Most Capable)</strong> — Use for complex reasoning, multi-step analysis, nuanced writing, architectural decisions, and any task where quality matters more than speed. Opus excels at understanding ambiguous instructions, handling contradictory requirements, and producing deeply thoughtful output. It costs $15 per million input tokens and $75 per million output tokens.</li>
+    <li><strong>Claude Sonnet 4 (Best Value)</strong> — Use for 80% of daily tasks: code generation, content writing, data analysis, and routine automation. Sonnet is remarkably capable for its price point ($3/$15 per MTok). It handles most tasks nearly as well as Opus but at 5x lower cost. Default to Sonnet unless the task specifically demands Opus-level reasoning.</li>
+    <li><strong>Claude Haiku 3.5 (Fastest)</strong> — Use for high-volume, simple tasks: classification, formatting, extraction, validation, and real-time interactions where latency matters. Haiku processes requests in under a second and costs just $0.80/$4 per MTok. Perfect for batch processing thousands of items.</li>
+  </ul>
+
+  <div class="prompt-example">
+Model Selection Decision Tree:
+
+Does the task require multi-step reasoning or nuanced judgment?
+├── YES → Use Opus 4.6
+│   Examples: Architecture design, legal analysis, research synthesis,
+│   complex debugging, creative writing requiring subtlety
+└── NO → Does the task require high-quality generation?
+    ├── YES → Use Sonnet 4
+    │   Examples: Code generation, blog posts, email drafts,
+    │   data analysis, standard refactoring, translations
+    └── NO → Use Haiku 3.5
+        Examples: Text classification, JSON formatting,
+        entity extraction, simple Q&A, content filtering</div>
+
+  <h3>Extended Thinking: Unlocking Deep Reasoning</h3>
+
+  <p>Extended thinking is Claude's ability to reason internally before generating a response. When enabled, Claude creates a detailed chain-of-thought in a special thinking block, then produces a more accurate and well-reasoned answer. This feature is available on Opus and Sonnet models via the API.</p>
+
+  <ul>
+    <li><strong>When to enable:</strong> Complex math, multi-step logic puzzles, architectural decisions, code debugging that requires tracing execution flow, and any task where the AI needs to "think before speaking."</li>
+    <li><strong>When to skip:</strong> Simple transformations, formatting tasks, straightforward content generation, and any task where speed matters more than depth.</li>
+    <li><strong>Cost implication:</strong> Extended thinking increases output token usage (the thinking tokens count toward your bill), so use it selectively.</li>
+  </ul>
+
+  <div class="prompt-example">
+# API call with extended thinking enabled
+
+import anthropic
+
+client = anthropic.Anthropic()
+
+response = client.messages.create(
+    model="claude-opus-4-6-20260227",
+    max_tokens=16000,
+    thinking={
+        "type": "enabled",
+        "budget_tokens": 10000  # Max tokens for thinking
+    },
+    messages=[{
+        "role": "user",
+        "content": """Analyze this codebase architecture and identify
+        the top 3 performance bottlenecks. For each bottleneck,
+        provide: root cause, impact severity (1-10), and a
+        specific fix with code example.
+
+        [paste codebase here]"""
+    }]
+)
+
+# The response includes both thinking and text blocks
+for block in response.content:
+    if block.type == "thinking":
+        print("REASONING:", block.thinking)
+    elif block.type == "text":
+        print("ANSWER:", block.text)</div>
+
+  <h3>Tool Use Prompts: Making Claude Take Action</h3>
+
+  <p>Claude's tool use (function calling) capability lets you define tools that Claude can invoke during a conversation. This is how you build AI agents that interact with external systems, databases, APIs, and file systems:</p>
+
+  <div class="prompt-example">
+# Defining tools for Claude
+
+tools = [
+    {
+        "name": "search_codebase",
+        "description": "Search the codebase for files matching a pattern or containing specific content",
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "query": {
+                    "type": "string",
+                    "description": "Search query — can be a filename pattern or content to search for"
+                },
+                "file_type": {
+                    "type": "string",
+                    "description": "Filter by file type (e.g., 'html', 'js', 'py')"
+                }
+            },
+            "required": ["query"]
+        }
+    },
+    {
+        "name": "deploy_site",
+        "description": "Deploy a site to GitHub Pages by pushing to the main branch",
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "repo": {
+                    "type": "string",
+                    "description": "GitHub repository name (org/repo format)"
+                },
+                "commit_message": {
+                    "type": "string",
+                    "description": "Git commit message"
+                }
+            },
+            "required": ["repo", "commit_message"]
+        }
+    }
+]
+
+# Claude will decide when to use these tools based on your request
+# Example prompt: "Find all HTML files with broken links and fix them,
+# then deploy the updated site."
+# Claude will: 1) call search_codebase 2) analyze results
+# 3) generate fixes 4) call deploy_site</div>
+
+  <h3>System Prompt Optimization for Claude</h3>
+
+  <p>The system prompt is the most powerful lever you have for controlling Claude's behavior. A well-crafted system prompt eliminates the need for repetitive instructions in every user message. Here are the proven patterns:</p>
+
+  <ul>
+    <li><strong>Role + constraints + format:</strong> Always start the system prompt with who Claude should be, what it should not do, and how it should format responses.</li>
+    <li><strong>Explicit negative instructions:</strong> Claude responds well to "do not" instructions. "Do not use emojis. Do not add explanations unless asked. Do not apologize for limitations." These are more effective than positive instructions alone.</li>
+    <li><strong>Output format specification:</strong> Define the exact format you expect. If you want JSON, show the schema. If you want markdown, show the heading structure. Claude follows format specifications precisely.</li>
+    <li><strong>Context window management:</strong> Front-load the most important context. Claude pays most attention to the beginning and end of the context window. Put your critical instructions first.</li>
+  </ul>
+
+  <div class="prompt-example">
+# Optimized System Prompt for Code Generation
+
+system_prompt = """You are a senior full-stack developer.
+
+RULES:
+- Write production-ready code. No placeholders, no TODOs, no "implement this later" comments.
+- Use vanilla JavaScript unless the user specifically requests a framework.
+- All CSS must be responsive (mobile-first).
+- All HTML must be semantic and accessible (WCAG 2.1 AA).
+- Include error handling for all user inputs and API calls.
+- Add JSDoc comments for all functions.
+
+OUTPUT FORMAT:
+- Return code in fenced code blocks with the language specified.
+- If the code spans multiple files, use separate code blocks with the filename as a comment on line 1.
+- After the code, provide a "NOTES" section with:
+  - Any assumptions you made
+  - Performance considerations
+  - Browser compatibility notes
+
+DO NOT:
+- Do not explain basic concepts unless asked.
+- Do not suggest alternatives unless asked.
+- Do not use emojis in code comments.
+- Do not add console.log statements in production code.
+- Do not include minified code."""</div>
+
+  <h3>Prompt Chaining for Complex Workflows</h3>
+
+  <p>For tasks that exceed what a single prompt can handle, chain multiple prompts together. Each prompt builds on the output of the previous one:</p>
+
+  <div class="prompt-example">
+# 4-Step Prompt Chain: Build, Test, Document, Deploy
+
+Step 1 (Sonnet): Generate the application code
+  Input: Feature specification
+  Output: Complete source code
+  → Feed output to Step 2
+
+Step 2 (Sonnet): Write comprehensive tests
+  Input: Source code from Step 1
+  Output: Test suite with 90%+ coverage
+  → Feed code + tests to Step 3
+
+Step 3 (Haiku): Generate documentation
+  Input: Source code + test results from Steps 1-2
+  Output: README, API docs, usage examples
+  → Feed everything to Step 4
+
+Step 4 (Haiku): Create deployment config
+  Input: All outputs from Steps 1-3
+  Output: Dockerfile, CI/CD config, deployment script
+
+# Cost breakdown for a typical chain:
+# Step 1: ~$0.08 (Sonnet, ~2K in / 4K out)
+# Step 2: ~$0.10 (Sonnet, ~5K in / 3K out)
+# Step 3: ~$0.02 (Haiku, ~6K in / 2K out)
+# Step 4: ~$0.01 (Haiku, ~3K in / 1K out)
+# Total: ~$0.21 for a complete build-test-document-deploy pipeline</div>
+
+  <h3>Prompt Caching: Cut Costs by 90%</h3>
+
+  <p>Anthropic's prompt caching feature lets you cache the system prompt and frequently reused context. Cached tokens are billed at a 90% discount on subsequent requests. This is transformative for agent workflows that make many API calls with the same context:</p>
+
+  <ul>
+    <li><strong>Cache your system prompt:</strong> If every request uses the same 2,000-token system prompt, caching saves you 90% on those tokens for every subsequent request.</li>
+    <li><strong>Cache project context:</strong> Include your CLAUDE.md, codebase structure, and coding standards as cached context. Every agent call that references this context costs 90% less.</li>
+    <li><strong>Cache few-shot examples:</strong> If your prompt includes examples of desired output, cache them. The examples remain in memory across requests.</li>
+    <li><strong>Cache threshold:</strong> Content must be at least 1,024 tokens (Haiku) or 2,048 tokens (Sonnet/Opus) to be eligible for caching.</li>
+  </ul>
+
+  <div class="prompt-example">
+# Prompt caching example (Python SDK)
+
+response = client.messages.create(
+    model="claude-sonnet-4-20250514",
+    max_tokens=4096,
+    system=[
+        {
+            "type": "text",
+            "text": "You are a senior developer...[2000+ tokens of context]...",
+            "cache_control": {"type": "ephemeral"}  # Enable caching
+        }
+    ],
+    messages=[{"role": "user", "content": "Build a REST API for user management"}]
+)
+
+# First request: Full price for system prompt tokens
+# Subsequent requests (within 5 min): 90% discount on cached tokens
+# 100 API calls with 2K system prompt:
+#   Without caching: 200K input tokens × $3/MTok = $0.60
+#   With caching:    200K × $0.30/MTok = $0.06 (after first call)
+#   Savings: 90%</div>
+
+  <h3>Model-Specific Prompt Adjustments</h3>
+
+  <p>Different Claude models respond to prompting techniques differently. Here is a quick reference for adjusting your prompts:</p>
+
+  <ul>
+    <li><strong>Opus 4.6:</strong> Responds well to open-ended, complex prompts. You can give it ambiguous requirements and it will ask clarifying questions or make reasonable assumptions. Thrives with extended thinking enabled. Best for "figure it out" type tasks.</li>
+    <li><strong>Sonnet 4:</strong> Responds best to structured, specific prompts. Be explicit about what you want. Provide examples when possible. It follows instructions precisely but may not infer unstated requirements as well as Opus. The sweet spot for most production use cases.</li>
+    <li><strong>Haiku 3.5:</strong> Needs the most explicit instructions. Keep prompts short and direct. One task per prompt. Provide exact output format. Skip preambles and context that is not directly relevant to the task. Speed and cost are the advantages.</li>
+  </ul>
+
+  <blockquote>"The prompt engineer of 2026 does not write one perfect prompt. They build prompt systems — chains, caches, and model routing strategies that produce consistent, high-quality output at minimal cost. The prompt is the product."</blockquote>
+</section>
+
 <!-- ==================== MORE EBOOKS ==================== -->
 <section class="more-ebooks">
   <h2>More Free Ebooks</h2>

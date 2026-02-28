@@ -1106,6 +1106,225 @@ Tool 5: Diff Checker (diff-checker.html)
   </div>
 </section>
 
+<!-- ==================== CHAPTER 11 ==================== -->
+<section class="chapter" id="ch11">
+  <div class="chapter-header">
+    <div class="chapter-num">CHAPTER 11</div>
+    <h2>Claude Code and Cursor — The Ultimate Vibe Coding Stack 2026</h2>
+  </div>
+
+  <p>In 2026, the two most powerful vibe coding tools are Claude Code and Cursor IDE. Used together, they form a stack that lets a single developer ship production applications in hours instead of weeks. This chapter covers the practical workflows, prompt patterns, and integration strategies that make this possible.</p>
+
+  <h3>Claude Code: Terminal-First AI Development</h3>
+
+  <p>Claude Code is Anthropic's official CLI that runs directly in your terminal. Unlike browser-based AI assistants, it has direct access to your filesystem, can run shell commands, and understands your entire project context. This makes it the ideal tool for:</p>
+
+  <ul>
+    <li><strong>Full project scaffolding:</strong> Describe what you want to build and Claude Code creates the entire file structure, writes every file, and runs the initial build</li>
+    <li><strong>Multi-file refactoring:</strong> Tell it to rename a component across your entire codebase and it finds every reference, updates every import, and verifies the changes compile</li>
+    <li><strong>Automated testing:</strong> Ask it to write tests for your existing code and it reads the implementation, generates comprehensive test suites, and runs them</li>
+    <li><strong>Deployment automation:</strong> It can commit, push, and trigger deployments directly from the conversation</li>
+  </ul>
+
+<pre data-lang="bash"><code># Getting started with Claude Code
+
+# Install globally
+npm install -g @anthropic-ai/claude-code
+
+# Navigate to your project
+cd ~/projects/my-app
+
+# Start Claude Code
+claude
+
+# Now you can describe what you want:
+# "Build a responsive dashboard with a sidebar nav,
+#  main content area with charts, and a settings panel.
+#  Use vanilla HTML/CSS/JS in a single file.
+#  Make it dark mode with an orange accent color."
+
+# Claude Code will:
+# 1. Create the file(s)
+# 2. Write all the HTML, CSS, and JavaScript
+# 3. Handle responsive breakpoints
+# 4. Add dark mode styles
+# 5. Create interactive chart placeholders
+# 6. All in under 2 minutes</code></pre>
+
+  <h3>The CLAUDE.md File: Your Project's AI Brain</h3>
+
+  <p>The secret to getting consistently excellent output from Claude Code is the <code>CLAUDE.md</code> file. This file sits in your project root and provides persistent context that Claude reads on every interaction:</p>
+
+<pre data-lang="markdown"><code># CLAUDE.md — Project Context for Claude Code
+
+## Project Overview
+Single-page web application for [purpose].
+Stack: Vanilla HTML/CSS/JS, no frameworks, single-file architecture.
+Hosted on GitHub Pages at [domain].
+
+## Design System
+- Background: #0a0a0a (near black)
+- Text: #e8e8e8 (off white)
+- Accent: #ff5f1f (orange)
+- Success: #10b981 (green)
+- Font: system-ui, -apple-system, sans-serif
+- Border radius: 8px for cards, 4px for inputs
+- Max width: 800px for content, 1200px for full-width layouts
+
+## Code Standards
+- All CSS inline in style tags (no external files)
+- All JS inline in script tags (no external files)
+- Mobile-first responsive design required
+- No external dependencies unless absolutely necessary
+- Progressive enhancement: core features work without JS
+- All interactive elements need hover and focus states
+- Semantic HTML: use article, section, nav, main, aside
+
+## File Structure
+- index.html — main application
+- tools-directory.json — tool catalog data
+- art/ — images and icons
+
+## Current Sprint
+- [ ] Add 5 new developer tools
+- [ ] Improve mobile navigation
+- [ ] Add email capture to all tool pages
+- [ ] Fix Core Web Vitals on landing page</code></pre>
+
+  <div class="tip">
+    <p>A well-written CLAUDE.md eliminates 80% of the back-and-forth you would otherwise have with the AI. Instead of explaining your design system, code standards, and project structure every time, Claude Code reads the context file automatically and follows your rules from the first response.</p>
+  </div>
+
+  <h3>Cursor IDE: Visual AI Pair Programming</h3>
+
+  <p>Cursor is a VS Code fork with AI deeply integrated into every editing workflow. Where Claude Code excels in the terminal, Cursor excels in the visual editor. The key features for vibe coders:</p>
+
+  <ul>
+    <li><strong>Cmd+K (Edit):</strong> Select code, press Cmd+K, describe the change, and Cursor rewrites the selection. Perfect for quick modifications like "make this responsive" or "add error handling."</li>
+    <li><strong>Cmd+L (Chat):</strong> Open the AI chat panel with your current file as context. Ask questions, get explanations, or request changes that span multiple locations in the file.</li>
+    <li><strong>Composer (Cmd+Shift+I):</strong> The most powerful feature. Describe an entire feature and Composer generates the implementation across multiple files with a diff preview you can accept or reject.</li>
+    <li><strong>Tab autocomplete:</strong> Cursor predicts entire blocks of code as you type. Accept with Tab. It understands your coding patterns and style after just a few minutes of use.</li>
+    <li><strong>@-mentions:</strong> Reference specific files, folders, or documentation in your prompts. Type @file.html to include its contents in the AI context.</li>
+  </ul>
+
+<pre data-lang="text"><code># Cursor Power Moves for Vibe Coders
+
+1. The "Build This" Pattern:
+   - Open Composer (Cmd+Shift+I)
+   - Paste a screenshot or describe the UI
+   - Cursor generates the complete HTML/CSS/JS
+   - Review diff, accept, ship
+
+2. The "Fix Everything" Pattern:
+   - Select all code in a file (Cmd+A)
+   - Press Cmd+K
+   - Type: "Fix all bugs, add error handling,
+     improve accessibility, make fully responsive"
+   - Cursor rewrites the entire file
+
+3. The "Clone This" Pattern:
+   - Open Composer
+   - Type: "Look at @template.html and create
+     a new page called pricing.html with the same
+     design system but for a pricing page with
+     3 tiers: Free, Pro, Enterprise"
+   - Cursor creates the new file matching your style
+
+4. The "Refactor Across Files" Pattern:
+   - Open Composer
+   - Type: "Rename the 'primary' color to 'accent'
+     across all HTML and CSS files in this project"
+   - Cursor shows diffs for every affected file
+   - Accept all at once</code></pre>
+
+  <h3>The Combined Workflow: Claude Code + Cursor</h3>
+
+  <p>The optimal vibe coding workflow uses both tools for their respective strengths. Here is the pattern used to build and ship a complete web application in under 4 hours:</p>
+
+  <h4>Phase 1: Scaffolding with Claude Code (30 minutes)</h4>
+  <p>Open your terminal and start Claude Code. Describe the full application you want to build. Be specific about design, features, and technical requirements. Claude Code creates the entire project structure, writes initial code for all files, and sets up the build pipeline.</p>
+
+<pre data-lang="text"><code># Terminal: Claude Code session
+
+You: Build a free online JSON formatter tool.
+     Single HTML file, dark theme (#0a0a0a bg, #ff5f1f accent).
+     Features: paste JSON, auto-format with syntax highlighting,
+     copy button, download button, error detection with line numbers.
+     Mobile responsive. Include SEO meta tags targeting
+     "json formatter online free". Add schema.org markup.
+     Add GA4 tracking with event ID G-GVNL11PEGP.
+
+Claude: [Creates complete index.html with all features]
+        [Runs validation]
+        [File is 280 lines, fully functional]
+
+You: Now add a minify toggle, a tree view mode,
+     and a diff comparison feature.
+
+Claude: [Adds all three features]
+        [Updates the file]
+        [Total: 450 lines, production-ready]</code></pre>
+
+  <h4>Phase 2: Visual Polish with Cursor (45 minutes)</h4>
+  <p>Open the project in Cursor. Use the visual editor to fine-tune UI details that are easier to evaluate visually: spacing, alignment, color contrast, animation timing, responsive breakpoints. Use Cmd+K for quick edits and Composer for larger changes.</p>
+
+  <h4>Phase 3: Testing and Edge Cases with Claude Code (30 minutes)</h4>
+  <p>Back in the terminal, use Claude Code to handle edge cases, error handling, and cross-browser testing. Claude Code can run your application in different viewport sizes, test with malformed input, and verify accessibility compliance.</p>
+
+  <h4>Phase 4: Deploy with Claude Code (15 minutes)</h4>
+  <p>Finally, use Claude Code to commit, push, and deploy. It generates semantic commit messages, updates your sitemap, and triggers the deployment pipeline.</p>
+
+  <div class="warning">
+    <p>Do not try to use one tool for everything. Claude Code is weaker at visual design decisions. Cursor is weaker at terminal-based automation and multi-step deployment scripts. Use each tool where it excels and switch between them fluidly.</p>
+  </div>
+
+  <h3>Shipping Full Apps in Hours: Real Examples</h3>
+
+  <p>Here are five real applications built using the Claude Code + Cursor stack, with actual build times:</p>
+
+  <ul>
+    <li><strong>JSON Formatter with diff, minify, tree view:</strong> 2.5 hours. Single HTML file, 480 lines. Fully responsive, syntax highlighted, keyboard shortcuts. Ranks page 2 for "json formatter" within 30 days.</li>
+    <li><strong>Password Generator with strength meter:</strong> 1.5 hours. Single HTML file, 320 lines. Cryptographically secure, customizable rules, copy-to-clipboard, visual strength indicator.</li>
+    <li><strong>Markdown Editor with live preview:</strong> 3 hours. Single HTML file, 620 lines. Split-pane editor, GitHub Flavored Markdown, export to HTML, dark/light theme toggle.</li>
+    <li><strong>CSS Gradient Generator with presets:</strong> 2 hours. Single HTML file, 410 lines. Visual angle picker, color stops, preset library, CSS output with fallbacks, live preview.</li>
+    <li><strong>Complete Ebook Landing Page with email gate:</strong> 4 hours. Single HTML file, 1,200+ lines. Cover section, table of contents, 2 preview chapters, email capture, SEO optimized, social sharing, related tools section.</li>
+  </ul>
+
+  <h3>Advanced Patterns: Parallel Agent Sessions</h3>
+
+  <p>The most productive vibe coders run multiple Claude Code sessions simultaneously. Open 3-4 terminal tabs, each with a separate Claude Code instance working on a different aspect of your project:</p>
+
+<pre data-lang="text"><code># Parallel Vibe Coding Session
+
+Terminal 1 (Claude Code):
+└── Building the main application logic
+    "Create a pomodoro timer with tasks, stats, and sound alerts"
+
+Terminal 2 (Claude Code):
+└── Writing the documentation and SEO content
+    "Write the landing page copy, meta descriptions, and schema markup"
+
+Terminal 3 (Claude Code):
+└── Building related tools
+    "Create 3 related productivity tools: habit tracker,
+     daily planner, and goal setter"
+
+Cursor IDE:
+└── Reviewing and polishing output from all 3 terminals
+    Accepting changes, fixing visual issues, ensuring consistency
+
+# All 4 windows run simultaneously
+# Total wall-clock time: 3 hours
+# Output: 4 complete tools, all deployed
+# Solo developer throughput: 4x normal</code></pre>
+
+  <div class="tip">
+    <p>The vibe coding stack of 2026 is not about which tool is "best." It is about using the right tool for each phase of development. Claude Code for architecture, logic, and deployment. Cursor for visual design, quick edits, and multi-file refactoring. Together, they let a solo developer ship at the speed of a small team. Master both and you will out-produce developers who only use one.</p>
+  </div>
+
+  <blockquote>"The best code is the code that ships. Claude Code and Cursor do not make you a better programmer. They make you a faster shipper. And shipping is what matters."</blockquote>
+</section>
+
 </div><!-- end .locked-content -->
 
 <!-- ==================== FINAL CTA ==================== -->
