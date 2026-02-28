@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SQL Formatter & Beautifier - Format SQL Queries | SPUNK.CODES Exclusive</title>
+<meta name="description" content="Format and beautify SQL queries with proper indentation and keyword highlighting. Support for common SQL dialects. Minify option included.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="SQL Formatter & Beautifier - SPUNK.CODES Exclusive">
+<meta property="og:description" content="Format SQL queries with proper indentation, keyword highlighting, and minify option.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://spunk.codes/exclusive/sql-formatter">
+<meta property="og:site_name" content="Spunk Codes">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<meta name="twitter:creator" content="@SpunkArt13">
+<meta name="twitter:title" content="SQL Formatter & Beautifier - SPUNK.CODES Exclusive">
+<meta name="twitter:description" content="Format SQL queries with indentation and keyword highlighting.">
+<link rel="canonical" href="https://spunk.codes/exclusive/sql-formatter">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"SQL Formatter & Beautifier","url":"https://spunk.codes/exclusive/sql-formatter","applicationCategory":"DeveloperApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Format and beautify SQL queries with proper indentation and keyword highlighting.","author":{"@type":"Organization","name":"Spunk Codes","url":"https://spunk.codes"}}</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0f;color:#e0e0e0;min-height:100vh;line-height:1.6}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+.wrap{max-width:1100px;margin:0 auto;padding:1.5rem}
+h1{font-size:2rem;font-weight:800;text-align:center;margin:1.5rem 0 0.5rem}
+h1 span{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.subtitle{text-align:center;color:#8b949e;margin-bottom:2rem;max-width:650px;margin-left:auto;margin-right:auto}
+.card{background:rgba(18,18,28,0.85);border:1px solid #1a1a2e;border-radius:14px;padding:1.5rem;margin-bottom:1.5rem;position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#ff5f1f,#ff9f1f,#ff5f1f)}
+.card h2{font-size:1rem;font-weight:700;margin-bottom:1rem;color:#ff9f1f}
+textarea{width:100%;padding:1rem;background:#0a0a0f;border:1px solid #1a1a2e;border-radius:8px;color:#e0e0e0;font-family:'Courier New',monospace;font-size:0.85rem;resize:vertical;outline:none;min-height:200px;line-height:1.5;tab-size:2}
+textarea:focus{border-color:#ff5f1f}
+select{padding:0.5rem 0.8rem;background:#0a0a0f;border:1px solid #1a1a2e;border-radius:8px;color:#e0e0e0;font-size:0.85rem;outline:none;cursor:pointer}
+select:focus{border-color:#ff5f1f}
+.btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.85rem;font-weight:700;cursor:pointer;border:none;transition:all 0.2s;display:inline-flex;align-items:center;gap:0.4rem}
+.btn-primary{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);color:#000}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 4px 15px rgba(255,95,31,0.3)}
+.btn-outline{background:transparent;border:1px solid rgba(255,95,31,0.3);color:#ff9f1f}
+.btn-outline:hover{background:rgba(255,95,31,0.1)}
+.btn-sm{padding:0.4rem 0.8rem;font-size:0.75rem}
+.actions{display:flex;gap:0.5rem;flex-wrap:wrap;margin:1rem 0;align-items:center}
+.output-area{width:100%;min-height:200px;padding:1rem;background:#0a0a0f;border:1px solid #1a1a2e;border-radius:8px;font-family:'Courier New',monospace;font-size:0.85rem;overflow:auto;max-height:600px;line-height:1.6;white-space:pre-wrap;word-break:break-word}
+.sql-keyword{color:#ff5f1f;font-weight:700}
+.sql-function{color:#58a6ff}
+.sql-string{color:#39d353}
+.sql-number{color:#f0ad4e}
+.sql-comment{color:#6e7681;font-style:italic}
+.sql-operator{color:#ff9f1f}
+.options-row{display:flex;gap:1rem;flex-wrap:wrap;align-items:center;margin-bottom:1rem}
+.options-row label{font-size:0.8rem;color:#8b949e;font-weight:600;display:flex;align-items:center;gap:0.4rem}
+.options-row input[type="checkbox"]{accent-color:#ff5f1f}
+.status-bar{display:flex;justify-content:space-between;align-items:center;font-size:0.78rem;color:#8b949e;margin-top:0.5rem}
+.samples{display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1rem}
+.sample-btn{padding:0.4rem 0.8rem;border-radius:6px;font-size:0.75rem;font-weight:600;cursor:pointer;border:1px solid #1a1a2e;background:transparent;color:#8b949e;transition:all 0.2s}
+.sample-btn:hover{background:rgba(255,95,31,0.1);color:#ff9f1f;border-color:rgba(255,95,31,0.3)}
+.copied{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(57,211,83,0.95);color:#000;padding:0.8rem 2rem;border-radius:10px;font-weight:700;font-size:1rem;z-index:9999;pointer-events:none;animation:fadeOut 1.5s ease forwards}
+@keyframes fadeOut{0%{opacity:1;transform:translate(-50%,-50%) scale(1)}70%{opacity:1}100%{opacity:0;transform:translate(-50%,-60%) scale(0.95)}}
+.network-footer{text-align:center;padding:2rem 0 1rem;border-top:1px solid #1a1a2e;margin-top:2rem}
+.network-footer .links{display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap;font-size:0.85rem;margin-bottom:0.5rem}
+.network-footer .copy{color:#8b949e;font-size:0.75rem}
+.cta-banner{text-align:center;margin:2rem 0 1rem;padding:1.5rem;background:linear-gradient(135deg,rgba(255,95,31,0.1),rgba(255,159,31,0.05));border:1px solid rgba(255,95,31,0.2);border-radius:14px}
+.cta-banner p{color:#8b949e;font-size:0.9rem;margin-bottom:0.8rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1><span>SQL Formatter & Beautifier</span></h1>
+<p class="subtitle">Paste SQL queries and get them beautifully formatted with proper indentation and keyword highlighting. Supports common SQL dialects.</p>
+
+<div class="card">
+<h2>SQL Input</h2>
+<div class="samples">
+<button class="sample-btn" onclick="loadSample('select')">SELECT</button>
+<button class="sample-btn" onclick="loadSample('join')">JOIN</button>
+<button class="sample-btn" onclick="loadSample('subquery')">Subquery</button>
+<button class="sample-btn" onclick="loadSample('insert')">INSERT</button>
+<button class="sample-btn" onclick="loadSample('update')">UPDATE</button>
+<button class="sample-btn" onclick="loadSample('create')">CREATE TABLE</button>
+<button class="sample-btn" onclick="loadSample('complex')">Complex</button>
+</div>
+<textarea id="sqlInput" placeholder="Paste your SQL query here..."></textarea>
+<div class="actions">
+<button class="btn btn-primary" onclick="formatSQL()">Format</button>
+<button class="btn btn-outline" onclick="minifySQL()">Minify</button>
+<button class="btn btn-outline" onclick="uppercaseKeywords()">Uppercase Keywords</button>
+<button class="btn btn-outline" onclick="lowercaseKeywords()">Lowercase Keywords</button>
+<button class="btn btn-outline" onclick="clearAll()">Clear</button>
+</div>
+</div>
+
+<div class="card">
+<h2>Options</h2>
+<div class="options-row">
+<label><input type="checkbox" id="optUppercase" checked> Uppercase keywords</label>
+<label><input type="checkbox" id="optSemicolon" checked> Add semicolon</label>
+<label>
+Indent:
+<select id="optIndent">
+<option value="2">2 spaces</option>
+<option value="4" selected>4 spaces</option>
+<option value="tab">Tab</option>
+</select>
+</label>
+</div>
+</div>
+
+<div class="card" id="outputCard" style="display:none">
+<h2>Formatted Output</h2>
+<div class="output-area" id="formattedOutput"></div>
+<div class="status-bar">
+<span id="statBar"></span>
+<div style="display:flex;gap:0.5rem">
+<button class="btn btn-outline btn-sm" onclick="copyFormatted()">Copy</button>
+<button class="btn btn-outline btn-sm" onclick="copyPlain()">Copy Plain</button>
+</div>
+</div>
+</div>
+
+<div class="cta-banner">
+<p>300+ free tools for developers, creators & founders</p>
+<a href="https://spunk.codes" class="btn btn-primary">Browse All Tools</a>
+</div>
+<div class="network-footer">
+<div class="links">
+<a href="https://spunk.codes">Home</a>
+<a href="https://spunk.codes/exclusive/">Exclusive Tools</a>
+<a href="https://spunk.codes/about">About</a>
+<a href="https://x.com/SpunkArt13">@SpunkArt13</a>
+</div>
+<div class="copy">&copy; 2025 spunk.codes</div>
+</div>
+</div>
+
+<script>
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+
+var lastFormatted='';
+
+var keywords=['SELECT','FROM','WHERE','AND','OR','NOT','IN','EXISTS','BETWEEN','LIKE',
+'ORDER BY','GROUP BY','HAVING','LIMIT','OFFSET','UNION','UNION ALL','EXCEPT','INTERSECT',
+'INSERT INTO','VALUES','UPDATE','SET','DELETE FROM','CREATE TABLE','ALTER TABLE','DROP TABLE',
+'CREATE INDEX','DROP INDEX','JOIN','INNER JOIN','LEFT JOIN','RIGHT JOIN','FULL JOIN',
+'LEFT OUTER JOIN','RIGHT OUTER JOIN','FULL OUTER JOIN','CROSS JOIN','NATURAL JOIN',
+'ON','AS','IS','IS NOT','NULL','IS NULL','IS NOT NULL','TRUE','FALSE',
+'ASC','DESC','DISTINCT','ALL','ANY','SOME','TOP','INTO','CASE','WHEN','THEN','ELSE','END',
+'IF','BEGIN','COMMIT','ROLLBACK','TRANSACTION','WITH','RECURSIVE',
+'PRIMARY KEY','FOREIGN KEY','REFERENCES','UNIQUE','CHECK','DEFAULT','NOT NULL',
+'AUTO_INCREMENT','SERIAL','CASCADE','CONSTRAINT','INDEX','VIEW','TRIGGER','PROCEDURE','FUNCTION',
+'RETURNS','RETURN','DECLARE','FETCH','CURSOR','OPEN','CLOSE','DEALLOCATE',
+'GRANT','REVOKE','TRUNCATE','RENAME','ADD','COLUMN','MODIFY','VARCHAR','INT','INTEGER',
+'BIGINT','SMALLINT','DECIMAL','NUMERIC','FLOAT','DOUBLE','BOOLEAN','DATE','DATETIME',
+'TIMESTAMP','TEXT','BLOB','CHAR','BINARY','VARBINARY','ENUM'];
+
+var functions=['COUNT','SUM','AVG','MIN','MAX','COALESCE','IFNULL','NULLIF','CAST',
+'CONVERT','CONCAT','SUBSTRING','SUBSTR','LENGTH','TRIM','UPPER','LOWER','REPLACE',
+'ROUND','CEIL','FLOOR','ABS','NOW','CURRENT_DATE','CURRENT_TIMESTAMP','DATE_FORMAT',
+'YEAR','MONTH','DAY','HOUR','MINUTE','SECOND','DATEDIFF','DATEADD','ROW_NUMBER',
+'RANK','DENSE_RANK','NTILE','LAG','LEAD','FIRST_VALUE','LAST_VALUE','OVER','PARTITION BY',
+'STRING_AGG','GROUP_CONCAT','ARRAY_AGG','JSON_EXTRACT','JSON_VALUE','REGEXP'];
+
+// Major keywords that start new lines
+var newlineKeywords=['SELECT','FROM','WHERE','AND','OR','ORDER BY','GROUP BY','HAVING',
+'LIMIT','OFFSET','UNION','UNION ALL','EXCEPT','INTERSECT','INSERT INTO','VALUES',
+'UPDATE','SET','DELETE FROM','JOIN','INNER JOIN','LEFT JOIN','RIGHT JOIN','FULL JOIN',
+'LEFT OUTER JOIN','RIGHT OUTER JOIN','FULL OUTER JOIN','CROSS JOIN','NATURAL JOIN',
+'ON','CASE','WHEN','THEN','ELSE','END','WITH'];
+
+// Indented keywords
+var indentKeywords=['AND','OR','ON','WHEN','THEN','ELSE'];
+
+function getIndentStr(){
+var v=document.getElementById('optIndent').value;
+return v==='tab'?'\t':' '.repeat(parseInt(v));
+}
+
+function formatSQL(){
+var raw=document.getElementById('sqlInput').value.trim();
+if(!raw)return;
+
+var useUpper=document.getElementById('optUppercase').checked;
+var addSemi=document.getElementById('optSemicolon').checked;
+var indent=getIndentStr();
+
+// Tokenize
+var tokens=tokenize(raw);
+var formatted='';
+var depth=0;
+var newLine=true;
+
+for(var i=0;i<tokens.length;i++){
+var token=tokens[i];
+var upper=token.toUpperCase().trim();
+
+// Check for compound keywords
+var compound='';
+if(i+2<tokens.length){
+var next2=(token+' '+tokens[i+1]+' '+tokens[i+2]).toUpperCase().replace(/\s+/g,' ').trim();
+['LEFT OUTER JOIN','RIGHT OUTER JOIN','FULL OUTER JOIN','INSERT INTO','DELETE FROM',
+'ORDER BY','GROUP BY','UNION ALL','PARTITION BY','IS NOT NULL','IS NOT','NOT NULL',
+'NOT IN','NOT EXISTS','NOT BETWEEN','NOT LIKE'].forEach(function(kw){
+if(next2.startsWith(kw))compound=kw;
+});
+}
+if(!compound&&i+1<tokens.length){
+var next1=(token+' '+tokens[i+1]).toUpperCase().replace(/\s+/g,' ').trim();
+['INNER JOIN','LEFT JOIN','RIGHT JOIN','FULL JOIN','CROSS JOIN','NATURAL JOIN',
+'ORDER BY','GROUP BY','UNION ALL','INSERT INTO','DELETE FROM','CREATE TABLE',
+'ALTER TABLE','DROP TABLE','CREATE INDEX','DROP INDEX','PRIMARY KEY','FOREIGN KEY',
+'IS NULL','IS NOT','NOT NULL','NOT IN','PARTITION BY'].forEach(function(kw){
+if(next1===kw)compound=kw;
+});
+}
+
+if(compound){
+var numExtra=compound.split(/\s+/).length-1;
+var kw=useUpper?compound:compound.toLowerCase();
+if(newlineKeywords.indexOf(compound.split(' ')[0])!==-1||newlineKeywords.indexOf(compound)!==-1){
+formatted+='\n'+indent.repeat(indentKeywords.indexOf(compound.split(' ')[0])!==-1?depth+1:depth)+kw;
+}else{
+formatted+=(newLine?'':' ')+kw;
+}
+i+=numExtra;
+newLine=false;
+continue;
+}
+
+if(token.trim()==='')continue;
+
+// Opening paren
+if(token==='('){formatted+=' (';depth++;continue}
+// Closing paren
+if(token===')'){depth=Math.max(0,depth-1);formatted+=')';continue}
+// Comma
+if(token===','){formatted+=',\n'+indent.repeat(depth+1);newLine=true;continue}
+// Semicolon
+if(token===';'){formatted+=';\n';newLine=true;continue}
+
+// Check if it's a keyword
+var isKw=keywords.indexOf(upper)!==-1;
+var isNewline=newlineKeywords.indexOf(upper)!==-1;
+var isIndent=indentKeywords.indexOf(upper)!==-1;
+
+if(isNewline){
+var d=isIndent?depth+1:depth;
+formatted+='\n'+indent.repeat(d)+(useUpper?upper:token.toLowerCase());
+newLine=false;
+}else if(isKw){
+formatted+=(newLine?'':' ')+(useUpper?upper:token.toLowerCase());
+newLine=false;
+}else{
+formatted+=(newLine?'':' ')+token;
+newLine=false;
+}
+}
+
+formatted=formatted.trim();
+if(addSemi&&!formatted.endsWith(';'))formatted+=';';
+
+lastFormatted=formatted;
+document.getElementById('formattedOutput').innerHTML=highlightSQL(formatted);
+document.getElementById('outputCard').style.display='block';
+document.getElementById('statBar').textContent=formatted.split('\n').length+' lines | '+formatted.length+' chars';
+
+try{localStorage.setItem('sql_fmt_last',raw)}catch(e){}
+}
+
+function tokenize(sql){
+var tokens=[];
+var current='';
+var inString=false;
+var stringChar='';
+var inComment=false;
+var commentType='';
+
+for(var i=0;i<sql.length;i++){
+var ch=sql[i];
+var next=sql[i+1]||'';
+
+// String literals
+if(!inComment&&(ch==="'"||ch==='"')&&!inString){
+if(current.trim())tokens.push(current);
+current=ch;inString=true;stringChar=ch;continue;
+}
+if(inString&&ch===stringChar){
+current+=ch;tokens.push(current);current='';inString=false;continue;
+}
+if(inString){current+=ch;continue}
+
+// Comments
+if(!inComment&&ch==='-'&&next==='-'){
+if(current.trim())tokens.push(current);current='';
+inComment=true;commentType='line';current='--';i++;continue;
+}
+if(!inComment&&ch==='/'&&next==='*'){
+if(current.trim())tokens.push(current);current='';
+inComment=true;commentType='block';current='/*';i++;continue;
+}
+if(inComment&&commentType==='line'&&ch==='\n'){
+tokens.push(current);current='';inComment=false;continue;
+}
+if(inComment&&commentType==='block'&&ch==='*'&&next==='/'){
+current+='*/';tokens.push(current);current='';inComment=false;i++;continue;
+}
+if(inComment){current+=ch;continue}
+
+// Special chars
+if(ch==='('||ch===')'||ch===','||ch===';'){
+if(current.trim())tokens.push(current);
+tokens.push(ch);current='';continue;
+}
+
+// Whitespace
+if(/\s/.test(ch)){
+if(current.trim())tokens.push(current);
+current='';continue;
+}
+
+current+=ch;
+}
+if(current.trim())tokens.push(current);
+return tokens;
+}
+
+function highlightSQL(sql){
+var escaped=esc(sql);
+// Highlight strings
+escaped=escaped.replace(/'([^']*)'/g,'<span class="sql-string">\'$1\'</span>');
+// Highlight comments
+escaped=escaped.replace(/(--[^\n]*)/g,'<span class="sql-comment">$1</span>');
+escaped=escaped.replace(/(\/\*[\s\S]*?\*\/)/g,'<span class="sql-comment">$1</span>');
+// Highlight numbers
+escaped=escaped.replace(/\b(\d+\.?\d*)\b/g,'<span class="sql-number">$1</span>');
+// Highlight keywords (word boundaries)
+var kwPattern=keywords.map(function(k){return k.replace(/\s+/g,'\\s+')}).sort(function(a,b){return b.length-a.length}).join('|');
+var kwRegex=new RegExp('\\b('+kwPattern+')\\b','gi');
+escaped=escaped.replace(kwRegex,function(m){return'<span class="sql-keyword">'+m+'</span>'});
+// Highlight functions
+var fnPattern=functions.sort(function(a,b){return b.length-a.length}).join('|');
+var fnRegex=new RegExp('\\b('+fnPattern+')\\b','gi');
+escaped=escaped.replace(fnRegex,function(m){
+// Don't re-highlight if already inside a span
+return'<span class="sql-function">'+m+'</span>';
+});
+return escaped;
+}
+
+function minifySQL(){
+var raw=document.getElementById('sqlInput').value.trim();
+if(!raw)return;
+var minified=raw.replace(/\s+/g,' ').replace(/\s*([(),;])\s*/g,'$1').trim();
+lastFormatted=minified;
+document.getElementById('formattedOutput').innerHTML=highlightSQL(minified);
+document.getElementById('outputCard').style.display='block';
+document.getElementById('statBar').textContent='1 line | '+minified.length+' chars (minified)';
+}
+
+function uppercaseKeywords(){
+var raw=document.getElementById('sqlInput').value;
+if(!raw)return;
+keywords.sort(function(a,b){return b.length-a.length}).forEach(function(kw){
+var regex=new RegExp('\\b'+kw.replace(/\s+/g,'\\s+')+'\\b','gi');
+raw=raw.replace(regex,kw);
+});
+document.getElementById('sqlInput').value=raw;
+}
+
+function lowercaseKeywords(){
+var raw=document.getElementById('sqlInput').value;
+if(!raw)return;
+keywords.sort(function(a,b){return b.length-a.length}).forEach(function(kw){
+var regex=new RegExp('\\b'+kw.replace(/\s+/g,'\\s+')+'\\b','gi');
+raw=raw.replace(regex,kw.toLowerCase());
+});
+document.getElementById('sqlInput').value=raw;
+}
+
+function clearAll(){
+document.getElementById('sqlInput').value='';
+document.getElementById('outputCard').style.display='none';
+lastFormatted='';
+}
+
+function copyFormatted(){
+if(lastFormatted)navigator.clipboard.writeText(lastFormatted).then(function(){showToast('Formatted SQL copied!')});
+}
+function copyPlain(){
+var text=document.getElementById('formattedOutput').textContent;
+if(text)navigator.clipboard.writeText(text).then(function(){showToast('Copied!')});
+}
+
+var samples={
+select:"SELECT id, name, email, created_at FROM users WHERE status = 'active' AND role IN ('admin', 'editor') ORDER BY created_at DESC LIMIT 50",
+join:"SELECT u.id, u.name, o.order_id, o.total FROM users u INNER JOIN orders o ON u.id = o.user_id LEFT JOIN payments p ON o.order_id = p.order_id WHERE o.status = 'completed' AND p.amount > 100 ORDER BY o.total DESC",
+subquery:"SELECT name, email FROM users WHERE id IN (SELECT user_id FROM orders WHERE total > (SELECT AVG(total) FROM orders) AND created_at > '2024-01-01') ORDER BY name",
+insert:"INSERT INTO users (name, email, role, created_at) VALUES ('John Doe', 'john@example.com', 'admin', NOW()), ('Jane Smith', 'jane@example.com', 'editor', NOW())",
+update:"UPDATE users SET status = 'inactive', updated_at = NOW() WHERE last_login < '2024-01-01' AND role != 'admin'",
+create:"CREATE TABLE orders (id INTEGER PRIMARY KEY AUTO_INCREMENT, user_id INTEGER NOT NULL, product_name VARCHAR(255), quantity INTEGER DEFAULT 1, total DECIMAL(10,2) NOT NULL, status VARCHAR(50) DEFAULT 'pending', created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE)",
+complex:"WITH monthly_sales AS (SELECT DATE_FORMAT(created_at, '%Y-%m') AS month, SUM(total) AS revenue, COUNT(*) AS order_count FROM orders WHERE status = 'completed' GROUP BY DATE_FORMAT(created_at, '%Y-%m')) SELECT month, revenue, order_count, ROUND(revenue / order_count, 2) AS avg_order_value, LAG(revenue) OVER (ORDER BY month) AS prev_month_revenue, ROUND((revenue - LAG(revenue) OVER (ORDER BY month)) / LAG(revenue) OVER (ORDER BY month) * 100, 1) AS growth_pct FROM monthly_sales ORDER BY month DESC LIMIT 12"
+};
+
+function loadSample(name){
+document.getElementById('sqlInput').value=samples[name]||'';
+formatSQL();
+}
+
+function showToast(msg){
+var t=document.createElement('div');t.className='copied';t.textContent=msg;
+document.body.appendChild(t);setTimeout(function(){t.remove()},1500);
+}
+
+// Tab key in textarea
+document.getElementById('sqlInput').addEventListener('keydown',function(e){
+if(e.key==='Tab'){e.preventDefault();var s=this.selectionStart,end=this.selectionEnd;this.value=this.value.substring(0,s)+'  '+this.value.substring(end);this.selectionStart=this.selectionEnd=s+2}
+});
+
+// Load last
+try{
+var last=localStorage.getItem('sql_fmt_last');
+if(last)document.getElementById('sqlInput').value=last;
+}catch(e){}
+</script>
+
+<!-- Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+<script src="/auto-monetize.js"></script>
+<!-- Share on X Button -->
+<div id="shareXBtn" style="position:fixed;left:20px;bottom:20px;z-index:9999;">
+  <a id="shareXLink" href="#" target="_blank" rel="noopener noreferrer" title="Share on X"
+     style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;
+     background:rgba(255,95,31,0.15);border:1px solid rgba(255,95,31,0.3);
+     backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:50%;
+     text-decoration:none;transition:all 0.3s ease;cursor:pointer;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+    </svg>
+  </a>
+</div>
+<style>
+  #shareXBtn a:hover {
+    background: rgba(255,95,31,0.35) !important;
+    border-color: rgba(255,95,31,0.6) !important;
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(255,95,31,0.3);
+  }
+</style>
+<script>
+(function(){
+  var page = "sql-formatter";
+  var url = "https://spunk.codes/exclusive/" + page;
+  var text = "This SQL formatter makes messy queries readable in one click. Keyword highlighting, indent options. Free @SpunkArt13";
+  var href = "https://x.com/intent/tweet?text=" + encodeURIComponent(text) + "&url=" + encodeURIComponent(url);
+  document.getElementById("shareXLink").href = href;
+})();
+</script>
+<script src="/usage-tracker.js"></script>
+</body>
+</html>
