@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IP Address Lookup | SPUNK.CODES</title>
+<meta name="description" content="See your public IP address, device info, screen resolution, browser details, timezone, and more. Copy all info with one click. Free, no signup required.">
+<meta property="og:title" content="IP Address Lookup | SPUNK.CODES">
+<meta property="og:description" content="Instantly see your public IP, device info, browser details, screen resolution. Copy all with one click.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://spunk.codes/exclusive/ip-address-lookup">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/ip-address-lookup">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e8e8f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+header{background:#111118;border-bottom:2px solid #ff5f1f;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;position:sticky;top:0;z-index:100}
+header h1{font-size:1.4rem;color:#ff5f1f}
+header .back{color:#e8e8f0;font-size:.9rem}
+main{flex:1;max-width:800px;width:100%;margin:0 auto;padding:24px 16px}
+.panel{background:#111118;border:1px solid #2a2a3a;border-radius:10px;padding:20px;margin-bottom:20px}
+.panel h2{font-size:1.1rem;color:#ff5f1f;margin-bottom:14px}
+button{background:#ff5f1f;color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:.9rem;font-weight:600;transition:background .2s}
+button:hover{background:#e8520e}
+button.secondary{background:#2a2a3a;color:#e8e8f0}button.secondary:hover{background:#3a3a4a}
+.ip-hero{text-align:center;padding:30px 20px}
+.ip-hero .label{font-size:.85rem;color:#888;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.ip-hero .ip-address{font-size:2.5rem;font-weight:800;color:#ff5f1f;font-family:'SF Mono',Monaco,Consolas,monospace;letter-spacing:2px;word-break:break-all}
+.ip-hero .ip-loading{color:#555;font-size:1.2rem}
+.ip-hero .copy-btn{margin-top:12px;padding:8px 20px}
+.info-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-top:14px}
+.info-card{background:#16161e;border:1px solid #2a2a3a;border-radius:10px;padding:14px;position:relative}
+.info-card .card-label{font-size:.7rem;color:#888;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.info-card .card-value{font-size:.95rem;font-weight:600;color:#e8e8f0;word-break:break-word}
+.info-card .card-value.accent{color:#ff5f1f}
+.info-card .copy-icon{position:absolute;top:10px;right:10px;background:none;border:none;color:#555;cursor:pointer;font-size:.8rem;padding:4px;transition:color .2s}
+.info-card .copy-icon:hover{color:#ff5f1f}
+.detail-table{width:100%;border-collapse:collapse;margin-top:10px}
+.detail-table tr{border-bottom:1px solid #1e1e2e}
+.detail-table tr:last-child{border-bottom:none}
+.detail-table td{padding:10px 12px;font-size:.85rem}
+.detail-table td:first-child{color:#888;width:40%;white-space:nowrap}
+.detail-table td:last-child{color:#e8e8f0;font-weight:500;word-break:break-word}
+.status-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px}
+.status-online{background:#39d353}
+.status-offline{background:#cc2233}
+.privacy-note{background:#16161e;border:1px solid #2a2a3a;border-radius:8px;padding:14px;font-size:.8rem;color:#888;line-height:1.6;margin-top:14px}
+.privacy-note strong{color:#e8e8f0}
+.btn-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.share-btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.share-btns button{font-size:.8rem;padding:6px 14px}
+.toast{position:fixed;bottom:20px;right:20px;background:#39d353;color:#000;padding:10px 20px;border-radius:8px;font-weight:700;font-size:.85rem;z-index:9999;transform:translateY(80px);opacity:0;transition:all .3s;pointer-events:none}
+.toast.show{transform:translateY(0);opacity:1}
+.refresh-spinner{display:inline-block;width:14px;height:14px;border:2px solid #555;border-top-color:#ff5f1f;border-radius:50%;animation:spin 1s linear infinite;margin-right:6px;vertical-align:middle}
+@keyframes spin{to{transform:rotate(360deg)}}
+.connection-bar{display:flex;gap:6px;align-items:center;justify-content:center;padding:10px;background:#16161e;border-radius:8px;margin-top:12px;font-size:.85rem}
+footer{text-align:center;padding:20px;color:#555;font-size:.8rem;border-top:1px solid #1a1a2a;margin-top:auto}
+footer a{color:#ff5f1f;margin:0 4px}
+@media(max-width:700px){
+.info-grid{grid-template-columns:1fr}
+.ip-hero .ip-address{font-size:1.6rem}
+header h1{font-size:1.1rem}
+.detail-table td:first-child{width:auto}
+}
+</style>
+</head>
+<body>
+<header>
+<h1>IP Address Lookup</h1>
+<a href="https://spunk.codes" class="back">spunk.codes</a>
+</header>
+<main>
+
+<div class="panel">
+<div class="ip-hero">
+<div class="label">Your Public IP Address</div>
+<div class="ip-address" id="ipAddress"><span class="ip-loading"><span class="refresh-spinner"></span>Detecting...</span></div>
+<button class="copy-btn" onclick="copyIP()" id="copyIpBtn" style="display:none">Copy IP Address</button>
+<div class="connection-bar" id="connectionBar">
+<span class="status-dot status-online"></span>
+<span id="connectionStatus">Online</span>
+</div>
+</div>
+</div>
+
+<div class="panel">
+<h2>IP Details</h2>
+<div class="info-grid" id="ipDetails">
+<div class="info-card"><div class="card-label">Loading...</div><div class="card-value">Fetching IP data...</div></div>
+</div>
+</div>
+
+<div class="panel">
+<h2>Device Information</h2>
+<table class="detail-table" id="deviceTable">
+<tr><td>Browser</td><td id="infoBrowser">-</td></tr>
+<tr><td>Browser Version</td><td id="infoBrowserVer">-</td></tr>
+<tr><td>Engine</td><td id="infoEngine">-</td></tr>
+<tr><td>Operating System</td><td id="infoOS">-</td></tr>
+<tr><td>Platform</td><td id="infoPlatform">-</td></tr>
+<tr><td>Device Type</td><td id="infoDevice">-</td></tr>
+<tr><td>Language</td><td id="infoLang">-</td></tr>
+<tr><td>Languages</td><td id="infoLangs">-</td></tr>
+<tr><td>Cookies Enabled</td><td id="infoCookies">-</td></tr>
+<tr><td>Do Not Track</td><td id="infoDNT">-</td></tr>
+<tr><td>Java Enabled</td><td id="infoJava">-</td></tr>
+<tr><td>Online Status</td><td id="infoOnline">-</td></tr>
+<tr><td>Connection Type</td><td id="infoConnection">-</td></tr>
+<tr><td>CPU Cores</td><td id="infoCores">-</td></tr>
+<tr><td>Device Memory</td><td id="infoMemory">-</td></tr>
+<tr><td>Max Touch Points</td><td id="infoTouch">-</td></tr>
+</table>
+</div>
+
+<div class="panel">
+<h2>Screen &amp; Display</h2>
+<table class="detail-table">
+<tr><td>Screen Resolution</td><td id="infoScreen">-</td></tr>
+<tr><td>Viewport Size</td><td id="infoViewport">-</td></tr>
+<tr><td>Available Screen</td><td id="infoAvailable">-</td></tr>
+<tr><td>Color Depth</td><td id="infoColorDepth">-</td></tr>
+<tr><td>Pixel Ratio</td><td id="infoPixelRatio">-</td></tr>
+<tr><td>Orientation</td><td id="infoOrientation">-</td></tr>
+</table>
+</div>
+
+<div class="panel">
+<h2>Date &amp; Time</h2>
+<table class="detail-table">
+<tr><td>Timezone</td><td id="infoTimezone">-</td></tr>
+<tr><td>UTC Offset</td><td id="infoOffset">-</td></tr>
+<tr><td>Local Time</td><td id="infoLocalTime">-</td></tr>
+<tr><td>UTC Time</td><td id="infoUTCTime">-</td></tr>
+</table>
+</div>
+
+<div class="panel">
+<h2>User Agent String</h2>
+<div style="background:#16161e;border:1px solid #2a2a3a;border-radius:8px;padding:14px;font-family:'SF Mono',Monaco,Consolas,monospace;font-size:.8rem;word-break:break-all;color:#888;line-height:1.6" id="infoUA">-</div>
+<div class="btn-row">
+<button onclick="copyUA()">Copy User Agent</button>
+</div>
+</div>
+
+<div class="panel">
+<h2>Export &amp; Share</h2>
+<div class="btn-row">
+<button onclick="copyAll()">Copy All Info</button>
+<button class="secondary" onclick="exportJSON()">Export JSON</button>
+<button class="secondary" onclick="exportText()">Export Text</button>
+<button class="secondary" onclick="refreshAll()"><span class="refresh-spinner" style="animation-duration:0s;border-color:transparent;display:none" id="refreshSpin"></span>Refresh</button>
+</div>
+<div class="share-btns">
+<button onclick="shareX()">Share on X</button>
+<button class="secondary" onclick="shareReddit()">Reddit</button>
+<button class="secondary" onclick="shareEmail()">Email</button>
+</div>
+<div class="privacy-note">
+<strong>Privacy Note:</strong> Your IP address is fetched using public APIs (ipify, ip-api). No data is stored on our servers. All device information is collected client-side using standard browser APIs and is never transmitted anywhere. This tool runs entirely in your browser.
+</div>
+</div>
+
+</main>
+
+<div class="toast" id="toast"></div>
+
+<footer>
+<a href="https://spunk.codes">spunk.codes</a> |
+<a href="https://spunk.bet">spunk.bet</a> |
+<a href="https://spunk.pics">spunk.pics</a> |
+<a href="https://spunk.work">spunk.work</a> |
+<a href="https://spunkart.com">spunkart.com</a>
+<br>&copy; 2026 SPUNK.CODES
+</footer>
+
+<script>
+function esc(s){var d=document.createElement('div');d.appendChild(document.createTextNode(String(s)));return d.innerHTML}
+
+var ipData={ip:'',details:{}};
+
+/* Fetch public IP */
+function fetchIP(){
+  fetch('https://api.ipify.org?format=json')
+    .then(function(r){return r.json()})
+    .then(function(d){
+      ipData.ip=d.ip;
+      document.getElementById('ipAddress').textContent=d.ip;
+      document.getElementById('copyIpBtn').style.display='inline-block';
+      fetchIPDetails(d.ip);
+    })
+    .catch(function(){
+      /* Fallback */
+      fetch('https://api64.ipify.org?format=json')
+        .then(function(r){return r.json()})
+        .then(function(d){
+          ipData.ip=d.ip;
+          document.getElementById('ipAddress').textContent=d.ip;
+          document.getElementById('copyIpBtn').style.display='inline-block';
+          fetchIPDetails(d.ip);
+        })
+        .catch(function(){
+          document.getElementById('ipAddress').innerHTML='<span style="color:#cc2233">Unable to detect IP</span>';
+        });
+    });
+}
+
+function fetchIPDetails(ip){
+  fetch('https://ip-api.com/json/'+ip+'?fields=status,message,country,countryCode,region,regionName,city,zip,lat,lon,timezone,isp,org,as,query')
+    .then(function(r){return r.json()})
+    .then(function(d){
+      if(d.status==='success'){
+        ipData.details=d;
+        renderIPDetails(d);
+      }
+    })
+    .catch(function(){
+      document.getElementById('ipDetails').innerHTML='<div class="info-card"><div class="card-label">Error</div><div class="card-value">Could not fetch IP details. Try refreshing.</div></div>';
+    });
+}
+
+function renderIPDetails(d){
+  var cards=[
+    {label:'Country',value:d.country+' ('+d.countryCode+')'},
+    {label:'Region',value:d.regionName||d.region||'-'},
+    {label:'City',value:d.city||'-'},
+    {label:'ZIP Code',value:d.zip||'-'},
+    {label:'Latitude',value:d.lat||'-'},
+    {label:'Longitude',value:d.lon||'-'},
+    {label:'Timezone',value:d.timezone||'-'},
+    {label:'ISP',value:d.isp||'-'},
+    {label:'Organization',value:d.org||'-'},
+    {label:'AS Number',value:d.as||'-'}
+  ];
+
+  var html='';
+  cards.forEach(function(c){
+    html+='<div class="info-card">';
+    html+='<div class="card-label">'+esc(c.label)+'</div>';
+    html+='<div class="card-value">'+esc(c.value)+'</div>';
+    html+='<button class="copy-icon" onclick="copyVal(\''+esc(c.value).replace(/'/g,"\\'")+'\')" title="Copy">&#128203;</button>';
+    html+='</div>';
+  });
+  document.getElementById('ipDetails').innerHTML=html;
+}
+
+/* Device info */
+function detectBrowser(){
+  var ua=navigator.userAgent;
+  var browser='Unknown',version='',engine='Unknown';
+
+  if(ua.indexOf('Firefox')>-1){browser='Firefox';version=ua.match(/Firefox\/([\d.]+)/);engine='Gecko';}
+  else if(ua.indexOf('Edg/')>-1){browser='Microsoft Edge';version=ua.match(/Edg\/([\d.]+)/);engine='Blink';}
+  else if(ua.indexOf('Chrome')>-1){browser='Google Chrome';version=ua.match(/Chrome\/([\d.]+)/);engine='Blink';}
+  else if(ua.indexOf('Safari')>-1){browser='Safari';version=ua.match(/Version\/([\d.]+)/);engine='WebKit';}
+  else if(ua.indexOf('Opera')>-1||ua.indexOf('OPR')>-1){browser='Opera';version=ua.match(/(?:Opera|OPR)\/([\d.]+)/);engine='Blink';}
+
+  return{name:browser,version:version?version[1]:'Unknown',engine:engine};
+}
+
+function detectOS(){
+  var ua=navigator.userAgent;
+  if(ua.indexOf('Windows NT 10')>-1)return'Windows 10/11';
+  if(ua.indexOf('Windows')>-1)return'Windows';
+  if(ua.indexOf('Mac OS X')>-1){var m=ua.match(/Mac OS X ([\d_]+)/);return'macOS'+(m?' '+m[1].replace(/_/g,'.'):'');}
+  if(ua.indexOf('Android')>-1){var m=ua.match(/Android ([\d.]+)/);return'Android'+(m?' '+m[1]:'');}
+  if(ua.indexOf('iPhone')>-1||ua.indexOf('iPad')>-1){var m=ua.match(/OS ([\d_]+)/);return'iOS'+(m?' '+m[1].replace(/_/g,'.'):'');}
+  if(ua.indexOf('Linux')>-1)return'Linux';
+  if(ua.indexOf('CrOS')>-1)return'Chrome OS';
+  return'Unknown';
+}
+
+function detectDeviceType(){
+  var ua=navigator.userAgent;
+  if(/Mobi|Android.*Mobile|iPhone|iPod/.test(ua))return'Mobile';
+  if(/iPad|Android(?!.*Mobile)|Tablet/.test(ua))return'Tablet';
+  return'Desktop';
+}
+
+function gatherDeviceInfo(){
+  var b=detectBrowser();
+  document.getElementById('infoBrowser').textContent=b.name;
+  document.getElementById('infoBrowserVer').textContent=b.version;
+  document.getElementById('infoEngine').textContent=b.engine;
+  document.getElementById('infoOS').textContent=detectOS();
+  document.getElementById('infoPlatform').textContent=navigator.platform||navigator.userAgentData&&navigator.userAgentData.platform||'Unknown';
+  document.getElementById('infoDevice').textContent=detectDeviceType();
+  document.getElementById('infoLang').textContent=navigator.language||'-';
+  document.getElementById('infoLangs').textContent=(navigator.languages||[]).join(', ')||'-';
+  document.getElementById('infoCookies').textContent=navigator.cookieEnabled?'Yes':'No';
+  document.getElementById('infoDNT').textContent=navigator.doNotTrack==='1'?'Enabled':(navigator.doNotTrack==='0'?'Disabled':'Not Set');
+  document.getElementById('infoJava').textContent=typeof navigator.javaEnabled==='function'?(navigator.javaEnabled()?'Yes':'No'):'N/A';
+  document.getElementById('infoOnline').textContent=navigator.onLine?'Online':'Offline';
+
+  var conn=navigator.connection||navigator.mozConnection||navigator.webkitConnection;
+  if(conn){
+    var ct=conn.effectiveType||conn.type||'Unknown';
+    var dl=conn.downlink?conn.downlink+' Mbps':'';
+    document.getElementById('infoConnection').textContent=ct.toUpperCase()+(dl?' ('+dl+')':'');
+  }else{
+    document.getElementById('infoConnection').textContent='N/A';
+  }
+
+  document.getElementById('infoCores').textContent=navigator.hardwareConcurrency||'N/A';
+  document.getElementById('infoMemory').textContent=navigator.deviceMemory?navigator.deviceMemory+' GB':'N/A';
+  document.getElementById('infoTouch').textContent=navigator.maxTouchPoints||0;
+
+  /* Screen */
+  document.getElementById('infoScreen').textContent=screen.width+'x'+screen.height+' px';
+  document.getElementById('infoViewport').textContent=window.innerWidth+'x'+window.innerHeight+' px';
+  document.getElementById('infoAvailable').textContent=screen.availWidth+'x'+screen.availHeight+' px';
+  document.getElementById('infoColorDepth').textContent=screen.colorDepth+'-bit';
+  document.getElementById('infoPixelRatio').textContent=window.devicePixelRatio+'x';
+  var orient=screen.orientation?screen.orientation.type.replace('-',' '):(window.innerWidth>window.innerHeight?'landscape':'portrait');
+  document.getElementById('infoOrientation').textContent=orient.charAt(0).toUpperCase()+orient.slice(1);
+
+  /* Time */
+  var tz=Intl.DateTimeFormat().resolvedOptions().timeZone;
+  document.getElementById('infoTimezone').textContent=tz||'Unknown';
+  var offset=new Date().getTimezoneOffset();
+  var sign=offset<=0?'+':'-';
+  var hrs=Math.floor(Math.abs(offset)/60);
+  var mins=Math.abs(offset)%60;
+  document.getElementById('infoOffset').textContent='UTC'+sign+(hrs<10?'0':'')+hrs+':'+(mins<10?'0':'')+mins;
+
+  updateTime();
+  setInterval(updateTime,1000);
+
+  /* UA */
+  document.getElementById('infoUA').textContent=navigator.userAgent;
+
+  /* Connection status */
+  updateConnectionStatus();
+  window.addEventListener('online',updateConnectionStatus);
+  window.addEventListener('offline',updateConnectionStatus);
+}
+
+function updateTime(){
+  var now=new Date();
+  document.getElementById('infoLocalTime').textContent=now.toLocaleString();
+  document.getElementById('infoUTCTime').textContent=now.toUTCString();
+}
+
+function updateConnectionStatus(){
+  var dot=document.querySelector('#connectionBar .status-dot');
+  var label=document.getElementById('connectionStatus');
+  if(navigator.onLine){
+    dot.className='status-dot status-online';
+    label.textContent='Online';
+  }else{
+    dot.className='status-dot status-offline';
+    label.textContent='Offline';
+  }
+}
+
+/* Copy/export */
+function copyIP(){
+  if(!ipData.ip)return;
+  navigator.clipboard.writeText(ipData.ip).then(function(){toast('IP copied!')});
+}
+
+function copyUA(){
+  navigator.clipboard.writeText(navigator.userAgent).then(function(){toast('User agent copied!')});
+}
+
+function copyVal(val){
+  navigator.clipboard.writeText(val).then(function(){toast('Copied!')});
+}
+
+function getAllInfoText(){
+  var lines=['=== IP ADDRESS LOOKUP RESULTS ===','Generated: '+new Date().toLocaleString(),''];
+  lines.push('PUBLIC IP: '+(ipData.ip||'Unknown'));
+  if(ipData.details.country){
+    lines.push('Country: '+ipData.details.country);
+    lines.push('Region: '+(ipData.details.regionName||'-'));
+    lines.push('City: '+(ipData.details.city||'-'));
+    lines.push('ZIP: '+(ipData.details.zip||'-'));
+    lines.push('Lat/Lon: '+ipData.details.lat+', '+ipData.details.lon);
+    lines.push('Timezone: '+(ipData.details.timezone||'-'));
+    lines.push('ISP: '+(ipData.details.isp||'-'));
+    lines.push('Org: '+(ipData.details.org||'-'));
+    lines.push('AS: '+(ipData.details.as||'-'));
+  }
+  lines.push('');
+  lines.push('DEVICE INFO:');
+  var b=detectBrowser();
+  lines.push('Browser: '+b.name+' '+b.version);
+  lines.push('Engine: '+b.engine);
+  lines.push('OS: '+detectOS());
+  lines.push('Platform: '+(navigator.platform||'Unknown'));
+  lines.push('Device Type: '+detectDeviceType());
+  lines.push('Language: '+(navigator.language||'-'));
+  lines.push('CPU Cores: '+(navigator.hardwareConcurrency||'N/A'));
+  lines.push('Memory: '+(navigator.deviceMemory?navigator.deviceMemory+' GB':'N/A'));
+  lines.push('');
+  lines.push('SCREEN:');
+  lines.push('Resolution: '+screen.width+'x'+screen.height);
+  lines.push('Viewport: '+window.innerWidth+'x'+window.innerHeight);
+  lines.push('Color Depth: '+screen.colorDepth+'-bit');
+  lines.push('Pixel Ratio: '+window.devicePixelRatio+'x');
+  lines.push('');
+  lines.push('User Agent: '+navigator.userAgent);
+  lines.push('');
+  lines.push('Generated at spunk.codes/exclusive/ip-address-lookup');
+  return lines.join('\n');
+}
+
+function copyAll(){
+  navigator.clipboard.writeText(getAllInfoText()).then(function(){toast('All info copied!')});
+}
+
+function exportJSON(){
+  var b=detectBrowser();
+  var obj={
+    ip:ipData.ip,
+    ipDetails:ipData.details,
+    browser:{name:b.name,version:b.version,engine:b.engine},
+    os:detectOS(),
+    platform:navigator.platform,
+    deviceType:detectDeviceType(),
+    language:navigator.language,
+    languages:navigator.languages?Array.from(navigator.languages):[],
+    screen:{width:screen.width,height:screen.height,colorDepth:screen.colorDepth,pixelRatio:window.devicePixelRatio},
+    viewport:{width:window.innerWidth,height:window.innerHeight},
+    cpuCores:navigator.hardwareConcurrency||null,
+    memory:navigator.deviceMemory||null,
+    timezone:Intl.DateTimeFormat().resolvedOptions().timeZone,
+    userAgent:navigator.userAgent,
+    timestamp:new Date().toISOString()
+  };
+  var blob=new Blob([JSON.stringify(obj,null,2)],{type:'application/json'});
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);a.download='ip-device-info.json';a.click();
+  URL.revokeObjectURL(a.href);
+  toast('JSON exported');
+}
+
+function exportText(){
+  var text=getAllInfoText();
+  var blob=new Blob([text],{type:'text/plain'});
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);a.download='ip-device-info.txt';a.click();
+  URL.revokeObjectURL(a.href);
+  toast('Text file exported');
+}
+
+function refreshAll(){
+  document.getElementById('ipAddress').innerHTML='<span class="ip-loading"><span class="refresh-spinner"></span>Refreshing...</span>';
+  document.getElementById('copyIpBtn').style.display='none';
+  fetchIP();
+  gatherDeviceInfo();
+  toast('Refreshing...');
+}
+
+function toast(msg){
+  var el=document.getElementById('toast');
+  el.textContent=msg;el.classList.add('show');
+  setTimeout(function(){el.classList.remove('show')},2000);
+}
+
+function shareX(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Check your IP address, device info, screen resolution and more with this free tool! @SpunkArt13')+'&url='+encodeURIComponent('https://spunk.codes/exclusive/ip-address-lookup'),'_blank')}
+function shareReddit(){window.open('https://www.reddit.com/submit?url='+encodeURIComponent('https://spunk.codes/exclusive/ip-address-lookup')+'&title='+encodeURIComponent('IP Address Lookup - see your IP, device info, screen resolution, browser details [free tool]'),'_blank')}
+function shareEmail(){window.location.href='mailto:?subject='+encodeURIComponent('IP Address Lookup Tool')+'&body='+encodeURIComponent('Check your public IP and device info: https://spunk.codes/exclusive/ip-address-lookup')}
+
+/* Init */
+fetchIP();
+gatherDeviceInfo();
+
+/* Update viewport on resize */
+window.addEventListener('resize',function(){
+  document.getElementById('infoViewport').textContent=window.innerWidth+'x'+window.innerHeight+' px';
+  var orient=screen.orientation?screen.orientation.type.replace('-',' '):(window.innerWidth>window.innerHeight?'landscape':'portrait');
+  document.getElementById('infoOrientation').textContent=orient.charAt(0).toUpperCase()+orient.slice(1);
+});
+</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>

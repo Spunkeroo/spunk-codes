@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Random Team Generator | SPUNK.CODES</title>
+<meta name="description" content="Enter names, split into random teams of any size. Save presets, shuffle again, export results. Perfect for sports, classrooms, hackathons. Free, no signup.">
+<meta property="og:title" content="Random Team Generator | SPUNK.CODES">
+<meta property="og:description" content="Split names into random teams of configurable size. Save presets, shuffle, export. Free tool.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://spunk.codes/exclusive/random-team-generator">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/random-team-generator">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e8e8f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+header{background:#111118;border-bottom:2px solid #ff5f1f;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;position:sticky;top:0;z-index:100}
+header h1{font-size:1.4rem;color:#ff5f1f}
+header .back{color:#e8e8f0;font-size:.9rem}
+main{flex:1;max-width:800px;width:100%;margin:0 auto;padding:24px 16px}
+.panel{background:#111118;border:1px solid #2a2a3a;border-radius:10px;padding:20px;margin-bottom:20px}
+.panel h2{font-size:1.1rem;color:#ff5f1f;margin-bottom:14px}
+button{background:#ff5f1f;color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:.9rem;font-weight:600;transition:all .2s}
+button:hover{background:#e8520e}
+button.secondary{background:#2a2a3a;color:#e8e8f0}button.secondary:hover{background:#3a3a4a}
+button.danger{background:#cc2233;color:#fff}button.danger:hover{background:#aa1122}
+input,select,textarea{background:#16161e;border:1px solid #2a2a3a;color:#e8e8f0;padding:8px 12px;border-radius:6px;font-size:.9rem;width:100%;font-family:inherit}
+input:focus,select:focus,textarea:focus{outline:none;border-color:#ff5f1f}
+textarea{resize:vertical;min-height:120px;line-height:1.6}
+.input-group{margin-bottom:12px}
+.input-group label{font-size:.85rem;color:#888;margin-bottom:6px;display:block}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end}
+.row .input-group{flex:1;min-width:120px}
+.btn-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.name-count{font-size:.8rem;color:#888;margin-top:4px}
+.config-row{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+.config-row label{font-size:.85rem;color:#888;white-space:nowrap}
+.config-row input[type="number"]{width:80px}
+.config-row select{width:160px}
+.teams-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin-top:14px}
+.team-card{background:#16161e;border:2px solid #2a2a3a;border-radius:10px;padding:16px;position:relative;transition:border-color .3s}
+.team-card.highlight{border-color:#ff5f1f;box-shadow:0 0 20px rgba(255,95,31,.15)}
+.team-card .team-name{font-size:1rem;font-weight:700;color:#ff5f1f;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center}
+.team-card .team-count{font-size:.7rem;color:#888;background:#2a2a3a;padding:2px 8px;border-radius:10px}
+.team-card .member{padding:6px 0;border-bottom:1px solid #1e1e2e;font-size:.85rem;display:flex;align-items:center;gap:6px}
+.team-card .member:last-child{border-bottom:none}
+.member-num{color:#ff5f1f;font-weight:700;font-size:.75rem;min-width:18px}
+.team-colors{display:flex;gap:4px;margin-bottom:8px}
+.team-dot{width:10px;height:10px;border-radius:50%}
+.preset-item{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;border:1px solid #2a2a3a;border-radius:8px;margin-bottom:6px;background:#16161e}
+.preset-item .name{font-weight:600;font-size:.85rem}
+.preset-item .count{color:#888;font-size:.75rem}
+.del-btn{background:none;border:none;color:#cc2233;cursor:pointer;font-size:1rem;padding:2px 6px}
+.del-btn:hover{color:#ff4455}
+.share-btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.share-btns button{font-size:.8rem;padding:6px 14px}
+.toast{position:fixed;bottom:20px;right:20px;background:#39d353;color:#000;padding:10px 20px;border-radius:8px;font-weight:700;font-size:.85rem;z-index:9999;transform:translateY(80px);opacity:0;transition:all .3s;pointer-events:none}
+.toast.show{transform:translateY(0);opacity:1}
+.empty{text-align:center;color:#555;padding:20px;font-size:.9rem}
+.shuffle-anim{animation:shufflePulse .5s ease}
+@keyframes shufflePulse{0%{transform:scale(1)}50%{transform:scale(1.02)}100%{transform:scale(1)}}
+.stat-row{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:14px}
+.stat-box{background:#16161e;border:1px solid #2a2a3a;border-radius:8px;padding:10px 16px;text-align:center;flex:1;min-width:80px}
+.stat-box .val{font-size:1.3rem;font-weight:700;color:#ff5f1f}
+.stat-box .lbl{font-size:.7rem;color:#888;text-transform:uppercase;margin-top:2px}
+footer{text-align:center;padding:20px;color:#555;font-size:.8rem;border-top:1px solid #1a1a2a;margin-top:auto}
+footer a{color:#ff5f1f;margin:0 4px}
+@media(max-width:700px){
+.teams-grid{grid-template-columns:1fr}
+.config-row{flex-direction:column;align-items:flex-start}
+.config-row input[type="number"],.config-row select{width:100%}
+header h1{font-size:1.1rem}
+}
+</style>
+</head>
+<body>
+<header>
+<h1>Random Team Generator</h1>
+<a href="https://spunk.codes" class="back">spunk.codes</a>
+</header>
+<main>
+
+<div class="panel">
+<h2>Enter Names</h2>
+<div class="input-group">
+<label>One name per line (or comma-separated)</label>
+<textarea id="namesInput" placeholder="Alice
+Bob
+Charlie
+Diana
+Eve
+Frank
+Grace
+Hank"></textarea>
+<div class="name-count" id="nameCount">0 names detected</div>
+</div>
+<div class="btn-row">
+<button onclick="shuffleNames()">Shuffle Order</button>
+<button class="secondary" onclick="sortNames()">Sort A-Z</button>
+<button class="secondary" onclick="clearNames()">Clear</button>
+<button class="secondary" onclick="addSampleNames()">Load Sample</button>
+</div>
+</div>
+
+<div class="panel">
+<h2>Team Settings</h2>
+<div class="config-row">
+<label>Split Mode:</label>
+<select id="splitMode" onchange="toggleSplitConfig()">
+<option value="teams">Number of Teams</option>
+<option value="size">Team Size</option>
+</select>
+</div>
+<div class="config-row" id="teamsConfig">
+<label>Number of Teams:</label>
+<input type="number" id="numTeams" value="2" min="2" max="50">
+</div>
+<div class="config-row" id="sizeConfig" style="display:none">
+<label>Members per Team:</label>
+<input type="number" id="teamSize" value="3" min="1" max="50">
+</div>
+<div class="config-row">
+<label>Team Name Style:</label>
+<select id="nameStyle">
+<option value="numbered">Team 1, Team 2...</option>
+<option value="colors">Colors (Red, Blue...)</option>
+<option value="animals">Animals (Wolves, Eagles...)</option>
+<option value="greek">Greek (Alpha, Beta...)</option>
+<option value="custom">Custom Prefix</option>
+</select>
+<input type="text" id="customPrefix" placeholder="Custom prefix" style="width:140px;display:none">
+</div>
+<div class="btn-row">
+<button onclick="generateTeams()" style="padding:12px 28px;font-size:1rem">Generate Teams</button>
+<button class="secondary" onclick="reshuffleTeams()">Re-shuffle</button>
+</div>
+</div>
+
+<div class="panel" id="resultsPanel" style="display:none">
+<h2>Results</h2>
+<div class="stat-row" id="statsRow"></div>
+<div class="teams-grid" id="teamsGrid"></div>
+<div class="btn-row">
+<button onclick="copyResults()">Copy Results</button>
+<button class="secondary" onclick="exportCSV()">Export CSV</button>
+<button class="secondary" onclick="exportText()">Export Text</button>
+</div>
+</div>
+
+<div class="panel">
+<h2>Saved Presets</h2>
+<div class="btn-row" style="margin-bottom:12px">
+<div class="input-group" style="flex:1;margin:0"><input type="text" id="presetName" placeholder="Preset name (e.g. Soccer League)"></div>
+<button onclick="savePreset()">Save Current</button>
+</div>
+<div id="presetsList"></div>
+</div>
+
+<div class="panel">
+<h2>Share</h2>
+<p style="font-size:.85rem;color:#888;margin-bottom:10px">Share this tool with your team!</p>
+<div class="share-btns">
+<button onclick="shareX()">Share on X</button>
+<button class="secondary" onclick="shareReddit()">Reddit</button>
+<button class="secondary" onclick="shareEmail()">Email</button>
+</div>
+</div>
+
+</main>
+
+<div class="toast" id="toast"></div>
+
+<footer>
+<a href="https://spunk.codes">spunk.codes</a> |
+<a href="https://spunk.bet">spunk.bet</a> |
+<a href="https://spunk.pics">spunk.pics</a> |
+<a href="https://spunk.work">spunk.work</a> |
+<a href="https://spunkart.com">spunkart.com</a>
+<br>&copy; 2026 SPUNK.CODES
+</footer>
+
+<script>
+function esc(s){var d=document.createElement('div');d.appendChild(document.createTextNode(s));return d.innerHTML}
+
+var STORAGE='spunkcodes_teamgen';
+var storedData={presets:[]};
+var lastTeams=[];
+
+function load(){try{var d=JSON.parse(localStorage.getItem(STORAGE));if(d)storedData=d;if(!storedData.presets)storedData.presets=[];}catch(e){}}
+function save(){try{localStorage.setItem(STORAGE,JSON.stringify(storedData))}catch(e){}}
+
+var COLOR_NAMES=['Red','Blue','Green','Gold','Purple','Orange','Teal','Pink','Silver','Crimson','Navy','Lime','Amber','Violet','Coral','Cyan'];
+var ANIMAL_NAMES=['Wolves','Eagles','Lions','Bears','Sharks','Falcons','Tigers','Panthers','Vipers','Hawks','Stallions','Cobras','Ravens','Foxes','Bulls','Jaguars'];
+var GREEK_NAMES=['Alpha','Beta','Gamma','Delta','Epsilon','Zeta','Eta','Theta','Iota','Kappa','Lambda','Mu','Nu','Xi','Omicron','Pi'];
+var TEAM_COLORS=['#ff5f1f','#58a6ff','#39d353','#ffd700','#a855f7','#f97316','#14b8a6','#ec4899','#94a3b8','#dc2626','#1e40af','#84cc16','#f59e0b','#8b5cf6','#fb7185','#06b6d4'];
+
+function getNames(){
+  var raw=document.getElementById('namesInput').value.trim();
+  if(!raw)return[];
+  var names;
+  if(raw.indexOf(',')!==-1&&raw.indexOf('\n')===-1){
+    names=raw.split(',');
+  }else{
+    names=raw.split('\n');
+  }
+  return names.map(function(n){return n.trim()}).filter(function(n){return n.length>0});
+}
+
+function updateNameCount(){
+  var names=getNames();
+  document.getElementById('nameCount').textContent=names.length+' name'+(names.length!==1?'s':'')+' detected';
+}
+
+document.getElementById('namesInput').addEventListener('input',updateNameCount);
+
+function shuffleArray(arr){
+  var a=arr.slice();
+  for(var i=a.length-1;i>0;i--){
+    var j=Math.floor(Math.random()*(i+1));
+    var t=a[i];a[i]=a[j];a[j]=t;
+  }
+  return a;
+}
+
+function shuffleNames(){
+  var names=getNames();
+  if(names.length<2){toast('Add at least 2 names');return;}
+  var shuffled=shuffleArray(names);
+  document.getElementById('namesInput').value=shuffled.join('\n');
+  updateNameCount();
+  toast('Names shuffled');
+}
+
+function sortNames(){
+  var names=getNames();
+  if(names.length<2)return;
+  names.sort(function(a,b){return a.toLowerCase().localeCompare(b.toLowerCase())});
+  document.getElementById('namesInput').value=names.join('\n');
+  toast('Sorted A-Z');
+}
+
+function clearNames(){
+  document.getElementById('namesInput').value='';
+  updateNameCount();
+  document.getElementById('resultsPanel').style.display='none';
+  lastTeams=[];
+}
+
+function addSampleNames(){
+  var samples=['Alice','Bob','Charlie','Diana','Eve','Frank','Grace','Hank','Ivy','Jack','Karen','Leo','Mia','Nick','Olivia','Paul','Quinn','Rachel','Sam','Tina','Uma','Victor','Wendy','Xander'];
+  document.getElementById('namesInput').value=samples.join('\n');
+  updateNameCount();
+  toast('24 sample names loaded');
+}
+
+function toggleSplitConfig(){
+  var mode=document.getElementById('splitMode').value;
+  document.getElementById('teamsConfig').style.display=mode==='teams'?'flex':'none';
+  document.getElementById('sizeConfig').style.display=mode==='size'?'flex':'none';
+}
+
+document.getElementById('nameStyle').addEventListener('change',function(){
+  document.getElementById('customPrefix').style.display=this.value==='custom'?'inline-block':'none';
+});
+
+function getTeamName(idx){
+  var style=document.getElementById('nameStyle').value;
+  switch(style){
+    case 'colors':return COLOR_NAMES[idx%COLOR_NAMES.length];
+    case 'animals':return ANIMAL_NAMES[idx%ANIMAL_NAMES.length];
+    case 'greek':return GREEK_NAMES[idx%GREEK_NAMES.length];
+    case 'custom':
+      var prefix=document.getElementById('customPrefix').value.trim()||'Team';
+      return prefix+' '+(idx+1);
+    default:return 'Team '+(idx+1);
+  }
+}
+
+function generateTeams(){
+  var names=getNames();
+  if(names.length<2){toast('Enter at least 2 names');return;}
+
+  var shuffled=shuffleArray(names);
+  var mode=document.getElementById('splitMode').value;
+  var numTeams,teamSize;
+
+  if(mode==='teams'){
+    numTeams=parseInt(document.getElementById('numTeams').value)||2;
+    if(numTeams<2)numTeams=2;
+    if(numTeams>shuffled.length)numTeams=shuffled.length;
+  }else{
+    teamSize=parseInt(document.getElementById('teamSize').value)||3;
+    if(teamSize<1)teamSize=1;
+    numTeams=Math.ceil(shuffled.length/teamSize);
+  }
+
+  var teams=[];
+  for(var i=0;i<numTeams;i++){
+    teams.push({name:getTeamName(i),members:[],color:TEAM_COLORS[i%TEAM_COLORS.length]});
+  }
+
+  /* Round-robin distribution for even teams */
+  shuffled.forEach(function(name,i){
+    teams[i%numTeams].members.push(name);
+  });
+
+  lastTeams=teams;
+  renderTeams();
+}
+
+function reshuffleTeams(){
+  if(getNames().length<2){toast('Enter names first');return;}
+  generateTeams();
+  toast('Teams reshuffled!');
+}
+
+function renderTeams(){
+  if(lastTeams.length===0)return;
+  var panel=document.getElementById('resultsPanel');
+  panel.style.display='block';
+  panel.classList.add('shuffle-anim');
+  setTimeout(function(){panel.classList.remove('shuffle-anim')},500);
+
+  /* Stats */
+  var totalNames=lastTeams.reduce(function(s,t){return s+t.members.length},0);
+  var sizes=lastTeams.map(function(t){return t.members.length});
+  var minSize=Math.min.apply(null,sizes);
+  var maxSize=Math.max.apply(null,sizes);
+  var statsHtml='<div class="stat-box"><div class="val">'+totalNames+'</div><div class="lbl">Players</div></div>';
+  statsHtml+='<div class="stat-box"><div class="val">'+lastTeams.length+'</div><div class="lbl">Teams</div></div>';
+  statsHtml+='<div class="stat-box"><div class="val">'+minSize+(minSize!==maxSize?'-'+maxSize:'')+'</div><div class="lbl">Per Team</div></div>';
+  document.getElementById('statsRow').innerHTML=statsHtml;
+
+  /* Team cards */
+  var html='';
+  lastTeams.forEach(function(team,ti){
+    html+='<div class="team-card" style="border-color:'+team.color+'40">';
+    html+='<div class="team-name"><span style="color:'+team.color+'">'+esc(team.name)+'</span><span class="team-count">'+team.members.length+' member'+(team.members.length!==1?'s':'')+'</span></div>';
+    team.members.forEach(function(m,mi){
+      html+='<div class="member"><span class="member-num" style="color:'+team.color+'">'+(mi+1)+'.</span>'+esc(m)+'</div>';
+    });
+    html+='</div>';
+  });
+  document.getElementById('teamsGrid').innerHTML=html;
+
+  /* Animate cards in */
+  var cards=document.querySelectorAll('.team-card');
+  cards.forEach(function(c,i){
+    c.style.opacity='0';c.style.transform='translateY(20px)';
+    setTimeout(function(){c.style.transition='all .3s ease';c.style.opacity='1';c.style.transform='translateY(0)';},i*80);
+  });
+}
+
+function copyResults(){
+  if(lastTeams.length===0){toast('Generate teams first');return;}
+  var text=lastTeams.map(function(t){
+    return t.name+':\n'+t.members.map(function(m,i){return'  '+(i+1)+'. '+m}).join('\n');
+  }).join('\n\n');
+  navigator.clipboard.writeText(text).then(function(){toast('Results copied!')});
+}
+
+function exportCSV(){
+  if(lastTeams.length===0){toast('Generate teams first');return;}
+  var rows=[['Team','Member']];
+  lastTeams.forEach(function(t){
+    t.members.forEach(function(m){rows.push([t.name,m])});
+  });
+  var csv=rows.map(function(r){return r.map(function(c){return'"'+c.replace(/"/g,'""')+'"'}).join(',')}).join('\n');
+  download(csv,'teams.csv','text/csv');
+  toast('CSV exported');
+}
+
+function exportText(){
+  if(lastTeams.length===0){toast('Generate teams first');return;}
+  var text='RANDOM TEAM GENERATOR RESULTS\n'+new Date().toLocaleString()+'\n'+'='.repeat(40)+'\n\n';
+  lastTeams.forEach(function(t){
+    text+=t.name+' ('+t.members.length+' members)\n';
+    text+='-'.repeat(30)+'\n';
+    t.members.forEach(function(m,i){text+='  '+(i+1)+'. '+m+'\n'});
+    text+='\n';
+  });
+  text+='Generated at spunk.codes/exclusive/random-team-generator';
+  download(text,'teams.txt','text/plain');
+  toast('Text file exported');
+}
+
+function download(content,filename,type){
+  var blob=new Blob([content],{type:type});
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);a.download=filename;a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+/* Presets */
+function savePreset(){
+  var name=document.getElementById('presetName').value.trim();
+  var names=getNames();
+  if(!name){toast('Enter a preset name');return;}
+  if(names.length===0){toast('Enter some names first');return;}
+  storedData.presets.push({name:name,names:names,created:new Date().toISOString()});
+  save();
+  document.getElementById('presetName').value='';
+  renderPresets();
+  toast('Preset "'+esc(name)+'" saved');
+}
+
+function loadPreset(idx){
+  var p=storedData.presets[idx];
+  if(!p)return;
+  document.getElementById('namesInput').value=p.names.join('\n');
+  updateNameCount();
+  toast('Loaded "'+esc(p.name)+'"');
+}
+
+function deletePreset(idx){
+  storedData.presets.splice(idx,1);
+  save();
+  renderPresets();
+}
+
+function renderPresets(){
+  var el=document.getElementById('presetsList');
+  if(storedData.presets.length===0){el.innerHTML='<div class="empty">No saved presets. Add names and save a preset above.</div>';return;}
+  var html='';
+  storedData.presets.forEach(function(p,i){
+    html+='<div class="preset-item">';
+    html+='<div><span class="name">'+esc(p.name)+'</span><br><span class="count">'+p.names.length+' names</span></div>';
+    html+='<div style="display:flex;gap:6px;align-items:center">';
+    html+='<button onclick="loadPreset('+i+')" style="padding:4px 12px;font-size:.8rem">Load</button>';
+    html+='<button class="del-btn" onclick="deletePreset('+i+')">&#10005;</button>';
+    html+='</div></div>';
+  });
+  el.innerHTML=html;
+}
+
+function toast(msg){
+  var el=document.getElementById('toast');
+  el.textContent=msg;el.classList.add('show');
+  setTimeout(function(){el.classList.remove('show')},2000);
+}
+
+function shareX(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Just used this free random team generator to split teams instantly! @SpunkArt13')+'&url='+encodeURIComponent('https://spunk.codes/exclusive/random-team-generator'),'_blank')}
+function shareReddit(){window.open('https://www.reddit.com/submit?url='+encodeURIComponent('https://spunk.codes/exclusive/random-team-generator')+'&title='+encodeURIComponent('Random Team Generator - split names into random teams, save presets, export results'),'_blank')}
+function shareEmail(){window.location.href='mailto:?subject='+encodeURIComponent('Random Team Generator')+'&body='+encodeURIComponent('Split names into random teams with this free tool: https://spunk.codes/exclusive/random-team-generator')}
+
+load();
+renderPresets();
+updateNameCount();
+</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>

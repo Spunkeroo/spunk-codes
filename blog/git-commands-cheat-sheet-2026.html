@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Git Commands Cheat Sheet: Everything You Need in 2026 | SpunkArt</title>
+<meta name="description" content="The ultimate Git commands cheat sheet for 2026. Every essential git command with examples, from basics to advanced workflows. Branching, merging, rebasing, stashing, and more.">
+<meta name="keywords" content="git commands cheat sheet, git tutorial, git commands list, git branching, git merge, git rebase, git stash, version control, git for beginners">
+<link rel="canonical" href="https://spunk.codes/blog/git-commands-cheat-sheet-2026">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git Commands Cheat Sheet: Everything You Need in 2026">
+<meta property="og:description" content="The ultimate Git commands cheat sheet. Every essential command with examples, from basics to advanced workflows.">
+<meta property="og:url" content="https://spunk.codes/blog/git-commands-cheat-sheet-2026">
+<meta property="og:site_name" content="SpunkArt">
+<meta property="og:image" content="https://spunk.codes/images/git-commands-cheat-sheet-2026-og.png">
+<meta property="article:published_time" content="2026-02-27T00:00:00Z">
+<meta property="article:author" content="SpunkArt">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<meta name="twitter:creator" content="@SpunkArt13">
+<meta name="twitter:title" content="Git Commands Cheat Sheet: Everything You Need in 2026">
+<meta name="twitter:description" content="The ultimate Git cheat sheet. Every essential command with real examples.">
+<meta name="twitter:image" content="https://spunk.codes/images/git-commands-cheat-sheet-2026-og.png">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Git Commands Cheat Sheet: Everything You Need in 2026",
+  "description": "The ultimate Git commands cheat sheet for 2026. Every essential git command with examples.",
+  "datePublished": "2026-02-27",
+  "dateModified": "2026-02-27",
+  "author": {"@type": "Organization", "name": "SpunkArt", "url": "https://spunk.codes"},
+  "publisher": {"@type": "Organization", "name": "SpunkArt", "url": "https://spunk.codes"},
+  "mainEntityOfPage": {"@type": "WebPage", "@id": "https://spunk.codes/blog/git-commands-cheat-sheet-2026"},
+  "url": "https://spunk.codes/blog/git-commands-cheat-sheet-2026",
+  "keywords": ["git commands", "git cheat sheet", "version control", "git tutorial"],
+  "wordCount": 3400,
+  "articleSection": ["Setup & Config", "Basic Workflow", "Branching", "Merging & Rebasing", "Undoing Changes", "Advanced Commands"]
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "What is the difference between git merge and git rebase?", "acceptedAnswer": {"@type": "Answer", "text": "Git merge creates a new merge commit that combines two branches, preserving the complete history of both branches. Git rebase replays your commits on top of another branch, creating a linear history. Use merge for shared branches (main, develop) to preserve context. Use rebase for feature branches before merging to keep the history clean. Never rebase commits that have been pushed to a shared branch."}},
+    {"@type": "Question", "name": "How do I undo the last git commit?", "acceptedAnswer": {"@type": "Answer", "text": "To undo the last commit but keep your changes staged, use git reset --soft HEAD~1. To undo the last commit and unstage the changes, use git reset HEAD~1 (mixed reset, the default). To completely discard the last commit and all changes, use git reset --hard HEAD~1. If the commit has already been pushed, use git revert HEAD to create a new commit that undoes the changes safely."}},
+    {"@type": "Question", "name": "What is git stash and when should I use it?", "acceptedAnswer": {"@type": "Answer", "text": "Git stash temporarily saves your uncommitted changes (both staged and unstaged) so you can switch branches or pull updates without committing work in progress. Use git stash to save changes, git stash pop to restore the most recent stash, and git stash list to see all saved stashes. It is useful when you need to quickly switch context without creating a throwaway commit."}},
+    {"@type": "Question", "name": "How do I resolve a git merge conflict?", "acceptedAnswer": {"@type": "Answer", "text": "When git reports a merge conflict, open the conflicted files and look for conflict markers (<<<<<<, =======, >>>>>>). The section before ======= is your current branch's version, and the section after is the incoming branch's version. Edit the file to keep the code you want, remove the conflict markers, then git add the resolved file and git commit. Tools like VS Code, lazygit, and IntelliJ have visual merge conflict resolvers that make this process easier."}},
+    {"@type": "Question", "name": "Should I use HTTPS or SSH for git remotes?", "acceptedAnswer": {"@type": "Answer", "text": "SSH is recommended for developers who push frequently. Set up an SSH key once and you never need to enter credentials again. HTTPS is simpler to set up initially and works behind firewalls that block SSH. GitHub recommends HTTPS with a credential helper or personal access token. For most developers, SSH with an ed25519 key is the best long-term choice."}}
+  ]
+}
+</script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e8e8e8;font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;line-height:1.7;-webkit-font-smoothing:antialiased}
+a{color:#ff5f1f;text-decoration:none;transition:opacity .2s}a:hover{opacity:.85}
+.container{max-width:800px;margin:0 auto;padding:30px 20px 60px}
+.breadcrumb{font-size:.85rem;color:#777;margin-bottom:20px}.breadcrumb a{color:#888}
+h1{font-size:2.2rem;line-height:1.2;margin-bottom:12px;font-weight:800;background:linear-gradient(135deg,#ff5f1f,#ff9f1f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+h2{font-size:1.5rem;color:#ff5f1f;margin:50px 0 20px;padding-bottom:8px;border-bottom:2px solid #1a1a1a;font-weight:700}
+h3{font-size:1.1rem;color:#fff;margin:28px 0 8px;font-weight:600}
+p{margin-bottom:16px;color:#ccc;font-size:1rem}
+ul,ol{margin-bottom:16px;padding-left:24px;color:#ccc}li{margin-bottom:8px}
+code{background:#111;padding:2px 6px;border-radius:4px;font-size:.9rem;color:#ff9f1f}
+pre{background:#0d0d14;border:1px solid #1a1a1a;border-radius:8px;padding:16px;overflow-x:auto;margin-bottom:16px;font-size:.85rem;line-height:1.6;color:#e8e8e8}
+.meta{color:#777;font-size:.85rem;margin-bottom:28px}.meta span{margin-right:16px}
+.intro{font-size:1.1rem;color:#ddd;border-left:3px solid #ff5f1f;padding:16px 20px;background:#111;border-radius:0 6px 6px 0;margin-bottom:36px;line-height:1.8}
+.toc{background:#111;border:1px solid #1a1a1a;border-radius:8px;padding:24px 28px;margin-bottom:40px}
+.toc h2{font-size:1.1rem;margin:0 0 14px;border:none;padding:0;color:#fff}.toc ol{padding-left:20px}.toc li{margin-bottom:6px}.toc a{color:#ccc;font-size:.92rem}.toc a:hover{color:#ff5f1f}
+.cmd{margin-bottom:20px;padding:16px 20px;background:#0f0f0f;border-radius:8px;border-left:3px solid #222;transition:border-color .2s}.cmd:hover{border-left-color:#ff5f1f}
+.cmd h3{margin-top:0;color:#ff9f1f;font-size:1rem}
+.cmd code{display:block;margin:8px 0;padding:8px 12px;background:#0a0a0f;border-radius:6px;font-size:.88rem}
+.cmd p{margin-bottom:0;font-size:.92rem;color:#bbb}
+.cta-box{background:linear-gradient(135deg,#1a0f08,#111);border:1px solid #ff5f1f33;border-radius:8px;padding:24px 28px;margin:36px 0;text-align:center}
+.cta-box h3{color:#ff5f1f;margin:0 0 10px;font-size:1.15rem}.cta-box p{color:#ccc;margin-bottom:16px;font-size:.95rem}
+.cta-btn{display:inline-block;background:#ff5f1f;color:#fff;padding:10px 28px;border-radius:6px;font-weight:700;font-size:.95rem;text-decoration:none;transition:background .2s}.cta-btn:hover{background:#e54e15;opacity:1}
+.share-box{background:#111;border:1px solid #1a1a1a;border-radius:8px;padding:24px;margin-top:40px;text-align:center}.share-box p{color:#999;font-size:.9rem;margin-bottom:12px}
+details{background:#0f0f0f;border:1px solid #1a1a1a;border-radius:8px;margin-bottom:10px;padding:0}
+summary{padding:14px 18px;cursor:pointer;font-weight:600;color:#ddd;font-size:.95rem;list-style:none}
+summary::-webkit-details-marker{display:none}summary::before{content:'+ ';color:#ff5f1f;font-weight:700}
+details[open] summary::before{content:'- '}
+details p{padding:0 18px 14px;margin:0;font-size:.92rem;color:#bbb}
+@media(max-width:600px){h1{font-size:1.6rem}h2{font-size:1.25rem}.container{padding:20px 16px 40px}pre{font-size:.78rem;padding:12px}}
+</style>
+</head>
+<body>
+
+<nav style="background:#111;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #222">
+  <a href="/" style="color:#ff5f1f;text-decoration:none;font-weight:700;font-size:1.2rem">SpunkArt</a>
+  <div><a href="/blog" style="color:#e8e8e8;text-decoration:none;font-size:.9rem;margin-right:15px">Blog</a><a href="/store" style="color:#e8e8e8;text-decoration:none;font-size:.9rem">Store</a></div>
+</nav>
+
+<div class="container">
+
+<div class="breadcrumb"><a href="/">Home</a> / <a href="/blog">Blog</a> / Git Commands Cheat Sheet</div>
+
+<h1>Git Commands Cheat Sheet: Everything You Need</h1>
+<div class="meta">
+  <span>Published Feb 27, 2026</span>
+  <span>17 min read</span>
+  <span>By <a href="https://x.com/SpunkArt13" target="_blank">@SpunkArt13</a></span>
+</div>
+
+<div class="intro">
+  Git is the version control system that every developer needs to master. Whether you are a beginner learning the basics or an experienced developer who occasionally forgets the exact syntax for an interactive rebase, this cheat sheet has you covered. Every command includes a clear explanation and practical example. Bookmark this page -- you will come back to it regularly.
+</div>
+
+<div class="toc">
+  <h2>Table of Contents</h2>
+  <ol>
+    <li><a href="#setup">Setup & Configuration</a></li>
+    <li><a href="#basics">Basic Workflow</a></li>
+    <li><a href="#branching">Branching</a></li>
+    <li><a href="#merging">Merging & Rebasing</a></li>
+    <li><a href="#remote">Remote Repositories</a></li>
+    <li><a href="#stashing">Stashing</a></li>
+    <li><a href="#undoing">Undoing Changes</a></li>
+    <li><a href="#inspection">Inspection & Comparison</a></li>
+    <li><a href="#advanced">Advanced Commands</a></li>
+    <li><a href="#aliases">Useful Aliases</a></li>
+    <li><a href="#workflows">Common Workflows</a></li>
+    <li><a href="#faq">Frequently Asked Questions</a></li>
+  </ol>
+</div>
+
+<!-- ==================== SETUP ==================== -->
+<h2 id="setup">Setup & Configuration</h2>
+
+<div class="cmd">
+  <h3>Set your identity</h3>
+  <code>git config --global user.name "Your Name"</code>
+  <code>git config --global user.email "you@example.com"</code>
+  <p>Sets the name and email attached to every commit. Use <code>--global</code> for all repos or omit it for per-repo config.</p>
+</div>
+
+<div class="cmd">
+  <h3>Set default branch name</h3>
+  <code>git config --global init.defaultBranch main</code>
+  <p>Sets the default branch name for new repositories to "main" instead of "master".</p>
+</div>
+
+<div class="cmd">
+  <h3>Set default editor</h3>
+  <code>git config --global core.editor "code --wait"</code>
+  <p>Sets VS Code as the default editor for commit messages and interactive operations. Replace with <code>vim</code>, <code>nano</code>, or your preferred editor.</p>
+</div>
+
+<div class="cmd">
+  <h3>Enable colored output</h3>
+  <code>git config --global color.ui auto</code>
+  <p>Enables colored output in all git commands for better readability.</p>
+</div>
+
+<div class="cmd">
+  <h3>View all configuration</h3>
+  <code>git config --list --show-origin</code>
+  <p>Shows all git config settings and which file each setting comes from.</p>
+</div>
+
+<!-- ==================== BASICS ==================== -->
+<h2 id="basics">Basic Workflow</h2>
+
+<div class="cmd">
+  <h3>Initialize a new repository</h3>
+  <code>git init</code>
+  <p>Creates a new git repository in the current directory. Run this once at the start of every new project.</p>
+</div>
+
+<div class="cmd">
+  <h3>Clone an existing repository</h3>
+  <code>git clone https://github.com/user/repo.git</code>
+  <code>git clone git@github.com:user/repo.git  # SSH</code>
+  <p>Downloads a repository and its full history. Creates a directory with the repo name.</p>
+</div>
+
+<div class="cmd">
+  <h3>Check repository status</h3>
+  <code>git status</code>
+  <code>git status -s  # short format</code>
+  <p>Shows which files are modified, staged, or untracked. Run this constantly -- it is your compass.</p>
+</div>
+
+<div class="cmd">
+  <h3>Stage files for commit</h3>
+  <code>git add filename.js</code>
+  <code>git add src/</code>
+  <code>git add .</code>
+  <p>Moves changes to the staging area. <code>git add .</code> stages everything. Prefer adding specific files to avoid committing sensitive files.</p>
+</div>
+
+<div class="cmd">
+  <h3>Commit staged changes</h3>
+  <code>git commit -m "Add user authentication"</code>
+  <code>git commit  # opens editor for longer message</code>
+  <p>Records the staged snapshot permanently. Write clear, descriptive messages in imperative mood ("Add feature" not "Added feature").</p>
+</div>
+
+<div class="cmd">
+  <h3>Stage and commit in one step</h3>
+  <code>git commit -am "Fix login validation bug"</code>
+  <p>Stages all modified tracked files and commits them. Does not include new untracked files -- use <code>git add</code> for those first.</p>
+</div>
+
+<!-- ==================== BRANCHING ==================== -->
+<h2 id="branching">Branching</h2>
+
+<div class="cmd">
+  <h3>List branches</h3>
+  <code>git branch</code>
+  <code>git branch -a  # include remote branches</code>
+  <code>git branch -v  # show last commit on each</code>
+  <p>Lists all local branches. The current branch is marked with an asterisk.</p>
+</div>
+
+<div class="cmd">
+  <h3>Create a new branch</h3>
+  <code>git branch feature/user-auth</code>
+  <code>git checkout -b feature/user-auth  # create and switch</code>
+  <code>git switch -c feature/user-auth  # modern syntax</code>
+  <p>Creates a new branch from the current HEAD. Use <code>-b</code> or <code>-c</code> to create and switch in one command.</p>
+</div>
+
+<div class="cmd">
+  <h3>Switch branches</h3>
+  <code>git checkout main</code>
+  <code>git switch main  # modern syntax</code>
+  <p>Switches your working directory to another branch. Use <code>git switch</code> (Git 2.23+) for clearer intent.</p>
+</div>
+
+<div class="cmd">
+  <h3>Delete a branch</h3>
+  <code>git branch -d feature/user-auth  # safe delete (merged only)</code>
+  <code>git branch -D feature/user-auth  # force delete</code>
+  <code>git push origin --delete feature/user-auth  # delete remote branch</code>
+  <p>The <code>-d</code> flag only deletes branches that have been merged. Use <code>-D</code> to force-delete unmerged branches.</p>
+</div>
+
+<div class="cmd">
+  <h3>Rename a branch</h3>
+  <code>git branch -m old-name new-name</code>
+  <code>git branch -m new-name  # rename current branch</code>
+  <p>Renames a branch locally. Push the new name and delete the old remote branch to rename on the remote.</p>
+</div>
+
+<!-- ==================== MERGING ==================== -->
+<h2 id="merging">Merging & Rebasing</h2>
+
+<div class="cmd">
+  <h3>Merge a branch</h3>
+  <code>git merge feature/user-auth</code>
+  <code>git merge --no-ff feature/user-auth  # force merge commit</code>
+  <p>Merges the specified branch into the current branch. <code>--no-ff</code> creates a merge commit even for fast-forward merges, preserving branch history.</p>
+</div>
+
+<div class="cmd">
+  <h3>Abort a merge</h3>
+  <code>git merge --abort</code>
+  <p>Cancels a merge in progress and restores the pre-merge state. Use this when you encounter conflicts you are not ready to resolve.</p>
+</div>
+
+<div class="cmd">
+  <h3>Rebase onto another branch</h3>
+  <code>git rebase main</code>
+  <p>Replays your branch's commits on top of the target branch. Creates a linear history. Never rebase commits that have been pushed to a shared branch.</p>
+</div>
+
+<div class="cmd">
+  <h3>Interactive rebase</h3>
+  <code>git rebase -i HEAD~3  # rebase last 3 commits</code>
+  <p>Opens an editor where you can reorder, squash, edit, or drop commits. Essential for cleaning up commit history before creating a pull request.</p>
+</div>
+
+<!-- ==================== REMOTE ==================== -->
+<h2 id="remote">Remote Repositories</h2>
+
+<div class="cmd">
+  <h3>Add a remote</h3>
+  <code>git remote add origin https://github.com/user/repo.git</code>
+  <p>Connects your local repo to a remote repository. "origin" is the conventional name for the primary remote.</p>
+</div>
+
+<div class="cmd">
+  <h3>View remotes</h3>
+  <code>git remote -v</code>
+  <p>Lists all configured remotes with their URLs for fetch and push operations.</p>
+</div>
+
+<div class="cmd">
+  <h3>Push to remote</h3>
+  <code>git push origin main</code>
+  <code>git push -u origin feature/new  # set upstream and push</code>
+  <code>git push  # after upstream is set</code>
+  <p>Uploads commits to the remote. <code>-u</code> sets the upstream tracking relationship so future pushes only need <code>git push</code>.</p>
+</div>
+
+<div class="cmd">
+  <h3>Pull from remote</h3>
+  <code>git pull</code>
+  <code>git pull --rebase  # rebase instead of merge</code>
+  <p>Fetches and merges remote changes. <code>--rebase</code> puts your local commits on top of the remote changes for a cleaner history.</p>
+</div>
+
+<div class="cmd">
+  <h3>Fetch without merging</h3>
+  <code>git fetch origin</code>
+  <code>git fetch --all  # fetch from all remotes</code>
+  <p>Downloads remote changes without modifying your working directory. Use this to see what has changed before deciding to merge or rebase.</p>
+</div>
+
+<!-- ==================== STASHING ==================== -->
+<h2 id="stashing">Stashing</h2>
+
+<div class="cmd">
+  <h3>Stash changes</h3>
+  <code>git stash</code>
+  <code>git stash -m "WIP: user validation"</code>
+  <code>git stash -u  # include untracked files</code>
+  <p>Saves uncommitted changes to a stack so you can switch branches cleanly. Add <code>-m</code> for a descriptive message and <code>-u</code> to include new files.</p>
+</div>
+
+<div class="cmd">
+  <h3>Apply stashed changes</h3>
+  <code>git stash pop  # apply and remove from stack</code>
+  <code>git stash apply  # apply but keep in stack</code>
+  <code>git stash apply stash@{2}  # apply specific stash</code>
+  <p>Restores stashed changes. <code>pop</code> removes the stash after applying; <code>apply</code> keeps it for later.</p>
+</div>
+
+<div class="cmd">
+  <h3>List and manage stashes</h3>
+  <code>git stash list</code>
+  <code>git stash show -p stash@{0}  # show diff</code>
+  <code>git stash drop stash@{0}  # delete specific stash</code>
+  <code>git stash clear  # delete all stashes</code>
+  <p>View, inspect, and clean up your stash stack.</p>
+</div>
+
+<!-- ==================== UNDOING ==================== -->
+<h2 id="undoing">Undoing Changes</h2>
+
+<div class="cmd">
+  <h3>Unstage a file</h3>
+  <code>git restore --staged filename.js</code>
+  <code>git reset HEAD filename.js  # older syntax</code>
+  <p>Removes a file from the staging area without discarding changes. The file remains modified in your working directory.</p>
+</div>
+
+<div class="cmd">
+  <h3>Discard changes to a file</h3>
+  <code>git restore filename.js</code>
+  <code>git checkout -- filename.js  # older syntax</code>
+  <p>Discards all uncommitted changes to a file, reverting it to the last committed state. This is irreversible.</p>
+</div>
+
+<div class="cmd">
+  <h3>Undo the last commit (keep changes)</h3>
+  <code>git reset --soft HEAD~1  # keep staged</code>
+  <code>git reset HEAD~1  # keep unstaged (mixed)</code>
+  <p>Moves HEAD back one commit. <code>--soft</code> keeps changes staged. Default (mixed) keeps changes but unstages them. Both are safe for unpushed commits.</p>
+</div>
+
+<div class="cmd">
+  <h3>Undo the last commit (discard changes)</h3>
+  <code>git reset --hard HEAD~1</code>
+  <p>Moves HEAD back one commit and discards all changes. This is destructive and irreversible. Only use for unpushed commits.</p>
+</div>
+
+<div class="cmd">
+  <h3>Revert a pushed commit safely</h3>
+  <code>git revert abc1234</code>
+  <code>git revert HEAD  # revert the latest commit</code>
+  <p>Creates a new commit that undoes the specified commit's changes. Safe for pushed commits because it does not rewrite history.</p>
+</div>
+
+<div class="cmd">
+  <h3>Amend the last commit</h3>
+  <code>git commit --amend -m "Updated commit message"</code>
+  <code>git commit --amend --no-edit  # add staged changes to last commit</code>
+  <p>Modifies the most recent commit. Use for fixing typos in commit messages or adding forgotten files. Do not amend pushed commits.</p>
+</div>
+
+<!-- ==================== INSPECTION ==================== -->
+<h2 id="inspection">Inspection & Comparison</h2>
+
+<div class="cmd">
+  <h3>View commit history</h3>
+  <code>git log</code>
+  <code>git log --oneline  # compact format</code>
+  <code>git log --oneline --graph --all  # visual branch graph</code>
+  <code>git log --author="Name"  # filter by author</code>
+  <code>git log -5  # last 5 commits</code>
+  <p>The <code>--oneline --graph --all</code> combination is the most useful for understanding branch structure.</p>
+</div>
+
+<div class="cmd">
+  <h3>View changes</h3>
+  <code>git diff  # unstaged changes</code>
+  <code>git diff --staged  # staged changes</code>
+  <code>git diff main..feature  # between branches</code>
+  <code>git diff HEAD~3  # last 3 commits</code>
+  <p>Shows line-by-line differences. Install <a href="/blog/best-terminal-apps-developers-2026">delta</a> for syntax-highlighted diffs.</p>
+</div>
+
+<div class="cmd">
+  <h3>Show a specific commit</h3>
+  <code>git show abc1234</code>
+  <code>git show HEAD  # latest commit</code>
+  <p>Displays the commit message and diff for a specific commit.</p>
+</div>
+
+<div class="cmd">
+  <h3>Find who changed a line</h3>
+  <code>git blame filename.js</code>
+  <code>git blame -L 10,20 filename.js  # lines 10-20</code>
+  <p>Shows the author and commit for each line of a file. Essential for understanding why code was written a certain way.</p>
+</div>
+
+<div class="cmd">
+  <h3>Search commit messages</h3>
+  <code>git log --grep="fix login"</code>
+  <p>Searches commit messages for a string. Case-insensitive with <code>--grep="pattern" -i</code>.</p>
+</div>
+
+<!-- ==================== ADVANCED ==================== -->
+<h2 id="advanced">Advanced Commands</h2>
+
+<div class="cmd">
+  <h3>Cherry-pick a commit</h3>
+  <code>git cherry-pick abc1234</code>
+  <p>Applies a specific commit from another branch to your current branch. Useful for backporting bug fixes.</p>
+</div>
+
+<div class="cmd">
+  <h3>Bisect to find a bug</h3>
+  <code>git bisect start</code>
+  <code>git bisect bad  # current commit is bad</code>
+  <code>git bisect good abc1234  # this commit was good</code>
+  <p>Binary searches through commit history to find which commit introduced a bug. Git checks out commits for you to test, narrowing down the culprit in O(log n) steps.</p>
+</div>
+
+<div class="cmd">
+  <h3>Clean untracked files</h3>
+  <code>git clean -n  # dry run (show what would be deleted)</code>
+  <code>git clean -fd  # delete untracked files and directories</code>
+  <p>Removes untracked files. Always run with <code>-n</code> first to preview. Add <code>-x</code> to also remove files in .gitignore.</p>
+</div>
+
+<div class="cmd">
+  <h3>Create a worktree</h3>
+  <code>git worktree add ../hotfix hotfix-branch</code>
+  <p>Creates a separate working directory for another branch without switching branches. Work on a hotfix in one directory while your feature branch stays untouched in another.</p>
+</div>
+
+<div class="cmd">
+  <h3>Squash commits</h3>
+  <code>git rebase -i HEAD~3</code>
+  <p>Opens interactive rebase. Change "pick" to "squash" (or "s") on commits you want to combine. Write a new commit message for the squashed result. Clean up messy commit history before merging.</p>
+</div>
+
+<!-- ==================== ALIASES ==================== -->
+<h2 id="aliases">Useful Aliases</h2>
+
+<p>Add these to your <code>~/.gitconfig</code> under <code>[alias]</code> to save keystrokes:</p>
+
+<pre>
+[alias]
+  s = status -s
+  co = checkout
+  br = branch
+  ci = commit
+  lg = log --oneline --graph --all --decorate
+  last = log -1 HEAD --stat
+  unstage = restore --staged
+  undo = reset HEAD~1
+  amend = commit --amend --no-edit
+  wip = !git add -A && git commit -m "WIP"
+  branches = branch -a -v
+  stashes = stash list
+  contributors = shortlog -sn
+</pre>
+
+<p>With these aliases, <code>git s</code> shows status, <code>git lg</code> shows a visual branch graph, and <code>git undo</code> reverts the last commit while keeping changes.</p>
+
+<!-- ==================== WORKFLOWS ==================== -->
+<h2 id="workflows">Common Workflows</h2>
+
+<h3>Feature Branch Workflow</h3>
+<pre>
+git switch -c feature/new-feature    # create feature branch
+# ... make changes ...
+git add .
+git commit -m "Add new feature"
+git push -u origin feature/new-feature
+# Create Pull Request on GitHub
+# After review and merge, clean up:
+git switch main
+git pull
+git branch -d feature/new-feature
+</pre>
+
+<h3>Hotfix Workflow</h3>
+<pre>
+git switch main
+git pull
+git switch -c hotfix/critical-bug
+# ... fix the bug ...
+git commit -am "Fix critical login bug"
+git push -u origin hotfix/critical-bug
+# Create PR, merge, then:
+git switch main
+git pull
+git branch -d hotfix/critical-bug
+</pre>
+
+<h3>Sync Fork with Upstream</h3>
+<pre>
+git remote add upstream https://github.com/original/repo.git
+git fetch upstream
+git switch main
+git merge upstream/main
+git push origin main
+</pre>
+
+<div class="cta-box">
+  <h3>More Developer Resources</h3>
+  <p>Check out our <a href="/blog/best-terminal-apps-developers-2026" style="color:#ff9f1f">Best Terminal Apps</a> and <a href="/blog/best-vscode-extensions-2026" style="color:#ff9f1f">Best VS Code Extensions</a> guides.</p>
+  <a href="/exclusive/" class="cta-btn">Browse All Free Tools</a>
+</div>
+
+<h2 id="faq">Frequently Asked Questions</h2>
+
+<details>
+<summary>What is the difference between git merge and git rebase?</summary>
+<p>Git merge creates a new merge commit that combines two branches, preserving the complete history. Git rebase replays your commits on top of another branch, creating a linear history. Use merge for shared branches to preserve context. Use rebase for feature branches before merging to keep history clean. Never rebase commits that have been pushed to a shared branch.</p>
+</details>
+
+<details>
+<summary>How do I undo the last git commit?</summary>
+<p>To undo the last commit but keep changes staged: <code>git reset --soft HEAD~1</code>. To undo and unstage: <code>git reset HEAD~1</code>. To completely discard: <code>git reset --hard HEAD~1</code>. If already pushed, use <code>git revert HEAD</code> to create a new commit that safely undoes the changes.</p>
+</details>
+
+<details>
+<summary>What is git stash and when should I use it?</summary>
+<p>Git stash temporarily saves uncommitted changes so you can switch branches without committing work in progress. Use <code>git stash</code> to save, <code>git stash pop</code> to restore, and <code>git stash list</code> to see all stashes. It is useful when you need to quickly switch context.</p>
+</details>
+
+<details>
+<summary>How do I resolve a git merge conflict?</summary>
+<p>Open conflicted files and look for markers (<<<<<<, =======, >>>>>>). Edit to keep the code you want, remove the markers, then <code>git add</code> the resolved file and <code>git commit</code>. VS Code and lazygit have visual conflict resolvers that simplify this process.</p>
+</details>
+
+<details>
+<summary>Should I use HTTPS or SSH for git remotes?</summary>
+<p>SSH is recommended for frequent pushers -- set up a key once and never enter credentials again. HTTPS is simpler initially and works behind restrictive firewalls. For most developers, SSH with an ed25519 key is the best long-term choice.</p>
+</details>
+
+<div class="share-box">
+  <p>Every developer needs a git cheat sheet. Share this one.</p>
+  <a href="https://x.com/intent/tweet?text=Git%20Commands%20Cheat%20Sheet%3A%20Everything%20You%20Need%20in%202026%20https%3A%2F%2Fspunk.codes%2Fblog%2Fgit-commands-cheat-sheet-2026%20via%20%40SpunkArt13" target="_blank" class="cta-btn" style="background:#1d9bf0;margin-right:10px">Share on X</a>
+  <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://spunk.codes/blog/git-commands-cheat-sheet-2026" target="_blank" class="cta-btn" style="background:#0a66c2">Share on LinkedIn</a>
+</div>
+
+<p style="text-align:center;margin-top:30px;color:#777;font-size:.9rem"><a href="https://x.com/SpunkArt13" target="_blank" style="color:#ff5f1f">Follow @SpunkArt13</a> for daily developer tips, free tools, and build-in-public updates.</p>
+
+</div>
+
+<footer style="text-align:center;padding:30px 20px;color:#555;font-size:.8rem;border-top:1px solid #1a1a1a;margin-top:40px">
+  <div style="margin-bottom:10px"><a href="/" style="color:#ff5f1f;text-decoration:none">SpunkArt</a> &middot; <a href="/store" style="color:#888;text-decoration:none">Store</a> &middot; <a href="/blog" style="color:#888;text-decoration:none">Blog</a> &middot; <a href="/reseller" style="color:#888;text-decoration:none">Reseller</a> &middot; <a href="https://spunk.bet" style="color:#888;text-decoration:none">Spunk.Bet</a> &middot; <a href="https://predict.autos" style="color:#888;text-decoration:none">Predict</a></div>
+  <p>&copy; 2026 <a href="https://spunk.codes" style="color:#ff5f1f;text-decoration:none">SpunkArt</a>. All rights reserved.</p>
+  <p style="margin-top:8px"><a href="https://x.com/SpunkArt13" target="_blank" style="color:#888;text-decoration:none">Follow @SpunkArt13</a></p>
+</footer>
+
+<script>document.addEventListener('contextmenu',function(e){e.preventDefault()});document.addEventListener('keydown',function(e){if(e.ctrlKey&&(e.key==='u'||e.key==='s'||e.key==='c')){e.preventDefault()}if(e.key==='F12'){e.preventDefault()}});</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>
