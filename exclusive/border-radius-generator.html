@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CSS Border Radius Generator — Visual Corner Editor | SPUNK.CODES</title>
+<meta name="description" content="Visual drag-to-set CSS border-radius. Separate control for each corner, live preview, presets, copy CSS. Free browser tool.">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP')</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w")</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e0e0e0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+header{background:#111118;border-bottom:2px solid #ff5f1f;padding:1rem 2rem;text-align:center}
+header h1{font-size:1.6rem;color:#ff5f1f}
+header p{color:#999;font-size:.9rem;margin-top:.3rem}
+.container{max-width:900px;margin:0 auto;padding:1.5rem;flex:1;width:100%}
+.section{background:#111118;border:1px solid #1a1a2e;border-radius:10px;padding:1.5rem;margin-bottom:1.5rem}
+.section h2{color:#ff5f1f;font-size:1.2rem;margin-bottom:1rem}
+label{display:block;color:#bbb;font-size:.85rem;margin-bottom:.3rem}
+input,select{background:#0a0a0f;color:#e0e0e0;border:1px solid #1a1a2e;border-radius:6px;padding:.5rem .7rem;font-size:.9rem;width:100%}
+input:focus{outline:none;border-color:#ff5f1f}
+input[type=range]{accent-color:#ff5f1f}
+.btn{background:#ff5f1f;color:#fff;border:none;padding:.55rem 1.1rem;border-radius:6px;cursor:pointer;font-size:.9rem;font-weight:600;transition:background .2s}
+.btn:hover{background:#e54e10}
+.btn-sm{padding:.35rem .7rem;font-size:.8rem}
+.btn-outline{background:transparent;border:1px solid #ff5f1f;color:#ff5f1f}
+.btn-outline:hover{background:#ff5f1f;color:#fff}
+.preview-area{display:flex;justify-content:center;align-items:center;padding:2rem;margin-bottom:1rem}
+.preview-box{width:250px;height:250px;background:linear-gradient(135deg,#ff5f1f,#e54e10);transition:border-radius .2s;position:relative}
+.corner-controls{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1rem}
+.corner{background:#0a0a0f;border:1px solid #1a1a2e;border-radius:8px;padding:1rem}
+.corner h4{color:#ff5f1f;font-size:.9rem;margin-bottom:.6rem}
+.corner .val{color:#ff5f1f;font-weight:700;font-size:.9rem;float:right}
+.unit-row{display:flex;gap:.5rem;margin-bottom:1rem;align-items:center}
+.unit-row label{margin:0;color:#bbb;font-size:.85rem}
+.check-row{display:flex;align-items:center;gap:.5rem;margin-bottom:1rem}
+.check-row input[type=checkbox]{width:auto}
+.presets{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem}
+.preset-btn{background:#0a0a0f;border:1px solid #1a1a2e;border-radius:6px;padding:.5rem .8rem;cursor:pointer;color:#bbb;font-size:.82rem;transition:border-color .2s}
+.preset-btn:hover{border-color:#ff5f1f;color:#ff5f1f}
+.output-box{background:#0a0a0f;border:1px solid #1a1a2e;border-radius:6px;padding:1rem;font-family:monospace;font-size:.9rem;color:#ccc;line-height:1.6}
+.color-row{display:flex;gap:1rem;margin-bottom:1rem;align-items:end}
+.color-row input[type=color]{width:50px;height:36px;border:none;cursor:pointer;background:none;padding:0}
+.size-row{display:flex;gap:1rem;margin-bottom:1rem;align-items:end}
+footer{background:#111118;border-top:1px solid #1a1a2e;text-align:center;padding:1.2rem;color:#666;font-size:.8rem}
+footer a{color:#ff5f1f;margin:0 .3rem}
+@media(max-width:768px){
+  header h1{font-size:1.2rem}
+  .container{padding:1rem}
+  .corner-controls{grid-template-columns:1fr}
+  .preview-box{width:180px;height:180px}
+}
+</style>
+</head>
+<body>
+<header>
+<h1>CSS Border Radius Generator</h1>
+<p>Visually design border-radius with per-corner control. Copy CSS instantly.</p>
+</header>
+<div class="container">
+  <div class="section">
+    <h2>Presets</h2>
+    <div class="presets">
+      <div class="preset-btn" onclick="setPreset(0,0,0,0)">Square</div>
+      <div class="preset-btn" onclick="setPreset(8,8,8,8)">Rounded</div>
+      <div class="preset-btn" onclick="setPreset(16,16,16,16)">More Rounded</div>
+      <div class="preset-btn" onclick="setPreset(50,50,50,50)">Circle/Pill</div>
+      <div class="preset-btn" onclick="setPreset(20,0,20,0)">Diagonal</div>
+      <div class="preset-btn" onclick="setPreset(0,20,0,20)">Alt Diagonal</div>
+      <div class="preset-btn" onclick="setPreset(30,0,0,0)">Top-Left Only</div>
+      <div class="preset-btn" onclick="setPreset(20,20,0,0)">Top Only</div>
+      <div class="preset-btn" onclick="setPreset(0,0,20,20)">Bottom Only</div>
+      <div class="preset-btn" onclick="setPreset(40,10,40,10)">Leaf</div>
+      <div class="preset-btn" onclick="setPreset(10,40,10,40)">Alt Leaf</div>
+      <div class="preset-btn" onclick="setPreset(25,50,25,0)">Blob</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Preview</h2>
+    <div class="color-row">
+      <div>
+        <label>Box Color</label>
+        <input type="color" id="boxColor" value="#ff5f1f" onchange="updatePreview()">
+      </div>
+      <div>
+        <label>Background</label>
+        <input type="color" id="bgColor" value="#0a0a0f" onchange="updatePreview()">
+      </div>
+      <div style="flex:1">
+        <label>Box Size</label>
+        <input type="range" id="boxSize" min="100" max="350" value="250" oninput="updatePreview()">
+      </div>
+    </div>
+    <div class="check-row">
+      <input type="checkbox" id="linkCorners" checked onchange="updatePreview()">
+      <label for="linkCorners" style="margin:0;cursor:pointer">Link all corners</label>
+    </div>
+    <div class="preview-area" id="previewArea">
+      <div class="preview-box" id="previewBox"></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Corner Controls</h2>
+    <div class="corner-controls">
+      <div class="corner">
+        <h4>Top-Left <span class="val" id="tlVal">0</span>%</h4>
+        <input type="range" id="tlSlider" min="0" max="50" value="0" oninput="onSlider('tl')">
+      </div>
+      <div class="corner">
+        <h4>Top-Right <span class="val" id="trVal">0</span>%</h4>
+        <input type="range" id="trSlider" min="0" max="50" value="0" oninput="onSlider('tr')">
+      </div>
+      <div class="corner">
+        <h4>Bottom-Left <span class="val" id="blVal">0</span>%</h4>
+        <input type="range" id="blSlider" min="0" max="50" value="0" oninput="onSlider('bl')">
+      </div>
+      <div class="corner">
+        <h4>Bottom-Right <span class="val" id="brVal">0</span>%</h4>
+        <input type="range" id="brSlider" min="0" max="50" value="0" oninput="onSlider('br')">
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>CSS Output</h2>
+    <div class="output-box" id="cssOutput">border-radius: 0%;</div>
+    <div style="display:flex;gap:.5rem;margin-top:.8rem">
+      <button class="btn btn-sm" onclick="copyCss()">Copy CSS</button>
+      <button class="btn btn-sm btn-outline" onclick="copyShorthand()">Copy Shorthand Only</button>
+    </div>
+  </div>
+</div>
+<footer>
+  <a href="https://spunk.codes">spunk.codes</a> &middot; <a href="https://spunk.bet">spunk.bet</a> &middot; <a href="https://spunk.pics">spunk.pics</a> &middot; <a href="https://spunk.work">spunk.work</a> &middot; <a href="https://spunkart.com">SpunkArt.com</a>
+</footer>
+<script>
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
+
+function getVals(){
+  return {
+    tl:parseInt(document.getElementById('tlSlider').value),
+    tr:parseInt(document.getElementById('trSlider').value),
+    bl:parseInt(document.getElementById('blSlider').value),
+    br:parseInt(document.getElementById('brSlider').value)
+  };
+}
+
+function onSlider(corner){
+  const linked=document.getElementById('linkCorners').checked;
+  const val=parseInt(document.getElementById(corner+'Slider').value);
+  if(linked){
+    ['tl','tr','bl','br'].forEach(c=>{
+      document.getElementById(c+'Slider').value=val;
+      document.getElementById(c+'Val').textContent=val;
+    });
+  }else{
+    document.getElementById(corner+'Val').textContent=val;
+  }
+  updatePreview();
+}
+
+function setPreset(tl,tr,bl,br){
+  document.getElementById('linkCorners').checked=false;
+  document.getElementById('tlSlider').value=tl;document.getElementById('tlVal').textContent=tl;
+  document.getElementById('trSlider').value=tr;document.getElementById('trVal').textContent=tr;
+  document.getElementById('blSlider').value=bl;document.getElementById('blVal').textContent=bl;
+  document.getElementById('brSlider').value=br;document.getElementById('brVal').textContent=br;
+  updatePreview();
+}
+
+function updatePreview(){
+  const v=getVals();
+  const box=document.getElementById('previewBox');
+  const size=document.getElementById('boxSize').value;
+  const color=document.getElementById('boxColor').value;
+  const bg=document.getElementById('bgColor').value;
+  const radius=v.tl+'% '+v.tr+'% '+v.br+'% '+v.bl+'%';
+  box.style.borderRadius=radius;
+  box.style.width=size+'px';
+  box.style.height=size+'px';
+  box.style.background=color;
+  document.getElementById('previewArea').style.background=bg;
+  updateCss(v);
+}
+
+function updateCss(v){
+  let css;
+  if(v.tl===v.tr&&v.tr===v.bl&&v.bl===v.br){
+    css='border-radius: '+v.tl+'%;';
+  }else if(v.tl===v.br&&v.tr===v.bl){
+    css='border-radius: '+v.tl+'% '+v.tr+'%;';
+  }else{
+    css='border-radius: '+v.tl+'% '+v.tr+'% '+v.br+'% '+v.bl+'%;';
+  }
+  const full=css+'\n-webkit-border-radius: '+v.tl+'% '+v.tr+'% '+v.br+'% '+v.bl+'%;\n-moz-border-radius: '+v.tl+'% '+v.tr+'% '+v.br+'% '+v.bl+'%;';
+  document.getElementById('cssOutput').textContent=full;
+}
+
+function copyCss(){
+  navigator.clipboard.writeText(document.getElementById('cssOutput').textContent).then(()=>flash('CSS copied!'));
+}
+function copyShorthand(){
+  const v=getVals();
+  let s;
+  if(v.tl===v.tr&&v.tr===v.bl&&v.bl===v.br)s=v.tl+'%';
+  else if(v.tl===v.br&&v.tr===v.bl)s=v.tl+'% '+v.tr+'%';
+  else s=v.tl+'% '+v.tr+'% '+v.br+'% '+v.bl+'%';
+  navigator.clipboard.writeText(s).then(()=>flash('Shorthand copied!'));
+}
+
+function flash(msg){
+  const d=document.createElement('div');
+  d.style.cssText='position:fixed;top:20px;right:20px;background:#ff5f1f;color:#fff;padding:.8rem 1.5rem;border-radius:8px;font-weight:600;z-index:9999;animation:fadeOut 2s forwards';
+  d.textContent=msg;document.body.appendChild(d);setTimeout(()=>d.remove(),2200);
+}
+const st=document.createElement('style');st.textContent='@keyframes fadeOut{0%{opacity:1}70%{opacity:1}100%{opacity:0}}';document.head.appendChild(st);
+
+updatePreview();
+</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>

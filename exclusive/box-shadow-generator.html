@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CSS Box Shadow Generator — Visual Shadow Builder | SPUNK.CODES</title>
+<meta name="description" content="Create CSS box-shadow with visual sliders. Multiple shadow layers, color picker with opacity, live preview. Copy CSS instantly. Free browser tool.">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP')</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w")</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e0e0e0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+header{background:#111118;border-bottom:2px solid #ff5f1f;padding:1rem 2rem;text-align:center}
+header h1{font-size:1.6rem;color:#ff5f1f}
+header p{color:#999;font-size:.9rem;margin-top:.3rem}
+.container{max-width:1000px;margin:0 auto;padding:1.5rem;flex:1;width:100%}
+.section{background:#111118;border:1px solid #1a1a2e;border-radius:10px;padding:1.5rem;margin-bottom:1.5rem}
+.section h2{color:#ff5f1f;font-size:1.2rem;margin-bottom:1rem;display:flex;align-items:center;justify-content:space-between}
+label{display:block;color:#bbb;font-size:.85rem;margin-bottom:.3rem}
+input,select{background:#0a0a0f;color:#e0e0e0;border:1px solid #1a1a2e;border-radius:6px;padding:.5rem .7rem;font-size:.9rem;width:100%}
+input:focus{outline:none;border-color:#ff5f1f}
+input[type=range]{accent-color:#ff5f1f}
+input[type=color]{width:50px;height:36px;border:none;cursor:pointer;background:none;padding:0}
+.btn{background:#ff5f1f;color:#fff;border:none;padding:.55rem 1.1rem;border-radius:6px;cursor:pointer;font-size:.9rem;font-weight:600;transition:background .2s}
+.btn:hover{background:#e54e10}
+.btn-sm{padding:.35rem .7rem;font-size:.8rem}
+.btn-outline{background:transparent;border:1px solid #ff5f1f;color:#ff5f1f}
+.btn-outline:hover{background:#ff5f1f;color:#fff}
+.btn-danger{background:#c0392b}.btn-danger:hover{background:#a93226}
+.preview-area{display:flex;justify-content:center;align-items:center;padding:3rem;background:#0a0a0f;border:1px solid #1a1a2e;border-radius:8px;margin-bottom:1rem;min-height:300px}
+.preview-box{width:200px;height:200px;background:#1a1a2e;border-radius:12px;transition:box-shadow .15s}
+.layers-list{margin-bottom:1rem}
+.layer-card{background:#0a0a0f;border:1px solid #1a1a2e;border-radius:8px;padding:1rem;margin-bottom:.8rem}
+.layer-card.active{border-color:#ff5f1f}
+.layer-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:.8rem}
+.layer-header h4{color:#ff5f1f;font-size:.9rem}
+.slider-row{display:grid;grid-template-columns:100px 1fr 50px;gap:.5rem;align-items:center;margin-bottom:.5rem}
+.slider-row label{margin:0;font-size:.82rem}
+.slider-row .val{text-align:right;color:#ff5f1f;font-weight:600;font-size:.85rem;font-family:monospace}
+.color-row{display:flex;gap:1rem;align-items:end;margin-bottom:.5rem}
+.check-row{display:flex;align-items:center;gap:.5rem;margin-top:.3rem}
+.check-row input[type=checkbox]{width:auto}
+.presets{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem}
+.preset-btn{background:#0a0a0f;border:1px solid #1a1a2e;border-radius:6px;padding:.5rem .8rem;cursor:pointer;color:#bbb;font-size:.82rem;transition:border-color .2s}
+.preset-btn:hover{border-color:#ff5f1f;color:#ff5f1f}
+.output-box{background:#0a0a0f;border:1px solid #1a1a2e;border-radius:6px;padding:1rem;font-family:monospace;font-size:.85rem;color:#ccc;line-height:1.6;white-space:pre-wrap;word-break:break-all}
+footer{background:#111118;border-top:1px solid #1a1a2e;text-align:center;padding:1.2rem;color:#666;font-size:.8rem}
+footer a{color:#ff5f1f;margin:0 .3rem}
+@media(max-width:768px){
+  header h1{font-size:1.2rem}
+  .container{padding:1rem}
+  .preview-box{width:150px;height:150px}
+  .slider-row{grid-template-columns:80px 1fr 40px}
+}
+</style>
+</head>
+<body>
+<header>
+<h1>CSS Box Shadow Generator</h1>
+<p>Build beautiful box-shadows with multiple layers. Visual editor, live preview.</p>
+</header>
+<div class="container">
+  <div class="section">
+    <h2>Presets</h2>
+    <div class="presets">
+      <div class="preset-btn" onclick="loadPreset('subtle')">Subtle</div>
+      <div class="preset-btn" onclick="loadPreset('medium')">Medium</div>
+      <div class="preset-btn" onclick="loadPreset('heavy')">Heavy</div>
+      <div class="preset-btn" onclick="loadPreset('sharp')">Sharp</div>
+      <div class="preset-btn" onclick="loadPreset('glow')">Glow</div>
+      <div class="preset-btn" onclick="loadPreset('neon')">Neon Orange</div>
+      <div class="preset-btn" onclick="loadPreset('layered')">Layered</div>
+      <div class="preset-btn" onclick="loadPreset('inset')">Inset</div>
+      <div class="preset-btn" onclick="loadPreset('neumorphism')">Neumorphism</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Preview</h2>
+    <div class="color-row">
+      <div><label>Box Color</label><input type="color" id="boxColor" value="#1a1a2e" onchange="render()"></div>
+      <div><label>Background</label><input type="color" id="bgColor" value="#0a0a0f" onchange="render()"></div>
+      <div style="flex:1"><label>Box Size</label><input type="range" id="boxSize" min="80" max="300" value="200" oninput="render()"></div>
+      <div style="flex:1"><label>Border Radius</label><input type="range" id="boxRadius" min="0" max="50" value="12" oninput="render()"></div>
+    </div>
+    <div class="preview-area" id="previewArea">
+      <div class="preview-box" id="previewBox"></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Shadow Layers <span style="display:flex;gap:.4rem"><button class="btn btn-sm" onclick="addLayer()">+ Add Layer</button></span></h2>
+    <div class="layers-list" id="layersList"></div>
+  </div>
+
+  <div class="section">
+    <h2>CSS Output</h2>
+    <div class="output-box" id="cssOutput">box-shadow: none;</div>
+    <div style="display:flex;gap:.5rem;margin-top:.8rem">
+      <button class="btn btn-sm" onclick="copyCss()">Copy CSS</button>
+      <button class="btn btn-sm btn-outline" onclick="copyValue()">Copy Value Only</button>
+    </div>
+  </div>
+</div>
+<footer>
+  <a href="https://spunk.codes">spunk.codes</a> &middot; <a href="https://spunk.bet">spunk.bet</a> &middot; <a href="https://spunk.pics">spunk.pics</a> &middot; <a href="https://spunk.work">spunk.work</a> &middot; <a href="https://spunkart.com">SpunkArt.com</a>
+</footer>
+<script>
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
+let layers=[{id:1,x:4,y:4,blur:15,spread:0,color:'#000000',opacity:40,inset:false}];
+let nextId=2;
+
+function addLayer(){
+  layers.push({id:nextId++,x:0,y:4,blur:10,spread:0,color:'#000000',opacity:30,inset:false});
+  renderLayers();render();
+}
+
+function removeLayer(id){
+  layers=layers.filter(l=>l.id!==id);
+  if(!layers.length)addLayer();
+  else{renderLayers();render();}
+}
+
+function hexToRgba(hex,opacity){
+  const r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);
+  return 'rgba('+r+','+g+','+b+','+(opacity/100).toFixed(2)+')';
+}
+
+function buildShadow(){
+  return layers.map(l=>{
+    const rgba=hexToRgba(l.color,l.opacity);
+    return (l.inset?'inset ':'')+l.x+'px '+l.y+'px '+l.blur+'px '+l.spread+'px '+rgba;
+  }).join(',\n        ');
+}
+
+function render(){
+  const box=document.getElementById('previewBox');
+  const shadow=buildShadow();
+  box.style.boxShadow=shadow;
+  box.style.width=document.getElementById('boxSize').value+'px';
+  box.style.height=document.getElementById('boxSize').value+'px';
+  box.style.background=document.getElementById('boxColor').value;
+  box.style.borderRadius=document.getElementById('boxRadius').value+'px';
+  document.getElementById('previewArea').style.background=document.getElementById('bgColor').value;
+  const css='box-shadow: '+shadow+';\n-webkit-box-shadow: '+shadow+';\n-moz-box-shadow: '+shadow+';';
+  document.getElementById('cssOutput').textContent=css;
+}
+
+function renderLayers(){
+  const list=document.getElementById('layersList');
+  list.innerHTML=layers.map((l,i)=>{
+    return '<div class="layer-card" id="layer-'+l.id+'">'+
+      '<div class="layer-header"><h4>Layer '+(i+1)+'</h4><div style="display:flex;gap:.3rem">'+
+      '<button class="btn btn-sm btn-danger" onclick="removeLayer('+l.id+')">Remove</button></div></div>'+
+      '<div class="slider-row"><label>Offset X</label><input type="range" min="-50" max="50" value="'+l.x+'" oninput="updateLayer('+l.id+',\'x\',this.value)"><span class="val" id="lx-'+l.id+'">'+l.x+'px</span></div>'+
+      '<div class="slider-row"><label>Offset Y</label><input type="range" min="-50" max="50" value="'+l.y+'" oninput="updateLayer('+l.id+',\'y\',this.value)"><span class="val" id="ly-'+l.id+'">'+l.y+'px</span></div>'+
+      '<div class="slider-row"><label>Blur</label><input type="range" min="0" max="100" value="'+l.blur+'" oninput="updateLayer('+l.id+',\'blur\',this.value)"><span class="val" id="lblur-'+l.id+'">'+l.blur+'px</span></div>'+
+      '<div class="slider-row"><label>Spread</label><input type="range" min="-50" max="50" value="'+l.spread+'" oninput="updateLayer('+l.id+',\'spread\',this.value)"><span class="val" id="lspread-'+l.id+'">'+l.spread+'px</span></div>'+
+      '<div class="color-row"><div><label>Color</label><input type="color" value="'+l.color+'" onchange="updateLayer('+l.id+',\'color\',this.value)"></div>'+
+      '<div style="flex:1"><label>Opacity</label><input type="range" min="0" max="100" value="'+l.opacity+'" oninput="updateLayer('+l.id+',\'opacity\',this.value)"><span style="color:#ff5f1f;font-size:.8rem" id="lopac-'+l.id+'">'+l.opacity+'%</span></div></div>'+
+      '<div class="check-row"><input type="checkbox" '+(l.inset?'checked':'')+' onchange="updateLayer('+l.id+',\'inset\',this.checked)"><label style="margin:0;cursor:pointer">Inset</label></div>'+
+      '</div>';
+  }).join('');
+}
+
+function updateLayer(id,prop,val){
+  const layer=layers.find(l=>l.id===id);
+  if(!layer)return;
+  if(prop==='inset')layer.inset=val;
+  else if(prop==='color')layer.color=val;
+  else layer[prop]=parseInt(val);
+  const valEl=document.getElementById('l'+prop+'-'+id);
+  if(valEl){
+    if(prop==='opacity')valEl.textContent=val+'%';
+    else if(prop!=='color'&&prop!=='inset')valEl.textContent=val+'px';
+  }
+  render();
+}
+
+const presets={
+  subtle:[{x:0,y:1,blur:3,spread:0,color:'#000000',opacity:12,inset:false}],
+  medium:[{x:0,y:4,blur:15,spread:0,color:'#000000',opacity:30,inset:false}],
+  heavy:[{x:0,y:10,blur:40,spread:0,color:'#000000',opacity:50,inset:false}],
+  sharp:[{x:5,y:5,blur:0,spread:0,color:'#000000',opacity:40,inset:false}],
+  glow:[{x:0,y:0,blur:20,spread:5,color:'#ff5f1f',opacity:40,inset:false}],
+  neon:[{x:0,y:0,blur:10,spread:0,color:'#ff5f1f',opacity:70,inset:false},{x:0,y:0,blur:40,spread:0,color:'#ff5f1f',opacity:30,inset:false}],
+  layered:[{x:0,y:1,blur:3,spread:0,color:'#000000',opacity:12,inset:false},{x:0,y:4,blur:8,spread:0,color:'#000000',opacity:8,inset:false},{x:0,y:12,blur:24,spread:0,color:'#000000',opacity:8,inset:false}],
+  inset:[{x:0,y:2,blur:8,spread:0,color:'#000000',opacity:50,inset:true}],
+  neumorphism:[{x:-5,y:-5,blur:10,spread:0,color:'#2a2a3a',opacity:50,inset:false},{x:5,y:5,blur:10,spread:0,color:'#000000',opacity:50,inset:false}]
+};
+
+function loadPreset(name){
+  const p=presets[name];if(!p)return;
+  layers=p.map((l,i)=>({...l,id:nextId++}));
+  renderLayers();render();
+  flash('Preset loaded!');
+}
+
+function copyCss(){
+  navigator.clipboard.writeText(document.getElementById('cssOutput').textContent).then(()=>flash('CSS copied!'));
+}
+function copyValue(){
+  navigator.clipboard.writeText(buildShadow()).then(()=>flash('Value copied!'));
+}
+
+function flash(msg){
+  const d=document.createElement('div');
+  d.style.cssText='position:fixed;top:20px;right:20px;background:#ff5f1f;color:#fff;padding:.8rem 1.5rem;border-radius:8px;font-weight:600;z-index:9999;animation:fadeOut 2s forwards';
+  d.textContent=msg;document.body.appendChild(d);setTimeout(()=>d.remove(),2200);
+}
+const st=document.createElement('style');st.textContent='@keyframes fadeOut{0%{opacity:1}70%{opacity:1}100%{opacity:0}}';document.head.appendChild(st);
+
+renderLayers();render();
+</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>

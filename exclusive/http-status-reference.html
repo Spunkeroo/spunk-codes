@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HTTP Status Code Reference — Complete Guide | SPUNK.CODES</title>
+<meta name="description" content="Complete HTTP status code reference. Searchable, categorized with descriptions, use cases, and troubleshooting tips. Free browser tool.">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP')</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w")</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e0e0e0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+header{background:#111118;border-bottom:2px solid #ff5f1f;padding:1rem 2rem;text-align:center}
+header h1{font-size:1.6rem;color:#ff5f1f}
+header p{color:#999;font-size:.9rem;margin-top:.3rem}
+.container{max-width:1000px;margin:0 auto;padding:1.5rem;flex:1;width:100%}
+.section{background:#111118;border:1px solid #1a1a2e;border-radius:10px;padding:1.5rem;margin-bottom:1.5rem}
+.section h2{color:#ff5f1f;font-size:1.2rem;margin-bottom:1rem}
+input{background:#0a0a0f;color:#e0e0e0;border:1px solid #1a1a2e;border-radius:6px;padding:.6rem .8rem;font-size:1rem;width:100%}
+input:focus{outline:none;border-color:#ff5f1f}
+.btn{background:#ff5f1f;color:#fff;border:none;padding:.55rem 1.1rem;border-radius:6px;cursor:pointer;font-size:.9rem;font-weight:600;transition:background .2s}
+.btn:hover{background:#e54e10}
+.btn-sm{padding:.35rem .7rem;font-size:.8rem}
+.btn-outline{background:transparent;border:1px solid #ff5f1f;color:#ff5f1f}
+.btn-outline:hover{background:#ff5f1f;color:#fff}
+.tabs{display:flex;gap:0;margin-bottom:1.5rem;flex-wrap:wrap}
+.tab{padding:.6rem 1.2rem;background:#1a1a2e;color:#999;border:1px solid #2a2a3a;cursor:pointer;font-size:.85rem;font-weight:600;transition:all .2s}
+.tab:first-child{border-radius:6px 0 0 6px}
+.tab:last-child{border-radius:0 6px 6px 0}
+.tab.active{color:#fff;border-color:currentColor}
+.tab-1xx.active{background:#3498db;border-color:#3498db}
+.tab-2xx.active{background:#2ecc71;border-color:#2ecc71}
+.tab-3xx.active{background:#f39c12;border-color:#f39c12}
+.tab-4xx.active{background:#e74c3c;border-color:#e74c3c}
+.tab-5xx.active{background:#9b59b6;border-color:#9b59b6}
+.tab-all.active{background:#ff5f1f;border-color:#ff5f1f}
+.status-card{background:#0d0d14;border:1px solid #1a1a2e;border-radius:8px;padding:1.2rem;margin-bottom:.8rem;cursor:pointer;transition:border-color .2s}
+.status-card:hover{border-color:#ff5f1f}
+.status-card.expanded{border-color:#ff5f1f}
+.status-header{display:flex;align-items:center;gap:1rem}
+.status-code{font-size:1.4rem;font-weight:800;font-family:monospace;min-width:60px}
+.code-1xx{color:#3498db}.code-2xx{color:#2ecc71}.code-3xx{color:#f39c12}.code-4xx{color:#e74c3c}.code-5xx{color:#9b59b6}
+.status-name{font-size:1rem;font-weight:600;color:#e0e0e0}
+.status-details{display:none;margin-top:1rem;padding-top:1rem;border-top:1px solid #1a1a2e}
+.status-card.expanded .status-details{display:block}
+.detail-label{color:#ff5f1f;font-size:.8rem;font-weight:600;text-transform:uppercase;margin-bottom:.3rem;margin-top:.8rem}
+.detail-label:first-child{margin-top:0}
+.detail-text{color:#bbb;font-size:.9rem;line-height:1.5}
+.detail-tip{background:#1a1a2e;border-radius:6px;padding:.8rem;margin-top:.5rem;color:#ccc;font-size:.85rem}
+.count-badge{background:#ff5f1f;color:#fff;padding:.15rem .5rem;border-radius:10px;font-size:.75rem;font-weight:700;margin-left:.5rem}
+footer{background:#111118;border-top:1px solid #1a1a2e;text-align:center;padding:1.2rem;color:#666;font-size:.8rem}
+footer a{color:#ff5f1f;margin:0 .3rem}
+@media(max-width:768px){
+  header h1{font-size:1.2rem}
+  .container{padding:1rem}
+  .tabs{flex-wrap:wrap;gap:.3rem}
+  .tab{border-radius:6px !important;flex:1;text-align:center;min-width:60px}
+}
+</style>
+</head>
+<body>
+<header>
+<h1>HTTP Status Code Reference</h1>
+<p>Complete searchable reference for all HTTP status codes with descriptions, use cases, and troubleshooting.</p>
+</header>
+<div class="container">
+  <div class="section">
+    <input type="text" id="search" placeholder="Search by code, name, or keyword..." oninput="filterCodes()">
+  </div>
+  <div class="tabs">
+    <div class="tab tab-all active" onclick="setCategory('all',this)">All</div>
+    <div class="tab tab-1xx" onclick="setCategory('1',this)">1xx Info</div>
+    <div class="tab tab-2xx" onclick="setCategory('2',this)">2xx Success</div>
+    <div class="tab tab-3xx" onclick="setCategory('3',this)">3xx Redirect</div>
+    <div class="tab tab-4xx" onclick="setCategory('4',this)">4xx Client</div>
+    <div class="tab tab-5xx" onclick="setCategory('5',this)">5xx Server</div>
+  </div>
+  <div id="statusList"></div>
+  <div id="emptyMsg" style="display:none;text-align:center;color:#555;padding:2rem">No matching status codes found.</div>
+</div>
+<footer>
+  <a href="https://spunk.codes">spunk.codes</a> · <a href="https://spunk.bet">spunk.bet</a> · <a href="https://spunk.pics">spunk.pics</a> · <a href="https://spunk.work">spunk.work</a> · <a href="https://spunkart.com">SpunkArt.com</a>
+</footer>
+<script>
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
+
+const codes=[
+  {code:100,name:'Continue',desc:'The server has received the request headers and the client should proceed to send the body.',use:'Used in large request bodies. Client sends Expect: 100-continue header.',tip:'If stuck, check if your client library handles 100 Continue automatically.'},
+  {code:101,name:'Switching Protocols',desc:'The server is switching protocols as requested by the client.',use:'Used for WebSocket upgrades (HTTP to WS).',tip:'Check the Upgrade header in the response.'},
+  {code:102,name:'Processing',desc:'The server has received and is processing the request, but no response is available yet.',use:'WebDAV. Prevents client timeouts on long operations.',tip:'Rarely seen in modern APIs.'},
+  {code:103,name:'Early Hints',desc:'Used to return some response headers before final HTTP message.',use:'Preload CSS/JS resources while server prepares the main response.',tip:'Supported in modern browsers. Use Link headers.'},
+  {code:200,name:'OK',desc:'The request has succeeded. Standard response for successful HTTP requests.',use:'GET returns resource, POST returns result, PUT/PATCH confirm update.',tip:'The most common success code. Always return appropriate body.'},
+  {code:201,name:'Created',desc:'The request has been fulfilled and a new resource has been created.',use:'Return after POST that creates a resource. Include Location header.',tip:'Always include the created resource or its URL in the response.'},
+  {code:202,name:'Accepted',desc:'The request has been accepted for processing, but processing has not been completed.',use:'Async operations, queued jobs, batch processing.',tip:'Return a URL where the client can check processing status.'},
+  {code:204,name:'No Content',desc:'The server successfully processed the request but is not returning any content.',use:'DELETE operations, PUT/PATCH when no body needed.',tip:'Do not include a response body with 204.'},
+  {code:206,name:'Partial Content',desc:'The server is delivering only part of the resource due to a range header.',use:'Video streaming, large file downloads, resumable downloads.',tip:'Client sends Range header; server responds with Content-Range.'},
+  {code:207,name:'Multi-Status',desc:'Conveys information about multiple resources in situations where multiple status codes might be appropriate.',use:'WebDAV batch operations.',tip:'Response body contains XML with individual status codes.'},
+  {code:301,name:'Moved Permanently',desc:'The URL of the requested resource has been changed permanently.',use:'Domain migrations, URL restructuring. SEO-friendly redirect.',tip:'Search engines update their index. Browsers cache this redirect.'},
+  {code:302,name:'Found',desc:'The URI of requested resource has been changed temporarily.',use:'Temporary redirects, login redirects.',tip:'Browsers may change POST to GET. Use 307 to preserve method.'},
+  {code:303,name:'See Other',desc:'The server sent this response to direct the client to get the requested resource at another URI with a GET.',use:'After POST, redirect to a results page.',tip:'Always changes method to GET regardless of original method.'},
+  {code:304,name:'Not Modified',desc:'The resource has not been modified since the last request.',use:'Browser caching. Client sends If-None-Match or If-Modified-Since.',tip:'Do not include a body. Saves bandwidth.'},
+  {code:307,name:'Temporary Redirect',desc:'Temporary redirect that preserves the HTTP method.',use:'Same as 302 but guarantees method preservation.',tip:'Use instead of 302 when POST/PUT must stay POST/PUT.'},
+  {code:308,name:'Permanent Redirect',desc:'Permanent redirect that preserves the HTTP method.',use:'Same as 301 but guarantees method preservation.',tip:'Use for API versioning redirects that use POST.'},
+  {code:400,name:'Bad Request',desc:'The server cannot process the request due to something perceived to be a client error.',use:'Malformed syntax, invalid parameters, missing required fields.',tip:'Return a clear error message explaining what was wrong. Validate input.'},
+  {code:401,name:'Unauthorized',desc:'Authentication is required and has failed or has not been provided.',use:'Missing or invalid auth token, expired session.',tip:'Include WWW-Authenticate header. Client should re-authenticate.'},
+  {code:403,name:'Forbidden',desc:'The server understood the request but refuses to authorize it.',use:'Authenticated but lacking permissions. IP blocked.',tip:'Different from 401. User IS authenticated but NOT authorized.'},
+  {code:404,name:'Not Found',desc:'The server cannot find the requested resource.',use:'Resource does not exist, invalid URL path.',tip:'Check URL spelling, ensure resource exists. Return helpful message.'},
+  {code:405,name:'Method Not Allowed',desc:'The request method is not supported for the requested resource.',use:'GET-only endpoint received POST, etc.',tip:'Include Allow header listing valid methods.'},
+  {code:406,name:'Not Acceptable',desc:'The requested resource can only generate content not acceptable according to Accept headers.',use:'Content negotiation failure.',tip:'Check Accept header. Return available content types.'},
+  {code:408,name:'Request Timeout',desc:'The server timed out waiting for the request.',use:'Client took too long to send the complete request.',tip:'Increase timeout or check network. Client can retry.'},
+  {code:409,name:'Conflict',desc:'The request conflicts with the current state of the server.',use:'Duplicate resource, version conflict, concurrent edit.',tip:'Include details about the conflict. Client can resolve and retry.'},
+  {code:410,name:'Gone',desc:'The requested resource is no longer available and will not be available again.',use:'Permanently deleted resource. Stronger than 404.',tip:'Search engines remove the URL from index. Use for deprecated APIs.'},
+  {code:411,name:'Length Required',desc:'The request did not specify the length of its content.',use:'Server requires Content-Length header.',tip:'Add Content-Length header to the request.'},
+  {code:413,name:'Payload Too Large',desc:'The request entity is larger than limits defined by server.',use:'File upload too large, request body exceeds limit.',tip:'Check server upload limits. Compress or chunk the data.'},
+  {code:414,name:'URI Too Long',desc:'The URI requested by the client is longer than the server is willing to interpret.',use:'Very long query strings.',tip:'Use POST with body instead of long GET query strings.'},
+  {code:415,name:'Unsupported Media Type',desc:'The media format of the requested data is not supported.',use:'Wrong Content-Type header, unsupported encoding.',tip:'Check Content-Type header matches what server expects.'},
+  {code:418,name:"I'm a Teapot",desc:'The server refuses to brew coffee because it is a teapot.',use:'Easter egg from RFC 2324 (HTCPCP). Sometimes used as joke response.',tip:'Not a real error. Used humorously by some APIs.'},
+  {code:422,name:'Unprocessable Entity',desc:'The request was well-formed but was unable to be followed due to semantic errors.',use:'Validation errors. Correct syntax but invalid data.',tip:'Return detailed field-level validation errors.'},
+  {code:429,name:'Too Many Requests',desc:'The user has sent too many requests in a given amount of time.',use:'Rate limiting, API quota exceeded.',tip:'Include Retry-After header. Implement exponential backoff.'},
+  {code:451,name:'Unavailable For Legal Reasons',desc:'The resource is unavailable due to legal demands.',use:'Government censorship, DMCA takedown, court order.',tip:'Include a link to the legal authority or explanation.'},
+  {code:500,name:'Internal Server Error',desc:'The server has encountered a situation it does not know how to handle.',use:'Unhandled exception, server bug, database error.',tip:'Check server logs. Never expose stack traces in production.'},
+  {code:501,name:'Not Implemented',desc:'The request method is not supported by the server.',use:'Server does not recognize the request method.',tip:'Different from 405. The method is not implemented at all.'},
+  {code:502,name:'Bad Gateway',desc:'The server received an invalid response from the upstream server.',use:'Reverse proxy got bad response from backend.',tip:'Check upstream server health. May be temporary.'},
+  {code:503,name:'Service Unavailable',desc:'The server is not ready to handle the request. Commonly due to maintenance or overload.',use:'Server overloaded, maintenance mode, dependency down.',tip:'Include Retry-After header. Show maintenance page.'},
+  {code:504,name:'Gateway Timeout',desc:'The server acting as a gateway did not receive a timely response.',use:'Upstream server took too long to respond.',tip:'Increase proxy timeout, optimize upstream response time.'},
+  {code:505,name:'HTTP Version Not Supported',desc:'The HTTP version used in the request is not supported.',use:'Server does not support the HTTP protocol version.',tip:'Rarely seen. Upgrade or downgrade HTTP version.'},
+  {code:507,name:'Insufficient Storage',desc:'The server is unable to store the representation needed to complete the request.',use:'WebDAV. Server disk is full.',tip:'Free up server disk space or increase storage.'},
+  {code:511,name:'Network Authentication Required',desc:'The client needs to authenticate to gain network access.',use:'Captive portals (WiFi login pages).',tip:'User needs to complete network login (hotel, airport WiFi).'}
+];
+
+let category='all';
+function setCategory(cat,el){
+  category=cat;
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  filterCodes();
+}
+
+function filterCodes(){
+  const q=document.getElementById('search').value.toLowerCase();
+  const list=document.getElementById('statusList');
+  const filtered=codes.filter(c=>{
+    if(category!=='all'&&!String(c.code).startsWith(category))return false;
+    if(!q)return true;
+    return String(c.code).includes(q)||c.name.toLowerCase().includes(q)||c.desc.toLowerCase().includes(q)||c.use.toLowerCase().includes(q);
+  });
+  if(!filtered.length){
+    list.innerHTML='';
+    document.getElementById('emptyMsg').style.display='block';
+    return;
+  }
+  document.getElementById('emptyMsg').style.display='none';
+  list.innerHTML='';
+  filtered.forEach(c=>{
+    const cat=String(c.code)[0];
+    const colorClass='code-'+cat+'xx';
+    const card=document.createElement('div');
+    card.className='status-card';
+    card.onclick=function(){this.classList.toggle('expanded');};
+    card.innerHTML=`
+      <div class="status-header">
+        <span class="status-code ${colorClass}">${c.code}</span>
+        <span class="status-name">${esc(c.name)}</span>
+      </div>
+      <div class="status-details">
+        <div class="detail-label">Description</div>
+        <div class="detail-text">${esc(c.desc)}</div>
+        <div class="detail-label">Common Use Cases</div>
+        <div class="detail-text">${esc(c.use)}</div>
+        <div class="detail-label">Troubleshooting Tip</div>
+        <div class="detail-tip">${esc(c.tip)}</div>
+        <div style="margin-top:.8rem">
+          <button class="btn btn-sm btn-outline" onclick="event.stopPropagation();copyCode(${c.code},'${esc(c.name)}')">Copy for Docs</button>
+        </div>
+      </div>`;
+    list.appendChild(card);
+  });
+}
+
+function copyCode(code,name){
+  const c=codes.find(x=>x.code===code);
+  const text=`${code} ${c.name}\n${c.desc}\nUse: ${c.use}`;
+  navigator.clipboard.writeText(text).then(()=>flash('Copied '+code+'!'));
+}
+
+function flash(msg){
+  const d=document.createElement('div');
+  d.style.cssText='position:fixed;top:20px;right:20px;background:#ff5f1f;color:#fff;padding:.8rem 1.5rem;border-radius:8px;font-weight:600;z-index:9999;animation:fadeOut 2s forwards';
+  d.textContent=msg;document.body.appendChild(d);setTimeout(()=>d.remove(),2200);
+}
+const st=document.createElement('style');
+st.textContent='@keyframes fadeOut{0%{opacity:1}70%{opacity:1}100%{opacity:0}}';
+document.head.appendChild(st);
+
+filterCodes();
+</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>

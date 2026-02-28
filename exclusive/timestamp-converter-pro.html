@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Timestamp Converter Pro — Unix, ISO 8601, RFC 2822 | SPUNK.CODES</title>
+<meta name="description" content="Convert between Unix timestamps, ISO 8601, RFC 2822, human readable. Live clock, timezone converter, duration calculator. Free browser tool.">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP')</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w")</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0f;color:#e0e0e0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+header{background:#111118;border-bottom:2px solid #ff5f1f;padding:1rem 2rem;text-align:center}
+header h1{font-size:1.6rem;color:#ff5f1f}
+header p{color:#999;font-size:.9rem;margin-top:.3rem}
+.container{max-width:1000px;margin:0 auto;padding:1.5rem;flex:1;width:100%}
+.section{background:#111118;border:1px solid #1a1a2e;border-radius:10px;padding:1.5rem;margin-bottom:1.5rem}
+.section h2{color:#ff5f1f;font-size:1.2rem;margin-bottom:1rem;display:flex;align-items:center;justify-content:space-between}
+label{display:block;color:#bbb;font-size:.85rem;margin-bottom:.3rem}
+input,select{background:#0a0a0f;color:#e0e0e0;border:1px solid #1a1a2e;border-radius:6px;padding:.5rem .7rem;font-size:.9rem;width:100%}
+input:focus,select:focus{outline:none;border-color:#ff5f1f}
+.btn{background:#ff5f1f;color:#fff;border:none;padding:.55rem 1.1rem;border-radius:6px;cursor:pointer;font-size:.9rem;font-weight:600;transition:background .2s}
+.btn:hover{background:#e54e10}
+.btn-sm{padding:.35rem .7rem;font-size:.8rem}
+.btn-outline{background:transparent;border:1px solid #ff5f1f;color:#ff5f1f}
+.btn-outline:hover{background:#ff5f1f;color:#fff}
+.clock-display{font-size:2.2rem;font-weight:700;color:#ff5f1f;text-align:center;font-family:monospace;padding:1rem 0}
+.clock-sub{text-align:center;color:#888;font-size:.85rem;margin-bottom:.5rem}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;margin-bottom:1rem}
+.value-row{display:flex;align-items:center;gap:.5rem;margin-bottom:.6rem;background:#0a0a0f;border:1px solid #1a1a2e;border-radius:6px;padding:.6rem .8rem}
+.value-row .lbl{color:#ff5f1f;font-weight:700;font-size:.8rem;width:100px;flex-shrink:0}
+.value-row .val{flex:1;font-family:monospace;font-size:.85rem;color:#ccc;word-break:break-all}
+.value-row .copy-btn{background:none;border:1px solid #1a1a2e;color:#999;padding:.2rem .5rem;border-radius:4px;cursor:pointer;font-size:.75rem;flex-shrink:0}
+.value-row .copy-btn:hover{border-color:#ff5f1f;color:#ff5f1f}
+.tz-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:.5rem;margin-top:.5rem}
+.tz-item{background:#0a0a0f;border:1px solid #1a1a2e;border-radius:6px;padding:.6rem .8rem;display:flex;justify-content:space-between;align-items:center}
+.tz-item .name{color:#bbb;font-size:.85rem}
+.tz-item .time{color:#ff5f1f;font-family:monospace;font-weight:600;font-size:.9rem}
+.duration-result{background:#0a0a0f;border:1px solid #1a1a2e;border-radius:6px;padding:1rem;margin-top:1rem;text-align:center;font-size:1.1rem;color:#ccc}
+.duration-result span{color:#ff5f1f;font-weight:700}
+footer{background:#111118;border-top:1px solid #1a1a2e;text-align:center;padding:1.2rem;color:#666;font-size:.8rem}
+footer a{color:#ff5f1f;margin:0 .3rem}
+@media(max-width:768px){
+  header h1{font-size:1.2rem}
+  .container{padding:1rem}
+  .grid2,.grid3{grid-template-columns:1fr}
+  .clock-display{font-size:1.6rem}
+  .tz-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<header>
+<h1>Timestamp Converter Pro</h1>
+<p>Convert timestamps between formats. Live clock, timezone converter, duration calculator.</p>
+</header>
+<div class="container">
+  <div class="section">
+    <h2>Live Clock</h2>
+    <div class="clock-display" id="liveClock">--:--:--</div>
+    <div class="clock-sub" id="liveDate">---</div>
+    <div class="clock-sub">Unix: <span id="liveUnix" style="color:#ff5f1f;cursor:pointer" onclick="copyVal(this.textContent)">---</span></div>
+  </div>
+
+  <div class="section">
+    <h2>Convert Timestamp</h2>
+    <div class="grid2">
+      <div>
+        <label for="inputType">Input Format</label>
+        <select id="inputType" onchange="convertTs()">
+          <option value="unix">Unix Timestamp (seconds)</option>
+          <option value="unixms">Unix Timestamp (milliseconds)</option>
+          <option value="iso">ISO 8601</option>
+          <option value="rfc">RFC 2822</option>
+          <option value="human">Date/Time String</option>
+        </select>
+      </div>
+      <div>
+        <label for="tsInput">Value</label>
+        <input type="text" id="tsInput" placeholder="Enter timestamp..." oninput="convertTs()">
+      </div>
+    </div>
+    <div style="display:flex;gap:.5rem;margin-bottom:1rem">
+      <button class="btn btn-sm" onclick="useNow()">Use Current Time</button>
+      <button class="btn btn-sm btn-outline" onclick="document.getElementById('tsInput').value='';convertTs()">Clear</button>
+    </div>
+    <div id="convertResults"></div>
+  </div>
+
+  <div class="section">
+    <h2>Time Zones</h2>
+    <div class="tz-grid" id="tzGrid"></div>
+  </div>
+
+  <div class="section">
+    <h2>Duration Calculator</h2>
+    <div class="grid2">
+      <div>
+        <label for="durStart">Start Date/Time</label>
+        <input type="datetime-local" id="durStart" onchange="calcDuration()">
+      </div>
+      <div>
+        <label for="durEnd">End Date/Time</label>
+        <input type="datetime-local" id="durEnd" onchange="calcDuration()">
+      </div>
+    </div>
+    <div class="duration-result" id="durationResult">Select two dates to calculate duration</div>
+  </div>
+</div>
+<footer>
+  <a href="https://spunk.codes">spunk.codes</a> &middot; <a href="https://spunk.bet">spunk.bet</a> &middot; <a href="https://spunk.pics">spunk.pics</a> &middot; <a href="https://spunk.work">spunk.work</a> &middot; <a href="https://spunkart.com">SpunkArt.com</a>
+</footer>
+<script>
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
+
+const zones=[
+  {name:'UTC',tz:'UTC'},
+  {name:'US Eastern (ET)',tz:'America/New_York'},
+  {name:'US Central (CT)',tz:'America/Chicago'},
+  {name:'US Mountain (MT)',tz:'America/Denver'},
+  {name:'US Pacific (PT)',tz:'America/Los_Angeles'},
+  {name:'London (GMT/BST)',tz:'Europe/London'},
+  {name:'Paris (CET)',tz:'Europe/Paris'},
+  {name:'Tokyo (JST)',tz:'Asia/Tokyo'},
+  {name:'Sydney (AEST)',tz:'Australia/Sydney'},
+  {name:'Dubai (GST)',tz:'Asia/Dubai'},
+  {name:'Singapore (SGT)',tz:'Asia/Singapore'},
+  {name:'India (IST)',tz:'Asia/Kolkata'}
+];
+
+let currentDate=new Date();
+
+function updateClock(){
+  const now=new Date();
+  currentDate=now;
+  document.getElementById('liveClock').textContent=now.toLocaleTimeString('en-US',{hour12:false});
+  document.getElementById('liveDate').textContent=now.toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+  document.getElementById('liveUnix').textContent=Math.floor(now.getTime()/1000);
+  updateTimezones(now);
+}
+
+function updateTimezones(d){
+  const grid=document.getElementById('tzGrid');
+  grid.innerHTML=zones.map(z=>{
+    let ts;
+    try{ts=d.toLocaleString('en-US',{timeZone:z.tz,hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false,month:'short',day:'numeric'});}catch(e){ts='N/A';}
+    return '<div class="tz-item"><span class="name">'+esc(z.name)+'</span><span class="time">'+esc(ts)+'</span></div>';
+  }).join('');
+}
+
+function useNow(){
+  const now=new Date();
+  const type=document.getElementById('inputType').value;
+  if(type==='unix')document.getElementById('tsInput').value=Math.floor(now.getTime()/1000);
+  else if(type==='unixms')document.getElementById('tsInput').value=now.getTime();
+  else if(type==='iso')document.getElementById('tsInput').value=now.toISOString();
+  else if(type==='rfc')document.getElementById('tsInput').value=now.toUTCString();
+  else document.getElementById('tsInput').value=now.toString();
+  convertTs();
+}
+
+function parseInput(){
+  const type=document.getElementById('inputType').value;
+  const val=document.getElementById('tsInput').value.trim();
+  if(!val)return null;
+  let d;
+  if(type==='unix'){d=new Date(parseInt(val)*1000);}
+  else if(type==='unixms'){d=new Date(parseInt(val));}
+  else{d=new Date(val);}
+  return isNaN(d.getTime())?null:d;
+}
+
+function convertTs(){
+  const d=parseInput();
+  const container=document.getElementById('convertResults');
+  if(!d){container.innerHTML=document.getElementById('tsInput').value.trim()?'<div style="color:#c0392b;text-align:center;padding:.5rem">Invalid input</div>':'';return;}
+  const formats=[
+    {lbl:'Unix (s)',val:Math.floor(d.getTime()/1000).toString()},
+    {lbl:'Unix (ms)',val:d.getTime().toString()},
+    {lbl:'ISO 8601',val:d.toISOString()},
+    {lbl:'RFC 2822',val:d.toUTCString()},
+    {lbl:'Human',val:d.toString()},
+    {lbl:'UTC',val:d.toUTCString()},
+    {lbl:'Local',val:d.toLocaleString()},
+    {lbl:'Date Only',val:d.toISOString().split('T')[0]},
+    {lbl:'Time Only',val:d.toISOString().split('T')[1].replace('Z','')+' UTC'},
+    {lbl:'Relative',val:getRelative(d)}
+  ];
+  container.innerHTML=formats.map(f=>'<div class="value-row"><span class="lbl">'+esc(f.lbl)+'</span><span class="val">'+esc(f.val)+'</span><button class="copy-btn" onclick="copyVal(\''+esc(f.val).replace(/'/g,"\\'")+'\')">Copy</button></div>').join('');
+  updateTimezones(d);
+}
+
+function getRelative(d){
+  const now=Date.now();
+  const diff=d.getTime()-now;
+  const abs=Math.abs(diff);
+  const suffix=diff<0?' ago':' from now';
+  if(abs<60000)return Math.round(abs/1000)+' seconds'+suffix;
+  if(abs<3600000)return Math.round(abs/60000)+' minutes'+suffix;
+  if(abs<86400000)return Math.round(abs/3600000)+' hours'+suffix;
+  if(abs<2592000000)return Math.round(abs/86400000)+' days'+suffix;
+  if(abs<31536000000)return Math.round(abs/2592000000)+' months'+suffix;
+  return Math.round(abs/31536000000)+' years'+suffix;
+}
+
+function calcDuration(){
+  const start=new Date(document.getElementById('durStart').value);
+  const end=new Date(document.getElementById('durEnd').value);
+  const res=document.getElementById('durationResult');
+  if(isNaN(start.getTime())||isNaN(end.getTime())){res.textContent='Select two valid dates';return;}
+  const diff=Math.abs(end-start);
+  const days=Math.floor(diff/86400000);
+  const hours=Math.floor((diff%86400000)/3600000);
+  const mins=Math.floor((diff%3600000)/60000);
+  const secs=Math.floor((diff%60000)/1000);
+  const years=Math.floor(days/365);
+  const months=Math.floor((days%365)/30);
+  const remDays=days%30;
+  let parts=[];
+  if(years)parts.push('<span>'+years+'</span> year'+(years>1?'s':''));
+  if(months)parts.push('<span>'+months+'</span> month'+(months>1?'s':''));
+  if(remDays)parts.push('<span>'+remDays+'</span> day'+(remDays>1?'s':''));
+  if(hours)parts.push('<span>'+hours+'</span> hour'+(hours>1?'s':''));
+  if(mins)parts.push('<span>'+mins+'</span> minute'+(mins>1?'s':''));
+  if(secs)parts.push('<span>'+secs+'</span> second'+(secs>1?'s':''));
+  res.innerHTML=parts.join(', ')+'<br><span style="color:#888;font-size:.85rem">Total: '+days+' days, '+Math.floor(diff/3600000)+' hours, '+Math.floor(diff/60000)+' minutes, '+Math.floor(diff/1000)+' seconds</span>';
+}
+
+function copyVal(v){navigator.clipboard.writeText(v).then(()=>flash('Copied!'));}
+function flash(msg){
+  const d=document.createElement('div');
+  d.style.cssText='position:fixed;top:20px;right:20px;background:#ff5f1f;color:#fff;padding:.8rem 1.5rem;border-radius:8px;font-weight:600;z-index:9999;animation:fadeOut 2s forwards';
+  d.textContent=msg;document.body.appendChild(d);setTimeout(()=>d.remove(),2200);
+}
+const st=document.createElement('style');st.textContent='@keyframes fadeOut{0%{opacity:1}70%{opacity:1}100%{opacity:0}}';document.head.appendChild(st);
+
+setInterval(updateClock,1000);
+updateClock();
+</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+</body>
+</html>
