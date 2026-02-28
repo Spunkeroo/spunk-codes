@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IP Subnet Calculator - Network, Broadcast, Range, Binary | SPUNK.CODES Exclusive</title>
+<meta name="description" content="Calculate IP subnets: network address, broadcast, host range, host count, binary breakdown. Supports CIDR notation. Free client-side tool.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="IP Subnet Calculator - SPUNK.CODES Exclusive">
+<meta property="og:description" content="Calculate IP subnets with network, broadcast, range, and binary breakdown.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://spunk.codes/exclusive/network-calculator">
+<meta property="og:site_name" content="Spunk Codes">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/network-calculator">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"IP Subnet Calculator","url":"https://spunk.codes/exclusive/network-calculator","applicationCategory":"DeveloperApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Calculate IP subnets with network, broadcast, range, host count, and binary breakdown.","author":{"@type":"Organization","name":"Spunk Codes","url":"https://spunk.codes"}}</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0f;color:#e0e0e0;min-height:100vh;line-height:1.6}
+a{color:#58a6ff;text-decoration:none}a:hover{text-decoration:underline}
+.wrap{max-width:1000px;margin:0 auto;padding:1.5rem}
+h1{font-size:2rem;font-weight:800;text-align:center;margin:1.5rem 0 0.5rem}
+h1 span{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.subtitle{text-align:center;color:#8b949e;margin-bottom:2rem;max-width:650px;margin-left:auto;margin-right:auto}
+.card{background:rgba(18,18,28,0.85);border:1px solid #1a1a2e;border-radius:14px;padding:1.5rem;margin-bottom:1.5rem;position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#ff5f1f,#ff9f1f,#ff5f1f)}
+.card h2{font-size:1rem;font-weight:700;margin-bottom:1rem;color:#ff9f1f}
+input[type="text"]{width:100%;padding:0.8rem 1rem;background:#0a0a0f;border:1px solid #1a1a2e;border-radius:8px;color:#e0e0e0;font-size:1rem;font-family:'Courier New',monospace;outline:none}
+input:focus{border-color:#ff5f1f}
+.btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.85rem;font-weight:700;cursor:pointer;border:none;transition:all 0.2s;display:inline-flex;align-items:center;gap:0.4rem}
+.btn-primary{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);color:#000}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 4px 15px rgba(255,95,31,0.3)}
+.btn-outline{background:transparent;border:1px solid rgba(255,95,31,0.3);color:#ff9f1f}
+.btn-outline:hover{background:rgba(255,95,31,0.1)}
+.actions{display:flex;gap:0.5rem;flex-wrap:wrap;margin:1rem 0}
+.error-box{padding:0.8rem 1rem;background:rgba(248,81,73,0.1);border:1px solid rgba(248,81,73,0.3);border-radius:8px;color:#f85149;font-size:0.85rem;display:none;margin-top:0.5rem}
+.result-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1rem}
+@media(max-width:600px){.result-grid{grid-template-columns:1fr}}
+.result-item{background:rgba(10,10,15,0.8);border:1px solid #1a1a2e;border-radius:10px;padding:1rem}
+.result-item label{display:block;font-size:0.7rem;font-weight:700;color:#8b949e;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:0.3rem}
+.result-item .value{font-family:'Courier New',monospace;font-size:1rem;color:#e0e0e0;cursor:pointer;padding:4px 6px;border-radius:4px;transition:background 0.2s;word-break:break-all}
+.result-item .value:hover{background:rgba(255,95,31,0.1)}
+.binary-section{margin-top:1rem}
+.binary-row{display:flex;align-items:center;gap:1rem;padding:0.5rem 0;border-bottom:1px solid rgba(26,26,46,0.5);font-family:'Courier New',monospace;font-size:0.85rem}
+.binary-row:last-child{border-bottom:none}
+.binary-row .label{min-width:120px;color:#8b949e;font-size:0.75rem;font-weight:600;text-transform:uppercase}
+.binary-row .bits{letter-spacing:1px}
+.binary-row .bits .one{color:#ff5f1f;font-weight:700}
+.binary-row .bits .zero{color:#8b949e}
+.binary-row .bits .dot{color:#6b737c}
+.quick-ref{margin-top:1rem}
+.quick-ref table{width:100%;border-collapse:collapse;font-size:0.8rem;font-family:'Courier New',monospace}
+.quick-ref th{background:rgba(255,95,31,0.1);padding:6px 10px;text-align:left;color:#ff9f1f;border:1px solid #1a1a2e;font-size:0.75rem}
+.quick-ref td{padding:6px 10px;border:1px solid #1a1a2e;cursor:pointer;transition:background 0.2s}
+.quick-ref td:hover{background:rgba(255,95,31,0.05)}
+.copied{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(57,211,83,0.95);color:#000;padding:0.8rem 2rem;border-radius:10px;font-weight:700;font-size:1rem;z-index:9999;pointer-events:none;animation:fadeOut 1.5s ease forwards}
+@keyframes fadeOut{0%{opacity:1;transform:translate(-50%,-50%) scale(1)}70%{opacity:1}100%{opacity:0;transform:translate(-50%,-60%) scale(0.95)}}
+.network-footer{text-align:center;padding:2rem 0 1rem;border-top:1px solid rgba(255,95,31,0.1);margin-top:2rem}
+.network-footer .links{display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap;font-size:0.85rem;margin-bottom:0.5rem}
+.network-footer .copy{color:#8b949e;font-size:0.75rem}
+.cta-banner{text-align:center;margin:2rem 0 1rem;padding:1.5rem;background:linear-gradient(135deg,rgba(255,95,31,0.1),rgba(255,159,31,0.05));border:1px solid rgba(255,95,31,0.2);border-radius:14px}
+.cta-banner p{color:#8b949e;font-size:0.9rem;margin-bottom:0.8rem}
+label{display:block;font-size:0.8rem;font-weight:600;color:#8b949e;margin-bottom:0.3rem;text-transform:uppercase;letter-spacing:0.5px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1><span>IP Subnet Calculator</span></h1>
+<p class="subtitle">Enter an IP address with CIDR notation to calculate network details, host ranges, and binary breakdown. 100% client-side.</p>
+
+<div class="card">
+<h2>Input</h2>
+<label>IP Address / CIDR</label>
+<input type="text" id="ipInput" placeholder="192.168.1.0/24" value="192.168.1.100/24" onkeyup="if(event.key==='Enter')calculate()">
+<div id="errorBox" class="error-box"></div>
+<div class="actions">
+<button class="btn btn-primary" onclick="calculate()">Calculate</button>
+<button class="btn btn-outline" onclick="clearAll()">Clear</button>
+</div>
+</div>
+
+<div class="card" id="resultsCard" style="display:none">
+<h2>Subnet Details</h2>
+<div class="result-grid" id="resultGrid"></div>
+</div>
+
+<div class="card" id="binaryCard" style="display:none">
+<h2>Binary Breakdown</h2>
+<div class="binary-section" id="binarySection"></div>
+</div>
+
+<div class="card">
+<h2>Common Subnet Reference</h2>
+<div class="quick-ref">
+<table>
+<thead><tr><th>CIDR</th><th>Subnet Mask</th><th>Hosts</th><th>Class</th></tr></thead>
+<tbody id="refTable"></tbody>
+</table>
+</div>
+</div>
+
+<div class="cta-banner">
+<p>Need more networking tools? Check out our full collection.</p>
+<a href="https://spunk.codes/exclusive/" class="btn btn-primary">Browse All Tools &rarr;</a>
+</div>
+
+<div class="network-footer">
+<div class="links">
+<a href="https://spunk.codes/">Home</a>
+<a href="https://spunk.codes/exclusive/">All Tools</a>
+<a href="https://x.com/SpunkArt13" target="_blank">@SpunkArt13</a>
+</div>
+<div class="copy">&copy; 2025 spunk.codes</div>
+</div>
+</div>
+
+<script>
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+
+function ipToInt(ip){
+const parts=ip.split('.').map(Number);
+return ((parts[0]<<24)|(parts[1]<<16)|(parts[2]<<8)|parts[3])>>>0;
+}
+
+function intToIp(n){
+return [(n>>>24)&255,(n>>>16)&255,(n>>>8)&255,n&255].join('.');
+}
+
+function ipToBinary(ip){
+return ip.split('.').map(o=>(+o).toString(2).padStart(8,'0')).join('.');
+}
+
+function formatBinary(binStr,cidr){
+let html='';
+let bitIdx=0;
+for(let i=0;i<binStr.length;i++){
+if(binStr[i]==='.'){html+='<span class="dot">.</span>';continue}
+if(bitIdx<cidr)html+='<span class="one">'+binStr[i]+'</span>';
+else html+='<span class="zero">'+binStr[i]+'</span>';
+bitIdx++;
+}
+return html;
+}
+
+function calculate(){
+const input=document.getElementById('ipInput').value.trim();
+const errBox=document.getElementById('errorBox');
+errBox.style.display='none';
+
+const match=input.match(/^(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})\/(\d{1,2})$/);
+if(!match){
+errBox.style.display='block';
+errBox.textContent='Invalid format. Use IP/CIDR notation, e.g. 192.168.1.0/24';
+return;
+}
+
+const ip=match[1];
+const cidr=parseInt(match[2]);
+const octets=ip.split('.').map(Number);
+
+if(octets.some(o=>o<0||o>255)||cidr<0||cidr>32){
+errBox.style.display='block';
+errBox.textContent='Invalid IP or CIDR value. Octets must be 0-255 and CIDR 0-32.';
+return;
+}
+
+const ipInt=ipToInt(ip);
+const maskInt=cidr===0?0:(0xFFFFFFFF<<(32-cidr))>>>0;
+const networkInt=(ipInt&maskInt)>>>0;
+const broadcastInt=(networkInt|(~maskInt>>>0))>>>0;
+const firstHost=cidr>=31?networkInt:(networkInt+1)>>>0;
+const lastHost=cidr>=31?broadcastInt:(broadcastInt-1)>>>0;
+const totalHosts=cidr>=31?(cidr===32?1:2):Math.pow(2,32-cidr)-2;
+const wildcardInt=(~maskInt)>>>0;
+
+const networkIp=intToIp(networkInt);
+const broadcastIp=intToIp(broadcastInt);
+const subnetMask=intToIp(maskInt);
+const wildcardMask=intToIp(wildcardInt);
+const firstHostIp=intToIp(firstHost);
+const lastHostIp=intToIp(lastHost);
+
+// Determine class
+let ipClass='N/A';
+const firstOctet=octets[0];
+if(firstOctet>=1&&firstOctet<=126)ipClass='A';
+else if(firstOctet>=128&&firstOctet<=191)ipClass='B';
+else if(firstOctet>=192&&firstOctet<=223)ipClass='C';
+else if(firstOctet>=224&&firstOctet<=239)ipClass='D (Multicast)';
+else if(firstOctet>=240)ipClass='E (Reserved)';
+
+// Check private
+let isPrivate=false;
+if(firstOctet===10)isPrivate=true;
+if(firstOctet===172&&octets[1]>=16&&octets[1]<=31)isPrivate=true;
+if(firstOctet===192&&octets[1]===168)isPrivate=true;
+
+const data=[
+{label:'IP Address',value:ip},
+{label:'Network Address',value:networkIp},
+{label:'Broadcast Address',value:broadcastIp},
+{label:'Subnet Mask',value:subnetMask},
+{label:'Wildcard Mask',value:wildcardMask},
+{label:'CIDR Notation',value:'/'+cidr},
+{label:'First Host',value:firstHostIp},
+{label:'Last Host',value:lastHostIp},
+{label:'Total Hosts',value:totalHosts.toLocaleString()},
+{label:'Total Addresses',value:Math.pow(2,32-cidr).toLocaleString()},
+{label:'IP Class',value:ipClass},
+{label:'IP Type',value:isPrivate?'Private (RFC 1918)':'Public'},
+];
+
+const grid=document.getElementById('resultGrid');
+grid.innerHTML='';
+data.forEach(d=>{
+grid.innerHTML+='<div class="result-item"><label>'+esc(d.label)+'</label><div class="value" onclick="copyVal(this)">'+esc(d.value)+'</div></div>';
+});
+document.getElementById('resultsCard').style.display='block';
+
+// Binary
+const binarySection=document.getElementById('binarySection');
+const binaries=[
+{label:'IP Address',ip:ip},
+{label:'Subnet Mask',ip:subnetMask},
+{label:'Network',ip:networkIp},
+{label:'Broadcast',ip:broadcastIp},
+{label:'Wildcard',ip:wildcardMask},
+];
+binarySection.innerHTML='';
+binaries.forEach(b=>{
+const bin=ipToBinary(b.ip);
+binarySection.innerHTML+='<div class="binary-row"><span class="label">'+b.label+'</span><span class="bits">'+formatBinary(bin,b.label==='Wildcard'?0:cidr)+'</span><span style="color:#8b949e;margin-left:auto;font-size:0.75rem">'+b.ip+'</span></div>';
+});
+document.getElementById('binaryCard').style.display='block';
+
+try{localStorage.setItem('subnet_last',input)}catch(e){}
+}
+
+function copyVal(el){
+navigator.clipboard.writeText(el.textContent).then(()=>{
+const n=document.createElement('div');n.className='copied';n.textContent='Copied!';
+document.body.appendChild(n);setTimeout(()=>n.remove(),1600);
+});
+}
+
+function clearAll(){
+document.getElementById('ipInput').value='';
+document.getElementById('resultsCard').style.display='none';
+document.getElementById('binaryCard').style.display='none';
+document.getElementById('errorBox').style.display='none';
+}
+
+// Reference table
+const refs=[
+{cidr:8,mask:'255.0.0.0',hosts:'16,777,214',cls:'A'},
+{cidr:12,mask:'255.240.0.0',hosts:'1,048,574',cls:'A'},
+{cidr:16,mask:'255.255.0.0',hosts:'65,534',cls:'B'},
+{cidr:20,mask:'255.255.240.0',hosts:'4,094',cls:'B/C'},
+{cidr:22,mask:'255.255.252.0',hosts:'1,022',cls:'C'},
+{cidr:24,mask:'255.255.255.0',hosts:'254',cls:'C'},
+{cidr:25,mask:'255.255.255.128',hosts:'126',cls:'C'},
+{cidr:26,mask:'255.255.255.192',hosts:'62',cls:'C'},
+{cidr:27,mask:'255.255.255.224',hosts:'30',cls:'C'},
+{cidr:28,mask:'255.255.255.240',hosts:'14',cls:'C'},
+{cidr:29,mask:'255.255.255.248',hosts:'6',cls:'C'},
+{cidr:30,mask:'255.255.255.252',hosts:'2',cls:'P2P'},
+{cidr:31,mask:'255.255.255.254',hosts:'2',cls:'P2P'},
+{cidr:32,mask:'255.255.255.255',hosts:'1',cls:'Host'},
+];
+const refTable=document.getElementById('refTable');
+refs.forEach(r=>{
+refTable.innerHTML+='<tr onclick="document.getElementById(\'ipInput\').value=\'192.168.1.0/'+r.cidr+'\';calculate()"><td>/'+r.cidr+'</td><td>'+r.mask+'</td><td>'+r.hosts+'</td><td>'+r.cls+'</td></tr>';
+});
+
+// Restore & auto-calculate
+try{const last=localStorage.getItem('subnet_last');if(last)document.getElementById('ipInput').value=last}catch(e){}
+calculate();
+</script>
+
+<!-- Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+<script src="/auto-monetize.js"></script>
+<div id="shareXBtn" style="position:fixed;left:20px;bottom:20px;z-index:9999;">
+  <a id="shareXLink" href="#" target="_blank" rel="noopener noreferrer" title="Share on X"
+     style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;
+     background:rgba(255,95,31,0.15);border:1px solid rgba(255,95,31,0.3);
+     backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:50%;
+     text-decoration:none;transition:all 0.3s ease;cursor:pointer;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+    </svg>
+  </a>
+</div>
+<style>#shareXBtn a:hover{background:rgba(255,95,31,0.35)!important;border-color:rgba(255,95,31,0.6)!important;transform:scale(1.1);box-shadow:0 0 15px rgba(255,95,31,0.3)}</style>
+<script>
+(function(){
+  var page="network-calculator";
+  var url="https://spunk.codes/exclusive/"+page;
+  var text="IP Subnet Calculator with binary breakdown, host ranges, everything you need. Free @SpunkArt13";
+  document.getElementById("shareXLink").href="https://x.com/intent/tweet?text="+encodeURIComponent(text)+"&url="+encodeURIComponent(url);
+})();
+</script>
+<script src="/usage-tracker.js"></script>
+</body>
+</html>

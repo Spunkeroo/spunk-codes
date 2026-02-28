@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>cURL to Code Converter - Convert cURL to Python, JavaScript, PHP, Go | SPUNK.CODES Exclusive</title>
+<meta name="description" content="Convert cURL commands to Python, JavaScript, PHP, and Go code instantly. Free client-side tool.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="cURL to Code Converter - SPUNK.CODES Exclusive">
+<meta property="og:description" content="Convert cURL commands to Python, JavaScript, PHP, and Go code instantly.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://spunk.codes/exclusive/curl-to-code">
+<meta property="og:site_name" content="Spunk Codes">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<meta name="twitter:creator" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/curl-to-code">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"cURL to Code Converter","url":"https://spunk.codes/exclusive/curl-to-code","applicationCategory":"DeveloperApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Convert cURL commands to Python, JavaScript, PHP, and Go code instantly.","author":{"@type":"Organization","name":"Spunk Codes","url":"https://spunk.codes"}}</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0f;color:#e0e0e0;min-height:100vh;line-height:1.6}
+a{color:#58a6ff;text-decoration:none}a:hover{text-decoration:underline}
+.wrap{max-width:1200px;margin:0 auto;padding:1.5rem}
+h1{font-size:2rem;font-weight:800;text-align:center;margin:1.5rem 0 0.5rem}
+h1 span{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.subtitle{text-align:center;color:#8b949e;margin-bottom:2rem;max-width:650px;margin-left:auto;margin-right:auto}
+.card{background:rgba(18,18,28,0.85);border:1px solid #1a1a2e;border-radius:14px;padding:1.5rem;margin-bottom:1.5rem;position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#ff5f1f,#ff9f1f,#ff5f1f)}
+.card h2{font-size:1rem;font-weight:700;margin-bottom:1rem;color:#ff9f1f}
+textarea{width:100%;padding:1rem;background:#0a0a0f;border:1px solid #1a1a2e;border-radius:8px;color:#e0e0e0;font-family:'Courier New',monospace;font-size:0.85rem;resize:vertical;outline:none;min-height:150px;line-height:1.5}
+textarea:focus{border-color:#ff5f1f}
+.btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.85rem;font-weight:700;cursor:pointer;border:none;transition:all 0.2s;display:inline-flex;align-items:center;gap:0.4rem}
+.btn-primary{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);color:#000}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 4px 15px rgba(255,95,31,0.3)}
+.btn-outline{background:transparent;border:1px solid rgba(255,95,31,0.3);color:#ff9f1f}
+.btn-outline:hover{background:rgba(255,95,31,0.1)}
+.actions{display:flex;gap:0.5rem;flex-wrap:wrap;margin:1rem 0}
+.tabs{display:flex;gap:0.5rem;margin-bottom:1rem;flex-wrap:wrap}
+.tab{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.85rem;font-weight:700;cursor:pointer;border:1px solid rgba(255,95,31,0.2);background:transparent;color:#8b949e;transition:all 0.2s}
+.tab.active{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);color:#000;border-color:transparent}
+.tab:hover:not(.active){background:rgba(255,95,31,0.1);color:#ff9f1f}
+.error-box{padding:0.8rem 1rem;background:rgba(248,81,73,0.1);border:1px solid rgba(248,81,73,0.3);border-radius:8px;color:#f85149;font-size:0.85rem;display:none;margin-top:0.5rem}
+.output-area{width:100%;min-height:250px;padding:1rem;background:#0a0a0f;border:1px solid #1a1a2e;border-radius:8px;font-family:'Courier New',monospace;font-size:0.85rem;overflow:auto;max-height:600px;line-height:1.5;white-space:pre-wrap;word-break:break-word}
+.hl-kw{color:#ff79c6}.hl-str{color:#39d353}.hl-fn{color:#58a6ff}.hl-cm{color:#6b737c;font-style:italic}.hl-var{color:#ff9f1f}.hl-op{color:#8b949e}
+.copied{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(57,211,83,0.95);color:#000;padding:0.8rem 2rem;border-radius:10px;font-weight:700;font-size:1rem;z-index:9999;pointer-events:none;animation:fadeOut 1.5s ease forwards}
+@keyframes fadeOut{0%{opacity:1;transform:translate(-50%,-50%) scale(1)}70%{opacity:1}100%{opacity:0;transform:translate(-50%,-60%) scale(0.95)}}
+.network-footer{text-align:center;padding:2rem 0 1rem;border-top:1px solid rgba(255,95,31,0.1);margin-top:2rem}
+.network-footer .links{display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap;font-size:0.85rem;margin-bottom:0.5rem}
+.network-footer .copy{color:#8b949e;font-size:0.75rem}
+.cta-banner{text-align:center;margin:2rem 0 1rem;padding:1.5rem;background:linear-gradient(135deg,rgba(255,95,31,0.1),rgba(255,159,31,0.05));border:1px solid rgba(255,95,31,0.2);border-radius:14px}
+.cta-banner p{color:#8b949e;font-size:0.9rem;margin-bottom:0.8rem}
+label{display:block;font-size:0.8rem;font-weight:600;color:#8b949e;margin-bottom:0.3rem;text-transform:uppercase;letter-spacing:0.5px}
+.parsed-info{background:rgba(255,95,31,0.05);border:1px solid #1a1a2e;border-radius:8px;padding:0.8rem 1rem;margin-top:0.5rem;font-size:0.8rem;display:none}
+.parsed-info span{color:#ff9f1f;font-weight:600}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1><span>cURL to Code Converter</span></h1>
+<p class="subtitle">Paste a cURL command and convert it to Python, JavaScript (fetch), PHP, or Go code instantly. 100% client-side.</p>
+
+<div class="card">
+<h2>cURL Command</h2>
+<textarea id="curlInput" placeholder='curl -X POST https://api.example.com/users \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer token123" \
+  -d '"'"'{"name":"John","email":"john@example.com"}'"'"'' spellcheck="false"></textarea>
+<div id="parsedInfo" class="parsed-info"></div>
+<div id="errorBox" class="error-box"></div>
+<div class="actions">
+<button class="btn btn-primary" onclick="convertCurl()">Convert</button>
+<button class="btn btn-outline" onclick="loadSample()">Load Sample</button>
+<button class="btn btn-outline" onclick="clearAll()">Clear</button>
+</div>
+</div>
+
+<div class="card">
+<h2>Generated Code</h2>
+<div class="tabs">
+<button class="tab active" onclick="switchLang('python',this)">Python</button>
+<button class="tab" onclick="switchLang('javascript',this)">JavaScript</button>
+<button class="tab" onclick="switchLang('php',this)">PHP</button>
+<button class="tab" onclick="switchLang('go',this)">Go</button>
+</div>
+<div class="output-area" id="output"></div>
+<div class="actions">
+<button class="btn btn-outline" onclick="copyCode()">Copy Code</button>
+</div>
+</div>
+
+<div class="cta-banner">
+<p>Need more dev tools? Check out our full collection.</p>
+<a href="https://spunk.codes/exclusive/" class="btn btn-primary">Browse All Tools &rarr;</a>
+</div>
+
+<div class="network-footer">
+<div class="links">
+<a href="https://spunk.codes/">Home</a>
+<a href="https://spunk.codes/exclusive/">All Tools</a>
+<a href="https://x.com/SpunkArt13" target="_blank">@SpunkArt13</a>
+</div>
+<div class="copy">&copy; 2025 spunk.codes</div>
+</div>
+</div>
+
+<script>
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+
+let currentLang='python';
+let parsedCurl=null;
+let generatedCode={};
+
+function parseCurlCommand(cmd){
+// Normalize line continuations
+cmd=cmd.replace(/\\\s*\n/g,' ').trim();
+if(!cmd.startsWith('curl'))throw new Error('Command must start with "curl"');
+
+const result={method:'GET',url:'',headers:{},data:null,auth:null,cookies:{},insecure:false,compressed:false,followRedirects:false};
+
+// Tokenize respecting quotes
+const tokens=[];
+let i=4; // skip 'curl'
+while(i<cmd.length){
+while(i<cmd.length&&cmd[i]===' ')i++;
+if(i>=cmd.length)break;
+let token='';
+if(cmd[i]==='"'){
+i++;
+while(i<cmd.length&&cmd[i]!=='"'){
+if(cmd[i]==='\\'){i++;if(i<cmd.length)token+=cmd[i]}else token+=cmd[i];
+i++;
+}
+i++;
+}else if(cmd[i]==="'"){
+i++;
+while(i<cmd.length&&cmd[i]!=="'"){token+=cmd[i];i++}
+i++;
+}else if(cmd[i]==='$'&&i+1<cmd.length&&cmd[i+1]==="'"){
+i+=2;
+while(i<cmd.length&&cmd[i]!=="'"){
+if(cmd[i]==='\\'){i++;if(i<cmd.length){if(cmd[i]==='n')token+='\n';else if(cmd[i]==='t')token+='\t';else token+=cmd[i]}}
+else token+=cmd[i];
+i++;
+}
+i++;
+}else{
+while(i<cmd.length&&cmd[i]!==' '){token+=cmd[i];i++}
+}
+if(token)tokens.push(token);
+}
+
+for(let t=0;t<tokens.length;t++){
+const tok=tokens[t];
+if(tok==='-X'||tok==='--request'){result.method=tokens[++t].toUpperCase()}
+else if(tok==='-H'||tok==='--header'){
+const h=tokens[++t];
+const ci=h.indexOf(':');
+if(ci>0){
+const key=h.slice(0,ci).trim();
+const val=h.slice(ci+1).trim();
+result.headers[key]=val;
+}
+}
+else if(tok==='-d'||tok==='--data'||tok==='--data-raw'||tok==='--data-binary'){result.data=tokens[++t];if(result.method==='GET')result.method='POST'}
+else if(tok==='-u'||tok==='--user'){result.auth=tokens[++t]}
+else if(tok==='-b'||tok==='--cookie'){
+const c=tokens[++t];
+c.split(';').forEach(pair=>{const ci=pair.indexOf('=');if(ci>0)result.cookies[pair.slice(0,ci).trim()]=pair.slice(ci+1).trim()});
+}
+else if(tok==='-k'||tok==='--insecure'){result.insecure=true}
+else if(tok==='--compressed'){result.compressed=true}
+else if(tok==='-L'||tok==='--location'){result.followRedirects=true}
+else if(tok==='-o'||tok==='--output'){t++} // skip output file
+else if(tok==='-s'||tok==='--silent'){} // ignore
+else if(tok==='-v'||tok==='--verbose'){} // ignore
+else if(!tok.startsWith('-')){result.url=tok}
+}
+
+if(!result.url)throw new Error('No URL found in cURL command');
+return result;
+}
+
+function toPython(c){
+let code='import requests\n\n';
+code+='url = "'+c.url+'"\n';
+if(Object.keys(c.headers).length){
+code+='\nheaders = {\n';
+Object.entries(c.headers).forEach(([k,v])=>{code+='    "'+k+'": "'+v+'",\n'});
+code+='}\n';
+}
+if(c.data){
+let isJSON=false;
+try{JSON.parse(c.data);isJSON=true}catch(e){}
+if(isJSON){
+code+='\npayload = '+JSON.stringify(JSON.parse(c.data),null,4)+'\n';
+}else{
+code+='\ndata = "'+c.data.replace(/"/g,'\\"')+'"\n';
+}
+}
+if(c.auth){
+const parts=c.auth.split(':');
+code+='\nauth = ("'+parts[0]+'", "'+(parts[1]||'')+'")';
+code+='\n';
+}
+code+='\nresponse = requests.'+c.method.toLowerCase()+'(\n    url';
+if(Object.keys(c.headers).length)code+=',\n    headers=headers';
+if(c.data){
+let isJSON=false;
+try{JSON.parse(c.data);isJSON=true}catch(e){}
+code+=isJSON?',\n    json=payload':',\n    data=data';
+}
+if(c.auth)code+=',\n    auth=auth';
+if(c.insecure)code+=',\n    verify=False';
+if(!c.followRedirects)code+=',\n    allow_redirects=False';
+code+='\n)\n\nprint(response.status_code)\nprint(response.text)\n';
+return code;
+}
+
+function toJavaScript(c){
+let code='';
+const opts={method:c.method};
+if(Object.keys(c.headers).length){
+code+='const headers = {\n';
+Object.entries(c.headers).forEach(([k,v])=>{code+='  "'+k+'": "'+v+'",\n'});
+code+='};\n\n';
+}
+if(c.data){
+let isJSON=false;
+try{JSON.parse(c.data);isJSON=true}catch(e){}
+if(isJSON){
+code+='const body = JSON.stringify('+JSON.stringify(JSON.parse(c.data),null,2)+');\n\n';
+}else{
+code+='const body = "'+c.data.replace(/"/g,'\\"')+'";\n\n';
+}
+}
+code+='const response = await fetch("'+c.url+'", {\n';
+code+='  method: "'+c.method+'"';
+if(Object.keys(c.headers).length)code+=',\n  headers';
+if(c.data)code+=',\n  body';
+if(!c.followRedirects)code+=',\n  redirect: "manual"';
+code+='\n});\n\n';
+code+='const data = await response.json();\nconsole.log(data);\n';
+return code;
+}
+
+function toPHP(c){
+let code='<?php\n\n$ch = curl_init();\n\n';
+code+='curl_setopt($ch, CURLOPT_URL, "'+c.url+'");\n';
+code+='curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);\n';
+if(c.method!=='GET'){
+code+='curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "'+c.method+'");\n';
+}
+if(Object.keys(c.headers).length){
+code+='curl_setopt($ch, CURLOPT_HTTPHEADER, [\n';
+Object.entries(c.headers).forEach(([k,v])=>{code+='    "'+k+': '+v+'",\n'});
+code+=']);\n';
+}
+if(c.data){
+code+='curl_setopt($ch, CURLOPT_POSTFIELDS, \''+c.data.replace(/'/g,"\\'")+"');\n";
+}
+if(c.auth){
+code+='curl_setopt($ch, CURLOPT_USERPWD, "'+c.auth+'");\n';
+}
+if(c.insecure){
+code+='curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);\n';
+}
+if(c.followRedirects){
+code+='curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);\n';
+}
+code+='\n$response = curl_exec($ch);\n$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);\ncurl_close($ch);\n\n';
+code+='echo "Status: " . $httpCode . "\\n";\necho $response;\n';
+return code;
+}
+
+function toGo(c){
+let code='package main\n\nimport (\n\t"fmt"\n\t"io"\n\t"net/http"\n';
+if(c.data)code+='\t"strings"\n';
+code+=')\n\nfunc main() {\n';
+if(c.data){
+let isJSON=false;
+try{JSON.parse(c.data);isJSON=true}catch(e){}
+code+='\tbody := strings.NewReader(`'+c.data+'`)\n';
+code+='\treq, err := http.NewRequest("'+c.method+'", "'+c.url+'", body)\n';
+}else{
+code+='\treq, err := http.NewRequest("'+c.method+'", "'+c.url+'", nil)\n';
+}
+code+='\tif err != nil {\n\t\tpanic(err)\n\t}\n\n';
+Object.entries(c.headers).forEach(([k,v])=>{
+code+='\treq.Header.Set("'+k+'", "'+v+'")\n';
+});
+if(c.auth){
+const parts=c.auth.split(':');
+code+='\treq.SetBasicAuth("'+parts[0]+'", "'+(parts[1]||'')+'")\n';
+}
+code+='\n\tclient := &http.Client{}\n';
+code+='\tresp, err := client.Do(req)\n';
+code+='\tif err != nil {\n\t\tpanic(err)\n\t}\n\tdefer resp.Body.Close()\n\n';
+code+='\tresBody, _ := io.ReadAll(resp.Body)\n';
+code+='\tfmt.Println("Status:", resp.StatusCode)\n';
+code+='\tfmt.Println(string(resBody))\n}\n';
+return code;
+}
+
+function convertCurl(){
+const input=document.getElementById('curlInput').value.trim();
+const errBox=document.getElementById('errorBox');
+const info=document.getElementById('parsedInfo');
+errBox.style.display='none';
+info.style.display='none';
+if(!input){errBox.style.display='block';errBox.textContent='Please paste a cURL command.';return}
+try{
+parsedCurl=parseCurlCommand(input);
+info.style.display='block';
+info.innerHTML='<span>Method:</span> '+esc(parsedCurl.method)+' | <span>URL:</span> '+esc(parsedCurl.url)+
+(Object.keys(parsedCurl.headers).length?' | <span>Headers:</span> '+Object.keys(parsedCurl.headers).length:'')+
+(parsedCurl.data?' | <span>Body:</span> Yes':'');
+generatedCode={
+python:toPython(parsedCurl),
+javascript:toJavaScript(parsedCurl),
+php:toPHP(parsedCurl),
+go:toGo(parsedCurl)
+};
+document.getElementById('output').innerHTML=esc(generatedCode[currentLang]);
+try{localStorage.setItem('curl2code_last',input)}catch(e){}
+}catch(e){
+errBox.style.display='block';
+errBox.textContent='Parse Error: '+e.message;
+}
+}
+
+function switchLang(lang,btn){
+currentLang=lang;
+document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+btn.classList.add('active');
+if(generatedCode[lang])document.getElementById('output').innerHTML=esc(generatedCode[lang]);
+}
+
+function copyCode(){
+if(!generatedCode[currentLang])return;
+navigator.clipboard.writeText(generatedCode[currentLang]).then(()=>{
+const el=document.createElement('div');el.className='copied';el.textContent='Code copied!';
+document.body.appendChild(el);setTimeout(()=>el.remove(),1600);
+});
+}
+
+function loadSample(){
+document.getElementById('curlInput').value=`curl -X POST https://api.example.com/users \\
+  -H "Content-Type: application/json" \\
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.token" \\
+  -H "Accept: application/json" \\
+  -d '{"name": "John Doe", "email": "john@example.com", "role": "admin"}'`;
+convertCurl();
+}
+
+function clearAll(){
+document.getElementById('curlInput').value='';
+document.getElementById('output').innerHTML='';
+document.getElementById('errorBox').style.display='none';
+document.getElementById('parsedInfo').style.display='none';
+parsedCurl=null;generatedCode={};
+}
+
+// Restore
+try{const last=localStorage.getItem('curl2code_last');if(last){document.getElementById('curlInput').value=last}}catch(e){}
+</script>
+
+<!-- Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+<script src="/auto-monetize.js"></script>
+<div id="shareXBtn" style="position:fixed;left:20px;bottom:20px;z-index:9999;">
+  <a id="shareXLink" href="#" target="_blank" rel="noopener noreferrer" title="Share on X"
+     style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;
+     background:rgba(255,95,31,0.15);border:1px solid rgba(255,95,31,0.3);
+     backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:50%;
+     text-decoration:none;transition:all 0.3s ease;cursor:pointer;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+    </svg>
+  </a>
+</div>
+<style>#shareXBtn a:hover{background:rgba(255,95,31,0.35)!important;border-color:rgba(255,95,31,0.6)!important;transform:scale(1.1);box-shadow:0 0 15px rgba(255,95,31,0.3)}</style>
+<script>
+(function(){
+  var page="curl-to-code";
+  var url="https://spunk.codes/exclusive/"+page;
+  var text="Convert cURL to Python, JS, PHP, Go code instantly. Free tool @SpunkArt13";
+  document.getElementById("shareXLink").href="https://x.com/intent/tweet?text="+encodeURIComponent(text)+"&url="+encodeURIComponent(url);
+})();
+</script>
+<script src="/usage-tracker.js"></script>
+</body>
+</html>

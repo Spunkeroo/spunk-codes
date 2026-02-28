@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Image Color Picker - Pick Colors from Any Image | SPUNK.CODES Exclusive</title>
+<meta name="description" content="Upload any image and click to pick colors. Shows HEX, RGB, HSL values. Save and export color palettes. Free client-side tool.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Image Color Picker - SPUNK.CODES Exclusive">
+<meta property="og:description" content="Upload any image and click to pick colors. Shows HEX, RGB, HSL values.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://spunk.codes/exclusive/image-color-picker">
+<meta property="og:site_name" content="Spunk Codes">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/image-color-picker">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Image Color Picker","url":"https://spunk.codes/exclusive/image-color-picker","applicationCategory":"DesignApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Upload any image and click to pick colors with HEX, RGB, HSL output and palette saving.","author":{"@type":"Organization","name":"Spunk Codes","url":"https://spunk.codes"}}</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0f;color:#e0e0e0;min-height:100vh;line-height:1.6}
+a{color:#58a6ff;text-decoration:none}a:hover{text-decoration:underline}
+.wrap{max-width:1200px;margin:0 auto;padding:1.5rem}
+h1{font-size:2rem;font-weight:800;text-align:center;margin:1.5rem 0 0.5rem}
+h1 span{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.subtitle{text-align:center;color:#8b949e;margin-bottom:2rem;max-width:650px;margin-left:auto;margin-right:auto}
+.card{background:rgba(18,18,28,0.85);border:1px solid #1a1a2e;border-radius:14px;padding:1.5rem;margin-bottom:1.5rem;position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#ff5f1f,#ff9f1f,#ff5f1f)}
+.card h2{font-size:1rem;font-weight:700;margin-bottom:1rem;color:#ff9f1f}
+.btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.85rem;font-weight:700;cursor:pointer;border:none;transition:all 0.2s;display:inline-flex;align-items:center;gap:0.4rem}
+.btn-primary{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);color:#000}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 4px 15px rgba(255,95,31,0.3)}
+.btn-outline{background:transparent;border:1px solid rgba(255,95,31,0.3);color:#ff9f1f}
+.btn-outline:hover{background:rgba(255,95,31,0.1)}
+.btn-sm{padding:0.4rem 0.8rem;font-size:0.75rem}
+.actions{display:flex;gap:0.5rem;flex-wrap:wrap;margin:1rem 0}
+.upload-zone{border:2px dashed #1a1a2e;border-radius:12px;padding:3rem 2rem;text-align:center;cursor:pointer;transition:all 0.3s;position:relative}
+.upload-zone:hover,.upload-zone.dragover{border-color:#ff5f1f;background:rgba(255,95,31,0.05)}
+.upload-zone input{position:absolute;inset:0;opacity:0;cursor:pointer}
+.upload-zone p{color:#8b949e;font-size:0.9rem}
+.canvas-wrap{position:relative;display:none;max-width:100%;overflow:auto;border-radius:8px;border:1px solid #1a1a2e}
+.canvas-wrap canvas{display:block;max-width:100%;cursor:crosshair}
+.magnifier{position:fixed;width:120px;height:120px;border:2px solid #ff5f1f;border-radius:12px;pointer-events:none;display:none;z-index:100;image-rendering:pixelated;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.5)}
+.magnifier canvas{width:100%;height:100%}
+.magnifier .crosshair{position:absolute;top:50%;left:50%;width:12px;height:12px;border:1px solid #fff;border-radius:50%;transform:translate(-50%,-50%);box-shadow:0 0 0 1px rgba(0,0,0,0.5)}
+.color-info{display:grid;grid-template-columns:80px 1fr;gap:1rem;align-items:center;margin-top:1rem;display:none}
+.color-preview{width:80px;height:80px;border-radius:12px;border:2px solid #1a1a2e}
+.color-values{display:flex;flex-direction:column;gap:0.3rem}
+.color-row{display:flex;align-items:center;gap:0.5rem;font-family:'Courier New',monospace;font-size:0.85rem}
+.color-row label{min-width:40px;color:#8b949e;font-size:0.75rem;font-weight:600}
+.color-row span{cursor:pointer;padding:2px 6px;border-radius:4px;transition:background 0.2s}
+.color-row span:hover{background:rgba(255,95,31,0.15)}
+.palette{display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:1rem;min-height:50px;padding:0.5rem;border:1px solid #1a1a2e;border-radius:8px}
+.palette-color{width:50px;height:50px;border-radius:8px;cursor:pointer;position:relative;border:2px solid transparent;transition:all 0.2s}
+.palette-color:hover{transform:scale(1.1);border-color:#ff5f1f}
+.palette-color .remove{position:absolute;top:-6px;right:-6px;width:18px;height:18px;background:#f85149;border-radius:50%;display:none;align-items:center;justify-content:center;font-size:12px;color:#fff;cursor:pointer;border:none;line-height:1}
+.palette-color:hover .remove{display:flex}
+.copied{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(57,211,83,0.95);color:#000;padding:0.8rem 2rem;border-radius:10px;font-weight:700;font-size:1rem;z-index:9999;pointer-events:none;animation:fadeOut 1.5s ease forwards}
+@keyframes fadeOut{0%{opacity:1;transform:translate(-50%,-50%) scale(1)}70%{opacity:1}100%{opacity:0;transform:translate(-50%,-60%) scale(0.95)}}
+.network-footer{text-align:center;padding:2rem 0 1rem;border-top:1px solid rgba(255,95,31,0.1);margin-top:2rem}
+.network-footer .links{display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap;font-size:0.85rem;margin-bottom:0.5rem}
+.network-footer .copy{color:#8b949e;font-size:0.75rem}
+.cta-banner{text-align:center;margin:2rem 0 1rem;padding:1.5rem;background:linear-gradient(135deg,rgba(255,95,31,0.1),rgba(255,159,31,0.05));border:1px solid rgba(255,95,31,0.2);border-radius:14px}
+.cta-banner p{color:#8b949e;font-size:0.9rem;margin-bottom:0.8rem}
+.empty-palette{color:#8b949e;font-size:0.8rem;text-align:center;padding:0.5rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1><span>Image Color Picker</span></h1>
+<p class="subtitle">Upload any image, click to pick colors. Get HEX, RGB, HSL values and build a palette. 100% client-side.</p>
+
+<div class="card">
+<h2>Upload Image</h2>
+<div class="upload-zone" id="uploadZone">
+<p>Click or drag & drop an image here</p>
+<p style="font-size:0.75rem;color:#6b737c;margin-top:0.3rem">Supports PNG, JPG, GIF, SVG, WebP</p>
+<input type="file" id="fileInput" accept="image/*">
+</div>
+<div class="canvas-wrap" id="canvasWrap">
+<canvas id="imgCanvas"></canvas>
+</div>
+<div class="color-info" id="colorInfo">
+<div class="color-preview" id="colorPreview"></div>
+<div class="color-values">
+<div class="color-row"><label>HEX</label><span id="hexVal" onclick="copyVal(this)">-</span></div>
+<div class="color-row"><label>RGB</label><span id="rgbVal" onclick="copyVal(this)">-</span></div>
+<div class="color-row"><label>HSL</label><span id="hslVal" onclick="copyVal(this)">-</span></div>
+</div>
+</div>
+<div class="actions">
+<button class="btn btn-primary" onclick="addToPalette()" id="addBtn" style="display:none">Add to Palette</button>
+<button class="btn btn-outline" onclick="document.getElementById('fileInput').click()">Change Image</button>
+</div>
+</div>
+
+<div class="card">
+<h2>Saved Palette</h2>
+<div class="palette" id="palette">
+<div class="empty-palette" id="emptyMsg">Pick colors from the image above to build your palette</div>
+</div>
+<div class="actions">
+<button class="btn btn-outline" onclick="exportPalette('hex')">Export HEX</button>
+<button class="btn btn-outline" onclick="exportPalette('rgb')">Export RGB</button>
+<button class="btn btn-outline" onclick="exportPalette('css')">Export CSS Variables</button>
+<button class="btn btn-outline" onclick="clearPalette()">Clear Palette</button>
+</div>
+</div>
+
+<div class="cta-banner">
+<p>Need more design tools? Check out our full collection.</p>
+<a href="https://spunk.codes/exclusive/" class="btn btn-primary">Browse All Tools &rarr;</a>
+</div>
+
+<div class="network-footer">
+<div class="links">
+<a href="https://spunk.codes/">Home</a>
+<a href="https://spunk.codes/exclusive/">All Tools</a>
+<a href="https://x.com/SpunkArt13" target="_blank">@SpunkArt13</a>
+</div>
+<div class="copy">&copy; 2025 spunk.codes</div>
+</div>
+</div>
+
+<div class="magnifier" id="magnifier"><canvas id="magCanvas" width="120" height="120"></canvas><div class="crosshair"></div></div>
+
+<script>
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+
+const canvas=document.getElementById('imgCanvas');
+const ctx=canvas.getContext('2d',{willReadFrequently:true});
+const magCanvas=document.getElementById('magCanvas');
+const magCtx=magCanvas.getContext('2d');
+let imgData=null;
+let currentColor=null;
+let palette=[];
+
+// Load palette from localStorage
+try{const saved=localStorage.getItem('colorpicker_palette');if(saved)palette=JSON.parse(saved);renderPalette()}catch(e){}
+
+// File handling
+document.getElementById('fileInput').addEventListener('change',function(e){
+if(e.target.files[0])loadImage(e.target.files[0]);
+});
+
+const uploadZone=document.getElementById('uploadZone');
+uploadZone.addEventListener('dragover',function(e){e.preventDefault();this.classList.add('dragover')});
+uploadZone.addEventListener('dragleave',function(){this.classList.remove('dragover')});
+uploadZone.addEventListener('drop',function(e){
+e.preventDefault();this.classList.remove('dragover');
+if(e.dataTransfer.files[0])loadImage(e.dataTransfer.files[0]);
+});
+
+function loadImage(file){
+const reader=new FileReader();
+reader.onload=function(e){
+const img=new Image();
+img.onload=function(){
+const maxW=1200;
+let w=img.width,h=img.height;
+if(w>maxW){h=Math.round(h*(maxW/w));w=maxW}
+canvas.width=w;canvas.height=h;
+ctx.drawImage(img,0,0,w,h);
+imgData=ctx.getImageData(0,0,w,h);
+document.getElementById('uploadZone').style.display='none';
+document.getElementById('canvasWrap').style.display='block';
+};
+img.src=e.target.result;
+};
+reader.readAsDataURL(file);
+}
+
+canvas.addEventListener('click',function(e){
+const rect=canvas.getBoundingClientRect();
+const scaleX=canvas.width/rect.width;
+const scaleY=canvas.height/rect.height;
+const x=Math.floor((e.clientX-rect.left)*scaleX);
+const y=Math.floor((e.clientY-rect.top)*scaleY);
+pickColor(x,y);
+});
+
+canvas.addEventListener('mousemove',function(e){
+if(!imgData)return;
+const mag=document.getElementById('magnifier');
+const rect=canvas.getBoundingClientRect();
+const scaleX=canvas.width/rect.width;
+const scaleY=canvas.height/rect.height;
+const x=Math.floor((e.clientX-rect.left)*scaleX);
+const y=Math.floor((e.clientY-rect.top)*scaleY);
+
+// Position magnifier
+mag.style.display='block';
+mag.style.left=(e.clientX+20)+'px';
+mag.style.top=(e.clientY-140)+'px';
+
+// Draw magnified area
+const zoom=8;
+const size=15;
+magCtx.imageSmoothingEnabled=false;
+magCtx.clearRect(0,0,120,120);
+magCtx.drawImage(canvas,x-size/2,y-size/2,size,size,0,0,120,120);
+});
+
+canvas.addEventListener('mouseleave',function(){
+document.getElementById('magnifier').style.display='none';
+});
+
+function pickColor(x,y){
+if(!imgData||x<0||y<0||x>=canvas.width||y>=canvas.height)return;
+const i=(y*canvas.width+x)*4;
+const r=imgData.data[i],g=imgData.data[i+1],b=imgData.data[i+2];
+currentColor={r,g,b};
+const hex=rgbToHex(r,g,b);
+const hsl=rgbToHsl(r,g,b);
+document.getElementById('colorPreview').style.background=hex;
+document.getElementById('hexVal').textContent=hex;
+document.getElementById('rgbVal').textContent='rgb('+r+', '+g+', '+b+')';
+document.getElementById('hslVal').textContent='hsl('+hsl.h+', '+hsl.s+'%, '+hsl.l+'%)';
+document.getElementById('colorInfo').style.display='grid';
+document.getElementById('addBtn').style.display='inline-flex';
+}
+
+function rgbToHex(r,g,b){
+return '#'+[r,g,b].map(v=>v.toString(16).padStart(2,'0')).join('');
+}
+
+function rgbToHsl(r,g,b){
+r/=255;g/=255;b/=255;
+const max=Math.max(r,g,b),min=Math.min(r,g,b);
+let h,s,l=(max+min)/2;
+if(max===min){h=s=0}else{
+const d=max-min;
+s=l>0.5?d/(2-max-min):d/(max+min);
+switch(max){
+case r:h=((g-b)/d+(g<b?6:0))/6;break;
+case g:h=((b-r)/d+2)/6;break;
+case b:h=((r-g)/d+4)/6;break;
+}
+}
+return{h:Math.round(h*360),s:Math.round(s*100),l:Math.round(l*100)};
+}
+
+function copyVal(el){
+navigator.clipboard.writeText(el.textContent).then(()=>{
+const n=document.createElement('div');n.className='copied';n.textContent='Copied!';
+document.body.appendChild(n);setTimeout(()=>n.remove(),1600);
+});
+}
+
+function addToPalette(){
+if(!currentColor)return;
+const hex=rgbToHex(currentColor.r,currentColor.g,currentColor.b);
+if(palette.find(c=>c.hex===hex))return;
+palette.push({hex,r:currentColor.r,g:currentColor.g,b:currentColor.b});
+savePalette();
+renderPalette();
+}
+
+function renderPalette(){
+const el=document.getElementById('palette');
+const empty=document.getElementById('emptyMsg');
+if(!palette.length){el.innerHTML='<div class="empty-palette" id="emptyMsg">Pick colors from the image above to build your palette</div>';return}
+el.innerHTML='';
+palette.forEach((c,i)=>{
+const div=document.createElement('div');
+div.className='palette-color';
+div.style.background=c.hex;
+div.title=c.hex;
+div.onclick=function(){copyVal({textContent:c.hex})};
+const rm=document.createElement('button');
+rm.className='remove';
+rm.textContent='x';
+rm.onclick=function(e){e.stopPropagation();palette.splice(i,1);savePalette();renderPalette()};
+div.appendChild(rm);
+el.appendChild(div);
+});
+}
+
+function savePalette(){
+try{localStorage.setItem('colorpicker_palette',JSON.stringify(palette))}catch(e){}
+}
+
+function clearPalette(){
+palette=[];savePalette();renderPalette();
+}
+
+function exportPalette(format){
+if(!palette.length)return;
+let text='';
+if(format==='hex')text=palette.map(c=>c.hex).join('\n');
+else if(format==='rgb')text=palette.map(c=>'rgb('+c.r+', '+c.g+', '+c.b+')').join('\n');
+else if(format==='css'){
+text=':root {\n';
+palette.forEach((c,i)=>{text+='  --color-'+(i+1)+': '+c.hex+';\n'});
+text+='}';
+}
+navigator.clipboard.writeText(text).then(()=>{
+const n=document.createElement('div');n.className='copied';n.textContent='Palette copied!';
+document.body.appendChild(n);setTimeout(()=>n.remove(),1600);
+});
+}
+</script>
+
+<!-- Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+<script src="/auto-monetize.js"></script>
+<div id="shareXBtn" style="position:fixed;left:20px;bottom:20px;z-index:9999;">
+  <a id="shareXLink" href="#" target="_blank" rel="noopener noreferrer" title="Share on X"
+     style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;
+     background:rgba(255,95,31,0.15);border:1px solid rgba(255,95,31,0.3);
+     backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:50%;
+     text-decoration:none;transition:all 0.3s ease;cursor:pointer;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+    </svg>
+  </a>
+</div>
+<style>#shareXBtn a:hover{background:rgba(255,95,31,0.35)!important;border-color:rgba(255,95,31,0.6)!important;transform:scale(1.1);box-shadow:0 0 15px rgba(255,95,31,0.3)}</style>
+<script>
+(function(){
+  var page="image-color-picker";
+  var url="https://spunk.codes/exclusive/"+page;
+  var text="Awesome image color picker with magnifier and palette export. Free tool @SpunkArt13";
+  document.getElementById("shareXLink").href="https://x.com/intent/tweet?text="+encodeURIComponent(text)+"&url="+encodeURIComponent(url);
+})();
+</script>
+<script src="/usage-tracker.js"></script>
+</body>
+</html>

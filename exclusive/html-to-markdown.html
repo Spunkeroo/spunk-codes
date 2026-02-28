@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HTML to Markdown Converter - Convert HTML to Clean Markdown | SPUNK.CODES Exclusive</title>
+<meta name="description" content="Convert HTML to clean Markdown instantly. Handles headings, links, images, lists, tables, code blocks. Free client-side tool.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="HTML to Markdown Converter - SPUNK.CODES Exclusive">
+<meta property="og:description" content="Convert HTML to clean Markdown instantly with support for all common elements.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://spunk.codes/exclusive/html-to-markdown">
+<meta property="og:site_name" content="Spunk Codes">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/html-to-markdown">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"HTML to Markdown Converter","url":"https://spunk.codes/exclusive/html-to-markdown","applicationCategory":"DeveloperApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Convert HTML to clean Markdown instantly.","author":{"@type":"Organization","name":"Spunk Codes","url":"https://spunk.codes"}}</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0f;color:#e0e0e0;min-height:100vh;line-height:1.6}
+a{color:#58a6ff;text-decoration:none}a:hover{text-decoration:underline}
+.wrap{max-width:1200px;margin:0 auto;padding:1.5rem}
+h1{font-size:2rem;font-weight:800;text-align:center;margin:1.5rem 0 0.5rem}
+h1 span{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.subtitle{text-align:center;color:#8b949e;margin-bottom:2rem;max-width:650px;margin-left:auto;margin-right:auto}
+.card{background:rgba(18,18,28,0.85);border:1px solid #1a1a2e;border-radius:14px;padding:1.5rem;margin-bottom:1.5rem;position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#ff5f1f,#ff9f1f,#ff5f1f)}
+.card h2{font-size:1rem;font-weight:700;margin-bottom:1rem;color:#ff9f1f}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+@media(max-width:768px){.grid{grid-template-columns:1fr}}
+textarea{width:100%;padding:1rem;background:#0a0a0f;border:1px solid #1a1a2e;border-radius:8px;color:#e0e0e0;font-family:'Courier New',monospace;font-size:0.85rem;resize:vertical;outline:none;min-height:350px;line-height:1.5;tab-size:2}
+textarea:focus{border-color:#ff5f1f}
+.btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.85rem;font-weight:700;cursor:pointer;border:none;transition:all 0.2s;display:inline-flex;align-items:center;gap:0.4rem}
+.btn-primary{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);color:#000}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 4px 15px rgba(255,95,31,0.3)}
+.btn-outline{background:transparent;border:1px solid rgba(255,95,31,0.3);color:#ff9f1f}
+.btn-outline:hover{background:rgba(255,95,31,0.1)}
+.actions{display:flex;gap:0.5rem;flex-wrap:wrap;margin:1rem 0}
+.output-area{width:100%;min-height:350px;padding:1rem;background:#0a0a0f;border:1px solid #1a1a2e;border-radius:8px;font-family:'Courier New',monospace;font-size:0.85rem;overflow:auto;max-height:600px;line-height:1.5;white-space:pre-wrap;word-break:break-word}
+.error-box{padding:0.8rem 1rem;background:rgba(248,81,73,0.1);border:1px solid rgba(248,81,73,0.3);border-radius:8px;color:#f85149;font-size:0.85rem;display:none;margin-top:0.5rem}
+.success-box{padding:0.5rem 1rem;background:rgba(57,211,83,0.1);border:1px solid rgba(57,211,83,0.2);border-radius:8px;color:#39d353;font-size:0.85rem;display:none;margin-top:0.5rem}
+.status-bar{display:flex;justify-content:space-between;font-size:0.78rem;color:#8b949e;margin-top:0.5rem}
+.copied{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(57,211,83,0.95);color:#000;padding:0.8rem 2rem;border-radius:10px;font-weight:700;font-size:1rem;z-index:9999;pointer-events:none;animation:fadeOut 1.5s ease forwards}
+@keyframes fadeOut{0%{opacity:1;transform:translate(-50%,-50%) scale(1)}70%{opacity:1}100%{opacity:0;transform:translate(-50%,-60%) scale(0.95)}}
+.preview-area{width:100%;min-height:200px;padding:1rem;background:rgba(10,10,15,0.8);border:1px solid #1a1a2e;border-radius:8px;font-size:0.9rem;overflow:auto;max-height:400px;line-height:1.6}
+.preview-area h1,.preview-area h2,.preview-area h3{color:#ff9f1f;margin:0.5rem 0}
+.preview-area code{background:rgba(255,95,31,0.1);padding:2px 6px;border-radius:4px;font-size:0.85em}
+.preview-area pre{background:rgba(10,10,15,0.9);padding:1rem;border-radius:8px;overflow-x:auto;margin:0.5rem 0}
+.preview-area blockquote{border-left:3px solid #ff5f1f;padding-left:1rem;color:#8b949e;margin:0.5rem 0}
+.preview-area a{color:#58a6ff}
+.preview-area ul,.preview-area ol{padding-left:1.5rem}
+.preview-area table{border-collapse:collapse;width:100%;margin:0.5rem 0}
+.preview-area th,.preview-area td{border:1px solid #1a1a2e;padding:6px 10px;text-align:left}
+.preview-area th{background:rgba(255,95,31,0.1)}
+.network-footer{text-align:center;padding:2rem 0 1rem;border-top:1px solid rgba(255,95,31,0.1);margin-top:2rem}
+.network-footer .links{display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap;font-size:0.85rem;margin-bottom:0.5rem}
+.network-footer .copy{color:#8b949e;font-size:0.75rem}
+.cta-banner{text-align:center;margin:2rem 0 1rem;padding:1.5rem;background:linear-gradient(135deg,rgba(255,95,31,0.1),rgba(255,159,31,0.05));border:1px solid rgba(255,95,31,0.2);border-radius:14px}
+.cta-banner p{color:#8b949e;font-size:0.9rem;margin-bottom:0.8rem}
+label{display:block;font-size:0.8rem;font-weight:600;color:#8b949e;margin-bottom:0.3rem;text-transform:uppercase;letter-spacing:0.5px}
+.tabs{display:flex;gap:0.5rem;margin-bottom:1rem}
+.tab{padding:0.5rem 1rem;border-radius:8px;font-size:0.8rem;font-weight:700;cursor:pointer;border:1px solid rgba(255,95,31,0.2);background:transparent;color:#8b949e;transition:all 0.2s}
+.tab.active{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);color:#000;border-color:transparent}
+.tab:hover:not(.active){background:rgba(255,95,31,0.1);color:#ff9f1f}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1><span>HTML to Markdown Converter</span></h1>
+<p class="subtitle">Paste HTML and convert it to clean Markdown. Supports headings, links, images, lists, tables, code blocks, and more. 100% client-side.</p>
+
+<div class="card">
+<div class="grid">
+<div>
+<label>HTML Input</label>
+<textarea id="htmlInput" placeholder='<h1>Hello World</h1>
+<p>This is a <strong>bold</strong> and <em>italic</em> paragraph with a <a href="https://example.com">link</a>.</p>
+<ul>
+  <li>Item 1</li>
+  <li>Item 2</li>
+  <li>Item 3</li>
+</ul>' spellcheck="false"></textarea>
+</div>
+<div>
+<label>Markdown Output</label>
+<div class="tabs">
+<button class="tab active" onclick="showView('raw',this)">Raw</button>
+<button class="tab" onclick="showView('preview',this)">Preview</button>
+</div>
+<div id="rawView">
+<div class="output-area" id="mdOutput"></div>
+</div>
+<div id="previewView" style="display:none">
+<div class="preview-area" id="mdPreview"></div>
+</div>
+</div>
+</div>
+<div id="errorBox" class="error-box"></div>
+<div id="successBox" class="success-box"></div>
+<div class="actions">
+<button class="btn btn-primary" onclick="convertHTML()">Convert</button>
+<button class="btn btn-outline" onclick="copyMD()">Copy Markdown</button>
+<button class="btn btn-outline" onclick="clearAll()">Clear</button>
+<button class="btn btn-outline" onclick="loadSample()">Load Sample</button>
+</div>
+<div class="status-bar">
+<span id="inputLen">HTML: 0 chars</span>
+<span id="outputLen">Markdown: 0 chars</span>
+</div>
+</div>
+
+<div class="cta-banner">
+<p>Need more dev tools? Check out our full collection.</p>
+<a href="https://spunk.codes/exclusive/" class="btn btn-primary">Browse All Tools &rarr;</a>
+</div>
+
+<div class="network-footer">
+<div class="links">
+<a href="https://spunk.codes/">Home</a>
+<a href="https://spunk.codes/exclusive/">All Tools</a>
+<a href="https://x.com/SpunkArt13" target="_blank">@SpunkArt13</a>
+</div>
+<div class="copy">&copy; 2025 spunk.codes</div>
+</div>
+</div>
+
+<script>
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+
+let lastMD='';
+
+function showView(view,btn){
+document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+btn.classList.add('active');
+document.getElementById('rawView').style.display=view==='raw'?'block':'none';
+document.getElementById('previewView').style.display=view==='preview'?'block':'none';
+}
+
+function htmlToMarkdown(html){
+// Create a DOM parser
+const parser=new DOMParser();
+const doc=parser.parseFromString(html,'text/html');
+return nodeToMD(doc.body).trim().replace(/\n{3,}/g,'\n\n');
+}
+
+function nodeToMD(node){
+let md='';
+for(const child of node.childNodes){
+if(child.nodeType===3){
+// Text node
+md+=child.textContent;
+continue;
+}
+if(child.nodeType!==1)continue;
+const tag=child.tagName.toLowerCase();
+const inner=nodeToMD(child).trim();
+
+switch(tag){
+case 'h1':md+='\n\n# '+inner+'\n\n';break;
+case 'h2':md+='\n\n## '+inner+'\n\n';break;
+case 'h3':md+='\n\n### '+inner+'\n\n';break;
+case 'h4':md+='\n\n#### '+inner+'\n\n';break;
+case 'h5':md+='\n\n##### '+inner+'\n\n';break;
+case 'h6':md+='\n\n###### '+inner+'\n\n';break;
+case 'p':md+='\n\n'+inner+'\n\n';break;
+case 'br':md+='\n';break;
+case 'hr':md+='\n\n---\n\n';break;
+case 'strong':case 'b':md+='**'+inner+'**';break;
+case 'em':case 'i':md+='*'+inner+'*';break;
+case 'del':case 's':case 'strike':md+='~~'+inner+'~~';break;
+case 'code':
+if(child.parentElement&&child.parentElement.tagName.toLowerCase()==='pre'){
+md+=inner;
+}else{
+md+='`'+inner+'`';
+}
+break;
+case 'pre':{
+const codeEl=child.querySelector('code');
+const codeText=codeEl?codeEl.textContent:child.textContent;
+const lang=codeEl?((codeEl.className||'').match(/language-(\w+)/)||[])[1]||'':'';
+md+='\n\n```'+lang+'\n'+codeText.trim()+'\n```\n\n';
+break;
+}
+case 'a':{
+const href=child.getAttribute('href')||'';
+const title=child.getAttribute('title');
+if(title)md+='['+inner+']('+href+' "'+title+'")';
+else md+='['+inner+']('+href+')';
+break;
+}
+case 'img':{
+const src=child.getAttribute('src')||'';
+const alt=child.getAttribute('alt')||'';
+const title=child.getAttribute('title');
+if(title)md+='!['+alt+']('+src+' "'+title+'")';
+else md+='!['+alt+']('+src+')';
+break;
+}
+case 'ul':{
+const items=child.querySelectorAll(':scope > li');
+md+='\n\n';
+items.forEach(li=>{
+const liContent=nodeToMD(li).trim().replace(/\n/g,'\n  ');
+md+='- '+liContent+'\n';
+});
+md+='\n';
+break;
+}
+case 'ol':{
+const items=child.querySelectorAll(':scope > li');
+md+='\n\n';
+items.forEach((li,i)=>{
+const liContent=nodeToMD(li).trim().replace(/\n/g,'\n   ');
+md+=(i+1)+'. '+liContent+'\n';
+});
+md+='\n';
+break;
+}
+case 'li':md+=inner;break;
+case 'blockquote':md+='\n\n'+inner.split('\n').map(l=>'> '+l).join('\n')+'\n\n';break;
+case 'table':{
+const rows=child.querySelectorAll('tr');
+if(!rows.length){md+=inner;break}
+md+='\n\n';
+let headerDone=false;
+rows.forEach((row,ri)=>{
+const cells=row.querySelectorAll('th, td');
+const vals=Array.from(cells).map(c=>nodeToMD(c).trim());
+md+='| '+vals.join(' | ')+' |\n';
+if(ri===0||(row.parentElement&&row.parentElement.tagName.toLowerCase()==='thead'&&!headerDone)){
+md+='| '+vals.map(()=>'---').join(' | ')+' |\n';
+headerDone=true;
+}
+});
+md+='\n';
+break;
+}
+case 'thead':case 'tbody':case 'tfoot':md+=nodeToMD(child);break;
+case 'tr':case 'th':case 'td':md+=inner;break;
+case 'div':case 'section':case 'article':case 'main':case 'header':case 'footer':case 'nav':
+md+='\n\n'+inner+'\n\n';break;
+case 'span':md+=inner;break;
+case 'sup':md+='<sup>'+inner+'</sup>';break;
+case 'sub':md+='<sub>'+inner+'</sub>';break;
+case 'input':{
+const type=child.getAttribute('type');
+if(type==='checkbox'){
+const checked=child.checked||child.hasAttribute('checked');
+md+=checked?'[x] ':'[ ] ';
+}
+break;
+}
+default:md+=inner;
+}
+}
+return md;
+}
+
+function convertHTML(){
+const html=document.getElementById('htmlInput').value.trim();
+const errBox=document.getElementById('errorBox');
+const sucBox=document.getElementById('successBox');
+errBox.style.display='none';sucBox.style.display='none';
+if(!html){errBox.style.display='block';errBox.textContent='Please paste some HTML.';return}
+try{
+lastMD=htmlToMarkdown(html);
+document.getElementById('mdOutput').textContent=lastMD;
+// Simple preview
+document.getElementById('mdPreview').innerHTML=mdToHTMLPreview(lastMD);
+sucBox.style.display='block';sucBox.textContent='Converted successfully!';
+document.getElementById('outputLen').textContent='Markdown: '+lastMD.length+' chars';
+document.getElementById('inputLen').textContent='HTML: '+html.length+' chars';
+try{localStorage.setItem('html2md_last',html)}catch(e){}
+}catch(e){
+errBox.style.display='block';errBox.textContent='Error: '+e.message;
+}
+}
+
+function mdToHTMLPreview(md){
+// Very basic Markdown to HTML for preview
+let html=esc(md);
+html=html.replace(/^######\s+(.+)$/gm,'<h6>$1</h6>');
+html=html.replace(/^#####\s+(.+)$/gm,'<h5>$1</h5>');
+html=html.replace(/^####\s+(.+)$/gm,'<h4>$1</h4>');
+html=html.replace(/^###\s+(.+)$/gm,'<h3>$1</h3>');
+html=html.replace(/^##\s+(.+)$/gm,'<h2>$1</h2>');
+html=html.replace(/^#\s+(.+)$/gm,'<h1>$1</h1>');
+html=html.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
+html=html.replace(/\*(.+?)\*/g,'<em>$1</em>');
+html=html.replace(/`([^`]+)`/g,'<code>$1</code>');
+html=html.replace(/^---$/gm,'<hr>');
+html=html.replace(/^&gt;\s+(.+)$/gm,'<blockquote>$1</blockquote>');
+html=html.replace(/^- (.+)$/gm,'<li>$1</li>');
+html=html.replace(/^\d+\.\s+(.+)$/gm,'<li>$1</li>');
+return html;
+}
+
+function copyMD(){
+if(!lastMD)return;
+navigator.clipboard.writeText(lastMD).then(()=>{
+const el=document.createElement('div');el.className='copied';el.textContent='Markdown copied!';
+document.body.appendChild(el);setTimeout(()=>el.remove(),1600);
+});
+}
+
+function clearAll(){
+document.getElementById('htmlInput').value='';
+document.getElementById('mdOutput').textContent='';
+document.getElementById('mdPreview').innerHTML='';
+document.getElementById('errorBox').style.display='none';
+document.getElementById('successBox').style.display='none';
+lastMD='';
+document.getElementById('inputLen').textContent='HTML: 0 chars';
+document.getElementById('outputLen').textContent='Markdown: 0 chars';
+}
+
+function loadSample(){
+document.getElementById('htmlInput').value=`<h1>Project Documentation</h1>
+<p>Welcome to the <strong>project docs</strong>. This is a <em>comprehensive</em> guide with a <a href="https://example.com">link to more info</a>.</p>
+
+<h2>Features</h2>
+<ul>
+  <li>Fast and lightweight</li>
+  <li>Easy to use</li>
+  <li>Works offline</li>
+</ul>
+
+<h2>Installation</h2>
+<ol>
+  <li>Clone the repo</li>
+  <li>Run <code>npm install</code></li>
+  <li>Start with <code>npm start</code></li>
+</ol>
+
+<h3>Code Example</h3>
+<pre><code class="language-javascript">const app = require('express')();
+
+app.get('/', (req, res) => {
+  res.send('Hello World!');
+});
+
+app.listen(3000);</code></pre>
+
+<blockquote>
+  <p>This is a blockquote with <strong>bold</strong> text.</p>
+</blockquote>
+
+<h2>Data Table</h2>
+<table>
+  <thead>
+    <tr><th>Name</th><th>Version</th><th>Size</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>React</td><td>18.2</td><td>42kb</td></tr>
+    <tr><td>Vue</td><td>3.3</td><td>33kb</td></tr>
+    <tr><td>Svelte</td><td>4.0</td><td>2kb</td></tr>
+  </tbody>
+</table>
+
+<hr>
+<p>Made with <del>sweat</del> love. <img src="https://example.com/logo.png" alt="Logo"></p>`;
+convertHTML();
+}
+
+// Restore
+try{const last=localStorage.getItem('html2md_last');if(last)document.getElementById('htmlInput').value=last}catch(e){}
+
+document.getElementById('htmlInput').addEventListener('keydown',function(e){
+if(e.key==='Tab'){e.preventDefault();const s=this.selectionStart,end=this.selectionEnd;this.value=this.value.substring(0,s)+'  '+this.value.substring(end);this.selectionStart=this.selectionEnd=s+2}
+});
+</script>
+
+<!-- Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+<script src="/auto-monetize.js"></script>
+<div id="shareXBtn" style="position:fixed;left:20px;bottom:20px;z-index:9999;">
+  <a id="shareXLink" href="#" target="_blank" rel="noopener noreferrer" title="Share on X"
+     style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;
+     background:rgba(255,95,31,0.15);border:1px solid rgba(255,95,31,0.3);
+     backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:50%;
+     text-decoration:none;transition:all 0.3s ease;cursor:pointer;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+    </svg>
+  </a>
+</div>
+<style>#shareXBtn a:hover{background:rgba(255,95,31,0.35)!important;border-color:rgba(255,95,31,0.6)!important;transform:scale(1.1);box-shadow:0 0 15px rgba(255,95,31,0.3)}</style>
+<script>
+(function(){
+  var page="html-to-markdown";
+  var url="https://spunk.codes/exclusive/"+page;
+  var text="Convert HTML to clean Markdown instantly. Handles tables, code blocks, everything. Free @SpunkArt13";
+  document.getElementById("shareXLink").href="https://x.com/intent/tweet?text="+encodeURIComponent(text)+"&url="+encodeURIComponent(url);
+})();
+</script>
+<script src="/usage-tracker.js"></script>
+</body>
+</html>

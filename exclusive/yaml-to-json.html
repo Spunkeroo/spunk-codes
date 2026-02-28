@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>YAML to JSON Converter - Convert YAML & JSON Instantly | SPUNK.CODES Exclusive</title>
+<meta name="description" content="Convert YAML to JSON and JSON to YAML instantly. Syntax highlighting, validation, copy output. Free client-side tool.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="YAML to JSON Converter - SPUNK.CODES Exclusive">
+<meta property="og:description" content="Convert YAML to JSON and JSON to YAML instantly with syntax highlighting and validation.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://spunk.codes/exclusive/yaml-to-json">
+<meta property="og:site_name" content="Spunk Codes">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<meta name="twitter:creator" content="@SpunkArt13">
+<meta name="twitter:title" content="YAML to JSON Converter - SPUNK.CODES Exclusive">
+<meta name="twitter:description" content="Convert YAML to JSON and JSON to YAML instantly.">
+<link rel="canonical" href="https://spunk.codes/exclusive/yaml-to-json">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"YAML to JSON Converter","url":"https://spunk.codes/exclusive/yaml-to-json","applicationCategory":"DeveloperApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Convert YAML to JSON and JSON to YAML instantly with syntax highlighting and validation.","author":{"@type":"Organization","name":"Spunk Codes","url":"https://spunk.codes"}}</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0f;color:#e0e0e0;min-height:100vh;line-height:1.6}
+a{color:#58a6ff;text-decoration:none}a:hover{text-decoration:underline}
+.wrap{max-width:1200px;margin:0 auto;padding:1.5rem}
+h1{font-size:2rem;font-weight:800;text-align:center;margin:1.5rem 0 0.5rem}
+h1 span{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.subtitle{text-align:center;color:#8b949e;margin-bottom:2rem;max-width:650px;margin-left:auto;margin-right:auto}
+.card{background:rgba(18,18,28,0.85);border:1px solid #1a1a2e;border-radius:14px;padding:1.5rem;margin-bottom:1.5rem;position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#ff5f1f,#ff9f1f,#ff5f1f)}
+.card h2{font-size:1rem;font-weight:700;margin-bottom:1rem;color:#ff9f1f}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+@media(max-width:768px){.grid{grid-template-columns:1fr}}
+textarea{width:100%;padding:1rem;background:#0a0a0f;border:1px solid #1a1a2e;border-radius:8px;color:#e0e0e0;font-family:'Courier New',monospace;font-size:0.85rem;resize:vertical;outline:none;min-height:300px;line-height:1.5;tab-size:2}
+textarea:focus{border-color:#ff5f1f}
+.btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.85rem;font-weight:700;cursor:pointer;border:none;transition:all 0.2s;display:inline-flex;align-items:center;gap:0.4rem}
+.btn-primary{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);color:#000}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 4px 15px rgba(255,95,31,0.3)}
+.btn-outline{background:transparent;border:1px solid rgba(255,95,31,0.3);color:#ff9f1f}
+.btn-outline:hover{background:rgba(255,95,31,0.1)}
+.actions{display:flex;gap:0.5rem;flex-wrap:wrap;margin:1rem 0}
+.direction{display:flex;align-items:center;justify-content:center;gap:1rem;margin-bottom:1.5rem}
+.dir-btn{padding:0.8rem 1.5rem;border-radius:10px;font-size:0.9rem;font-weight:700;cursor:pointer;border:1px solid #1a1a2e;background:transparent;color:#8b949e;transition:all 0.2s}
+.dir-btn.active{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);color:#000;border-color:transparent}
+.dir-btn:hover:not(.active){background:rgba(255,95,31,0.1);color:#ff9f1f}
+.error-box{padding:0.8rem 1rem;background:rgba(248,81,73,0.1);border:1px solid rgba(248,81,73,0.3);border-radius:8px;color:#f85149;font-size:0.85rem;font-family:'Courier New',monospace;display:none;margin-top:0.5rem;white-space:pre-wrap}
+.success-box{padding:0.5rem 1rem;background:rgba(57,211,83,0.1);border:1px solid rgba(57,211,83,0.2);border-radius:8px;color:#39d353;font-size:0.85rem;display:none;margin-top:0.5rem}
+.output-area{width:100%;min-height:300px;padding:1rem;background:#0a0a0f;border:1px solid #1a1a2e;border-radius:8px;font-family:'Courier New',monospace;font-size:0.85rem;overflow:auto;max-height:600px;line-height:1.5;white-space:pre-wrap;word-break:break-word}
+.hl-key{color:#ff9f1f}.hl-str{color:#39d353}.hl-num{color:#58a6ff}.hl-bool{color:#f0ad4e}.hl-null{color:#8b949e}
+.yaml-key{color:#ff9f1f}.yaml-str{color:#39d353}.yaml-num{color:#58a6ff}.yaml-bool{color:#f0ad4e}.yaml-comment{color:#6b737c;font-style:italic}
+.copied{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(57,211,83,0.95);color:#000;padding:0.8rem 2rem;border-radius:10px;font-weight:700;font-size:1rem;z-index:9999;pointer-events:none;animation:fadeOut 1.5s ease forwards}
+@keyframes fadeOut{0%{opacity:1;transform:translate(-50%,-50%) scale(1)}70%{opacity:1}100%{opacity:0;transform:translate(-50%,-60%) scale(0.95)}}
+.network-footer{text-align:center;padding:2rem 0 1rem;border-top:1px solid rgba(255,95,31,0.1);margin-top:2rem}
+.network-footer .links{display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap;font-size:0.85rem;margin-bottom:0.5rem}
+.network-footer .copy{color:#8b949e;font-size:0.75rem}
+.cta-banner{text-align:center;margin:2rem 0 1rem;padding:1.5rem;background:linear-gradient(135deg,rgba(255,95,31,0.1),rgba(255,159,31,0.05));border:1px solid rgba(255,95,31,0.2);border-radius:14px}
+.cta-banner p{color:#8b949e;font-size:0.9rem;margin-bottom:0.8rem}
+label{display:block;font-size:0.8rem;font-weight:600;color:#8b949e;margin-bottom:0.3rem;text-transform:uppercase;letter-spacing:0.5px}
+.status-bar{display:flex;justify-content:space-between;align-items:center;font-size:0.78rem;color:#8b949e;margin-top:0.5rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1><span>YAML to JSON Converter</span></h1>
+<p class="subtitle">Convert between YAML and JSON instantly. Paste your data, click convert, copy the result. 100% client-side.</p>
+
+<div class="direction">
+<button class="dir-btn active" onclick="setDir('yaml2json',this)">YAML &rarr; JSON</button>
+<button class="dir-btn" onclick="setDir('json2yaml',this)">JSON &rarr; YAML</button>
+</div>
+
+<div class="card">
+<div class="grid">
+<div>
+<label id="inputLabel">YAML Input</label>
+<textarea id="input" placeholder="Paste your YAML here...
+# Example:
+name: John Doe
+age: 30
+skills:
+  - JavaScript
+  - Python
+  - Go
+address:
+  city: New York
+  zip: '10001'" spellcheck="false"></textarea>
+</div>
+<div>
+<label id="outputLabel">JSON Output</label>
+<div class="output-area" id="output"></div>
+</div>
+</div>
+<div id="errorBox" class="error-box"></div>
+<div id="successBox" class="success-box"></div>
+<div class="actions">
+<button class="btn btn-primary" onclick="convert()">Convert</button>
+<button class="btn btn-outline" onclick="copyOutput()">Copy Output</button>
+<button class="btn btn-outline" onclick="clearAll()">Clear</button>
+<button class="btn btn-outline" onclick="loadSample()">Load Sample</button>
+<button class="btn btn-outline" onclick="swapIO()">Swap Input/Output</button>
+</div>
+<div class="status-bar">
+<span id="inputSize">Input: 0 chars</span>
+<span id="outputSize">Output: 0 chars</span>
+</div>
+</div>
+
+<div class="cta-banner">
+<p>Need more dev tools? Check out our full collection.</p>
+<a href="https://spunk.codes/exclusive/" class="btn btn-primary">Browse All Tools &rarr;</a>
+</div>
+
+<div class="network-footer">
+<div class="links">
+<a href="https://spunk.codes/">Home</a>
+<a href="https://spunk.codes/exclusive/">All Tools</a>
+<a href="https://x.com/SpunkArt13" target="_blank">@SpunkArt13</a>
+</div>
+<div class="copy">&copy; 2025 spunk.codes</div>
+</div>
+</div>
+
+<script>
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+
+let direction='yaml2json';
+let lastOutput='';
+
+function setDir(dir,btn){
+direction=dir;
+document.querySelectorAll('.dir-btn').forEach(b=>b.classList.remove('active'));
+btn.classList.add('active');
+if(dir==='yaml2json'){
+document.getElementById('inputLabel').textContent='YAML Input';
+document.getElementById('outputLabel').textContent='JSON Output';
+document.getElementById('input').placeholder='Paste your YAML here...';
+}else{
+document.getElementById('inputLabel').textContent='JSON Input';
+document.getElementById('outputLabel').textContent='YAML Output';
+document.getElementById('input').placeholder='Paste your JSON here...';
+}
+document.getElementById('output').innerHTML='';
+lastOutput='';
+}
+
+// Minimal YAML parser (handles common cases)
+function parseYAML(text){
+const lines=text.split('\n');
+return parseYAMLLines(lines,0,0).value;
+}
+
+function parseYAMLLines(lines,start,baseIndent){
+const result={};
+let isArray=false;
+let arr=[];
+let i=start;
+while(i<lines.length){
+let line=lines[i];
+// Skip empty lines and comments
+if(line.trim()===''||line.trim().startsWith('#')){i++;continue}
+// Calculate indent
+const indent=line.length-line.trimStart().length;
+if(indent<baseIndent)break;
+if(indent>baseIndent&&i===start){
+// Re-adjust base indent
+return parseYAMLLines(lines,i,indent);
+}
+if(indent!==baseIndent)break;
+const trimmed=line.trim();
+// Array item
+if(trimmed.startsWith('- ')){
+isArray=true;
+const val=trimmed.slice(2).trim();
+// Check if it's a nested object in the array item
+if(val.includes(': ')){
+const obj={};
+const kv=parseYAMLValue(val);
+if(typeof kv==='string'&&val.includes(': ')){
+const colonIdx=val.indexOf(': ');
+const k=val.slice(0,colonIdx).trim();
+const v=parseYAMLScalar(val.slice(colonIdx+2).trim());
+obj[k]=v;
+// Check for continuation lines
+let j=i+1;
+const itemIndent=indent+2;
+while(j<lines.length){
+const nextLine=lines[j];
+if(nextLine.trim()===''||nextLine.trim().startsWith('#')){j++;continue}
+const ni=nextLine.length-nextLine.trimStart().length;
+if(ni<itemIndent)break;
+if(ni>=itemIndent){
+const nt=nextLine.trim();
+if(nt.includes(': ')){
+const ci=nt.indexOf(': ');
+const nk=nt.slice(0,ci).trim();
+const nv=nt.slice(ci+2).trim();
+if(nv===''||nv==='>'){
+const sub=parseYAMLLines(lines,j+1,ni+2);
+obj[nk]=sub.value;
+j=sub.nextIndex;
+}else{
+obj[nk]=parseYAMLScalar(nv);
+j++;
+}
+}else{j++}
+}else break;
+}
+arr.push(obj);
+i=j;
+continue;
+}
+}
+if(val===''){
+// Nested structure
+const sub=parseYAMLLines(lines,i+1,indent+2);
+arr.push(sub.value);
+i=sub.nextIndex;
+}else{
+arr.push(parseYAMLScalar(val));
+i++;
+}
+continue;
+}
+if(trimmed.startsWith('- ')){
+isArray=true;
+arr.push(parseYAMLScalar(trimmed.slice(2)));
+i++;continue;
+}
+// Key: value
+const colonMatch=trimmed.match(/^([^:]+?):\s*(.*)/);
+if(colonMatch){
+const key=colonMatch[1].trim().replace(/^['"]|['"]$/g,'');
+const val=colonMatch[2].trim();
+if(val===''||val==='|'||val==='>'){
+// Block value or nested object/array
+const nextI=i+1;
+if(nextI<lines.length){
+const nextLine=lines[nextI];
+const nextIndent=nextLine.length-nextLine.trimStart().length;
+if(nextIndent>indent){
+if(val==='|'||val==='>'){
+// Block scalar
+let block=[];
+let j=nextI;
+while(j<lines.length){
+const bl=lines[j];
+if(bl.trim()===''&&j>nextI){
+// Check if next non-empty line is still indented
+let k=j+1;
+while(k<lines.length&&lines[k].trim()==='')k++;
+if(k<lines.length&&(lines[k].length-lines[k].trimStart().length)>=nextIndent){
+block.push('');j++;continue;
+}
+break;
+}
+const bi=bl.length-bl.trimStart().length;
+if(bi<nextIndent&&bl.trim()!=='')break;
+block.push(bl.slice(nextIndent));
+j++;
+}
+result[key]=val==='|'?block.join('\n'):block.join(' ');
+i=j;
+}else{
+const sub=parseYAMLLines(lines,nextI,nextIndent);
+result[key]=sub.value;
+i=sub.nextIndex;
+}
+}else{
+result[key]=null;
+i++;
+}
+}else{
+result[key]=null;
+i++;
+}
+}else{
+// Inline value
+result[key]=parseYAMLScalar(val);
+i++;
+}
+}else{
+i++;
+}
+}
+if(isArray)return{value:arr,nextIndex:i};
+return{value:result,nextIndex:i};
+}
+
+function parseYAMLScalar(s){
+if(s===''||s==='null'||s==='~')return null;
+if(s==='true')return true;
+if(s==='false')return false;
+if(/^-?\d+$/.test(s))return parseInt(s,10);
+if(/^-?\d+\.\d+$/.test(s))return parseFloat(s);
+if(/^-?\d+\.?\d*[eE][+-]?\d+$/.test(s))return parseFloat(s);
+// Quoted string
+if((s.startsWith('"')&&s.endsWith('"'))||(s.startsWith("'")&&s.endsWith("'")))
+return s.slice(1,-1);
+// Inline array [a, b, c]
+if(s.startsWith('[')&&s.endsWith(']')){
+try{return JSON.parse(s)}catch(e){
+return s.slice(1,-1).split(',').map(v=>parseYAMLScalar(v.trim()));
+}
+}
+// Inline object {a: b, c: d}
+if(s.startsWith('{')&&s.endsWith('}')){
+try{return JSON.parse(s)}catch(e){
+const obj={};
+s.slice(1,-1).split(',').forEach(pair=>{
+const ci=pair.indexOf(':');
+if(ci>0){
+obj[pair.slice(0,ci).trim().replace(/^['"]|['"]$/g,'')]=parseYAMLScalar(pair.slice(ci+1).trim());
+}
+});
+return obj;
+}
+}
+return s;
+}
+
+function parseYAMLValue(s){
+return parseYAMLScalar(s);
+}
+
+// JSON to YAML converter
+function jsonToYAML(obj,indent){
+indent=indent||0;
+const pad='  '.repeat(indent);
+if(obj===null||obj===undefined)return 'null';
+if(typeof obj==='boolean')return obj?'true':'false';
+if(typeof obj==='number')return String(obj);
+if(typeof obj==='string'){
+if(obj.includes('\n'))return '|\n'+obj.split('\n').map(l=>pad+'  '+l).join('\n');
+if(obj===''||obj.includes(':')||obj.includes('#')||obj.includes('{')||obj.includes('}')||
+obj.includes('[')||obj.includes(']')||obj.includes(',')||obj.includes('&')||
+obj.includes('*')||obj.includes('?')||obj.includes('|')||obj.includes('-')||
+obj.includes('<')||obj.includes('>')||obj.includes('=')||obj.includes('!')||
+obj.includes('%')||obj.includes('@')||obj.includes('\\')||
+obj==='true'||obj==='false'||obj==='null'||/^[\d.eE+-]+$/.test(obj))
+return "'"+obj.replace(/'/g,"''")+"'";
+return obj;
+}
+if(Array.isArray(obj)){
+if(!obj.length)return '[]';
+let out='';
+obj.forEach(v=>{
+if(v!==null&&typeof v==='object'&&!Array.isArray(v)){
+const keys=Object.keys(v);
+if(keys.length>0){
+out+=pad+'- '+keys[0]+': '+jsonToYAML(v[keys[0]],indent+1)+'\n';
+for(let ki=1;ki<keys.length;ki++){
+out+=pad+'  '+keys[ki]+': '+jsonToYAML(v[keys[ki]],indent+1)+'\n';
+}
+return;
+}
+}
+out+=pad+'- '+jsonToYAML(v,indent+1)+'\n';
+});
+return '\n'+out.replace(/\n$/,'');
+}
+const keys=Object.keys(obj);
+if(!keys.length)return '{}';
+let out='';
+keys.forEach(k=>{
+const v=obj[k];
+const yamlVal=jsonToYAML(v,indent+1);
+if(yamlVal.startsWith('\n')){
+out+=pad+k+':'+yamlVal+'\n';
+}else{
+out+=pad+k+': '+yamlVal+'\n';
+}
+});
+if(indent===0)return out.replace(/\n$/,'');
+return '\n'+out.replace(/\n$/,'');
+}
+
+function convert(){
+const input=document.getElementById('input').value;
+const errBox=document.getElementById('errorBox');
+const sucBox=document.getElementById('successBox');
+errBox.style.display='none';
+sucBox.style.display='none';
+if(!input.trim()){
+errBox.style.display='block';
+errBox.textContent='Please paste some input data.';
+return;
+}
+try{
+if(direction==='yaml2json'){
+const parsed=parseYAML(input);
+lastOutput=JSON.stringify(parsed,null,2);
+document.getElementById('output').innerHTML=highlightJSON(lastOutput);
+}else{
+const parsed=JSON.parse(input);
+lastOutput=jsonToYAML(parsed);
+document.getElementById('output').innerHTML=highlightYAML(esc(lastOutput));
+}
+sucBox.style.display='block';
+sucBox.textContent='Conversion successful!';
+document.getElementById('outputSize').textContent='Output: '+lastOutput.length+' chars';
+// Save to localStorage
+try{localStorage.setItem('yaml2json_last_dir',direction);localStorage.setItem('yaml2json_last_input',input)}catch(e){}
+}catch(e){
+errBox.style.display='block';
+errBox.textContent='Error: '+e.message;
+}
+}
+
+function highlightJSON(json){
+let r=esc(json);
+r=r.replace(/"([^"\\]*(\\.[^"\\]*)*)"(\s*:)?/g,function(m,p1,p2,p3){
+if(p3)return '<span class="hl-key">"'+p1+'"</span>'+p3;
+return '<span class="hl-str">"'+p1+'"</span>';
+});
+r=r.replace(/\b(-?\d+\.?\d*([eE][+-]?\d+)?)\b/g,'<span class="hl-num">$1</span>');
+r=r.replace(/\b(true|false)\b/g,'<span class="hl-bool">$1</span>');
+r=r.replace(/\bnull\b/g,'<span class="hl-null">null</span>');
+return r;
+}
+
+function highlightYAML(text){
+let r=text;
+r=r.replace(/(#.*)$/gm,'<span class="yaml-comment">$1</span>');
+r=r.replace(/^(\s*)([\w][\w\s.-]*)(:)/gm,'$1<span class="yaml-key">$2</span>$3');
+r=r.replace(/\b(true|false)\b/g,'<span class="yaml-bool">$1</span>');
+r=r.replace(/\bnull\b/g,'<span class="hl-null">null</span>');
+return r;
+}
+
+function copyOutput(){
+if(!lastOutput){return}
+navigator.clipboard.writeText(lastOutput).then(()=>{
+const el=document.createElement('div');
+el.className='copied';
+el.textContent='Output copied!';
+document.body.appendChild(el);
+setTimeout(()=>el.remove(),1600);
+});
+}
+
+function clearAll(){
+document.getElementById('input').value='';
+document.getElementById('output').innerHTML='';
+document.getElementById('errorBox').style.display='none';
+document.getElementById('successBox').style.display='none';
+lastOutput='';
+document.getElementById('inputSize').textContent='Input: 0 chars';
+document.getElementById('outputSize').textContent='Output: 0 chars';
+}
+
+function loadSample(){
+if(direction==='yaml2json'){
+document.getElementById('input').value=`# Server Configuration
+server:
+  host: localhost
+  port: 8080
+  debug: true
+
+database:
+  engine: postgres
+  host: db.example.com
+  port: 5432
+  name: myapp
+  credentials:
+    username: admin
+    password: secret123
+
+features:
+  - authentication
+  - logging
+  - caching
+  - rate-limiting
+
+cors:
+  origins:
+    - https://example.com
+    - https://app.example.com
+  methods: [GET, POST, PUT, DELETE]
+  max_age: 3600`;
+}else{
+document.getElementById('input').value=JSON.stringify({
+server:{host:"localhost",port:8080,debug:true},
+database:{engine:"postgres",host:"db.example.com",port:5432,name:"myapp",credentials:{username:"admin",password:"secret123"}},
+features:["authentication","logging","caching","rate-limiting"],
+cors:{origins:["https://example.com","https://app.example.com"],methods:["GET","POST","PUT","DELETE"],max_age:3600}
+},null,2);
+}
+updateInputSize();
+}
+
+function swapIO(){
+if(!lastOutput)return;
+document.getElementById('input').value=lastOutput;
+direction=direction==='yaml2json'?'json2yaml':'yaml2json';
+document.querySelectorAll('.dir-btn').forEach((b,i)=>{
+b.classList.toggle('active',
+(direction==='yaml2json'&&i===0)||(direction==='json2yaml'&&i===1));
+});
+if(direction==='yaml2json'){
+document.getElementById('inputLabel').textContent='YAML Input';
+document.getElementById('outputLabel').textContent='JSON Output';
+}else{
+document.getElementById('inputLabel').textContent='JSON Input';
+document.getElementById('outputLabel').textContent='YAML Output';
+}
+convert();
+}
+
+function updateInputSize(){
+const len=document.getElementById('input').value.length;
+document.getElementById('inputSize').textContent='Input: '+len+' chars';
+}
+document.getElementById('input').addEventListener('input',updateInputSize);
+
+// Restore last session
+try{
+const dir=localStorage.getItem('yaml2json_last_dir');
+const inp=localStorage.getItem('yaml2json_last_input');
+if(dir&&inp){
+direction=dir;
+document.querySelectorAll('.dir-btn').forEach((b,i)=>{
+b.classList.toggle('active',(dir==='yaml2json'&&i===0)||(dir==='json2yaml'&&i===1));
+});
+if(dir==='json2yaml'){
+document.getElementById('inputLabel').textContent='JSON Input';
+document.getElementById('outputLabel').textContent='YAML Output';
+document.getElementById('input').placeholder='Paste your JSON here...';
+}
+document.getElementById('input').value=inp;
+updateInputSize();
+}
+}catch(e){}
+
+// Tab key in textarea
+document.getElementById('input').addEventListener('keydown',function(e){
+if(e.key==='Tab'){e.preventDefault();const s=this.selectionStart,end=this.selectionEnd;this.value=this.value.substring(0,s)+'  '+this.value.substring(end);this.selectionStart=this.selectionEnd=s+2}
+});
+</script>
+
+<!-- Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+<script src="/auto-monetize.js"></script>
+<!-- Share on X Button -->
+<div id="shareXBtn" style="position:fixed;left:20px;bottom:20px;z-index:9999;">
+  <a id="shareXLink" href="#" target="_blank" rel="noopener noreferrer" title="Share on X"
+     style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;
+     background:rgba(255,95,31,0.15);border:1px solid rgba(255,95,31,0.3);
+     backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:50%;
+     text-decoration:none;transition:all 0.3s ease;cursor:pointer;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+    </svg>
+  </a>
+</div>
+<style>#shareXBtn a:hover{background:rgba(255,95,31,0.35)!important;border-color:rgba(255,95,31,0.6)!important;transform:scale(1.1);box-shadow:0 0 15px rgba(255,95,31,0.3)}</style>
+<script>
+(function(){
+  var page="yaml-to-json";
+  var url="https://spunk.codes/exclusive/"+page;
+  var text="Just found this free YAML to JSON converter. Works great, no signup needed @SpunkArt13";
+  var href="https://x.com/intent/tweet?text="+encodeURIComponent(text)+"&url="+encodeURIComponent(url);
+  document.getElementById("shareXLink").href=href;
+})();
+</script>
+<script src="/usage-tracker.js"></script>
+</body>
+</html>

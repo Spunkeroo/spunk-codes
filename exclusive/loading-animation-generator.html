@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CSS Loading Animation Generator - Spinners, Dots, Bars, Pulse | SPUNK.CODES Exclusive</title>
+<meta name="description" content="Generate beautiful CSS loading animations. Choose spinner type, customize colors, size, speed. Copy CSS + HTML code. Free client-side tool.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="CSS Loading Animation Generator - SPUNK.CODES Exclusive">
+<meta property="og:description" content="Generate beautiful CSS loading animations with customizable spinners, dots, bars, and pulse effects.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://spunk.codes/exclusive/loading-animation-generator">
+<meta property="og:site_name" content="Spunk Codes">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/loading-animation-generator">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"CSS Loading Animation Generator","url":"https://spunk.codes/exclusive/loading-animation-generator","applicationCategory":"DesignApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Generate beautiful CSS loading animations with customizable options.","author":{"@type":"Organization","name":"Spunk Codes","url":"https://spunk.codes"}}</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0f;color:#e0e0e0;min-height:100vh;line-height:1.6}
+a{color:#58a6ff;text-decoration:none}a:hover{text-decoration:underline}
+.wrap{max-width:1100px;margin:0 auto;padding:1.5rem}
+h1{font-size:2rem;font-weight:800;text-align:center;margin:1.5rem 0 0.5rem}
+h1 span{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.subtitle{text-align:center;color:#8b949e;margin-bottom:2rem;max-width:650px;margin-left:auto;margin-right:auto}
+.card{background:rgba(18,18,28,0.85);border:1px solid #1a1a2e;border-radius:14px;padding:1.5rem;margin-bottom:1.5rem;position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#ff5f1f,#ff9f1f,#ff5f1f)}
+.card h2{font-size:1rem;font-weight:700;margin-bottom:1rem;color:#ff9f1f}
+.btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.85rem;font-weight:700;cursor:pointer;border:none;transition:all 0.2s;display:inline-flex;align-items:center;gap:0.4rem}
+.btn-primary{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);color:#000}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 4px 15px rgba(255,95,31,0.3)}
+.btn-outline{background:transparent;border:1px solid rgba(255,95,31,0.3);color:#ff9f1f}
+.btn-outline:hover{background:rgba(255,95,31,0.1)}
+.actions{display:flex;gap:0.5rem;flex-wrap:wrap;margin:1rem 0}
+.type-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:0.8rem;margin-bottom:1.5rem}
+.type-item{background:rgba(10,10,15,0.8);border:1px solid #1a1a2e;border-radius:10px;padding:1rem;text-align:center;cursor:pointer;transition:all 0.2s;font-size:0.75rem;font-weight:600;color:#8b949e}
+.type-item:hover{border-color:rgba(255,95,31,0.4);color:#ff9f1f}
+.type-item.active{border-color:#ff5f1f;background:rgba(255,95,31,0.08);color:#ff9f1f}
+.type-item .preview{height:50px;display:flex;align-items:center;justify-content:center;margin-bottom:0.5rem}
+.controls{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;margin:1rem 0}
+.control-group label{display:block;font-size:0.75rem;font-weight:600;color:#8b949e;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:0.3rem}
+.control-group input[type="range"]{width:100%;-webkit-appearance:none;appearance:none;height:6px;background:#1a1a2e;border-radius:3px;outline:none}
+.control-group input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:#ff5f1f;cursor:pointer}
+.control-group input[type="color"]{width:100%;height:36px;padding:2px;background:#0a0a0f;border:1px solid #1a1a2e;border-radius:6px;cursor:pointer}
+.control-group select{width:100%;padding:0.5rem;background:#0a0a0f;border:1px solid #1a1a2e;border-radius:6px;color:#e0e0e0;font-size:0.85rem;outline:none}
+.range-val{font-size:0.75rem;color:#ff9f1f;float:right}
+.live-preview{display:flex;align-items:center;justify-content:center;min-height:200px;background:rgba(10,10,15,0.8);border:1px solid #1a1a2e;border-radius:12px;margin-bottom:1rem}
+.output-area{width:100%;min-height:200px;padding:1rem;background:#0a0a0f;border:1px solid #1a1a2e;border-radius:8px;font-family:'Courier New',monospace;font-size:0.82rem;overflow:auto;max-height:500px;line-height:1.5;white-space:pre-wrap;word-break:break-word;color:#e0e0e0}
+.tabs{display:flex;gap:0.5rem;margin-bottom:1rem}
+.tab{padding:0.5rem 1rem;border-radius:8px;font-size:0.8rem;font-weight:700;cursor:pointer;border:1px solid rgba(255,95,31,0.2);background:transparent;color:#8b949e;transition:all 0.2s}
+.tab.active{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);color:#000;border-color:transparent}
+.tab:hover:not(.active){background:rgba(255,95,31,0.1);color:#ff9f1f}
+.copied{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(57,211,83,0.95);color:#000;padding:0.8rem 2rem;border-radius:10px;font-weight:700;font-size:1rem;z-index:9999;pointer-events:none;animation:fadeOut 1.5s ease forwards}
+@keyframes fadeOut{0%{opacity:1;transform:translate(-50%,-50%) scale(1)}70%{opacity:1}100%{opacity:0;transform:translate(-50%,-60%) scale(0.95)}}
+.network-footer{text-align:center;padding:2rem 0 1rem;border-top:1px solid rgba(255,95,31,0.1);margin-top:2rem}
+.network-footer .links{display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap;font-size:0.85rem;margin-bottom:0.5rem}
+.network-footer .copy{color:#8b949e;font-size:0.75rem}
+.cta-banner{text-align:center;margin:2rem 0 1rem;padding:1.5rem;background:linear-gradient(135deg,rgba(255,95,31,0.1),rgba(255,159,31,0.05));border:1px solid rgba(255,95,31,0.2);border-radius:14px}
+.cta-banner p{color:#8b949e;font-size:0.9rem;margin-bottom:0.8rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1><span>CSS Loading Animation Generator</span></h1>
+<p class="subtitle">Choose a spinner type, customize colors, size, and speed, then copy the CSS + HTML code. 100% client-side, zero dependencies.</p>
+
+<div class="card">
+<h2>Choose Animation Type</h2>
+<div class="type-grid" id="typeGrid"></div>
+</div>
+
+<div class="card">
+<h2>Customize</h2>
+<div class="controls">
+<div class="control-group">
+<label>Primary Color</label>
+<input type="color" id="color1" value="#ff5f1f" oninput="updatePreview()">
+</div>
+<div class="control-group">
+<label>Secondary Color</label>
+<input type="color" id="color2" value="#1a1a2e" oninput="updatePreview()">
+</div>
+<div class="control-group">
+<label>Size <span class="range-val" id="sizeVal">48px</span></label>
+<input type="range" id="size" min="16" max="128" value="48" oninput="document.getElementById('sizeVal').textContent=this.value+'px';updatePreview()">
+</div>
+<div class="control-group">
+<label>Speed <span class="range-val" id="speedVal">1.0s</span></label>
+<input type="range" id="speed" min="3" max="30" value="10" oninput="document.getElementById('speedVal').textContent=(this.value/10).toFixed(1)+'s';updatePreview()">
+</div>
+<div class="control-group">
+<label>Border Width <span class="range-val" id="bwVal">4px</span></label>
+<input type="range" id="borderWidth" min="1" max="12" value="4" oninput="document.getElementById('bwVal').textContent=this.value+'px';updatePreview()">
+</div>
+<div class="control-group">
+<label>Background</label>
+<select id="bgColor" onchange="updatePreview()">
+<option value="transparent">Transparent</option>
+<option value="#0a0a0f" selected>Dark (#0a0a0f)</option>
+<option value="#ffffff">White</option>
+<option value="#1a1a2e">Card (#1a1a2e)</option>
+</select>
+</div>
+</div>
+</div>
+
+<div class="card">
+<h2>Live Preview</h2>
+<div class="live-preview" id="livePreview"></div>
+</div>
+
+<div class="card">
+<h2>Generated Code</h2>
+<div class="tabs">
+<button class="tab active" onclick="showCode('css',this)">CSS</button>
+<button class="tab" onclick="showCode('html',this)">HTML</button>
+<button class="tab" onclick="showCode('both',this)">CSS + HTML</button>
+</div>
+<div class="output-area" id="codeOutput"></div>
+<div class="actions">
+<button class="btn btn-primary" onclick="copyCode()">Copy Code</button>
+</div>
+</div>
+
+<div class="cta-banner">
+<p>Need more CSS tools? Check out our full collection.</p>
+<a href="https://spunk.codes/exclusive/" class="btn btn-primary">Browse All Tools &rarr;</a>
+</div>
+
+<div class="network-footer">
+<div class="links">
+<a href="https://spunk.codes/">Home</a>
+<a href="https://spunk.codes/exclusive/">All Tools</a>
+<a href="https://x.com/SpunkArt13" target="_blank">@SpunkArt13</a>
+</div>
+<div class="copy">&copy; 2025 spunk.codes</div>
+</div>
+</div>
+
+<script>
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+
+let currentType='ring';
+let currentCodeView='css';
+let generatedCSS='';
+let generatedHTML='';
+
+const types=[
+{id:'ring',name:'Ring Spinner',icon:'<div style="width:30px;height:30px;border:3px solid rgba(255,95,31,0.2);border-top-color:#ff5f1f;border-radius:50%;animation:spin 1s linear infinite"></div>'},
+{id:'dots-bounce',name:'Bouncing Dots',icon:'<div style="display:flex;gap:4px"><div style="width:8px;height:8px;background:#ff5f1f;border-radius:50%;animation:bounce .6s infinite alternate"></div><div style="width:8px;height:8px;background:#ff5f1f;border-radius:50%;animation:bounce .6s .2s infinite alternate"></div><div style="width:8px;height:8px;background:#ff5f1f;border-radius:50%;animation:bounce .6s .4s infinite alternate"></div></div>'},
+{id:'dots-pulse',name:'Pulsing Dots',icon:'<div style="display:flex;gap:4px"><div style="width:8px;height:8px;background:#ff5f1f;border-radius:50%;animation:pulse .8s infinite"></div><div style="width:8px;height:8px;background:#ff5f1f;border-radius:50%;animation:pulse .8s .2s infinite"></div><div style="width:8px;height:8px;background:#ff5f1f;border-radius:50%;animation:pulse .8s .4s infinite"></div></div>'},
+{id:'bars',name:'Growing Bars',icon:'<div style="display:flex;gap:3px;align-items:end;height:24px"><div style="width:4px;height:12px;background:#ff5f1f;animation:bars .8s infinite"></div><div style="width:4px;height:18px;background:#ff5f1f;animation:bars .8s .15s infinite"></div><div style="width:4px;height:24px;background:#ff5f1f;animation:bars .8s .3s infinite"></div><div style="width:4px;height:18px;background:#ff5f1f;animation:bars .8s .45s infinite"></div></div>'},
+{id:'pulse',name:'Pulse Circle',icon:'<div style="width:24px;height:24px;background:#ff5f1f;border-radius:50%;animation:pulse-grow 1.2s infinite"></div>'},
+{id:'dual-ring',name:'Dual Ring',icon:'<div style="width:28px;height:28px;border:3px solid #ff5f1f;border-bottom-color:transparent;border-left-color:transparent;border-radius:50%;animation:spin .8s linear infinite"></div>'},
+{id:'ripple',name:'Ripple',icon:'<div style="position:relative;width:28px;height:28px"><div style="position:absolute;inset:0;border:2px solid #ff5f1f;border-radius:50%;animation:ripple 1.2s infinite"></div></div>'},
+{id:'square-spin',name:'Square Spin',icon:'<div style="width:20px;height:20px;background:#ff5f1f;animation:square-spin 1.5s infinite"></div>'},
+{id:'dots-rotate',name:'Rotating Dots',icon:'<div style="position:relative;width:28px;height:28px;animation:spin 1.2s linear infinite"><div style="position:absolute;width:6px;height:6px;background:#ff5f1f;border-radius:50%;top:0;left:50%;transform:translateX(-50%)"></div><div style="position:absolute;width:6px;height:6px;background:rgba(255,95,31,0.3);border-radius:50%;bottom:0;left:50%;transform:translateX(-50%)"></div></div>'},
+{id:'line',name:'Line Progress',icon:'<div style="width:40px;height:3px;background:rgba(255,95,31,0.2);border-radius:3px;overflow:hidden"><div style="width:40%;height:100%;background:#ff5f1f;border-radius:3px;animation:line-progress 1.5s infinite"></div></div>'},
+];
+
+// Mini animations for type grid
+const miniCSS=document.createElement('style');
+miniCSS.textContent=`
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes bounce{to{transform:translateY(-10px)}}
+@keyframes pulse{0%,100%{opacity:.3;transform:scale(.8)}50%{opacity:1;transform:scale(1)}}
+@keyframes bars{0%,100%{transform:scaleY(.5)}50%{transform:scaleY(1)}}
+@keyframes pulse-grow{0%{transform:scale(.8);opacity:1}100%{transform:scale(1.8);opacity:0}}
+@keyframes ripple{0%{transform:scale(.5);opacity:1}100%{transform:scale(2);opacity:0}}
+@keyframes square-spin{0%{transform:rotate(0) scale(1)}25%{transform:rotate(90deg) scale(.6)}50%{transform:rotate(180deg) scale(1)}75%{transform:rotate(270deg) scale(.6)}100%{transform:rotate(360deg) scale(1)}}
+@keyframes line-progress{0%{transform:translateX(-100%)}100%{transform:translateX(250%)}}
+`;
+document.head.appendChild(miniCSS);
+
+// Build type grid
+const typeGrid=document.getElementById('typeGrid');
+types.forEach(t=>{
+const div=document.createElement('div');
+div.className='type-item'+(t.id===currentType?' active':'');
+div.innerHTML='<div class="preview">'+t.icon+'</div>'+t.name;
+div.onclick=function(){
+document.querySelectorAll('.type-item').forEach(el=>el.classList.remove('active'));
+div.classList.add('active');
+currentType=t.id;
+updatePreview();
+};
+typeGrid.appendChild(div);
+});
+
+function getConfig(){
+return{
+color1:document.getElementById('color1').value,
+color2:document.getElementById('color2').value,
+size:parseInt(document.getElementById('size').value),
+speed:(parseInt(document.getElementById('speed').value)/10).toFixed(1),
+borderWidth:parseInt(document.getElementById('borderWidth').value),
+bg:document.getElementById('bgColor').value,
+};
+}
+
+function generateCode(type,cfg){
+let css='',html='';
+const s=cfg.size,c1=cfg.color1,c2=cfg.color2,sp=cfg.speed,bw=cfg.borderWidth;
+
+switch(type){
+case 'ring':
+html='<div class="loader"></div>';
+css=`.loader {\n  width: ${s}px;\n  height: ${s}px;\n  border: ${bw}px solid ${c2};\n  border-top-color: ${c1};\n  border-radius: 50%;\n  animation: spin ${sp}s linear infinite;\n}\n\n@keyframes spin {\n  to { transform: rotate(360deg); }\n}`;
+break;
+case 'dots-bounce':
+html='<div class="loader">\n  <div class="dot"></div>\n  <div class="dot"></div>\n  <div class="dot"></div>\n</div>';
+css=`.loader {\n  display: flex;\n  gap: ${Math.round(s/6)}px;\n  align-items: center;\n}\n\n.loader .dot {\n  width: ${Math.round(s/4)}px;\n  height: ${Math.round(s/4)}px;\n  background: ${c1};\n  border-radius: 50%;\n  animation: bounce ${sp}s infinite alternate;\n}\n\n.loader .dot:nth-child(2) { animation-delay: ${(parseFloat(sp)/3).toFixed(2)}s; }\n.loader .dot:nth-child(3) { animation-delay: ${(parseFloat(sp)*2/3).toFixed(2)}s; }\n\n@keyframes bounce {\n  to { transform: translateY(-${Math.round(s/2)}px); opacity: 0.3; }\n}`;
+break;
+case 'dots-pulse':
+html='<div class="loader">\n  <div class="dot"></div>\n  <div class="dot"></div>\n  <div class="dot"></div>\n</div>';
+css=`.loader {\n  display: flex;\n  gap: ${Math.round(s/6)}px;\n  align-items: center;\n}\n\n.loader .dot {\n  width: ${Math.round(s/4)}px;\n  height: ${Math.round(s/4)}px;\n  background: ${c1};\n  border-radius: 50%;\n  animation: pulse-dot ${sp}s infinite;\n}\n\n.loader .dot:nth-child(2) { animation-delay: ${(parseFloat(sp)/4).toFixed(2)}s; }\n.loader .dot:nth-child(3) { animation-delay: ${(parseFloat(sp)/2).toFixed(2)}s; }\n\n@keyframes pulse-dot {\n  0%, 100% { opacity: 0.3; transform: scale(0.8); }\n  50% { opacity: 1; transform: scale(1); }\n}`;
+break;
+case 'bars':
+html='<div class="loader">\n  <div class="bar"></div>\n  <div class="bar"></div>\n  <div class="bar"></div>\n  <div class="bar"></div>\n  <div class="bar"></div>\n</div>';
+css=`.loader {\n  display: flex;\n  gap: ${Math.round(s/12)}px;\n  align-items: end;\n  height: ${s}px;\n}\n\n.loader .bar {\n  width: ${Math.round(s/8)}px;\n  height: ${Math.round(s*0.6)}px;\n  background: ${c1};\n  border-radius: ${Math.round(s/16)}px;\n  animation: bars ${sp}s infinite ease-in-out;\n}\n\n.loader .bar:nth-child(2) { animation-delay: ${(parseFloat(sp)*0.1).toFixed(2)}s; }\n.loader .bar:nth-child(3) { animation-delay: ${(parseFloat(sp)*0.2).toFixed(2)}s; }\n.loader .bar:nth-child(4) { animation-delay: ${(parseFloat(sp)*0.3).toFixed(2)}s; }\n.loader .bar:nth-child(5) { animation-delay: ${(parseFloat(sp)*0.4).toFixed(2)}s; }\n\n@keyframes bars {\n  0%, 100% { transform: scaleY(0.4); }\n  50% { transform: scaleY(1); }\n}`;
+break;
+case 'pulse':
+html='<div class="loader"></div>';
+css=`.loader {\n  width: ${s}px;\n  height: ${s}px;\n  background: ${c1};\n  border-radius: 50%;\n  animation: pulse-grow ${sp}s infinite;\n}\n\n@keyframes pulse-grow {\n  0% { transform: scale(0.8); opacity: 1; }\n  100% { transform: scale(1.8); opacity: 0; }\n}`;
+break;
+case 'dual-ring':
+html='<div class="loader"></div>';
+css=`.loader {\n  width: ${s}px;\n  height: ${s}px;\n  border: ${bw}px solid ${c1};\n  border-bottom-color: transparent;\n  border-left-color: transparent;\n  border-radius: 50%;\n  animation: spin ${sp}s linear infinite;\n}\n\n@keyframes spin {\n  to { transform: rotate(360deg); }\n}`;
+break;
+case 'ripple':
+html='<div class="loader">\n  <div class="ripple"></div>\n  <div class="ripple"></div>\n</div>';
+css=`.loader {\n  position: relative;\n  width: ${s}px;\n  height: ${s}px;\n}\n\n.loader .ripple {\n  position: absolute;\n  inset: 0;\n  border: ${bw}px solid ${c1};\n  border-radius: 50%;\n  animation: ripple ${sp}s infinite;\n}\n\n.loader .ripple:nth-child(2) {\n  animation-delay: ${(parseFloat(sp)/2).toFixed(2)}s;\n}\n\n@keyframes ripple {\n  0% { transform: scale(0.5); opacity: 1; }\n  100% { transform: scale(2); opacity: 0; }\n}`;
+break;
+case 'square-spin':
+html='<div class="loader"></div>';
+css=`.loader {\n  width: ${s}px;\n  height: ${s}px;\n  background: ${c1};\n  border-radius: ${Math.round(s/8)}px;\n  animation: square-spin ${sp}s infinite;\n}\n\n@keyframes square-spin {\n  0% { transform: rotate(0deg) scale(1); }\n  25% { transform: rotate(90deg) scale(0.6); }\n  50% { transform: rotate(180deg) scale(1); }\n  75% { transform: rotate(270deg) scale(0.6); }\n  100% { transform: rotate(360deg) scale(1); }\n}`;
+break;
+case 'dots-rotate':
+html='<div class="loader">\n  <div class="dot dot1"></div>\n  <div class="dot dot2"></div>\n</div>';
+css=`.loader {\n  position: relative;\n  width: ${s}px;\n  height: ${s}px;\n  animation: spin ${sp}s linear infinite;\n}\n\n.loader .dot {\n  position: absolute;\n  width: ${Math.round(s/4)}px;\n  height: ${Math.round(s/4)}px;\n  border-radius: 50%;\n  left: 50%;\n  transform: translateX(-50%);\n}\n\n.loader .dot1 {\n  top: 0;\n  background: ${c1};\n}\n\n.loader .dot2 {\n  bottom: 0;\n  background: ${c2 !== '#1a1a2e' ? c2 : 'rgba(255,95,31,0.3)'};\n}\n\n@keyframes spin {\n  to { transform: rotate(360deg); }\n}`;
+break;
+case 'line':
+html='<div class="loader">\n  <div class="line"></div>\n</div>';
+css=`.loader {\n  width: ${s*3}px;\n  height: ${bw}px;\n  background: ${c2};\n  border-radius: ${bw}px;\n  overflow: hidden;\n}\n\n.loader .line {\n  width: 40%;\n  height: 100%;\n  background: ${c1};\n  border-radius: ${bw}px;\n  animation: line-slide ${sp}s infinite;\n}\n\n@keyframes line-slide {\n  0% { transform: translateX(-100%); }\n  100% { transform: translateX(350%); }\n}`;
+break;
+}
+return{css,html};
+}
+
+function updatePreview(){
+const cfg=getConfig();
+const code=generateCode(currentType,cfg);
+generatedCSS=code.css;
+generatedHTML=code.html;
+
+// Inject live preview
+const preview=document.getElementById('livePreview');
+preview.style.background=cfg.bg;
+
+// Create style + HTML
+const styleId='loader-preview-style';
+let styleEl=document.getElementById(styleId);
+if(!styleEl){styleEl=document.createElement('style');styleEl.id=styleId;document.head.appendChild(styleEl)}
+
+// Namespace to avoid conflicts
+const namespacedCSS=code.css.replace(/\.loader/g,'.preview-loader').replace(/\.dot/g,'.preview-dot').replace(/\.bar/g,'.preview-bar').replace(/\.ripple/g,'.preview-ripple').replace(/\.line/g,'.preview-line');
+styleEl.textContent=namespacedCSS;
+
+const namespacedHTML=code.html.replace(/class="loader/g,'class="preview-loader').replace(/class="dot/g,'class="preview-dot').replace(/class="bar/g,'class="preview-bar').replace(/class="ripple/g,'class="preview-ripple').replace(/class="line/g,'class="preview-line');
+preview.innerHTML=namespacedHTML;
+
+showCode(currentCodeView,document.querySelector('.tab.active'));
+}
+
+function showCode(view,btn){
+currentCodeView=view;
+document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+if(btn)btn.classList.add('active');
+const output=document.getElementById('codeOutput');
+if(view==='css')output.textContent=generatedCSS;
+else if(view==='html')output.textContent=generatedHTML;
+else output.textContent='<!-- HTML -->\n'+generatedHTML+'\n\n/* CSS */\n'+generatedCSS;
+}
+
+function copyCode(){
+let text='';
+if(currentCodeView==='css')text=generatedCSS;
+else if(currentCodeView==='html')text=generatedHTML;
+else text='<!-- HTML -->\n'+generatedHTML+'\n\n/* CSS */\n'+generatedCSS;
+navigator.clipboard.writeText(text).then(()=>{
+const el=document.createElement('div');el.className='copied';el.textContent='Code copied!';
+document.body.appendChild(el);setTimeout(()=>el.remove(),1600);
+});
+}
+
+// Init
+updatePreview();
+</script>
+
+<!-- Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+<script src="/auto-monetize.js"></script>
+<div id="shareXBtn" style="position:fixed;left:20px;bottom:20px;z-index:9999;">
+  <a id="shareXLink" href="#" target="_blank" rel="noopener noreferrer" title="Share on X"
+     style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;
+     background:rgba(255,95,31,0.15);border:1px solid rgba(255,95,31,0.3);
+     backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:50%;
+     text-decoration:none;transition:all 0.3s ease;cursor:pointer;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+    </svg>
+  </a>
+</div>
+<style>#shareXBtn a:hover{background:rgba(255,95,31,0.35)!important;border-color:rgba(255,95,31,0.6)!important;transform:scale(1.1);box-shadow:0 0 15px rgba(255,95,31,0.3)}</style>
+<script>
+(function(){
+  var page="loading-animation-generator";
+  var url="https://spunk.codes/exclusive/"+page;
+  var text="Generate CSS loading animations with live preview. Spinners, dots, bars, pulse. Free @SpunkArt13";
+  document.getElementById("shareXLink").href="https://x.com/intent/tweet?text="+encodeURIComponent(text)+"&url="+encodeURIComponent(url);
+})();
+</script>
+<script src="/usage-tracker.js"></script>
+</body>
+</html>

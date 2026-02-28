@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Code Screenshot Generator - Beautiful Code Images | SPUNK.CODES Exclusive</title>
+<meta name="description" content="Generate beautiful code screenshots. Choose theme, language, padding. Export as PNG using canvas. Free client-side tool.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Code Screenshot Generator - SPUNK.CODES Exclusive">
+<meta property="og:description" content="Generate beautiful code screenshots with customizable themes and export as PNG.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://spunk.codes/exclusive/code-screenshot">
+<meta property="og:site_name" content="Spunk Codes">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<link rel="canonical" href="https://spunk.codes/exclusive/code-screenshot">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Code Screenshot Generator","url":"https://spunk.codes/exclusive/code-screenshot","applicationCategory":"DeveloperApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Generate beautiful code screenshots with customizable themes and export as PNG.","author":{"@type":"Organization","name":"Spunk Codes","url":"https://spunk.codes"}}</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0f;color:#e0e0e0;min-height:100vh;line-height:1.6}
+a{color:#58a6ff;text-decoration:none}a:hover{text-decoration:underline}
+.wrap{max-width:1200px;margin:0 auto;padding:1.5rem}
+h1{font-size:2rem;font-weight:800;text-align:center;margin:1.5rem 0 0.5rem}
+h1 span{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.subtitle{text-align:center;color:#8b949e;margin-bottom:2rem;max-width:650px;margin-left:auto;margin-right:auto}
+.card{background:rgba(18,18,28,0.85);border:1px solid #1a1a2e;border-radius:14px;padding:1.5rem;margin-bottom:1.5rem;position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#ff5f1f,#ff9f1f,#ff5f1f)}
+.card h2{font-size:1rem;font-weight:700;margin-bottom:1rem;color:#ff9f1f}
+textarea{width:100%;padding:1rem;background:#0a0a0f;border:1px solid #1a1a2e;border-radius:8px;color:#e0e0e0;font-family:'Courier New',monospace;font-size:0.85rem;resize:vertical;outline:none;min-height:200px;line-height:1.5;tab-size:2}
+textarea:focus{border-color:#ff5f1f}
+.btn{padding:0.6rem 1.2rem;border-radius:10px;font-size:0.85rem;font-weight:700;cursor:pointer;border:none;transition:all 0.2s;display:inline-flex;align-items:center;gap:0.4rem}
+.btn-primary{background:linear-gradient(135deg,#ff5f1f,#ff9f1f);color:#000}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 4px 15px rgba(255,95,31,0.3)}
+.btn-outline{background:transparent;border:1px solid rgba(255,95,31,0.3);color:#ff9f1f}
+.btn-outline:hover{background:rgba(255,95,31,0.1)}
+.actions{display:flex;gap:0.5rem;flex-wrap:wrap;margin:1rem 0}
+.controls{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:1rem;margin:1rem 0}
+.control-group label{display:block;font-size:0.75rem;font-weight:600;color:#8b949e;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:0.3rem}
+.control-group select,.control-group input[type="range"],.control-group input[type="color"]{width:100%;padding:0.5rem;background:#0a0a0f;border:1px solid #1a1a2e;border-radius:6px;color:#e0e0e0;font-size:0.85rem;outline:none}
+.control-group select:focus{border-color:#ff5f1f}
+.control-group input[type="range"]{padding:0;height:6px;-webkit-appearance:none;appearance:none;background:#1a1a2e;border:none;border-radius:3px}
+.control-group input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:#ff5f1f;cursor:pointer}
+.control-group input[type="color"]{height:36px;padding:2px;cursor:pointer}
+.range-val{font-size:0.75rem;color:#ff9f1f;float:right}
+.preview-container{display:flex;justify-content:center;padding:2rem;background:repeating-conic-gradient(#1a1a2e 0% 25%, #0f0f18 0% 50%) 50% / 20px 20px;border-radius:12px;overflow:auto}
+.code-window{border-radius:12px;overflow:hidden;box-shadow:0 20px 68px rgba(0,0,0,0.55);max-width:100%}
+.window-bar{display:flex;align-items:center;gap:8px;padding:12px 16px;background:rgba(255,255,255,0.06)}
+.window-dot{width:12px;height:12px;border-radius:50%}
+.window-dot.red{background:#ff5f56}.window-dot.yellow{background:#ffbd2e}.window-dot.green{background:#27c93f}
+.window-title{flex:1;text-align:center;font-size:0.75rem;color:rgba(255,255,255,0.4);font-family:system-ui}
+.code-body{padding:20px;font-family:'Courier New',monospace;font-size:14px;line-height:1.6;overflow-x:auto;white-space:pre}
+.line-num{display:inline-block;min-width:35px;text-align:right;margin-right:16px;opacity:0.3;user-select:none}
+.copied{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(57,211,83,0.95);color:#000;padding:0.8rem 2rem;border-radius:10px;font-weight:700;font-size:1rem;z-index:9999;pointer-events:none;animation:fadeOut 1.5s ease forwards}
+@keyframes fadeOut{0%{opacity:1;transform:translate(-50%,-50%) scale(1)}70%{opacity:1}100%{opacity:0;transform:translate(-50%,-60%) scale(0.95)}}
+.network-footer{text-align:center;padding:2rem 0 1rem;border-top:1px solid rgba(255,95,31,0.1);margin-top:2rem}
+.network-footer .links{display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap;font-size:0.85rem;margin-bottom:0.5rem}
+.network-footer .copy{color:#8b949e;font-size:0.75rem}
+.cta-banner{text-align:center;margin:2rem 0 1rem;padding:1.5rem;background:linear-gradient(135deg,rgba(255,95,31,0.1),rgba(255,159,31,0.05));border:1px solid rgba(255,95,31,0.2);border-radius:14px}
+.cta-banner p{color:#8b949e;font-size:0.9rem;margin-bottom:0.8rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1><span>Code Screenshot Generator</span></h1>
+<p class="subtitle">Paste your code, customize the theme and settings, then download a beautiful screenshot. 100% client-side using HTML Canvas.</p>
+
+<div class="card">
+<h2>Code Input</h2>
+<textarea id="codeInput" placeholder="function greet(name) {
+  return `Hello, ${name}!`;
+}
+
+console.log(greet('World'));" spellcheck="false">function fibonacci(n) {
+  if (n <= 1) return n;
+  let a = 0, b = 1;
+  for (let i = 2; i <= n; i++) {
+    [a, b] = [b, a + b];
+  }
+  return b;
+}
+
+// Generate first 10 Fibonacci numbers
+const result = Array.from({length: 10}, (_, i) => fibonacci(i));
+console.log(result); // [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]</textarea>
+</div>
+
+<div class="card">
+<h2>Settings</h2>
+<div class="controls">
+<div class="control-group">
+<label>Theme</label>
+<select id="theme" onchange="updatePreview()">
+<option value="dracula">Dracula</option>
+<option value="monokai">Monokai</option>
+<option value="github-dark">GitHub Dark</option>
+<option value="nord">Nord</option>
+<option value="one-dark">One Dark</option>
+<option value="solarized">Solarized Dark</option>
+<option value="custom">Custom</option>
+</select>
+</div>
+<div class="control-group">
+<label>Background</label>
+<select id="bgStyle" onchange="updatePreview()">
+<option value="gradient1">Sunset Gradient</option>
+<option value="gradient2">Ocean Gradient</option>
+<option value="gradient3">Forest Gradient</option>
+<option value="gradient4">Purple Haze</option>
+<option value="solid">Solid Color</option>
+<option value="none">None</option>
+</select>
+</div>
+<div class="control-group">
+<label>Padding <span class="range-val" id="padVal">64px</span></label>
+<input type="range" id="padding" min="16" max="128" value="64" oninput="document.getElementById('padVal').textContent=this.value+'px';updatePreview()">
+</div>
+<div class="control-group">
+<label>Font Size <span class="range-val" id="fsVal">14px</span></label>
+<input type="range" id="fontSize" min="10" max="24" value="14" oninput="document.getElementById('fsVal').textContent=this.value+'px';updatePreview()">
+</div>
+<div class="control-group">
+<label>Line Numbers</label>
+<select id="lineNums" onchange="updatePreview()">
+<option value="yes">Show</option>
+<option value="no">Hide</option>
+</select>
+</div>
+<div class="control-group">
+<label>Window Controls</label>
+<select id="winControls" onchange="updatePreview()">
+<option value="macos">macOS</option>
+<option value="none">None</option>
+</select>
+</div>
+<div class="control-group">
+<label>Title</label>
+<input type="text" id="winTitle" value="app.js" style="width:100%;padding:0.5rem;background:#0a0a0f;border:1px solid #1a1a2e;border-radius:6px;color:#e0e0e0;font-size:0.85rem;outline:none" oninput="updatePreview()">
+</div>
+<div class="control-group" id="customBgGroup" style="display:none">
+<label>Custom BG Color</label>
+<input type="color" id="customBg" value="#667eea" oninput="updatePreview()">
+</div>
+</div>
+</div>
+
+<div class="card">
+<h2>Preview</h2>
+<div class="preview-container" id="previewContainer"></div>
+<div class="actions">
+<button class="btn btn-primary" onclick="downloadScreenshot()">Download PNG</button>
+<button class="btn btn-outline" onclick="copyToClipboard()">Copy to Clipboard</button>
+</div>
+</div>
+
+<div class="cta-banner">
+<p>Need more dev tools? Check out our full collection.</p>
+<a href="https://spunk.codes/exclusive/" class="btn btn-primary">Browse All Tools &rarr;</a>
+</div>
+
+<div class="network-footer">
+<div class="links">
+<a href="https://spunk.codes/">Home</a>
+<a href="https://spunk.codes/exclusive/">All Tools</a>
+<a href="https://x.com/SpunkArt13" target="_blank">@SpunkArt13</a>
+</div>
+<div class="copy">&copy; 2025 spunk.codes</div>
+</div>
+</div>
+
+<script>
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+
+const themes={
+dracula:{bg:'#282a36',text:'#f8f8f2',bar:'#21222c',keyword:'#ff79c6',string:'#f1fa8c',comment:'#6272a4',number:'#bd93f9',fn:'#50fa7b',operator:'#ff79c6'},
+monokai:{bg:'#272822',text:'#f8f8f2',bar:'#1e1f1a',keyword:'#f92672',string:'#e6db74',comment:'#75715e',number:'#ae81ff',fn:'#a6e22e',operator:'#f92672'},
+'github-dark':{bg:'#0d1117',text:'#c9d1d9',bar:'#161b22',keyword:'#ff7b72',string:'#a5d6ff',comment:'#8b949e',number:'#79c0ff',fn:'#d2a8ff',operator:'#ff7b72'},
+nord:{bg:'#2e3440',text:'#d8dee9',bar:'#242933',keyword:'#81a1c1',string:'#a3be8c',comment:'#616e88',number:'#b48ead',fn:'#88c0d0',operator:'#81a1c1'},
+'one-dark':{bg:'#282c34',text:'#abb2bf',bar:'#21252b',keyword:'#c678dd',string:'#98c379',comment:'#5c6370',number:'#d19a66',fn:'#61afef',operator:'#c678dd'},
+solarized:{bg:'#002b36',text:'#839496',bar:'#00232e',keyword:'#859900',string:'#2aa198',comment:'#586e75',number:'#d33682',fn:'#268bd2',operator:'#cb4b16'},
+};
+
+const backgrounds={
+gradient1:'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+gradient2:'linear-gradient(135deg, #0093E9 0%, #80D0C7 100%)',
+gradient3:'linear-gradient(135deg, #11998e 0%, #38ef7d 100%)',
+gradient4:'linear-gradient(135deg, #a855f7 0%, #6366f1 50%, #3b82f6 100%)',
+};
+
+function updatePreview(){
+const code=document.getElementById('codeInput').value;
+const themeId=document.getElementById('theme').value;
+const bgStyle=document.getElementById('bgStyle').value;
+const pad=parseInt(document.getElementById('padding').value);
+const fs=parseInt(document.getElementById('fontSize').value);
+const showLineNums=document.getElementById('lineNums').value==='yes';
+const showControls=document.getElementById('winControls').value==='macos';
+const title=document.getElementById('winTitle').value;
+
+document.getElementById('customBgGroup').style.display=bgStyle==='solid'?'block':'none';
+
+const theme=themes[themeId]||themes.dracula;
+const lines=code.split('\n');
+
+let html='<div class="code-window" style="background:'+theme.bg+'">';
+if(showControls){
+html+='<div class="window-bar" style="background:'+theme.bar+'"><div class="window-dot red"></div><div class="window-dot yellow"></div><div class="window-dot green"></div><div class="window-title">'+esc(title)+'</div></div>';
+}
+html+='<div class="code-body" style="font-size:'+fs+'px;color:'+theme.text+'">';
+lines.forEach((line,i)=>{
+if(showLineNums)html+='<span class="line-num">'+(i+1)+'</span>';
+html+=highlightLine(esc(line),theme)+'\n';
+});
+html+='</div></div>';
+
+const container=document.getElementById('previewContainer');
+if(bgStyle==='none'){
+container.style.background='transparent';
+container.style.padding=pad+'px';
+}else if(bgStyle==='solid'){
+container.style.background=document.getElementById('customBg').value;
+container.style.padding=pad+'px';
+}else{
+container.style.background=backgrounds[bgStyle]||backgrounds.gradient1;
+container.style.padding=pad+'px';
+}
+container.innerHTML=html;
+}
+
+function highlightLine(line,theme){
+// Basic syntax highlighting
+let r=line;
+// Comments
+r=r.replace(/(\/\/.*)$/gm,'<span style="color:'+theme.comment+'">$1</span>');
+r=r.replace(/(#.*)$/gm,'<span style="color:'+theme.comment+'">$1</span>');
+// Strings
+r=r.replace(/(&quot;[^&]*?&quot;|&#039;[^&]*?&#039;|`[^`]*?`)/g,'<span style="color:'+theme.string+'">$1</span>');
+r=r.replace(/'([^']*?)'/g,"<span style=\"color:"+theme.string+"\">'$1'</span>");
+// Keywords
+const kws='\\b(const|let|var|function|return|if|else|for|while|do|switch|case|break|continue|new|this|class|extends|import|export|from|default|try|catch|finally|throw|async|await|yield|of|in|typeof|instanceof|void|delete|null|undefined|true|false|def|self|print|lambda|with|as|pass|raise|elif|except|finally|None|True|False)\\b';
+r=r.replace(new RegExp(kws,'g'),'<span style="color:'+theme.keyword+'">$1</span>');
+// Numbers
+r=r.replace(/\b(\d+\.?\d*)\b/g,'<span style="color:'+theme.number+'">$1</span>');
+return r;
+}
+
+function downloadScreenshot(){
+renderToCanvas().then(canvas=>{
+const link=document.createElement('a');
+link.download='code-screenshot.png';
+link.href=canvas.toDataURL('image/png');
+link.click();
+});
+}
+
+function copyToClipboard(){
+renderToCanvas().then(canvas=>{
+canvas.toBlob(blob=>{
+navigator.clipboard.write([new ClipboardItem({'image/png':blob})]).then(()=>{
+const el=document.createElement('div');el.className='copied';el.textContent='Copied to clipboard!';
+document.body.appendChild(el);setTimeout(()=>el.remove(),1600);
+});
+});
+});
+}
+
+function renderToCanvas(){
+return new Promise(resolve=>{
+const code=document.getElementById('codeInput').value;
+const themeId=document.getElementById('theme').value;
+const bgStyle=document.getElementById('bgStyle').value;
+const pad=parseInt(document.getElementById('padding').value);
+const fs=parseInt(document.getElementById('fontSize').value);
+const showLineNums=document.getElementById('lineNums').value==='yes';
+const showControls=document.getElementById('winControls').value==='macos';
+const title=document.getElementById('winTitle').value;
+const theme=themes[themeId]||themes.dracula;
+const lines=code.split('\n');
+const lineHeight=fs*1.6;
+const scale=2;
+
+const canvas=document.createElement('canvas');
+const ctx=canvas.getContext('2d');
+
+// Measure text
+ctx.font=fs*scale+'px Courier New, monospace';
+let maxLineWidth=0;
+lines.forEach((line,i)=>{
+let text='';
+if(showLineNums)text+=(i+1).toString().padStart(3,' ')+'  ';
+text+=line;
+const w=ctx.measureText(text).width;
+if(w>maxLineWidth)maxLineWidth=w;
+});
+
+const codePadX=20*scale;
+const codePadY=20*scale;
+const barHeight=showControls?40*scale:0;
+const codeWidth=maxLineWidth+codePadX*2;
+const codeHeight=lines.length*lineHeight*scale+codePadY*2+barHeight;
+const radius=12*scale;
+
+canvas.width=codeWidth+pad*2*scale;
+canvas.height=codeHeight+pad*2*scale;
+
+// Draw background
+if(bgStyle==='none'){
+// Transparent
+}else if(bgStyle==='solid'){
+ctx.fillStyle=document.getElementById('customBg').value;
+ctx.fillRect(0,0,canvas.width,canvas.height);
+}else{
+const grad=ctx.createLinearGradient(0,0,canvas.width,canvas.height);
+if(bgStyle==='gradient1'){grad.addColorStop(0,'#667eea');grad.addColorStop(1,'#764ba2')}
+else if(bgStyle==='gradient2'){grad.addColorStop(0,'#0093E9');grad.addColorStop(1,'#80D0C7')}
+else if(bgStyle==='gradient3'){grad.addColorStop(0,'#11998e');grad.addColorStop(1,'#38ef7d')}
+else if(bgStyle==='gradient4'){grad.addColorStop(0,'#a855f7');grad.addColorStop(0.5,'#6366f1');grad.addColorStop(1,'#3b82f6')}
+ctx.fillStyle=grad;
+ctx.fillRect(0,0,canvas.width,canvas.height);
+}
+
+// Draw code window with rounded corners
+const wx=pad*scale,wy=pad*scale;
+ctx.beginPath();
+ctx.moveTo(wx+radius,wy);
+ctx.lineTo(wx+codeWidth-radius,wy);
+ctx.quadraticCurveTo(wx+codeWidth,wy,wx+codeWidth,wy+radius);
+ctx.lineTo(wx+codeWidth,wy+codeHeight-radius);
+ctx.quadraticCurveTo(wx+codeWidth,wy+codeHeight,wx+codeWidth-radius,wy+codeHeight);
+ctx.lineTo(wx+radius,wy+codeHeight);
+ctx.quadraticCurveTo(wx,wy+codeHeight,wx,wy+codeHeight-radius);
+ctx.lineTo(wx,wy+radius);
+ctx.quadraticCurveTo(wx,wy,wx+radius,wy);
+ctx.closePath();
+
+// Shadow
+ctx.shadowColor='rgba(0,0,0,0.4)';
+ctx.shadowBlur=40*scale;
+ctx.shadowOffsetY=20*scale;
+ctx.fillStyle=theme.bg;
+ctx.fill();
+ctx.shadowColor='transparent';
+
+// Window bar
+if(showControls){
+ctx.save();
+ctx.clip();
+ctx.fillStyle=theme.bar;
+ctx.fillRect(wx,wy,codeWidth,barHeight);
+// Dots
+const dotY=wy+barHeight/2;
+const dotR=6*scale;
+const colors=['#ff5f56','#ffbd2e','#27c93f'];
+colors.forEach((c,i)=>{
+ctx.fillStyle=c;
+ctx.beginPath();
+ctx.arc(wx+20*scale+i*22*scale,dotY,dotR,0,Math.PI*2);
+ctx.fill();
+});
+// Title
+ctx.fillStyle='rgba(255,255,255,0.4)';
+ctx.font=(12*scale)+'px system-ui, sans-serif';
+ctx.textAlign='center';
+ctx.fillText(title,wx+codeWidth/2,dotY+4*scale);
+ctx.textAlign='start';
+ctx.restore();
+}
+
+// Code text
+ctx.font=(fs*scale)+'px Courier New, monospace';
+const startY=wy+barHeight+codePadY+fs*scale;
+lines.forEach((line,i)=>{
+const y=startY+i*lineHeight*scale;
+let x=wx+codePadX;
+if(showLineNums){
+ctx.fillStyle='rgba(255,255,255,0.25)';
+const numStr=(i+1).toString().padStart(3,' ');
+ctx.fillText(numStr,x,y);
+x+=ctx.measureText(numStr+'  ').width;
+}
+ctx.fillStyle=theme.text;
+ctx.fillText(line,x,y);
+});
+
+resolve(canvas);
+});
+}
+
+document.getElementById('codeInput').addEventListener('input',updatePreview);
+document.getElementById('codeInput').addEventListener('keydown',function(e){
+if(e.key==='Tab'){e.preventDefault();const s=this.selectionStart,end=this.selectionEnd;this.value=this.value.substring(0,s)+'  '+this.value.substring(end);this.selectionStart=this.selectionEnd=s+2;updatePreview()}
+});
+
+updatePreview();
+</script>
+
+<!-- Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<script src="https://spunk.codes/cross-promo.js" defer></script>
+<script src="/auto-monetize.js"></script>
+<div id="shareXBtn" style="position:fixed;left:20px;bottom:20px;z-index:9999;">
+  <a id="shareXLink" href="#" target="_blank" rel="noopener noreferrer" title="Share on X"
+     style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;
+     background:rgba(255,95,31,0.15);border:1px solid rgba(255,95,31,0.3);
+     backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:50%;
+     text-decoration:none;transition:all 0.3s ease;cursor:pointer;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+    </svg>
+  </a>
+</div>
+<style>#shareXBtn a:hover{background:rgba(255,95,31,0.35)!important;border-color:rgba(255,95,31,0.6)!important;transform:scale(1.1);box-shadow:0 0 15px rgba(255,95,31,0.3)}</style>
+<script>
+(function(){
+  var page="code-screenshot";
+  var url="https://spunk.codes/exclusive/"+page;
+  var text="Create beautiful code screenshots with custom themes. Like Carbon but free & private @SpunkArt13";
+  document.getElementById("shareXLink").href="https://x.com/intent/tweet?text="+encodeURIComponent(text)+"&url="+encodeURIComponent(url);
+})();
+</script>
+<script src="/usage-tracker.js"></script>
+</body>
+</html>
