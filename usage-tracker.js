@@ -12,7 +12,7 @@
 
   // Skip non-tool pages
   var skipPages = ['index','store','pricing','checkout','affiliate','ebook-store','revenue-dashboard',
-    'automation-status','network-hub','404','blog','exclusive-tools','master-dashboard','spunk-rewards',
+    'automation-status','network-hub','404','blog','exclusive-tools','spunk-rewards',
     'newsletter','install','join','launch','giveaway','challenge','advertise','sponsor',
     'cross-sell-footer','network-footer-snippet','network-stats','terms-of-service','referral',
     'reseller','white-label','api-access','affiliates','affiliate-tracker','analytics-dashboard',
