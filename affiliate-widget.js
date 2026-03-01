@@ -2,7 +2,7 @@
  * SPUNK.CODES — Affiliate / Referral Widget
  * ==========================================
  * Drop-in script. Adds:
- *   1. Floating "Earn 50% commission" badge (bottom-left corner)
+ *   1. Floating "Earn 30% commission" badge (bottom-left corner)
  *   2. Referral source tracking via ?ref=xxx URL params
  *   3. 30-day referral cookie in localStorage
  *
@@ -15,7 +15,7 @@
 
   var LS_PREFIX = 'sc_aff_';
   var RESELLER_URL = '/reseller.html';
-  var AFFILIATES_URL = '/affiliates.html';
+  var AFFILIATES_URL = '/affiliate';
   var COOKIE_DAYS = 30;
 
   function lsGet(k) { try { return localStorage.getItem(LS_PREFIX + k); } catch (e) { return null; } }
@@ -111,7 +111,7 @@
   badge.innerHTML =
     '<a href="' + AFFILIATES_URL + '" class="sc-aff-badge-inner" onclick="return !1">' +
       '<span class="sc-aff-badge-icon">&#128176;</span>' +
-      '<span class="sc-aff-badge-text">Earn 50% Commission<span>Become an affiliate &rarr;</span></span>' +
+      '<span class="sc-aff-badge-text">Earn 30% Commission<span>Become an affiliate &rarr;</span></span>' +
     '</a>' +
     '<button class="sc-aff-badge-close" aria-label="Dismiss">&times;</button>';
   document.body.appendChild(badge);
