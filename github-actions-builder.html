@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Copyright 2026 spunk.codes. All rights reserved. Unauthorized reproduction prohibited. hello@spunk.codes -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GitHub Actions YAML Builder — Free CI/CD Generator | SPUNK.CODES</title>
+<meta name="description" content="Build GitHub Actions workflow YAML visually. Select triggers, add steps, configure matrix builds and environment variables. Free CI/CD generator tool.">
+<meta name="keywords" content="github actions builder, CI/CD generator, workflow YAML, github actions YAML, CI pipeline builder, continuous integration, github workflow">
+<meta property="og:title" content="GitHub Actions YAML Builder — Free CI/CD Generator | SPUNK.CODES">
+<meta property="og:description" content="Build GitHub Actions workflow YAML visually. Select triggers, add steps, matrix builds. Free CI/CD generator tool.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://spunk.codes/github-actions-builder">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="GitHub Actions YAML Builder | SPUNK.CODES">
+<meta name="twitter:description" content="Visual GitHub Actions workflow builder. Generate valid YAML for CI/CD pipelines.">
+<link rel="canonical" href="https://spunk.codes/github-actions-builder">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","pn0x1z2y3w");</script>
+<meta name="author" content="spunk.codes">
+<meta name="copyright" content="Copyright 2026 spunk.codes. All rights reserved.">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#0a0a0a;color:#e8e8e8;min-height:100vh;display:flex;flex-direction:column;line-height:1.6}
+a{color:#ff5f1f;text-decoration:none}a:hover{text-decoration:underline}
+nav{background:#111;border-bottom:1px solid #222;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+nav .logo{font-weight:800;font-size:1.1rem;color:#ff5f1f;letter-spacing:1px}
+nav .links{display:flex;gap:20px;font-size:0.9rem}
+nav .links a{color:#ccc}nav .links a:hover{color:#ff5f1f}
+main{flex:1;max-width:1100px;width:100%;margin:0 auto;padding:30px 20px}
+h1{font-size:2rem;font-weight:700;margin-bottom:8px}
+h1 span{color:#ff5f1f}
+.subtitle{color:#888;margin-bottom:10px;font-size:1rem}
+.pricing-badge{display:inline-block;background:#10b98122;border:1px solid #10b98144;color:#10b981;padding:6px 16px;border-radius:20px;font-size:0.85rem;font-weight:600;margin-bottom:24px}
+.section{background:#111;border:1px solid #222;border-radius:10px;padding:24px;margin-bottom:20px}
+.section h3{font-size:1rem;margin-bottom:14px;color:#e8e8e8}
+.btn-row{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.btn{padding:10px 24px;border:none;border-radius:8px;font-size:0.9rem;font-weight:600;cursor:pointer;transition:all .2s}
+.btn-primary{background:#ff5f1f;color:#fff}.btn-primary:hover{background:#e5500a}
+.btn-secondary{background:#222;color:#e8e8e8;border:1px solid #333}.btn-secondary:hover{background:#333}
+.btn-green{background:#10b981;color:#fff}.btn-green:hover{background:#0ea572}
+.btn-danger{background:#ef4444;color:#fff}.btn-danger:hover{background:#dc2626}
+.btn-blue{background:#3b82f6;color:#fff}.btn-blue:hover{background:#2563eb}
+.copied-toast{position:fixed;top:20px;left:50%;transform:translateX(-50%);background:#10b981;color:#fff;padding:10px 24px;border-radius:8px;font-weight:700;opacity:0;transition:opacity 0.3s;pointer-events:none;z-index:100}
+.copied-toast.show{opacity:1}
+.cross-sell{background:linear-gradient(135deg,#1a0800,#0a0a0a);border:1px solid #ff5f1f33;border-radius:10px;padding:24px;text-align:center;margin-top:40px}
+.cross-sell h3{color:#ff5f1f;margin-bottom:8px;font-size:1.1rem}
+.cross-sell p{color:#888;margin-bottom:16px;font-size:0.9rem}
+.cross-sell a.cta{display:inline-block;padding:10px 28px;background:#ff5f1f;color:#fff;border-radius:8px;font-weight:600;transition:background .2s;text-decoration:none}
+.cross-sell a.cta:hover{background:#e5500a;text-decoration:none}
+.tool-links{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:16px}
+.tool-links a{font-size:0.8rem;color:#888;padding:4px 12px;border:1px solid #333;border-radius:6px;transition:all .2s}
+.tool-links a:hover{color:#ff5f1f;border-color:#ff5f1f;text-decoration:none}
+footer{text-align:center;padding:20px;color:#444;font-size:0.8rem;border-top:1px solid #1a1a1a}
+
+/* Tool-specific */
+label{display:block;font-size:0.85rem;color:#aaa;margin-bottom:6px;font-weight:600}
+input[type="text"],select,textarea{width:100%;padding:10px 14px;background:#0d0d0d;border:1px solid #2a2a2a;border-radius:8px;color:#e8e8e8;font-size:0.9rem;outline:none;font-family:inherit}
+input[type="text"]:focus,select:focus,textarea:focus{border-color:#ff5f1f}
+textarea{resize:vertical;min-height:60px;font-family:'Courier New',monospace}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.form-row.three{grid-template-columns:1fr 1fr 1fr}
+.form-group{margin-bottom:14px}
+.checkbox-row{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.checkbox-row input[type="checkbox"]{width:auto;accent-color:#ff5f1f}
+.checkbox-row label{margin:0;cursor:pointer}
+.step-card{background:#0d0d0d;border:1px solid #2a2a2a;border-radius:8px;padding:16px;margin-bottom:10px;position:relative}
+.step-card .step-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.step-card .step-num{color:#ff5f1f;font-weight:700;font-size:0.85rem}
+.step-card .remove-step{background:none;border:none;color:#ef4444;cursor:pointer;font-size:1.1rem;padding:0 4px}
+.step-card .form-row{margin-bottom:8px}
+.env-row{display:flex;gap:8px;align-items:center;margin-bottom:8px}
+.env-row input{flex:1}
+.env-row button{flex-shrink:0}
+.template-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin-bottom:16px}
+.template-card{background:#0d0d0d;border:1px solid #2a2a2a;border-radius:8px;padding:14px;cursor:pointer;transition:all .2s}
+.template-card:hover{border-color:#ff5f1f;background:#1a0800}
+.template-card h4{font-size:0.9rem;color:#ff5f1f;margin-bottom:4px}
+.template-card p{font-size:0.78rem;color:#666}
+.output-area{width:100%;min-height:200px;padding:16px;background:#0d0d0d;border:1px solid #2a2a2a;border-radius:10px;color:#10b981;font-size:0.85rem;font-family:'Courier New',monospace;white-space:pre;overflow-x:auto;margin-top:12px;tab-size:2}
+.matrix-tag{display:inline-flex;align-items:center;gap:4px;background:#3b82f622;border:1px solid #3b82f644;color:#3b82f6;padding:3px 10px;border-radius:6px;font-size:0.78rem;margin:3px}
+.matrix-tag button{background:none;border:none;color:#ef4444;cursor:pointer;font-size:0.9rem}
+@media(max-width:600px){
+  h1{font-size:1.5rem}
+  main{padding:20px 16px 60px}
+  .form-row{grid-template-columns:1fr}
+  .form-row.three{grid-template-columns:1fr}
+  .template-grid{grid-template-columns:1fr}
+}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"GitHub Actions YAML Builder","description":"Visual GitHub Actions workflow YAML builder. Select triggers, add steps, configure matrix builds and environment variables. Free CI/CD generator.","url":"https://spunk.codes/github-actions-builder.html","applicationCategory":"DeveloperApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Organization","name":"SpunkArt","url":"https://spunk.codes"}}</script>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="logo">SPUNK.CODES</a>
+  <div class="links">
+    <a href="/store">Store</a>
+    <a href="/store#free-tools">Free Tools</a>
+    <a href="/reseller" style="color:#10b981;font-weight:700">Resell $$</a>
+    <a href="/blog">Blog</a>
+  </div>
+</nav>
+
+<main>
+  <h1>GitHub Actions <span>Builder</span></h1>
+  <p class="subtitle">Build CI/CD workflow YAML visually. Select triggers, add steps, configure matrix builds and env vars.</p>
+  <div class="pricing-badge">100% Free Tool</div>
+
+  <!-- Templates -->
+  <div class="section">
+    <h3>Quick Templates</h3>
+    <div class="template-grid">
+      <div class="template-card" onclick="loadTemplate('nodejs')">
+        <h4>Node.js CI</h4>
+        <p>Checkout, setup Node, install deps, run tests</p>
+      </div>
+      <div class="template-card" onclick="loadTemplate('python')">
+        <h4>Python CI</h4>
+        <p>Checkout, setup Python, pip install, pytest</p>
+      </div>
+      <div class="template-card" onclick="loadTemplate('pages')">
+        <h4>Deploy to GitHub Pages</h4>
+        <p>Build static site and deploy to Pages</p>
+      </div>
+      <div class="template-card" onclick="loadTemplate('docker')">
+        <h4>Docker Build & Push</h4>
+        <p>Build Docker image and push to GHCR</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Workflow Config -->
+  <div class="section">
+    <h3>Workflow Configuration</h3>
+    <div class="form-group">
+      <label>Workflow Name</label>
+      <input type="text" id="wfName" placeholder="CI/CD Pipeline" value="CI">
+    </div>
+
+    <div class="form-group">
+      <label>Triggers</label>
+      <div class="checkbox-row"><input type="checkbox" id="trigPush" checked><label for="trigPush">push</label></div>
+      <div class="checkbox-row"><input type="checkbox" id="trigPR"><label for="trigPR">pull_request</label></div>
+      <div class="checkbox-row"><input type="checkbox" id="trigSchedule"><label for="trigSchedule">schedule (cron)</label></div>
+      <div class="checkbox-row"><input type="checkbox" id="trigManual"><label for="trigManual">workflow_dispatch (manual)</label></div>
+    </div>
+
+    <div id="triggerDetails"></div>
+
+    <div class="form-row">
+      <div>
+        <label>Push Branches (comma-separated)</label>
+        <input type="text" id="pushBranches" placeholder="main, develop" value="main">
+      </div>
+      <div>
+        <label>PR Branches (comma-separated)</label>
+        <input type="text" id="prBranches" placeholder="main">
+      </div>
+    </div>
+
+    <div id="scheduleRow" style="display:none" class="form-group">
+      <label>Cron Schedule</label>
+      <input type="text" id="cronExpr" placeholder="0 0 * * *" value="0 0 * * *">
+      <div style="font-size:0.75rem;color:#555;margin-top:4px">Format: minute hour day-of-month month day-of-week</div>
+    </div>
+
+    <div class="form-group">
+      <label>Job Name</label>
+      <input type="text" id="jobName" placeholder="build" value="build">
+    </div>
+
+    <div class="form-group">
+      <label>Runs On</label>
+      <select id="runsOn">
+        <option value="ubuntu-latest">ubuntu-latest</option>
+        <option value="ubuntu-22.04">ubuntu-22.04</option>
+        <option value="ubuntu-20.04">ubuntu-20.04</option>
+        <option value="macos-latest">macos-latest</option>
+        <option value="macos-14">macos-14</option>
+        <option value="windows-latest">windows-latest</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Matrix Builds -->
+  <div class="section">
+    <h3>Matrix Strategy (optional)</h3>
+    <div class="checkbox-row"><input type="checkbox" id="enableMatrix"><label for="enableMatrix">Enable matrix builds</label></div>
+    <div id="matrixConfig" style="display:none">
+      <div class="form-row">
+        <div>
+          <label>Matrix Variable Name</label>
+          <input type="text" id="matrixKey" placeholder="node-version" value="node-version">
+        </div>
+        <div>
+          <label>Values (comma-separated)</label>
+          <div style="display:flex;gap:8px">
+            <input type="text" id="matrixValues" placeholder="18, 20, 22" value="18, 20, 22">
+            <button class="btn btn-secondary" onclick="addMatrixDimension()" style="flex-shrink:0">Add</button>
+          </div>
+        </div>
+      </div>
+      <div id="matrixDimensions"></div>
+      <div class="checkbox-row" style="margin-top:8px"><input type="checkbox" id="matrixFailFast" checked><label for="matrixFailFast">fail-fast</label></div>
+    </div>
+  </div>
+
+  <!-- Environment Variables -->
+  <div class="section">
+    <h3>Environment Variables</h3>
+    <div id="envVars"></div>
+    <div class="env-row">
+      <input type="text" id="envKey" placeholder="Variable name (e.g. NODE_ENV)">
+      <input type="text" id="envVal" placeholder="Value (e.g. production)">
+      <button class="btn btn-secondary" onclick="addEnvVar()">Add</button>
+    </div>
+  </div>
+
+  <!-- Steps -->
+  <div class="section">
+    <h3>Workflow Steps</h3>
+    <div id="stepsContainer"></div>
+    <div class="btn-row" style="flex-wrap:wrap">
+      <button class="btn btn-secondary" onclick="addStep('checkout')">+ Checkout</button>
+      <button class="btn btn-secondary" onclick="addStep('setup-node')">+ Setup Node</button>
+      <button class="btn btn-secondary" onclick="addStep('setup-python')">+ Setup Python</button>
+      <button class="btn btn-secondary" onclick="addStep('install')">+ Install Deps</button>
+      <button class="btn btn-secondary" onclick="addStep('run-tests')">+ Run Tests</button>
+      <button class="btn btn-secondary" onclick="addStep('build')">+ Build</button>
+      <button class="btn btn-secondary" onclick="addStep('deploy-pages')">+ Deploy to Pages</button>
+      <button class="btn btn-secondary" onclick="addStep('docker-build')">+ Docker Build</button>
+      <button class="btn btn-secondary" onclick="addStep('docker-push')">+ Docker Push</button>
+      <button class="btn btn-secondary" onclick="addStep('upload-artifact')">+ Upload Artifact</button>
+      <button class="btn btn-secondary" onclick="addStep('cache')">+ Cache</button>
+      <button class="btn btn-secondary" onclick="addStep('custom')">+ Custom Step</button>
+    </div>
+  </div>
+
+  <!-- Generate -->
+  <div class="section">
+    <h3>Generated YAML</h3>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="generateYAML()">Generate YAML</button>
+      <button class="btn btn-green" onclick="copyYAML()">Copy to Clipboard</button>
+      <button class="btn btn-secondary" onclick="downloadYAML()">Download .yml</button>
+    </div>
+    <div id="yamlOutput" class="output-area" style="display:none"></div>
+  </div>
+
+  <div class="cross-sell">
+    <h3>More Free Tools</h3>
+    <div class="tool-links">
+      <a href="/automation-builder">Automation Builder</a>
+      <a href="/webhook-tester">Webhook Tester</a>
+      <a href="/n8n-workflow-designer">n8n Workflow Designer</a>
+      <a href="/cron-job-builder">Cron Job Builder</a>
+      <a href="/api-mock-server">API Mock Server</a>
+      <a href="/cli-command-builder">CLI Command Builder</a>
+    </div>
+    <h3 style="margin-top:16px">Get All Tools</h3>
+    <p>Lifetime Pass ($99.99) gets every tool we build. Or <a href="/reseller" style="color:#10b981;font-weight:700">resell them all</a> under your brand from $99.</p>
+    <a href="/store" class="cta">Visit the Store</a>
+  </div>
+</main>
+
+<div class="copied-toast" id="toast">Copied!</div>
+
+<footer>&copy; 2026 SPUNK.CODES &mdash; <a href="/store" style="color:#ff5f1f">Store</a> &middot; <a href="/reseller" style="color:#10b981">Reseller</a> &middot; <a href="/blog" style="color:#888">Blog</a> &middot; <a href="https://twitter.com/SpunkArt13" style="color:#888">@SpunkArt13</a></footer>
+
+<script>
+// State
+let steps = [];
+let envVars = [];
+let matrixDimensions = [];
+let stepIdCounter = 0;
+
+const stepDefaults = {
+  'checkout': { name: 'Checkout code', uses: 'actions/checkout@v4', with: {} },
+  'setup-node': { name: 'Setup Node.js', uses: 'actions/setup-node@v4', with: { 'node-version': '${{ matrix.node-version }}' } },
+  'setup-python': { name: 'Setup Python', uses: 'actions/setup-python@v5', with: { 'python-version': '3.12' } },
+  'install': { name: 'Install dependencies', run: 'npm ci' },
+  'run-tests': { name: 'Run tests', run: 'npm test' },
+  'build': { name: 'Build', run: 'npm run build' },
+  'deploy-pages': { name: 'Deploy to GitHub Pages', uses: 'peaceiris/actions-gh-pages@v4', with: { 'github_token': '${{ secrets.GITHUB_TOKEN }}', 'publish_dir': './dist' } },
+  'docker-build': { name: 'Build Docker image', run: 'docker build -t ${{ github.repository }}:${{ github.sha }} .' },
+  'docker-push': { name: 'Push to GHCR', run: 'echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin\ndocker tag ${{ github.repository }}:${{ github.sha }} ghcr.io/${{ github.repository }}:latest\ndocker push ghcr.io/${{ github.repository }}:latest' },
+  'upload-artifact': { name: 'Upload artifact', uses: 'actions/upload-artifact@v4', with: { name: 'build-output', path: './dist' } },
+  'cache': { name: 'Cache dependencies', uses: 'actions/cache@v4', with: { path: 'node_modules', key: "${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}" } },
+  'custom': { name: 'Custom step', run: 'echo "Hello World"' }
+};
+
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg||'Copied!';t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1500);}
+
+// Trigger toggles
+document.getElementById('trigSchedule').addEventListener('change', function(){ document.getElementById('scheduleRow').style.display = this.checked ? 'block' : 'none'; });
+document.getElementById('enableMatrix').addEventListener('change', function(){ document.getElementById('matrixConfig').style.display = this.checked ? 'block' : 'none'; });
+
+// Steps
+function addStep(type) {
+  const def = JSON.parse(JSON.stringify(stepDefaults[type]));
+  const id = ++stepIdCounter;
+  steps.push({ id, type, ...def });
+  renderSteps();
+  gtag('event','add_step',{event_category:'tool_use',step_type:type});
+}
+
+function removeStep(id) {
+  steps = steps.filter(s => s.id !== id);
+  renderSteps();
+}
+
+function updateStepField(id, field, value) {
+  const step = steps.find(s => s.id === id);
+  if (!step) return;
+  if (field.startsWith('with.')) {
+    const key = field.slice(5);
+    if (!step.with) step.with = {};
+    step.with[key] = value;
+  } else {
+    step[field] = value;
+  }
+}
+
+function renderSteps() {
+  const container = document.getElementById('stepsContainer');
+  if (!steps.length) { container.innerHTML = '<p style="color:#555;font-size:0.85rem">No steps added yet. Click buttons below to add steps.</p>'; return; }
+  container.innerHTML = steps.map((s, i) => {
+    let fieldsHTML = '';
+    fieldsHTML += `<div class="form-row"><div><label>Step Name</label><input type="text" value="${escHTML(s.name)}" onchange="updateStepField(${s.id},'name',this.value)"></div>`;
+    if (s.uses) {
+      fieldsHTML += `<div><label>Uses</label><input type="text" value="${escHTML(s.uses)}" onchange="updateStepField(${s.id},'uses',this.value)"></div></div>`;
+      if (s.with) {
+        Object.keys(s.with).forEach(k => {
+          fieldsHTML += `<div class="form-row"><div><label>with: ${escHTML(k)}</label><input type="text" value="${escHTML(s.with[k])}" onchange="updateStepField(${s.id},'with.${escHTML(k)}',this.value)"></div><div></div></div>`;
+        });
+      }
+    } else {
+      fieldsHTML += `<div><label>Run</label><textarea onchange="updateStepField(${s.id},'run',this.value)">${escHTML(s.run || '')}</textarea></div></div>`;
+    }
+    return `<div class="step-card"><div class="step-header"><span class="step-num">Step ${i+1}: ${escHTML(s.type)}</span><button class="remove-step" onclick="removeStep(${s.id})">&times;</button></div>${fieldsHTML}</div>`;
+  }).join('');
+}
+
+// Env vars
+function addEnvVar() {
+  const k = document.getElementById('envKey').value.trim();
+  const v = document.getElementById('envVal').value.trim();
+  if (!k) { showToast('Enter variable name'); return; }
+  envVars.push({ key: k, value: v });
+  document.getElementById('envKey').value = '';
+  document.getElementById('envVal').value = '';
+  renderEnvVars();
+}
+
+function removeEnvVar(i) { envVars.splice(i, 1); renderEnvVars(); }
+
+function renderEnvVars() {
+  const c = document.getElementById('envVars');
+  c.innerHTML = envVars.map((e, i) => `<div class="env-row"><input type="text" value="${escHTML(e.key)}" onchange="envVars[${i}].key=this.value" style="flex:1"><input type="text" value="${escHTML(e.value)}" onchange="envVars[${i}].value=this.value" style="flex:1"><button class="btn btn-danger" style="padding:6px 10px;font-size:0.78rem" onclick="removeEnvVar(${i})">&times;</button></div>`).join('');
+}
+
+// Matrix dimensions
+function addMatrixDimension() {
+  const k = document.getElementById('matrixKey').value.trim();
+  const v = document.getElementById('matrixValues').value.trim();
+  if (!k || !v) { showToast('Enter key and values'); return; }
+  matrixDimensions.push({ key: k, values: v.split(',').map(x => x.trim()).filter(Boolean) });
+  document.getElementById('matrixKey').value = '';
+  document.getElementById('matrixValues').value = '';
+  renderMatrixDimensions();
+}
+
+function removeMatrixDim(i) { matrixDimensions.splice(i, 1); renderMatrixDimensions(); }
+
+function renderMatrixDimensions() {
+  const c = document.getElementById('matrixDimensions');
+  c.innerHTML = matrixDimensions.map((d, i) => `<div style="margin-bottom:6px"><strong style="color:#3b82f6;font-size:0.85rem">${escHTML(d.key)}:</strong> ${d.values.map(v => `<span class="matrix-tag">${escHTML(v)}</span>`).join('')} <button class="btn btn-danger" style="padding:2px 8px;font-size:0.72rem" onclick="removeMatrixDim(${i})">&times;</button></div>`).join('');
+}
+
+// YAML Generation
+function generateYAML() {
+  if (!steps.length) { showToast('Add at least one step'); return; }
+  let y = '';
+  const name = document.getElementById('wfName').value.trim() || 'CI';
+  y += `name: ${name}\n\n`;
+
+  // Triggers
+  y += 'on:\n';
+  if (document.getElementById('trigPush').checked) {
+    const branches = document.getElementById('pushBranches').value.trim();
+    if (branches) {
+      y += '  push:\n    branches:\n';
+      branches.split(',').map(b => b.trim()).filter(Boolean).forEach(b => { y += `      - ${b}\n`; });
+    } else {
+      y += '  push:\n';
+    }
+  }
+  if (document.getElementById('trigPR').checked) {
+    const branches = document.getElementById('prBranches').value.trim();
+    if (branches) {
+      y += '  pull_request:\n    branches:\n';
+      branches.split(',').map(b => b.trim()).filter(Boolean).forEach(b => { y += `      - ${b}\n`; });
+    } else {
+      y += '  pull_request:\n';
+    }
+  }
+  if (document.getElementById('trigSchedule').checked) {
+    const cron = document.getElementById('cronExpr').value.trim() || '0 0 * * *';
+    y += `  schedule:\n    - cron: '${cron}'\n`;
+  }
+  if (document.getElementById('trigManual').checked) {
+    y += '  workflow_dispatch:\n';
+  }
+
+  y += '\n';
+
+  // Env
+  if (envVars.length) {
+    y += 'env:\n';
+    envVars.forEach(e => { y += `  ${e.key}: ${e.value}\n`; });
+    y += '\n';
+  }
+
+  // Jobs
+  const jobName = document.getElementById('jobName').value.trim() || 'build';
+  const runsOn = document.getElementById('runsOn').value;
+  y += 'jobs:\n';
+  y += `  ${jobName}:\n`;
+  y += `    runs-on: ${runsOn}\n`;
+
+  // Matrix
+  if (document.getElementById('enableMatrix').checked && matrixDimensions.length) {
+    y += '    strategy:\n';
+    y += `      fail-fast: ${document.getElementById('matrixFailFast').checked}\n`;
+    y += '      matrix:\n';
+    matrixDimensions.forEach(d => {
+      y += `        ${d.key}: [${d.values.map(v => isNaN(v) ? `'${v}'` : v).join(', ')}]\n`;
+    });
+  }
+
+  y += '    steps:\n';
+  steps.forEach(s => {
+    y += `      - name: ${s.name}\n`;
+    if (s.uses) {
+      y += `        uses: ${s.uses}\n`;
+      if (s.with && Object.keys(s.with).length) {
+        y += '        with:\n';
+        Object.entries(s.with).forEach(([k, v]) => {
+          y += `          ${k}: ${v}\n`;
+        });
+      }
+    }
+    if (s.run) {
+      if (s.run.includes('\n')) {
+        y += '        run: |\n';
+        s.run.split('\n').forEach(line => { y += `          ${line}\n`; });
+      } else {
+        y += `        run: ${s.run}\n`;
+      }
+    }
+  });
+
+  const out = document.getElementById('yamlOutput');
+  out.textContent = y;
+  out.style.display = 'block';
+  gtag('event','generate_yaml',{event_category:'tool_use'});
+}
+
+function copyYAML() {
+  const out = document.getElementById('yamlOutput');
+  if (!out.textContent) { generateYAML(); }
+  if (!out.textContent) return;
+  navigator.clipboard.writeText(out.textContent).then(() => showToast('YAML copied!')).catch(() => {
+    const ta = document.createElement('textarea');
+    ta.value = out.textContent;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    showToast('YAML copied!');
+  });
+  gtag('event','copy_yaml',{event_category:'tool_use'});
+}
+
+function downloadYAML() {
+  const out = document.getElementById('yamlOutput');
+  if (!out.textContent) { generateYAML(); }
+  if (!out.textContent) return;
+  const blob = new Blob([out.textContent], { type: 'text/yaml' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  const name = (document.getElementById('wfName').value.trim() || 'ci').toLowerCase().replace(/[^a-z0-9]+/g, '-');
+  a.download = name + '.yml';
+  a.click();
+  URL.revokeObjectURL(url);
+  gtag('event','download_yaml',{event_category:'tool_use'});
+}
+
+// Templates
+function loadTemplate(name) {
+  steps = [];
+  envVars = [];
+  matrixDimensions = [];
+  stepIdCounter = 0;
+
+  document.getElementById('trigPush').checked = true;
+  document.getElementById('trigPR').checked = false;
+  document.getElementById('trigSchedule').checked = false;
+  document.getElementById('trigManual').checked = false;
+  document.getElementById('scheduleRow').style.display = 'none';
+  document.getElementById('enableMatrix').checked = false;
+  document.getElementById('matrixConfig').style.display = 'none';
+  document.getElementById('pushBranches').value = 'main';
+  document.getElementById('prBranches').value = '';
+  document.getElementById('runsOn').value = 'ubuntu-latest';
+
+  switch(name) {
+    case 'nodejs':
+      document.getElementById('wfName').value = 'Node.js CI';
+      document.getElementById('jobName').value = 'build';
+      document.getElementById('trigPR').checked = true;
+      document.getElementById('prBranches').value = 'main';
+      document.getElementById('enableMatrix').checked = true;
+      document.getElementById('matrixConfig').style.display = 'block';
+      matrixDimensions = [{ key: 'node-version', values: ['18', '20', '22'] }];
+      addStep('checkout');
+      addStep('setup-node');
+      addStep('install');
+      addStep('run-tests');
+      break;
+    case 'python':
+      document.getElementById('wfName').value = 'Python CI';
+      document.getElementById('jobName').value = 'test';
+      document.getElementById('trigPR').checked = true;
+      document.getElementById('prBranches').value = 'main';
+      document.getElementById('enableMatrix').checked = true;
+      document.getElementById('matrixConfig').style.display = 'block';
+      matrixDimensions = [{ key: 'python-version', values: ['3.10', '3.11', '3.12'] }];
+      addStep('checkout');
+      steps[steps.length-1].id = ++stepIdCounter;
+      addStep('setup-python');
+      // fix python version ref
+      steps[steps.length-1].with['python-version'] = '${{ matrix.python-version }}';
+      addStep('custom');
+      steps[steps.length-1].name = 'Install dependencies';
+      steps[steps.length-1].run = 'pip install -r requirements.txt';
+      addStep('custom');
+      steps[steps.length-1].name = 'Run tests';
+      steps[steps.length-1].run = 'pytest';
+      break;
+    case 'pages':
+      document.getElementById('wfName').value = 'Deploy to GitHub Pages';
+      document.getElementById('jobName').value = 'deploy';
+      addStep('checkout');
+      addStep('setup-node');
+      steps[steps.length-1].with['node-version'] = '20';
+      addStep('install');
+      addStep('build');
+      addStep('deploy-pages');
+      break;
+    case 'docker':
+      document.getElementById('wfName').value = 'Docker Build & Push';
+      document.getElementById('jobName').value = 'docker';
+      addStep('checkout');
+      addStep('custom');
+      steps[steps.length-1].name = 'Log in to GHCR';
+      steps[steps.length-1].run = 'echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin';
+      addStep('docker-build');
+      addStep('docker-push');
+      break;
+  }
+
+  renderSteps();
+  renderEnvVars();
+  renderMatrixDimensions();
+  generateYAML();
+  showToast('Template loaded!');
+  gtag('event','load_template',{event_category:'tool_use',template:name});
+}
+
+function escHTML(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+// Init
+renderSteps();
+renderEnvVars();
+renderMatrixDimensions();
+</script>
+<script>
+(function(){
+  document.addEventListener('contextmenu',function(e){e.preventDefault();});
+  document.addEventListener('keydown',function(e){
+    if(e.key==='F12')e.preventDefault();
+    if(e.ctrlKey&&e.key==='u')e.preventDefault();
+    if(e.ctrlKey&&e.key==='s')e.preventDefault();
+    if(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='i'||e.key==='J'||e.key==='j'||e.key==='C'||e.key==='c'))e.preventDefault();
+  });
+  console.log('%c⚠ SPUNK.CODES — All rights reserved.','color:#ff5f1f;font-size:16px;font-weight:bold;');
+  if(!document.querySelector('.watermark')){var w=document.createElement('div');w.style.cssText='position:fixed;bottom:10px;right:15px;font-size:0.7rem;color:rgba(255,95,31,0.15);font-weight:700;letter-spacing:2px;pointer-events:none;z-index:9999;';w.textContent='SPUNK.CODES';document.body.appendChild(w);}
+})();
+</script>
+<script src="/auto-monetize.js"></script>
+<!-- Share on X Button -->
+<div id="shareXBtn" style="position:fixed;left:20px;bottom:20px;z-index:9999;">
+  <a id="shareXLink" href="#" target="_blank" rel="noopener noreferrer" title="Share on X"
+     style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;
+     background:rgba(88,166,255,0.15);border:1px solid rgba(88,166,255,0.3);
+     backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:50%;
+     text-decoration:none;transition:all 0.3s ease;cursor:pointer;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+    </svg>
+  </a>
+</div>
+<style>
+  #shareXBtn a:hover {
+    background: rgba(88,166,255,0.35) !important;
+    border-color: rgba(88,166,255,0.6) !important;
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(88,166,255,0.3);
+  }
+</style>
+<script>
+(function(){
+  var page = location.pathname.split("/").pop() || "index.html";
+  var url = "https://spunk.codes/" + page;
+  var text = "Just used this free GitHub Actions YAML builder on spunk.codes — amazing! @SpunkArt13";
+  var href = "https://x.com/intent/tweet?text=" + encodeURIComponent(text) + "&url=" + encodeURIComponent(url);
+  document.getElementById("shareXLink").href = href;
+})();
+</script>
+
+<script src="/usage-tracker.js"></script>
+</body>
+</html>
