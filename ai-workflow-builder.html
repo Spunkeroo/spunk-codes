@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI Workflow Builder - Design Automation Workflows Free | SpunkArt</title>
+<meta name="description" content="Design AI-powered automation workflows visually. Drag-and-drop triggers, AI actions, integrations, and logic blocks. Export as JSON. Free no-code workflow builder.">
+<meta name="keywords" content="ai workflow, automation builder, workflow automation, no code automation, ai workflow chicago, visual workflow builder, ai automation planner, drag and drop workflow, workflow designer, no-code ai tools">
+<meta name="author" content="SpunkArt">
+<meta name="robots" content="index, follow">
+<meta name="geo.region" content="US-IL">
+<meta name="geo.placename" content="Chicago">
+<meta property="og:title" content="AI Workflow Builder - Design Automation Workflows Free | SpunkArt">
+<meta property="og:description" content="Design AI-powered automation workflows visually. Drag-and-drop triggers, AI actions, integrations, and logic. Export as JSON. 100% free.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://spunk.codes/ai-workflow-builder">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SpunkArt13">
+<meta name="twitter:title" content="AI Workflow Builder | SpunkArt">
+<meta name="twitter:description" content="Visual AI workflow automation builder. Drag-and-drop blocks, export JSON. Free tool.">
+<link rel="canonical" href="https://spunk.codes/ai-workflow-builder">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GVNL11PEGP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-GVNL11PEGP');</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"AI Workflow Builder","description":"Design AI-powered automation workflows visually with drag-and-drop triggers, AI actions, integrations, and logic blocks. Export as JSON.","url":"https://spunk.codes/ai-workflow-builder","applicationCategory":"BusinessApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Organization","name":"SpunkArt","url":"https://spunk.codes"}}</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#0a0a0a;color:#e0e0e0;min-height:100vh;display:flex;flex-direction:column;line-height:1.6}
+a{color:#00d4ff;text-decoration:none}a:hover{text-decoration:underline}
+::-webkit-scrollbar{width:8px}::-webkit-scrollbar-track{background:#111}::-webkit-scrollbar-thumb{background:#333;border-radius:4px}::-webkit-scrollbar-thumb:hover{background:#00d4ff55}
+
+/* Nav */
+nav{background:#111;border-bottom:1px solid #1a1a1a;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;position:sticky;top:0;z-index:100;backdrop-filter:blur(12px);background:rgba(17,17,17,0.95)}
+nav .logo{font-weight:800;font-size:1.1rem;color:#00d4ff;letter-spacing:1px}
+nav .links{display:flex;gap:20px;font-size:0.9rem}
+nav .links a{color:#999}nav .links a:hover{color:#00d4ff}
+
+/* Layout */
+.app-wrapper{display:flex;flex:1;overflow:hidden}
+
+/* Sidebar */
+.sidebar{width:280px;min-width:280px;background:#0e0e0e;border-right:1px solid #1a1a1a;padding:20px 16px;overflow-y:auto;display:flex;flex-direction:column;gap:20px}
+.sidebar h2{font-size:0.85rem;font-weight:700;color:#00d4ff;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:4px}
+.sidebar .category-label{font-size:0.7rem;font-weight:700;color:#666;text-transform:uppercase;letter-spacing:1px;margin:12px 0 6px;display:flex;align-items:center;gap:6px}
+.sidebar .category-label::after{content:'';flex:1;height:1px;background:#222}
+
+.step-template{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;cursor:grab;user-select:none;border:1px solid transparent;transition:all 0.2s;margin-bottom:4px}
+.step-template:hover{transform:translateX(4px)}
+.step-template:active{cursor:grabbing}
+.step-template .icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:0.85rem;flex-shrink:0}
+.step-template .info{flex:1;min-width:0}
+.step-template .info .name{font-size:0.82rem;font-weight:600;line-height:1.2}
+.step-template .info .desc{font-size:0.68rem;color:#666;line-height:1.2}
+
+/* Category colors */
+.cat-trigger{background:rgba(255,95,31,0.06);border-color:rgba(255,95,31,0.15)}
+.cat-trigger:hover{background:rgba(255,95,31,0.12);border-color:rgba(255,95,31,0.35)}
+.cat-trigger .icon{background:rgba(255,95,31,0.15);color:#ff5f1f}
+.cat-trigger .name{color:#ff8855}
+
+.cat-ai{background:rgba(0,212,255,0.06);border-color:rgba(0,212,255,0.15)}
+.cat-ai:hover{background:rgba(0,212,255,0.12);border-color:rgba(0,212,255,0.35)}
+.cat-ai .icon{background:rgba(0,212,255,0.15);color:#00d4ff}
+.cat-ai .name{color:#00d4ff}
+
+.cat-integration{background:rgba(16,185,129,0.06);border-color:rgba(16,185,129,0.15)}
+.cat-integration:hover{background:rgba(16,185,129,0.12);border-color:rgba(16,185,129,0.35)}
+.cat-integration .icon{background:rgba(16,185,129,0.15);color:#10b981}
+.cat-integration .name{color:#10b981}
+
+.cat-logic{background:rgba(168,85,247,0.06);border-color:rgba(168,85,247,0.15)}
+.cat-logic:hover{background:rgba(168,85,247,0.12);border-color:rgba(168,85,247,0.35)}
+.cat-logic .icon{background:rgba(168,85,247,0.15);color:#a855f7}
+.cat-logic .name{color:#a855f7}
+
+/* Main content */
+.main-area{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.toolbar{display:flex;align-items:center;gap:12px;padding:12px 24px;background:#0e0e0e;border-bottom:1px solid #1a1a1a;flex-wrap:wrap}
+.toolbar .workflow-name{flex:1;min-width:200px;padding:8px 14px;background:#0a0a0a;border:1px solid #2a2a2a;border-radius:8px;color:#e0e0e0;font-size:0.9rem;font-weight:600;outline:none}
+.toolbar .workflow-name:focus{border-color:#00d4ff;box-shadow:0 0 0 2px rgba(0,212,255,0.15)}
+.toolbar .workflow-name::placeholder{color:#555}
+.stats{display:flex;gap:16px;align-items:center}
+.stat-pill{display:flex;align-items:center;gap:6px;padding:6px 14px;background:#111;border:1px solid #222;border-radius:20px;font-size:0.78rem;font-weight:600;color:#999;white-space:nowrap}
+.stat-pill .val{color:#00d4ff;font-weight:800}
+.btn{padding:8px 18px;border:none;border-radius:8px;font-size:0.82rem;font-weight:700;cursor:pointer;transition:all 0.2s;display:inline-flex;align-items:center;gap:6px}
+.btn:hover{transform:translateY(-1px)}
+.btn-accent{background:#00d4ff;color:#0a0a0a}.btn-accent:hover{background:#00bfe6;box-shadow:0 4px 15px rgba(0,212,255,0.3)}
+.btn-secondary{background:#1a1a1a;color:#e0e0e0;border:1px solid #333}.btn-secondary:hover{background:#252525}
+.btn-green{background:#10b981;color:#fff}.btn-green:hover{background:#0ea572;box-shadow:0 4px 15px rgba(16,185,129,0.3)}
+.btn-danger{background:rgba(239,68,68,0.15);color:#ef4444;border:1px solid rgba(239,68,68,0.2)}.btn-danger:hover{background:rgba(239,68,68,0.25)}
+
+/* Canvas */
+.canvas-wrapper{flex:1;overflow:auto;padding:30px;background:
+  radial-gradient(ellipse 60% 40% at 50% 0%,rgba(0,212,255,0.04) 0%,transparent 60%),
+  linear-gradient(rgba(255,255,255,0.015) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(255,255,255,0.015) 1px,transparent 1px);
+  background-size:100% 100%,30px 30px,30px 30px;
+  background-color:#080808;
+  position:relative}
+.canvas-empty{text-align:center;padding:80px 20px;color:#333}
+.canvas-empty .icon-big{font-size:3rem;margin-bottom:12px;opacity:0.5}
+.canvas-empty h3{font-size:1rem;color:#555;font-weight:600;margin-bottom:4px}
+.canvas-empty p{font-size:0.82rem;color:#444}
+
+/* Workflow steps */
+.workflow-chain{display:flex;flex-direction:column;align-items:center;gap:0;min-width:400px;margin:0 auto;max-width:520px}
+
+/* Arrow connector */
+.arrow-connector{display:flex;flex-direction:column;align-items:center;padding:2px 0;position:relative}
+.arrow-line{width:2px;height:24px;background:linear-gradient(to bottom,#333,#444)}
+.arrow-head{width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-top:8px solid #444}
+
+/* Step card */
+.step-card{width:100%;max-width:480px;background:#111;border:1px solid #222;border-radius:12px;padding:16px 18px;position:relative;transition:all 0.25s;animation:stepAppear 0.35s ease-out}
+.step-card:hover{border-color:#333;box-shadow:0 4px 20px rgba(0,0,0,0.4)}
+.step-card.selected{box-shadow:0 0 0 2px rgba(0,212,255,0.4),0 4px 20px rgba(0,212,255,0.1)}
+@keyframes stepAppear{from{opacity:0;transform:translateY(-10px) scale(0.95)}to{opacity:1;transform:translateY(0) scale(1)}}
+.step-card .step-header{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.step-card .step-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+.step-card .step-badge{font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:2px 8px;border-radius:4px}
+.step-card .step-number{font-size:0.65rem;font-weight:700;color:#555;margin-left:auto}
+.step-card .step-actions{position:absolute;top:10px;right:10px;display:flex;gap:4px;opacity:0;transition:opacity 0.2s}
+.step-card:hover .step-actions{opacity:1}
+.step-card .step-actions button{width:26px;height:26px;border-radius:6px;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:0.75rem;transition:all 0.15s}
+.step-card .btn-move-up,.step-card .btn-move-down{background:#1a1a1a;color:#888}.step-card .btn-move-up:hover,.step-card .btn-move-down:hover{background:#252525;color:#fff}
+.step-card .btn-delete{background:rgba(239,68,68,0.1);color:#ef4444}.step-card .btn-delete:hover{background:rgba(239,68,68,0.2)}
+.step-card .step-fields{display:flex;flex-direction:column;gap:6px}
+.step-card .step-fields input{width:100%;padding:7px 10px;background:#0a0a0a;border:1px solid #222;border-radius:6px;color:#e0e0e0;font-size:0.82rem;outline:none;transition:border-color 0.2s}
+.step-card .step-fields input:focus{border-color:#00d4ff55}
+.step-card .step-fields input::placeholder{color:#444}
+
+/* Step type colors */
+.step-card.type-trigger{border-left:3px solid #ff5f1f}
+.step-card.type-trigger .step-icon{background:rgba(255,95,31,0.15);color:#ff5f1f}
+.step-card.type-trigger .step-badge{background:rgba(255,95,31,0.12);color:#ff5f1f}
+
+.step-card.type-ai{border-left:3px solid #00d4ff}
+.step-card.type-ai .step-icon{background:rgba(0,212,255,0.15);color:#00d4ff}
+.step-card.type-ai .step-badge{background:rgba(0,212,255,0.12);color:#00d4ff}
+
+.step-card.type-integration{border-left:3px solid #10b981}
+.step-card.type-integration .step-icon{background:rgba(16,185,129,0.15);color:#10b981}
+.step-card.type-integration .step-badge{background:rgba(16,185,129,0.12);color:#10b981}
+
+.step-card.type-logic{border-left:3px solid #a855f7}
+.step-card.type-logic .step-icon{background:rgba(168,85,247,0.15);color:#a855f7}
+.step-card.type-logic .step-badge{background:rgba(168,85,247,0.12);color:#a855f7}
+
+/* JSON Output Panel */
+.output-panel{display:none;background:#0e0e0e;border-top:1px solid #1a1a1a;max-height:350px;overflow:auto}
+.output-panel.visible{display:block}
+.output-panel .panel-header{display:flex;align-items:center;justify-content:space-between;padding:12px 24px;border-bottom:1px solid #1a1a1a;position:sticky;top:0;background:#0e0e0e;z-index:5}
+.output-panel .panel-header h3{font-size:0.85rem;color:#00d4ff;font-weight:700;display:flex;align-items:center;gap:6px}
+.output-panel pre{padding:16px 24px;font-family:'SF Mono','Fira Code','Cascadia Code',monospace;font-size:0.8rem;color:#10b981;line-height:1.5;white-space:pre-wrap;word-break:break-word}
+
+/* Toast */
+.toast{position:fixed;top:20px;left:50%;transform:translateX(-50%) translateY(-40px);background:#10b981;color:#fff;padding:10px 24px;border-radius:8px;font-weight:700;font-size:0.85rem;opacity:0;transition:all 0.3s;pointer-events:none;z-index:1000;box-shadow:0 4px 20px rgba(16,185,129,0.3)}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* CTA Section */
+.cta-section{background:linear-gradient(135deg,rgba(0,30,40,0.8),#0a0a0a);border:1px solid rgba(0,212,255,0.15);border-radius:12px;padding:24px;margin:20px 24px;text-align:center}
+.cta-section h3{color:#00d4ff;font-size:1rem;margin-bottom:6px}
+.cta-section p{color:#888;font-size:0.85rem;margin-bottom:14px}
+.cta-section .cta-links{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+
+/* Footer */
+footer{text-align:center;padding:20px;color:#444;font-size:0.8rem;border-top:1px solid #1a1a1a}
+footer a{color:#00d4ff}
+
+/* Mobile sidebar toggle */
+.sidebar-toggle{display:none;position:fixed;bottom:20px;left:20px;z-index:200;width:44px;height:44px;border-radius:50%;background:#00d4ff;color:#0a0a0a;border:none;font-size:1.2rem;cursor:pointer;box-shadow:0 4px 20px rgba(0,212,255,0.3);align-items:center;justify-content:center}
+
+/* Responsive */
+@media(max-width:768px){
+  .sidebar{position:fixed;left:-300px;top:50px;bottom:0;z-index:150;transition:left 0.3s;box-shadow:4px 0 20px rgba(0,0,0,0.5)}
+  .sidebar.open{left:0}
+  .sidebar-toggle{display:flex}
+  .toolbar{padding:10px 16px}
+  .canvas-wrapper{padding:20px 16px}
+  .step-card{max-width:100%}
+  .stats{display:none}
+  .cta-section{margin:16px}
+}
+@media(max-width:480px){
+  nav .links{gap:12px;font-size:0.8rem}
+  .toolbar .workflow-name{min-width:120px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="logo">SPUNK.CODES</a>
+  <div class="links">
+    <a href="/">Home</a>
+    <a href="/blog/">Blog</a>
+    <a href="/automation-builder">Automation Builder</a>
+  </div>
+</nav>
+
+<div class="app-wrapper">
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div>
+      <h2>Workflow Steps</h2>
+      <p style="font-size:0.72rem;color:#555;margin-top:2px">Click or drag steps to add them to your workflow</p>
+    </div>
+
+    <div>
+      <div class="category-label">Triggers</div>
+      <div class="step-template cat-trigger" data-category="trigger" data-subtype="webhook" draggable="true">
+        <div class="icon">&#9889;</div>
+        <div class="info"><div class="name">Webhook</div><div class="desc">HTTP request triggers workflow</div></div>
+      </div>
+      <div class="step-template cat-trigger" data-category="trigger" data-subtype="schedule" draggable="true">
+        <div class="icon">&#128337;</div>
+        <div class="info"><div class="name">Schedule</div><div class="desc">Run on cron or interval</div></div>
+      </div>
+      <div class="step-template cat-trigger" data-category="trigger" data-subtype="email" draggable="true">
+        <div class="icon">&#9993;</div>
+        <div class="info"><div class="name">Email Received</div><div class="desc">Trigger on incoming email</div></div>
+      </div>
+      <div class="step-template cat-trigger" data-category="trigger" data-subtype="form" draggable="true">
+        <div class="icon">&#128221;</div>
+        <div class="info"><div class="name">Form Submission</div><div class="desc">User submits a web form</div></div>
+      </div>
+    </div>
+
+    <div>
+      <div class="category-label">AI Actions</div>
+      <div class="step-template cat-ai" data-category="ai" data-subtype="generate-text" draggable="true">
+        <div class="icon">&#9998;</div>
+        <div class="info"><div class="name">Generate Text</div><div class="desc">AI writes content or responses</div></div>
+      </div>
+      <div class="step-template cat-ai" data-category="ai" data-subtype="analyze-data" draggable="true">
+        <div class="icon">&#128202;</div>
+        <div class="info"><div class="name">Analyze Data</div><div class="desc">Extract insights from data</div></div>
+      </div>
+      <div class="step-template cat-ai" data-category="ai" data-subtype="classify" draggable="true">
+        <div class="icon">&#128278;</div>
+        <div class="info"><div class="name">Classify</div><div class="desc">Categorize inputs with AI</div></div>
+      </div>
+      <div class="step-template cat-ai" data-category="ai" data-subtype="summarize" draggable="true">
+        <div class="icon">&#128196;</div>
+        <div class="info"><div class="name">Summarize</div><div class="desc">Condense text to key points</div></div>
+      </div>
+      <div class="step-template cat-ai" data-category="ai" data-subtype="translate" draggable="true">
+        <div class="icon">&#127760;</div>
+        <div class="info"><div class="name">Translate</div><div class="desc">Convert between languages</div></div>
+      </div>
+    </div>
+
+    <div>
+      <div class="category-label">Integrations</div>
+      <div class="step-template cat-integration" data-category="integration" data-subtype="send-email" draggable="true">
+        <div class="icon">&#128231;</div>
+        <div class="info"><div class="name">Send Email</div><div class="desc">Deliver email via SMTP/API</div></div>
+      </div>
+      <div class="step-template cat-integration" data-category="integration" data-subtype="slack" draggable="true">
+        <div class="icon">&#128172;</div>
+        <div class="info"><div class="name">Post to Slack</div><div class="desc">Send message to channel</div></div>
+      </div>
+      <div class="step-template cat-integration" data-category="integration" data-subtype="spreadsheet" draggable="true">
+        <div class="icon">&#128200;</div>
+        <div class="info"><div class="name">Update Spreadsheet</div><div class="desc">Add/update rows in sheets</div></div>
+      </div>
+      <div class="step-template cat-integration" data-category="integration" data-subtype="api-call" draggable="true">
+        <div class="icon">&#128268;</div>
+        <div class="info"><div class="name">API Call</div><div class="desc">HTTP request to any endpoint</div></div>
+      </div>
+    </div>
+
+    <div>
+      <div class="category-label">Logic</div>
+      <div class="step-template cat-logic" data-category="logic" data-subtype="if-else" draggable="true">
+        <div class="icon">&#9096;</div>
+        <div class="info"><div class="name">If / Else</div><div class="desc">Branch based on condition</div></div>
+      </div>
+      <div class="step-template cat-logic" data-category="logic" data-subtype="delay" draggable="true">
+        <div class="icon">&#9202;</div>
+        <div class="info"><div class="name">Delay</div><div class="desc">Wait before next step</div></div>
+      </div>
+      <div class="step-template cat-logic" data-category="logic" data-subtype="loop" draggable="true">
+        <div class="icon">&#128260;</div>
+        <div class="info"><div class="name">Loop</div><div class="desc">Repeat for each item</div></div>
+      </div>
+      <div class="step-template cat-logic" data-category="logic" data-subtype="filter" draggable="true">
+        <div class="icon">&#128269;</div>
+        <div class="info"><div class="name">Filter</div><div class="desc">Continue only if criteria met</div></div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Area -->
+  <div class="main-area">
+    <!-- Toolbar -->
+    <div class="toolbar">
+      <input type="text" class="workflow-name" id="workflowName" placeholder="Untitled Workflow" value="My AI Workflow">
+      <div class="stats">
+        <div class="stat-pill"><span class="val" id="stepCount">0</span> steps</div>
+        <div class="stat-pill">~<span class="val" id="timeSaved">0</span> hrs/week saved</div>
+      </div>
+      <button class="btn btn-accent" onclick="exportWorkflow()">&#128230; Export JSON</button>
+      <button class="btn btn-secondary" onclick="clearWorkflow()">&#128465; Clear</button>
+    </div>
+
+    <!-- Canvas -->
+    <div class="canvas-wrapper" id="canvasWrapper">
+      <div id="canvas">
+        <div class="canvas-empty" id="canvasEmpty">
+          <div class="icon-big">&#9881;</div>
+          <h3>Build Your AI Workflow</h3>
+          <p>Click or drag steps from the sidebar to start designing your automation pipeline</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Output Panel -->
+    <div class="output-panel" id="outputPanel">
+      <div class="panel-header">
+        <h3>&#128196; Workflow JSON</h3>
+        <div style="display:flex;gap:8px">
+          <button class="btn btn-green" style="padding:6px 14px;font-size:0.78rem" onclick="copyJSON()">&#128203; Copy to Clipboard</button>
+          <button class="btn btn-secondary" style="padding:6px 14px;font-size:0.78rem" onclick="closePanel()">Close</button>
+        </div>
+      </div>
+      <pre id="jsonOutput"></pre>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-section">
+      <h3>Ready to Automate for Real?</h3>
+      <p>Turn this workflow into a running automation. Explore our builder tools and automation guides.</p>
+      <div class="cta-links">
+        <a href="/automation-builder" class="btn btn-accent">Automation Builder</a>
+        <a href="/blog/automate-everything-2026-guide" class="btn btn-secondary">2026 Automation Guide</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- Mobile sidebar toggle -->
+<button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar">&#9776;</button>
+
+<footer>
+  &copy; 2026 <a href="https://spunk.codes">SpunkArt</a> &middot; <a href="https://x.com/SpunkArt13" target="_blank" rel="noopener">@SpunkArt13</a>
+</footer>
+
+<script>
+(function(){
+  'use strict';
+
+  // --- State ---
+  let steps = [];
+  let nextId = 1;
+  let draggedTemplate = null;
+
+  // --- Step metadata ---
+  const STEP_META = {
+    trigger: {
+      label: 'Trigger', color: '#ff5f1f',
+      subtypes: {
+        'webhook': { icon: '\u26A1', name: 'Webhook', desc: 'HTTP request triggers workflow', time: 0.5 },
+        'schedule': { icon: '\uD83D\uDD51', name: 'Schedule', desc: 'Run on cron or interval', time: 0.3 },
+        'email': { icon: '\u2709', name: 'Email Received', desc: 'Trigger on incoming email', time: 0.5 },
+        'form': { icon: '\uD83D\uDCDD', name: 'Form Submission', desc: 'User submits a web form', time: 0.4 }
+      }
+    },
+    ai: {
+      label: 'AI Action', color: '#00d4ff',
+      subtypes: {
+        'generate-text': { icon: '\u270E', name: 'Generate Text', desc: 'AI writes content or responses', time: 3.0 },
+        'analyze-data': { icon: '\uD83D\uDCCA', name: 'Analyze Data', desc: 'Extract insights from data', time: 4.0 },
+        'classify': { icon: '\uD83D\uDD16', name: 'Classify', desc: 'Categorize inputs with AI', time: 2.0 },
+        'summarize': { icon: '\uD83D\uDCC4', name: 'Summarize', desc: 'Condense text to key points', time: 2.5 },
+        'translate': { icon: '\uD83C\uDF10', name: 'Translate', desc: 'Convert between languages', time: 1.5 }
+      }
+    },
+    integration: {
+      label: 'Integration', color: '#10b981',
+      subtypes: {
+        'send-email': { icon: '\uD83D\uDCE7', name: 'Send Email', desc: 'Deliver email via SMTP/API', time: 1.0 },
+        'slack': { icon: '\uD83D\uDCAC', name: 'Post to Slack', desc: 'Send message to channel', time: 0.5 },
+        'spreadsheet': { icon: '\uD83D\uDCC8', name: 'Update Spreadsheet', desc: 'Add/update rows in sheets', time: 1.5 },
+        'api-call': { icon: '\uD83D\uDD0C', name: 'API Call', desc: 'HTTP request to any endpoint', time: 1.0 }
+      }
+    },
+    logic: {
+      label: 'Logic', color: '#a855f7',
+      subtypes: {
+        'if-else': { icon: '\u2388', name: 'If / Else', desc: 'Branch based on condition', time: 0.5 },
+        'delay': { icon: '\u23F2', name: 'Delay', desc: 'Wait before next step', time: 0.2 },
+        'loop': { icon: '\uD83D\uDD04', name: 'Loop', desc: 'Repeat for each item', time: 1.0 },
+        'filter': { icon: '\uD83D\uDD0D', name: 'Filter', desc: 'Continue only if criteria met', time: 0.3 }
+      }
+    }
+  };
+
+  // --- DOM refs ---
+  const canvas = document.getElementById('canvas');
+  const canvasEmpty = document.getElementById('canvasEmpty');
+  const stepCountEl = document.getElementById('stepCount');
+  const timeSavedEl = document.getElementById('timeSaved');
+  const outputPanel = document.getElementById('outputPanel');
+  const jsonOutput = document.getElementById('jsonOutput');
+  const toastEl = document.getElementById('toast');
+  const sidebar = document.getElementById('sidebar');
+  const sidebarToggle = document.getElementById('sidebarToggle');
+
+  // --- Sidebar toggle (mobile) ---
+  sidebarToggle.addEventListener('click', function(){
+    sidebar.classList.toggle('open');
+  });
+
+  // Close sidebar when clicking canvas on mobile
+  document.getElementById('canvasWrapper').addEventListener('click', function(){
+    sidebar.classList.remove('open');
+  });
+
+  // --- Sidebar click + drag ---
+  document.querySelectorAll('.step-template').forEach(function(el){
+    // Click to add
+    el.addEventListener('click', function(){
+      var cat = el.getAttribute('data-category');
+      var sub = el.getAttribute('data-subtype');
+      addStep(cat, sub);
+      sidebar.classList.remove('open');
+    });
+
+    // Drag start
+    el.addEventListener('dragstart', function(e){
+      draggedTemplate = { category: el.getAttribute('data-category'), subtype: el.getAttribute('data-subtype') };
+      e.dataTransfer.effectAllowed = 'copy';
+      e.dataTransfer.setData('text/plain', '');
+      el.style.opacity = '0.5';
+    });
+    el.addEventListener('dragend', function(){
+      el.style.opacity = '1';
+      draggedTemplate = null;
+    });
+  });
+
+  // --- Canvas drop zone ---
+  var canvasWrap = document.getElementById('canvasWrapper');
+  canvasWrap.addEventListener('dragover', function(e){
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'copy';
+    canvasWrap.style.background = 'radial-gradient(ellipse 60% 40% at 50% 0%,rgba(0,212,255,0.08) 0%,transparent 60%),linear-gradient(rgba(255,255,255,0.015) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.015) 1px,transparent 1px)';
+    canvasWrap.style.backgroundSize = '100% 100%,30px 30px,30px 30px';
+    canvasWrap.style.backgroundColor = '#0c0c0c';
+  });
+  canvasWrap.addEventListener('dragleave', function(){
+    resetCanvasBg();
+  });
+  canvasWrap.addEventListener('drop', function(e){
+    e.preventDefault();
+    resetCanvasBg();
+    if(draggedTemplate){
+      addStep(draggedTemplate.category, draggedTemplate.subtype);
+      draggedTemplate = null;
+    }
+  });
+
+  function resetCanvasBg(){
+    var cw = document.getElementById('canvasWrapper');
+    cw.style.background = '';
+    cw.style.backgroundColor = '';
+    cw.style.backgroundSize = '';
+  }
+
+  // --- Add step ---
+  function addStep(category, subtype){
+    var meta = STEP_META[category];
+    if(!meta) return;
+    var sub = meta.subtypes[subtype];
+    if(!sub) return;
+
+    var step = {
+      id: nextId++,
+      category: category,
+      subtype: subtype,
+      label: meta.label,
+      icon: sub.icon,
+      name: sub.name,
+      description: sub.desc,
+      customName: '',
+      customDesc: '',
+      timeSaved: sub.time,
+      color: meta.color
+    };
+    steps.push(step);
+    renderCanvas();
+    updateStats();
+    showToast('Added: ' + sub.name);
+  }
+
+  // --- Remove step ---
+  window.removeStep = function(id){
+    steps = steps.filter(function(s){ return s.id !== id; });
+    renderCanvas();
+    updateStats();
+  };
+
+  // --- Move step ---
+  window.moveStep = function(id, dir){
+    var idx = steps.findIndex(function(s){ return s.id === id; });
+    if(idx < 0) return;
+    var newIdx = idx + dir;
+    if(newIdx < 0 || newIdx >= steps.length) return;
+    var temp = steps[idx];
+    steps[idx] = steps[newIdx];
+    steps[newIdx] = temp;
+    renderCanvas();
+  };
+
+  // --- Update step field ---
+  window.updateStepField = function(id, field, value){
+    var step = steps.find(function(s){ return s.id === id; });
+    if(step) step[field] = value;
+    updateStats();
+  };
+
+  // --- Render canvas ---
+  function renderCanvas(){
+    if(steps.length === 0){
+      canvas.innerHTML = '';
+      canvas.appendChild(canvasEmpty);
+      canvasEmpty.style.display = '';
+      return;
+    }
+    canvasEmpty.style.display = 'none';
+
+    var chain = document.createElement('div');
+    chain.className = 'workflow-chain';
+
+    steps.forEach(function(step, idx){
+      // Arrow before (except first)
+      if(idx > 0){
+        var arrow = document.createElement('div');
+        arrow.className = 'arrow-connector';
+        arrow.innerHTML = '<div class="arrow-line"></div><div class="arrow-head"></div>';
+        chain.appendChild(arrow);
+      }
+
+      // Step card
+      var card = document.createElement('div');
+      card.className = 'step-card type-' + step.category;
+      card.setAttribute('data-id', step.id);
+
+      var displayName = step.customName || step.name;
+      var displayDesc = step.customDesc || step.description;
+
+      card.innerHTML =
+        '<div class="step-header">' +
+          '<div class="step-icon">' + step.icon + '</div>' +
+          '<span class="step-badge">' + step.label + '</span>' +
+          '<span class="step-number">#' + (idx + 1) + '</span>' +
+        '</div>' +
+        '<div class="step-actions">' +
+          '<button class="btn-move-up" onclick="moveStep(' + step.id + ',-1)" title="Move up">&uarr;</button>' +
+          '<button class="btn-move-down" onclick="moveStep(' + step.id + ',1)" title="Move down">&darr;</button>' +
+          '<button class="btn-delete" onclick="removeStep(' + step.id + ')" title="Delete">&times;</button>' +
+        '</div>' +
+        '<div class="step-fields">' +
+          '<input type="text" placeholder="Step name" value="' + escapeAttr(step.customName || step.name) + '" onchange="updateStepField(' + step.id + ',\'customName\',this.value)" onfocus="this.select()">' +
+          '<input type="text" placeholder="Description" value="' + escapeAttr(step.customDesc || step.description) + '" onchange="updateStepField(' + step.id + ',\'customDesc\',this.value)" onfocus="this.select()">' +
+        '</div>';
+
+      chain.appendChild(card);
+    });
+
+    canvas.innerHTML = '';
+    canvas.appendChild(chain);
+  }
+
+  // --- Stats ---
+  function updateStats(){
+    stepCountEl.textContent = steps.length;
+    var totalTime = 0;
+    steps.forEach(function(s){ totalTime += s.timeSaved; });
+    timeSavedEl.textContent = totalTime.toFixed(1);
+  }
+
+  // --- Export workflow JSON ---
+  window.exportWorkflow = function(){
+    if(steps.length === 0){
+      showToast('Add steps to your workflow first');
+      return;
+    }
+
+    var workflowName = document.getElementById('workflowName').value || 'Untitled Workflow';
+    var totalTime = 0;
+    steps.forEach(function(s){ totalTime += s.timeSaved; });
+
+    var output = {
+      workflow: {
+        name: workflowName,
+        version: '1.0',
+        created: new Date().toISOString(),
+        stepCount: steps.length,
+        estimatedTimeSavedPerWeek: totalTime.toFixed(1) + ' hours'
+      },
+      steps: steps.map(function(s, idx){
+        return {
+          order: idx + 1,
+          id: 'step_' + s.id,
+          category: s.category,
+          type: s.subtype,
+          name: s.customName || s.name,
+          description: s.customDesc || s.description,
+          estimatedTimeSaved: s.timeSaved + ' hrs/week'
+        };
+      }),
+      connections: steps.slice(1).map(function(s, idx){
+        return {
+          from: 'step_' + steps[idx].id,
+          to: 'step_' + s.id
+        };
+      })
+    };
+
+    jsonOutput.textContent = JSON.stringify(output, null, 2);
+    outputPanel.classList.add('visible');
+    outputPanel.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  // --- Copy JSON ---
+  window.copyJSON = function(){
+    var text = jsonOutput.textContent;
+    if(!text) return;
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(function(){
+        showToast('Copied to clipboard!');
+      });
+    } else {
+      // Fallback
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      showToast('Copied to clipboard!');
+    }
+  };
+
+  // --- Close output panel ---
+  window.closePanel = function(){
+    outputPanel.classList.remove('visible');
+  };
+
+  // --- Clear workflow ---
+  window.clearWorkflow = function(){
+    if(steps.length === 0) return;
+    if(!confirm('Clear all steps from this workflow?')) return;
+    steps = [];
+    nextId = 1;
+    renderCanvas();
+    updateStats();
+    outputPanel.classList.remove('visible');
+    showToast('Workflow cleared');
+  };
+
+  // --- Toast ---
+  function showToast(msg){
+    toastEl.textContent = msg;
+    toastEl.classList.add('show');
+    setTimeout(function(){ toastEl.classList.remove('show'); }, 2000);
+  }
+
+  // --- Utility ---
+  function escapeAttr(str){
+    return str.replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
+  // --- Init ---
+  renderCanvas();
+  updateStats();
+
+})();
+</script>
+</body>
+</html>
