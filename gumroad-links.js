@@ -25,16 +25,16 @@
   var STORE_FALLBACK = 'https://monkeyshine40.gumroad.com/l/mhmzrz';
 
   var products = {
-    // Premium Ebooks
-    'ebook-site-empire':          { url: GUMROAD_BASE + 'mhmzrz', price: '$39.99', name: 'The 120-Site Empire Blueprint' },
-    'ebook-ai-automation':        { url: GUMROAD_BASE + 'mhmzrz', price: '$29.99', name: 'The AI Automation Playbook' },
-    'ebook-ai-agents':            { url: GUMROAD_BASE + 'mhmzrz', price: '$29.99', name: 'Building AI Agents' },
-    'ebook-mcp-guide':            { url: GUMROAD_BASE + 'mhmzrz', price: '$24.99', name: 'The MCP Server Guide' },
-    'ebook-vibe-coders-playbook': { url: GUMROAD_BASE + 'mhmzrz', price: '$29.99', name: "The Vibe Coder's Playbook" },
-    'ebook-free-tools-money':     { url: GUMROAD_BASE + 'mhmzrz', price: '$19.99', name: 'Free Tools That Print Money' },
-    'ebook-no-code-empire':       { url: GUMROAD_BASE + 'mhmzrz', price: '$19.99', name: 'The No-Code Empire' },
-    'ebook-passive-income':       { url: GUMROAD_BASE + 'mhmzrz', price: '$19.99', name: 'The Passive Income Machine' },
-    'ebook-automation-mastery':   { url: GUMROAD_BASE + 'mhmzrz', price: '$29.99', name: 'Automation Mastery' },
+    // Premium Ebooks ($9.97 each — standardized pricing)
+    'ebook-site-empire':          { url: GUMROAD_BASE + 'mhmzrz', price: '$9.97', name: 'The 120-Site Empire Blueprint' },
+    'ebook-ai-automation':        { url: GUMROAD_BASE + 'mhmzrz', price: '$9.97', name: 'The AI Automation Playbook' },
+    'ebook-ai-agents':            { url: GUMROAD_BASE + 'mhmzrz', price: '$9.97', name: 'Building AI Agents' },
+    'ebook-mcp-guide':            { url: GUMROAD_BASE + 'mhmzrz', price: '$9.97', name: 'The MCP Server Guide' },
+    'ebook-vibe-coders-playbook': { url: GUMROAD_BASE + 'mhmzrz', price: '$9.97', name: "The Vibe Coder's Playbook" },
+    'ebook-free-tools-money':     { url: GUMROAD_BASE + 'mhmzrz', price: '$9.97', name: 'Free Tools That Print Money' },
+    'ebook-no-code-empire':       { url: GUMROAD_BASE + 'mhmzrz', price: '$9.97', name: 'The No-Code Empire' },
+    'ebook-passive-income':       { url: GUMROAD_BASE + 'mhmzrz', price: '$9.97', name: 'The Passive Income Machine' },
+    'ebook-automation-mastery':   { url: GUMROAD_BASE + 'mhmzrz', price: '$9.97', name: 'Automation Mastery' },
 
     // Free Ebooks (still link to Gumroad for lead capture)
     'ebook-prompt-engineering':   { url: GUMROAD_BASE + 'mhmzrz', price: 'Free',   name: 'Prompt Engineering Bible' },
@@ -44,15 +44,15 @@
     'ebook-social-media-growth':  { url: GUMROAD_BASE + 'mhmzrz', price: 'Free',   name: 'Social Media Growth' },
 
     // Bundles
-    'bundle-solo-founder':        { url: GUMROAD_BASE + 'mhmzrz', price: '$49.99', name: 'Solo Founder Pack' },
-    'bundle-creator':             { url: GUMROAD_BASE + 'mhmzrz', price: '$39.99', name: 'Creator Pack' },
-    'bundle-full-access':         { url: GUMROAD_BASE + 'mhmzrz', price: '$79.99', name: 'Full Access Bundle' },
-    'bundle-everything':          { url: GUMROAD_BASE + 'mhmzrz', price: '$99.00', name: 'Everything Bundle' },
+    'bundle-solo-founder':        { url: GUMROAD_BASE + 'mhmzrz', price: '$47', name: 'Solo Founder Pack' },
+    'bundle-creator':             { url: GUMROAD_BASE + 'mhmzrz', price: '$47', name: 'Creator Pack' },
+    'bundle-full-access':         { url: GUMROAD_BASE + 'mhmzrz', price: '$47', name: 'Full Access Bundle' },
+    'bundle-everything':          { url: GUMROAD_BASE + 'mhmzrz', price: '$97', name: 'Everything Bundle' },
 
     // Plans
-    'plan-pro-monthly':           { url: GUMROAD_BASE + 'mhmzrz', price: '$19/mo', name: 'Pro Monthly' },
-    'plan-pro-annual':            { url: GUMROAD_BASE + 'mhmzrz', price: '$99/yr', name: 'Pro Annual' },
-    'plan-lifetime':              { url: GUMROAD_BASE + 'mhmzrz', price: '$199',   name: 'Lifetime Access' }
+    'plan-pro-monthly':           { url: GUMROAD_BASE + 'mhmzrz', price: '$9.97/mo', name: 'Pro Monthly' },
+    'plan-pro-annual':            { url: GUMROAD_BASE + 'mhmzrz', price: '$47/yr',   name: 'Pro Annual' },
+    'plan-lifetime':              { url: GUMROAD_BASE + 'mhmzrz', price: '$97',      name: 'Lifetime Access' }
   };
 
   // ── GA4 Event Tracking ──────────────────────────────────

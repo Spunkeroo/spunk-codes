@@ -184,7 +184,7 @@ a{color:inherit;text-decoration:none}
           <div class="plan-desc">75 exclusive tools + all ebooks + no ads. Cancel anytime.</div>
         </div>
         <div class="plan-price-col">
-          <div class="plan-price-main">$19/mo</div>
+          <div class="plan-price-main">$9.97/mo</div>
           <div class="plan-price-note">Billed monthly</div>
         </div>
       </div>
@@ -194,13 +194,13 @@ a{color:inherit;text-decoration:none}
         <div class="plan-info">
           <div class="plan-info-top">
             <span class="plan-name">Pro Annual</span>
-            <span class="plan-tag save">Save 35%</span>
+            <span class="plan-tag save">Save 61%</span>
           </div>
-          <div class="plan-desc">Everything in Pro Monthly. Billed yearly &mdash; save $79/yr.</div>
+          <div class="plan-desc">Everything in Pro Monthly. Billed yearly &mdash; save $72.64/yr.</div>
         </div>
         <div class="plan-price-col">
-          <div class="plan-price-main">$149/yr</div>
-          <div class="plan-price-note">~$12.42/mo</div>
+          <div class="plan-price-main">$47/yr</div>
+          <div class="plan-price-note">~$3.92/mo</div>
         </div>
       </div>
 
@@ -215,8 +215,8 @@ a{color:inherit;text-decoration:none}
           <div class="plan-desc">Everything in Pro, forever. All future tools + ebooks. Founding member perks.</div>
         </div>
         <div class="plan-price-col">
-          <div class="plan-price-orig">$499</div>
-          <div class="plan-price-main">$349</div>
+          <div class="plan-price-orig">$199</div>
+          <div class="plan-price-main">$97</div>
           <div class="plan-price-note">One-time, never again</div>
         </div>
       </div>
@@ -344,7 +344,7 @@ a{color:inherit;text-decoration:none}
       <div class="order-total">
         <span class="order-total-label">Total</span>
         <div>
-          <div class="order-total-price" id="orderTotal">$349</div>
+          <div class="order-total-price" id="orderTotal">$97</div>
           <div class="order-total-note" id="orderTotalNote">one-time payment</div>
         </div>
       </div>
@@ -395,13 +395,13 @@ document.addEventListener('keydown',function(e){if(e.key==='F12'||(e.ctrlKey&&e.
 var plans={
   'pro-monthly':{
     name:'Pro Monthly',
-    price:19,
-    priceLabel:'$19',
+    price:9.97,
+    priceLabel:'$9.97',
     priceNote:'/month',
     totalNote:'per month',
     gumroadKey:'plan-pro-monthly',
     items:[
-      {name:'Pro Monthly Subscription',desc:'75 exclusive tools + all ebooks',price:'$19/mo'}
+      {name:'Pro Monthly Subscription',desc:'75 exclusive tools + all ebooks',price:'$9.97/mo'}
     ],
     features:[
       '75 exclusive premium tools','All ebooks included ($200+ value)','Priority tool updates','No ads anywhere',
@@ -410,29 +410,29 @@ var plans={
   },
   'pro-annual':{
     name:'Pro Annual',
-    price:149,
-    priceLabel:'$149',
+    price:47,
+    priceLabel:'$47',
     priceNote:'/year',
     totalNote:'per year',
     gumroadKey:'plan-pro-annual',
     items:[
-      {name:'Pro Annual Subscription',desc:'75 exclusive tools + all ebooks',price:'$149/yr'},
-      {name:'Annual Savings',desc:'Save $79 vs monthly billing',price:'Included'}
+      {name:'Pro Annual Subscription',desc:'75 exclusive tools + all ebooks',price:'$47/yr'},
+      {name:'Annual Savings',desc:'Save $72.64 vs monthly billing',price:'Included'}
     ],
     features:[
       '75 exclusive premium tools','All ebooks included ($200+ value)','Priority tool updates','No ads anywhere',
-      'Export to all formats','Advanced features unlocked','Email support','Save 35% vs monthly'
+      'Export to all formats','Advanced features unlocked','Email support','Save 61% vs monthly'
     ]
   },
   'lifetime':{
     name:'Lifetime Access',
-    price:349,
-    priceLabel:'$349',
+    price:97,
+    priceLabel:'$97',
     priceNote:' one-time',
     totalNote:'one-time payment',
     gumroadKey:'plan-lifetime',
     items:[
-      {name:'Lifetime Access',desc:'Everything in Pro, forever',price:'$349'},
+      {name:'Lifetime Access',desc:'Everything in Pro, forever',price:'$97'},
       {name:'All Future Tools',desc:'Included at no extra cost',price:'Free'},
       {name:'All Future Ebooks',desc:'Every new ebook, forever',price:'Free'},
       {name:'Founding Member Badge',desc:'Exclusive to first 500 members',price:'Free'}
@@ -523,8 +523,9 @@ var plans={
   }
 };
 
-// Format price with commas (e.g. 1999 -> "1,999")
+// Format price (e.g. 1999 -> "1,999", 9.97 -> "9.97")
 function formatPrice(n){
+  if(n%1!==0) return n.toFixed(2);
   var num=Math.round(n);
   return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g,',');
 }
