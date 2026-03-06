@@ -8,6 +8,7 @@
  * - Respects network targeting (show only on matching networks)
  * - Tracks impressions and clicks
  * - Supports 4 positions: top, bottom, sidebar, sticky
+ * - Supports 6 formats: banner, square-sm, square-md, square-lg, rect, leaderboard
  * - Supports custom HTML ads
  * - Dismissable by users (per-session)
  */
@@ -72,6 +73,16 @@
       .catch(function(){});
   }
 
+  // Format sizes: width x height in px
+  var FORMATS={
+    'banner':{w:'100%',h:'auto',mw:'1200px'},
+    'leaderboard':{w:'728px',h:'90px',mw:'728px'},
+    'square-sm':{w:'200px',h:'200px',mw:'200px'},
+    'square-md':{w:'250px',h:'250px',mw:'250px'},
+    'square-lg':{w:'300px',h:'300px',mw:'300px'},
+    'rect':{w:'300px',h:'250px',mw:'300px'}
+  };
+
   function renderAd(id,ad){
     var existing=document.getElementById('spunk-ad-'+id);
     if(existing)return; // Already rendered
@@ -82,11 +93,29 @@
 
     var bg=ad.bg||'#1a1a2e';
     var accent=ad.accent||'#a855f7';
+    var fmt=ad.format||'banner';
+    var sz=FORMATS[fmt]||FORMATS['banner'];
+    var isBlock=fmt!=='banner';
 
     var inner;
     if(ad.html){
       inner=ad.html;
+    }else if(isBlock){
+      // Square/rect/leaderboard block ad
+      inner='<a href="'+esc(ad.url)+'" target="_blank" rel="noopener" onclick="window._spunkAdClick(\''+id+'\')" style="display:block;width:'+sz.w+';height:'+sz.h+';max-width:100%;background:'+esc(bg)+';border:1px solid '+esc(accent)+'33;border-radius:10px;text-decoration:none;overflow:hidden;position:relative;font-family:system-ui,sans-serif">';
+      if(ad.image){
+        inner+='<img src="'+esc(ad.image)+'" alt="'+esc(ad.headline||'Ad')+'" style="width:100%;height:100%;object-fit:cover">';
+      }else{
+        inner+='<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;padding:12px;text-align:center">';
+        inner+='<strong style="color:#fff;font-size:'+(fmt==='leaderboard'?'0.85rem':'0.9rem')+';margin-bottom:6px;line-height:1.3">'+esc(ad.headline||'')+'</strong>';
+        if(ad.body)inner+='<span style="color:#aaa;font-size:0.75rem;margin-bottom:8px;line-height:1.3">'+esc(ad.body)+'</span>';
+        inner+='<span style="background:'+esc(accent)+';color:#fff;padding:6px 14px;border-radius:6px;font-weight:700;font-size:0.75rem">'+esc(ad.cta||'Learn More')+'</span>';
+        inner+='</div>';
+      }
+      inner+='<button onclick="event.preventDefault();event.stopPropagation();window._spunkAdDismiss(\''+id+'\')" style="position:absolute;top:2px;right:4px;background:rgba(0,0,0,0.5);border:none;color:#999;cursor:pointer;font-size:0.8rem;padding:2px 5px;border-radius:4px;line-height:1" aria-label="Close">&times;</button>';
+      inner+='</a>';
     }else{
+      // Full-width banner (original)
       inner='<div style="background:'+esc(bg)+';border:1px solid '+esc(accent)+'33;border-radius:10px;padding:12px 20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;max-width:1200px;margin:0 auto;position:relative">';
       inner+='<div style="flex:1;min-width:200px"><strong style="color:#fff;font-size:0.9rem">'+esc(ad.headline||'')+'</strong>';
       if(ad.body)inner+='<span style="color:#aaa;font-size:0.8rem;margin-left:8px">'+esc(ad.body)+'</span>';
@@ -97,23 +126,24 @@
     }
     wrapper.innerHTML=inner;
 
-    // Position
+    // Position + alignment
     var pos=ad.position||'top';
+    var align=isBlock?'display:flex;justify-content:center;':'';
     if(pos==='top'){
-      wrapper.style.cssText+='padding:8px 16px;';
+      wrapper.style.cssText+='padding:8px 16px;'+align;
       var body=document.body;
       body.insertBefore(wrapper,body.firstChild);
     }else if(pos==='bottom'){
-      wrapper.style.cssText+='padding:8px 16px;';
+      wrapper.style.cssText+='padding:8px 16px;'+align;
       var footer=document.querySelector('footer')||document.body;
       if(footer.tagName==='FOOTER')footer.parentNode.insertBefore(wrapper,footer);
       else document.body.appendChild(wrapper);
     }else if(pos==='sticky'){
-      wrapper.style.cssText+='position:fixed;bottom:0;left:0;right:0;padding:8px 16px;z-index:9990;';
+      wrapper.style.cssText+='position:fixed;bottom:0;left:0;right:0;padding:8px 16px;z-index:9990;'+align;
       document.body.appendChild(wrapper);
     }else{
       // sidebar / in-content — insert after first <section> or <article>
-      wrapper.style.cssText+='padding:8px 16px;';
+      wrapper.style.cssText+='padding:8px 16px;'+align;
       var target=document.querySelector('section:nth-of-type(2)')||document.querySelector('article')||document.querySelector('main');
       if(target)target.parentNode.insertBefore(wrapper,target.nextSibling);
       else document.body.appendChild(wrapper);
