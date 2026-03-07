@@ -201,7 +201,7 @@
         alignItems: 'center',
         gap: '6px'
       }
-    }, '\uD83D\uDE80 300+ Free Developer Tools & 22 Ebooks \u2192 <strong style="color:#58a6ff">spunk.codes</strong>');
+    }, '\uD83D\uDE80 300+ Free Developer Tools & 33 Ebooks \u2192 <strong style="color:#58a6ff">spunk.codes</strong>');
 
     // CTA button
     var cta = el('a', {
@@ -344,7 +344,7 @@
         marginBottom: '16px',
         lineHeight: '1.45'
       }
-    }, '300+ tools, 22 ebooks, 75 premium tools. No signup required.');
+    }, '250+ free tools, 33 ebooks, 330 exclusive tools. No signup required.');
 
     // CTA
     var cardCta = el('a', {
@@ -476,7 +476,7 @@
           marginLeft: 'auto',
           marginRight: 'auto'
         }
-      }, 'Get <strong style="color:#e6edf3">300+ free tools</strong> for developers, creators & founders at <strong style="color:#58a6ff">spunk.codes</strong>');
+      }, 'Get <strong style="color:#e6edf3">250+ free tools</strong> for developers, creators & founders at <strong style="color:#58a6ff">spunk.codes</strong>');
 
       // No signup badge
       var badge = el('div', {

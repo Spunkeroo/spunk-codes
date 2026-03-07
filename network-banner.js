@@ -29,11 +29,11 @@
 
   // ── Messages ────────────────────────────────────────────
   var messages = [
-    { text: 'Part of the SPUNK Network | 120+ sites | Free tools at spunk.codes', url: 'https://spunk.codes/?ref=' + UTM_SOURCE },
-    { text: '200+ free developer tools -- no sign-up required', url: 'https://spunk.codes/?ref=' + UTM_SOURCE },
+    { text: 'Part of the SPUNK Network | 120+ sites | 250+ free tools at spunk.codes', url: 'https://spunk.codes/?ref=' + UTM_SOURCE },
+    { text: '250+ free developer tools -- no sign-up required', url: 'https://spunk.codes/?ref=' + UTM_SOURCE },
     { text: 'Free ebooks: Vibe Coding, AI Automation, Site Empires & more', url: 'https://spunk.codes/ebook-vibe-coding?ref=' + UTM_SOURCE },
     { text: 'Build your own site empire -- read the free blueprint', url: 'https://spunk.codes/empire-builder?ref=' + UTM_SOURCE },
-    { text: 'JSON Formatter, Password Gen, PDF Tools & 200 more -- all free', url: 'https://spunk.codes/?ref=' + UTM_SOURCE },
+    { text: 'JSON Formatter, Password Gen, PDF Tools & 250+ more -- all free', url: 'https://spunk.codes/?ref=' + UTM_SOURCE },
     { text: 'Explore the full SPUNK Network: 120+ live websites', url: 'https://spunk.codes/network-hub?ref=' + UTM_SOURCE },
     { text: 'SEO tools, social growth tools, AI tools -- free forever', url: 'https://spunk.codes/?ref=' + UTM_SOURCE + '#tools' },
     { text: 'Free Cloudflare Workers toolkit -- 18 deploy-ready tools', url: 'https://spunk.codes/store?ref=' + UTM_SOURCE }

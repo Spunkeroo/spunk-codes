@@ -246,6 +246,9 @@ input,select,textarea{font-family:inherit}
 .tool-open-btn.unlocked{background:rgba(88,166,255,.12);color:var(--blue)}
 .tool-open-btn.unlocked:hover{background:rgba(88,166,255,.2)}
 .tool-open-btn.lock{background:rgba(139,148,158,.08);color:var(--text-muted);cursor:default}
+.tool-badge{font-size:9px;font-weight:700;padding:2px 6px;border-radius:4px;text-transform:uppercase;letter-spacing:.5px;margin-left:6px;white-space:nowrap}
+.tool-badge.free{background:rgba(57,211,83,.15);color:#39d353}
+.tool-badge.pro{background:rgba(188,140,255,.15);color:#bc8cff}
 
 /* ── EBOOK GRID ──────────────────────────────── */
 .ebook-banner{
@@ -546,6 +549,10 @@ input,select,textarea{font-family:inherit}
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
       Rewards
     </button>
+    <button class="dash-tab-btn" data-tab="ads">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+      Ads & Banners
+    </button>
     <button class="dash-tab-btn" data-tab="settings">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
       Settings
@@ -581,6 +588,10 @@ input,select,textarea{font-family:inherit}
     <button class="mobile-tab" data-tab="rewards">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
       Rewards
+    </button>
+    <button class="mobile-tab" data-tab="ads">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+      Ads
     </button>
     <button class="mobile-tab" data-tab="settings">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
@@ -684,6 +695,11 @@ input,select,textarea{font-family:inherit}
 
   <div class="tools-search">
     <input type="text" class="tools-search-input" id="toolSearch" placeholder="Search tools...">
+    <select class="tools-filter" id="toolTier" style="margin-right:4px">
+      <option value="all">All Tiers</option>
+      <option value="free">Free Only</option>
+      <option value="pro">Pro Only</option>
+    </select>
     <select class="tools-filter" id="toolFilter">
       <option value="all">All Categories</option>
       <option value="automation">Automation</option>
@@ -865,6 +881,122 @@ input,select,textarea{font-family:inherit}
 <!-- ╔═══════════════════════════════╗
      ║       SETTINGS TAB           ║
      ╚═══════════════════════════════╝ -->
+<!-- ╔═══════════════════════════════╗
+     ║     ADS & BANNERS TAB         ║
+     ╚═══════════════════════════════╝ -->
+<div class="tab-panel" id="tab-ads">
+  <div class="tab-header">
+    <h2>Ads & Banners</h2>
+    <p style="color:var(--text-secondary);margin:4px 0 0">Preview ad sizes running across your pages via Google AdSense auto-ads.</p>
+  </div>
+
+  <div class="settings-card" style="margin-bottom:24px">
+    <h3 style="margin:0 0 4px">AdSense Status</h3>
+    <p style="color:var(--text-secondary);margin:0 0 16px;font-size:14px">Publisher ID: <code style="background:var(--bg-secondary);padding:2px 8px;border-radius:4px">ca-pub-6264503059486804</code> &mdash; Auto-ads enabled</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px">
+      <div style="background:var(--bg-secondary);border-radius:8px;padding:12px;text-align:center">
+        <div style="font-size:22px;font-weight:700;color:var(--accent)">889</div>
+        <div style="font-size:12px;color:var(--text-secondary)">Pages with Ads</div>
+      </div>
+      <div style="background:var(--bg-secondary);border-radius:8px;padding:12px;text-align:center">
+        <div style="font-size:22px;font-weight:700;color:var(--accent)">Auto</div>
+        <div style="font-size:12px;color:var(--text-secondary)">Ad Placement</div>
+      </div>
+      <div style="background:var(--bg-secondary);border-radius:8px;padding:12px;text-align:center">
+        <div style="font-size:22px;font-weight:700;color:var(--accent)">8</div>
+        <div style="font-size:12px;color:var(--text-secondary)">Ad Formats</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="settings-card" style="margin-bottom:24px">
+    <h3 style="margin:0 0 16px">Ad Size Previews</h3>
+    <p style="color:var(--text-secondary);margin:0 0 20px;font-size:13px">Standard IAB sizes that Google AdSense auto-selects for your pages.</p>
+
+    <div style="display:flex;flex-direction:column;gap:28px">
+
+      <div>
+        <div style="font-weight:600;margin-bottom:4px">Leaderboard <code style="font-size:11px;background:var(--bg-secondary);padding:2px 6px;border-radius:4px">728x90</code> <span style="font-size:12px;color:var(--text-secondary)">&mdash; top of page</span></div>
+        <div style="width:728px;max-width:100%;height:90px;border:2px dashed var(--accent);border-radius:8px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,rgba(99,102,241,0.06),rgba(168,85,247,0.06))">
+          <div style="text-align:center"><div style="font-weight:700;font-size:16px;color:var(--accent)">SPUNK CODES</div><div style="font-size:11px;color:var(--text-secondary)">300+ Premium Tools &bull; 33 Ebooks &bull; Lifetime Access</div><div style="font-size:10px;background:var(--accent);color:#fff;display:inline-block;padding:2px 12px;border-radius:4px;margin-top:4px">Get Started Free</div></div>
+        </div>
+      </div>
+
+      <div>
+        <div style="font-weight:600;margin-bottom:4px">Medium Rectangle <code style="font-size:11px;background:var(--bg-secondary);padding:2px 6px;border-radius:4px">300x250</code> <span style="font-size:12px;color:var(--text-secondary)">&mdash; sidebar, in-content (best CPM)</span></div>
+        <div style="width:300px;height:250px;border:2px dashed var(--accent);border-radius:8px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,rgba(99,102,241,0.06),rgba(168,85,247,0.06))">
+          <div style="text-align:center;padding:16px"><div style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--text-secondary);margin-bottom:6px">Sponsored</div><div style="font-weight:700;font-size:18px;color:var(--accent);margin-bottom:4px">Build Faster</div><div style="font-size:12px;color:var(--text-secondary);margin-bottom:10px">AI-powered tools to launch<br>your next project in minutes</div><div style="font-size:11px;background:var(--accent);color:#fff;display:inline-block;padding:5px 16px;border-radius:6px">Try Free Tools</div></div>
+        </div>
+      </div>
+
+      <div>
+        <div style="font-weight:600;margin-bottom:4px">Large Rectangle <code style="font-size:11px;background:var(--bg-secondary);padding:2px 6px;border-radius:4px">336x280</code> <span style="font-size:12px;color:var(--text-secondary)">&mdash; in-content, end of article</span></div>
+        <div style="width:336px;height:280px;border:2px dashed var(--accent);border-radius:8px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,rgba(99,102,241,0.06),rgba(168,85,247,0.06))">
+          <div style="text-align:center;padding:16px"><div style="font-weight:700;font-size:20px;color:var(--accent);margin-bottom:4px">33 Premium Ebooks</div><div style="font-size:12px;color:var(--text-secondary);margin-bottom:4px">Business, AI, Crypto, Marketing</div><div style="font-size:15px;font-weight:700;color:var(--accent);margin-bottom:8px">$9.97 each</div><div style="font-size:11px;background:var(--accent);color:#fff;display:inline-block;padding:5px 16px;border-radius:6px">Browse Ebooks</div></div>
+        </div>
+      </div>
+
+      <div>
+        <div style="font-weight:600;margin-bottom:4px">Wide Skyscraper <code style="font-size:11px;background:var(--bg-secondary);padding:2px 6px;border-radius:4px">160x600</code> <span style="font-size:12px;color:var(--text-secondary)">&mdash; sidebar (desktop)</span></div>
+        <div style="width:160px;height:600px;border:2px dashed var(--accent);border-radius:8px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,rgba(99,102,241,0.06),rgba(168,85,247,0.06))">
+          <div style="text-align:center;padding:10px"><div style="font-weight:700;font-size:14px;color:var(--accent);margin-bottom:8px">SPUNK CODES</div><div style="font-size:10px;color:var(--text-secondary);margin-bottom:12px;line-height:1.4">Premium tools for creators</div><div style="width:50px;height:50px;border-radius:50%;background:var(--accent);margin:0 auto 12px;display:flex;align-items:center;justify-content:center;font-size:20px">&#9881;</div><div style="font-size:10px;color:var(--text-secondary);margin-bottom:6px">300+ Tools</div><div style="font-size:10px;color:var(--text-secondary);margin-bottom:6px">33 Ebooks</div><div style="font-size:10px;color:var(--text-secondary);margin-bottom:12px">Free & Pro</div><div style="font-size:9px;background:var(--accent);color:#fff;display:inline-block;padding:3px 10px;border-radius:4px">Start Free</div></div>
+        </div>
+      </div>
+
+      <div>
+        <div style="font-weight:600;margin-bottom:4px">Mobile Banner <code style="font-size:11px;background:var(--bg-secondary);padding:2px 6px;border-radius:4px">320x50</code> <span style="font-size:12px;color:var(--text-secondary)">&mdash; mobile top/bottom sticky</span></div>
+        <div style="width:320px;height:50px;border:2px dashed var(--accent);border-radius:8px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,rgba(99,102,241,0.06),rgba(168,85,247,0.06))">
+          <div style="display:flex;align-items:center;gap:8px"><div style="font-weight:700;font-size:12px;color:var(--accent)">SPUNK CODES</div><div style="font-size:10px;color:var(--text-secondary)">Free AI Tools</div><div style="font-size:9px;background:var(--accent);color:#fff;padding:3px 8px;border-radius:4px">Try Now</div></div>
+        </div>
+      </div>
+
+      <div>
+        <div style="font-weight:600;margin-bottom:4px">Large Mobile <code style="font-size:11px;background:var(--bg-secondary);padding:2px 6px;border-radius:4px">320x100</code> <span style="font-size:12px;color:var(--text-secondary)">&mdash; mobile in-content</span></div>
+        <div style="width:320px;height:100px;border:2px dashed var(--accent);border-radius:8px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,rgba(99,102,241,0.06),rgba(168,85,247,0.06))">
+          <div style="text-align:center"><div style="font-weight:700;font-size:14px;color:var(--accent)">Launch Your Side Hustle</div><div style="font-size:10px;color:var(--text-secondary);margin:4px 0">Free tools + ebooks to start earning today</div><div style="font-size:10px;background:var(--accent);color:#fff;display:inline-block;padding:3px 14px;border-radius:4px">Get Started</div></div>
+        </div>
+      </div>
+
+      <div>
+        <div style="font-weight:600;margin-bottom:4px">Large Leaderboard <code style="font-size:11px;background:var(--bg-secondary);padding:2px 6px;border-radius:4px">970x90</code> <span style="font-size:12px;color:var(--text-secondary)">&mdash; wide desktop header/footer</span></div>
+        <div style="width:970px;max-width:100%;height:90px;border:2px dashed var(--accent);border-radius:8px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,rgba(99,102,241,0.06),rgba(168,85,247,0.06));overflow:hidden">
+          <div style="display:flex;align-items:center;gap:20px;padding:0 20px"><div style="font-weight:700;font-size:18px;color:var(--accent)">SPUNK CODES</div><div style="font-size:12px;color:var(--text-secondary)">300+ Premium Tools &bull; 33 Ebooks &bull; AI-Powered &bull; Free to Start</div><div style="font-size:11px;background:var(--accent);color:#fff;padding:6px 20px;border-radius:6px;white-space:nowrap">Explore Tools</div></div>
+        </div>
+      </div>
+
+      <div>
+        <div style="font-weight:600;margin-bottom:4px">In-Article / Native <code style="font-size:11px;background:var(--bg-secondary);padding:2px 6px;border-radius:4px">Responsive</code> <span style="font-size:12px;color:var(--text-secondary)">&mdash; blends with blog content</span></div>
+        <div style="max-width:560px;border:2px dashed var(--accent);border-radius:8px;padding:16px;background:linear-gradient(135deg,rgba(99,102,241,0.06),rgba(168,85,247,0.06))">
+          <div style="font-size:9px;text-transform:uppercase;letter-spacing:1px;color:var(--text-secondary);margin-bottom:6px">Sponsored Content</div>
+          <div style="font-weight:700;font-size:16px;margin-bottom:4px">How to Build a Profitable Side Hustle with AI Tools</div>
+          <div style="font-size:12px;color:var(--text-secondary);margin-bottom:10px;line-height:1.5">Discover the exact tools and strategies that helped creators launch profitable businesses. From content generation to market research &mdash; all in one platform.</div>
+          <div style="display:flex;align-items:center;gap:10px"><div style="font-size:11px;background:var(--accent);color:#fff;padding:5px 14px;border-radius:6px">Read More</div><span style="font-size:10px;color:var(--text-secondary)">spunk.codes</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="settings-card">
+    <h3 style="margin:0 0 12px">Ad Placement Guide</h3>
+    <div style="overflow-x:auto">
+      <table style="width:100%;border-collapse:collapse;font-size:12px">
+        <thead><tr style="border-bottom:2px solid var(--border)"><th style="text-align:left;padding:6px 10px;color:var(--text-secondary)">Format</th><th style="text-align:left;padding:6px 10px;color:var(--text-secondary)">Size</th><th style="text-align:left;padding:6px 10px;color:var(--text-secondary)">Placement</th><th style="text-align:left;padding:6px 10px;color:var(--text-secondary)">Best For</th></tr></thead>
+        <tbody>
+          <tr style="border-bottom:1px solid var(--border)"><td style="padding:6px 10px;font-weight:500">Leaderboard</td><td style="padding:6px 10px;font-family:monospace">728x90</td><td style="padding:6px 10px">Above content</td><td style="padding:6px 10px">High visibility desktop</td></tr>
+          <tr style="border-bottom:1px solid var(--border)"><td style="padding:6px 10px;font-weight:500">Medium Rectangle</td><td style="padding:6px 10px;font-family:monospace">300x250</td><td style="padding:6px 10px">Sidebar, mid-content</td><td style="padding:6px 10px">Highest fill rate & CPM</td></tr>
+          <tr style="border-bottom:1px solid var(--border)"><td style="padding:6px 10px;font-weight:500">Large Rectangle</td><td style="padding:6px 10px;font-family:monospace">336x280</td><td style="padding:6px 10px">In-content, end of article</td><td style="padding:6px 10px">Premium ad slots</td></tr>
+          <tr style="border-bottom:1px solid var(--border)"><td style="padding:6px 10px;font-weight:500">Wide Skyscraper</td><td style="padding:6px 10px;font-family:monospace">160x600</td><td style="padding:6px 10px">Sidebar (sticky)</td><td style="padding:6px 10px">Always visible on scroll</td></tr>
+          <tr style="border-bottom:1px solid var(--border)"><td style="padding:6px 10px;font-weight:500">Mobile Banner</td><td style="padding:6px 10px;font-family:monospace">320x50</td><td style="padding:6px 10px">Mobile top/bottom</td><td style="padding:6px 10px">Mobile monetization</td></tr>
+          <tr style="border-bottom:1px solid var(--border)"><td style="padding:6px 10px;font-weight:500">Large Mobile</td><td style="padding:6px 10px;font-family:monospace">320x100</td><td style="padding:6px 10px">Mobile in-content</td><td style="padding:6px 10px">Higher mobile CPM</td></tr>
+          <tr style="border-bottom:1px solid var(--border)"><td style="padding:6px 10px;font-weight:500">Large Leaderboard</td><td style="padding:6px 10px;font-family:monospace">970x90</td><td style="padding:6px 10px">Wide desktop header</td><td style="padding:6px 10px">Premium desktop</td></tr>
+          <tr><td style="padding:6px 10px;font-weight:500">In-Article</td><td style="padding:6px 10px;font-family:monospace">Responsive</td><td style="padding:6px 10px">Within blog posts</td><td style="padding:6px 10px">Highest engagement</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div><!-- /tab-ads -->
+
 <div class="tab-panel" id="tab-settings">
 
   <!-- Profile -->
@@ -1577,11 +1709,18 @@ document.querySelectorAll('[data-tab]').forEach(function(btn){
 /* ══════════════════════════════════════════════
    RENDER: TOOLS TAB
    ══════════════════════════════════════════════ */
-function renderTools(filter,search){
+function getToolTier(slug){
+  if(STARTER_TOOLS.indexOf(slug)!==-1)return 'free';
+  if(GROWTH_TOOLS.indexOf(slug)!==-1)return 'growth';
+  return 'pro';
+}
+
+function renderTools(filter,search,tierFilter){
   var info=getPlanInfo();
   var container=document.getElementById('toolsContainer');
   var groups={};
   var catOrder=['automation','business','seo','design','development','analytics','content','saas'];
+  var countFree=0,countPro=0;
 
   ALL_TOOLS.forEach(function(tool){
     if(filter&&filter!=='all'&&tool.cat!==filter)return;
@@ -1589,11 +1728,19 @@ function renderTools(filter,search){
       var q=search.toLowerCase();
       if(tool.name.toLowerCase().indexOf(q)===-1&&tool.desc.toLowerCase().indexOf(q)===-1&&tool.slug.indexOf(q)===-1)return;
     }
+    var tt=getToolTier(tool.slug);
+    if(tierFilter==='free'&&tt!=='free')return;
+    if(tierFilter==='pro'&&tt==='free')return;
+    if(tt==='free')countFree++;else countPro++;
     if(!groups[tool.cat])groups[tool.cat]=[];
     groups[tool.cat].push(tool);
   });
 
-  var html='';
+  var html='<div style="display:flex;gap:12px;margin-bottom:16px;font-size:13px;color:var(--text-muted)">';
+  html+='<span><span class="tool-badge free">Free</span> '+countFree+' tools (earn via referrals)</span>';
+  html+='<span><span class="tool-badge pro">Pro</span> '+countPro+' tools (Pro/Lifetime plan)</span>';
+  html+='</div>';
+
   catOrder.forEach(function(cat){
     if(!groups[cat])return;
     var tools=groups[cat];
@@ -1603,9 +1750,12 @@ function renderTools(filter,search){
       var unlocked=isToolUnlocked(tool.slug,info);
       var uses=getToolUses(tool.slug);
       var usesText=uses>0?uses+' uses':'';
+      var tt=getToolTier(tool.slug);
+      var badgeClass=tt==='free'?'free':'pro';
+      var badgeLabel=tt==='free'?'Free':tt==='growth'?'Growth':'Pro';
       html+='<div class="tool-card'+(unlocked?'':' locked')+'">';
       html+='<div class="tool-icon" style="background:'+tool.icon+'22;color:'+tool.icon+'">&#9881;</div>';
-      html+='<div class="tool-info"><div class="tool-name">'+escHtml(tool.name)+'</div><div class="tool-desc">'+escHtml(tool.desc)+'</div>';
+      html+='<div class="tool-info"><div class="tool-name">'+escHtml(tool.name)+'<span class="tool-badge '+badgeClass+'">'+badgeLabel+'</span></div><div class="tool-desc">'+escHtml(tool.desc)+'</div>';
       if(usesText)html+='<div class="tool-uses">'+usesText+'</div>';
       html+='</div>';
       html+='<div class="tool-action">';
@@ -1619,7 +1769,7 @@ function renderTools(filter,search){
     html+='</div>';
   });
 
-  if(!html)html='<div style="text-align:center;padding:40px;color:var(--text-muted)">No tools match your search.</div>';
+  if(countFree===0&&countPro===0)html='<div style="text-align:center;padding:40px;color:var(--text-muted)">No tools match your search.</div>';
   container.innerHTML=html;
 }
 
@@ -1631,15 +1781,25 @@ window.trackToolOpen=function(slug){
 
 // Search & filter
 var searchTimeout;
+function getToolFilters(){
+  return {
+    cat:document.getElementById('toolFilter').value,
+    search:document.getElementById('toolSearch').value,
+    tier:document.getElementById('toolTier').value
+  };
+}
 document.getElementById('toolSearch').addEventListener('input',function(){
-  var val=this.value;
+  var f=getToolFilters();
   clearTimeout(searchTimeout);
   searchTimeout=setTimeout(function(){
-    renderTools(document.getElementById('toolFilter').value,val);
+    renderTools(f.cat,f.search,f.tier);
   },200);
 });
 document.getElementById('toolFilter').addEventListener('change',function(){
-  renderTools(this.value,document.getElementById('toolSearch').value);
+  var f=getToolFilters();renderTools(f.cat,f.search,f.tier);
+});
+document.getElementById('toolTier').addEventListener('change',function(){
+  var f=getToolFilters();renderTools(f.cat,f.search,f.tier);
 });
 
 /* ══════════════════════════════════════════════
@@ -2007,7 +2167,7 @@ function init(){
   // Render everything
   updateNav();
   renderActivity();
-  renderTools('all','');
+  renderTools('all','','all');
   renderEbooks();
   renderReferrals();
   renderRewards();

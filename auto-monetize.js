@@ -216,7 +216,7 @@
       banner.innerHTML =
         '<div class="sc-mon-banner-inner">' +
           '<div class="sc-mon-banner-text">' +
-            '<strong>Like this tool?</strong> Get <em>75 exclusive tools</em>, 22 ebooks, and priority features with <em>Pro</em> &mdash; from $9.97/mo' +
+            '<strong>Like this tool?</strong> Get <em>330 exclusive tools</em>, 33 ebooks, and priority features with <em>Pro</em> &mdash; from $9.97/mo' +
           '</div>' +
           '<a href="/pricing" class="sc-mon-banner-cta" id="sc-mon-cta">Upgrade to Pro &rarr;</a>' +
           '<button class="sc-mon-banner-close" id="sc-mon-close" aria-label="Dismiss">&times;</button>' +
