@@ -710,7 +710,7 @@ input,select,textarea{font-family:inherit}
 
   <div class="ebook-banner">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
-    <div class="ebook-banner-text">All <span>22 ebooks</span> are free with Pro or Lifetime plans</div>
+    <div class="ebook-banner-text">All <span>33 ebooks</span> are free with Pro or Lifetime plans</div>
   </div>
 
   <div class="ebook-grid" id="ebookGrid"></div>
@@ -904,7 +904,7 @@ input,select,textarea{font-family:inherit}
       <div class="settings-row" id="settingUpgradeRow">
         <div class="settings-label">
           Upgrade your plan
-          <small>Access all 95 tools and 22 ebooks</small>
+          <small>Access all 95 tools and 33 ebooks</small>
         </div>
         <a href="/pricing.html" class="settings-btn settings-btn-primary">View Plans</a>
       </div>
@@ -1118,7 +1118,18 @@ var ALL_EBOOKS = [
   {slug:'ebook-free-tools-money',title:'Free Tools to Money',desc:'Monetize free tools and attract users',color:'linear-gradient(135deg,#58a6ff,#388bfd)',emoji:'&#128178;'},
   {slug:'ebook-micro-saas-playbook',title:'Micro SaaS Playbook',desc:'Launch a profitable micro SaaS from scratch',color:'linear-gradient(135deg,#bc8cff,#8957e5)',emoji:'&#128295;'},
   {slug:'ebook-affiliate-marketing-2026',title:'Affiliate Marketing 2026',desc:'Modern affiliate marketing strategies',color:'linear-gradient(135deg,#f85149,#cf222e)',emoji:'&#128184;'},
-  {slug:'ebook-100-side-hustles',title:'100 Side Hustles',desc:'100 proven ways to make money on the side',color:'linear-gradient(135deg,#d29922,#bb8009)',emoji:'&#128170;'}
+  {slug:'ebook-100-side-hustles',title:'100 Side Hustles',desc:'100 proven ways to make money on the side',color:'linear-gradient(135deg,#d29922,#bb8009)',emoji:'&#128170;'},
+  {slug:'ebook-solo-founder-playbook',title:'The Solo Founder Playbook',desc:'Build a one-person business with AI in 2026',color:'linear-gradient(135deg,#f59e0b,#10b981)',emoji:'&#128081;'},
+  {slug:'ebook-claude-code-mastery',title:'Claude Code Mastery',desc:'Master AI-powered terminal coding workflows',color:'linear-gradient(135deg,#d97706,#7c3aed)',emoji:'&#128421;'},
+  {slug:'ebook-domain-empire',title:'The Domain Empire Blueprint',desc:'Build a portfolio of profitable websites',color:'linear-gradient(135deg,#2563eb,#f59e0b)',emoji:'&#127760;'},
+  {slug:'ebook-ai-first-business',title:'AI-First Business',desc:'Launch and scale a business powered by AI',color:'linear-gradient(135deg,#7c3aed,#10b981)',emoji:'&#129504;'},
+  {slug:'ebook-vibe-coding-money',title:'Vibe Coding for Profit',desc:'Turn AI-assisted coding into real income',color:'linear-gradient(135deg,#10b981,#f59e0b)',emoji:'&#128180;'},
+  {slug:'ebook-content-marketing',title:'Content Marketing Mastery',desc:'Scale content that drives traffic and revenue',color:'linear-gradient(135deg,#f0883e,#da3633)',emoji:'&#128221;'},
+  {slug:'ebook-dropshipping-2026',title:'Dropshipping in 2026',desc:'Modern dropshipping strategies that work',color:'linear-gradient(135deg,#56d4dd,#0d8ea8)',emoji:'&#128230;'},
+  {slug:'ebook-freelance-empire',title:'Freelance Empire',desc:'Build a six-figure freelancing business',color:'linear-gradient(135deg,#39d353,#1a7f37)',emoji:'&#128188;'},
+  {slug:'ebook-personal-finance',title:'Personal Finance Mastery',desc:'Master your money and build wealth',color:'linear-gradient(135deg,#f59e0b,#d97706)',emoji:'&#128179;'},
+  {slug:'ebook-real-estate-investing',title:'Real Estate Investing',desc:'Build wealth through real estate',color:'linear-gradient(135deg,#8b949e,#6e7681)',emoji:'&#127968;'},
+  {slug:'ebook-youtube-money',title:'YouTube Money Machine',desc:'Monetize YouTube from zero subscribers',color:'linear-gradient(135deg,#f85149,#da3633)',emoji:'&#127909;'}
 ];
 
 /* ── Category labels ── */
@@ -1181,7 +1192,7 @@ function getPlanInfo(){
   }
 
   // Ebooks
-  var ebooksAvailable=(tier==='pro'||tier==='lifetime'||tier==='whitelabel')?22:0;
+  var ebooksAvailable=(tier==='pro'||tier==='lifetime'||tier==='whitelabel')?33:0;
 
   return{
     isPro:isPro,tier:tier,tierLabel:tierLabel,tierClass:tierClass,
@@ -1335,7 +1346,7 @@ function renderTools(filter,search){
       html+='</div>';
       html+='<div class="tool-action">';
       if(unlocked){
-        html+='<a href="/exclusive/'+tool.slug+'" class="tool-open-btn unlocked" onclick="trackToolOpen(\''+tool.slug+'\')">Open</a>';
+        html+='<a href="/exclusive/'+tool.slug+'.html" class="tool-open-btn unlocked" onclick="trackToolOpen(\''+tool.slug+'\')">Open</a>';
       }else{
         html+='<span class="tool-open-btn lock">&#128274;</span>';
       }
@@ -1389,7 +1400,7 @@ function renderEbooks(){
     html+='<div class="ebook-meta">';
     html+='<span class="ebook-downloads">'+(dls>0?dls+' reads':'')+'</span>';
     if(canRead){
-      html+='<a href="/'+ebook.slug+'" class="ebook-read-btn" onclick="trackEbookClick(\''+ebook.slug+'\')">Read</a>';
+      html+='<a href="/'+ebook.slug+'.html" class="ebook-read-btn" onclick="trackEbookClick(\''+ebook.slug+'\')">Read</a>';
     }else{
       html+='<a href="/pricing.html" class="ebook-read-btn" style="opacity:.5">Upgrade</a>';
     }
@@ -1669,8 +1680,8 @@ function updateNav(){
   // Stats
   document.getElementById('statTools').textContent=info.unlocked+'/'+TOTAL_TOOLS;
   lsSet('sc_dash_tools_unlocked',info.unlocked+'/'+TOTAL_TOOLS);
-  document.getElementById('statEbooks').textContent=info.ebooksAvailable+'/22';
-  lsSet('sc_dash_ebooks_available',info.ebooksAvailable+'/22');
+  document.getElementById('statEbooks').textContent=info.ebooksAvailable+'/33';
+  lsSet('sc_dash_ebooks_available',info.ebooksAvailable+'/33');
   document.getElementById('statReferrals').textContent=info.refCount;
   lsSet('sc_dash_referral_count',info.refCount.toString());
   var earnings=lsNum('sc_ref_earnings');
