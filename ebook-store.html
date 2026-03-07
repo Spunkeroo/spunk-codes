@@ -80,6 +80,17 @@ a{color:inherit;text-decoration:none}
 .bundle-or a{color:var(--blue);font-weight:600}
 .bundle-or a:hover{color:#fff}
 
+/* Coupon */
+.coupon-section{display:flex;gap:8px;justify-content:center;margin-top:1rem;max-width:400px;margin-left:auto;margin-right:auto}
+.coupon-input{flex:1;padding:0.6rem 1rem;background:rgba(255,255,255,0.06);border:1px solid rgba(48,54,61,0.6);border-radius:8px;color:#e6edf3;font-size:0.85rem;font-family:inherit;outline:none;text-transform:uppercase;letter-spacing:1px}
+.coupon-input:focus{border-color:#58a6ff}
+.coupon-input::placeholder{color:#484f58;text-transform:none;letter-spacing:0}
+.coupon-btn{padding:0.6rem 1.2rem;background:rgba(88,166,255,0.12);border:1px solid rgba(88,166,255,0.3);border-radius:8px;color:#58a6ff;font-size:0.85rem;font-weight:700;cursor:pointer;transition:all 0.2s;font-family:inherit}
+.coupon-btn:hover{background:rgba(88,166,255,0.2);border-color:#58a6ff}
+.coupon-msg{text-align:center;margin-top:0.5rem;font-size:0.8rem;font-weight:600;min-height:1.2em}
+.coupon-msg.success{color:#39d353}
+.coupon-msg.error{color:#f85149}
+
 /* Filter */
 .filter-bar{max-width:1200px;margin:2rem auto 0;padding:0 2rem;display:flex;gap:0.5rem;flex-wrap:wrap;justify-content:center}
 .filter-btn{padding:0.4rem 1rem;border:1px solid var(--border);background:transparent;color:var(--text-dim);border-radius:100px;font-size:0.78rem;font-weight:600;cursor:pointer;transition:all 0.2s;font-family:var(--font)}
@@ -194,6 +205,11 @@ a{color:inherit;text-decoration:none}
       <span>Lifetime updates</span>
     </div>
     <a href="https://spunkcodes.gumroad.com/l/all-ebooks-bundle" target="_blank" rel="noopener" class="bundle-cta" id="bundle-cta">Get the Bundle &mdash; $47 &rarr;</a>
+    <div class="coupon-section">
+      <input type="text" class="coupon-input" id="couponInput" placeholder="Have a discount code?" maxlength="20">
+      <button class="coupon-btn" id="couponApplyBtn" onclick="applyCoupon()">Apply</button>
+    </div>
+    <div class="coupon-msg" id="couponMsg"></div>
     <span class="bundle-or">Or <a href="/pricing.html">get all ebooks FREE with Pro</a> ($9.97/mo)</span>
   </div>
 </div>
@@ -727,6 +743,84 @@ function scTrack(action, label) {
     gtag('event', action, { event_category: 'ebook_store', event_label: label });
   }
 }
+
+/* ── Coupon System ── */
+var ebookCoupons={
+  'HALFOFF':{discount:50,type:'percent',label:'50% off'},
+  'WELCOME20':{discount:20,type:'percent',label:'20% off'},
+  'LAUNCH10':{discount:10,type:'percent',label:'10% off'},
+  'SPUNK':{discount:15,type:'percent',label:'15% off'},
+  'REVIEW':{discount:25,type:'percent',label:'25% off — thank you!'},
+  'BUNDLE30':{discount:30,type:'percent',label:'30% off the bundle!'},
+  'FOUNDER':{discount:20,type:'percent',label:'20% off — fellow founder!'}
+};
+var activeCoupon=null;
+var basePrice=9.97;
+var bundlePrice=47;
+
+function applyCoupon(){
+  var input=document.getElementById('couponInput');
+  var msg=document.getElementById('couponMsg');
+  var code=input.value.trim().toUpperCase();
+  if(!code){msg.className='coupon-msg error';msg.textContent='Enter a code';return}
+  var coupon=ebookCoupons[code];
+  if(!coupon){msg.className='coupon-msg error';msg.textContent='Invalid code. Try again.';activeCoupon=null;updatePrices();return}
+  activeCoupon=coupon;
+  activeCoupon.code=code;
+  msg.className='coupon-msg success';
+  msg.textContent=coupon.label+' applied! Discount added to checkout.';
+  updatePrices();
+  if(typeof gtag==='function')gtag('event','coupon_applied',{code:code,page:'ebook-store'});
+}
+
+function updatePrices(){
+  // Update bundle CTA price
+  var bundleCta=document.getElementById('bundle-cta');
+  var bundleEl=document.querySelector('.bundle-price');
+  if(activeCoupon){
+    var discountedBundle=Math.round(bundlePrice*(1-activeCoupon.discount/100)*100)/100;
+    bundleCta.textContent='Get the Bundle — $'+discountedBundle.toFixed(2)+' \u2192';
+    if(bundleEl)bundleEl.innerHTML='<small>$329.01</small> <s style="color:var(--text-muted);font-size:1.2rem">$47</s> $'+discountedBundle.toFixed(2);
+    // Append offer_code to Gumroad links
+    var gumroadLinks=document.querySelectorAll('a[href*="gumroad.com"]');
+    gumroadLinks.forEach(function(link){
+      var url=new URL(link.href);
+      url.searchParams.set('offer_code',activeCoupon.code);
+      link.href=url.toString();
+    });
+    // Update individual buy buttons
+    document.querySelectorAll('.btn-buy').forEach(function(btn){
+      var discounted=Math.round(basePrice*(1-activeCoupon.discount/100)*100)/100;
+      btn.textContent='Buy $'+discounted.toFixed(2);
+    });
+  }else{
+    bundleCta.textContent='Get the Bundle \u2014 $47 \u2192';
+    if(bundleEl)bundleEl.innerHTML='<small>$329.01</small> $47';
+    document.querySelectorAll('.btn-buy').forEach(function(btn){
+      btn.textContent='Buy $9.97';
+    });
+    // Remove offer_code from links
+    document.querySelectorAll('a[href*="gumroad.com"]').forEach(function(link){
+      var url=new URL(link.href);
+      url.searchParams.delete('offer_code');
+      link.href=url.toString();
+    });
+  }
+}
+
+// Auto-apply coupon from URL param
+(function(){
+  var params=new URLSearchParams(window.location.search);
+  var code=params.get('coupon')||params.get('offer_code')||params.get('code');
+  if(code){
+    document.getElementById('couponInput').value=code;
+    applyCoupon();
+  }
+  // Enter key to apply
+  document.getElementById('couponInput').addEventListener('keydown',function(e){
+    if(e.key==='Enter')applyCoupon();
+  });
+})();
 
 /* Code protection */
 document.addEventListener('contextmenu', function(e) { e.preventDefault(); });

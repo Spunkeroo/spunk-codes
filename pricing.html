@@ -248,6 +248,19 @@ a{color:inherit;text-decoration:none}
 .newsletter-form button:hover{box-shadow:0 8px 25px rgba(88,166,255,0.3);transform:translateY(-2px)}
 .newsletter-success{display:none;color:#39d353;font-weight:700;font-size:0.9rem;margin-top:1rem}
 
+/* Coupon Section */
+.pricing-coupon{max-width:500px;margin:0 auto 3rem;text-align:center;padding:0 2rem}
+.pricing-coupon-title{font-size:0.9rem;font-weight:700;color:#8b949e;margin-bottom:0.8rem}
+.pricing-coupon-box{display:flex;gap:8px;justify-content:center}
+.pricing-coupon-input{flex:1;max-width:280px;padding:0.7rem 1rem;background:rgba(255,255,255,0.06);border:1px solid #30363d;border-radius:10px;color:#e6edf3;font-size:0.9rem;font-family:inherit;outline:none;text-transform:uppercase;letter-spacing:1px}
+.pricing-coupon-input:focus{border-color:#58a6ff}
+.pricing-coupon-input::placeholder{color:#484f58;text-transform:none;letter-spacing:0}
+.pricing-coupon-btn{padding:0.7rem 1.5rem;background:rgba(88,166,255,0.12);border:1px solid rgba(88,166,255,0.3);border-radius:10px;color:#58a6ff;font-size:0.9rem;font-weight:700;cursor:pointer;transition:all 0.2s;font-family:inherit}
+.pricing-coupon-btn:hover{background:rgba(88,166,255,0.2);border-color:#58a6ff}
+.pricing-coupon-msg{margin-top:0.5rem;font-size:0.82rem;font-weight:600;min-height:1.2em}
+.pricing-coupon-msg.success{color:#39d353}
+.pricing-coupon-msg.error{color:#f85149}
+
 /* Final CTA */
 .final-cta{text-align:center;padding:5rem 2rem;background:linear-gradient(180deg,transparent,rgba(88,166,255,0.03),transparent)}
 .final-cta h2{font-size:2.2rem;font-weight:800;margin-bottom:0.8rem}
@@ -739,6 +752,16 @@ a{color:inherit;text-decoration:none}
   </div>
 </section>
 
+<!-- Coupon Code Section -->
+<div class="pricing-coupon">
+  <div class="pricing-coupon-title">Have a discount code?</div>
+  <div class="pricing-coupon-box">
+    <input type="text" class="pricing-coupon-input" id="pricingCouponInput" placeholder="Enter code (e.g. SPUNK)" maxlength="20">
+    <button class="pricing-coupon-btn" id="pricingCouponBtn" onclick="applyPricingCoupon()">Apply</button>
+  </div>
+  <div class="pricing-coupon-msg" id="pricingCouponMsg"></div>
+</div>
+
 <!-- Final CTA -->
 <section class="final-cta">
   <h2>Ready to <span>level up</span>?</h2>
@@ -1080,13 +1103,49 @@ var observer=new IntersectionObserver(function(entries){
 },{threshold:0.1});
 document.querySelectorAll('.animate-in').forEach(function(el){observer.observe(el)});
 
-// Check for discount param
+// ── Coupon System ──
+var pricingCoupons={
+  'HALFOFF':{discount:50,type:'percent',label:'50% off'},
+  'WELCOME20':{discount:20,type:'percent',label:'20% off'},
+  'LAUNCH10':{discount:10,type:'percent',label:'10% off'},
+  'SPUNK':{discount:15,type:'percent',label:'15% off + exclusive rewards'},
+  'WHITELABEL':{discount:20,type:'percent',label:'20% off reseller tiers'},
+  'REVIEW':{discount:25,type:'percent',label:'25% off — thank you!'},
+  'FOUNDER':{discount:20,type:'percent',label:'20% off — fellow founder!'},
+  'BUNDLE30':{discount:30,type:'percent',label:'30% off'}
+};
+
+window.applyPricingCoupon=function(){
+  var input=document.getElementById('pricingCouponInput');
+  var msg=document.getElementById('pricingCouponMsg');
+  var code=input.value.trim().toUpperCase();
+  if(!code){msg.className='pricing-coupon-msg error';msg.textContent='Enter a code';return}
+  var coupon=pricingCoupons[code];
+  if(!coupon){msg.className='pricing-coupon-msg error';msg.textContent='Invalid code. Try again.';return}
+  msg.className='pricing-coupon-msg success';
+  msg.textContent=coupon.label+' applied! Discount will be added at checkout.';
+  // Append coupon to all checkout links
+  document.querySelectorAll('a[href*="checkout.html"]').forEach(function(link){
+    var url=new URL(link.href,window.location.origin);
+    url.searchParams.set('coupon',code);
+    link.href=url.toString();
+  });
+  if(typeof gtag==='function')gtag('event','coupon_applied',{code:code,page:'pricing'});
+};
+
+// Auto-apply coupon from URL or discount param
 (function(){
   var params=new URLSearchParams(window.location.search);
-  var discount=params.get('discount');
+  var discount=params.get('discount')||params.get('coupon')||params.get('code');
   if(discount){
+    document.getElementById('pricingCouponInput').value=discount;
+    applyPricingCoupon();
     if(typeof gtag==='function') gtag('event','pricing_discount_applied',{code:discount,group:window.abGroup});
   }
+  // Enter key
+  document.getElementById('pricingCouponInput').addEventListener('keydown',function(e){
+    if(e.key==='Enter')applyPricingCoupon();
+  });
 })();
 
 // ============================================================

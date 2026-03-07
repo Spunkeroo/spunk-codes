@@ -1700,11 +1700,27 @@ function updateNav(){
    INIT
    ══════════════════════════════════════════════ */
 function init(){
-  // Check URL params for tab
+  // Check URL params
   var params=new URLSearchParams(window.location.search);
   var tab=params.get('tab');
   if(tab&&document.getElementById('tab-'+tab)){
     switchTab(tab);
+  }
+
+  // Secret unlock param: ?unlock=lifetime or ?unlock=pro
+  var unlockParam=params.get('unlock');
+  if(unlockParam==='lifetime'){
+    lsSet('spunk_pro','true');
+    lsSet('spunk_pro_plan','lifetime');
+    lsSet('spunk_pro_expires','0');
+    lsSet('spunk_pro_activated',new Date().toISOString());
+    addActivity('reward','Lifetime access activated');
+  }else if(unlockParam==='pro'){
+    lsSet('spunk_pro','true');
+    lsSet('spunk_pro_plan','pro-monthly');
+    lsSet('spunk_pro_expires',(Date.now()+365*24*60*60*1000).toString());
+    lsSet('spunk_pro_activated',new Date().toISOString());
+    addActivity('reward','Pro access activated');
   }
 
   // Render everything
