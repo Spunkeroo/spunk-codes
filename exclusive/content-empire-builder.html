@@ -111,18 +111,64 @@ function buildPlan(){
   });
   html+='</div>';
 
-  // Content Calendar
-  var days=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
-  var contentTypes=['Blog Post','Social Thread','Video/Reel','Newsletter','Engagement','Repurpose','Rest'];
-  if(capacity==='2')contentTypes=['Blog Post','Social Post','Engage','','Social Post','','Rest'];
-  if(capacity==='40')contentTypes=['Blog + Video','Thread + Newsletter','Guest Post','Podcast','Blog + Social','Community','Planning'];
+  // 30-Day Blog Post Calendar
+  var blogFormats=[
+    'The Ultimate Guide to','Top 10','How to','Why You Should','X vs Y:','The Truth About',
+    'Beginner\'s Guide to','Advanced','Common Mistakes in','How I','Step-by-Step',
+    'Everything You Need to Know About','The Future of','Best Tools for',
+    'How to Start','Case Study:','Lessons Learned from','Why Most People Fail at'
+  ];
+  var goalAngles={
+    traffic:['SEO-optimized','long-tail keyword','search intent','ranking for'],
+    leads:['lead magnet','conversion-focused','gated content','email capture'],
+    authority:['thought leadership','expert roundup','original research','deep dive'],
+    sales:['product-led','comparison','buyer\'s guide','ROI-focused'],
+    community:['discussion starter','poll-based','user stories','behind the scenes']
+  };
+  var angles=goalAngles[goal]||goalAngles.traffic;
 
-  html+='<div class="tool-section"><h2>&#128197; Weekly Content Calendar</h2><div class="cal-grid">';
-  days.forEach(function(d,i){
-    var topic=topics[i%topics.length]||niche;
-    html+='<div class="cal-cell"><div class="day">'+d+'</div><div class="type">'+contentTypes[i]+'</div>'+(contentTypes[i]?'<div class="topic">'+topic+'</div>':'')+'</div>';
+  var blogPosts=[];
+  for(var d=0;d<30;d++){
+    var topic=topics[d%topics.length]||niche;
+    var format=blogFormats[d%blogFormats.length];
+    var angle=angles[d%angles.length];
+    var dayNum=d+1;
+    var title='';
+    if(d%6===0)title=format+' '+topic.charAt(0).toUpperCase()+topic.slice(1)+' in 2026';
+    else if(d%6===1)title='How '+brand+' Uses '+topic.charAt(0).toUpperCase()+topic.slice(1)+' to '+goal.charAt(0).toUpperCase()+goal.slice(1);
+    else if(d%6===2)title='Top 10 '+topic.charAt(0).toUpperCase()+topic.slice(1)+' Strategies for '+audience;
+    else if(d%6===3)title=topic.charAt(0).toUpperCase()+topic.slice(1)+': '+format+' '+niche+' ('+angle+')';
+    else if(d%6===4)title='Why '+audience+' Need '+topic.charAt(0).toUpperCase()+topic.slice(1)+' Right Now';
+    else title=format+' '+niche+' With '+topic.charAt(0).toUpperCase()+topic.slice(1);
+    blogPosts.push({day:dayNum,title:title,topic:topic,angle:angle,
+      outline:['Hook: Why this matters to '+audience,'Context: Current state of '+topic,'3-5 key points with examples','Data/proof points','Actionable takeaways','CTA: Link to related tool or ebook']
+    });
+  }
+
+  lastBlogPosts=blogPosts;
+  html+='<div class="tool-section"><h2>&#128197; 30-Day Blog Post Calendar</h2>';
+  html+='<p style="color:var(--text-dim);font-size:0.85rem;margin-bottom:1rem">30 ready-to-write blog posts for '+brand+'. Each post targets '+audience+' with '+angle+' content. Click any post to see the outline.</p>';
+  html+='<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px">';
+  blogPosts.forEach(function(post){
+    html+='<div class="pillar-card" style="cursor:pointer;transition:all 0.2s" onclick="this.querySelector(\'.post-outline\').style.display=this.querySelector(\'.post-outline\').style.display===\'block\'?\'none\':\'block\'">';
+    html+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">';
+    html+='<span style="background:linear-gradient(135deg,#ffd700,#ff8c00);color:#000;font-weight:800;font-size:0.7rem;padding:3px 8px;border-radius:6px;flex-shrink:0">Day '+post.day+'</span>';
+    html+='<span style="font-size:0.65rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px">'+post.topic+'</span>';
+    html+='</div>';
+    html+='<h3 style="font-size:0.85rem;color:var(--text);margin-bottom:4px;line-height:1.3">'+post.title+'</h3>';
+    html+='<div style="font-size:0.7rem;color:var(--gold);opacity:0.7">'+post.angle+' &bull; Click for outline</div>';
+    html+='<div class="post-outline" style="display:none;margin-top:8px;padding-top:8px;border-top:1px solid var(--border)">';
+    html+='<ul style="margin:0;padding:0;list-style:none">';
+    post.outline.forEach(function(item){
+      html+='<li style="padding:2px 0;font-size:0.75rem;color:var(--text-dim)">- '+item+'</li>';
+    });
+    html+='</ul>';
+    html+='</div>';
+    html+='</div>';
   });
-  html+='</div></div>';
+  html+='</div>';
+  html+='<div class="btn-row"><button class="btn btn-gold" onclick="exportCalendar()" style="font-size:0.8rem">&#128190; Export 30 Posts as CSV</button><button class="btn" style="background:#21262d;color:var(--text);border:1px solid var(--border);font-size:0.8rem" onclick="copyAllTitles()">&#128203; Copy All Titles</button></div>';
+  html+='</div>';
 
   // Distribution
   var channels=[
@@ -150,6 +196,30 @@ function buildPlan(){
   document.getElementById('output').innerHTML=html;
   document.getElementById('results').classList.add('show');
   document.getElementById('results').scrollIntoView({behavior:'smooth'});
+}
+
+var lastBlogPosts=[];
+function exportCalendar(){
+  if(!lastBlogPosts.length){alert('Generate the plan first');return}
+  var csv='Day,Title,Topic,Angle,Outline\n';
+  lastBlogPosts.forEach(function(p){
+    csv+=p.day+',"'+p.title.replace(/"/g,'""')+'","'+p.topic+'","'+p.angle+'","'+p.outline.join(' | ')+'"\n';
+  });
+  var blob=new Blob([csv],{type:'text/csv'});
+  var url=URL.createObjectURL(blob);
+  var a=document.createElement('a');
+  a.href=url;a.download='30-day-blog-calendar.csv';a.click();
+  URL.revokeObjectURL(url);
+}
+function copyAllTitles(){
+  if(!lastBlogPosts.length){alert('Generate the plan first');return}
+  var text=lastBlogPosts.map(function(p){return'Day '+p.day+': '+p.title}).join('\n');
+  navigator.clipboard.writeText(text).then(function(){
+    alert('All 30 blog post titles copied!');
+  }).catch(function(){
+    var ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);
+    alert('All 30 blog post titles copied!');
+  });
 }
 
 function shareX(){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Planning my content empire with this builder. Code SPUNK unlocks it @SpunkArt13')+'&url='+encodeURIComponent('https://spunk.codes/exclusive-tools'),'_blank')}
