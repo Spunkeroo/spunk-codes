@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SPUNK.CODES - 580+ Free Developer Tools | Zero BS</title>
   <meta name="description" content="580+ free developer tools for vibe coding, Claude AI, prompt engineering, and automation. Built in Chicago. No sign-up. No paywall. Ship faster.">
-  <meta name="keywords" content="free developer tools, solo founder tools, vibe coding, vibe coding tools, claude code, claude ai tools, chicago developer tools, vibe coding chicago, creator tools, SEO tools, social media tools, JSON formatter, color palette generator, API tester, code playground, AI writing tools, pitch deck builder, meta tag generator, premium tools, openclaw, claude ai, prompt engineer, prompt engineering, ai prompt engineer chicago, claude ai chicago, openclaw chicago, best prompt engineering tools, free prompt engineering tools">
+  <meta name="keywords" content="free developer tools, solo founder tools, vibe coding tools, creator tools, SEO tools, JSON formatter, color palette generator, API tester, code playground, AI writing tools, pitch deck builder, meta tag generator, premium developer tools, free coding tools, web development tools">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
   <meta name="author" content="SPUNK.CODES">
 
@@ -1754,7 +1754,7 @@
         </div>
       </a>
 
-      <a href="/exclusive/pitch-deck-builder.html" class="tool-card">
+      <a href="/pitch-deck-builder.html" class="tool-card">
         <div class="tool-card-header">
           <div class="tool-icon">&#128640;</div>
           <div class="tool-name">Pitch Deck Builder</div>
@@ -1892,8 +1892,8 @@
         <p style="font-size:0.85rem;margin-top:1rem;margin-bottom:0;">
           <span style="color:#39d353;font-weight:700;">FREE:</span>
           Or enter code
-          <a href="/exclusive/social-media-scheduler.html?code=SPUNK" style="display:inline;background:rgba(57,211,83,0.12);border:1px solid rgba(57,211,83,0.3);border-radius:4px;padding:2px 8px;font-family:monospace;font-weight:800;color:#39d353;font-size:0.85rem;letter-spacing:1px;text-decoration:none;transition:all 0.2s;" onmouseover="this.style.background='rgba(57,211,83,0.2)'" onmouseout="this.style.background='rgba(57,211,83,0.12)'">SPUNK</a>
-          for 5 free automation tools <a href="/exclusive/social-media-scheduler.html?code=SPUNK" style="color:#58a6ff;text-decoration:none;font-weight:600;">&rarr;</a>
+          <a href="/social-media-scheduler.html?code=SPUNK" style="display:inline;background:rgba(57,211,83,0.12);border:1px solid rgba(57,211,83,0.3);border-radius:4px;padding:2px 8px;font-family:monospace;font-weight:800;color:#39d353;font-size:0.85rem;letter-spacing:1px;text-decoration:none;transition:all 0.2s;" onmouseover="this.style.background='rgba(57,211,83,0.2)'" onmouseout="this.style.background='rgba(57,211,83,0.12)'">SPUNK</a>
+          for 5 free automation tools <a href="/social-media-scheduler.html?code=SPUNK" style="color:#58a6ff;text-decoration:none;font-weight:600;">&rarr;</a>
         </p>
       </div>
 
@@ -2446,11 +2446,10 @@
           input.setAttribute('placeholder', 'Enter a valid email');
           return;
         }
-        // TODO: Backend integration needed — currently only saves to localStorage.
-        // Replace with POST to email service (e.g., Mailchimp, ConvertKit, Buttondown API).
-        var subs = JSON.parse(localStorage.getItem('sc_newsletter') || '[]');
-        subs.push({ email: email, ts: Date.now() });
-        localStorage.setItem('sc_newsletter', JSON.stringify(subs));
+        var data = JSON.stringify({ email: email, ts: Date.now(), source: 'spunk.codes' });
+        fetch('https://predict-network-ec767-default-rtdb.firebaseio.com/spunkcodes/newsletter/' + Date.now() + '.json', {
+          method: 'PUT', body: data, headers: { 'Content-Type': 'application/json' }
+        }).catch(function() {});
         if (typeof gtag === 'function') gtag('event', 'newsletter_signup', { email_domain: email.split('@')[1] });
         btn.textContent = 'Subscribed!';
         btn.disabled = true;
