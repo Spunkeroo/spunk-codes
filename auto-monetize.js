@@ -103,7 +103,8 @@
 
   function isPro() {
     var status = lsGet(PRO_KEY);
-    return status === 'true' || status === 'pro' || status === 'lifetime';
+    var spunkPro = lsGet('spunk_pro');
+    return status === 'true' || status === 'pro' || status === 'lifetime' || spunkPro === 'true';
   }
 
   function isDismissed() {
